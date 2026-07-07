@@ -139,7 +139,7 @@ tv_appoint_governor = {
 	effect = {
 		scope:actor = {
 			hidden_effect = {
-				tv_governor_appoint_effect = yes
+				tv_governor_request_appointment_effect = yes
 			}
 		}
 	}
@@ -495,7 +495,7 @@ tv_change_governor = {
 	effect = {
 		scope:actor = {
 			hidden_effect = {
-				tv_governor_appoint_effect = yes
+				tv_governor_request_appointment_effect = yes
 			}
 		}
 	}

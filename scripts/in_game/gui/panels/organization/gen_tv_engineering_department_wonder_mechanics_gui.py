@@ -18,6 +18,7 @@ from wonder_mechanics.schema import (
     suitability_knowledge_for_wonder,
 )
 from wonder_unique_rituals import append_unique_ritual_gui
+from wonder_unique_rituals.alhambra import ALHAMBRA_WONDER_ID
 from wonder_unique_rituals.hagia import HAGIA_WONDER_ID
 from wonder_unique_rituals.pharos import PHAROS_WONDER_ID
 
@@ -114,6 +115,13 @@ def hagia_locked_expr() -> str:
     )
 
 
+def alhambra_locked_expr() -> str:
+    return (
+        f"And({player_var('tv_wonder_locked')}.IsSet, "
+        f"{eq('tv_wonder_locked', ALHAMBRA_WONDER_ID)})"
+    )
+
+
 def not_pharos_locked_expr() -> str:
     return f"Not({pharos_locked_expr()})"
 
@@ -122,8 +130,12 @@ def not_hagia_locked_expr() -> str:
     return f"Not({hagia_locked_expr()})"
 
 
+def not_alhambra_locked_expr() -> str:
+    return f"Not({alhambra_locked_expr()})"
+
+
 def not_special_unique_locked_expr() -> str:
-    return f"And({not_pharos_locked_expr()}, {not_hagia_locked_expr()})"
+    return f"And3({not_pharos_locked_expr()}, {not_hagia_locked_expr()}, {not_alhambra_locked_expr()})"
 
 
 def fmt_decimal(value: Decimal) -> str:
@@ -341,9 +353,14 @@ def active_ritual_visible() -> str:
 
 def ritual_style_1_progress_row(indent: int) -> list[str]:
     prefix = T * indent
-    progress_visible = (
-        f"And3({active_ritual_visible()}, {player_var('tv_wonder_selected_ritual_style')}.IsSet, "
-        f"And({eq('tv_wonder_selected_ritual_style', 1)}, {not_pharos_locked_expr()}))"
+    progress_visible = fold_bool(
+        "And",
+        [
+            active_ritual_visible(),
+            f"{player_var('tv_wonder_selected_ritual_style')}.IsSet",
+            eq("tv_wonder_selected_ritual_style", 1),
+            not_special_unique_locked_expr(),
+        ],
     )
     progress_pct = player_var(RITUAL_PROGRESS_PCT_VAR)
     progress_months = player_var(RITUAL_PROGRESS_MONTHS_VAR)
@@ -1087,6 +1104,7 @@ def generate() -> str:
     generic_hold_visible = f"And({base_visible}, {not_special_unique_locked_expr()})"
     pharos_hold_visible = f"And({base_visible}, {pharos_locked_expr()})"
     hagia_hold_visible = f"And({base_visible}, {hagia_locked_expr()})"
+    alhambra_hold_visible = f"And({base_visible}, {alhambra_locked_expr()})"
     gold_visible = f"And({generic_hold_visible}, {selected_ritual_cost_visible(WONDER_RITUAL_COST_TYPE_IDS['scaled_gold'])})"
     prestige_visible = f"And({generic_hold_visible}, {selected_ritual_cost_visible(WONDER_RITUAL_COST_TYPE_IDS['prestige'])})"
     free_visible = (
@@ -1114,6 +1132,15 @@ def generate() -> str:
             text_key="TV_ENGINEERING_HAGIA_START_BUTTON",
             title_key="TV_ENGINEERING_HAGIA_START_BUTTON",
             desc_key="TV_ENGINEERING_HAGIA_START_BUTTON_DESC",
+        )
+    )
+    lines.append(
+        hold_button(
+            "tv_wonder_confirm_ceremony",
+            alhambra_hold_visible,
+            text_key="TV_ENGINEERING_ALHAMBRA_START_BUTTON",
+            title_key="TV_ENGINEERING_ALHAMBRA_START_BUTTON",
+            desc_key="TV_ENGINEERING_ALHAMBRA_START_BUTTON_DESC",
         )
     )
     lines.append("### END TV_WONDER_MECHANICS_HOLD_BUTTONS")

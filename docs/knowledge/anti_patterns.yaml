@@ -21,7 +21,7 @@
 #   notes     : one-line explanation of why the bad form fails
 #
 # To add a new entry: append a YAML dict with all fields, then run:
-#   python scripts/gen_brief.py
+#   C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\gen_brief.py
 
 - id: unreleased_project_compatibility_layer
   pattern: ''
@@ -32,6 +32,16 @@
   scope: any
   source: "Project owner directive, 2026-06-07"
   notes: "There are no shipped saves or public APIs to protect. Compatibility code creates hot-path cost, hides call-order bugs, and teaches future agents to preserve obsolete structures."
+
+- id: managed_sandbox_conda_run_hang
+  pattern: ''
+  detectability: advisory
+  bad: "Running or retrying `conda run -n eu5` from Codex, Claude subagents, or another managed sandbox"
+  correction: 'Run project scripts with the direct environment interpreter: `C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\<script>.py ...`. Reserve `conda run --no-capture-output -n eu5 python ...` for normal user terminals only.'
+  category: workflow
+  scope: any
+  source: "Project owner report, 2026-07-04"
+  notes: 'Managed sandboxes can have read-only access to `C:\Users\Hades\anaconda3\conda-meta\history`, causing `conda run` to hang before the agent reaches validation or context output.'
 
 - id: location_auto_modifier_nonfunctional
   pattern: 'category\s*=\s*location'
@@ -88,6 +98,18 @@
   scope: any
   source: "runtime error.log: jomini_eventmanager.cpp:141, 2026-06-08"
   notes: "The engine logs that five-digit numeric event IDs are invalid and can then report duplicate IDs as parser fallout. scripts/validate.py scans src/data/scripts for dotted event references whose numeric part is >= 10000."
+
+- id: event_option_effect_block_unknown_effect
+  pattern: ''
+  validator: check_event_option_effect_blocks
+  detectability: lint
+  only_in_paths: ['events']
+  bad: "Putting `effect = { ... }` as a direct child of an event `option = { ... }`"
+  correction: "Write effect calls directly in the option block, alongside `name` and optional `trigger` / `hidden_effect`. Use `hidden_effect = { ... }` only when the option chain should be hidden from the tooltip."
+  category: event
+  scope: country
+  source: "runtime error.log: jomini_effect.cpp:556, events/tv_wonder_unique_alhambra_ritual_events.txt:24; fixed 2026-07-07"
+  notes: "EU5 parses event option contents as an effect list. A direct child named effect is treated as an effect command named `effect`, which does not exist, producing 'Unknown effect effect'."
 
 - id: blockoverride_widget_child_invalid
   pattern: 'blockoverride\s+"common_header_text"\s*\{[^}]*text_single'
@@ -725,6 +747,17 @@
   scope: any
   source: "User-reported Engineering Department wonder finalization tooltip stutter, 2026-06-10; fixed in generated tv_wonder_finalization_events.txt / tv_wonder_finalization_effects.txt via tv_engineering_department.6202"
   notes: "hidden_effect suppresses visible tooltip output, but it does not isolate event-option code from hover evaluation. The wonder finalization hidden chain was expensive because it included per-wonder/per-style dispatch, final building construction, cleanup, world-news broadcast, post-finalization priority caching, and project-state clearing."
+
+- id: event_gui_structure_downgrade_for_data_change
+  detectability: advisory
+  pattern: ''
+  only_in_paths: ['events', 'gui', 'scripted_effects', 'localization']
+  bad: "Collapsing existing per-target event descriptions, target-specific options, per-id effect dispatch, staged GUI rows, or localized branch text into generic fallback behavior just to make a data-list change smaller"
+  correction: "Preserve the existing player-facing structure when changing the data set. If the branch count is large, extend the appropriate generator/data source first, or stop and ask before changing structure. Do not silently replace target-specific UX with generic text/options or leave stale unreachable branches."
+  category: event
+  scope: any
+  source: "User correction during Academy research-target update, 2026-07-06"
+  notes: "A data-list update is not permission to downgrade event/GUI structure. Removing or genericizing established branch structure is a design change and must be explicitly requested or approved."
 
 - id: event_option_temp_variable_used_by_visible_helper
   detectability: needs_parser
@@ -1706,11 +1739,22 @@
   detectability: advisory
   only_in_paths: ['laws']
   bad: "An IO policy member modifier is meant to affect only the leader or another subset, but the modifier block has no potential_trigger filter."
-  correction: "Put the intended member filter inside the modifier block, e.g. country_modifier = { potential_trigger = { is_leader_of_international_organization = scope:recipient } ... }, or use an appropriate leader_modifier/non_leader_modifier block. Vanilla policy_vote automatically adds scope:vote.modifier_utility(scope:actor) as POLICY_MODIFIER_UTILITY, so every voting member evaluates unfiltered member modifiers as personal policy utility."
+  correction: "Use an appropriate member filter. For visible leader-only effects that must stack with other law modifiers, keep country_modifier but guard the filter for law browsing: potential_trigger = { OR = { NOT = { exists = scope:recipient } is_leader_of_international_organization = scope:recipient } }. Use leader_modifier/non_leader_modifier only when replacement semantics are intended. Vanilla policy_vote automatically adds scope:vote.modifier_utility(scope:actor) as POLICY_MODIFIER_UTILITY, so every voting member evaluates unfiltered member modifiers as personal policy utility."
   category: script
   scope: international_organization
   source: "reference_game_files/game/in_game/common/resolutions/policy_vote.txt:842-843; reference_game_files/game/in_game/common/laws/20_hre.txt:187; fixed in scripts/in_game/common/laws/gen_tv_govhouse_laws.py"
-  notes: "Governor's House subject-chain members voted on overlord administration country modifiers. Some subject tooltips showed extreme 'Policy Modifier Utility' / '政策的实用性' support for particular laws. A leader-only potential_trigger keeps both the modifiers and their automatic utility on the supreme overlord."
+  notes: "Governor's House subject-chain members voted on overlord administration country modifiers. Some subject tooltips showed extreme 'Policy Modifier Utility' support for particular laws. A recipient-guarded potential_trigger keeps the additive country modifiers and their automatic utility on the supreme overlord while still displaying during ordinary law browsing."
+
+- id: io_policy_leader_country_modifier_unguarded_recipient_tooltip
+  pattern: ''
+  detectability: advisory
+  only_in_paths: ['laws']
+  bad: "Representing a visible additive leader-only IO law effect as country_modifier = { potential_trigger = { is_leader_of_international_organization = scope:recipient } ... } without a no-recipient display branch"
+  correction: "Use country_modifier = { potential_trigger = { OR = { NOT = { exists = scope:recipient } is_leader_of_international_organization = scope:recipient } } ... } when the leader-only policy effect must remain an additive country modifier. The no-recipient branch is for ordinary law browsing; the leader check still applies when a vote/application recipient exists."
+  category: script
+  scope: international_organization
+  source: "reference_game_files/game/in_game/common/laws/readme.txt:36; reference_game_files/game/in_game/common/laws/readme.txt:48; fixed in scripts/in_game/common/laws/gen_tv_govhouse_laws.py"
+  notes: "The normal law browser may evaluate modifier display without a populated scope:recipient, causing an unguarded filtered country_modifier package to collapse to 'No Effects'. leader_modifier has leader-country target semantics, but the law readme says it replaces previous leader_modifier blocks, so additive multi-law packages should stay country_modifier with a display-safe filter."
 
 - id: generic_action_ai_list_io_leader_country_this
   pattern: 'any_international_organizations_member_of\s*=\s*\{[^{}]*\bleader_country\s*=\s*this\b'
@@ -1999,6 +2043,17 @@
   scope: any
   source: "reference_game_files/game/main_menu/common/modifier_type_definitions/00_modifier_types.txt:3115,4025,4057,4065,4073,6600,6616,6864,6872,15389"
   notes: "The current reference files define 1.2 cost-style keys and do not define the migrated 1.3 efficiency keys. EU5 1.3 replaced several of these with good-colored percent efficiency variants; changing direction without sign inversion reverses the intended gameplay effect."
+
+- id: subject_loyalty_modifier_is_points
+  pattern: '(?m)^\s*subject_loyalty\s*[:=]\s*0\.\d+'
+  detectability: lint
+  only_in_paths: ['victory_paths.yaml', 'static_modifiers', 'advances']
+  bad: "Writing subject_loyalty as a fractional percent-like value such as 0.10"
+  correction: "Write subject_loyalty as loyalty points, e.g. 10 for +10 loyalty. Vanilla advances use values such as subject_loyalty = 5 even though the modifier type displays decimals."
+  category: modifier
+  scope: country
+  source: "reference_game_files/game/in_game/common/advances/0_age_of_renaissance.txt:356; reference_game_files/game/in_game/common/advances/0_age_of_traditions.txt:583; reference_game_files/game/main_menu/common/modifier_type_definitions/00_modifier_types.txt:5944-5948"
+  notes: "The modifier definition has decimals=2 but no percent=yes, and vanilla advances grant whole loyalty points. A 0.x value is effectively a tiny fraction of a loyalty point, not a 10% or +10 loyalty bonus."
 
 - id: trade_route_all_goods_per_good_expansion
   pattern: ''

@@ -35,32 +35,44 @@ called directly from event options.
    module/final-building effects, branch over bounded dimensions such as part/style and map
    directly from persistent project ids.
 
-3. Guard stale event confirmations.
+3. Preserve existing branch structure.
+   Do not collapse per-target `triggered_desc` branches, target-specific options, per-id effect
+   dispatch, or localized branch text into generic fallback behavior just because a data list
+   changed. If keeping the structure is repetitive, extend the generator/data source first or
+   stop and ask before changing the player-facing event shape.
+
+4. Guard stale event confirmations.
    Final confirmation events can sit open while project state changes through another path.
    Re-check all required state in the option effect before applying rewards, building
    effects, or cleanup.
 
-4. Hide application chains when nested tooltips are not needed.
+5. Do not wrap visible option effects in `effect = { ... }`.
+   Event options are already effect lists. Put effect calls directly under
+   `option = { ... }`, next to `name` and optional `trigger`. EU5 parses an
+   `effect = { ... }` child as a command named `effect` and logs
+   `Unknown effect effect`.
+
+6. Hide application chains when nested tooltips are not needed.
    If an event option must initialize temporary state and then call helpers that compare or
    reuse that state, wrap the sequence in `hidden_effect = { ... }`. This hides nested tooltip
    text, but it is not a commit boundary: helpers inside still must read persistent state or use
    literal bounded branches instead of same-chain scratch variables.
 
-5. Do not treat option `hidden_effect` as a performance boundary.
+7. Do not treat option `hidden_effect` as a performance boundary.
    Event option hover can still evaluate hidden effect contents while rendering tooltips. Keep
    option hidden blocks light: guards, simple state checks, or a scheduler/trigger only. Move
    global scans, high-cardinality dispatch, completion broadcasts, map rebuilds, construction
    cleanup, and other heavy work to a `hidden = yes` event's `immediate` block or another
    non-tooltip execution path.
 
-6. Use guarded delayed silent loops for daily hidden work.
+8. Use guarded delayed silent loops for daily hidden work.
    For daily background logic, seed exactly one delayed loop from a lifecycle point:
    `trigger_event_silently = { id = tv_namespace.900 days = 1 }`. The target should be a
    `hidden = yes` country event whose `immediate` checks the feature prerequisite and a
    persistent loop sentinel before doing work and rescheduling itself. Clear that sentinel
    during teardown so already queued events stop naturally instead of scheduling the next day.
 
-7. Keep numeric event IDs below 10000.
+9. Keep numeric event IDs below 10000.
    EU5 accepts event IDs as `<namespace>.<integer>`, but the integer must be `< 10000`.
    For generated high-cardinality systems, do not encode multiple dimensions into the numeric
    event ID if that crosses the limit. Move large wonder/type dispatch before the event fires;
@@ -72,5 +84,5 @@ called directly from event options.
 Run:
 
 ```powershell
-conda run --no-capture-output -n eu5 python scripts/validate.py --changed --fix --ai-report
+C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\validate.py --changed --fix --ai-report
 ```

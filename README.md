@@ -35,12 +35,15 @@ This mod uses an AI coding infrastructure with knowledge docs and validation too
 
 **Before editing source files:**
 ```
-conda run -n eu5 python scripts/validate.py --changed
+C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\validate.py --changed
 ```
 
 **After editing knowledge files:**
 ```
-conda run -n eu5 python scripts/gen_brief.py
+C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\gen_brief.py
 ```
+
+Use `conda run --no-capture-output -n eu5 python ...` only from a normal user
+terminal. Managed AI sandboxes should use the direct interpreter path above.
 
 **Mod ID:** `eu5mp.towards_victory` | **Version:** 0.1.0 | **Target:** EU5 `1.*.*`

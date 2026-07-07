@@ -107,12 +107,183 @@ localization policy, and future event file pattern
 boundary validations only. The future target path is not a source generator, event options
 may only declare future effect handoff, and no event contract may inline row-state writes,
 set `may_write_src: true`, unblock `source_writer_allowed`, or write `src/`.
-The repeated-row event/localization source preview compiler is an additive dry-run layer
-on top of the source-plan. It may render structured event skeleton previews and
-localization key-plan previews for review, using only existing spec event IDs,
-`node_graph.nodes[].event_id`, row-set keys, entity keys, and future target path
-contracts. It never writes `src/`, never assigns new IDs, never authorizes row-state
-writes, and never upgrades contracts or specs to source-ready.
+The repeated-row source preview compiler is an additive dry-run layer on top of the
+source-plan. It may render structured event skeleton previews, localization key-plan
+previews, scripted-effect name/target plans, cleanup scope/coverage plans,
+scripted-trigger condition-group plans, GUI row contract previews, and the Alhambra-only
+listener hook contract preview for review, using only existing spec event IDs,
+`node_graph.nodes[].event_id`, row-set keys, entity keys, aggregate projection refs, and
+future target path contracts. It never writes `src/`, never assigns new IDs, never emits
+loadable EU5 effect/cleanup/trigger, GUI, or on_action/listener bodies, never authorizes
+row-state writes or unsafe tooltip write paths, and never upgrades contracts or specs to
+source-ready. The current repeated-row source preview coverage is closed at 177/177:
+event=32, localization=40, scripted-effect=40, cleanup=32, scripted-trigger=24, GUI=8,
+and listener=1, with no skipped artifact kinds.
+The repeated-row source-writer readiness evidence ledger is the next no-write layer after
+that closed preview. It matches every source-plan artifact to its source-preview artifact
+and records the remaining evidence chain for EU5 syntax, generator ownership,
+source-target boundaries, validation coverage, and lifecycle semantics. The ledger is a
+machine-checkable blocker report, not a promotion gate: it keeps all 177 artifacts
+blocked, keeps `ready_artifact_count=0`, records unresolved writer blockers, and treats
+local paths/generator references as `interface_candidate` evidence unless a later task
+adds a complete verified source-writer contract. It does not generate `src/`, does not set
+`may_write_src: true`, does not enable `source_writer_allowed`, and does not promote
+`source_codegen_ready`, `implementation_ready`, `harness_generated`, or any equivalent
+source-ready status.
+Each readiness artifact also carries a `no_write_source_writer_contract_evidence` block
+for review. That block must name explicit future `src/` target path(s), the planned owner
+generator and generator candidate evidence, EU5 syntax evidence paths, the exact
+validation commands for this no-write layer, validation refs, and the still-blocking
+source-writer reasons. It is evidence only: `source_writer_allowed`, `may_write_src`, and
+`writes_src` must remain `false` for event, localization, scripted-effect, cleanup,
+scripted-trigger, GUI, and Alhambra-only listener families.
+The repeated-row source bundle preview is an additional no-write source compiler
+prototype on top of that readiness ledger. It groups the 177 closure contracts into the
+four repeated-row pilot bundles and their event, localization, scripted-effect, cleanup,
+scripted-trigger, GUI, and listener sections so future source-writer evidence can be
+reviewed as machine-readable dry-run data. It is not a source writer, not loadable EU5
+source, and not permission for AI-generated source code: event/localization sections may
+reuse existing body/key-plan previews, while scripted-effect, cleanup, scripted-trigger,
+GUI, and Alhambra listener sections must remain source-body placeholders with
+`contract_only: true`, `body_emitted: false`, `source_ready: false`, `may_write_src:
+false`, `writes_src: false`, and `source_writer_allowed: false`. Non-Alhambra pilots must
+record explicit listener-artifact absence instead of inventing listener artifacts.
+The Alhambra source body candidate is the first no-write source-body vertical slice on top
+of that bundle preview. It selects only the `unique_alhambra` bundle, keeps the full
+seven-family shape, and presents 45 event, localization, scripted-effect, cleanup,
+scripted-trigger, GUI, and listener body candidates for review. Event and localization
+reuse the existing body/key-plan previews; scripted-effect, cleanup, scripted-trigger,
+GUI, and listener entries are EU5-shaped structured drafts only. Every candidate must keep
+`candidate_only: true`, `contract_only: true`, `source_ready: false`, `body_emitted:
+false`, `may_write_src: false`, `writes_src: false`, and `source_writer_allowed: false`.
+The listener candidate remains Alhambra-only and must carry the on_action hook linkage,
+selected-ritual trigger linkage, and war-scope persistence plan. This vertical slice is
+not source-ready evidence, not loadable EU5 source, and not permission to write `src/`.
+The Alhambra source file preview is the target-file-level no-write layer above that body
+candidate. It must derive only from
+`repeated_entity_row_alhambra_source_body_candidate_for_payload(...)` and groups the same
+45 Alhambra body candidates into seven future target-file previews: events,
+scripted-effects/cleanup, scripted-triggers, GUI, on_action listener, English
+localization, and Simplified Chinese localization. Localization must expand the existing
+`<lang>` contract into separate English and Simplified Chinese target paths with an
+explicit language boundary. Every file preview keeps `candidate_only: true`,
+`contract_only: true`, `body_emitted: false`, `source_ready: false`, `may_write_src:
+false`, `writes_src: false`, and `source_writer_allowed: false`, and preserves unresolved
+blockers plus validation refs from the body candidates. The preview is still contract
+evidence only; it does not emit file bodies, authorize a source writer, or write `src/`.
+The Alhambra source-file validation evidence pack is the no-write validation layer above
+those seven previews. It must derive only from
+`repeated_entity_row_alhambra_source_file_preview_for_payload(...)` and emits one
+evidence pack per future target file, preserving the same 45 unique Alhambra source-body
+artifacts. Each pack records repo-local syntax/reference paths, candidate generator
+ownership, a blocked source-target boundary, validation requirements, and unresolved
+blockers. Evidence statuses may only be `interface_candidate` or `blocked`; the pack may
+not claim `verified`, `backend_ready`, `source_ready`, `source_writer_allowed`, or any
+`may_write_src`/`writes_src` permission. Localization evidence must keep English and
+Simplified Chinese target files separate, and the Alhambra listener evidence must retain
+hook linkage, selected-ritual trigger linkage, and war-scope boundary evidence.
+The Alhambra source generator contract is the no-write ownership/emitter interface layer
+above that validation evidence. It must derive only from
+`repeated_entity_row_alhambra_source_file_validation_evidence_for_payload(...)` and emits
+one contract for each of the seven Alhambra target files. Each contract records the
+target path, families, artifact count, evidence pack reference, owner generator,
+`generator_interface_status`, a real source-file-level generator interface draft, input
+data shape, output artifact family, verification commands, required validations, remaining
+blockers, and the same blocked source-target boundary. Each file-level contract must also
+carry an independent `source_body_candidate_ref_provenance` snapshot derived from the
+source-file validation evidence's canonical `source_body_candidate_refs` key set. The
+validator must use that snapshot, not the mutable contract refs, to check
+`contract.source_body_candidate_refs`, `input_data_shape`, `output_artifact_family`, and
+the source-file `no_write_source_writer_contract_evidence`. Each file-level contract also
+carries a `no_write_source_writer_contract_evidence` block that repeats the draft
+interface, input shape, output family, provenance snapshot, validation command list, and
+still-blocked reasons for that exact future target file. `planned_source_writer_exists`
+may advance only to the string `interface_contract_exists`; it must not become
+source-writer permission. The only generator interface statuses are `contract_drafted` and `blocked`, while
+`source_target_boundary.status` remains `blocked`. The contract must keep
+`source_ready: false`, `verified: false`, `backend_ready: false`,
+`source_writer_allowed: false`, `may_write_src: false`, and `writes_src: false`.
+Localization contracts must keep English and Simplified Chinese target files separate,
+and the listener contract must retain hook linkage, selected-trigger linkage, and
+war-scope linkage.
+The Alhambra source generator interface prototypes are dry-run callable interface layers
+above that contract. The event target derives from the event generator contract and
+external source-file validation evidence, exposes exactly one event-family interface, and
+emits exactly eight in-memory/report-level `source_file_contract_artifacts` for the future
+Alhambra event target. The shared scripted-effect/cleanup target derives from the
+scripted-effect target contract and external source-file validation evidence, exposes
+exactly one `scripted_effect_cleanup` interface, and emits exactly eighteen
+in-memory/report-level artifacts while preserving the `cleanup=8` / `effect=10` family
+split. The scripted-trigger target derives from the trigger generator contract and
+external source-file validation evidence, exposes exactly one trigger-family interface,
+and emits exactly six in-memory/report-level artifacts for
+`src/in_game/common/scripted_triggers/tv_wonder_unique_alhambra_ritual_triggers.txt`.
+The GUI target derives from the GUI target contract and external source-file validation
+evidence, exposes exactly one GUI-family dry-run interface, and emits exactly two
+in-memory/report-level artifacts for
+`src/in_game/gui/panels/organization/tv_wonder_unique_alhambra_ritual.gui`: the
+`gui_checklist_row` contract for `treaty_clause_register` and the
+`gui_incident_log_row` contract for `palace_risk_points`. This GUI interface must keep
+`listener_interface_declared: false` and must not declare or imply an Alhambra listener
+interface.
+The listener-family target derives from the listener target contract and external
+source-file validation evidence, exposes exactly one listener-family dry-run interface,
+and emits exactly one in-memory/report-level `listener_war_integration` artifact for
+`src/in_game/common/on_action/tv_wonder_unique_alhambra_ritual_on_actions.txt`. That
+artifact must preserve `on_pre_winning_war` / `on_ending_war` hook linkage, selected
+ritual trigger linkage, and war-scope boundary evidence from the external validation
+pack while keeping the listener body, listener-scope writes, war-scope writes, and source
+writes forbidden.
+The localization-family target derives from the separate English and Simplified Chinese
+localization target contracts and their separate external source-file validation evidence
+packs, exposes one dry-run interface per language target, and emits exactly ten
+in-memory/report-level localization artifacts for
+`src/main_menu/localization/english/tv_wonder_unique_alhambra_ritual_l_english.yml`
+plus exactly ten for
+`src/main_menu/localization/simp_chinese/tv_wonder_unique_alhambra_ritual_l_simp_chinese.yml`.
+All six interface validators must bind those artifacts back to external source-file validation
+evidence rather than trusting the report alone. They must keep
+`output_is_loadable_source: false`, `body_emitted: false`, `source_ready: false`,
+`verified: false`, `backend_ready: false`, `source_writer_allowed: false`,
+`may_write_src: false`, and `writes_src: false`, and they must not write `src/` or
+promote any spec readiness state.
+The Alhambra source generator interface bundle gate sits above those six validators and
+only aggregates their reports. It must verify all seven target files, all six interface
+groups, and exactly fifty-five report-only artifacts: event 8, scripted-effect/cleanup
+18, trigger 6, GUI 2, listener 1, and localization 20. The gate must recompute coverage
+against external source-file validation evidence plus the source-generator contract; it
+must not trust mutable report fields. It must reject missing interface groups,
+duplicate or missing targets, artifact-count drift, missing listener linkage, merged
+English/Simplified Chinese localization targets, any nested `may_write_src: true`, any
+source body emission, and any `implementation_ready` or `harness_generated` promotion.
+The event and localization vertical slices in that ledger are closure contracts only.
+They add machine-checkable event body preview and localization key-contract evidence for
+the four repeated-row pilots, but still keep `may_write_src: false`, `writes_src: false`,
+`source_writer_allowed: false`, and `readiness_status: blocked`. They do not grant source
+generation permission, do not assign new event IDs or localization files, do not write
+`src/`, and do not promote any spec or artifact to source-ready.
+The scripted-effect, cleanup, and scripted-trigger vertical slices are also closure
+contracts in the readiness ledger. They close state and condition semantics for row
+initialization, row-state write boundaries, branch writes, aggregate refreshes, cleanup
+handoffs, completion/failure/ownership-loss/reset cleanup, eligibility checks,
+row-completion checks, and tooltip-safe condition groups. They still only describe
+future target paths and forbidden write contexts; they do not enable a source writer, do
+not emit scripted effect or scripted trigger bodies, and do not authorize tooltip or
+pre-evaluation contexts to call unsafe write paths.
+The GUI and listener vertical slices are now closure contracts in the same readiness
+ledger, not source-generation permission. GUI closures close only the repeated-row UI
+source-writer boundary: fixed row widget plans, per-row variable binding plans,
+checklist/incident-log/actor-slot row policies, tooltip localization linkage,
+GUI/event/localization key linkage, aggregate projection boundaries, and the future
+`src/in_game/gui/panels/organization/tv_wonder_unique_<wonder_key>_ritual.gui` target
+path. They explicitly forbid aggregate-only UI, GUI source body emission, GUI source
+writes, row-state writes, and any ready/source-ready claim. The Alhambra listener closure
+closes only the listener source-writer boundary: the Alhambra-only scope, future
+`src/in_game/common/on_action/tv_wonder_unique_<wonder_key>_ritual_on_actions.txt`
+target path, `on_pre_winning_war`/`on_ending_war` hook linkage, selected ritual trigger
+linkage, war-scope availability/persistence planning, and row-state handoff boundary.
+It does not emit listener bodies, authorize listener or war-scope writes, or permit
+source generation.
 Repeated-row scripted-effect and cleanup source-target contracts are the matching
 source-writer preflight layer for `common/scripted_effects`. They name the future
 scripted-effect file pattern
@@ -152,9 +323,16 @@ authorize missing bilingual coverage or unsafe quote/newline handling, and do no
 `src/`.
 Preview localization entries are likewise contract previews only: they list bilingual row
 label, status, incident, tooltip, and summary keys under the repeated-row namespace and
-mirror the existing `loc_line()` escaping/BOM policy without claiming file output. Effect,
-trigger, cleanup, GUI, and listener families remain source-writer blockers and do not get
-source body previews from this layer.
+mirror the existing `loc_line()` escaping/BOM policy without claiming file output.
+Scripted-effect, cleanup, scripted-trigger, GUI, and listener previews are also
+dry-run/no-write review artifacts: they list future target paths, future names or scopes,
+row/entity refs, aggregate boundaries, handoff responsibility, lifecycle coverage,
+tooltip-safe predicate plans, fixed GUI row widget and per-row binding plans,
+tooltip/localization and GUI/event linkages, Alhambra war hook linkage, selected-ritual
+trigger linkage, war-scope availability, and blocker reasons. They do not generate source
+bodies, do not authorize `src/` writes, do not produce loadable EU5 GUI/on_action source,
+and do not raise `source_codegen_ready`, `implementation_ready`, `harness_generated`, or
+any other spec readiness.
 The Alhambra-only listener source-target contract is the same kind of source-writer
 prerequisite for `common/on_action`. It names only the future on_action file pattern
 `src/in_game/common/on_action/tv_wonder_unique_<wonder_key>_ritual_on_actions.txt` and

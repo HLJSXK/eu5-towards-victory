@@ -1222,38 +1222,38 @@ tv_wonder_display_44_level_6 = {
 }
 
 tv_wonder_display_45_level_1 = {
-	pop_join_rebel_threshold = 0.025
-	pop_leave_rebels_threshold = 0.025
+	pop_join_rebel_threshold = -0.025
+	pop_leave_rebels_threshold = -0.025
 	monthly_towards_humanist = 0.05
 }
 
 tv_wonder_display_45_level_2 = {
-	pop_join_rebel_threshold = 0.05
-	pop_leave_rebels_threshold = 0.05
+	pop_join_rebel_threshold = -0.05
+	pop_leave_rebels_threshold = -0.05
 	monthly_towards_humanist = 0.1
 }
 
 tv_wonder_display_45_level_3 = {
-	pop_join_rebel_threshold = 0.075
-	pop_leave_rebels_threshold = 0.075
+	pop_join_rebel_threshold = -0.075
+	pop_leave_rebels_threshold = -0.075
 	monthly_towards_humanist = 0.15
 }
 
 tv_wonder_display_45_level_4 = {
-	pop_join_rebel_threshold = 0.1
-	pop_leave_rebels_threshold = 0.1
+	pop_join_rebel_threshold = -0.1
+	pop_leave_rebels_threshold = -0.1
 	monthly_towards_humanist = 0.2
 }
 
 tv_wonder_display_45_level_5 = {
-	pop_join_rebel_threshold = 0.125
-	pop_leave_rebels_threshold = 0.125
+	pop_join_rebel_threshold = -0.125
+	pop_leave_rebels_threshold = -0.125
 	monthly_towards_humanist = 0.25
 }
 
 tv_wonder_display_45_level_6 = {
-	pop_join_rebel_threshold = 0.15
-	pop_leave_rebels_threshold = 0.15
+	pop_join_rebel_threshold = -0.15
+	pop_leave_rebels_threshold = -0.15
 	monthly_towards_humanist = 0.3
 }
 
@@ -3244,38 +3244,38 @@ tv_wonder_display_160_level_6 = {
 }
 
 tv_wonder_display_161_level_1 = {
-	pop_join_rebel_threshold = 0.05
-	pop_leave_rebels_threshold = 0.05
+	pop_join_rebel_threshold = -0.05
+	pop_leave_rebels_threshold = -0.05
 	monthly_towards_humanist = 0.1
 }
 
 tv_wonder_display_161_level_2 = {
-	pop_join_rebel_threshold = 0.1
-	pop_leave_rebels_threshold = 0.1
+	pop_join_rebel_threshold = -0.1
+	pop_leave_rebels_threshold = -0.1
 	monthly_towards_humanist = 0.2
 }
 
 tv_wonder_display_161_level_3 = {
-	pop_join_rebel_threshold = 0.15
-	pop_leave_rebels_threshold = 0.15
+	pop_join_rebel_threshold = -0.15
+	pop_leave_rebels_threshold = -0.15
 	monthly_towards_humanist = 0.3
 }
 
 tv_wonder_display_161_level_4 = {
-	pop_join_rebel_threshold = 0.2
-	pop_leave_rebels_threshold = 0.2
+	pop_join_rebel_threshold = -0.2
+	pop_leave_rebels_threshold = -0.2
 	monthly_towards_humanist = 0.4
 }
 
 tv_wonder_display_161_level_5 = {
-	pop_join_rebel_threshold = 0.25
-	pop_leave_rebels_threshold = 0.25
+	pop_join_rebel_threshold = -0.25
+	pop_leave_rebels_threshold = -0.25
 	monthly_towards_humanist = 0.5
 }
 
 tv_wonder_display_161_level_6 = {
-	pop_join_rebel_threshold = 0.3
-	pop_leave_rebels_threshold = 0.3
+	pop_join_rebel_threshold = -0.3
+	pop_leave_rebels_threshold = -0.3
 	monthly_towards_humanist = 0.6
 }
 
@@ -5066,11 +5066,11 @@ tv_wonder_giant_observatory_ritual_burden_modifier = {
 }
 
 tv_wonder_palace_of_nations_ritual_blessing_modifier = {
-	subject_loyalty = 0.1
+	subject_loyalty = 10
 }
 
 tv_wonder_palace_of_nations_ritual_burden_modifier = {
-	subject_loyalty = -0.2
+	subject_loyalty = -20
 }
 
 tv_wonder_university_city_ritual_blessing_modifier = {

@@ -11,6 +11,11 @@ paths:
     event_id: 1
     leader_id: conquest_general
     create_effect: tv_govhouse_create_effect
+    creation_requirement_body: |
+      custom_tooltip = {
+        text = TV_CONQUEST_M1_EXTRA_TRIGGER_DESC
+        is_subject = no
+      }
     route_name:
       en: "Conquest"
       zh: "征服"

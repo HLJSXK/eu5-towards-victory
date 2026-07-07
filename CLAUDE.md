@@ -4,17 +4,57 @@
 
 For any non-trivial task, read `docs/knowledge/BRIEF.md` first. It is a compact summary of all known EU5 gotchas, valid enums, and scope rules. This avoids re-exploring docs for patterns already discovered.
 
-Before editing files, build a task-scoped AI context:
+Before editing files, build a task-scoped AI context.
+
+In Codex, Claude subagents, or any other managed sandbox, **do not run
+`conda run -n eu5`**. It can hang on this machine when the Anaconda base
+metadata is read-only. Use the `eu5` interpreter directly:
 
 ```
-conda run --no-capture-output -n eu5 python scripts/ai_context.py --changed
+C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\ai_context.py --changed
 ```
 
 or, when target files are known:
 
 ```
-conda run --no-capture-output -n eu5 python scripts/ai_context.py --files <path> [<path> ...]
+C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\ai_context.py --files <path> [<path> ...]
 ```
+
+Only a normal user terminal should use the canonical `conda run` form:
+
+```
+conda run --no-capture-output -n eu5 python scripts/ai_context.py --changed
+```
+
+### Python Runner Policy
+
+All project Python scripts must run inside the `eu5` environment. In a normal user
+terminal, the canonical form remains:
+
+```
+conda run --no-capture-output -n eu5 python scripts/<script>.py ...
+```
+
+In Codex, Claude subagents, or other managed sandbox sessions, **do not probe,
+retry, or default to `conda run -n eu5`**. The sandbox user can have read-only
+access to `C:\Users\Hades\anaconda3\conda-meta\history`, which makes `conda run`
+stall while direct environment execution works. Use the `eu5` interpreter
+directly:
+
+```
+C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\<script>.py ...
+```
+
+or activate the environment through `cmd`:
+
+```
+cmd /c "call C:\Users\Hades\anaconda3\Scripts\activate.bat eu5 && python scripts\<script>.py ..."
+```
+
+This is the approved exception to the `conda run` examples below. It is still using
+the `eu5` environment and is preferred over bare `python`. For AI agents in managed
+sandboxes, translate any later `conda run` example to the direct interpreter form
+before executing it.
 
 Read every risk card listed by the script. This is mandatory for high-risk domains such as `generic_actions`, where tooltip and selection pre-evaluation can execute unsafe reads before the player confirms an action. The Events risk card is routed for event files because option tooltips can pre-evaluate option effect chains, including `hidden_effect`, before the player confirms a choice. The IO risk card is also routed for IO definitions, IO laws, and country interactions that find or mutate TV international organizations.
 `src/in_game/common/laws/` is routed to the `international_organizations` risk card because IO policy scopes and AI math pre-evaluation have recurring runtime traps.
@@ -97,7 +137,7 @@ For the categories below, you MUST go to Step 2 or 3 before writing any code. No
 - **`location_rank` enum** — valid values: `rural_settlement`, `town`, `city`, `megalopolis` (EU4 names like `village` cause silent failures)
 - **Localization YAML** — must be UTF-8 BOM (not plain UTF-8); only straight ASCII double-quotes `"` are valid
 - **`custom_tooltip`** — never remove it; dotted suffix format IS valid in event options; verify key format before changing
-- **Pre-test validation** — run `conda run --no-capture-output -n eu5 python scripts/validate.py --changed --fix` before launching the game
+- **Pre-test validation** — in AI/managed sandboxes run `C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\validate.py --changed --fix` before launching the game; normal user terminals may use `conda run --no-capture-output -n eu5 python scripts/validate.py --changed --fix`
 - **`variable_map` RHS is unreliable** — do not pass quoted `variable_map(...)` /
   `global_variable_map(...)` directly as equality RHS, trigger RHS, `building_type`,
   or other effect parameters after scope changes. Capture it first with
@@ -212,6 +252,19 @@ reintroducing the old branch structure or generated per-key enumerations. Preser
 architecture and fix the failing scope/syntax. If a rollback or fallback would materially undo
 the stated refactor goal, stop and report that tradeoff before editing.
 
+## Structural Fidelity Rule
+
+Do not downgrade an existing event, GUI, localization, or scripted-effect structure merely to
+make a data change easier. If a file currently uses per-target `triggered_desc` branches,
+target-specific event options, per-id effect dispatch, staged GUI rows, or other explicit
+structure, preserve that structure when changing the data set. Removing those branches,
+collapsing them into generic text/options, replacing target-specific UX with a fallback, or
+leaving stale branches unreachable is a design change, not an implementation shortcut.
+
+If preserving the existing structure would require many repetitive edits, either extend the
+appropriate generator/data source first or stop and ask before changing the structure. Never
+quietly trade away target-specific event/GUI behavior in the name of smaller patches.
+
 ## Early Development: Ask-First Policy
 
 This mod is in early development (v0.1.0). When in doubt about design intent, **ask the user before implementing**.
@@ -236,7 +289,11 @@ if hasattr(sys.stdout, "reconfigure"):
 
 `import sys` must also be present (add it if not already there).
 
-Also, always run scripts via `conda run --no-capture-output -n eu5 python scripts/...` — never bare `python`.
+Also, always run scripts inside the `eu5` environment. Use
+`conda run --no-capture-output -n eu5 python scripts/...` in a normal terminal, but
+use `C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\...` or the `activate.bat`
+form from the Python Runner Policy in Codex/managed sandboxes where `conda run`
+hangs. Never use bare `python`.
 
 ## Script System
 
@@ -263,6 +320,10 @@ When creating a new file, check if it will be repetitive — if so, create the s
 # Do not edit directly — modify the data file and re-run the generator.
 ```
 
+`Regen:` lines use the normal-terminal form for portability. Managed AI agents
+must apply the Python Runner Policy and execute the direct `eu5\python.exe` form
+instead of `conda run`.
+
 For `.gui` files place these `#` comment lines at the very top, before the first widget.
 
 ### Script Directory Layout
@@ -270,7 +331,7 @@ For `.gui` files place these `#` comment lines at the very top, before the first
 Infrastructure scripts stay at `scripts/` root:
 `validate.py`, `ai_context.py`, `gen_brief.py`, `gen_index.py`, `gen_scaffold.py`, `gen_victory.py`, `gen_messagetypes.py`, `gen_locked_advances.py`, `check_overview.py`
 
-One-off asset helpers also stay at repository/script root. `scripts/generate_dds_icon.py` reads `generate_dds_icon_config.json` plus optional `generate_dds_icon.local.json`, selects one target (`trade_good_icon`, `trade_good_illustration`, `building_icon`, `victory_situation_icon`, `victory_path_icon`, or `victory_reward_icon`) or a batch mode (`victory_path_icons` or `victory_reward_icons`), can refine a short prompt, supports target-specific asset-name/prompt overrides, uploads that target's same-type style-reference DDS/PNG files for API generation, can use an explicitly configured local template renderer for deterministic source-DDS transformations, and writes configured DDS targets with enforced dimensions/file-size limits plus optional mipmaps. The icon targets now apply a circular inner-crop pass with transparent outside pixels and a soft alpha falloff near the edge before DDS writing. By default it skips generation when the final DDS target already exists and `output.overwrite` is false; the victory path batch creates `tv_victory_situation.dds` under `src/main_menu/gfx/interface/icons/situations/` plus six route icons under `src/main_menu/gfx/interface/icons/towards_victory/victory_paths/`, while the victory reward batch creates six route template icons plus ninety route/milestone/reward-option icons under `src/main_menu/gfx/interface/icons/towards_victory/victory_rewards/`. Use the `conda run --no-capture-output -n eu5 python scripts/generate_dds_icon.py` form when running it.
+One-off asset helpers also stay at repository/script root. `scripts/generate_dds_icon.py` reads `generate_dds_icon_config.json` plus optional `generate_dds_icon.local.json`, selects one target (`trade_good_icon`, `trade_good_illustration`, `building_icon`, `victory_situation_icon`, `victory_path_icon`, or `victory_reward_icon`) or a batch mode (`victory_path_icons` or `victory_reward_icons`), can refine a short prompt, supports target-specific asset-name/prompt overrides, uploads that target's same-type style-reference DDS/PNG files for API generation, can use an explicitly configured local template renderer for deterministic source-DDS transformations, and writes configured DDS targets with enforced dimensions/file-size limits plus optional mipmaps. The icon targets now apply a circular inner-crop pass with transparent outside pixels and a soft alpha falloff near the edge before DDS writing. By default it skips generation when the final DDS target already exists and `output.overwrite` is false; the victory path batch creates `tv_victory_situation.dds` under `src/main_menu/gfx/interface/icons/situations/` plus six route icons under `src/main_menu/gfx/interface/icons/towards_victory/victory_paths/`, while the victory reward batch creates six route template icons plus ninety route/milestone/reward-option icons under `src/main_menu/gfx/interface/icons/towards_victory/victory_rewards/`. Run it through the Python Runner Policy; in managed sandboxes use `C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\generate_dds_icon.py`.
 
 **1:1 feature scripts** live under `scripts/` mirroring `src/`, named `gen_<target_filename_without_extension>.py`:
 ```
@@ -336,7 +397,7 @@ or **adds a new path** following the existing 6-path pattern:
 1. Edit `data/victory_paths.yaml` only — **do NOT hand-edit the generated files**
 2. Run the generator:
    ```
-   conda run --no-capture-output -n eu5 python scripts/gen_victory.py
+   C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\gen_victory.py
    ```
 3. Skip to Step 5 (validate).
 
@@ -366,14 +427,14 @@ Add matching keys to `src/main_menu/localization/simp_chinese/towards_victory_l_
 
 ### Step 5: Validate
 ```
-conda run --no-capture-output -n eu5 python scripts/validate.py --changed --fix
+C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\validate.py --changed --fix
 ```
 Expected: 0 errors, 0 warnings (`[FIXED]` BOM lines are not errors).
 
 ### Step 6: Knowledge capture + docs update
 If any new EU5 pattern was discovered during this session, execute the standard Knowledge Capture protocol (see below). Then:
 ```
-conda run --no-capture-output -n eu5 python scripts/gen_brief.py
+C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\gen_brief.py
 ```
 
 ---
@@ -416,7 +477,7 @@ When triggered, do ALL of:
 3. Add a row to the "Documented Violations" table in `docs/guides/AI_Tool_Workflow_Prompt.md`.
 4. Update `docs/technical/EU5_Modding_Knowledge_Base.md` if the pattern is broadly applicable.
 5. If a `needs_parser` rule is recurring or high-impact, extend `scripts/validate.py` with a narrow parser/check so future AI runs see it automatically.
-6. Run `conda run --no-capture-output -n eu5 python scripts/gen_brief.py` to regenerate `docs/knowledge/BRIEF.md`.
+6. Run `C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\gen_brief.py` to regenerate `docs/knowledge/BRIEF.md` in managed sandboxes; normal user terminals may use the `conda run` form.
 
 For minor discoveries (single modifier name, single typo fix), steps 1 and 6 only.
 
@@ -429,11 +490,11 @@ The project assumes humans do not maintain code or AI workflow files manually. A
 - If `docs/knowledge/risk_cards/` changes, ensure the card is listed by `scripts/ai_context.py` when its domain is touched.
 - If `scripts/ai_context.py` domain coverage or output changes, update `CLAUDE.md`, `docs/guides/AI_Tool_Workflow_Prompt.md`, and the script table in `docs/knowledge/PROJECT_OVERVIEW.md`.
 - If `scripts/validate.py` gains a reliable checker for a previous `needs_parser` rule, update the corresponding `anti_patterns.yaml` entry to `detectability: lint`.
-- If a `detectability: lint` regex is added or changed, add/update fixtures under `tests/fixtures/anti_patterns/<rule_id>/` and run `conda run --no-capture-output -n eu5 python scripts/test_lint_rules.py`.
+- If a `detectability: lint` regex is added or changed, add/update fixtures under `tests/fixtures/anti_patterns/<rule_id>/` and run `C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\test_lint_rules.py` in managed sandboxes.
 - If `scripts/validate.py` reports a new warning, fix it unless the warning is intentionally accepted. Accepted warnings must be added to `data/validation_baseline.yaml` with a rationale; never baseline a warning just to make validation pass.
 - If a new warning domain appears repeatedly in runtime logs, prefer a risk card plus `ai_context.py` domain routing over adding more long-form prose to `BRIEF.md`.
 - After any change to `anti_patterns.yaml`, `valid_enums.yaml`, `PROJECT_OVERVIEW.md`, or `risk_cards/`, regenerate `BRIEF.md`.
-- Before finishing, run `conda run --no-capture-output -n eu5 python scripts/validate.py --changed --fix --ai-report`; explain any baselined warnings that remain.
+- Before finishing, run `C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\validate.py --changed --fix --ai-report` in managed sandboxes; explain any baselined warnings that remain.
 
 ## Project Overview Update Protocol
 
@@ -462,4 +523,4 @@ Do NOT update for:
 
 ### After updating
 
-Run `conda run --no-capture-output -n eu5 python scripts/gen_brief.py` to regenerate `docs/knowledge/BRIEF.md`.
+Run `C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\gen_brief.py` to regenerate `docs/knowledge/BRIEF.md` in managed sandboxes.

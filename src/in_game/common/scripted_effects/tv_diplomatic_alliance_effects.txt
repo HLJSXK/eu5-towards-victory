@@ -172,9 +172,42 @@ tv_diplomatic_alliance_country_monthly_pulse_effect = {
 				international_organization_type = international_organization_type:tv_diplomatic_alliance
 				leader_country ?= scope:tv_diplomatic_alliance_pulse_country
 			}
+			tv_diplomatic_alliance_update_strongest_member_effect = yes
 			tv_diplomatic_alliance_monthly_victory_points_effect = yes
 		}
 		clear_saved_scope = tv_diplomatic_alliance_pulse_country
+	}
+}
+
+tv_diplomatic_alliance_update_strongest_member_effect = {
+	hidden_effect = {
+		if = {
+			limit = {
+				international_organization_type = international_organization_type:tv_diplomatic_alliance
+				international_organization_has_leader = yes
+			}
+			clear_saved_scope = tv_alliance_strongest_member_candidate
+			ordered_international_organization_member = {
+				order_by = {
+					add = {
+						value = military_strength
+					}
+				}
+				max = 1
+				check_range_bounds = no
+				save_scope_as = tv_alliance_strongest_member_candidate
+			}
+			leader_country ?= {
+				if = {
+					limit = { exists = scope:tv_alliance_strongest_member_candidate }
+					set_variable = { name = tv_alliance_strongest_member value = scope:tv_alliance_strongest_member_candidate }
+				}
+				else = {
+					remove_variable = tv_alliance_strongest_member
+				}
+			}
+			clear_saved_scope = tv_alliance_strongest_member_candidate
+		}
 	}
 }
 

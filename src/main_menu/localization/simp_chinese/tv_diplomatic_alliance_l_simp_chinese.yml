@@ -34,7 +34,7 @@
  tv_alliance_sublime_empire_subjugate_member_desc: "消耗等于10加目标相对军事实力乘以50的[tv_alliance_cohesion|E]，将选中的普通联盟成员变为[tv_alliance_advocator|E]的附庸国。"
  tv_select_diplomatic_alliance_member: "选择联盟成员"
  tv_no_diplomatic_alliance_member_available: "@trigger_no! 没有可驱逐的联盟成员。"
- TV_DIPLOMATIC_ALLIANCE_OVERVIEW_DESC: "累积[tv_alliance_cohesion|E]以推动联盟法律改革。第2/3/4级法律分别需要25/50/75点凝聚力，并各提供+1[tv_alliance_tier|E]。每级联盟等级每月为盟主提供+1外交胜利点。凝聚力来自[tv_alliance_advocator|E]的[diplomatic_reputation|E]与外交能力、成员对领袖的好感，以及联盟内部和平。"
+ TV_DIPLOMATIC_ALLIANCE_OVERVIEW_DESC: "累积[tv_alliance_cohesion|E]以推动联盟法律改革。旧法律第2/3/4级分别需要25/50/75点凝聚力，战争法第2/3级需要25/50点凝聚力。升级后的法律会提高[tv_alliance_tier|E]，上限为21。每级联盟等级每月为盟主提供+1外交胜利点。"
  TV_DIPLOMATIC_ALLIANCE_MEMBER_MANAGEMENT_DESC: "邀请新国家加入联盟，或驱逐现有成员。邀请需要对方外交接受；驱逐则是创始国的权力。"
  TV_ALLIANCE_COHESION_100_TT: "联盟凝聚力至少为100"
  TV_ALLIANCE_SUBJUGATION_COHESION_COST_TT: "联盟凝聚力至少为10加目标相对军事实力乘以50"
@@ -54,6 +54,8 @@
  tv_commerce_consensus: "商业航海与关税共识"
  tv_faith_harmony: "信仰与意识形态调和"
  tv_colonization_sphere: "拓殖与势力范围划界"
+ tv_alliance_war_laws: "战争法"
+ TV_ALLIANCE_WAR_LAWS_LAW_CATEGORY: "战争法"
 
  # ── 法律1：宫廷礼仪 — 政策 ────────────────────────────────────────────
  tv_adhoc_envoys_policy: "临时使节互访"
@@ -105,6 +107,33 @@
  tv_joint_ventures_policy: "共管与联合开发"
  tv_joint_ventures_policy_desc: "最高级别的信任。成员国共享未开发领地的殖民红利，共同投资伟大的跨洋工程。"
 
+ # ── 法律6：共同防御 — 政策 ────────────────────────────────────────────
+ tv_common_defense_obligation: "共同防御责任"
+ tv_no_common_defense_policy: "无参战责任"
+ tv_no_common_defense_policy_desc: "成员国各自处理防御战争。联盟不提供共同参战召唤。"
+ tv_conditional_common_defense_policy: "有条件共同防御"
+ tv_conditional_common_defense_policy_desc: "成员国会自动召唤其他成员加入符合条件的防御战争。宗教战争条件取决于联盟的信仰法律。"
+ tv_unconditional_common_defense_policy: "无条件共同防御"
+ tv_unconditional_common_defense_policy_desc: "成员国总是召唤其他成员加入防御战争。"
+
+ # ── 法律7：共同进攻 — 政策 ────────────────────────────────────────────
+ tv_common_offense_obligation: "共同进攻责任"
+ tv_no_common_offense_policy: "无参战责任"
+ tv_no_common_offense_policy_desc: "成员国各自处理进攻战争。联盟不提供共同参战召唤。"
+ tv_conditional_common_offense_policy: "有条件共同进攻"
+ tv_conditional_common_offense_policy_desc: "成员国会自动召唤其他成员加入符合条件的进攻战争。宗教战争条件取决于联盟的信仰法律。"
+ tv_unconditional_common_offense_policy: "无条件共同进攻"
+ tv_unconditional_common_offense_policy_desc: "成员国总是召唤其他成员加入进攻战争。"
+
+ # ── 法律8：领袖责任 — 政策 ────────────────────────────────────────────
+ tv_leader_war_obligation: "领袖的责任"
+ tv_no_leader_war_obligation_policy: "无参战责任"
+ tv_no_leader_war_obligation_policy_desc: "倡导者没有加入其他成员战争的义务。"
+ tv_leader_defensive_war_policy: "参与防御战争"
+ tv_leader_defensive_war_policy_desc: "倡导者会直接加入其他成员的防御战争。"
+ tv_leader_any_war_policy: "参与任何战争"
+ tv_leader_any_war_policy_desc: "倡导者会直接加入其他成员的防御战争和进攻战争。"
+
  # ── AI投票原因 ─────────────────────────────────────────────────────────
  TV_ALREADY_HAVE_BETTER: "已处于更高等级"
  TV_DEFAULT_POLICY: "默认初始政策"
@@ -113,6 +142,13 @@
  TV_INSUFFICIENT_COHESION: "联盟凝聚力不足"
  TV_UPGRADE_DESIRE: "渴望更强大的联盟"
  TV_ALLIANCE_REFORM_BASE_BIAS: "联盟改革等级"
+ TV_ALLIANCE_WAR_OBLIGATION_BASE: "战争责任基础值"
+ TV_ALLIANCE_RELATIVE_STRENGTH_STRONGEST_MEMBER: "相对联盟最强成员的军事实力"
+ TV_ALLIANCE_RELATIVE_STRENGTH_LEADER: "相对倡导者的军事实力"
+ TV_ALLIANCE_HAS_CONDITIONAL_WAR_REASON_TT: "联盟已制定异端联合谴责或普世精神会议"
+ TV_ALLIANCE_CONDITIONAL_WAR_REASON_TT: "战争目标因异端联合谴责被视为异端，或因普世精神会议被视为异教"
+ TV_ALLIANCE_LEADER_WAR_OBLIGATION_TT: "被召唤国家是倡导者，且召唤者是另一个联盟成员"
+ TV_ALLIANCE_JOIN_WARS_DEFAULT_REASON: "联盟战争法适用"
 
  # ── 特殊地位 ───────────────────────────────────────────────────────────
  TV_ALLIANCE_ADVOCATOR_MALE: "倡导者"
@@ -161,6 +197,9 @@
  tv_commerce_consensus_desc: "为联盟成员制定海洋贸易、贸易协议及航行权利规则。"
  tv_faith_harmony_desc: "决定联盟对宗教宽容和意识形态凝聚力的立场。"
  tv_colonization_sphere_desc: "规定联盟成员如何划定和尊重彼此的殖民势力范围。"
+ tv_common_defense_obligation_desc: "规定成员是否会在防御战争中召唤联盟参战。"
+ tv_common_offense_obligation_desc: "规定成员是否会在进攻战争中召唤联盟参战。"
+ tv_leader_war_obligation_desc: "规定倡导者何时亲自加入其他成员的战争。"
 
  # ── 国家互动 — 联盟成员管理 ────────────────────────────────────────────
  dip_tv_invite_to_diplomatic_alliance_CATEGORY: "CATEGORY_FRIENDLY_ACTIONS"

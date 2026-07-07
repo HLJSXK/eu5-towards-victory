@@ -8,209 +8,10 @@ tv_research_check_a_trigger = {
 }
 
 # ── Sub-process B completion check ────────────────────────────────────────────
-# Institution-root targets require at least one owned location that satisfies the
-# matching institution's plausible birthplace conditions, with geographic and
-# existing-institution gates removed. Non-institution-root targets keep the old
-# automatic completion.
+# Current Academy target list has no B-specific prerequisites. Keep the subprocess
+# visible and complete it through the existing monthly pulse rather than deleting it.
 tv_research_check_b_trigger = {
-	# 1: Printing Press -> printing_press institution
-	trigger_if = {
-		limit = { var:tv_research_target ?= 1 }
-		any_owned_location = {
-			owner ?= {
-				produced_in_country:paper > 5
-			}
-			num_pop_type:burghers > 1
-			has_building = building_type:university
-			owner = {
-				societal_value:traditionalist_vs_innovative > 20
-			}
-		}
-	}
-	# 7: Scientific Revolution -> scientific_revolution institution
-	trigger_else_if = {
-		limit = { var:tv_research_target ?= 7 }
-		any_owned_location = {
-			has_building = building_type:university
-			average_location_literacy > 30
-			owner = {
-				societal_value:traditionalist_vs_innovative >= 20
-			}
-		}
-	}
-	# 8: Manufactories -> manufactories institution
-	trigger_else_if = {
-		limit = { var:tv_research_target ?= 8 }
-		any_owned_location = {
-			num_pop_type:burghers > 20
-			total_building_levels > 80
-			owner = {
-				societal_value:capital_economy_vs_traditional_economy < -30
-			}
-		}
-	}
-	# 9: Industrialization -> industrialization institution
-	trigger_else_if = {
-		limit = { var:tv_research_target ?= 9 }
-		any_owned_location = {
-			num_pop_type:burghers > 20
-			total_building_levels > 120
-			owner = {
-				societal_value:capital_economy_vs_traditional_economy < -30
-			}
-		}
-	}
-	# 11: Renaissance -> renaissance institution
-	trigger_else_if = {
-		limit = { var:tv_research_target ?= 11 }
-		any_owned_location = {
-			has_owner = yes
-			OR = {
-				location_rank = location_rank:city
-				location_rank = location_rank:megalopolis
-				has_building_with_at_least_one_level = university
-			}
-			custom_tooltip = {
-				text = dominant_culture_is_owners_culture
-				dominant_culture = owner.culture
-			}
-		}
-	}
-	# 12: Banking -> banking institution
-	trigger_else_if = {
-		limit = { var:tv_research_target ?= 12 }
-		any_owned_location = {
-			has_owner = yes
-			num_pop_type:burghers > 1.0
-			custom_tooltip = {
-				text = dominant_culture_is_owners_culture
-				dominant_culture = owner.culture
-			}
-			owner = {
-				societal_value:capital_economy_vs_traditional_economy < -50
-			}
-		}
-	}
-	# 13: Professional Armies -> professional_armies institution
-	trigger_else_if = {
-		limit = { var:tv_research_target ?= 13 }
-		any_owned_location = {
-			has_owner = yes
-			custom_tooltip = {
-				text = dominant_culture_is_owners_culture
-				dominant_culture = owner.culture
-			}
-			modifier:local_manpower > 0
-			owner = {
-				societal_value:quality_vs_quantity < -10
-			}
-		}
-	}
-	# 14: New World -> new_world institution
-	trigger_else_if = {
-		limit = { var:tv_research_target ?= 14 }
-		any_owned_location = {
-			has_owner = yes
-			is_port = yes
-			num_pop_type:burghers >= 2.0
-			dominant_culture = owner.culture
-		}
-	}
-	# 15: Pike and Shot -> pike_and_shot institution
-	trigger_else_if = {
-		limit = { var:tv_research_target ?= 15 }
-		any_owned_location = {
-			owner ?= {
-				army_tradition > 20
-				has_advance = gunpowder_advance
-				has_advance = professional_armies_advance
-			}
-			modifier:local_manpower > 0
-			owner = {
-				societal_value:land_vs_naval < -20
-			}
-		}
-	}
-	# 16: Confessionalism -> confessionalism institution
-	trigger_else_if = {
-		limit = { var:tv_research_target ?= 16 }
-		any_owned_location = {
-			has_owner = yes
-			has_building_with_at_least_one_level = printing_press_shop
-			OR = {
-				location_rank = location_rank:town
-				location_rank = location_rank:city
-				location_rank = location_rank:megalopolis
-			}
-			dominant_religion = owner.religion
-			dominant_religion = religion:catholic
-			owner = {
-				societal_value:spiritualist_vs_humanist < -25
-			}
-		}
-	}
-	# 17: Global Trade -> global_trade institution
-	trigger_else_if = {
-		limit = { var:tv_research_target ?= 17 }
-		any_owned_location = {
-			is_market_center = yes
-			OR = {
-				location_rank = location_rank:city
-				location_rank = location_rank:megalopolis
-			}
-			market = {
-				total_goods_value_traded > 500
-			}
-		}
-	}
-	# 18: Artillery Institution -> artillery_institution institution
-	trigger_else_if = {
-		limit = { var:tv_research_target ?= 18 }
-		any_owned_location = {
-			has_building_with_at_least_one_level = gun_smith
-			has_building_with_at_least_one_level = tools_guild
-			owner = {
-				societal_value:offensive_vs_defensive < -20
-			}
-		}
-	}
-	# 19: Military Revolution -> military_revolution institution
-	trigger_else_if = {
-		limit = { var:tv_research_target ?= 19 }
-		any_owned_location = {
-			is_capital = yes
-			population > 30
-			owner = {
-				yearly_manpower > 2
-				societal_value:offensive_vs_defensive < -20
-			}
-		}
-	}
-	# 20: Enlightenment -> enlightenment institution
-	trigger_else_if = {
-		limit = { var:tv_research_target ?= 20 }
-		any_owned_location = {
-			has_building_with_at_least_one_level = university
-			average_location_literacy > 30
-			owner = {
-				societal_value:traditionalist_vs_innovative > 20
-			}
-		}
-	}
-	# 21: Levee en Masse -> levee_en_masse institution
-	trigger_else_if = {
-		limit = { var:tv_research_target ?= 21 }
-		any_owned_location = {
-			is_capital = yes
-			population > 200
-			owner = {
-				societal_value:quality_vs_quantity > 0
-			}
-		}
-	}
-	trigger_else = {
-		always = yes
-	}
+	always = yes
 }
 
 # ── Sub-process D start eligibility ───────────────────────────────────────────
@@ -291,52 +92,60 @@ tv_chief_scientist_effective_adm_less_than_80_trigger = {
 	NOT = { tv_chief_scientist_effective_adm_at_least_80_trigger = yes }
 }
 
-# ── Frontier target availability pools ────────────────────────────────────────
+# ── Academy target availability pools ─────────────────────────────────────────
 tv_research_has_unresearched_age_1_frontier_trigger = {
-	NOT = { has_advance = iron_working }
+	OR = {
+		NOT = { has_advance = medieval_administration }
+		NOT = { has_advance = scriptorium_advance }
+		NOT = { has_advance = horse_riding_advance }
+		NOT = { has_advance = bronze_working }
+		NOT = { has_advance = iron_working }
+		NOT = { has_advance = efficient_logistics }
+		NOT = { has_advance = abacus_advance }
+	}
 }
 
 tv_research_has_unresearched_age_2_frontier_trigger = {
 	OR = {
-		NOT = { has_advance = renaissance_advance }
-		NOT = { has_advance = banking_advance }
-		NOT = { has_advance = professional_armies_advance }
+		NOT = { has_advance = renaissance_sculptures }
+		NOT = { has_advance = crown_power_advance_renaissance }
+		NOT = { has_advance = dock_advance }
+		NOT = { has_advance = standardized_coins }
 		NOT = { has_advance = gunpowder_advance }
+		NOT = { has_advance = armory_advance }
 	}
 }
 
 tv_research_has_unresearched_age_3_frontier_trigger = {
 	OR = {
-		NOT = { has_advance = new_world_advance }
-		NOT = { has_advance = printing_press_advance }
-		NOT = { has_advance = pike_and_shot_advance }
+		NOT = { has_advance = open_sea_exploration }
 		NOT = { has_advance = blast_furnace }
+		NOT = { has_advance = faceting }
+		NOT = { has_advance = paper_workshop_advance }
+		NOT = { has_advance = training_fields_advance }
+		NOT = { has_advance = customs_house_advance }
 	}
 }
 
 tv_research_has_unresearched_age_4_frontier_trigger = {
 	OR = {
-		NOT = { has_advance = confessionalism_advance }
-		NOT = { has_advance = global_trade_advance }
-		NOT = { has_advance = artillery_institution_advance }
-		NOT = { has_advance = scientific_experimentation }
+		NOT = { has_advance = gov_reform_reformation_a }
+		NOT = { has_advance = pharmacology_advance }
+		NOT = { has_advance = letters_of_marque }
+		NOT = { has_advance = slitting_mills }
+		NOT = { has_advance = cannon_workshop_advance }
+		NOT = { has_advance = barracks_advance }
 	}
 }
 
 tv_research_has_unresearched_age_5_frontier_trigger = {
 	OR = {
-		NOT = { has_advance = manufactories_advance }
-		NOT = { has_advance = scientific_revolution_advance }
-		NOT = { has_advance = military_revolution_advance }
-	}
-}
-
-tv_research_has_unresearched_age_6_frontier_trigger = {
-	OR = {
-		NOT = { has_advance = enlightenment_advance }
-		NOT = { has_advance = industrialization_advance }
-		NOT = { has_advance = levee_en_masse_advance }
-		NOT = { has_advance = vaccination_advance }
+		NOT = { has_advance = ostentatious_clothing }
+		NOT = { has_advance = sanitation_advance }
+		NOT = { has_advance = coke_blast_furnace }
+		NOT = { has_advance = scientific_mapping_advance }
+		NOT = { has_advance = artillery_vs_fort_age_5_absolutism }
+		NOT = { has_advance = army_movement_speed_absolutism }
 	}
 }
 
@@ -368,19 +177,9 @@ tv_research_has_unresearched_earlier_than_age_5_frontier_trigger = {
 	}
 }
 
-tv_research_has_unresearched_earlier_than_age_6_frontier_trigger = {
-	OR = {
-		tv_research_has_unresearched_age_1_frontier_trigger = yes
-		tv_research_has_unresearched_age_2_frontier_trigger = yes
-		tv_research_has_unresearched_age_3_frontier_trigger = yes
-		tv_research_has_unresearched_age_4_frontier_trigger = yes
-		tv_research_has_unresearched_age_5_frontier_trigger = yes
-	}
-}
-
 # ── Target request eligibility ─────────────────────────────────────────────────
 # Player may request a research target when: member of Academy IO, no target selected,
-# and at least one Frontier advance is unresearched.
+# and at least one Academy target advance is unresearched.
 tv_research_can_request_target_trigger = {
 	custom_tooltip = {
 		text = TV_HAS_ACADEMY_IO_MEMBER_TT
@@ -396,7 +195,6 @@ tv_research_can_request_target_trigger = {
 		tv_research_has_unresearched_age_3_frontier_trigger = yes
 		tv_research_has_unresearched_age_4_frontier_trigger = yes
 		tv_research_has_unresearched_age_5_frontier_trigger = yes
-		tv_research_has_unresearched_age_6_frontier_trigger = yes
 	}
 }
 
@@ -412,83 +210,127 @@ tv_research_target_already_researched_trigger = {
 	OR = {
 		AND = {
 			var:tv_research_target ?= 1
-			has_advance = printing_press_advance
+			has_advance = medieval_administration
 		}
 		AND = {
 			var:tv_research_target ?= 2
-			has_advance = iron_working
+			has_advance = scriptorium_advance
+		}
+		AND = {
+			var:tv_research_target ?= 3
+			has_advance = horse_riding_advance
 		}
 		AND = {
 			var:tv_research_target ?= 4
-			has_advance = gunpowder_advance
+			has_advance = bronze_working
 		}
 		AND = {
 			var:tv_research_target ?= 5
-			has_advance = blast_furnace
+			has_advance = iron_working
 		}
 		AND = {
 			var:tv_research_target ?= 6
-			has_advance = scientific_experimentation
+			has_advance = efficient_logistics
 		}
 		AND = {
 			var:tv_research_target ?= 7
-			has_advance = scientific_revolution_advance
+			has_advance = abacus_advance
 		}
 		AND = {
 			var:tv_research_target ?= 8
-			has_advance = manufactories_advance
+			has_advance = renaissance_sculptures
 		}
 		AND = {
 			var:tv_research_target ?= 9
-			has_advance = industrialization_advance
+			has_advance = crown_power_advance_renaissance
 		}
 		AND = {
 			var:tv_research_target ?= 10
-			has_advance = vaccination_advance
+			has_advance = dock_advance
 		}
 		AND = {
 			var:tv_research_target ?= 11
-			has_advance = renaissance_advance
+			has_advance = standardized_coins
 		}
 		AND = {
 			var:tv_research_target ?= 12
-			has_advance = banking_advance
+			has_advance = gunpowder_advance
 		}
 		AND = {
 			var:tv_research_target ?= 13
-			has_advance = professional_armies_advance
+			has_advance = armory_advance
 		}
 		AND = {
 			var:tv_research_target ?= 14
-			has_advance = new_world_advance
+			has_advance = open_sea_exploration
 		}
 		AND = {
 			var:tv_research_target ?= 15
-			has_advance = pike_and_shot_advance
+			has_advance = blast_furnace
 		}
 		AND = {
 			var:tv_research_target ?= 16
-			has_advance = confessionalism_advance
+			has_advance = faceting
 		}
 		AND = {
 			var:tv_research_target ?= 17
-			has_advance = global_trade_advance
+			has_advance = paper_workshop_advance
 		}
 		AND = {
 			var:tv_research_target ?= 18
-			has_advance = artillery_institution_advance
+			has_advance = training_fields_advance
 		}
 		AND = {
 			var:tv_research_target ?= 19
-			has_advance = military_revolution_advance
+			has_advance = customs_house_advance
 		}
 		AND = {
 			var:tv_research_target ?= 20
-			has_advance = enlightenment_advance
+			has_advance = gov_reform_reformation_a
 		}
 		AND = {
 			var:tv_research_target ?= 21
-			has_advance = levee_en_masse_advance
+			has_advance = pharmacology_advance
+		}
+		AND = {
+			var:tv_research_target ?= 22
+			has_advance = letters_of_marque
+		}
+		AND = {
+			var:tv_research_target ?= 23
+			has_advance = slitting_mills
+		}
+		AND = {
+			var:tv_research_target ?= 24
+			has_advance = cannon_workshop_advance
+		}
+		AND = {
+			var:tv_research_target ?= 25
+			has_advance = barracks_advance
+		}
+		AND = {
+			var:tv_research_target ?= 26
+			has_advance = ostentatious_clothing
+		}
+		AND = {
+			var:tv_research_target ?= 27
+			has_advance = sanitation_advance
+		}
+		AND = {
+			var:tv_research_target ?= 28
+			has_advance = coke_blast_furnace
+		}
+		AND = {
+			var:tv_research_target ?= 29
+			has_advance = scientific_mapping_advance
+		}
+		AND = {
+			var:tv_research_target ?= 30
+			has_advance = artillery_vs_fort_age_5_absolutism
+		}
+		AND = {
+			var:tv_research_target ?= 31
+			has_advance = army_movement_speed_absolutism
 		}
 	}
 }
@@ -526,6 +368,106 @@ tv_chief_scientist_busy_with_treatment_trigger = {
 
 tv_chief_scientist_busy_with_meditation_trigger = {
 	has_variable = tv_meditation_target_char
+}
+
+tv_chief_scientist_busy_with_philosophy_debate_trigger = {
+	has_variable = tv_academy_debate_great_scientist_seated
+}
+
+tv_academy_philosophy_has_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 1
+		var:tv_academy_philosophy_current ?= 2
+		var:tv_academy_philosophy_current ?= 3
+		var:tv_academy_philosophy_current ?= 4
+		var:tv_academy_philosophy_current ?= 5
+		var:tv_academy_philosophy_current ?= 6
+		var:tv_academy_philosophy_current ?= 7
+		var:tv_academy_philosophy_current ?= 8
+		var:tv_academy_philosophy_current ?= 9
+	}
+}
+
+tv_academy_philosophy_current_issue_embraced_trigger = {
+	OR = {
+		AND = {
+			var:tv_academy_philosophy_current ?= 1
+			has_embraced_institution = institution:meritocracy
+		}
+		AND = {
+			var:tv_academy_philosophy_current ?= 2
+			has_embraced_institution = institution:renaissance
+		}
+		AND = {
+			var:tv_academy_philosophy_current ?= 3
+			has_embraced_institution = institution:banking
+		}
+		AND = {
+			var:tv_academy_philosophy_current ?= 4
+			has_embraced_institution = institution:new_world
+		}
+		AND = {
+			var:tv_academy_philosophy_current ?= 5
+			has_embraced_institution = institution:printing_press
+		}
+		AND = {
+			var:tv_academy_philosophy_current ?= 6
+			has_embraced_institution = institution:confessionalism
+		}
+		AND = {
+			var:tv_academy_philosophy_current ?= 7
+			has_embraced_institution = institution:global_trade
+		}
+		AND = {
+			var:tv_academy_philosophy_current ?= 8
+			has_embraced_institution = institution:manufactories
+		}
+		AND = {
+			var:tv_academy_philosophy_current ?= 9
+			has_embraced_institution = institution:scientific_revolution
+		}
+	}
+}
+
+tv_academy_philosophy_current_issue_matches_embraced_institution_trigger = {
+	OR = {
+		AND = {
+			var:tv_academy_philosophy_current ?= 1
+			scope:target = institution:meritocracy
+		}
+		AND = {
+			var:tv_academy_philosophy_current ?= 2
+			scope:target = institution:renaissance
+		}
+		AND = {
+			var:tv_academy_philosophy_current ?= 3
+			scope:target = institution:banking
+		}
+		AND = {
+			var:tv_academy_philosophy_current ?= 4
+			scope:target = institution:new_world
+		}
+		AND = {
+			var:tv_academy_philosophy_current ?= 5
+			scope:target = institution:printing_press
+		}
+		AND = {
+			var:tv_academy_philosophy_current ?= 6
+			scope:target = institution:confessionalism
+		}
+		AND = {
+			var:tv_academy_philosophy_current ?= 7
+			scope:target = institution:global_trade
+		}
+		AND = {
+			var:tv_academy_philosophy_current ?= 8
+			scope:target = institution:manufactories
+		}
+		AND = {
+			var:tv_academy_philosophy_current ?= 9
+			scope:target = institution:scientific_revolution
+		}
+	}
 }
 
 tv_chief_scientist_available_for_concentrated_research_trigger = {
@@ -645,6 +587,13 @@ tv_chief_scientist_available_for_meditation_trigger = {
 
 tv_chief_scientist_available_for_philosophy_trigger = {
 	trigger_if = {
+		limit = { tv_chief_scientist_busy_with_philosophy_debate_trigger = yes }
+		custom_description = {
+			text = tv_chief_scientist_busy_with_philosophy_debate_tt
+			always = no
+		}
+	}
+	trigger_else_if = {
 		limit = { tv_chief_scientist_busy_with_concentrated_research_trigger = yes }
 		custom_description = {
 			text = tv_chief_scientist_busy_with_concentrated_research_tt
@@ -674,59 +623,5 @@ tv_chief_scientist_available_for_philosophy_trigger = {
 	}
 	trigger_else = {
 		always = yes
-	}
-}
-
-tv_academy_philosophy_can_execute_selected_action_trigger = {
-	custom_tooltip = {
-		text = TV_ACADEMY_PHILOSOPHY_REQUIRES_DEBATE_PHASE_TT
-		var:tv_academy_philosophy_phase ?= 1
-	}
-	custom_tooltip = {
-		text = TV_ACADEMY_PHILOSOPHY_REQUIRES_NO_PENDING_ROUND_TT
-		NOT = { has_variable = tv_academy_philosophy_round_pending }
-	}
-	custom_tooltip = {
-		text = TV_ACADEMY_PHILOSOPHY_REQUIRES_SELECTED_ACTION_TT
-		has_variable = tv_academy_philosophy_selected_slot
-		has_variable = tv_academy_philosophy_selected_action
-	}
-	OR = {
-		AND = {
-			var:tv_academy_philosophy_selected_slot ?= 1
-			var:tv_academy_philosophy_slot_1_allow ?= 1
-			OR = {
-				AND = { var:tv_academy_philosophy_selected_action ?= 1 var:tv_academy_philosophy_slot_1_action ?= 1 }
-				AND = { var:tv_academy_philosophy_selected_action ?= 2 var:tv_academy_philosophy_slot_1_action ?= 2 }
-				AND = { var:tv_academy_philosophy_selected_action ?= 3 var:tv_academy_philosophy_slot_1_action ?= 3 }
-				AND = { var:tv_academy_philosophy_selected_action ?= 4 var:tv_academy_philosophy_slot_1_action ?= 4 }
-				AND = { var:tv_academy_philosophy_selected_action ?= 5 var:tv_academy_philosophy_slot_1_action ?= 5 }
-				AND = { var:tv_academy_philosophy_selected_action ?= 6 var:tv_academy_philosophy_slot_1_action ?= 6 }
-			}
-		}
-		AND = {
-			var:tv_academy_philosophy_selected_slot ?= 2
-			var:tv_academy_philosophy_slot_2_allow ?= 1
-			OR = {
-				AND = { var:tv_academy_philosophy_selected_action ?= 1 var:tv_academy_philosophy_slot_2_action ?= 1 }
-				AND = { var:tv_academy_philosophy_selected_action ?= 2 var:tv_academy_philosophy_slot_2_action ?= 2 }
-				AND = { var:tv_academy_philosophy_selected_action ?= 3 var:tv_academy_philosophy_slot_2_action ?= 3 }
-				AND = { var:tv_academy_philosophy_selected_action ?= 4 var:tv_academy_philosophy_slot_2_action ?= 4 }
-				AND = { var:tv_academy_philosophy_selected_action ?= 5 var:tv_academy_philosophy_slot_2_action ?= 5 }
-				AND = { var:tv_academy_philosophy_selected_action ?= 6 var:tv_academy_philosophy_slot_2_action ?= 6 }
-			}
-		}
-		AND = {
-			var:tv_academy_philosophy_selected_slot ?= 3
-			var:tv_academy_philosophy_slot_3_allow ?= 1
-			OR = {
-				AND = { var:tv_academy_philosophy_selected_action ?= 1 var:tv_academy_philosophy_slot_3_action ?= 1 }
-				AND = { var:tv_academy_philosophy_selected_action ?= 2 var:tv_academy_philosophy_slot_3_action ?= 2 }
-				AND = { var:tv_academy_philosophy_selected_action ?= 3 var:tv_academy_philosophy_slot_3_action ?= 3 }
-				AND = { var:tv_academy_philosophy_selected_action ?= 4 var:tv_academy_philosophy_slot_3_action ?= 4 }
-				AND = { var:tv_academy_philosophy_selected_action ?= 5 var:tv_academy_philosophy_slot_3_action ?= 5 }
-				AND = { var:tv_academy_philosophy_selected_action ?= 6 var:tv_academy_philosophy_slot_3_action ?= 6 }
-			}
-		}
 	}
 }

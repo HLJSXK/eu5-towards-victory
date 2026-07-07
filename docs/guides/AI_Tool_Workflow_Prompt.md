@@ -8,11 +8,33 @@ You are an expert Europa Universalis 5 (EU5) modder. EU5 uses an updated Jomini 
 ### Workflow: The 3-Step Resolution Rule
 When proposing code edits or generating new scripts, you must evaluate your knowledge and follow this exact sequence:
 
-0. **Build task context**: before editing, run `conda run --no-capture-output -n eu5 python scripts/ai_context.py --changed` or
-   `conda run --no-capture-output -n eu5 python scripts/ai_context.py --files <paths>` and read every listed risk card.
+0. **Build task context**: before editing in Codex, Claude subagents, or any managed sandbox, run
+   `C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\ai_context.py --changed` or
+   `C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\ai_context.py --files <paths>` and read every listed risk card.
 1. **Direct Edit**: If you are 100% certain about the EU5 syntax (e.g., standard Jomini logic), write the script directly.
 2. **Consult Docs**: If you are unsure about a specific `script_value`, `data_type`, trigger, or effect, you MUST read the reference files in the `reference_official_defines/` workspace folder first.
 3. **Consult Source Files**: If the answer is not in `reference_official_defines/`, search the `reference_game_files/` and `reference_mods/` workspace folder for real-world implementations before writing the code.
+
+### Python Runner Policy
+
+All project Python scripts must run inside the `eu5` environment. In Codex, Claude
+subagents, or any managed sandbox, do **not** run or retry `conda run -n eu5`.
+Use the `eu5` interpreter directly:
+
+`C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\<script>.py ...`
+
+In a normal user terminal, the canonical form remains
+`conda run --no-capture-output -n eu5 python scripts/<script>.py ...`.
+
+`conda run` may hang in managed sandboxes when the Anaconda base environment is
+read-only, especially when `C:\Users\Hades\anaconda3\conda-meta\history` is not
+writable. If the direct interpreter path is unavailable, activate through `cmd`:
+
+`cmd /c "call C:\Users\Hades\anaconda3\Scripts\activate.bat eu5 && python scripts\<script>.py ..."`
+
+This still uses `eu5`; do not use bare `python`. Treat any later `conda run`
+example as normal-terminal documentation and translate it before executing in a
+managed sandbox.
 
 ### Mandatory Reference Categories (Step 1 is FORBIDDEN)
 
@@ -93,14 +115,17 @@ Do NOT resolve ambiguity by picking the "most reasonable" interpretation and pro
 Before any non-trivial edit, generate a compact task context:
 
 ```powershell
-conda run --no-capture-output -n eu5 python scripts/ai_context.py --changed
+C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\ai_context.py --changed
 ```
 
 or, when the target files are already known:
 
 ```powershell
-conda run --no-capture-output -n eu5 python scripts/ai_context.py --files src/in_game/common/generic_actions/tv_govhouse_actions.txt
+C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\ai_context.py --files src/in_game/common/generic_actions/tv_govhouse_actions.txt
 ```
+
+Normal user terminals may use the `conda run --no-capture-output -n eu5 python`
+prefix instead. Managed sandboxes must keep the direct interpreter form.
 
 The output tells the AI whether a file is generated, which risk cards apply, and which anti-pattern records are relevant. For `generic_actions`, the required card is `docs/knowledge/risk_cards/generic_actions.md`; for event files, `docs/knowledge/risk_cards/events.md` is required because option hover can pre-evaluate option effect chains, including `hidden_effect`; for IO definitions, IO laws, and country interactions that find or mutate TV IOs, `docs/knowledge/risk_cards/international_organizations.md` is required. Files containing `variable_map`, `global_variable_map`, or `local_variable_map` content are routed to the local Variable maps documentation and the `variable_map_scope_link_used_direct_rhs` anti-pattern.
 
@@ -126,10 +151,10 @@ When a new EU5 behavior or recurring AI failure is discovered:
 - Update the relevant `docs/knowledge/risk_cards/*.md` file when the issue belongs to an existing high-risk task domain.
 - If a new high-risk domain needs a card, create it and register it in `scripts/ai_context.py` `DOMAIN_RULES`.
 - If a `needs_parser` rule becomes reliably checkable, add the checker to `scripts/validate.py` and update the anti-pattern's `detectability`.
-- If a `detectability: lint` regex is added or changed, add or update fixtures under `tests/fixtures/anti_patterns/<rule_id>/` and run `conda run --no-capture-output -n eu5 python scripts/test_lint_rules.py`.
+- If a `detectability: lint` regex is added or changed, add or update fixtures under `tests/fixtures/anti_patterns/<rule_id>/` and run `scripts/test_lint_rules.py` through the Python Runner Policy.
 - If validation reports a new warning, fix it unless the warning is intentionally accepted. Accepted warnings must be recorded in `data/validation_baseline.yaml` with a rationale.
 - Update `PROJECT_OVERVIEW.md` when a workflow script or AI domain routing changes.
-- Run `conda run --no-capture-output -n eu5 python scripts/gen_brief.py` after changing knowledge files.
+- Run `scripts/gen_brief.py` through the Python Runner Policy after changing knowledge files.
 
 ## Required Behavior For Bug Fixing
 
@@ -165,6 +190,9 @@ The following violations occurred and informed the Mandatory Reference Categorie
 
 | Date | Violation | Root cause | Correct behavior |
 |---|---|---|---|
+| 2026-07 | During the Academy research-target update, proposed collapsing target-specific event descriptions/options/effect dispatch into generic fallback behavior to reduce repetitive edits | Treated a data-list update as permission to downgrade established player-facing event structure | Preserve existing per-target event/GUI/localization structure when changing the data set. If the branch count is large, extend the generator/data source first or stop and ask before changing structure; never silently replace target-specific UX with generic fallbacks. |
+| 2026-07 | Alhambra unique-ritual generated event options wrapped scripted-effect calls in `effect = { ... }`, producing `Unknown effect effect` for every option | Treated event option bodies like generic container blocks that need an `effect` child, instead of remembering that event options are already effect lists | Put option effect calls directly under `option = { ... }`, alongside `name` and optional `trigger`. Use `hidden_effect = { ... }` only to hide a chain from the tooltip; `scripts/validate.py` checks event option direct-child `effect` blocks. |
+| 2026-07 | Claude/Codex subagents kept running `conda run -n eu5` and hanging before reaching validation or context output | The runner policy was added as an exception while earlier and later examples still began with `conda run`, and `.claude/settings.local.json` explicitly allowed that command family | Managed sandboxes must default to `C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\...`; reserve `conda run --no-capture-output -n eu5 python ...` for normal user terminals only, and do not whitelist `Bash(conda run *)` for subagents. |
 | 2026-06 | Diplomatic Alliance row Subjugate button passed the member as `parameter_value = "[Country.Self]"` inside `left_action`; clicking silently spent no cohesion and created no subject | Confused the GUI object shape used for row comparisons with the script scope shape expected by a generic action's `scope:target` | For custom row action buttons that feed a generic action target, put the parameter on the button and pass `parameter_value = "[Country.MakeScope]"`. Keep `Country.Self` for GUI object comparisons such as `ObjectsEqual`. |
 | 2026-06 | Diplomatic Alliance custom member list went blank and its subjugate button emitted GUI `FetchData failed` errors during fixes | The fix filtered `MemberTypeItem` by a localized special-status name, called `IsIOLeaderCountry(Country.Self)` from an IO member row, and then misread stale hot-reload action-button errors as a source problem | Keep the outer member group on `MemberTypeItem.IsAllMembers`; filter the country row by comparing `Country.Self` to `GetLeaderCountry.Self` with `ObjectsEqual`; avoid direct `enabled = "[UIAction.IsEnabled]"` in unverified contexts; after changing action widgets, restart or fully reload before drawing new conclusions from line-stable FetchData errors. |
 | 2026-06 | Browsing Diplomatic Alliance laws logged `Event target link 'leader_country' returned an invalid object` from generated policy `on_activate` / `on_deactivate` lines | The law browser/policy tooltip evaluator walked activation/deactivation effect chains before a leader country was available, and the generator used direct `leader_country = { ... }` for mirrored country tier writes | Keep IO-root state changes direct, but enter mirrored leader-country side effects with `leader_country ?= { ... }` in IO policy activation/deactivation blocks. |
@@ -178,6 +206,7 @@ The following violations occurred and informed the Mandatory Reference Categorie
 | 2026-06 | IO establishment refresh checked `capital = { has_building = ... }` from country-scoped yearly/monthly logic and logged `Event target link 'capital' returned an invalid object` for countries without a valid capital | Treated the country `capital` link as always resolvable, then briefly tried sibling `exists = capital` as if trigger blocks short-circuit | Use `capital ?= { ... }` in trigger/limit checks. Only enter direct `capital = { ... }` in an effect body after an `if` limit using the optional link has passed. |
 | 2026-06 | IO establishment localization used `[GetBuilding('tv_*_headquarters').GetName]`, causing GUI-bound localized text parsing to fail with `Failed to find type 'GetBuilding'` | Treated a script-like building accessor as a localization data function | Use localization helpers such as `[ShowBuildingTypeName('building_key')]` or `[ShowBuildingTypeNameWithNoTooltip('building_key')]` for building-type display names. |
 | 2026-06 | Engineering Department wonder design risked using fixed-value population conversion/assimilation, local manpower, or local sailors modifiers as if values above `0.5` were ordinary percentage-scale bonuses | EU5 multiplies these fixed-value modifiers by 1000 in game, while the visually similar `*_modifier` variants are the percent modifiers | For wonder data, keep `global_pop_assimilation_speed`, `global_pop_conversion_speed`, `local_pop_assimilation_speed`, `local_pop_conversion_speed`, `local_manpower`, and `local_sailors` at or below `0.5`; use the matching `*_modifier` id for percentage bonuses. `validate.py` checks wonder paths. |
+| 2026-07 | Diplomatic Victory milestone 4 granted `subject_loyalty = 0.10`, making the reward effectively a tiny fraction of a loyalty point | Treated `subject_loyalty` like a percent-style modifier because the modifier type displays decimals | `subject_loyalty` is loyalty-point scale. Vanilla advances use whole values such as `subject_loyalty = 5`; write `10` for +10 loyalty, not `0.10`. |
 | 2026-06 | Engineering Department ritual tooltip effects used `add_country_modifier` with `tv_wonder_auto_unique_*_style_1_country_modifier`, producing `Invalid database object` script-system errors | Treated Country Auto modifiers from `common/auto_modifiers` as if they were static country modifiers accepted by `add_country_modifier` | Keep actual building-gated effects in Country Auto modifiers. For tooltip modifier lists, generate static country modifier mirrors and reference those static ids, or emit real effect/custom tooltip lines. Do not restore finalization-time static grants/removals. |
 | 2026-06 | Engineering Department GUI put `parentanchor` on a progressbar that was a direct `hbox` child and put `margin_top` directly on Organization/Logistics progressbars, causing `Widget cannot have a position in a layout` and `Property 'margin_top' not handled` load errors | Treated progressbar as if it accepted the same layout/offset properties as text widgets and as if a box-layout child could position itself | In `hbox`/`vbox`, let the box layout own direct child placement. For progressbar vertical centering or offset, put a fixed-size wrapper widget in the layout and anchor the progressbar inside that wrapper; do not put `margin_top` on progressbar. |
 | 2026-06 | Engineering Department saved priority proposal selection used `ordered_key_in_variable_map` with `max = 10000`, producing "Given max value was bigger than the list" script errors whenever fewer keys existed | Treated an inflated `max` as a harmless way to process all current variable-map keys | Use `every_key_in_variable_map` with a found/stop flag when the current key count is not known, or set `ordered_key_in_variable_map max` only to a value that cannot exceed the actual list size. |
@@ -213,7 +242,8 @@ The following violations occurred and informed the Mandatory Reference Categorie
 | 2026-05 | Would have treated `common/music_player_tracks` as a full scripted music-rule database for loading raw tracks and controlling playback by country/event/war conditions | Carried over expectations from older Paradox title music scripts without checking EU5's exposed type reference, then overcorrected by saying script could not influence music at all | EU5 text files register Wwise event keys plus metadata and localization. Current verified references expose no trigger/chance fields inside `music_player_tracks`, but GUI can call Wwise events through `Audio_PlayEvent(<event>, 'music_manager')`, and hardcoded hooks such as `on_war_declared` can react to gameplay state. Keep track registration, audio-manager events, and gameplay hooks conceptually separate. |
 | 2026-05 | Generated Diplomatic Alliance IO policies used `scope:recipient` inside policy `allow`, `on_activate`, and `on_deactivate`, producing repeated runtime errors: `Undefined event target 'recipient'` and `Event target link 'scope' returned an unset scope` | Confused IO policy execution scope with IO policy AI math scope. The law readme documents `scope:recipient = IO` for `wants_this_policy_bias` / `wants_propose_policy`, but activation/deactivation run on the entity the policy applies to | In IO policy `allow` / `on_activate` / `on_deactivate`, read and mutate the current IO root directly (`var:tv_alliance_cohesion`, `change_variable`). Reserve `scope:recipient` for documented country-root AI math blocks such as `wants_this_policy_bias` and `wants_propose_policy`; use `leader_country ?= { ... }` for nullable leader mirrors. |
 | 2026-05 | Generated Diplomatic Alliance IO policy AI math still used direct `scope:recipient` reads and continued logging `Undefined event target 'recipient'` / unset-scope errors during pre-evaluation | Treated documented AI math scopes as always populated; custom non-unique IO laws can have `wants_this_policy_bias` / `wants_propose_policy` evaluated before a recipient IO target is set | Keep the AI math behavior, but guard every direct recipient read with `exists = scope:recipient` in the same `limit` block, or use optional `scope:recipient ?= { ... }` for trigger-only checks. |
-| 2026-06 | Governor's House subject-chain members sometimes showed extreme support for a law from `POLICY_MODIFIER_UTILITY` / "政策的实用性" | Generated leader-facing IO policy `country_modifier` blocks without a member filter; vanilla `policy_vote` automatically adds `scope:vote.modifier_utility(scope:actor)` for every voting member | If an IO policy modifier is intended only for the leader or another subset, put that filter inside the modifier block, e.g. `country_modifier = { potential_trigger = { is_leader_of_international_organization = scope:recipient } ... }`, or use `leader_modifier`/`non_leader_modifier` where appropriate. |
+| 2026-06 | Governor's House subject-chain members sometimes showed extreme support for a law from `POLICY_MODIFIER_UTILITY` / "政策的实用性" | Generated leader-facing IO policy `country_modifier` blocks without a member filter; vanilla `policy_vote` automatically adds `scope:vote.modifier_utility(scope:actor)` for every voting member | For additive leader-only `country_modifier` effects, filter the member package with `potential_trigger`; keep the filter recipient-safe when the effect must also show in ordinary law browsing. |
+| 2026-07 | Governor's House leader-only law effects showed "No Effects" during ordinary law browsing | The leader filter used `is_leader_of_international_organization = scope:recipient` directly; ordinary law-browser tooltip evaluation can lack a vote recipient event target | For visible additive leader-only IO law effects, use `country_modifier = { potential_trigger = { OR = { NOT = { exists = scope:recipient } is_leader_of_international_organization = scope:recipient } } ... }`. Use `leader_modifier` only when replacement semantics are intended. |
 | 2026-05 | `tv_diplomatic_alliance_list` compared `leader_country = this` inside `any_international_organizations_member_of`, causing `country` vs `international_organization` comparison errors | In `generic_action_ai_lists`, root is the evaluating country, but inside the IO iterator `this` is the iterated international organization | For leader-only IO action lists, use `exists = leader_country` and `leader_country = root`. |
 | 2026-05 | Reused `tv_wonder_has_materials_for_month_trigger` inside `tv_wonder_materials_stockpile.monthly_change`; construction progress advanced each month but the IO stockpile never paid the active construction cost | The trigger was written for country scope and compared against `root.var:tv_wonder_laborers`. Inside IO variable `monthly_change`, `root` remained the IO context even when the call was nested in `leader_country ?= { ... }`, so the condition failed and the subtract value stayed 0 | Do not call country-scoped triggers from IO `monthly_change` when they depend on `root.var`. Write IO-scoped conditions directly: check country state under `leader_country ?= { ... }`, then compare `var:io_stockpile >= leader_country.var:country_cost` from the IO scope. |
 | 2026-06 | Engineering Department survey progress stayed at 0 even while the country monthly survey pulse considered the survey active | Reused `tv_wonder_survey_active_trigger` inside `tv_wonder_survey_progress.monthly_change`; that country-scoped helper depends on caller-sensitive state/ownership scope (`prev` chain), which is not equivalent inside IO variable evaluation | Keep `tv_wonder_survey_progress` gain in IO `monthly_change`, but inline the active-survey country checks under `leader_country ?= { ... }` there. Do not move visible IO variable gain to country pulse. |

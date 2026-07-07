@@ -214,7 +214,7 @@
  game_concept_tv_alliance_assembly_desc: "The parliamentary forum of the [tv_diplomatic_alliance|e]. Members deliberate and vote on alliance laws, converting [tv_alliance_cohesion|e] into higher [tv_alliance_tier|e]."
 
  game_concept_tv_alliance_tier: "Alliance Tier"
- game_concept_tv_alliance_tier_desc: "A 0-15 [tv_diplomatic_alliance|e] variable representing the alliance's institutional development. Passing upgraded alliance laws spends [tv_alliance_cohesion|e] and increases [tv_alliance_tier|e]. Each tier generates 1 [tv_dvp|e] per month for the alliance leader and 0.5 [tv_dvp|e] for each non-leader member."
+ game_concept_tv_alliance_tier_desc: "A 0-21 [tv_diplomatic_alliance|e] variable representing the alliance's institutional development. Passing upgraded alliance laws spends [tv_alliance_cohesion|e] and increases [tv_alliance_tier|e]; War Laws contribute 0/1/2 tier by level. Each tier generates 1 [tv_dvp|e] per month for the alliance leader and 0.5 [tv_dvp|e] for each non-leader member."
 
  game_concept_tv_alliance_cohesion: "Alliance Cohesion"
  game_concept_tv_alliance_cohesion_desc: "A 0-100 [tv_diplomatic_alliance|e] variable measuring cooperation among alliance members. It grows each month from base growth, the leader country's diplomatic reputation, and internal peace. Upgraded alliance laws spend Cohesion to increase [tv_alliance_tier|e]."
@@ -270,6 +270,21 @@
 
  game_concept_tv_concentrated_research: "Concentrated Research"
  game_concept_tv_concentrated_research_desc: "The final subprocess of the [tv_research_mechanism|e]. It requires an appointed [tv_chief_scientist|e] with at least 20 [tv_effective_administrative_skill|e], gains progress from that effective skill each month, applies a temporary research speed penalty while active, and completes when its progress reaches 100."
+
+ game_concept_tv_debate_history: "History"
+ game_concept_tv_debate_history_desc: "A past philosophy debate node. For a newly founded [tv_academy_of_sciences|e], debates at or before its founding node are shown as history and do not involve the player."
+
+ game_concept_tv_local_debate: "Local"
+ game_concept_tv_local_debate_desc: "A domestic philosophy debate node hosted by the [tv_academy_of_sciences|e]. Each debate has a fixed Crown seat and five [tv_debate_seat|e]s that are gradually filled by [tv_debate_group|e]s through monthly debate events."
+
+ game_concept_tv_debate_seat: "Debate Seat"
+ game_concept_tv_debate_seat_desc: "A position in a domestic [tv_local_debate|e]. Seats hold one [tv_debate_group|e], its current stance, defection cooldown, and any linked artist, foreign country, or Great Scientist."
+
+ game_concept_tv_debate_group: "Debate Group"
+ game_concept_tv_debate_group_desc: "A domestic or foreign faction that can occupy a [tv_debate_seat|e]. Groups include estates, conditional estate variants, artists, foreign powers, and the Great Scientist; supporters advance the debate, opponents push it back, and neutral groups wait for later events."
+
+ game_concept_tv_world_debate: "World"
+ game_concept_tv_world_debate_desc: "An international philosophy debate node. World debate seats are shown as placeholders in the current implementation round, with real countries, flags, stances, and outcomes to be connected later."
 
  # ── Conquest Victory Unique Mechanics ──────────────────────────────────────
  game_concept_tv_govhouse: "Governor's House"

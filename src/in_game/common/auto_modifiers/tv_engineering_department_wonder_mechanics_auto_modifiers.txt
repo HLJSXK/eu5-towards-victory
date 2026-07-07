@@ -556,8 +556,8 @@ tv_wonder_auto_great_sculpture_group = {
 	scales_with = {
 		value = "variable_map(tv_wonder_auto_level_by_wonder_id|45)"
 	}
-	pop_join_rebel_threshold = 0.025
-	pop_leave_rebels_threshold = 0.025
+	pop_join_rebel_threshold = -0.025
+	pop_leave_rebels_threshold = -0.025
 	monthly_towards_humanist = 0.05
 }
 
@@ -1462,8 +1462,8 @@ tv_wonder_auto_unique_mogao_caves = {
 	scales_with = {
 		value = "variable_map(tv_wonder_auto_level_by_wonder_id|161)"
 	}
-	pop_join_rebel_threshold = 0.05
-	pop_leave_rebels_threshold = 0.05
+	pop_join_rebel_threshold = -0.05
+	pop_leave_rebels_threshold = -0.05
 	monthly_towards_humanist = 0.1
 }
 

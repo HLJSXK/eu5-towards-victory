@@ -167,6 +167,12 @@ Load this card before editing `.gui` files or GUI-bound localization expressions
     not a reliable script scope for action effects. If `scope:target` is absent,
     guarded effects can no-op silently with no cost and no error.
 
+27. Preserve existing panel structure.
+    Do not collapse staged rows, per-target display branches, target-specific labels,
+    or generated per-id GUI entries into generic fallback UI merely to make a data-list
+    change smaller. Preserve the established player-facing shape, or extend the
+    generator/data source and regenerate.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`, then check the in-game error log after hover

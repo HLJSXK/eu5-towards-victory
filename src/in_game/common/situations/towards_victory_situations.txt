@@ -69,3 +69,32 @@ tv_victory_situation = {
 		# Should never fire — tv_victory_situation is permanent
 	}
 }
+
+tv_academy_world_debate_situation = {
+	monthly_spawn_chance = monthly_spawn_chance_unique
+
+	can_start = {
+		always = yes
+	}
+
+	can_end = {
+		always = no
+	}
+
+	visible = {
+		has_variable = tv_academy_io_member
+	}
+
+	on_start = {
+		tv_academy_world_debate_initialize_effect = yes
+	}
+
+	on_monthly = {
+		hidden_effect = {
+			tv_academy_world_debate_monthly_effect = yes
+		}
+	}
+
+	on_ended = {
+	}
+}

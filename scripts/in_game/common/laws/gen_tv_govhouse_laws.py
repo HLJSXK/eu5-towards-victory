@@ -1,10 +1,10 @@
 """
 Generate src/in_game/common/laws/tv_govhouse_laws.txt from data/govhouse_laws.yaml.
 
-Pattern: Governor's House IO laws. Policies define country_modifier blocks for
-the leader country and keep IO policy votes enabled, matching the Academy of
-Sciences law flow without letting subject-member modifier utility dominate
-votes.
+Pattern: Governor's House IO laws. Policies define additive country_modifier
+blocks for the leader country and keep IO policy votes enabled, matching the
+Academy of Sciences law flow while keeping the visible policy effects available
+outside vote-recipient tooltip contexts.
 """
 
 import argparse
@@ -104,7 +104,10 @@ def gen_policy(policy: dict) -> str:
     if modifier_lines:
         lines.append(T * 2 + "country_modifier = {")
         lines.append(T * 3 + "potential_trigger = {")
-        lines.append(T * 4 + "is_leader_of_international_organization = scope:recipient")
+        lines.append(T * 4 + "OR = {")
+        lines.append(T * 5 + "NOT = { exists = scope:recipient }")
+        lines.append(T * 5 + "is_leader_of_international_organization = scope:recipient")
+        lines.append(T * 4 + "}")
         lines.append(T * 3 + "}")
         lines.append(_indent_block(modifier_lines, 3))
         lines.append(T * 2 + "}")

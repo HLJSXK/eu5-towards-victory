@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Generate all Towards Victory game files from data/victory_paths.yaml.
+r"""Generate all Towards Victory game files from data/victory_paths.yaml.
 
 Usage:
-    conda run --no-capture-output -n eu5 python scripts/gen_victory.py        # write files
-    conda run --no-capture-output -n eu5 python scripts/gen_victory.py --dry  # preview only
+    C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\gen_victory.py        # write files
+    C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\gen_victory.py --dry  # preview only
 
 1对1原则: Each YAML field maps to one piece of output. Complex EU5 script bodies
 are stored verbatim in the YAML; this generator inserts them unchanged. It is a
@@ -33,6 +33,7 @@ except ImportError:
     sys.exit(1)
 
 ROOT = Path(__file__).parent.parent
+MANAGED_SANDBOX_PYTHON = r"C:\Users\Hades\anaconda3\envs\eu5\python.exe"
 SRC = ROOT / "src"
 DATA_YAML = ROOT / "data" / "victory_paths.yaml"
 ESTABLISHMENT_YAML = ROOT / "data" / "io_establishment.yaml"
@@ -138,6 +139,13 @@ def _ai_creation_requirement_lines(est: dict, level: int) -> list[str]:
     lines.extend(_snippet_lines(requirement, level + 1))
     lines.append(f"{prefix}}}")
     return lines
+
+
+def _creation_requirement_lines(est: dict, level: int) -> list[str]:
+    requirement = est.get("creation_requirement_body", "").strip()
+    if not requirement:
+        return []
+    return _snippet_lines(requirement, level)
 
 
 def _leader_extra_effect_lines(leader: dict, key: str, level: int) -> list[str]:
@@ -285,6 +293,7 @@ def gen_triggers(data: dict) -> str:
             lines.append(f"\ttv_{pid}_establishment_basic_done = yes")
             lines.append(f"\ttv_{pid}_establishment_headquarters_done = yes")
             lines.append(f"\tNOT = {{ has_variable = tv_{pid}_victory_enabled }}")
+            lines.extend(_creation_requirement_lines(est, 1))
             lines.extend(_ai_creation_requirement_lines(est, 1))
             lines.append("}")
             lines.append("")
@@ -358,6 +367,10 @@ def gen_establishment_effects(data: dict) -> str:
         "\t\tset_variable = { name = tv_med_disp_adm value = 0 }",
         "\t\tset_variable = { name = tv_med_disp_dip value = 0 }",
         "\t\tset_variable = { name = tv_med_disp_mil value = 0 }",
+        "\t\tset_variable = { name = tv_academy_philosophy_current value = 1 }",
+        "\t\tset_variable = { name = tv_academy_philosophy_phase value = 0 }",
+        "\t\tset_variable = { name = tv_academy_philosophy_debate_position value = 50 }",
+        "\t\ttv_academy_philosophy_initialize_timeline_effect = yes",
         "\t}",
         "\tif = {",
         "\t\tlimit = {",
@@ -423,6 +436,35 @@ def gen_establishment_effects(data: dict) -> str:
         lines.append("\telse = {")
         lines.append(f"\t\tremove_variable = tv_{pid}_establishment_headquarters_done")
         lines.append("\t}")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("tv_io_establishment_validate_enabled_routes_on_game_load_effect = {")
+    lines.append("\tevery_country = {")
+    lines.append("\t\tlimit = {")
+    lines.append("\t\t\tOR = {")
+    for est in est_paths:
+        pid = est["id"]
+        lines.append(f"\t\t\t\thas_variable = tv_{pid}_victory_enabled")
+    lines.append("\t\t\t}")
+    lines.append("\t\t}")
+    for est in est_paths:
+        pid = est["id"]
+        leader = leaders[est["leader_id"]]
+        io_type = leader["io_type"]
+        lines.append("\t\tif = {")
+        lines.append("\t\t\tlimit = {")
+        lines.append(f"\t\t\t\thas_variable = tv_{pid}_victory_enabled")
+        lines.append("\t\t\t\tNOT = {")
+        lines.append("\t\t\t\t\tany_international_organizations_member_of = {")
+        lines.append(f"\t\t\t\t\t\tinternational_organization_type = international_organization_type:{io_type}")
+        lines.append("\t\t\t\t\t}")
+        lines.append("\t\t\t\t}")
+        lines.append("\t\t\t}")
+        lines.append(f"\t\t\tremove_variable = tv_{pid}_victory_enabled")
+        lines.append("\t\t}")
+    lines.append("\t\ttv_update_all_progress_pct_effect = yes")
+    lines.append("\t}")
     lines.append("}")
     lines.append("")
 
@@ -700,6 +742,35 @@ tv_victory_situation = {{
 \t\t# Should never fire — tv_victory_situation is permanent
 \t}}
 }}
+
+tv_academy_world_debate_situation = {{
+\tmonthly_spawn_chance = monthly_spawn_chance_unique
+
+\tcan_start = {{
+\t\talways = yes
+\t}}
+
+\tcan_end = {{
+\t\talways = no
+\t}}
+
+\tvisible = {{
+\t\thas_variable = tv_academy_io_member
+\t}}
+
+\ton_start = {{
+\t\ttv_academy_world_debate_initialize_effect = yes
+\t}}
+
+\ton_monthly = {{
+\t\thidden_effect = {{
+\t\t\ttv_academy_world_debate_monthly_effect = yes
+\t\t}}
+\t}}
+
+\ton_ended = {{
+\t}}
+}}
 """
 
 def gen_situation(data: dict) -> str:
@@ -720,6 +791,15 @@ def gen_on_actions(data: dict) -> str:
         lines.append("tv_io_establishment_monthly_pulse = {")
         lines.append("\teffect = {")
         lines.append("\t\ttv_io_establishment_monthly_pulse_effect = yes")
+        lines.append("\t}")
+        lines.append("}")
+        lines.append("")
+        lines.append("# Registered under on_game_load by tv_pulse_bridges.txt.")
+        lines.append("tv_io_establishment_save_load_validation = {")
+        lines.append("\teffect = {")
+        lines.append("\t\thidden_effect = {")
+        lines.append("\t\t\ttv_io_establishment_validate_enabled_routes_on_game_load_effect = yes")
+        lines.append("\t\t}")
         lines.append("\t}")
         lines.append("}")
         lines.append("")
@@ -903,6 +983,8 @@ def gen_localization(data: dict, lang: str) -> str:
                 "TV_ESTABLISHMENT_APPOINT_CHIEF_BUTTON": "Appoint Chief",
                 "TV_ESTABLISHMENT_APPOINT_CHIEF_UNAVAILABLE": "No eligible chief candidate is available.",
                 "tv_io_headquarters_price": "Organization Headquarters",
+                "MODIFIER_TYPE_NAME_tv_io_headquarters_price_cost_modifier": "$tv_io_headquarters_price$ Cost",
+                "MODIFIER_TYPE_DESC_tv_io_headquarters_price_cost_modifier": "Modifies the gold construction cost of $tv_io_headquarters_price$ buildings.",
                 "TV_IO_HEADQUARTERS_EVENT_OPTION": "Excellent.",
                 "TV_IO_ESTABLISHMENT_GUIDE_PANEL_OPTION": "Open the situation panel.",
                 "TV_IO_ESTABLISHMENT_GUIDE_BUILD_OPTION": "Begin construction in the capital.",
@@ -916,6 +998,8 @@ def gen_localization(data: dict, lang: str) -> str:
                 "TV_ESTABLISHMENT_APPOINT_CHIEF_BUTTON": "任命首席",
                 "TV_ESTABLISHMENT_APPOINT_CHIEF_UNAVAILABLE": "没有符合条件的首席候选人。",
                 "tv_io_headquarters_price": "组织首府",
+                "MODIFIER_TYPE_NAME_tv_io_headquarters_price_cost_modifier": "$tv_io_headquarters_price$花费",
+                "MODIFIER_TYPE_DESC_tv_io_headquarters_price_cost_modifier": "修正$tv_io_headquarters_price$的金币建设花费。",
                 "TV_IO_HEADQUARTERS_EVENT_OPTION": "很好。",
                 "TV_IO_ESTABLISHMENT_GUIDE_PANEL_OPTION": "打开局势面板。",
                 "TV_IO_ESTABLISHMENT_GUIDE_BUILD_OPTION": "在首都开始建造。",
@@ -1187,7 +1271,7 @@ def main() -> None:
     )
 
     if not dry:
-        print("Done. Run: conda run --no-capture-output -n eu5 python scripts/validate.py")
+        print(f"Done. Run: {MANAGED_SANDBOX_PYTHON} scripts\\validate.py")
 
 
 if __name__ == "__main__":

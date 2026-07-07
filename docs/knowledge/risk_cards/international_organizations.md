@@ -135,15 +135,20 @@ that create, find, or mutate TV IOs.
     Missing the bias logs a startup warning that the organization needs an opinion of
     other members.
 
-17. Filter IO policy member modifiers to their intended recipients.
+21. Filter IO policy member modifiers to their intended recipients.
     Vanilla `policy_vote` adds `scope:vote.modifier_utility(scope:actor)` to each
-    voting country's AI support as `POLICY_MODIFIER_UTILITY`. If a policy's
-    `country_modifier` is meant for the leader country only, add a modifier
-    `potential_trigger = { is_leader_of_international_organization = scope:recipient }`.
-    Otherwise subject or non-target members can strongly favor a policy because they
-    evaluate the unfiltered modifier package as their own direct benefit.
+    voting country's AI support as `POLICY_MODIFIER_UTILITY`. If a visible IO law
+    policy effect is meant for the leader country only and must stack with other
+    law modifiers, keep it as `country_modifier` but make the display filter
+    recipient-safe:
+    `potential_trigger = { OR = { NOT = { exists = scope:recipient } is_leader_of_international_organization = scope:recipient } }`.
+    The no-recipient branch is for ordinary law browsing; the leader check still
+    applies when a vote/application recipient exists. Use `leader_modifier` only
+    when replacing previous leader modifiers is intended. Otherwise subject or
+    non-target members can strongly favor a policy because they evaluate the
+    unfiltered modifier package as their own direct benefit.
 
-21. Keep idle parliament issues positively desirable.
+22. Keep idle parliament issues positively desirable.
     When a custom IO uses vanilla `call_organization_parliament` for normal, non-law
     sessions, make sure at least one issue for the participating special status has
     valid `potential` / `allow` / `selectable_for` and positive

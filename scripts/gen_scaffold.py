@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
-"""
+r"""
 Generate a syntactically valid EU5 skeleton file from a template library.
 
 Templates are derived verbatim from confirmed vanilla/mod examples (3-step rule, Step 3).
 Each output file has a # AUTO_SCAFFOLD_FROM header and TODO markers for fields to fill in.
 
 Usage:
-  conda run -n eu5 python scripts/gen_scaffold.py --type event     --name tv_my_event
-  conda run -n eu5 python scripts/gen_scaffold.py --type scripted_effect  --name tv_my_effect
-  conda run -n eu5 python scripts/gen_scaffold.py --type scripted_trigger --name tv_my_trigger
-  conda run -n eu5 python scripts/gen_scaffold.py --type static_modifier  --name tv_my_mod --category location
-  conda run -n eu5 python scripts/gen_scaffold.py --type on_action  --name tv_my_hook
-  conda run -n eu5 python scripts/gen_scaffold.py --type situation  --name tv_my_situation
-  conda run -n eu5 python scripts/gen_scaffold.py --type localization --name TV_MY_KEY
+  C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\gen_scaffold.py --type event     --name tv_my_event
+  C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\gen_scaffold.py --type scripted_effect  --name tv_my_effect
+  C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\gen_scaffold.py --type scripted_trigger --name tv_my_trigger
+  C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\gen_scaffold.py --type static_modifier  --name tv_my_mod --category location
+  C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\gen_scaffold.py --type on_action  --name tv_my_hook
+  C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\gen_scaffold.py --type situation  --name tv_my_situation
+  C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\gen_scaffold.py --type localization --name TV_MY_KEY
 
   --out   Output directory (default: stdout / dry run)
   --dry   Print scaffold to stdout without writing a file
@@ -35,6 +35,7 @@ if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
+MANAGED_SANDBOX_PYTHON = r"C:\Users\Hades\anaconda3\envs\eu5\python.exe"
 
 SCAFFOLD_HEADER = "# AUTO_SCAFFOLD_FROM: scripts/gen_scaffold.py — fill in TODO markers, then remove this line."
 
@@ -227,7 +228,7 @@ def main() -> None:
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(content, encoding=encoding)
     print(f"[OK] Scaffold written: {out_path.relative_to(REPO_ROOT)}")
-    print(f"     Fill in TODO markers, then run: conda run -n eu5 python scripts/validate.py --changed")
+    print(f"     Fill in TODO markers, then run: {MANAGED_SANDBOX_PYTHON} scripts\\validate.py --changed")
 
 
 if __name__ == "__main__":

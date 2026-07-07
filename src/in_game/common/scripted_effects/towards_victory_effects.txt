@@ -161,6 +161,10 @@ tv_academy_of_sciences_create_effect = {
 		set_variable = { name = tv_med_disp_adm value = 0 }
 		set_variable = { name = tv_med_disp_dip value = 0 }
 		set_variable = { name = tv_med_disp_mil value = 0 }
+		set_variable = { name = tv_academy_philosophy_current value = 1 }
+		set_variable = { name = tv_academy_philosophy_phase value = 0 }
+		set_variable = { name = tv_academy_philosophy_debate_position value = 50 }
+		tv_academy_philosophy_initialize_timeline_effect = yes
 	}
 	if = {
 		limit = {
@@ -320,6 +324,88 @@ tv_io_establishment_refresh_headquarters_cache_effect = {
 	}
 	else = {
 		remove_variable = tv_science_establishment_headquarters_done
+	}
+}
+
+tv_io_establishment_validate_enabled_routes_on_game_load_effect = {
+	every_country = {
+		limit = {
+			OR = {
+				has_variable = tv_conquest_victory_enabled
+				has_variable = tv_prosperity_victory_enabled
+				has_variable = tv_trade_victory_enabled
+				has_variable = tv_diplomatic_victory_enabled
+				has_variable = tv_cultural_victory_enabled
+				has_variable = tv_science_victory_enabled
+			}
+		}
+		if = {
+			limit = {
+				has_variable = tv_conquest_victory_enabled
+				NOT = {
+					any_international_organizations_member_of = {
+						international_organization_type = international_organization_type:tv_govhouse
+					}
+				}
+			}
+			remove_variable = tv_conquest_victory_enabled
+		}
+		if = {
+			limit = {
+				has_variable = tv_prosperity_victory_enabled
+				NOT = {
+					any_international_organizations_member_of = {
+						international_organization_type = international_organization_type:tv_engineering_department
+					}
+				}
+			}
+			remove_variable = tv_prosperity_victory_enabled
+		}
+		if = {
+			limit = {
+				has_variable = tv_trade_victory_enabled
+				NOT = {
+					any_international_organizations_member_of = {
+						international_organization_type = international_organization_type:tv_trade_league
+					}
+				}
+			}
+			remove_variable = tv_trade_victory_enabled
+		}
+		if = {
+			limit = {
+				has_variable = tv_diplomatic_victory_enabled
+				NOT = {
+					any_international_organizations_member_of = {
+						international_organization_type = international_organization_type:tv_diplomatic_alliance
+					}
+				}
+			}
+			remove_variable = tv_diplomatic_victory_enabled
+		}
+		if = {
+			limit = {
+				has_variable = tv_cultural_victory_enabled
+				NOT = {
+					any_international_organizations_member_of = {
+						international_organization_type = international_organization_type:tv_arts_exhibition
+					}
+				}
+			}
+			remove_variable = tv_cultural_victory_enabled
+		}
+		if = {
+			limit = {
+				has_variable = tv_science_victory_enabled
+				NOT = {
+					any_international_organizations_member_of = {
+						international_organization_type = international_organization_type:tv_academy_of_sciences
+					}
+				}
+			}
+			remove_variable = tv_science_victory_enabled
+		}
+		tv_update_all_progress_pct_effect = yes
 	}
 }
 

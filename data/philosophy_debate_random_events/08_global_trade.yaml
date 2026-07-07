@@ -1,0 +1,912 @@
+random_events:
+  - design_id: GT01
+    pool: global_trade
+    issue: global_trade
+    weight: 1
+    title:
+      english: "Harbor Ledgers"
+      simp_chinese: "港口账簿"
+    desc:
+      english: "Harbor clerks unroll ledgers of salt, silk, spice, freight, and insurance across the Academy table, one column crowding the next. Every figure insists that distant prices already govern the realm, whatever landed honor pretends not to smell."
+      simp_chinese: "港口书记员把盐、丝绸、香料、运费与保险的账簿一列挨一列铺满学院长桌。每一个数字都在申辩：远方的价格早已管着这个国家，无论土地上的荣誉如何假装闻不到那股气味。"
+    options:
+      a:
+        text:
+          english: "The clerks read every column aloud to the full table."
+          simp_chinese: "书记员把每一列数字念给满座听。"
+        progress_delta: 10
+        rationale:
+          english: "Read aloud, the columns stop being tavern rumor and become evidence a burgher can cite. Merchant and maritime voices now argue from the record itself, and the room leans sharply toward the world it can no longer un-hear."
+          simp_chinese: "一旦念出声，这些数字就不再是酒馆传闻，而成了市民能引用的证据。市民与海商如今凭记录发言，会场也就明显倒向那个再也装不了聋的世界。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: burghers_estate
+            value: 0.04
+          - type: seat_stance
+            group: maritime_merchants
+            stance: support
+            cooldown_months: 18
+      b:
+        text:
+          english: "We call it merchant arithmetic, and turn the page."
+          simp_chinese: "我们斥之为商人的算术，翻过这一页。"
+        progress_delta: -10
+        rationale:
+          english: "Waving off the figures restores land and lineage above the counting-house, which the nobles receive gratefully. Yet it also trains the hall to deny the very arithmetic that proves distant trade has already arrived."
+          simp_chinese: "斥退这些数字，土地与门第便重新压过账房，贵族欣然领受。可这也等于教会会场，去否认那套早已证明远方贸易到场的算术。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: nobles_estate
+            value: 0.04
+          - type: seat_stance
+            group: nobility
+            stance: oppose
+            cooldown_months: 18
+
+  - design_id: GT02
+    pool: global_trade
+    issue: global_trade
+    weight: 1
+    title:
+      english: "Foreign Merchant Quarter"
+      simp_chinese: "外商馆区"
+    desc:
+      english: "Foreign merchants ask for warehouses, lodging, and watchmen of their own beside the harbor. The request sounds merely practical, until the room realizes it would give distant markets a permanent address, a doorplate, and quite possibly better locks than the Crown's."
+      simp_chinese: "外国商人请求在港口旁拥有仓库、住所，还有自己的守卫。这要求听着不过是务实之举——直到众人回过神来：它会让远方市场在境内落下固定地址、挂上门牌，说不定连锁都比王室的更结实。"
+    options:
+      a:
+        text:
+          english: "The Crown grants the quarter its warehouses and its guards."
+          simp_chinese: "王室准许商馆区拥有仓库与守卫。"
+        progress_delta: 10
+        rationale:
+          english: "Granting the quarter concedes that world trade needs standing institutions, contracts under guard, and foreign hands one can trust. It carries the issue far forward, while handing foreign powers a visible door into the debate."
+          simp_chinese: "准许商馆区，等于承认全球贸易需要常设机构、有守卫护着的契约，以及可以信赖的外国中介。这会把议题大步推进，同时给外国势力留下一扇通向辩论的显眼大门。"
+        effect_blocks:
+          - type: seat_stance
+            group: foreign_power
+            stance: support
+            cooldown_months: 24
+          - type: foreign_prestige
+            amount: 5
+      b:
+        text:
+          english: "Guests at the wharf, never partners in it."
+          simp_chinese: "码头上的客人，绝非码头的伙伴。"
+        progress_delta: -5
+        rationale:
+          english: "Refusing special rights guards local guild custom and pens in foreign influence, but it announces that international merchants may trade as guests only, never as partners in a new order."
+          simp_chinese: "拒绝特殊权利，护住了本地行会习俗，也圈住了外国影响；但这也宣告：国际商人只能以客人身份经商，永远做不了新秩序里的伙伴。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: burghers_estate
+            value: 0.03
+          - type: seat_stance
+            group: local_autonomy
+            stance: oppose
+            cooldown_months: 12
+
+  - design_id: GT03
+    pool: global_trade
+    issue: global_trade
+    weight: 1
+    title:
+      english: "Tariff Confusion"
+      simp_chinese: "关税混乱"
+    desc:
+      english: "A customs review turns up duties so tangled that profitable cargo is punished by accident while favored goods drift through by habit. The schedule has become a policy quarrel written entirely in crossed-out numbers."
+      simp_chinese: "一场海关审查翻出纠缠不清的税目：有利可图的货物被莫名其妙地惩罚，受偏爱的商品却凭习惯一路放行。整张税表，已经成了一场写满划线数字的政策争吵。"
+    options:
+      a:
+        text:
+          english: "We cut the schedule down to rules a merchant can read."
+          simp_chinese: "我们把税目删减成商人看得懂的规则。"
+        progress_delta: 10
+        rationale:
+          english: "Cutting the schedule down turns world trade from accidental privilege into a system one can actually read. Merchants can plan against clear rules, which strengthens acceptance, even as the old customs rents quietly dry up."
+          simp_chinese: "把税目删减下来，全球贸易便从偶然的特权变成一套读得懂的制度。商人能依着清晰规则筹划，接受倾向随之增强，尽管旧日的海关租利也悄悄枯竭。"
+        effect_blocks:
+          - type: seat_stance
+            group: maritime_merchants
+            stance: support
+            cooldown_months: 18
+          - type: temporary_country_modifier
+            key: tv_academy_debate_simplified_tariffs
+            months: 24
+            effects:
+              "old customs rents curtailed": -0.02
+      b:
+        text:
+          english: "A familiar tangle is safer than a strange order."
+          simp_chinese: "熟悉的乱麻，好过陌生的秩序。"
+        progress_delta: -5
+        rationale:
+          english: "Keeping the schedule preserves the habits, and the quiet rents, of cautious officials. It slows acceptance by treating confusion as a tolerable toll paid for control."
+          simp_chinese: "保留原有税目，护住了谨慎官员的习惯，也护住了那笔安静的租利。它把混乱当作换取掌控的合理过路费，因而拖慢了接受的脚步。"
+        effect_blocks:
+          - type: resource
+            resource: gold
+            scale: 1
+          - type: seat_stance
+            group: court_bureaucrats
+            stance: oppose
+            cooldown_months: 18
+
+  - design_id: GT04
+    pool: global_trade
+    issue: global_trade
+    weight: 1
+    title:
+      english: "Spice Cargo"
+      simp_chinese: "香料货物"
+    desc:
+      english: "A spice cargo is broached before the Academy, and the room fills with a scent no inland tax register has ever managed to record. All at once the distant islands feel less like rumor and more like an argument that has turned up wearing cinnamon."
+      simp_chinese: "一批香料在学院面前开箱，室内顿时弥漫起内陆税册从未记录在案的气味。遥远的岛屿一下子不再像传闻，倒像一场沾着肉桂香、径直登门的论证。"
+    options:
+      a:
+        text:
+          english: "The cargo is opened where every nose in the hall can judge it."
+          simp_chinese: "货物就在满堂鼻子都能评判的地方开箱。"
+        progress_delta: 5
+        rationale:
+          english: "Opening the cargo lets ordinary onlookers feel the pull of distant exchange in their own hands. The gain is only moderate, for spectacle stirs curiosity far more readily than it settles policy."
+          simp_chinese: "当众开箱，让普通旁听者亲手掂量远方交换的诱惑。推进却只是中等——奇观最擅长撩起好奇，却最不擅长平息政策之争。"
+        effect_blocks:
+          - type: seat_stance
+            group: public_opinion
+            stance: support
+            cooldown_months: 12
+          - type: seat_stance
+            group: maritime_merchants
+            stance: support
+            cooldown_months: 12
+      b:
+        text:
+          english: "We put it to tax before it can testify."
+          simp_chinese: "趁它开口作证之前，我们先给它上税。"
+        progress_delta: -5
+        rationale:
+          english: "Taxing it quietly converts the cargo into revenue before it can become public proof of world trade. The treasury is the richer for it, but the debate loses a vivid chance to make the wider economy feel real."
+          simp_chinese: "悄悄征税，会在这批货成为全球贸易的公共证据之前，先把它折成财政收入。国库因此更充盈，辩论却错过了一次让世界经济变得可触可感的良机。"
+        effect_blocks:
+          - type: resource
+            resource: gold
+            scale: 1
+          - type: seat_cooldown
+            group: public_opinion
+            cooldown_months: 12
+
+  - design_id: GT05
+    pool: global_trade
+    issue: global_trade
+    weight: 1
+    title:
+      english: "Port Nobles Object"
+      simp_chinese: "港口遭贵族反对"
+    desc:
+      english: "Inland nobles warn that ocean trade is teaching the realm to bow to warehouses instead of fields. Their speeches arrive polished, wounded, and wholly convinced that wealth ought still to smell of turned earth."
+      simp_chinese: "内陆贵族警告说，海洋贸易正教这个国家向仓库低头，而非向田地。他们的演说打磨光洁、满含委屈，且笃信不疑：财富到底该带着翻耕过的泥土味。"
+    options:
+      a:
+        text:
+          english: "We answer that a full warehouse honors the realm no less than a field."
+          simp_chinese: "我们回敬一句：满仓与良田，一样为国增光。"
+        progress_delta: 10
+        rationale:
+          english: "Answering the nobles head-on breaks the old assumption that only land can honorably underwrite policy. World trade gains ground as maritime profit is defended, out loud, as legitimate strength of the realm."
+          simp_chinese: "正面回敬贵族，打破了唯有土地才配体面地支撑政策的旧成见。海上利润被公开辩护为国家的正当力量，全球贸易也就随之得势。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: nobles_estate
+            value: -0.05
+          - type: seat_stance
+            group: maritime_merchants
+            stance: support
+            cooldown_months: 18
+      b:
+        text:
+          english: "The chair reassures the landed benches that fields come first."
+          simp_chinese: "主席向拥有田产的诸位保证，田地仍居首位。"
+        progress_delta: -10
+        rationale:
+          english: "Reassuring landed privilege shields noble standing by casting harbor wealth as secondary and dependent. The debate turns sharply from acceptance, since the old hierarchy is left to define the new economy."
+          simp_chinese: "安抚土地特权，是把港口财富说成次要且依附之物，从而护住贵族地位。旧等级得以界定新经济，辩论便明显偏离了接受。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: nobles_estate
+            value: 0.05
+          - type: seat_stance
+            group: nobility
+            stance: oppose
+            cooldown_months: 24
+
+  - design_id: GT06
+    pool: global_trade
+    issue: global_trade
+    weight: 1
+    title:
+      english: "Insurance for Ships"
+      simp_chinese: "船舶保险"
+    desc:
+      english: "Merchants lay storm accounts, wreck inventories, and survivors' statements before the Academy. Their argument is blunt as a bosun: a realm that would share distant profit must first learn to share distant loss."
+      simp_chinese: "商人把风暴记录、沉船清单和幸存者证词摆到学院面前。他们的论点像水手长一样直白：一个想分享远洋利润的国家，得先学会分担远洋的损失。"
+    options:
+      a:
+        text:
+          english: "The Academy enters maritime insurance into the record."
+          simp_chinese: "学院将海运保险载入正式记录。"
+        progress_delta: 10
+        rationale:
+          english: "Entering maritime insurance into the record turns world trade from a reckless wager into a disciplined pooling of risk, and makes acceptance easier for anyone who has ever feared sudden ruin."
+          simp_chinese: "把海运保险载入记录，会将全球贸易从鲁莽的赌注变成有章可循的共同分险，让每一个惧怕一夜破产的人都更容易点头。"
+        effect_blocks:
+          - type: seat_stance
+            group: burghers
+            stance: support
+            cooldown_months: 18
+          - type: temporary_country_modifier
+            key: tv_academy_debate_maritime_insurance_pool
+            months: 24
+            effects:
+              "shared voyage-loss risk": 0.03
+      b:
+        text:
+          english: "Every man drowns on his own account."
+          simp_chinese: "各人淹死，各人认命。"
+        progress_delta: -5
+        rationale:
+          english: "Treating shipwreck as private misfortune comforts the moralists who mistrust speculative contracts, but it leaves overseas commerce looking fragile and ruinous to any single house that dares it."
+          simp_chinese: "把海难当作私人的不幸，能安抚那些不信投机契约的道德家；却也让远洋贸易显得脆弱不堪，足以拖垮任何一个胆敢涉足的家族。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: clergy_estate
+            value: 0.02
+          - type: seat_stance
+            group: clergy
+            stance: oppose
+            cooldown_months: 12
+
+  - design_id: GT07
+    pool: global_trade
+    issue: global_trade
+    weight: 1
+    title:
+      english: "Smuggler's Map"
+      simp_chinese: "走私者的地图"
+    desc:
+      english: "A seized map marks coves, warehouses, quiet roads, and trusted signals with more diligence than any customs register ever mustered. The illegal network is a great embarrassment, chiefly because it works."
+      simp_chinese: "一张缴获的地图把海湾、仓库、僻静小路和可信暗号标得一丝不苟，比任何海关簿册都上心。这个非法网络叫人难堪，难堪之处正在于——它真的管用。"
+    options:
+      a:
+        text:
+          english: "The clerks redraw the legal routes to match the smugglers' craft."
+          simp_chinese: "书记员照走私者的门道，重画合法商路。"
+        progress_delta: 10
+        rationale:
+          english: "Redrawing the legal routes admits that trade will find its efficient channels with or without a stamp. The debate shifts toward acceptance, for the state chooses to study the network rather than pretend it away."
+          simp_chinese: "照着重画合法商路，等于承认贸易无论有没有官府印章，都会自寻高效的通道。国家选择研究这个网络，而非假装它不存在，辩论也就转向接受。"
+        effect_blocks:
+          - type: seat_stance
+            group: maritime_merchants
+            stance: support
+            cooldown_months: 24
+          - type: seat_stance
+            group: court_bureaucrats
+            stance: oppose
+            cooldown_months: 12
+      b:
+        text:
+          english: "Into the fire with it."
+          simp_chinese: "一把火烧了它。"
+        progress_delta: -10
+        rationale:
+          english: "Into the fire it goes, preserving the old customs order and denying the smugglers any victory of ideas. It also burns the evidence that the lawful routes have grown less sensible than the outlaw ones."
+          simp_chinese: "一把火烧了它，旧海关秩序得以保全，也不让走私者在道理上占先。可这同样烧掉了一份证据：合法商路，早已不如那些非法商路来得合理。"
+        effect_blocks:
+          - type: seat_cooldown
+            group: maritime_merchants
+            cooldown_months: 18
+          - type: temporary_country_modifier
+            key: tv_academy_debate_old_customs_controls
+            months: 18
+            effects:
+              "customs gatekeeping preserved": 0.02
+
+  - design_id: GT08
+    pool: global_trade
+    issue: global_trade
+    weight: 1
+    title:
+      english: "Dock Labor Strike"
+      simp_chinese: "码头劳工罢工"
+    desc:
+      english: "Dockworkers still the cranes, ropes, carts, and shouting that make trade look effortless from inside a council chamber. They put one plain question to the Academy: why should widening commerce make every wage feel smaller?"
+      simp_chinese: "码头工人叫停了吊机、绳索、货车和喧嚷——正是这些让贸易在议事厅里显得毫不费力。他们向学院抛出一个朴素的问题：为什么商业越是扩张，每一份工钱反倒越显得单薄？"
+    options:
+      a:
+        text:
+          english: "The council bargains a set of protections for the docks."
+          simp_chinese: "议事会为码头谈定一套劳工保护。"
+        progress_delta: 5
+        rationale:
+          english: "Bargaining protections shows that world trade can be accepted without pretending its labor is invisible. The gain is moderate: compromise steadies support at the cost of some merchant enthusiasm."
+          simp_chinese: "谈定保护，表明接受全球贸易不必假装劳工不存在。收益只是中等——妥协稳住了支持，却也磨掉了商人的一部分热情。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: peasants_estate
+            value: 0.04
+          - type: seat_stance
+            group: peasants
+            stance: support
+            cooldown_months: 18
+      b:
+        text:
+          english: "We clear the quays and set the cranes moving again."
+          simp_chinese: "我们清空码头，让吊机重新转起来。"
+        progress_delta: -5
+        rationale:
+          english: "Clearing the quays gets the docks moving and pleases the merchants, but it hands opponents a tidy line: world trade, they will say, grows by silencing the very hands that carry it."
+          simp_chinese: "清空码头，货运恢复了，商人也高兴；却给了反对者一句现成的说辞：他们会说，全球贸易的扩张，靠的是让搬运它的那双手闭嘴。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: burghers_estate
+            value: 0.03
+          - type: seat_stance
+            group: peasants
+            stance: oppose
+            cooldown_months: 18
+
+  - design_id: GT09
+    pool: global_trade
+    issue: global_trade
+    weight: 1
+    title:
+      english: "Rival Trade Embassy"
+      simp_chinese: "敌手的贸易使团"
+    desc:
+      english: "A rival court sends merchants bearing gifts, draft contracts, and compliments buffed until they very nearly pass for friendship. Every offer carries the faint, familiar scent of opportunity mixed with leverage."
+      simp_chinese: "一个敌对宫廷派来商人，携着礼物、契约草案和一番打磨到几乎能冒充友谊的恭维。每一项提议都飘着那股熟悉的淡淡气味——机会里掺着牵制。"
+    options:
+      a:
+        text:
+          english: "The rival envoys are received in the open hall."
+          simp_chinese: "敌手的使节在敞开的大厅里被接待。"
+        progress_delta: 5
+        rationale:
+          english: "Receiving the envoys in open hall treats world trade as diplomacy conducted by contract as much as by envoy. The gain is modest, for closer contact opens opportunity even as it lets a rival's influence into the room."
+          simp_chinese: "在敞开的大厅接待使节，是把全球贸易当作既凭契约、也凭使节进行的外交。收益有限，因为更近的往来在带来机会的同时，也把敌手的影响放进了会场。"
+        effect_blocks:
+          - type: seat_stance
+            group: foreign_power
+            stance: support
+            cooldown_months: 18
+          - type: temporary_country_modifier
+            key: tv_academy_debate_trade_embassy_reception
+            months: 18
+            effects:
+              "rival contract channels opened": 0.02
+      b:
+        text:
+          english: "Courtesy at the gate, and no farther."
+          simp_chinese: "礼数止于门口，不许再进。"
+        progress_delta: -5
+        rationale:
+          english: "Courtesy at the gate reassures protectionists that no foreign merchant will write policy by smiling at it. It also narrows the Academy's case for trade into something more guarded, and more suspicious of exchange."
+          simp_chinese: "礼数止于门口，能让保护主义者安心：没有哪个外国商人能靠一张笑脸写出政策来。可这也把学院的贸易论证收窄成一套更设防、更疑心交流的说辞。"
+        effect_blocks:
+          - type: seat_stance
+            group: local_autonomy
+            stance: oppose
+            cooldown_months: 18
+          - type: seat_stance
+            group: foreign_power
+            stance: oppose
+            cooldown_months: 12
+
+  - design_id: GT10
+    pool: global_trade
+    issue: global_trade
+    weight: 1
+    title:
+      english: "Standard Weights"
+      simp_chinese: "标准度量衡"
+    desc:
+      english: "Traders arrive with scales, stones, stamped bars, and accusations enough to fill half the market towns in the realm. Fraud here has grown so local that men now defend it as tradition."
+      simp_chinese: "商人带着天平、砝码、打印过的金属条，以及足以填满半数集镇的相互控诉走进学院。此地的欺诈已经地方化到这般地步——人们竟以\"传统\"之名替它辩护。"
+    options:
+      a:
+        text:
+          english: "The traders' scales give way to one standard across the realm."
+          simp_chinese: "商人的各式天平，让位于全国统一的标准。"
+        progress_delta: 10
+        rationale:
+          english: "One standard across the realm makes distant markets comparable and enforceable, so world trade appears a lawful system rather than a chain of local sleights. Clerks and merchants alike inherit a shared language of measure."
+          simp_chinese: "全国一套标准，让远方市场变得可比较、可执行，全球贸易于是显得是一套法度，而非一连串地方把戏。官吏与商人也一同得到了共通的计量语言。"
+        effect_blocks:
+          - type: seat_stance
+            group: court_bureaucrats
+            stance: support
+            cooldown_months: 18
+          - type: estate_satisfaction
+            estate: burghers_estate
+            value: 0.03
+          - type: temporary_country_modifier
+            key: tv_academy_debate_standard_weights
+            months: 24
+            effects:
+              "market measurement fraud reduced": 0.03
+      b:
+        text:
+          english: "Every town keeps its own measure."
+          simp_chinese: "各镇自守其秤。"
+        progress_delta: -10
+        rationale:
+          english: "Every town keeping its own measure protects customary market authority and lets each keep a familiar fraud under a familiar name. It badly weakens acceptance, for world trade cannot grow without a measure held in common."
+          simp_chinese: "各镇自守其秤，护住了各地市场的惯例，也让每个城镇把熟悉的欺诈藏在熟悉的名号下。这大大削弱了接受，因为没有共通的度量，全球贸易根本无从铺展。"
+        effect_blocks:
+          - type: seat_stance
+            group: local_autonomy
+            stance: oppose
+            cooldown_months: 24
+          - type: temporary_country_modifier
+            key: tv_academy_debate_local_measures_preserved
+            months: 18
+            effects:
+              "local market custom protected": 0.02
+
+  - design_id: GT11
+    pool: global_trade
+    issue: global_trade
+    weight: 1
+    title:
+      english: "Caravan and Convoy"
+      simp_chinese: "商队与护航船队"
+    desc:
+      english: "Inland caravan masters and sea captains wrangle over which route deserves the Crown's coin. In the Academy chamber, road dust and salt spray are each offered as proof that the realm must learn to treat distance as one connected thing."
+      simp_chinese: "内陆商队首领与海上船长争执，究竟哪条路线配得上王室的银钱。在学院辩论厅里，路上的尘土与海上的盐雾都被端出来当证据，证明王国必须学会把遥远的距离当作彼此相连的一体。"
+    options:
+      a:
+        text:
+          english: "The Academy joins caravan to convoy as a single system."
+          simp_chinese: "学院把商队与船队接成一套体系。"
+        progress_delta: 10
+        rationale:
+          english: "Joining caravan to convoy treats world trade as one integrated system rather than a feud between routes. Acceptance rises sharply, though the treasury must underwrite the coordination and the sea-merchants gain fresh cause to back the debate."
+          simp_chinese: "把商队与船队接成一体，是把全球贸易视作一套整合的体系，而不是几条路线之间的争风。接受度因此陡增，只是国库得为这份协调埋单，海商也多了一层支持辩论的理由。"
+        effect_blocks:
+          - type: resource
+            resource: gold
+            scale: -1
+          - type: seat_stance
+            group: maritime_merchants
+            stance: support
+            cooldown_months: 18
+      b:
+        text:
+          english: "We keep each route to its own privilege."
+          simp_chinese: "我们让每条路线各守其特权。"
+        progress_delta: -5
+        rationale:
+          english: "Keeping each route to its own privilege reassures established carriers and local brokers that their old lanes will not be swallowed by a grander plan. Momentum fades, for world trade now looks like optional coordination rather than a new order."
+          simp_chinese: "让每条路线各守其特权，能安抚既有承运人与地方掮客：旧通道不会被更大的规划吞掉。势头随之消退，因为全球贸易看上去只是可有可无的协调，而非一种新秩序。"
+        effect_blocks:
+          - type: seat_stance
+            group: local_autonomy
+            stance: oppose
+            cooldown_months: 18
+
+  - design_id: GT12
+    pool: global_trade
+    issue: global_trade
+    weight: 1
+    title:
+      english: "Merchant School"
+      simp_chinese: "商人学校"
+    desc:
+      english: "Burghers propose teaching navigation, contracts, and languages as serious public knowledge. The notion unsettles everyone who would rather commerce stayed a family secret with a counting table attached."
+      simp_chinese: "市民阶层提议，把航海、契约与语言当作严肃的公共学问来教授。这念头让所有人都不安——那些宁可让商业永远做一门附带账桌的家族秘传的人，尤其如此。"
+    options:
+      a:
+        text:
+          english: "The Crown endows a school for navigation and contracts."
+          simp_chinese: "王室出资兴办一所航海与契约学校。"
+        progress_delta: 10
+        rationale:
+          english: "Endowing the school turns world trade from an inherited merchant craft into public expertise that can be taught. Navigation, contracts, and languages become state-recognized knowledge, and acceptance rises sharply, with the Crown footing the bill."
+          simp_chinese: "出资办学，把全球贸易从世代相传的商人手艺，变成可以传授的公共专长。航海、契约与语言获得国家承认，接受度大幅上升，代价则由王室的钱袋承担。"
+        effect_blocks:
+          - type: resource
+            resource: gold
+            scale: -1
+          - type: seat_stance
+            group: scholarly_community
+            stance: support
+            cooldown_months: 24
+          - type: estate_satisfaction
+            estate: burghers_estate
+            value: 0.03
+      b:
+        text:
+          english: "Let the counting-table stay in the family."
+          simp_chinese: "账桌嘛，还是留在自家吧。"
+        progress_delta: -5
+        rationale:
+          english: "Leaving the counting-table in the family shields guild elders and merchant houses from public standards. The debate slips backward, for trade knowledge stays a private inheritance rather than a shared tool of world commerce."
+          simp_chinese: "把账桌留在自家，护住了行会长老与商人家族，免受公共标准的约束。辩论因此倒退，因为贸易知识仍是私人的传家物，而非全球商业共享的工具。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: burghers_estate
+            value: 0.02
+          - type: seat_stance
+            group: local_autonomy
+            stance: oppose
+            cooldown_months: 18
+
+  - design_id: GT13
+    pool: global_trade
+    issue: global_trade
+    weight: 1
+    title:
+      english: "Export Panic"
+      simp_chinese: "出口恐慌"
+    desc:
+      english: "A poor harvest makes every export look like treason to a hungry town. Merchants insist their contracts keep tomorrow's grain moving; the crowd at the door wants to know why tomorrow's trust should outrank tonight's bread."
+      simp_chinese: "一场歉收，让饥饿的城镇把每一船出口都看成叛国。商人坚称他们的契约能让明天的粮食继续流通，门口的人群却想弄明白：凭什么明天的信用，要压过今晚的面包？"
+    options:
+      a:
+        text:
+          english: "The grain keeps moving, under a watchful eye."
+          simp_chinese: "粮食继续流通，只是多了一双盯着的眼睛。"
+        progress_delta: 5
+        rationale:
+          english: "Letting the grain move under supervision makes acceptance conditional on visible restraint. The advance is slight, for the policy keeps world exchange alive while public order must swallow the anger of hungry towns."
+          simp_chinese: "让粮食在监管下继续流通，等于把接受全球贸易系在可见的克制之上。推进有限，因为政策保住了世界交换，却要由公共秩序去咽下饥饿城镇的怒火。"
+        effect_blocks:
+          - type: resource
+            resource: stability
+            amount: -1
+          - type: seat_stance
+            group: maritime_merchants
+            stance: support
+            cooldown_months: 12
+      b:
+        text:
+          english: "We bar the export gates until the fields recover."
+          simp_chinese: "我们关上出口的闸门，等田地缓过气来。"
+        progress_delta: -10
+        rationale:
+          english: "Barring the gates lets tonight's scarcity condemn the whole principle of world trade. Public anger cools, but the debate swings sharply toward rejection, since markets are cast as the danger the moment food runs short."
+          simp_chinese: "关上闸门，让今晚的短缺给整个全球贸易原则定了罪。民愤平息了，辩论却猛地转向拒绝——粮食一紧，市场就被说成了祸根本身。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: peasants_estate
+            value: 0.04
+          - type: seat_stance
+            group: public_opinion
+            stance: oppose
+            cooldown_months: 18
+
+  - design_id: GT14
+    pool: global_trade
+    issue: global_trade
+    weight: 1
+    title:
+      english: "Port Quarantine"
+      simp_chinese: "港口检疫"
+    desc:
+      english: "Quarantine officials slow the trade and offer survival as their defense. Merchants call each delay a lost season; the physicians answer that the busiest harbor in the world is worthless if it lands the next funeral."
+      simp_chinese: "检疫官员拖慢贸易，并以\"活命\"作辩护。商人说每一次延误都是失去一整季，医师则回敬：若港口卸下的下一批货是葬礼，全世界最忙的码头也一文不值。"
+    options:
+      a:
+        text:
+          english: "Inspectors are trained to keep the harbor open and clean at once."
+          simp_chinese: "检疫官受训，让港口既开着又干净。"
+        progress_delta: 5
+        rationale:
+          english: "Training the inspectors argues that world trade can be made safer without shutting the harbor. Acceptance rises modestly as a practical objection falls away, and the treasury pays for the capacity to look closely."
+          simp_chinese: "训练检疫官，是在主张全球贸易可以在不关港的前提下更安全。一个实际的反对理由就此消失，接受度小幅上升，而细看货物的能力则要国库付账。"
+        effect_blocks:
+          - type: resource
+            resource: gold
+            scale: -1
+          - type: temporary_country_modifier
+            key: tv_academy_debate_quarantine_reform
+            months: 18
+            effects:
+              "health inspection capacity": 0.03
+      b:
+        text:
+          english: "We turn the foreign hulls away at the mole."
+          simp_chinese: "我们把外国船只挡在防波堤外。"
+        progress_delta: -5
+        rationale:
+          english: "Turning the foreign hulls away makes safety visible by pinching the flow of trade. The debate loses ground, for foreign exchange is treated as the illness itself, even as the public applauds a harbor acting decisively."
+          simp_chinese: "把外国船挡在堤外，靠掐紧货流来把安全感做给人看。辩论因此失分，因为外国交换被当成病症本身——哪怕民众正为港口的果断鼓掌。"
+        effect_blocks:
+          - type: seat_stance
+            group: public_opinion
+            stance: oppose
+            cooldown_months: 12
+          - type: temporary_country_modifier
+            key: tv_academy_debate_visible_port_closure
+            months: 12
+            effects:
+              "visible disease precautions": 0.02
+
+  - design_id: GT15
+    pool: global_trade
+    issue: global_trade
+    weight: 1
+    title:
+      english: "Naval Escort Debate"
+      simp_chinese: "海军护航之辩"
+    desc:
+      english: "Merchants demand escorts and admirals demand funds, a match no one has ever called cheap. The Academy hears a simple question dressed in expensive clothes: if trade is now global, must the state guard every horizon it profits from?"
+      simp_chinese: "商人要护航，将领要拨款，这门亲事从没人说它便宜。学院听见一个穿着华服的简单问题：既然贸易已然全球化，国家是否非得守卫每一条为它带来利润的天际线？"
+    options:
+      a:
+        text:
+          english: "The Crown funds escorts for every profitable horizon."
+          simp_chinese: "王室为每一条有利可图的天际线出资护航。"
+        progress_delta: 10
+        rationale:
+          english: "Funding the escorts makes world trade a strategic project the Crown stands behind, not a private gamble. Acceptance rises sharply as distant commerce is visibly protected, though the treasury groans and the sea-merchants sink deeper into the debate."
+          simp_chinese: "出资护航，把全球贸易变成王室背书的战略事业，而非私人的赌博。远方商业被明明白白地护住，接受度陡升，只是国库呻吟，海商也就此陷得更深。"
+        effect_blocks:
+          - type: resource
+            resource: gold
+            scale: -2
+          - type: seat_stance
+            group: maritime_merchants
+            stance: support
+            cooldown_months: 24
+          - type: temporary_country_modifier
+            key: tv_academy_debate_funded_trade_escorts
+            months: 24
+            effects:
+              "protected shipping confidence": 0.04
+      b:
+        text:
+          english: "The sea insures no one."
+          simp_chinese: "大海从不为谁保险。"
+        progress_delta: -5
+        rationale:
+          english: "Leaving merchants to insure themselves keeps state coin in the vault and ocean risk in private hands. The debate retreats, for the Crown declines to treat the guarding of world trade as any public duty of its own."
+          simp_chinese: "让商人自行投保，把国库的银钱留在库里，也把海上风险留在私人手中。辩论因此后退，因为王室拒绝把守护全球贸易当作自己的一份公共职责。"
+        effect_blocks:
+          - type: resource
+            resource: gold
+            scale: 1
+          - type: seat_stance
+            group: professional_military
+            stance: oppose
+            cooldown_months: 18
+
+  - design_id: GT16
+    pool: global_trade
+    issue: global_trade
+    weight: 1
+    title:
+      english: "Guild Monopoly Challenge"
+      simp_chinese: "行会垄断挑战"
+    desc:
+      english: "Overseas traders lay their contracts beside the city guild charters and call the old monopolies beautiful chains. The masters bristle, though the younger merchants can already hear distant markets rattling the locks."
+      simp_chinese: "海外贸易商把契约摆在城市行会特许状旁边，称那些旧垄断不过是精美的锁链。行会大师们怒发上冲，可年轻商人早已听见远方市场，正在撼动那些锁扣。"
+    options:
+      a:
+        text:
+          english: "We strike the locks off the old monopoly."
+          simp_chinese: "我们把旧垄断上的锁一并砸开。"
+        progress_delta: 10
+        rationale:
+          english: "Striking off the locks makes world trade a true reshuffling of market power, not merely more hulls at the quay. It advances acceptance by taking the side of overseas exchange against inherited urban privilege."
+          simp_chinese: "砸开这些锁，让全球贸易成为对市场权力的真正重排，而不只是码头上多了几条船。它站在海外交换一边，对抗世代承袭的城市特权，从而推动接受。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: burghers_estate
+            value: -0.04
+          - type: seat_stance
+            group: maritime_merchants
+            stance: support
+            cooldown_months: 24
+      b:
+        text:
+          english: "The masters keep their charters intact."
+          simp_chinese: "行会大师们的特许状原封不动。"
+        progress_delta: -10
+        rationale:
+          english: "Leaving the charters intact reassures the old masters that commerce will stay disciplined by local custom. But it teaches the debate a hard lesson: world exchange must bow before corporate right."
+          simp_chinese: "特许状原封不动，安抚了旧日大师：商业仍将受本地习惯的约束。可这也给辩论上了狠狠一课——全球交换，必须向团体权利低头。"
+        effect_blocks:
+          - type: estate_satisfaction
+            estate: burghers_estate
+            value: 0.03
+          - type: seat_stance
+            group: maritime_merchants
+            stance: oppose
+            cooldown_months: 18
+
+  - design_id: GT17
+    pool: global_trade
+    issue: global_trade
+    weight: 1
+    title:
+      english: "Language of Contracts"
+      simp_chinese: "契约语言"
+    desc:
+      english: "Translators bring three versions of the same trade contract to the Academy, and only one of them would have saved the cargo. The room learns, a little late, that a fortune can drown inside a single ambiguous clause."
+      simp_chinese: "译员把同一份贸易契约的三种文本带到学院，其中只有一种，本可以保住那批货。众人这才后知后觉地明白：一笔财富，足以淹死在一个含混的条款里。"
+    options:
+      a:
+        text:
+          english: "The Academy fixes one wording for every contract."
+          simp_chinese: "学院为每一份契约定下统一的措辞。"
+        progress_delta: 5
+        rationale:
+          english: "Fixing one wording turns world trade into a shared legal and scholarly discipline. Merchants gain clearer instruments, and the scholars prove that a careful clause can guard a cargo as surely as any escort."
+          simp_chinese: "定下统一措辞，把全球贸易变成一门共通的法律与学术规范。商人得到更清晰的工具，学者也证明了：一个措辞谨慎的条款，护货之力不亚于一队护航。"
+        effect_blocks:
+          - type: seat_stance
+            group: scholarly_community
+            stance: support
+            cooldown_months: 12
+          - type: seat_stance
+            group: maritime_merchants
+            stance: support
+            cooldown_months: 12
+      b:
+        text:
+          english: "Let each market keep its own tongue."
+          simp_chinese: "各市场自说其言。"
+        progress_delta: -5
+        rationale:
+          english: "Letting each market keep its own tongue preserves a familiar authority in every port. But it leaves long-distance exchange at the mercy of mistranslation, and keeps the whole question stubbornly provincial."
+          simp_chinese: "各市场自说其言，保住了每座港口熟悉的权威。可这也让远距离交换任由误译摆布，把整个议题死死按在地方的层面上。"
+        effect_blocks:
+          - type: seat_stance
+            group: local_autonomy
+            stance: oppose
+            cooldown_months: 12
+          - type: temporary_country_modifier
+            key: tv_academy_debate_local_contract_forms
+            months: 18
+            effects:
+              "local legal custom preserved": 0.02
+
+  - design_id: GT18
+    pool: global_trade
+    issue: global_trade
+    weight: 1
+    title:
+      english: "Distant Price Shock"
+      simp_chinese: "远方价格震荡"
+    desc:
+      english: "Word arrives that a price has shifted abroad, and local plans collapse before the officials can finish insisting that foreign markets are far away. The Academy hears the distance between ports shrink until it fits inside a single number."
+      simp_chinese: "海外价格变动的消息传来，本地的安排竟在官员还没说完\"外国市场远着呢\"之前就已塌了。学院听见港口之间的距离一路收缩，直到能塞进一个数字里。"
+    options:
+      a:
+        text:
+          english: "We admit that distant prices now steer us."
+          simp_chinese: "我们承认，远方的价格如今在替我们掌舵。"
+        progress_delta: 10
+        rationale:
+          english: "Admitting the exposure concedes the very heart of world trade: distant prices now steer local policy. The debate moves forward as denial gives way to adaptation, however much the adjustment stings."
+          simp_chinese: "承认这份风险，等于认下全球贸易的核心：远方的价格如今在替本地政策掌舵。以适应取代否认，辩论向前迈进，哪怕这番调整刺得人生疼。"
+        effect_blocks:
+          - type: resource
+            resource: stability
+            amount: -1
+          - type: seat_stance
+            group: maritime_merchants
+            stance: support
+            cooldown_months: 18
+      b:
+        text:
+          english: "Blame the speculators, naturally."
+          simp_chinese: "怪投机者，自然是怪投机者。"
+        progress_delta: -10
+        rationale:
+          english: "Blaming the speculators hands the anger a convenient target and dresses the shock as misconduct rather than interdependence. It shields the old argument by refusing, once again, to learn anything from a price."
+          simp_chinese: "怪罪投机者，给怒气递上一个现成的靶子，把这场震荡装扮成恶行，而非相互依赖。它拒绝再一次从价格里学到东西，从而护住了旧论点。"
+        effect_blocks:
+          - type: resource
+            resource: stability
+            amount: 1
+          - type: seat_stance
+            group: public_opinion
+            stance: oppose
+            cooldown_months: 18
+
+  - design_id: GT19
+    pool: global_trade
+    issue: global_trade
+    weight: 1
+    title:
+      english: "Free Port Proposal"
+      simp_chinese: "自由港提案"
+    desc:
+      english: "Reformers sketch a harbor where the Crown taxes movement instead of throttling it at every gate. The customs men call it reckless; the merchants call it the first honest map of how goods have been moving all along."
+      simp_chinese: "改革者勾勒出这样一座港口：王室不再在每道关卡扼住货流，而是向流动本身征税。海关官员斥之为鲁莽，商人却说，这才是货物一直以来如何流动的第一张诚实地图。"
+    options:
+      a:
+        text:
+          english: "The Crown charters the free port."
+          simp_chinese: "王室特许设立自由港。"
+        progress_delta: 10
+        rationale:
+          english: "Chartering the free port makes the Crown an organizer of world movement rather than a toll-keeper at inherited chokepoints. Acceptance advances strongly, and the protectionists who live off the old barriers are furious."
+          simp_chinese: "特许自由港，让王室从旧瓶颈处的收费人，变成全球流动的组织者。接受度强力推进，而那些靠旧壁垒过活的保护主义者，则暴跳如雷。"
+        effect_blocks:
+          - type: seat_stance
+            group: maritime_merchants
+            stance: support
+            cooldown_months: 24
+          - type: estate_satisfaction
+            estate: burghers_estate
+            value: -0.03
+      b:
+        text:
+          english: "We reject the experiment and keep the gates."
+          simp_chinese: "我们否掉这场试验，把关卡留着。"
+        progress_delta: -10
+        rationale:
+          english: "Rejecting the experiment keeps the customs houses predictable and protects the officials who know every gate by name. But it frames world trade as a danger to be penned in, rather than a flow to be governed."
+          simp_chinese: "否掉这场试验，海关体系照旧可预期，也护住了那些叫得出每道关卡名字的官员。可它把全球贸易描画成需要围堵的危险，而非需要治理的流动。"
+        effect_blocks:
+          - type: seat_stance
+            group: court_bureaucrats
+            stance: oppose
+            cooldown_months: 18
+          - type: temporary_country_modifier
+            key: tv_academy_debate_customs_house_routine
+            months: 18
+            effects:
+              "customs routine preserved": 0.02
+
+  - design_id: GT20
+    pool: global_trade
+    issue: global_trade
+    weight: 1
+    title:
+      english: "Map of Trade Winds"
+      simp_chinese: "贸易风向图"
+    desc:
+      english: "Navigators unroll wind charts across the Academy table, and the old routes suddenly look less like tradition than superstition under sail. Even the captains who scoff cannot stop stealing glances at the lines."
+      simp_chinese: "航海者在学院桌上展开风向图，旧航线忽然不再像传统，倒像一门扬着帆的迷信。连出声讥笑的船长，也忍不住一次次偷瞄那些线条。"
+    options:
+      a:
+        text:
+          english: "We set our sails by the charts, not by habit."
+          simp_chinese: "我们照图行船，不再凭老习惯。"
+        progress_delta: 5
+        rationale:
+          english: "Setting our sails by the charts lets practical seamanship become evidence for world trade. Acceptance advances modestly, as the room sees that distant exchange can be planned by observation rather than inherited habit."
+          simp_chinese: "照图行船，让实打实的航海术成为全球贸易的证据。会场看清了：远距离交换可以凭观测来筹划，而非全靠祖传的习惯，接受度也就温和向前。"
+        effect_blocks:
+          - type: seat_stance
+            group: maritime_merchants
+            stance: support
+            cooldown_months: 18
+          - type: scientist_attribute
+            adm: 0
+            dip: 1
+      b:
+        text:
+          english: "The captains hold to the routes their fathers sailed."
+          simp_chinese: "船长们守着父辈走过的航线。"
+        progress_delta: -5
+        rationale:
+          english: "Holding to the old routes honors the captains who trust the seamanship they inherited. But it leaves the debate treating wind-knowledge as a curiosity, never as a system fit to carry world exchange."
+          simp_chinese: "守着旧航线，是在敬重那些信赖祖传航海术的船长。可这也让辩论把风向知识当成一桩奇谈，而非一套足以承载全球交换的体系。"
+        effect_blocks:
+          - type: seat_stance
+            group: professional_military
+            stance: oppose
+            cooldown_months: 12
+          - type: temporary_country_modifier
+            key: tv_academy_debate_established_routes
+            months: 12
+            effects:
+              "conservative navigation practice preserved": 0.01
+
+excluded_events: []
