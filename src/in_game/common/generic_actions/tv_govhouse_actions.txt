@@ -135,6 +135,7 @@ tv_appoint_governor = {
 			custom_tooltip = {
 				text = TV_HAS_VARIABLE_NOT_SET_TT
 				NOT = { has_variable = tv_is_governor }
+				NOT = { has_variable = tv_govhouse_pending_governor_assignment }
 			}
 		}
 	}
@@ -225,6 +226,7 @@ tv_auto_assign_governors = {
 					custom_tooltip = {
 						text = TV_HAS_VARIABLE_NOT_SET_TT
 						NOT = { has_variable = tv_is_governor }
+						NOT = { has_variable = tv_govhouse_pending_governor_assignment }
 					}
 				}
 			}
@@ -501,6 +503,7 @@ tv_change_governor = {
 			custom_tooltip = {
 				text = TV_HAS_VARIABLE_NOT_SET_TT
 				NOT = { has_variable = tv_is_governor }
+				NOT = { has_variable = tv_govhouse_pending_governor_assignment }
 			}
 		}
 	}

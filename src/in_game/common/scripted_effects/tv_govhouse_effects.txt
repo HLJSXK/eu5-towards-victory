@@ -178,6 +178,11 @@ tv_govhouse_destroy_owned_house_effect = {
 	every_in_list = { variable = tv_governor_list
 		tv_governor_clear_assignment_effect = yes
 	}
+	every_in_list = { variable = tv_govhouse_pending_governor_list
+		remove_variable = tv_govhouse_pending_governor_assignment
+		remove_variable = tv_govhouse_pending_governor_country
+		remove_variable = tv_govhouse_pending_governor_region
+	}
 	every_owned_location = {
 		remove_variable = tv_govhouse_display_governor_char
 		remove_variable = tv_govhouse_display_task_type
@@ -196,6 +201,8 @@ tv_govhouse_destroy_owned_house_effect = {
 		remove_variable = tv_govhouse_display_mil_bonus_value
 	}
 	clear_variable_list = tv_governor_list
+	clear_variable_list = tv_govhouse_pending_governor_list
+	clear_variable_list = tv_govhouse_pending_governor_region_list
 	clear_variable_list = tv_govhouse_region_list
 	clear_variable_list = tv_govhouse_region_display_list
 	clear_variable_list = tv_govhouse_region_display_region_list
@@ -204,6 +211,11 @@ tv_govhouse_destroy_owned_house_effect = {
 	remove_variable = tv_govhouse_governor_automation_enabled
 	remove_variable = tv_govhouse_auto_assign_continue
 	remove_variable = tv_govhouse_auto_assign_safety
+	remove_variable = tv_govhouse_pending_governor_char
+	remove_variable = tv_govhouse_pending_governor_region
+	remove_variable = tv_govhouse_pending_local_admin_location
+	remove_variable = tv_govhouse_pending_from_automation
+	remove_variable = tv_govhouse_local_admin_construction_completed
 	remove_variable = tv_govhouse_member
 
 	every_in_list = { variable = tv_govhouse_destroy_ios
@@ -3428,19 +3440,125 @@ tv_govhouse_add_country_event_modifier_effect = {
 	}
 }
 
-# Clears a pending Local Administration confirmation state.
-# Scope: country.
-tv_govhouse_clear_pending_local_administration_effect = {
+# Clears only the country-scoped variables used to instantiate one Local
+# Administration confirmation event. Scope: country.
+tv_govhouse_clear_pending_local_administration_variables_effect = {
 	remove_variable = tv_govhouse_pending_governor_char
 	remove_variable = tv_govhouse_pending_governor_region
 	remove_variable = tv_govhouse_pending_local_admin_location
 	remove_variable = tv_govhouse_pending_from_automation
 	remove_variable = tv_govhouse_local_admin_construction_completed
+}
+
+# Clears transient pending variables and saved scopes. Scope: country.
+tv_govhouse_clear_pending_local_administration_transient_effect = {
+	tv_govhouse_clear_pending_local_administration_variables_effect = yes
 	clear_saved_scope = tv_govhouse_pending_country
 	clear_saved_scope = tv_govhouse_pending_governor_scope
 	clear_saved_scope = tv_govhouse_pending_region_scope
 	clear_saved_scope = tv_govhouse_pending_local_admin_scope
 	clear_saved_scope = tv_govhouse_completed_local_admin_scope
+}
+
+# Clears a queued governor reservation created by automation. Scope: country.
+# Uses event saved scopes when available, falling back to current country variables.
+tv_govhouse_clear_pending_governor_reservation_effect = {
+	save_scope_as = tv_governing_country
+	if = {
+		limit = {
+			NOT = { exists = scope:tv_govhouse_pending_governor_scope }
+			has_variable = tv_govhouse_pending_governor_char
+		}
+		var:tv_govhouse_pending_governor_char ?= {
+			save_scope_as = tv_govhouse_pending_governor_scope
+		}
+	}
+	if = {
+		limit = {
+			NOT = { exists = scope:tv_govhouse_pending_region_scope }
+			has_variable = tv_govhouse_pending_governor_region
+		}
+		var:tv_govhouse_pending_governor_region ?= {
+			save_scope_as = tv_govhouse_pending_region_scope
+		}
+	}
+	if = {
+		limit = { exists = scope:tv_govhouse_pending_governor_scope }
+		scope:tv_govhouse_pending_governor_scope = {
+			remove_variable = tv_govhouse_pending_governor_assignment
+			remove_variable = tv_govhouse_pending_governor_country
+			remove_variable = tv_govhouse_pending_governor_region
+		}
+		remove_list_variable = {
+			name = tv_govhouse_pending_governor_list
+			target = scope:tv_govhouse_pending_governor_scope
+		}
+	}
+	if = {
+		limit = { exists = scope:tv_govhouse_pending_region_scope }
+		remove_list_variable = {
+			name = tv_govhouse_pending_governor_region_list
+			target = scope:tv_govhouse_pending_region_scope
+		}
+	}
+}
+
+# Clears a pending Local Administration confirmation state and its automation
+# reservation. Scope: country.
+tv_govhouse_clear_pending_local_administration_effect = {
+	tv_govhouse_clear_pending_governor_reservation_effect = yes
+	tv_govhouse_clear_pending_local_administration_transient_effect = yes
+}
+
+# Reserves a character/region pair while a Local Administration confirmation
+# popup is open. Scope: country. Requires scope:target and scope:target_1.
+tv_govhouse_reserve_pending_governor_assignment_effect = {
+	save_scope_as = tv_governing_country
+	if = {
+		limit = {
+			exists = scope:target
+			exists = scope:target_1
+		}
+		scope:target = {
+			set_variable = { name = tv_govhouse_pending_governor_assignment value = 1 }
+			set_variable = { name = tv_govhouse_pending_governor_country value = scope:tv_governing_country }
+			set_variable = { name = tv_govhouse_pending_governor_region value = scope:target_1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_list = tv_govhouse_pending_governor_list }
+					NOT = {
+						is_target_in_variable_list = {
+							name = tv_govhouse_pending_governor_list
+							target = scope:target
+						}
+					}
+				}
+			}
+			add_to_variable_list = {
+				name = tv_govhouse_pending_governor_list
+				target = scope:target
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					NOT = { has_variable_list = tv_govhouse_pending_governor_region_list }
+					NOT = {
+						is_target_in_variable_list = {
+							name = tv_govhouse_pending_governor_region_list
+							target = scope:target_1
+						}
+					}
+				}
+			}
+			add_to_variable_list = {
+				name = tv_govhouse_pending_governor_region_list
+				target = scope:target_1
+			}
+		}
+	}
 }
 
 # Reads the stable admin map for scope:tv_govhouse_target_region.
@@ -3492,10 +3610,17 @@ tv_governor_request_appointment_effect = {
 				is_consort = no
 				is_loyal = yes
 				NOT = { has_variable = tv_is_governor }
+				NOT = { has_variable = tv_govhouse_pending_governor_assignment }
 			}
 			is_target_in_variable_list = {
 				name = tv_govhouse_region_list
 				target = scope:target_1
+			}
+			NOT = {
+				is_target_in_variable_list = {
+					name = tv_govhouse_pending_governor_region_list
+					target = scope:target_1
+				}
 			}
 		}
 		tv_govhouse_clear_pending_local_administration_effect = yes
@@ -3547,10 +3672,17 @@ tv_govhouse_request_local_administration_confirmation_effect = {
 				is_consort = no
 				is_loyal = yes
 				NOT = { has_variable = tv_is_governor }
+				NOT = { has_variable = tv_govhouse_pending_governor_assignment }
 			}
 			is_target_in_variable_list = {
 				name = tv_govhouse_region_list
 				target = scope:target_1
+			}
+			NOT = {
+				is_target_in_variable_list = {
+					name = tv_govhouse_pending_governor_region_list
+					target = scope:target_1
+				}
 			}
 			NOT = {
 				capital ?= {
@@ -3570,6 +3702,63 @@ tv_govhouse_request_local_administration_confirmation_effect = {
 			set_variable = { name = tv_govhouse_pending_governor_region value = scope:target_1 }
 			set_variable = { name = tv_govhouse_pending_local_admin_location value = scope:tv_govhouse_selected_admin_location }
 			trigger_event_non_silently = { id = tv_govhouse.5 }
+		}
+	}
+}
+
+# Queues one automation-created Local Administration confirmation event without
+# leaving the country-level pending variables occupied. Scope: country.
+# Requires scope:target = reserved character and scope:target_1 = target region.
+tv_govhouse_queue_automation_local_administration_confirmation_effect = {
+	save_scope_as = tv_governing_country
+	if = {
+		limit = {
+			is_ai = no
+			exists = scope:target
+			exists = scope:target_1
+			scope:target = {
+				is_alive = yes
+				is_adult = yes
+				is_female = no
+				is_artist = no
+				is_ruler = no
+				is_heir = no
+				is_consort = no
+				is_loyal = yes
+				NOT = { has_variable = tv_is_governor }
+				NOT = { has_variable = tv_govhouse_pending_governor_assignment }
+			}
+			is_target_in_variable_list = {
+				name = tv_govhouse_region_list
+				target = scope:target_1
+			}
+			NOT = {
+				is_target_in_variable_list = {
+					name = tv_govhouse_pending_governor_region_list
+					target = scope:target_1
+				}
+			}
+			NOT = {
+				capital ?= {
+					region = scope:target_1
+				}
+			}
+		}
+		scope:target_1 = { save_scope_as = tv_govhouse_target_region }
+		tv_govhouse_save_admin_location_for_target_region_effect = yes
+		if = {
+			limit = {
+				exists = scope:tv_govhouse_selected_admin_location
+				NOT = { exists = scope:tv_govhouse_completed_admin_location }
+			}
+			tv_govhouse_reserve_pending_governor_assignment_effect = yes
+			set_variable = { name = tv_govhouse_pending_governor_char value = scope:target }
+			set_variable = { name = tv_govhouse_pending_governor_region value = scope:target_1 }
+			set_variable = { name = tv_govhouse_pending_local_admin_location value = scope:tv_govhouse_selected_admin_location }
+			set_variable = { name = tv_govhouse_pending_from_automation value = 1 }
+			trigger_event_non_silently = { id = tv_govhouse.5 }
+			tv_govhouse_clear_pending_local_administration_variables_effect = yes
+			set_variable = { name = tv_govhouse_auto_assign_continue value = 1 }
 		}
 	}
 }
@@ -3677,6 +3866,68 @@ tv_govhouse_confirm_local_administration_effect = {
 		}
 		tv_govhouse_auto_assign_if_enabled_effect = yes
 	}
+}
+
+# Confirms a Local Administration popup using the event's saved scopes. This is
+# what lets automation open one confirmation event per blocked region at once.
+# Scope: country event root.
+tv_govhouse_confirm_local_administration_event_scope_effect = {
+	save_scope_as = tv_governing_country
+	if = {
+		limit = {
+			exists = scope:tv_govhouse_pending_governor_scope
+			exists = scope:tv_govhouse_pending_region_scope
+			exists = scope:tv_govhouse_pending_local_admin_scope
+		}
+		scope:tv_govhouse_pending_governor_scope = { save_scope_as = target }
+		scope:tv_govhouse_pending_region_scope = {
+			save_scope_as = target_1
+			save_scope_as = tv_govhouse_target_region
+		}
+		tv_govhouse_save_admin_location_for_target_region_effect = yes
+		if = {
+			limit = {
+				exists = scope:target
+				exists = scope:target_1
+				exists = scope:tv_govhouse_selected_admin_location
+				scope:tv_govhouse_selected_admin_location = {
+					this = scope:tv_govhouse_pending_local_admin_scope
+					owner ?= scope:tv_governing_country
+					has_building_with_at_least_one_level = tv_govhouse_local_administration
+				}
+				scope:target = {
+					is_alive = yes
+					is_adult = yes
+					is_female = no
+					is_artist = no
+					is_ruler = no
+					is_heir = no
+					is_consort = no
+					is_loyal = yes
+					NOT = { has_variable = tv_is_governor }
+				}
+				is_target_in_variable_list = {
+					name = tv_govhouse_region_list
+					target = scope:target_1
+				}
+			}
+			remove_from_variable_map = {
+				name = tv_govhouse_region_to_admin_location_map
+				key = scope:target_1
+			}
+			add_to_variable_map = {
+				name = tv_govhouse_region_to_admin_location_map
+				key = scope:target_1
+				value = scope:tv_govhouse_pending_local_admin_scope
+			}
+			scope:tv_govhouse_pending_local_admin_scope = {
+				tv_govhouse_set_admin_location_marker_effect = yes
+			}
+			tv_govhouse_clear_pending_governor_reservation_effect = yes
+			tv_governor_appoint_effect = yes
+		}
+	}
+	tv_govhouse_clear_pending_local_administration_effect = yes
 }
 
 # Appoints a governor to a region. Displaces any existing governor for that region.
@@ -3802,6 +4053,14 @@ tv_governor_auto_assign_effect = {
 				}
 				NOT = {
 					scope:tv_governing_country = {
+						is_target_in_variable_list = {
+							name = tv_govhouse_pending_governor_region_list
+							target = scope:tv_govhouse_auto_candidate_region
+						}
+					}
+				}
+				NOT = {
+					scope:tv_governing_country = {
 						any_in_list = { variable = tv_governor_list
 							OR = {
 								var:tv_governed_region ?= scope:tv_govhouse_auto_candidate_region
@@ -3823,6 +4082,7 @@ tv_governor_auto_assign_effect = {
 				is_consort = no
 				is_loyal = yes
 				NOT = { has_variable = tv_is_governor }
+				NOT = { has_variable = tv_govhouse_pending_governor_assignment }
 			}
 		}
 		set_variable = { name = tv_govhouse_auto_assign_continue value = 0 }
@@ -3851,6 +4111,14 @@ tv_governor_auto_assign_effect = {
 				}
 				NOT = {
 					scope:tv_governing_country = {
+						is_target_in_variable_list = {
+							name = tv_govhouse_pending_governor_region_list
+							target = scope:tv_govhouse_auto_candidate_region
+						}
+					}
+				}
+				NOT = {
+					scope:tv_governing_country = {
 						any_in_list = { variable = tv_governor_list
 							OR = {
 								var:tv_governed_region ?= scope:tv_govhouse_auto_candidate_region
@@ -3875,6 +4143,7 @@ tv_governor_auto_assign_effect = {
 				is_consort = no
 				is_loyal = yes
 				NOT = { has_variable = tv_is_governor }
+				NOT = { has_variable = tv_govhouse_pending_governor_assignment }
 			}
 			order_by = total_abilities
 			max = 1
@@ -3895,6 +4164,7 @@ tv_governor_auto_assign_effect = {
 					is_consort = no
 					is_loyal = yes
 					NOT = { has_variable = tv_is_governor }
+					NOT = { has_variable = tv_govhouse_pending_governor_assignment }
 				}
 				scope:target_1 = {
 					save_temporary_scope_as = tv_govhouse_auto_final_region
@@ -3902,6 +4172,12 @@ tv_governor_auto_assign_effect = {
 				is_target_in_variable_list = {
 					name = tv_govhouse_region_list
 					target = scope:tv_govhouse_auto_final_region
+				}
+				NOT = {
+					is_target_in_variable_list = {
+						name = tv_govhouse_pending_governor_region_list
+						target = scope:tv_govhouse_auto_final_region
+					}
 				}
 				OR = {
 					capital ?= {
@@ -3926,119 +4202,140 @@ tv_governor_auto_assign_effect = {
 	remove_variable = tv_govhouse_auto_assign_continue
 	remove_variable = tv_govhouse_auto_assign_safety
 	if = {
-		limit = {
-			is_ai = no
-			NOT = { has_variable = tv_govhouse_pending_governor_char }
-			NOT = { has_variable = tv_govhouse_pending_governor_region }
-			NOT = { has_variable = tv_govhouse_pending_local_admin_location }
-			any_in_list = { variable = tv_govhouse_region_list
-				save_temporary_scope_as = tv_govhouse_auto_candidate_region
-				NOT = {
-					scope:tv_governing_country = {
-						capital ?= {
-							region = scope:tv_govhouse_auto_candidate_region
+		limit = { is_ai = no }
+		set_variable = { name = tv_govhouse_auto_assign_continue value = 1 }
+		set_variable = { name = tv_govhouse_auto_assign_safety value = 0 }
+		while = {
+			limit = {
+				has_variable = tv_govhouse_auto_assign_continue
+				var:tv_govhouse_auto_assign_continue ?= { this > 0 }
+				var:tv_govhouse_auto_assign_safety ?= { this < 200 }
+				any_in_list = { variable = tv_govhouse_region_list
+					save_temporary_scope_as = tv_govhouse_auto_candidate_region
+					NOT = {
+						scope:tv_governing_country = {
+							capital ?= {
+								region = scope:tv_govhouse_auto_candidate_region
+							}
 						}
 					}
-				}
-				scope:tv_governing_country = {
-					is_key_in_variable_map = {
-						name = tv_govhouse_region_to_admin_location_map
-						target = scope:tv_govhouse_auto_candidate_region
-					}
-					"variable_map(tv_govhouse_region_to_admin_location_map|scope:tv_govhouse_auto_candidate_region)" = {
-						owner ?= scope:tv_governing_country
-						NOT = { has_building_with_at_least_one_level = tv_govhouse_local_administration }
-					}
-				}
-				NOT = {
 					scope:tv_governing_country = {
-						any_in_list = { variable = tv_governor_list
-							OR = {
-								var:tv_governed_region ?= scope:tv_govhouse_auto_candidate_region
-								var:tv_governed_area ?= {
-									region = scope:tv_govhouse_auto_candidate_region
+						is_key_in_variable_map = {
+							name = tv_govhouse_region_to_admin_location_map
+							target = scope:tv_govhouse_auto_candidate_region
+						}
+						"variable_map(tv_govhouse_region_to_admin_location_map|scope:tv_govhouse_auto_candidate_region)" = {
+							owner ?= scope:tv_governing_country
+							NOT = { has_building_with_at_least_one_level = tv_govhouse_local_administration }
+						}
+					}
+					NOT = {
+						scope:tv_governing_country = {
+							is_target_in_variable_list = {
+								name = tv_govhouse_pending_governor_region_list
+								target = scope:tv_govhouse_auto_candidate_region
+							}
+						}
+					}
+					NOT = {
+						scope:tv_governing_country = {
+							any_in_list = { variable = tv_governor_list
+								OR = {
+									var:tv_governed_region ?= scope:tv_govhouse_auto_candidate_region
+									var:tv_governed_area ?= {
+										region = scope:tv_govhouse_auto_candidate_region
+									}
 								}
 							}
 						}
 					}
 				}
+				any_character = {
+					is_alive = yes
+					is_adult = yes
+					is_female = no
+					is_artist = no
+					is_ruler = no
+					is_heir = no
+					is_consort = no
+					is_loyal = yes
+					NOT = { has_variable = tv_is_governor }
+					NOT = { has_variable = tv_govhouse_pending_governor_assignment }
+				}
 			}
-			any_character = {
-				is_alive = yes
-				is_adult = yes
-				is_female = no
-				is_artist = no
-				is_ruler = no
-				is_heir = no
-				is_consort = no
-				is_loyal = yes
-				NOT = { has_variable = tv_is_governor }
-			}
-		}
-		random_in_list = { variable = tv_govhouse_region_list
-			limit = {
-				save_temporary_scope_as = tv_govhouse_auto_candidate_region
-				NOT = {
-					scope:tv_governing_country = {
-						capital ?= {
-							region = scope:tv_govhouse_auto_candidate_region
+			set_variable = { name = tv_govhouse_auto_assign_continue value = 0 }
+			change_variable = { name = tv_govhouse_auto_assign_safety add = 1 }
+			random_in_list = { variable = tv_govhouse_region_list
+				limit = {
+					save_temporary_scope_as = tv_govhouse_auto_candidate_region
+					NOT = {
+						scope:tv_governing_country = {
+							capital ?= {
+								region = scope:tv_govhouse_auto_candidate_region
+							}
 						}
 					}
-				}
-				scope:tv_governing_country = {
-					is_key_in_variable_map = {
-						name = tv_govhouse_region_to_admin_location_map
-						target = scope:tv_govhouse_auto_candidate_region
-					}
-					"variable_map(tv_govhouse_region_to_admin_location_map|scope:tv_govhouse_auto_candidate_region)" = {
-						owner ?= scope:tv_governing_country
-						NOT = { has_building_with_at_least_one_level = tv_govhouse_local_administration }
-					}
-				}
-				NOT = {
 					scope:tv_governing_country = {
-						any_in_list = { variable = tv_governor_list
-							OR = {
-								var:tv_governed_region ?= scope:tv_govhouse_auto_candidate_region
-								var:tv_governed_area ?= {
-									region = scope:tv_govhouse_auto_candidate_region
+						is_key_in_variable_map = {
+							name = tv_govhouse_region_to_admin_location_map
+							target = scope:tv_govhouse_auto_candidate_region
+						}
+						"variable_map(tv_govhouse_region_to_admin_location_map|scope:tv_govhouse_auto_candidate_region)" = {
+							owner ?= scope:tv_governing_country
+							NOT = { has_building_with_at_least_one_level = tv_govhouse_local_administration }
+						}
+					}
+					NOT = {
+						scope:tv_governing_country = {
+							is_target_in_variable_list = {
+								name = tv_govhouse_pending_governor_region_list
+								target = scope:tv_govhouse_auto_candidate_region
+							}
+						}
+					}
+					NOT = {
+						scope:tv_governing_country = {
+							any_in_list = { variable = tv_governor_list
+								OR = {
+									var:tv_governed_region ?= scope:tv_govhouse_auto_candidate_region
+									var:tv_governed_area ?= {
+										region = scope:tv_govhouse_auto_candidate_region
+									}
 								}
 							}
 						}
 					}
 				}
+				save_scope_as = target_1
 			}
-			save_scope_as = target_1
-		}
-		ordered_character = {
-			limit = {
-				is_alive = yes
-				is_adult = yes
-				is_female = no
-				is_artist = no
-				is_ruler = no
-				is_heir = no
-				is_consort = no
-				is_loyal = yes
-				NOT = { has_variable = tv_is_governor }
+			ordered_character = {
+				limit = {
+					is_alive = yes
+					is_adult = yes
+					is_female = no
+					is_artist = no
+					is_ruler = no
+					is_heir = no
+					is_consort = no
+					is_loyal = yes
+					NOT = { has_variable = tv_is_governor }
+					NOT = { has_variable = tv_govhouse_pending_governor_assignment }
+				}
+				order_by = total_abilities
+				max = 1
+				check_range_bounds = no
+				save_scope_as = target
 			}
-			order_by = total_abilities
-			max = 1
-			check_range_bounds = no
-			save_scope_as = target
-		}
-		if = {
-			limit = {
-				exists = scope:target
-				exists = scope:target_1
-			}
-			set_variable = { name = tv_govhouse_pending_from_automation value = 1 }
-			tv_govhouse_request_local_administration_confirmation_effect = yes
 			if = {
-				limit = { NOT = { has_variable = tv_govhouse_pending_governor_char } }
-				remove_variable = tv_govhouse_pending_from_automation
+				limit = {
+					exists = scope:target
+					exists = scope:target_1
+				}
+				tv_govhouse_queue_automation_local_administration_confirmation_effect = yes
 			}
 		}
+		remove_variable = tv_govhouse_auto_assign_continue
+		remove_variable = tv_govhouse_auto_assign_safety
 	}
 	tv_govhouse_refresh_governor_display_effect = yes
 }
