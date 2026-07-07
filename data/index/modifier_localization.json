@@ -31658,6 +31658,20 @@
         "name": "[tv_diplomatic_alliance|E]成员参与议会"
       }
     },
+    "tv_govhouse_local_administration_price_cost_modifier": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "Modifies the gold construction cost of Local Administration buildings.",
+        "name": "Local Administration Cost"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "修正地方行政部门的金币建设花费。",
+        "name": "地方行政部门花费"
+      }
+    },
     "tv_govhouse_subject_status_agenda_impact": {
       "category": "internationalorganization",
       "color": "good",
@@ -31754,6 +31768,20 @@
       "zh": {
         "description": "修正邀请国外艺术家参与艺术交流会的花费。",
         "name": "邀请国外艺术家花费"
+      }
+    },
+    "tv_io_headquarters_price_cost_modifier": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "Modifies the gold construction cost of Organization Headquarters buildings.",
+        "name": "Organization Headquarters Cost"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "修正组织首府的金币建设花费。",
+        "name": "组织首府花费"
       }
     },
     "tv_local_arts_exhibition_price_cost_modifier": {

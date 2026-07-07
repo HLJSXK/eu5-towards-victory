@@ -9893,6 +9893,1224 @@ widget = {
 				}
 			}
 		}
+		widget = {
+			visible = "[And(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_id').IsSet), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)103.0')))]"
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = fixed
+			size = { 462 176 }
+			using = bg_text_mask_container_dark_blue
+			vbox = {
+				layoutpolicy_horizontal = expanding
+				margin = { 8 8 }
+				spacing = 6
+				ignoreinvisible = yes
+				text_single = { text = "TV_ENGINEERING_DOME_OF_THE_ROCK_OPENING_TITLE" size = { 446 24 } max_width = 446 fontsize = 14 align = nobaseline|left }
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = fixed
+					size = { 446 28 }
+					spacing = 8
+					ignoreinvisible = yes
+					text_single = { text = "TV_ENGINEERING_DOME_OF_THE_ROCK_CURRENT_STAGE" size = { 322 24 } max_width = 322 fontsize = 13 align = nobaseline|left }
+					widget = {
+						visible = "[Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_failed').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_failed').GetValue, '(CFixedPoint)1.0')))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_mid_red_texture
+							alpha = 0.34
+						}
+						text_single = {
+							text = "TV_ENGINEERING_DOME_OF_THE_ROCK_STATUS_FAILED"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_completed').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_completed').GetValue, '(CFixedPoint)1.0')))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_market_green_texture
+							alpha = 0.34
+						}
+						text_single = {
+							text = "TV_ENGINEERING_DOME_OF_THE_ROCK_STAGE_REWARD"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_completed').GetValue, '(CFixedPoint)1.0')), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_completed').GetValue, '(CFixedPoint)1.0')))), Not(Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_failed').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_failed').GetValue, '(CFixedPoint)1.0')))))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_yellow_texture
+							alpha = 0.28
+						}
+						text_single = {
+							text = "TV_ENGINEERING_DOME_OF_THE_ROCK_STAGE_CUSTODY_DUTIES"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[And(And(Not(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_completed').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_completed').GetValue, '(CFixedPoint)1.0')))), Not(And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_completed').GetValue, '(CFixedPoint)1.0')), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_completed').GetValue, '(CFixedPoint)1.0')))), Not(Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_failed').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_failed').GetValue, '(CFixedPoint)1.0'))))))), Not(Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_failed').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_failed').GetValue, '(CFixedPoint)1.0')))))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_yellow_texture
+							alpha = 0.20
+						}
+						text_single = {
+							text = "TV_ENGINEERING_DOME_OF_THE_ROCK_STAGE_SANCTUARY_ACCESS_GROUPS"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+				}
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = fixed
+					size = { 446 28 }
+					spacing = 8
+					ignoreinvisible = yes
+					text_single = {
+						text = "TV_ENGINEERING_DOME_OF_THE_ROCK_SANCTUARY_ACCESS_GROUPS_STATUS"
+						size = { 322 24 }
+						max_width = 322
+						fontsize = 13
+						align = nobaseline|left
+					}
+					widget = {
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_failed').GetValue, '(CFixedPoint)1.0'))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_mid_red_texture
+							alpha = 0.34
+						}
+						text_single = {
+							text = "TV_ENGINEERING_DOME_OF_THE_ROCK_STATUS_FAILED"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_completed').GetValue, '(CFixedPoint)1.0'))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_market_green_texture
+							alpha = 0.34
+						}
+						text_single = {
+							text = "TV_ENGINEERING_DOME_OF_THE_ROCK_STATUS_COMPLETE"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_branch').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_branch').GetValue, '(CFixedPoint)1.0')), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_completed').GetValue, '(CFixedPoint)1.0')))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_failed').GetValue, '(CFixedPoint)1.0'))))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_yellow_texture
+							alpha = 0.30
+						}
+						text_single = {
+							text = "TV_ENGINEERING_DOME_OF_THE_ROCK_STATUS_BRANCH_RECORDED"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[And(And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_started').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_started').GetValue, '(CFixedPoint)1.0')), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_completed').GetValue, '(CFixedPoint)1.0')))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_failed').GetValue, '(CFixedPoint)1.0')))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_branch').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_branch').GetValue, '(CFixedPoint)1.0'))))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_yellow_texture
+							alpha = 0.28
+						}
+						text_single = {
+							text = "TV_ENGINEERING_DOME_OF_THE_ROCK_STATUS_ACTIVE"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[And(And(Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_started').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_started').GetValue, '(CFixedPoint)1.0'))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_completed').GetValue, '(CFixedPoint)1.0')))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_failed').GetValue, '(CFixedPoint)1.0'))))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_yellow_texture
+							alpha = 0.16
+						}
+						text_single = {
+							text = "TV_ENGINEERING_DOME_OF_THE_ROCK_STATUS_WAITING"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+				}
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = fixed
+					size = { 446 28 }
+					spacing = 8
+					ignoreinvisible = yes
+					text_single = {
+						text = "TV_ENGINEERING_DOME_OF_THE_ROCK_CUSTODY_DUTIES_STATUS"
+						size = { 322 24 }
+						max_width = 322
+						fontsize = 13
+						align = nobaseline|left
+					}
+					widget = {
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_failed').GetValue, '(CFixedPoint)1.0'))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_mid_red_texture
+							alpha = 0.34
+						}
+						text_single = {
+							text = "TV_ENGINEERING_DOME_OF_THE_ROCK_STATUS_FAILED"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_completed').GetValue, '(CFixedPoint)1.0'))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_market_green_texture
+							alpha = 0.34
+						}
+						text_single = {
+							text = "TV_ENGINEERING_DOME_OF_THE_ROCK_STATUS_COMPLETE"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_branch').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_branch').GetValue, '(CFixedPoint)1.0')), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_completed').GetValue, '(CFixedPoint)1.0')))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_failed').GetValue, '(CFixedPoint)1.0'))))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_yellow_texture
+							alpha = 0.30
+						}
+						text_single = {
+							text = "TV_ENGINEERING_DOME_OF_THE_ROCK_STATUS_BRANCH_RECORDED"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[And(And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_started').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_started').GetValue, '(CFixedPoint)1.0')), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_completed').GetValue, '(CFixedPoint)1.0')))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_failed').GetValue, '(CFixedPoint)1.0')))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_branch').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_branch').GetValue, '(CFixedPoint)1.0'))))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_yellow_texture
+							alpha = 0.28
+						}
+						text_single = {
+							text = "TV_ENGINEERING_DOME_OF_THE_ROCK_STATUS_ACTIVE"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[And(And(Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_started').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_started').GetValue, '(CFixedPoint)1.0'))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_completed').GetValue, '(CFixedPoint)1.0')))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_failed').GetValue, '(CFixedPoint)1.0'))))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_yellow_texture
+							alpha = 0.16
+						}
+						text_single = {
+							text = "TV_ENGINEERING_DOME_OF_THE_ROCK_STATUS_WAITING"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+				}
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = fixed
+					size = { 446 28 }
+					spacing = 8
+					ignoreinvisible = yes
+					text_single = {
+						text = "TV_ENGINEERING_DOME_OF_THE_ROCK_REWARD_BRANCH_STATUS"
+						size = { 322 24 }
+						max_width = 322
+						fontsize = 13
+						align = nobaseline|left
+					}
+					widget = {
+						visible = "[Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_failed').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_failed').GetValue, '(CFixedPoint)1.0')))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_mid_red_texture
+							alpha = 0.34
+						}
+						text_single = {
+							text = "TV_ENGINEERING_DOME_OF_THE_ROCK_STATUS_FAILED"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_completed').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_completed').GetValue, '(CFixedPoint)1.0')))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_market_green_texture
+							alpha = 0.34
+						}
+						text_single = {
+							text = "TV_ENGINEERING_DOME_OF_THE_ROCK_STATUS_COMPLETE"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[And(And(Not(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_completed').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_completed').GetValue, '(CFixedPoint)1.0')))), Not(Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_failed').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_failed').GetValue, '(CFixedPoint)1.0'))))), Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_branch').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_branch').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_branch').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_branch').GetValue, '(CFixedPoint)1.0'))))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_yellow_texture
+							alpha = 0.30
+						}
+						text_single = {
+							text = "TV_ENGINEERING_DOME_OF_THE_ROCK_STATUS_BRANCH_RECORDED"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[False]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_yellow_texture
+							alpha = 0.28
+						}
+						text_single = {
+							text = "TV_ENGINEERING_DOME_OF_THE_ROCK_STATUS_ACTIVE"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[And(And(And(Not(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_completed').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_completed').GetValue, '(CFixedPoint)1.0')))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_branch').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_branch').GetValue, '(CFixedPoint)1.0')))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_branch').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_branch').GetValue, '(CFixedPoint)1.0')))), Not(Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_sanctuary_access_groups_failed').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_dome_of_the_rock_ritual_custody_duties_failed').GetValue, '(CFixedPoint)1.0')))))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_yellow_texture
+							alpha = 0.16
+						}
+						text_single = {
+							text = "TV_ENGINEERING_DOME_OF_THE_ROCK_STATUS_WAITING"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+				}
+			}
+		}
+		widget = {
+			visible = "[And(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_id').IsSet), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)122.0')))]"
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = fixed
+			size = { 462 176 }
+			using = bg_text_mask_container_dark_blue
+			vbox = {
+				layoutpolicy_horizontal = expanding
+				margin = { 8 8 }
+				spacing = 6
+				ignoreinvisible = yes
+				text_single = { text = "TV_ENGINEERING_BANK_OF_SAINT_GEORGE_OPENING_TITLE" size = { 446 24 } max_width = 446 fontsize = 14 align = nobaseline|left }
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = fixed
+					size = { 446 28 }
+					spacing = 8
+					ignoreinvisible = yes
+					text_single = { text = "TV_ENGINEERING_BANK_OF_SAINT_GEORGE_CURRENT_STAGE" size = { 322 24 } max_width = 322 fontsize = 13 align = nobaseline|left }
+					widget = {
+						visible = "[Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_failed').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_failed').GetValue, '(CFixedPoint)1.0')))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_mid_red_texture
+							alpha = 0.34
+						}
+						text_single = {
+							text = "TV_ENGINEERING_BANK_OF_SAINT_GEORGE_STATUS_FAILED"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_completed').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_completed').GetValue, '(CFixedPoint)1.0')))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_market_green_texture
+							alpha = 0.34
+						}
+						text_single = {
+							text = "TV_ENGINEERING_BANK_OF_SAINT_GEORGE_STAGE_REWARD"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_completed').GetValue, '(CFixedPoint)1.0')), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_completed').GetValue, '(CFixedPoint)1.0')))), Not(Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_failed').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_failed').GetValue, '(CFixedPoint)1.0')))))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_yellow_texture
+							alpha = 0.28
+						}
+						text_single = {
+							text = "TV_ENGINEERING_BANK_OF_SAINT_GEORGE_STAGE_PUBLIC_CREDIT_PLEDGES"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[And(And(Not(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_completed').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_completed').GetValue, '(CFixedPoint)1.0')))), Not(And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_completed').GetValue, '(CFixedPoint)1.0')), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_completed').GetValue, '(CFixedPoint)1.0')))), Not(Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_failed').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_failed').GetValue, '(CFixedPoint)1.0'))))))), Not(Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_failed').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_failed').GetValue, '(CFixedPoint)1.0')))))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_yellow_texture
+							alpha = 0.20
+						}
+						text_single = {
+							text = "TV_ENGINEERING_BANK_OF_SAINT_GEORGE_STAGE_CHARTER_OPTIONS"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+				}
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = fixed
+					size = { 446 28 }
+					spacing = 8
+					ignoreinvisible = yes
+					text_single = {
+						text = "TV_ENGINEERING_BANK_OF_SAINT_GEORGE_CHARTER_OPTIONS_STATUS"
+						size = { 322 24 }
+						max_width = 322
+						fontsize = 13
+						align = nobaseline|left
+					}
+					widget = {
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_failed').GetValue, '(CFixedPoint)1.0'))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_mid_red_texture
+							alpha = 0.34
+						}
+						text_single = {
+							text = "TV_ENGINEERING_BANK_OF_SAINT_GEORGE_STATUS_FAILED"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_completed').GetValue, '(CFixedPoint)1.0'))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_market_green_texture
+							alpha = 0.34
+						}
+						text_single = {
+							text = "TV_ENGINEERING_BANK_OF_SAINT_GEORGE_STATUS_COMPLETE"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_branch').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_branch').GetValue, '(CFixedPoint)1.0')), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_completed').GetValue, '(CFixedPoint)1.0')))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_failed').GetValue, '(CFixedPoint)1.0'))))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_yellow_texture
+							alpha = 0.30
+						}
+						text_single = {
+							text = "TV_ENGINEERING_BANK_OF_SAINT_GEORGE_STATUS_BRANCH_RECORDED"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[And(And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_started').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_started').GetValue, '(CFixedPoint)1.0')), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_completed').GetValue, '(CFixedPoint)1.0')))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_failed').GetValue, '(CFixedPoint)1.0')))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_branch').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_branch').GetValue, '(CFixedPoint)1.0'))))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_yellow_texture
+							alpha = 0.28
+						}
+						text_single = {
+							text = "TV_ENGINEERING_BANK_OF_SAINT_GEORGE_STATUS_ACTIVE"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[And(And(Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_started').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_started').GetValue, '(CFixedPoint)1.0'))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_completed').GetValue, '(CFixedPoint)1.0')))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_failed').GetValue, '(CFixedPoint)1.0'))))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_yellow_texture
+							alpha = 0.16
+						}
+						text_single = {
+							text = "TV_ENGINEERING_BANK_OF_SAINT_GEORGE_STATUS_WAITING"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+				}
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = fixed
+					size = { 446 28 }
+					spacing = 8
+					ignoreinvisible = yes
+					text_single = {
+						text = "TV_ENGINEERING_BANK_OF_SAINT_GEORGE_PUBLIC_CREDIT_PLEDGES_STATUS"
+						size = { 322 24 }
+						max_width = 322
+						fontsize = 13
+						align = nobaseline|left
+					}
+					widget = {
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_failed').GetValue, '(CFixedPoint)1.0'))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_mid_red_texture
+							alpha = 0.34
+						}
+						text_single = {
+							text = "TV_ENGINEERING_BANK_OF_SAINT_GEORGE_STATUS_FAILED"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_completed').GetValue, '(CFixedPoint)1.0'))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_market_green_texture
+							alpha = 0.34
+						}
+						text_single = {
+							text = "TV_ENGINEERING_BANK_OF_SAINT_GEORGE_STATUS_COMPLETE"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_branch').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_branch').GetValue, '(CFixedPoint)1.0')), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_completed').GetValue, '(CFixedPoint)1.0')))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_failed').GetValue, '(CFixedPoint)1.0'))))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_yellow_texture
+							alpha = 0.30
+						}
+						text_single = {
+							text = "TV_ENGINEERING_BANK_OF_SAINT_GEORGE_STATUS_BRANCH_RECORDED"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[And(And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_started').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_started').GetValue, '(CFixedPoint)1.0')), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_completed').GetValue, '(CFixedPoint)1.0')))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_failed').GetValue, '(CFixedPoint)1.0')))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_branch').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_branch').GetValue, '(CFixedPoint)1.0'))))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_yellow_texture
+							alpha = 0.28
+						}
+						text_single = {
+							text = "TV_ENGINEERING_BANK_OF_SAINT_GEORGE_STATUS_ACTIVE"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[And(And(Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_started').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_started').GetValue, '(CFixedPoint)1.0'))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_completed').GetValue, '(CFixedPoint)1.0')))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_failed').GetValue, '(CFixedPoint)1.0'))))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_yellow_texture
+							alpha = 0.16
+						}
+						text_single = {
+							text = "TV_ENGINEERING_BANK_OF_SAINT_GEORGE_STATUS_WAITING"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+				}
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = fixed
+					size = { 446 28 }
+					spacing = 8
+					ignoreinvisible = yes
+					text_single = {
+						text = "TV_ENGINEERING_BANK_OF_SAINT_GEORGE_REWARD_BRANCH_STATUS"
+						size = { 322 24 }
+						max_width = 322
+						fontsize = 13
+						align = nobaseline|left
+					}
+					widget = {
+						visible = "[Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_failed').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_failed').GetValue, '(CFixedPoint)1.0')))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_mid_red_texture
+							alpha = 0.34
+						}
+						text_single = {
+							text = "TV_ENGINEERING_BANK_OF_SAINT_GEORGE_STATUS_FAILED"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_completed').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_completed').GetValue, '(CFixedPoint)1.0')))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_market_green_texture
+							alpha = 0.34
+						}
+						text_single = {
+							text = "TV_ENGINEERING_BANK_OF_SAINT_GEORGE_STATUS_COMPLETE"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[And(And(Not(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_completed').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_completed').GetValue, '(CFixedPoint)1.0')))), Not(Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_failed').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_failed').GetValue, '(CFixedPoint)1.0'))))), Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_branch').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_branch').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_branch').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_branch').GetValue, '(CFixedPoint)1.0'))))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_yellow_texture
+							alpha = 0.30
+						}
+						text_single = {
+							text = "TV_ENGINEERING_BANK_OF_SAINT_GEORGE_STATUS_BRANCH_RECORDED"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[False]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_yellow_texture
+							alpha = 0.28
+						}
+						text_single = {
+							text = "TV_ENGINEERING_BANK_OF_SAINT_GEORGE_STATUS_ACTIVE"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[And(And(And(Not(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_completed').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_completed').GetValue, '(CFixedPoint)1.0')))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_branch').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_branch').GetValue, '(CFixedPoint)1.0')))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_branch').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_branch').GetValue, '(CFixedPoint)1.0')))), Not(Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_charter_options_failed').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_bank_of_saint_george_ritual_public_credit_pledges_failed').GetValue, '(CFixedPoint)1.0')))))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_yellow_texture
+							alpha = 0.16
+						}
+						text_single = {
+							text = "TV_ENGINEERING_BANK_OF_SAINT_GEORGE_STATUS_WAITING"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+				}
+			}
+		}
+		widget = {
+			visible = "[And(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_id').IsSet), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)112.0')))]"
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = fixed
+			size = { 462 176 }
+			using = bg_text_mask_container_dark_blue
+			vbox = {
+				layoutpolicy_horizontal = expanding
+				margin = { 8 8 }
+				spacing = 6
+				ignoreinvisible = yes
+				text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_OPENING_TITLE" size = { 446 24 } max_width = 446 fontsize = 14 align = nobaseline|left }
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = fixed
+					size = { 446 28 }
+					spacing = 8
+					ignoreinvisible = yes
+					text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_CURRENT_STAGE" size = { 322 24 } max_width = 322 fontsize = 13 align = nobaseline|left }
+					widget = {
+						visible = "[Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_failed').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_failed').GetValue, '(CFixedPoint)1.0')))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_mid_red_texture
+							alpha = 0.34
+						}
+						text_single = {
+							text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_FAILED"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_completed').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_completed').GetValue, '(CFixedPoint)1.0')))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_market_green_texture
+							alpha = 0.34
+						}
+						text_single = {
+							text = "TV_ENGINEERING_ST_PETERS_BASILICA_STAGE_REWARD"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_completed').GetValue, '(CFixedPoint)1.0')), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_completed').GetValue, '(CFixedPoint)1.0')))), Not(Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_failed').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_failed').GetValue, '(CFixedPoint)1.0')))))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_yellow_texture
+							alpha = 0.28
+						}
+						text_single = {
+							text = "TV_ENGINEERING_ST_PETERS_BASILICA_STAGE_APOSTOLIC_SERVICE_DUTIES"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[And(And(Not(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_completed').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_completed').GetValue, '(CFixedPoint)1.0')))), Not(And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_completed').GetValue, '(CFixedPoint)1.0')), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_completed').GetValue, '(CFixedPoint)1.0')))), Not(Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_failed').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_failed').GetValue, '(CFixedPoint)1.0'))))))), Not(Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_failed').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_failed').GetValue, '(CFixedPoint)1.0')))))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_yellow_texture
+							alpha = 0.20
+						}
+						text_single = {
+							text = "TV_ENGINEERING_ST_PETERS_BASILICA_STAGE_SACRED_OFFICIAL_CANDIDATES"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+				}
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = fixed
+					size = { 446 28 }
+					spacing = 8
+					ignoreinvisible = yes
+					text_single = {
+						text = "TV_ENGINEERING_ST_PETERS_BASILICA_SACRED_OFFICIAL_CANDIDATES_STATUS"
+						size = { 322 24 }
+						max_width = 322
+						fontsize = 13
+						align = nobaseline|left
+					}
+					widget = {
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_failed').GetValue, '(CFixedPoint)1.0'))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_mid_red_texture
+							alpha = 0.34
+						}
+						text_single = {
+							text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_FAILED"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_completed').GetValue, '(CFixedPoint)1.0'))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_market_green_texture
+							alpha = 0.34
+						}
+						text_single = {
+							text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_COMPLETE"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_branch').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_branch').GetValue, '(CFixedPoint)1.0')), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_completed').GetValue, '(CFixedPoint)1.0')))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_failed').GetValue, '(CFixedPoint)1.0'))))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_yellow_texture
+							alpha = 0.30
+						}
+						text_single = {
+							text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_BRANCH_RECORDED"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[And(And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_started').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_started').GetValue, '(CFixedPoint)1.0')), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_completed').GetValue, '(CFixedPoint)1.0')))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_failed').GetValue, '(CFixedPoint)1.0')))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_branch').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_branch').GetValue, '(CFixedPoint)1.0'))))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_yellow_texture
+							alpha = 0.28
+						}
+						text_single = {
+							text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_ACTIVE"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[And(And(Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_started').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_started').GetValue, '(CFixedPoint)1.0'))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_completed').GetValue, '(CFixedPoint)1.0')))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_failed').GetValue, '(CFixedPoint)1.0'))))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_yellow_texture
+							alpha = 0.16
+						}
+						text_single = {
+							text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_WAITING"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+				}
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = fixed
+					size = { 446 28 }
+					spacing = 8
+					ignoreinvisible = yes
+					text_single = {
+						text = "TV_ENGINEERING_ST_PETERS_BASILICA_APOSTOLIC_SERVICE_DUTIES_STATUS"
+						size = { 322 24 }
+						max_width = 322
+						fontsize = 13
+						align = nobaseline|left
+					}
+					widget = {
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_failed').GetValue, '(CFixedPoint)1.0'))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_mid_red_texture
+							alpha = 0.34
+						}
+						text_single = {
+							text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_FAILED"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_completed').GetValue, '(CFixedPoint)1.0'))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_market_green_texture
+							alpha = 0.34
+						}
+						text_single = {
+							text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_COMPLETE"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_branch').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_branch').GetValue, '(CFixedPoint)1.0')), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_completed').GetValue, '(CFixedPoint)1.0')))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_failed').GetValue, '(CFixedPoint)1.0'))))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_yellow_texture
+							alpha = 0.30
+						}
+						text_single = {
+							text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_BRANCH_RECORDED"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[And(And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_started').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_started').GetValue, '(CFixedPoint)1.0')), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_completed').GetValue, '(CFixedPoint)1.0')))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_failed').GetValue, '(CFixedPoint)1.0')))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_branch').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_branch').GetValue, '(CFixedPoint)1.0'))))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_yellow_texture
+							alpha = 0.28
+						}
+						text_single = {
+							text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_ACTIVE"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[And(And(Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_started').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_started').GetValue, '(CFixedPoint)1.0'))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_completed').GetValue, '(CFixedPoint)1.0')))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_failed').GetValue, '(CFixedPoint)1.0'))))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_yellow_texture
+							alpha = 0.16
+						}
+						text_single = {
+							text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_WAITING"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+				}
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = fixed
+					size = { 446 28 }
+					spacing = 8
+					ignoreinvisible = yes
+					text_single = {
+						text = "TV_ENGINEERING_ST_PETERS_BASILICA_REWARD_BRANCH_STATUS"
+						size = { 322 24 }
+						max_width = 322
+						fontsize = 13
+						align = nobaseline|left
+					}
+					widget = {
+						visible = "[Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_failed').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_failed').GetValue, '(CFixedPoint)1.0')))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_mid_red_texture
+							alpha = 0.34
+						}
+						text_single = {
+							text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_FAILED"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_completed').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_completed').GetValue, '(CFixedPoint)1.0')))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_market_green_texture
+							alpha = 0.34
+						}
+						text_single = {
+							text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_COMPLETE"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[And(And(Not(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_completed').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_completed').GetValue, '(CFixedPoint)1.0')))), Not(Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_failed').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_failed').GetValue, '(CFixedPoint)1.0'))))), Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_branch').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_branch').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_branch').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_branch').GetValue, '(CFixedPoint)1.0'))))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_yellow_texture
+							alpha = 0.30
+						}
+						text_single = {
+							text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_BRANCH_RECORDED"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[False]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_yellow_texture
+							alpha = 0.28
+						}
+						text_single = {
+							text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_ACTIVE"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+					widget = {
+						visible = "[And(And(And(Not(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_completed').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_completed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_completed').GetValue, '(CFixedPoint)1.0')))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_branch').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_branch').GetValue, '(CFixedPoint)1.0')))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_branch').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_branch').GetValue, '(CFixedPoint)1.0')))), Not(Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_sacred_official_candidates_failed').GetValue, '(CFixedPoint)1.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_failed').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_unique_st_peters_basilica_ritual_apostolic_service_duties_failed').GetValue, '(CFixedPoint)1.0')))))]"
+						layoutpolicy_horizontal = fixed
+						layoutpolicy_vertical = fixed
+						size = { 116 22 }
+						alwaystransparent = yes
+						background = {
+							using = color_yellow_texture
+							alpha = 0.16
+						}
+						text_single = {
+							text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_WAITING"
+							size = { 100% 100% }
+							max_width = 106
+							fontsize = 12
+							align = center|nobaseline
+						}
+					}
+				}
+			}
+		}
 	}
 # END GENERATED TV_WONDER_MECHANICS_ACTIVE_RITUAL_TEXTS
 										}

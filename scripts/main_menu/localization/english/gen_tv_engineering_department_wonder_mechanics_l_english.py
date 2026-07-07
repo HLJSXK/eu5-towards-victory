@@ -23,6 +23,42 @@ EXCLUDED_LOC_KEYS = {
     "tv_wonder_ownership.900.t",
     "tv_wonder_ownership.900.d",
     "tv_wonder_ownership.900.a",
+    # Superseded single-track drafts from data/wonder_localization.yaml that predate the
+    # repeated-row pilot redesign (scripts/gen_repeated_row_pilot_wonders.py). Event IDs
+    # 1000-1003 and 1012-1015 are now the Dome of the Rock custody_duties row set and the
+    # Bank of Saint George public_credit_pledges row set respectively; those generated
+    # dotted keys live in the per-wonder tv_wonder_unique_*_ritual_l_english.yml files, so
+    # this shared file must not also define them or the two definitions collide.
+    "tv_engineering_department.1000.t",
+    "tv_engineering_department.1000.d",
+    "tv_engineering_department.1000.a",
+    "tv_engineering_department.1001.t",
+    "tv_engineering_department.1001.d",
+    "tv_engineering_department.1001.a",
+    "tv_engineering_department.1001.b",
+    "tv_engineering_department.1001.c",
+    "tv_engineering_department.1002.t",
+    "tv_engineering_department.1002.d",
+    "tv_engineering_department.1002.a",
+    "tv_engineering_department.1002.b",
+    "tv_engineering_department.1003.t",
+    "tv_engineering_department.1003.d",
+    "tv_engineering_department.1003.a",
+    "tv_engineering_department.1012.t",
+    "tv_engineering_department.1012.d",
+    "tv_engineering_department.1012.a",
+    "tv_engineering_department.1013.t",
+    "tv_engineering_department.1013.d",
+    "tv_engineering_department.1013.a",
+    "tv_engineering_department.1013.b",
+    "tv_engineering_department.1013.c",
+    "tv_engineering_department.1014.t",
+    "tv_engineering_department.1014.d",
+    "tv_engineering_department.1014.a",
+    "tv_engineering_department.1014.b",
+    "tv_engineering_department.1015.t",
+    "tv_engineering_department.1015.d",
+    "tv_engineering_department.1015.a",
 }
 
 
