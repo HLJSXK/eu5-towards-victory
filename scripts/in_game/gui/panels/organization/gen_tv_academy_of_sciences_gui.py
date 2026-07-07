@@ -22,6 +22,18 @@ DEBATE_DATA_FILE = REPO_ROOT / "data" / "philosophy_debates.yaml"
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "gui" / "panels" / "organization" / "tv_academy_of_sciences.gui"
 
 T = "\t"
+LOCAL_DEBATE_SEAT_SIZE = 68
+WORLD_DEBATE_SEAT_SIZE = 36
+STANCE_COLOR_TEXTURES = {
+    1: "color_light_green_texture",
+    2: "color_red_texture",
+    3: "color_yellow_texture",
+}
+STANCE_TOOLTIP_KEYS = {
+    1: "TV_ACADEMY_DEBATE_STANCE_SUPPORT",
+    2: "TV_ACADEMY_DEBATE_STANCE_OPPOSE",
+    3: "TV_ACADEMY_DEBATE_STANCE_NEUTRAL",
+}
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Static template parts — do not move the generated block markers
@@ -1123,64 +1135,77 @@ def world_debate_seat_var(seat: int, suffix: str) -> str:
     return f"tv_academy_world_debate_seat_{seat}_{suffix}"
 
 
-def append_stance_marker(lines: list[str], level: int, visible_expr: str, icon: str, tooltip_key: str) -> None:
-    emit(lines, level, "text_single = {")
+def append_stance_circle(lines: list[str], level: int, visible_expr: str, texture: str, tooltip_key: str) -> None:
+    emit(lines, level, "icon = {")
     emit(lines, level + 1, f'visible = "{visible_expr}"')
-    emit(lines, level + 1, "position = { 22 22 }")
-    emit(lines, level + 1, "size = { 14 14 }")
-    emit(lines, level + 1, f'raw_text = "{icon}"')
-    emit(lines, level + 1, "fontsize = 9")
+    emit(lines, level + 1, "parentanchor = center")
+    emit(lines, level + 1, "size = { 100% 100% }")
+    emit(lines, level + 1, 'texture = "gfx/interface/component_tiles/hud_corners/circle_progress_bg.dds"')
+    emit(lines, level + 1, "modify_texture = {")
+    emit(lines, level + 2, f"using = {texture}")
+    emit(lines, level + 1, "}")
+    emit(lines, level + 1, "alpha = 0.88")
     emit(lines, level + 1, f'tooltip = "{tooltip_key}"')
-    emit(lines, level + 1, "align = center|nobaseline")
     emit(lines, level, "}")
 
 
 def append_local_debate_seat(lines: list[str], level: int, x: int, y: int, seat: int | None, crown: bool) -> None:
     emit(lines, level, "widget = {")
     emit(lines, level + 1, f"position = {{ {x} {y} }}")
-    emit(lines, level + 1, "size = { 34 34 }")
-    emit(lines, level + 1, "using = bg_circle_piechart")
+    emit(lines, level + 1, f"size = {{ {LOCAL_DEBATE_SEAT_SIZE} {LOCAL_DEBATE_SEAT_SIZE} }}")
+    emit(lines, level + 1, "using = bg_circle_piechart_big")
     emit(lines, level + 1, 'tooltip = "TV_ACADEMY_DEBATE_LOCAL_EMPTY_SEAT_TT"')
     if crown:
+        append_stance_circle(
+            lines,
+            level + 1,
+            f"[{debate_active_expr()}]",
+            STANCE_COLOR_TEXTURES[1],
+            STANCE_TOOLTIP_KEYS[1],
+        )
         emit(lines, level + 1, "text_single = {")
         emit(lines, level + 2, f'visible = "[{debate_active_expr()}]"')
         emit(lines, level + 2, "parentanchor = center")
         emit(lines, level + 2, "size = { 100% 100% }")
         emit(lines, level + 2, 'raw_text = "@crown_estate!"')
-        emit(lines, level + 2, "fontsize = 18")
+        emit(lines, level + 2, "fontsize = 32")
         emit(lines, level + 2, 'tooltip = "TV_ACADEMY_DEBATE_LOCAL_CROWN_SEAT_TT"')
         emit(lines, level + 2, "align = center|nobaseline")
         emit(lines, level + 1, "}")
-        append_stance_marker(lines, level + 1, f"[{debate_active_expr()}]", "@trigger_yes!", "TV_ACADEMY_DEBATE_STANCE_SUPPORT")
     else:
         assert seat is not None
         group_var = player_var(debate_seat_var(seat, "group"))
         stance_var = player_var(debate_seat_var(seat, "stance"))
+        seat_set = f"{group_var}.IsSet"
+        for stance, texture in STANCE_COLOR_TEXTURES.items():
+            append_stance_circle(
+                lines,
+                level + 1,
+                f"[And({seat_set}, {fixed_eq(stance_var, stance)})]",
+                texture,
+                STANCE_TOOLTIP_KEYS[stance],
+            )
         for group in DEBATE_GROUPS:
             emit(lines, level + 1, "text_single = {")
             emit(lines, level + 2, f'visible = "[{fixed_eq(group_var, int(group["id"]))}]"')
             emit(lines, level + 2, "parentanchor = center")
             emit(lines, level + 2, "size = { 100% 100% }")
             emit(lines, level + 2, f'raw_text = "{group["icon"]}"')
-            emit(lines, level + 2, "fontsize = 17")
+            emit(lines, level + 2, "fontsize = 30")
             emit(lines, level + 2, f'tooltip = "TV_ACADEMY_DEBATE_GROUP_{group["key"].upper()}_TT"')
             emit(lines, level + 2, "align = center|nobaseline")
             emit(lines, level + 1, "}")
-        seat_set = f"{group_var}.IsSet"
-        append_stance_marker(lines, level + 1, f"[And({seat_set}, {fixed_eq(stance_var, 1)})]", "@trigger_yes!", "TV_ACADEMY_DEBATE_STANCE_SUPPORT")
-        append_stance_marker(lines, level + 1, f"[And({seat_set}, {fixed_eq(stance_var, 2)})]", "@trigger_no!", "TV_ACADEMY_DEBATE_STANCE_OPPOSE")
-        append_stance_marker(lines, level + 1, f"[And({seat_set}, {fixed_eq(stance_var, 3)})]", "@warning_icon!", "TV_ACADEMY_DEBATE_STANCE_NEUTRAL")
     emit(lines, level, "}")
 
 
 def append_round_table(lines: list[str], level: int, visible_expr: str, table_text_key: str | None, history: bool = False) -> None:
     emit(lines, level, "widget = {")
     emit(lines, level + 1, f'visible = "{visible_expr}"')
-    emit(lines, level + 1, "size = { 470 328 }")
+    emit(lines, level + 1, "size = { 470 376 }")
     emit(lines, level + 1, "allow_outside = yes")
     emit(lines, level + 1, "widget = {")
     emit(lines, level + 2, "size = { 220 220 }")
-    emit(lines, level + 2, "position = { 125 18 }")
+    emit(lines, level + 2, "position = { 125 54 }")
     emit(lines, level + 2, "using = bg_circle_piechart")
     emit(lines, level + 2, "widget = {")
     emit(lines, level + 3, "parentanchor = center")
@@ -1208,16 +1233,16 @@ def append_round_table(lines: list[str], level: int, visible_expr: str, table_te
     emit(lines, level + 1, "}")
     if not history:
         for x, y, crown, seat in [
-            (218, 260, True, None),
-            (218, 6, False, 1),
-            (105, 73, False, 2),
-            (331, 73, False, 3),
-            (105, 203, False, 4),
-            (331, 203, False, 5),
+            (201, 258, True, None),
+            (201, 8, False, 1),
+            (78, 78, False, 2),
+            (324, 78, False, 3),
+            (78, 208, False, 4),
+            (324, 208, False, 5),
         ]:
             append_local_debate_seat(lines, level + 1, x, y, seat, crown)
         emit(lines, level + 1, "vbox = {")
-        emit(lines, level + 2, "position = { 4 292 }")
+        emit(lines, level + 2, "position = { 4 340 }")
         emit(lines, level + 2, "size = { 462 28 }")
         debate_position = io_var("tv_academy_philosophy_debate_position")
         append_debate_progress_footer(
@@ -1235,11 +1260,14 @@ def append_world_seat_tint(lines: list[str], level: int, seat_set: str, stance_v
     emit(lines, level, "widget = {")
     emit(lines, level + 1, f'visible = "[And({seat_set}, {fixed_eq(stance_var, stance)})]"')
     emit(lines, level + 1, "size = { 100% 100% }")
-    emit(lines, level + 1, "using = bg_circle_piechart")
-    emit(lines, level + 1, "modify_texture = {")
-    emit(lines, level + 2, f"using = {texture}")
-    emit(lines, level + 2, "blend_mode = overlay")
-    emit(lines, level + 2, "alpha = 0.85")
+    emit(lines, level + 1, "icon = {")
+    emit(lines, level + 2, "parentanchor = center")
+    emit(lines, level + 2, "size = { 100% 100% }")
+    emit(lines, level + 2, 'texture = "gfx/interface/component_tiles/hud_corners/circle_progress_bg.dds"')
+    emit(lines, level + 2, "modify_texture = {")
+    emit(lines, level + 3, f"using = {texture}")
+    emit(lines, level + 2, "}")
+    emit(lines, level + 2, "alpha = 0.88")
     emit(lines, level + 1, "}")
     emit(lines, level, "}")
 
@@ -1249,8 +1277,8 @@ def append_world_seat(lines: list[str], level: int, seat: int) -> None:
     stance_var = player_var(world_debate_seat_var(seat, "stance"))
     seat_set = f"{country_var}.IsSet"
     emit(lines, level, "widget = {")
-    emit(lines, level + 1, "size = { 24 24 }")
-    emit(lines, level + 1, "using = bg_circle_piechart")
+    emit(lines, level + 1, f"size = {{ {WORLD_DEBATE_SEAT_SIZE} {WORLD_DEBATE_SEAT_SIZE} }}")
+    emit(lines, level + 1, "using = bg_circle_piechart_big")
     emit(lines, level + 1, 'tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"')
     append_world_seat_tint(lines, level + 1, seat_set, stance_var, 1, "color_light_green_texture")
     append_world_seat_tint(lines, level + 1, seat_set, stance_var, 2, "color_red_texture")
@@ -1259,17 +1287,17 @@ def append_world_seat(lines: list[str], level: int, seat: int) -> None:
     emit(lines, level + 2, f'visible = "[{seat_set}]"')
     emit(lines, level + 2, "parentanchor = center")
     emit(lines, level + 2, "widgetanchor = center")
-    emit(lines, level + 2, "size = { 22 14 }")
+    emit(lines, level + 2, "size = { 32 20 }")
     emit(lines, level + 2, f'datacontext = "[{country_var}.GetCountry]"')
     emit(lines, level + 2, 'tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"')
-    emit(lines, level + 2, "country_flag_small_plus = { size = { 22 14 } }")
+    emit(lines, level + 2, "country_flag_small_plus = { size = { 32 20 } }")
     emit(lines, level + 1, "}")
     emit(lines, level + 1, "text_single = {")
     emit(lines, level + 2, f'visible = "[Not({seat_set})]"')
     emit(lines, level + 2, "parentanchor = center")
     emit(lines, level + 2, "size = { 100% 100% }")
     emit(lines, level + 2, 'raw_text = "@diplomacy!"')
-    emit(lines, level + 2, "fontsize = 10")
+    emit(lines, level + 2, "fontsize = 15")
     emit(lines, level + 2, "align = center|nobaseline")
     emit(lines, level + 1, "}")
     emit(lines, level, "}")
@@ -1285,14 +1313,14 @@ def append_world_table(lines: list[str], level: int) -> None:
     emit(lines, level + 2, "layoutpolicy_horizontal = fixed")
     emit(lines, level + 2, "size = { 462 320 }")
     emit(lines, level + 2, "margin = { 4 6 }")
-    emit(lines, level + 2, "spacing = 8")
+    emit(lines, level + 2, "spacing = 4")
     seat = 1
     for _ in range(5):
         emit(lines, level + 2, "hbox = {")
         emit(lines, level + 3, "layoutpolicy_horizontal = fixed")
-        emit(lines, level + 3, "size = { 320 24 }")
+        emit(lines, level + 3, "size = { 396 36 }")
         emit(lines, level + 3, "parentanchor = hcenter")
-        emit(lines, level + 3, "spacing = 8")
+        emit(lines, level + 3, "spacing = 4")
         for _ in range(10):
             append_world_seat(lines, level + 3, seat)
             seat += 1
@@ -1399,7 +1427,7 @@ def append_current_issue_card(lines: list[str], level: int) -> None:
     emit(lines, level + 1, "}")
     emit(lines, level + 1, 'blockoverride "common_bottom_content" {')
     emit(lines, level + 2, "widget = {")
-    emit(lines, level + 3, "size = { 470 336 }")
+    emit(lines, level + 3, "size = { 470 384 }")
     append_round_table(lines, level + 3, f"[{current_node_type_eq(0)}]", "TV_ACADEMY_DEBATE_HISTORY_TABLE_TEXT", history=True)
     append_round_table(lines, level + 3, f"[{current_node_type_eq(1)}]", None, history=False)
     append_world_table(lines, level + 3)
