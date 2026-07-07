@@ -50,6 +50,7 @@ WORLD_DELTA_VAR = "tv_academy_world_debate_delta"
 WORLD_NEXT_SEAT_VAR = "tv_academy_world_debate_next_seat"
 WORLD_DECISIVE_SEATS_VAR = "tv_academy_world_debate_decisive_seats"
 WORLD_COUNTRY_STANCE_VAR = "tv_academy_world_debate_stance"
+WORLD_PARTICIPANT_VAR = "tv_academy_world_debate_participant"
 WORLD_NUMERIC_VARS = [
     WORLD_ACTIVE_VAR,
     WORLD_ISSUE_VAR,
@@ -2092,7 +2093,20 @@ def gen_world_debate_effects(lines: list[str], data: dict) -> None:
     emit(lines, 0, "}")
     emit(lines)
 
+    emit(lines, 0, "tv_academy_world_debate_clear_country_participants_effect = {")
+    emit(lines, 1, f"if = {{")
+    emit(lines, 2, f"limit = {{ has_global_variable_list = {WORLD_PARTICIPANTS_LIST} }}")
+    emit(lines, 2, "every_in_global_list = {")
+    emit(lines, 3, f"variable = {WORLD_PARTICIPANTS_LIST}")
+    emit(lines, 3, f"remove_variable = {WORLD_PARTICIPANT_VAR}")
+    emit(lines, 3, f"remove_variable = {WORLD_COUNTRY_STANCE_VAR}")
+    emit(lines, 2, "}")
+    emit(lines, 1, "}")
+    emit(lines, 0, "}")
+    emit(lines)
+
     emit(lines, 0, "tv_academy_world_debate_clear_seats_effect = {")
+    emit(lines, 1, "tv_academy_world_debate_clear_country_participants_effect = yes")
     emit(lines, 1, f"clear_global_variable_list = {WORLD_PARTICIPANTS_LIST}")
     for seat in WORLD_SEATS:
         emit(lines, 1, f"remove_variable = {world_seat_country(seat)}")
@@ -2182,6 +2196,7 @@ def gen_world_debate_effects(lines: list[str], data: dict) -> None:
     emit(lines, 2, f"set_variable = {{ name = {WORLD_NEXT_SEAT_VAR} value = 1 }}")
     emit(lines, 2, "every_country = {")
     emit(lines, 3, "limit = { tv_academy_world_debate_country_can_participate_trigger = yes }")
+    emit(lines, 3, f"set_variable = {{ name = {WORLD_PARTICIPANT_VAR} value = 1 }}")
     emit(lines, 3, f"add_to_global_variable_list = {{ name = {WORLD_PARTICIPANTS_LIST} target = this }}")
     emit(lines, 3, f"set_variable = {{ name = {WORLD_COUNTRY_STANCE_VAR} value = {STANCE_NEUTRAL} }}")
     emit(lines, 3, "if = {")
