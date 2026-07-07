@@ -610,6 +610,12 @@ country-scoped map checks such as `target = this`. Save the map owner before the
 copy `this` into a local variable inside the callback, then perform the sibling map checks under
 `scope:<saved_owner>` with `target = local_var:<key>`.
 
+The same owner-scope rule applies to ordinary item iterators over country-owned variable lists.
+`every_in_list`, `random_in_list`, and `any_in_list` switch the current scope to the list item,
+so a list of regions, locations, or characters is not the country scope that owns the map. Copy
+the region/location/character key into a local variable, then enter the saved country scope for
+both `is_key_in_variable_map` and the quoted `variable_map(...)` scope link.
+
 When a variable-map key callback is reached from a generic action effect or selector tooltip,
 do not assume `root` is a valid country event target. Save the current country before entering
 the callback, then write through the named scope:

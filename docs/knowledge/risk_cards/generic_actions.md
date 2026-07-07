@@ -80,10 +80,12 @@ execution time can still spam runtime errors while the mouse is merely hovering 
    map key iteration or `random_key_in_variable_map` with generated per-id branches. Save the
    current owner scope before the map callback and write back through that named scope.
 
-12. Run sibling map reads from the saved owner scope inside key iterators.
+12. Run sibling map reads from the saved owner scope inside iterators.
    In `every_key_in_variable_map` / `ordered_key_in_variable_map`, the callback scope may be
-   the numeric key itself. Copy `this` into a `local_var`, then run `is_key_in_variable_map`
-   and country-variable reads inside `scope:<saved_owner>` with `target = local_var:<key>`.
+   the numeric key itself. In `every_in_list` / `random_in_list` / `any_in_list`, the current
+   scope is the list item, such as a region, location, or character. Copy the key into a
+   `local_var`, then run `is_key_in_variable_map` and the quoted `variable_map(...)` scope link
+   inside `scope:<saved_owner>` with `target = local_var:<key>`.
 
 13. Do not use inflated `ordered_key_in_variable_map` max values.
    The engine logs an error when `max` is larger than the current key list. Use
@@ -202,6 +204,9 @@ rationale.
 - `variable_map_key_iterator_scope_used_for_map_read` [needs_parser]: A key-iterator callback
   should not run `is_key_in_variable_map` on the current numeric key scope; save the map owner,
   copy `this` into a local variable, and check sibling maps from the owner scope.
+- `variable_map_owner_read_from_item_iterator_scope` [needs_parser]: A variable-list item iterator
+  should not run country-scoped map reads from the current region/location/character scope; save
+  the map owner, copy the key into a local variable, and perform map checks from the owner scope.
 - `generic_action_loc_uses_gui_country_binding` [advisory]: Action title/description localization
   can be fetched without any data container; avoid `Country`/`SCOPE` reads and preserve dynamic
   player-country features through `Player.MakeScope`, or use an explicitly scoped GUI route for

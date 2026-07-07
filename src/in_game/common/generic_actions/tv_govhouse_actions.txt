@@ -135,14 +135,22 @@ tv_appoint_governor = {
 			custom_tooltip = {
 				text = TV_HAS_VARIABLE_NOT_SET_TT
 				NOT = { has_variable = tv_is_governor }
+				NOT = { has_variable = tv_govhouse_pending_governor_assignment }
 			}
 		}
 	}
 
 	effect = {
-		scope:actor = {
-			hidden_effect = {
-				tv_governor_request_appointment_effect = yes
+		if = {
+			limit = {
+				exists = scope:target
+				exists = scope:target_1
+			}
+			custom_tooltip = {
+				text = TV_GOVHOUSE_APPOINT_GOVERNOR_EFFECT_TT
+				scope:actor = {
+					trigger_event_silently = { id = tv_govhouse.8 }
+				}
 			}
 		}
 	}
@@ -218,6 +226,7 @@ tv_auto_assign_governors = {
 					custom_tooltip = {
 						text = TV_HAS_VARIABLE_NOT_SET_TT
 						NOT = { has_variable = tv_is_governor }
+						NOT = { has_variable = tv_govhouse_pending_governor_assignment }
 					}
 				}
 			}
@@ -494,14 +503,22 @@ tv_change_governor = {
 			custom_tooltip = {
 				text = TV_HAS_VARIABLE_NOT_SET_TT
 				NOT = { has_variable = tv_is_governor }
+				NOT = { has_variable = tv_govhouse_pending_governor_assignment }
 			}
 		}
 	}
 
 	effect = {
-		scope:actor = {
-			hidden_effect = {
-				tv_governor_request_appointment_effect = yes
+		if = {
+			limit = {
+				exists = scope:target
+				exists = scope:target_1
+			}
+			custom_tooltip = {
+				text = TV_GOVHOUSE_APPOINT_GOVERNOR_EFFECT_TT
+				scope:actor = {
+					trigger_event_silently = { id = tv_govhouse.8 }
+				}
 			}
 		}
 	}

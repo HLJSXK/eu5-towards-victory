@@ -132,7 +132,7 @@ tv_govhouse.5 = {
 			}
 		}
 		hidden_effect = {
-			trigger_event_silently = { id = tv_govhouse.6 }
+			tv_govhouse_confirm_local_administration_event_scope_effect = yes
 		}
 	}
 
@@ -141,26 +141,6 @@ tv_govhouse.5 = {
 		hidden_effect = {
 			tv_govhouse_clear_pending_local_administration_effect = yes
 		}
-	}
-}
-
-tv_govhouse.6 = {
-	type = country_event
-	outcome = neutral
-	title = empty_text
-	desc = empty_text
-	hidden = yes
-
-	trigger = {
-		hidden_trigger = {
-			has_variable = tv_govhouse_pending_governor_char
-			has_variable = tv_govhouse_pending_governor_region
-			has_variable = tv_govhouse_pending_local_admin_location
-		}
-	}
-
-	immediate = {
-		tv_govhouse_confirm_local_administration_effect = yes
 	}
 }
 
@@ -185,6 +165,15 @@ tv_govhouse.7 = {
 
 	option = {
 		name = tv_govhouse.7.a
+	}
+}
+
+tv_govhouse.8 = {
+	type = country_event
+	hidden = yes
+
+	immediate = {
+		tv_governor_request_appointment_effect = yes
 	}
 }
 

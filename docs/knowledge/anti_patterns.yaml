@@ -1434,6 +1434,16 @@
   source: "Runtime error.log: common/scripted_effects/tv_wonder_module_effects.txt:3364 via tv_wonder_bribe_proposal generic action, 2026-06-10"
   notes: "In a key iterator callback the current scope may be the numeric key itself (for example 1.00), which does not support scope-owned variables. Membership checks for sibling country-scoped maps must execute from the saved country/map owner while the key is passed through a local variable."
 
+- id: variable_map_owner_read_from_item_iterator_scope
+  pattern: ''
+  detectability: needs_parser
+  bad: "Calling is_key_in_variable_map or variable_map(...) for a country-scoped map directly from an every_in_list/random_in_list/any_in_list item scope such as a region, location, or character"
+  correction: "Save the country/map owner before the item iterator, copy the dynamic key to a local variable, and run both is_key_in_variable_map and the quoted variable_map scope link inside scope:<saved_owner>."
+  category: scope
+  scope: variable_map
+  source: "Runtime error.log: common/scripted_effects/tv_govhouse_effects.txt:2281 via Governor's House creation, 2026-07-07"
+  notes: "Governor's House display refresh iterated tv_govhouse_region_list, making the current scope a region. The country-scoped region_to_admin_location map check then logged 'This scope doesn't support variables' for each region. The same pattern can happen while iterating character/location lists; variable-map reads belong on the scope that owns the map."
+
 - id: ordered_key_variable_map_oversized_max
   pattern: ''
   detectability: advisory
