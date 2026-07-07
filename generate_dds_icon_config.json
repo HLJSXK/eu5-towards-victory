@@ -15,7 +15,7 @@
     "retry_max_delay_seconds": 30,
     "retry_backoff_multiplier": 2
   },
-  "generation_target": "victory_path_icons",
+  "generation_target": "wonder_building_icons",
   "prompt_refinement": {
     "enabled": true,
     "style_rules": "Match the palette, brush feel, lighting, icon density, and framing discipline of the selected target's reference image. Keep the final subject and asset meaning driven by the selected batch entry, not the reference subject.",
@@ -158,6 +158,33 @@
         }
       }
     }
+  },
+  "wonder_building_icons": {
+    "output_dir": "src/main_menu/gfx/interface/icons/buildings",
+    "artifact_stem": "{name}",
+    "include_generic": true,
+    "include_unique": true,
+    "style_reference_paths": [
+      "data/generated_icons/_style_refs/construction_center.dds"
+    ],
+    "target": {
+      "width": 128,
+      "height": 128,
+      "resize": "cover",
+      "dds_format": "DXT5",
+      "mipmaps": true,
+      "mipmap_min_dimension": 2,
+      "circle_crop": true,
+      "circle_crop_feather_px": 8,
+      "max_file_size_bytes": 100000,
+      "image_size": "1024x1024",
+      "local_template": {
+        "enabled": false
+      }
+    },
+    "icon_rules": "Match vanilla Europa Universalis V building icons: simple painterly brushwork, compact centered crop, clear 128px silhouette, and a restrained palette of 3-4 colors. Use one main architectural symbol plus at most 1-2 tiny supporting shapes. Keep the icon readable after circular crop and mipmap downsizing. No text, letters, numbers, logo, UI frame, full landscape, crowd, or detailed narrative scene.",
+    "prompt_prefix": "Create a compact vanilla-style Europa Universalis V wonder building icon for",
+    "overrides": {}
   },
   "victory_path_icons": {
     "output_dir": "src/main_menu/gfx/interface/icons/towards_victory/victory_paths",

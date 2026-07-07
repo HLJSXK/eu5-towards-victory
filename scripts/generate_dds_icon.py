@@ -12,8 +12,8 @@ Usage:
 The script expands a short asset idea into a production prompt for one selected
 target, uploads that target's style-reference images, writes the generated PNG,
 and converts it into one DDS target with enforced dimensions and byte limits.
-It can also run the victory path icon batch, plus the victory reward icon batch:
-one route template plus fifteen reward-option icons for each of the six victory paths.
+It can also run the victory path icon batch, the victory reward icon batch,
+and a wonder building icon batch for every generated final wonder building.
 """
 
 from __future__ import annotations
@@ -48,6 +48,12 @@ from dds_image_lib import (
     resize_rgba,
     write_dds,
 )
+from wonder_mechanics._core import (
+    load_all_wonder_mechanics_data,
+    load_generic_wonder_image_prompts,
+    load_yaml as load_wonder_yaml,
+    wonder_image_prompt,
+)
 
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -57,9 +63,11 @@ DEFAULT_GENERATIONS_ENDPOINT = "https://www.right.codes/draw/v1/images/generatio
 DEFAULT_EDITS_ENDPOINT = "https://www.right.codes/draw/v1/images/edits"
 DEFAULT_PNG_DIR = REPO_ROOT / "data" / "generated_icons"
 DEFAULT_REF_DIR = DEFAULT_PNG_DIR / "_style_refs"
+WONDER_LOCALIZATION_PATH = REPO_ROOT / "data" / "wonder_localization.yaml"
 DEFAULT_STYLE_UPLOAD_FIELD = "image"
 VICTORY_REWARD_BATCH = "victory_reward_icons"
 VICTORY_PATH_BATCH = "victory_path_icons"
+WONDER_BUILDING_BATCH = "wonder_building_icons"
 
 TARGET_PRESETS: dict[str, dict[str, Any]] = {
     "trade_good_icon": {
@@ -202,9 +210,14 @@ TARGET_ALIASES = {
     "victory_route_icons": VICTORY_PATH_BATCH,
     "victory_path_icons": VICTORY_PATH_BATCH,
     "victory_paths": VICTORY_PATH_BATCH,
+    "wonder_building_icons": WONDER_BUILDING_BATCH,
+    "wonder_buildings": WONDER_BUILDING_BATCH,
+    "wonder_final_building_icons": WONDER_BUILDING_BATCH,
+    "wonder_final_buildings": WONDER_BUILDING_BATCH,
+    "wonder_icons": WONDER_BUILDING_BATCH,
 }
 
-BATCH_TARGETS = {VICTORY_REWARD_BATCH, VICTORY_PATH_BATCH}
+BATCH_TARGETS = {VICTORY_REWARD_BATCH, VICTORY_PATH_BATCH, WONDER_BUILDING_BATCH}
 
 
 @dataclass(frozen=True)
@@ -784,6 +797,46 @@ def existing_template_reference(output_config: dict[str, Any], target: TargetSpe
     return display_path(target.path).replace("\\", "/")
 
 
+def compact_prompt_text(value: Any, *, max_chars: int = 280) -> str:
+    text = re.sub(r"\s+", " ", str(value or "")).strip()
+    text = re.split(r"\b(?:historical fantasy|historically grounded)\b", text, maxsplit=1, flags=re.IGNORECASE)[0]
+    text = text.strip().rstrip(",.;")
+    if len(text) <= max_chars:
+        return text
+    return text[: max_chars - 3].rstrip(" ,.;") + "..."
+
+
+def load_english_wonder_localization(path: Path = WONDER_LOCALIZATION_PATH) -> dict[str, str]:
+    if not path.exists():
+        return {}
+    data = load_wonder_yaml(path) or {}
+    root = data.get("wonder_localization", {})
+    if not isinstance(root, dict):
+        raise ValueError("data/wonder_localization.yaml wonder_localization must be a mapping")
+    english = root.get("english", {})
+    if not isinstance(english, dict):
+        raise ValueError("data/wonder_localization.yaml wonder_localization.english must be a mapping")
+    return {str(key): str(value) for key, value in english.items()}
+
+
+def label_from_key(localization: dict[str, str], key: str) -> str:
+    value = compact_prompt_text(localization.get(key, ""), max_chars=120)
+    if value:
+        return value
+    for prefix in ("tv_wonder_unique_", "tv_wonder_"):
+        if key.startswith(prefix):
+            key = key[len(prefix):]
+            break
+    return key.replace("_", " ").title()
+
+
+def wonder_building_batch_config(config: dict[str, Any]) -> dict[str, Any]:
+    value = config.get(WONDER_BUILDING_BATCH, {})
+    if not isinstance(value, dict):
+        raise ValueError(f"{WONDER_BUILDING_BATCH} must be a JSON object")
+    return value
+
+
 def victory_batch_config(config: dict[str, Any]) -> dict[str, Any]:
     value = config.get(VICTORY_REWARD_BATCH, {})
     if not isinstance(value, dict):
@@ -832,6 +885,147 @@ def load_victory_path_icon_configs(batch_config: dict[str, Any]) -> list[dict[st
         path_config["label"] = str(path_config.get("label") or path_id.replace("_", " ").title())
         paths.append(path_config)
     return paths
+
+
+def build_wonder_building_icon_batch_tasks(
+    config: dict[str, Any],
+    output_config: dict[str, Any],
+    style_config: dict[str, Any],
+    image_config: dict[str, Any],
+    prompt_config: dict[str, Any],
+) -> list[BatchIconTask]:
+    batch_config = wonder_building_batch_config(config)
+    target_name = "building_icon"
+    base_target_config = deep_merge(
+        TARGET_PRESETS[target_name],
+        require_object(batch_config, "target"),
+    )
+
+    include_generic = bool(batch_config.get("include_generic", True))
+    include_unique = bool(batch_config.get("include_unique", True))
+    if not include_generic and not include_unique:
+        raise ValueError(f"{WONDER_BUILDING_BATCH} must include generic wonders, unique wonders, or both")
+
+    output_dir = str(
+        batch_config.get("output_dir")
+        or base_target_config.get("path", TARGET_PRESETS[target_name]["path"]).rsplit("/", 1)[0]
+    )
+    artifact_stem_template = str(batch_config.get("artifact_stem") or "{name}")
+    default_refs = parse_path_list(
+        batch_config.get(
+            "style_reference_paths",
+            base_target_config.get(
+                "style_reference_paths",
+                ["data/generated_icons/_style_refs/construction_center.dds"],
+            ),
+        ),
+        f"{WONDER_BUILDING_BATCH}.style_reference_paths",
+    )
+    icon_rules = str(
+        batch_config.get("icon_rules")
+        or (
+            "Vanilla EU5 building icon style: compact centered 128px silhouette, simple painterly "
+            "brushwork, limited palette of 3-4 colors, one main architectural form with at most "
+            "1-2 tiny supporting shapes, readable at small size, no text, no letters, no logo, "
+            "no UI frame, no full landscape, no crowded scene, no intricate panorama."
+        )
+    )
+    prompt_prefix = str(
+        batch_config.get("prompt_prefix")
+        or "Create a compact vanilla-style Europa Universalis V wonder building icon for"
+    )
+    overrides = batch_config.get("overrides", {})
+    if not isinstance(overrides, dict):
+        raise ValueError(f"{WONDER_BUILDING_BATCH}.overrides must be a JSON object")
+
+    wonders, _ = load_all_wonder_mechanics_data(include_unique=include_unique)
+    if not include_generic:
+        wonders = [wonder for wonder in wonders if bool(wonder.get("is_unique"))]
+    localization = load_english_wonder_localization()
+    generic_prompts = load_generic_wonder_image_prompts()
+
+    batch_output_config = dict(output_config)
+    batch_output_config["artifact_stem"] = artifact_stem_template
+    tasks: list[BatchIconTask] = []
+    seen_buildings: set[str] = set()
+    for wonder in sorted(wonders, key=lambda item: int(item["id"])):
+        wonder_key = str(wonder["key"])
+        wonder_label = label_from_key(localization, str(wonder.get("concept") or f"tv_wonder_{wonder_key}"))
+        wonder_context = compact_prompt_text(wonder_image_prompt(wonder, generic_prompts))
+        final_buildings = wonder.get("final_buildings", {})
+        for style, building in sorted(final_buildings.items(), key=lambda item: int(item[0])):
+            building_name = safe_slug(str(building))
+            if building_name in seen_buildings:
+                continue
+            seen_buildings.add(building_name)
+
+            raw_override = overrides.get(building_name, {})
+            if not isinstance(raw_override, dict):
+                raise ValueError(f"{WONDER_BUILDING_BATCH}.overrides.{building_name} must be a JSON object")
+            override = dict(raw_override)
+            building_label = str(
+                override.get("label") or label_from_key(localization, building_name)
+            )
+            branch_note = compact_prompt_text(localization.get(f"{building_name}_desc", ""), max_chars=180)
+            icon_subject = str(
+                override.get("icon_prompt")
+                or override.get("subject")
+                or (
+                    f"{building_label}, reduced to one simple architectural silhouette or emblem "
+                    f"from the {wonder_label}"
+                )
+            )
+            refs = parse_path_list(
+                override.get("style_reference_paths", default_refs),
+                f"{WONDER_BUILDING_BATCH}.overrides.{building_name}.style_reference_paths",
+            )
+            note_sentence = f" Branch note: {branch_note}." if branch_note else ""
+            target_config = deep_merge(
+                base_target_config,
+                {
+                    "asset_name": building_name,
+                    "path": f"{output_dir}/{{name}}.dds",
+                    "style_reference_paths": refs,
+                    "prompt_requirements": icon_rules,
+                    "local_template": {"enabled": False},
+                    "image": {
+                        "natural_prompt": (
+                            f"{prompt_prefix} {building_label}, the style {style} final building "
+                            f"of {wonder_label}. Subject: {icon_subject}. Wonder motif for identity "
+                            f"only: {wonder_context}.{note_sentence} {icon_rules}"
+                        ),
+                        "negative_prompt": (
+                            "busy scene, landscape, full panorama, many objects, extra props, crowds, "
+                            "workers, complex scaffolding, detailed narrative scene, ornate palace scene, "
+                            "realistic photo, text, letters, numbers, logo, watermark, UI frame"
+                        ),
+                    },
+                },
+            )
+            override_target_config = {
+                key: value
+                for key, value in override.items()
+                if key not in {"icon_prompt", "label", "subject"}
+            }
+            target_config = deep_merge(target_config, override_target_config)
+            target = build_target_spec(target_name, target_config, batch_output_config, style_config)
+            tasks.append(
+                BatchIconTask(
+                    kind="unique_wonder_building" if bool(wonder.get("is_unique")) else "generic_wonder_building",
+                    path_id=building_name,
+                    path_label=f"{wonder_label}: {building_label}",
+                    milestone=None,
+                    choice=None,
+                    target=target,
+                    image_config=apply_target_image_settings(image_config, target),
+                    prompt_config=prompt_config,
+                    output_config=batch_output_config,
+                )
+            )
+
+    if not tasks:
+        raise ValueError(f"{WONDER_BUILDING_BATCH} did not find any final wonder buildings")
+    return tasks
 
 
 def build_victory_batch_tasks(
@@ -2100,6 +2294,45 @@ def run_victory_path_icon_batch(
     return 0
 
 
+def run_wonder_building_icon_batch(
+    args: argparse.Namespace,
+    config: dict[str, Any],
+    api_config: dict[str, Any],
+    prompt_config: dict[str, Any],
+    image_config: dict[str, Any],
+    style_config: dict[str, Any],
+    output_config: dict[str, Any],
+) -> int:
+    if args.convert_existing_png:
+        raise ValueError("--convert-existing-png is only supported for a single selected target")
+    tasks = build_wonder_building_icon_batch_tasks(
+        config,
+        output_config,
+        style_config,
+        image_config,
+        prompt_config,
+    )
+    generic_count = sum(1 for task in tasks if task.kind == "generic_wonder_building")
+    unique_count = sum(1 for task in tasks if task.kind == "unique_wonder_building")
+    print(
+        f"[batch] {WONDER_BUILDING_BATCH}: generic={generic_count}, "
+        f"unique={unique_count}, total={len(tasks)}"
+    )
+    for index, task in enumerate(tasks, start=1):
+        print(f"[batch] {index}/{len(tasks)} wonder building icon {task.path_id} ({task.path_label})")
+        run_target_generation(
+            args,
+            api_config,
+            task.prompt_config,
+            task.image_config,
+            style_config,
+            task.output_config,
+            task.target,
+            allow_missing_style_reference_dry_run=task.allow_missing_style_reference_dry_run,
+        )
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(sys.argv[1:] if argv is None else argv)
     if args.list_targets:
@@ -2131,6 +2364,16 @@ def main(argv: list[str] | None = None) -> int:
         )
     if selected_target == VICTORY_REWARD_BATCH:
         return run_victory_reward_batch(
+            args,
+            config,
+            api_config,
+            prompt_config,
+            image_config,
+            style_config,
+            output_config,
+        )
+    if selected_target == WONDER_BUILDING_BATCH:
+        return run_wonder_building_icon_batch(
             args,
             config,
             api_config,
