@@ -945,7 +945,7 @@ def trade_chain_add_card(max_nodes: int) -> str:
 \t\t\t\t\t\t\t\t\t\tpieslice = {{ texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = 100 color = {{ 0.74 0.63 0.30 1 }} alpha = 0.75 }}
 \t\t\t\t\t\t\t\t\t\tusing = bg_circle_piechart
 \t\t\t\t\t\t\t\t\t}}
-\t\t\t\t\t\t\t\t\ttext_single = {{ size = {{ 72 72 }} raw_text = "+" align = center fontsize = 34 }}
+\t\t\t\t\t\t\t\t\ttext_single = {{ size = {{ 72 72 }} raw_text = "+" align = nobaseline|center fontsize = 34 parentanchor = center }}
 \t\t\t\t\t\t\t\t}}
 \t\t\t\t\t\t\t\twidget = {{ layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = {{ 8 72 }} }}
 \t\t\t\t\t\t\t\ttext_multi = {{ layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = {{ 360 72 }} autoresize = yes max_width = 360 text = "TV_TRADE_CHAIN_ADD_NODE_HINT" align = nobaseline|left }}
