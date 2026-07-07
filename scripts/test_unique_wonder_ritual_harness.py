@@ -6945,7 +6945,7 @@ def main() -> None:
         or "name = tv_engineering_department.7311.b" not in event_source_text_candidate
         or "CONTROLLED BLOCKER" in event_source_text_candidate
         or "trigger = {" not in event_source_text_candidate
-        or "effect = {" not in event_source_text_candidate
+        or "\t\teffect = {" in event_source_text_candidate
         or "tv_wonder_unique_alhambra_ritual_treaty_clause_register_row_init_effect = yes"
         not in event_source_text_candidate
         or "tv_wonder_unique_alhambra_ritual_treaty_clause_register_aggregate_refresh_effect = yes"
