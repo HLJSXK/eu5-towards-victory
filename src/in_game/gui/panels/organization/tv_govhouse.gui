@@ -417,11 +417,9 @@ organization_panel = {
 
 	# -- Header: Grand General character portrait -----------------------------
 	blockoverride "country_header_character_visible" {
-		visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_conquest_general_char').IsSet]"
+		visible = yes
 	}
-	blockoverride "country_header_character_context" {
-		datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_conquest_general_char').GetCharacter]"
-	}
+	blockoverride "country_header_character_context" {}
 	blockoverride "country_header_religion" {}
 	blockoverride "extra_titles" {}
 	blockoverride "country_header_names_visible" {
@@ -435,6 +433,69 @@ organization_panel = {
 			margin_right = 10
 			blockoverride "character_name_text" {
 				raw_text = "[Character.GetNameToFit('(int32)40', '(bool)yes')]"
+			}
+		}
+	}
+	blockoverride "character_widget" {
+		widget = {
+			position = { 0 -30 }
+			allow_outside = yes
+			block "portrait_io_widget" {
+				size = { 250 200 }
+			}
+
+			block "character_portrait_anchor" {
+				parentanchor = bottom
+			}
+
+			portrait_standard_full_body_center_button = {
+				visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_conquest_general_char').IsSet]"
+				block "character_right_visible" {
+					visible = yes
+				}
+				parentanchor = bottom
+
+				size = { 250 200 }
+				datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_conquest_general_char').GetCharacter]"
+			}
+
+			vbox = {
+				visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_conquest_general_char').IsSet)]"
+				size = { 250 56 }
+				parentanchor = top
+				widgetanchor = top
+				position = { 0 24 }
+				spacing = 2
+
+				text_single = {
+					size = { 250 32 }
+					raw_text = "+"
+					fontsize = 34
+					align = center|nobaseline
+					default_format = "#yellow_titles"
+				}
+				text_single = {
+					size = { 250 20 }
+					text = "TV_IO_HEADER_APPOINT_CHIEF_PROMPT"
+					fontsize = 14
+					align = center|nobaseline
+					default_format = "#high"
+				}
+			}
+
+			action_button = {
+				visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_conquest_general_char').IsSet)]"
+				size = { 250 200 }
+				parentanchor = center
+				widgetanchor = center
+				position = { 0 0 }
+				alpha = 0
+				alwaystransparent = no
+				using = action_button_common_template
+				title = "tv_appoint_conquest_general_leader"
+				description = "tv_appoint_conquest_general_leader_desc"
+				actor = "[InternationalOrganizationsView.GetPlayer]"
+				left_action = { action_name = "tv_appoint_conquest_general_leader" }
 			}
 		}
 	}

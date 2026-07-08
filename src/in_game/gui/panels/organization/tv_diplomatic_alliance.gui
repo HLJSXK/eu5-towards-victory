@@ -175,6 +175,30 @@ organization_panel = {
 				datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_diplomatic_alliance_leader_char').GetCharacter]"
 			}
 
+			vbox = {
+				visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_diplomatic_alliance_leader_char').IsSet)]"
+				size = { 250 56 }
+				parentanchor = top
+				widgetanchor = top
+				position = { 0 24 }
+				spacing = 2
+
+				text_single = {
+					size = { 250 32 }
+					raw_text = "+"
+					fontsize = 34
+					align = center|nobaseline
+					default_format = "#yellow_titles"
+				}
+				text_single = {
+					size = { 250 20 }
+					text = "TV_IO_HEADER_APPOINT_CHIEF_PROMPT"
+					fontsize = 14
+					align = center|nobaseline
+					default_format = "#high"
+				}
+			}
+
 			action_button = {
 				visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_diplomatic_alliance_leader_char').IsSet)]"
 				size = { 250 200 }
