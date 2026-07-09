@@ -78,6 +78,18 @@ def reward_modifier_id(pid: str, n: int, choice: int) -> str:
     return f"tv_{pid}_m{n}_reward_{choice}_bonus"
 
 
+def milestone_achievement_line(route_name: str, n: int, lang: str) -> str:
+    if lang == "en":
+        return f"You have reached milestone {n} of the {route_name} route"
+    return f"你已达成{route_name}路线的第{n}里程碑"
+
+
+def milestone_reward_panel_tooltip(lang: str) -> str:
+    if lang == "en":
+        return "Open the Towards Victory situation panel and choose a reward."
+    return "请打开胜利之路局势面板，选择一项奖励。"
+
+
 COMMON_IO_CHIEF_ROLE_VAR = "tv_io_chief_role"
 
 
@@ -843,6 +855,7 @@ def gen_events(path: dict) -> str:
         lines.append(f"\toutcome = neutral")
         lines.append(f"\toption = {{")
         lines.append(f"\t\tname = tv_{pid}.{n}.a")
+        lines.append(f"\t\tcustom_tooltip = tv_{pid}.{n}.a.tt")
         lines.append(f"\t\ttv_unlock_{pid}_milestone_{n} = yes")
         lines.append(f"\t}}")
         lines.append(f"}}")
@@ -1168,12 +1181,15 @@ def gen_localization(data: dict, lang: str) -> str:
         lines.append("")
         # Events
         lines.append(f" # ── {pid.capitalize()} Victory Events ───────────────────────────────────────────────")
+        route_name = path["gui"]["tab_label"][lang]
         for m in path["milestones"]:
             n = m["n"]
             mloc = m["loc"]
+            event_desc = f"{mloc['event_desc'][lang]}\\n#P {milestone_achievement_line(route_name, n, lang)}#!"
             lines.append(kv(f"tv_{pid}.{n}.t", mloc["event_title"][lang]))
-            lines.append(kv(f"tv_{pid}.{n}.d", mloc["event_desc"][lang]))
+            lines.append(kv(f"tv_{pid}.{n}.d", event_desc))
             lines.append(kv(f"tv_{pid}.{n}.a", mloc["event_option"][lang]))
+            lines.append(kv(f"tv_{pid}.{n}.a.tt", milestone_reward_panel_tooltip(lang)))
         lines.append("")
         # Extra loc keys
         for ekl in path.get("extra_loc_keys", []):
