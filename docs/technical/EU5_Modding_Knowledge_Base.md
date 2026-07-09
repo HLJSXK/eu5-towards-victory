@@ -1086,7 +1086,7 @@ random_events = {
 
 Any `custom_description = { text = KEY ... }` inside `common/scripted_effects` needs a matching `KEY = { ... }` entry under `in_game/common/effect_localization/`. A YAML localization entry by itself is only the player-facing string; it is not the effect-localization registry entry the engine validates at load. Missing entries produce `No effect loc KEY` and `PostValidate of effect 'custom_description' returned false`.
 
-For simple static tooltip lines, map every relevant perspective back to the same YAML key. For value-changing effects, use separate positive/negative perspective keys as needed.
+For simple static tooltip lines, positive perspectives can map back to the same YAML key, but negative perspectives still need distinct loc ids. Reusing the positive loc id for `global_neg`, `first_neg`, `third_neg`, `global_past_neg`, `first_past_neg`, or `third_past_neg` logs `Negative and positive version share loc for effect loc KEY` at startup. For generated static lines, emit paired `*_negative_text` YAML keys even when the text is only a short negated narration.
 
 #### Scripted Effects That Change IO Variables
 
