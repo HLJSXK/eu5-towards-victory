@@ -43,6 +43,16 @@
   source: "Project owner report, 2026-07-04"
   notes: 'Managed sandboxes can have read-only access to `C:\Users\Hades\anaconda3\conda-meta\history`, causing `conda run` to hang before the agent reaches validation or context output.'
 
+- id: gui_list_filter_needs_cached_variable
+  pattern: ''
+  detectability: advisory
+  bad: "Trying to bind a GUI row/list visible= expression to a scripted_trigger's result (e.g. an age-gate or has_advance check) so the display can filter a candidate list"
+  correction: "GUI expressions cannot evaluate scripted triggers at all (see docs/knowledge/risk_cards/gui.md rule 2, which covers has_variable specifically — this generalizes to any scripted_trigger). Mirror the trigger's result into a country variable via a scripted_effect, and refresh that effect from a real lifecycle point (join/founding effect for immediate correctness, plus the feature's existing monthly_country_pulse hook for ongoing correctness) — never from a GUI/tooltip read path. Bind the GUI expression to the mirrored variable instead."
+  category: gui
+  scope: country
+  source: "src/in_game/common/scripted_effects/tv_research_subprocess_effects.txt (tv_research_refresh_open_age_ceiling_effect, tv_research_refresh_advance_status_effect); docs/knowledge/risk_cards/gui.md rule 2"
+  notes: "Discovered building the Academy of Sciences 'Potential Projects' card: the age-frontier eligibility trigger and has_advance are only readable in script scope, so the card needed a tv_research_open_age_ceiling variable (contiguous-prefix simplification of 4 age-gate triggers into one int) and per-advance tv_advance_<id>_researched variables, refreshed from the join effect and the existing tv_academy_of_sciences_monthly_pulse."
+
 - id: location_auto_modifier_nonfunctional
   pattern: 'category\s*=\s*location'
   only_in_paths: ['auto_modifiers']

@@ -83,6 +83,29 @@ def gen_effects(entries: list) -> str:
         lines.append(f"\tresearch_advance = advance_type:{vanilla_id}")
         lines.append("}")
         lines.append("")
+
+    lines.append(f"# {'─'*70}")
+    lines.append("# ADVANCE RESEARCHED-STATUS MIRROR — Potential Projects card display")
+    lines.append("# Mirrors has_advance into a GUI-readable variable per advance. GUI expressions")
+    lines.append("# cannot evaluate scripted triggers/has_advance directly (see docs/knowledge/")
+    lines.append("# risk_cards/gui.md rule 2), so this is refreshed from a country lifecycle hook")
+    lines.append("# (join effect + monthly pulse), never from a GUI/tooltip read path.")
+    lines.append("# Called from tv_research_refresh_potential_projects_effect.")
+    lines.append(f"# {'─'*70}")
+    lines.append("")
+    lines.append("tv_research_refresh_advance_status_effect = {")
+    for e in entries:
+        aid = e["id"]
+        vanilla_id = e["vanilla_advance_id"]
+        lines.append("\tif = {")
+        lines.append(f"\t\tlimit = {{ has_advance = {vanilla_id} }}")
+        lines.append(f"\t\tset_variable = {{ name = tv_advance_{aid}_researched value = 1 }}")
+        lines.append("\t}")
+        lines.append("\telse = {")
+        lines.append(f"\t\tset_variable = {{ name = tv_advance_{aid}_researched value = 0 }}")
+        lines.append("\t}")
+    lines.append("}")
+    lines.append("")
     return "\n".join(lines)
 
 
