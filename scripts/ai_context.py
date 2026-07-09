@@ -37,6 +37,22 @@ DOMAIN_RULES = [
     ("on_action", "src/in_game/common/on_action/", "on_action.md"),
 ]
 
+# Some task domains are not isolated in their own directory: their files are
+# interspersed by filename across common/scripted_effects, static_modifiers,
+# building_types, generic_actions, gui, and localization. Route those by
+# filename substring instead of path prefix.
+FILENAME_DOMAIN_RULES = [
+    ("wonders", ("wonder", "engineering_department"), "wonders.md"),
+    ("philosophy_debate", ("philosophy_debate", "world_debate", "academy_debate"), "philosophy_debate.md"),
+    ("trade_league", ("trade_league", "trade_chain"), "trade_league.md"),
+]
+
+
+def domain_cards() -> list[tuple[str, str]]:
+    pairs = [(domain, card) for domain, _prefix, card in DOMAIN_RULES]
+    pairs += [(domain, card) for domain, _substrings, card in FILENAME_DOMAIN_RULES]
+    return pairs
+
 CONTENT_DOMAIN_MARKERS = {
     "variable_map": (
         "variable_map(",
@@ -100,6 +116,10 @@ def detect_domains(files: list[str]) -> set[str]:
     for path in normalized:
         for domain, prefix, _card in DOMAIN_RULES:
             if path.startswith(prefix):
+                domains.add(domain)
+        name = Path(path).name.lower()
+        for domain, substrings, _card in FILENAME_DOMAIN_RULES:
+            if any(substring in name for substring in substrings):
                 domains.add(domain)
         if path.endswith(".gui"):
             domains.add("gui")
@@ -230,7 +250,7 @@ def main() -> None:
 
     print("## Required Reads")
     printed_cards: set[str] = set()
-    for domain, _prefix, card in DOMAIN_RULES:
+    for domain, card in domain_cards():
         if domain in domains and card and card not in printed_cards:
             print(f"- `docs/knowledge/risk_cards/{card}`")
             printed_cards.add(card)
@@ -242,7 +262,7 @@ def main() -> None:
     print("")
 
     printed_cards = set()
-    for domain, _prefix, card in DOMAIN_RULES:
+    for domain, card in domain_cards():
         if domain in domains and card and card not in printed_cards:
             print_card(card)
             printed_cards.add(card)

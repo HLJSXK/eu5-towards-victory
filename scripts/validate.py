@@ -897,6 +897,10 @@ def check_knowledge_maintenance(anti_patterns: list[dict]) -> None:
         r'\("[^"]+",\s*"[^"]+",\s*"([^"]+\.md)"\)',
         ai_context_text,
     )
+    domain_rule_cards += re.findall(
+        r'\("[^"]+",\s*\([^()]*\),\s*"([^"]+\.md)"\)',
+        ai_context_text,
+    )
     for card_name in domain_rule_cards:
         card = risk_cards_dir / card_name
         if not card.exists():
