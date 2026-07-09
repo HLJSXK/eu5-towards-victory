@@ -1154,6 +1154,9 @@ def generate() -> str:
     pharos_hold_visible = f"And({base_visible}, {pharos_locked_expr()})"
     hagia_hold_visible = f"And({base_visible}, {hagia_locked_expr()})"
     alhambra_hold_visible = f"And({base_visible}, {alhambra_locked_expr()})"
+    dome_of_the_rock_hold_visible = f"And({base_visible}, {dome_of_the_rock_locked_expr()})"
+    bank_of_saint_george_hold_visible = f"And({base_visible}, {bank_of_saint_george_locked_expr()})"
+    st_peters_basilica_hold_visible = f"And({base_visible}, {st_peters_basilica_locked_expr()})"
     gold_visible = f"And({generic_hold_visible}, {selected_ritual_cost_visible(WONDER_RITUAL_COST_TYPE_IDS['scaled_gold'])})"
     prestige_visible = f"And({generic_hold_visible}, {selected_ritual_cost_visible(WONDER_RITUAL_COST_TYPE_IDS['prestige'])})"
     free_visible = (
@@ -1190,6 +1193,33 @@ def generate() -> str:
             text_key="TV_ENGINEERING_ALHAMBRA_START_BUTTON",
             title_key="TV_ENGINEERING_ALHAMBRA_START_BUTTON",
             desc_key="TV_ENGINEERING_ALHAMBRA_START_BUTTON_DESC",
+        )
+    )
+    lines.append(
+        hold_button(
+            "tv_wonder_confirm_ceremony",
+            dome_of_the_rock_hold_visible,
+            text_key="TV_ENGINEERING_DOME_OF_THE_ROCK_START_BUTTON",
+            title_key="TV_ENGINEERING_DOME_OF_THE_ROCK_START_BUTTON",
+            desc_key="TV_ENGINEERING_DOME_OF_THE_ROCK_START_BUTTON_DESC",
+        )
+    )
+    lines.append(
+        hold_button(
+            "tv_wonder_confirm_ceremony",
+            bank_of_saint_george_hold_visible,
+            text_key="TV_ENGINEERING_BANK_OF_SAINT_GEORGE_START_BUTTON",
+            title_key="TV_ENGINEERING_BANK_OF_SAINT_GEORGE_START_BUTTON",
+            desc_key="TV_ENGINEERING_BANK_OF_SAINT_GEORGE_START_BUTTON_DESC",
+        )
+    )
+    lines.append(
+        hold_button(
+            "tv_wonder_confirm_ceremony",
+            st_peters_basilica_hold_visible,
+            text_key="TV_ENGINEERING_ST_PETERS_BASILICA_START_BUTTON",
+            title_key="TV_ENGINEERING_ST_PETERS_BASILICA_START_BUTTON",
+            desc_key="TV_ENGINEERING_ST_PETERS_BASILICA_START_BUTTON_DESC",
         )
     )
     lines.append("### END TV_WONDER_MECHANICS_HOLD_BUTTONS")
