@@ -481,6 +481,50 @@ def is_estate_or_variant(group: dict) -> bool:
     return group["type"] in {"estate", "variant"}
 
 
+def variant_condition_lines(group: dict) -> list[str]:
+    """The distinguishing condition (excluding shared estate prerequisite) that gates a
+    variant's availability. Used both to emit the variant's own available_trigger and to
+    build the NOT-exclusion chain that keeps sibling variants/base estate mutually exclusive."""
+    sv = group.get("societal_value")
+    if sv:
+        op = "<" if sv["pole"] == "left" else ">"
+        thresh = -50 if sv["pole"] == "left" else 50
+        return [f"societal_value:{sv['axis']} {op} {thresh}"]
+    key = group["key"]
+    if key == "scholarly_community":
+        return ["average_country_literacy > 50"]
+    if key == "public_opinion":
+        return ["has_policy = no_censorship"]
+    if key == "court_bureaucrats":
+        return ["any_current_bureaucracy = { always = yes }"]
+    if key == "religious_reformers":
+        return ["religion.group = religion_group:christian", "is_situation_active = situation:reformation"]
+    if key == "minorities":
+        return ["any_owned_location = { dominant_culture = { is_accepted_in = root } }"]
+    raise ValueError(f"philosophy_debates.yaml: variant '{key}' needs a societal_value field or a variant_condition_lines() case")
+
+
+def emit_variant_exclusion(lines: list[str], level: int, variant_group: dict) -> None:
+    cond_lines = variant_condition_lines(variant_group)
+    if len(cond_lines) == 1:
+        emit(lines, level, f"NOT = {{ {cond_lines[0]} }}")
+        return
+    emit(lines, level, "NOT = {")
+    for line in cond_lines:
+        emit(lines, level + 1, line)
+    emit(lines, level, "}")
+
+
+def variants_excluding_estate(data: dict, estate_key: str) -> list[str]:
+    """Variant keys that must be excluded from a base estate's available_trigger. Includes
+    variants attached directly to this estate key, plus (for tribes/dhimmi/cossacks) the
+    shared mixed_minor_estates cluster, since those variants compete with all three estates."""
+    keys = base_estate_group_keys(data, estate_key)
+    if estate_key in {"tribes", "dhimmi", "cossacks"}:
+        keys = keys + base_estate_group_keys(data, "mixed_minor_estates")
+    return keys
+
+
 def estate_modifier_name(group: dict) -> str:
     return f"tv_academy_debate_royal_{group['key']}_modifier"
 
@@ -642,37 +686,25 @@ def generate_triggers(data: dict) -> str:
         gtype = group["type"]
         if gtype == "estate":
             emit(lines, 1, f"country_has_estate = estate_type:{group['estate']}")
-        elif key == "scholarly_community":
-            emit(lines, 1, "country_has_estate = estate_type:burghers_estate")
-            emit(lines, 1, "average_country_literacy > 50")
-        elif key == "public_opinion":
-            emit(lines, 1, "country_has_estate = estate_type:peasants_estate")
-            emit(lines, 1, "has_policy = no_censorship")
-        elif key == "court_bureaucrats":
-            emit(lines, 1, "country_has_estate = estate_type:nobles_estate")
-            emit(lines, 1, "any_current_bureaucracy = { always = yes }")
-        elif key == "maritime_merchants":
-            emit(lines, 1, "country_has_estate = estate_type:burghers_estate")
-            emit(lines, 1, "societal_value:land_vs_naval > 50")
-        elif key == "professional_military":
-            emit(lines, 1, "country_has_estate = estate_type:nobles_estate")
-            emit(lines, 1, "societal_value:quality_vs_quantity < -50")
-        elif key == "religious_reformers":
-            emit(lines, 1, "country_has_estate = estate_type:clergy_estate")
-            emit(lines, 1, "religion.group = religion_group:christian")
-            emit(lines, 1, "is_situation_active = situation:reformation")
-        elif key == "local_autonomy":
-            emit(lines, 1, "country_has_estate = estate_type:peasants_estate")
-            emit(lines, 1, "societal_value:centralization_vs_decentralization > 50")
-        elif key == "minorities":
-            emit(lines, 1, "OR = {")
-            for base_key, estate in (("tribes", "tribes_estate"), ("dhimmi", "dhimmi_estate"), ("cossacks", "cossacks_estate")):
-                emit(lines, 2, "AND = {")
-                emit(lines, 3, f"country_has_estate = estate_type:{estate}")
-                emit(lines, 3, f"tv_academy_debate_group_{base_key}_not_in_current_debate_trigger = yes")
-                emit(lines, 2, "}")
-            emit(lines, 1, "}")
-            emit(lines, 1, "any_owned_location = { dominant_culture = { is_accepted_in = root } }")
+            for variant_key in variants_excluding_estate(data, key):
+                emit_variant_exclusion(lines, 1, group_by_key(data)[variant_key])
+        elif is_variant(group):
+            base = group.get("base_group")
+            if base == "mixed_minor_estates":
+                emit(lines, 1, "OR = {")
+                for base_key, estate in (("tribes", "tribes_estate"), ("dhimmi", "dhimmi_estate"), ("cossacks", "cossacks_estate")):
+                    emit(lines, 2, "AND = {")
+                    emit(lines, 3, f"country_has_estate = estate_type:{estate}")
+                    emit(lines, 3, f"tv_academy_debate_group_{base_key}_not_in_current_debate_trigger = yes")
+                    emit(lines, 2, "}")
+                emit(lines, 1, "}")
+            else:
+                emit(lines, 1, f"country_has_estate = estate_type:{group['base_estate']}")
+            for line in variant_condition_lines(group):
+                emit(lines, 1, line)
+            siblings = base_estate_group_keys(data, base)
+            for earlier_key in siblings[:siblings.index(key)]:
+                emit_variant_exclusion(lines, 1, group_by_key(data)[earlier_key])
         elif key == "artists":
             emit(lines, 1, "any_character = { is_alive = yes is_artist = yes }")
         elif key == "foreign_power":

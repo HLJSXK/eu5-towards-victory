@@ -223,6 +223,7 @@ groups:
     type: variant
     base_group: burghers
     base_estate: burghers_estate
+    societal_value: { axis: land_vs_naval, pole: right }
     icon: "@diplomacy!"
     loc:
       english: "Maritime Merchants"
@@ -232,6 +233,7 @@ groups:
     type: variant
     base_group: nobility
     base_estate: nobles_estate
+    societal_value: { axis: quality_vs_quantity, pole: left }
     icon: "@cannons!"
     loc:
       english: "Professional Military"
@@ -250,6 +252,7 @@ groups:
     type: variant
     base_group: peasants
     base_estate: peasants_estate
+    societal_value: { axis: centralization_vs_decentralization, pole: right }
     icon: "@peasants_estate!"
     loc:
       english: "Local Autonomy"
@@ -284,6 +287,321 @@ groups:
     loc:
       english: "Great Scientist"
       simp_chinese: "大科学家"
+
+  # Societal-value-driven variants: two per axis (left pole < -50 / right pole > 50),
+  # covering every axis in reference_game_files/game/in_game/common/societal_values/00_default.txt.
+  # List order within a shared base_group/base_estate is the mutual-exclusion tie-break
+  # (see philosophy_debate.md risk card) — earlier entries win when two conditions are both true.
+  - id: 19
+    key: continental_traders
+    type: variant
+    base_group: burghers
+    base_estate: burghers_estate
+    societal_value: { axis: land_vs_naval, pole: left }
+    icon: "@trade!"
+    loc:
+      english: "Continental Traders"
+      simp_chinese: "大陆商帮"
+  - id: 20
+    key: plutocratic_merchants
+    type: variant
+    base_group: burghers
+    base_estate: burghers_estate
+    societal_value: { axis: aristocracy_vs_plutocracy, pole: right }
+    icon: "@profit_trade!"
+    loc:
+      english: "Plutocratic Merchants"
+      simp_chinese: "财阀商团"
+  - id: 21
+    key: mercantilist_guilds
+    type: variant
+    base_group: burghers
+    base_estate: burghers_estate
+    societal_value: { axis: mercantilism_vs_free_trade, pole: left }
+    icon: "@trade_advantage!"
+    loc:
+      english: "Mercantilist Guilds"
+      simp_chinese: "重商行会"
+  - id: 22
+    key: free_trade_merchants
+    type: variant
+    base_group: burghers
+    base_estate: burghers_estate
+    societal_value: { axis: mercantilism_vs_free_trade, pole: right }
+    icon: "@trade_capacity!"
+    loc:
+      english: "Free Trade Merchants"
+      simp_chinese: "自由贸易商团"
+  - id: 23
+    key: capitalist_financiers
+    type: variant
+    base_group: burghers
+    base_estate: burghers_estate
+    societal_value: { axis: capital_economy_vs_traditional_economy, pole: left }
+    icon: "@gold_balance!"
+    loc:
+      english: "Capitalist Financiers"
+      simp_chinese: "资本商团"
+  - id: 24
+    key: guild_traditionalists
+    type: variant
+    base_group: burghers
+    base_estate: burghers_estate
+    societal_value: { axis: capital_economy_vs_traditional_economy, pole: right }
+    icon: "@cultural_tradition!"
+    loc:
+      english: "Guild Traditionalists"
+      simp_chinese: "行会守成派"
+  - id: 25
+    key: colonial_merchants
+    type: variant
+    base_group: burghers
+    base_estate: burghers_estate
+    societal_value: { axis: outward_vs_inward, pole: left }
+    icon: "@send_people_to_the_colonies!"
+    loc:
+      english: "Colonial Merchants"
+      simp_chinese: "殖民商团"
+  - id: 26
+    key: insular_guilds
+    type: variant
+    base_group: burghers
+    base_estate: burghers_estate
+    societal_value: { axis: outward_vs_inward, pole: right }
+    icon: "@self_control!"
+    loc:
+      english: "Insular Guilds"
+      simp_chinese: "本土行会"
+  - id: 27
+    key: feudal_levy_nobility
+    type: variant
+    base_group: nobility
+    base_estate: nobles_estate
+    societal_value: { axis: quality_vs_quantity, pole: right }
+    icon: "@army_strength!"
+    loc:
+      english: "Feudal Levy Nobility"
+      simp_chinese: "封建征召贵族"
+  - id: 28
+    key: patronal_aristocracy
+    type: variant
+    base_group: nobility
+    base_estate: nobles_estate
+    societal_value: { axis: aristocracy_vs_plutocracy, pole: left }
+    icon: "@nobles_estate!"
+    loc:
+      english: "Patronal Aristocracy"
+      simp_chinese: "恩庇贵族集团"
+  - id: 29
+    key: serf_holding_lords
+    type: variant
+    base_group: nobility
+    base_estate: nobles_estate
+    societal_value: { axis: serfdom_vs_free_subjects, pole: left }
+    icon: "@crown_estate!"
+    loc:
+      english: "Serf-Holding Lords"
+      simp_chinese: "农奴主贵族"
+  - id: 30
+    key: absolutist_court_faction
+    type: variant
+    base_group: nobility
+    base_estate: nobles_estate
+    societal_value: { axis: absolutism_vs_liberalism, pole: left }
+    icon: "@government_reform!"
+    loc:
+      english: "Absolutist Court Faction"
+      simp_chinese: "专制宫廷派"
+  - id: 31
+    key: constitutionalist_nobility
+    type: variant
+    base_group: nobility
+    base_estate: nobles_estate
+    societal_value: { axis: absolutism_vs_liberalism, pole: right }
+    icon: "@control!"
+    loc:
+      english: "Constitutionalist Nobility"
+      simp_chinese: "立宪贵族派"
+  - id: 32
+    key: war_doctrine_nobility
+    type: variant
+    base_group: nobility
+    base_estate: nobles_estate
+    societal_value: { axis: offensive_vs_defensive, pole: left }
+    icon: "@aggressive_military_stance!"
+    loc:
+      english: "War Doctrine Nobility"
+      simp_chinese: "攻势贵族派"
+  - id: 33
+    key: fortress_doctrine_nobility
+    type: variant
+    base_group: nobility
+    base_estate: nobles_estate
+    societal_value: { axis: offensive_vs_defensive, pole: right }
+    icon: "@defensive_military_stance!"
+    loc:
+      english: "Fortress Doctrine Nobility"
+      simp_chinese: "守势贵族派"
+  - id: 34
+    key: devout_clergy
+    type: variant
+    base_group: clergy
+    base_estate: clergy_estate
+    societal_value: { axis: spiritualist_vs_humanist, pole: left }
+    icon: "@religion!"
+    loc:
+      english: "Devout Clergy"
+      simp_chinese: "虔信教士派"
+  - id: 35
+    key: humanist_clergy
+    type: variant
+    base_group: clergy
+    base_estate: clergy_estate
+    societal_value: { axis: spiritualist_vs_humanist, pole: right }
+    icon: "@religious_influence!"
+    loc:
+      english: "Humanist Clergy"
+      simp_chinese: "人文主义教士派"
+  - id: 36
+    key: mystic_clergy
+    type: variant
+    base_group: clergy
+    base_estate: clergy_estate
+    societal_value: { axis: mysticism_vs_jurisprudence, pole: left }
+    icon: "@societal_value!"
+    loc:
+      english: "Mystic Clergy"
+      simp_chinese: "神秘主义教士派"
+  - id: 37
+    key: canonist_clergy
+    type: variant
+    base_group: clergy
+    base_estate: clergy_estate
+    societal_value: { axis: mysticism_vs_jurisprudence, pole: right }
+    icon: "@government_reform!"
+    loc:
+      english: "Canonist Clergy"
+      simp_chinese: "教会法学派"
+  - id: 38
+    key: latinizing_clergy
+    type: variant
+    base_group: clergy
+    base_estate: clergy_estate
+    societal_value: { axis: latinization_vs_hellenization, pole: left }
+    icon: "@religious_influence_catholic!"
+    loc:
+      english: "Latinizing Clergy"
+      simp_chinese: "拉丁化教士派"
+  - id: 39
+    key: hellenizing_clergy
+    type: variant
+    base_group: clergy
+    base_estate: clergy_estate
+    societal_value: { axis: latinization_vs_hellenization, pole: right }
+    icon: "@religious_unity!"
+    loc:
+      english: "Hellenizing Clergy"
+      simp_chinese: "希腊正统教士派"
+  - id: 40
+    key: crown_subjects
+    type: variant
+    base_group: peasants
+    base_estate: peasants_estate
+    societal_value: { axis: centralization_vs_decentralization, pole: left }
+    icon: "@crown_estate!"
+    loc:
+      english: "Crown Subjects"
+      simp_chinese: "顺服王民"
+  - id: 41
+    key: free_subject_peasantry
+    type: variant
+    base_group: peasants
+    base_estate: peasants_estate
+    societal_value: { axis: serfdom_vs_free_subjects, pole: right }
+    icon: "@peasants_estate!"
+    loc:
+      english: "Free Subject Peasantry"
+      simp_chinese: "自由民团体"
+  - id: 42
+    key: individualist_smallholders
+    type: variant
+    base_group: peasants
+    base_estate: peasants_estate
+    societal_value: { axis: individualism_vs_communalism, pole: left }
+    icon: "@self_control!"
+    loc:
+      english: "Individualist Smallholders"
+      simp_chinese: "自耕农个人主义派"
+  - id: 43
+    key: communal_villages
+    type: variant
+    base_group: peasants
+    base_estate: peasants_estate
+    societal_value: { axis: individualism_vs_communalism, pole: right }
+    icon: "@republican_tradition!"
+    loc:
+      english: "Communal Villages"
+      simp_chinese: "公社集体主义派"
+  - id: 44
+    key: traditionalist_enclave
+    type: variant
+    base_group: mixed_minor_estates
+    base_estate: peasants_estate
+    societal_value: { axis: traditionalist_vs_innovative, pole: left }
+    icon: "@cultural_tradition!"
+    loc:
+      english: "Traditionalist Enclave"
+      simp_chinese: "守旧族群"
+  - id: 45
+    key: assimilating_enclave
+    type: variant
+    base_group: mixed_minor_estates
+    base_estate: peasants_estate
+    societal_value: { axis: traditionalist_vs_innovative, pole: right }
+    icon: "@literacy!"
+    loc:
+      english: "Assimilating Enclave"
+      simp_chinese: "革新族群"
+  - id: 46
+    key: sinicized_minority
+    type: variant
+    base_group: mixed_minor_estates
+    base_estate: peasants_estate
+    societal_value: { axis: sinicized_vs_unsinicized, pole: left }
+    icon: "@tribes_estate!"
+    loc:
+      english: "Sinicized Minority"
+      simp_chinese: "汉化族群"
+  - id: 47
+    key: unsinicized_minority
+    type: variant
+    base_group: mixed_minor_estates
+    base_estate: peasants_estate
+    societal_value: { axis: sinicized_vs_unsinicized, pole: right }
+    icon: "@dhimmi_estate!"
+    loc:
+      english: "Unsinicized Minority"
+      simp_chinese: "拒同化族群"
+  - id: 48
+    key: warrior_clans
+    type: variant
+    base_group: mixed_minor_estates
+    base_estate: peasants_estate
+    societal_value: { axis: belligerent_vs_conciliatory, pole: left }
+    icon: "@cossacks_estate!"
+    loc:
+      english: "Warrior Clans"
+      simp_chinese: "尚武部族"
+  - id: 49
+    key: diplomatic_clans
+    type: variant
+    base_group: mixed_minor_estates
+    base_estate: peasants_estate
+    societal_value: { axis: belligerent_vs_conciliatory, pole: right }
+    icon: "@diplomatic_capacity!"
+    loc:
+      english: "Diplomatic Clans"
+      simp_chinese: "谈判部族"
 
 debate_positions:
   nobility:
@@ -344,6 +662,130 @@ debate_positions:
     neutral: [renaissance, scientific_revolution]
   minorities:
     support: [meritocracy, printing_press, confessionalism, global_trade]
+    oppose: [new_world]
+    neutral: [renaissance, banking, manufactories, scientific_revolution]
+  continental_traders:
+    support: [meritocracy, banking, printing_press, manufactories, scientific_revolution]
+    oppose: []
+    neutral: [renaissance, new_world, confessionalism, global_trade]
+  plutocratic_merchants:
+    support: [meritocracy, renaissance, banking, new_world, printing_press, global_trade, manufactories, scientific_revolution]
+    oppose: [confessionalism]
+    neutral: []
+  mercantilist_guilds:
+    support: [meritocracy, banking, manufactories]
+    oppose: [global_trade]
+    neutral: [renaissance, new_world, printing_press, confessionalism, scientific_revolution]
+  free_trade_merchants:
+    support: [meritocracy, renaissance, banking, new_world, printing_press, global_trade, manufactories, scientific_revolution]
+    oppose: []
+    neutral: [confessionalism]
+  capitalist_financiers:
+    support: [meritocracy, banking, global_trade, manufactories, scientific_revolution]
+    oppose: [confessionalism]
+    neutral: [renaissance, new_world, printing_press]
+  guild_traditionalists:
+    support: [meritocracy, printing_press]
+    oppose: [banking, global_trade]
+    neutral: [renaissance, new_world, confessionalism, manufactories, scientific_revolution]
+  colonial_merchants:
+    support: [renaissance, new_world, global_trade, manufactories, scientific_revolution]
+    oppose: []
+    neutral: [meritocracy, banking, printing_press, confessionalism]
+  insular_guilds:
+    support: [meritocracy, banking, printing_press]
+    oppose: [new_world, global_trade]
+    neutral: [renaissance, confessionalism, manufactories, scientific_revolution]
+  feudal_levy_nobility:
+    support: [confessionalism]
+    oppose: [meritocracy, banking, printing_press, global_trade, manufactories, scientific_revolution]
+    neutral: [renaissance, new_world]
+  patronal_aristocracy:
+    support: [confessionalism, renaissance]
+    oppose: [meritocracy, banking, printing_press, global_trade, scientific_revolution]
+    neutral: [new_world, manufactories]
+  serf_holding_lords:
+    support: [confessionalism]
+    oppose: [meritocracy, banking, printing_press, global_trade, scientific_revolution, new_world]
+    neutral: [renaissance, manufactories]
+  absolutist_court_faction:
+    support: [confessionalism]
+    oppose: [meritocracy, printing_press, global_trade, scientific_revolution]
+    neutral: [renaissance, new_world, banking, manufactories]
+  constitutionalist_nobility:
+    support: [meritocracy, confessionalism]
+    oppose: []
+    neutral: [renaissance, new_world, banking, printing_press, global_trade, manufactories, scientific_revolution]
+  war_doctrine_nobility:
+    support: [confessionalism]
+    oppose: [meritocracy, banking, printing_press, global_trade, scientific_revolution, manufactories]
+    neutral: [renaissance, new_world]
+  fortress_doctrine_nobility:
+    support: [confessionalism, new_world]
+    oppose: [meritocracy, banking, scientific_revolution]
+    neutral: [renaissance, printing_press, global_trade, manufactories]
+  devout_clergy:
+    support: [new_world]
+    oppose: [meritocracy, renaissance, printing_press, confessionalism, scientific_revolution, global_trade]
+    neutral: [banking, manufactories]
+  humanist_clergy:
+    support: [new_world, renaissance, printing_press]
+    oppose: [meritocracy, confessionalism]
+    neutral: [banking, global_trade, manufactories, scientific_revolution]
+  mystic_clergy:
+    support: [new_world]
+    oppose: [meritocracy, renaissance, printing_press, confessionalism, scientific_revolution]
+    neutral: [banking, global_trade, manufactories]
+  canonist_clergy:
+    support: [new_world, meritocracy]
+    oppose: [confessionalism]
+    neutral: [renaissance, banking, printing_press, global_trade, manufactories, scientific_revolution]
+  latinizing_clergy:
+    support: [new_world, renaissance, printing_press]
+    oppose: [confessionalism]
+    neutral: [meritocracy, banking, global_trade, manufactories, scientific_revolution]
+  hellenizing_clergy:
+    support: [new_world, confessionalism]
+    oppose: [meritocracy, renaissance, printing_press, scientific_revolution]
+    neutral: [banking, global_trade, manufactories]
+  crown_subjects:
+    support: [meritocracy, printing_press, confessionalism]
+    oppose: [banking, global_trade, manufactories]
+    neutral: [renaissance, new_world, scientific_revolution]
+  free_subject_peasantry:
+    support: [meritocracy, printing_press, scientific_revolution]
+    oppose: []
+    neutral: [renaissance, new_world, confessionalism, banking, global_trade, manufactories]
+  individualist_smallholders:
+    support: [meritocracy, printing_press]
+    oppose: [banking, global_trade, manufactories]
+    neutral: [renaissance, new_world, confessionalism, scientific_revolution]
+  communal_villages:
+    support: [meritocracy, confessionalism]
+    oppose: [banking, global_trade, printing_press]
+    neutral: [renaissance, new_world, manufactories, scientific_revolution]
+  traditionalist_enclave:
+    support: [confessionalism]
+    oppose: [meritocracy, printing_press, scientific_revolution, new_world]
+    neutral: [renaissance, banking, global_trade, manufactories]
+  assimilating_enclave:
+    support: [meritocracy, printing_press, scientific_revolution, global_trade]
+    oppose: [new_world]
+    neutral: [renaissance, banking, confessionalism, manufactories]
+  sinicized_minority:
+    support: [meritocracy, printing_press, scientific_revolution]
+    oppose: [new_world]
+    neutral: [renaissance, banking, confessionalism, global_trade, manufactories]
+  unsinicized_minority:
+    support: [confessionalism, global_trade]
+    oppose: [new_world, meritocracy]
+    neutral: [renaissance, banking, printing_press, manufactories, scientific_revolution]
+  warrior_clans:
+    support: [confessionalism]
+    oppose: [new_world, meritocracy, scientific_revolution]
+    neutral: [renaissance, banking, printing_press, global_trade, manufactories]
+  diplomatic_clans:
+    support: [meritocracy, printing_press, global_trade, confessionalism]
     oppose: [new_world]
     neutral: [renaissance, banking, manufactories, scientific_revolution]
   artists:

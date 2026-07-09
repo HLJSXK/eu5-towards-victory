@@ -43,10 +43,29 @@ Load this card before editing any file with `philosophy_debate`, `world_debate`,
    assuming that fixed three-stage shape. Slot new debate issues or content into one of these
    three stages rather than introducing a fourth stage kind.
 
+5. Variant availability must be mutually exclusive by construction, never by random pick.
+   `tv_academy_debate_pick_unseated_*_group_effect` puts every group whose
+   `_available_trigger` is true into one equal-weight `random_list`
+   (`philosophy_debate_codegen.py` `gen_selection_effects`). A base estate's
+   `_available_trigger` therefore must `NOT` every variant sharing its `estate`/`base_estate`
+   (see `variants_excluding_estate()`), and each variant must `NOT` every lower-id sibling
+   variant sharing its `base_group` (see `variant_condition_lines()` /
+   `emit_variant_exclusion()`), so that at most one of {base estate, its variants} is ever
+   available for a given country state. Group `id` order (ascending, per `groups(data)`
+   sorting by `id`) is the tie-break when two variants' raw conditions can both be true —
+   lower id wins. Adding a new variant means adding it to this ordering, not just giving it
+   its own condition. Societal-value-driven variants (the `societal_value: {axis, pole}`
+   field) use `> 50` / `< -50` on `societal_value:<axis>`; an axis that is age/DLC/culture
+   gated in vanilla needs no extra gating here, since `societal_value:<axis>` reads 0
+   (neutral, never crosses ±50) for any country where the axis is inactive.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report` after any codegen or data change. It lints
 rule 2 (`loc_color_tag_adjacent_text`), scripted-effect `custom_description` coverage, and
 positive/negative effect-localization loc-id reuse. For new generated seat-state narration,
 also inspect the generated `src/in_game/common/effect_localization/*.txt` diff so the
-positive and negative perspective mappings remain readable.
+positive and negative perspective mappings remain readable. For a new variant, also grep the
+generated `tv_academy_philosophy_debate_triggers.txt` for its `_available_trigger` and its
+base estate's `_available_trigger` to confirm the `NOT` exclusion chain from rule 5 above is
+present.
