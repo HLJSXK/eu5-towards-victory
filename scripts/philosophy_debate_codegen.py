@@ -326,6 +326,14 @@ def group_left_tooltip_key(group: dict) -> str:
     return f"tv_academy_debate_group_{group['key']}_left_text"
 
 
+def group_seated_tooltip_negative_key(group: dict) -> str:
+    return f"tv_academy_debate_group_{group['key']}_seated_negative_text"
+
+
+def group_left_tooltip_negative_key(group: dict) -> str:
+    return f"tv_academy_debate_group_{group['key']}_left_negative_text"
+
+
 def random_event_reason_hint(data: dict, event: dict, lang: str) -> str:
     """Single trailing line explaining why this random debate event appeared.
 
@@ -933,10 +941,14 @@ def generate_effect_localization(data: dict) -> str:
     script = "scripts/in_game/common/effect_localization/gen_tv_academy_philosophy_debate_effect_localization.py"
     lines: list[str] = [header(script, "data/philosophy_debates.yaml").rstrip(), ""]
     for group in groups(data):
-        for key in (group_seated_tooltip_key(group), group_left_tooltip_key(group)):
+        for key, negative_key in (
+            (group_seated_tooltip_key(group), group_seated_tooltip_negative_key(group)),
+            (group_left_tooltip_key(group), group_left_tooltip_negative_key(group)),
+        ):
             emit(lines, 0, f"{key} = {{")
             for perspective in EFFECT_LOCALIZATION_PERSPECTIVES:
-                emit(lines, 1, f"{perspective} = {key}")
+                loc_key = negative_key if perspective.endswith("_neg") else key
+                emit(lines, 1, f"{perspective} = {loc_key}")
             emit(lines, 0, "}")
             emit(lines)
     return "\n".join(lines).rstrip() + "\n"
@@ -2658,9 +2670,13 @@ def generate_loc(data: dict, language: str) -> str:
         if loc_lang == "simp_chinese":
             entries[group_seated_tooltip_key(group)] = f"{group['loc'][loc_lang]}已入席"
             entries[group_left_tooltip_key(group)] = f"{group['loc'][loc_lang]}已离席"
+            entries[group_seated_tooltip_negative_key(group)] = f"{group['loc'][loc_lang]}未入席"
+            entries[group_left_tooltip_negative_key(group)] = f"{group['loc'][loc_lang]}未离席"
         else:
             entries[group_seated_tooltip_key(group)] = f"Seat filled: {group['loc'][loc_lang]}"
             entries[group_left_tooltip_key(group)] = f"Seat vacated: {group['loc'][loc_lang]}"
+            entries[group_seated_tooltip_negative_key(group)] = f"Seat not filled: {group['loc'][loc_lang]}"
+            entries[group_left_tooltip_negative_key(group)] = f"Seat not vacated: {group['loc'][loc_lang]}"
     for price in data["prices"]:
         entries[price_loc_key(price)] = price["loc"][loc_lang]
     entries[f"{EVENT_NS}.1.t"] = "Academy Debate Monthly Tick" if language == "english" else "科学院辩论月度刻"

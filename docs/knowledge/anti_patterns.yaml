@@ -1689,6 +1689,18 @@
   source: "runtime error.log: common/scripted_effects/tv_academy_philosophy_debate_effects.txt:370-583, 2026-07-09; reference_game_files/game/in_game/common/effect_localization/scripted_effects.txt:597"
   notes: "EU5 validates scripted-effect custom_description text keys against common/effect_localization at load. YAML-only keys produce 'No effect loc KEY' and PostValidate errors even when the display text exists."
 
+- id: effect_localization_positive_negative_share_loc_key
+  pattern: ''
+  validator: check_effect_loc_positive_negative_pairs
+  detectability: lint
+  only_in_paths: ['effect_localization']
+  bad: "An effect_localization block maps a *_neg perspective to the same localization key as its positive counterpart"
+  correction: "Map global_neg/first_neg/third_neg/global_past_neg/first_past_neg/third_past_neg to distinct negative localization keys, even for static custom_description text."
+  category: localization
+  scope: any
+  source: "runtime error.log: jomini_effect_localization.cpp:214, 2026-07-09; reference_game_files/game/in_game/common/effect_localization/scripted_effects.txt:597-610"
+  notes: "The engine logs 'Negative and positive version share loc for effect loc KEY' when a negative perspective reuses the positive loc id. For static effect text, generate separate *_negative_text localization keys; the translated text may be simple negative wording, but the loc ids must be distinct."
+
 - id: scripted_effect_io_variable_change_needs_effect_localization
   pattern: ''
   bad: "Changing an IO type variable inside a scripted_effect with a bare change_variable, expecting callers to show the variable gain or loss"

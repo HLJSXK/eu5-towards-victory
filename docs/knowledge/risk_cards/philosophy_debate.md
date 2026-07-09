@@ -13,16 +13,15 @@ Load this card before editing any file with `philosophy_debate`, `world_debate`,
    `custom_description = { text = <key> }` inside `scripted_effects` (for example
    `tv_academy_debate_group_<key>_seated_text` / `_left_text` from `_seated_text_key()` /
    `_left_text_key()`). Every emitted key needs a matching registration block under
-   `src/in_game/common/effect_localization/` with at least a `global` perspective — the same
-   requirement `check_trigger_loc_coverage()` already enforces for `scripted_triggers` against
-   `trigger_localization/`, but there is currently no equivalent check for effects. **This is
-   a confirmed, currently-live gap**: as of this session's `docs/error_log/error.log`, all 36
-   seat/group `_seated_text` / `_left_text` keys are missing their `effect_localization`
-   registration and log `No effect loc <key>` at runtime, even though the player-facing
-   strings exist correctly in `tv_academy_philosophy_debate_l_english.yml` /
-   `_l_simp_chinese.yml`. Before adding a new debate group or seat-state text, add its
+   `src/in_game/common/effect_localization/` with at least a `global` perspective. The
+   validator's `check_effect_loc_coverage()` catches missing registrations for scripted-effect
+   `custom_description` keys. Before adding a new debate group or seat-state text, add its
    `effect_localization` block in the same generator change, not just the localization file
-   entries.
+   entries. Also keep negative perspectives mapped to distinct loc ids: `global_neg`,
+   `first_neg`, `third_neg`, `global_past_neg`, `first_past_neg`, and `third_past_neg` must
+   not reuse the same loc key as their positive counterparts. The validator's
+   `check_effect_loc_negative_perspectives()` catches the startup warning
+   `Negative and positive version share loc for effect loc <key>`.
 
 2. Never let generated text sit directly against a color tag.
    `#Y<generated_text>#!` with no separator can have the generated/localized content
@@ -46,10 +45,8 @@ Load this card before editing any file with `philosophy_debate`, `world_debate`,
 
 ## Validation
 
-Run `validate.py --changed --fix --ai-report` after any codegen or data change — it lints
-rule 2 (`loc_color_tag_adjacent_text`) automatically. It does **not** yet check rule 1
-(effect-localization coverage for effect files); until a `check_effect_loc_coverage()`
-equivalent exists, manually grep new `custom_description` keys emitted by
-`philosophy_debate_codegen.py` against `src/in_game/common/effect_localization/*.txt` before
-considering the task done, and check `docs/error_log/error.log` after an in-game load for
-`No effect loc` lines.
+Run `validate.py --changed --fix --ai-report` after any codegen or data change. It lints
+rule 2 (`loc_color_tag_adjacent_text`), scripted-effect `custom_description` coverage, and
+positive/negative effect-localization loc-id reuse. For new generated seat-state narration,
+also inspect the generated `src/in_game/common/effect_localization/*.txt` diff so the
+positive and negative perspective mappings remain readable.
