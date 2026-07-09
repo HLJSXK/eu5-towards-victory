@@ -92,14 +92,44 @@ generators.
     row and blow out a bounded parent card). Use a fixed-width `text_multi` container with
     `max_width` and `autoresize`.
 
-12. Respect the Unique Wonder Ritual Harness phase freeze.
-    Before touching `data/unique_wonder_ritual_*.yaml` or `scripts/gen_unique_wonder_ritual_*.py`,
-    read `docs/guides/Unique_Wonder_Ritual_Harness.md`. Do not promote a spec's readiness tier
-    (`compiler_mapped` → `source_codegen_ready` → `implemented_parity`) or set any template,
-    capability, archetype, or generator's `may_write_src` to `true` without an explicit
-    source-writer contract naming the EU5 interfaces, generator ownership, and validation
-    gate. Do not flatten a spec's high-fidelity `design_ir` / `tracked_entity_sets` projection
-    into simpler aggregate variables merely to make codegen easier.
+12. Do not let a wonder ritual's implementation reuse another wonder's mechanic template.
+    The Unique Wonder Ritual Harness's old "no-write source compiler" ceremony
+    (`scripts/wonder_unique_ritual_harness.py`'s repeated-entity-row/Alhambra evidence-chain
+    layers, ~22,700 lines) was retired after 40+ commits never produced loadable source and
+    its one real generation attempt produced broken output. Read
+    `docs/guides/Unique_Wonder_Ritual_Harness.md` before authoring a new unique-ritual
+    implementation: `data/unique_wonder_ritual_specs.yaml`'s `design_ir`/`mechanic_signature`
+    remains the design source of truth, implementation is hand-written per wonder under
+    `scripts/unique_wonder_ritual_content/<key>.py`, and
+    `scripts/audit_unique_wonder_ritual_mechanic_similarity.py` is a **mandatory** post-batch
+    gate — run it and confirm no new wonder pair crosses `combined_ratio >= 0.15` or shares
+    `random_list` weight tuples with another wonder. Do not flatten a spec's high-fidelity
+    `design_ir` / `tracked_entity_sets` into a shared generic engine merely to ship faster.
+
+13. Beware "choice → deterministic branch → costed-fix-vs-free-accept → reward" as a new
+    template trap.
+    Even after removing `random_list` dice, giving three different wonders the same shape —
+    an opening choice event that deterministically marks a fixed subset of tracked entities
+    "at risk", followed by one retry event offering "pay a cost to fully resolve" vs. "accept
+    for free at a lesser tier" — still reads as homogenized to
+    `audit_unique_wonder_ritual_mechanic_similarity.py` (SequenceMatcher `combined_ratio`
+    0.48–0.71 between Dome of the Rock / Bank of Saint George / St. Peter's Basilica after
+    their 2026-07 rewrite, even though block-shape Jaccard stayed low, i.e. no verbatim
+    duplicate blocks). The high-level narrative shape, not just literal effect bodies, is part
+    of what "mechanically distinct" means for this project.
+
+14. Verify war outcome with `scope:winner`/`scope:loser`, not just "a war ended."
+    `on_pre_winning_war` and `on_ending_war` both expose `root` (fires for both participants),
+    `scope:winner`, `scope:loser`, and `scope:war`
+    (reference_game_files/game/in_game/common/on_action/_hardcoded.txt:1518-1576). Checking
+    only `has_variable = tv_wonder_locked` + site ownership in one of these on_actions lets a
+    *lost* war validate a win-gated ritual step. Add `scope:winner = { this = root }` (the
+    verified scope-equality idiom — same reference file line 3292
+    `leader_country ?= { this = root }`; also used in
+    `src/in_game/common/generic_actions/tv_arts_exhibition_actions.txt`) to require root to
+    actually be the war's winner. Confirmed live instance: Alhambra's war-validation gate
+    (`scripts/unique_wonder_ritual_content/alhambra.py:build_on_action_body`) validated on any
+    war ending while owning Granada, win or lose, until fixed 2026-07.
 
 ## Validation
 
@@ -107,5 +137,6 @@ Run `validate.py --changed --fix --ai-report`: it lints rule 2 automatically and
 `data/unique_wonder_ritual_*.yaml` or harness script changes, runs
 `wonder_unique_ritual_harness.validate_unique_ritual_specs_for_repo()`. Also run
 `scripts/test_wonder_mechanics_rules.py` after changing scale-based wonder trigger/effect
-generators. Rules 6–11 have no automated check; inspect the affected tooltip, hover state, or
-GUI layout in game after any change in those areas.
+generators, and `scripts/audit_unique_wonder_ritual_mechanic_similarity.py` after implementing
+or reworking any unique-wonder ritual. Rules 6–11 have no automated check; inspect the
+affected tooltip, hover state, or GUI layout in game after any change in those areas.

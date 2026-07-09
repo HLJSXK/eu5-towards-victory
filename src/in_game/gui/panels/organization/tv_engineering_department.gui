@@ -10547,37 +10547,37 @@ widget = {
 				margin = { 8 8 }
 				spacing = 4
 				ignoreinvisible = yes
-				text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_SACRED_OFFICIAL_CANDIDATES_LABEL" size = { 446 22 } max_width = 446 fontsize = 13 align = nobaseline|left }
+				text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_ROLE_LABEL" size = { 446 22 } max_width = 446 fontsize = 13 align = nobaseline|left }
 				hbox = {
 					layoutpolicy_horizontal = expanding
 					layoutpolicy_vertical = fixed
 					size = { 446 24 }
 					spacing = 8
 					ignoreinvisible = yes
-					text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_SACRED_OFFICIAL_CANDIDATES_CARDINAL_ADMINISTRATOR" size = { 322 22 } max_width = 322 fontsize = 12 align = nobaseline|left }
+					text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_ROLE_CARDINAL_ADMINISTRATOR" size = { 322 22 } max_width = 322 fontsize = 12 align = nobaseline|left }
 					widget = {
-						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_sacred_official_candidates_cardinal_administrator_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_sacred_official_candidates_cardinal_administrator_status').GetValue, '(CFixedPoint)1.0'))]"
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_role_cardinal_administrator_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_role_cardinal_administrator_status').GetValue, '(CFixedPoint)1.0'))]"
 						size = { 118 20 }
 						alwaystransparent = yes
 						background = { using = color_market_green_texture alpha = 0.30 }
 						text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_FAVORABLE" size = { 100% 100% } fontsize = 11 align = center|nobaseline }
 					}
 					widget = {
-						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_sacred_official_candidates_cardinal_administrator_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_sacred_official_candidates_cardinal_administrator_status').GetValue, '(CFixedPoint)2.0'))]"
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_role_cardinal_administrator_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_role_cardinal_administrator_status').GetValue, '(CFixedPoint)2.0'))]"
 						size = { 118 20 }
 						alwaystransparent = yes
 						background = { using = color_mid_red_texture alpha = 0.30 }
 						text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_CONTESTED" size = { 100% 100% } fontsize = 11 align = center|nobaseline }
 					}
 					widget = {
-						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_sacred_official_candidates_cardinal_administrator_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_sacred_official_candidates_cardinal_administrator_status').GetValue, '(CFixedPoint)3.0'))]"
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_role_cardinal_administrator_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_role_cardinal_administrator_status').GetValue, '(CFixedPoint)3.0'))]"
 						size = { 118 20 }
 						alwaystransparent = yes
 						background = { using = color_yellow_texture alpha = 0.30 }
 						text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_NARROWED" size = { 100% 100% } fontsize = 11 align = center|nobaseline }
 					}
 					widget = {
-						visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_sacred_official_candidates_cardinal_administrator_status').IsSet)]"
+						visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_role_cardinal_administrator_status').IsSet)]"
 						size = { 118 20 }
 						alwaystransparent = yes
 						background = { using = color_yellow_texture alpha = 0.12 }
@@ -10590,30 +10590,30 @@ widget = {
 					size = { 446 24 }
 					spacing = 8
 					ignoreinvisible = yes
-					text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_SACRED_OFFICIAL_CANDIDATES_DIOCESAN_BISHOP" size = { 322 22 } max_width = 322 fontsize = 12 align = nobaseline|left }
+					text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_ROLE_DIOCESAN_BISHOP" size = { 322 22 } max_width = 322 fontsize = 12 align = nobaseline|left }
 					widget = {
-						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_sacred_official_candidates_diocesan_bishop_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_sacred_official_candidates_diocesan_bishop_status').GetValue, '(CFixedPoint)1.0'))]"
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_role_diocesan_bishop_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_role_diocesan_bishop_status').GetValue, '(CFixedPoint)1.0'))]"
 						size = { 118 20 }
 						alwaystransparent = yes
 						background = { using = color_market_green_texture alpha = 0.30 }
 						text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_FAVORABLE" size = { 100% 100% } fontsize = 11 align = center|nobaseline }
 					}
 					widget = {
-						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_sacred_official_candidates_diocesan_bishop_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_sacred_official_candidates_diocesan_bishop_status').GetValue, '(CFixedPoint)2.0'))]"
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_role_diocesan_bishop_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_role_diocesan_bishop_status').GetValue, '(CFixedPoint)2.0'))]"
 						size = { 118 20 }
 						alwaystransparent = yes
 						background = { using = color_mid_red_texture alpha = 0.30 }
 						text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_CONTESTED" size = { 100% 100% } fontsize = 11 align = center|nobaseline }
 					}
 					widget = {
-						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_sacred_official_candidates_diocesan_bishop_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_sacred_official_candidates_diocesan_bishop_status').GetValue, '(CFixedPoint)3.0'))]"
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_role_diocesan_bishop_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_role_diocesan_bishop_status').GetValue, '(CFixedPoint)3.0'))]"
 						size = { 118 20 }
 						alwaystransparent = yes
 						background = { using = color_yellow_texture alpha = 0.30 }
 						text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_NARROWED" size = { 100% 100% } fontsize = 11 align = center|nobaseline }
 					}
 					widget = {
-						visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_sacred_official_candidates_diocesan_bishop_status').IsSet)]"
+						visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_role_diocesan_bishop_status').IsSet)]"
 						size = { 118 20 }
 						alwaystransparent = yes
 						background = { using = color_yellow_texture alpha = 0.12 }
@@ -10626,30 +10626,30 @@ widget = {
 					size = { 446 24 }
 					spacing = 8
 					ignoreinvisible = yes
-					text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_SACRED_OFFICIAL_CANDIDATES_RELIC_CUSTODIAN" size = { 322 22 } max_width = 322 fontsize = 12 align = nobaseline|left }
+					text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_ROLE_RELIC_CUSTODIAN" size = { 322 22 } max_width = 322 fontsize = 12 align = nobaseline|left }
 					widget = {
-						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_sacred_official_candidates_relic_custodian_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_sacred_official_candidates_relic_custodian_status').GetValue, '(CFixedPoint)1.0'))]"
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_role_relic_custodian_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_role_relic_custodian_status').GetValue, '(CFixedPoint)1.0'))]"
 						size = { 118 20 }
 						alwaystransparent = yes
 						background = { using = color_market_green_texture alpha = 0.30 }
 						text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_FAVORABLE" size = { 100% 100% } fontsize = 11 align = center|nobaseline }
 					}
 					widget = {
-						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_sacred_official_candidates_relic_custodian_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_sacred_official_candidates_relic_custodian_status').GetValue, '(CFixedPoint)2.0'))]"
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_role_relic_custodian_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_role_relic_custodian_status').GetValue, '(CFixedPoint)2.0'))]"
 						size = { 118 20 }
 						alwaystransparent = yes
 						background = { using = color_mid_red_texture alpha = 0.30 }
 						text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_CONTESTED" size = { 100% 100% } fontsize = 11 align = center|nobaseline }
 					}
 					widget = {
-						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_sacred_official_candidates_relic_custodian_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_sacred_official_candidates_relic_custodian_status').GetValue, '(CFixedPoint)3.0'))]"
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_role_relic_custodian_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_role_relic_custodian_status').GetValue, '(CFixedPoint)3.0'))]"
 						size = { 118 20 }
 						alwaystransparent = yes
 						background = { using = color_yellow_texture alpha = 0.30 }
 						text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_NARROWED" size = { 100% 100% } fontsize = 11 align = center|nobaseline }
 					}
 					widget = {
-						visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_sacred_official_candidates_relic_custodian_status').IsSet)]"
+						visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_role_relic_custodian_status').IsSet)]"
 						size = { 118 20 }
 						alwaystransparent = yes
 						background = { using = color_yellow_texture alpha = 0.12 }
@@ -10662,30 +10662,30 @@ widget = {
 					size = { 446 24 }
 					spacing = 8
 					ignoreinvisible = yes
-					text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_SACRED_OFFICIAL_CANDIDATES_ALMS_PREFECT" size = { 322 22 } max_width = 322 fontsize = 12 align = nobaseline|left }
+					text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_ROLE_ALMS_PREFECT" size = { 322 22 } max_width = 322 fontsize = 12 align = nobaseline|left }
 					widget = {
-						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_sacred_official_candidates_alms_prefect_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_sacred_official_candidates_alms_prefect_status').GetValue, '(CFixedPoint)1.0'))]"
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_role_alms_prefect_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_role_alms_prefect_status').GetValue, '(CFixedPoint)1.0'))]"
 						size = { 118 20 }
 						alwaystransparent = yes
 						background = { using = color_market_green_texture alpha = 0.30 }
 						text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_FAVORABLE" size = { 100% 100% } fontsize = 11 align = center|nobaseline }
 					}
 					widget = {
-						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_sacred_official_candidates_alms_prefect_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_sacred_official_candidates_alms_prefect_status').GetValue, '(CFixedPoint)2.0'))]"
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_role_alms_prefect_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_role_alms_prefect_status').GetValue, '(CFixedPoint)2.0'))]"
 						size = { 118 20 }
 						alwaystransparent = yes
 						background = { using = color_mid_red_texture alpha = 0.30 }
 						text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_CONTESTED" size = { 100% 100% } fontsize = 11 align = center|nobaseline }
 					}
 					widget = {
-						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_sacred_official_candidates_alms_prefect_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_sacred_official_candidates_alms_prefect_status').GetValue, '(CFixedPoint)3.0'))]"
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_role_alms_prefect_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_role_alms_prefect_status').GetValue, '(CFixedPoint)3.0'))]"
 						size = { 118 20 }
 						alwaystransparent = yes
 						background = { using = color_yellow_texture alpha = 0.30 }
 						text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_NARROWED" size = { 100% 100% } fontsize = 11 align = center|nobaseline }
 					}
 					widget = {
-						visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_sacred_official_candidates_alms_prefect_status').IsSet)]"
+						visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_role_alms_prefect_status').IsSet)]"
 						size = { 118 20 }
 						alwaystransparent = yes
 						background = { using = color_yellow_texture alpha = 0.12 }
@@ -10698,103 +10698,67 @@ widget = {
 					size = { 446 24 }
 					spacing = 8
 					ignoreinvisible = yes
-					text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_SACRED_OFFICIAL_CANDIDATES_ARTIST_CANON" size = { 322 22 } max_width = 322 fontsize = 12 align = nobaseline|left }
+					text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_ROLE_ARTIST_CANON" size = { 322 22 } max_width = 322 fontsize = 12 align = nobaseline|left }
 					widget = {
-						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_sacred_official_candidates_artist_canon_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_sacred_official_candidates_artist_canon_status').GetValue, '(CFixedPoint)1.0'))]"
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_role_artist_canon_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_role_artist_canon_status').GetValue, '(CFixedPoint)1.0'))]"
 						size = { 118 20 }
 						alwaystransparent = yes
 						background = { using = color_market_green_texture alpha = 0.30 }
 						text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_FAVORABLE" size = { 100% 100% } fontsize = 11 align = center|nobaseline }
 					}
 					widget = {
-						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_sacred_official_candidates_artist_canon_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_sacred_official_candidates_artist_canon_status').GetValue, '(CFixedPoint)2.0'))]"
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_role_artist_canon_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_role_artist_canon_status').GetValue, '(CFixedPoint)2.0'))]"
 						size = { 118 20 }
 						alwaystransparent = yes
 						background = { using = color_mid_red_texture alpha = 0.30 }
 						text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_CONTESTED" size = { 100% 100% } fontsize = 11 align = center|nobaseline }
 					}
 					widget = {
-						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_sacred_official_candidates_artist_canon_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_sacred_official_candidates_artist_canon_status').GetValue, '(CFixedPoint)3.0'))]"
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_role_artist_canon_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_role_artist_canon_status').GetValue, '(CFixedPoint)3.0'))]"
 						size = { 118 20 }
 						alwaystransparent = yes
 						background = { using = color_yellow_texture alpha = 0.30 }
 						text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_NARROWED" size = { 100% 100% } fontsize = 11 align = center|nobaseline }
 					}
 					widget = {
-						visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_sacred_official_candidates_artist_canon_status').IsSet)]"
+						visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_role_artist_canon_status').IsSet)]"
 						size = { 118 20 }
 						alwaystransparent = yes
 						background = { using = color_yellow_texture alpha = 0.12 }
 						text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_PENDING" size = { 100% 100% } fontsize = 11 align = center|nobaseline }
 					}
 				}
-				text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_APOSTOLIC_SERVICE_DUTIES_LABEL" size = { 446 22 } max_width = 446 fontsize = 13 align = nobaseline|left }
+				text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_DUTY_LABEL" size = { 446 22 } max_width = 446 fontsize = 13 align = nobaseline|left }
 				hbox = {
 					layoutpolicy_horizontal = expanding
 					layoutpolicy_vertical = fixed
 					size = { 446 24 }
 					spacing = 8
 					ignoreinvisible = yes
-					text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_APOSTOLIC_SERVICE_DUTIES_RELIC_INVENTORY" size = { 322 22 } max_width = 322 fontsize = 12 align = nobaseline|left }
+					text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_DUTY_RELIC_INVENTORY" size = { 322 22 } max_width = 322 fontsize = 12 align = nobaseline|left }
 					widget = {
-						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_apostolic_service_duties_relic_inventory_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_apostolic_service_duties_relic_inventory_status').GetValue, '(CFixedPoint)1.0'))]"
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_duty_relic_inventory_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_duty_relic_inventory_status').GetValue, '(CFixedPoint)1.0'))]"
 						size = { 118 20 }
 						alwaystransparent = yes
 						background = { using = color_market_green_texture alpha = 0.30 }
 						text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_FAVORABLE" size = { 100% 100% } fontsize = 11 align = center|nobaseline }
 					}
 					widget = {
-						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_apostolic_service_duties_relic_inventory_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_apostolic_service_duties_relic_inventory_status').GetValue, '(CFixedPoint)2.0'))]"
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_duty_relic_inventory_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_duty_relic_inventory_status').GetValue, '(CFixedPoint)2.0'))]"
 						size = { 118 20 }
 						alwaystransparent = yes
 						background = { using = color_mid_red_texture alpha = 0.30 }
 						text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_CONTESTED" size = { 100% 100% } fontsize = 11 align = center|nobaseline }
 					}
 					widget = {
-						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_apostolic_service_duties_relic_inventory_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_apostolic_service_duties_relic_inventory_status').GetValue, '(CFixedPoint)3.0'))]"
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_duty_relic_inventory_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_duty_relic_inventory_status').GetValue, '(CFixedPoint)3.0'))]"
 						size = { 118 20 }
 						alwaystransparent = yes
 						background = { using = color_yellow_texture alpha = 0.30 }
 						text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_NARROWED" size = { 100% 100% } fontsize = 11 align = center|nobaseline }
 					}
 					widget = {
-						visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_apostolic_service_duties_relic_inventory_status').IsSet)]"
-						size = { 118 20 }
-						alwaystransparent = yes
-						background = { using = color_yellow_texture alpha = 0.12 }
-						text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_PENDING" size = { 100% 100% } fontsize = 11 align = center|nobaseline }
-					}
-				}
-				hbox = {
-					layoutpolicy_horizontal = expanding
-					layoutpolicy_vertical = fixed
-					size = { 446 24 }
-					spacing = 8
-					ignoreinvisible = yes
-					text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_APOSTOLIC_SERVICE_DUTIES_ALMS_LEDGER" size = { 322 22 } max_width = 322 fontsize = 12 align = nobaseline|left }
-					widget = {
-						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_apostolic_service_duties_alms_ledger_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_apostolic_service_duties_alms_ledger_status').GetValue, '(CFixedPoint)1.0'))]"
-						size = { 118 20 }
-						alwaystransparent = yes
-						background = { using = color_market_green_texture alpha = 0.30 }
-						text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_FAVORABLE" size = { 100% 100% } fontsize = 11 align = center|nobaseline }
-					}
-					widget = {
-						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_apostolic_service_duties_alms_ledger_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_apostolic_service_duties_alms_ledger_status').GetValue, '(CFixedPoint)2.0'))]"
-						size = { 118 20 }
-						alwaystransparent = yes
-						background = { using = color_mid_red_texture alpha = 0.30 }
-						text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_CONTESTED" size = { 100% 100% } fontsize = 11 align = center|nobaseline }
-					}
-					widget = {
-						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_apostolic_service_duties_alms_ledger_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_apostolic_service_duties_alms_ledger_status').GetValue, '(CFixedPoint)3.0'))]"
-						size = { 118 20 }
-						alwaystransparent = yes
-						background = { using = color_yellow_texture alpha = 0.30 }
-						text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_NARROWED" size = { 100% 100% } fontsize = 11 align = center|nobaseline }
-					}
-					widget = {
-						visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_apostolic_service_duties_alms_ledger_status').IsSet)]"
+						visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_duty_relic_inventory_status').IsSet)]"
 						size = { 118 20 }
 						alwaystransparent = yes
 						background = { using = color_yellow_texture alpha = 0.12 }
@@ -10807,30 +10771,30 @@ widget = {
 					size = { 446 24 }
 					spacing = 8
 					ignoreinvisible = yes
-					text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_APOSTOLIC_SERVICE_DUTIES_PILGRIM_THRESHOLD" size = { 322 22 } max_width = 322 fontsize = 12 align = nobaseline|left }
+					text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_DUTY_ALMS_LEDGER" size = { 322 22 } max_width = 322 fontsize = 12 align = nobaseline|left }
 					widget = {
-						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_apostolic_service_duties_pilgrim_threshold_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_apostolic_service_duties_pilgrim_threshold_status').GetValue, '(CFixedPoint)1.0'))]"
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_duty_alms_ledger_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_duty_alms_ledger_status').GetValue, '(CFixedPoint)1.0'))]"
 						size = { 118 20 }
 						alwaystransparent = yes
 						background = { using = color_market_green_texture alpha = 0.30 }
 						text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_FAVORABLE" size = { 100% 100% } fontsize = 11 align = center|nobaseline }
 					}
 					widget = {
-						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_apostolic_service_duties_pilgrim_threshold_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_apostolic_service_duties_pilgrim_threshold_status').GetValue, '(CFixedPoint)2.0'))]"
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_duty_alms_ledger_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_duty_alms_ledger_status').GetValue, '(CFixedPoint)2.0'))]"
 						size = { 118 20 }
 						alwaystransparent = yes
 						background = { using = color_mid_red_texture alpha = 0.30 }
 						text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_CONTESTED" size = { 100% 100% } fontsize = 11 align = center|nobaseline }
 					}
 					widget = {
-						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_apostolic_service_duties_pilgrim_threshold_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_apostolic_service_duties_pilgrim_threshold_status').GetValue, '(CFixedPoint)3.0'))]"
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_duty_alms_ledger_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_duty_alms_ledger_status').GetValue, '(CFixedPoint)3.0'))]"
 						size = { 118 20 }
 						alwaystransparent = yes
 						background = { using = color_yellow_texture alpha = 0.30 }
 						text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_NARROWED" size = { 100% 100% } fontsize = 11 align = center|nobaseline }
 					}
 					widget = {
-						visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_apostolic_service_duties_pilgrim_threshold_status').IsSet)]"
+						visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_duty_alms_ledger_status').IsSet)]"
 						size = { 118 20 }
 						alwaystransparent = yes
 						background = { using = color_yellow_texture alpha = 0.12 }
@@ -10843,30 +10807,30 @@ widget = {
 					size = { 446 24 }
 					spacing = 8
 					ignoreinvisible = yes
-					text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_APOSTOLIC_SERVICE_DUTIES_CHOIR_OFFICES" size = { 322 22 } max_width = 322 fontsize = 12 align = nobaseline|left }
+					text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_DUTY_PILGRIM_THRESHOLD" size = { 322 22 } max_width = 322 fontsize = 12 align = nobaseline|left }
 					widget = {
-						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_apostolic_service_duties_choir_offices_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_apostolic_service_duties_choir_offices_status').GetValue, '(CFixedPoint)1.0'))]"
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_duty_pilgrim_threshold_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_duty_pilgrim_threshold_status').GetValue, '(CFixedPoint)1.0'))]"
 						size = { 118 20 }
 						alwaystransparent = yes
 						background = { using = color_market_green_texture alpha = 0.30 }
 						text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_FAVORABLE" size = { 100% 100% } fontsize = 11 align = center|nobaseline }
 					}
 					widget = {
-						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_apostolic_service_duties_choir_offices_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_apostolic_service_duties_choir_offices_status').GetValue, '(CFixedPoint)2.0'))]"
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_duty_pilgrim_threshold_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_duty_pilgrim_threshold_status').GetValue, '(CFixedPoint)2.0'))]"
 						size = { 118 20 }
 						alwaystransparent = yes
 						background = { using = color_mid_red_texture alpha = 0.30 }
 						text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_CONTESTED" size = { 100% 100% } fontsize = 11 align = center|nobaseline }
 					}
 					widget = {
-						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_apostolic_service_duties_choir_offices_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_apostolic_service_duties_choir_offices_status').GetValue, '(CFixedPoint)3.0'))]"
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_duty_pilgrim_threshold_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_duty_pilgrim_threshold_status').GetValue, '(CFixedPoint)3.0'))]"
 						size = { 118 20 }
 						alwaystransparent = yes
 						background = { using = color_yellow_texture alpha = 0.30 }
 						text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_NARROWED" size = { 100% 100% } fontsize = 11 align = center|nobaseline }
 					}
 					widget = {
-						visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_apostolic_service_duties_choir_offices_status').IsSet)]"
+						visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_duty_pilgrim_threshold_status').IsSet)]"
 						size = { 118 20 }
 						alwaystransparent = yes
 						background = { using = color_yellow_texture alpha = 0.12 }
@@ -10879,30 +10843,66 @@ widget = {
 					size = { 446 24 }
 					spacing = 8
 					ignoreinvisible = yes
-					text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_APOSTOLIC_SERVICE_DUTIES_CHAPEL_PATRONAGE" size = { 322 22 } max_width = 322 fontsize = 12 align = nobaseline|left }
+					text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_DUTY_CHOIR_OFFICES" size = { 322 22 } max_width = 322 fontsize = 12 align = nobaseline|left }
 					widget = {
-						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_apostolic_service_duties_chapel_patronage_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_apostolic_service_duties_chapel_patronage_status').GetValue, '(CFixedPoint)1.0'))]"
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_duty_choir_offices_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_duty_choir_offices_status').GetValue, '(CFixedPoint)1.0'))]"
 						size = { 118 20 }
 						alwaystransparent = yes
 						background = { using = color_market_green_texture alpha = 0.30 }
 						text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_FAVORABLE" size = { 100% 100% } fontsize = 11 align = center|nobaseline }
 					}
 					widget = {
-						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_apostolic_service_duties_chapel_patronage_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_apostolic_service_duties_chapel_patronage_status').GetValue, '(CFixedPoint)2.0'))]"
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_duty_choir_offices_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_duty_choir_offices_status').GetValue, '(CFixedPoint)2.0'))]"
 						size = { 118 20 }
 						alwaystransparent = yes
 						background = { using = color_mid_red_texture alpha = 0.30 }
 						text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_CONTESTED" size = { 100% 100% } fontsize = 11 align = center|nobaseline }
 					}
 					widget = {
-						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_apostolic_service_duties_chapel_patronage_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_apostolic_service_duties_chapel_patronage_status').GetValue, '(CFixedPoint)3.0'))]"
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_duty_choir_offices_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_duty_choir_offices_status').GetValue, '(CFixedPoint)3.0'))]"
 						size = { 118 20 }
 						alwaystransparent = yes
 						background = { using = color_yellow_texture alpha = 0.30 }
 						text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_NARROWED" size = { 100% 100% } fontsize = 11 align = center|nobaseline }
 					}
 					widget = {
-						visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_apostolic_service_duties_chapel_patronage_status').IsSet)]"
+						visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_duty_choir_offices_status').IsSet)]"
+						size = { 118 20 }
+						alwaystransparent = yes
+						background = { using = color_yellow_texture alpha = 0.12 }
+						text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_PENDING" size = { 100% 100% } fontsize = 11 align = center|nobaseline }
+					}
+				}
+				hbox = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = fixed
+					size = { 446 24 }
+					spacing = 8
+					ignoreinvisible = yes
+					text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_DUTY_CHAPEL_PATRONAGE" size = { 322 22 } max_width = 322 fontsize = 12 align = nobaseline|left }
+					widget = {
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_duty_chapel_patronage_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_duty_chapel_patronage_status').GetValue, '(CFixedPoint)1.0'))]"
+						size = { 118 20 }
+						alwaystransparent = yes
+						background = { using = color_market_green_texture alpha = 0.30 }
+						text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_FAVORABLE" size = { 100% 100% } fontsize = 11 align = center|nobaseline }
+					}
+					widget = {
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_duty_chapel_patronage_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_duty_chapel_patronage_status').GetValue, '(CFixedPoint)2.0'))]"
+						size = { 118 20 }
+						alwaystransparent = yes
+						background = { using = color_mid_red_texture alpha = 0.30 }
+						text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_CONTESTED" size = { 100% 100% } fontsize = 11 align = center|nobaseline }
+					}
+					widget = {
+						visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_duty_chapel_patronage_status').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_duty_chapel_patronage_status').GetValue, '(CFixedPoint)3.0'))]"
+						size = { 118 20 }
+						alwaystransparent = yes
+						background = { using = color_yellow_texture alpha = 0.30 }
+						text_single = { text = "TV_ENGINEERING_ST_PETERS_BASILICA_STATUS_NARROWED" size = { 100% 100% } fontsize = 11 align = center|nobaseline }
+					}
+					widget = {
+						visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_st_peters_basilica_duty_chapel_patronage_status').IsSet)]"
 						size = { 118 20 }
 						alwaystransparent = yes
 						background = { using = color_yellow_texture alpha = 0.12 }

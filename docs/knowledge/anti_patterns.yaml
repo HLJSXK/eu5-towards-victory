@@ -2210,3 +2210,14 @@
   scope: generic_actions
   source: "reference_game_files/game/main_menu/common/scripted_triggers/00_coa_triggers.txt:116 (c:BOH = { save_temporary_scope_as = custom_overlord } inside a trigger-only scripted_trigger); pdx_persistent_reader.cpp 'Unknown trigger type: save_scope_as' runtime error in tv_trade_league_actions.txt, 2026-07-07"
   notes: "The engine's trigger parser does not register `save_scope_as` as a valid trigger type at all; only `save_temporary_scope_as` is valid inside trigger evaluation. `save_scope_as` is effect-only. The Trade Chain generator (`scripts/in_game/common/generic_actions/gen_tv_trade_league_actions.py`) used `save_scope_as` inside `chain_previous_save`/`chain_nearest_previous_limits` (limit-block distance comparisons) and `chain_selector_filter` (select_trigger visible/enabled), producing hundreds of duplicate 'Unknown trigger type: save_scope_as' errors on load. Fixed by switching those three helpers to `save_temporary_scope_as`; the one genuine effect-body save (`scope:target = { save_scope_as = tv_trade_chain_candidate_market }` in the action's `effect` block) was left unchanged."
+
+- id: on_action_war_gate_missing_winner_check
+  pattern: 'on_(pre_winning_war|ending_war)\s*='
+  detectability: advisory
+  only_in_paths: ['on_action']
+  bad: "Gating an `on_pre_winning_war`/`on_ending_war` on_action's effect only on `has_variable`/ownership/site-control checks, treating 'this war-ending on_action fired' as equivalent to 'root won a war'"
+  correction: "Add `scope:winner = { this = root }` to the trigger when the gated effect is meant to require an actual win, not just war conclusion. `root` fires for both the winner and loser of the war; `scope:winner`/`scope:loser`/`scope:war` are all available scopes in both on_actions."
+  category: scope
+  scope: on_action
+  source: "reference_game_files/game/in_game/common/on_action/_hardcoded.txt:1518-1576 (`#root = country ..., scope:winner = country, scope:loser = country, scope:war = war`); scope-equality idiom verified at line 3292 (`leader_country ?= { this = root }`) and in src/in_game/common/generic_actions/tv_arts_exhibition_actions.txt"
+  notes: "Confirmed live instance: `scripts/unique_wonder_ritual_content/alhambra.py:build_on_action_body` set `tv_wonder_alhambra_war_validation = 1` in both `tv_wonder_unique_alhambra_ritual_on_pre_winning_war` and `_on_ending_war` whenever root held Granada, with no winner/loser distinction — a lost war validated the ritual's 'won or ended' war-gate exactly like a won one. Fixed 2026-07 by adding `scope:winner = { this = root }` to both on_actions' triggers."

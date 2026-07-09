@@ -10,6 +10,7 @@ tv_wonder_unique_alhambra_ritual_on_pre_winning_war = {
 	var:tv_wonder_locked ?= 106
 	has_variable = tv_wonder_ritual_in_progress
 	tv_wonder_alhambra_site_control_trigger = yes
+	scope:winner = { this = root }
 	}
 	effect = {
 		hidden_effect = {
@@ -24,6 +25,7 @@ tv_wonder_unique_alhambra_ritual_on_ending_war = {
 	var:tv_wonder_locked ?= 106
 	has_variable = tv_wonder_ritual_in_progress
 	tv_wonder_alhambra_site_control_trigger = yes
+	scope:winner = { this = root }
 	}
 	effect = {
 		hidden_effect = {

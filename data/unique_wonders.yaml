@@ -647,28 +647,20 @@ unique_wonders:
     listeners:
     - monthly
     runtime_variables:
-    - tv_wonder_st_peters_basilica_ritual_row_set_index
-    - tv_wonder_st_peters_basilica_ritual_phase
+    - tv_wonder_st_peters_basilica_ritual_stage
     - tv_wonder_st_peters_basilica_ritual_pending_event
     - tv_wonder_st_peters_basilica_ritual_completed
-    - tv_wonder_st_peters_basilica_sacred_official_candidates_favorable_count
-    - tv_wonder_st_peters_basilica_sacred_official_candidates_narrowed
-    - tv_wonder_st_peters_basilica_sacred_official_candidates_started
-    - tv_wonder_st_peters_basilica_sacred_official_candidates_completed
-    - tv_wonder_st_peters_basilica_sacred_official_candidates_cardinal_administrator_status
-    - tv_wonder_st_peters_basilica_sacred_official_candidates_diocesan_bishop_status
-    - tv_wonder_st_peters_basilica_sacred_official_candidates_relic_custodian_status
-    - tv_wonder_st_peters_basilica_sacred_official_candidates_alms_prefect_status
-    - tv_wonder_st_peters_basilica_sacred_official_candidates_artist_canon_status
-    - tv_wonder_st_peters_basilica_apostolic_service_duties_favorable_count
-    - tv_wonder_st_peters_basilica_apostolic_service_duties_narrowed
-    - tv_wonder_st_peters_basilica_apostolic_service_duties_started
-    - tv_wonder_st_peters_basilica_apostolic_service_duties_completed
-    - tv_wonder_st_peters_basilica_apostolic_service_duties_relic_inventory_status
-    - tv_wonder_st_peters_basilica_apostolic_service_duties_alms_ledger_status
-    - tv_wonder_st_peters_basilica_apostolic_service_duties_pilgrim_threshold_status
-    - tv_wonder_st_peters_basilica_apostolic_service_duties_choir_offices_status
-    - tv_wonder_st_peters_basilica_apostolic_service_duties_chapel_patronage_status
+    - tv_wonder_st_peters_basilica_assigned_role
+    - tv_wonder_st_peters_basilica_role_cardinal_administrator_status
+    - tv_wonder_st_peters_basilica_role_diocesan_bishop_status
+    - tv_wonder_st_peters_basilica_role_relic_custodian_status
+    - tv_wonder_st_peters_basilica_role_alms_prefect_status
+    - tv_wonder_st_peters_basilica_role_artist_canon_status
+    - tv_wonder_st_peters_basilica_duty_relic_inventory_status
+    - tv_wonder_st_peters_basilica_duty_alms_ledger_status
+    - tv_wonder_st_peters_basilica_duty_pilgrim_threshold_status
+    - tv_wonder_st_peters_basilica_duty_choir_offices_status
+    - tv_wonder_st_peters_basilica_duty_chapel_patronage_status
     - tv_wonder_st_peters_basilica_ritual_total_favorable
     country_modifier:
       tolerance_own: 1

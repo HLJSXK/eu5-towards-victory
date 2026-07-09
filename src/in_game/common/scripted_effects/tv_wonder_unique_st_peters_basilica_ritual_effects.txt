@@ -5,343 +5,225 @@
 # Target: src/in_game/common/scripted_effects/tv_wonder_unique_st_peters_basilica_ritual_effects.txt
 
 
-# -- tv_wonder_st_peters_basilica_sacred_official_candidates_row_init_effect ----------------------------------------------
-tv_wonder_st_peters_basilica_sacred_official_candidates_row_init_effect = {
-	set_variable = { name = tv_wonder_st_peters_basilica_sacred_official_candidates_cardinal_administrator_status value = 0 }
-	set_variable = { name = tv_wonder_st_peters_basilica_sacred_official_candidates_diocesan_bishop_status value = 0 }
-	set_variable = { name = tv_wonder_st_peters_basilica_sacred_official_candidates_relic_custodian_status value = 0 }
-	set_variable = { name = tv_wonder_st_peters_basilica_sacred_official_candidates_alms_prefect_status value = 0 }
-	set_variable = { name = tv_wonder_st_peters_basilica_sacred_official_candidates_artist_canon_status value = 0 }
-	set_variable = { name = tv_wonder_st_peters_basilica_sacred_official_candidates_favorable_count value = 0 }
-	set_variable = { name = tv_wonder_st_peters_basilica_sacred_official_candidates_narrowed value = 0 }
-	set_variable = { name = tv_wonder_st_peters_basilica_sacred_official_candidates_started value = 1 }
-	set_variable = { name = tv_wonder_st_peters_basilica_ritual_phase value = 1 }
+# -- tv_wonder_st_peters_basilica_ritual_start_effect ----------------------------------------------
+tv_wonder_st_peters_basilica_ritual_start_effect = {
+	set_variable = { name = tv_wonder_st_peters_basilica_ritual_stage value = 0 }
+	set_variable = { name = tv_wonder_st_peters_basilica_assigned_role value = 0 }
+	set_variable = { name = tv_wonder_st_peters_basilica_role_cardinal_administrator_status value = 0 }
+	set_variable = { name = tv_wonder_st_peters_basilica_role_diocesan_bishop_status value = 0 }
+	set_variable = { name = tv_wonder_st_peters_basilica_role_relic_custodian_status value = 0 }
+	set_variable = { name = tv_wonder_st_peters_basilica_role_alms_prefect_status value = 0 }
+	set_variable = { name = tv_wonder_st_peters_basilica_role_artist_canon_status value = 0 }
+	set_variable = { name = tv_wonder_st_peters_basilica_duty_relic_inventory_status value = 0 }
+	set_variable = { name = tv_wonder_st_peters_basilica_duty_alms_ledger_status value = 0 }
+	set_variable = { name = tv_wonder_st_peters_basilica_duty_pilgrim_threshold_status value = 0 }
+	set_variable = { name = tv_wonder_st_peters_basilica_duty_choir_offices_status value = 0 }
+	set_variable = { name = tv_wonder_st_peters_basilica_duty_chapel_patronage_status value = 0 }
 	remove_variable = tv_wonder_st_peters_basilica_ritual_pending_event
 }
 
-# -- tv_wonder_st_peters_basilica_sacred_official_candidates_row_state_write_effect ----------------------------------------------
-tv_wonder_st_peters_basilica_sacred_official_candidates_row_state_write_effect = {
-	hidden_effect = {
-		random_list = {
-			60 = { set_variable = { name = tv_wonder_st_peters_basilica_sacred_official_candidates_cardinal_administrator_status value = 1 } }
-			40 = { set_variable = { name = tv_wonder_st_peters_basilica_sacred_official_candidates_cardinal_administrator_status value = 2 } }
-		}
-		random_list = {
-			60 = { set_variable = { name = tv_wonder_st_peters_basilica_sacred_official_candidates_diocesan_bishop_status value = 1 } }
-			40 = { set_variable = { name = tv_wonder_st_peters_basilica_sacred_official_candidates_diocesan_bishop_status value = 2 } }
-		}
-		random_list = {
-			60 = { set_variable = { name = tv_wonder_st_peters_basilica_sacred_official_candidates_relic_custodian_status value = 1 } }
-			40 = { set_variable = { name = tv_wonder_st_peters_basilica_sacred_official_candidates_relic_custodian_status value = 2 } }
-		}
-		random_list = {
-			60 = { set_variable = { name = tv_wonder_st_peters_basilica_sacred_official_candidates_alms_prefect_status value = 1 } }
-			40 = { set_variable = { name = tv_wonder_st_peters_basilica_sacred_official_candidates_alms_prefect_status value = 2 } }
-		}
-		random_list = {
-			60 = { set_variable = { name = tv_wonder_st_peters_basilica_sacred_official_candidates_artist_canon_status value = 1 } }
-			40 = { set_variable = { name = tv_wonder_st_peters_basilica_sacred_official_candidates_artist_canon_status value = 2 } }
-		}
-		tv_wonder_st_peters_basilica_sacred_official_candidates_aggregate_refresh_effect = yes
-		set_variable = { name = tv_wonder_st_peters_basilica_ritual_phase value = 2 }
-		remove_variable = tv_wonder_st_peters_basilica_ritual_pending_event
-	}
-}
-
-# -- tv_wonder_st_peters_basilica_sacred_official_candidates_aggregate_refresh_effect ----------------------------------------------
-tv_wonder_st_peters_basilica_sacred_official_candidates_aggregate_refresh_effect = {
-	set_variable = { name = tv_wonder_st_peters_basilica_sacred_official_candidates_favorable_count value = 0 }
-	if = {
-		limit = { var:tv_wonder_st_peters_basilica_sacred_official_candidates_cardinal_administrator_status ?= 1 }
-		change_variable = { name = tv_wonder_st_peters_basilica_sacred_official_candidates_favorable_count add = 1 }
-	}
-	if = {
-		limit = { var:tv_wonder_st_peters_basilica_sacred_official_candidates_diocesan_bishop_status ?= 1 }
-		change_variable = { name = tv_wonder_st_peters_basilica_sacred_official_candidates_favorable_count add = 1 }
-	}
-	if = {
-		limit = { var:tv_wonder_st_peters_basilica_sacred_official_candidates_relic_custodian_status ?= 1 }
-		change_variable = { name = tv_wonder_st_peters_basilica_sacred_official_candidates_favorable_count add = 1 }
-	}
-	if = {
-		limit = { var:tv_wonder_st_peters_basilica_sacred_official_candidates_alms_prefect_status ?= 1 }
-		change_variable = { name = tv_wonder_st_peters_basilica_sacred_official_candidates_favorable_count add = 1 }
-	}
-	if = {
-		limit = { var:tv_wonder_st_peters_basilica_sacred_official_candidates_artist_canon_status ?= 1 }
-		change_variable = { name = tv_wonder_st_peters_basilica_sacred_official_candidates_favorable_count add = 1 }
-	}
-}
-
-# -- tv_wonder_st_peters_basilica_sacred_official_candidates_reconcile_effect ----------------------------------------------
-tv_wonder_st_peters_basilica_sacred_official_candidates_reconcile_effect = {
-	hidden_effect = {
-		if = {
-			limit = { var:tv_wonder_st_peters_basilica_sacred_official_candidates_cardinal_administrator_status ?= 2 }
-			random_list = {
-				80 = { set_variable = { name = tv_wonder_st_peters_basilica_sacred_official_candidates_cardinal_administrator_status value = 1 } }
-				20 = { set_variable = { name = tv_wonder_st_peters_basilica_sacred_official_candidates_cardinal_administrator_status value = 2 } }
-			}
-		}
-		if = {
-			limit = { var:tv_wonder_st_peters_basilica_sacred_official_candidates_diocesan_bishop_status ?= 2 }
-			random_list = {
-				80 = { set_variable = { name = tv_wonder_st_peters_basilica_sacred_official_candidates_diocesan_bishop_status value = 1 } }
-				20 = { set_variable = { name = tv_wonder_st_peters_basilica_sacred_official_candidates_diocesan_bishop_status value = 2 } }
-			}
-		}
-		if = {
-			limit = { var:tv_wonder_st_peters_basilica_sacred_official_candidates_relic_custodian_status ?= 2 }
-			random_list = {
-				80 = { set_variable = { name = tv_wonder_st_peters_basilica_sacred_official_candidates_relic_custodian_status value = 1 } }
-				20 = { set_variable = { name = tv_wonder_st_peters_basilica_sacred_official_candidates_relic_custodian_status value = 2 } }
-			}
-		}
-		if = {
-			limit = { var:tv_wonder_st_peters_basilica_sacred_official_candidates_alms_prefect_status ?= 2 }
-			random_list = {
-				80 = { set_variable = { name = tv_wonder_st_peters_basilica_sacred_official_candidates_alms_prefect_status value = 1 } }
-				20 = { set_variable = { name = tv_wonder_st_peters_basilica_sacred_official_candidates_alms_prefect_status value = 2 } }
-			}
-		}
-		if = {
-			limit = { var:tv_wonder_st_peters_basilica_sacred_official_candidates_artist_canon_status ?= 2 }
-			random_list = {
-				80 = { set_variable = { name = tv_wonder_st_peters_basilica_sacred_official_candidates_artist_canon_status value = 1 } }
-				20 = { set_variable = { name = tv_wonder_st_peters_basilica_sacred_official_candidates_artist_canon_status value = 2 } }
-			}
-		}
-		tv_wonder_st_peters_basilica_sacred_official_candidates_aggregate_refresh_effect = yes
-		set_variable = { name = tv_wonder_st_peters_basilica_ritual_phase value = 2 }
-		remove_variable = tv_wonder_st_peters_basilica_ritual_pending_event
-	}
-}
-
-# -- tv_wonder_st_peters_basilica_sacred_official_candidates_narrow_effect ----------------------------------------------
-tv_wonder_st_peters_basilica_sacred_official_candidates_narrow_effect = {
-	hidden_effect = {
-		if = {
-			limit = { var:tv_wonder_st_peters_basilica_sacred_official_candidates_cardinal_administrator_status ?= 2 }
-			set_variable = { name = tv_wonder_st_peters_basilica_sacred_official_candidates_cardinal_administrator_status value = 3 }
-		}
-		if = {
-			limit = { var:tv_wonder_st_peters_basilica_sacred_official_candidates_diocesan_bishop_status ?= 2 }
-			set_variable = { name = tv_wonder_st_peters_basilica_sacred_official_candidates_diocesan_bishop_status value = 3 }
-		}
-		if = {
-			limit = { var:tv_wonder_st_peters_basilica_sacred_official_candidates_relic_custodian_status ?= 2 }
-			set_variable = { name = tv_wonder_st_peters_basilica_sacred_official_candidates_relic_custodian_status value = 3 }
-		}
-		if = {
-			limit = { var:tv_wonder_st_peters_basilica_sacred_official_candidates_alms_prefect_status ?= 2 }
-			set_variable = { name = tv_wonder_st_peters_basilica_sacred_official_candidates_alms_prefect_status value = 3 }
-		}
-		if = {
-			limit = { var:tv_wonder_st_peters_basilica_sacred_official_candidates_artist_canon_status ?= 2 }
-			set_variable = { name = tv_wonder_st_peters_basilica_sacred_official_candidates_artist_canon_status value = 3 }
-		}
-		set_variable = { name = tv_wonder_st_peters_basilica_sacred_official_candidates_narrowed value = 1 }
-		tv_wonder_st_peters_basilica_sacred_official_candidates_aggregate_refresh_effect = yes
-		set_variable = { name = tv_wonder_st_peters_basilica_ritual_phase value = 2 }
-		remove_variable = tv_wonder_st_peters_basilica_ritual_pending_event
-	}
-}
-
-# -- tv_wonder_st_peters_basilica_sacred_official_candidates_cleanup_write_effect ----------------------------------------------
-tv_wonder_st_peters_basilica_sacred_official_candidates_cleanup_write_effect = {
-	remove_variable = tv_wonder_st_peters_basilica_sacred_official_candidates_cardinal_administrator_status
-	remove_variable = tv_wonder_st_peters_basilica_sacred_official_candidates_diocesan_bishop_status
-	remove_variable = tv_wonder_st_peters_basilica_sacred_official_candidates_relic_custodian_status
-	remove_variable = tv_wonder_st_peters_basilica_sacred_official_candidates_alms_prefect_status
-	remove_variable = tv_wonder_st_peters_basilica_sacred_official_candidates_artist_canon_status
-	remove_variable = tv_wonder_st_peters_basilica_sacred_official_candidates_favorable_count
-	remove_variable = tv_wonder_st_peters_basilica_sacred_official_candidates_narrowed
-	remove_variable = tv_wonder_st_peters_basilica_sacred_official_candidates_started
-	remove_variable = tv_wonder_st_peters_basilica_sacred_official_candidates_completed
-}
-
-# -- tv_wonder_st_peters_basilica_sacred_official_candidates_completion_effect ----------------------------------------------
-tv_wonder_st_peters_basilica_sacred_official_candidates_completion_effect = {
-	set_variable = { name = tv_wonder_st_peters_basilica_sacred_official_candidates_completed value = 1 }
-	set_variable = { name = tv_wonder_st_peters_basilica_ritual_phase value = 3 }
+# -- tv_wonder_st_peters_basilica_opening_effect ----------------------------------------------
+tv_wonder_st_peters_basilica_opening_effect = {
+	set_variable = { name = tv_wonder_st_peters_basilica_ritual_stage value = 1 }
 	remove_variable = tv_wonder_st_peters_basilica_ritual_pending_event
 }
 
-# -- tv_wonder_st_peters_basilica_apostolic_service_duties_row_init_effect ----------------------------------------------
-tv_wonder_st_peters_basilica_apostolic_service_duties_row_init_effect = {
-	set_variable = { name = tv_wonder_st_peters_basilica_apostolic_service_duties_relic_inventory_status value = 0 }
-	set_variable = { name = tv_wonder_st_peters_basilica_apostolic_service_duties_alms_ledger_status value = 0 }
-	set_variable = { name = tv_wonder_st_peters_basilica_apostolic_service_duties_pilgrim_threshold_status value = 0 }
-	set_variable = { name = tv_wonder_st_peters_basilica_apostolic_service_duties_choir_offices_status value = 0 }
-	set_variable = { name = tv_wonder_st_peters_basilica_apostolic_service_duties_chapel_patronage_status value = 0 }
-	set_variable = { name = tv_wonder_st_peters_basilica_apostolic_service_duties_favorable_count value = 0 }
-	set_variable = { name = tv_wonder_st_peters_basilica_apostolic_service_duties_narrowed value = 0 }
-	set_variable = { name = tv_wonder_st_peters_basilica_apostolic_service_duties_started value = 1 }
-	set_variable = { name = tv_wonder_st_peters_basilica_ritual_phase value = 1 }
+# -- tv_wonder_st_peters_basilica_choose_cardinal_administrator_effect ----------------------------------------------
+tv_wonder_st_peters_basilica_choose_cardinal_administrator_effect = {
+	set_variable = { name = tv_wonder_st_peters_basilica_assigned_role value = 1 }
+	set_variable = { name = tv_wonder_st_peters_basilica_role_cardinal_administrator_status value = 1 }
+	set_variable = { name = tv_wonder_st_peters_basilica_role_diocesan_bishop_status value = 3 }
+	set_variable = { name = tv_wonder_st_peters_basilica_role_relic_custodian_status value = 3 }
+	set_variable = { name = tv_wonder_st_peters_basilica_role_alms_prefect_status value = 3 }
+	set_variable = { name = tv_wonder_st_peters_basilica_role_artist_canon_status value = 3 }
+	set_variable = { name = tv_wonder_st_peters_basilica_duty_relic_inventory_status value = 1 }
+	set_variable = { name = tv_wonder_st_peters_basilica_duty_alms_ledger_status value = 2 }
+	set_variable = { name = tv_wonder_st_peters_basilica_duty_pilgrim_threshold_status value = 1 }
+	set_variable = { name = tv_wonder_st_peters_basilica_duty_choir_offices_status value = 1 }
+	set_variable = { name = tv_wonder_st_peters_basilica_duty_chapel_patronage_status value = 1 }
+	set_variable = { name = tv_wonder_st_peters_basilica_ritual_stage value = 2 }
 	remove_variable = tv_wonder_st_peters_basilica_ritual_pending_event
 }
 
-# -- tv_wonder_st_peters_basilica_apostolic_service_duties_row_state_write_effect ----------------------------------------------
-tv_wonder_st_peters_basilica_apostolic_service_duties_row_state_write_effect = {
-	hidden_effect = {
-		random_list = {
-			60 = { set_variable = { name = tv_wonder_st_peters_basilica_apostolic_service_duties_relic_inventory_status value = 1 } }
-			40 = { set_variable = { name = tv_wonder_st_peters_basilica_apostolic_service_duties_relic_inventory_status value = 2 } }
-		}
-		random_list = {
-			60 = { set_variable = { name = tv_wonder_st_peters_basilica_apostolic_service_duties_alms_ledger_status value = 1 } }
-			40 = { set_variable = { name = tv_wonder_st_peters_basilica_apostolic_service_duties_alms_ledger_status value = 2 } }
-		}
-		random_list = {
-			60 = { set_variable = { name = tv_wonder_st_peters_basilica_apostolic_service_duties_pilgrim_threshold_status value = 1 } }
-			40 = { set_variable = { name = tv_wonder_st_peters_basilica_apostolic_service_duties_pilgrim_threshold_status value = 2 } }
-		}
-		random_list = {
-			60 = { set_variable = { name = tv_wonder_st_peters_basilica_apostolic_service_duties_choir_offices_status value = 1 } }
-			40 = { set_variable = { name = tv_wonder_st_peters_basilica_apostolic_service_duties_choir_offices_status value = 2 } }
-		}
-		random_list = {
-			60 = { set_variable = { name = tv_wonder_st_peters_basilica_apostolic_service_duties_chapel_patronage_status value = 1 } }
-			40 = { set_variable = { name = tv_wonder_st_peters_basilica_apostolic_service_duties_chapel_patronage_status value = 2 } }
-		}
-		tv_wonder_st_peters_basilica_apostolic_service_duties_aggregate_refresh_effect = yes
-		set_variable = { name = tv_wonder_st_peters_basilica_ritual_phase value = 2 }
-		remove_variable = tv_wonder_st_peters_basilica_ritual_pending_event
-	}
-}
-
-# -- tv_wonder_st_peters_basilica_apostolic_service_duties_aggregate_refresh_effect ----------------------------------------------
-tv_wonder_st_peters_basilica_apostolic_service_duties_aggregate_refresh_effect = {
-	set_variable = { name = tv_wonder_st_peters_basilica_apostolic_service_duties_favorable_count value = 0 }
-	if = {
-		limit = { var:tv_wonder_st_peters_basilica_apostolic_service_duties_relic_inventory_status ?= 1 }
-		change_variable = { name = tv_wonder_st_peters_basilica_apostolic_service_duties_favorable_count add = 1 }
-	}
-	if = {
-		limit = { var:tv_wonder_st_peters_basilica_apostolic_service_duties_alms_ledger_status ?= 1 }
-		change_variable = { name = tv_wonder_st_peters_basilica_apostolic_service_duties_favorable_count add = 1 }
-	}
-	if = {
-		limit = { var:tv_wonder_st_peters_basilica_apostolic_service_duties_pilgrim_threshold_status ?= 1 }
-		change_variable = { name = tv_wonder_st_peters_basilica_apostolic_service_duties_favorable_count add = 1 }
-	}
-	if = {
-		limit = { var:tv_wonder_st_peters_basilica_apostolic_service_duties_choir_offices_status ?= 1 }
-		change_variable = { name = tv_wonder_st_peters_basilica_apostolic_service_duties_favorable_count add = 1 }
-	}
-	if = {
-		limit = { var:tv_wonder_st_peters_basilica_apostolic_service_duties_chapel_patronage_status ?= 1 }
-		change_variable = { name = tv_wonder_st_peters_basilica_apostolic_service_duties_favorable_count add = 1 }
-	}
-}
-
-# -- tv_wonder_st_peters_basilica_apostolic_service_duties_reconcile_effect ----------------------------------------------
-tv_wonder_st_peters_basilica_apostolic_service_duties_reconcile_effect = {
-	hidden_effect = {
-		if = {
-			limit = { var:tv_wonder_st_peters_basilica_apostolic_service_duties_relic_inventory_status ?= 2 }
-			random_list = {
-				80 = { set_variable = { name = tv_wonder_st_peters_basilica_apostolic_service_duties_relic_inventory_status value = 1 } }
-				20 = { set_variable = { name = tv_wonder_st_peters_basilica_apostolic_service_duties_relic_inventory_status value = 2 } }
-			}
-		}
-		if = {
-			limit = { var:tv_wonder_st_peters_basilica_apostolic_service_duties_alms_ledger_status ?= 2 }
-			random_list = {
-				80 = { set_variable = { name = tv_wonder_st_peters_basilica_apostolic_service_duties_alms_ledger_status value = 1 } }
-				20 = { set_variable = { name = tv_wonder_st_peters_basilica_apostolic_service_duties_alms_ledger_status value = 2 } }
-			}
-		}
-		if = {
-			limit = { var:tv_wonder_st_peters_basilica_apostolic_service_duties_pilgrim_threshold_status ?= 2 }
-			random_list = {
-				80 = { set_variable = { name = tv_wonder_st_peters_basilica_apostolic_service_duties_pilgrim_threshold_status value = 1 } }
-				20 = { set_variable = { name = tv_wonder_st_peters_basilica_apostolic_service_duties_pilgrim_threshold_status value = 2 } }
-			}
-		}
-		if = {
-			limit = { var:tv_wonder_st_peters_basilica_apostolic_service_duties_choir_offices_status ?= 2 }
-			random_list = {
-				80 = { set_variable = { name = tv_wonder_st_peters_basilica_apostolic_service_duties_choir_offices_status value = 1 } }
-				20 = { set_variable = { name = tv_wonder_st_peters_basilica_apostolic_service_duties_choir_offices_status value = 2 } }
-			}
-		}
-		if = {
-			limit = { var:tv_wonder_st_peters_basilica_apostolic_service_duties_chapel_patronage_status ?= 2 }
-			random_list = {
-				80 = { set_variable = { name = tv_wonder_st_peters_basilica_apostolic_service_duties_chapel_patronage_status value = 1 } }
-				20 = { set_variable = { name = tv_wonder_st_peters_basilica_apostolic_service_duties_chapel_patronage_status value = 2 } }
-			}
-		}
-		tv_wonder_st_peters_basilica_apostolic_service_duties_aggregate_refresh_effect = yes
-		set_variable = { name = tv_wonder_st_peters_basilica_ritual_phase value = 2 }
-		remove_variable = tv_wonder_st_peters_basilica_ritual_pending_event
-	}
-}
-
-# -- tv_wonder_st_peters_basilica_apostolic_service_duties_narrow_effect ----------------------------------------------
-tv_wonder_st_peters_basilica_apostolic_service_duties_narrow_effect = {
-	hidden_effect = {
-		if = {
-			limit = { var:tv_wonder_st_peters_basilica_apostolic_service_duties_relic_inventory_status ?= 2 }
-			set_variable = { name = tv_wonder_st_peters_basilica_apostolic_service_duties_relic_inventory_status value = 3 }
-		}
-		if = {
-			limit = { var:tv_wonder_st_peters_basilica_apostolic_service_duties_alms_ledger_status ?= 2 }
-			set_variable = { name = tv_wonder_st_peters_basilica_apostolic_service_duties_alms_ledger_status value = 3 }
-		}
-		if = {
-			limit = { var:tv_wonder_st_peters_basilica_apostolic_service_duties_pilgrim_threshold_status ?= 2 }
-			set_variable = { name = tv_wonder_st_peters_basilica_apostolic_service_duties_pilgrim_threshold_status value = 3 }
-		}
-		if = {
-			limit = { var:tv_wonder_st_peters_basilica_apostolic_service_duties_choir_offices_status ?= 2 }
-			set_variable = { name = tv_wonder_st_peters_basilica_apostolic_service_duties_choir_offices_status value = 3 }
-		}
-		if = {
-			limit = { var:tv_wonder_st_peters_basilica_apostolic_service_duties_chapel_patronage_status ?= 2 }
-			set_variable = { name = tv_wonder_st_peters_basilica_apostolic_service_duties_chapel_patronage_status value = 3 }
-		}
-		set_variable = { name = tv_wonder_st_peters_basilica_apostolic_service_duties_narrowed value = 1 }
-		tv_wonder_st_peters_basilica_apostolic_service_duties_aggregate_refresh_effect = yes
-		set_variable = { name = tv_wonder_st_peters_basilica_ritual_phase value = 2 }
-		remove_variable = tv_wonder_st_peters_basilica_ritual_pending_event
-	}
-}
-
-# -- tv_wonder_st_peters_basilica_apostolic_service_duties_cleanup_write_effect ----------------------------------------------
-tv_wonder_st_peters_basilica_apostolic_service_duties_cleanup_write_effect = {
-	remove_variable = tv_wonder_st_peters_basilica_apostolic_service_duties_relic_inventory_status
-	remove_variable = tv_wonder_st_peters_basilica_apostolic_service_duties_alms_ledger_status
-	remove_variable = tv_wonder_st_peters_basilica_apostolic_service_duties_pilgrim_threshold_status
-	remove_variable = tv_wonder_st_peters_basilica_apostolic_service_duties_choir_offices_status
-	remove_variable = tv_wonder_st_peters_basilica_apostolic_service_duties_chapel_patronage_status
-	remove_variable = tv_wonder_st_peters_basilica_apostolic_service_duties_favorable_count
-	remove_variable = tv_wonder_st_peters_basilica_apostolic_service_duties_narrowed
-	remove_variable = tv_wonder_st_peters_basilica_apostolic_service_duties_started
-	remove_variable = tv_wonder_st_peters_basilica_apostolic_service_duties_completed
-}
-
-# -- tv_wonder_st_peters_basilica_apostolic_service_duties_completion_effect ----------------------------------------------
-tv_wonder_st_peters_basilica_apostolic_service_duties_completion_effect = {
-	set_variable = { name = tv_wonder_st_peters_basilica_apostolic_service_duties_completed value = 1 }
-	set_variable = { name = tv_wonder_st_peters_basilica_ritual_phase value = 3 }
+# -- tv_wonder_st_peters_basilica_choose_diocesan_bishop_effect ----------------------------------------------
+tv_wonder_st_peters_basilica_choose_diocesan_bishop_effect = {
+	set_variable = { name = tv_wonder_st_peters_basilica_assigned_role value = 2 }
+	set_variable = { name = tv_wonder_st_peters_basilica_role_cardinal_administrator_status value = 3 }
+	set_variable = { name = tv_wonder_st_peters_basilica_role_diocesan_bishop_status value = 1 }
+	set_variable = { name = tv_wonder_st_peters_basilica_role_relic_custodian_status value = 3 }
+	set_variable = { name = tv_wonder_st_peters_basilica_role_alms_prefect_status value = 3 }
+	set_variable = { name = tv_wonder_st_peters_basilica_role_artist_canon_status value = 3 }
+	set_variable = { name = tv_wonder_st_peters_basilica_duty_relic_inventory_status value = 1 }
+	set_variable = { name = tv_wonder_st_peters_basilica_duty_alms_ledger_status value = 1 }
+	set_variable = { name = tv_wonder_st_peters_basilica_duty_pilgrim_threshold_status value = 1 }
+	set_variable = { name = tv_wonder_st_peters_basilica_duty_choir_offices_status value = 2 }
+	set_variable = { name = tv_wonder_st_peters_basilica_duty_chapel_patronage_status value = 1 }
+	set_variable = { name = tv_wonder_st_peters_basilica_ritual_stage value = 2 }
 	remove_variable = tv_wonder_st_peters_basilica_ritual_pending_event
+}
+
+# -- tv_wonder_st_peters_basilica_choose_relic_custodian_effect ----------------------------------------------
+tv_wonder_st_peters_basilica_choose_relic_custodian_effect = {
+	set_variable = { name = tv_wonder_st_peters_basilica_assigned_role value = 3 }
+	set_variable = { name = tv_wonder_st_peters_basilica_role_cardinal_administrator_status value = 3 }
+	set_variable = { name = tv_wonder_st_peters_basilica_role_diocesan_bishop_status value = 3 }
+	set_variable = { name = tv_wonder_st_peters_basilica_role_relic_custodian_status value = 1 }
+	set_variable = { name = tv_wonder_st_peters_basilica_role_alms_prefect_status value = 3 }
+	set_variable = { name = tv_wonder_st_peters_basilica_role_artist_canon_status value = 3 }
+	set_variable = { name = tv_wonder_st_peters_basilica_duty_relic_inventory_status value = 1 }
+	set_variable = { name = tv_wonder_st_peters_basilica_duty_alms_ledger_status value = 1 }
+	set_variable = { name = tv_wonder_st_peters_basilica_duty_pilgrim_threshold_status value = 2 }
+	set_variable = { name = tv_wonder_st_peters_basilica_duty_choir_offices_status value = 1 }
+	set_variable = { name = tv_wonder_st_peters_basilica_duty_chapel_patronage_status value = 1 }
+	set_variable = { name = tv_wonder_st_peters_basilica_ritual_stage value = 2 }
+	remove_variable = tv_wonder_st_peters_basilica_ritual_pending_event
+}
+
+# -- tv_wonder_st_peters_basilica_choose_alms_prefect_effect ----------------------------------------------
+tv_wonder_st_peters_basilica_choose_alms_prefect_effect = {
+	set_variable = { name = tv_wonder_st_peters_basilica_assigned_role value = 4 }
+	set_variable = { name = tv_wonder_st_peters_basilica_role_cardinal_administrator_status value = 3 }
+	set_variable = { name = tv_wonder_st_peters_basilica_role_diocesan_bishop_status value = 3 }
+	set_variable = { name = tv_wonder_st_peters_basilica_role_relic_custodian_status value = 3 }
+	set_variable = { name = tv_wonder_st_peters_basilica_role_alms_prefect_status value = 1 }
+	set_variable = { name = tv_wonder_st_peters_basilica_role_artist_canon_status value = 3 }
+	set_variable = { name = tv_wonder_st_peters_basilica_duty_relic_inventory_status value = 1 }
+	set_variable = { name = tv_wonder_st_peters_basilica_duty_alms_ledger_status value = 1 }
+	set_variable = { name = tv_wonder_st_peters_basilica_duty_pilgrim_threshold_status value = 1 }
+	set_variable = { name = tv_wonder_st_peters_basilica_duty_choir_offices_status value = 1 }
+	set_variable = { name = tv_wonder_st_peters_basilica_duty_chapel_patronage_status value = 2 }
+	set_variable = { name = tv_wonder_st_peters_basilica_ritual_stage value = 2 }
+	remove_variable = tv_wonder_st_peters_basilica_ritual_pending_event
+}
+
+# -- tv_wonder_st_peters_basilica_choose_artist_canon_effect ----------------------------------------------
+tv_wonder_st_peters_basilica_choose_artist_canon_effect = {
+	set_variable = { name = tv_wonder_st_peters_basilica_assigned_role value = 5 }
+	set_variable = { name = tv_wonder_st_peters_basilica_role_cardinal_administrator_status value = 3 }
+	set_variable = { name = tv_wonder_st_peters_basilica_role_diocesan_bishop_status value = 3 }
+	set_variable = { name = tv_wonder_st_peters_basilica_role_relic_custodian_status value = 3 }
+	set_variable = { name = tv_wonder_st_peters_basilica_role_alms_prefect_status value = 3 }
+	set_variable = { name = tv_wonder_st_peters_basilica_role_artist_canon_status value = 1 }
+	set_variable = { name = tv_wonder_st_peters_basilica_duty_relic_inventory_status value = 2 }
+	set_variable = { name = tv_wonder_st_peters_basilica_duty_alms_ledger_status value = 1 }
+	set_variable = { name = tv_wonder_st_peters_basilica_duty_pilgrim_threshold_status value = 1 }
+	set_variable = { name = tv_wonder_st_peters_basilica_duty_choir_offices_status value = 1 }
+	set_variable = { name = tv_wonder_st_peters_basilica_duty_chapel_patronage_status value = 1 }
+	set_variable = { name = tv_wonder_st_peters_basilica_ritual_stage value = 2 }
+	remove_variable = tv_wonder_st_peters_basilica_ritual_pending_event
+}
+
+# -- tv_wonder_st_peters_basilica_scandal_correct_effect ----------------------------------------------
+tv_wonder_st_peters_basilica_scandal_correct_effect = {
+	hidden_effect = {
+		if = {
+			limit = { var:tv_wonder_st_peters_basilica_duty_relic_inventory_status ?= 2 }
+			set_variable = { name = tv_wonder_st_peters_basilica_duty_relic_inventory_status value = 1 }
+		}
+		if = {
+			limit = { var:tv_wonder_st_peters_basilica_duty_alms_ledger_status ?= 2 }
+			set_variable = { name = tv_wonder_st_peters_basilica_duty_alms_ledger_status value = 1 }
+		}
+		if = {
+			limit = { var:tv_wonder_st_peters_basilica_duty_pilgrim_threshold_status ?= 2 }
+			set_variable = { name = tv_wonder_st_peters_basilica_duty_pilgrim_threshold_status value = 1 }
+		}
+		if = {
+			limit = { var:tv_wonder_st_peters_basilica_duty_choir_offices_status ?= 2 }
+			set_variable = { name = tv_wonder_st_peters_basilica_duty_choir_offices_status value = 1 }
+		}
+		if = {
+			limit = { var:tv_wonder_st_peters_basilica_duty_chapel_patronage_status ?= 2 }
+			set_variable = { name = tv_wonder_st_peters_basilica_duty_chapel_patronage_status value = 1 }
+		}
+		add_prestige = -3
+		set_variable = { name = tv_wonder_st_peters_basilica_ritual_stage value = 3 }
+		remove_variable = tv_wonder_st_peters_basilica_ritual_pending_event
+	}
+}
+
+# -- tv_wonder_st_peters_basilica_scandal_overlook_effect ----------------------------------------------
+tv_wonder_st_peters_basilica_scandal_overlook_effect = {
+	hidden_effect = {
+		if = {
+			limit = { var:tv_wonder_st_peters_basilica_duty_relic_inventory_status ?= 2 }
+			set_variable = { name = tv_wonder_st_peters_basilica_duty_relic_inventory_status value = 3 }
+		}
+		if = {
+			limit = { var:tv_wonder_st_peters_basilica_duty_alms_ledger_status ?= 2 }
+			set_variable = { name = tv_wonder_st_peters_basilica_duty_alms_ledger_status value = 3 }
+		}
+		if = {
+			limit = { var:tv_wonder_st_peters_basilica_duty_pilgrim_threshold_status ?= 2 }
+			set_variable = { name = tv_wonder_st_peters_basilica_duty_pilgrim_threshold_status value = 3 }
+		}
+		if = {
+			limit = { var:tv_wonder_st_peters_basilica_duty_choir_offices_status ?= 2 }
+			set_variable = { name = tv_wonder_st_peters_basilica_duty_choir_offices_status value = 3 }
+		}
+		if = {
+			limit = { var:tv_wonder_st_peters_basilica_duty_chapel_patronage_status ?= 2 }
+			set_variable = { name = tv_wonder_st_peters_basilica_duty_chapel_patronage_status value = 3 }
+		}
+		set_variable = { name = tv_wonder_st_peters_basilica_ritual_stage value = 3 }
+		remove_variable = tv_wonder_st_peters_basilica_ritual_pending_event
+	}
 }
 
 # -- tv_wonder_st_peters_basilica_ritual_grant_reward_effect ----------------------------------------------
 tv_wonder_st_peters_basilica_ritual_grant_reward_effect = {
 	set_variable = { name = tv_wonder_st_peters_basilica_ritual_total_favorable value = 0 }
-	change_variable = { name = tv_wonder_st_peters_basilica_ritual_total_favorable add = var:tv_wonder_st_peters_basilica_sacred_official_candidates_favorable_count }
-	change_variable = { name = tv_wonder_st_peters_basilica_ritual_total_favorable add = var:tv_wonder_st_peters_basilica_apostolic_service_duties_favorable_count }
 	if = {
-		limit = { var:tv_wonder_st_peters_basilica_ritual_total_favorable >= 8 }
-		add_country_modifier = { modifier = tv_wonder_st_peters_basilica_ritual_reward_modifier years = -1 mode = add_and_extend }
-		add_prestige = 12
-		if = { limit = { country_has_estate = estate_type:clergy_estate } add_estate_satisfaction = { type = estate_type:clergy_estate value = 0.05 } }
+		limit = { var:tv_wonder_st_peters_basilica_duty_relic_inventory_status ?= 1 }
+		change_variable = { name = tv_wonder_st_peters_basilica_ritual_total_favorable add = 2 }
 	}
 	else_if = {
-		limit = { var:tv_wonder_st_peters_basilica_ritual_total_favorable >= 5 }
+		limit = { var:tv_wonder_st_peters_basilica_duty_relic_inventory_status ?= 3 }
+		change_variable = { name = tv_wonder_st_peters_basilica_ritual_total_favorable add = 1 }
+	}
+	if = {
+		limit = { var:tv_wonder_st_peters_basilica_duty_alms_ledger_status ?= 1 }
+		change_variable = { name = tv_wonder_st_peters_basilica_ritual_total_favorable add = 2 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_st_peters_basilica_duty_alms_ledger_status ?= 3 }
+		change_variable = { name = tv_wonder_st_peters_basilica_ritual_total_favorable add = 1 }
+	}
+	if = {
+		limit = { var:tv_wonder_st_peters_basilica_duty_pilgrim_threshold_status ?= 1 }
+		change_variable = { name = tv_wonder_st_peters_basilica_ritual_total_favorable add = 2 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_st_peters_basilica_duty_pilgrim_threshold_status ?= 3 }
+		change_variable = { name = tv_wonder_st_peters_basilica_ritual_total_favorable add = 1 }
+	}
+	if = {
+		limit = { var:tv_wonder_st_peters_basilica_duty_choir_offices_status ?= 1 }
+		change_variable = { name = tv_wonder_st_peters_basilica_ritual_total_favorable add = 2 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_st_peters_basilica_duty_choir_offices_status ?= 3 }
+		change_variable = { name = tv_wonder_st_peters_basilica_ritual_total_favorable add = 1 }
+	}
+	if = {
+		limit = { var:tv_wonder_st_peters_basilica_duty_chapel_patronage_status ?= 1 }
+		change_variable = { name = tv_wonder_st_peters_basilica_ritual_total_favorable add = 2 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_st_peters_basilica_duty_chapel_patronage_status ?= 3 }
+		change_variable = { name = tv_wonder_st_peters_basilica_ritual_total_favorable add = 1 }
+	}
+	if = {
+		limit = { var:tv_wonder_st_peters_basilica_ritual_total_favorable >= 10 }
+		add_country_modifier = { modifier = tv_wonder_st_peters_basilica_ritual_reward_modifier years = -1 mode = add_and_extend }
+		add_prestige = 12
+		if = {
+			limit = { country_has_estate = estate_type:clergy_estate }
+			add_estate_satisfaction = { type = estate_type:clergy_estate value = 0.05 }
+		}
+	}
+	else_if = {
+		limit = { var:tv_wonder_st_peters_basilica_ritual_total_favorable >= 9 }
 		add_country_modifier = { modifier = tv_wonder_st_peters_basilica_ritual_reward_modifier years = -1 mode = add_and_extend }
 		add_prestige = 6
 	}
@@ -350,10 +232,8 @@ tv_wonder_st_peters_basilica_ritual_grant_reward_effect = {
 		add_prestige = 2
 	}
 	remove_variable = tv_wonder_st_peters_basilica_ritual_total_favorable
-	tv_wonder_st_peters_basilica_sacred_official_candidates_cleanup_write_effect = yes
-	tv_wonder_st_peters_basilica_apostolic_service_duties_cleanup_write_effect = yes
-	remove_variable = tv_wonder_st_peters_basilica_ritual_row_set_index
-	remove_variable = tv_wonder_st_peters_basilica_ritual_phase
+	remove_variable = tv_wonder_st_peters_basilica_ritual_stage
+	remove_variable = tv_wonder_st_peters_basilica_assigned_role
 	remove_variable = tv_wonder_st_peters_basilica_ritual_pending_event
 	set_variable = { name = tv_wonder_st_peters_basilica_ritual_completed value = 1 }
 	tv_wonder_complete_active_ritual_effect = yes
@@ -367,71 +247,24 @@ tv_wonder_st_peters_basilica_ritual_monthly_progress_effect = {
 			NOT = { has_variable = tv_wonder_st_peters_basilica_ritual_pending_event }
 		}
 		if = {
-			limit = { var:tv_wonder_st_peters_basilica_ritual_row_set_index ?= 0 }
-			if = {
-				limit = { var:tv_wonder_st_peters_basilica_ritual_phase ?= 0 }
-				set_variable = { name = tv_wonder_st_peters_basilica_ritual_pending_event value = 1 }
-				trigger_event_non_silently = { id = tv_engineering_department.1678 days = 1 }
-			}
-			else_if = {
-				limit = { var:tv_wonder_st_peters_basilica_ritual_phase ?= 1 }
-				set_variable = { name = tv_wonder_st_peters_basilica_ritual_pending_event value = 1 }
-				trigger_event_non_silently = { id = tv_engineering_department.1679 days = 1 }
-			}
-			else_if = {
-				limit = { var:tv_wonder_st_peters_basilica_ritual_phase ?= 2 }
-				if = {
-					limit = { tv_wonder_st_peters_basilica_sacred_official_candidates_has_contested_entity_trigger = yes }
-					set_variable = { name = tv_wonder_st_peters_basilica_ritual_pending_event value = 1 }
-					trigger_event_non_silently = { id = tv_engineering_department.1680 days = 1 }
-				}
-				else = {
-					set_variable = { name = tv_wonder_st_peters_basilica_ritual_pending_event value = 1 }
-					trigger_event_non_silently = { id = tv_engineering_department.1681 days = 1 }
-				}
-			}
-			else_if = {
-				limit = { var:tv_wonder_st_peters_basilica_ritual_phase ?= 3 }
-				change_variable = { name = tv_wonder_st_peters_basilica_ritual_row_set_index add = 1 }
-				set_variable = { name = tv_wonder_st_peters_basilica_ritual_phase value = 0 }
-			}
+			limit = { var:tv_wonder_st_peters_basilica_ritual_stage ?= 0 tv_wonder_st_peters_basilica_site_control_trigger = yes }
+			set_variable = { name = tv_wonder_st_peters_basilica_ritual_pending_event value = 1 }
+			trigger_event_non_silently = { id = tv_engineering_department.1678 days = 1 }
 		}
 		else_if = {
-			limit = { var:tv_wonder_st_peters_basilica_ritual_row_set_index ?= 1 }
-			if = {
-				limit = { var:tv_wonder_st_peters_basilica_ritual_phase ?= 0 }
-				set_variable = { name = tv_wonder_st_peters_basilica_ritual_pending_event value = 1 }
-				trigger_event_non_silently = { id = tv_engineering_department.1682 days = 1 }
-			}
-			else_if = {
-				limit = { var:tv_wonder_st_peters_basilica_ritual_phase ?= 1 }
-				set_variable = { name = tv_wonder_st_peters_basilica_ritual_pending_event value = 1 }
-				trigger_event_non_silently = { id = tv_engineering_department.1683 days = 1 }
-			}
-			else_if = {
-				limit = { var:tv_wonder_st_peters_basilica_ritual_phase ?= 2 }
-				if = {
-					limit = { tv_wonder_st_peters_basilica_apostolic_service_duties_has_contested_entity_trigger = yes }
-					set_variable = { name = tv_wonder_st_peters_basilica_ritual_pending_event value = 1 }
-					trigger_event_non_silently = { id = tv_engineering_department.1684 days = 1 }
-				}
-				else = {
-					set_variable = { name = tv_wonder_st_peters_basilica_ritual_pending_event value = 1 }
-					trigger_event_non_silently = { id = tv_engineering_department.1685 days = 1 }
-				}
-			}
-			else_if = {
-				limit = { var:tv_wonder_st_peters_basilica_ritual_phase ?= 3 }
-				change_variable = { name = tv_wonder_st_peters_basilica_ritual_row_set_index add = 1 }
-				set_variable = { name = tv_wonder_st_peters_basilica_ritual_phase value = 0 }
-			}
+			limit = { var:tv_wonder_st_peters_basilica_ritual_stage ?= 1 }
+			set_variable = { name = tv_wonder_st_peters_basilica_ritual_pending_event value = 1 }
+			trigger_event_non_silently = { id = tv_engineering_department.1679 days = 1 }
+		}
+		else_if = {
+			limit = { var:tv_wonder_st_peters_basilica_ritual_stage ?= 2 }
+			set_variable = { name = tv_wonder_st_peters_basilica_ritual_pending_event value = 1 }
+			trigger_event_non_silently = { id = tv_engineering_department.1680 days = 1 }
+		}
+		else_if = {
+			limit = { var:tv_wonder_st_peters_basilica_ritual_stage ?= 3 }
+			set_variable = { name = tv_wonder_st_peters_basilica_ritual_pending_event value = 1 }
+			trigger_event_non_silently = { id = tv_engineering_department.1681 days = 1 }
 		}
 	}
-}
-
-# -- tv_wonder_st_peters_basilica_ritual_start_effect ----------------------------------------------
-tv_wonder_st_peters_basilica_ritual_start_effect = {
-	set_variable = { name = tv_wonder_st_peters_basilica_ritual_row_set_index value = 0 }
-	set_variable = { name = tv_wonder_st_peters_basilica_ritual_phase value = 0 }
-	remove_variable = tv_wonder_st_peters_basilica_ritual_pending_event
 }
