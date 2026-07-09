@@ -228,12 +228,13 @@ organization_panel = {
 
 			vbox = {
 				visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').IsSet)]"
-				size = { 250 56 }
-				parentanchor = top
-				widgetanchor = top
-				position = { 0 24 }
+				size = { 250 200 }
+				parentanchor = center
+				widgetanchor = center
+				position = { 0 0 }
 				spacing = 2
 
+				expand = {}
 				text_single = {
 					size = { 250 32 }
 					raw_text = "+"
@@ -248,6 +249,7 @@ organization_panel = {
 					align = center|nobaseline
 					default_format = "#high"
 				}
+				expand = {}
 			}
 
 			action_button = {

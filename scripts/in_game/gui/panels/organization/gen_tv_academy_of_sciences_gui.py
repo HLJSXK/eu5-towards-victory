@@ -270,12 +270,13 @@ organization_panel = {
 
 \t\t\tvbox = {
 \t\t\t\tvisible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').IsSet)]"
-\t\t\t\tsize = { 250 56 }
-\t\t\t\tparentanchor = top
-\t\t\t\twidgetanchor = top
-\t\t\t\tposition = { 0 24 }
+\t\t\t\tsize = { 250 200 }
+\t\t\t\tparentanchor = center
+\t\t\t\twidgetanchor = center
+\t\t\t\tposition = { 0 0 }
 \t\t\t\tspacing = 2
 
+\t\t\t\texpand = {}
 \t\t\t\ttext_single = {
 \t\t\t\t\tsize = { 250 32 }
 \t\t\t\t\traw_text = "+"
@@ -290,6 +291,7 @@ organization_panel = {
 \t\t\t\t\talign = center|nobaseline
 \t\t\t\t\tdefault_format = "#high"
 \t\t\t\t}
+\t\t\t\texpand = {}
 \t\t\t}
 
 \t\t\taction_button = {
