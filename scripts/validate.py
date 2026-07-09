@@ -504,7 +504,7 @@ def check_static_modifier_name_loc_coverage() -> None:
     for language_dir in sorted(path for path in loc_root.iterdir() if path.is_dir()):
         keys: set[str] = set()
         for loc_file in sorted(language_dir.rglob("*.yml")):
-            for key, _line_num in _iter_yaml_localization_keys(loc_file):
+            for key, _loc_line_num in _iter_yaml_localization_keys(loc_file):
                 if key.startswith("STATIC_MODIFIER_NAME_"):
                     keys.add(key)
         loc_keys_by_language[language_dir.name] = keys

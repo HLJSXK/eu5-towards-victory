@@ -41,6 +41,25 @@ STATUS_FAVORABLE = 1
 STATUS_CONTESTED = 2
 STATUS_NARROWED = 3
 
+WONDER_DISPLAY_NAMES = {
+    "alhambra": {
+        "english": "Alhambra",
+        "simp_chinese": "\u963f\u5c14\u7f55\u5e03\u62c9\u5bab",
+    },
+    "dome_of_the_rock": {
+        "english": "Dome of the Rock",
+        "simp_chinese": "\u5706\u9876\u6e05\u771f\u5bfa",
+    },
+    "bank_of_saint_george": {
+        "english": "Bank of Saint George",
+        "simp_chinese": "\u5723\u4e54\u6cbb\u94f6\u884c",
+    },
+    "st_peters_basilica": {
+        "english": "St. Peter's Basilica",
+        "simp_chinese": "\u5723\u5f7c\u5f97\u5927\u6559\u5802",
+    },
+}
+
 
 def row_prefix(runtime_prefix: str, row_set_key: str) -> str:
     return f"{runtime_prefix}_{row_set_key}"
@@ -499,6 +518,21 @@ def loc_key(event_id: int, suffix: str) -> str:
     return f"{NAMESPACE}.{event_id}.{suffix}"
 
 
+def _display_name_from_slug(name_slug: str) -> str:
+    return " ".join(part.capitalize() for part in name_slug.split("_"))
+
+
+def _modifier_display_name(wonder: dict, modifier_name: str, language: str) -> str:
+    names = WONDER_DISPLAY_NAMES.get(wonder["name_slug"], {})
+    base_name = names.get(language) or names.get("english") or _display_name_from_slug(wonder["name_slug"])
+    is_lesser = modifier_name.endswith("_lesser")
+    if language == "english":
+        suffix = " (Lesser)" if is_lesser else ""
+        return f"{base_name} Ritual Reward{suffix}"
+    lesser = "\u6b21\u7ea7" if is_lesser else ""
+    return f"{base_name}{lesser}\u4eea\u5f0f\u5956\u52b1"
+
+
 def build_localization(wonder: dict, language: str) -> list[str]:
     """Returns ' KEY:0 "text"' lines (no header/wrapper) for one language."""
     title_field = "en_title" if language == "english" else "zh_title"
@@ -536,6 +570,10 @@ def build_localization(wonder: dict, language: str) -> list[str]:
         for entity in row_set["entities"]:
             entity_label = entity[name_field]
             lines.append(f' {key_prefix}_{rs_key.upper()}_{entity["key"].upper()}:0 "{entity_label}"')
+
+    for modifier_name in wonder.get("modifier_bundles", {}):
+        label = _modifier_display_name(wonder, modifier_name, language)
+        lines.append(f' STATIC_MODIFIER_NAME_{modifier_name}:0 "{label}"')
 
     if wonder.get("extra_localization_hook"):
         wonder["extra_localization_hook"](lines, language)
