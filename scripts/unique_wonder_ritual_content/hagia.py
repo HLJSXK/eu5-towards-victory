@@ -1,7 +1,21 @@
+"""Hagia Sophia (unique_hagia_sophia) ritual content.
+
+Ported unchanged from the retired scripts/wonder_unique_rituals/hagia.py and
+scripts/in_game/events/gen_tv_wonder_unique_hagia_sophia_ritual_events.py: the
+8-step Justinianic Synaxis actor-assignment chain already matches its
+data/unique_wonder_ritual_specs.yaml node_graph with full per-step fidelity, so
+this pass only relocates it onto the single scripts/gen_unique_wonder_rituals.py
+pipeline instead of rewriting the mechanic.
+"""
 from wonder_mechanics.render import monthly_country_pulse_event
 
 T = "\t"
-HAGIA_WONDER_ID = 102
+WONDER_ID = 102
+WONDER_KEY = "unique_hagia_sophia"
+NAME_SLUG = "hagia_sophia"
+RUNTIME_PREFIX = "tv_wonder_hagia"
+IMAGE = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_hagia_sophia_cropped.dds"
+
 HAGIA_STEPS = range(1, 9)
 HAGIA_STEP_ATTRIBUTE = {
     1: "add_adm",
@@ -15,6 +29,68 @@ HAGIA_STEP_ATTRIBUTE = {
 }
 HAGIA_CARD_WIDTH = 462
 HAGIA_CARD_HEIGHT = 92
+
+EVENTS = [
+    {"id": 6301, "outcome": "neutral", "effect": "tv_wonder_hagia_complete_step_1_effect = yes", "retry": True},
+    {"id": 6302, "outcome": "neutral", "effect": "tv_wonder_hagia_complete_step_2_effect = yes", "retry": True},
+    {"id": 6303, "outcome": "neutral", "effect": "tv_wonder_hagia_complete_step_3_effect = yes", "retry": True},
+    {"id": 6304, "outcome": "good", "effect": "tv_wonder_hagia_complete_step_4_effect = yes", "retry": False},
+    {"id": 6305, "outcome": "good", "effect": "tv_wonder_hagia_complete_step_5_effect = yes", "retry": False},
+    {"id": 6306, "outcome": "neutral", "effect": "tv_wonder_hagia_complete_step_6_effect = yes", "retry": True},
+    {"id": 6307, "outcome": "neutral", "effect": "tv_wonder_hagia_complete_step_7_effect = yes", "retry": True},
+    {"id": 6308, "outcome": "good", "effect": "tv_wonder_hagia_complete_step_8_effect = yes", "retry": False},
+]
+
+
+def _indent_lines(text: str, level: int) -> list[str]:
+    prefix = T * level
+    return [f"{prefix}{line}" if line else line for line in text.splitlines()]
+
+
+def _render_option(event: dict) -> list[str]:
+    event_id = event["id"]
+    lines = [
+        f"{T}option = {{",
+        f"{T}{T}name = tv_engineering_department.{event_id}.a",
+    ]
+    lines.extend(_indent_lines(event["effect"], 2))
+    lines.append(f"{T}}}")
+    if event.get("retry"):
+        lines.extend(
+            [
+                "",
+                f"{T}option = {{",
+                f"{T}{T}name = tv_engineering_department.{event_id}.b",
+                f"{T}{T}tv_wonder_hagia_retry_step_effect = yes",
+                f"{T}}}",
+            ]
+        )
+    return lines
+
+
+def _render_event(event: dict) -> list[str]:
+    event_id = event["id"]
+    lines = [
+        f"# -- tv_engineering_department.{event_id} ----------------------------------------------",
+        f"tv_engineering_department.{event_id} = {{",
+        f"{T}type = country_event",
+        f"{T}title = tv_engineering_department.{event_id}.t",
+        f"{T}desc = tv_engineering_department.{event_id}.d",
+        f'{T}image = "{IMAGE}"',
+        f"{T}outcome = {event['outcome']}",
+        "",
+    ]
+    lines.extend(_render_option(event))
+    lines.append("}")
+    return lines
+
+
+def build_events_body() -> list[str]:
+    lines: list[str] = []
+    for event in EVENTS:
+        lines.extend(_render_event(event))
+        lines.append("")
+    return lines
 
 
 def append_hagia_assign_burden_lines(lines: list[str], step: int, indent: int) -> None:
@@ -90,7 +166,7 @@ def append_hagia_effects(lines: list[str]) -> None:
     lines.append(f"{T}if = {{")
     lines.append(f"{T}{T}limit = {{ country_has_estate = estate_type:clergy_estate }}")
     lines.append(f"{T}{T}save_scope_as = tv_wonder_hagia_privilege_country")
-    lines.append(f"{T}{T}\"estate(estate_type:clergy_estate)\" = {{")
+    lines.append(f'{T}{T}"estate(estate_type:clergy_estate)" = {{')
     lines.append(f"{T}{T}{T}estate_privilege:tv_hagia_great_church_endowment_privilege = {{")
     lines.append(f"{T}{T}{T}{T}scope:tv_wonder_hagia_privilege_country = {{")
     lines.append(f"{T}{T}{T}{T}{T}grant_estate_privilege = prev")
@@ -251,10 +327,11 @@ def append_hagia_effects(lines: list[str]) -> None:
     lines.append("}")
     lines.append("")
 
+
 def append_hagia_triggers(lines: list[str]) -> None:
     lines.append("tv_wonder_hagia_active_trigger = {")
     lines.append(f"{T}has_variable = tv_wonder_locked")
-    lines.append(f"{T}var:tv_wonder_locked ?= {HAGIA_WONDER_ID}")
+    lines.append(f"{T}var:tv_wonder_locked ?= {WONDER_ID}")
     lines.append(f"{T}has_variable = tv_wonder_ritual_in_progress")
     lines.append(f"{T}has_variable = tv_wonder_hagia_step")
     lines.append(f"{T}NOT = {{ has_variable = tv_wonder_hagia_completed }}")
@@ -313,7 +390,7 @@ def append_triggers(lines: list[str]) -> None:
 def hagia_locked_expr() -> str:
     return (
         f"And({player_var('tv_wonder_locked')}.IsSet, "
-        f"{eq('tv_wonder_locked', HAGIA_WONDER_ID)})"
+        f"{eq('tv_wonder_locked', WONDER_ID)})"
     )
 
 

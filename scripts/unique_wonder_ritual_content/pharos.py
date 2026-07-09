@@ -1,7 +1,21 @@
+"""Pharos Lighthouse (unique_pharos_lighthouse) ritual content.
+
+Ported unchanged from the retired scripts/wonder_unique_rituals/pharos.py and
+scripts/in_game/events/gen_tv_wonder_unique_pharos_lighthouse_ritual_events.py:
+the 8-named-route certification chain already matches its
+data/unique_wonder_ritual_specs.yaml node_graph with full per-route fidelity,
+so this pass only relocates it onto the single
+scripts/gen_unique_wonder_rituals.py pipeline instead of rewriting the mechanic.
+"""
 from wonder_mechanics.render import monthly_country_pulse_event
 
 T = "\t"
-PHAROS_WONDER_ID = 101
+WONDER_ID = 101
+WONDER_KEY = "unique_pharos_lighthouse"
+NAME_SLUG = "pharos_lighthouse"
+RUNTIME_PREFIX = "tv_wonder_pharos"
+IMAGE = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_pharos_lighthouse_cropped.dds"
+
 PHAROS_ROUTE_KEYS = [
     "constantinople",
     "venice",
@@ -18,6 +32,120 @@ PHAROS_CARD_WIDTH = 462
 PHAROS_ROW_HEIGHT = 28
 PHAROS_ROUTE_CARD_HEIGHT = 386
 PHAROS_PHASE_CARD_HEIGHT = 126
+
+EVENTS = [
+    {"id": 7300, "outcome": "neutral", "option": "a", "effect": "tv_wonder_pharos_refresh_display_effect = yes"},
+    {
+        "id": 7301,
+        "outcome": "neutral",
+        "option": "a",
+        "effect": "change_gold_effect = { scale = -1 }\ntv_wonder_pharos_clear_privateers_effect = yes",
+        "decline": "b",
+    },
+    {
+        "id": 7302,
+        "outcome": "neutral",
+        "option": "a",
+        "effect": "add_prestige = -10\ntv_wonder_pharos_clear_privateers_effect = yes",
+        "decline": "b",
+    },
+    {
+        "id": 7303,
+        "outcome": "neutral",
+        "option": "a",
+        "effect": "add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.05 }\ntv_wonder_pharos_clear_privateers_effect = yes",
+        "decline": "b",
+    },
+    {"id": 7304, "outcome": "good", "option": "a", "effect": "tv_wonder_pharos_enter_stage_2_effect = yes"},
+    {
+        "id": 7305,
+        "outcome": "good",
+        "option": "a",
+        "effect": "tv_wonder_pharos_complete_selected_controlled_route_effect = yes",
+    },
+    {
+        "id": 7306,
+        "outcome": "good",
+        "option": "a",
+        "effect": "tv_wonder_pharos_complete_selected_basing_route_effect = yes",
+    },
+    {
+        "id": 7307,
+        "outcome": "neutral",
+        "option": "a",
+        "effect": "change_gold_effect = { scale = -1 }\ntv_wonder_pharos_create_selected_route_basing_effect = yes",
+    },
+    {"id": 7308, "outcome": "good", "option": "a", "effect": "tv_wonder_pharos_finish_ritual_effect = yes"},
+]
+
+
+def _indent_lines(text: str, level: int) -> list[str]:
+    prefix = T * level
+    return [f"{prefix}{line}" if line else line for line in text.splitlines()]
+
+
+def _render_immediate(event_id: int) -> list[str]:
+    lines = [
+        f"{T}immediate = {{",
+        f"{T}{T}if = {{",
+        f"{T}{T}{T}limit = {{ has_variable = tv_wonder_pharos_event_route_location }}",
+        f"{T}{T}{T}var:tv_wonder_pharos_event_route_location ?= {{ save_scope_as = tv_wonder_pharos_event_route_location }}",
+        f"{T}{T}}}",
+        f"{T}{T}if = {{",
+        f"{T}{T}{T}limit = {{ has_variable = tv_wonder_pharos_event_route_owner }}",
+        f"{T}{T}{T}var:tv_wonder_pharos_event_route_owner ?= {{ save_scope_as = tv_wonder_pharos_event_route_owner }}",
+        f"{T}{T}}}",
+    ]
+    if event_id in {7305, 7306, 7307}:
+        lines.append(f"{T}{T}tv_wonder_pharos_refresh_display_effect = yes")
+    lines.append(f"{T}}}")
+    return lines
+
+
+def _render_option(event: dict) -> list[str]:
+    lines = [
+        f"{T}option = {{",
+        f"{T}{T}name = tv_engineering_department.{event['id']}.{event['option']}",
+    ]
+    lines.extend(_indent_lines(event["effect"], 2))
+    lines.append(f"{T}}}")
+    if "decline" in event:
+        lines.extend(
+            [
+                "",
+                f"{T}option = {{",
+                f"{T}{T}name = tv_engineering_department.{event['id']}.{event['decline']}",
+                f"{T}}}",
+            ]
+        )
+    return lines
+
+
+def _render_event(event: dict) -> list[str]:
+    event_id = event["id"]
+    lines = [
+        f"# -- tv_engineering_department.{event_id} ----------------------------------------------",
+        f"tv_engineering_department.{event_id} = {{",
+        f"{T}type = country_event",
+        f"{T}title = tv_engineering_department.{event_id}.t",
+        f"{T}desc = tv_engineering_department.{event_id}.d",
+        f'{T}image = "{IMAGE}"',
+        f"{T}outcome = {event['outcome']}",
+        "",
+    ]
+    lines.extend(_render_immediate(event_id))
+    lines.append("")
+    lines.extend(_render_option(event))
+    lines.append("}")
+    return lines
+
+
+def build_events_body() -> list[str]:
+    lines: list[str] = []
+    for event in EVENTS:
+        lines.extend(_render_event(event))
+        lines.append("")
+    return lines
 
 
 def append_pharos_set_route_projection_lines(lines: list[str], route_key: str, indent: int) -> None:
@@ -142,7 +270,7 @@ def append_pharos_effects(lines: list[str]) -> None:
     lines.append(f"{T}if = {{")
     lines.append(f"{T}{T}limit = {{")
     lines.append(f"{T}{T}{T}has_variable = tv_wonder_locked")
-    lines.append(f"{T}{T}{T}var:tv_wonder_locked ?= 101")
+    lines.append(f"{T}{T}{T}var:tv_wonder_locked ?= {WONDER_ID}")
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}{T}tv_wonder_pharos_refresh_threat_effect = yes")
     lines.append(f"{T}{T}tv_wonder_pharos_refresh_route_progress_effect = yes")
@@ -297,6 +425,7 @@ def append_pharos_effects(lines: list[str]) -> None:
     lines.append("}")
     lines.append("")
 
+
 def append_pharos_triggers(lines: list[str]) -> None:
     lines.append("tv_wonder_pharos_alexandria_hostile_privateers_trigger = {")
     lines.append(f"{T}location:alexandria = {{")
@@ -380,7 +509,7 @@ def append_triggers(lines: list[str]) -> None:
 def pharos_locked_expr() -> str:
     return (
         f"And({player_var('tv_wonder_locked')}.IsSet, "
-        f"{eq('tv_wonder_locked', PHAROS_WONDER_ID)})"
+        f"{eq('tv_wonder_locked', WONDER_ID)})"
     )
 
 

@@ -44,8 +44,7 @@ from wonder_mechanics.schema import (
     suitability_current_revealed_variable,
     suitability_knowledge_for_wonder,
 )
-from wonder_unique_rituals import append_unique_ritual_effects
-from wonder_unique_rituals.hagia import HAGIA_WONDER_ID
+from unique_wonder_ritual_content.hagia import WONDER_ID as HAGIA_WONDER_ID
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "scripted_effects" / "tv_engineering_department_wonder_mechanics_effects.txt"
 SCRIPT_REL = "scripts/in_game/common/scripted_effects/gen_tv_engineering_department_wonder_mechanics_effects.py"
@@ -1584,7 +1583,6 @@ def generate_survey_effects(script_rel: str = SURVEY_SCRIPT_REL) -> str:
 
 
 def append_ritual_effects(lines: list[str], all_wonders: list[dict], mechanics: dict) -> None:
-    append_unique_ritual_effects(lines)
     append_ritual_tooltip_effects(lines, ritual_entries(all_wonders, mechanics), mechanics)
     ritual_entry_list = ritual_entries(all_wonders, mechanics)
 

@@ -4979,8 +4979,8 @@ REPEATED_ENTITY_ROW_ALHAMBRA_SOURCE_FILE_VALIDATION_TARGET_METADATA = {
         "syntax_reference_paths": (
             "src/in_game/events/tv_wonder_unique_pharos_lighthouse_ritual_events.txt",
             "src/in_game/events/tv_wonder_unique_hagia_sophia_ritual_events.txt",
-            "scripts/in_game/events/gen_tv_wonder_unique_pharos_lighthouse_ritual_events.py",
-            "scripts/in_game/events/gen_tv_wonder_unique_hagia_sophia_ritual_events.py",
+            "scripts/unique_wonder_ritual_content/pharos.py",
+            "scripts/unique_wonder_ritual_content/hagia.py",
         ),
     },
     "src/in_game/common/scripted_effects/tv_wonder_unique_alhambra_ritual_effects.txt": {

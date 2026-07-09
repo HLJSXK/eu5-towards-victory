@@ -17,10 +17,10 @@ from wonder_mechanics.schema import (
     suitability_current_revealed_variable,
     suitability_knowledge_for_wonder,
 )
-from wonder_unique_rituals import append_unique_ritual_gui
-from wonder_unique_rituals.alhambra import ALHAMBRA_WONDER_ID
-from wonder_unique_rituals.hagia import HAGIA_WONDER_ID
-from wonder_unique_rituals.pharos import PHAROS_WONDER_ID
+from unique_wonder_ritual_content import append_unique_ritual_gui
+from unique_wonder_ritual_content.alhambra import WONDER_ID as ALHAMBRA_WONDER_ID
+from unique_wonder_ritual_content.hagia import WONDER_ID as HAGIA_WONDER_ID
+from unique_wonder_ritual_content.pharos import WONDER_ID as PHAROS_WONDER_ID
 
 OUT_FILE = REPO_ROOT / "data" / "generated_fragments" / "tv_engineering_department_wonder_mechanics.gui"
 SCRIPT_REL = "scripts/in_game/gui/panels/organization/gen_tv_engineering_department_wonder_mechanics_gui.py"

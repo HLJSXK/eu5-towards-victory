@@ -24,7 +24,6 @@ from wonder_mechanics.rituals import (
     ritual_plan_for_style,
 )
 from wonder_mechanics.schema import site_trigger_lines_for_wonder
-from wonder_unique_rituals import append_unique_ritual_triggers
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "scripted_triggers" / "tv_engineering_department_wonder_mechanics_triggers.txt"
 SCRIPT_REL = "scripts/in_game/common/scripted_triggers/gen_tv_engineering_department_wonder_mechanics_triggers.py"
@@ -415,7 +414,6 @@ def generate() -> str:
     lines.append("")
 
     append_site_rule_dispatch_triggers(lines, all_wonders)
-    append_unique_ritual_triggers(lines)
 
     lines.append("tv_wonder_selected_survey_already_cached_trigger = {")
     lines.append(f"{T}has_variable = tv_wonder_locked")
