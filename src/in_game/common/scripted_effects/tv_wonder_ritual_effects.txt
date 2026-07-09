@@ -3,1363 +3,6 @@
 #   Regen:   conda run --no-capture-output -n eu5 python scripts/in_game/common/scripted_effects/gen_tv_wonder_ritual_effects.py
 # Do not edit directly - modify the data file and re-run the generator.
 
-tv_wonder_pharos_refresh_threat_effect = {
-	set_variable = { name = tv_wonder_pharos_privateer_threat_pct value = 0 }
-	if = {
-		limit = { tv_wonder_pharos_alexandria_hostile_privateers_at_least_4_trigger = yes }
-		set_variable = { name = tv_wonder_pharos_privateer_threat_pct value = 100 }
-	}
-	else_if = {
-		limit = { tv_wonder_pharos_alexandria_hostile_privateers_at_least_3_trigger = yes }
-		set_variable = { name = tv_wonder_pharos_privateer_threat_pct value = 75 }
-	}
-	else_if = {
-		limit = { tv_wonder_pharos_alexandria_hostile_privateers_at_least_2_trigger = yes }
-		set_variable = { name = tv_wonder_pharos_privateer_threat_pct value = 50 }
-	}
-	else_if = {
-		limit = { tv_wonder_pharos_alexandria_hostile_privateers_at_least_1_trigger = yes }
-		set_variable = { name = tv_wonder_pharos_privateer_threat_pct value = 25 }
-	}
-}
-
-tv_wonder_pharos_refresh_route_progress_effect = {
-	set_variable = { name = tv_wonder_pharos_route_progress value = 0 }
-	if = {
-		limit = { has_variable = tv_wonder_pharos_route_constantinople_passed }
-		change_variable = { name = tv_wonder_pharos_route_progress add = 1 }
-	}
-	if = {
-		limit = { has_variable = tv_wonder_pharos_route_venice_passed }
-		change_variable = { name = tv_wonder_pharos_route_progress add = 1 }
-	}
-	if = {
-		limit = { has_variable = tv_wonder_pharos_route_genoa_passed }
-		change_variable = { name = tv_wonder_pharos_route_progress add = 1 }
-	}
-	if = {
-		limit = { has_variable = tv_wonder_pharos_route_malta_passed }
-		change_variable = { name = tv_wonder_pharos_route_progress add = 1 }
-	}
-	if = {
-		limit = { has_variable = tv_wonder_pharos_route_tunis_passed }
-		change_variable = { name = tv_wonder_pharos_route_progress add = 1 }
-	}
-	if = {
-		limit = { has_variable = tv_wonder_pharos_route_palermo_passed }
-		change_variable = { name = tv_wonder_pharos_route_progress add = 1 }
-	}
-	if = {
-		limit = { has_variable = tv_wonder_pharos_route_candia_passed }
-		change_variable = { name = tv_wonder_pharos_route_progress add = 1 }
-	}
-	if = {
-		limit = { has_variable = tv_wonder_pharos_route_gibraltar_passed }
-		change_variable = { name = tv_wonder_pharos_route_progress add = 1 }
-	}
-	clamp_variable = { name = tv_wonder_pharos_route_progress min = 0 max = 8 }
-}
-
-tv_wonder_pharos_refresh_display_effect = {
-	if = {
-		limit = {
-			has_variable = tv_wonder_locked
-			var:tv_wonder_locked ?= 101
-		}
-		tv_wonder_pharos_refresh_threat_effect = yes
-		tv_wonder_pharos_refresh_route_progress_effect = yes
-		remove_variable = tv_wonder_pharos_active_route_id
-		remove_variable = tv_wonder_pharos_active_route_status
-		remove_variable = tv_wonder_pharos_active_route_owner
-		remove_variable = tv_wonder_pharos_route_constantinople_location
-		remove_variable = tv_wonder_pharos_route_constantinople_owner
-		location:constantinople = {
-			save_scope_as = tv_wonder_pharos_projection_location
-			root = { set_variable = { name = tv_wonder_pharos_route_constantinople_location value = scope:tv_wonder_pharos_projection_location } }
-			if = {
-				limit = { has_owner = yes }
-				owner = {
-					save_scope_as = tv_wonder_pharos_projection_owner
-					root = { set_variable = { name = tv_wonder_pharos_route_constantinople_owner value = scope:tv_wonder_pharos_projection_owner } }
-				}
-			}
-		}
-		if = {
-			limit = { tv_wonder_pharos_route_constantinople_controlled_trigger = yes }
-			set_variable = { name = tv_wonder_pharos_route_constantinople_status value = 1 }
-		}
-		else_if = {
-			limit = { tv_wonder_pharos_route_constantinople_basing_trigger = yes }
-			set_variable = { name = tv_wonder_pharos_route_constantinople_status value = 2 }
-		}
-		else = {
-			set_variable = { name = tv_wonder_pharos_route_constantinople_status value = 0 }
-		}
-		if = {
-			limit = {
-				has_variable = tv_wonder_pharos_active_route
-				var:tv_wonder_pharos_active_route ?= 1
-			}
-			set_variable = { name = tv_wonder_pharos_active_route_id value = 1 }
-			set_variable = { name = tv_wonder_pharos_active_route_status value = var:tv_wonder_pharos_route_constantinople_status }
-			remove_variable = tv_wonder_pharos_active_route_owner
-			if = {
-				limit = { has_variable = tv_wonder_pharos_route_constantinople_owner }
-				set_variable = { name = tv_wonder_pharos_active_route_owner value = var:tv_wonder_pharos_route_constantinople_owner }
-			}
-		}
-		remove_variable = tv_wonder_pharos_route_venice_location
-		remove_variable = tv_wonder_pharos_route_venice_owner
-		location:venice = {
-			save_scope_as = tv_wonder_pharos_projection_location
-			root = { set_variable = { name = tv_wonder_pharos_route_venice_location value = scope:tv_wonder_pharos_projection_location } }
-			if = {
-				limit = { has_owner = yes }
-				owner = {
-					save_scope_as = tv_wonder_pharos_projection_owner
-					root = { set_variable = { name = tv_wonder_pharos_route_venice_owner value = scope:tv_wonder_pharos_projection_owner } }
-				}
-			}
-		}
-		if = {
-			limit = { tv_wonder_pharos_route_venice_controlled_trigger = yes }
-			set_variable = { name = tv_wonder_pharos_route_venice_status value = 1 }
-		}
-		else_if = {
-			limit = { tv_wonder_pharos_route_venice_basing_trigger = yes }
-			set_variable = { name = tv_wonder_pharos_route_venice_status value = 2 }
-		}
-		else = {
-			set_variable = { name = tv_wonder_pharos_route_venice_status value = 0 }
-		}
-		if = {
-			limit = {
-				has_variable = tv_wonder_pharos_active_route
-				var:tv_wonder_pharos_active_route ?= 2
-			}
-			set_variable = { name = tv_wonder_pharos_active_route_id value = 2 }
-			set_variable = { name = tv_wonder_pharos_active_route_status value = var:tv_wonder_pharos_route_venice_status }
-			remove_variable = tv_wonder_pharos_active_route_owner
-			if = {
-				limit = { has_variable = tv_wonder_pharos_route_venice_owner }
-				set_variable = { name = tv_wonder_pharos_active_route_owner value = var:tv_wonder_pharos_route_venice_owner }
-			}
-		}
-		remove_variable = tv_wonder_pharos_route_genoa_location
-		remove_variable = tv_wonder_pharos_route_genoa_owner
-		location:genoa = {
-			save_scope_as = tv_wonder_pharos_projection_location
-			root = { set_variable = { name = tv_wonder_pharos_route_genoa_location value = scope:tv_wonder_pharos_projection_location } }
-			if = {
-				limit = { has_owner = yes }
-				owner = {
-					save_scope_as = tv_wonder_pharos_projection_owner
-					root = { set_variable = { name = tv_wonder_pharos_route_genoa_owner value = scope:tv_wonder_pharos_projection_owner } }
-				}
-			}
-		}
-		if = {
-			limit = { tv_wonder_pharos_route_genoa_controlled_trigger = yes }
-			set_variable = { name = tv_wonder_pharos_route_genoa_status value = 1 }
-		}
-		else_if = {
-			limit = { tv_wonder_pharos_route_genoa_basing_trigger = yes }
-			set_variable = { name = tv_wonder_pharos_route_genoa_status value = 2 }
-		}
-		else = {
-			set_variable = { name = tv_wonder_pharos_route_genoa_status value = 0 }
-		}
-		if = {
-			limit = {
-				has_variable = tv_wonder_pharos_active_route
-				var:tv_wonder_pharos_active_route ?= 3
-			}
-			set_variable = { name = tv_wonder_pharos_active_route_id value = 3 }
-			set_variable = { name = tv_wonder_pharos_active_route_status value = var:tv_wonder_pharos_route_genoa_status }
-			remove_variable = tv_wonder_pharos_active_route_owner
-			if = {
-				limit = { has_variable = tv_wonder_pharos_route_genoa_owner }
-				set_variable = { name = tv_wonder_pharos_active_route_owner value = var:tv_wonder_pharos_route_genoa_owner }
-			}
-		}
-		remove_variable = tv_wonder_pharos_route_malta_location
-		remove_variable = tv_wonder_pharos_route_malta_owner
-		location:malta = {
-			save_scope_as = tv_wonder_pharos_projection_location
-			root = { set_variable = { name = tv_wonder_pharos_route_malta_location value = scope:tv_wonder_pharos_projection_location } }
-			if = {
-				limit = { has_owner = yes }
-				owner = {
-					save_scope_as = tv_wonder_pharos_projection_owner
-					root = { set_variable = { name = tv_wonder_pharos_route_malta_owner value = scope:tv_wonder_pharos_projection_owner } }
-				}
-			}
-		}
-		if = {
-			limit = { tv_wonder_pharos_route_malta_controlled_trigger = yes }
-			set_variable = { name = tv_wonder_pharos_route_malta_status value = 1 }
-		}
-		else_if = {
-			limit = { tv_wonder_pharos_route_malta_basing_trigger = yes }
-			set_variable = { name = tv_wonder_pharos_route_malta_status value = 2 }
-		}
-		else = {
-			set_variable = { name = tv_wonder_pharos_route_malta_status value = 0 }
-		}
-		if = {
-			limit = {
-				has_variable = tv_wonder_pharos_active_route
-				var:tv_wonder_pharos_active_route ?= 4
-			}
-			set_variable = { name = tv_wonder_pharos_active_route_id value = 4 }
-			set_variable = { name = tv_wonder_pharos_active_route_status value = var:tv_wonder_pharos_route_malta_status }
-			remove_variable = tv_wonder_pharos_active_route_owner
-			if = {
-				limit = { has_variable = tv_wonder_pharos_route_malta_owner }
-				set_variable = { name = tv_wonder_pharos_active_route_owner value = var:tv_wonder_pharos_route_malta_owner }
-			}
-		}
-		remove_variable = tv_wonder_pharos_route_tunis_location
-		remove_variable = tv_wonder_pharos_route_tunis_owner
-		location:tunis = {
-			save_scope_as = tv_wonder_pharos_projection_location
-			root = { set_variable = { name = tv_wonder_pharos_route_tunis_location value = scope:tv_wonder_pharos_projection_location } }
-			if = {
-				limit = { has_owner = yes }
-				owner = {
-					save_scope_as = tv_wonder_pharos_projection_owner
-					root = { set_variable = { name = tv_wonder_pharos_route_tunis_owner value = scope:tv_wonder_pharos_projection_owner } }
-				}
-			}
-		}
-		if = {
-			limit = { tv_wonder_pharos_route_tunis_controlled_trigger = yes }
-			set_variable = { name = tv_wonder_pharos_route_tunis_status value = 1 }
-		}
-		else_if = {
-			limit = { tv_wonder_pharos_route_tunis_basing_trigger = yes }
-			set_variable = { name = tv_wonder_pharos_route_tunis_status value = 2 }
-		}
-		else = {
-			set_variable = { name = tv_wonder_pharos_route_tunis_status value = 0 }
-		}
-		if = {
-			limit = {
-				has_variable = tv_wonder_pharos_active_route
-				var:tv_wonder_pharos_active_route ?= 5
-			}
-			set_variable = { name = tv_wonder_pharos_active_route_id value = 5 }
-			set_variable = { name = tv_wonder_pharos_active_route_status value = var:tv_wonder_pharos_route_tunis_status }
-			remove_variable = tv_wonder_pharos_active_route_owner
-			if = {
-				limit = { has_variable = tv_wonder_pharos_route_tunis_owner }
-				set_variable = { name = tv_wonder_pharos_active_route_owner value = var:tv_wonder_pharos_route_tunis_owner }
-			}
-		}
-		remove_variable = tv_wonder_pharos_route_palermo_location
-		remove_variable = tv_wonder_pharos_route_palermo_owner
-		location:palermo = {
-			save_scope_as = tv_wonder_pharos_projection_location
-			root = { set_variable = { name = tv_wonder_pharos_route_palermo_location value = scope:tv_wonder_pharos_projection_location } }
-			if = {
-				limit = { has_owner = yes }
-				owner = {
-					save_scope_as = tv_wonder_pharos_projection_owner
-					root = { set_variable = { name = tv_wonder_pharos_route_palermo_owner value = scope:tv_wonder_pharos_projection_owner } }
-				}
-			}
-		}
-		if = {
-			limit = { tv_wonder_pharos_route_palermo_controlled_trigger = yes }
-			set_variable = { name = tv_wonder_pharos_route_palermo_status value = 1 }
-		}
-		else_if = {
-			limit = { tv_wonder_pharos_route_palermo_basing_trigger = yes }
-			set_variable = { name = tv_wonder_pharos_route_palermo_status value = 2 }
-		}
-		else = {
-			set_variable = { name = tv_wonder_pharos_route_palermo_status value = 0 }
-		}
-		if = {
-			limit = {
-				has_variable = tv_wonder_pharos_active_route
-				var:tv_wonder_pharos_active_route ?= 6
-			}
-			set_variable = { name = tv_wonder_pharos_active_route_id value = 6 }
-			set_variable = { name = tv_wonder_pharos_active_route_status value = var:tv_wonder_pharos_route_palermo_status }
-			remove_variable = tv_wonder_pharos_active_route_owner
-			if = {
-				limit = { has_variable = tv_wonder_pharos_route_palermo_owner }
-				set_variable = { name = tv_wonder_pharos_active_route_owner value = var:tv_wonder_pharos_route_palermo_owner }
-			}
-		}
-		remove_variable = tv_wonder_pharos_route_candia_location
-		remove_variable = tv_wonder_pharos_route_candia_owner
-		location:candia = {
-			save_scope_as = tv_wonder_pharos_projection_location
-			root = { set_variable = { name = tv_wonder_pharos_route_candia_location value = scope:tv_wonder_pharos_projection_location } }
-			if = {
-				limit = { has_owner = yes }
-				owner = {
-					save_scope_as = tv_wonder_pharos_projection_owner
-					root = { set_variable = { name = tv_wonder_pharos_route_candia_owner value = scope:tv_wonder_pharos_projection_owner } }
-				}
-			}
-		}
-		if = {
-			limit = { tv_wonder_pharos_route_candia_controlled_trigger = yes }
-			set_variable = { name = tv_wonder_pharos_route_candia_status value = 1 }
-		}
-		else_if = {
-			limit = { tv_wonder_pharos_route_candia_basing_trigger = yes }
-			set_variable = { name = tv_wonder_pharos_route_candia_status value = 2 }
-		}
-		else = {
-			set_variable = { name = tv_wonder_pharos_route_candia_status value = 0 }
-		}
-		if = {
-			limit = {
-				has_variable = tv_wonder_pharos_active_route
-				var:tv_wonder_pharos_active_route ?= 7
-			}
-			set_variable = { name = tv_wonder_pharos_active_route_id value = 7 }
-			set_variable = { name = tv_wonder_pharos_active_route_status value = var:tv_wonder_pharos_route_candia_status }
-			remove_variable = tv_wonder_pharos_active_route_owner
-			if = {
-				limit = { has_variable = tv_wonder_pharos_route_candia_owner }
-				set_variable = { name = tv_wonder_pharos_active_route_owner value = var:tv_wonder_pharos_route_candia_owner }
-			}
-		}
-		remove_variable = tv_wonder_pharos_route_gibraltar_location
-		remove_variable = tv_wonder_pharos_route_gibraltar_owner
-		location:gibraltar = {
-			save_scope_as = tv_wonder_pharos_projection_location
-			root = { set_variable = { name = tv_wonder_pharos_route_gibraltar_location value = scope:tv_wonder_pharos_projection_location } }
-			if = {
-				limit = { has_owner = yes }
-				owner = {
-					save_scope_as = tv_wonder_pharos_projection_owner
-					root = { set_variable = { name = tv_wonder_pharos_route_gibraltar_owner value = scope:tv_wonder_pharos_projection_owner } }
-				}
-			}
-		}
-		if = {
-			limit = { tv_wonder_pharos_route_gibraltar_controlled_trigger = yes }
-			set_variable = { name = tv_wonder_pharos_route_gibraltar_status value = 1 }
-		}
-		else_if = {
-			limit = { tv_wonder_pharos_route_gibraltar_basing_trigger = yes }
-			set_variable = { name = tv_wonder_pharos_route_gibraltar_status value = 2 }
-		}
-		else = {
-			set_variable = { name = tv_wonder_pharos_route_gibraltar_status value = 0 }
-		}
-		if = {
-			limit = {
-				has_variable = tv_wonder_pharos_active_route
-				var:tv_wonder_pharos_active_route ?= 8
-			}
-			set_variable = { name = tv_wonder_pharos_active_route_id value = 8 }
-			set_variable = { name = tv_wonder_pharos_active_route_status value = var:tv_wonder_pharos_route_gibraltar_status }
-			remove_variable = tv_wonder_pharos_active_route_owner
-			if = {
-				limit = { has_variable = tv_wonder_pharos_route_gibraltar_owner }
-				set_variable = { name = tv_wonder_pharos_active_route_owner value = var:tv_wonder_pharos_route_gibraltar_owner }
-			}
-		}
-	}
-}
-
-tv_wonder_pharos_clear_privateers_effect = {
-	location:alexandria = {
-		sea_zone = {
-			area = {
-				every_privateer_in_area = {
-					limit = { NOT = { owner = root } }
-					change_privateer_power = -0.4
-				}
-			}
-		}
-	}
-	tv_wonder_pharos_refresh_display_effect = yes
-}
-
-tv_wonder_pharos_enter_stage_2_effect = {
-	set_variable = { name = tv_wonder_pharos_stage value = 2 }
-	set_variable = { name = tv_wonder_pharos_quarter_month value = 0 }
-	remove_variable = tv_wonder_pharos_active_route
-	remove_variable = tv_wonder_pharos_active_route_id
-	remove_variable = tv_wonder_pharos_active_route_status
-	remove_variable = tv_wonder_pharos_active_route_owner
-	remove_variable = tv_wonder_pharos_event_route_location
-	remove_variable = tv_wonder_pharos_event_route_owner
-	remove_variable = tv_wonder_pharos_event_route_has_owner
-	add_prestige = 5
-	change_gold_effect = { scale = 1 }
-	tv_wonder_pharos_refresh_display_effect = yes
-}
-
-tv_wonder_pharos_complete_selected_controlled_route_effect = {
-	if = {
-		limit = {
-			tv_wonder_pharos_route_selected_constantinople_trigger = yes
-			tv_wonder_pharos_route_constantinople_pending_trigger = yes
-		}
-		set_variable = { name = tv_wonder_pharos_route_constantinople_passed value = 1 }
-		set_variable = { name = tv_wonder_pharos_active_route value = 1 }
-		set_variable = { name = tv_wonder_pharos_active_route_id value = 1 }
-		change_variable = { name = tv_wonder_pharos_route_progress add = 1 }
-	}
-	if = {
-		limit = {
-			tv_wonder_pharos_route_selected_venice_trigger = yes
-			tv_wonder_pharos_route_venice_pending_trigger = yes
-		}
-		set_variable = { name = tv_wonder_pharos_route_venice_passed value = 1 }
-		set_variable = { name = tv_wonder_pharos_active_route value = 2 }
-		set_variable = { name = tv_wonder_pharos_active_route_id value = 2 }
-		change_variable = { name = tv_wonder_pharos_route_progress add = 1 }
-	}
-	if = {
-		limit = {
-			tv_wonder_pharos_route_selected_genoa_trigger = yes
-			tv_wonder_pharos_route_genoa_pending_trigger = yes
-		}
-		set_variable = { name = tv_wonder_pharos_route_genoa_passed value = 1 }
-		set_variable = { name = tv_wonder_pharos_active_route value = 3 }
-		set_variable = { name = tv_wonder_pharos_active_route_id value = 3 }
-		change_variable = { name = tv_wonder_pharos_route_progress add = 1 }
-	}
-	if = {
-		limit = {
-			tv_wonder_pharos_route_selected_malta_trigger = yes
-			tv_wonder_pharos_route_malta_pending_trigger = yes
-		}
-		set_variable = { name = tv_wonder_pharos_route_malta_passed value = 1 }
-		set_variable = { name = tv_wonder_pharos_active_route value = 4 }
-		set_variable = { name = tv_wonder_pharos_active_route_id value = 4 }
-		change_variable = { name = tv_wonder_pharos_route_progress add = 1 }
-	}
-	if = {
-		limit = {
-			tv_wonder_pharos_route_selected_tunis_trigger = yes
-			tv_wonder_pharos_route_tunis_pending_trigger = yes
-		}
-		set_variable = { name = tv_wonder_pharos_route_tunis_passed value = 1 }
-		set_variable = { name = tv_wonder_pharos_active_route value = 5 }
-		set_variable = { name = tv_wonder_pharos_active_route_id value = 5 }
-		change_variable = { name = tv_wonder_pharos_route_progress add = 1 }
-	}
-	if = {
-		limit = {
-			tv_wonder_pharos_route_selected_palermo_trigger = yes
-			tv_wonder_pharos_route_palermo_pending_trigger = yes
-		}
-		set_variable = { name = tv_wonder_pharos_route_palermo_passed value = 1 }
-		set_variable = { name = tv_wonder_pharos_active_route value = 6 }
-		set_variable = { name = tv_wonder_pharos_active_route_id value = 6 }
-		change_variable = { name = tv_wonder_pharos_route_progress add = 1 }
-	}
-	if = {
-		limit = {
-			tv_wonder_pharos_route_selected_candia_trigger = yes
-			tv_wonder_pharos_route_candia_pending_trigger = yes
-		}
-		set_variable = { name = tv_wonder_pharos_route_candia_passed value = 1 }
-		set_variable = { name = tv_wonder_pharos_active_route value = 7 }
-		set_variable = { name = tv_wonder_pharos_active_route_id value = 7 }
-		change_variable = { name = tv_wonder_pharos_route_progress add = 1 }
-	}
-	if = {
-		limit = {
-			tv_wonder_pharos_route_selected_gibraltar_trigger = yes
-			tv_wonder_pharos_route_gibraltar_pending_trigger = yes
-		}
-		set_variable = { name = tv_wonder_pharos_route_gibraltar_passed value = 1 }
-		set_variable = { name = tv_wonder_pharos_active_route value = 8 }
-		set_variable = { name = tv_wonder_pharos_active_route_id value = 8 }
-		change_variable = { name = tv_wonder_pharos_route_progress add = 1 }
-	}
-	set_variable = { name = tv_wonder_pharos_active_route_status value = 1 }
-	tv_wonder_pharos_refresh_display_effect = yes
-	tv_wonder_pharos_maybe_finish_routes_effect = yes
-}
-
-tv_wonder_pharos_complete_selected_basing_route_effect = {
-	if = {
-		limit = {
-			tv_wonder_pharos_route_selected_constantinople_trigger = yes
-			tv_wonder_pharos_route_constantinople_pending_trigger = yes
-		}
-		set_variable = { name = tv_wonder_pharos_route_constantinople_passed value = 1 }
-		set_variable = { name = tv_wonder_pharos_active_route value = 1 }
-		set_variable = { name = tv_wonder_pharos_active_route_id value = 1 }
-		change_variable = { name = tv_wonder_pharos_route_progress add = 1 }
-	}
-	if = {
-		limit = {
-			tv_wonder_pharos_route_selected_venice_trigger = yes
-			tv_wonder_pharos_route_venice_pending_trigger = yes
-		}
-		set_variable = { name = tv_wonder_pharos_route_venice_passed value = 1 }
-		set_variable = { name = tv_wonder_pharos_active_route value = 2 }
-		set_variable = { name = tv_wonder_pharos_active_route_id value = 2 }
-		change_variable = { name = tv_wonder_pharos_route_progress add = 1 }
-	}
-	if = {
-		limit = {
-			tv_wonder_pharos_route_selected_genoa_trigger = yes
-			tv_wonder_pharos_route_genoa_pending_trigger = yes
-		}
-		set_variable = { name = tv_wonder_pharos_route_genoa_passed value = 1 }
-		set_variable = { name = tv_wonder_pharos_active_route value = 3 }
-		set_variable = { name = tv_wonder_pharos_active_route_id value = 3 }
-		change_variable = { name = tv_wonder_pharos_route_progress add = 1 }
-	}
-	if = {
-		limit = {
-			tv_wonder_pharos_route_selected_malta_trigger = yes
-			tv_wonder_pharos_route_malta_pending_trigger = yes
-		}
-		set_variable = { name = tv_wonder_pharos_route_malta_passed value = 1 }
-		set_variable = { name = tv_wonder_pharos_active_route value = 4 }
-		set_variable = { name = tv_wonder_pharos_active_route_id value = 4 }
-		change_variable = { name = tv_wonder_pharos_route_progress add = 1 }
-	}
-	if = {
-		limit = {
-			tv_wonder_pharos_route_selected_tunis_trigger = yes
-			tv_wonder_pharos_route_tunis_pending_trigger = yes
-		}
-		set_variable = { name = tv_wonder_pharos_route_tunis_passed value = 1 }
-		set_variable = { name = tv_wonder_pharos_active_route value = 5 }
-		set_variable = { name = tv_wonder_pharos_active_route_id value = 5 }
-		change_variable = { name = tv_wonder_pharos_route_progress add = 1 }
-	}
-	if = {
-		limit = {
-			tv_wonder_pharos_route_selected_palermo_trigger = yes
-			tv_wonder_pharos_route_palermo_pending_trigger = yes
-		}
-		set_variable = { name = tv_wonder_pharos_route_palermo_passed value = 1 }
-		set_variable = { name = tv_wonder_pharos_active_route value = 6 }
-		set_variable = { name = tv_wonder_pharos_active_route_id value = 6 }
-		change_variable = { name = tv_wonder_pharos_route_progress add = 1 }
-	}
-	if = {
-		limit = {
-			tv_wonder_pharos_route_selected_candia_trigger = yes
-			tv_wonder_pharos_route_candia_pending_trigger = yes
-		}
-		set_variable = { name = tv_wonder_pharos_route_candia_passed value = 1 }
-		set_variable = { name = tv_wonder_pharos_active_route value = 7 }
-		set_variable = { name = tv_wonder_pharos_active_route_id value = 7 }
-		change_variable = { name = tv_wonder_pharos_route_progress add = 1 }
-	}
-	if = {
-		limit = {
-			tv_wonder_pharos_route_selected_gibraltar_trigger = yes
-			tv_wonder_pharos_route_gibraltar_pending_trigger = yes
-		}
-		set_variable = { name = tv_wonder_pharos_route_gibraltar_passed value = 1 }
-		set_variable = { name = tv_wonder_pharos_active_route value = 8 }
-		set_variable = { name = tv_wonder_pharos_active_route_id value = 8 }
-		change_variable = { name = tv_wonder_pharos_route_progress add = 1 }
-	}
-	set_variable = { name = tv_wonder_pharos_active_route_status value = 2 }
-	tv_wonder_pharos_refresh_display_effect = yes
-	tv_wonder_pharos_maybe_finish_routes_effect = yes
-}
-
-tv_wonder_pharos_create_selected_route_basing_effect = {
-	if = {
-		limit = { exists = scope:tv_wonder_pharos_event_route_owner }
-		create_relation = {
-			first = root
-			second = scope:tv_wonder_pharos_event_route_owner
-			type = relation_type:fleet_basing_rights
-		}
-		create_relation = {
-			first = scope:tv_wonder_pharos_event_route_owner
-			second = root
-			type = relation_type:fleet_basing_rights
-		}
-		set_variable = { name = tv_wonder_pharos_active_route_owner value = scope:tv_wonder_pharos_event_route_owner }
-		tv_wonder_pharos_complete_selected_basing_route_effect = yes
-	}
-}
-
-tv_wonder_pharos_evaluate_selected_route_effect = {
-	tv_wonder_pharos_refresh_display_effect = yes
-	if = {
-		limit = {
-			tv_wonder_pharos_route_selected_constantinople_trigger = yes
-			tv_wonder_pharos_route_constantinople_controlled_trigger = yes
-		}
-		trigger_event_non_silently = { id = tv_engineering_department.7305 days = 1 }
-	}
-	else_if = {
-		limit = {
-			tv_wonder_pharos_route_selected_constantinople_trigger = yes
-			tv_wonder_pharos_route_constantinople_basing_trigger = yes
-		}
-		trigger_event_non_silently = { id = tv_engineering_department.7306 days = 1 }
-	}
-	else_if = {
-		limit = {
-			tv_wonder_pharos_route_selected_constantinople_trigger = yes
-			tv_wonder_pharos_route_constantinople_has_owner_trigger = yes
-		}
-		trigger_event_non_silently = { id = tv_engineering_department.7307 days = 1 }
-	}
-	else_if = {
-		limit = {
-			tv_wonder_pharos_route_selected_venice_trigger = yes
-			tv_wonder_pharos_route_venice_controlled_trigger = yes
-		}
-		trigger_event_non_silently = { id = tv_engineering_department.7305 days = 1 }
-	}
-	else_if = {
-		limit = {
-			tv_wonder_pharos_route_selected_venice_trigger = yes
-			tv_wonder_pharos_route_venice_basing_trigger = yes
-		}
-		trigger_event_non_silently = { id = tv_engineering_department.7306 days = 1 }
-	}
-	else_if = {
-		limit = {
-			tv_wonder_pharos_route_selected_venice_trigger = yes
-			tv_wonder_pharos_route_venice_has_owner_trigger = yes
-		}
-		trigger_event_non_silently = { id = tv_engineering_department.7307 days = 1 }
-	}
-	else_if = {
-		limit = {
-			tv_wonder_pharos_route_selected_genoa_trigger = yes
-			tv_wonder_pharos_route_genoa_controlled_trigger = yes
-		}
-		trigger_event_non_silently = { id = tv_engineering_department.7305 days = 1 }
-	}
-	else_if = {
-		limit = {
-			tv_wonder_pharos_route_selected_genoa_trigger = yes
-			tv_wonder_pharos_route_genoa_basing_trigger = yes
-		}
-		trigger_event_non_silently = { id = tv_engineering_department.7306 days = 1 }
-	}
-	else_if = {
-		limit = {
-			tv_wonder_pharos_route_selected_genoa_trigger = yes
-			tv_wonder_pharos_route_genoa_has_owner_trigger = yes
-		}
-		trigger_event_non_silently = { id = tv_engineering_department.7307 days = 1 }
-	}
-	else_if = {
-		limit = {
-			tv_wonder_pharos_route_selected_malta_trigger = yes
-			tv_wonder_pharos_route_malta_controlled_trigger = yes
-		}
-		trigger_event_non_silently = { id = tv_engineering_department.7305 days = 1 }
-	}
-	else_if = {
-		limit = {
-			tv_wonder_pharos_route_selected_malta_trigger = yes
-			tv_wonder_pharos_route_malta_basing_trigger = yes
-		}
-		trigger_event_non_silently = { id = tv_engineering_department.7306 days = 1 }
-	}
-	else_if = {
-		limit = {
-			tv_wonder_pharos_route_selected_malta_trigger = yes
-			tv_wonder_pharos_route_malta_has_owner_trigger = yes
-		}
-		trigger_event_non_silently = { id = tv_engineering_department.7307 days = 1 }
-	}
-	else_if = {
-		limit = {
-			tv_wonder_pharos_route_selected_tunis_trigger = yes
-			tv_wonder_pharos_route_tunis_controlled_trigger = yes
-		}
-		trigger_event_non_silently = { id = tv_engineering_department.7305 days = 1 }
-	}
-	else_if = {
-		limit = {
-			tv_wonder_pharos_route_selected_tunis_trigger = yes
-			tv_wonder_pharos_route_tunis_basing_trigger = yes
-		}
-		trigger_event_non_silently = { id = tv_engineering_department.7306 days = 1 }
-	}
-	else_if = {
-		limit = {
-			tv_wonder_pharos_route_selected_tunis_trigger = yes
-			tv_wonder_pharos_route_tunis_has_owner_trigger = yes
-		}
-		trigger_event_non_silently = { id = tv_engineering_department.7307 days = 1 }
-	}
-	else_if = {
-		limit = {
-			tv_wonder_pharos_route_selected_palermo_trigger = yes
-			tv_wonder_pharos_route_palermo_controlled_trigger = yes
-		}
-		trigger_event_non_silently = { id = tv_engineering_department.7305 days = 1 }
-	}
-	else_if = {
-		limit = {
-			tv_wonder_pharos_route_selected_palermo_trigger = yes
-			tv_wonder_pharos_route_palermo_basing_trigger = yes
-		}
-		trigger_event_non_silently = { id = tv_engineering_department.7306 days = 1 }
-	}
-	else_if = {
-		limit = {
-			tv_wonder_pharos_route_selected_palermo_trigger = yes
-			tv_wonder_pharos_route_palermo_has_owner_trigger = yes
-		}
-		trigger_event_non_silently = { id = tv_engineering_department.7307 days = 1 }
-	}
-	else_if = {
-		limit = {
-			tv_wonder_pharos_route_selected_candia_trigger = yes
-			tv_wonder_pharos_route_candia_controlled_trigger = yes
-		}
-		trigger_event_non_silently = { id = tv_engineering_department.7305 days = 1 }
-	}
-	else_if = {
-		limit = {
-			tv_wonder_pharos_route_selected_candia_trigger = yes
-			tv_wonder_pharos_route_candia_basing_trigger = yes
-		}
-		trigger_event_non_silently = { id = tv_engineering_department.7306 days = 1 }
-	}
-	else_if = {
-		limit = {
-			tv_wonder_pharos_route_selected_candia_trigger = yes
-			tv_wonder_pharos_route_candia_has_owner_trigger = yes
-		}
-		trigger_event_non_silently = { id = tv_engineering_department.7307 days = 1 }
-	}
-	else_if = {
-		limit = {
-			tv_wonder_pharos_route_selected_gibraltar_trigger = yes
-			tv_wonder_pharos_route_gibraltar_controlled_trigger = yes
-		}
-		trigger_event_non_silently = { id = tv_engineering_department.7305 days = 1 }
-	}
-	else_if = {
-		limit = {
-			tv_wonder_pharos_route_selected_gibraltar_trigger = yes
-			tv_wonder_pharos_route_gibraltar_basing_trigger = yes
-		}
-		trigger_event_non_silently = { id = tv_engineering_department.7306 days = 1 }
-	}
-	else_if = {
-		limit = {
-			tv_wonder_pharos_route_selected_gibraltar_trigger = yes
-			tv_wonder_pharos_route_gibraltar_has_owner_trigger = yes
-		}
-		trigger_event_non_silently = { id = tv_engineering_department.7307 days = 1 }
-	}
-}
-
-tv_wonder_pharos_roll_route_effect = {
-	if = {
-		limit = { tv_wonder_pharos_has_pending_route_trigger = yes }
-		remove_variable = tv_wonder_pharos_active_route
-		remove_variable = tv_wonder_pharos_active_route_id
-		remove_variable = tv_wonder_pharos_active_route_status
-		remove_variable = tv_wonder_pharos_active_route_owner
-		random_list = {
-			10 = {
-				trigger = { tv_wonder_pharos_route_constantinople_pending_trigger = yes }
-				set_variable = { name = tv_wonder_pharos_active_route value = 1 }
-				set_variable = { name = tv_wonder_pharos_active_route_id value = 1 }
-				remove_variable = tv_wonder_pharos_active_route_status
-				remove_variable = tv_wonder_pharos_active_route_owner
-				remove_variable = tv_wonder_pharos_event_route_location
-				remove_variable = tv_wonder_pharos_event_route_owner
-				remove_variable = tv_wonder_pharos_event_route_has_owner
-				location:constantinople = {
-					save_scope_as = tv_wonder_pharos_selected_route_location
-					root = { set_variable = { name = tv_wonder_pharos_event_route_location value = scope:tv_wonder_pharos_selected_route_location } }
-					if = {
-						limit = { has_owner = yes }
-						owner = {
-							save_scope_as = tv_wonder_pharos_selected_route_owner
-							root = { set_variable = { name = tv_wonder_pharos_event_route_owner value = scope:tv_wonder_pharos_selected_route_owner } }
-							root = { set_variable = { name = tv_wonder_pharos_event_route_has_owner value = 1 } }
-							root = { set_variable = { name = tv_wonder_pharos_active_route_owner value = scope:tv_wonder_pharos_selected_route_owner } }
-						}
-					}
-				}
-			}
-			10 = {
-				trigger = { tv_wonder_pharos_route_venice_pending_trigger = yes }
-				set_variable = { name = tv_wonder_pharos_active_route value = 2 }
-				set_variable = { name = tv_wonder_pharos_active_route_id value = 2 }
-				remove_variable = tv_wonder_pharos_active_route_status
-				remove_variable = tv_wonder_pharos_active_route_owner
-				remove_variable = tv_wonder_pharos_event_route_location
-				remove_variable = tv_wonder_pharos_event_route_owner
-				remove_variable = tv_wonder_pharos_event_route_has_owner
-				location:venice = {
-					save_scope_as = tv_wonder_pharos_selected_route_location
-					root = { set_variable = { name = tv_wonder_pharos_event_route_location value = scope:tv_wonder_pharos_selected_route_location } }
-					if = {
-						limit = { has_owner = yes }
-						owner = {
-							save_scope_as = tv_wonder_pharos_selected_route_owner
-							root = { set_variable = { name = tv_wonder_pharos_event_route_owner value = scope:tv_wonder_pharos_selected_route_owner } }
-							root = { set_variable = { name = tv_wonder_pharos_event_route_has_owner value = 1 } }
-							root = { set_variable = { name = tv_wonder_pharos_active_route_owner value = scope:tv_wonder_pharos_selected_route_owner } }
-						}
-					}
-				}
-			}
-			10 = {
-				trigger = { tv_wonder_pharos_route_genoa_pending_trigger = yes }
-				set_variable = { name = tv_wonder_pharos_active_route value = 3 }
-				set_variable = { name = tv_wonder_pharos_active_route_id value = 3 }
-				remove_variable = tv_wonder_pharos_active_route_status
-				remove_variable = tv_wonder_pharos_active_route_owner
-				remove_variable = tv_wonder_pharos_event_route_location
-				remove_variable = tv_wonder_pharos_event_route_owner
-				remove_variable = tv_wonder_pharos_event_route_has_owner
-				location:genoa = {
-					save_scope_as = tv_wonder_pharos_selected_route_location
-					root = { set_variable = { name = tv_wonder_pharos_event_route_location value = scope:tv_wonder_pharos_selected_route_location } }
-					if = {
-						limit = { has_owner = yes }
-						owner = {
-							save_scope_as = tv_wonder_pharos_selected_route_owner
-							root = { set_variable = { name = tv_wonder_pharos_event_route_owner value = scope:tv_wonder_pharos_selected_route_owner } }
-							root = { set_variable = { name = tv_wonder_pharos_event_route_has_owner value = 1 } }
-							root = { set_variable = { name = tv_wonder_pharos_active_route_owner value = scope:tv_wonder_pharos_selected_route_owner } }
-						}
-					}
-				}
-			}
-			10 = {
-				trigger = { tv_wonder_pharos_route_malta_pending_trigger = yes }
-				set_variable = { name = tv_wonder_pharos_active_route value = 4 }
-				set_variable = { name = tv_wonder_pharos_active_route_id value = 4 }
-				remove_variable = tv_wonder_pharos_active_route_status
-				remove_variable = tv_wonder_pharos_active_route_owner
-				remove_variable = tv_wonder_pharos_event_route_location
-				remove_variable = tv_wonder_pharos_event_route_owner
-				remove_variable = tv_wonder_pharos_event_route_has_owner
-				location:malta = {
-					save_scope_as = tv_wonder_pharos_selected_route_location
-					root = { set_variable = { name = tv_wonder_pharos_event_route_location value = scope:tv_wonder_pharos_selected_route_location } }
-					if = {
-						limit = { has_owner = yes }
-						owner = {
-							save_scope_as = tv_wonder_pharos_selected_route_owner
-							root = { set_variable = { name = tv_wonder_pharos_event_route_owner value = scope:tv_wonder_pharos_selected_route_owner } }
-							root = { set_variable = { name = tv_wonder_pharos_event_route_has_owner value = 1 } }
-							root = { set_variable = { name = tv_wonder_pharos_active_route_owner value = scope:tv_wonder_pharos_selected_route_owner } }
-						}
-					}
-				}
-			}
-			10 = {
-				trigger = { tv_wonder_pharos_route_tunis_pending_trigger = yes }
-				set_variable = { name = tv_wonder_pharos_active_route value = 5 }
-				set_variable = { name = tv_wonder_pharos_active_route_id value = 5 }
-				remove_variable = tv_wonder_pharos_active_route_status
-				remove_variable = tv_wonder_pharos_active_route_owner
-				remove_variable = tv_wonder_pharos_event_route_location
-				remove_variable = tv_wonder_pharos_event_route_owner
-				remove_variable = tv_wonder_pharos_event_route_has_owner
-				location:tunis = {
-					save_scope_as = tv_wonder_pharos_selected_route_location
-					root = { set_variable = { name = tv_wonder_pharos_event_route_location value = scope:tv_wonder_pharos_selected_route_location } }
-					if = {
-						limit = { has_owner = yes }
-						owner = {
-							save_scope_as = tv_wonder_pharos_selected_route_owner
-							root = { set_variable = { name = tv_wonder_pharos_event_route_owner value = scope:tv_wonder_pharos_selected_route_owner } }
-							root = { set_variable = { name = tv_wonder_pharos_event_route_has_owner value = 1 } }
-							root = { set_variable = { name = tv_wonder_pharos_active_route_owner value = scope:tv_wonder_pharos_selected_route_owner } }
-						}
-					}
-				}
-			}
-			10 = {
-				trigger = { tv_wonder_pharos_route_palermo_pending_trigger = yes }
-				set_variable = { name = tv_wonder_pharos_active_route value = 6 }
-				set_variable = { name = tv_wonder_pharos_active_route_id value = 6 }
-				remove_variable = tv_wonder_pharos_active_route_status
-				remove_variable = tv_wonder_pharos_active_route_owner
-				remove_variable = tv_wonder_pharos_event_route_location
-				remove_variable = tv_wonder_pharos_event_route_owner
-				remove_variable = tv_wonder_pharos_event_route_has_owner
-				location:palermo = {
-					save_scope_as = tv_wonder_pharos_selected_route_location
-					root = { set_variable = { name = tv_wonder_pharos_event_route_location value = scope:tv_wonder_pharos_selected_route_location } }
-					if = {
-						limit = { has_owner = yes }
-						owner = {
-							save_scope_as = tv_wonder_pharos_selected_route_owner
-							root = { set_variable = { name = tv_wonder_pharos_event_route_owner value = scope:tv_wonder_pharos_selected_route_owner } }
-							root = { set_variable = { name = tv_wonder_pharos_event_route_has_owner value = 1 } }
-							root = { set_variable = { name = tv_wonder_pharos_active_route_owner value = scope:tv_wonder_pharos_selected_route_owner } }
-						}
-					}
-				}
-			}
-			10 = {
-				trigger = { tv_wonder_pharos_route_candia_pending_trigger = yes }
-				set_variable = { name = tv_wonder_pharos_active_route value = 7 }
-				set_variable = { name = tv_wonder_pharos_active_route_id value = 7 }
-				remove_variable = tv_wonder_pharos_active_route_status
-				remove_variable = tv_wonder_pharos_active_route_owner
-				remove_variable = tv_wonder_pharos_event_route_location
-				remove_variable = tv_wonder_pharos_event_route_owner
-				remove_variable = tv_wonder_pharos_event_route_has_owner
-				location:candia = {
-					save_scope_as = tv_wonder_pharos_selected_route_location
-					root = { set_variable = { name = tv_wonder_pharos_event_route_location value = scope:tv_wonder_pharos_selected_route_location } }
-					if = {
-						limit = { has_owner = yes }
-						owner = {
-							save_scope_as = tv_wonder_pharos_selected_route_owner
-							root = { set_variable = { name = tv_wonder_pharos_event_route_owner value = scope:tv_wonder_pharos_selected_route_owner } }
-							root = { set_variable = { name = tv_wonder_pharos_event_route_has_owner value = 1 } }
-							root = { set_variable = { name = tv_wonder_pharos_active_route_owner value = scope:tv_wonder_pharos_selected_route_owner } }
-						}
-					}
-				}
-			}
-			10 = {
-				trigger = { tv_wonder_pharos_route_gibraltar_pending_trigger = yes }
-				set_variable = { name = tv_wonder_pharos_active_route value = 8 }
-				set_variable = { name = tv_wonder_pharos_active_route_id value = 8 }
-				remove_variable = tv_wonder_pharos_active_route_status
-				remove_variable = tv_wonder_pharos_active_route_owner
-				remove_variable = tv_wonder_pharos_event_route_location
-				remove_variable = tv_wonder_pharos_event_route_owner
-				remove_variable = tv_wonder_pharos_event_route_has_owner
-				location:gibraltar = {
-					save_scope_as = tv_wonder_pharos_selected_route_location
-					root = { set_variable = { name = tv_wonder_pharos_event_route_location value = scope:tv_wonder_pharos_selected_route_location } }
-					if = {
-						limit = { has_owner = yes }
-						owner = {
-							save_scope_as = tv_wonder_pharos_selected_route_owner
-							root = { set_variable = { name = tv_wonder_pharos_event_route_owner value = scope:tv_wonder_pharos_selected_route_owner } }
-							root = { set_variable = { name = tv_wonder_pharos_event_route_has_owner value = 1 } }
-							root = { set_variable = { name = tv_wonder_pharos_active_route_owner value = scope:tv_wonder_pharos_selected_route_owner } }
-						}
-					}
-				}
-			}
-		}
-		tv_wonder_pharos_evaluate_selected_route_effect = yes
-	}
-	else = {
-		tv_wonder_pharos_maybe_finish_routes_effect = yes
-	}
-}
-
-tv_wonder_pharos_maybe_finish_routes_effect = {
-	tv_wonder_pharos_refresh_route_progress_effect = yes
-	if = {
-		limit = {
-			has_variable = tv_wonder_pharos_route_progress
-			var:tv_wonder_pharos_route_progress >= 8
-			NOT = { has_variable = tv_wonder_pharos_routes_complete_pending_event }
-			NOT = { has_variable = tv_wonder_pharos_routes_complete }
-		}
-		set_variable = { name = tv_wonder_pharos_routes_complete_pending_event value = 1 }
-		trigger_event_non_silently = { id = tv_engineering_department.7308 days = 1 }
-	}
-}
-
-tv_wonder_pharos_finish_ritual_effect = {
-	remove_variable = tv_wonder_pharos_routes_complete_pending_event
-	set_variable = { name = tv_wonder_pharos_routes_complete value = 1 }
-	tv_wonder_complete_active_ritual_effect = yes
-}
-
-tv_wonder_hagia_assign_step_1_effect = {
-	if = {
-		limit = { tv_wonder_hagia_step_1_available_trigger = yes exists = scope:target }
-		set_variable = { name = tv_wonder_hagia_assignee_1 value = scope:target }
-		scope:target = {
-			add_adm = 10
-			add_character_modifier = { modifier = banned_from_cabinet years = -1 mode = add_and_extend }
-			add_character_modifier = { modifier = block_leading_armies_or_navies years = -1 mode = add_and_extend }
-		}
-		set_variable = { name = tv_wonder_hagia_months value = 0 }
-		remove_variable = tv_wonder_hagia_pending_event
-	}
-}
-
-tv_wonder_hagia_assign_step_2_effect = {
-	if = {
-		limit = { tv_wonder_hagia_step_2_available_trigger = yes exists = scope:target }
-		set_variable = { name = tv_wonder_hagia_assignee_2 value = scope:target }
-		scope:target = {
-			add_adm = 10
-			add_character_modifier = { modifier = banned_from_cabinet years = -1 mode = add_and_extend }
-			add_character_modifier = { modifier = block_leading_armies_or_navies years = -1 mode = add_and_extend }
-		}
-		set_variable = { name = tv_wonder_hagia_months value = 0 }
-		remove_variable = tv_wonder_hagia_pending_event
-	}
-}
-
-tv_wonder_hagia_assign_step_3_effect = {
-	if = {
-		limit = { tv_wonder_hagia_step_3_available_trigger = yes exists = scope:target }
-		set_variable = { name = tv_wonder_hagia_assignee_3 value = scope:target }
-		scope:target = {
-			add_dip = 10
-			add_character_modifier = { modifier = banned_from_cabinet years = -1 mode = add_and_extend }
-			add_character_modifier = { modifier = block_leading_armies_or_navies years = -1 mode = add_and_extend }
-		}
-		set_variable = { name = tv_wonder_hagia_months value = 0 }
-		remove_variable = tv_wonder_hagia_pending_event
-	}
-}
-
-tv_wonder_hagia_assign_step_4_effect = {
-	if = {
-		limit = { tv_wonder_hagia_step_4_available_trigger = yes has_ruler = yes }
-		ruler ?= {
-			save_scope_as = tv_wonder_hagia_selected_ruler
-			add_character_modifier = { modifier = banned_from_cabinet years = -1 mode = add_and_extend }
-			add_character_modifier = { modifier = block_leading_armies_or_navies years = -1 mode = add_and_extend }
-		}
-		set_variable = { name = tv_wonder_hagia_assignee_4 value = scope:tv_wonder_hagia_selected_ruler }
-		add_country_modifier = { modifier = tv_wonder_hagia_ruler_procession_modifier years = -1 mode = add_and_extend }
-		set_variable = { name = tv_wonder_hagia_months value = 0 }
-		remove_variable = tv_wonder_hagia_pending_event
-	}
-}
-
-tv_wonder_hagia_assign_step_5_effect = {
-	if = {
-		limit = { tv_wonder_hagia_step_5_available_trigger = yes exists = scope:target }
-		set_variable = { name = tv_wonder_hagia_assignee_5 value = scope:target }
-		scope:target = {
-			add_dip = 10
-			add_character_modifier = { modifier = banned_from_cabinet years = -1 mode = add_and_extend }
-			add_character_modifier = { modifier = block_leading_armies_or_navies years = -1 mode = add_and_extend }
-		}
-		set_variable = { name = tv_wonder_hagia_months value = 0 }
-		remove_variable = tv_wonder_hagia_pending_event
-	}
-}
-
-tv_wonder_hagia_assign_step_6_effect = {
-	if = {
-		limit = { tv_wonder_hagia_step_6_available_trigger = yes exists = scope:target }
-		set_variable = { name = tv_wonder_hagia_assignee_6 value = scope:target }
-		scope:target = {
-			add_adm = 10
-			add_character_modifier = { modifier = banned_from_cabinet years = -1 mode = add_and_extend }
-			add_character_modifier = { modifier = block_leading_armies_or_navies years = -1 mode = add_and_extend }
-		}
-		set_variable = { name = tv_wonder_hagia_months value = 0 }
-		remove_variable = tv_wonder_hagia_pending_event
-	}
-}
-
-tv_wonder_hagia_assign_step_7_effect = {
-	if = {
-		limit = { tv_wonder_hagia_step_7_available_trigger = yes exists = scope:target }
-		set_variable = { name = tv_wonder_hagia_assignee_7 value = scope:target }
-		scope:target = {
-			add_mil = 10
-			add_character_modifier = { modifier = banned_from_cabinet years = -1 mode = add_and_extend }
-			add_character_modifier = { modifier = block_leading_armies_or_navies years = -1 mode = add_and_extend }
-		}
-		set_variable = { name = tv_wonder_hagia_months value = 0 }
-		remove_variable = tv_wonder_hagia_pending_event
-	}
-}
-
-tv_wonder_hagia_assign_step_8_effect = {
-	if = {
-		limit = { tv_wonder_hagia_step_8_available_trigger = yes exists = scope:target }
-		set_variable = { name = tv_wonder_hagia_assignee_8 value = scope:target }
-		scope:target = {
-			add_mil = 10
-			add_character_modifier = { modifier = banned_from_cabinet years = -1 mode = add_and_extend }
-			add_character_modifier = { modifier = block_leading_armies_or_navies years = -1 mode = add_and_extend }
-		}
-		set_variable = { name = tv_wonder_hagia_months value = 0 }
-		remove_variable = tv_wonder_hagia_pending_event
-	}
-}
-
-tv_wonder_hagia_retry_step_effect = {
-	set_variable = { name = tv_wonder_hagia_months value = 0 }
-	remove_variable = tv_wonder_hagia_pending_event
-}
-
-tv_wonder_hagia_advance_step_effect = {
-	if = {
-		limit = { var:tv_wonder_hagia_step ?= 1 }
-		set_variable = { name = tv_wonder_hagia_step_1_done value = 1 }
-		set_variable = { name = tv_wonder_hagia_months value = 0 }
-		remove_variable = tv_wonder_hagia_pending_event
-		set_variable = { name = tv_wonder_hagia_step value = 2 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_hagia_step ?= 2 }
-		set_variable = { name = tv_wonder_hagia_step_2_done value = 1 }
-		set_variable = { name = tv_wonder_hagia_months value = 0 }
-		remove_variable = tv_wonder_hagia_pending_event
-		set_variable = { name = tv_wonder_hagia_step value = 3 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_hagia_step ?= 3 }
-		set_variable = { name = tv_wonder_hagia_step_3_done value = 1 }
-		set_variable = { name = tv_wonder_hagia_months value = 0 }
-		remove_variable = tv_wonder_hagia_pending_event
-		set_variable = { name = tv_wonder_hagia_step value = 4 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_hagia_step ?= 4 }
-		set_variable = { name = tv_wonder_hagia_step_4_done value = 1 }
-		set_variable = { name = tv_wonder_hagia_months value = 0 }
-		remove_variable = tv_wonder_hagia_pending_event
-		set_variable = { name = tv_wonder_hagia_step value = 5 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_hagia_step ?= 5 }
-		set_variable = { name = tv_wonder_hagia_step_5_done value = 1 }
-		set_variable = { name = tv_wonder_hagia_months value = 0 }
-		remove_variable = tv_wonder_hagia_pending_event
-		set_variable = { name = tv_wonder_hagia_step value = 6 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_hagia_step ?= 6 }
-		set_variable = { name = tv_wonder_hagia_step_6_done value = 1 }
-		set_variable = { name = tv_wonder_hagia_months value = 0 }
-		remove_variable = tv_wonder_hagia_pending_event
-		set_variable = { name = tv_wonder_hagia_step value = 7 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_hagia_step ?= 7 }
-		set_variable = { name = tv_wonder_hagia_step_7_done value = 1 }
-		set_variable = { name = tv_wonder_hagia_months value = 0 }
-		remove_variable = tv_wonder_hagia_pending_event
-		set_variable = { name = tv_wonder_hagia_step value = 8 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_hagia_step ?= 8 }
-		set_variable = { name = tv_wonder_hagia_step_8_done value = 1 }
-		set_variable = { name = tv_wonder_hagia_months value = 0 }
-		remove_variable = tv_wonder_hagia_pending_event
-	}
-}
-
-tv_wonder_hagia_complete_step_1_effect = {
-	change_gold_effect = { scale = -1 }
-	tv_wonder_hagia_advance_step_effect = yes
-}
-
-tv_wonder_hagia_complete_step_2_effect = {
-	add_prestige = -10
-	tv_wonder_hagia_advance_step_effect = yes
-}
-
-tv_wonder_hagia_complete_step_3_effect = {
-	if = {
-		limit = { country_has_estate = estate_type:clergy_estate }
-		save_scope_as = tv_wonder_hagia_privilege_country
-		"estate(estate_type:clergy_estate)" = {
-			estate_privilege:tv_hagia_great_church_endowment_privilege = {
-				scope:tv_wonder_hagia_privilege_country = {
-					grant_estate_privilege = prev
-				}
-			}
-		}
-		tv_wonder_hagia_advance_step_effect = yes
-	}
-	else = {
-		tv_wonder_hagia_retry_step_effect = yes
-	}
-}
-
-tv_wonder_hagia_complete_step_4_effect = {
-	remove_country_modifier = tv_wonder_hagia_ruler_procession_modifier
-	add_country_modifier = { modifier = tv_wonder_hagia_imperial_procession_modifier years = -1 mode = add_and_extend }
-	tv_wonder_hagia_advance_step_effect = yes
-}
-
-tv_wonder_hagia_complete_step_5_effect = {
-	location:constantinople = {
-		add_location_modifier = { modifier = tv_wonder_hagia_sanctuary_order_location_modifier years = -1 mode = add_and_extend }
-	}
-	tv_wonder_hagia_advance_step_effect = yes
-}
-
-tv_wonder_hagia_roll_step_6_cost_effect = {
-	random_list = {
-		33 = { set_variable = { name = tv_wonder_hagia_step_6_cost value = 1 } }
-		33 = { set_variable = { name = tv_wonder_hagia_step_6_cost value = 2 } }
-		34 = { set_variable = { name = tv_wonder_hagia_step_6_cost value = 3 } }
-	}
-}
-
-tv_wonder_hagia_complete_step_6_effect = {
-	if = {
-		limit = { has_variable = tv_wonder_hagia_step_6_cost var:tv_wonder_hagia_step_6_cost ?= 1 }
-		change_gold_effect = { scale = -1 }
-	}
-	else_if = {
-		limit = { has_variable = tv_wonder_hagia_step_6_cost var:tv_wonder_hagia_step_6_cost ?= 2 }
-		add_prestige = -5
-	}
-	else = {
-		if = {
-			limit = { country_has_estate = estate_type:clergy_estate }
-			add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.025 }
-		}
-		if = {
-			limit = { country_has_estate = estate_type:nobles_estate }
-			add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.025 }
-		}
-	}
-	remove_variable = tv_wonder_hagia_step_6_cost
-	tv_wonder_hagia_advance_step_effect = yes
-}
-
-tv_wonder_hagia_complete_step_7_effect = {
-	change_gold_effect = { scale = -1 }
-	if = {
-		limit = { has_variable = tv_wonder_hagia_assignee_7 }
-		var:tv_wonder_hagia_assignee_7 ?= { save_scope_as = tv_wonder_hagia_icon_painter }
-	}
-	location:constantinople = {
-		create_art = {
-			quality = { 70 100 }
-			type = work_of_art_type:icon
-			key = tv_hagia_sophia_synaxis_icon
-			target = scope:tv_wonder_hagia_icon_painter
-			artist = scope:tv_wonder_hagia_icon_painter
-		}
-	}
-	tv_wonder_hagia_advance_step_effect = yes
-}
-
-tv_wonder_hagia_begin_step_8_procession_effect = {
-	set_variable = { name = tv_wonder_hagia_prosperity_active value = 1 }
-	set_variable = { name = tv_wonder_hagia_months value = 0 }
-	remove_variable = tv_wonder_hagia_pending_event
-	location:constantinople = {
-		add_location_modifier = { modifier = tv_wonder_hagia_public_procession_location_modifier years = -1 mode = add_and_extend }
-	}
-}
-
-tv_wonder_hagia_complete_step_8_effect = {
-	location:constantinople = {
-		remove_location_modifier = tv_wonder_hagia_public_procession_location_modifier
-		change_prosperity = 0.1
-	}
-	add_prestige = 10
-	change_gold_effect = { scale = 1 }
-	remove_variable = tv_wonder_hagia_pending_event
-	set_variable = { name = tv_wonder_hagia_step_8_done value = 1 }
-	set_variable = { name = tv_wonder_hagia_completed value = 1 }
-	tv_wonder_complete_active_ritual_effect = yes
-}
-
-tv_wonder_hagia_fire_step_event_effect = {
-	if = {
-		limit = { var:tv_wonder_hagia_step ?= 1 }
-		set_variable = { name = tv_wonder_hagia_pending_event value = 1 }
-		trigger_event_non_silently = { id = tv_engineering_department.6301 days = 1 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_hagia_step ?= 2 }
-		set_variable = { name = tv_wonder_hagia_pending_event value = 2 }
-		trigger_event_non_silently = { id = tv_engineering_department.6302 days = 1 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_hagia_step ?= 3 }
-		set_variable = { name = tv_wonder_hagia_pending_event value = 3 }
-		trigger_event_non_silently = { id = tv_engineering_department.6303 days = 1 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_hagia_step ?= 4 }
-		set_variable = { name = tv_wonder_hagia_pending_event value = 4 }
-		trigger_event_non_silently = { id = tv_engineering_department.6304 days = 1 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_hagia_step ?= 5 }
-		set_variable = { name = tv_wonder_hagia_pending_event value = 5 }
-		trigger_event_non_silently = { id = tv_engineering_department.6305 days = 1 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_hagia_step ?= 6 }
-		tv_wonder_hagia_roll_step_6_cost_effect = yes
-		set_variable = { name = tv_wonder_hagia_pending_event value = 6 }
-		trigger_event_non_silently = { id = tv_engineering_department.6306 days = 1 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_hagia_step ?= 7 }
-		set_variable = { name = tv_wonder_hagia_pending_event value = 7 }
-		trigger_event_non_silently = { id = tv_engineering_department.6307 days = 1 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_hagia_step ?= 8 }
-		set_variable = { name = tv_wonder_hagia_pending_event value = 8 }
-		trigger_event_non_silently = { id = tv_engineering_department.6308 days = 1 }
-	}
-}
-
-tv_wonder_hagia_monthly_progress_effect = {
-	if = {
-		limit = { tv_wonder_hagia_active_trigger = yes }
-		if = {
-			limit = {
-				has_variable = tv_wonder_hagia_prosperity_active
-				tv_wonder_hagia_constantinople_prosperous_trigger = yes
-				NOT = { has_variable = tv_wonder_hagia_pending_event }
-			}
-			set_variable = { name = tv_wonder_hagia_pending_event value = 8 }
-			trigger_event_non_silently = { id = tv_engineering_department.6308 days = 1 }
-		}
-		else_if = {
-			limit = {
-				NOT = { has_variable = tv_wonder_hagia_prosperity_active }
-				NOT = { has_variable = tv_wonder_hagia_pending_event }
-				OR = {
-					AND = { var:tv_wonder_hagia_step ?= 1 has_variable = tv_wonder_hagia_assignee_1 }
-					AND = { var:tv_wonder_hagia_step ?= 2 has_variable = tv_wonder_hagia_assignee_2 }
-					AND = { var:tv_wonder_hagia_step ?= 3 has_variable = tv_wonder_hagia_assignee_3 }
-					AND = { var:tv_wonder_hagia_step ?= 4 has_variable = tv_wonder_hagia_assignee_4 }
-					AND = { var:tv_wonder_hagia_step ?= 5 has_variable = tv_wonder_hagia_assignee_5 }
-					AND = { var:tv_wonder_hagia_step ?= 6 has_variable = tv_wonder_hagia_assignee_6 }
-					AND = { var:tv_wonder_hagia_step ?= 7 has_variable = tv_wonder_hagia_assignee_7 }
-					AND = { var:tv_wonder_hagia_step ?= 8 has_variable = tv_wonder_hagia_assignee_8 }
-				}
-			}
-			if = {
-				limit = { NOT = { has_variable = tv_wonder_hagia_months } }
-				set_variable = { name = tv_wonder_hagia_months value = 0 }
-			}
-			change_variable = { name = tv_wonder_hagia_months add = 1 }
-			if = {
-				limit = { var:tv_wonder_hagia_months >= 3 }
-				set_variable = { name = tv_wonder_hagia_months value = 0 }
-				if = {
-					limit = { var:tv_wonder_hagia_step ?= 8 }
-					tv_wonder_hagia_begin_step_8_procession_effect = yes
-				}
-				else = {
-					tv_wonder_hagia_fire_step_event_effect = yes
-				}
-			}
-		}
-	}
-}
-
 tv_wonder_sacred_mountain_ritual_1_requirement_tooltip_effect = {
 	add_country_modifier = { modifier = tv_wonder_sacred_mountain_ritual_burden_modifier years = 1 mode = add_and_extend }
 }
@@ -7991,6 +6634,111 @@ tv_wonder_mechanics_clear_selected_ritual_runtime_effect = {
 			remove_location_modifier = tv_wonder_hagia_public_procession_location_modifier
 		}
 	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 10301 }
+		remove_variable = tv_wonder_dome_of_the_rock_ritual_row_set_index
+		remove_variable = tv_wonder_dome_of_the_rock_ritual_phase
+		remove_variable = tv_wonder_dome_of_the_rock_ritual_pending_event
+		remove_variable = tv_wonder_dome_of_the_rock_ritual_completed
+		remove_variable = tv_wonder_dome_of_the_rock_sanctuary_access_groups_favorable_count
+		remove_variable = tv_wonder_dome_of_the_rock_sanctuary_access_groups_narrowed
+		remove_variable = tv_wonder_dome_of_the_rock_sanctuary_access_groups_started
+		remove_variable = tv_wonder_dome_of_the_rock_sanctuary_access_groups_completed
+		remove_variable = tv_wonder_dome_of_the_rock_sanctuary_access_groups_gate_wardens_status
+		remove_variable = tv_wonder_dome_of_the_rock_sanctuary_access_groups_religious_jurists_status
+		remove_variable = tv_wonder_dome_of_the_rock_sanctuary_access_groups_pilgrim_caravans_status
+		remove_variable = tv_wonder_dome_of_the_rock_sanctuary_access_groups_local_notables_status
+		remove_variable = tv_wonder_dome_of_the_rock_sanctuary_access_groups_supervised_witnesses_status
+		remove_variable = tv_wonder_dome_of_the_rock_custody_duties_favorable_count
+		remove_variable = tv_wonder_dome_of_the_rock_custody_duties_narrowed
+		remove_variable = tv_wonder_dome_of_the_rock_custody_duties_started
+		remove_variable = tv_wonder_dome_of_the_rock_custody_duties_completed
+		remove_variable = tv_wonder_dome_of_the_rock_custody_duties_gate_keys_status
+		remove_variable = tv_wonder_dome_of_the_rock_custody_duties_cisterns_status
+		remove_variable = tv_wonder_dome_of_the_rock_custody_duties_lamps_status
+		remove_variable = tv_wonder_dome_of_the_rock_custody_duties_endowment_deeds_status
+		remove_variable = tv_wonder_dome_of_the_rock_custody_duties_pilgrim_routes_status
+		remove_variable = tv_wonder_dome_of_the_rock_ritual_total_favorable
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 10601 }
+		remove_variable = tv_wonder_alhambra_war_validation
+		remove_variable = tv_wonder_alhambra_ritual_row_set_index
+		remove_variable = tv_wonder_alhambra_ritual_phase
+		remove_variable = tv_wonder_alhambra_ritual_pending_event
+		remove_variable = tv_wonder_alhambra_ritual_completed
+		remove_variable = tv_wonder_alhambra_treaty_clause_register_favorable_count
+		remove_variable = tv_wonder_alhambra_treaty_clause_register_narrowed
+		remove_variable = tv_wonder_alhambra_treaty_clause_register_started
+		remove_variable = tv_wonder_alhambra_treaty_clause_register_completed
+		remove_variable = tv_wonder_alhambra_treaty_clause_register_symbolic_keys_status
+		remove_variable = tv_wonder_alhambra_treaty_clause_register_protected_households_status
+		remove_variable = tv_wonder_alhambra_treaty_clause_register_artisan_rosters_status
+		remove_variable = tv_wonder_alhambra_treaty_clause_register_acequia_water_status
+		remove_variable = tv_wonder_alhambra_treaty_clause_register_safe_conducts_status
+		remove_variable = tv_wonder_alhambra_treaty_clause_register_foreign_copies_status
+		remove_variable = tv_wonder_alhambra_palace_risk_points_favorable_count
+		remove_variable = tv_wonder_alhambra_palace_risk_points_narrowed
+		remove_variable = tv_wonder_alhambra_palace_risk_points_started
+		remove_variable = tv_wonder_alhambra_palace_risk_points_completed
+		remove_variable = tv_wonder_alhambra_palace_risk_points_gate_of_justice_status
+		remove_variable = tv_wonder_alhambra_palace_risk_points_hall_of_ambassadors_status
+		remove_variable = tv_wonder_alhambra_palace_risk_points_court_of_lions_status
+		remove_variable = tv_wonder_alhambra_palace_risk_points_water_channels_status
+		remove_variable = tv_wonder_alhambra_palace_risk_points_vega_overlook_status
+		remove_variable = tv_wonder_alhambra_ritual_total_favorable
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 11201 }
+		remove_variable = tv_wonder_st_peters_basilica_ritual_row_set_index
+		remove_variable = tv_wonder_st_peters_basilica_ritual_phase
+		remove_variable = tv_wonder_st_peters_basilica_ritual_pending_event
+		remove_variable = tv_wonder_st_peters_basilica_ritual_completed
+		remove_variable = tv_wonder_st_peters_basilica_sacred_official_candidates_favorable_count
+		remove_variable = tv_wonder_st_peters_basilica_sacred_official_candidates_narrowed
+		remove_variable = tv_wonder_st_peters_basilica_sacred_official_candidates_started
+		remove_variable = tv_wonder_st_peters_basilica_sacred_official_candidates_completed
+		remove_variable = tv_wonder_st_peters_basilica_sacred_official_candidates_cardinal_administrator_status
+		remove_variable = tv_wonder_st_peters_basilica_sacred_official_candidates_diocesan_bishop_status
+		remove_variable = tv_wonder_st_peters_basilica_sacred_official_candidates_relic_custodian_status
+		remove_variable = tv_wonder_st_peters_basilica_sacred_official_candidates_alms_prefect_status
+		remove_variable = tv_wonder_st_peters_basilica_sacred_official_candidates_artist_canon_status
+		remove_variable = tv_wonder_st_peters_basilica_apostolic_service_duties_favorable_count
+		remove_variable = tv_wonder_st_peters_basilica_apostolic_service_duties_narrowed
+		remove_variable = tv_wonder_st_peters_basilica_apostolic_service_duties_started
+		remove_variable = tv_wonder_st_peters_basilica_apostolic_service_duties_completed
+		remove_variable = tv_wonder_st_peters_basilica_apostolic_service_duties_relic_inventory_status
+		remove_variable = tv_wonder_st_peters_basilica_apostolic_service_duties_alms_ledger_status
+		remove_variable = tv_wonder_st_peters_basilica_apostolic_service_duties_pilgrim_threshold_status
+		remove_variable = tv_wonder_st_peters_basilica_apostolic_service_duties_choir_offices_status
+		remove_variable = tv_wonder_st_peters_basilica_apostolic_service_duties_chapel_patronage_status
+		remove_variable = tv_wonder_st_peters_basilica_ritual_total_favorable
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 12201 }
+		remove_variable = tv_wonder_bank_of_saint_george_ritual_row_set_index
+		remove_variable = tv_wonder_bank_of_saint_george_ritual_phase
+		remove_variable = tv_wonder_bank_of_saint_george_ritual_pending_event
+		remove_variable = tv_wonder_bank_of_saint_george_ritual_completed
+		remove_variable = tv_wonder_bank_of_saint_george_charter_options_favorable_count
+		remove_variable = tv_wonder_bank_of_saint_george_charter_options_narrowed
+		remove_variable = tv_wonder_bank_of_saint_george_charter_options_started
+		remove_variable = tv_wonder_bank_of_saint_george_charter_options_completed
+		remove_variable = tv_wonder_bank_of_saint_george_charter_options_creditor_privilege_status
+		remove_variable = tv_wonder_bank_of_saint_george_charter_options_crown_supervision_status
+		remove_variable = tv_wonder_bank_of_saint_george_charter_options_open_merchant_access_status
+		remove_variable = tv_wonder_bank_of_saint_george_public_credit_pledges_favorable_count
+		remove_variable = tv_wonder_bank_of_saint_george_public_credit_pledges_narrowed
+		remove_variable = tv_wonder_bank_of_saint_george_public_credit_pledges_started
+		remove_variable = tv_wonder_bank_of_saint_george_public_credit_pledges_completed
+		remove_variable = tv_wonder_bank_of_saint_george_public_credit_pledges_old_war_debts_status
+		remove_variable = tv_wonder_bank_of_saint_george_public_credit_pledges_customs_dues_status
+		remove_variable = tv_wonder_bank_of_saint_george_public_credit_pledges_salt_tax_status
+		remove_variable = tv_wonder_bank_of_saint_george_public_credit_pledges_port_tolls_status
+		remove_variable = tv_wonder_bank_of_saint_george_public_credit_pledges_coin_assays_status
+		remove_variable = tv_wonder_bank_of_saint_george_public_credit_pledges_archive_volumes_status
+		remove_variable = tv_wonder_bank_of_saint_george_ritual_total_favorable
+	}
 }
 
 tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = {
@@ -8052,6 +6800,22 @@ tv_wonder_mechanics_apply_selected_ritual_progress_effect = {
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 10201 }
 		tv_wonder_hagia_monthly_progress_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 10301 }
+		tv_wonder_dome_of_the_rock_ritual_monthly_progress_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 10601 }
+		tv_wonder_alhambra_ritual_monthly_progress_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 11201 }
+		tv_wonder_st_peters_basilica_ritual_monthly_progress_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 12201 }
+		tv_wonder_bank_of_saint_george_ritual_monthly_progress_effect = yes
 	}
 }
 
@@ -9149,6 +7913,42 @@ tv_wonder_mechanics_start_deferred_immediate_ritual_effect = {
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
 	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 10301 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_dome_of_the_rock_ritual_start_effect = yes
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 10601 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_alhambra_ritual_start_effect = yes
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 11201 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_st_peters_basilica_ritual_start_effect = yes
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 12201 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_bank_of_saint_george_ritual_start_effect = yes
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
 }
 
 tv_wonder_mechanics_apply_immediate_ritual_effect = {
@@ -9371,16 +8171,10 @@ tv_wonder_mechanics_apply_immediate_ritual_effect = {
 		add_navy_tradition = 20
 	}
 	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 10301 }
-	}
-	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 10401 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 10501 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 10601 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 10701 }
@@ -9396,9 +8190,6 @@ tv_wonder_mechanics_apply_immediate_ritual_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 11101 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 11201 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 11301 }
@@ -9426,9 +8217,6 @@ tv_wonder_mechanics_apply_immediate_ritual_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 12101 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 12201 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 12301 }
@@ -10065,6 +8853,18 @@ tv_wonder_mechanics_apply_selected_ritual_completion_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 10201 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 10301 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 10601 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 11201 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 12201 }
 	}
 }
 
