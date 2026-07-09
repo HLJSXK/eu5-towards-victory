@@ -5011,6 +5011,1177 @@ organization_panel = {
 			datacontext = "[InternationalOrganizationsView.GetPlayer]"
 			spacing = 8
 
+			card_expandable = {
+				maximumsize = { 500 -1 }
+				blockoverride "header_content" {
+					icon = {
+						size = { 30 30 }
+						block "header_icon" {
+							texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
+						}
+					}
+					text_single = {
+						block "header_text" {
+							text = "TV_RM_POTENTIAL_PROJECTS_CARD_TITLE"
+						}
+					}
+					expand = {}
+				}
+				blockoverride "bottom_content" {
+					vbox = {
+						ignoreinvisible = yes
+						spacing = 4
+						widget = {
+							visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_open_age_ceiling').GetValue, '(CFixedPoint)1.0')]"
+							size = { 470 30 }
+							using = bg_paper_card_situations
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								margin = { 8 0 }
+								spacing = 6
+								icon = {
+									size = { 22 22 }
+									texture = "gfx/interface/icons/flat_icons/ages.dds"
+								}
+								text_single = {
+									text = "TV_RM_POTENTIAL_AGE_1"
+									align = nobaseline
+								}
+								text_single = {
+									text = "TV_RM_TARGET_MEDIEVAL_ADMINISTRATION"
+									default_format = "#explanation_link"
+									tooltip = "TV_RM_TARGET_MEDIEVAL_ADMINISTRATION_TT"
+									align = nobaseline
+								}
+								expand = {}
+								text_single = {
+									visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_medieval_administration_researched').GetValue, '(CFixedPoint)1.0')]"
+									text = "TV_RM_POTENTIAL_RESEARCHED"
+									default_format = "#color_green"
+									align = nobaseline
+								}
+								text_single = {
+									visible = "[Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_medieval_administration_researched').GetValue, '(CFixedPoint)1.0'))]"
+									text = "TV_RM_POTENTIAL_NOT_RESEARCHED"
+									default_format = "#color_red"
+									align = nobaseline
+								}
+							}
+						}
+						widget = {
+							visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_open_age_ceiling').GetValue, '(CFixedPoint)1.0')]"
+							size = { 470 30 }
+							using = bg_paper_card_situations
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								margin = { 8 0 }
+								spacing = 6
+								icon = {
+									size = { 22 22 }
+									texture = "gfx/interface/icons/flat_icons/ages.dds"
+								}
+								text_single = {
+									text = "TV_RM_POTENTIAL_AGE_1"
+									align = nobaseline
+								}
+								text_single = {
+									text = "TV_RM_TARGET_SCRIPTORIUM"
+									default_format = "#explanation_link"
+									tooltip = "TV_RM_TARGET_SCRIPTORIUM_TT"
+									align = nobaseline
+								}
+								expand = {}
+								text_single = {
+									visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_scriptorium_researched').GetValue, '(CFixedPoint)1.0')]"
+									text = "TV_RM_POTENTIAL_RESEARCHED"
+									default_format = "#color_green"
+									align = nobaseline
+								}
+								text_single = {
+									visible = "[Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_scriptorium_researched').GetValue, '(CFixedPoint)1.0'))]"
+									text = "TV_RM_POTENTIAL_NOT_RESEARCHED"
+									default_format = "#color_red"
+									align = nobaseline
+								}
+							}
+						}
+						widget = {
+							visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_open_age_ceiling').GetValue, '(CFixedPoint)1.0')]"
+							size = { 470 30 }
+							using = bg_paper_card_situations
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								margin = { 8 0 }
+								spacing = 6
+								icon = {
+									size = { 22 22 }
+									texture = "gfx/interface/icons/flat_icons/ages.dds"
+								}
+								text_single = {
+									text = "TV_RM_POTENTIAL_AGE_1"
+									align = nobaseline
+								}
+								text_single = {
+									text = "TV_RM_TARGET_HORSE_RIDING"
+									default_format = "#explanation_link"
+									tooltip = "TV_RM_TARGET_HORSE_RIDING_TT"
+									align = nobaseline
+								}
+								expand = {}
+								text_single = {
+									visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_horse_riding_researched').GetValue, '(CFixedPoint)1.0')]"
+									text = "TV_RM_POTENTIAL_RESEARCHED"
+									default_format = "#color_green"
+									align = nobaseline
+								}
+								text_single = {
+									visible = "[Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_horse_riding_researched').GetValue, '(CFixedPoint)1.0'))]"
+									text = "TV_RM_POTENTIAL_NOT_RESEARCHED"
+									default_format = "#color_red"
+									align = nobaseline
+								}
+							}
+						}
+						widget = {
+							visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_open_age_ceiling').GetValue, '(CFixedPoint)1.0')]"
+							size = { 470 30 }
+							using = bg_paper_card_situations
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								margin = { 8 0 }
+								spacing = 6
+								icon = {
+									size = { 22 22 }
+									texture = "gfx/interface/icons/flat_icons/ages.dds"
+								}
+								text_single = {
+									text = "TV_RM_POTENTIAL_AGE_1"
+									align = nobaseline
+								}
+								text_single = {
+									text = "TV_RM_TARGET_BRONZE_WORKING"
+									default_format = "#explanation_link"
+									tooltip = "TV_RM_TARGET_BRONZE_WORKING_TT"
+									align = nobaseline
+								}
+								expand = {}
+								text_single = {
+									visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_bronze_working_researched').GetValue, '(CFixedPoint)1.0')]"
+									text = "TV_RM_POTENTIAL_RESEARCHED"
+									default_format = "#color_green"
+									align = nobaseline
+								}
+								text_single = {
+									visible = "[Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_bronze_working_researched').GetValue, '(CFixedPoint)1.0'))]"
+									text = "TV_RM_POTENTIAL_NOT_RESEARCHED"
+									default_format = "#color_red"
+									align = nobaseline
+								}
+							}
+						}
+						widget = {
+							visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_open_age_ceiling').GetValue, '(CFixedPoint)1.0')]"
+							size = { 470 30 }
+							using = bg_paper_card_situations
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								margin = { 8 0 }
+								spacing = 6
+								icon = {
+									size = { 22 22 }
+									texture = "gfx/interface/icons/flat_icons/ages.dds"
+								}
+								text_single = {
+									text = "TV_RM_POTENTIAL_AGE_1"
+									align = nobaseline
+								}
+								text_single = {
+									text = "TV_RM_TARGET_IRON_WORKING"
+									default_format = "#explanation_link"
+									tooltip = "TV_RM_TARGET_IRON_WORKING_TT"
+									align = nobaseline
+								}
+								expand = {}
+								text_single = {
+									visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_iron_working_researched').GetValue, '(CFixedPoint)1.0')]"
+									text = "TV_RM_POTENTIAL_RESEARCHED"
+									default_format = "#color_green"
+									align = nobaseline
+								}
+								text_single = {
+									visible = "[Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_iron_working_researched').GetValue, '(CFixedPoint)1.0'))]"
+									text = "TV_RM_POTENTIAL_NOT_RESEARCHED"
+									default_format = "#color_red"
+									align = nobaseline
+								}
+							}
+						}
+						widget = {
+							visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_open_age_ceiling').GetValue, '(CFixedPoint)1.0')]"
+							size = { 470 30 }
+							using = bg_paper_card_situations
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								margin = { 8 0 }
+								spacing = 6
+								icon = {
+									size = { 22 22 }
+									texture = "gfx/interface/icons/flat_icons/ages.dds"
+								}
+								text_single = {
+									text = "TV_RM_POTENTIAL_AGE_1"
+									align = nobaseline
+								}
+								text_single = {
+									text = "TV_RM_TARGET_EFFICIENT_LOGISTICS"
+									default_format = "#explanation_link"
+									tooltip = "TV_RM_TARGET_EFFICIENT_LOGISTICS_TT"
+									align = nobaseline
+								}
+								expand = {}
+								text_single = {
+									visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_efficient_logistics_researched').GetValue, '(CFixedPoint)1.0')]"
+									text = "TV_RM_POTENTIAL_RESEARCHED"
+									default_format = "#color_green"
+									align = nobaseline
+								}
+								text_single = {
+									visible = "[Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_efficient_logistics_researched').GetValue, '(CFixedPoint)1.0'))]"
+									text = "TV_RM_POTENTIAL_NOT_RESEARCHED"
+									default_format = "#color_red"
+									align = nobaseline
+								}
+							}
+						}
+						widget = {
+							visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_open_age_ceiling').GetValue, '(CFixedPoint)1.0')]"
+							size = { 470 30 }
+							using = bg_paper_card_situations
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								margin = { 8 0 }
+								spacing = 6
+								icon = {
+									size = { 22 22 }
+									texture = "gfx/interface/icons/flat_icons/ages.dds"
+								}
+								text_single = {
+									text = "TV_RM_POTENTIAL_AGE_1"
+									align = nobaseline
+								}
+								text_single = {
+									text = "TV_RM_TARGET_ABACUS"
+									default_format = "#explanation_link"
+									tooltip = "TV_RM_TARGET_ABACUS_TT"
+									align = nobaseline
+								}
+								expand = {}
+								text_single = {
+									visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_abacus_researched').GetValue, '(CFixedPoint)1.0')]"
+									text = "TV_RM_POTENTIAL_RESEARCHED"
+									default_format = "#color_green"
+									align = nobaseline
+								}
+								text_single = {
+									visible = "[Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_abacus_researched').GetValue, '(CFixedPoint)1.0'))]"
+									text = "TV_RM_POTENTIAL_NOT_RESEARCHED"
+									default_format = "#color_red"
+									align = nobaseline
+								}
+							}
+						}
+						widget = {
+							visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_open_age_ceiling').GetValue, '(CFixedPoint)2.0')]"
+							size = { 470 30 }
+							using = bg_paper_card_situations
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								margin = { 8 0 }
+								spacing = 6
+								icon = {
+									size = { 22 22 }
+									texture = "gfx/interface/icons/flat_icons/ages.dds"
+								}
+								text_single = {
+									text = "TV_RM_POTENTIAL_AGE_2"
+									align = nobaseline
+								}
+								text_single = {
+									text = "TV_RM_TARGET_RENAISSANCE_SCULPTURES"
+									default_format = "#explanation_link"
+									tooltip = "TV_RM_TARGET_RENAISSANCE_SCULPTURES_TT"
+									align = nobaseline
+								}
+								expand = {}
+								text_single = {
+									visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_renaissance_sculptures_researched').GetValue, '(CFixedPoint)1.0')]"
+									text = "TV_RM_POTENTIAL_RESEARCHED"
+									default_format = "#color_green"
+									align = nobaseline
+								}
+								text_single = {
+									visible = "[Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_renaissance_sculptures_researched').GetValue, '(CFixedPoint)1.0'))]"
+									text = "TV_RM_POTENTIAL_NOT_RESEARCHED"
+									default_format = "#color_red"
+									align = nobaseline
+								}
+							}
+						}
+						widget = {
+							visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_open_age_ceiling').GetValue, '(CFixedPoint)2.0')]"
+							size = { 470 30 }
+							using = bg_paper_card_situations
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								margin = { 8 0 }
+								spacing = 6
+								icon = {
+									size = { 22 22 }
+									texture = "gfx/interface/icons/flat_icons/ages.dds"
+								}
+								text_single = {
+									text = "TV_RM_POTENTIAL_AGE_2"
+									align = nobaseline
+								}
+								text_single = {
+									text = "TV_RM_TARGET_CROWN_POWER_RENAISSANCE"
+									default_format = "#explanation_link"
+									tooltip = "TV_RM_TARGET_CROWN_POWER_RENAISSANCE_TT"
+									align = nobaseline
+								}
+								expand = {}
+								text_single = {
+									visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_crown_power_renaissance_researched').GetValue, '(CFixedPoint)1.0')]"
+									text = "TV_RM_POTENTIAL_RESEARCHED"
+									default_format = "#color_green"
+									align = nobaseline
+								}
+								text_single = {
+									visible = "[Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_crown_power_renaissance_researched').GetValue, '(CFixedPoint)1.0'))]"
+									text = "TV_RM_POTENTIAL_NOT_RESEARCHED"
+									default_format = "#color_red"
+									align = nobaseline
+								}
+							}
+						}
+						widget = {
+							visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_open_age_ceiling').GetValue, '(CFixedPoint)2.0')]"
+							size = { 470 30 }
+							using = bg_paper_card_situations
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								margin = { 8 0 }
+								spacing = 6
+								icon = {
+									size = { 22 22 }
+									texture = "gfx/interface/icons/flat_icons/ages.dds"
+								}
+								text_single = {
+									text = "TV_RM_POTENTIAL_AGE_2"
+									align = nobaseline
+								}
+								text_single = {
+									text = "TV_RM_TARGET_DOCK"
+									default_format = "#explanation_link"
+									tooltip = "TV_RM_TARGET_DOCK_TT"
+									align = nobaseline
+								}
+								expand = {}
+								text_single = {
+									visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_dock_researched').GetValue, '(CFixedPoint)1.0')]"
+									text = "TV_RM_POTENTIAL_RESEARCHED"
+									default_format = "#color_green"
+									align = nobaseline
+								}
+								text_single = {
+									visible = "[Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_dock_researched').GetValue, '(CFixedPoint)1.0'))]"
+									text = "TV_RM_POTENTIAL_NOT_RESEARCHED"
+									default_format = "#color_red"
+									align = nobaseline
+								}
+							}
+						}
+						widget = {
+							visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_open_age_ceiling').GetValue, '(CFixedPoint)2.0')]"
+							size = { 470 30 }
+							using = bg_paper_card_situations
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								margin = { 8 0 }
+								spacing = 6
+								icon = {
+									size = { 22 22 }
+									texture = "gfx/interface/icons/flat_icons/ages.dds"
+								}
+								text_single = {
+									text = "TV_RM_POTENTIAL_AGE_2"
+									align = nobaseline
+								}
+								text_single = {
+									text = "TV_RM_TARGET_STANDARDIZED_COINS"
+									default_format = "#explanation_link"
+									tooltip = "TV_RM_TARGET_STANDARDIZED_COINS_TT"
+									align = nobaseline
+								}
+								expand = {}
+								text_single = {
+									visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_standardized_coins_researched').GetValue, '(CFixedPoint)1.0')]"
+									text = "TV_RM_POTENTIAL_RESEARCHED"
+									default_format = "#color_green"
+									align = nobaseline
+								}
+								text_single = {
+									visible = "[Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_standardized_coins_researched').GetValue, '(CFixedPoint)1.0'))]"
+									text = "TV_RM_POTENTIAL_NOT_RESEARCHED"
+									default_format = "#color_red"
+									align = nobaseline
+								}
+							}
+						}
+						widget = {
+							visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_open_age_ceiling').GetValue, '(CFixedPoint)2.0')]"
+							size = { 470 30 }
+							using = bg_paper_card_situations
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								margin = { 8 0 }
+								spacing = 6
+								icon = {
+									size = { 22 22 }
+									texture = "gfx/interface/icons/flat_icons/ages.dds"
+								}
+								text_single = {
+									text = "TV_RM_POTENTIAL_AGE_2"
+									align = nobaseline
+								}
+								text_single = {
+									text = "TV_RM_TARGET_GUNPOWDER"
+									default_format = "#explanation_link"
+									tooltip = "TV_RM_TARGET_GUNPOWDER_TT"
+									align = nobaseline
+								}
+								expand = {}
+								text_single = {
+									visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_gunpowder_researched').GetValue, '(CFixedPoint)1.0')]"
+									text = "TV_RM_POTENTIAL_RESEARCHED"
+									default_format = "#color_green"
+									align = nobaseline
+								}
+								text_single = {
+									visible = "[Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_gunpowder_researched').GetValue, '(CFixedPoint)1.0'))]"
+									text = "TV_RM_POTENTIAL_NOT_RESEARCHED"
+									default_format = "#color_red"
+									align = nobaseline
+								}
+							}
+						}
+						widget = {
+							visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_open_age_ceiling').GetValue, '(CFixedPoint)2.0')]"
+							size = { 470 30 }
+							using = bg_paper_card_situations
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								margin = { 8 0 }
+								spacing = 6
+								icon = {
+									size = { 22 22 }
+									texture = "gfx/interface/icons/flat_icons/ages.dds"
+								}
+								text_single = {
+									text = "TV_RM_POTENTIAL_AGE_2"
+									align = nobaseline
+								}
+								text_single = {
+									text = "TV_RM_TARGET_ARMORY"
+									default_format = "#explanation_link"
+									tooltip = "TV_RM_TARGET_ARMORY_TT"
+									align = nobaseline
+								}
+								expand = {}
+								text_single = {
+									visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_armory_researched').GetValue, '(CFixedPoint)1.0')]"
+									text = "TV_RM_POTENTIAL_RESEARCHED"
+									default_format = "#color_green"
+									align = nobaseline
+								}
+								text_single = {
+									visible = "[Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_armory_researched').GetValue, '(CFixedPoint)1.0'))]"
+									text = "TV_RM_POTENTIAL_NOT_RESEARCHED"
+									default_format = "#color_red"
+									align = nobaseline
+								}
+							}
+						}
+						widget = {
+							visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_open_age_ceiling').GetValue, '(CFixedPoint)3.0')]"
+							size = { 470 30 }
+							using = bg_paper_card_situations
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								margin = { 8 0 }
+								spacing = 6
+								icon = {
+									size = { 22 22 }
+									texture = "gfx/interface/icons/flat_icons/ages.dds"
+								}
+								text_single = {
+									text = "TV_RM_POTENTIAL_AGE_3"
+									align = nobaseline
+								}
+								text_single = {
+									text = "TV_RM_TARGET_OPEN_SEA_EXPLORATION"
+									default_format = "#explanation_link"
+									tooltip = "TV_RM_TARGET_OPEN_SEA_EXPLORATION_TT"
+									align = nobaseline
+								}
+								expand = {}
+								text_single = {
+									visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_open_sea_exploration_researched').GetValue, '(CFixedPoint)1.0')]"
+									text = "TV_RM_POTENTIAL_RESEARCHED"
+									default_format = "#color_green"
+									align = nobaseline
+								}
+								text_single = {
+									visible = "[Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_open_sea_exploration_researched').GetValue, '(CFixedPoint)1.0'))]"
+									text = "TV_RM_POTENTIAL_NOT_RESEARCHED"
+									default_format = "#color_red"
+									align = nobaseline
+								}
+							}
+						}
+						widget = {
+							visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_open_age_ceiling').GetValue, '(CFixedPoint)3.0')]"
+							size = { 470 30 }
+							using = bg_paper_card_situations
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								margin = { 8 0 }
+								spacing = 6
+								icon = {
+									size = { 22 22 }
+									texture = "gfx/interface/icons/flat_icons/ages.dds"
+								}
+								text_single = {
+									text = "TV_RM_POTENTIAL_AGE_3"
+									align = nobaseline
+								}
+								text_single = {
+									text = "TV_RM_TARGET_BLAST_FURNACE"
+									default_format = "#explanation_link"
+									tooltip = "TV_RM_TARGET_BLAST_FURNACE_TT"
+									align = nobaseline
+								}
+								expand = {}
+								text_single = {
+									visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_blast_furnace_researched').GetValue, '(CFixedPoint)1.0')]"
+									text = "TV_RM_POTENTIAL_RESEARCHED"
+									default_format = "#color_green"
+									align = nobaseline
+								}
+								text_single = {
+									visible = "[Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_blast_furnace_researched').GetValue, '(CFixedPoint)1.0'))]"
+									text = "TV_RM_POTENTIAL_NOT_RESEARCHED"
+									default_format = "#color_red"
+									align = nobaseline
+								}
+							}
+						}
+						widget = {
+							visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_open_age_ceiling').GetValue, '(CFixedPoint)3.0')]"
+							size = { 470 30 }
+							using = bg_paper_card_situations
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								margin = { 8 0 }
+								spacing = 6
+								icon = {
+									size = { 22 22 }
+									texture = "gfx/interface/icons/flat_icons/ages.dds"
+								}
+								text_single = {
+									text = "TV_RM_POTENTIAL_AGE_3"
+									align = nobaseline
+								}
+								text_single = {
+									text = "TV_RM_TARGET_FACETING"
+									default_format = "#explanation_link"
+									tooltip = "TV_RM_TARGET_FACETING_TT"
+									align = nobaseline
+								}
+								expand = {}
+								text_single = {
+									visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_faceting_researched').GetValue, '(CFixedPoint)1.0')]"
+									text = "TV_RM_POTENTIAL_RESEARCHED"
+									default_format = "#color_green"
+									align = nobaseline
+								}
+								text_single = {
+									visible = "[Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_faceting_researched').GetValue, '(CFixedPoint)1.0'))]"
+									text = "TV_RM_POTENTIAL_NOT_RESEARCHED"
+									default_format = "#color_red"
+									align = nobaseline
+								}
+							}
+						}
+						widget = {
+							visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_open_age_ceiling').GetValue, '(CFixedPoint)3.0')]"
+							size = { 470 30 }
+							using = bg_paper_card_situations
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								margin = { 8 0 }
+								spacing = 6
+								icon = {
+									size = { 22 22 }
+									texture = "gfx/interface/icons/flat_icons/ages.dds"
+								}
+								text_single = {
+									text = "TV_RM_POTENTIAL_AGE_3"
+									align = nobaseline
+								}
+								text_single = {
+									text = "TV_RM_TARGET_PAPER_WORKSHOP"
+									default_format = "#explanation_link"
+									tooltip = "TV_RM_TARGET_PAPER_WORKSHOP_TT"
+									align = nobaseline
+								}
+								expand = {}
+								text_single = {
+									visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_paper_workshop_researched').GetValue, '(CFixedPoint)1.0')]"
+									text = "TV_RM_POTENTIAL_RESEARCHED"
+									default_format = "#color_green"
+									align = nobaseline
+								}
+								text_single = {
+									visible = "[Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_paper_workshop_researched').GetValue, '(CFixedPoint)1.0'))]"
+									text = "TV_RM_POTENTIAL_NOT_RESEARCHED"
+									default_format = "#color_red"
+									align = nobaseline
+								}
+							}
+						}
+						widget = {
+							visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_open_age_ceiling').GetValue, '(CFixedPoint)3.0')]"
+							size = { 470 30 }
+							using = bg_paper_card_situations
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								margin = { 8 0 }
+								spacing = 6
+								icon = {
+									size = { 22 22 }
+									texture = "gfx/interface/icons/flat_icons/ages.dds"
+								}
+								text_single = {
+									text = "TV_RM_POTENTIAL_AGE_3"
+									align = nobaseline
+								}
+								text_single = {
+									text = "TV_RM_TARGET_TRAINING_FIELDS"
+									default_format = "#explanation_link"
+									tooltip = "TV_RM_TARGET_TRAINING_FIELDS_TT"
+									align = nobaseline
+								}
+								expand = {}
+								text_single = {
+									visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_training_fields_researched').GetValue, '(CFixedPoint)1.0')]"
+									text = "TV_RM_POTENTIAL_RESEARCHED"
+									default_format = "#color_green"
+									align = nobaseline
+								}
+								text_single = {
+									visible = "[Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_training_fields_researched').GetValue, '(CFixedPoint)1.0'))]"
+									text = "TV_RM_POTENTIAL_NOT_RESEARCHED"
+									default_format = "#color_red"
+									align = nobaseline
+								}
+							}
+						}
+						widget = {
+							visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_open_age_ceiling').GetValue, '(CFixedPoint)3.0')]"
+							size = { 470 30 }
+							using = bg_paper_card_situations
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								margin = { 8 0 }
+								spacing = 6
+								icon = {
+									size = { 22 22 }
+									texture = "gfx/interface/icons/flat_icons/ages.dds"
+								}
+								text_single = {
+									text = "TV_RM_POTENTIAL_AGE_3"
+									align = nobaseline
+								}
+								text_single = {
+									text = "TV_RM_TARGET_CUSTOMS_HOUSE"
+									default_format = "#explanation_link"
+									tooltip = "TV_RM_TARGET_CUSTOMS_HOUSE_TT"
+									align = nobaseline
+								}
+								expand = {}
+								text_single = {
+									visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_customs_house_researched').GetValue, '(CFixedPoint)1.0')]"
+									text = "TV_RM_POTENTIAL_RESEARCHED"
+									default_format = "#color_green"
+									align = nobaseline
+								}
+								text_single = {
+									visible = "[Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_customs_house_researched').GetValue, '(CFixedPoint)1.0'))]"
+									text = "TV_RM_POTENTIAL_NOT_RESEARCHED"
+									default_format = "#color_red"
+									align = nobaseline
+								}
+							}
+						}
+						widget = {
+							visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_open_age_ceiling').GetValue, '(CFixedPoint)4.0')]"
+							size = { 470 30 }
+							using = bg_paper_card_situations
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								margin = { 8 0 }
+								spacing = 6
+								icon = {
+									size = { 22 22 }
+									texture = "gfx/interface/icons/flat_icons/ages.dds"
+								}
+								text_single = {
+									text = "TV_RM_POTENTIAL_AGE_4"
+									align = nobaseline
+								}
+								text_single = {
+									text = "TV_RM_TARGET_THE_PRINCE"
+									default_format = "#explanation_link"
+									tooltip = "TV_RM_TARGET_THE_PRINCE_TT"
+									align = nobaseline
+								}
+								expand = {}
+								text_single = {
+									visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_the_prince_researched').GetValue, '(CFixedPoint)1.0')]"
+									text = "TV_RM_POTENTIAL_RESEARCHED"
+									default_format = "#color_green"
+									align = nobaseline
+								}
+								text_single = {
+									visible = "[Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_the_prince_researched').GetValue, '(CFixedPoint)1.0'))]"
+									text = "TV_RM_POTENTIAL_NOT_RESEARCHED"
+									default_format = "#color_red"
+									align = nobaseline
+								}
+							}
+						}
+						widget = {
+							visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_open_age_ceiling').GetValue, '(CFixedPoint)4.0')]"
+							size = { 470 30 }
+							using = bg_paper_card_situations
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								margin = { 8 0 }
+								spacing = 6
+								icon = {
+									size = { 22 22 }
+									texture = "gfx/interface/icons/flat_icons/ages.dds"
+								}
+								text_single = {
+									text = "TV_RM_POTENTIAL_AGE_4"
+									align = nobaseline
+								}
+								text_single = {
+									text = "TV_RM_TARGET_PHARMACOLOGY"
+									default_format = "#explanation_link"
+									tooltip = "TV_RM_TARGET_PHARMACOLOGY_TT"
+									align = nobaseline
+								}
+								expand = {}
+								text_single = {
+									visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_pharmacology_researched').GetValue, '(CFixedPoint)1.0')]"
+									text = "TV_RM_POTENTIAL_RESEARCHED"
+									default_format = "#color_green"
+									align = nobaseline
+								}
+								text_single = {
+									visible = "[Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_pharmacology_researched').GetValue, '(CFixedPoint)1.0'))]"
+									text = "TV_RM_POTENTIAL_NOT_RESEARCHED"
+									default_format = "#color_red"
+									align = nobaseline
+								}
+							}
+						}
+						widget = {
+							visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_open_age_ceiling').GetValue, '(CFixedPoint)4.0')]"
+							size = { 470 30 }
+							using = bg_paper_card_situations
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								margin = { 8 0 }
+								spacing = 6
+								icon = {
+									size = { 22 22 }
+									texture = "gfx/interface/icons/flat_icons/ages.dds"
+								}
+								text_single = {
+									text = "TV_RM_POTENTIAL_AGE_4"
+									align = nobaseline
+								}
+								text_single = {
+									text = "TV_RM_TARGET_LETTERS_OF_MARQUE"
+									default_format = "#explanation_link"
+									tooltip = "TV_RM_TARGET_LETTERS_OF_MARQUE_TT"
+									align = nobaseline
+								}
+								expand = {}
+								text_single = {
+									visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_letters_of_marque_researched').GetValue, '(CFixedPoint)1.0')]"
+									text = "TV_RM_POTENTIAL_RESEARCHED"
+									default_format = "#color_green"
+									align = nobaseline
+								}
+								text_single = {
+									visible = "[Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_letters_of_marque_researched').GetValue, '(CFixedPoint)1.0'))]"
+									text = "TV_RM_POTENTIAL_NOT_RESEARCHED"
+									default_format = "#color_red"
+									align = nobaseline
+								}
+							}
+						}
+						widget = {
+							visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_open_age_ceiling').GetValue, '(CFixedPoint)4.0')]"
+							size = { 470 30 }
+							using = bg_paper_card_situations
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								margin = { 8 0 }
+								spacing = 6
+								icon = {
+									size = { 22 22 }
+									texture = "gfx/interface/icons/flat_icons/ages.dds"
+								}
+								text_single = {
+									text = "TV_RM_POTENTIAL_AGE_4"
+									align = nobaseline
+								}
+								text_single = {
+									text = "TV_RM_TARGET_SLITTING_MILLS"
+									default_format = "#explanation_link"
+									tooltip = "TV_RM_TARGET_SLITTING_MILLS_TT"
+									align = nobaseline
+								}
+								expand = {}
+								text_single = {
+									visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_slitting_mills_researched').GetValue, '(CFixedPoint)1.0')]"
+									text = "TV_RM_POTENTIAL_RESEARCHED"
+									default_format = "#color_green"
+									align = nobaseline
+								}
+								text_single = {
+									visible = "[Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_slitting_mills_researched').GetValue, '(CFixedPoint)1.0'))]"
+									text = "TV_RM_POTENTIAL_NOT_RESEARCHED"
+									default_format = "#color_red"
+									align = nobaseline
+								}
+							}
+						}
+						widget = {
+							visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_open_age_ceiling').GetValue, '(CFixedPoint)4.0')]"
+							size = { 470 30 }
+							using = bg_paper_card_situations
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								margin = { 8 0 }
+								spacing = 6
+								icon = {
+									size = { 22 22 }
+									texture = "gfx/interface/icons/flat_icons/ages.dds"
+								}
+								text_single = {
+									text = "TV_RM_POTENTIAL_AGE_4"
+									align = nobaseline
+								}
+								text_single = {
+									text = "TV_RM_TARGET_CANNON_WORKSHOP"
+									default_format = "#explanation_link"
+									tooltip = "TV_RM_TARGET_CANNON_WORKSHOP_TT"
+									align = nobaseline
+								}
+								expand = {}
+								text_single = {
+									visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_cannon_workshop_researched').GetValue, '(CFixedPoint)1.0')]"
+									text = "TV_RM_POTENTIAL_RESEARCHED"
+									default_format = "#color_green"
+									align = nobaseline
+								}
+								text_single = {
+									visible = "[Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_cannon_workshop_researched').GetValue, '(CFixedPoint)1.0'))]"
+									text = "TV_RM_POTENTIAL_NOT_RESEARCHED"
+									default_format = "#color_red"
+									align = nobaseline
+								}
+							}
+						}
+						widget = {
+							visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_open_age_ceiling').GetValue, '(CFixedPoint)4.0')]"
+							size = { 470 30 }
+							using = bg_paper_card_situations
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								margin = { 8 0 }
+								spacing = 6
+								icon = {
+									size = { 22 22 }
+									texture = "gfx/interface/icons/flat_icons/ages.dds"
+								}
+								text_single = {
+									text = "TV_RM_POTENTIAL_AGE_4"
+									align = nobaseline
+								}
+								text_single = {
+									text = "TV_RM_TARGET_BARRACKS"
+									default_format = "#explanation_link"
+									tooltip = "TV_RM_TARGET_BARRACKS_TT"
+									align = nobaseline
+								}
+								expand = {}
+								text_single = {
+									visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_barracks_researched').GetValue, '(CFixedPoint)1.0')]"
+									text = "TV_RM_POTENTIAL_RESEARCHED"
+									default_format = "#color_green"
+									align = nobaseline
+								}
+								text_single = {
+									visible = "[Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_barracks_researched').GetValue, '(CFixedPoint)1.0'))]"
+									text = "TV_RM_POTENTIAL_NOT_RESEARCHED"
+									default_format = "#color_red"
+									align = nobaseline
+								}
+							}
+						}
+						widget = {
+							visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_open_age_ceiling').GetValue, '(CFixedPoint)5.0')]"
+							size = { 470 30 }
+							using = bg_paper_card_situations
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								margin = { 8 0 }
+								spacing = 6
+								icon = {
+									size = { 22 22 }
+									texture = "gfx/interface/icons/flat_icons/ages.dds"
+								}
+								text_single = {
+									text = "TV_RM_POTENTIAL_AGE_5"
+									align = nobaseline
+								}
+								text_single = {
+									text = "TV_RM_TARGET_OSTENTATIOUS_CLOTHING"
+									default_format = "#explanation_link"
+									tooltip = "TV_RM_TARGET_OSTENTATIOUS_CLOTHING_TT"
+									align = nobaseline
+								}
+								expand = {}
+								text_single = {
+									visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_ostentatious_clothing_researched').GetValue, '(CFixedPoint)1.0')]"
+									text = "TV_RM_POTENTIAL_RESEARCHED"
+									default_format = "#color_green"
+									align = nobaseline
+								}
+								text_single = {
+									visible = "[Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_ostentatious_clothing_researched').GetValue, '(CFixedPoint)1.0'))]"
+									text = "TV_RM_POTENTIAL_NOT_RESEARCHED"
+									default_format = "#color_red"
+									align = nobaseline
+								}
+							}
+						}
+						widget = {
+							visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_open_age_ceiling').GetValue, '(CFixedPoint)5.0')]"
+							size = { 470 30 }
+							using = bg_paper_card_situations
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								margin = { 8 0 }
+								spacing = 6
+								icon = {
+									size = { 22 22 }
+									texture = "gfx/interface/icons/flat_icons/ages.dds"
+								}
+								text_single = {
+									text = "TV_RM_POTENTIAL_AGE_5"
+									align = nobaseline
+								}
+								text_single = {
+									text = "TV_RM_TARGET_SANITATION"
+									default_format = "#explanation_link"
+									tooltip = "TV_RM_TARGET_SANITATION_TT"
+									align = nobaseline
+								}
+								expand = {}
+								text_single = {
+									visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_sanitation_researched').GetValue, '(CFixedPoint)1.0')]"
+									text = "TV_RM_POTENTIAL_RESEARCHED"
+									default_format = "#color_green"
+									align = nobaseline
+								}
+								text_single = {
+									visible = "[Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_sanitation_researched').GetValue, '(CFixedPoint)1.0'))]"
+									text = "TV_RM_POTENTIAL_NOT_RESEARCHED"
+									default_format = "#color_red"
+									align = nobaseline
+								}
+							}
+						}
+						widget = {
+							visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_open_age_ceiling').GetValue, '(CFixedPoint)5.0')]"
+							size = { 470 30 }
+							using = bg_paper_card_situations
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								margin = { 8 0 }
+								spacing = 6
+								icon = {
+									size = { 22 22 }
+									texture = "gfx/interface/icons/flat_icons/ages.dds"
+								}
+								text_single = {
+									text = "TV_RM_POTENTIAL_AGE_5"
+									align = nobaseline
+								}
+								text_single = {
+									text = "TV_RM_TARGET_COKE_BLAST_FURNACE"
+									default_format = "#explanation_link"
+									tooltip = "TV_RM_TARGET_COKE_BLAST_FURNACE_TT"
+									align = nobaseline
+								}
+								expand = {}
+								text_single = {
+									visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_coke_blast_furnace_researched').GetValue, '(CFixedPoint)1.0')]"
+									text = "TV_RM_POTENTIAL_RESEARCHED"
+									default_format = "#color_green"
+									align = nobaseline
+								}
+								text_single = {
+									visible = "[Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_coke_blast_furnace_researched').GetValue, '(CFixedPoint)1.0'))]"
+									text = "TV_RM_POTENTIAL_NOT_RESEARCHED"
+									default_format = "#color_red"
+									align = nobaseline
+								}
+							}
+						}
+						widget = {
+							visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_open_age_ceiling').GetValue, '(CFixedPoint)5.0')]"
+							size = { 470 30 }
+							using = bg_paper_card_situations
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								margin = { 8 0 }
+								spacing = 6
+								icon = {
+									size = { 22 22 }
+									texture = "gfx/interface/icons/flat_icons/ages.dds"
+								}
+								text_single = {
+									text = "TV_RM_POTENTIAL_AGE_5"
+									align = nobaseline
+								}
+								text_single = {
+									text = "TV_RM_TARGET_SCIENTIFIC_MAPPING"
+									default_format = "#explanation_link"
+									tooltip = "TV_RM_TARGET_SCIENTIFIC_MAPPING_TT"
+									align = nobaseline
+								}
+								expand = {}
+								text_single = {
+									visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_scientific_mapping_researched').GetValue, '(CFixedPoint)1.0')]"
+									text = "TV_RM_POTENTIAL_RESEARCHED"
+									default_format = "#color_green"
+									align = nobaseline
+								}
+								text_single = {
+									visible = "[Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_scientific_mapping_researched').GetValue, '(CFixedPoint)1.0'))]"
+									text = "TV_RM_POTENTIAL_NOT_RESEARCHED"
+									default_format = "#color_red"
+									align = nobaseline
+								}
+							}
+						}
+						widget = {
+							visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_open_age_ceiling').GetValue, '(CFixedPoint)5.0')]"
+							size = { 470 30 }
+							using = bg_paper_card_situations
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								margin = { 8 0 }
+								spacing = 6
+								icon = {
+									size = { 22 22 }
+									texture = "gfx/interface/icons/flat_icons/ages.dds"
+								}
+								text_single = {
+									text = "TV_RM_POTENTIAL_AGE_5"
+									align = nobaseline
+								}
+								text_single = {
+									text = "TV_RM_TARGET_SIEGE_CANNONS"
+									default_format = "#explanation_link"
+									tooltip = "TV_RM_TARGET_SIEGE_CANNONS_TT"
+									align = nobaseline
+								}
+								expand = {}
+								text_single = {
+									visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_siege_cannons_researched').GetValue, '(CFixedPoint)1.0')]"
+									text = "TV_RM_POTENTIAL_RESEARCHED"
+									default_format = "#color_green"
+									align = nobaseline
+								}
+								text_single = {
+									visible = "[Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_siege_cannons_researched').GetValue, '(CFixedPoint)1.0'))]"
+									text = "TV_RM_POTENTIAL_NOT_RESEARCHED"
+									default_format = "#color_red"
+									align = nobaseline
+								}
+							}
+						}
+						widget = {
+							visible = "[GreaterThanOrEqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_research_open_age_ceiling').GetValue, '(CFixedPoint)5.0')]"
+							size = { 470 30 }
+							using = bg_paper_card_situations
+							hbox = {
+								layoutpolicy_horizontal = expanding
+								margin = { 8 0 }
+								spacing = 6
+								icon = {
+									size = { 22 22 }
+									texture = "gfx/interface/icons/flat_icons/ages.dds"
+								}
+								text_single = {
+									text = "TV_RM_POTENTIAL_AGE_5"
+									align = nobaseline
+								}
+								text_single = {
+									text = "TV_RM_TARGET_MAGAZINES"
+									default_format = "#explanation_link"
+									tooltip = "TV_RM_TARGET_MAGAZINES_TT"
+									align = nobaseline
+								}
+								expand = {}
+								text_single = {
+									visible = "[EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_magazines_researched').GetValue, '(CFixedPoint)1.0')]"
+									text = "TV_RM_POTENTIAL_RESEARCHED"
+									default_format = "#color_green"
+									align = nobaseline
+								}
+								text_single = {
+									visible = "[Not(EqualTo_CFixedPoint(Country.MakeScope.GetVariable('tv_advance_magazines_researched').GetValue, '(CFixedPoint)1.0'))]"
+									text = "TV_RM_POTENTIAL_NOT_RESEARCHED"
+									default_format = "#color_red"
+									align = nobaseline
+								}
+							}
+						}
+					}
+				}
+			}
+
 			card_common = {
 				maximumsize = { 500 -1 }
 				visible = "[Not(Country.MakeScope.GetVariable('tv_research_target').IsSet)]"

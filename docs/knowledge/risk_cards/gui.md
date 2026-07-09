@@ -174,7 +174,21 @@ Load this card before editing `.gui` files or GUI-bound localization expressions
     change smaller. Preserve the established player-facing shape, or extend the
     generator/data source and regenerate.
 
+28. Cache scripted-trigger results for list/row filtering.
+    GUI expressions cannot evaluate scripted triggers at all (rule 2 covers `has_variable`
+    specifically; this generalizes to any scripted_trigger, such as an age-gate or
+    `has_advance` eligibility check). If a widget needs to filter or show/hide rows based on
+    trigger logic, mirror that trigger's result into a country variable via a scripted_effect,
+    and refresh it from a real lifecycle point (join/founding effect plus the feature's existing
+    monthly_country_pulse hook) — never from a GUI/tooltip read path. Bind the GUI `visible=`
+    expression to the mirrored variable.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`, then check the in-game error log after hover
 testing the panel. GUI failures often appear only when the widget is rendered or hovered.
+
+## Relevant Anti-Patterns
+
+- `gui_list_filter_needs_cached_variable` [advisory]: GUI row/list visibility cannot bind to a
+  scripted_trigger directly; mirror it into a country variable refreshed from a lifecycle hook.

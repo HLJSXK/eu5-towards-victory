@@ -160,3 +160,232 @@ tv_unlock_advance_magazines_effect = {
 	set_variable = { name = tv_advance_magazines_unlocked value = 1 }
 	research_advance = advance_type:army_movement_speed_absolutism
 }
+
+# ──────────────────────────────────────────────────────────────────────
+# ADVANCE RESEARCHED-STATUS MIRROR — Potential Projects card display
+# Mirrors has_advance into a GUI-readable variable per advance. GUI expressions
+# cannot evaluate scripted triggers/has_advance directly (see docs/knowledge/
+# risk_cards/gui.md rule 2), so this is refreshed from a country lifecycle hook
+# (join effect + monthly pulse), never from a GUI/tooltip read path.
+# Called from tv_research_refresh_potential_projects_effect.
+# ──────────────────────────────────────────────────────────────────────
+
+tv_research_refresh_advance_status_effect = {
+	if = {
+		limit = { has_advance = medieval_administration }
+		set_variable = { name = tv_advance_medieval_administration_researched value = 1 }
+	}
+	else = {
+		set_variable = { name = tv_advance_medieval_administration_researched value = 0 }
+	}
+	if = {
+		limit = { has_advance = scriptorium_advance }
+		set_variable = { name = tv_advance_scriptorium_researched value = 1 }
+	}
+	else = {
+		set_variable = { name = tv_advance_scriptorium_researched value = 0 }
+	}
+	if = {
+		limit = { has_advance = horse_riding_advance }
+		set_variable = { name = tv_advance_horse_riding_researched value = 1 }
+	}
+	else = {
+		set_variable = { name = tv_advance_horse_riding_researched value = 0 }
+	}
+	if = {
+		limit = { has_advance = bronze_working }
+		set_variable = { name = tv_advance_bronze_working_researched value = 1 }
+	}
+	else = {
+		set_variable = { name = tv_advance_bronze_working_researched value = 0 }
+	}
+	if = {
+		limit = { has_advance = iron_working }
+		set_variable = { name = tv_advance_iron_working_researched value = 1 }
+	}
+	else = {
+		set_variable = { name = tv_advance_iron_working_researched value = 0 }
+	}
+	if = {
+		limit = { has_advance = efficient_logistics }
+		set_variable = { name = tv_advance_efficient_logistics_researched value = 1 }
+	}
+	else = {
+		set_variable = { name = tv_advance_efficient_logistics_researched value = 0 }
+	}
+	if = {
+		limit = { has_advance = abacus_advance }
+		set_variable = { name = tv_advance_abacus_researched value = 1 }
+	}
+	else = {
+		set_variable = { name = tv_advance_abacus_researched value = 0 }
+	}
+	if = {
+		limit = { has_advance = renaissance_sculptures }
+		set_variable = { name = tv_advance_renaissance_sculptures_researched value = 1 }
+	}
+	else = {
+		set_variable = { name = tv_advance_renaissance_sculptures_researched value = 0 }
+	}
+	if = {
+		limit = { has_advance = crown_power_advance_renaissance }
+		set_variable = { name = tv_advance_crown_power_renaissance_researched value = 1 }
+	}
+	else = {
+		set_variable = { name = tv_advance_crown_power_renaissance_researched value = 0 }
+	}
+	if = {
+		limit = { has_advance = dock_advance }
+		set_variable = { name = tv_advance_dock_researched value = 1 }
+	}
+	else = {
+		set_variable = { name = tv_advance_dock_researched value = 0 }
+	}
+	if = {
+		limit = { has_advance = standardized_coins }
+		set_variable = { name = tv_advance_standardized_coins_researched value = 1 }
+	}
+	else = {
+		set_variable = { name = tv_advance_standardized_coins_researched value = 0 }
+	}
+	if = {
+		limit = { has_advance = gunpowder_advance }
+		set_variable = { name = tv_advance_gunpowder_researched value = 1 }
+	}
+	else = {
+		set_variable = { name = tv_advance_gunpowder_researched value = 0 }
+	}
+	if = {
+		limit = { has_advance = armory_advance }
+		set_variable = { name = tv_advance_armory_researched value = 1 }
+	}
+	else = {
+		set_variable = { name = tv_advance_armory_researched value = 0 }
+	}
+	if = {
+		limit = { has_advance = open_sea_exploration }
+		set_variable = { name = tv_advance_open_sea_exploration_researched value = 1 }
+	}
+	else = {
+		set_variable = { name = tv_advance_open_sea_exploration_researched value = 0 }
+	}
+	if = {
+		limit = { has_advance = blast_furnace }
+		set_variable = { name = tv_advance_blast_furnace_researched value = 1 }
+	}
+	else = {
+		set_variable = { name = tv_advance_blast_furnace_researched value = 0 }
+	}
+	if = {
+		limit = { has_advance = faceting }
+		set_variable = { name = tv_advance_faceting_researched value = 1 }
+	}
+	else = {
+		set_variable = { name = tv_advance_faceting_researched value = 0 }
+	}
+	if = {
+		limit = { has_advance = paper_workshop_advance }
+		set_variable = { name = tv_advance_paper_workshop_researched value = 1 }
+	}
+	else = {
+		set_variable = { name = tv_advance_paper_workshop_researched value = 0 }
+	}
+	if = {
+		limit = { has_advance = training_fields_advance }
+		set_variable = { name = tv_advance_training_fields_researched value = 1 }
+	}
+	else = {
+		set_variable = { name = tv_advance_training_fields_researched value = 0 }
+	}
+	if = {
+		limit = { has_advance = customs_house_advance }
+		set_variable = { name = tv_advance_customs_house_researched value = 1 }
+	}
+	else = {
+		set_variable = { name = tv_advance_customs_house_researched value = 0 }
+	}
+	if = {
+		limit = { has_advance = gov_reform_reformation_a }
+		set_variable = { name = tv_advance_the_prince_researched value = 1 }
+	}
+	else = {
+		set_variable = { name = tv_advance_the_prince_researched value = 0 }
+	}
+	if = {
+		limit = { has_advance = pharmacology_advance }
+		set_variable = { name = tv_advance_pharmacology_researched value = 1 }
+	}
+	else = {
+		set_variable = { name = tv_advance_pharmacology_researched value = 0 }
+	}
+	if = {
+		limit = { has_advance = letters_of_marque }
+		set_variable = { name = tv_advance_letters_of_marque_researched value = 1 }
+	}
+	else = {
+		set_variable = { name = tv_advance_letters_of_marque_researched value = 0 }
+	}
+	if = {
+		limit = { has_advance = slitting_mills }
+		set_variable = { name = tv_advance_slitting_mills_researched value = 1 }
+	}
+	else = {
+		set_variable = { name = tv_advance_slitting_mills_researched value = 0 }
+	}
+	if = {
+		limit = { has_advance = cannon_workshop_advance }
+		set_variable = { name = tv_advance_cannon_workshop_researched value = 1 }
+	}
+	else = {
+		set_variable = { name = tv_advance_cannon_workshop_researched value = 0 }
+	}
+	if = {
+		limit = { has_advance = barracks_advance }
+		set_variable = { name = tv_advance_barracks_researched value = 1 }
+	}
+	else = {
+		set_variable = { name = tv_advance_barracks_researched value = 0 }
+	}
+	if = {
+		limit = { has_advance = ostentatious_clothing }
+		set_variable = { name = tv_advance_ostentatious_clothing_researched value = 1 }
+	}
+	else = {
+		set_variable = { name = tv_advance_ostentatious_clothing_researched value = 0 }
+	}
+	if = {
+		limit = { has_advance = sanitation_advance }
+		set_variable = { name = tv_advance_sanitation_researched value = 1 }
+	}
+	else = {
+		set_variable = { name = tv_advance_sanitation_researched value = 0 }
+	}
+	if = {
+		limit = { has_advance = coke_blast_furnace }
+		set_variable = { name = tv_advance_coke_blast_furnace_researched value = 1 }
+	}
+	else = {
+		set_variable = { name = tv_advance_coke_blast_furnace_researched value = 0 }
+	}
+	if = {
+		limit = { has_advance = scientific_mapping_advance }
+		set_variable = { name = tv_advance_scientific_mapping_researched value = 1 }
+	}
+	else = {
+		set_variable = { name = tv_advance_scientific_mapping_researched value = 0 }
+	}
+	if = {
+		limit = { has_advance = artillery_vs_fort_age_5_absolutism }
+		set_variable = { name = tv_advance_siege_cannons_researched value = 1 }
+	}
+	else = {
+		set_variable = { name = tv_advance_siege_cannons_researched value = 0 }
+	}
+	if = {
+		limit = { has_advance = army_movement_speed_absolutism }
+		set_variable = { name = tv_advance_magazines_researched value = 1 }
+	}
+	else = {
+		set_variable = { name = tv_advance_magazines_researched value = 0 }
+	}
+}

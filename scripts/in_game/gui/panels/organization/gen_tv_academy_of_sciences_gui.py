@@ -359,6 +359,8 @@ organization_panel = {
 \t\t\tdatacontext = "[InternationalOrganizationsView.GetPlayer]"
 \t\t\tspacing = 8
 
+# @@POTENTIAL_PROJECTS_CARD@@
+
 \t\t\tcard_common = {
 \t\t\t\tmaximumsize = { 500 -1 }
 \t\t\t\tvisible = "[Not(Country.MakeScope.GetVariable('tv_research_target').IsSet)]"
@@ -995,6 +997,84 @@ def gen_target_entry(advance: dict) -> str:
         + T*7 + "align = center|nobaseline\n"
         + T*6 + "}"
     )
+
+
+def gen_potential_project_row(lines: list[str], level: int, advance: dict) -> None:
+    age = advance["age"]
+    aid = advance["id"]
+    loc_key = f"TV_RM_TARGET_{aid.upper()}"
+    tt_key = f"{loc_key}_TT"
+    researched_var = f"tv_advance_{aid}_researched"
+    ceiling_expr = "Country.MakeScope.GetVariable('tv_research_open_age_ceiling').GetValue"
+    researched_expr = f"Country.MakeScope.GetVariable('{researched_var}')"
+
+    emit(lines, level, "widget = {")
+    emit(lines, level + 1, f"visible = \"[GreaterThanOrEqualTo_CFixedPoint({ceiling_expr}, '(CFixedPoint){age}.0')]\"")
+    emit(lines, level + 1, "size = { 470 30 }")
+    emit(lines, level + 1, "using = bg_paper_card_situations")
+    emit(lines, level + 1, "hbox = {")
+    emit(lines, level + 2, "layoutpolicy_horizontal = expanding")
+    emit(lines, level + 2, "margin = { 8 0 }")
+    emit(lines, level + 2, "spacing = 6")
+    emit(lines, level + 2, "icon = {")
+    emit(lines, level + 3, "size = { 22 22 }")
+    emit(lines, level + 3, 'texture = "gfx/interface/icons/flat_icons/ages.dds"')
+    emit(lines, level + 2, "}")
+    emit(lines, level + 2, "text_single = {")
+    emit(lines, level + 3, f'text = "TV_RM_POTENTIAL_AGE_{age}"')
+    emit(lines, level + 3, "align = nobaseline")
+    emit(lines, level + 2, "}")
+    emit(lines, level + 2, "text_single = {")
+    emit(lines, level + 3, f'text = "{loc_key}"')
+    emit(lines, level + 3, 'default_format = "#explanation_link"')
+    emit(lines, level + 3, f'tooltip = "{tt_key}"')
+    emit(lines, level + 3, "align = nobaseline")
+    emit(lines, level + 2, "}")
+    emit(lines, level + 2, "expand = {}")
+    emit(lines, level + 2, "text_single = {")
+    emit(lines, level + 3, f'visible = "[{fixed_eq(researched_expr, 1)}]"')
+    emit(lines, level + 3, 'text = "TV_RM_POTENTIAL_RESEARCHED"')
+    emit(lines, level + 3, 'default_format = "#color_green"')
+    emit(lines, level + 3, "align = nobaseline")
+    emit(lines, level + 2, "}")
+    emit(lines, level + 2, "text_single = {")
+    emit(lines, level + 3, f'visible = "[Not({fixed_eq(researched_expr, 1)})]"')
+    emit(lines, level + 3, 'text = "TV_RM_POTENTIAL_NOT_RESEARCHED"')
+    emit(lines, level + 3, 'default_format = "#color_red"')
+    emit(lines, level + 3, "align = nobaseline")
+    emit(lines, level + 2, "}")
+    emit(lines, level + 1, "}")
+    emit(lines, level, "}")
+
+
+def gen_potential_projects_card(advances: list[dict]) -> str:
+    lines: list[str] = []
+    emit(lines, 3, 'card_expandable = {')
+    emit(lines, 4, "maximumsize = { 500 -1 }")
+    emit(lines, 4, 'blockoverride "header_content" {')
+    emit(lines, 5, "icon = {")
+    emit(lines, 6, "size = { 30 30 }")
+    emit(lines, 6, 'block "header_icon" {')
+    emit(lines, 7, 'texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"')
+    emit(lines, 6, "}")
+    emit(lines, 5, "}")
+    emit(lines, 5, "text_single = {")
+    emit(lines, 6, 'block "header_text" {')
+    emit(lines, 7, 'text = "TV_RM_POTENTIAL_PROJECTS_CARD_TITLE"')
+    emit(lines, 6, "}")
+    emit(lines, 5, "}")
+    emit(lines, 5, "expand = {}")
+    emit(lines, 4, "}")
+    emit(lines, 4, 'blockoverride "bottom_content" {')
+    emit(lines, 5, "vbox = {")
+    emit(lines, 6, "ignoreinvisible = yes")
+    emit(lines, 6, "spacing = 4")
+    for advance in sorted(advances, key=lambda a: int(a["gui_value"])):
+        gen_potential_project_row(lines, 6, advance)
+    emit(lines, 5, "}")
+    emit(lines, 4, "}")
+    emit(lines, 3, "}")
+    return "\n".join(lines)
 
 
 def player_var(name: str) -> str:
@@ -1638,7 +1718,12 @@ def generate(data: dict, debate_data: dict) -> str:
     DEBATE_GROUPS = sorted(debate_data["groups"], key=lambda group: int(group["id"]))
     advances = data["locked_advances"]
     entries = "\n".join(gen_target_entry(a) for a in advances)
-    return swap_academy_tabs(GUI_PREFIX + entries + "\n" + GUI_SUFFIX)
+    prefix = GUI_PREFIX.replace(
+        "# @@POTENTIAL_PROJECTS_CARD@@",
+        gen_potential_projects_card(advances),
+        1,
+    )
+    return swap_academy_tabs(prefix + entries + "\n" + GUI_SUFFIX)
 
 
 def main() -> None:
