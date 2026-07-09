@@ -15,8 +15,8 @@ tv_engineering_department.1662 = {
 
 	option = {
 		name = tv_engineering_department.1662.a
-		trigger = { tv_wonder_dome_of_the_rock_sanctuary_access_groups_eligibility_trigger = yes }
-		tv_wonder_dome_of_the_rock_sanctuary_access_groups_row_init_effect = yes
+		trigger = { tv_wonder_dome_of_the_rock_eligibility_trigger = yes }
+		tv_wonder_dome_of_the_rock_opening_effect = yes
 	}
 }
 
@@ -29,8 +29,17 @@ tv_engineering_department.1663 = {
 
 	option = {
 		name = tv_engineering_department.1663.a
-		trigger = { tv_wonder_dome_of_the_rock_sanctuary_access_groups_eligibility_trigger = yes }
-		tv_wonder_dome_of_the_rock_sanctuary_access_groups_row_state_write_effect = yes
+		tv_wonder_dome_of_the_rock_choose_guard_discipline_effect = yes
+	}
+
+	option = {
+		name = tv_engineering_department.1663.b
+		tv_wonder_dome_of_the_rock_choose_jurist_proclamation_effect = yes
+	}
+
+	option = {
+		name = tv_engineering_department.1663.c
+		tv_wonder_dome_of_the_rock_choose_witnessed_tolerance_effect = yes
 	}
 }
 
@@ -43,14 +52,14 @@ tv_engineering_department.1664 = {
 
 	option = {
 		name = tv_engineering_department.1664.a
-		trigger = { tv_wonder_dome_of_the_rock_sanctuary_access_groups_has_contested_entity_trigger = yes }
-		tv_wonder_dome_of_the_rock_sanctuary_access_groups_reconcile_effect = yes
+		trigger = { tv_wonder_dome_of_the_rock_has_contested_entity_trigger = yes }
+		tv_wonder_dome_of_the_rock_settlement_reconcile_effect = yes
 	}
 
 	option = {
 		name = tv_engineering_department.1664.b
-		trigger = { tv_wonder_dome_of_the_rock_sanctuary_access_groups_has_contested_entity_trigger = yes }
-		tv_wonder_dome_of_the_rock_sanctuary_access_groups_narrow_effect = yes
+		trigger = { tv_wonder_dome_of_the_rock_has_contested_entity_trigger = yes }
+		tv_wonder_dome_of_the_rock_settlement_narrow_effect = yes
 	}
 }
 
@@ -63,68 +72,6 @@ tv_engineering_department.1665 = {
 
 	option = {
 		name = tv_engineering_department.1665.a
-		tv_wonder_dome_of_the_rock_sanctuary_access_groups_completion_effect = yes
-	}
-}
-
-# -- tv_engineering_department.1666 ----------------------------------------------
-tv_engineering_department.1666 = {
-	type = country_event
-	title = tv_engineering_department.1666.t
-	desc = tv_engineering_department.1666.d
-	outcome = neutral
-
-	option = {
-		name = tv_engineering_department.1666.a
-		trigger = { tv_wonder_dome_of_the_rock_custody_duties_eligibility_trigger = yes }
-		tv_wonder_dome_of_the_rock_custody_duties_row_init_effect = yes
-	}
-}
-
-# -- tv_engineering_department.1667 ----------------------------------------------
-tv_engineering_department.1667 = {
-	type = country_event
-	title = tv_engineering_department.1667.t
-	desc = tv_engineering_department.1667.d
-	outcome = neutral
-
-	option = {
-		name = tv_engineering_department.1667.a
-		trigger = { tv_wonder_dome_of_the_rock_custody_duties_eligibility_trigger = yes }
-		tv_wonder_dome_of_the_rock_custody_duties_row_state_write_effect = yes
-	}
-}
-
-# -- tv_engineering_department.1668 ----------------------------------------------
-tv_engineering_department.1668 = {
-	type = country_event
-	title = tv_engineering_department.1668.t
-	desc = tv_engineering_department.1668.d
-	outcome = neutral
-
-	option = {
-		name = tv_engineering_department.1668.a
-		trigger = { tv_wonder_dome_of_the_rock_custody_duties_has_contested_entity_trigger = yes }
-		tv_wonder_dome_of_the_rock_custody_duties_reconcile_effect = yes
-	}
-
-	option = {
-		name = tv_engineering_department.1668.b
-		trigger = { tv_wonder_dome_of_the_rock_custody_duties_has_contested_entity_trigger = yes }
-		tv_wonder_dome_of_the_rock_custody_duties_narrow_effect = yes
-	}
-}
-
-# -- tv_engineering_department.1669 ----------------------------------------------
-tv_engineering_department.1669 = {
-	type = country_event
-	title = tv_engineering_department.1669.t
-	desc = tv_engineering_department.1669.d
-	outcome = good
-
-	option = {
-		name = tv_engineering_department.1669.a
-		tv_wonder_dome_of_the_rock_custody_duties_completion_effect = yes
 		tv_wonder_dome_of_the_rock_ritual_grant_reward_effect = yes
 	}
 }

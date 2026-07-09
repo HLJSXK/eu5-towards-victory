@@ -346,10 +346,6 @@ generated:
     data:   data/unique_wonders.yaml + data/unique_wonder_ritual_designs.yaml + data/unique_wonder_ritual_prompts.yaml + data/wonder_localization.yaml + data/unique_wonder_ritual_codegen_templates.yaml + data/unique_wonder_ritual_capabilities.yaml
     output: data/unique_wonder_ritual_specs.yaml
 
-  - script: scripts/gen_unique_wonder_ritual_code.py
-    data:   data/unique_wonder_ritual_specs.yaml + data/wonder_localization.yaml + data/unique_wonder_ritual_codegen_templates.yaml + data/unique_wonder_ritual_capabilities.yaml
-    output: data/generated_fragments/unique_wonder_rituals/unique_wonder_ritual_codegen_index.md
-
   - script: scripts/in_game/common/scripted_effects/gen_tv_wonder_finalization_effects.py
     data:   data/wonders.yaml + data/wonder_final_buildings.yaml + data/wonder_generic_rituals.yaml + data/wonder_base_modifiers.yaml + data/wonder_site_rules.yaml + data/unique_wonders.yaml + data/pulse_registry.yaml
     output: src/in_game/common/scripted_effects/tv_wonder_finalization_effects.txt
