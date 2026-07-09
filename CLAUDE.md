@@ -59,6 +59,15 @@ before executing it.
 Read every risk card listed by the script. This is mandatory for high-risk domains such as `generic_actions`, where tooltip and selection pre-evaluation can execute unsafe reads before the player confirms an action. The Events risk card is routed for event files because option tooltips can pre-evaluate option effect chains, including `hidden_effect`, before the player confirms a choice. The IO risk card is also routed for IO definitions, IO laws, and country interactions that find or mutate TV international organizations.
 `src/in_game/common/laws/` is routed to the `international_organizations` risk card because IO policy scopes and AI math pre-evaluation have recurring runtime traps.
 
+The `wonders`, `philosophy_debate`, and `trade_league` domains are not isolated in their own
+directory — their files are interspersed by filename across `common/scripted_effects`,
+`static_modifiers`, `building_types`, `generic_actions`, `gui`, and localization — so
+`scripts/ai_context.py` routes them by filename substring (`FILENAME_DOMAIN_RULES`) instead
+of path prefix. Any file with `wonder` or `engineering_department` in its name routes to
+`docs/knowledge/risk_cards/wonders.md`; `philosophy_debate`, `world_debate`, or
+`academy_debate` routes to `docs/knowledge/risk_cards/philosophy_debate.md`; `trade_league` or
+`trade_chain` routes to `docs/knowledge/risk_cards/trade_league.md`.
+
 ## Resume / Handoff Discipline
 
 When a turn includes a handoff summary, compaction summary, or explicit prior-agent progress, treat it as the current task state, not as background reading.
