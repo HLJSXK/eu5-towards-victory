@@ -21,6 +21,9 @@ from unique_wonder_ritual_content import append_unique_ritual_gui
 from unique_wonder_ritual_content.alhambra import WONDER_ID as ALHAMBRA_WONDER_ID
 from unique_wonder_ritual_content.hagia import WONDER_ID as HAGIA_WONDER_ID
 from unique_wonder_ritual_content.pharos import WONDER_ID as PHAROS_WONDER_ID
+from unique_wonder_ritual_content.dome_of_the_rock import WONDER_ID as DOME_OF_THE_ROCK_WONDER_ID
+from unique_wonder_ritual_content.bank_of_saint_george import WONDER_ID as BANK_OF_SAINT_GEORGE_WONDER_ID
+from unique_wonder_ritual_content.st_peters_basilica import WONDER_ID as ST_PETERS_BASILICA_WONDER_ID
 
 OUT_FILE = REPO_ROOT / "data" / "generated_fragments" / "tv_engineering_department_wonder_mechanics.gui"
 SCRIPT_REL = "scripts/in_game/gui/panels/organization/gen_tv_engineering_department_wonder_mechanics_gui.py"
@@ -122,6 +125,27 @@ def alhambra_locked_expr() -> str:
     )
 
 
+def dome_of_the_rock_locked_expr() -> str:
+    return (
+        f"And({player_var('tv_wonder_locked')}.IsSet, "
+        f"{eq('tv_wonder_locked', DOME_OF_THE_ROCK_WONDER_ID)})"
+    )
+
+
+def bank_of_saint_george_locked_expr() -> str:
+    return (
+        f"And({player_var('tv_wonder_locked')}.IsSet, "
+        f"{eq('tv_wonder_locked', BANK_OF_SAINT_GEORGE_WONDER_ID)})"
+    )
+
+
+def st_peters_basilica_locked_expr() -> str:
+    return (
+        f"And({player_var('tv_wonder_locked')}.IsSet, "
+        f"{eq('tv_wonder_locked', ST_PETERS_BASILICA_WONDER_ID)})"
+    )
+
+
 def not_pharos_locked_expr() -> str:
     return f"Not({pharos_locked_expr()})"
 
@@ -134,8 +158,33 @@ def not_alhambra_locked_expr() -> str:
     return f"Not({alhambra_locked_expr()})"
 
 
+def not_dome_of_the_rock_locked_expr() -> str:
+    return f"Not({dome_of_the_rock_locked_expr()})"
+
+
+def not_bank_of_saint_george_locked_expr() -> str:
+    return f"Not({bank_of_saint_george_locked_expr()})"
+
+
+def not_st_peters_basilica_locked_expr() -> str:
+    return f"Not({st_peters_basilica_locked_expr()})"
+
+
 def not_special_unique_locked_expr() -> str:
-    return f"And3({not_pharos_locked_expr()}, {not_hagia_locked_expr()}, {not_alhambra_locked_expr()})"
+    # Wonders with a complete, dedicated Unique Wonder Ritual GUI card (see
+    # scripts/unique_wonder_ritual_content/) must not also show the generic
+    # unique-ritual "requirements"/"effects" placeholder card.
+    return fold_bool(
+        "And",
+        [
+            not_pharos_locked_expr(),
+            not_hagia_locked_expr(),
+            not_alhambra_locked_expr(),
+            not_dome_of_the_rock_locked_expr(),
+            not_bank_of_saint_george_locked_expr(),
+            not_st_peters_basilica_locked_expr(),
+        ],
+    )
 
 
 def fmt_decimal(value: Decimal) -> str:
