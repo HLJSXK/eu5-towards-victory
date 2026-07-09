@@ -101,6 +101,10 @@ generated:
     data:   data/philosophy_debates.yaml + data/philosophy_debate_random_events/*.yaml
     output: src/in_game/common/scripted_effects/tv_academy_philosophy_debate_effects.txt
 
+  - script: scripts/in_game/common/effect_localization/gen_tv_academy_philosophy_debate_effect_localization.py
+    data:   data/philosophy_debates.yaml
+    output: src/in_game/common/effect_localization/tv_academy_philosophy_debate_effects.txt
+
   - script: scripts/in_game/common/scripted_triggers/gen_tv_academy_philosophy_debate_triggers.py
     data:   data/philosophy_debates.yaml
     output: src/in_game/common/scripted_triggers/tv_academy_philosophy_debate_triggers.txt

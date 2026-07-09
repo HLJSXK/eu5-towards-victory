@@ -1677,6 +1677,18 @@
   source: "reference_game_files/game/main_menu/localization/english/events/DHE/flavor_mal_l_english.yml:46"
   notes: "In event localization, ROOT is already a script scope. Adding MakeScope produces runtime data errors such as 'Could not find promote for MakeScope' and 'Failed converting statement'."
 
+- id: custom_description_effect_needs_effect_loc
+  pattern: ''
+  validator: check_effect_loc_coverage
+  detectability: lint
+  only_in_paths: ['scripted_effects', 'effect_localization']
+  bad: "custom_description { text = MY_KEY } in common/scripted_effects where MY_KEY exists only in YAML or is absent from common/effect_localization"
+  correction: "Register MY_KEY in src/in_game/common/effect_localization with the needed perspective mappings. The mapped localization keys still live in src/main_menu/localization."
+  category: localization
+  scope: any
+  source: "runtime error.log: common/scripted_effects/tv_academy_philosophy_debate_effects.txt:370-583, 2026-07-09; reference_game_files/game/in_game/common/effect_localization/scripted_effects.txt:597"
+  notes: "EU5 validates scripted-effect custom_description text keys against common/effect_localization at load. YAML-only keys produce 'No effect loc KEY' and PostValidate errors even when the display text exists."
+
 - id: scripted_effect_io_variable_change_needs_effect_localization
   pattern: ''
   bad: "Changing an IO type variable inside a scripted_effect with a bare change_variable, expecting callers to show the variable gain or loss"

@@ -913,6 +913,35 @@ def generate_effects(data: dict) -> str:
     return "\n".join(lines).rstrip() + "\n"
 
 
+EFFECT_LOCALIZATION_PERSPECTIVES = (
+    "global",
+    "first",
+    "third",
+    "global_past",
+    "first_past",
+    "third_past",
+    "global_neg",
+    "first_neg",
+    "third_neg",
+    "global_past_neg",
+    "first_past_neg",
+    "third_past_neg",
+)
+
+
+def generate_effect_localization(data: dict) -> str:
+    script = "scripts/in_game/common/effect_localization/gen_tv_academy_philosophy_debate_effect_localization.py"
+    lines: list[str] = [header(script, "data/philosophy_debates.yaml").rstrip(), ""]
+    for group in groups(data):
+        for key in (group_seated_tooltip_key(group), group_left_tooltip_key(group)):
+            emit(lines, 0, f"{key} = {{")
+            for perspective in EFFECT_LOCALIZATION_PERSPECTIVES:
+                emit(lines, 1, f"{perspective} = {key}")
+            emit(lines, 0, "}")
+            emit(lines)
+    return "\n".join(lines).rstrip() + "\n"
+
+
 def gen_cleanup_effects(lines: list[str], data: dict) -> None:
     settings = data["settings"]
     runtime_vars = [
