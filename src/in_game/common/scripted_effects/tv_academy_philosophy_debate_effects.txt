@@ -1330,6 +1330,1140 @@ tv_academy_debate_selected_group_left_tooltip_effect = {
 	}
 }
 
+tv_academy_debate_group2_seated_tooltip_effect = {
+	if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 1 }
+		custom_description = {
+			text = tv_academy_debate_group_nobility_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 2 }
+		custom_description = {
+			text = tv_academy_debate_group_clergy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 3 }
+		custom_description = {
+			text = tv_academy_debate_group_burghers_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 4 }
+		custom_description = {
+			text = tv_academy_debate_group_peasants_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 5 }
+		custom_description = {
+			text = tv_academy_debate_group_tribes_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 6 }
+		custom_description = {
+			text = tv_academy_debate_group_dhimmi_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 7 }
+		custom_description = {
+			text = tv_academy_debate_group_cossacks_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 8 }
+		custom_description = {
+			text = tv_academy_debate_group_scholarly_community_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 9 }
+		custom_description = {
+			text = tv_academy_debate_group_public_opinion_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 10 }
+		custom_description = {
+			text = tv_academy_debate_group_court_bureaucrats_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 11 }
+		custom_description = {
+			text = tv_academy_debate_group_maritime_merchants_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 12 }
+		custom_description = {
+			text = tv_academy_debate_group_professional_military_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 13 }
+		custom_description = {
+			text = tv_academy_debate_group_religious_reformers_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 14 }
+		custom_description = {
+			text = tv_academy_debate_group_local_autonomy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 15 }
+		custom_description = {
+			text = tv_academy_debate_group_minorities_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 16 }
+		custom_description = {
+			text = tv_academy_debate_group_artists_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 17 }
+		custom_description = {
+			text = tv_academy_debate_group_foreign_power_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 18 }
+		custom_description = {
+			text = tv_academy_debate_group_great_scientist_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 19 }
+		custom_description = {
+			text = tv_academy_debate_group_continental_traders_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 20 }
+		custom_description = {
+			text = tv_academy_debate_group_plutocratic_merchants_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 21 }
+		custom_description = {
+			text = tv_academy_debate_group_mercantilist_guilds_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 22 }
+		custom_description = {
+			text = tv_academy_debate_group_free_trade_merchants_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 23 }
+		custom_description = {
+			text = tv_academy_debate_group_capitalist_financiers_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 24 }
+		custom_description = {
+			text = tv_academy_debate_group_guild_traditionalists_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 25 }
+		custom_description = {
+			text = tv_academy_debate_group_colonial_merchants_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 26 }
+		custom_description = {
+			text = tv_academy_debate_group_insular_guilds_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 27 }
+		custom_description = {
+			text = tv_academy_debate_group_feudal_levy_nobility_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 28 }
+		custom_description = {
+			text = tv_academy_debate_group_patronal_aristocracy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 29 }
+		custom_description = {
+			text = tv_academy_debate_group_serf_holding_lords_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 30 }
+		custom_description = {
+			text = tv_academy_debate_group_absolutist_court_faction_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 31 }
+		custom_description = {
+			text = tv_academy_debate_group_constitutionalist_nobility_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 32 }
+		custom_description = {
+			text = tv_academy_debate_group_war_doctrine_nobility_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 33 }
+		custom_description = {
+			text = tv_academy_debate_group_fortress_doctrine_nobility_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 34 }
+		custom_description = {
+			text = tv_academy_debate_group_devout_clergy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 35 }
+		custom_description = {
+			text = tv_academy_debate_group_humanist_clergy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 36 }
+		custom_description = {
+			text = tv_academy_debate_group_mystic_clergy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 37 }
+		custom_description = {
+			text = tv_academy_debate_group_canonist_clergy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 38 }
+		custom_description = {
+			text = tv_academy_debate_group_latinizing_clergy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 39 }
+		custom_description = {
+			text = tv_academy_debate_group_hellenizing_clergy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 40 }
+		custom_description = {
+			text = tv_academy_debate_group_crown_subjects_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 41 }
+		custom_description = {
+			text = tv_academy_debate_group_free_subject_peasantry_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 42 }
+		custom_description = {
+			text = tv_academy_debate_group_individualist_smallholders_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 43 }
+		custom_description = {
+			text = tv_academy_debate_group_communal_villages_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 44 }
+		custom_description = {
+			text = tv_academy_debate_group_traditionalist_enclave_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 45 }
+		custom_description = {
+			text = tv_academy_debate_group_assimilating_enclave_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 46 }
+		custom_description = {
+			text = tv_academy_debate_group_sinicized_minority_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 47 }
+		custom_description = {
+			text = tv_academy_debate_group_unsinicized_minority_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 48 }
+		custom_description = {
+			text = tv_academy_debate_group_warrior_clans_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group_2 ?= 49 }
+		custom_description = {
+			text = tv_academy_debate_group_diplomatic_clans_seated_text
+		}
+	}
+}
+
+tv_academy_debate_royal_option_1_seated_tooltip_effect = {
+	if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 1 }
+		custom_description = {
+			text = tv_academy_debate_group_nobility_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 2 }
+		custom_description = {
+			text = tv_academy_debate_group_clergy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 3 }
+		custom_description = {
+			text = tv_academy_debate_group_burghers_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 4 }
+		custom_description = {
+			text = tv_academy_debate_group_peasants_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 5 }
+		custom_description = {
+			text = tv_academy_debate_group_tribes_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 6 }
+		custom_description = {
+			text = tv_academy_debate_group_dhimmi_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 7 }
+		custom_description = {
+			text = tv_academy_debate_group_cossacks_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 8 }
+		custom_description = {
+			text = tv_academy_debate_group_scholarly_community_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 9 }
+		custom_description = {
+			text = tv_academy_debate_group_public_opinion_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 10 }
+		custom_description = {
+			text = tv_academy_debate_group_court_bureaucrats_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 11 }
+		custom_description = {
+			text = tv_academy_debate_group_maritime_merchants_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 12 }
+		custom_description = {
+			text = tv_academy_debate_group_professional_military_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 13 }
+		custom_description = {
+			text = tv_academy_debate_group_religious_reformers_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 14 }
+		custom_description = {
+			text = tv_academy_debate_group_local_autonomy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 15 }
+		custom_description = {
+			text = tv_academy_debate_group_minorities_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 19 }
+		custom_description = {
+			text = tv_academy_debate_group_continental_traders_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 20 }
+		custom_description = {
+			text = tv_academy_debate_group_plutocratic_merchants_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 21 }
+		custom_description = {
+			text = tv_academy_debate_group_mercantilist_guilds_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 22 }
+		custom_description = {
+			text = tv_academy_debate_group_free_trade_merchants_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 23 }
+		custom_description = {
+			text = tv_academy_debate_group_capitalist_financiers_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 24 }
+		custom_description = {
+			text = tv_academy_debate_group_guild_traditionalists_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 25 }
+		custom_description = {
+			text = tv_academy_debate_group_colonial_merchants_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 26 }
+		custom_description = {
+			text = tv_academy_debate_group_insular_guilds_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 27 }
+		custom_description = {
+			text = tv_academy_debate_group_feudal_levy_nobility_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 28 }
+		custom_description = {
+			text = tv_academy_debate_group_patronal_aristocracy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 29 }
+		custom_description = {
+			text = tv_academy_debate_group_serf_holding_lords_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 30 }
+		custom_description = {
+			text = tv_academy_debate_group_absolutist_court_faction_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 31 }
+		custom_description = {
+			text = tv_academy_debate_group_constitutionalist_nobility_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 32 }
+		custom_description = {
+			text = tv_academy_debate_group_war_doctrine_nobility_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 33 }
+		custom_description = {
+			text = tv_academy_debate_group_fortress_doctrine_nobility_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 34 }
+		custom_description = {
+			text = tv_academy_debate_group_devout_clergy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 35 }
+		custom_description = {
+			text = tv_academy_debate_group_humanist_clergy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 36 }
+		custom_description = {
+			text = tv_academy_debate_group_mystic_clergy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 37 }
+		custom_description = {
+			text = tv_academy_debate_group_canonist_clergy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 38 }
+		custom_description = {
+			text = tv_academy_debate_group_latinizing_clergy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 39 }
+		custom_description = {
+			text = tv_academy_debate_group_hellenizing_clergy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 40 }
+		custom_description = {
+			text = tv_academy_debate_group_crown_subjects_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 41 }
+		custom_description = {
+			text = tv_academy_debate_group_free_subject_peasantry_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 42 }
+		custom_description = {
+			text = tv_academy_debate_group_individualist_smallholders_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 43 }
+		custom_description = {
+			text = tv_academy_debate_group_communal_villages_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 44 }
+		custom_description = {
+			text = tv_academy_debate_group_traditionalist_enclave_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 45 }
+		custom_description = {
+			text = tv_academy_debate_group_assimilating_enclave_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 46 }
+		custom_description = {
+			text = tv_academy_debate_group_sinicized_minority_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 47 }
+		custom_description = {
+			text = tv_academy_debate_group_unsinicized_minority_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 48 }
+		custom_description = {
+			text = tv_academy_debate_group_warrior_clans_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_1_group ?= 49 }
+		custom_description = {
+			text = tv_academy_debate_group_diplomatic_clans_seated_text
+		}
+	}
+}
+
+tv_academy_debate_royal_option_2_seated_tooltip_effect = {
+	if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 1 }
+		custom_description = {
+			text = tv_academy_debate_group_nobility_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 2 }
+		custom_description = {
+			text = tv_academy_debate_group_clergy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 3 }
+		custom_description = {
+			text = tv_academy_debate_group_burghers_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 4 }
+		custom_description = {
+			text = tv_academy_debate_group_peasants_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 5 }
+		custom_description = {
+			text = tv_academy_debate_group_tribes_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 6 }
+		custom_description = {
+			text = tv_academy_debate_group_dhimmi_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 7 }
+		custom_description = {
+			text = tv_academy_debate_group_cossacks_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 8 }
+		custom_description = {
+			text = tv_academy_debate_group_scholarly_community_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 9 }
+		custom_description = {
+			text = tv_academy_debate_group_public_opinion_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 10 }
+		custom_description = {
+			text = tv_academy_debate_group_court_bureaucrats_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 11 }
+		custom_description = {
+			text = tv_academy_debate_group_maritime_merchants_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 12 }
+		custom_description = {
+			text = tv_academy_debate_group_professional_military_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 13 }
+		custom_description = {
+			text = tv_academy_debate_group_religious_reformers_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 14 }
+		custom_description = {
+			text = tv_academy_debate_group_local_autonomy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 15 }
+		custom_description = {
+			text = tv_academy_debate_group_minorities_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 19 }
+		custom_description = {
+			text = tv_academy_debate_group_continental_traders_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 20 }
+		custom_description = {
+			text = tv_academy_debate_group_plutocratic_merchants_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 21 }
+		custom_description = {
+			text = tv_academy_debate_group_mercantilist_guilds_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 22 }
+		custom_description = {
+			text = tv_academy_debate_group_free_trade_merchants_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 23 }
+		custom_description = {
+			text = tv_academy_debate_group_capitalist_financiers_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 24 }
+		custom_description = {
+			text = tv_academy_debate_group_guild_traditionalists_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 25 }
+		custom_description = {
+			text = tv_academy_debate_group_colonial_merchants_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 26 }
+		custom_description = {
+			text = tv_academy_debate_group_insular_guilds_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 27 }
+		custom_description = {
+			text = tv_academy_debate_group_feudal_levy_nobility_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 28 }
+		custom_description = {
+			text = tv_academy_debate_group_patronal_aristocracy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 29 }
+		custom_description = {
+			text = tv_academy_debate_group_serf_holding_lords_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 30 }
+		custom_description = {
+			text = tv_academy_debate_group_absolutist_court_faction_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 31 }
+		custom_description = {
+			text = tv_academy_debate_group_constitutionalist_nobility_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 32 }
+		custom_description = {
+			text = tv_academy_debate_group_war_doctrine_nobility_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 33 }
+		custom_description = {
+			text = tv_academy_debate_group_fortress_doctrine_nobility_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 34 }
+		custom_description = {
+			text = tv_academy_debate_group_devout_clergy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 35 }
+		custom_description = {
+			text = tv_academy_debate_group_humanist_clergy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 36 }
+		custom_description = {
+			text = tv_academy_debate_group_mystic_clergy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 37 }
+		custom_description = {
+			text = tv_academy_debate_group_canonist_clergy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 38 }
+		custom_description = {
+			text = tv_academy_debate_group_latinizing_clergy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 39 }
+		custom_description = {
+			text = tv_academy_debate_group_hellenizing_clergy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 40 }
+		custom_description = {
+			text = tv_academy_debate_group_crown_subjects_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 41 }
+		custom_description = {
+			text = tv_academy_debate_group_free_subject_peasantry_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 42 }
+		custom_description = {
+			text = tv_academy_debate_group_individualist_smallholders_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 43 }
+		custom_description = {
+			text = tv_academy_debate_group_communal_villages_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 44 }
+		custom_description = {
+			text = tv_academy_debate_group_traditionalist_enclave_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 45 }
+		custom_description = {
+			text = tv_academy_debate_group_assimilating_enclave_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 46 }
+		custom_description = {
+			text = tv_academy_debate_group_sinicized_minority_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 47 }
+		custom_description = {
+			text = tv_academy_debate_group_unsinicized_minority_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 48 }
+		custom_description = {
+			text = tv_academy_debate_group_warrior_clans_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_2_group ?= 49 }
+		custom_description = {
+			text = tv_academy_debate_group_diplomatic_clans_seated_text
+		}
+	}
+}
+
+tv_academy_debate_royal_option_3_seated_tooltip_effect = {
+	if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 1 }
+		custom_description = {
+			text = tv_academy_debate_group_nobility_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 2 }
+		custom_description = {
+			text = tv_academy_debate_group_clergy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 3 }
+		custom_description = {
+			text = tv_academy_debate_group_burghers_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 4 }
+		custom_description = {
+			text = tv_academy_debate_group_peasants_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 5 }
+		custom_description = {
+			text = tv_academy_debate_group_tribes_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 6 }
+		custom_description = {
+			text = tv_academy_debate_group_dhimmi_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 7 }
+		custom_description = {
+			text = tv_academy_debate_group_cossacks_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 8 }
+		custom_description = {
+			text = tv_academy_debate_group_scholarly_community_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 9 }
+		custom_description = {
+			text = tv_academy_debate_group_public_opinion_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 10 }
+		custom_description = {
+			text = tv_academy_debate_group_court_bureaucrats_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 11 }
+		custom_description = {
+			text = tv_academy_debate_group_maritime_merchants_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 12 }
+		custom_description = {
+			text = tv_academy_debate_group_professional_military_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 13 }
+		custom_description = {
+			text = tv_academy_debate_group_religious_reformers_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 14 }
+		custom_description = {
+			text = tv_academy_debate_group_local_autonomy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 15 }
+		custom_description = {
+			text = tv_academy_debate_group_minorities_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 19 }
+		custom_description = {
+			text = tv_academy_debate_group_continental_traders_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 20 }
+		custom_description = {
+			text = tv_academy_debate_group_plutocratic_merchants_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 21 }
+		custom_description = {
+			text = tv_academy_debate_group_mercantilist_guilds_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 22 }
+		custom_description = {
+			text = tv_academy_debate_group_free_trade_merchants_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 23 }
+		custom_description = {
+			text = tv_academy_debate_group_capitalist_financiers_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 24 }
+		custom_description = {
+			text = tv_academy_debate_group_guild_traditionalists_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 25 }
+		custom_description = {
+			text = tv_academy_debate_group_colonial_merchants_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 26 }
+		custom_description = {
+			text = tv_academy_debate_group_insular_guilds_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 27 }
+		custom_description = {
+			text = tv_academy_debate_group_feudal_levy_nobility_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 28 }
+		custom_description = {
+			text = tv_academy_debate_group_patronal_aristocracy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 29 }
+		custom_description = {
+			text = tv_academy_debate_group_serf_holding_lords_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 30 }
+		custom_description = {
+			text = tv_academy_debate_group_absolutist_court_faction_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 31 }
+		custom_description = {
+			text = tv_academy_debate_group_constitutionalist_nobility_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 32 }
+		custom_description = {
+			text = tv_academy_debate_group_war_doctrine_nobility_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 33 }
+		custom_description = {
+			text = tv_academy_debate_group_fortress_doctrine_nobility_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 34 }
+		custom_description = {
+			text = tv_academy_debate_group_devout_clergy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 35 }
+		custom_description = {
+			text = tv_academy_debate_group_humanist_clergy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 36 }
+		custom_description = {
+			text = tv_academy_debate_group_mystic_clergy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 37 }
+		custom_description = {
+			text = tv_academy_debate_group_canonist_clergy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 38 }
+		custom_description = {
+			text = tv_academy_debate_group_latinizing_clergy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 39 }
+		custom_description = {
+			text = tv_academy_debate_group_hellenizing_clergy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 40 }
+		custom_description = {
+			text = tv_academy_debate_group_crown_subjects_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 41 }
+		custom_description = {
+			text = tv_academy_debate_group_free_subject_peasantry_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 42 }
+		custom_description = {
+			text = tv_academy_debate_group_individualist_smallholders_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 43 }
+		custom_description = {
+			text = tv_academy_debate_group_communal_villages_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 44 }
+		custom_description = {
+			text = tv_academy_debate_group_traditionalist_enclave_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 45 }
+		custom_description = {
+			text = tv_academy_debate_group_assimilating_enclave_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 46 }
+		custom_description = {
+			text = tv_academy_debate_group_sinicized_minority_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 47 }
+		custom_description = {
+			text = tv_academy_debate_group_unsinicized_minority_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 48 }
+		custom_description = {
+			text = tv_academy_debate_group_warrior_clans_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_royal_option_3_group ?= 49 }
+		custom_description = {
+			text = tv_academy_debate_group_diplomatic_clans_seated_text
+		}
+	}
+}
+
 tv_academy_debate_clear_seat_effect = {
 	if = {
 		limit = { has_variable = tv_academy_debate_seat_$seat$_group }
@@ -7024,7 +8158,7 @@ tv_academy_debate_accept_royal_option_1_effect = {
 	set_variable = { name = tv_academy_debate_event_stance value = 1 }
 	tv_academy_debate_apply_selected_royal_modifier_effect = yes
 	tv_academy_debate_pick_seat_for_selected_stance_effect = yes
-	tv_academy_debate_selected_group_seated_tooltip_effect = yes
+	tv_academy_debate_royal_option_1_seated_tooltip_effect = yes
 	tv_academy_debate_assign_selected_group_to_seat_effect = yes
 	tv_academy_debate_clear_event_state_effect = yes
 }
@@ -7034,7 +8168,7 @@ tv_academy_debate_accept_royal_option_2_effect = {
 	set_variable = { name = tv_academy_debate_event_stance value = 1 }
 	tv_academy_debate_apply_selected_royal_modifier_effect = yes
 	tv_academy_debate_pick_seat_for_selected_stance_effect = yes
-	tv_academy_debate_selected_group_seated_tooltip_effect = yes
+	tv_academy_debate_royal_option_2_seated_tooltip_effect = yes
 	tv_academy_debate_assign_selected_group_to_seat_effect = yes
 	tv_academy_debate_clear_event_state_effect = yes
 }
@@ -7044,7 +8178,7 @@ tv_academy_debate_accept_royal_option_3_effect = {
 	set_variable = { name = tv_academy_debate_event_stance value = 1 }
 	tv_academy_debate_apply_selected_royal_modifier_effect = yes
 	tv_academy_debate_pick_seat_for_selected_stance_effect = yes
-	tv_academy_debate_selected_group_seated_tooltip_effect = yes
+	tv_academy_debate_royal_option_3_seated_tooltip_effect = yes
 	tv_academy_debate_assign_selected_group_to_seat_effect = yes
 	tv_academy_debate_clear_event_state_effect = yes
 }

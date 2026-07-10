@@ -848,11 +848,12 @@ def gen_set_group_seated(lines: list[str], level: int, data: dict) -> None:
         emit(lines, level, "}")
 
 
-def gen_group_change_tooltip(lines: list[str], level: int, data: dict, change: str) -> None:
+def gen_group_change_tooltip(lines: list[str], level: int, data: dict, change: str, id_var: str = EVENT_GROUP, group_filter=None) -> None:
     key_fn = group_seated_tooltip_key if change == "seated" else group_left_tooltip_key
-    for idx, group in enumerate(groups(data)):
+    candidates = [g for g in groups(data) if group_filter is None or group_filter(g)]
+    for idx, group in enumerate(candidates):
         emit(lines, level, ("if" if idx == 0 else "else_if") + " = {")
-        emit(lines, level + 1, f"limit = {{ {var_eq(EVENT_GROUP, group['id'])} }}")
+        emit(lines, level + 1, f"limit = {{ {var_eq(id_var, group['id'])} }}")
         emit(lines, level + 1, "custom_description = {")
         emit(lines, level + 2, f"text = {key_fn(group)}")
         emit(lines, level + 1, "}")
@@ -1091,6 +1092,21 @@ def gen_cleanup_effects(lines: list[str], data: dict) -> None:
     gen_group_change_tooltip(lines, 1, data, "left")
     emit(lines, 0, "}")
     emit(lines)
+
+    emit(lines, 0, "tv_academy_debate_group2_seated_tooltip_effect = {")
+    gen_group_change_tooltip(lines, 1, data, "seated", id_var=EVENT_GROUP_2)
+    emit(lines, 0, "}")
+    emit(lines)
+
+    for slot in range(1, 4):
+        emit(lines, 0, f"tv_academy_debate_royal_option_{slot}_seated_tooltip_effect = {{")
+        gen_group_change_tooltip(
+            lines, 1, data, "seated",
+            id_var=f"tv_academy_debate_royal_option_{slot}_group",
+            group_filter=is_estate_or_variant,
+        )
+        emit(lines, 0, "}")
+        emit(lines)
 
     emit(lines, 0, "tv_academy_debate_clear_seat_effect = {")
     emit(lines, 1, "if = {")
@@ -1614,7 +1630,7 @@ def gen_seat_effects(lines: list[str], data: dict) -> None:
         emit(lines, 1, f"set_variable = {{ name = {EVENT_STANCE} value = {STANCE_SUPPORT} }}")
         emit(lines, 1, "tv_academy_debate_apply_selected_royal_modifier_effect = yes")
         emit(lines, 1, "tv_academy_debate_pick_seat_for_selected_stance_effect = yes")
-        emit(lines, 1, "tv_academy_debate_selected_group_seated_tooltip_effect = yes")
+        emit(lines, 1, f"tv_academy_debate_royal_option_{slot}_seated_tooltip_effect = yes")
         emit(lines, 1, "tv_academy_debate_assign_selected_group_to_seat_effect = yes")
         emit(lines, 1, "tv_academy_debate_clear_event_state_effect = yes")
         emit(lines, 0, "}")
@@ -2606,11 +2622,11 @@ def emit_event_options(lines: list[str], level: int, data: dict, event_num: int,
             "tv_academy_debate_prepare_selected_special_scope_effect = yes",
             "tv_academy_debate_selected_group_seated_tooltip_effect = yes",
             "tv_academy_debate_assign_selected_group_to_seat_effect = yes",
+            "tv_academy_debate_group2_seated_tooltip_effect = yes",
             f"set_variable = {{ name = {EVENT_GROUP} value = var:{EVENT_GROUP_2} }}",
             f"set_variable = {{ name = {EVENT_STANCE} value = {STANCE_OPPOSE} }}",
             f"remove_variable = {EVENT_SEAT}",
             "tv_academy_debate_prepare_selected_special_scope_effect = yes",
-            "tv_academy_debate_selected_group_seated_tooltip_effect = yes",
             "tv_academy_debate_assign_selected_group_to_seat_effect = yes",
             "tv_academy_debate_clear_event_state_effect = yes",
         ])

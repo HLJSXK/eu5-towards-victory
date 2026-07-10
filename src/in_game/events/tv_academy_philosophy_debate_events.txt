@@ -1189,11 +1189,11 @@ tv_academy_debate.104 = {
 		tv_academy_debate_prepare_selected_special_scope_effect = yes
 		tv_academy_debate_selected_group_seated_tooltip_effect = yes
 		tv_academy_debate_assign_selected_group_to_seat_effect = yes
+		tv_academy_debate_group2_seated_tooltip_effect = yes
 		set_variable = { name = tv_academy_debate_event_group value = var:tv_academy_debate_event_group_2 }
 		set_variable = { name = tv_academy_debate_event_stance value = 2 }
 		remove_variable = tv_academy_debate_event_seat
 		tv_academy_debate_prepare_selected_special_scope_effect = yes
-		tv_academy_debate_selected_group_seated_tooltip_effect = yes
 		tv_academy_debate_assign_selected_group_to_seat_effect = yes
 		tv_academy_debate_clear_event_state_effect = yes
 	}
