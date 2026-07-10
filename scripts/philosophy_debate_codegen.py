@@ -91,6 +91,7 @@ AUTO_STANCE_NEUTRAL_VAR = "tv_academy_debate_auto_stance_neutral_pending"
 AUTO_SEAT_VACATED_VAR = "tv_academy_debate_auto_seat_vacated_pending"
 
 GROUP_ESTATE_MAP = "tv_academy_debate_group_to_estate"
+GROUP_POWER_MULTIPLIER_MAP = "tv_academy_debate_group_to_power_multiplier"
 RESULT_GROUP_LOCAL = "tv_academy_debate_result_group"
 RESULT_ESTATE_LOCAL = "tv_academy_debate_result_estate"
 
@@ -928,58 +929,6 @@ def debate_monthly_gate_lines() -> list[str]:
     ]
 
 
-def emit_seat_group_contribution_value(lines: list[str], level: int, group: dict, settings: dict, seat: int) -> None:
-    base = settings["base_group_contribution"]
-    emit(lines, level, f"value = {base}")
-    if group["type"] in ("estate", "variant"):
-        estate = group["estate"] if group["type"] == "estate" else group["base_estate"]
-        multiplier = settings["estate_power_multiplier"] if group["type"] == "estate" else settings["variant_power_multiplier"]
-        emit(lines, level, "add = {")
-        emit(lines, level + 1, f"value = leader_country.estate_power(estate_type:{estate})")
-        emit(lines, level + 1, f"multiply = {multiplier}")
-        emit(lines, level, "}")
-    elif group["type"] == "artists":
-        emit(lines, level, "add = {")
-        emit(lines, level + 1, f"value = leader_country.var:{seat_artist(seat)}.artist_skill")
-        emit(lines, level + 1, f"multiply = {settings['artist_skill_multiplier']}")
-        emit(lines, level, "}")
-    elif group["type"] == "foreign_power":
-        emit(lines, level, "add = {")
-        emit(lines, level + 1, f"value = leader_country.var:{seat_foreign(seat)}.great_power_score")
-        emit(lines, level + 1, "divide = {")
-        emit(lines, level + 2, "value = leader_country.great_power_score")
-        emit(lines, level + 2, "min = 1")
-        emit(lines, level + 1, "}")
-        emit(lines, level + 1, f"multiply = {settings['foreign_power_multiplier']}")
-        emit(lines, level, "}")
-    elif group["type"] == "great_scientist":
-        emit(lines, level, "if = {")
-        emit(lines, level + 1, "limit = {")
-        emit(lines, level + 2, "leader_country ?= {")
-        emit(lines, level + 3, "has_variable = tv_academy_leader_char")
-        emit(lines, level + 3, "var:tv_academy_leader_char ?= { is_alive = yes }")
-        emit(lines, level + 2, "}")
-        emit(lines, level + 1, "}")
-        emit(lines, level + 1, "add = {")
-        emit(lines, level + 2, "value = leader_country.var:tv_academy_leader_char.adm")
-        emit(lines, level + 2, "if = {")
-        emit(lines, level + 3, "limit = { leader_country ?= { var:tv_academy_leader_char ?= { has_trait = tv_great_scientist_3 } } }")
-        emit(lines, level + 3, "add = 60")
-        emit(lines, level + 2, "}")
-        emit(lines, level + 2, "else_if = {")
-        emit(lines, level + 3, "limit = { leader_country ?= { var:tv_academy_leader_char ?= { has_trait = tv_great_scientist_2 } } }")
-        emit(lines, level + 3, "add = 40")
-        emit(lines, level + 2, "}")
-        emit(lines, level + 2, "else_if = {")
-        emit(lines, level + 3, "limit = { leader_country ?= { var:tv_academy_leader_char ?= { has_trait = tv_great_scientist_1 } } }")
-        emit(lines, level + 3, "add = 20")
-        emit(lines, level + 2, "}")
-        emit(lines, level + 2, "divide = 100")
-        emit(lines, level + 2, f"multiply = {settings['great_scientist_adm_multiplier']}")
-        emit(lines, level + 1, "}")
-        emit(lines, level, "}")
-
-
 def emit_crown_contribution_add(lines: list[str], data: dict) -> None:
     settings = data["settings"]
     emit(lines, 4, "add = {")
@@ -1011,13 +960,90 @@ def emit_seat_contribution_add(lines: list[str], data: dict, seat: int) -> None:
     emit(lines, 8, f"NOT = {{ var:{seat_stance(seat)} ?= {STANCE_NEUTRAL} }}")
     emit(lines, 7, "}")
     emit(lines, 6, "}")
-    for idx, group in enumerate(groups(data)):
-        emit(lines, 6, ("if" if idx == 0 else "else_if") + " = {")
-        emit(lines, 7, "limit = {")
-        emit(lines, 8, f"leader_country ?= {{ var:{seat_group(seat)} ?= {group['id']} }}")
-        emit(lines, 7, "}")
-        emit_seat_group_contribution_value(lines, 7, group, data["settings"], seat)
-        emit(lines, 6, "}")
+
+    settings = data["settings"]
+    base = settings["base_group_contribution"]
+    by_key = group_by_key(data)
+    artists_id = by_key["artists"]["id"]
+    foreign_id = by_key["foreign_power"]["id"]
+    scientist_id = by_key["great_scientist"]["id"]
+    estate_local = f"tv_academy_debate_seat_{seat}_estate_local"
+    multiplier_local = f"tv_academy_debate_seat_{seat}_power_multiplier_local"
+
+    # estate/variant groups collapse into one branch: which estate and which power
+    # multiplier apply are resolved dynamically via the group->estate and
+    # group->multiplier global_variable_maps (populated once, at game start/load, by
+    # tv_academy_debate_initialize_global_maps_effect), instead of enumerating every
+    # group id here. Capture both map lookups into local variables before using them
+    # as effect parameters (variable_map RHS use is unreliable directly).
+    emit(lines, 6, "if = {")
+    emit(lines, 7, "limit = {")
+    emit(lines, 8, "leader_country ?= {")
+    emit(lines, 9, f"has_global_variable_map = {GROUP_ESTATE_MAP}")
+    emit(lines, 9, f"is_key_in_global_variable_map = {{ name = {GROUP_ESTATE_MAP} target = var:{seat_group(seat)} }}")
+    emit(lines, 8, "}")
+    emit(lines, 7, "}")
+    emit(lines, 7, f"set_local_variable = {{ name = {estate_local} value = \"global_variable_map({GROUP_ESTATE_MAP}|leader_country.var:{seat_group(seat)})\" }}")
+    emit(lines, 7, f"set_local_variable = {{ name = {multiplier_local} value = \"global_variable_map({GROUP_POWER_MULTIPLIER_MAP}|leader_country.var:{seat_group(seat)})\" }}")
+    emit(lines, 7, f"value = {base}")
+    emit(lines, 7, "add = {")
+    emit(lines, 8, f"value = leader_country.estate_power(local_var:{estate_local})")
+    emit(lines, 8, f"multiply = local_var:{multiplier_local}")
+    emit(lines, 7, "}")
+    emit(lines, 6, "}")
+
+    emit(lines, 6, "else_if = {")
+    emit(lines, 7, f"limit = {{ leader_country ?= {{ var:{seat_group(seat)} ?= {artists_id} }} }}")
+    emit(lines, 7, f"value = {base}")
+    emit(lines, 7, "add = {")
+    emit(lines, 8, f"value = leader_country.var:{seat_artist(seat)}.artist_skill")
+    emit(lines, 8, f"multiply = {settings['artist_skill_multiplier']}")
+    emit(lines, 7, "}")
+    emit(lines, 6, "}")
+
+    emit(lines, 6, "else_if = {")
+    emit(lines, 7, f"limit = {{ leader_country ?= {{ var:{seat_group(seat)} ?= {foreign_id} }} }}")
+    emit(lines, 7, f"value = {base}")
+    emit(lines, 7, "add = {")
+    emit(lines, 8, f"value = leader_country.var:{seat_foreign(seat)}.great_power_score")
+    emit(lines, 8, "divide = {")
+    emit(lines, 9, "value = leader_country.great_power_score")
+    emit(lines, 9, "min = 1")
+    emit(lines, 8, "}")
+    emit(lines, 8, f"multiply = {settings['foreign_power_multiplier']}")
+    emit(lines, 7, "}")
+    emit(lines, 6, "}")
+
+    emit(lines, 6, "else_if = {")
+    emit(lines, 7, f"limit = {{ leader_country ?= {{ var:{seat_group(seat)} ?= {scientist_id} }} }}")
+    emit(lines, 7, f"value = {base}")
+    emit(lines, 7, "if = {")
+    emit(lines, 8, "limit = {")
+    emit(lines, 9, "leader_country ?= {")
+    emit(lines, 10, "has_variable = tv_academy_leader_char")
+    emit(lines, 10, "var:tv_academy_leader_char ?= { is_alive = yes }")
+    emit(lines, 9, "}")
+    emit(lines, 8, "}")
+    emit(lines, 8, "add = {")
+    emit(lines, 9, "value = leader_country.var:tv_academy_leader_char.adm")
+    emit(lines, 9, "if = {")
+    emit(lines, 10, "limit = { leader_country ?= { var:tv_academy_leader_char ?= { has_trait = tv_great_scientist_3 } } }")
+    emit(lines, 10, "add = 60")
+    emit(lines, 9, "}")
+    emit(lines, 9, "else_if = {")
+    emit(lines, 10, "limit = { leader_country ?= { var:tv_academy_leader_char ?= { has_trait = tv_great_scientist_2 } } }")
+    emit(lines, 10, "add = 40")
+    emit(lines, 9, "}")
+    emit(lines, 9, "else_if = {")
+    emit(lines, 10, "limit = { leader_country ?= { var:tv_academy_leader_char ?= { has_trait = tv_great_scientist_1 } } }")
+    emit(lines, 10, "add = 20")
+    emit(lines, 9, "}")
+    emit(lines, 9, "divide = 100")
+    emit(lines, 9, f"multiply = {settings['great_scientist_adm_multiplier']}")
+    emit(lines, 8, "}")
+    emit(lines, 7, "}")
+    emit(lines, 6, "}")
+
     emit(lines, 6, "if = {")
     emit(lines, 7, f"limit = {{ leader_country ?= {{ var:{seat_stance(seat)} ?= {STANCE_OPPOSE} }} }}")
     emit(lines, 7, "multiply = -1")
@@ -1426,8 +1452,15 @@ def gen_cleanup_effects(lines: list[str], data: dict) -> None:
     for group in groups(data):
         if not is_estate_or_variant(group):
             continue
+        multiplier = (
+            data["settings"]["estate_power_multiplier"]
+            if group["type"] == "estate"
+            else data["settings"]["variant_power_multiplier"]
+        )
         emit(lines, 1, f"remove_from_global_variable_map = {{ name = {GROUP_ESTATE_MAP} key = {group['id']} }}")
         emit(lines, 1, f"add_to_global_variable_map = {{ name = {GROUP_ESTATE_MAP} key = {group['id']} value = estate_type:{group['base_estate']} }}")
+        emit(lines, 1, f"remove_from_global_variable_map = {{ name = {GROUP_POWER_MULTIPLIER_MAP} key = {group['id']} }}")
+        emit(lines, 1, f"add_to_global_variable_map = {{ name = {GROUP_POWER_MULTIPLIER_MAP} key = {group['id']} value = {multiplier} }}")
     emit(lines, 0, "}")
     emit(lines)
 

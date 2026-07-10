@@ -167,96 +167,188 @@ tv_academy_debate_clear_all_seats_effect = {
 tv_academy_debate_initialize_global_maps_effect = {
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 1 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 1 value = estate_type:nobles_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 1 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 1 value = 0.2 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 2 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 2 value = estate_type:clergy_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 2 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 2 value = 0.2 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 3 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 3 value = estate_type:burghers_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 3 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 3 value = 0.2 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 4 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 4 value = estate_type:peasants_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 4 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 4 value = 0.2 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 5 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 5 value = estate_type:tribes_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 5 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 5 value = 0.2 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 6 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 6 value = estate_type:dhimmi_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 6 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 6 value = 0.2 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 7 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 7 value = estate_type:cossacks_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 7 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 7 value = 0.2 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 8 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 8 value = estate_type:burghers_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 8 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 8 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 9 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 9 value = estate_type:peasants_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 9 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 9 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 10 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 10 value = estate_type:nobles_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 10 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 10 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 11 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 11 value = estate_type:burghers_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 11 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 11 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 12 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 12 value = estate_type:nobles_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 12 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 12 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 13 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 13 value = estate_type:clergy_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 13 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 13 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 14 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 14 value = estate_type:peasants_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 14 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 14 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 15 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 15 value = estate_type:peasants_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 15 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 15 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 19 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 19 value = estate_type:burghers_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 19 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 19 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 20 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 20 value = estate_type:burghers_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 20 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 20 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 21 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 21 value = estate_type:burghers_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 21 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 21 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 22 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 22 value = estate_type:burghers_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 22 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 22 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 23 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 23 value = estate_type:burghers_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 23 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 23 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 24 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 24 value = estate_type:burghers_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 24 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 24 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 25 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 25 value = estate_type:burghers_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 25 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 25 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 26 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 26 value = estate_type:burghers_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 26 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 26 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 27 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 27 value = estate_type:nobles_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 27 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 27 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 28 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 28 value = estate_type:nobles_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 28 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 28 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 29 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 29 value = estate_type:nobles_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 29 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 29 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 30 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 30 value = estate_type:nobles_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 30 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 30 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 31 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 31 value = estate_type:nobles_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 31 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 31 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 32 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 32 value = estate_type:nobles_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 32 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 32 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 33 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 33 value = estate_type:nobles_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 33 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 33 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 34 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 34 value = estate_type:clergy_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 34 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 34 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 35 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 35 value = estate_type:clergy_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 35 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 35 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 36 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 36 value = estate_type:clergy_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 36 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 36 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 37 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 37 value = estate_type:clergy_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 37 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 37 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 38 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 38 value = estate_type:clergy_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 38 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 38 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 39 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 39 value = estate_type:clergy_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 39 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 39 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 40 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 40 value = estate_type:peasants_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 40 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 40 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 41 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 41 value = estate_type:peasants_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 41 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 41 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 42 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 42 value = estate_type:peasants_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 42 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 42 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 43 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 43 value = estate_type:peasants_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 43 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 43 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 44 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 44 value = estate_type:peasants_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 44 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 44 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 45 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 45 value = estate_type:peasants_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 45 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 45 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 46 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 46 value = estate_type:peasants_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 46 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 46 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 47 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 47 value = estate_type:peasants_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 47 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 47 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 48 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 48 value = estate_type:peasants_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 48 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 48 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 49 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 49 value = estate_type:peasants_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 49 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 49 value = 0.4 }
 }
 
 tv_academy_debate_initialize_debate_effect = {
