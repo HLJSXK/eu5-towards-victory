@@ -437,14 +437,15 @@ tv_build_diplomatic_headquarters = {
 			NOT = { tv_diplomatic_establishment_headquarters_done = yes }
 			OR = {
 				is_ai = no
-				AND = {
-					modifier:diplomatic_reputation >= 20
-					NOT = {
-					  any_international_organization = {
-					    international_organization_type = international_organization_type:tv_diplomatic_alliance
-					    count >= 10
-					  }
-					}
+				modifier:diplomatic_reputation >= 20
+			}
+			OR = {
+				is_ai = no
+				NOT = {
+				  any_international_organization = {
+				    international_organization_type = international_organization_type:tv_diplomatic_alliance
+				    count >= 10
+				  }
 				}
 			}
 		}
@@ -474,14 +475,15 @@ tv_build_diplomatic_headquarters = {
 				NOT = { has_variable = tv_diplomatic_victory_enabled }
 				OR = {
 					is_ai = no
-					AND = {
-						modifier:diplomatic_reputation >= 20
-						NOT = {
-						  any_international_organization = {
-						    international_organization_type = international_organization_type:tv_diplomatic_alliance
-						    count >= 10
-						  }
-						}
+					modifier:diplomatic_reputation >= 20
+				}
+				OR = {
+					is_ai = no
+					NOT = {
+					  any_international_organization = {
+					    international_organization_type = international_organization_type:tv_diplomatic_alliance
+					    count >= 10
+					  }
 					}
 				}
 			}
@@ -498,14 +500,15 @@ tv_build_diplomatic_headquarters = {
 					NOT = { has_variable = tv_diplomatic_victory_enabled }
 					OR = {
 						is_ai = no
-						AND = {
-							modifier:diplomatic_reputation >= 20
-							NOT = {
-							  any_international_organization = {
-							    international_organization_type = international_organization_type:tv_diplomatic_alliance
-							    count >= 10
-							  }
-							}
+						modifier:diplomatic_reputation >= 20
+					}
+					OR = {
+						is_ai = no
+						NOT = {
+						  any_international_organization = {
+						    international_organization_type = international_organization_type:tv_diplomatic_alliance
+						    count >= 10
+						  }
 						}
 					}
 				}
