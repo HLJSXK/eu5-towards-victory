@@ -12,7 +12,11 @@ locales:
     descended into; other locale subdirs are pruned
   - flat locale-suffixed files (e.g. foo_l_russian.yml) are kept only for
     english/simp_chinese, regardless of directory
-  - only .txt/.yml/.gui/.json/.info files are copied
+  - files with a known-binary/media extension (.png, .dat, .mp3, ...) are dropped
+  - any remaining file is sniffed for binary content (NUL byte in the first 8 KB)
+    and dropped if it looks binary; everything else is treated as text and kept
+    regardless of extension, so small unrecognized text-format files (e.g. .font,
+    .map, .csv, .settings, .guistateset) are no longer silently dropped
   - a single file over --max-file-mb is skipped
   - a directory whose own (non-recursive) filtered files exceed --max-dir-mb is
     skipped entirely
@@ -42,7 +46,20 @@ LOG_FILE = REPO_ROOT / "data" / "sync_reference.log"
 DEFAULT_SOURCE = Path(r"C:\Program Files (x86)\Steam\steamapps\common\Europa Universalis V")
 
 TOP_LEVEL_DIRS = ["in_game", "main_menu"]
-EXTENSION_WHITELIST = {".txt", ".yml", ".gui", ".json", ".info"}
+# Known-binary/media extensions, dropped without opening the file. Everything else is
+# sniffed for binary content (see is_binary_content) rather than gated by an extension
+# whitelist, so unrecognized small text-format files are kept, not silently dropped.
+BINARY_EXTENSIONS = {
+    ".png", ".dds", ".tga", ".bmp", ".jpg", ".jpeg",
+    ".dat", ".bin",
+    ".mp3", ".wav", ".ogg",
+    ".ttf", ".otf", ".woff", ".woff2",
+    ".fbx", ".mesh",
+    ".mp4", ".webm",
+    ".zip", ".rar", ".7z",
+    ".dll", ".exe", ".so", ".pdb",
+}
+BINARY_SNIFF_BYTES = 8192
 KEEP_LOCALES = {"english", "simp_chinese"}
 # All locale-named subdirectories observed directly under any "localization" dir in the
 # source game (in_game and main_menu). Other subdirectories of "localization" (e.g.
@@ -70,7 +87,8 @@ def resolve_source(cli_source):
 class SyncStats:
     def __init__(self):
         self.kept_files = []  # list of (relpath, size)
-        self.skipped_ext = 0
+        self.skipped_binary_ext = 0
+        self.skipped_binary_content = 0
         self.skipped_locale_dir = 0
         self.skipped_locale_file = 0
         self.skipped_oversized_file = []
@@ -84,6 +102,16 @@ class SyncStats:
 def locale_of_flat_file(filename):
     match = LOCALE_SUFFIX_RE.search(filename)
     return match.group(1).lower() if match else None
+
+
+def is_binary_content(file_path):
+    """Best-effort binary sniff: a NUL byte in the first BINARY_SNIFF_BYTES means binary."""
+    try:
+        with file_path.open("rb") as f:
+            chunk = f.read(BINARY_SNIFF_BYTES)
+    except OSError:
+        return True
+    return b"\x00" in chunk
 
 
 def plan_top_level(source_game_dir, top_name, max_file_bytes, max_dir_bytes, stats, verbose):
@@ -108,8 +136,8 @@ def plan_top_level(source_game_dir, top_name, max_file_bytes, max_dir_bytes, sta
         dir_kept = []
         for filename in filenames:
             suffix = Path(filename).suffix.lower()
-            if suffix not in EXTENSION_WHITELIST:
-                stats.skipped_ext += 1
+            if suffix in BINARY_EXTENSIONS:
+                stats.skipped_binary_ext += 1
                 continue
 
             locale = locale_of_flat_file(filename)
@@ -118,6 +146,10 @@ def plan_top_level(source_game_dir, top_name, max_file_bytes, max_dir_bytes, sta
                 continue
 
             file_path = root_path / filename
+            if is_binary_content(file_path):
+                stats.skipped_binary_content += 1
+                continue
+
             size = file_path.stat().st_size
             dir_kept.append((filename, size))
 
@@ -175,7 +207,8 @@ def print_dry_run_summary(stats):
     print(f"Would remove:       {len(to_remove)}")
     print(f"Unchanged path:     {len(to_keep)}")
     print()
-    print(f"Skipped (extension not whitelisted): {stats.skipped_ext}")
+    print(f"Skipped (binary extension):           {stats.skipped_binary_ext}")
+    print(f"Skipped (binary content sniff):       {stats.skipped_binary_content}")
     print(f"Skipped (locale dir pruned):          {stats.skipped_locale_dir}")
     print(f"Skipped (flat locale file):           {stats.skipped_locale_file}")
     print(f"Skipped (oversized file):              {len(stats.skipped_oversized_file)}")
@@ -229,8 +262,8 @@ def append_log(source_root, stats, dry_run):
     lines = [
         f"[{timestamp}] mode={mode} source={source_root}",
         f"  files={len(stats.kept_files)} total_size_mb={stats.total_size / MB:.1f}",
-        f"  skipped_ext={stats.skipped_ext} skipped_locale_dir={stats.skipped_locale_dir}"
-        f" skipped_locale_file={stats.skipped_locale_file}",
+        f"  skipped_binary_ext={stats.skipped_binary_ext} skipped_binary_content={stats.skipped_binary_content}"
+        f" skipped_locale_dir={stats.skipped_locale_dir} skipped_locale_file={stats.skipped_locale_file}",
         f"  skipped_oversized_file={len(stats.skipped_oversized_file)}"
         f" skipped_oversized_dir={len(stats.skipped_oversized_dir)}",
     ]
@@ -271,8 +304,8 @@ def main():
     append_log(source_root, stats, dry_run=False)
 
     print(f"Synced {len(stats.kept_files)} files ({stats.total_size / MB:.1f} MB) into {DEST_ROOT}")
-    print(f"Skipped: ext={stats.skipped_ext} locale_dir={stats.skipped_locale_dir} "
-          f"locale_file={stats.skipped_locale_file} "
+    print(f"Skipped: binary_ext={stats.skipped_binary_ext} binary_content={stats.skipped_binary_content} "
+          f"locale_dir={stats.skipped_locale_dir} locale_file={stats.skipped_locale_file} "
           f"oversized_file={len(stats.skipped_oversized_file)} "
           f"oversized_dir={len(stats.skipped_oversized_dir)}")
     print()
