@@ -765,7 +765,7 @@ tv_cultural_establishment_ready_to_appoint = {
 tv_science_establishment_basic_requirement = {
 	custom_tooltip = {
 		text = TV_SCIENCE_ESTABLISHMENT_STEP1_REQUIREMENT
-		num_of_advances_researched >= 50
+		always = yes
 	}
 }
 
