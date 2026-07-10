@@ -189,6 +189,24 @@ generators.
     `st_peters_basilica.py`'s 1678/1679/1680/1681 events, 2026-07; that content module has since
     been removed along with the rest of St. Peter's Basilica's bespoke ritual).
 
+18. Reuse the location-scoped base site rule trigger for construction-condition GUI displays,
+    and alias it by numeric id, not `any_owned_location`.
+    `tv_wonder_location_meets_<key>_base_site_rules_trigger` is already the unwrapped,
+    location-scoped form of the same site rule conditions the Engineering Department's
+    `any_owned_location`-wrapped `tv_wonder_player_visible_site_rules_<key>_trigger` checks. A
+    GUI block already rooted at `LocationView.GetLocation.MakeScope.Self` (like the
+    location-window wonder tooltip) should call the base trigger directly, not re-wrap it in
+    `any_owned_location`. Because it is addressed dynamically from a numeric display id (not
+    the wonder's string key), generate a thin per-id alias —
+    `tv_wonder_display_<id>_base_site_rules_trigger = { tv_wonder_location_meets_<key>_base_site_rules_trigger = yes }`
+    — and call it via
+    `ShowTriggerConditionsForScope(Concatenate('tv_wonder_display_', Concatenate(idString,
+    '_base_site_rules_trigger')), LOCATION_SCOPE)`. Unlike `ShowModifierEffect`'s static
+    modifier ids, scripted_trigger/scripted_effect names are not a separate database lookup, so
+    the alias needs no `always = no` unreachable-reference block — see
+    `docs/knowledge/anti_patterns.yaml` rule
+    `gui_show_trigger_conditions_dynamic_key_needs_numeric_id_alias`.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`: it lints rule 2 and rule 16 automatically, and when a

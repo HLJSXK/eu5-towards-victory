@@ -181,6 +181,13 @@ def slot_ritual_effect_key_expr(slot_type: str, slot: int) -> str:
     )
 
 
+def slot_base_site_rules_trigger_key_expr(slot_type: str, slot: int) -> str:
+    return (
+        f"Concatenate('{DISPLAY_CONCEPT_PREFIX}', "
+        f"Concatenate({slot_id_string(slot_type, slot)}, '_base_site_rules_trigger'))"
+    )
+
+
 def render_separator(indent: str, *, before_slot: int, after_slot: int) -> list[str]:
     visible = f"And({slot_has_id_expr('compact', before_slot)}, {slot_has_id_expr('compact', after_slot)})"
     return [
@@ -522,6 +529,47 @@ def render_tooltip_modifier_column(indent: str, *, title_key: str, modifier_key:
     )
 
 
+def render_tooltip_construction_conditions_block(indent: str, *, slot: int) -> list[str]:
+    visible = slot_has_id_expr("tooltip", slot)
+    trigger_key = slot_base_site_rules_trigger_key_expr("tooltip", slot)
+    return [
+        f"{indent}vbox = {{",
+        f'{indent}{T}visible = "[{visible}]"',
+        f"{indent}{T}layoutpolicy_horizontal = fixed",
+        f"{indent}{T}layoutpolicy_vertical = shrinking",
+        f"{indent}{T}minimumsize = {{ {TOOLTIP_MODIFIER_COLUMNS_WIDTH} -1 }}",
+        f"{indent}{T}maximumsize = {{ {TOOLTIP_MODIFIER_COLUMNS_WIDTH} -1 }}",
+        f"{indent}{T}margin_bottom = 6",
+        f"{indent}{T}spacing = 2",
+        f"{indent}{T}text_single = {{",
+        f'{indent}{T}{T}text = "TV_LOCATION_WONDER_CONSTRUCTION_CONDITIONS_TITLE"',
+        f"{indent}{T}{T}max_width = {TOOLTIP_MODIFIER_COLUMNS_WIDTH}",
+        f"{indent}{T}{T}align = left|nobaseline",
+        f"{indent}{T}{T}fontsize = 13",
+        f"{indent}{T}}}",
+        f"{indent}{T}TooltipRequirementsList = {{",
+        f"{indent}{T}{T}layoutpolicy_horizontal = expanding",
+        f'{indent}{T}{T}textcontext = "[ShowTriggerConditionsForScope({trigger_key},{LOCATION_SCOPE})]"',
+        f'{indent}{T}{T}blockoverride "field_text_format" {{',
+        f"{indent}{T}{T}{T}fontsize = 13",
+        f"{indent}{T}{T}}}",
+        f'{indent}{T}{T}blockoverride "row_size" {{',
+        f"{indent}{T}{T}{T}maximumsize = {{ -1 22 }}",
+        f"{indent}{T}{T}{T}minimumsize = {{ -1 22 }}",
+        f"{indent}{T}{T}}}",
+        f'{indent}{T}{T}blockoverride "block_title" {{',
+        f'{indent}{T}{T}{T}block "block_title" {{',
+        f"{indent}{T}{T}{T}{T}visible = no",
+        f"{indent}{T}{T}{T}}}",
+        f"{indent}{T}{T}}}",
+        f'{indent}{T}{T}blockoverride "requirementslist_datamodel_is_empty" {{',
+        f"{indent}{T}{T}{T}visible = no",
+        f"{indent}{T}{T}}}",
+        f"{indent}{T}}}",
+        f"{indent}}}",
+    ]
+
+
 def render_tooltip_effect_block(indent: str, *, slot: int) -> list[str]:
     base_effect_visible = slot_has_base_effect_payload_expr("tooltip", slot)
     ritual_effect_visible = slot_has_ritual_effect_payload_expr("tooltip", slot)
@@ -544,20 +592,25 @@ def render_tooltip_effect_block(indent: str, *, slot: int) -> list[str]:
         f"{indent}{T}{T}layoutpolicy_vertical = shrinking",
         f"{indent}{T}{T}spacing = 0",
         f"{indent}{T}{T}ignoreinvisible = yes",
-        f"{indent}{T}{T}TooltipTextBlock = {{",
-        f'{indent}{T}{T}{T}visible = "[{no_effect_visible}]"',
-        f'{indent}{T}{T}{T}blockoverride "text" {{',
-        f'{indent}{T}{T}{T}{T}text = "TV_LOCATION_WONDER_NO_EFFECT"',
-        f"{indent}{T}{T}{T}}}",
-        f"{indent}{T}{T}}}",
-        f"{indent}{T}{T}hbox = {{",
-        f'{indent}{T}{T}{T}visible = "[{base_effect_visible}]"',
-        f"{indent}{T}{T}{T}layoutpolicy_horizontal = fixed",
-        f"{indent}{T}{T}{T}layoutpolicy_vertical = shrinking",
-        f"{indent}{T}{T}{T}size = {{ {TOOLTIP_MODIFIER_COLUMNS_WIDTH} -1 }}",
-        f"{indent}{T}{T}{T}spacing = {TOOLTIP_MODIFIER_COLUMN_SPACING}",
-        f"{indent}{T}{T}{T}ignoreinvisible = yes",
     ]
+    lines.extend(render_tooltip_construction_conditions_block(indent + T * 2, slot=slot))
+    lines.extend(
+        [
+            f"{indent}{T}{T}TooltipTextBlock = {{",
+            f'{indent}{T}{T}{T}visible = "[{no_effect_visible}]"',
+            f'{indent}{T}{T}{T}blockoverride "text" {{',
+            f'{indent}{T}{T}{T}{T}text = "TV_LOCATION_WONDER_NO_EFFECT"',
+            f"{indent}{T}{T}{T}}}",
+            f"{indent}{T}{T}}}",
+            f"{indent}{T}{T}hbox = {{",
+            f'{indent}{T}{T}{T}visible = "[{base_effect_visible}]"',
+            f"{indent}{T}{T}{T}layoutpolicy_horizontal = fixed",
+            f"{indent}{T}{T}{T}layoutpolicy_vertical = shrinking",
+            f"{indent}{T}{T}{T}size = {{ {TOOLTIP_MODIFIER_COLUMNS_WIDTH} -1 }}",
+            f"{indent}{T}{T}{T}spacing = {TOOLTIP_MODIFIER_COLUMN_SPACING}",
+            f"{indent}{T}{T}{T}ignoreinvisible = yes",
+        ]
+    )
     lines.extend(
         render_tooltip_modifier_column(
             indent + T * 3,
@@ -590,6 +643,13 @@ def render_tooltip_effect_block(indent: str, *, slot: int) -> list[str]:
             f'{indent}{T}{T}{T}visible = "[{ritual_effect_visible}]"',
             f"{indent}{T}{T}{T}layoutpolicy_horizontal = expanding",
             f'{indent}{T}{T}{T}textcontext = "[ShowScriptedEffectForScope({ritual_effect_key},{LOCATION_SCOPE})]"',
+            f'{indent}{T}{T}{T}blockoverride "field_text_format" {{',
+            f"{indent}{T}{T}{T}{T}fontsize = 13",
+            f"{indent}{T}{T}{T}}}",
+            f'{indent}{T}{T}{T}blockoverride "row_size" {{',
+            f"{indent}{T}{T}{T}{T}maximumsize = {{ -1 22 }}",
+            f"{indent}{T}{T}{T}{T}minimumsize = {{ -1 22 }}",
+            f"{indent}{T}{T}{T}}}",
             f'{indent}{T}{T}{T}blockoverride "block_title" {{',
             f'{indent}{T}{T}{T}{T}block "block_title" {{',
             f"{indent}{T}{T}{T}{T}{T}visible = no",

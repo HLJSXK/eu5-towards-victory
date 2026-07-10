@@ -2176,6 +2176,17 @@
   source: "Engineering Department wonder auto-modifier refactor, 2026-06; follow-up runtime error.log for add_country_modifier invalid database objects, 2026-06"
   notes: "Building modifier blocks and GUI static mirrors carry display-only country/local effects, while country auto modifiers provide the actual national effects from owned final buildings. Scripted effect previews are a separate parser path: add_country_modifier validates against static/country modifiers, not common/auto_modifiers; the current wonder flow avoids modifier-list previews for auto-driven country effects."
 
+- id: gui_show_trigger_conditions_dynamic_key_needs_numeric_id_alias
+  pattern: ''
+  detectability: advisory
+  only_in_paths: ['gui']
+  bad: "Calling ShowTriggerConditionsForScope with a trigger name built by GUI Concatenate(...) from a numeric display id, but only defining the underlying scripted_trigger under its string wonder key"
+  correction: "Generate a thin alias scripted_trigger named with the numeric display id (e.g. tv_wonder_display_<id>_base_site_rules_trigger = { tv_wonder_location_meets_<key>_base_site_rules_trigger = yes }) so the Concatenate-built name resolves. Unlike ShowModifierEffect, scripted_trigger/scripted_effect names are not a separate database lookup, so no unreachable always = no reference block is needed for these aliases; a normal named trigger/effect that simply calls through is sufficient."
+  category: gui
+  scope: trigger
+  source: "reference_official_defines/docs/data_types_uncategorized.txt (ShowTriggerConditions/ShowTriggerConditionsForScope both Arg0 CString, Arg1 Scope -> CString, same shape as ShowScriptedEffectForScope/ShowModifierEffect); location_window.gui wonder construction-conditions block, 2026-07"
+  notes: "tv_wonder_location_meets_<key>_base_site_rules_trigger is already the location-scoped (unwrapped) form of the Engineering Department's any_owned_location-wrapped site rule check, so a GUI block that already runs in LocationView.GetLocation.MakeScope.Self can reuse it directly via ShowTriggerConditionsForScope(Concatenate('tv_wonder_display_', Concatenate(idString, '_base_site_rules_trigger')), LOCATION_SCOPE) without any_owned_location."
+
 - id: add_country_modifier_auto_modifier_id
   pattern: 'add_country_modifier\s*=\s*\{[^\n{}]*modifier\s*=\s*[A-Za-z0-9_]*auto[A-Za-z0-9_]*'
   detectability: advisory
