@@ -14,7 +14,7 @@ random_events:
         text:
           english: "The Crown declares its confession a rule of state."
           simp_chinese: "君主将自己的信仰告白定为国策。"
-        progress_delta: 10
+        progress_delta: 5
         rationale:
           english: "Declaring the confession openly makes the Crown the acknowledged patron of the confessional settlement, a signal strong enough to move reformers toward acceptance, while noble households that preferred a little ambiguity find the door closed."
           simp_chinese: "公开宣示信纲，君主便成了宗派定制公认的庇护者；这个信号强得足以把改革派推向接受，只是那些偏爱几分模糊余地的贵族家族，从此再无回旋。"
@@ -30,7 +30,7 @@ random_events:
         text:
           english: "We keep the royal faith to the chapel and let silence do the rest."
           simp_chinese: "我们把王室信仰留在礼拜堂里，余下的交给沉默。"
-        progress_delta: -10
+        progress_delta: -5
         rationale:
           english: "Keeping court faith private spares the royal household from becoming a confessional banner and calms the clergy, but it makes acceptance look premature, even politically needless."
           simp_chinese: "让宫廷信仰留在私下，王室便不必自充宗派旗帜，教士也就安心；可这么一来，接受该议题就显得为时过早，甚至没有政治上的必要。"
@@ -56,7 +56,7 @@ random_events:
         text:
           english: "We order every parish to keep its register in one steady hand."
           simp_chinese: "我们下令各堂区都以工整字迹保存登记簿。"
-        progress_delta: 10
+        progress_delta: 5
         rationale:
           english: "Required registers turn confession into legible administration, so bureaucrats can treat doctrine as a system to be governed, even as parish clergy resent being measured by a state form."
           simp_chinese: "强制登记把信仰告白变成可读的行政资料，官僚便能把教义当作一套可治理的体系来办；只是地方教士，难免反感自己被一张国家表格丈量。"
@@ -72,7 +72,7 @@ random_events:
         text:
           english: "The registers stay in the parish chest, as they always have."
           simp_chinese: "登记簿一如往常，留在堂区的箱柜里。"
-        progress_delta: -5
+        progress_delta: -2.5
         rationale:
           english: "Leaving records in the parish preserves local discretion and avoids a fight over oversight, but it keeps confession from ever becoming a realm-wide administrative standard."
           simp_chinese: "让记录留在堂区，地方的自主保住了，也不必为监督权翻脸；可信仰告白，也就永远成不了通行全国的行政标准。"
@@ -99,7 +99,7 @@ random_events:
         text:
           english: "The Crown grants a license to every pulpit that would speak for orthodoxy."
           simp_chinese: "凡欲代表正统发声的讲坛，都须领取王室颁发的许可。"
-        progress_delta: 5
+        progress_delta: 2.5
         rationale:
           english: "Central licensing gives the confessional settlement one controlled voice and quiets contradictory preaching, advancing acceptance through good order rather than sweeping reform."
           simp_chinese: "中央许可给宗派定制留下一个受控的声音，压住彼此矛盾的布道；它靠的是秩序，而非激烈改革，来推动接受。"
@@ -115,7 +115,7 @@ random_events:
         text:
           english: "Let the old pulpits be."
           simp_chinese: "由着那些老讲坛去吧。"
-        progress_delta: -5
+        progress_delta: -2.5
         rationale:
           english: "Preserving local custom reassures the parishes that no familiar voice will be silenced, but it leaves doctrine too uneven to carry acceptance with any force."
           simp_chinese: "保留地方惯例，各堂区便安心：熟悉的声音不会被噤声；可教义也因此参差不齐，难以有力地推动接受。"
@@ -144,7 +144,7 @@ random_events:
         text:
           english: "The bishop's visitors shutter the family chapel until its rites conform."
           simp_chinese: "主教的巡查员查封了这座家族礼拜堂，直到其礼仪归于一统。"
-        progress_delta: 10
+        progress_delta: 5
         rationale:
           english: "Enforcing uniformity proves that not even noble privilege can exempt a household from the confessional settlement, handing acceptance a concrete victory at the price of noble goodwill."
           simp_chinese: "强制统一证明连贵族特权也不能让一家一户豁免于宗派定制之外，给接受派挣得一场看得见的胜利，代价则是贵族的好感。"
@@ -160,7 +160,7 @@ random_events:
         text:
           english: "We let the old family keep its candles."
           simp_chinese: "我们让这个老家族留着自己的烛火。"
-        progress_delta: -10
+        progress_delta: -5
         rationale:
           english: "Tolerating the chapel buys noble cooperation and keeps household privilege intact, but it teaches everyone watching that the confessional settlement will bend before rank."
           simp_chinese: "容忍这座礼拜堂能换来贵族的配合，也保全了家族特权；可这也让所有旁观者看清：宗派定制，会在门第面前弯腰。"
@@ -187,7 +187,7 @@ random_events:
         text:
           english: "We send it to the printing house before the arguments can catch up."
           simp_chinese: "趁争论还没追上来，我们先把它送进印坊。"
-        progress_delta: 10
+        progress_delta: 5
         rationale:
           english: "Printing the catechism turns confessional doctrine into instruction that can be repeated in every classroom and pulpit, pushing acceptance forward while provoking the clergy who dislike the chosen wording."
           simp_chinese: "印行教理问答，就把宗派教义化作能在每间教室、每座讲坛反复传授的课业，推动接受向前；只是那些不满具体措辞的教士，也被一并激怒。"
@@ -208,7 +208,7 @@ random_events:
         text:
           english: "The draft goes back to committee for another round of consensus."
           simp_chinese: "草案退回委员会，再走一轮共识。"
-        progress_delta: -5
+        progress_delta: -2.5
         rationale:
           english: "Delaying for consensus keeps the peace among rival clerical readers, but every extra revision chips away at the claim that the settlement is ready to be accepted."
           simp_chinese: "延后等待共识，能在彼此较劲的教士读者之间维持和平；可每多修一轮，就削去几分\"这项定制已可接受\"的说服力。"
@@ -236,7 +236,7 @@ random_events:
         text:
           english: "The jurists write minority protection into the confession itself."
           simp_chinese: "法学家把对少数社群的保护，直接写进信纲本身。"
-        progress_delta: 5
+        progress_delta: 2.5
         rationale:
           english: "Written protection makes the confessional order look governable rather than merely exclusionary, so cautious minorities can accept the settlement as a rule they might actually live under."
           simp_chinese: "把保护写进条文，宗派秩序便显得可以治理，而不只是排斥异己；谨慎的少数社群，也就能把新秩序看作一套真能安身其中的规矩。"
@@ -252,7 +252,7 @@ random_events:
         text:
           english: "Best make no promises we may have to keep."
           simp_chinese: "别许下日后或许得兑现的承诺。"
-        progress_delta: -5
+        progress_delta: -2.5
         rationale:
           english: "Refusing guarantees pleases the conservative clergy who fear loopholes, but it leaves the proposed confession looking too brittle to hold a mixed realm together."
           simp_chinese: "拒绝作保，能取悦那些提防漏洞的保守教士；可这也让拟议中的信纲显得太脆，撑不起一个多元王国。"
@@ -279,7 +279,7 @@ random_events:
         text:
           english: "We bind the whole camp with one oath before local custom can divide it."
           simp_chinese: "趁地方习俗还没把军营分开，我们先用一份誓词把整座营地系紧。"
-        progress_delta: 5
+        progress_delta: 2.5
         rationale:
           english: "A common oath turns confession into a shared military discipline, giving the new settlement a practical force it never had in pulpits and court language alone."
           simp_chinese: "共同誓词把信纲化作共享的军中纪律，让新秩序不再只停在讲坛与宫廷文辞里，而有了实打实的约束力。"
@@ -297,7 +297,7 @@ random_events:
         text:
           english: "The regiments keep the oaths their fathers swore."
           simp_chinese: "各团仍守着父辈立下的旧誓词。"
-        progress_delta: -5
+        progress_delta: -2.5
         rationale:
           english: "Keeping the older oaths spares provincial estates and local commanders from being forced into a single formula, but it weakens the claim that confession can drill the realm into one body."
           simp_chinese: "保留旧誓词，省份等级和地方军官便不必被硬塞进同一套公式；可这也削弱了\"信纲能把王国操练成一个整体\"的说法。"
@@ -324,7 +324,7 @@ random_events:
         text:
           english: "The summons goes out, and the synod is called before witnesses enough to bind memory."
           simp_chinese: "召集令发出，宗教会议在多到足以钉住记忆的见证者面前召开。"
-        progress_delta: 10
+        progress_delta: 5
         rationale:
           english: "A witnessed synod gives the confessional settlement institutional weight and makes evasion costly, but convening it spends coin and exposes royal legitimacy to open doctrinal conflict."
           simp_chinese: "有见证的宗教会议赋予宗派定制制度分量，也让回避变得代价高昂；可召开会议既要花钱，又把王权合法性推到公开教义冲突之前。"
@@ -343,7 +343,7 @@ random_events:
         text:
           english: "Least said, soonest mended."
           simp_chinese: "言多必失，不如缄默。"
-        progress_delta: -10
+        progress_delta: -5
         rationale:
           english: "Avoiding the synod keeps the peace by denying the dispute a stage, but it also lets opponents argue that the confession cannot survive formal scrutiny."
           simp_chinese: "避开会议，等于不给争端搭台，平静得以保全；但这也让反对者有话说：这信纲，经不起正式的审问。"
@@ -369,7 +369,7 @@ random_events:
         text:
           english: "A clerk reads the foreign letters into the record, signatures and all."
           simp_chinese: "一名文吏把外国来信连同署名，一并读入记录。"
-        progress_delta: 5
+        progress_delta: 2.5
         rationale:
           english: "Reading the letters aloud frames the confession as part of a wider religious community, lending outside credibility even as it invites foreign eyes onto the debate."
           simp_chinese: "当众朗读来信，把本国信纲说成更大信仰共同体的一环，添了几分外部可信度；只是也把外国的目光，一并引到了辩论上。"
@@ -384,7 +384,7 @@ random_events:
         text:
           english: "We keep our confession a domestic matter and return the letters unopened."
           simp_chinese: "我们让本国信纲只做国内之事，把来信原封退回。"
-        progress_delta: -5
+        progress_delta: -2.5
         rationale:
           english: "Rejecting foreign influence reassures the nobles who want confession kept a domestic settlement, but it cuts away useful testimony from allies abroad."
           simp_chinese: "拒绝外国影响，能安抚那些希望信纲只做国内事务的贵族；可这也砍去了海外盟友那份有用的证词。"
@@ -411,7 +411,7 @@ random_events:
         text:
           english: "The revised calendar is proclaimed, crossed-out feast days and all."
           simp_chinese: "修订过的历法连同被划去的节日，一并公布。"
-        progress_delta: 10
+        progress_delta: 5
         rationale:
           english: "Reforming the calendar writes confession into the rhythm of ordinary life, which advances acceptance sharply - and provokes every peasant and priest attached to a local holy day."
           simp_chinese: "改革圣日历，把信纲写进寻常日子的节奏里，接受因此大步向前——也惹恼了每一个依恋地方圣日的农民与教士。"
@@ -430,7 +430,7 @@ random_events:
         text:
           english: "Custom is a calendar no decree can rewrite."
           simp_chinese: "习俗自成一部历法，非诏令所能改写。"
-        progress_delta: -10
+        progress_delta: -5
         rationale:
           english: "Keeping the local feasts protects familiar parish rhythms and contents the villages, but it concedes that confessional order cannot yet command so much as the calendar."
           simp_chinese: "保留地方节日，护住了熟悉的堂区节律，也让乡里满意；可这也等于承认，宗派秩序连一部历法都还号令不动。"
@@ -460,7 +460,7 @@ random_events:
         text:
           english: "The new primers are approved for every schoolroom in the realm."
           simp_chinese: "新课本获准送进王国的每一间教室。"
-        progress_delta: 10
+        progress_delta: 5
         rationale:
           english: "Approving the schoolbooks turns confession into plain civic literacy, handing the accepting side a broad argument reaching across generations rather than one more narrow clerical order."
           simp_chinese: "批准课本，把信纲变成基本的臣民读写教育，给接受一方递上一个跨越几代人的宽广理由，而非又一道狭窄的教会命令。"
@@ -476,7 +476,7 @@ random_events:
         text:
           english: "Let each schoolmaster teach his own."
           simp_chinese: "让各家塾师，各教各的吧。"
-        progress_delta: -5
+        progress_delta: -2.5
         rationale:
           english: "Leaving doctrine to local schools preserves clerical and parish autonomy, but it also keeps confession fragmented enough that the Academy's case for policy loses its edge."
           simp_chinese: "把教义交给各地学校，教士与堂区的自主保住了；可这也让宗派教义继续零散，学院把它抬为国策的论证，也就钝了。"
@@ -503,7 +503,7 @@ random_events:
         text:
           english: "Marshals set a fixed route and a fixed hour for the pilgrimage."
           simp_chinese: "巡吏为朝圣定下固定的路线与时辰。"
-        progress_delta: 5
+        progress_delta: 2.5
         rationale:
           english: "Regulation proves the state confession can hold inherited devotion inside public order, but calming a holy crowd costs real stability."
           simp_chinese: "规范朝圣证明国家化的宗派秩序能把旧有虔敬收进公共秩序里；可要安抚一群怀着圣心的人，得付出实打实的稳定代价。"
@@ -519,7 +519,7 @@ random_events:
         text:
           english: "We leave the pilgrims to their own ancient discipline."
           simp_chinese: "我们把朝圣者交还给他们自己的古老规矩。"
-        progress_delta: -5
+        progress_delta: -2.5
         rationale:
           english: "Letting custom rule reassures the clergy and the local guardians of the pilgrimage, but it concedes that inherited devotion still outranks confessional discipline."
           simp_chinese: "让习俗自行维持秩序，能安抚教士和地方的朝圣守护者；却也等于承认，旧有虔敬仍旧压着新宗派纪律一头。"
@@ -546,7 +546,7 @@ random_events:
         text:
           english: "We give confession a court of its own for every hearth in the realm."
           simp_chinese: "我们为信纲设一座法庭，管到王国每一户人家。"
-        progress_delta: 10
+        progress_delta: 5
         rationale:
           english: "Establishing marriage courts gives confession a daily jurisdiction over households, advancing acceptance strongly while handing bureaucratic interpreters real power over doctrine."
           simp_chinese: "设立婚姻法庭，让宗派信纲拿到管辖寻常家事的日常权柄，强力推动接受；同时也把解释教义的实权，交到了官僚手上。"
@@ -562,7 +562,7 @@ random_events:
         text:
           english: "Marriage stays where it has always been settled, in the clergy's own courts."
           simp_chinese: "婚姻仍在一贯裁断之处了结——教会自己的法庭。"
-        progress_delta: -10
+        progress_delta: -5
         rationale:
           english: "Keeping marriage in the existing clergy courts protects an old jurisdiction and wins clerical approval, but it denies the confessional state a powerful institution reaching right into the household."
           simp_chinese: "把婚姻留在现有教会法庭，护住了一项旧管辖权，也赢得教士的支持；可这也让宗派国家失去一个能直插家庭内部的有力制度。"
@@ -590,7 +590,7 @@ random_events:
         text:
           english: "The synod fixes one rule for the image, and calls it settled."
           simp_chinese: "宗教会议为这幅圣像定下唯一规则，就此了结。"
-        progress_delta: 5
+        progress_delta: 2.5
         rationale:
           english: "A clear rule lets the religious reformers turn a quarrel over symbols into enforceable discipline, modestly advancing acceptance by drawing the line of acceptable devotion."
           simp_chinese: "一条明确规则，让宗教改革派把一场象征之争化作可执行的纪律，划出可接受的虔敬界限，适度推动接受。"
@@ -606,7 +606,7 @@ random_events:
         text:
           english: "Not every quarrel needs a verdict."
           simp_chinese: "并非每场争执，都需一纸裁决。"
-        progress_delta: -5
+        progress_delta: -2.5
         rationale:
           english: "Avoiding a ruling keeps the local peace around the image, but it leaves devotion undefined and weakens the case for a disciplined confession."
           simp_chinese: "不下裁决，能保住围着这幅圣像的地方平静；可虔敬始终没个界定，建立有纪律宗派秩序的论证，也就软了。"
@@ -635,7 +635,7 @@ random_events:
         text:
           english: "The Crown throws its protection over the preachers across the frontier."
           simp_chinese: "君主把庇护伸到边境那头的传教士身上。"
-        progress_delta: 10
+        progress_delta: 5
         rationale:
           english: "Protecting the preachers shows the confession has outward confidence and champions willing to carry it abroad, advancing acceptance sharply while leaving neighboring powers feeling provoked."
           simp_chinese: "保护传教士，显出这宗派秩序有向外的底气，也有肯把它带出国门的倡导者，接受因此大步前行；只是邻国，也就觉得受了挑衅。"
@@ -650,7 +650,7 @@ random_events:
         text:
           english: "Peace, before a sermon starts a war."
           simp_chinese: "消停些，免得一篇布道引出一场战争。"
-        progress_delta: -10
+        progress_delta: -5
         rationale:
           english: "Restraining the preachers calms relations abroad, but it signals that diplomatic caution can silence the very men who would carry the confession beyond the Academy's walls."
           simp_chinese: "约束传教士，能平息对外关系；但这也表明，外交上的谨慎足以噤声那些本该把信纲带出学院高墙的人。"
@@ -676,7 +676,7 @@ random_events:
         text:
           english: "The collectors add a school levy to every parish assessment."
           simp_chinese: "税吏在各堂区的税册上，添了一项学校税。"
-        progress_delta: 5
+        progress_delta: 2.5
         rationale:
           english: "Funding the schools gives the confessional program a real classroom base, so acceptance advances - but the levy makes ordinary households feel doctrine is being taken straight from their purses."
           simp_chinese: "为学校筹资，给宗派纲领垫下实在的课堂根基，接受因此向前——可这项税，也让寻常人家觉得，教义正从自家钱袋里直接被掏走。"
@@ -695,7 +695,7 @@ random_events:
         text:
           english: "No new tax, whatever we choose to call it."
           simp_chinese: "不加新税——不管我们给它起什么名目。"
-        progress_delta: -5
+        progress_delta: -2.5
         rationale:
           english: "Refusing the tax protects rural patience and keeps confessional schooling from becoming a fiscal grievance, but it leaves the new doctrine without the coin it needs to reach the parish children."
           simp_chinese: "拒绝征税，护住了乡下的耐心，也免得宗派教育变成一桩财政怨气；可新教义，也因此缺了走进堂区孩子中间所需的那笔钱。"
@@ -721,7 +721,7 @@ random_events:
         text:
           english: "The Crown binds the clergy to the doctrine they serve."
           simp_chinese: "君主把教士约束于他们所侍奉的教义之下。"
-        progress_delta: 10
+        progress_delta: 5
         rationale:
           english: "Backing discipline makes the confession more than a clerical possession - a rule that can bind even churchmen - advancing acceptance sharply while angering the clergy attached to corporate privilege."
           simp_chinese: "支持纪律，让信纲不再只是教士阶层的私产，而成为连教士也须遵守的规矩，强力推动接受；却也激怒了那些恋着团体特权的教士。"
@@ -742,7 +742,7 @@ random_events:
         text:
           english: "We let the clergy keep the privileges of their order."
           simp_chinese: "我们让教士保住本阶层的特权。"
-        progress_delta: -10
+        progress_delta: -5
         rationale:
           english: "Protecting clerical privilege reassures the clergy estate that confession will never become a royal leash, but it announces that institutional comfort matters more here than doctrinal discipline."
           simp_chinese: "保护教士特权，让教士等级安心：信纲绝不会变成王权的缰绳；可这也昭告众人，在这里，制度的安逸比教义的纪律更要紧。"
@@ -772,7 +772,7 @@ random_events:
         text:
           english: "We take the recantation and spare the man his humiliation."
           simp_chinese: "我们接受悔认，免了这人受辱。"
-        progress_delta: 5
+        progress_delta: 2.5
         rationale:
           english: "Accepting the recantation turns an opponent into living proof that persuasion works, moving the debate toward acceptance and steadying public order through visible restraint."
           simp_chinese: "接受悔认，把一名反对者变成\"劝服管用\"的活证据，推着辩论走向接受；看得见的克制，也安定了公共秩序。"
@@ -787,7 +787,7 @@ random_events:
         text:
           english: "The opponent is made to recant on his knees, before the whole hall."
           simp_chinese: "那位反对者被要求当着满堂人，跪地悔认。"
-        progress_delta: 10
+        progress_delta: 5
         rationale:
           english: "Demanding public shame makes the victory unmistakable and cows the wavering, so acceptance leaps forward, but the spectacle hardens everyone who fears confession as coercion."
           simp_chinese: "要求公开受辱，让胜利无从误认，也震慑了摇摆之人，接受于是猛地向前；可这般场面，也让每一个害怕信纲沦为强制的人，更加铁了心。"
@@ -818,7 +818,7 @@ random_events:
         text:
           english: "The census-takers sort every community into its confessional column."
           simp_chinese: "清查员把每个社群，一一归入各自的宗派栏目。"
-        progress_delta: 10
+        progress_delta: 5
         rationale:
           english: "Counting the communities gives the confessional state the knowledge it needs to govern doctrine locally, advancing acceptance strongly while making minorities dread that to be seen is to be exposed."
           simp_chinese: "把各社群统计入册，让宗派国家握有在地方治理教义所需的知识，强力推动接受；却也让少数群体惧怕：被看见，便是被暴露。"
@@ -838,7 +838,7 @@ random_events:
         text:
           english: "What is counted is easily hunted."
           simp_chinese: "入册者，易成猎物。"
-        progress_delta: -5
+        progress_delta: -2.5
         rationale:
           english: "Refusing the count keeps the local peace and reassures the vulnerable communities, but it leaves the confessional program half-blind everywhere beyond the Academy's chamber."
           simp_chinese: "拒绝清查，保住了地方的太平，也安抚了脆弱的社群；可这也让宗派纲领，在学院议厅之外处处半盲。"
@@ -868,7 +868,7 @@ random_events:
         text:
           english: "The royal formula is proclaimed from every market cross."
           simp_chinese: "王室条文在每一座集市十字碑前昭告天下。"
-        progress_delta: 10
+        progress_delta: 5
         rationale:
           english: "Proclaiming the formula hands the debate a royal sentence to rally around, pushing acceptance quickly, but a formula issued before consensus makes legitimacy carry the weight of every disputed word."
           simp_chinese: "颁布条文，给辩论一句可供拥护的王室定论，迅速推动接受；可在共识形成之前发布，也让正统性去扛下每一个争议词句的分量。"
@@ -889,7 +889,7 @@ random_events:
         text:
           english: "Back to the drafting table with it."
           simp_chinese: "拿回去，重新拟过。"
-        progress_delta: -5
+        progress_delta: -2.5
         rationale:
           english: "Returning the formula for revision keeps royal dignity off an unstable text, but it also tells the Academy that the confession still lacks words strong enough to govern with."
           simp_chinese: "退回重修，不把王室尊严押在一份不稳的文本上；可这也告诉学院，这信纲，仍缺一句足以治国的措辞。"
