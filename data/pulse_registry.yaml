@@ -49,6 +49,7 @@ pulses:
     - tv_arts_exhibition_yearly_pulse # touring artist elapsed counter + return-home
     - tv_govhouse_governor_tasks_yearly_pulse # autonomous regional governor task reassessment
     - tv_trade_league_yearly_pulse # Trade League global market cache and full monopoly rebuild
+    - tv_io_establishment_yearly_pulse # AI-only yearly conquest score recompute (every_subject_or_below off the monthly path)
 
   on_character_death:
     - tv_govhouse_char_death           # Grand General death cleanup

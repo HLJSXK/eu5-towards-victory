@@ -205,7 +205,10 @@ tv_io_establishment_mark_basic_requirements_effect = {
 			NOT = { has_variable = tv_conquest_establishment_basic_done }
 			NOT = { has_variable = tv_conquest_victory_enabled }
 		}
-		tv_update_conquest_score_effect = yes
+		if = {
+			limit = { is_ai = no }
+			tv_update_conquest_score_effect = yes
+		}
 		if = {
 			limit = { tv_conquest_establishment_basic_requirement = yes }
 			set_variable = { name = tv_conquest_establishment_basic_done value = 1 }
@@ -284,6 +287,20 @@ tv_io_establishment_mark_basic_requirements_effect = {
 				trigger_event_non_silently = { id = tv_io_establishment.106 days = 1 }
 			}
 		}
+	}
+}
+
+# Registered under yearly_country_pulse by tv_pulse_bridges.txt.
+# AI counterpart to the is_ai = no conquest score update above: keeps the
+# every_subject_or_below scan off the monthly path for AI countries.
+tv_io_establishment_conquest_score_yearly_pulse_effect = {
+	if = {
+		limit = {
+			is_ai = yes
+			NOT = { has_variable = tv_conquest_establishment_basic_done }
+			NOT = { has_variable = tv_conquest_victory_enabled }
+		}
+		tv_update_conquest_score_effect = yes
 	}
 }
 
