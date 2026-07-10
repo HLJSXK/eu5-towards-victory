@@ -131,6 +131,19 @@ generators.
     (`scripts/unique_wonder_ritual_content/alhambra.py:build_on_action_body`) validated on any
     war ending while owning Granada, win or lose, until fixed 2026-07.
 
+15. Re-run `gen_tv_wonder_ritual_effects.py` after renaming any bespoke ritual variable.
+    `tv_wonder_ritual_effects.txt`'s `tv_wonder_mechanics_clear_selected_ritual_runtime_effect`
+    is generated straight from each unique wonder's live `ritual.runtime_variables` list in
+    `data/unique_wonders.yaml`. When a content module under `scripts/unique_wonder_ritual_content/`
+    changes its row-set/variable-naming helpers (as Dome of the Rock, Bank of Saint George, and
+    St. Peter's Basilica did in their 2026-07 bespoke rewrite), the data list gets updated but a
+    stale, unregenerated `tv_wonder_ritual_effects.txt` keeps `remove_variable`-ing the *old*
+    names — producing `used but never set` warnings for names nothing sets, while never actually
+    cleaning up the real current-name status/favorable_count/narrowed/started/completed/
+    ritual_stage variables on ritual reset (real state leak across restarts, not just a lint
+    warning). See `docs/knowledge/anti_patterns.yaml` rule
+    `wonder_ritual_cleanup_stale_after_entity_ritual_rename`.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`: it lints rule 2 automatically and, when a
@@ -139,4 +152,6 @@ Run `validate.py --changed --fix --ai-report`: it lints rule 2 automatically and
 `scripts/test_wonder_mechanics_rules.py` after changing scale-based wonder trigger/effect
 generators, and `scripts/audit_unique_wonder_ritual_mechanic_similarity.py` after implementing
 or reworking any unique-wonder ritual. Rules 6–11 have no automated check; inspect the
-affected tooltip, hover state, or GUI layout in game after any change in those areas.
+affected tooltip, hover state, or GUI layout in game after any change in those areas. Rule 15
+has no automated staleness check either — after editing a content module's naming helpers,
+always re-run `gen_tv_wonder_ritual_effects.py` even if no runtime error has been observed yet.
