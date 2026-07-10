@@ -283,6 +283,10 @@ paths:
       	text = TV_SCIENCE_ESTABLISHMENT_STEP1_REQUIREMENT
       	num_of_advances_researched >= 50
       }
+    progress_mirror:
+      variable: tv_science_advances_researched_mirror
+      source: num_of_advances_researched
+      target: 50
     headquarters:
       building: tv_science_headquarters
       name:
