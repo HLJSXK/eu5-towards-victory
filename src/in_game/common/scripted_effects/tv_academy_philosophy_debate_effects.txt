@@ -99,6 +99,68 @@ tv_academy_debate_clear_all_seats_effect = {
 	remove_variable = tv_academy_debate_group_foreign_power_left
 	remove_variable = tv_academy_debate_group_great_scientist_seated
 	remove_variable = tv_academy_debate_group_great_scientist_left
+	remove_variable = tv_academy_debate_group_continental_traders_seated
+	remove_variable = tv_academy_debate_group_continental_traders_left
+	remove_variable = tv_academy_debate_group_plutocratic_merchants_seated
+	remove_variable = tv_academy_debate_group_plutocratic_merchants_left
+	remove_variable = tv_academy_debate_group_mercantilist_guilds_seated
+	remove_variable = tv_academy_debate_group_mercantilist_guilds_left
+	remove_variable = tv_academy_debate_group_free_trade_merchants_seated
+	remove_variable = tv_academy_debate_group_free_trade_merchants_left
+	remove_variable = tv_academy_debate_group_capitalist_financiers_seated
+	remove_variable = tv_academy_debate_group_capitalist_financiers_left
+	remove_variable = tv_academy_debate_group_guild_traditionalists_seated
+	remove_variable = tv_academy_debate_group_guild_traditionalists_left
+	remove_variable = tv_academy_debate_group_colonial_merchants_seated
+	remove_variable = tv_academy_debate_group_colonial_merchants_left
+	remove_variable = tv_academy_debate_group_insular_guilds_seated
+	remove_variable = tv_academy_debate_group_insular_guilds_left
+	remove_variable = tv_academy_debate_group_feudal_levy_nobility_seated
+	remove_variable = tv_academy_debate_group_feudal_levy_nobility_left
+	remove_variable = tv_academy_debate_group_patronal_aristocracy_seated
+	remove_variable = tv_academy_debate_group_patronal_aristocracy_left
+	remove_variable = tv_academy_debate_group_serf_holding_lords_seated
+	remove_variable = tv_academy_debate_group_serf_holding_lords_left
+	remove_variable = tv_academy_debate_group_absolutist_court_faction_seated
+	remove_variable = tv_academy_debate_group_absolutist_court_faction_left
+	remove_variable = tv_academy_debate_group_constitutionalist_nobility_seated
+	remove_variable = tv_academy_debate_group_constitutionalist_nobility_left
+	remove_variable = tv_academy_debate_group_war_doctrine_nobility_seated
+	remove_variable = tv_academy_debate_group_war_doctrine_nobility_left
+	remove_variable = tv_academy_debate_group_fortress_doctrine_nobility_seated
+	remove_variable = tv_academy_debate_group_fortress_doctrine_nobility_left
+	remove_variable = tv_academy_debate_group_devout_clergy_seated
+	remove_variable = tv_academy_debate_group_devout_clergy_left
+	remove_variable = tv_academy_debate_group_humanist_clergy_seated
+	remove_variable = tv_academy_debate_group_humanist_clergy_left
+	remove_variable = tv_academy_debate_group_mystic_clergy_seated
+	remove_variable = tv_academy_debate_group_mystic_clergy_left
+	remove_variable = tv_academy_debate_group_canonist_clergy_seated
+	remove_variable = tv_academy_debate_group_canonist_clergy_left
+	remove_variable = tv_academy_debate_group_latinizing_clergy_seated
+	remove_variable = tv_academy_debate_group_latinizing_clergy_left
+	remove_variable = tv_academy_debate_group_hellenizing_clergy_seated
+	remove_variable = tv_academy_debate_group_hellenizing_clergy_left
+	remove_variable = tv_academy_debate_group_crown_subjects_seated
+	remove_variable = tv_academy_debate_group_crown_subjects_left
+	remove_variable = tv_academy_debate_group_free_subject_peasantry_seated
+	remove_variable = tv_academy_debate_group_free_subject_peasantry_left
+	remove_variable = tv_academy_debate_group_individualist_smallholders_seated
+	remove_variable = tv_academy_debate_group_individualist_smallholders_left
+	remove_variable = tv_academy_debate_group_communal_villages_seated
+	remove_variable = tv_academy_debate_group_communal_villages_left
+	remove_variable = tv_academy_debate_group_traditionalist_enclave_seated
+	remove_variable = tv_academy_debate_group_traditionalist_enclave_left
+	remove_variable = tv_academy_debate_group_assimilating_enclave_seated
+	remove_variable = tv_academy_debate_group_assimilating_enclave_left
+	remove_variable = tv_academy_debate_group_sinicized_minority_seated
+	remove_variable = tv_academy_debate_group_sinicized_minority_left
+	remove_variable = tv_academy_debate_group_unsinicized_minority_seated
+	remove_variable = tv_academy_debate_group_unsinicized_minority_left
+	remove_variable = tv_academy_debate_group_warrior_clans_seated
+	remove_variable = tv_academy_debate_group_warrior_clans_left
+	remove_variable = tv_academy_debate_group_diplomatic_clans_seated
+	remove_variable = tv_academy_debate_group_diplomatic_clans_left
 	remove_variable = tv_academy_debate_great_scientist_seated
 	tv_academy_debate_clear_event_state_effect = yes
 	tv_academy_debate_refresh_local_balance_effect = yes
@@ -135,6 +197,68 @@ tv_academy_debate_initialize_global_maps_effect = {
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 14 value = estate_type:peasants_estate }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 15 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 15 value = estate_type:peasants_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 19 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 19 value = estate_type:burghers_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 20 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 20 value = estate_type:burghers_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 21 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 21 value = estate_type:burghers_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 22 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 22 value = estate_type:burghers_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 23 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 23 value = estate_type:burghers_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 24 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 24 value = estate_type:burghers_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 25 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 25 value = estate_type:burghers_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 26 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 26 value = estate_type:burghers_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 27 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 27 value = estate_type:nobles_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 28 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 28 value = estate_type:nobles_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 29 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 29 value = estate_type:nobles_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 30 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 30 value = estate_type:nobles_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 31 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 31 value = estate_type:nobles_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 32 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 32 value = estate_type:nobles_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 33 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 33 value = estate_type:nobles_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 34 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 34 value = estate_type:clergy_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 35 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 35 value = estate_type:clergy_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 36 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 36 value = estate_type:clergy_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 37 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 37 value = estate_type:clergy_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 38 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 38 value = estate_type:clergy_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 39 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 39 value = estate_type:clergy_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 40 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 40 value = estate_type:peasants_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 41 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 41 value = estate_type:peasants_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 42 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 42 value = estate_type:peasants_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 43 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 43 value = estate_type:peasants_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 44 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 44 value = estate_type:peasants_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 45 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 45 value = estate_type:peasants_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 46 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 46 value = estate_type:peasants_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 47 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 47 value = estate_type:peasants_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 48 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 48 value = estate_type:peasants_estate }
+	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 49 }
+	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 49 value = estate_type:peasants_estate }
 }
 
 tv_academy_debate_initialize_debate_effect = {
@@ -221,6 +345,130 @@ tv_academy_debate_remove_group_seated_by_id_effect = {
 		remove_variable = tv_academy_debate_group_great_scientist_seated
 		remove_variable = tv_academy_debate_great_scientist_seated
 	}
+	else_if = {
+		limit = { $group$ ?= 19 }
+		remove_variable = tv_academy_debate_group_continental_traders_seated
+	}
+	else_if = {
+		limit = { $group$ ?= 20 }
+		remove_variable = tv_academy_debate_group_plutocratic_merchants_seated
+	}
+	else_if = {
+		limit = { $group$ ?= 21 }
+		remove_variable = tv_academy_debate_group_mercantilist_guilds_seated
+	}
+	else_if = {
+		limit = { $group$ ?= 22 }
+		remove_variable = tv_academy_debate_group_free_trade_merchants_seated
+	}
+	else_if = {
+		limit = { $group$ ?= 23 }
+		remove_variable = tv_academy_debate_group_capitalist_financiers_seated
+	}
+	else_if = {
+		limit = { $group$ ?= 24 }
+		remove_variable = tv_academy_debate_group_guild_traditionalists_seated
+	}
+	else_if = {
+		limit = { $group$ ?= 25 }
+		remove_variable = tv_academy_debate_group_colonial_merchants_seated
+	}
+	else_if = {
+		limit = { $group$ ?= 26 }
+		remove_variable = tv_academy_debate_group_insular_guilds_seated
+	}
+	else_if = {
+		limit = { $group$ ?= 27 }
+		remove_variable = tv_academy_debate_group_feudal_levy_nobility_seated
+	}
+	else_if = {
+		limit = { $group$ ?= 28 }
+		remove_variable = tv_academy_debate_group_patronal_aristocracy_seated
+	}
+	else_if = {
+		limit = { $group$ ?= 29 }
+		remove_variable = tv_academy_debate_group_serf_holding_lords_seated
+	}
+	else_if = {
+		limit = { $group$ ?= 30 }
+		remove_variable = tv_academy_debate_group_absolutist_court_faction_seated
+	}
+	else_if = {
+		limit = { $group$ ?= 31 }
+		remove_variable = tv_academy_debate_group_constitutionalist_nobility_seated
+	}
+	else_if = {
+		limit = { $group$ ?= 32 }
+		remove_variable = tv_academy_debate_group_war_doctrine_nobility_seated
+	}
+	else_if = {
+		limit = { $group$ ?= 33 }
+		remove_variable = tv_academy_debate_group_fortress_doctrine_nobility_seated
+	}
+	else_if = {
+		limit = { $group$ ?= 34 }
+		remove_variable = tv_academy_debate_group_devout_clergy_seated
+	}
+	else_if = {
+		limit = { $group$ ?= 35 }
+		remove_variable = tv_academy_debate_group_humanist_clergy_seated
+	}
+	else_if = {
+		limit = { $group$ ?= 36 }
+		remove_variable = tv_academy_debate_group_mystic_clergy_seated
+	}
+	else_if = {
+		limit = { $group$ ?= 37 }
+		remove_variable = tv_academy_debate_group_canonist_clergy_seated
+	}
+	else_if = {
+		limit = { $group$ ?= 38 }
+		remove_variable = tv_academy_debate_group_latinizing_clergy_seated
+	}
+	else_if = {
+		limit = { $group$ ?= 39 }
+		remove_variable = tv_academy_debate_group_hellenizing_clergy_seated
+	}
+	else_if = {
+		limit = { $group$ ?= 40 }
+		remove_variable = tv_academy_debate_group_crown_subjects_seated
+	}
+	else_if = {
+		limit = { $group$ ?= 41 }
+		remove_variable = tv_academy_debate_group_free_subject_peasantry_seated
+	}
+	else_if = {
+		limit = { $group$ ?= 42 }
+		remove_variable = tv_academy_debate_group_individualist_smallholders_seated
+	}
+	else_if = {
+		limit = { $group$ ?= 43 }
+		remove_variable = tv_academy_debate_group_communal_villages_seated
+	}
+	else_if = {
+		limit = { $group$ ?= 44 }
+		remove_variable = tv_academy_debate_group_traditionalist_enclave_seated
+	}
+	else_if = {
+		limit = { $group$ ?= 45 }
+		remove_variable = tv_academy_debate_group_assimilating_enclave_seated
+	}
+	else_if = {
+		limit = { $group$ ?= 46 }
+		remove_variable = tv_academy_debate_group_sinicized_minority_seated
+	}
+	else_if = {
+		limit = { $group$ ?= 47 }
+		remove_variable = tv_academy_debate_group_unsinicized_minority_seated
+	}
+	else_if = {
+		limit = { $group$ ?= 48 }
+		remove_variable = tv_academy_debate_group_warrior_clans_seated
+	}
+	else_if = {
+		limit = { $group$ ?= 49 }
+		remove_variable = tv_academy_debate_group_diplomatic_clans_seated
+	}
 }
 
 tv_academy_debate_mark_selected_group_seated_effect = {
@@ -296,6 +544,130 @@ tv_academy_debate_mark_selected_group_seated_effect = {
 		limit = { var:tv_academy_debate_event_group ?= 18 }
 		set_variable = { name = tv_academy_debate_group_great_scientist_seated value = 1 }
 		set_variable = { name = tv_academy_debate_great_scientist_seated value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 19 }
+		set_variable = { name = tv_academy_debate_group_continental_traders_seated value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 20 }
+		set_variable = { name = tv_academy_debate_group_plutocratic_merchants_seated value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 21 }
+		set_variable = { name = tv_academy_debate_group_mercantilist_guilds_seated value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 22 }
+		set_variable = { name = tv_academy_debate_group_free_trade_merchants_seated value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 23 }
+		set_variable = { name = tv_academy_debate_group_capitalist_financiers_seated value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 24 }
+		set_variable = { name = tv_academy_debate_group_guild_traditionalists_seated value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 25 }
+		set_variable = { name = tv_academy_debate_group_colonial_merchants_seated value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 26 }
+		set_variable = { name = tv_academy_debate_group_insular_guilds_seated value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 27 }
+		set_variable = { name = tv_academy_debate_group_feudal_levy_nobility_seated value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 28 }
+		set_variable = { name = tv_academy_debate_group_patronal_aristocracy_seated value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 29 }
+		set_variable = { name = tv_academy_debate_group_serf_holding_lords_seated value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 30 }
+		set_variable = { name = tv_academy_debate_group_absolutist_court_faction_seated value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 31 }
+		set_variable = { name = tv_academy_debate_group_constitutionalist_nobility_seated value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 32 }
+		set_variable = { name = tv_academy_debate_group_war_doctrine_nobility_seated value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 33 }
+		set_variable = { name = tv_academy_debate_group_fortress_doctrine_nobility_seated value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 34 }
+		set_variable = { name = tv_academy_debate_group_devout_clergy_seated value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 35 }
+		set_variable = { name = tv_academy_debate_group_humanist_clergy_seated value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 36 }
+		set_variable = { name = tv_academy_debate_group_mystic_clergy_seated value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 37 }
+		set_variable = { name = tv_academy_debate_group_canonist_clergy_seated value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 38 }
+		set_variable = { name = tv_academy_debate_group_latinizing_clergy_seated value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 39 }
+		set_variable = { name = tv_academy_debate_group_hellenizing_clergy_seated value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 40 }
+		set_variable = { name = tv_academy_debate_group_crown_subjects_seated value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 41 }
+		set_variable = { name = tv_academy_debate_group_free_subject_peasantry_seated value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 42 }
+		set_variable = { name = tv_academy_debate_group_individualist_smallholders_seated value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 43 }
+		set_variable = { name = tv_academy_debate_group_communal_villages_seated value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 44 }
+		set_variable = { name = tv_academy_debate_group_traditionalist_enclave_seated value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 45 }
+		set_variable = { name = tv_academy_debate_group_assimilating_enclave_seated value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 46 }
+		set_variable = { name = tv_academy_debate_group_sinicized_minority_seated value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 47 }
+		set_variable = { name = tv_academy_debate_group_unsinicized_minority_seated value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 48 }
+		set_variable = { name = tv_academy_debate_group_warrior_clans_seated value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 49 }
+		set_variable = { name = tv_academy_debate_group_diplomatic_clans_seated value = 1 }
 	}
 }
 
@@ -473,6 +845,192 @@ tv_academy_debate_selected_group_seated_tooltip_effect = {
 			text = tv_academy_debate_group_great_scientist_seated_text
 		}
 	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 19 }
+		custom_description = {
+			text = tv_academy_debate_group_continental_traders_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 20 }
+		custom_description = {
+			text = tv_academy_debate_group_plutocratic_merchants_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 21 }
+		custom_description = {
+			text = tv_academy_debate_group_mercantilist_guilds_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 22 }
+		custom_description = {
+			text = tv_academy_debate_group_free_trade_merchants_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 23 }
+		custom_description = {
+			text = tv_academy_debate_group_capitalist_financiers_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 24 }
+		custom_description = {
+			text = tv_academy_debate_group_guild_traditionalists_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 25 }
+		custom_description = {
+			text = tv_academy_debate_group_colonial_merchants_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 26 }
+		custom_description = {
+			text = tv_academy_debate_group_insular_guilds_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 27 }
+		custom_description = {
+			text = tv_academy_debate_group_feudal_levy_nobility_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 28 }
+		custom_description = {
+			text = tv_academy_debate_group_patronal_aristocracy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 29 }
+		custom_description = {
+			text = tv_academy_debate_group_serf_holding_lords_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 30 }
+		custom_description = {
+			text = tv_academy_debate_group_absolutist_court_faction_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 31 }
+		custom_description = {
+			text = tv_academy_debate_group_constitutionalist_nobility_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 32 }
+		custom_description = {
+			text = tv_academy_debate_group_war_doctrine_nobility_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 33 }
+		custom_description = {
+			text = tv_academy_debate_group_fortress_doctrine_nobility_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 34 }
+		custom_description = {
+			text = tv_academy_debate_group_devout_clergy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 35 }
+		custom_description = {
+			text = tv_academy_debate_group_humanist_clergy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 36 }
+		custom_description = {
+			text = tv_academy_debate_group_mystic_clergy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 37 }
+		custom_description = {
+			text = tv_academy_debate_group_canonist_clergy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 38 }
+		custom_description = {
+			text = tv_academy_debate_group_latinizing_clergy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 39 }
+		custom_description = {
+			text = tv_academy_debate_group_hellenizing_clergy_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 40 }
+		custom_description = {
+			text = tv_academy_debate_group_crown_subjects_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 41 }
+		custom_description = {
+			text = tv_academy_debate_group_free_subject_peasantry_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 42 }
+		custom_description = {
+			text = tv_academy_debate_group_individualist_smallholders_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 43 }
+		custom_description = {
+			text = tv_academy_debate_group_communal_villages_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 44 }
+		custom_description = {
+			text = tv_academy_debate_group_traditionalist_enclave_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 45 }
+		custom_description = {
+			text = tv_academy_debate_group_assimilating_enclave_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 46 }
+		custom_description = {
+			text = tv_academy_debate_group_sinicized_minority_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 47 }
+		custom_description = {
+			text = tv_academy_debate_group_unsinicized_minority_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 48 }
+		custom_description = {
+			text = tv_academy_debate_group_warrior_clans_seated_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 49 }
+		custom_description = {
+			text = tv_academy_debate_group_diplomatic_clans_seated_text
+		}
+	}
 }
 
 tv_academy_debate_selected_group_left_tooltip_effect = {
@@ -584,6 +1142,192 @@ tv_academy_debate_selected_group_left_tooltip_effect = {
 			text = tv_academy_debate_group_great_scientist_left_text
 		}
 	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 19 }
+		custom_description = {
+			text = tv_academy_debate_group_continental_traders_left_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 20 }
+		custom_description = {
+			text = tv_academy_debate_group_plutocratic_merchants_left_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 21 }
+		custom_description = {
+			text = tv_academy_debate_group_mercantilist_guilds_left_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 22 }
+		custom_description = {
+			text = tv_academy_debate_group_free_trade_merchants_left_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 23 }
+		custom_description = {
+			text = tv_academy_debate_group_capitalist_financiers_left_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 24 }
+		custom_description = {
+			text = tv_academy_debate_group_guild_traditionalists_left_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 25 }
+		custom_description = {
+			text = tv_academy_debate_group_colonial_merchants_left_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 26 }
+		custom_description = {
+			text = tv_academy_debate_group_insular_guilds_left_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 27 }
+		custom_description = {
+			text = tv_academy_debate_group_feudal_levy_nobility_left_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 28 }
+		custom_description = {
+			text = tv_academy_debate_group_patronal_aristocracy_left_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 29 }
+		custom_description = {
+			text = tv_academy_debate_group_serf_holding_lords_left_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 30 }
+		custom_description = {
+			text = tv_academy_debate_group_absolutist_court_faction_left_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 31 }
+		custom_description = {
+			text = tv_academy_debate_group_constitutionalist_nobility_left_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 32 }
+		custom_description = {
+			text = tv_academy_debate_group_war_doctrine_nobility_left_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 33 }
+		custom_description = {
+			text = tv_academy_debate_group_fortress_doctrine_nobility_left_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 34 }
+		custom_description = {
+			text = tv_academy_debate_group_devout_clergy_left_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 35 }
+		custom_description = {
+			text = tv_academy_debate_group_humanist_clergy_left_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 36 }
+		custom_description = {
+			text = tv_academy_debate_group_mystic_clergy_left_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 37 }
+		custom_description = {
+			text = tv_academy_debate_group_canonist_clergy_left_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 38 }
+		custom_description = {
+			text = tv_academy_debate_group_latinizing_clergy_left_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 39 }
+		custom_description = {
+			text = tv_academy_debate_group_hellenizing_clergy_left_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 40 }
+		custom_description = {
+			text = tv_academy_debate_group_crown_subjects_left_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 41 }
+		custom_description = {
+			text = tv_academy_debate_group_free_subject_peasantry_left_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 42 }
+		custom_description = {
+			text = tv_academy_debate_group_individualist_smallholders_left_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 43 }
+		custom_description = {
+			text = tv_academy_debate_group_communal_villages_left_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 44 }
+		custom_description = {
+			text = tv_academy_debate_group_traditionalist_enclave_left_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 45 }
+		custom_description = {
+			text = tv_academy_debate_group_assimilating_enclave_left_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 46 }
+		custom_description = {
+			text = tv_academy_debate_group_sinicized_minority_left_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 47 }
+		custom_description = {
+			text = tv_academy_debate_group_unsinicized_minority_left_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 48 }
+		custom_description = {
+			text = tv_academy_debate_group_warrior_clans_left_text
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 49 }
+		custom_description = {
+			text = tv_academy_debate_group_diplomatic_clans_left_text
+		}
+	}
 }
 
 tv_academy_debate_clear_seat_effect = {
@@ -691,6 +1435,130 @@ tv_academy_debate_mark_selected_group_left_effect = {
 	else_if = {
 		limit = { var:tv_academy_debate_event_group ?= 18 }
 		set_variable = { name = tv_academy_debate_group_great_scientist_left value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 19 }
+		set_variable = { name = tv_academy_debate_group_continental_traders_left value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 20 }
+		set_variable = { name = tv_academy_debate_group_plutocratic_merchants_left value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 21 }
+		set_variable = { name = tv_academy_debate_group_mercantilist_guilds_left value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 22 }
+		set_variable = { name = tv_academy_debate_group_free_trade_merchants_left value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 23 }
+		set_variable = { name = tv_academy_debate_group_capitalist_financiers_left value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 24 }
+		set_variable = { name = tv_academy_debate_group_guild_traditionalists_left value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 25 }
+		set_variable = { name = tv_academy_debate_group_colonial_merchants_left value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 26 }
+		set_variable = { name = tv_academy_debate_group_insular_guilds_left value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 27 }
+		set_variable = { name = tv_academy_debate_group_feudal_levy_nobility_left value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 28 }
+		set_variable = { name = tv_academy_debate_group_patronal_aristocracy_left value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 29 }
+		set_variable = { name = tv_academy_debate_group_serf_holding_lords_left value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 30 }
+		set_variable = { name = tv_academy_debate_group_absolutist_court_faction_left value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 31 }
+		set_variable = { name = tv_academy_debate_group_constitutionalist_nobility_left value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 32 }
+		set_variable = { name = tv_academy_debate_group_war_doctrine_nobility_left value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 33 }
+		set_variable = { name = tv_academy_debate_group_fortress_doctrine_nobility_left value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 34 }
+		set_variable = { name = tv_academy_debate_group_devout_clergy_left value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 35 }
+		set_variable = { name = tv_academy_debate_group_humanist_clergy_left value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 36 }
+		set_variable = { name = tv_academy_debate_group_mystic_clergy_left value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 37 }
+		set_variable = { name = tv_academy_debate_group_canonist_clergy_left value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 38 }
+		set_variable = { name = tv_academy_debate_group_latinizing_clergy_left value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 39 }
+		set_variable = { name = tv_academy_debate_group_hellenizing_clergy_left value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 40 }
+		set_variable = { name = tv_academy_debate_group_crown_subjects_left value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 41 }
+		set_variable = { name = tv_academy_debate_group_free_subject_peasantry_left value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 42 }
+		set_variable = { name = tv_academy_debate_group_individualist_smallholders_left value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 43 }
+		set_variable = { name = tv_academy_debate_group_communal_villages_left value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 44 }
+		set_variable = { name = tv_academy_debate_group_traditionalist_enclave_left value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 45 }
+		set_variable = { name = tv_academy_debate_group_assimilating_enclave_left value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 46 }
+		set_variable = { name = tv_academy_debate_group_sinicized_minority_left value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 47 }
+		set_variable = { name = tv_academy_debate_group_unsinicized_minority_left value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 48 }
+		set_variable = { name = tv_academy_debate_group_warrior_clans_left value = 1 }
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 49 }
+		set_variable = { name = tv_academy_debate_group_diplomatic_clans_left value = 1 }
 	}
 }
 
@@ -1305,6 +2173,953 @@ tv_academy_debate_set_stance_for_selected_group_effect = {
 			set_variable = { name = tv_academy_debate_event_stance value = 1 }
 		}
 	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 19 }
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 1
+					var:tv_academy_philosophy_current ?= 3
+					var:tv_academy_philosophy_current ?= 5
+					var:tv_academy_philosophy_current ?= 8
+					var:tv_academy_philosophy_current ?= 9
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 2
+					var:tv_academy_philosophy_current ?= 4
+					var:tv_academy_philosophy_current ?= 6
+					var:tv_academy_philosophy_current ?= 7
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 3 }
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 20 }
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 1
+					var:tv_academy_philosophy_current ?= 2
+					var:tv_academy_philosophy_current ?= 3
+					var:tv_academy_philosophy_current ?= 4
+					var:tv_academy_philosophy_current ?= 5
+					var:tv_academy_philosophy_current ?= 7
+					var:tv_academy_philosophy_current ?= 8
+					var:tv_academy_philosophy_current ?= 9
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 1 }
+		}
+		if = {
+			limit = {
+				var:tv_academy_philosophy_current ?= 6
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 2 }
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 21 }
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 1
+					var:tv_academy_philosophy_current ?= 3
+					var:tv_academy_philosophy_current ?= 8
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 1 }
+		}
+		if = {
+			limit = {
+				var:tv_academy_philosophy_current ?= 7
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 2 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 2
+					var:tv_academy_philosophy_current ?= 4
+					var:tv_academy_philosophy_current ?= 5
+					var:tv_academy_philosophy_current ?= 6
+					var:tv_academy_philosophy_current ?= 9
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 3 }
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 22 }
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 1
+					var:tv_academy_philosophy_current ?= 2
+					var:tv_academy_philosophy_current ?= 3
+					var:tv_academy_philosophy_current ?= 4
+					var:tv_academy_philosophy_current ?= 5
+					var:tv_academy_philosophy_current ?= 7
+					var:tv_academy_philosophy_current ?= 8
+					var:tv_academy_philosophy_current ?= 9
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 1 }
+		}
+		if = {
+			limit = {
+				var:tv_academy_philosophy_current ?= 6
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 3 }
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 23 }
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 1
+					var:tv_academy_philosophy_current ?= 3
+					var:tv_academy_philosophy_current ?= 7
+					var:tv_academy_philosophy_current ?= 8
+					var:tv_academy_philosophy_current ?= 9
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 1 }
+		}
+		if = {
+			limit = {
+				var:tv_academy_philosophy_current ?= 6
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 2 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 2
+					var:tv_academy_philosophy_current ?= 4
+					var:tv_academy_philosophy_current ?= 5
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 3 }
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 24 }
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 1
+					var:tv_academy_philosophy_current ?= 5
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 3
+					var:tv_academy_philosophy_current ?= 7
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 2 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 2
+					var:tv_academy_philosophy_current ?= 4
+					var:tv_academy_philosophy_current ?= 6
+					var:tv_academy_philosophy_current ?= 8
+					var:tv_academy_philosophy_current ?= 9
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 3 }
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 25 }
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 2
+					var:tv_academy_philosophy_current ?= 4
+					var:tv_academy_philosophy_current ?= 7
+					var:tv_academy_philosophy_current ?= 8
+					var:tv_academy_philosophy_current ?= 9
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 1
+					var:tv_academy_philosophy_current ?= 3
+					var:tv_academy_philosophy_current ?= 5
+					var:tv_academy_philosophy_current ?= 6
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 3 }
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 26 }
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 1
+					var:tv_academy_philosophy_current ?= 3
+					var:tv_academy_philosophy_current ?= 5
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 4
+					var:tv_academy_philosophy_current ?= 7
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 2 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 2
+					var:tv_academy_philosophy_current ?= 6
+					var:tv_academy_philosophy_current ?= 8
+					var:tv_academy_philosophy_current ?= 9
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 3 }
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 27 }
+		if = {
+			limit = {
+				var:tv_academy_philosophy_current ?= 6
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 1
+					var:tv_academy_philosophy_current ?= 3
+					var:tv_academy_philosophy_current ?= 5
+					var:tv_academy_philosophy_current ?= 7
+					var:tv_academy_philosophy_current ?= 8
+					var:tv_academy_philosophy_current ?= 9
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 2 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 2
+					var:tv_academy_philosophy_current ?= 4
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 3 }
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 28 }
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 6
+					var:tv_academy_philosophy_current ?= 2
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 1
+					var:tv_academy_philosophy_current ?= 3
+					var:tv_academy_philosophy_current ?= 5
+					var:tv_academy_philosophy_current ?= 7
+					var:tv_academy_philosophy_current ?= 9
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 2 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 4
+					var:tv_academy_philosophy_current ?= 8
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 3 }
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 29 }
+		if = {
+			limit = {
+				var:tv_academy_philosophy_current ?= 6
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 1
+					var:tv_academy_philosophy_current ?= 3
+					var:tv_academy_philosophy_current ?= 5
+					var:tv_academy_philosophy_current ?= 7
+					var:tv_academy_philosophy_current ?= 9
+					var:tv_academy_philosophy_current ?= 4
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 2 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 2
+					var:tv_academy_philosophy_current ?= 8
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 3 }
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 30 }
+		if = {
+			limit = {
+				var:tv_academy_philosophy_current ?= 6
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 1
+					var:tv_academy_philosophy_current ?= 5
+					var:tv_academy_philosophy_current ?= 7
+					var:tv_academy_philosophy_current ?= 9
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 2 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 2
+					var:tv_academy_philosophy_current ?= 4
+					var:tv_academy_philosophy_current ?= 3
+					var:tv_academy_philosophy_current ?= 8
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 3 }
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 31 }
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 1
+					var:tv_academy_philosophy_current ?= 6
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 2
+					var:tv_academy_philosophy_current ?= 4
+					var:tv_academy_philosophy_current ?= 3
+					var:tv_academy_philosophy_current ?= 5
+					var:tv_academy_philosophy_current ?= 7
+					var:tv_academy_philosophy_current ?= 8
+					var:tv_academy_philosophy_current ?= 9
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 3 }
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 32 }
+		if = {
+			limit = {
+				var:tv_academy_philosophy_current ?= 6
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 1
+					var:tv_academy_philosophy_current ?= 3
+					var:tv_academy_philosophy_current ?= 5
+					var:tv_academy_philosophy_current ?= 7
+					var:tv_academy_philosophy_current ?= 9
+					var:tv_academy_philosophy_current ?= 8
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 2 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 2
+					var:tv_academy_philosophy_current ?= 4
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 3 }
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 33 }
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 6
+					var:tv_academy_philosophy_current ?= 4
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 1
+					var:tv_academy_philosophy_current ?= 3
+					var:tv_academy_philosophy_current ?= 9
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 2 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 2
+					var:tv_academy_philosophy_current ?= 5
+					var:tv_academy_philosophy_current ?= 7
+					var:tv_academy_philosophy_current ?= 8
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 3 }
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 34 }
+		if = {
+			limit = {
+				var:tv_academy_philosophy_current ?= 4
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 1
+					var:tv_academy_philosophy_current ?= 2
+					var:tv_academy_philosophy_current ?= 5
+					var:tv_academy_philosophy_current ?= 6
+					var:tv_academy_philosophy_current ?= 9
+					var:tv_academy_philosophy_current ?= 7
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 2 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 3
+					var:tv_academy_philosophy_current ?= 8
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 3 }
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 35 }
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 4
+					var:tv_academy_philosophy_current ?= 2
+					var:tv_academy_philosophy_current ?= 5
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 1
+					var:tv_academy_philosophy_current ?= 6
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 2 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 3
+					var:tv_academy_philosophy_current ?= 7
+					var:tv_academy_philosophy_current ?= 8
+					var:tv_academy_philosophy_current ?= 9
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 3 }
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 36 }
+		if = {
+			limit = {
+				var:tv_academy_philosophy_current ?= 4
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 1
+					var:tv_academy_philosophy_current ?= 2
+					var:tv_academy_philosophy_current ?= 5
+					var:tv_academy_philosophy_current ?= 6
+					var:tv_academy_philosophy_current ?= 9
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 2 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 3
+					var:tv_academy_philosophy_current ?= 7
+					var:tv_academy_philosophy_current ?= 8
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 3 }
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 37 }
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 4
+					var:tv_academy_philosophy_current ?= 1
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 1 }
+		}
+		if = {
+			limit = {
+				var:tv_academy_philosophy_current ?= 6
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 2 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 2
+					var:tv_academy_philosophy_current ?= 3
+					var:tv_academy_philosophy_current ?= 5
+					var:tv_academy_philosophy_current ?= 7
+					var:tv_academy_philosophy_current ?= 8
+					var:tv_academy_philosophy_current ?= 9
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 3 }
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 38 }
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 4
+					var:tv_academy_philosophy_current ?= 2
+					var:tv_academy_philosophy_current ?= 5
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 1 }
+		}
+		if = {
+			limit = {
+				var:tv_academy_philosophy_current ?= 6
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 2 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 1
+					var:tv_academy_philosophy_current ?= 3
+					var:tv_academy_philosophy_current ?= 7
+					var:tv_academy_philosophy_current ?= 8
+					var:tv_academy_philosophy_current ?= 9
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 3 }
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 39 }
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 4
+					var:tv_academy_philosophy_current ?= 6
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 1
+					var:tv_academy_philosophy_current ?= 2
+					var:tv_academy_philosophy_current ?= 5
+					var:tv_academy_philosophy_current ?= 9
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 2 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 3
+					var:tv_academy_philosophy_current ?= 7
+					var:tv_academy_philosophy_current ?= 8
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 3 }
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 40 }
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 1
+					var:tv_academy_philosophy_current ?= 5
+					var:tv_academy_philosophy_current ?= 6
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 3
+					var:tv_academy_philosophy_current ?= 7
+					var:tv_academy_philosophy_current ?= 8
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 2 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 2
+					var:tv_academy_philosophy_current ?= 4
+					var:tv_academy_philosophy_current ?= 9
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 3 }
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 41 }
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 1
+					var:tv_academy_philosophy_current ?= 5
+					var:tv_academy_philosophy_current ?= 9
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 2
+					var:tv_academy_philosophy_current ?= 4
+					var:tv_academy_philosophy_current ?= 6
+					var:tv_academy_philosophy_current ?= 3
+					var:tv_academy_philosophy_current ?= 7
+					var:tv_academy_philosophy_current ?= 8
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 3 }
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 42 }
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 1
+					var:tv_academy_philosophy_current ?= 5
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 3
+					var:tv_academy_philosophy_current ?= 7
+					var:tv_academy_philosophy_current ?= 8
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 2 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 2
+					var:tv_academy_philosophy_current ?= 4
+					var:tv_academy_philosophy_current ?= 6
+					var:tv_academy_philosophy_current ?= 9
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 3 }
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 43 }
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 1
+					var:tv_academy_philosophy_current ?= 6
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 3
+					var:tv_academy_philosophy_current ?= 7
+					var:tv_academy_philosophy_current ?= 5
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 2 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 2
+					var:tv_academy_philosophy_current ?= 4
+					var:tv_academy_philosophy_current ?= 8
+					var:tv_academy_philosophy_current ?= 9
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 3 }
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 44 }
+		if = {
+			limit = {
+				var:tv_academy_philosophy_current ?= 6
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 1
+					var:tv_academy_philosophy_current ?= 5
+					var:tv_academy_philosophy_current ?= 9
+					var:tv_academy_philosophy_current ?= 4
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 2 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 2
+					var:tv_academy_philosophy_current ?= 3
+					var:tv_academy_philosophy_current ?= 7
+					var:tv_academy_philosophy_current ?= 8
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 3 }
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 45 }
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 1
+					var:tv_academy_philosophy_current ?= 5
+					var:tv_academy_philosophy_current ?= 9
+					var:tv_academy_philosophy_current ?= 7
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 1 }
+		}
+		if = {
+			limit = {
+				var:tv_academy_philosophy_current ?= 4
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 2 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 2
+					var:tv_academy_philosophy_current ?= 3
+					var:tv_academy_philosophy_current ?= 6
+					var:tv_academy_philosophy_current ?= 8
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 3 }
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 46 }
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 1
+					var:tv_academy_philosophy_current ?= 5
+					var:tv_academy_philosophy_current ?= 9
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 1 }
+		}
+		if = {
+			limit = {
+				var:tv_academy_philosophy_current ?= 4
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 2 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 2
+					var:tv_academy_philosophy_current ?= 3
+					var:tv_academy_philosophy_current ?= 6
+					var:tv_academy_philosophy_current ?= 7
+					var:tv_academy_philosophy_current ?= 8
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 3 }
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 47 }
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 6
+					var:tv_academy_philosophy_current ?= 7
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 4
+					var:tv_academy_philosophy_current ?= 1
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 2 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 2
+					var:tv_academy_philosophy_current ?= 3
+					var:tv_academy_philosophy_current ?= 5
+					var:tv_academy_philosophy_current ?= 8
+					var:tv_academy_philosophy_current ?= 9
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 3 }
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 48 }
+		if = {
+			limit = {
+				var:tv_academy_philosophy_current ?= 6
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 1 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 4
+					var:tv_academy_philosophy_current ?= 1
+					var:tv_academy_philosophy_current ?= 9
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 2 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 2
+					var:tv_academy_philosophy_current ?= 3
+					var:tv_academy_philosophy_current ?= 5
+					var:tv_academy_philosophy_current ?= 7
+					var:tv_academy_philosophy_current ?= 8
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 3 }
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 49 }
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 1
+					var:tv_academy_philosophy_current ?= 5
+					var:tv_academy_philosophy_current ?= 7
+					var:tv_academy_philosophy_current ?= 6
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 1 }
+		}
+		if = {
+			limit = {
+				var:tv_academy_philosophy_current ?= 4
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 2 }
+		}
+		if = {
+			limit = {
+				OR = {
+					var:tv_academy_philosophy_current ?= 2
+					var:tv_academy_philosophy_current ?= 3
+					var:tv_academy_philosophy_current ?= 8
+					var:tv_academy_philosophy_current ?= 9
+				}
+			}
+			set_variable = { name = tv_academy_debate_event_stance value = 3 }
+		}
+	}
 }
 
 tv_academy_debate_set_selected_foreign_stance_effect = {
@@ -1632,6 +3447,192 @@ tv_academy_debate_pick_unseated_any_group_effect = {
 			}
 			set_variable = { name = tv_academy_debate_event_group value = 17 }
 		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_continental_traders_available_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 19 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_plutocratic_merchants_available_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 20 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_mercantilist_guilds_available_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 21 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_free_trade_merchants_available_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 22 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_capitalist_financiers_available_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 23 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_guild_traditionalists_available_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 24 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_colonial_merchants_available_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 25 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_insular_guilds_available_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 26 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_feudal_levy_nobility_available_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 27 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_patronal_aristocracy_available_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 28 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_serf_holding_lords_available_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 29 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_absolutist_court_faction_available_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 30 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_constitutionalist_nobility_available_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 31 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_war_doctrine_nobility_available_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 32 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_fortress_doctrine_nobility_available_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 33 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_devout_clergy_available_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 34 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_humanist_clergy_available_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 35 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_mystic_clergy_available_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 36 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_canonist_clergy_available_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 37 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_latinizing_clergy_available_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 38 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_hellenizing_clergy_available_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 39 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_crown_subjects_available_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 40 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_free_subject_peasantry_available_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 41 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_individualist_smallholders_available_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 42 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_communal_villages_available_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 43 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_traditionalist_enclave_available_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 44 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_assimilating_enclave_available_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 45 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_sinicized_minority_available_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 46 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_unsinicized_minority_available_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 47 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_warrior_clans_available_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 48 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_diplomatic_clans_available_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 49 }
+		}
 	}
 }
 
@@ -1748,6 +3749,223 @@ tv_academy_debate_pick_unseated_support_group_effect = {
 				tv_academy_debate_group_artists_supports_current_issue_trigger = yes
 			}
 			set_variable = { name = tv_academy_debate_event_group value = 16 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_continental_traders_available_trigger = yes
+				tv_academy_debate_group_continental_traders_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 19 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_plutocratic_merchants_available_trigger = yes
+				tv_academy_debate_group_plutocratic_merchants_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 20 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_mercantilist_guilds_available_trigger = yes
+				tv_academy_debate_group_mercantilist_guilds_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 21 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_free_trade_merchants_available_trigger = yes
+				tv_academy_debate_group_free_trade_merchants_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 22 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_capitalist_financiers_available_trigger = yes
+				tv_academy_debate_group_capitalist_financiers_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 23 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_guild_traditionalists_available_trigger = yes
+				tv_academy_debate_group_guild_traditionalists_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 24 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_colonial_merchants_available_trigger = yes
+				tv_academy_debate_group_colonial_merchants_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 25 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_insular_guilds_available_trigger = yes
+				tv_academy_debate_group_insular_guilds_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 26 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_feudal_levy_nobility_available_trigger = yes
+				tv_academy_debate_group_feudal_levy_nobility_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 27 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_patronal_aristocracy_available_trigger = yes
+				tv_academy_debate_group_patronal_aristocracy_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 28 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_serf_holding_lords_available_trigger = yes
+				tv_academy_debate_group_serf_holding_lords_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 29 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_absolutist_court_faction_available_trigger = yes
+				tv_academy_debate_group_absolutist_court_faction_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 30 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_constitutionalist_nobility_available_trigger = yes
+				tv_academy_debate_group_constitutionalist_nobility_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 31 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_war_doctrine_nobility_available_trigger = yes
+				tv_academy_debate_group_war_doctrine_nobility_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 32 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_fortress_doctrine_nobility_available_trigger = yes
+				tv_academy_debate_group_fortress_doctrine_nobility_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 33 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_devout_clergy_available_trigger = yes
+				tv_academy_debate_group_devout_clergy_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 34 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_humanist_clergy_available_trigger = yes
+				tv_academy_debate_group_humanist_clergy_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 35 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_mystic_clergy_available_trigger = yes
+				tv_academy_debate_group_mystic_clergy_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 36 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_canonist_clergy_available_trigger = yes
+				tv_academy_debate_group_canonist_clergy_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 37 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_latinizing_clergy_available_trigger = yes
+				tv_academy_debate_group_latinizing_clergy_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 38 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_hellenizing_clergy_available_trigger = yes
+				tv_academy_debate_group_hellenizing_clergy_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 39 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_crown_subjects_available_trigger = yes
+				tv_academy_debate_group_crown_subjects_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 40 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_free_subject_peasantry_available_trigger = yes
+				tv_academy_debate_group_free_subject_peasantry_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 41 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_individualist_smallholders_available_trigger = yes
+				tv_academy_debate_group_individualist_smallholders_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 42 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_communal_villages_available_trigger = yes
+				tv_academy_debate_group_communal_villages_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 43 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_traditionalist_enclave_available_trigger = yes
+				tv_academy_debate_group_traditionalist_enclave_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 44 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_assimilating_enclave_available_trigger = yes
+				tv_academy_debate_group_assimilating_enclave_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 45 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_sinicized_minority_available_trigger = yes
+				tv_academy_debate_group_sinicized_minority_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 46 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_unsinicized_minority_available_trigger = yes
+				tv_academy_debate_group_unsinicized_minority_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 47 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_warrior_clans_available_trigger = yes
+				tv_academy_debate_group_warrior_clans_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 48 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_diplomatic_clans_available_trigger = yes
+				tv_academy_debate_group_diplomatic_clans_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 49 }
 		}
 	}
 }
@@ -1866,6 +4084,223 @@ tv_academy_debate_pick_unseated_oppose_group_effect = {
 			}
 			set_variable = { name = tv_academy_debate_event_group value = 16 }
 		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_continental_traders_available_trigger = yes
+				tv_academy_debate_group_continental_traders_opposes_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 19 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_plutocratic_merchants_available_trigger = yes
+				tv_academy_debate_group_plutocratic_merchants_opposes_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 20 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_mercantilist_guilds_available_trigger = yes
+				tv_academy_debate_group_mercantilist_guilds_opposes_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 21 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_free_trade_merchants_available_trigger = yes
+				tv_academy_debate_group_free_trade_merchants_opposes_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 22 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_capitalist_financiers_available_trigger = yes
+				tv_academy_debate_group_capitalist_financiers_opposes_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 23 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_guild_traditionalists_available_trigger = yes
+				tv_academy_debate_group_guild_traditionalists_opposes_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 24 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_colonial_merchants_available_trigger = yes
+				tv_academy_debate_group_colonial_merchants_opposes_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 25 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_insular_guilds_available_trigger = yes
+				tv_academy_debate_group_insular_guilds_opposes_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 26 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_feudal_levy_nobility_available_trigger = yes
+				tv_academy_debate_group_feudal_levy_nobility_opposes_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 27 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_patronal_aristocracy_available_trigger = yes
+				tv_academy_debate_group_patronal_aristocracy_opposes_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 28 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_serf_holding_lords_available_trigger = yes
+				tv_academy_debate_group_serf_holding_lords_opposes_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 29 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_absolutist_court_faction_available_trigger = yes
+				tv_academy_debate_group_absolutist_court_faction_opposes_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 30 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_constitutionalist_nobility_available_trigger = yes
+				tv_academy_debate_group_constitutionalist_nobility_opposes_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 31 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_war_doctrine_nobility_available_trigger = yes
+				tv_academy_debate_group_war_doctrine_nobility_opposes_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 32 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_fortress_doctrine_nobility_available_trigger = yes
+				tv_academy_debate_group_fortress_doctrine_nobility_opposes_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 33 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_devout_clergy_available_trigger = yes
+				tv_academy_debate_group_devout_clergy_opposes_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 34 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_humanist_clergy_available_trigger = yes
+				tv_academy_debate_group_humanist_clergy_opposes_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 35 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_mystic_clergy_available_trigger = yes
+				tv_academy_debate_group_mystic_clergy_opposes_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 36 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_canonist_clergy_available_trigger = yes
+				tv_academy_debate_group_canonist_clergy_opposes_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 37 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_latinizing_clergy_available_trigger = yes
+				tv_academy_debate_group_latinizing_clergy_opposes_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 38 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_hellenizing_clergy_available_trigger = yes
+				tv_academy_debate_group_hellenizing_clergy_opposes_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 39 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_crown_subjects_available_trigger = yes
+				tv_academy_debate_group_crown_subjects_opposes_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 40 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_free_subject_peasantry_available_trigger = yes
+				tv_academy_debate_group_free_subject_peasantry_opposes_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 41 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_individualist_smallholders_available_trigger = yes
+				tv_academy_debate_group_individualist_smallholders_opposes_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 42 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_communal_villages_available_trigger = yes
+				tv_academy_debate_group_communal_villages_opposes_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 43 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_traditionalist_enclave_available_trigger = yes
+				tv_academy_debate_group_traditionalist_enclave_opposes_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 44 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_assimilating_enclave_available_trigger = yes
+				tv_academy_debate_group_assimilating_enclave_opposes_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 45 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_sinicized_minority_available_trigger = yes
+				tv_academy_debate_group_sinicized_minority_opposes_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 46 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_unsinicized_minority_available_trigger = yes
+				tv_academy_debate_group_unsinicized_minority_opposes_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 47 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_warrior_clans_available_trigger = yes
+				tv_academy_debate_group_warrior_clans_opposes_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 48 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_diplomatic_clans_available_trigger = yes
+				tv_academy_debate_group_diplomatic_clans_opposes_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 49 }
+		}
 	}
 }
 
@@ -1983,6 +4418,223 @@ tv_academy_debate_pick_unseated_neutral_group_effect = {
 			}
 			set_variable = { name = tv_academy_debate_event_group value = 16 }
 		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_continental_traders_available_trigger = yes
+				tv_academy_debate_group_continental_traders_neutral_on_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 19 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_plutocratic_merchants_available_trigger = yes
+				tv_academy_debate_group_plutocratic_merchants_neutral_on_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 20 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_mercantilist_guilds_available_trigger = yes
+				tv_academy_debate_group_mercantilist_guilds_neutral_on_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 21 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_free_trade_merchants_available_trigger = yes
+				tv_academy_debate_group_free_trade_merchants_neutral_on_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 22 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_capitalist_financiers_available_trigger = yes
+				tv_academy_debate_group_capitalist_financiers_neutral_on_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 23 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_guild_traditionalists_available_trigger = yes
+				tv_academy_debate_group_guild_traditionalists_neutral_on_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 24 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_colonial_merchants_available_trigger = yes
+				tv_academy_debate_group_colonial_merchants_neutral_on_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 25 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_insular_guilds_available_trigger = yes
+				tv_academy_debate_group_insular_guilds_neutral_on_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 26 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_feudal_levy_nobility_available_trigger = yes
+				tv_academy_debate_group_feudal_levy_nobility_neutral_on_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 27 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_patronal_aristocracy_available_trigger = yes
+				tv_academy_debate_group_patronal_aristocracy_neutral_on_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 28 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_serf_holding_lords_available_trigger = yes
+				tv_academy_debate_group_serf_holding_lords_neutral_on_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 29 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_absolutist_court_faction_available_trigger = yes
+				tv_academy_debate_group_absolutist_court_faction_neutral_on_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 30 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_constitutionalist_nobility_available_trigger = yes
+				tv_academy_debate_group_constitutionalist_nobility_neutral_on_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 31 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_war_doctrine_nobility_available_trigger = yes
+				tv_academy_debate_group_war_doctrine_nobility_neutral_on_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 32 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_fortress_doctrine_nobility_available_trigger = yes
+				tv_academy_debate_group_fortress_doctrine_nobility_neutral_on_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 33 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_devout_clergy_available_trigger = yes
+				tv_academy_debate_group_devout_clergy_neutral_on_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 34 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_humanist_clergy_available_trigger = yes
+				tv_academy_debate_group_humanist_clergy_neutral_on_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 35 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_mystic_clergy_available_trigger = yes
+				tv_academy_debate_group_mystic_clergy_neutral_on_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 36 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_canonist_clergy_available_trigger = yes
+				tv_academy_debate_group_canonist_clergy_neutral_on_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 37 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_latinizing_clergy_available_trigger = yes
+				tv_academy_debate_group_latinizing_clergy_neutral_on_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 38 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_hellenizing_clergy_available_trigger = yes
+				tv_academy_debate_group_hellenizing_clergy_neutral_on_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 39 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_crown_subjects_available_trigger = yes
+				tv_academy_debate_group_crown_subjects_neutral_on_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 40 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_free_subject_peasantry_available_trigger = yes
+				tv_academy_debate_group_free_subject_peasantry_neutral_on_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 41 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_individualist_smallholders_available_trigger = yes
+				tv_academy_debate_group_individualist_smallholders_neutral_on_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 42 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_communal_villages_available_trigger = yes
+				tv_academy_debate_group_communal_villages_neutral_on_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 43 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_traditionalist_enclave_available_trigger = yes
+				tv_academy_debate_group_traditionalist_enclave_neutral_on_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 44 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_assimilating_enclave_available_trigger = yes
+				tv_academy_debate_group_assimilating_enclave_neutral_on_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 45 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_sinicized_minority_available_trigger = yes
+				tv_academy_debate_group_sinicized_minority_neutral_on_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 46 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_unsinicized_minority_available_trigger = yes
+				tv_academy_debate_group_unsinicized_minority_neutral_on_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 47 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_warrior_clans_available_trigger = yes
+				tv_academy_debate_group_warrior_clans_neutral_on_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 48 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_diplomatic_clans_available_trigger = yes
+				tv_academy_debate_group_diplomatic_clans_neutral_on_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 49 }
+		}
 	}
 }
 
@@ -2092,6 +4744,223 @@ tv_academy_debate_pick_unseated_royal_support_group_effect = {
 				tv_academy_debate_group_minorities_supports_current_issue_trigger = yes
 			}
 			set_variable = { name = tv_academy_debate_event_group value = 15 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_continental_traders_available_trigger = yes
+				tv_academy_debate_group_continental_traders_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 19 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_plutocratic_merchants_available_trigger = yes
+				tv_academy_debate_group_plutocratic_merchants_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 20 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_mercantilist_guilds_available_trigger = yes
+				tv_academy_debate_group_mercantilist_guilds_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 21 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_free_trade_merchants_available_trigger = yes
+				tv_academy_debate_group_free_trade_merchants_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 22 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_capitalist_financiers_available_trigger = yes
+				tv_academy_debate_group_capitalist_financiers_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 23 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_guild_traditionalists_available_trigger = yes
+				tv_academy_debate_group_guild_traditionalists_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 24 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_colonial_merchants_available_trigger = yes
+				tv_academy_debate_group_colonial_merchants_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 25 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_insular_guilds_available_trigger = yes
+				tv_academy_debate_group_insular_guilds_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 26 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_feudal_levy_nobility_available_trigger = yes
+				tv_academy_debate_group_feudal_levy_nobility_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 27 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_patronal_aristocracy_available_trigger = yes
+				tv_academy_debate_group_patronal_aristocracy_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 28 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_serf_holding_lords_available_trigger = yes
+				tv_academy_debate_group_serf_holding_lords_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 29 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_absolutist_court_faction_available_trigger = yes
+				tv_academy_debate_group_absolutist_court_faction_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 30 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_constitutionalist_nobility_available_trigger = yes
+				tv_academy_debate_group_constitutionalist_nobility_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 31 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_war_doctrine_nobility_available_trigger = yes
+				tv_academy_debate_group_war_doctrine_nobility_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 32 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_fortress_doctrine_nobility_available_trigger = yes
+				tv_academy_debate_group_fortress_doctrine_nobility_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 33 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_devout_clergy_available_trigger = yes
+				tv_academy_debate_group_devout_clergy_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 34 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_humanist_clergy_available_trigger = yes
+				tv_academy_debate_group_humanist_clergy_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 35 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_mystic_clergy_available_trigger = yes
+				tv_academy_debate_group_mystic_clergy_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 36 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_canonist_clergy_available_trigger = yes
+				tv_academy_debate_group_canonist_clergy_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 37 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_latinizing_clergy_available_trigger = yes
+				tv_academy_debate_group_latinizing_clergy_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 38 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_hellenizing_clergy_available_trigger = yes
+				tv_academy_debate_group_hellenizing_clergy_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 39 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_crown_subjects_available_trigger = yes
+				tv_academy_debate_group_crown_subjects_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 40 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_free_subject_peasantry_available_trigger = yes
+				tv_academy_debate_group_free_subject_peasantry_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 41 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_individualist_smallholders_available_trigger = yes
+				tv_academy_debate_group_individualist_smallholders_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 42 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_communal_villages_available_trigger = yes
+				tv_academy_debate_group_communal_villages_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 43 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_traditionalist_enclave_available_trigger = yes
+				tv_academy_debate_group_traditionalist_enclave_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 44 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_assimilating_enclave_available_trigger = yes
+				tv_academy_debate_group_assimilating_enclave_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 45 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_sinicized_minority_available_trigger = yes
+				tv_academy_debate_group_sinicized_minority_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 46 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_unsinicized_minority_available_trigger = yes
+				tv_academy_debate_group_unsinicized_minority_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 47 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_warrior_clans_available_trigger = yes
+				tv_academy_debate_group_warrior_clans_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 48 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_diplomatic_clans_available_trigger = yes
+				tv_academy_debate_group_diplomatic_clans_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_event_group value = 49 }
 		}
 	}
 }
@@ -2458,6 +5327,223 @@ tv_academy_debate_prepare_royal_appointment_event_effect = {
 			}
 			set_variable = { name = tv_academy_debate_royal_option_1_group value = 15 }
 		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_continental_traders_available_trigger = yes
+				tv_academy_debate_group_continental_traders_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_royal_option_1_group value = 19 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_plutocratic_merchants_available_trigger = yes
+				tv_academy_debate_group_plutocratic_merchants_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_royal_option_1_group value = 20 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_mercantilist_guilds_available_trigger = yes
+				tv_academy_debate_group_mercantilist_guilds_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_royal_option_1_group value = 21 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_free_trade_merchants_available_trigger = yes
+				tv_academy_debate_group_free_trade_merchants_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_royal_option_1_group value = 22 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_capitalist_financiers_available_trigger = yes
+				tv_academy_debate_group_capitalist_financiers_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_royal_option_1_group value = 23 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_guild_traditionalists_available_trigger = yes
+				tv_academy_debate_group_guild_traditionalists_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_royal_option_1_group value = 24 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_colonial_merchants_available_trigger = yes
+				tv_academy_debate_group_colonial_merchants_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_royal_option_1_group value = 25 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_insular_guilds_available_trigger = yes
+				tv_academy_debate_group_insular_guilds_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_royal_option_1_group value = 26 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_feudal_levy_nobility_available_trigger = yes
+				tv_academy_debate_group_feudal_levy_nobility_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_royal_option_1_group value = 27 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_patronal_aristocracy_available_trigger = yes
+				tv_academy_debate_group_patronal_aristocracy_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_royal_option_1_group value = 28 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_serf_holding_lords_available_trigger = yes
+				tv_academy_debate_group_serf_holding_lords_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_royal_option_1_group value = 29 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_absolutist_court_faction_available_trigger = yes
+				tv_academy_debate_group_absolutist_court_faction_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_royal_option_1_group value = 30 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_constitutionalist_nobility_available_trigger = yes
+				tv_academy_debate_group_constitutionalist_nobility_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_royal_option_1_group value = 31 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_war_doctrine_nobility_available_trigger = yes
+				tv_academy_debate_group_war_doctrine_nobility_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_royal_option_1_group value = 32 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_fortress_doctrine_nobility_available_trigger = yes
+				tv_academy_debate_group_fortress_doctrine_nobility_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_royal_option_1_group value = 33 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_devout_clergy_available_trigger = yes
+				tv_academy_debate_group_devout_clergy_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_royal_option_1_group value = 34 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_humanist_clergy_available_trigger = yes
+				tv_academy_debate_group_humanist_clergy_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_royal_option_1_group value = 35 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_mystic_clergy_available_trigger = yes
+				tv_academy_debate_group_mystic_clergy_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_royal_option_1_group value = 36 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_canonist_clergy_available_trigger = yes
+				tv_academy_debate_group_canonist_clergy_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_royal_option_1_group value = 37 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_latinizing_clergy_available_trigger = yes
+				tv_academy_debate_group_latinizing_clergy_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_royal_option_1_group value = 38 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_hellenizing_clergy_available_trigger = yes
+				tv_academy_debate_group_hellenizing_clergy_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_royal_option_1_group value = 39 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_crown_subjects_available_trigger = yes
+				tv_academy_debate_group_crown_subjects_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_royal_option_1_group value = 40 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_free_subject_peasantry_available_trigger = yes
+				tv_academy_debate_group_free_subject_peasantry_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_royal_option_1_group value = 41 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_individualist_smallholders_available_trigger = yes
+				tv_academy_debate_group_individualist_smallholders_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_royal_option_1_group value = 42 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_communal_villages_available_trigger = yes
+				tv_academy_debate_group_communal_villages_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_royal_option_1_group value = 43 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_traditionalist_enclave_available_trigger = yes
+				tv_academy_debate_group_traditionalist_enclave_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_royal_option_1_group value = 44 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_assimilating_enclave_available_trigger = yes
+				tv_academy_debate_group_assimilating_enclave_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_royal_option_1_group value = 45 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_sinicized_minority_available_trigger = yes
+				tv_academy_debate_group_sinicized_minority_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_royal_option_1_group value = 46 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_unsinicized_minority_available_trigger = yes
+				tv_academy_debate_group_unsinicized_minority_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_royal_option_1_group value = 47 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_warrior_clans_available_trigger = yes
+				tv_academy_debate_group_warrior_clans_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_royal_option_1_group value = 48 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_diplomatic_clans_available_trigger = yes
+				tv_academy_debate_group_diplomatic_clans_supports_current_issue_trigger = yes
+			}
+			set_variable = { name = tv_academy_debate_royal_option_1_group value = 49 }
+		}
 	}
 	random_list = {
 		1 = {
@@ -2579,6 +5665,254 @@ tv_academy_debate_prepare_royal_appointment_event_effect = {
 				NOT = { var:tv_academy_debate_royal_option_1_group ?= 15 }
 			}
 			set_variable = { name = tv_academy_debate_royal_option_2_group value = 15 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_continental_traders_available_trigger = yes
+				tv_academy_debate_group_continental_traders_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 19 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_2_group value = 19 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_plutocratic_merchants_available_trigger = yes
+				tv_academy_debate_group_plutocratic_merchants_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 20 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_2_group value = 20 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_mercantilist_guilds_available_trigger = yes
+				tv_academy_debate_group_mercantilist_guilds_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 21 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_2_group value = 21 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_free_trade_merchants_available_trigger = yes
+				tv_academy_debate_group_free_trade_merchants_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 22 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_2_group value = 22 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_capitalist_financiers_available_trigger = yes
+				tv_academy_debate_group_capitalist_financiers_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 23 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_2_group value = 23 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_guild_traditionalists_available_trigger = yes
+				tv_academy_debate_group_guild_traditionalists_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 24 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_2_group value = 24 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_colonial_merchants_available_trigger = yes
+				tv_academy_debate_group_colonial_merchants_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 25 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_2_group value = 25 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_insular_guilds_available_trigger = yes
+				tv_academy_debate_group_insular_guilds_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 26 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_2_group value = 26 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_feudal_levy_nobility_available_trigger = yes
+				tv_academy_debate_group_feudal_levy_nobility_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 27 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_2_group value = 27 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_patronal_aristocracy_available_trigger = yes
+				tv_academy_debate_group_patronal_aristocracy_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 28 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_2_group value = 28 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_serf_holding_lords_available_trigger = yes
+				tv_academy_debate_group_serf_holding_lords_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 29 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_2_group value = 29 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_absolutist_court_faction_available_trigger = yes
+				tv_academy_debate_group_absolutist_court_faction_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 30 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_2_group value = 30 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_constitutionalist_nobility_available_trigger = yes
+				tv_academy_debate_group_constitutionalist_nobility_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 31 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_2_group value = 31 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_war_doctrine_nobility_available_trigger = yes
+				tv_academy_debate_group_war_doctrine_nobility_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 32 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_2_group value = 32 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_fortress_doctrine_nobility_available_trigger = yes
+				tv_academy_debate_group_fortress_doctrine_nobility_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 33 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_2_group value = 33 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_devout_clergy_available_trigger = yes
+				tv_academy_debate_group_devout_clergy_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 34 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_2_group value = 34 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_humanist_clergy_available_trigger = yes
+				tv_academy_debate_group_humanist_clergy_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 35 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_2_group value = 35 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_mystic_clergy_available_trigger = yes
+				tv_academy_debate_group_mystic_clergy_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 36 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_2_group value = 36 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_canonist_clergy_available_trigger = yes
+				tv_academy_debate_group_canonist_clergy_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 37 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_2_group value = 37 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_latinizing_clergy_available_trigger = yes
+				tv_academy_debate_group_latinizing_clergy_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 38 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_2_group value = 38 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_hellenizing_clergy_available_trigger = yes
+				tv_academy_debate_group_hellenizing_clergy_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 39 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_2_group value = 39 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_crown_subjects_available_trigger = yes
+				tv_academy_debate_group_crown_subjects_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 40 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_2_group value = 40 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_free_subject_peasantry_available_trigger = yes
+				tv_academy_debate_group_free_subject_peasantry_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 41 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_2_group value = 41 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_individualist_smallholders_available_trigger = yes
+				tv_academy_debate_group_individualist_smallholders_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 42 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_2_group value = 42 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_communal_villages_available_trigger = yes
+				tv_academy_debate_group_communal_villages_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 43 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_2_group value = 43 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_traditionalist_enclave_available_trigger = yes
+				tv_academy_debate_group_traditionalist_enclave_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 44 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_2_group value = 44 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_assimilating_enclave_available_trigger = yes
+				tv_academy_debate_group_assimilating_enclave_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 45 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_2_group value = 45 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_sinicized_minority_available_trigger = yes
+				tv_academy_debate_group_sinicized_minority_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 46 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_2_group value = 46 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_unsinicized_minority_available_trigger = yes
+				tv_academy_debate_group_unsinicized_minority_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 47 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_2_group value = 47 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_warrior_clans_available_trigger = yes
+				tv_academy_debate_group_warrior_clans_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 48 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_2_group value = 48 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_diplomatic_clans_available_trigger = yes
+				tv_academy_debate_group_diplomatic_clans_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 49 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_2_group value = 49 }
 		}
 	}
 	random_list = {
@@ -2716,6 +6050,285 @@ tv_academy_debate_prepare_royal_appointment_event_effect = {
 				NOT = { var:tv_academy_debate_royal_option_2_group ?= 15 }
 			}
 			set_variable = { name = tv_academy_debate_royal_option_3_group value = 15 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_continental_traders_available_trigger = yes
+				tv_academy_debate_group_continental_traders_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 19 }
+				NOT = { var:tv_academy_debate_royal_option_2_group ?= 19 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_3_group value = 19 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_plutocratic_merchants_available_trigger = yes
+				tv_academy_debate_group_plutocratic_merchants_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 20 }
+				NOT = { var:tv_academy_debate_royal_option_2_group ?= 20 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_3_group value = 20 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_mercantilist_guilds_available_trigger = yes
+				tv_academy_debate_group_mercantilist_guilds_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 21 }
+				NOT = { var:tv_academy_debate_royal_option_2_group ?= 21 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_3_group value = 21 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_free_trade_merchants_available_trigger = yes
+				tv_academy_debate_group_free_trade_merchants_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 22 }
+				NOT = { var:tv_academy_debate_royal_option_2_group ?= 22 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_3_group value = 22 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_capitalist_financiers_available_trigger = yes
+				tv_academy_debate_group_capitalist_financiers_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 23 }
+				NOT = { var:tv_academy_debate_royal_option_2_group ?= 23 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_3_group value = 23 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_guild_traditionalists_available_trigger = yes
+				tv_academy_debate_group_guild_traditionalists_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 24 }
+				NOT = { var:tv_academy_debate_royal_option_2_group ?= 24 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_3_group value = 24 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_colonial_merchants_available_trigger = yes
+				tv_academy_debate_group_colonial_merchants_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 25 }
+				NOT = { var:tv_academy_debate_royal_option_2_group ?= 25 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_3_group value = 25 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_insular_guilds_available_trigger = yes
+				tv_academy_debate_group_insular_guilds_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 26 }
+				NOT = { var:tv_academy_debate_royal_option_2_group ?= 26 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_3_group value = 26 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_feudal_levy_nobility_available_trigger = yes
+				tv_academy_debate_group_feudal_levy_nobility_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 27 }
+				NOT = { var:tv_academy_debate_royal_option_2_group ?= 27 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_3_group value = 27 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_patronal_aristocracy_available_trigger = yes
+				tv_academy_debate_group_patronal_aristocracy_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 28 }
+				NOT = { var:tv_academy_debate_royal_option_2_group ?= 28 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_3_group value = 28 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_serf_holding_lords_available_trigger = yes
+				tv_academy_debate_group_serf_holding_lords_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 29 }
+				NOT = { var:tv_academy_debate_royal_option_2_group ?= 29 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_3_group value = 29 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_absolutist_court_faction_available_trigger = yes
+				tv_academy_debate_group_absolutist_court_faction_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 30 }
+				NOT = { var:tv_academy_debate_royal_option_2_group ?= 30 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_3_group value = 30 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_constitutionalist_nobility_available_trigger = yes
+				tv_academy_debate_group_constitutionalist_nobility_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 31 }
+				NOT = { var:tv_academy_debate_royal_option_2_group ?= 31 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_3_group value = 31 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_war_doctrine_nobility_available_trigger = yes
+				tv_academy_debate_group_war_doctrine_nobility_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 32 }
+				NOT = { var:tv_academy_debate_royal_option_2_group ?= 32 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_3_group value = 32 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_fortress_doctrine_nobility_available_trigger = yes
+				tv_academy_debate_group_fortress_doctrine_nobility_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 33 }
+				NOT = { var:tv_academy_debate_royal_option_2_group ?= 33 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_3_group value = 33 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_devout_clergy_available_trigger = yes
+				tv_academy_debate_group_devout_clergy_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 34 }
+				NOT = { var:tv_academy_debate_royal_option_2_group ?= 34 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_3_group value = 34 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_humanist_clergy_available_trigger = yes
+				tv_academy_debate_group_humanist_clergy_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 35 }
+				NOT = { var:tv_academy_debate_royal_option_2_group ?= 35 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_3_group value = 35 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_mystic_clergy_available_trigger = yes
+				tv_academy_debate_group_mystic_clergy_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 36 }
+				NOT = { var:tv_academy_debate_royal_option_2_group ?= 36 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_3_group value = 36 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_canonist_clergy_available_trigger = yes
+				tv_academy_debate_group_canonist_clergy_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 37 }
+				NOT = { var:tv_academy_debate_royal_option_2_group ?= 37 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_3_group value = 37 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_latinizing_clergy_available_trigger = yes
+				tv_academy_debate_group_latinizing_clergy_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 38 }
+				NOT = { var:tv_academy_debate_royal_option_2_group ?= 38 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_3_group value = 38 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_hellenizing_clergy_available_trigger = yes
+				tv_academy_debate_group_hellenizing_clergy_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 39 }
+				NOT = { var:tv_academy_debate_royal_option_2_group ?= 39 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_3_group value = 39 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_crown_subjects_available_trigger = yes
+				tv_academy_debate_group_crown_subjects_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 40 }
+				NOT = { var:tv_academy_debate_royal_option_2_group ?= 40 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_3_group value = 40 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_free_subject_peasantry_available_trigger = yes
+				tv_academy_debate_group_free_subject_peasantry_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 41 }
+				NOT = { var:tv_academy_debate_royal_option_2_group ?= 41 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_3_group value = 41 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_individualist_smallholders_available_trigger = yes
+				tv_academy_debate_group_individualist_smallholders_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 42 }
+				NOT = { var:tv_academy_debate_royal_option_2_group ?= 42 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_3_group value = 42 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_communal_villages_available_trigger = yes
+				tv_academy_debate_group_communal_villages_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 43 }
+				NOT = { var:tv_academy_debate_royal_option_2_group ?= 43 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_3_group value = 43 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_traditionalist_enclave_available_trigger = yes
+				tv_academy_debate_group_traditionalist_enclave_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 44 }
+				NOT = { var:tv_academy_debate_royal_option_2_group ?= 44 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_3_group value = 44 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_assimilating_enclave_available_trigger = yes
+				tv_academy_debate_group_assimilating_enclave_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 45 }
+				NOT = { var:tv_academy_debate_royal_option_2_group ?= 45 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_3_group value = 45 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_sinicized_minority_available_trigger = yes
+				tv_academy_debate_group_sinicized_minority_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 46 }
+				NOT = { var:tv_academy_debate_royal_option_2_group ?= 46 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_3_group value = 46 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_unsinicized_minority_available_trigger = yes
+				tv_academy_debate_group_unsinicized_minority_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 47 }
+				NOT = { var:tv_academy_debate_royal_option_2_group ?= 47 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_3_group value = 47 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_warrior_clans_available_trigger = yes
+				tv_academy_debate_group_warrior_clans_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 48 }
+				NOT = { var:tv_academy_debate_royal_option_2_group ?= 48 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_3_group value = 48 }
+		}
+		1 = {
+			trigger = {
+				tv_academy_debate_group_diplomatic_clans_available_trigger = yes
+				tv_academy_debate_group_diplomatic_clans_supports_current_issue_trigger = yes
+				NOT = { var:tv_academy_debate_royal_option_1_group ?= 49 }
+				NOT = { var:tv_academy_debate_royal_option_2_group ?= 49 }
+			}
+			set_variable = { name = tv_academy_debate_royal_option_3_group value = 49 }
 		}
 	}
 	if = {
@@ -3156,6 +6769,254 @@ tv_academy_debate_apply_selected_royal_modifier_effect = {
 			mode = add_and_extend
 		}
 	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 19 }
+		add_country_modifier = {
+			modifier = tv_academy_debate_royal_continental_traders_modifier
+			years = 5
+			mode = add_and_extend
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 20 }
+		add_country_modifier = {
+			modifier = tv_academy_debate_royal_plutocratic_merchants_modifier
+			years = 5
+			mode = add_and_extend
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 21 }
+		add_country_modifier = {
+			modifier = tv_academy_debate_royal_mercantilist_guilds_modifier
+			years = 5
+			mode = add_and_extend
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 22 }
+		add_country_modifier = {
+			modifier = tv_academy_debate_royal_free_trade_merchants_modifier
+			years = 5
+			mode = add_and_extend
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 23 }
+		add_country_modifier = {
+			modifier = tv_academy_debate_royal_capitalist_financiers_modifier
+			years = 5
+			mode = add_and_extend
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 24 }
+		add_country_modifier = {
+			modifier = tv_academy_debate_royal_guild_traditionalists_modifier
+			years = 5
+			mode = add_and_extend
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 25 }
+		add_country_modifier = {
+			modifier = tv_academy_debate_royal_colonial_merchants_modifier
+			years = 5
+			mode = add_and_extend
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 26 }
+		add_country_modifier = {
+			modifier = tv_academy_debate_royal_insular_guilds_modifier
+			years = 5
+			mode = add_and_extend
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 27 }
+		add_country_modifier = {
+			modifier = tv_academy_debate_royal_feudal_levy_nobility_modifier
+			years = 5
+			mode = add_and_extend
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 28 }
+		add_country_modifier = {
+			modifier = tv_academy_debate_royal_patronal_aristocracy_modifier
+			years = 5
+			mode = add_and_extend
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 29 }
+		add_country_modifier = {
+			modifier = tv_academy_debate_royal_serf_holding_lords_modifier
+			years = 5
+			mode = add_and_extend
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 30 }
+		add_country_modifier = {
+			modifier = tv_academy_debate_royal_absolutist_court_faction_modifier
+			years = 5
+			mode = add_and_extend
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 31 }
+		add_country_modifier = {
+			modifier = tv_academy_debate_royal_constitutionalist_nobility_modifier
+			years = 5
+			mode = add_and_extend
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 32 }
+		add_country_modifier = {
+			modifier = tv_academy_debate_royal_war_doctrine_nobility_modifier
+			years = 5
+			mode = add_and_extend
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 33 }
+		add_country_modifier = {
+			modifier = tv_academy_debate_royal_fortress_doctrine_nobility_modifier
+			years = 5
+			mode = add_and_extend
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 34 }
+		add_country_modifier = {
+			modifier = tv_academy_debate_royal_devout_clergy_modifier
+			years = 5
+			mode = add_and_extend
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 35 }
+		add_country_modifier = {
+			modifier = tv_academy_debate_royal_humanist_clergy_modifier
+			years = 5
+			mode = add_and_extend
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 36 }
+		add_country_modifier = {
+			modifier = tv_academy_debate_royal_mystic_clergy_modifier
+			years = 5
+			mode = add_and_extend
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 37 }
+		add_country_modifier = {
+			modifier = tv_academy_debate_royal_canonist_clergy_modifier
+			years = 5
+			mode = add_and_extend
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 38 }
+		add_country_modifier = {
+			modifier = tv_academy_debate_royal_latinizing_clergy_modifier
+			years = 5
+			mode = add_and_extend
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 39 }
+		add_country_modifier = {
+			modifier = tv_academy_debate_royal_hellenizing_clergy_modifier
+			years = 5
+			mode = add_and_extend
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 40 }
+		add_country_modifier = {
+			modifier = tv_academy_debate_royal_crown_subjects_modifier
+			years = 5
+			mode = add_and_extend
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 41 }
+		add_country_modifier = {
+			modifier = tv_academy_debate_royal_free_subject_peasantry_modifier
+			years = 5
+			mode = add_and_extend
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 42 }
+		add_country_modifier = {
+			modifier = tv_academy_debate_royal_individualist_smallholders_modifier
+			years = 5
+			mode = add_and_extend
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 43 }
+		add_country_modifier = {
+			modifier = tv_academy_debate_royal_communal_villages_modifier
+			years = 5
+			mode = add_and_extend
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 44 }
+		add_country_modifier = {
+			modifier = tv_academy_debate_royal_traditionalist_enclave_modifier
+			years = 5
+			mode = add_and_extend
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 45 }
+		add_country_modifier = {
+			modifier = tv_academy_debate_royal_assimilating_enclave_modifier
+			years = 5
+			mode = add_and_extend
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 46 }
+		add_country_modifier = {
+			modifier = tv_academy_debate_royal_sinicized_minority_modifier
+			years = 5
+			mode = add_and_extend
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 47 }
+		add_country_modifier = {
+			modifier = tv_academy_debate_royal_unsinicized_minority_modifier
+			years = 5
+			mode = add_and_extend
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 48 }
+		add_country_modifier = {
+			modifier = tv_academy_debate_royal_warrior_clans_modifier
+			years = 5
+			mode = add_and_extend
+		}
+	}
+	else_if = {
+		limit = { var:tv_academy_debate_event_group ?= 49 }
+		add_country_modifier = {
+			modifier = tv_academy_debate_royal_diplomatic_clans_modifier
+			years = 5
+			mode = add_and_extend
+		}
+	}
 }
 
 tv_academy_debate_accept_royal_option_1_effect = {
@@ -3564,6 +7425,409 @@ tv_academy_debate_apply_seat_monthly_progress_effect = {
 						value = var:tv_scientist_effective_adm
 						divide = 100
 						multiply = 0.2
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 19 }
+			set_variable = {
+				name = tv_academy_debate_seat_contribution
+				value = {
+					value = 0.1
+					add = {
+						value = "estate_power(estate_type:burghers_estate)"
+						multiply = 0.4
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 20 }
+			set_variable = {
+				name = tv_academy_debate_seat_contribution
+				value = {
+					value = 0.1
+					add = {
+						value = "estate_power(estate_type:burghers_estate)"
+						multiply = 0.4
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 21 }
+			set_variable = {
+				name = tv_academy_debate_seat_contribution
+				value = {
+					value = 0.1
+					add = {
+						value = "estate_power(estate_type:burghers_estate)"
+						multiply = 0.4
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 22 }
+			set_variable = {
+				name = tv_academy_debate_seat_contribution
+				value = {
+					value = 0.1
+					add = {
+						value = "estate_power(estate_type:burghers_estate)"
+						multiply = 0.4
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 23 }
+			set_variable = {
+				name = tv_academy_debate_seat_contribution
+				value = {
+					value = 0.1
+					add = {
+						value = "estate_power(estate_type:burghers_estate)"
+						multiply = 0.4
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 24 }
+			set_variable = {
+				name = tv_academy_debate_seat_contribution
+				value = {
+					value = 0.1
+					add = {
+						value = "estate_power(estate_type:burghers_estate)"
+						multiply = 0.4
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 25 }
+			set_variable = {
+				name = tv_academy_debate_seat_contribution
+				value = {
+					value = 0.1
+					add = {
+						value = "estate_power(estate_type:burghers_estate)"
+						multiply = 0.4
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 26 }
+			set_variable = {
+				name = tv_academy_debate_seat_contribution
+				value = {
+					value = 0.1
+					add = {
+						value = "estate_power(estate_type:burghers_estate)"
+						multiply = 0.4
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 27 }
+			set_variable = {
+				name = tv_academy_debate_seat_contribution
+				value = {
+					value = 0.1
+					add = {
+						value = "estate_power(estate_type:nobles_estate)"
+						multiply = 0.4
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 28 }
+			set_variable = {
+				name = tv_academy_debate_seat_contribution
+				value = {
+					value = 0.1
+					add = {
+						value = "estate_power(estate_type:nobles_estate)"
+						multiply = 0.4
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 29 }
+			set_variable = {
+				name = tv_academy_debate_seat_contribution
+				value = {
+					value = 0.1
+					add = {
+						value = "estate_power(estate_type:nobles_estate)"
+						multiply = 0.4
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 30 }
+			set_variable = {
+				name = tv_academy_debate_seat_contribution
+				value = {
+					value = 0.1
+					add = {
+						value = "estate_power(estate_type:nobles_estate)"
+						multiply = 0.4
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 31 }
+			set_variable = {
+				name = tv_academy_debate_seat_contribution
+				value = {
+					value = 0.1
+					add = {
+						value = "estate_power(estate_type:nobles_estate)"
+						multiply = 0.4
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 32 }
+			set_variable = {
+				name = tv_academy_debate_seat_contribution
+				value = {
+					value = 0.1
+					add = {
+						value = "estate_power(estate_type:nobles_estate)"
+						multiply = 0.4
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 33 }
+			set_variable = {
+				name = tv_academy_debate_seat_contribution
+				value = {
+					value = 0.1
+					add = {
+						value = "estate_power(estate_type:nobles_estate)"
+						multiply = 0.4
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 34 }
+			set_variable = {
+				name = tv_academy_debate_seat_contribution
+				value = {
+					value = 0.1
+					add = {
+						value = "estate_power(estate_type:clergy_estate)"
+						multiply = 0.4
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 35 }
+			set_variable = {
+				name = tv_academy_debate_seat_contribution
+				value = {
+					value = 0.1
+					add = {
+						value = "estate_power(estate_type:clergy_estate)"
+						multiply = 0.4
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 36 }
+			set_variable = {
+				name = tv_academy_debate_seat_contribution
+				value = {
+					value = 0.1
+					add = {
+						value = "estate_power(estate_type:clergy_estate)"
+						multiply = 0.4
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 37 }
+			set_variable = {
+				name = tv_academy_debate_seat_contribution
+				value = {
+					value = 0.1
+					add = {
+						value = "estate_power(estate_type:clergy_estate)"
+						multiply = 0.4
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 38 }
+			set_variable = {
+				name = tv_academy_debate_seat_contribution
+				value = {
+					value = 0.1
+					add = {
+						value = "estate_power(estate_type:clergy_estate)"
+						multiply = 0.4
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 39 }
+			set_variable = {
+				name = tv_academy_debate_seat_contribution
+				value = {
+					value = 0.1
+					add = {
+						value = "estate_power(estate_type:clergy_estate)"
+						multiply = 0.4
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 40 }
+			set_variable = {
+				name = tv_academy_debate_seat_contribution
+				value = {
+					value = 0.1
+					add = {
+						value = "estate_power(estate_type:peasants_estate)"
+						multiply = 0.4
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 41 }
+			set_variable = {
+				name = tv_academy_debate_seat_contribution
+				value = {
+					value = 0.1
+					add = {
+						value = "estate_power(estate_type:peasants_estate)"
+						multiply = 0.4
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 42 }
+			set_variable = {
+				name = tv_academy_debate_seat_contribution
+				value = {
+					value = 0.1
+					add = {
+						value = "estate_power(estate_type:peasants_estate)"
+						multiply = 0.4
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 43 }
+			set_variable = {
+				name = tv_academy_debate_seat_contribution
+				value = {
+					value = 0.1
+					add = {
+						value = "estate_power(estate_type:peasants_estate)"
+						multiply = 0.4
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 44 }
+			set_variable = {
+				name = tv_academy_debate_seat_contribution
+				value = {
+					value = 0.1
+					add = {
+						value = "estate_power(estate_type:peasants_estate)"
+						multiply = 0.4
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 45 }
+			set_variable = {
+				name = tv_academy_debate_seat_contribution
+				value = {
+					value = 0.1
+					add = {
+						value = "estate_power(estate_type:peasants_estate)"
+						multiply = 0.4
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 46 }
+			set_variable = {
+				name = tv_academy_debate_seat_contribution
+				value = {
+					value = 0.1
+					add = {
+						value = "estate_power(estate_type:peasants_estate)"
+						multiply = 0.4
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 47 }
+			set_variable = {
+				name = tv_academy_debate_seat_contribution
+				value = {
+					value = 0.1
+					add = {
+						value = "estate_power(estate_type:peasants_estate)"
+						multiply = 0.4
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 48 }
+			set_variable = {
+				name = tv_academy_debate_seat_contribution
+				value = {
+					value = 0.1
+					add = {
+						value = "estate_power(estate_type:peasants_estate)"
+						multiply = 0.4
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 49 }
+			set_variable = {
+				name = tv_academy_debate_seat_contribution
+				value = {
+					value = 0.1
+					add = {
+						value = "estate_power(estate_type:peasants_estate)"
+						multiply = 0.4
 					}
 				}
 			}
@@ -6363,6 +10627,471 @@ tv_academy_debate_apply_seat_defection_effect = {
 					set_variable = { name = tv_academy_debate_auto_stance_neutral_pending value = 1 }
 				}
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = var:tv_academy_debate_event_stance }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 19 }
+			if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_continental_traders_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+			else_if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_continental_traders_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 20 }
+			if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_plutocratic_merchants_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+			else_if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_plutocratic_merchants_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 21 }
+			if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_mercantilist_guilds_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+			else_if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_mercantilist_guilds_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 22 }
+			if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_free_trade_merchants_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+			else_if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_free_trade_merchants_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 23 }
+			if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_capitalist_financiers_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+			else_if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_capitalist_financiers_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 24 }
+			if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_guild_traditionalists_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+			else_if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_guild_traditionalists_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 25 }
+			if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_colonial_merchants_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+			else_if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_colonial_merchants_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 26 }
+			if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_insular_guilds_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+			else_if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_insular_guilds_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 27 }
+			if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_feudal_levy_nobility_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+			else_if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_feudal_levy_nobility_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 28 }
+			if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_patronal_aristocracy_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+			else_if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_patronal_aristocracy_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 29 }
+			if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_serf_holding_lords_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+			else_if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_serf_holding_lords_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 30 }
+			if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_absolutist_court_faction_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+			else_if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_absolutist_court_faction_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 31 }
+			if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_constitutionalist_nobility_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+			else_if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_constitutionalist_nobility_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 32 }
+			if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_war_doctrine_nobility_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+			else_if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_war_doctrine_nobility_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 33 }
+			if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_fortress_doctrine_nobility_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+			else_if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_fortress_doctrine_nobility_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 34 }
+			if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_devout_clergy_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+			else_if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_devout_clergy_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 35 }
+			if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_humanist_clergy_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+			else_if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_humanist_clergy_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 36 }
+			if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_mystic_clergy_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+			else_if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_mystic_clergy_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 37 }
+			if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_canonist_clergy_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+			else_if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_canonist_clergy_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 38 }
+			if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_latinizing_clergy_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+			else_if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_latinizing_clergy_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 39 }
+			if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_hellenizing_clergy_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+			else_if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_hellenizing_clergy_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 40 }
+			if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_crown_subjects_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+			else_if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_crown_subjects_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 41 }
+			if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_free_subject_peasantry_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+			else_if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_free_subject_peasantry_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 42 }
+			if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_individualist_smallholders_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+			else_if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_individualist_smallholders_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 43 }
+			if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_communal_villages_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+			else_if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_communal_villages_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 44 }
+			if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_traditionalist_enclave_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+			else_if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_traditionalist_enclave_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 45 }
+			if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_assimilating_enclave_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+			else_if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_assimilating_enclave_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 46 }
+			if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_sinicized_minority_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+			else_if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_sinicized_minority_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 47 }
+			if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_unsinicized_minority_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+			else_if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_unsinicized_minority_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 48 }
+			if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_warrior_clans_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+			else_if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_warrior_clans_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+		}
+		else_if = {
+			limit = { var:tv_academy_debate_seat_$seat$_group ?= 49 }
+			if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 1 tv_academy_debate_group_diplomatic_clans_negative_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+			}
+			else_if = {
+				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_diplomatic_clans_positive_defection_condition_trigger = yes }
+				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
+				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
 			}
 		}

@@ -43,6 +43,16 @@
   source: "Project owner report, 2026-07-04"
   notes: 'Managed sandboxes can have read-only access to `C:\Users\Hades\anaconda3\conda-meta\history`, causing `conda run` to hang before the agent reaches validation or context output.'
 
+- id: philosophy_debate_variant_random_list_ambiguity
+  pattern: ''
+  detectability: advisory
+  bad: "Adding a philosophy debate variant group whose available_trigger only checks its own distinguishing condition, without excluding it from its base estate's (and any lower-priority sibling variant's) available_trigger"
+  correction: "Every variant sharing a base_estate/base_group must exclude the base estate's available_trigger, and every later-id sibling variant's available_trigger, via variant_condition_lines()/emit_variant_exclusion() in scripts/philosophy_debate_codegen.py. Group id order (ascending) is the mutual-exclusion tie-break: lower id wins when two variants' raw conditions are both true. Never rely on tv_academy_debate_pick_unseated_*_group_effect's random_list weighting to resolve this."
+  category: scope
+  scope: country
+  source: "scripts/philosophy_debate_codegen.py (variant_condition_lines, emit_variant_exclusion, variants_excluding_estate); docs/knowledge/risk_cards/philosophy_debate.md rule 4"
+  notes: "Found while adding societal-value-driven variants: tv_academy_debate_pick_unseated_*_group_effect puts every group whose available_trigger is true into one equal-weight random_list, so a base estate whose available_trigger only checked has_estate/not-seated could still be picked over a variant even when the variant's condition (e.g. societal_value:land_vs_naval > 50) was clearly satisfied."
+
 - id: gui_list_filter_needs_cached_variable
   pattern: ''
   detectability: advisory

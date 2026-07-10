@@ -235,9 +235,9 @@ organization_panel = {
 				spacing = 2
 
 				expand = {}
-				spacer = { size = { 250 50 } }
+				spacer = { size = { 250 16 } }
 				text_single = {
-					size = { 250 30 }
+					size = { 250 32 }
 					raw_text = "+"
 					fontsize = 34
 					align = center|nobaseline
@@ -986,6 +986,285 @@ organization_panel = {
 											tooltip = "TV_ACADEMY_DEBATE_GROUP_GREAT_SCIENTIST_TT"
 											align = center|nobaseline
 										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_1_group').GetValue, '(CFixedPoint)19.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@trade!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_CONTINENTAL_TRADERS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_1_group').GetValue, '(CFixedPoint)20.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@profit_trade!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_PLUTOCRATIC_MERCHANTS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_1_group').GetValue, '(CFixedPoint)21.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@trade_advantage!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_MERCANTILIST_GUILDS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_1_group').GetValue, '(CFixedPoint)22.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@trade_capacity!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_FREE_TRADE_MERCHANTS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_1_group').GetValue, '(CFixedPoint)23.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@gold_balance!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_CAPITALIST_FINANCIERS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_1_group').GetValue, '(CFixedPoint)24.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@cultural_tradition!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_GUILD_TRADITIONALISTS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_1_group').GetValue, '(CFixedPoint)25.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@send_people_to_the_colonies!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_COLONIAL_MERCHANTS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_1_group').GetValue, '(CFixedPoint)26.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@self_control!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_INSULAR_GUILDS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_1_group').GetValue, '(CFixedPoint)27.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@army_strength!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_FEUDAL_LEVY_NOBILITY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_1_group').GetValue, '(CFixedPoint)28.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@nobles_estate!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_PATRONAL_ARISTOCRACY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_1_group').GetValue, '(CFixedPoint)29.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@crown_estate!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_SERF_HOLDING_LORDS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_1_group').GetValue, '(CFixedPoint)30.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@government_reform!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_ABSOLUTIST_COURT_FACTION_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_1_group').GetValue, '(CFixedPoint)31.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@control!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_CONSTITUTIONALIST_NOBILITY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_1_group').GetValue, '(CFixedPoint)32.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@aggressive_military_stance!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_WAR_DOCTRINE_NOBILITY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_1_group').GetValue, '(CFixedPoint)33.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@defensive_military_stance!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_FORTRESS_DOCTRINE_NOBILITY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_1_group').GetValue, '(CFixedPoint)34.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@religion!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_DEVOUT_CLERGY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_1_group').GetValue, '(CFixedPoint)35.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@religious_influence!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_HUMANIST_CLERGY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_1_group').GetValue, '(CFixedPoint)36.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@societal_value!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_MYSTIC_CLERGY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_1_group').GetValue, '(CFixedPoint)37.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@government_reform!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_CANONIST_CLERGY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_1_group').GetValue, '(CFixedPoint)38.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@religious_influence_catholic!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_LATINIZING_CLERGY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_1_group').GetValue, '(CFixedPoint)39.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@religious_unity!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_HELLENIZING_CLERGY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_1_group').GetValue, '(CFixedPoint)40.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@crown_estate!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_CROWN_SUBJECTS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_1_group').GetValue, '(CFixedPoint)41.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@peasants_estate!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_FREE_SUBJECT_PEASANTRY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_1_group').GetValue, '(CFixedPoint)42.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@self_control!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_INDIVIDUALIST_SMALLHOLDERS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_1_group').GetValue, '(CFixedPoint)43.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@republican_tradition!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_COMMUNAL_VILLAGES_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_1_group').GetValue, '(CFixedPoint)44.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@cultural_tradition!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_TRADITIONALIST_ENCLAVE_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_1_group').GetValue, '(CFixedPoint)45.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@literacy!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_ASSIMILATING_ENCLAVE_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_1_group').GetValue, '(CFixedPoint)46.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@tribes_estate!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_SINICIZED_MINORITY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_1_group').GetValue, '(CFixedPoint)47.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@dhimmi_estate!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_UNSINICIZED_MINORITY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_1_group').GetValue, '(CFixedPoint)48.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@cossacks_estate!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_WARRIOR_CLANS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_1_group').GetValue, '(CFixedPoint)49.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@diplomatic_capacity!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_DIPLOMATIC_CLANS_TT"
+											align = center|nobaseline
+										}
 									}
 									widget = {
 										position = { 78 78 }
@@ -1185,6 +1464,285 @@ organization_panel = {
 											raw_text = "@adm!"
 											fontsize = 30
 											tooltip = "TV_ACADEMY_DEBATE_GROUP_GREAT_SCIENTIST_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_2_group').GetValue, '(CFixedPoint)19.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@trade!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_CONTINENTAL_TRADERS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_2_group').GetValue, '(CFixedPoint)20.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@profit_trade!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_PLUTOCRATIC_MERCHANTS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_2_group').GetValue, '(CFixedPoint)21.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@trade_advantage!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_MERCANTILIST_GUILDS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_2_group').GetValue, '(CFixedPoint)22.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@trade_capacity!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_FREE_TRADE_MERCHANTS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_2_group').GetValue, '(CFixedPoint)23.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@gold_balance!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_CAPITALIST_FINANCIERS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_2_group').GetValue, '(CFixedPoint)24.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@cultural_tradition!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_GUILD_TRADITIONALISTS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_2_group').GetValue, '(CFixedPoint)25.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@send_people_to_the_colonies!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_COLONIAL_MERCHANTS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_2_group').GetValue, '(CFixedPoint)26.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@self_control!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_INSULAR_GUILDS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_2_group').GetValue, '(CFixedPoint)27.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@army_strength!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_FEUDAL_LEVY_NOBILITY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_2_group').GetValue, '(CFixedPoint)28.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@nobles_estate!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_PATRONAL_ARISTOCRACY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_2_group').GetValue, '(CFixedPoint)29.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@crown_estate!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_SERF_HOLDING_LORDS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_2_group').GetValue, '(CFixedPoint)30.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@government_reform!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_ABSOLUTIST_COURT_FACTION_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_2_group').GetValue, '(CFixedPoint)31.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@control!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_CONSTITUTIONALIST_NOBILITY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_2_group').GetValue, '(CFixedPoint)32.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@aggressive_military_stance!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_WAR_DOCTRINE_NOBILITY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_2_group').GetValue, '(CFixedPoint)33.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@defensive_military_stance!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_FORTRESS_DOCTRINE_NOBILITY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_2_group').GetValue, '(CFixedPoint)34.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@religion!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_DEVOUT_CLERGY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_2_group').GetValue, '(CFixedPoint)35.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@religious_influence!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_HUMANIST_CLERGY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_2_group').GetValue, '(CFixedPoint)36.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@societal_value!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_MYSTIC_CLERGY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_2_group').GetValue, '(CFixedPoint)37.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@government_reform!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_CANONIST_CLERGY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_2_group').GetValue, '(CFixedPoint)38.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@religious_influence_catholic!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_LATINIZING_CLERGY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_2_group').GetValue, '(CFixedPoint)39.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@religious_unity!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_HELLENIZING_CLERGY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_2_group').GetValue, '(CFixedPoint)40.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@crown_estate!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_CROWN_SUBJECTS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_2_group').GetValue, '(CFixedPoint)41.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@peasants_estate!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_FREE_SUBJECT_PEASANTRY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_2_group').GetValue, '(CFixedPoint)42.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@self_control!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_INDIVIDUALIST_SMALLHOLDERS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_2_group').GetValue, '(CFixedPoint)43.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@republican_tradition!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_COMMUNAL_VILLAGES_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_2_group').GetValue, '(CFixedPoint)44.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@cultural_tradition!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_TRADITIONALIST_ENCLAVE_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_2_group').GetValue, '(CFixedPoint)45.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@literacy!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_ASSIMILATING_ENCLAVE_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_2_group').GetValue, '(CFixedPoint)46.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@tribes_estate!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_SINICIZED_MINORITY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_2_group').GetValue, '(CFixedPoint)47.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@dhimmi_estate!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_UNSINICIZED_MINORITY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_2_group').GetValue, '(CFixedPoint)48.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@cossacks_estate!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_WARRIOR_CLANS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_2_group').GetValue, '(CFixedPoint)49.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@diplomatic_capacity!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_DIPLOMATIC_CLANS_TT"
 											align = center|nobaseline
 										}
 									}
@@ -1388,6 +1946,285 @@ organization_panel = {
 											tooltip = "TV_ACADEMY_DEBATE_GROUP_GREAT_SCIENTIST_TT"
 											align = center|nobaseline
 										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_3_group').GetValue, '(CFixedPoint)19.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@trade!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_CONTINENTAL_TRADERS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_3_group').GetValue, '(CFixedPoint)20.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@profit_trade!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_PLUTOCRATIC_MERCHANTS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_3_group').GetValue, '(CFixedPoint)21.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@trade_advantage!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_MERCANTILIST_GUILDS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_3_group').GetValue, '(CFixedPoint)22.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@trade_capacity!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_FREE_TRADE_MERCHANTS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_3_group').GetValue, '(CFixedPoint)23.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@gold_balance!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_CAPITALIST_FINANCIERS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_3_group').GetValue, '(CFixedPoint)24.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@cultural_tradition!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_GUILD_TRADITIONALISTS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_3_group').GetValue, '(CFixedPoint)25.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@send_people_to_the_colonies!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_COLONIAL_MERCHANTS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_3_group').GetValue, '(CFixedPoint)26.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@self_control!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_INSULAR_GUILDS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_3_group').GetValue, '(CFixedPoint)27.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@army_strength!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_FEUDAL_LEVY_NOBILITY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_3_group').GetValue, '(CFixedPoint)28.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@nobles_estate!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_PATRONAL_ARISTOCRACY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_3_group').GetValue, '(CFixedPoint)29.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@crown_estate!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_SERF_HOLDING_LORDS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_3_group').GetValue, '(CFixedPoint)30.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@government_reform!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_ABSOLUTIST_COURT_FACTION_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_3_group').GetValue, '(CFixedPoint)31.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@control!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_CONSTITUTIONALIST_NOBILITY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_3_group').GetValue, '(CFixedPoint)32.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@aggressive_military_stance!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_WAR_DOCTRINE_NOBILITY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_3_group').GetValue, '(CFixedPoint)33.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@defensive_military_stance!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_FORTRESS_DOCTRINE_NOBILITY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_3_group').GetValue, '(CFixedPoint)34.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@religion!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_DEVOUT_CLERGY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_3_group').GetValue, '(CFixedPoint)35.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@religious_influence!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_HUMANIST_CLERGY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_3_group').GetValue, '(CFixedPoint)36.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@societal_value!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_MYSTIC_CLERGY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_3_group').GetValue, '(CFixedPoint)37.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@government_reform!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_CANONIST_CLERGY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_3_group').GetValue, '(CFixedPoint)38.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@religious_influence_catholic!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_LATINIZING_CLERGY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_3_group').GetValue, '(CFixedPoint)39.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@religious_unity!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_HELLENIZING_CLERGY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_3_group').GetValue, '(CFixedPoint)40.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@crown_estate!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_CROWN_SUBJECTS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_3_group').GetValue, '(CFixedPoint)41.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@peasants_estate!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_FREE_SUBJECT_PEASANTRY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_3_group').GetValue, '(CFixedPoint)42.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@self_control!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_INDIVIDUALIST_SMALLHOLDERS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_3_group').GetValue, '(CFixedPoint)43.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@republican_tradition!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_COMMUNAL_VILLAGES_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_3_group').GetValue, '(CFixedPoint)44.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@cultural_tradition!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_TRADITIONALIST_ENCLAVE_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_3_group').GetValue, '(CFixedPoint)45.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@literacy!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_ASSIMILATING_ENCLAVE_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_3_group').GetValue, '(CFixedPoint)46.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@tribes_estate!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_SINICIZED_MINORITY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_3_group').GetValue, '(CFixedPoint)47.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@dhimmi_estate!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_UNSINICIZED_MINORITY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_3_group').GetValue, '(CFixedPoint)48.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@cossacks_estate!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_WARRIOR_CLANS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_3_group').GetValue, '(CFixedPoint)49.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@diplomatic_capacity!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_DIPLOMATIC_CLANS_TT"
+											align = center|nobaseline
+										}
 									}
 									widget = {
 										position = { 78 208 }
@@ -1589,6 +2426,285 @@ organization_panel = {
 											tooltip = "TV_ACADEMY_DEBATE_GROUP_GREAT_SCIENTIST_TT"
 											align = center|nobaseline
 										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_4_group').GetValue, '(CFixedPoint)19.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@trade!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_CONTINENTAL_TRADERS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_4_group').GetValue, '(CFixedPoint)20.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@profit_trade!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_PLUTOCRATIC_MERCHANTS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_4_group').GetValue, '(CFixedPoint)21.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@trade_advantage!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_MERCANTILIST_GUILDS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_4_group').GetValue, '(CFixedPoint)22.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@trade_capacity!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_FREE_TRADE_MERCHANTS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_4_group').GetValue, '(CFixedPoint)23.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@gold_balance!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_CAPITALIST_FINANCIERS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_4_group').GetValue, '(CFixedPoint)24.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@cultural_tradition!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_GUILD_TRADITIONALISTS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_4_group').GetValue, '(CFixedPoint)25.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@send_people_to_the_colonies!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_COLONIAL_MERCHANTS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_4_group').GetValue, '(CFixedPoint)26.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@self_control!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_INSULAR_GUILDS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_4_group').GetValue, '(CFixedPoint)27.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@army_strength!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_FEUDAL_LEVY_NOBILITY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_4_group').GetValue, '(CFixedPoint)28.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@nobles_estate!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_PATRONAL_ARISTOCRACY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_4_group').GetValue, '(CFixedPoint)29.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@crown_estate!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_SERF_HOLDING_LORDS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_4_group').GetValue, '(CFixedPoint)30.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@government_reform!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_ABSOLUTIST_COURT_FACTION_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_4_group').GetValue, '(CFixedPoint)31.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@control!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_CONSTITUTIONALIST_NOBILITY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_4_group').GetValue, '(CFixedPoint)32.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@aggressive_military_stance!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_WAR_DOCTRINE_NOBILITY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_4_group').GetValue, '(CFixedPoint)33.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@defensive_military_stance!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_FORTRESS_DOCTRINE_NOBILITY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_4_group').GetValue, '(CFixedPoint)34.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@religion!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_DEVOUT_CLERGY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_4_group').GetValue, '(CFixedPoint)35.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@religious_influence!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_HUMANIST_CLERGY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_4_group').GetValue, '(CFixedPoint)36.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@societal_value!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_MYSTIC_CLERGY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_4_group').GetValue, '(CFixedPoint)37.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@government_reform!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_CANONIST_CLERGY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_4_group').GetValue, '(CFixedPoint)38.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@religious_influence_catholic!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_LATINIZING_CLERGY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_4_group').GetValue, '(CFixedPoint)39.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@religious_unity!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_HELLENIZING_CLERGY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_4_group').GetValue, '(CFixedPoint)40.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@crown_estate!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_CROWN_SUBJECTS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_4_group').GetValue, '(CFixedPoint)41.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@peasants_estate!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_FREE_SUBJECT_PEASANTRY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_4_group').GetValue, '(CFixedPoint)42.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@self_control!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_INDIVIDUALIST_SMALLHOLDERS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_4_group').GetValue, '(CFixedPoint)43.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@republican_tradition!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_COMMUNAL_VILLAGES_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_4_group').GetValue, '(CFixedPoint)44.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@cultural_tradition!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_TRADITIONALIST_ENCLAVE_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_4_group').GetValue, '(CFixedPoint)45.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@literacy!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_ASSIMILATING_ENCLAVE_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_4_group').GetValue, '(CFixedPoint)46.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@tribes_estate!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_SINICIZED_MINORITY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_4_group').GetValue, '(CFixedPoint)47.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@dhimmi_estate!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_UNSINICIZED_MINORITY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_4_group').GetValue, '(CFixedPoint)48.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@cossacks_estate!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_WARRIOR_CLANS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_4_group').GetValue, '(CFixedPoint)49.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@diplomatic_capacity!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_DIPLOMATIC_CLANS_TT"
+											align = center|nobaseline
+										}
 									}
 									widget = {
 										position = { 324 208 }
@@ -1788,6 +2904,285 @@ organization_panel = {
 											raw_text = "@adm!"
 											fontsize = 30
 											tooltip = "TV_ACADEMY_DEBATE_GROUP_GREAT_SCIENTIST_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_5_group').GetValue, '(CFixedPoint)19.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@trade!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_CONTINENTAL_TRADERS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_5_group').GetValue, '(CFixedPoint)20.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@profit_trade!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_PLUTOCRATIC_MERCHANTS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_5_group').GetValue, '(CFixedPoint)21.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@trade_advantage!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_MERCANTILIST_GUILDS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_5_group').GetValue, '(CFixedPoint)22.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@trade_capacity!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_FREE_TRADE_MERCHANTS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_5_group').GetValue, '(CFixedPoint)23.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@gold_balance!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_CAPITALIST_FINANCIERS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_5_group').GetValue, '(CFixedPoint)24.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@cultural_tradition!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_GUILD_TRADITIONALISTS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_5_group').GetValue, '(CFixedPoint)25.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@send_people_to_the_colonies!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_COLONIAL_MERCHANTS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_5_group').GetValue, '(CFixedPoint)26.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@self_control!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_INSULAR_GUILDS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_5_group').GetValue, '(CFixedPoint)27.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@army_strength!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_FEUDAL_LEVY_NOBILITY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_5_group').GetValue, '(CFixedPoint)28.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@nobles_estate!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_PATRONAL_ARISTOCRACY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_5_group').GetValue, '(CFixedPoint)29.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@crown_estate!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_SERF_HOLDING_LORDS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_5_group').GetValue, '(CFixedPoint)30.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@government_reform!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_ABSOLUTIST_COURT_FACTION_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_5_group').GetValue, '(CFixedPoint)31.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@control!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_CONSTITUTIONALIST_NOBILITY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_5_group').GetValue, '(CFixedPoint)32.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@aggressive_military_stance!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_WAR_DOCTRINE_NOBILITY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_5_group').GetValue, '(CFixedPoint)33.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@defensive_military_stance!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_FORTRESS_DOCTRINE_NOBILITY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_5_group').GetValue, '(CFixedPoint)34.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@religion!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_DEVOUT_CLERGY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_5_group').GetValue, '(CFixedPoint)35.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@religious_influence!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_HUMANIST_CLERGY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_5_group').GetValue, '(CFixedPoint)36.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@societal_value!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_MYSTIC_CLERGY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_5_group').GetValue, '(CFixedPoint)37.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@government_reform!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_CANONIST_CLERGY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_5_group').GetValue, '(CFixedPoint)38.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@religious_influence_catholic!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_LATINIZING_CLERGY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_5_group').GetValue, '(CFixedPoint)39.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@religious_unity!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_HELLENIZING_CLERGY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_5_group').GetValue, '(CFixedPoint)40.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@crown_estate!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_CROWN_SUBJECTS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_5_group').GetValue, '(CFixedPoint)41.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@peasants_estate!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_FREE_SUBJECT_PEASANTRY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_5_group').GetValue, '(CFixedPoint)42.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@self_control!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_INDIVIDUALIST_SMALLHOLDERS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_5_group').GetValue, '(CFixedPoint)43.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@republican_tradition!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_COMMUNAL_VILLAGES_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_5_group').GetValue, '(CFixedPoint)44.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@cultural_tradition!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_TRADITIONALIST_ENCLAVE_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_5_group').GetValue, '(CFixedPoint)45.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@literacy!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_ASSIMILATING_ENCLAVE_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_5_group').GetValue, '(CFixedPoint)46.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@tribes_estate!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_SINICIZED_MINORITY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_5_group').GetValue, '(CFixedPoint)47.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@dhimmi_estate!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_UNSINICIZED_MINORITY_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_5_group').GetValue, '(CFixedPoint)48.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@cossacks_estate!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_WARRIOR_CLANS_TT"
+											align = center|nobaseline
+										}
+										text_single = {
+											visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_seat_5_group').GetValue, '(CFixedPoint)49.0')]"
+											parentanchor = center
+											size = { 100% 100% }
+											raw_text = "@diplomatic_capacity!"
+											fontsize = 30
+											tooltip = "TV_ACADEMY_DEBATE_GROUP_DIPLOMATIC_CLANS_TT"
 											align = center|nobaseline
 										}
 									}
@@ -5006,6 +6401,15 @@ organization_panel = {
 
 	# -- Concentrated Research tab: use the vanilla resolutions slot ------------
 	blockoverride "organization_resolutions_content" {
+		margin = { 0 0 }
+		layoutpolicy_vertical = expanding
+		scrollarea = {
+			using = layoutpolicy_expanding
+			scrollbarpolicy_horizontal = always_off
+			scrollbar_vertical = {
+				using = Scrollbar_Vertical
+			}
+			scrollwidget = {
 		vbox = {
 			margin = { 10 0 }
 			layoutpolicy_horizontal = expanding
@@ -6743,6 +8147,8 @@ organization_panel = {
 				}
 			}
 			expand = {}
+		}
+			}
 		}
 	}
 
