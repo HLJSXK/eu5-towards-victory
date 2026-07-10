@@ -276,7 +276,6 @@ tv_io_establishment_mark_basic_requirements_effect = {
 			NOT = { has_variable = tv_science_establishment_basic_done }
 			NOT = { has_variable = tv_science_victory_enabled }
 		}
-		set_variable = { name = tv_science_advances_researched_mirror value = num_of_advances_researched }
 		if = {
 			limit = { tv_science_establishment_basic_requirement = yes }
 			set_variable = { name = tv_science_establishment_basic_done value = 1 }
