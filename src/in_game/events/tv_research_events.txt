@@ -1363,7 +1363,7 @@ tv_research.11 = {
 	type = country_event
 	title = tv_research.11.t
 	desc = tv_research.11.d
-	outcome = bad
+	outcome = negative
 
 	trigger = {
 		custom_tooltip = {
@@ -1407,7 +1407,7 @@ tv_research.20 = {
 	type = country_event
 	title = tv_research.20.t
 	desc = tv_research.20.d
-	outcome = good
+	outcome = positive
 
 	trigger = {
 		tv_research_can_start_d_trigger = yes
@@ -1557,7 +1557,7 @@ tv_research.30 = {
 			}
 		}
 	}
-	outcome = good
+	outcome = positive
 
 	trigger = {
 		custom_tooltip = {
@@ -2258,7 +2258,7 @@ tv_research.43 = {
 			}
 		}
 	}
-	outcome = good
+	outcome = positive
 
 	trigger = {
 		var:tv_academy_philosophy_result_pending ?= 1
@@ -2321,7 +2321,7 @@ tv_research.44 = {
 			}
 		}
 	}
-	outcome = bad
+	outcome = negative
 
 	trigger = {
 		var:tv_academy_philosophy_result_pending ?= 1

@@ -139,7 +139,7 @@ def append_event(lines: list[str], wonder: dict, loc_keys: set[str]) -> None:
     lines.append(f"{T}title = tv_engineering_department.500.t")
     append_desc(lines, wonder, loc_keys)
     lines.append(f'{T}image = "{wonder_event_image(wonder)}"')
-    lines.append(f"{T}outcome = good")
+    lines.append(f"{T}outcome = positive")
     lines.append("")
     append_finalization_option(lines, wonder)
     lines.append("}")

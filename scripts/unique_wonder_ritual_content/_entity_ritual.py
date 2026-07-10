@@ -495,7 +495,7 @@ def build_events_body(wonder: dict) -> list[str]:
         lines.append(f"{T}type = country_event")
         lines.append(f"{T}title = {NAMESPACE}.{eid}.t")
         lines.append(f"{T}desc = {NAMESPACE}.{eid}.d")
-        lines.append(f"{T}outcome = good")
+        lines.append(f"{T}outcome = positive")
         lines.append("")
         resolve_effects = [f"{prefix}_completion_effect = yes"]
         if row_set is wonder["row_sets"][-1]:

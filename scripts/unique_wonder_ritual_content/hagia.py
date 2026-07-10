@@ -34,11 +34,11 @@ EVENTS = [
     {"id": 6301, "outcome": "neutral", "effect": "tv_wonder_hagia_complete_step_1_effect = yes", "retry": True},
     {"id": 6302, "outcome": "neutral", "effect": "tv_wonder_hagia_complete_step_2_effect = yes", "retry": True},
     {"id": 6303, "outcome": "neutral", "effect": "tv_wonder_hagia_complete_step_3_effect = yes", "retry": True},
-    {"id": 6304, "outcome": "good", "effect": "tv_wonder_hagia_complete_step_4_effect = yes", "retry": False},
-    {"id": 6305, "outcome": "good", "effect": "tv_wonder_hagia_complete_step_5_effect = yes", "retry": False},
+    {"id": 6304, "outcome": "positive", "effect": "tv_wonder_hagia_complete_step_4_effect = yes", "retry": False},
+    {"id": 6305, "outcome": "positive", "effect": "tv_wonder_hagia_complete_step_5_effect = yes", "retry": False},
     {"id": 6306, "outcome": "neutral", "effect": "tv_wonder_hagia_complete_step_6_effect = yes", "retry": True},
     {"id": 6307, "outcome": "neutral", "effect": "tv_wonder_hagia_complete_step_7_effect = yes", "retry": True},
-    {"id": 6308, "outcome": "good", "effect": "tv_wonder_hagia_complete_step_8_effect = yes", "retry": False},
+    {"id": 6308, "outcome": "positive", "effect": "tv_wonder_hagia_complete_step_8_effect = yes", "retry": False},
 ]
 
 

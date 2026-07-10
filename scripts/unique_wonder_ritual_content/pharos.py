@@ -56,16 +56,16 @@ EVENTS = [
         "effect": "add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.05 }\ntv_wonder_pharos_clear_privateers_effect = yes",
         "decline": "b",
     },
-    {"id": 7304, "outcome": "good", "option": "a", "effect": "tv_wonder_pharos_enter_stage_2_effect = yes"},
+    {"id": 7304, "outcome": "positive", "option": "a", "effect": "tv_wonder_pharos_enter_stage_2_effect = yes"},
     {
         "id": 7305,
-        "outcome": "good",
+        "outcome": "positive",
         "option": "a",
         "effect": "tv_wonder_pharos_complete_selected_controlled_route_effect = yes",
     },
     {
         "id": 7306,
-        "outcome": "good",
+        "outcome": "positive",
         "option": "a",
         "effect": "tv_wonder_pharos_complete_selected_basing_route_effect = yes",
     },
@@ -75,7 +75,7 @@ EVENTS = [
         "option": "a",
         "effect": "change_gold_effect = { scale = -1 }\ntv_wonder_pharos_create_selected_route_basing_effect = yes",
     },
-    {"id": 7308, "outcome": "good", "option": "a", "effect": "tv_wonder_pharos_finish_ritual_effect = yes"},
+    {"id": 7308, "outcome": "positive", "option": "a", "effect": "tv_wonder_pharos_finish_ritual_effect = yes"},
 ]
 
 

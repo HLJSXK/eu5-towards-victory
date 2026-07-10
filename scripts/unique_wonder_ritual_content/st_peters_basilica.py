@@ -365,7 +365,7 @@ def build_events_body() -> list[str]:
     lines.append(f"{T}type = country_event")
     lines.append(f"{T}title = {NAMESPACE}.{REWARD_EVENT_ID}.t")
     lines.append(f"{T}desc = {NAMESPACE}.{REWARD_EVENT_ID}.d")
-    lines.append(f"{T}outcome = good")
+    lines.append(f"{T}outcome = positive")
     lines.append("")
     lines.append(f"{T}option = {{")
     lines.append(f"{T}{T}name = {NAMESPACE}.{REWARD_EVENT_ID}.a")

@@ -63,6 +63,16 @@
   source: "git diff <pre-v1.3 commit>^..c7978920 -- reference_game_files/game/main_menu/common/static_modifiers/00_modifier_types.txt"
   notes: "v1.3 renamed ~29 `_cost`-suffixed static modifiers to `_efficiency`. Also lost the `min=-0.95` floor clamp on the three `global_bureaucracy_*_cost_modifier` -> `_efficiency` fields. Discovered during the v1.3 migration pass (2026-07-10); ~114 usage sites found across hand-written src files and ~10 generator data YAMLs (victory_paths.yaml, trade_league_laws.yaml, govhouse_laws.yaml, arts_exhibition_laws.yaml, academy_laws.yaml, wonder_final_buildings.yaml, wonder_generic_rituals.yaml, unique_wonders.yaml). Unrelated to the separate v1.3 building_type.cpp validator capping local_manpower/employment_size <= 0.0125 (undocumented, not a rename)."
 
+- id: v1_3_event_outcome_enum_good_bad_rejected
+  pattern: '\boutcome\s*=\s*(good|bad)\b'
+  detectability: lint
+  bad: "`outcome = good` / `outcome = bad` at event top level (the `EAudioEventOutcome` audio-direction field)"
+  correction: "Use `outcome = positive` / `outcome = negative` (keep `outcome = neutral` unchanged). Confirmed valid enum set from `reference_game_files/game/in_game/events/readme.txt` line 72: `outcome = positive/neutral/negative`, identical in both the pre-v1.3 and v1.3 reference commits — v1.3 only made the `pdx_persistent_reader.cpp` enum parser strict about rejecting values outside that set (error.log: `Failed to read enum! Type: \"EAudioEventOutcome\", Val \"bad\"/\"good\"`)."
+  category: event
+  scope: any
+  source: "reference_game_files/game/in_game/events/readme.txt:72"
+  notes: "Found 2026-07-10 in error.log across ~841 sites in 17 TV event files after the v1.3 reference bump. Most sources were generator Python (hardcoded strings or dict literals in gen_tv_wonder_finalization_events.py, gen_tv_wonder_ownership_events.py, wonder_construction_event_lib.py's KIND_OUTCOMES, philosophy_debate_codegen.py's event_specs/notification_specs, and scripts/unique_wonder_ritual_content/*.py) or data/research_d_events.yaml, plus 6 hand-written event files with no generator (tv_academy_of_sciences_events.txt, tv_engineering_department_events.txt, tv_arts_exhibition_events.txt, tv_govhouse_events.txt, tv_medicine_events.txt, tv_research_events.txt). Fix at the generator/data source, never the generated .txt, then regenerate."
+
 - id: location_auto_modifier_nonfunctional
   pattern: 'category\s*=\s*location'
   only_in_paths: ['auto_modifiers']
