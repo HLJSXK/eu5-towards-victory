@@ -778,10 +778,10 @@ Generated files that copy vanilla sources preserve the copied vanilla content ve
 
 | Category | Count | Index file | Notes |
 | --- | --- | --- | --- |
-| GUI Icons (`@xxx!`) | 351 | `data/index/icons.txt` | Use `@name!` in raw_text/text fields and YAML values |
-| Scripted Triggers | 3284 | `data/index/scripted_triggers.txt` | Verify name before using in `trigger = { ... }` |
-| Scripted Effects | 3939 | `data/index/scripted_effects.txt` | Verify name before using in `effect = { ... }` |
-| Static Modifiers | 2342 | `data/index/static_modifiers.txt` | Modifier name whitelist; validate.py checks these |
+| GUI Icons (`@xxx!`) | 364 | `data/index/icons.txt` | Use `@name!` in raw_text/text fields and YAML values |
+| Scripted Triggers | 3309 | `data/index/scripted_triggers.txt` | Verify name before using in `trigger = { ... }` |
+| Scripted Effects | 3955 | `data/index/scripted_effects.txt` | Verify name before using in `effect = { ... }` |
+| Static Modifiers | 2435 | `data/index/static_modifiers.txt` | Modifier name whitelist; validate.py checks these |
 | English Loc Keys | 34287 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
 
 ## Codegen Script Map

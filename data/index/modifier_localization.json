@@ -186,6 +186,20 @@
         "name": "AI接受降服倾向"
       }
     },
+    "accepted_culture_maintenance_cost_modifier": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "This impacts the ongoing Cultural Capacity cost of each [accepted_culture|e].",
+        "name": "Accepted Culture Maintenance Cost"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "影响每种[accepted_culture|e]的持续文化容量花费。",
+        "name": "已接纳文化维持花费"
+      }
+    },
     "activate_avatar_cost_modifier": {
       "category": "country",
       "color": "bad",
@@ -229,6 +243,20 @@
       }
     },
     "add_religious_aspect_christian_cost_modifier": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "This impacts the [costs|e] of adding a [religious_aspect|e].",
+        "name": "Cost of Adding Religious Aspect"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "这影响了为宗教添加一项[religious_aspect|e]的[costs|e]。",
+        "name": "添加宗教信条花费"
+      }
+    },
+    "add_religious_aspect_hellenism_cost_modifier": {
       "category": "country",
       "color": "bad",
       "decimals": 2,
@@ -296,6 +324,34 @@
       "zh": {
         "description": "这影响了AI[country|e]进攻其他[countries|e]的可能性。",
         "name": "AI侵略性"
+      }
+    },
+    "ai_amount_of_parallel_charters": {
+      "category": "country",
+      "color": "good",
+      "decimals": 0,
+      "en": {
+        "description": "Hard cap on how many simultaneous [colonial_charters|e] the AI of this [country|e] will pursue. Once the country reaches this number, the AI stops starting new charters until one completes or is abandoned.",
+        "name": "AI Maximum Parallel Colonial Charters"
+      },
+      "value_kind": "number",
+      "zh": {
+        "description": "同时在线人数有硬性限制。[colonial_charters|e]这个人工智能[country|e]将会继续。一旦该国达到这个数量，人工智能就会停止启动新的项目，直到一个项目完成或被放弃为止。",
+        "name": "AI 最大并行殖民宪章"
+      }
+    },
+    "ai_conquer_desire_religion_mult": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "Scales how strongly the AI of this [country|e] weighs heretic and heathen targets in conquest desire. Default 0 leaves the base bonuses unchanged, positive amplifies (crusader states, military orders), negative dampens (tolerant states).",
+        "name": "AI Conquer Desire Religious Antagonism"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "衡量人工智能的强度[country|e]在征服欲望中，该参数会权衡异端和异教目标。默认值 0 表示基础加成不变；正值会增强加成（十字军国家、军事修会）；负值会减弱加成（宽容国家）。",
+        "name": "人工智能征服欲望宗教对抗"
       }
     },
     "ai_force_annexation_modifier": {
@@ -394,6 +450,34 @@
       "zh": {
         "description": "这影响[ShowGenericActionName('aid_colonial_war')]的[costs|e]。",
         "name": "援助殖民地战争花费"
+      }
+    },
+    "alliance_weight": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "Determines how much this [country|e] contributes to [alliance_bloc|e] saturation costs for its allies.",
+        "name": "Alliance Weight"
+      },
+      "value_kind": "number",
+      "zh": {
+        "description": "决定该[country|e]对其盟友的[alliance_bloc|e]饱和度成本贡献多少。",
+        "name": "联盟饱和度权重"
+      }
+    },
+    "allow_apprenticeships_education": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This allows us to adopt the [ShowPolicyName('apprenticeships_education')] [policy|e].",
+        "name": "Allows [ShowPolicyNameWithNoTooltip('apprenticeships_education')]"
+      },
+      "value_kind": "boolean",
+      "zh": {
+        "description": "这允许我们采用[ShowPolicyName('apprenticeships_education')][policy|e]。",
+        "name": "启用[ShowPolicyNameWithNoTooltip('apprenticeships_education')]"
       }
     },
     "allow_assembly_parliament": {
@@ -508,6 +592,20 @@
         "name": "允许以兵代工"
       }
     },
+    "allow_clerical_archives": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This allows the [ShowEstateTypeName('clergy_estate')] to construct [ShowBuildingTypeName('clerical_archives')] [buildings|e].",
+        "name": "Allows [ShowBuildingTypeNameWithNoTooltip('clerical_archives')]"
+      },
+      "value_kind": "boolean",
+      "zh": {
+        "description": "这允许[ShowEstateTypeName('clergy_estate')]建造[ShowBuildingTypeName('clerical_archives')][buildings|e]。",
+        "name": "启用[ShowBuildingTypeNameWithNoTooltip('clerical_archives')]"
+      }
+    },
     "allow_conquistadors": {
       "category": "country",
       "color": "good",
@@ -620,6 +718,20 @@
         "name": "允许侵犯主权"
       }
     },
+    "allow_dun_fort": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This allows the construction of [ShowBuildingTypeName('dun_fort')] [buildings|e].",
+        "name": "Allows [ShowBuildingTypeNameWithNoTooltip('dun_fort')]"
+      },
+      "value_kind": "boolean",
+      "zh": {
+        "description": "这允许建造[ShowBuildingTypeName('dun_fort')][buildings|e]。",
+        "name": "启用[ShowBuildingTypeNameWithNoTooltip('dun_fort')]"
+      }
+    },
     "allow_estate_parliament": {
       "category": "country",
       "color": "good",
@@ -676,6 +788,34 @@
         "name": "允许女性担任将领"
       }
     },
+    "allow_guild_hall": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This allows the [ShowEstateTypeName('burghers_estate')] to construct [ShowBuildingTypeName('guild_hall')] [buildings|e].",
+        "name": "Allows [ShowBuildingTypeNameWithNoTooltip('guild_hall')]"
+      },
+      "value_kind": "boolean",
+      "zh": {
+        "description": "这允许[ShowEstateTypeName('burghers_estate')]建造[ShowBuildingTypeName('guild_hall')][buildings|e]。",
+        "name": "启用[ShowBuildingTypeNameWithNoTooltip('guild_hall')]"
+      }
+    },
+    "allow_guilds_of_florence_law": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This allows us to adopt the [ShowLawName('guilds_of_florence')] [law|e].",
+        "name": "Allows [ShowLawNameWithNoTooltip('guilds_of_florence')]"
+      },
+      "value_kind": "boolean",
+      "zh": {
+        "description": "这允许我们采用[ShowLawName('guilds_of_florence')][law|e]。",
+        "name": "启用[ShowLawNameWithNoTooltip('guilds_of_florence')]"
+      }
+    },
     "allow_harmony": {
       "category": "country",
       "color": "good",
@@ -690,6 +830,20 @@
         "name": "启用调和"
       }
     },
+    "allow_kulm_town_rights": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This allows us to grant the [ShowTownRightsName('kulm_town_rights')] [town_rights|e] to our [locations|e].",
+        "name": "Allows [ShowTownRightsName('kulm_town_rights')]"
+      },
+      "value_kind": "boolean",
+      "zh": {
+        "description": "这允许我们授予[locations|e][ShowTownRightsName('kulm_town_rights')][town_rights|e]。",
+        "name": "启用[ShowTownRightsName('kulm_town_rights')]"
+      }
+    },
     "allow_landfriede": {
       "category": "country",
       "color": "good",
@@ -702,6 +856,34 @@
       "zh": {
         "description": "允许[hre_emperor|e]执行[ShowCountryInteractionName('enforce_landfriede')][country_interaction|e]。",
         "name": "可执行禁止复仇条例"
+      }
+    },
+    "allow_local_noble_delegation": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This allows the [ShowEstateTypeName('nobles_estate')] to construct [ShowBuildingTypeName('local_noble_delegation')] [buildings|e].",
+        "name": "Allows [ShowBuildingTypeNameWithNoTooltip('local_noble_delegation')]"
+      },
+      "value_kind": "boolean",
+      "zh": {
+        "description": "这允许[ShowEstateTypeName('nobles_estate')]建造[ShowBuildingTypeName('local_noble_delegation')][buildings|e]。",
+        "name": "启用[ShowBuildingTypeNameWithNoTooltip('local_noble_delegation')]"
+      }
+    },
+    "allow_magdeburg_rights_town_rights": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This allows us to grant the [ShowTownRightsName('magdeburg_rights_town_rights')] [town_rights|e] to our [locations|e].",
+        "name": "Allows [ShowTownRightsName('magdeburg_rights_town_rights')]"
+      },
+      "value_kind": "boolean",
+      "zh": {
+        "description": "这允许我们授予[locations|e][ShowTownRightsName('magdeburg_rights_town_rights')][town_rights|e]。",
+        "name": "启用[ShowTownRightsName('magdeburg_rights_town_rights')]"
       }
     },
     "allow_male_cabinet": {
@@ -746,6 +928,20 @@
         "name": "允许成员召开议会"
       }
     },
+    "allow_military_order_units": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This allows us to recruit [ShowUnitTypeName('a_crusader_knights')], [ShowUnitTypeName('a_late_crusader_knights')], and [ShowUnitTypeName('a_order_knights')] [Concept('subunit', 'units')|e], and to research the [ShowAdvanceName('unlock_reformed_crusader_knights_advance')] [advance|e].",
+        "name": "Allows Military Order Units"
+      },
+      "value_kind": "boolean",
+      "zh": {
+        "description": "这允许我们招募[ShowUnitTypeName('a_crusader_knights')]、[ShowUnitTypeName('a_late_crusader_knights')]和[ShowUnitTypeName('a_order_knights')][Concept('subunit', '单位')|e]，并研究[ShowAdvanceName('unlock_reformed_crusader_knights_advance')][advance|e]。",
+        "name": "启用军事修会单位"
+      }
+    },
     "allow_mysticism_vs_jurisprudence": {
       "category": "country",
       "color": "good",
@@ -772,6 +968,76 @@
       "zh": {
         "description": "允许获得[ShowCasusBelliName('cb_native_subjugation')]。",
         "name": "允许征服原住民宣战理由"
+      }
+    },
+    "allow_nobility_fortifications": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This allows the [ShowEstateTypeName('nobles_estate')] to construct [ShowBuildingTypeName('nobility_fortifications')] [buildings|e].",
+        "name": "Allows [ShowBuildingTypeNameWithNoTooltip('nobility_fortifications')]"
+      },
+      "value_kind": "boolean",
+      "zh": {
+        "description": "这允许[ShowEstateTypeName('nobles_estate')]建造[ShowBuildingTypeName('nobility_fortifications')][buildings|e]。",
+        "name": "启用[ShowBuildingTypeNameWithNoTooltip('nobility_fortifications')]"
+      }
+    },
+    "allow_noble_villa": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This allows the [ShowEstateTypeName('nobles_estate')] to construct [ShowBuildingTypeName('noble_villa')] [buildings|e].",
+        "name": "Allows [ShowBuildingTypeNameWithNoTooltip('noble_villa')]"
+      },
+      "value_kind": "boolean",
+      "zh": {
+        "description": "这允许[ShowEstateTypeName('nobles_estate')]建造[ShowBuildingTypeName('noble_villa')][buildings|e]。",
+        "name": "启用[ShowBuildingTypeNameWithNoTooltip('noble_villa')]"
+      }
+    },
+    "allow_nobles_recruitment_center": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This allows the [ShowEstateTypeName('nobles_estate')] to construct [ShowBuildingTypeName('nobles_recruitment_center')] [buildings|e].",
+        "name": "Allows [ShowBuildingTypeNameWithNoTooltip('nobles_recruitment_center')]"
+      },
+      "value_kind": "boolean",
+      "zh": {
+        "description": "这允许[ShowEstateTypeName('nobles_estate')]建造[ShowBuildingTypeName('nobles_recruitment_center')][buildings|e]。",
+        "name": "启用[ShowBuildingTypeNameWithNoTooltip('nobles_recruitment_center')]"
+      }
+    },
+    "allow_novi_fori_town_rights": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This allows us to grant the [ShowTownRightsName('novi_fori_town_rights')] [town_rights|e] to our [locations|e].",
+        "name": "Allows [ShowTownRightsName('novi_fori_town_rights')]"
+      },
+      "value_kind": "boolean",
+      "zh": {
+        "description": "这允许我们授予[locations|e][ShowTownRightsName('novi_fori_town_rights')][town_rights|e]。",
+        "name": "启用[ShowTownRightsName('novi_fori_town_rights')]"
+      }
+    },
+    "allow_nuremberg_rights_town_rights": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This allows us to grant the [ShowTownRightsName('nuremberg_rights_town_rights')] [town_rights|e] to our [locations|e].",
+        "name": "Allows [ShowTownRightsName('nuremberg_rights_town_rights')]"
+      },
+      "value_kind": "boolean",
+      "zh": {
+        "description": "这允许我们授予[locations|e][ShowTownRightsName('nuremberg_rights_town_rights')][town_rights|e]。",
+        "name": "启用[ShowTownRightsName('nuremberg_rights_town_rights')]"
       }
     },
     "allow_open_sea_exploration": {
@@ -814,6 +1080,34 @@
       "zh": {
         "description": "允许我们征召[ShowUnitDefinitionName('a_early_paik')]、[ShowUnitDefinitionName('a_paik_infantry')]与[ShowUnitDefinitionName('a_late_paik_infantry')][levies|e]。",
         "name": "允许征召派步兵"
+      }
+    },
+    "allow_peasants_hunting_grounds": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This allows the [ShowEstateTypeName('peasants_estate')] to construct [ShowBuildingTypeName('peasants_hunting_grounds')] [buildings|e].",
+        "name": "Allows [ShowBuildingTypeNameWithNoTooltip('peasants_hunting_grounds')]"
+      },
+      "value_kind": "boolean",
+      "zh": {
+        "description": "这允许[ShowEstateTypeName('peasants_estate')]建造[ShowBuildingTypeName('peasants_hunting_grounds')][buildings|e]。",
+        "name": "启用[ShowBuildingTypeNameWithNoTooltip('peasants_hunting_grounds')]"
+      }
+    },
+    "allow_peasants_training_grounds": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This allows the [ShowEstateTypeName('peasants_estate')] to construct [ShowBuildingTypeName('peasants_training_grounds')] [buildings|e].",
+        "name": "Allows [ShowBuildingTypeNameWithNoTooltip('peasants_training_grounds')]"
+      },
+      "value_kind": "boolean",
+      "zh": {
+        "description": "这允许[ShowEstateTypeName('peasants_estate')]建造[ShowBuildingTypeName('peasants_training_grounds')][buildings|e]。",
+        "name": "启用[ShowBuildingTypeNameWithNoTooltip('peasants_training_grounds')]"
       }
     },
     "allow_privateers_slave_raid": {
@@ -956,6 +1250,20 @@
         "name": "启用[ShowBuildingTypeNameWithNoTooltip('thema_headquarters')]"
       }
     },
+    "allow_theocratic_education": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This allows us to adopt the [ShowPolicyName('theocratic_education')] [policy|e].",
+        "name": "Allows [ShowPolicyNameWithNoTooltip('theocratic_education')]"
+      },
+      "value_kind": "boolean",
+      "zh": {
+        "description": "这允许我们采用[ShowPolicyName('theocratic_education')][policy|e]。",
+        "name": "启用[ShowPolicyNameWithNoTooltip('theocratic_education')]"
+      }
+    },
     "allow_tributary_subject": {
       "category": "country",
       "color": "good",
@@ -982,6 +1290,34 @@
       "zh": {
         "description": "这允许我们要求[GetUniqueInternationalOrganization('middle_kingdom').GetName]内[subjects|e]进贡[ShowGoodsName('silver')]。",
         "name": "可以[ShowCountryInteractionName('demand_silver_tribute')]"
+      }
+    },
+    "allow_ville_franche_town_rights": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This allows us to grant the [ShowTownRightsName('ville_franche_town_rights')] [town_rights|e] to our [locations|e].",
+        "name": "Allows [ShowTownRightsName('ville_franche_town_rights')]"
+      },
+      "value_kind": "boolean",
+      "zh": {
+        "description": "这允许我们授予[locations|e][ShowTownRightsName('ville_franche_town_rights')][town_rights|e]。",
+        "name": "启用[ShowTownRightsName('ville_franche_town_rights')]"
+      }
+    },
+    "allow_warrior_monks_training_grounds": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This allows the [ShowEstateTypeName('clergy_estate')] to construct [ShowBuildingTypeName('warrior_monks_training_grounds')] [buildings|e].",
+        "name": "Allows [ShowBuildingTypeNameWithNoTooltip('warrior_monks_training_grounds')]"
+      },
+      "value_kind": "boolean",
+      "zh": {
+        "description": "这允许[ShowEstateTypeName('clergy_estate')]建造[ShowBuildingTypeName('warrior_monks_training_grounds')][buildings|e]。",
+        "name": "启用[ShowBuildingTypeNameWithNoTooltip('warrior_monks_training_grounds')]"
       }
     },
     "allowed_alliance": {
@@ -1278,6 +1614,20 @@
         "name": "因无理由宣战产生的敌意修正"
       }
     },
+    "antagonism_development_impact": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "This impacts how much the [development|e] of a [location|e] contributes to the [antagonism|e] generated when taking it.",
+        "name": "Antagonism from Development"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "这影响[location|e]的[development|e]对夺取该地点产生的[antagonism|e]的贡献。",
+        "name": "来自发展度的敌意"
+      }
+    },
     "antagonism_government_type_influence": {
       "category": "country",
       "color": "neutral",
@@ -1308,7 +1658,7 @@
     },
     "antagonism_monthly_change_modifier": {
       "category": "country",
-      "color": "good",
+      "color": "neutral",
       "decimals": 2,
       "en": {
         "description": "This impacts how temporary sources of [antagonism|e] decay for a [country|e] every month.",
@@ -1430,20 +1780,6 @@
       "zh": {
         "description": "任何被俘获或购买的[pop|e]将永远为奴。",
         "name": "无限制奴隶制"
-      }
-    },
-    "appanage_prevented_from_call_to_war": {
-      "category": "country",
-      "color": "good",
-      "decimals": 2,
-      "en": {
-        "description": "This Appanage has either received special privileges from their overlord or are disloyal and cannot be called into wars by their overlord.",
-        "name": "Disallowed from Call Appanage to War"
-      },
-      "value_kind": "boolean",
-      "zh": {
-        "description": "该封邑已获得宗主特殊特权或是不忠的，无法被召唤加入宗主国的战争。",
-        "name": "可拒绝响应封邑战争召唤"
       }
     },
     "appease_nobles_estate_from_shogun_court_cost_modifier": {
@@ -1978,18 +2314,18 @@
         "name": "陆军移动速度"
       }
     },
-    "army_reinforce_cost": {
+    "army_reinforce_efficiency": {
       "category": "unit",
-      "color": "bad",
+      "color": "good",
       "decimals": 2,
       "en": {
-        "description": "This impacts how much [gold|e] and [manpower|e] it will cost to [reinforce|e] a [regiment|e].",
-        "name": "Army Reinforcement Cost"
+        "description": "This impacts how efficiently we can [reinforce|e] a [regiment|e], reducing its [gold|e] and [manpower|e] cost.",
+        "name": "Army Reinforcement Efficiency"
       },
       "value_kind": "percent",
       "zh": {
-        "description": "影响[reinforce|e]一支[regiment|e]所需的[gold|e]与[manpower|e]。",
-        "name": "陆军补员花费"
+        "description": "影响我们[reinforce|e][regiment|e]的效率，降低[gold|e]和[manpower|e]花费。",
+        "name": "陆军补员效率"
       }
     },
     "army_tradition_decay": {
@@ -2172,20 +2508,6 @@
       "zh": {
         "description": "影响通过[ShowTopographyName('atoll')]时的[proximity|e]花费。",
         "name": "环礁邻近度影响"
-      }
-    },
-    "attract_condottieri_price_cost_modifier": {
-      "category": "country",
-      "color": "bad",
-      "decimals": 2,
-      "en": {
-        "description": "This impacts the [costs|e] of [ShowGenericActionName('attract_condottieri')].",
-        "name": "[ShowGenericActionNameWithNoTooltip('attract_condottieri')] Cost"
-      },
-      "value_kind": "percent",
-      "zh": {
-        "description": "这影响[ShowGenericActionName('attract_condottieri')]的[costs|e]。",
-        "name": "[ShowGenericActionNameWithNoTooltip('attract_condottieri')]花费"
       }
     },
     "auto_conquer_at_war": {
@@ -4400,6 +4722,118 @@
         "name": "主君受洗行动花费"
       }
     },
+    "base_burghers_estate_power_modifier": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "This modifies the base [political_power|e] from [pops|e] of the Burghers in the entire [country|e].",
+        "name": "Base Burghers Power"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "这影响整个[country|e]的市民[pops|e]的基础[political_power|e]。",
+        "name": "市民基础力量"
+      }
+    },
+    "base_clergy_estate_power_modifier": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "This modifies the base [political_power|e] from [pops|e] of the Clergy in the entire [country|e].",
+        "name": "Base Clergy Power"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "这影响整个[country|e]的教士[pops|e]的基础[political_power|e]。",
+        "name": "教士基础力量"
+      }
+    },
+    "base_cossacks_estate_power_modifier": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "This modifies the base [political_power|e] from [pops|e] of the Cossacks in the entire [country|e].",
+        "name": "Cossacks Base Power"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "这影响整个[country|e]的哥萨克[pops|e]的基础[political_power|e]。",
+        "name": "哥萨克基础力量"
+      }
+    },
+    "base_crown_estate_power_modifier": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This modifies the base [political_power|e] from [pops|e] of the Crown, in other words the base of the [crown_power|e] in the entire [country|e].",
+        "name": "Base Crown Power"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "这影响整个[country|e]的王室[pops|e]的基础[political_power|e]，即[crown_power|e]。",
+        "name": "王室基础力量"
+      }
+    },
+    "base_dhimmi_estate_power_modifier": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "This modifies the base [political_power|e] from [pops|e] of the Dhimmi in the entire [country|e].",
+        "name": "Base Ḏimmī Power"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "这影响整个[country|e]的齐米[pops|e]的基础[political_power|e]。",
+        "name": "齐米基础力量"
+      }
+    },
+    "base_nobles_estate_power_modifier": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "This modifies the base [political_power|e] from [pops|e] of the Nobility in the entire [country|e].",
+        "name": "Base Nobles Power"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "这影响整个[country|e]的贵族[pops|e]的基础[political_power|e]。",
+        "name": "贵族基础力量"
+      }
+    },
+    "base_peasants_estate_power_modifier": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "This modifies the base [political_power|e] from [pops|e] of the Commoners in the entire [country|e].",
+        "name": "Base Peasants Power"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "这影响整个[country|e]的平民[pops|e]的基础[political_power|e]。",
+        "name": "农民基础力量"
+      }
+    },
+    "base_tribes_estate_power_modifier": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "This modifies the base [political_power|e] from [pops|e] of the Tribes in the entire [country|e].",
+        "name": "Tribes Base Power"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "这影响整个[country|e]的部落[pops|e]的基础[political_power|e]。",
+        "name": "部落基础力量"
+      }
+    },
     "become_shogun_from_imperial_court_cost_modifier": {
       "category": "country",
       "color": "good",
@@ -4676,7 +5110,7 @@
       },
       "value_kind": "percent",
       "zh": {
-        "description": "This impacts the [costs|e] of the [ShowCharacterInteractionName('blind_character')] [character_interaction|e].",
+        "description": "影响[ShowCharacterInteractionName('blind_character')][character_interaction|e]的[costs|e]。",
         "name": "致盲花费花费修正"
       }
     },
@@ -4706,6 +5140,20 @@
       "zh": {
         "description": "这禁止所有女性[characters|e]担任[general|e]或[admiral|e]。",
         "name": "禁止女性担任将领"
+      }
+    },
+    "block_forums_of_thought": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "This prevents us from adopting the [ShowPolicyName('forums_of_thought')] [policy|e].",
+        "name": "Blocks [ShowPolicyNameWithNoTooltip('forums_of_thought')]"
+      },
+      "value_kind": "boolean",
+      "zh": {
+        "description": "这禁止我们采用[ShowPolicyName('forums_of_thought')][policy|e]。",
+        "name": "禁用[ShowPolicyNameWithNoTooltip('forums_of_thought')]"
       }
     },
     "block_from_change_to_duchy_rank": {
@@ -5086,6 +5534,34 @@
         "name": "遮挡海域视野"
       }
     },
+    "bond_interest": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "This impacts the monthly [interest|e] rate paid on outstanding [government_bonds|e].",
+        "name": "Bond Interest"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "影响尚未回购的[government_bonds|e]的每月[interest|e]。",
+        "name": "债券利息"
+      }
+    },
+    "bond_size_modifier": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "Increases the face value of each [government bond|e] issued.",
+        "name": "Government Bond Size Modifier"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "提高发行的每笔[government bond|e]的面值。",
+        "name": "政府债券规模修正"
+      }
+    },
     "books_impacts_inflation": {
       "category": "country",
       "color": "good",
@@ -5296,18 +5772,32 @@
         "name": "为所有者宗主国提供海上存在"
       }
     },
-    "building_upkeep_costs": {
+    "building_upkeep_efficiency": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This impacts how efficiently we maintain our [buildings|e], reducing their monthly [gold|e] upkeep.",
+        "name": "Building Upkeep Efficiency"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "影响我们维持[buildings|e]的效率，降低每月[gold|e]维护费。",
+        "name": "建筑维护效率"
+      }
+    },
+    "building_upkeep_multiplier": {
       "category": "country",
       "color": "bad",
       "decimals": 2,
       "en": {
-        "description": "This impacts how much of the cost for [buildings|e] is paid for by the country.",
-        "name": "Building Upkeep Costs"
+        "description": "Scales the monthly [gold|e] upkeep cost of all [buildings|e] in the country.",
+        "name": "Building Upkeep Multiplier"
       },
       "value_kind": "percent",
       "zh": {
-        "description": "该修正决定了国家为[buildings|e]支付的成本比例。",
-        "name": "建筑维护成本"
+        "description": "按比例调整全国所有[buildings|e]的每月[gold|e]维护费用。",
+        "name": "建筑维护费乘数"
       }
     },
     "burghers_estate_agenda_impact": {
@@ -5492,6 +5982,20 @@
         "name": "市民阶层征税下限"
       }
     },
+    "burghers_estate_power_from_cabinet": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "This impacts the [estate_power|e] of the [ShowEstateTypeName('burghers_estate')] if one of its [characters|e] is assigned to [cabinet|e].",
+        "name": "Burghers Power from Cabinet Position"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "这影响[ShowEstateTypeName('burghers_estate')][characters|e]在[cabinet|e]任职产生的[estate_power|e]。",
+        "name": "市民内阁成员产生的阶层力量"
+      }
+    },
     "burghers_estate_satisfaction_decay": {
       "category": "country",
       "color": "neutral",
@@ -5602,6 +6106,20 @@
       "zh": {
         "description": "影响[ShowGenericActionName('call_jihad')]的[costs|e]。",
         "name": "发动吉哈德的宗教行动花费"
+      }
+    },
+    "calvinist_preachers_building_cost_modifier": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "This impacts the [costs|e] of constructing [ShowBuildingTypeName('calvinist_preachers')].",
+        "name": "Calvinist Preachers Building Cost"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "影响建造[ShowBuildingTypeName('calvinist_preachers')]的[costs|e]。",
+        "name": "加尔文宗布道所建筑花费"
       }
     },
     "can_assign_governors": {
@@ -7060,6 +7578,20 @@
         "name": "可撤销选帝侯资格"
       }
     },
+    "can_sell_bonds": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This [country|e] has the financial infrastructure to issue [government_bonds|e].",
+        "name": "Can Issue Government Bonds"
+      },
+      "value_kind": "boolean",
+      "zh": {
+        "description": "该[country|e]拥有发行[government_bonds|e]的金融机构。",
+        "name": "可以发行政府债券"
+      }
+    },
     "can_send_royal_inspectors": {
       "category": "country",
       "color": "good",
@@ -7290,7 +7822,7 @@
       "decimals": 0,
       "en": {
         "description": "This determines how many additional [town_rights|e] a [country|e] can have in its [capital|e].",
-        "name": "Possible Urban Rights"
+        "name": "Possible Urban Rights in Capital"
       },
       "value_kind": "number",
       "zh": {
@@ -7350,7 +7882,7 @@
       },
       "value_kind": "percent",
       "zh": {
-        "description": "This impacts the [costs|e] of the [ShowCharacterInteractionName('castrate_character')] [character_interaction|e].",
+        "description": "影响[ShowCharacterInteractionName('castrate_character')][character_interaction|e]的[costs|e]。",
         "name": "阉割花费花费修正"
       }
     },
@@ -7422,6 +7954,20 @@
       "zh": {
         "description": "这允许[ShowSpecialStatusName('celestial_governor')]在[international_organization|e][parliament|e]中提出[parliament_agendas|e]。",
         "name": "天朝总督出席议会"
+      }
+    },
+    "challenge_league_leadership_price_cost_modifier": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "This impacts the [costs|e] of [ShowGenericActionName('challenge_league_leadership')].",
+        "name": "[ShowGenericActionNameWithNoTooltip('challenge_league_leadership')] Cost"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "这将影响[ShowGenericActionName('challenge_league_leadership')]的[costs|e]。",
+        "name": "[ShowGenericActionNameWithNoTooltip('challenge_league_leadership')]花费"
       }
     },
     "chancery_cap_level": {
@@ -7590,6 +8136,20 @@
       "zh": {
         "description": "这影响转变[primary_culture|e]的花费。",
         "name": "转变主流文化花费"
+      }
+    },
+    "change_religious_aspect_hellenism_cost_modifier": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "This impacts the [costs|e] of changing a [religious_aspect|e].",
+        "name": "Cost of Changing Religious Aspect"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "这影响改变[religious_aspect|e]的[costs|e]。",
+        "name": "更改宗教信条花费"
       }
     },
     "change_religious_aspect_inti_cost_modifier": {
@@ -8054,6 +8614,20 @@
         "name": "教士阶层征税下限"
       }
     },
+    "clergy_estate_power_from_cabinet": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "This impacts the [estate_power|e] of the [ShowEstateTypeName('clergy_estate')] if one of its [characters|e] is assigned to [cabinet|e].",
+        "name": "Clergy Power from Cabinet Position"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "这影响[ShowEstateTypeName('clergy_estate')][characters|e]在[cabinet|e]任职产生的[estate_power|e]。",
+        "name": "教士内阁成员产生的阶层力量"
+      }
+    },
     "clergy_estate_satisfaction_decay": {
       "category": "country",
       "color": "neutral",
@@ -8278,18 +8852,18 @@
         "name": "咖啡用作货币"
       }
     },
-    "colonial_maintenance_cost": {
+    "colonial_maintenance_efficiency": {
       "category": "country",
-      "color": "bad",
+      "color": "good",
       "decimals": 2,
       "en": {
-        "description": "This impacts the monthly cost of [colonial_charters|e].",
-        "name": "Colonial Maintenance"
+        "description": "This impacts how efficiently we maintain our [colonial_charters|e], reducing their monthly [gold|e] upkeep.",
+        "name": "Colonial Maintenance Efficiency"
       },
       "value_kind": "percent",
       "zh": {
-        "description": "影响每月[colonial_charters|e]的费用。",
-        "name": "殖民地维护费"
+        "description": "影响我们维持[colonial_charters|e]的效率，降低每月[gold|e]维护费。",
+        "name": "殖民地维护效率"
       }
     },
     "colonial_migration_size": {
@@ -8405,7 +8979,7 @@
       }
     },
     "commander_combat_bonus": {
-      "category": "character",
+      "category": "unit",
       "color": "good",
       "decimals": 2,
       "en": {
@@ -8470,7 +9044,7 @@
       },
       "value_kind": "percent",
       "zh": {
-        "description": "影响[ShowGenericActionName('D008_compose_strategikon')][character|e][action|e]的[costs|e]。",
+        "description": "影响[ShowCharacterInteractionName('compose_strategikon')][character_interaction|e]的[costs|e]。",
         "name": "撰写《战略书》花费花费修正"
       }
     },
@@ -8810,6 +9384,20 @@
         "name": "哥萨克的征税下限"
       }
     },
+    "cossacks_estate_power_from_cabinet": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "This impacts the [estate_power|e] of the [ShowEstateTypeName('cossacks_estate')] if one of its [characters|e] is assigned to [cabinet|e].",
+        "name": "Cossacks Power from Cabinet Position"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "这影响[ShowEstateTypeName('cossacks_estate')][characters|e]在[cabinet|e]任职产生的[estate_power|e]。",
+        "name": "哥萨克内阁成员产生的阶层力量"
+      }
+    },
     "cossacks_estate_satisfaction_decay": {
       "category": "country",
       "color": "neutral",
@@ -9048,18 +9636,18 @@
         "name": "AI使市场语言成为宫廷语言的倾向"
       }
     },
-    "court_spending_cost_modifier": {
+    "court_spending_efficiency": {
       "category": "country",
-      "color": "bad",
+      "color": "good",
       "decimals": 2,
       "en": {
-        "description": "This impacts how much of the [tax_base|e] that is expected to be [court_maintenance|e].",
-        "name": "Expected Cost of Court"
+        "description": "This impacts the efficiency of [court_maintenance|e] spending.",
+        "name": "Court Spending Efficiency"
       },
       "value_kind": "percent",
       "zh": {
-        "description": "影响预计用于[court_maintenance|e]的[tax_base|e]数额。",
-        "name": "预期宫廷支出"
+        "description": "这影响了[court_maintenance|e]支出的效率。",
+        "name": "宫廷支出效率"
       }
     },
     "crackdown_their_strongholds_cost_modifier": {
@@ -9144,6 +9732,20 @@
       "zh": {
         "description": "这影响建立[supply_depot|e]的[costs|e]。",
         "name": "建立补给站花费"
+      }
+    },
+    "creditworthiness_bonus": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This increases the target [creditworthiness|e] of this [country|e], which the actual value slowly pulls toward.",
+        "name": "Creditworthiness Bonus"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "提高该[country|e]实际信誉值缓慢靠拢的目标[creditworthiness|e]，",
+        "name": "信誉加成"
       }
     },
     "crown_estate_agenda_impact": {
@@ -9326,6 +9928,20 @@
       "zh": {
         "description": "未使用",
         "name": "王室征税下限"
+      }
+    },
+    "crown_estate_power_from_cabinet": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This impacts the [estate_power|e] of the [ShowEstateTypeName('crown_estate')] if one of its [characters|e] is assigned to [cabinet|e].",
+        "name": "Crown Power from Cabinet Position"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "这影响[ShowEstateTypeName('crown_estate')][characters|e]在[cabinet|e]任职产生的[estate_power|e]。",
+        "name": "王室内阁成员产生的阶层力量"
       }
     },
     "crown_estate_satisfaction_decay": {
@@ -9860,6 +10476,20 @@
         "name": "齐米阶层征税下限"
       }
     },
+    "dhimmi_estate_power_from_cabinet": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "This impacts the [estate_power|e] of the [ShowEstateTypeName('dhimmi_estate')] if one of its [characters|e] is assigned to [cabinet|e].",
+        "name": "Dhimmi Power from Cabinet Position"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "这影响[ShowEstateTypeName('dhimmi_estate')][characters|e]在[cabinet|e]任职产生的[estate_power|e]。",
+        "name": "齐米内阁成员产生的阶层力量"
+      }
+    },
     "dhimmi_estate_satisfaction_decay": {
       "category": "country",
       "color": "neutral",
@@ -9930,18 +10560,18 @@
         "name": "AI外交侧重修正"
       }
     },
-    "diplomatic_annexation_cost": {
+    "diplomatic_annexation_efficiency": {
       "category": "country",
-      "color": "bad",
+      "color": "good",
       "decimals": 2,
       "en": {
         "description": "This impacts how quickly a [country|e] can be [annexed|e] diplomatically.",
-        "name": "Diplomatic Annexation Cost"
+        "name": "Diplomatic Annexation Efficiency"
       },
       "value_kind": "percent",
       "zh": {
-        "description": "影响一个[country|e]通过外交被[annexed|e]的速度。",
-        "name": "外交吞并花费"
+        "description": "影响一个[country|e]被外交[annexed|e]的速度。",
+        "name": "外交吞并效率"
       }
     },
     "diplomatic_capacity": {
@@ -10028,18 +10658,18 @@
         "name": "预期外交支出"
       }
     },
-    "diplomatic_upkeep_modifier": {
+    "diplomatic_upkeep_efficiency": {
       "category": "country",
-      "color": "neutral",
+      "color": "good",
       "decimals": 2,
       "en": {
         "description": "This modifies how much [diplomatic_upkeep|e] the country costs to their [overlord|e] if they were a [subject|e].",
-        "name": "Diplomatic Upkeep Modifier"
+        "name": "Diplomatic Upkeep Efficiency"
       },
       "value_kind": "percent",
       "zh": {
-        "description": "这影响该国作为[subject|e]时将占用其[overlord|e]的[diplomatic_upkeep|e]的数额。",
-        "name": "外交容量占用"
+        "description": "此数值会影响国家作为[subject|e]时，对[overlord|e]产生的[diplomatic_upkeep|e]。",
+        "name": "外交维护效率"
       }
     },
     "direct_excommunication_allowed": {
@@ -10222,6 +10852,20 @@
       "zh": {
         "description": "这决定了[ShowGoodsName('dyes')]是否被用作[country|e]的货币。",
         "name": "染料用作货币"
+      }
+    },
+    "dynastic_acquisition_preference_modifier": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This modifies how strongly an AI [country|e] prefers acquiring territory through [royal_marriages|e] and [personal_union|e] inheritance over [conquest|e]. Positive values make the AI both more restrained from attacking [personal_union|e] candidates and more eager to marry heirless neighbors.",
+        "name": "Dynastic Acquisition Preference"
+      },
+      "value_kind": "number",
+      "zh": {
+        "description": "这将调整AI[country|e]通过[royal_marriages|e]和[personal_union|e]继承而非[conquest|e]来获取领土的倾向程度。数值为正会使AI在攻击[personal_union|e]候选国时更加克制，同时也更愿意与没有继承人的邻国联姻。",
+        "name": "AI王朝继承偏好"
       }
     },
     "election_term_in_months": {
@@ -10416,8 +11060,8 @@
       },
       "value_kind": "boolean",
       "zh": {
-        "description": "这允许[ShowSubjectTypeName('D008_pronoia')][subject_type|e]",
-        "name": "允许$D008_pronoia$附属国"
+        "description": "这允许[ShowSubjectTypeName('pronoia')][subject_type|e]",
+        "name": "允许普罗尼亚附属国"
       }
     },
     "enable_taxation": {
@@ -10546,6 +11190,20 @@
         "name": "颁布《货物法案》花费"
       }
     },
+    "establish_italian_administration_center_price_cost_modifier": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "This impacts the [costs|e] of [ShowGenericActionName('establish_italian_administration_center')].",
+        "name": "[ShowGenericActionNameWithNoTooltip('establish_italian_administration_center')] Cost"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "这将影响[ShowGenericActionName('establish_italian_administration_center')]的[costs|e]。",
+        "name": "[ShowGenericActionNameWithNoTooltip('establish_italian_administration_center')]花费"
+      }
+    },
     "establish_treaty_with_kirishitan_cost_modifier": {
       "category": "country",
       "color": "bad",
@@ -10635,12 +11293,12 @@
       "color": "neutral",
       "decimals": 2,
       "en": {
-        "description": "This modifies the [modifiers|e] given by the [ShowGovernmentReformName('empower_the_eunuchs')] [government_reform|e]. The gain for the Efficiency of Our Cabinet is linear and the gain for the Expected Cost of Court is exponential.",
+        "description": "This modifies the [modifiers|e] given by the [ShowGovernmentReformName('empower_the_eunuchs')] [government_reform|e]. The gain for the Efficiency of Our Cabinet is linear and the gain for the Court Spending Efficiency is exponential.",
         "name": "Eunuch Power Modifier"
       },
       "value_kind": "percent",
       "zh": {
-        "description": "这影响了[ShowGovernmentReformName('empower_the_eunuchs')][government_reform|e]给予的[modifiers|e]。内阁效率的效果为线性，而预期宫廷支出的效果为指数级。",
+        "description": "这影响了[ShowGovernmentReformName('empower_the_eunuchs')][government_reform|e]给予的[modifiers|e]。内阁效率的效果为线性，而宫廷支出效率的效果为指数级。",
         "name": "宦官力量修正"
       }
     },
@@ -10938,18 +11596,18 @@
         "name": "每月经验衰减"
       }
     },
-    "exploration_maintenance_cost": {
+    "exploration_maintenance_efficiency": {
       "category": "country",
-      "color": "bad",
+      "color": "good",
       "decimals": 2,
       "en": {
-        "description": "This impacts how much an [exploration|e] costs.",
-        "name": "Exploration Cost"
+        "description": "This impacts how efficiently we fund [explorations|e], reducing their monthly [gold|e] cost.",
+        "name": "Exploration Cost Efficiency"
       },
       "value_kind": "percent",
       "zh": {
-        "description": "影响一次[exploration|e]的花费。",
-        "name": "探索花费"
+        "description": "影响我们投资[explorations|e]的效率，降低其每月[gold|e]花费。",
+        "name": "探索花费效率"
       }
     },
     "exploration_mission_speed": {
@@ -11046,8 +11704,8 @@
       },
       "value_kind": "percent",
       "zh": {
-        "description": "这影响[ShowDisasterName('D008_fate_of_the_phoenix')][disaster|e]的[actions|e][costs|e]。",
-        "name": "$D008_fate_of_the_phoenix$行动花费修正"
+        "description": "这影响[ShowDisasterName('fate_of_the_phoenix')][disaster|e]的[actions|e][costs|e]。",
+        "name": "凤凰的命运行动花费修正"
       }
     },
     "favor_buddhist_schools_from_religious_sects_cost_modifier": {
@@ -11274,18 +11932,18 @@
         "name": "单位食物消耗"
       }
     },
-    "food_purchase_cost": {
+    "food_purchase_efficiency": {
       "category": "country",
-      "color": "bad",
+      "color": "good",
       "decimals": 2,
       "en": {
         "description": "This impacts the cost in [gold|e] for when [provinces|e] need to buy [food|e].",
-        "name": "Cost of Purchasing Food"
+        "name": "Food Purchase Efficiency"
       },
       "value_kind": "percent",
       "zh": {
         "description": "影响[provinces|e]在购买[food|e]时消耗的[gold|e]。",
-        "name": "购买食物的花费"
+        "name": "购买食物效率"
       }
     },
     "forbid_marrying_lowborn": {
@@ -11358,18 +12016,18 @@
         "name": "创建附属国时强迫改信"
       }
     },
-    "foreign_export_from_market_cost_modifier": {
+    "foreign_export_from_market_efficiency": {
       "category": "country",
       "color": "good",
       "decimals": 2,
       "en": {
-        "description": "This impacts the cost of the [export|e] from [markets|e] owned by a [country|e] for other [countries|e].",
-        "name": "Export Cost from Market for Foreign Traders"
+        "description": "This impacts the efficiency of the [export|e] from [markets|e] owned by a [country|e] for other [countries|e].",
+        "name": "Foreign Export Efficiency from Market"
       },
       "value_kind": "percent",
       "zh": {
-        "description": "这影响其他[countries|e]从一个[country|e]的[markets|e]中[export|e]商品的花费。",
-        "name": "外商从市场出口商品的花费"
+        "description": "这将影响从某[country|e]拥有的[markets|e]向其他[countries|e]进行[export|e]的效率。",
+        "name": "来自市场的出口效率"
       }
     },
     "fort_assumed_efficiency_character": {
@@ -11405,12 +12063,12 @@
       "color": "good",
       "decimals": 2,
       "en": {
-        "description": "A soft limit on the number of [forts|e] a [country|e] can manage. Having more forts than the limit will result in increased [ShowModifierTypeName('fort_maintenance_cost')].\n\nA Fort without [zone_of_control|e], for example [ShowBuildingTypeName('stockade')], will only cost half Fort Limit.",
+        "description": "A soft limit on the number of [forts|e] a [country|e] can manage. Having more forts than the limit will result in decreased [ShowModifierTypeName('fort_maintenance_efficiency')].\n\nA Fort without [zone_of_control|e], for example [ShowBuildingTypeName('stockade')], will only cost half Fort Limit.",
         "name": "Fort Limit"
       },
       "value_kind": "number",
       "zh": {
-        "description": "一个[country|e]可以管理的[forts|e]数量的软上限。超出上限将导致[ShowModifierTypeName('fort_maintenance_cost')]增加。\n\n无[zone_of_control|e]的要塞，例如[ShowBuildingTypeName('stockade')]，只会占用一半的要塞上限。",
+        "description": "一个[country|e]可以管理的[forts|e]数量的软上限。超出上限将导致[ShowModifierTypeName('fort_maintenance_efficiency')]减少。\n\n无[zone_of_control|e]的要塞，例如[ShowBuildingTypeName('stockade')]，只会占用一半的要塞上限。",
         "name": "要塞上限"
       }
     },
@@ -11419,27 +12077,41 @@
       "color": "good",
       "decimals": 2,
       "en": {
-        "description": "A soft limit on the number of [forts|e] a [country|e] can manage. Having more forts than the limit will result in increased [ShowModifierTypeName('fort_maintenance_cost')].\n\nA Fort without [zone_of_control|e], for example [ShowBuildingTypeName('stockade')], will only cost half Fort Limit.",
+        "description": "A soft limit on the number of [forts|e] a [country|e] can manage. Having more forts than the limit will result in decreased [ShowModifierTypeName('fort_maintenance_efficiency')].\n\nA Fort without [zone_of_control|e], for example [ShowBuildingTypeName('stockade')], will only cost half Fort Limit.",
         "name": "Fort Limit"
       },
       "value_kind": "percent",
       "zh": {
-        "description": "一个[country|e]可以管理的[forts|e]数量的软上限。超出上限将导致[ShowModifierTypeName('fort_maintenance_cost')]增加。\n\n无[zone_of_control|e]的要塞，例如[ShowBuildingTypeName('stockade')]，只会占用一半的要塞上限。",
+        "description": "一个[country|e]可以管理的[forts|e]数量的软上限。超出上限将导致[ShowModifierTypeName('fort_maintenance_efficiency')]减少。\n\n无[zone_of_control|e]的要塞，例如[ShowBuildingTypeName('stockade')]，只会占用一半的要塞上限。",
         "name": "要塞上限"
       }
     },
-    "fort_maintenance_cost": {
+    "fort_maintenance_efficiency": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This impacts how efficiently we maintain our [fortifications|e], reducing their monthly [gold|e] upkeep.",
+        "name": "Fortification Maintenance Efficiency"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "这将影响我们维护[fortifications|e]的效率，降低其每月[gold|e]维护费。",
+        "name": "要塞维护效率"
+      }
+    },
+    "fortify_key_location_price_cost_modifier": {
       "category": "country",
       "color": "bad",
       "decimals": 2,
       "en": {
-        "description": "This impacts how much [gold|e] our [fortifications|e] costs each month.",
-        "name": "Fortification Maintenance"
+        "description": "This impacts the [costs|e] of [ShowGenericActionName('fortify_key_location')].",
+        "name": "[ShowGenericActionNameWithNoTooltip('fortify_key_location')] Cost"
       },
       "value_kind": "percent",
       "zh": {
-        "description": "影响我国[fortifications|e]每月花费多少[gold|e]。",
-        "name": "要塞维护费"
+        "description": "影响[ShowGenericActionName('fortify_key_location')]的[costs|e]。",
+        "name": "[ShowGenericActionNameWithNoTooltip('fortify_key_location')]花费"
       }
     },
     "frankokratia_vassal_state_may_declare_war": {
@@ -11447,7 +12119,7 @@
       "color": "good",
       "decimals": 2,
       "en": {
-        "description": "Enables the ability to declare [wars|e] as a [ShowSubjectTypeName('vassal')] [subject|e] type against nations holding locations within the [ShowScriptedGeographyName('frankokratia_geography')].",
+        "description": "Enables the ability to declare [wars|e] as a [ShowSubjectTypeName('vassal')] [subject_type|e] against neighboring nations holding locations within the [ShowScriptedGeographyName('frankokratia_geography')].",
         "name": "Allowed [wars|e] within Frankokratia."
       },
       "value_kind": "boolean",
@@ -11526,6 +12198,20 @@
         "name": "帝国自由市出席议会"
       }
     },
+    "french_subject_prevented_from_call_to_war": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This Subject has either received special privileges from their overlord or is disloyal and cannot be called into wars by their overlord.",
+        "name": "Disallowed from Call Subject to War"
+      },
+      "value_kind": "boolean",
+      "zh": {
+        "description": "该臣民要么从其宗主国那里获得了特殊特权，要么对宗主国不忠，因此不能被其宗主国征召参战。",
+        "name": "禁止参与战争"
+      }
+    },
     "friendly_disembark_time_modifier": {
       "category": "location",
       "color": "bad",
@@ -11538,6 +12224,20 @@
       "zh": {
         "description": "影响[Concept('friendly', '友方')|e][armies|e]在[location|e][disembark|e]所需时间。",
         "name": "友军登陆时间修正"
+      }
+    },
+    "friendly_movement_cost": {
+      "category": "location",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "This impacts how slow it is for us and our [allies|e] to move through this [location|e].",
+        "name": "Friendly Movement Cost"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "影响我们和我们的[allies|e]穿越该[location|e]的速度。",
+        "name": "友方移动耗时"
       }
     },
     "fruit_impacts_inflation": {
@@ -11722,6 +12422,20 @@
         "name": "向朝廷讨要联姻花费"
       }
     },
+    "ghibelline_imperial_protection": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This excludes the country from being target by the Demand Unlawful Territory [action|e] by the [hre_emperor|e]",
+        "name": "Imperial Sanction"
+      },
+      "value_kind": "boolean",
+      "zh": {
+        "description": "这将使该国免于被[hre_emperor|e]的要求归还非法领土[action|e]指定为目标",
+        "name": "帝国特许"
+      }
+    },
     "give_colony_rebellion_support_cost_modifier": {
       "category": "country",
       "color": "bad",
@@ -11812,7 +12526,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('alum')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('alum')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('alum')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -11840,7 +12554,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('amber')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('amber')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('amber')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -11882,7 +12596,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('beer')] [produced_good|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('beer')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('beer')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -11910,7 +12624,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('beeswax')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('beeswax')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('beeswax')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -11938,7 +12652,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('books')] [produced_good|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('books')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('books')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -11946,18 +12660,32 @@
         "name": "全局[ShowGoodsNameWithNoTooltip('books')]需求"
       }
     },
-    "global_build_buildings_cost": {
+    "global_build_buildings_efficiency": {
       "category": "country",
-      "color": "bad",
+      "color": "good",
       "decimals": 2,
       "en": {
-        "description": "This impacts how much it [costs|e] to build a [building|e] in all [locations|e] in a [country|e].",
-        "name": "Buildings Cost"
+        "description": "This impacts how efficiently we can construct [buildings|e] across all [locations|e] in a [country|e], reducing their [gold|e] cost.",
+        "name": "Buildings Construction Efficiency"
       },
       "value_kind": "percent",
       "zh": {
-        "description": "影响在[country|e]所有[locations|e]建造[building|e]的[costs|e]。",
-        "name": "建筑建造花费"
+        "description": "影响在[country|e]内所有[locations|e]建造[buildings|e]的效率，降低其[gold|e]花费。",
+        "name": "建筑建造效率"
+      }
+    },
+    "global_building_establishment_speed": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "How quickly newly constructed [buildings|e] in this [country|e] reach their full [production_efficiency|e]. Higher literacy among the employed [pop_type|e] also accelerates establishment.",
+        "name": "Building Establishment Speed"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "[country|e]新建成的[buildings|e]达到满[production_efficiency|e]的速度。受雇[pop_type|e]的识字率越高，投产速度也会越快。",
+        "name": "建筑成熟度增长"
       }
     },
     "global_bureaucracy_entrenchment_speed_modifier": {
@@ -11974,46 +12702,46 @@
         "name": "官僚部门固化速度修正"
       }
     },
-    "global_bureaucracy_implementation_cost_modifier": {
+    "global_bureaucracy_implementation_efficiency": {
       "category": "country",
-      "color": "bad",
+      "color": "good",
       "decimals": 2,
       "en": {
         "description": "This impacts how much it [costs|e] to add a [bureaucracy|e] to your [government|e].",
-        "name": "Bureaucracy Implementation Cost Modifier"
+        "name": "Bureaucracy Implementation Efficiency"
       },
       "value_kind": "percent",
       "zh": {
-        "description": "这影响为你的[government|e]添加[bureaucracy|e]的[costs|e]。",
-        "name": "设立官僚部门花费修正"
+        "description": "这影响为[government|e]添加[bureaucracy|e]的[costs|e]。",
+        "name": "官僚部门执行效率"
       }
     },
-    "global_bureaucracy_maintenance_cost_modifier": {
+    "global_bureaucracy_maintenance_efficiency": {
       "category": "country",
-      "color": "bad",
+      "color": "good",
       "decimals": 2,
       "en": {
         "description": "This impacts how much it [costs|e] to maintain a [bureaucracy|e] in your [government|e].",
-        "name": "Bureaucracy Maintenance Cost Modifier"
+        "name": "Bureaucracy Maintenance Efficiency"
       },
       "value_kind": "percent",
       "zh": {
         "description": "这影响在你的[government|e]维持[bureaucracy|e]的[costs|e]。",
-        "name": "官僚部门维护花费修正"
+        "name": "官僚部门维护效率"
       }
     },
-    "global_bureaucracy_removal_cost_modifier": {
+    "global_bureaucracy_removal_efficiency": {
       "category": "country",
-      "color": "bad",
+      "color": "good",
       "decimals": 2,
       "en": {
         "description": "This impacts how much it [costs|e] to remove a [bureaucracy|e] from your [government|e].",
-        "name": "Bureaucracy Removal Cost Modifier"
+        "name": "Bureaucracy Removal Efficiency"
       },
       "value_kind": "percent",
       "zh": {
         "description": "这影响从你的[government|e]移除[bureaucracy|e]的[costs|e]。",
-        "name": "移除官僚部门花费修正"
+        "name": "移除官僚部门效率"
       }
     },
     "global_burghers_assimilation_blocked": {
@@ -12218,7 +12946,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('cannons')] [produced_good|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('cannons')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('cannons')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -12246,7 +12974,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('chili')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('chili')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('chili')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -12274,7 +13002,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('clay')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('clay')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('clay')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -12484,7 +13212,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('cloth')] [produced_good|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('cloth')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('cloth')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -12512,7 +13240,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('cloves')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('cloves')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('cloves')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -12540,7 +13268,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('coal')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('coal')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('coal')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -12568,7 +13296,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('cocoa')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('cocoa')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('cocoa')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -12596,7 +13324,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('coffee')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('coffee')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('coffee')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -12638,7 +13366,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('copper')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('copper')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('copper')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -12680,7 +13408,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('cotton')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('cotton')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('cotton')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -12764,12 +13492,12 @@
       "decimals": 2,
       "en": {
         "description": "This impacts how quickly [proximity|e] moves between all [locations|e] in a [country|e].",
-        "name": "Proximity Speed"
+        "name": "Proximity Efficiency"
       },
       "value_kind": "percent",
       "zh": {
         "description": "影响[proximity|e]在一个[country|e]所有[locations|e]之间移动的速度。",
-        "name": "邻近度速度"
+        "name": "邻近度效率"
       }
     },
     "global_dyes_output_modifier": {
@@ -12792,7 +13520,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('dyes')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('dyes')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('dyes')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -12820,7 +13548,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('elephants')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('elephants')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('elephants')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -12946,7 +13674,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('fiber_crops')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('fiber_crops')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('fiber_crops')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -12974,7 +13702,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('fine_cloth')] [produced_good|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('fine_cloth')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('fine_cloth')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -13002,7 +13730,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('firearms')] [produced_good|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('firearms')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('firearms')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -13030,7 +13758,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('fish')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('fish')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('fish')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -13080,32 +13808,32 @@
         "name": "食物腐坏"
       }
     },
-    "global_foreign_build_buildings_cost": {
+    "global_foreign_build_buildings_efficiency": {
       "category": "country",
-      "color": "bad",
+      "color": "good",
       "decimals": 2,
       "en": {
-        "description": "This impacts how much it [costs|e] to build a [building|e] in a [location|e] owned by another [country|e].",
-        "name": "Foreign Buildings Cost"
+        "description": "This impacts how efficiently we can construct [buildings|e] in [locations|e] owned by another [country|e], reducing their [gold|e] cost.",
+        "name": "Foreign Buildings Construction Efficiency"
       },
       "value_kind": "percent",
       "zh": {
-        "description": "这影响在另一[country|e]的[location|e]建造[building|e]的[costs|e]。",
-        "name": "外国建筑花费"
+        "description": "影响在另一[country|e]的[locations|e]建造[buildings|e]的效率，降低其[gold|e]花费。",
+        "name": "外国建筑建造效率"
       }
     },
-    "global_fort_build_buildings_cost": {
+    "global_fort_build_buildings_efficiency": {
       "category": "country",
-      "color": "bad",
+      "color": "good",
       "decimals": 2,
       "en": {
-        "description": "This impacts how much it [costs|e] to build a [fort|e] in all [locations|e] in a [country|e].",
-        "name": "Fort Buildings Cost"
+        "description": "This impacts how efficiently we can construct [forts|e] across all [locations|e] in a [country|e], reducing their [gold|e] cost.",
+        "name": "Fort Construction Efficiency"
       },
       "value_kind": "percent",
       "zh": {
-        "description": "这影响在一个[country|e]所有[locations|e]建造[fort|e]的[costs|e]。",
-        "name": "要塞建筑花费"
+        "description": "影响在[country|e]内所有[locations|e]建造[forts|e]的效率，降低其[gold|e]花费。",
+        "name": "堡垒建造效率"
       }
     },
     "global_fruit_output_modifier": {
@@ -13128,7 +13856,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('fruit')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('fruit')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('fruit')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -13156,7 +13884,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('fur')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('fur')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('fur')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -13184,7 +13912,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('furniture')] [produced_good|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('furniture')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('furniture')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -13240,7 +13968,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('gems')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('gems')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('gems')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -13268,7 +13996,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('glass')] [produced_good|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('glass')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('glass')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -13296,7 +14024,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('goods_gold')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('goods_gold')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('goods_gold')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -13352,7 +14080,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('horses')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('horses')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('horses')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -13394,7 +14122,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('incense')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('incense')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('incense')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -13450,7 +14178,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('iron')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('iron')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('iron')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -13478,7 +14206,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('ivory')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('ivory')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('ivory')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -13506,7 +14234,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('jewelry')] [produced_good|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('jewelry')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('jewelry')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -13702,7 +14430,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('lacquerware')] [produced_good|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('lacquerware')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('lacquerware')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -13730,7 +14458,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('lead')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('lead')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('lead')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -13758,7 +14486,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('leather')] [produced_good|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('leather')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('leather')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -13786,7 +14514,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('legumes')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('legumes')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('legumes')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -13856,7 +14584,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('liquor')] [produced_good|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('liquor')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('liquor')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -13884,7 +14612,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('livestock')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('livestock')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('livestock')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -13912,7 +14640,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('lumber')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('lumber')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('lumber')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -13940,7 +14668,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('maize')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('maize')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('maize')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -13982,7 +14710,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('marble')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('marble')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('marble')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -14038,7 +14766,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('masonry')] [produced_good|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('masonry')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('masonry')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -14206,7 +14934,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('medicaments')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('medicaments')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('medicaments')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -14276,7 +15004,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('mercury')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('mercury')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('mercury')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -14346,12 +15074,26 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('millet')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('millet')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('millet')] Demand"
       },
       "value_kind": "percent",
       "zh": {
         "description": "这影响了[ShowGoodsName('millet')][raw_material|e]的[pop_needs|e]。",
         "name": "全局[ShowGoodsNameWithNoTooltip('millet')]需求"
+      }
+    },
+    "global_mills_build_buildings_efficiency": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This impacts how efficiently we can construct mill [buildings|e] across all [locations|e] in a [country|e], reducing their [gold|e] cost.",
+        "name": "Mills Construction Efficiency"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "这会影响我们建造磨机的效率。[buildings|e]在所有[locations|e]在[country|e]减少他们的[gold|e]成本。",
+        "name": "磨坊建造效率"
       }
     },
     "global_monthly_art_start_chance": {
@@ -14500,7 +15242,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('naval_supplies')] [produced_good|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('naval_supplies')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('naval_supplies')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -14752,7 +15494,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('olives')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('olives')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('olives')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -14780,7 +15522,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('paper')] [produced_good|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('paper')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('paper')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -14808,7 +15550,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('pearls')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('pearls')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('pearls')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -15032,7 +15774,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('pepper')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('pepper')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('pepper')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -15108,6 +15850,20 @@
       "zh": {
         "description": "影响全国所有[locations|e]的[pops|e][convert|e]速度。",
         "name": "人口皈依速度 %"
+      }
+    },
+    "global_pop_demand": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This modifies the [pop_needs|e] of every [pop|e] in the country across all goods.",
+        "name": "Pop Goods Demand"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "这影响国内所有[pop|e]对全种类商品的[pop_needs|e]。",
+        "name": "人群商品需求"
       }
     },
     "global_pop_demotion_speed": {
@@ -15197,7 +15953,7 @@
     "global_population_growth": {
       "category": "country",
       "color": "good",
-      "decimals": 2,
+      "decimals": 3,
       "en": {
         "description": "This impacts the [population_growth|e] of all [locations|e] in a [country|e].",
         "name": "Population Growth"
@@ -15228,7 +15984,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('porcelain')] [produced_good|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('porcelain')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('porcelain')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -15236,18 +15992,18 @@
         "name": "全局[ShowGoodsNameWithNoTooltip('porcelain')]需求"
       }
     },
-    "global_port_build_buildings_cost": {
+    "global_port_build_buildings_efficiency": {
       "category": "country",
-      "color": "bad",
+      "color": "good",
       "decimals": 2,
       "en": {
-        "description": "This impacts how much it [costs|e] to build a [port|e] related [building|e] in all [locations|e] in a [country|e].",
-        "name": "Port Buildings Cost"
+        "description": "This impacts how efficiently we can construct [port|e] related [buildings|e] across all [locations|e] in a [country|e], reducing their [gold|e] cost.",
+        "name": "Port Construction Efficiency"
       },
       "value_kind": "percent",
       "zh": {
-        "description": "这影响在一个[country|e]所有[locations|e]建造[port|e]相关[building|e]的[costs|e]。",
-        "name": "港口建筑花费"
+        "description": "影响在[country|e]内所有[locations|e]建造[port|e]相关[buildings|e]的效率，降低其[gold|e]花费。",
+        "name": "港口建造效率"
       }
     },
     "global_potato_output_modifier": {
@@ -15270,7 +16026,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('potato')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('potato')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('potato')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -15298,7 +16054,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('pottery')] [produced_good|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('pottery')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('pottery')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -15382,7 +16138,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('rice')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('rice')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('rice')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -15404,18 +16160,18 @@
         "name": "道路建造时间"
       }
     },
-    "global_rural_build_buildings_cost": {
+    "global_rural_build_buildings_efficiency": {
       "category": "country",
-      "color": "bad",
+      "color": "good",
       "decimals": 2,
       "en": {
-        "description": "This impacts how much it [costs|e] to build a [building|e] in all [rural_location|e] in a [country|e].",
-        "name": "Rural Buildings Cost"
+        "description": "This impacts how efficiently we can construct [buildings|e] in all [rural_location|e] in a [country|e], reducing their [gold|e] cost.",
+        "name": "Rural Buildings Construction Efficiency"
       },
       "value_kind": "percent",
       "zh": {
-        "description": "这影响在一个[country|e]所有[rural_location|e]建造[building|e]的[costs|e]。",
-        "name": "乡村建筑花费"
+        "description": "影响在[country|e]内所有[rural_location|e]建造[buildings|e]的效率，降低其[gold|e]花费。",
+        "name": "乡村建筑建造效率"
       }
     },
     "global_saffron_output_modifier": {
@@ -15438,7 +16194,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('saffron')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('saffron')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('saffron')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -15480,7 +16236,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('salt')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('salt')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('salt')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -15508,7 +16264,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('saltpeter')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('saltpeter')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('saltpeter')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -15536,7 +16292,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('sand')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('sand')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('sand')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -15578,7 +16334,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('silk')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('silk')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('silk')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -15606,7 +16362,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('silver')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('silver')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('silver')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -15746,7 +16502,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('slaves_goods')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('slaves_goods')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('slaves_goods')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -16012,7 +16768,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('steel')] [produced_good|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('steel')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('steel')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -16040,7 +16796,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('stone')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('stone')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('stone')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -16068,7 +16824,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('sugar')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('sugar')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('sugar')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -16110,7 +16866,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('tar')] [produced_good|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('tar')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('tar')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -16138,7 +16894,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('tea')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('tea')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('tea')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -16166,7 +16922,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('tin')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('tin')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('tin')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -16194,7 +16950,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('tobacco')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('tobacco')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('tobacco')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -16222,7 +16978,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('tools')] [produced_good|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('tools')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('tools')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -16258,18 +17014,18 @@
         "name": "市场保护"
       }
     },
-    "global_trade_through_owned_territory_cost_modifier": {
+    "global_trade_through_owned_territory_efficiency": {
       "category": "country",
-      "color": "bad",
+      "color": "good",
       "decimals": 2,
       "en": {
         "description": "This impacts the reach of the [trade_range|e] of a [country|e] when traveling over a [location|e] they [own|e].",
-        "name": "Trade Range over Owned Land"
+        "name": "Trade Efficiency over Owned Land"
       },
       "value_kind": "percent",
       "zh": {
-        "description": "影响[country|e]通过其[own|e]的[location|e]延伸[trade_range|e]的距离。",
-        "name": "领土内贸易范围消耗"
+        "description": "这会影响一个[country|e]通过其[own|e]的[location|e]进行贸易时的[trade_range|e]。",
+        "name": "领土内贸易效率"
       }
     },
     "global_trades_per_burgher": {
@@ -16524,18 +17280,18 @@
         "name": "上层阶层人口容量"
       }
     },
-    "global_urban_build_buildings_cost": {
+    "global_urban_build_buildings_efficiency": {
       "category": "country",
-      "color": "bad",
+      "color": "good",
       "decimals": 2,
       "en": {
-        "description": "This impacts how much it [costs|e] to build a [building|e] in all [urban_location|e] in a [country|e].",
-        "name": "Urban Buildings Cost"
+        "description": "This impacts how efficiently we can construct [buildings|e] in all [urban_location|e] in a [country|e], reducing their [gold|e] cost.",
+        "name": "Urban Buildings Construction Efficiency"
       },
       "value_kind": "percent",
       "zh": {
-        "description": "这影响在一个[country|e]所有[urban_location|e]建造[building|e]的[costs|e]。",
-        "name": "城镇建筑花费"
+        "description": "影响在[country|e]内所有[urban_location|e]建造[buildings|e]的效率，降低其[gold|e]花费。",
+        "name": "城镇建筑建造效率"
       }
     },
     "global_war_score_efficiency": {
@@ -16572,7 +17328,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('weaponry')] [produced_good|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('weaponry')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('weaponry')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -16600,7 +17356,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('wheat')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('wheat')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('wheat')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -16628,7 +17384,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('wild_game')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('wild_game')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('wild_game')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -16656,7 +17412,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('wine')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('wine')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('wine')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -16684,7 +17440,7 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [pop_needs|e] of the [ShowGoodsName('wool')] [raw_material|e].",
-        "name": "Global [ShowGoodsNameWithNoTooltip('wool')] Demand"
+        "name": "National [ShowGoodsNameWithNoTooltip('wool')] Demand"
       },
       "value_kind": "percent",
       "zh": {
@@ -16860,48 +17616,6 @@
         "name": "授予城镇特权花费"
       }
     },
-    "great_power_score": {
-      "category": "country",
-      "color": "good",
-      "decimals": 0,
-      "en": {
-        "description": "This impacts how much [great_power_score|e] a [country|e] gets. It may be forfeited to an [overlord|e] depending on [subject_type|e].",
-        "name": "Great Power Score"
-      },
-      "value_kind": "number",
-      "zh": {
-        "description": "影响[country|e]获得的[great_power_score|e]。根据[subject_type|e]，该分数可能会转让给[overlord|e]。",
-        "name": "列强分数"
-      }
-    },
-    "great_power_score_exempt_from_forfeit": {
-      "category": "country",
-      "color": "good",
-      "decimals": 0,
-      "en": {
-        "description": "This impacts how much [great_power_score|e] a [country|e] gets. This will not get forfeited to an [overlord|e].",
-        "name": "Great Power Score (Exempt from Forfeit)"
-      },
-      "value_kind": "number",
-      "zh": {
-        "description": "影响[country|e]获得的[great_power_score|e]。该分数不会被[overlord|e]剥夺。",
-        "name": "列强分数（豁免抽取）"
-      }
-    },
-    "great_power_score_modifier": {
-      "category": "country",
-      "color": "good",
-      "decimals": 2,
-      "en": {
-        "description": "This impacts how much [great_power_score|e] a [country|e] gets.",
-        "name": "Great Power Score Modifier"
-      },
-      "value_kind": "percent",
-      "zh": {
-        "description": "影响一个[country|e]获得多少[great_power_score|e]。",
-        "name": "列强分数修正"
-      }
-    },
     "greek_festivals_cost_modifier": {
       "category": "country",
       "color": "bad",
@@ -16972,6 +17686,20 @@
         "name": "港口容量"
       }
     },
+    "harmony_stability": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This nudges [harmony|e] back toward balance each month, helping the [country|e] hold the optimal equilibrium.",
+        "name": "Harmony Stability"
+      },
+      "value_kind": "boolean",
+      "zh": {
+        "description": "这轻轻地……[harmony|e]每月逐渐恢复平衡，有助于……[country|e]保持最优平衡。",
+        "name": "和谐稳定性"
+      }
+    },
     "has_a_parliamentary_system": {
       "category": "country",
       "color": "good",
@@ -16991,7 +17719,7 @@
       "color": "good",
       "decimals": 2,
       "en": {
-        "description": "Unlocks the Appanage [subject|e] type. Appanages represent landed titles that have been bestowed to a member of the ruling dynasty.",
+        "description": "Unlocks the Appanage [subject_type|e]. Appanages represent landed titles that have been bestowed to a member of the ruling dynasty.",
         "name": "Has Appanages"
       },
       "value_kind": "boolean",
@@ -17012,20 +17740,6 @@
       "zh": {
         "description": "可以实施[ShowLawName('ashta_pradhan_council_law')][law|e]。",
         "name": "启用八大臣内阁政策"
-      }
-    },
-    "has_chivalric_order": {
-      "category": "country",
-      "color": "good",
-      "decimals": 2,
-      "en": {
-        "description": "This allows [characters|e] of our religion to join our #Y Chivalric Order#!. As part of the Order, the character in question gains the following bonuses:\n- Monthly Prestige: #G +0.03#!\n- Administrative / Diplomatic / Military Ability: #G +15#!\n- An Order specific modifier",
-        "name": "Has Chivalric Order"
-      },
-      "value_kind": "boolean",
-      "zh": {
-        "description": "这允许同宗教的[characters|e]加入我国的#Y 勋贵骑士团#!。作为骑士团的一员，相关角色可以获得以下加成：\n——每月威望：#G +0.03#!\n——三维能力：#G +15#!\n——骑士团专属修正",
-        "name": "启用勋贵骑士团"
       }
     },
     "has_codified_laws": {
@@ -17252,6 +17966,48 @@
         "name": "至高王出席议会"
       }
     },
+    "high_kingship_overthrow_cost_modifier": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "This impacts the [costs|e] of [ShowGenericActionName('overthrow_high_king')].",
+        "name": "[ShowGenericActionNameWithNoTooltip('overthrow_high_king')] Cost"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "影响[ShowGenericActionName('overthrow_high_king')]的[costs|e]。",
+        "name": "[ShowGenericActionNameWithNoTooltip('overthrow_high_king')]花费"
+      }
+    },
+    "high_kingship_reclaim_land_cost_modifier": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "This impacts the [costs|e] of [ShowGenericActionName('reclaim_high_kingship_land')].",
+        "name": "[ShowGenericActionNameWithNoTooltip('reclaim_high_kingship_land')] Cost"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "影响[ShowGenericActionName('reclaim_high_kingship_land')]的[costs|e]。",
+        "name": "[ShowGenericActionNameWithNoTooltip('reclaim_high_kingship_land')]花费"
+      }
+    },
+    "high_kingship_subjugate_member_cost_modifier": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "This impacts the [costs|e] of [ShowGenericActionName('subjugate_high_kingship_member')].",
+        "name": "[ShowGenericActionNameWithNoTooltip('subjugate_high_kingship_member')] Cost"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "影响[ShowGenericActionName('subjugate_high_kingship_member')]的[costs|e]。",
+        "name": "[ShowGenericActionNameWithNoTooltip('subjugate_high_kingship_member')]花费"
+      }
+    },
     "high_lakes_proximity_impact": {
       "category": "country",
       "color": "bad",
@@ -17322,18 +18078,18 @@
         "name": "雇佣艺术家花费"
       }
     },
-    "hire_for_cabinet_cost_modifier": {
+    "hire_for_cabinet_efficiency": {
       "category": "character",
-      "color": "bad",
+      "color": "good",
       "decimals": 2,
       "en": {
         "description": "This impacts how much it costs to hire this [character|e] to our [cabinet|e].",
-        "name": "Hire to Cabinet Cost Modifier"
+        "name": "Hire to Cabinet Efficiency"
       },
       "value_kind": "percent",
       "zh": {
         "description": "这会影响将该[character|e]招揽至[cabinet|e]所需的成本。",
-        "name": "雇佣内阁成员花费修正"
+        "name": "雇佣为内阁成员效率"
       }
     },
     "hire_mercenary_leader_cost_modifier": {
@@ -17472,22 +18228,22 @@
       },
       "value_kind": "percent",
       "zh": {
-        "description": "影响[ShowGenericActionName('D008_host_olympiad')]行动的花费。",
+        "description": "影响[ShowGenericActionName('host_olympiad')]行动的花费。",
         "name": "举办奥运会花费修正"
       }
     },
-    "hostile_diplomatic_annexation_cost": {
+    "hostile_diplomatic_annexation_efficiency": {
       "category": "country",
-      "color": "bad",
+      "color": "good",
       "decimals": 2,
       "en": {
         "description": "This impacts how quickly another [country|e] can diplomatically annex the country with the modifier. The higher this modifier, the more tedious the annexation process becomes.",
-        "name": "Hostile Diplomatic Annexation Cost"
+        "name": "Hostile Diplomatic Annexation Efficiency"
       },
       "value_kind": "percent",
       "zh": {
         "description": "这影响另一[country|e]外交吞并拥有该修正的国家的速度。该修正越高，吞并速度越慢。",
-        "name": "敌对外交吞并花费"
+        "name": "敌对外交吞并效率"
       }
     },
     "hostile_disembark_time_modifier": {
@@ -17530,6 +18286,20 @@
       "zh": {
         "description": "影响计算其他所有因素后[location|e]的[food|e]产量。",
         "name": "食物总产量乘数"
+      }
+    },
+    "hostile_movement_cost": {
+      "category": "location",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "This impacts how slow it is for [hostile|e] [armies|e] to move through this [location|e].",
+        "name": "Hostile Movement Cost"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "影响[hostile|e][armies|e]穿越[location|e]的速度。",
+        "name": "敌人移动耗时"
       }
     },
     "hre_allow_female_emperors": {
@@ -18125,13 +18895,13 @@
       "color": "bad",
       "decimals": 2,
       "en": {
-        "description": "This impacts the [costs|e] of [ShowGenericActionName('intervene_in_italian_campaign')].",
-        "name": "[ShowGenericActionNameWithNoTooltip('intervene_in_italian_campaign')] Cost"
+        "description": "This impacts the [costs|e] of [ShowGenericActionName('iw_intervene_in_war')].",
+        "name": "[ShowGenericActionNameWithNoTooltip('iw_intervene_in_war')] Cost"
       },
       "value_kind": "percent",
       "zh": {
-        "description": "这影响[ShowGenericActionName('intervene_in_italian_campaign')]的[costs|e]。",
-        "name": "[ShowGenericActionNameWithNoTooltip('intervene_in_italian_campaign')]花费"
+        "description": "这影响[ShowGenericActionName('iw_intervene_in_war')]的[costs|e]。",
+        "name": "[ShowGenericActionNameWithNoTooltip('iw_intervene_in_war')]花费"
       }
     },
     "inti_ceremonial_festivals_cost_modifier": {
@@ -18358,20 +19128,6 @@
         "name": "永生"
       }
     },
-    "is_in_chivalric_order": {
-      "category": "character",
-      "color": "neutral",
-      "decimals": 2,
-      "en": {
-        "description": "This forbids this character to join another #Y Order of Chivalry#!.",
-        "name": "Is in a Chivalric Order"
-      },
-      "value_kind": "boolean",
-      "zh": {
-        "description": "该角色被禁止加入其他#Y 勋贵骑士团#!。",
-        "name": "加入了勋贵骑士团"
-      }
-    },
     "is_pope": {
       "category": "country",
       "color": "good",
@@ -18426,6 +19182,62 @@
       "zh": {
         "description": "影响[ShowGenericActionName('isolate_cities_black_death')]的[costs|e]。",
         "name": "隔离城市的花费"
+      }
+    },
+    "italian_league_sponsor_agenda_impact": {
+      "category": "internationalorganization",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This modifies the support that the [parliament_agendas|e] that the [ShowSpecialStatusName('italian_league_sponsor')] group proposes has.",
+        "name": "Agenda Impact for League Sponsor"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "这影响由[ShowSpecialStatusName('italian_league_sponsor')]提出的[parliament_agendas|e]所获得的支持度。",
+        "name": "联盟赞助者议程影响"
+      }
+    },
+    "italian_league_sponsor_can_participate_in_parliament": {
+      "category": "internationalorganization",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This allows the [ShowSpecialStatusName('italian_league_sponsor')] to suggest [parliament_agendas|e] in the [parliament|e] of an [international_organization|e].",
+        "name": "League Sponsor in Parliament"
+      },
+      "value_kind": "boolean",
+      "zh": {
+        "description": "这允许[ShowSpecialStatusName('italian_league_sponsor')]在[international_organization|e][parliament|e]中提出[parliament_agendas|e]。",
+        "name": "联盟赞助者出席议会"
+      }
+    },
+    "italian_league_sponsor_gold_price_cost_modifier": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "This impacts the [costs|e] of [ShowPaymentName('italian_league_sponsor_gold_contribution')].",
+        "name": "League Gold Patronage Cost"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "这将影响[ShowPaymentName('italian_league_sponsor_gold_contribution')]的[costs|e]。",
+        "name": "联盟金钱赞助费用"
+      }
+    },
+    "italian_league_sponsor_manpower_price_cost_modifier": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "This impacts the [costs|e] of [ShowPaymentName('italian_league_sponsor_manpower_contribution')].",
+        "name": "League Manpower Patronage Cost"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "影响[ShowPaymentName('italian_league_sponsor_manpower_contribution')]的[costs|e]。",
+        "name": "联盟人力赞助费用"
       }
     },
     "ivory_impacts_inflation": {
@@ -18742,12 +19554,12 @@
       "decimals": 2,
       "en": {
         "description": "This impacts the speed that [proximity|e] moves through [locations|e] when going through a normal [location|e].",
-        "name": "Proximity Speed through Land"
+        "name": "Proximity Efficiency through Land"
       },
       "value_kind": "percent",
       "zh": {
         "description": "影响当通过普通[location|e]时，经由[locations|e]的[proximity|e]移动速度。",
-        "name": "经由陆地的邻近度速度"
+        "name": "经由陆地的邻近度效率"
       }
     },
     "land_cost_on_frozen_water": {
@@ -19380,32 +20192,60 @@
         "name": "腺鼠疫抵抗"
       }
     },
-    "local_build_buildings_cost": {
+    "local_build_buildings_efficiency": {
       "category": "location",
-      "color": "bad",
+      "color": "good",
       "decimals": 2,
       "en": {
-        "description": "This impacts how much it [costs|e] to build a [building|e] in this [location|e].",
-        "name": "Buildings Cost"
+        "description": "This impacts how efficiently we can construct [buildings|e] in this [location|e], reducing their [gold|e] cost.",
+        "name": "Buildings Construction Efficiency"
       },
       "value_kind": "percent",
       "zh": {
-        "description": "影响在该[location|e]建造[building|e]的[costs|e]。",
-        "name": "建筑建造花费"
+        "description": "影响在该[location|e]建造[buildings|e]的效率，降低其[gold|e]花费。",
+        "name": "建筑建造效率"
       }
     },
-    "local_build_new_buildings_cost": {
+    "local_build_new_buildings_efficiency": {
+      "category": "location",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This impacts how efficiently we can construct new [buildings|e] in this [location|e], reducing their [gold|e] cost.",
+        "name": "New Buildings Construction Efficiency"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "影响在该[location|e]建造新[buildings|e]的效率，降低其[gold|e]花费。",
+        "name": "新建筑建造效率"
+      }
+    },
+    "local_building_establishment_reduction": {
       "category": "location",
       "color": "bad",
       "decimals": 2,
       "en": {
-        "description": "This impacts how much it [costs|e] to build a new [building|e] in this [location|e].",
-        "name": "New Buildings Cost"
+        "description": "Monthly reduction to [building|e] establishment progress in this [location|e]. If this exceeds the monthly establishment gain, established [buildings|e] will begin to lose their [production_efficiency|e] bonus.",
+        "name": "Building Establishment Reduction"
+      },
+      "value_kind": "number",
+      "zh": {
+        "description": "[location|e]中[building|e]每月减少的投产进度。若超过每月获得的投产进度，完全投产的[buildings|e]将开始失去其[production_efficiency|e]加成。",
+        "name": "建筑成熟度衰退"
+      }
+    },
+    "local_building_establishment_speed": {
+      "category": "location",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "How quickly newly constructed [buildings|e] in this [location|e] reach their full [production_efficiency|e]. Higher literacy among the employed [pop_type|e] also accelerates establishment.",
+        "name": "Building Establishment Speed"
       },
       "value_kind": "percent",
       "zh": {
-        "description": "这影响在该[location|e]建造新[building|e]的[costs|e]。",
-        "name": "新建筑花费"
+        "description": "[location|e]新建成的[buildings|e]达到满[production_efficiency|e]的速度。受雇[pop_type|e]的识字率越高，投产速度也会越快。",
+        "name": "建筑成熟度增长"
       }
     },
     "local_burghers_assimilation_blocked": {
@@ -19546,6 +20386,34 @@
       "zh": {
         "description": "影响该[location|e]所有[ShowPopTypeName('burghers')]的[population_growth|e]。",
         "name": "市民增长"
+      }
+    },
+    "local_calvinism_movement_growth_modifier": {
+      "category": "location",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "How much the [ShowMovementDefinitionName('calvinism_movement')] [movement|e] grows in a [location|e].",
+        "name": "[ShowMovementDefinitionNameWithNoTooltip('calvinism_movement')] Growth Modifier"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "[ShowMovementDefinitionName('calvinism_movement')][movement|e]在该[location|e]的增长。",
+        "name": "[ShowMovementDefinitionNameWithNoTooltip('calvinism_movement')]增长修正"
+      }
+    },
+    "local_calvinism_movement_resistance_modifier": {
+      "category": "location",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "How much resistance a [location|e] has to the [ShowMovementDefinitionName('calvinism_movement')] [movement|e].",
+        "name": "[ShowMovementDefinitionNameWithNoTooltip('calvinism_movement')] Resistance Modifier"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "[location|e]对[ShowMovementDefinitionName('calvinism_movement')][movement|e]的抵抗。",
+        "name": "[ShowMovementDefinitionNameWithNoTooltip('calvinism_movement')]抵抗修正"
       }
     },
     "local_cannons_output_modifier": {
@@ -20016,12 +20884,12 @@
       "decimals": 2,
       "en": {
         "description": "This impacts how quickly [proximity|e] moves in this [location|e].",
-        "name": "Local Proximity Speed"
+        "name": "Local Proximity Efficiency"
       },
       "value_kind": "percent",
       "zh": {
         "description": "影响[proximity|e]在该[location|e]移动的速度。",
-        "name": "本地邻近度速度"
+        "name": "本地邻近度效率"
       }
     },
     "local_dyes_output_modifier": {
@@ -20192,18 +21060,18 @@
         "name": "不可避免损耗"
       }
     },
-    "local_fort_maintenance_cost": {
+    "local_fort_maintenance_efficiency": {
       "category": "location",
-      "color": "bad",
+      "color": "good",
       "decimals": 2,
       "en": {
-        "description": "This impacts the [fort_maintenance|e] for all [forts|e] in this [location|e].",
-        "name": "Fortification Maintenance"
+        "description": "This impacts the efficiency of maintaining all [forts|e] in this [location|e], reducing their monthly [gold|e] upkeep.",
+        "name": "Fortification Maintenance Efficiency"
       },
       "value_kind": "percent",
       "zh": {
-        "description": "影响该[location|e]内所有[forts|e]的[fort_maintenance|e]。",
-        "name": "要塞维护费"
+        "description": "影响该[location|e]所有[forts|e]的维护效率，降低其每月[gold|e]维护费。",
+        "name": "要塞维护效率"
       }
     },
     "local_frontage_allowed": {
@@ -20836,6 +21704,34 @@
         "name": "本地木材产出"
       }
     },
+    "local_lutheranism_movement_growth_modifier": {
+      "category": "location",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "How much the [ShowMovementDefinitionName('lutheranism_movement')] [movement|e] grows in a [location|e].",
+        "name": "[ShowMovementDefinitionNameWithNoTooltip('lutheranism_movement')] Growth Modifier"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "[ShowMovementDefinitionName('lutheranism_movement')][movement|e]在该[location|e]的增长。",
+        "name": "[ShowMovementDefinitionNameWithNoTooltip('lutheranism_movement')]增长修正"
+      }
+    },
+    "local_lutheranism_movement_resistance_modifier": {
+      "category": "location",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "How much resistance a [location|e] has to the [ShowMovementDefinitionName('lutheranism_movement')] [movement|e].",
+        "name": "[ShowMovementDefinitionNameWithNoTooltip('lutheranism_movement')] Resistance Modifier"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "[location|e]对[ShowMovementDefinitionName('lutheranism_movement')][movement|e]的抵抗。",
+        "name": "[ShowMovementDefinitionNameWithNoTooltip('lutheranism_movement')]抵抗修正"
+      }
+    },
     "local_maize_output_modifier": {
       "category": "location",
       "color": "good",
@@ -21088,6 +21984,20 @@
         "name": "可招募雄鹰战士与美洲虎武士"
       }
     },
+    "local_may_build_north_american_units": {
+      "category": "location",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "Allows the recruitment of [ShowUnitDefinitionName('a_war_party')] and [ShowUnitDefinitionName('a_lodge_warriors')].",
+        "name": "May Build North American Warriors"
+      },
+      "value_kind": "boolean",
+      "zh": {
+        "description": "允许招募[ShowUnitDefinitionName('a_war_party')]和[ShowUnitDefinitionName('a_lodge_warriors')]。",
+        "name": "可以组建北美战士"
+      }
+    },
     "local_measles_growth_modifier": {
       "category": "location",
       "color": "good",
@@ -21268,6 +22178,20 @@
       "zh": {
         "description": "这修正该[location|e]的[ShowGoodsName('millet')][output|e]。",
         "name": "本地杂谷产出"
+      }
+    },
+    "local_mills_build_buildings_efficiency": {
+      "category": "location",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This impacts how efficiently we can construct mill [buildings|e] in this [location|e], reducing their [gold|e] cost.",
+        "name": "Local Mills Construction Efficiency"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "这会影响我们建造磨机的效率。[buildings|e]在这方面[location|e]减少他们的[gold|e]成本。",
+        "name": "本地磨坊建造效率"
       }
     },
     "local_monthly_control": {
@@ -21872,6 +22796,20 @@
         "name": "本地人口皈依速度 %"
       }
     },
+    "local_pop_demand": {
+      "category": "location",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This modifies the [pop_needs|e] of every [pop|e] in this [location|e] across all goods.",
+        "name": "Local Pop Goods Demand"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "这影响该[location|e]所有[pop|e]对全种类商品的[pop_needs|e]。",
+        "name": "本地人群商品需求"
+      }
+    },
     "local_pop_demotion_speed": {
       "category": "location",
       "color": "bad",
@@ -21919,7 +22857,7 @@
       "color": "bad",
       "decimals": 2,
       "en": {
-        "description": "This impact the level of [pop_satisfaction|e] a [pop|e] has to be below to join [rebels|e]. It can never be lower than [GetDefine('NPop','REBEL_JOIN_MIN_THRESHOLD')|%V].",
+        "description": "This impacts the level of [pop_satisfaction|e] a [pop|e] has to be below to join [rebels|e]. It can never be lower than [GetDefine('NPop','REBEL_JOIN_MIN_THRESHOLD')|%V].",
         "name": "Pop Join Rebels Threshold"
       },
       "value_kind": "percent",
@@ -22040,18 +22978,18 @@
         "name": "本地瓷器产出"
       }
     },
-    "local_port_build_buildings_cost": {
+    "local_port_build_buildings_efficiency": {
       "category": "location",
-      "color": "bad",
+      "color": "good",
       "decimals": 2,
       "en": {
-        "description": "This impacts how much it [costs|e] to build a [port|e] related [building|e] in this [location|e].",
-        "name": "Port Buildings Cost"
+        "description": "This impacts how efficiently we can construct [port|e] related [buildings|e] in this [location|e], reducing their [gold|e] cost.",
+        "name": "Port Construction Efficiency"
       },
       "value_kind": "percent",
       "zh": {
-        "description": "这影响在该[location|e]建造[port|e]相关[building|e]的[costs|e]。",
-        "name": "港口建筑花费"
+        "description": "影响在该[location|e]建造[port|e]相关[buildings|e]的效率，降低其[gold|e]花费。",
+        "name": "港口建造效率"
       }
     },
     "local_port_cost_distance_impact": {
@@ -22796,18 +23734,18 @@
         "name": "市场吸引力"
       }
     },
-    "local_trade_embark_disembark_cost_modifier": {
+    "local_trade_embark_disembark_efficiency": {
       "category": "location",
-      "color": "bad",
+      "color": "good",
       "decimals": 2,
       "en": {
-        "description": "This impacts the use of the [trade_range|e] of a [country|e] when entering or exiting the [port|e] in this [location|e].",
-        "name": "Trade Embark/Disembark Cost"
+        "description": "This impacts the efficiency of using the [trade_range|e] of a [country|e] when entering or exiting the [port|e] in this [location|e].",
+        "name": "Trade Embark/Disembark Efficiency"
       },
       "value_kind": "percent",
       "zh": {
-        "description": "影响[country|e]进出该[location|e]中[port|e]时的[trade_range|e]消耗。",
-        "name": "出入港贸易范围消耗"
+        "description": "影响进入或离开该[location|e]的[port|e]时一个[country|e]使用[trade_range|e]的效率。",
+        "name": "贸易出入港效率"
       }
     },
     "local_trade_protection_factor": {
@@ -23314,6 +24252,20 @@
         "name": "木材用作货币"
       }
     },
+    "lutheran_preachers_building_cost_modifier": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "This impacts the [costs|e] of constructing [ShowBuildingTypeName('lutheran_preachers')].",
+        "name": "Lutheran Preachers Building Cost"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "影响建造[ShowBuildingTypeName('lutheran_preachers')]的[costs|e]。",
+        "name": "路德宗布道所建筑花费"
+      }
+    },
     "maize_impacts_inflation": {
       "category": "country",
       "color": "good",
@@ -23494,6 +24446,34 @@
       "zh": {
         "description": "影响[location|e]中的最大[attrition|e]。",
         "name": "最大损耗"
+      }
+    },
+    "max_bonds": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "Increases the maximum number of [government_bonds|e] this [country|e] can have outstanding at one time.",
+        "name": "Maximum Government Bonds"
+      },
+      "value_kind": "number",
+      "zh": {
+        "description": "提高该[country|e]可同时拥有的未回购[government_bonds|e]的最大数量。",
+        "name": "政府债券上限"
+      }
+    },
+    "max_bonds_modifier": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "Increases the maximum number of [government_bonds|e] by a percentage of the flat maximum.",
+        "name": "Maximum Government Bonds Modifier"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "百分比提高[government_bonds|e]的最大数量。",
+        "name": "政府债券上限修正"
       }
     },
     "max_constructions_at_same_time": {
@@ -23986,6 +24966,20 @@
         "name": "水银用作货币"
       }
     },
+    "merge_colonies_price_cost_modifier": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "This impacts the [costs|e] for the [ShowCountryInteractionName('merge_colonies')] [country_interaction|e].",
+        "name": "Merge Colonies Cost Modifier"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "影响[ShowCountryInteractionName('merge_colonies')][country_interaction|e]的[costs|e]。",
+        "name": "合并殖民地花费修正"
+      }
+    },
     "mesa_wasteland_proximity_impact": {
       "category": "country",
       "color": "bad",
@@ -24264,6 +25258,20 @@
       "zh": {
         "description": "影响[ShowEstateTypeName('cossacks_estate')][rebels|e]走向[civil_war|e]的速度。",
         "name": "每月哥萨克叛军增长"
+      }
+    },
+    "monthly_creditworthiness_change": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "Directly adds to the [creditworthiness|e] of this [country|e] each month, on top of the normal equilibrium pull toward the target.",
+        "name": "Monthly Creditworthiness"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "直接作用于该[country|e]的[creditworthiness|e]，该数值独立于国家信誉向目标值的回归计算。",
+        "name": "每月信誉"
       }
     },
     "monthly_crown_estate_rebel_growth": {
@@ -25526,6 +26534,34 @@
         "name": "腺鼠疫抵抗"
       }
     },
+    "national_calvinism_movement_growth_modifier": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "How much the [ShowMovementDefinitionName('calvinism_movement')] [movement|e] grows in [locations|e] owned by the [country|e].",
+        "name": "[ShowMovementDefinitionNameWithNoTooltip('calvinism_movement')] Growth Modifier"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "[ShowMovementDefinitionName('calvinism_movement')][movement|e]在该[country|e][locations|e]的增长。",
+        "name": "[ShowMovementDefinitionNameWithNoTooltip('calvinism_movement')]增长修正"
+      }
+    },
+    "national_calvinism_movement_resistance_modifier": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "How much resistance [locations|e] owned by the [country|e] have to the [ShowMovementDefinitionName('calvinism_movement')] [movement|e].",
+        "name": "[ShowMovementDefinitionNameWithNoTooltip('calvinism_movement')] Resistance Modifier"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "[country|e]内[locations|e]对[ShowMovementDefinitionName('calvinism_movement')][movement|e]的抵抗。",
+        "name": "[ShowMovementDefinitionNameWithNoTooltip('calvinism_movement')]抵抗修正"
+      }
+    },
     "national_church_power_cost_modifier": {
       "category": "country",
       "color": "bad",
@@ -25594,6 +26630,34 @@
       "zh": {
         "description": "整个[country|e]的流感抵抗。",
         "name": "流感抵抗"
+      }
+    },
+    "national_lutheranism_movement_growth_modifier": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "How much the [ShowMovementDefinitionName('lutheranism_movement')] [movement|e] grows in [locations|e] owned by the [country|e].",
+        "name": "[ShowMovementDefinitionNameWithNoTooltip('lutheranism_movement')] Growth Modifier"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "[ShowMovementDefinitionName('lutheranism_movement')][movement|e]在该[country|e][locations|e]的增长。",
+        "name": "[ShowMovementDefinitionNameWithNoTooltip('lutheranism_movement')]增长修正"
+      }
+    },
+    "national_lutheranism_movement_resistance_modifier": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "How much resistance [locations|e] owned by the [country|e] have to the [ShowMovementDefinitionName('lutheranism_movement')] [movement|e].",
+        "name": "[ShowMovementDefinitionNameWithNoTooltip('lutheranism_movement')] Resistance Modifier"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "[country|e]内[locations|e]对[ShowMovementDefinitionName('lutheranism_movement')][movement|e]的抵抗。",
+        "name": "[ShowMovementDefinitionNameWithNoTooltip('lutheranism_movement')]抵抗修正"
       }
     },
     "national_malaria_growth_modifier": {
@@ -26100,18 +27164,18 @@
         "name": "海军移动速度"
       }
     },
-    "navy_repair_cost": {
+    "navy_repair_efficiency": {
       "category": "unit",
-      "color": "bad",
+      "color": "good",
       "decimals": 2,
       "en": {
-        "description": "This impacts how much [gold|e] and [sailors|e] it will cost to [repair|e] a [ship|e].",
-        "name": "Navy Repair Cost"
+        "description": "This impacts how efficiently we can [repair|e] a [ship|e], reducing its [gold|e] and [sailors|e] cost.",
+        "name": "Navy Repair Efficiency"
       },
       "value_kind": "percent",
       "zh": {
-        "description": "影响[repair|e]一艘[ship|e]需要多少[gold|e]与[sailors|e]。",
-        "name": "海军修理花费"
+        "description": "影响我们[repair|e][ship|e]的效率，降低[gold|e]和[sailors|e]花费。",
+        "name": "海军修理效率"
       }
     },
     "navy_tradition_decay": {
@@ -26210,6 +27274,20 @@
       "zh": {
         "description": "这会影响一艘[ship|e]的[unit_weight|e]，进而影响它的[attrition|e]。",
         "name": "海军损耗权重"
+      }
+    },
+    "negotiate_rebels_buy_off_price_cost_modifier": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This impacts how much it costs to reduce rebel progress.",
+        "name": "Buy off rebels"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "影响降低叛军进度的花费。",
+        "name": "收买叛军"
       }
     },
     "no_beards": {
@@ -26436,6 +27514,20 @@
         "name": "贵族阶层征税下限"
       }
     },
+    "nobles_estate_power_from_cabinet": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "This impacts the [estate_power|e] of the [ShowEstateTypeName('nobles_estate')] if one of its [characters|e] is assigned to [cabinet|e].",
+        "name": "Nobility Power from Cabinet Position"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "这影响[ShowEstateTypeName('nobles_estate')][characters|e]在[cabinet|e]任职产生的[estate_power|e]。",
+        "name": "贵族内阁成员产生的阶层力量"
+      }
+    },
     "nobles_estate_satisfaction_decay": {
       "category": "country",
       "color": "neutral",
@@ -26504,6 +27596,20 @@
       "zh": {
         "description": "这决定了一个国家可以建造多少[ShowBuildingTypeName('bailiff')]。",
         "name": "执达署数量上限"
+      }
+    },
+    "num_italian_administrations": {
+      "category": "country",
+      "color": "good",
+      "decimals": 0,
+      "en": {
+        "description": "This determines how many [ShowBuildingTypeName('italian_administration_center')] a country can build.",
+        "name": "Number of Italian Administration Centers"
+      },
+      "value_kind": "number",
+      "zh": {
+        "description": "这决定了一个国家可以建造多少座[ShowBuildingTypeName('italian_administration_center')]。",
+        "name": "意大利行政中心数量"
       }
     },
     "num_local_governors": {
@@ -27318,20 +28424,6 @@
         "name": "珍珠用作货币"
       }
     },
-    "peasants_allowed_weapons": {
-      "category": "country",
-      "color": "good",
-      "decimals": 2,
-      "en": {
-        "description": "This will increase the [demand|e] for [ShowGoodsName('weaponry')] in all markets a [country|e] is present in.",
-        "name": "Peasants Allowed Weapons"
-      },
-      "value_kind": "boolean",
-      "zh": {
-        "description": "提高[country|e]所存在的所有市场中[ShowGoodsName('weaponry')]的[demand|e]。",
-        "name": "允许平民持有武器"
-      }
-    },
     "peasants_estate_agenda_impact": {
       "category": "country",
       "color": "good",
@@ -27512,6 +28604,20 @@
       "zh": {
         "description": "影响可从平民征收的[minimum_tax|e]。",
         "name": "农民阶层征税下限"
+      }
+    },
+    "peasants_estate_power_from_cabinet": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "This impacts the [estate_power|e] of the [ShowEstateTypeName('peasants_estate')] if one of its [characters|e] is assigned to [cabinet|e].",
+        "name": "Commoners Power from Cabinet Position"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "这影响[ShowEstateTypeName('peasants_estate')][characters|e]在[cabinet|e]任职产生的[estate_power|e]。",
+        "name": "平民内阁成员产生的阶层力量"
       }
     },
     "peasants_estate_satisfaction_decay": {
@@ -27981,13 +29087,13 @@
       "color": "good",
       "decimals": 2,
       "en": {
-        "description": "The [overlord|e] has imposed a [court_language|e] on the [subject|e], preventing them changing it back for a time.",
-        "name": "Prevented from Changing Court Language by Overlord"
+        "description": "A recent imposition prevents the [court_language|e] from being changed again for a time.",
+        "name": "Prevented from Changing Court Language"
       },
       "value_kind": "boolean",
       "zh": {
         "description": "[overlord|e]强制[subject|e]使用某种[court_language|e]，在一段时间内禁止其更改。",
-        "name": "由宗主国限制宫廷语言"
+        "name": "限制更改宫廷语言"
       }
     },
     "primas_germaniae_agenda_impact": {
@@ -28072,6 +29178,20 @@
       "zh": {
         "description": "影响[ShowGenericActionName('procure_remedies')]的[costs|e]。",
         "name": "采购药方的花费"
+      }
+    },
+    "profess_trust_price_cost_modifier": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "This impacts the [prestige|e] [cost|e] of Profess Trust.",
+        "name": "Profess Trust Cost"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "影响提高信任度的[prestige|e][cost|e]。",
+        "name": "提高信任度花费"
       }
     },
     "promote_institution_chance": {
@@ -28550,6 +29670,20 @@
         "name": "移除宗教信条花费"
       }
     },
+    "remove_religious_aspect_hellenism_cost_modifier": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "This impacts the [costs|e] of removing a [religious_aspect|e].",
+        "name": "Cost of Removing Religious Aspect"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "这影响了为宗教移除一项[religious_aspect|e]的[costs|e]。",
+        "name": "移除宗教信条花费"
+      }
+    },
     "remove_religious_aspect_inti_cost_modifier": {
       "category": "country",
       "color": "bad",
@@ -28583,7 +29717,7 @@
       "color": "bad",
       "decimals": 2,
       "en": {
-        "description": "This impacts how much it [costs|e] to replace a [cabinet|e] member.",
+        "description": "This impacts how much it [costs|e] to replace a [cabinet_member|e].",
         "name": "Replace Cabinet Member Cost"
       },
       "value_kind": "percent",
@@ -28618,6 +29752,34 @@
       "zh": {
         "description": "这按百分比修正使用[ShowGenericActionName('request_aid')]的花费。",
         "name": "请求教廷援助花费修正"
+      }
+    },
+    "request_divorce_price_cost_modifier": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "This modifies the [religious_influence|e] and [prestige|e] cost to ask the [pope|e] to grant a [divorce|e].",
+        "name": "Divorce Request Cost Modifier"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "这会改变[religious_influence|e]和[prestige|e]询问费用[pope|e]授予[divorce|e]。",
+        "name": "离婚申请费用调整"
+      }
+    },
+    "request_work_of_art_purchase_cost_modifier": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "This impacts the [costs|e] for the [ShowCountryInteractionName('request_work_of_art_purchase')] [country_interaction|e].",
+        "name": "Purchase Work of Art Cost Modifier"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "影响[ShowCountryInteractionName('request_work_of_art_purchase')][country_interaction|e]的[costs|e]。",
+        "name": "购买艺术品花费修正"
       }
     },
     "reroll_avatar_cost_modifier": {
@@ -29312,7 +30474,7 @@
       "decimals": 2,
       "en": {
         "description": "This impacts the [proximity|e] cost between [locations|e] when going through a [seazone|e] with [maritime_presence|e].",
-        "name": "@maritime! Proximity Cost with [maritime_presence]"
+        "name": "@maritime_presence! Proximity Cost with [maritime_presence]"
       },
       "value_kind": "number",
       "zh": {
@@ -29416,6 +30578,20 @@
       "zh": {
         "description": "这影响[ShowCountryInteractionName('sell_icon')]的[costs|e]。",
         "name": "出售圣像行动花费"
+      }
+    },
+    "sell_work_of_art_cost_modifier": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "This impacts the [costs|e] for the [ShowCountryInteractionName('sell_work_of_art')] [country_interaction|e].",
+        "name": "Sell Work of Art Cost Modifier"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "影响[ShowCountryInteractionName('sell_work_of_art')][country_interaction|e]的[costs|e]。",
+        "name": "出售艺术品花费修正"
       }
     },
     "selling_efficiency": {
@@ -29647,7 +30823,7 @@
       "color": "bad",
       "decimals": 2,
       "en": {
-        "description": "This impacts how much it [costs|e] to assign a [cabinet|e] member to an empty position.",
+        "description": "This impacts how much it [costs|e] to assign a [cabinet_member|e] to an empty position.",
         "name": "Set Cabinet Member Cost"
       },
       "value_kind": "percent",
@@ -29668,6 +30844,20 @@
       "zh": {
         "description": "这影响首次为[law|e]设置[policy|e]的[costs|e]。",
         "name": "制定政策花费"
+      }
+    },
+    "set_province_capital_cost_modifier": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "This impacts how much it [costs|e] to set a [province_capital|e].",
+        "name": "Set Province Capital Cost"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "这会影响到它的大小。[costs|e]设置一个[province_capital|e]。",
+        "name": "设置省会花费"
       }
     },
     "settle_country_cost_modifier": {
@@ -29854,7 +31044,7 @@
     },
     "silver_impacts_inflation": {
       "category": "country",
-      "color": "good",
+      "color": "bad",
       "decimals": 2,
       "en": {
         "description": "This determines how the production of [ShowGoodsName('silver')] impacts [inflation|e] in the [country|e].",
@@ -30020,6 +31210,20 @@
         "name": "赞助宗教大赦的花费"
       }
     },
+    "sponsor_the_reformation_cost_modifier": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This impacts the [cost|e] of the [ShowGenericActionName('sponsor_the_reformation')] [action|e]",
+        "name": "[ShowGenericActionName('sponsor_the_reformation')] Action Cost"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "影响[ShowGenericActionName('sponsor_the_reformation')][action|e]的[cost|e]。",
+        "name": "[ShowGenericActionName('sponsor_the_reformation')]行动花费"
+      }
+    },
     "sponsor_troop_feast_cost_modifier": {
       "category": "country",
       "color": "bad",
@@ -30048,18 +31252,18 @@
         "name": "间谍网建设效率"
       }
     },
-    "stability_cost": {
+    "stability_cost_efficiency": {
       "category": "country",
-      "color": "bad",
+      "color": "good",
       "decimals": 2,
       "en": {
-        "description": "This impacts the cost of [stability_investment|e].",
-        "name": "Stability Investment Cost"
+        "description": "This impacts the efficiency of [stability_investment|e].",
+        "name": "Stability Investment Efficiency"
       },
       "value_kind": "percent",
       "zh": {
-        "description": "影响[stability_investment|e]的花费。",
-        "name": "稳定度投资花费"
+        "description": "这将影响[stability_investment|e]的效率。",
+        "name": "维稳效率"
       }
     },
     "stability_decay": {
@@ -30874,6 +32078,20 @@
         "name": "正统信仰容忍度"
       }
     },
+    "tolerated_culture_maintenance_cost_modifier": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "This impacts the ongoing Cultural Capacity cost of each [tolerated_culture|e].",
+        "name": "Tolerated Culture Maintenance Cost"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "影响每种[tolerated_culture|e]的持续文化容量花费。",
+        "name": "相容文化维持花费"
+      }
+    },
     "tools_impacts_inflation": {
       "category": "country",
       "color": "good",
@@ -31446,6 +32664,20 @@
       "zh": {
         "description": "这影响可以向部落征收的[minimum_tax|e]。",
         "name": "部落征税下限"
+      }
+    },
+    "tribes_estate_power_from_cabinet": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "This impacts the [estate_power|e] of the [ShowEstateTypeName('tribes_estate')] if one of its [characters|e] is assigned to [cabinet|e].",
+        "name": "Tribes Power from Cabinet Position"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "这影响[ShowEstateTypeName('tribes_estate')][characters|e]在[cabinet|e]任职产生的[estate_power|e]。",
+        "name": "部落内阁成员产生的阶层力量"
       }
     },
     "tribes_estate_satisfaction_decay": {
@@ -32036,6 +33268,20 @@
         "name": "金币仪式花费"
       }
     },
+    "twilight_of_the_tsardom_disaster_actions_price_cost_modifier": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "This impacts the [cost|e] of the [actions|e] associated with the [ShowDisasterName('twilight_of_the_tsardom')] [disaster|e].",
+        "name": "[ShowDisasterNameWithNoTooltip('twilight_of_the_tsardom')] Disaster Actions Cost"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "这影响[ShowDisasterName('twilight_of_the_tsardom')][disaster|e]的[actions|e][cost|e]。",
+        "name": "[ShowDisasterNameWithNoTooltip('twilight_of_the_tsardom')]灾难行动花费"
+      }
+    },
     "uc_bey_pays_cost_modifier": {
       "category": "country",
       "color": "good",
@@ -32064,6 +33310,20 @@
         "name": "闲置奴隶升级"
       }
     },
+    "unintegrated_land_expansion_penalty_modifier": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This modifies the penalty a leader gets on considering starting a new war from unintegrated land that they own.",
+        "name": "Unintegrated Land Expansion Penalty"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "影响领袖考虑发动新战争时从拥有的未整合土地中获得的惩罚。",
+        "name": "未整合土地扩张惩罚"
+      }
+    },
     "union_allowed_enforce_peace": {
       "category": "internationalorganization",
       "color": "good",
@@ -32074,8 +33334,8 @@
       },
       "value_kind": "boolean",
       "zh": {
-        "description": "这允许一个[ShowSpecialStatusName('senior_partner')]对邦联内其他[ShowSpecialStatusNamePlural('junior_partner')]的战争采取[ShowCountryInteractionName('subject_enforce_peace')][diplomatic_action|e]。",
-        "name": "允许邦联内强制和平"
+        "description": "这允许[ShowSpecialStatusName('senior_partner')]对[ShowSpecialStatusNamePlural('junior_partner')]使用[ShowCountryInteractionName('union_enforce_peace')][diplomatic_action|e]。",
+        "name": "允许邦联内强制联统国和平"
       }
     },
     "union_blocked_from_declaring_war": {
@@ -32132,6 +33392,20 @@
       "zh": {
         "description": "这允许[ShowSpecialStatusName('senior_partner')]对[ShowSpecialStatusNamePlural('junior_partner')]使用[ShowRelationTypeName('rein_in_junior_diplomacy')][relation_type|e]。",
         "name": "解锁控制联统从属国外交"
+      }
+    },
+    "union_weight": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "Determines how much this [country|e] contributes to [union|e] upkeep costs for its senior partner.",
+        "name": "Union Weight"
+      },
+      "value_kind": "number",
+      "zh": {
+        "description": "决定该[country|e]在[union|e]中对主导国维持对该国关系的饱和度成本贡献多少。",
+        "name": "联统饱和度权重"
       }
     },
     "university_construction_blocked": {
@@ -32666,6 +33940,20 @@
         "name": "野味用作货币"
       }
     },
+    "win_war_chance_lower_limit": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "The lowest chance of winning the leader can ever accept when attempting to start wars regardless of the threshold.",
+        "name": "Win War Chance Lower Limit"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "尝试无视阈值发动战争时领袖可以接受的最低获胜概率。",
+        "name": "赢得战争概率下限"
+      }
+    },
     "win_war_chance_threshold": {
       "category": "country",
       "color": "good",
@@ -32748,6 +34036,20 @@
       "zh": {
         "description": "影响[artist|e]创作的[art_quality|e]。",
         "name": "艺术品质"
+      }
+    },
+    "work_of_art_sell_value_modifier": {
+      "category": "country",
+      "color": "good",
+      "decimals": 2,
+      "en": {
+        "description": "This impacts the [gold|e] received when selling a [work_of_art|e] to another [country|e].",
+        "name": "Work of Art Sale Value"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "这将影响向其他[country|e]出售[work_of_art|e]时获得的[gold|e]。",
+        "name": "艺术品出售价值"
       }
     },
     "wotr_action_price_cost_modifier": {
