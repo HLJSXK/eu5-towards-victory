@@ -43,7 +43,7 @@ random_events:
             cooldown_months: 18
           - type: estate_satisfaction
             estate: clergy_estate
-            value: 0.03
+            value: 0.05
   - design_id: SR02
     pool: scientific_revolution
     issue: scientific_revolution
@@ -172,7 +172,7 @@ random_events:
             cooldown_months: 18
           - type: estate_satisfaction
             estate: burghers_estate
-            value: -0.03
+            value: -0.05
   - design_id: SR05
     pool: scientific_revolution
     issue: scientific_revolution
@@ -217,7 +217,7 @@ random_events:
             cooldown_months: 18
           - type: estate_satisfaction
             estate: nobles_estate
-            value: 0.03
+            value: 0.05
   - design_id: SR06
     pool: scientific_revolution
     issue: scientific_revolution
@@ -240,7 +240,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
-            value: -0.05
+            value: -0.1
           - type: seat_stance
             group: scholarly_community
             stance: support
@@ -256,7 +256,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
-            value: 0.05
+            value: 0.1
           - type: seat_stance
             group: clergy
             stance: oppose
@@ -300,7 +300,7 @@ random_events:
         effect_blocks:
           - type: resource
             resource: stability
-            amount: 1
+            amount: 2.5
           - type: seat_stance
             group: scholarly_community
             stance: oppose
@@ -344,7 +344,7 @@ random_events:
         effect_blocks:
           - type: resource
             resource: stability
-            amount: 1
+            amount: 2.5
           - type: seat_stance
             group: public_opinion
             stance: oppose
@@ -393,7 +393,7 @@ random_events:
             cooldown_months: 12
           - type: estate_satisfaction
             estate: nobles_estate
-            value: 0.03
+            value: 0.05
   - design_id: SR10
     pool: scientific_revolution
     issue: scientific_revolution
@@ -528,7 +528,7 @@ random_events:
             cooldown_months: 24
           - type: estate_satisfaction
             estate: clergy_estate
-            value: 0.04
+            value: 0.1
   - design_id: SR13
     pool: scientific_revolution
     issue: scientific_revolution
@@ -777,7 +777,7 @@ random_events:
             amount: -10
           - type: estate_satisfaction
             estate: clergy_estate
-            value: -0.05
+            value: -0.1
           - type: seat_stance
             group: public_opinion
             stance: support
@@ -797,7 +797,7 @@ random_events:
             cooldown_months: 18
           - type: estate_satisfaction
             estate: nobles_estate
-            value: 0.04
+            value: 0.1
   - design_id: SR19
     pool: scientific_revolution
     issue: scientific_revolution
@@ -844,7 +844,7 @@ random_events:
             cooldown_months: 18
           - type: estate_satisfaction
             estate: nobles_estate
-            value: 0.03
+            value: 0.05
           - type: resource
             resource: legitimacy
             amount: 5

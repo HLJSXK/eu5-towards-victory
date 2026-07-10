@@ -21,7 +21,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: -0.04
+            value: -0.1
           - type: seat_stance
             group: scholarly_community
             stance: support
@@ -37,7 +37,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: 0.03
+            value: 0.05
           - type: seat_stance
             group: nobility
             stance: oppose
@@ -80,7 +80,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: 0.05
+            value: 0.1
           - type: seat_stance
             group: nobility
             stance: oppose
@@ -157,7 +157,7 @@ random_events:
             scale: -1
           - type: estate_satisfaction
             estate: nobles_estate
-            value: -0.03
+            value: -0.05
       b:
         text:
           english: "We let the coin quietly find its office."
@@ -214,7 +214,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: 0.03
+            value: 0.05
           - type: seat_stance
             group: nobility
             stance: oppose
@@ -277,7 +277,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
-            value: -0.04
+            value: -0.1
       b:
         text:
           english: "The parish seal is required before the examiner's ink."
@@ -289,7 +289,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
-            value: 0.04
+            value: 0.1
   - design_id: M08
     pool: meritocracy
     issue: meritocracy
@@ -312,7 +312,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
-            value: 0.05
+            value: 0.1
           - type: seat_stance
             group: burghers
             stance: support
@@ -352,7 +352,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: peasants_estate
-            value: 0.05
+            value: 0.1
           - type: seat_stance
             group: peasants
             stance: support
@@ -393,7 +393,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: -0.06
+            value: -0.1
           - type: seat_stance
             group: nobility
             stance: oppose
@@ -409,7 +409,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: 0.06
+            value: 0.1
           - type: temporary_country_modifier
             key: tv_academy_debate_rankings_suspended
             months: 12
@@ -437,7 +437,7 @@ random_events:
         effect_blocks:
           - type: resource
             resource: stability
-            amount: -1
+            amount: -2.5
           - type: seat_stance
             group: scholarly_community
             stance: support
@@ -482,7 +482,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: -0.04
+            value: -0.1
           - type: seat_stance
             group: public_opinion
             stance: support
@@ -573,7 +573,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: -0.05
+            value: -0.1
           - type: seat_stance
             group: public_opinion
             stance: support
@@ -634,7 +634,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: 0.02
+            value: 0.05
           - type: temporary_country_modifier
             key: tv_academy_debate_patron_rights_confirmed
             months: 18
@@ -768,7 +768,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: 0.04
+            value: 0.1
           - type: temporary_country_modifier
             key: tv_academy_debate_patronage_buried
             months: 24
@@ -843,7 +843,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: -0.05
+            value: -0.1
           - type: seat_stance
             group: court_bureaucrats
             stance: support
@@ -859,7 +859,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: 0.05
+            value: 0.1
           - type: seat_stance
             group: nobility
             stance: oppose

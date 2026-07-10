@@ -39,7 +39,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: 0.02
+            value: 0.05
           - type: seat_stance
             group: court_bureaucrats
             stance: oppose
@@ -110,7 +110,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
-            value: 0.04
+            value: 0.1
           - type: temporary_country_modifier
             key: tv_academy_debate_mission_priority
             months: 18
@@ -127,7 +127,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
-            value: -0.03
+            value: -0.05
           - type: seat_stance
             group: scholarly_community
             stance: support
@@ -154,7 +154,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
-            value: 0.04
+            value: 0.1
           - type: seat_stance
             group: maritime_merchants
             stance: support
@@ -202,7 +202,7 @@ random_events:
             cooldown_months: 24
           - type: estate_satisfaction
             estate: nobles_estate
-            value: -0.03
+            value: -0.05
       b:
         text:
           english: "The clerks file the account among the cabinet's curiosities."
@@ -260,7 +260,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
-            value: 0.03
+            value: 0.05
           - type: seat_stance
             group: clergy
             stance: oppose
@@ -303,7 +303,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
-            value: 0.04
+            value: 0.1
           - type: seat_stance
             group: public_opinion
             stance: oppose
@@ -395,7 +395,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: 0.03
+            value: 0.05
           - type: seat_stance
             group: nobility
             stance: oppose
@@ -465,7 +465,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
-            value: 0.03
+            value: 0.05
           - type: temporary_country_modifier
             key: tv_academy_debate_gold_rumor_speculation
             months: 18
@@ -482,7 +482,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
-            value: 0.03
+            value: 0.05
           - type: seat_stance
             group: nobility
             stance: oppose
@@ -570,7 +570,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: 0.03
+            value: 0.05
           - type: seat_stance
             group: scholarly_community
             stance: oppose
@@ -613,7 +613,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
-            value: 0.03
+            value: 0.05
           - type: seat_stance
             group: clergy
             stance: oppose
@@ -640,7 +640,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
-            value: -0.03
+            value: -0.05
           - type: temporary_country_modifier
             key: tv_academy_debate_reformed_colonial_charters
             months: 24
@@ -657,7 +657,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: 0.04
+            value: 0.1
           - type: seat_stance
             group: maritime_merchants
             stance: oppose
@@ -688,7 +688,7 @@ random_events:
             cooldown_months: 12
           - type: estate_satisfaction
             estate: burghers_estate
-            value: 0.02
+            value: 0.05
       b:
         text:
           english: "Behind the fence it stays."
@@ -700,7 +700,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: 0.03
+            value: 0.05
           - type: seat_stance
             group: local_autonomy
             stance: oppose
@@ -786,7 +786,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
-            value: 0.04
+            value: 0.1
           - type: seat_stance
             group: clergy
             stance: oppose
@@ -880,5 +880,5 @@ random_events:
             cooldown_months: 12
           - type: estate_satisfaction
             estate: nobles_estate
-            value: 0.02
+            value: 0.05
 excluded_events: []

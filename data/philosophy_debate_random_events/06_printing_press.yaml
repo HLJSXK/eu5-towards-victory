@@ -34,7 +34,7 @@ random_events:
         effect_blocks:
           - type: resource
             resource: stability
-            amount: 1
+            amount: 2.5
   - design_id: P02
     pool: printing_press
     issue: printing_press
@@ -57,7 +57,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
-            value: 0.04
+            value: 0.1
       b:
         text:
           english: "We would sooner license each press one by one, by its own name."
@@ -93,7 +93,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
-            value: -0.05
+            value: -0.1
       b:
         text:
           english: "The index is approved, and every printed argument waits upon the censor's mark."
@@ -142,7 +142,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
-            value: 0.03
+            value: 0.05
   - design_id: P05
     pool: printing_press
     issue: printing_press
@@ -422,7 +422,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
-            value: -0.05
+            value: -0.1
       b:
         text:
           english: "Off the shelves with every last copy."
@@ -434,7 +434,7 @@ random_events:
         effect_blocks:
           - type: resource
             resource: stability
-            amount: 1
+            amount: 2.5
   - design_id: P13
     pool: printing_press
     issue: printing_press
@@ -544,7 +544,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: 0.03
+            value: 0.05
   - design_id: P16
     pool: printing_press
     issue: printing_press
@@ -567,7 +567,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: -0.05
+            value: -0.1
       b:
         text:
           english: "Costly wit, this. Let him pay for it."
@@ -579,7 +579,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: 0.05
+            value: 0.1
   - design_id: P17
     pool: printing_press
     issue: printing_press
@@ -606,7 +606,7 @@ random_events:
             cooldown_months: 24
           - type: estate_satisfaction
             estate: burghers_estate
-            value: 0.03
+            value: 0.05
       b:
         text:
           english: "We will keep the argument to a single official tongue."
@@ -679,7 +679,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
-            value: 0.04
+            value: 0.1
       b:
         text:
           english: "The Academy sets the authors' names back above the printer's."

@@ -25,7 +25,7 @@ random_events:
             cooldown_months: 18
           - type: estate_satisfaction
             estate: clergy_estate
-            value: -0.03
+            value: -0.05
       b:
         text:
           english: "We lock it away among the cabinet's curiosities."
@@ -37,7 +37,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
-            value: 0.03
+            value: 0.05
           - type: seat_stance
             group: clergy
             stance: oppose
@@ -68,7 +68,7 @@ random_events:
             cooldown_months: 18
           - type: estate_satisfaction
             estate: clergy_estate
-            value: -0.05
+            value: -0.1
       b:
         text:
           english: "Not before this court, and not today."
@@ -80,7 +80,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
-            value: 0.05
+            value: 0.1
           - type: seat_stance
             group: clergy
             stance: oppose
@@ -122,7 +122,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
-            value: 0.03
+            value: 0.05
           - type: seat_cooldown
             group: artists
             cooldown_months: 12
@@ -193,7 +193,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: -0.03
+            value: -0.05
           - type: seat_stance
             group: scholarly_community
             stance: support
@@ -240,7 +240,7 @@ random_events:
             cooldown_months: 12
           - type: estate_satisfaction
             estate: burghers_estate
-            value: 0.02
+            value: 0.05
       b:
         text:
           english: "The copies are confined to scholars' hands."
@@ -256,7 +256,7 @@ random_events:
             cooldown_months: 12
           - type: estate_satisfaction
             estate: nobles_estate
-            value: 0.02
+            value: 0.05
   - design_id: R07
     pool: renaissance
     issue: renaissance
@@ -281,7 +281,7 @@ random_events:
             amount: 0.05
           - type: estate_satisfaction
             estate: clergy_estate
-            value: -0.05
+            value: -0.1
       b:
         text:
           english: "The Academy grants doctrine the higher seat."
@@ -293,7 +293,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
-            value: 0.05
+            value: 0.1
           - type: artist_skill
             amount: -0.04
   - design_id: R08
@@ -410,10 +410,10 @@ random_events:
             cooldown_months: 24
           - type: estate_satisfaction
             estate: nobles_estate
-            value: -0.03
+            value: -0.05
           - type: estate_satisfaction
             estate: clergy_estate
-            value: -0.03
+            value: -0.05
       b:
         text:
           english: "The salon is waved off as mere drawing-room talk."
@@ -429,7 +429,7 @@ random_events:
             cooldown_months: 24
           - type: estate_satisfaction
             estate: nobles_estate
-            value: 0.04
+            value: 0.1
   - design_id: R11
     pool: renaissance
     issue: renaissance
@@ -514,7 +514,7 @@ random_events:
             cooldown_months: 12
           - type: estate_satisfaction
             estate: nobles_estate
-            value: 0.02
+            value: 0.05
   - design_id: R13
     pool: renaissance
     issue: renaissance
@@ -541,7 +541,7 @@ random_events:
             cooldown_months: 18
           - type: estate_satisfaction
             estate: burghers_estate
-            value: -0.05
+            value: -0.1
       b:
         text:
           english: "The old masters keep their bench and their rules."
@@ -557,7 +557,7 @@ random_events:
             cooldown_months: 18
           - type: estate_satisfaction
             estate: burghers_estate
-            value: 0.05
+            value: 0.1
   - design_id: R14
     pool: renaissance
     issue: renaissance
@@ -645,7 +645,7 @@ random_events:
             cooldown_months: 12
           - type: estate_satisfaction
             estate: clergy_estate
-            value: 0.03
+            value: 0.05
   - design_id: R16
     pool: renaissance
     issue: renaissance
@@ -692,7 +692,7 @@ random_events:
             cooldown_months: 18
           - type: estate_satisfaction
             estate: clergy_estate
-            value: 0.04
+            value: 0.1
   - design_id: R17
     pool: renaissance
     issue: renaissance
@@ -738,7 +738,7 @@ random_events:
             cooldown_months: 12
           - type: estate_satisfaction
             estate: burghers_estate
-            value: 0.03
+            value: 0.05
   - design_id: R18
     pool: renaissance
     issue: renaissance
@@ -875,8 +875,8 @@ random_events:
             cooldown_months: 18
           - type: estate_satisfaction
             estate: nobles_estate
-            value: 0.03
+            value: 0.05
           - type: estate_satisfaction
             estate: clergy_estate
-            value: 0.03
+            value: 0.05
 excluded_events: []

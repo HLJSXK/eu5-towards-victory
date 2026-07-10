@@ -25,7 +25,7 @@ random_events:
             cooldown_months: 24
           - type: estate_satisfaction
             estate: nobles_estate
-            value: -0.03
+            value: -0.05
       b:
         text:
           english: "We keep the royal faith to the chapel and let silence do the rest."
@@ -40,7 +40,7 @@ random_events:
             cooldown_months: 18
           - type: estate_satisfaction
             estate: clergy_estate
-            value: 0.03
+            value: 0.05
   - design_id: C02
     pool: confessionalism
     issue: confessionalism
@@ -67,7 +67,7 @@ random_events:
             cooldown_months: 18
           - type: estate_satisfaction
             estate: clergy_estate
-            value: -0.03
+            value: -0.05
       b:
         text:
           english: "The registers stay in the parish chest, as they always have."
@@ -83,7 +83,7 @@ random_events:
             cooldown_months: 18
           - type: estate_satisfaction
             estate: clergy_estate
-            value: 0.03
+            value: 0.05
   - design_id: C03
     pool: confessionalism
     issue: confessionalism
@@ -106,7 +106,7 @@ random_events:
         effect_blocks:
           - type: resource
             resource: stability
-            amount: 1
+            amount: 2.5
           - type: seat_stance
             group: court_bureaucrats
             stance: support
@@ -151,7 +151,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: -0.05
+            value: -0.1
           - type: seat_stance
             group: religious_reformers
             stance: support
@@ -167,7 +167,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: 0.05
+            value: 0.1
           - type: seat_stance
             group: nobility
             stance: oppose
@@ -198,7 +198,7 @@ random_events:
             cooldown_months: 24
           - type: estate_satisfaction
             estate: clergy_estate
-            value: -0.02
+            value: -0.05
           - type: temporary_country_modifier
             key: tv_academy_debate_catechism_lessons
             months: 18
@@ -247,7 +247,7 @@ random_events:
             cooldown_months: 18
           - type: estate_satisfaction
             estate: dhimmi_estate
-            value: 0.04
+            value: 0.1
       b:
         text:
           english: "Best make no promises we may have to keep."
@@ -263,7 +263,7 @@ random_events:
             cooldown_months: 12
           - type: estate_satisfaction
             estate: clergy_estate
-            value: 0.03
+            value: 0.05
   - design_id: C07
     pool: confessionalism
     issue: confessionalism
@@ -308,7 +308,7 @@ random_events:
             cooldown_months: 12
           - type: estate_satisfaction
             estate: nobles_estate
-            value: 0.02
+            value: 0.05
   - design_id: C08
     pool: confessionalism
     issue: confessionalism
@@ -350,7 +350,7 @@ random_events:
         effect_blocks:
           - type: resource
             resource: stability
-            amount: 1
+            amount: 2.5
           - type: seat_cooldown
             group: clergy
             cooldown_months: 12
@@ -395,7 +395,7 @@ random_events:
             cooldown_months: 12
           - type: estate_satisfaction
             estate: nobles_estate
-            value: 0.03
+            value: 0.05
   - design_id: C10
     pool: confessionalism
     issue: confessionalism
@@ -422,10 +422,10 @@ random_events:
             cooldown_months: 24
           - type: estate_satisfaction
             estate: peasants_estate
-            value: -0.04
+            value: -0.1
           - type: estate_satisfaction
             estate: clergy_estate
-            value: -0.03
+            value: -0.05
       b:
         text:
           english: "Custom is a calendar no decree can rewrite."
@@ -441,10 +441,10 @@ random_events:
             cooldown_months: 18
           - type: estate_satisfaction
             estate: peasants_estate
-            value: 0.04
+            value: 0.1
           - type: estate_satisfaction
             estate: clergy_estate
-            value: 0.02
+            value: 0.05
   - design_id: C11
     pool: confessionalism
     issue: confessionalism
@@ -483,7 +483,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
-            value: 0.04
+            value: 0.1
           - type: seat_stance
             group: clergy
             stance: oppose
@@ -510,7 +510,7 @@ random_events:
         effect_blocks:
           - type: resource
             resource: stability
-            amount: -1
+            amount: -2.5
           - type: seat_stance
             group: religious_reformers
             stance: support
@@ -526,7 +526,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
-            value: 0.04
+            value: 0.1
           - type: seat_stance
             group: local_autonomy
             stance: oppose
@@ -557,7 +557,7 @@ random_events:
             cooldown_months: 18
           - type: estate_satisfaction
             estate: clergy_estate
-            value: -0.04
+            value: -0.1
       b:
         text:
           english: "Marriage stays where it has always been settled, in the clergy's own courts."
@@ -569,7 +569,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
-            value: 0.06
+            value: 0.1
           - type: temporary_country_modifier
             key: tv_academy_debate_clergy_marriage_jurisdiction
             months: 18
@@ -601,7 +601,7 @@ random_events:
             cooldown_months: 12
           - type: estate_satisfaction
             estate: clergy_estate
-            value: -0.02
+            value: -0.05
       b:
         text:
           english: "Not every quarrel needs a verdict."
@@ -686,7 +686,7 @@ random_events:
             scale: 1
           - type: estate_satisfaction
             estate: peasants_estate
-            value: -0.04
+            value: -0.1
           - type: seat_stance
             group: court_bureaucrats
             stance: support
@@ -702,7 +702,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: peasants_estate
-            value: 0.04
+            value: 0.1
           - type: seat_cooldown
             group: religious_reformers
             cooldown_months: 12
@@ -732,7 +732,7 @@ random_events:
             cooldown_months: 24
           - type: estate_satisfaction
             estate: clergy_estate
-            value: -0.05
+            value: -0.1
           - type: temporary_country_modifier
             key: tv_academy_debate_clerical_discipline
             months: 12
@@ -753,7 +753,7 @@ random_events:
             cooldown_months: 24
           - type: estate_satisfaction
             estate: clergy_estate
-            value: 0.05
+            value: 0.1
           - type: resource
             resource: legitimacy
             amount: 5
@@ -779,7 +779,7 @@ random_events:
         effect_blocks:
           - type: resource
             resource: stability
-            amount: 1
+            amount: 2.5
           - type: seat_cooldown
             group: public_opinion
             cooldown_months: 12
@@ -829,7 +829,7 @@ random_events:
             cooldown_months: 24
           - type: estate_satisfaction
             estate: dhimmi_estate
-            value: -0.03
+            value: -0.05
           - type: seat_stance
             group: minorities
             stance: oppose
@@ -849,10 +849,10 @@ random_events:
             cooldown_months: 18
           - type: estate_satisfaction
             estate: dhimmi_estate
-            value: 0.03
+            value: 0.05
           - type: resource
             resource: stability
-            amount: 1
+            amount: 2.5
   - design_id: C20
     pool: confessionalism
     issue: confessionalism

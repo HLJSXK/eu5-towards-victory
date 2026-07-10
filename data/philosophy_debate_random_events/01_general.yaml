@@ -137,7 +137,7 @@ random_events:
             cooldown_months: 12
           - type: estate_satisfaction
             estate: clergy_estate
-            value: 0.03
+            value: 0.05
       b:
         text:
           english: "We question whether a dead man still gets the last word."
@@ -249,7 +249,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
-            value: 0.04
+            value: 0.1
       b:
         text:
           english: "Let the idea stand on its own reasoning, unadorned."
@@ -261,7 +261,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
-            value: -0.04
+            value: -0.1
 
   - design_id: G08
     pool: general
@@ -285,7 +285,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
-            value: 0.04
+            value: 0.1
       b:
         text:
           english: "We decline to sell the truth a subscription."
@@ -297,7 +297,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: 0.03
+            value: 0.05
 
   - design_id: G10
     pool: general
@@ -397,10 +397,10 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: -0.03
+            value: -0.05
           - type: estate_satisfaction
             estate: clergy_estate
-            value: -0.03
+            value: -0.05
       b:
         text:
           english: "Interesting, but hardly conclusive."
@@ -450,7 +450,7 @@ random_events:
         effect_blocks:
           - type: resource
             resource: stability
-            amount: 1
+            amount: 2.5
 
   - design_id: G15
     pool: general
@@ -520,7 +520,7 @@ random_events:
             cooldown_months: 12
           - type: estate_satisfaction
             estate: nobles_estate
-            value: -0.03
+            value: -0.05
       b:
         text:
           english: "Not yet."
@@ -572,7 +572,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
-            value: 0.04
+            value: 0.1
           - type: seat_stance
             group: clergy
             stance: oppose
@@ -615,7 +615,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
-            value: 0.04
+            value: 0.1
           - type: seat_stance
             group: artists
             stance: neutral
@@ -659,7 +659,7 @@ random_events:
         effect_blocks:
           - type: resource
             resource: stability
-            amount: 1
+            amount: 2.5
           - type: seat_stance
             group: scholarly_community
             stance: oppose

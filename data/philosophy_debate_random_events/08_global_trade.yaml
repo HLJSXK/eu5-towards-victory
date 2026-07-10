@@ -21,7 +21,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
-            value: 0.04
+            value: 0.1
           - type: seat_stance
             group: maritime_merchants
             stance: support
@@ -37,7 +37,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: 0.04
+            value: 0.1
           - type: seat_stance
             group: nobility
             stance: oppose
@@ -80,7 +80,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
-            value: 0.03
+            value: 0.05
           - type: seat_stance
             group: local_autonomy
             stance: oppose
@@ -198,7 +198,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: -0.05
+            value: -0.1
           - type: seat_stance
             group: maritime_merchants
             stance: support
@@ -214,7 +214,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: 0.05
+            value: 0.1
           - type: seat_stance
             group: nobility
             stance: oppose
@@ -260,7 +260,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
-            value: 0.02
+            value: 0.05
           - type: seat_stance
             group: clergy
             stance: oppose
@@ -334,7 +334,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: peasants_estate
-            value: 0.04
+            value: 0.1
           - type: seat_stance
             group: peasants
             stance: support
@@ -350,7 +350,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
-            value: 0.03
+            value: 0.05
           - type: seat_stance
             group: peasants
             stance: oppose
@@ -429,7 +429,7 @@ random_events:
             cooldown_months: 18
           - type: estate_satisfaction
             estate: burghers_estate
-            value: 0.03
+            value: 0.05
           - type: temporary_country_modifier
             key: tv_academy_debate_standard_weights
             months: 24
@@ -524,7 +524,7 @@ random_events:
             cooldown_months: 24
           - type: estate_satisfaction
             estate: burghers_estate
-            value: 0.03
+            value: 0.05
       b:
         text:
           english: "Let the counting-table stay in the family."
@@ -536,7 +536,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
-            value: 0.02
+            value: 0.05
           - type: seat_stance
             group: local_autonomy
             stance: oppose
@@ -564,7 +564,7 @@ random_events:
         effect_blocks:
           - type: resource
             resource: stability
-            amount: -1
+            amount: -2.5
           - type: seat_stance
             group: maritime_merchants
             stance: support
@@ -580,7 +580,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: peasants_estate
-            value: 0.04
+            value: 0.1
           - type: seat_stance
             group: public_opinion
             stance: oppose
@@ -704,7 +704,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
-            value: -0.04
+            value: -0.1
           - type: seat_stance
             group: maritime_merchants
             stance: support
@@ -720,7 +720,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
-            value: 0.03
+            value: 0.05
           - type: seat_stance
             group: maritime_merchants
             stance: oppose
@@ -795,7 +795,7 @@ random_events:
         effect_blocks:
           - type: resource
             resource: stability
-            amount: -1
+            amount: -2.5
           - type: seat_stance
             group: maritime_merchants
             stance: support
@@ -811,7 +811,7 @@ random_events:
         effect_blocks:
           - type: resource
             resource: stability
-            amount: 1
+            amount: 2.5
           - type: seat_stance
             group: public_opinion
             stance: oppose
@@ -843,7 +843,7 @@ random_events:
             cooldown_months: 24
           - type: estate_satisfaction
             estate: burghers_estate
-            value: -0.03
+            value: -0.05
       b:
         text:
           english: "We reject the experiment and keep the gates."

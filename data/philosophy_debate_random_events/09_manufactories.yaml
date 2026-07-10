@@ -21,7 +21,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
-            value: -0.04
+            value: -0.1
           - type: seat_stance
             group: court_bureaucrats
             stance: support
@@ -37,7 +37,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
-            value: 0.04
+            value: 0.1
           - type: seat_stance
             group: local_autonomy
             stance: oppose
@@ -80,7 +80,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
-            value: 0.03
+            value: 0.05
           - type: seat_stance
             group: burghers
             stance: oppose
@@ -107,7 +107,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: peasants_estate
-            value: -0.04
+            value: -0.1
           - type: temporary_country_modifier
             key: tv_academy_debate_waterwheel_disruption
             months: 18
@@ -124,7 +124,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: peasants_estate
-            value: 0.04
+            value: 0.1
           - type: seat_stance
             group: peasants
             stance: oppose
@@ -151,7 +151,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
-            value: -0.03
+            value: -0.05
           - type: seat_stance
             group: public_opinion
             stance: support
@@ -167,7 +167,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
-            value: 0.03
+            value: 0.05
           - type: seat_stance
             group: clergy
             stance: oppose
@@ -194,7 +194,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
-            value: 0.03
+            value: 0.05
           - type: seat_stance
             group: court_bureaucrats
             stance: support
@@ -210,7 +210,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: peasants_estate
-            value: 0.03
+            value: 0.05
           - type: seat_stance
             group: local_autonomy
             stance: oppose
@@ -262,7 +262,7 @@ random_events:
             cooldown_months: 24
           - type: estate_satisfaction
             estate: burghers_estate
-            value: 0.04
+            value: 0.1
   - design_id: MF07
     pool: manufactories
     issue: manufactories
@@ -285,7 +285,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: peasants_estate
-            value: -0.04
+            value: -0.1
           - type: seat_stance
             group: court_bureaucrats
             stance: support
@@ -306,7 +306,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: peasants_estate
-            value: 0.03
+            value: 0.05
           - type: seat_stance
             group: peasants
             stance: oppose
@@ -380,7 +380,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: -0.05
+            value: -0.1
           - type: seat_stance
             group: court_bureaucrats
             stance: support
@@ -400,7 +400,7 @@ random_events:
             cooldown_months: 24
           - type: estate_satisfaction
             estate: nobles_estate
-            value: 0.05
+            value: 0.1
   - design_id: MF10
     pool: manufactories
     issue: manufactories
@@ -423,10 +423,10 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
-            value: 0.02
+            value: 0.05
           - type: estate_satisfaction
             estate: peasants_estate
-            value: 0.02
+            value: 0.05
           - type: temporary_country_modifier
             key: tv_academy_debate_child_labor_rules
             months: 18
@@ -451,7 +451,7 @@ random_events:
             cooldown_months: 18
           - type: estate_satisfaction
             estate: clergy_estate
-            value: 0.04
+            value: 0.1
   - design_id: MF11
     pool: manufactories
     issue: manufactories
@@ -487,7 +487,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
-            value: 0.04
+            value: 0.1
   - design_id: MF12
     pool: manufactories
     issue: manufactories
@@ -523,7 +523,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
-            value: 0.03
+            value: 0.05
   - design_id: MF13
     pool: manufactories
     issue: manufactories
@@ -561,7 +561,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: peasants_estate
-            value: 0.05
+            value: 0.1
   - design_id: MF14
     pool: manufactories
     issue: manufactories
@@ -664,7 +664,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: peasants_estate
-            value: -0.04
+            value: -0.1
           - type: seat_stance
             group: peasants
             stance: oppose
@@ -680,7 +680,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: peasants_estate
-            value: 0.04
+            value: 0.1
           - type: seat_stance
             group: burghers
             stance: oppose
@@ -710,7 +710,7 @@ random_events:
             scale: -1
           - type: estate_satisfaction
             estate: burghers_estate
-            value: -0.03
+            value: -0.05
       b:
         text:
           english: "We send the boys back to the guild masters."
@@ -722,7 +722,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
-            value: 0.04
+            value: 0.1
           - type: temporary_country_modifier
             key: tv_academy_debate_guild_apprenticeship_preserved
             months: 18
@@ -766,7 +766,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
-            value: 0.02
+            value: 0.05
           - type: seat_stance
             group: scholarly_community
             stance: oppose
@@ -793,7 +793,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
-            value: 0.04
+            value: 0.1
           - type: temporary_country_modifier
             key: tv_academy_debate_merchant_capital_pool
             months: 24
@@ -810,7 +810,7 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: 0.03
+            value: 0.05
           - type: seat_stance
             group: burghers
             stance: oppose
@@ -837,10 +837,10 @@ random_events:
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
-            value: 0.02
+            value: 0.05
           - type: estate_satisfaction
             estate: peasants_estate
-            value: -0.02
+            value: -0.05
       b:
         text:
           english: "The magistrate orders the whistle stopped."
@@ -852,7 +852,7 @@ random_events:
         effect_blocks:
           - type: resource
             resource: stability
-            amount: 1
+            amount: 2.5
           - type: seat_stance
             group: local_autonomy
             stance: oppose
