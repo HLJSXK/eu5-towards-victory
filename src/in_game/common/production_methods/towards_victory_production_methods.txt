@@ -91,10 +91,20 @@ tv_wonder_labor_camp_maintenance = {
 }
 
 tv_wonder_material_dispatch_point_production = {
-	lumber = 1.0
-	masonry = 0.7
-	glass = 0.4
-	marble = 0.2
+	lumber = 2
+	masonry = 1
+	glass = 1
+	marble = 0.4
+	produced = tv_wonder_materials
+	output = 2
+	category = building_maintenance
+}
+
+tv_wonder_material_dispatch_point_production_no_marble = {
+	lumber = 1
+	masonry = 0.5
+	glass = 0.5
+	stone = 1
 	produced = tv_wonder_materials
 	output = 1
 	category = building_maintenance
