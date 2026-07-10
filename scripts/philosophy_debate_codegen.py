@@ -2330,8 +2330,11 @@ def gen_world_debate_effects(lines: list[str], data: dict) -> None:
     emit(lines, 3, f"set_variable = {{ name = {WORLD_RESULT_VAR} value = {WORLD_RESULT_NEUTRAL} }}")
     emit(lines, 3, "tv_academy_world_debate_resolve_effect = yes")
     emit(lines, 2, "}")
+    # Keep the mirror inside the has_variable(active) gate: it still fires once on the
+    # resolution month (clearing every country), but skips the every_country walk entirely
+    # in the months no world debate is running at all.
+    emit(lines, 2, "tv_academy_world_debate_mirror_all_countries_effect = yes")
     emit(lines, 1, "}")
-    emit(lines, 1, "tv_academy_world_debate_mirror_all_countries_effect = yes")
     emit(lines, 0, "}")
     emit(lines)
 

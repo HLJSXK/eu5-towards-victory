@@ -142,6 +142,12 @@ tv_trade_league_update_all_monopolies_if_new_global_markets_effect = {
 COUNTRY_MONTHLY_PULSE_EFFECT = """\
 tv_trade_league_country_monthly_pulse_effect = {
 \thidden_effect = {
+\t\t# Only league leaders drive the monthly IO update (leader_country ?= below
+\t\t# never matches for non-leader members); gate on leadership first so the
+\t\t# every_international_organizations_member_of scan below is skipped entirely
+\t\t# for the vast majority of countries that lead no trade league.
+\t\tif = {
+\t\t\tlimit = { is_leader_of_international_organization_of_type = { type = tv_trade_league } }
 \t\tsave_scope_as = tv_trade_league_pulse_country
 \t\tevery_international_organizations_member_of = {
 \t\t\tlimit = {
@@ -209,6 +215,7 @@ tv_trade_league_country_monthly_pulse_effect = {
 \t\t\t\t\ttv_trade_league_suspend_virtual_supplies_effect = yes
 \t\t\t\t}
 \t\t\t}
+\t\t}
 \t\t}
 \t}
 }
