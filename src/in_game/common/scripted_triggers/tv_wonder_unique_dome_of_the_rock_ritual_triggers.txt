@@ -17,98 +17,24 @@ tv_wonder_dome_of_the_rock_active_trigger = {
 	has_variable = tv_wonder_ritual_in_progress
 }
 
-# -- tv_wonder_dome_of_the_rock_sanctuary_access_groups_row_completion_trigger ----------------------------------------------
-tv_wonder_dome_of_the_rock_sanctuary_access_groups_row_completion_trigger = {
-	has_variable = tv_wonder_dome_of_the_rock_sanctuary_access_groups_completed
-	var:tv_wonder_dome_of_the_rock_sanctuary_access_groups_completed ?= 1
-}
-
-# -- tv_wonder_dome_of_the_rock_sanctuary_access_groups_eligibility_trigger ----------------------------------------------
-tv_wonder_dome_of_the_rock_sanctuary_access_groups_eligibility_trigger = {
+# -- tv_wonder_dome_of_the_rock_eligibility_trigger ----------------------------------------------
+tv_wonder_dome_of_the_rock_eligibility_trigger = {
 	tv_wonder_dome_of_the_rock_active_trigger = yes
 	tv_wonder_dome_of_the_rock_site_control_trigger = yes
 }
 
-# -- tv_wonder_dome_of_the_rock_sanctuary_access_groups_has_contested_entity_trigger ----------------------------------------------
-tv_wonder_dome_of_the_rock_sanctuary_access_groups_has_contested_entity_trigger = {
+# -- tv_wonder_dome_of_the_rock_has_contested_entity_trigger ----------------------------------------------
+tv_wonder_dome_of_the_rock_has_contested_entity_trigger = {
 	OR = {
-		var:tv_wonder_dome_of_the_rock_sanctuary_access_groups_gate_wardens_status ?= 2
-		var:tv_wonder_dome_of_the_rock_sanctuary_access_groups_religious_jurists_status ?= 2
-		var:tv_wonder_dome_of_the_rock_sanctuary_access_groups_pilgrim_caravans_status ?= 2
-		var:tv_wonder_dome_of_the_rock_sanctuary_access_groups_local_notables_status ?= 2
-		var:tv_wonder_dome_of_the_rock_sanctuary_access_groups_supervised_witnesses_status ?= 2
+		var:tv_wonder_dome_of_the_rock_access_gate_wardens_status ?= 2
+		var:tv_wonder_dome_of_the_rock_access_religious_jurists_status ?= 2
+		var:tv_wonder_dome_of_the_rock_access_pilgrim_caravans_status ?= 2
+		var:tv_wonder_dome_of_the_rock_access_local_notables_status ?= 2
+		var:tv_wonder_dome_of_the_rock_access_supervised_witnesses_status ?= 2
+		var:tv_wonder_dome_of_the_rock_duty_gate_keys_status ?= 2
+		var:tv_wonder_dome_of_the_rock_duty_cisterns_status ?= 2
+		var:tv_wonder_dome_of_the_rock_duty_lamps_status ?= 2
+		var:tv_wonder_dome_of_the_rock_duty_endowment_deeds_status ?= 2
+		var:tv_wonder_dome_of_the_rock_duty_pilgrim_routes_status ?= 2
 	}
-}
-
-# -- tv_wonder_dome_of_the_rock_sanctuary_access_groups_gate_wardens_status_favorable_trigger ----------------------------------------------
-tv_wonder_dome_of_the_rock_sanctuary_access_groups_gate_wardens_status_favorable_trigger = {
-	var:tv_wonder_dome_of_the_rock_sanctuary_access_groups_gate_wardens_status ?= 1
-}
-
-# -- tv_wonder_dome_of_the_rock_sanctuary_access_groups_religious_jurists_status_favorable_trigger ----------------------------------------------
-tv_wonder_dome_of_the_rock_sanctuary_access_groups_religious_jurists_status_favorable_trigger = {
-	var:tv_wonder_dome_of_the_rock_sanctuary_access_groups_religious_jurists_status ?= 1
-}
-
-# -- tv_wonder_dome_of_the_rock_sanctuary_access_groups_pilgrim_caravans_status_favorable_trigger ----------------------------------------------
-tv_wonder_dome_of_the_rock_sanctuary_access_groups_pilgrim_caravans_status_favorable_trigger = {
-	var:tv_wonder_dome_of_the_rock_sanctuary_access_groups_pilgrim_caravans_status ?= 1
-}
-
-# -- tv_wonder_dome_of_the_rock_sanctuary_access_groups_local_notables_status_favorable_trigger ----------------------------------------------
-tv_wonder_dome_of_the_rock_sanctuary_access_groups_local_notables_status_favorable_trigger = {
-	var:tv_wonder_dome_of_the_rock_sanctuary_access_groups_local_notables_status ?= 1
-}
-
-# -- tv_wonder_dome_of_the_rock_sanctuary_access_groups_supervised_witnesses_status_favorable_trigger ----------------------------------------------
-tv_wonder_dome_of_the_rock_sanctuary_access_groups_supervised_witnesses_status_favorable_trigger = {
-	var:tv_wonder_dome_of_the_rock_sanctuary_access_groups_supervised_witnesses_status ?= 1
-}
-
-# -- tv_wonder_dome_of_the_rock_custody_duties_row_completion_trigger ----------------------------------------------
-tv_wonder_dome_of_the_rock_custody_duties_row_completion_trigger = {
-	has_variable = tv_wonder_dome_of_the_rock_custody_duties_completed
-	var:tv_wonder_dome_of_the_rock_custody_duties_completed ?= 1
-}
-
-# -- tv_wonder_dome_of_the_rock_custody_duties_eligibility_trigger ----------------------------------------------
-tv_wonder_dome_of_the_rock_custody_duties_eligibility_trigger = {
-	tv_wonder_dome_of_the_rock_active_trigger = yes
-	tv_wonder_dome_of_the_rock_site_control_trigger = yes
-}
-
-# -- tv_wonder_dome_of_the_rock_custody_duties_has_contested_entity_trigger ----------------------------------------------
-tv_wonder_dome_of_the_rock_custody_duties_has_contested_entity_trigger = {
-	OR = {
-		var:tv_wonder_dome_of_the_rock_custody_duties_gate_keys_status ?= 2
-		var:tv_wonder_dome_of_the_rock_custody_duties_cisterns_status ?= 2
-		var:tv_wonder_dome_of_the_rock_custody_duties_lamps_status ?= 2
-		var:tv_wonder_dome_of_the_rock_custody_duties_endowment_deeds_status ?= 2
-		var:tv_wonder_dome_of_the_rock_custody_duties_pilgrim_routes_status ?= 2
-	}
-}
-
-# -- tv_wonder_dome_of_the_rock_custody_duties_gate_keys_status_favorable_trigger ----------------------------------------------
-tv_wonder_dome_of_the_rock_custody_duties_gate_keys_status_favorable_trigger = {
-	var:tv_wonder_dome_of_the_rock_custody_duties_gate_keys_status ?= 1
-}
-
-# -- tv_wonder_dome_of_the_rock_custody_duties_cisterns_status_favorable_trigger ----------------------------------------------
-tv_wonder_dome_of_the_rock_custody_duties_cisterns_status_favorable_trigger = {
-	var:tv_wonder_dome_of_the_rock_custody_duties_cisterns_status ?= 1
-}
-
-# -- tv_wonder_dome_of_the_rock_custody_duties_lamps_status_favorable_trigger ----------------------------------------------
-tv_wonder_dome_of_the_rock_custody_duties_lamps_status_favorable_trigger = {
-	var:tv_wonder_dome_of_the_rock_custody_duties_lamps_status ?= 1
-}
-
-# -- tv_wonder_dome_of_the_rock_custody_duties_endowment_deeds_status_favorable_trigger ----------------------------------------------
-tv_wonder_dome_of_the_rock_custody_duties_endowment_deeds_status_favorable_trigger = {
-	var:tv_wonder_dome_of_the_rock_custody_duties_endowment_deeds_status ?= 1
-}
-
-# -- tv_wonder_dome_of_the_rock_custody_duties_pilgrim_routes_status_favorable_trigger ----------------------------------------------
-tv_wonder_dome_of_the_rock_custody_duties_pilgrim_routes_status_favorable_trigger = {
-	var:tv_wonder_dome_of_the_rock_custody_duties_pilgrim_routes_status ?= 1
 }

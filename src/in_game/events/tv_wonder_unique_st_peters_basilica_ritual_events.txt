@@ -15,8 +15,8 @@ tv_engineering_department.1678 = {
 
 	option = {
 		name = tv_engineering_department.1678.a
-		trigger = { tv_wonder_st_peters_basilica_sacred_official_candidates_eligibility_trigger = yes }
-		tv_wonder_st_peters_basilica_sacred_official_candidates_row_init_effect = yes
+		trigger = { tv_wonder_st_peters_basilica_eligibility_trigger = yes }
+		tv_wonder_st_peters_basilica_opening_effect = yes
 	}
 }
 
@@ -29,8 +29,27 @@ tv_engineering_department.1679 = {
 
 	option = {
 		name = tv_engineering_department.1679.a
-		trigger = { tv_wonder_st_peters_basilica_sacred_official_candidates_eligibility_trigger = yes }
-		tv_wonder_st_peters_basilica_sacred_official_candidates_row_state_write_effect = yes
+		tv_wonder_st_peters_basilica_choose_cardinal_administrator_effect = yes
+	}
+
+	option = {
+		name = tv_engineering_department.1679.b
+		tv_wonder_st_peters_basilica_choose_diocesan_bishop_effect = yes
+	}
+
+	option = {
+		name = tv_engineering_department.1679.c
+		tv_wonder_st_peters_basilica_choose_relic_custodian_effect = yes
+	}
+
+	option = {
+		name = tv_engineering_department.1679.d
+		tv_wonder_st_peters_basilica_choose_alms_prefect_effect = yes
+	}
+
+	option = {
+		name = tv_engineering_department.1679.e
+		tv_wonder_st_peters_basilica_choose_artist_canon_effect = yes
 	}
 }
 
@@ -43,14 +62,14 @@ tv_engineering_department.1680 = {
 
 	option = {
 		name = tv_engineering_department.1680.a
-		trigger = { tv_wonder_st_peters_basilica_sacred_official_candidates_has_contested_entity_trigger = yes }
-		tv_wonder_st_peters_basilica_sacred_official_candidates_reconcile_effect = yes
+		trigger = { tv_wonder_st_peters_basilica_has_scandal_trigger = yes }
+		tv_wonder_st_peters_basilica_scandal_correct_effect = yes
 	}
 
 	option = {
 		name = tv_engineering_department.1680.b
-		trigger = { tv_wonder_st_peters_basilica_sacred_official_candidates_has_contested_entity_trigger = yes }
-		tv_wonder_st_peters_basilica_sacred_official_candidates_narrow_effect = yes
+		trigger = { tv_wonder_st_peters_basilica_has_scandal_trigger = yes }
+		tv_wonder_st_peters_basilica_scandal_overlook_effect = yes
 	}
 }
 
@@ -63,68 +82,6 @@ tv_engineering_department.1681 = {
 
 	option = {
 		name = tv_engineering_department.1681.a
-		tv_wonder_st_peters_basilica_sacred_official_candidates_completion_effect = yes
-	}
-}
-
-# -- tv_engineering_department.1682 ----------------------------------------------
-tv_engineering_department.1682 = {
-	type = country_event
-	title = tv_engineering_department.1682.t
-	desc = tv_engineering_department.1682.d
-	outcome = neutral
-
-	option = {
-		name = tv_engineering_department.1682.a
-		trigger = { tv_wonder_st_peters_basilica_apostolic_service_duties_eligibility_trigger = yes }
-		tv_wonder_st_peters_basilica_apostolic_service_duties_row_init_effect = yes
-	}
-}
-
-# -- tv_engineering_department.1683 ----------------------------------------------
-tv_engineering_department.1683 = {
-	type = country_event
-	title = tv_engineering_department.1683.t
-	desc = tv_engineering_department.1683.d
-	outcome = neutral
-
-	option = {
-		name = tv_engineering_department.1683.a
-		trigger = { tv_wonder_st_peters_basilica_apostolic_service_duties_eligibility_trigger = yes }
-		tv_wonder_st_peters_basilica_apostolic_service_duties_row_state_write_effect = yes
-	}
-}
-
-# -- tv_engineering_department.1684 ----------------------------------------------
-tv_engineering_department.1684 = {
-	type = country_event
-	title = tv_engineering_department.1684.t
-	desc = tv_engineering_department.1684.d
-	outcome = neutral
-
-	option = {
-		name = tv_engineering_department.1684.a
-		trigger = { tv_wonder_st_peters_basilica_apostolic_service_duties_has_contested_entity_trigger = yes }
-		tv_wonder_st_peters_basilica_apostolic_service_duties_reconcile_effect = yes
-	}
-
-	option = {
-		name = tv_engineering_department.1684.b
-		trigger = { tv_wonder_st_peters_basilica_apostolic_service_duties_has_contested_entity_trigger = yes }
-		tv_wonder_st_peters_basilica_apostolic_service_duties_narrow_effect = yes
-	}
-}
-
-# -- tv_engineering_department.1685 ----------------------------------------------
-tv_engineering_department.1685 = {
-	type = country_event
-	title = tv_engineering_department.1685.t
-	desc = tv_engineering_department.1685.d
-	outcome = good
-
-	option = {
-		name = tv_engineering_department.1685.a
-		tv_wonder_st_peters_basilica_apostolic_service_duties_completion_effect = yes
 		tv_wonder_st_peters_basilica_ritual_grant_reward_effect = yes
 	}
 }

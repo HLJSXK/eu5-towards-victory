@@ -202,7 +202,7 @@ generated:
     output: src/in_game/common/on_action/tv_pulse_bridges.txt
 
   - script: scripts/in_game/common/on_action/gen_tv_cmf_suppressions.py
-    data:   data/cmf_warning_suppressions.yaml + data/trade_league_goods.yaml + data/locked_advances.yaml + data/victory_paths.yaml
+    data:   data/cmf_warning_suppressions.yaml + data/trade_league_goods.yaml + data/trade_chain.yaml + data/victory_paths.yaml + data/locked_advances.yaml
     output: src/in_game/common/on_action/tv_cmf_suppressions.txt
 
   - script: scripts/in_game/events/gen_tv_research_d_events.py
@@ -345,10 +345,6 @@ generated:
   - script: scripts/gen_unique_wonder_ritual_specs.py
     data:   data/unique_wonders.yaml + data/unique_wonder_ritual_designs.yaml + data/unique_wonder_ritual_prompts.yaml + data/wonder_localization.yaml + data/unique_wonder_ritual_codegen_templates.yaml + data/unique_wonder_ritual_capabilities.yaml
     output: data/unique_wonder_ritual_specs.yaml
-
-  - script: scripts/gen_unique_wonder_ritual_code.py
-    data:   data/unique_wonder_ritual_specs.yaml + data/wonder_localization.yaml + data/unique_wonder_ritual_codegen_templates.yaml + data/unique_wonder_ritual_capabilities.yaml
-    output: data/generated_fragments/unique_wonder_rituals/unique_wonder_ritual_codegen_index.md
 
   - script: scripts/in_game/common/scripted_effects/gen_tv_wonder_finalization_effects.py
     data:   data/wonders.yaml + data/wonder_final_buildings.yaml + data/wonder_generic_rituals.yaml + data/wonder_base_modifiers.yaml + data/wonder_site_rules.yaml + data/unique_wonders.yaml + data/pulse_registry.yaml

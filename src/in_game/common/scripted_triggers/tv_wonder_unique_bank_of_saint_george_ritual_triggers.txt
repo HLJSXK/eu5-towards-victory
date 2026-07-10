@@ -17,92 +17,20 @@ tv_wonder_bank_of_saint_george_active_trigger = {
 	has_variable = tv_wonder_ritual_in_progress
 }
 
-# -- tv_wonder_bank_of_saint_george_charter_options_row_completion_trigger ----------------------------------------------
-tv_wonder_bank_of_saint_george_charter_options_row_completion_trigger = {
-	has_variable = tv_wonder_bank_of_saint_george_charter_options_completed
-	var:tv_wonder_bank_of_saint_george_charter_options_completed ?= 1
-}
-
-# -- tv_wonder_bank_of_saint_george_charter_options_eligibility_trigger ----------------------------------------------
-tv_wonder_bank_of_saint_george_charter_options_eligibility_trigger = {
+# -- tv_wonder_bank_of_saint_george_eligibility_trigger ----------------------------------------------
+tv_wonder_bank_of_saint_george_eligibility_trigger = {
 	tv_wonder_bank_of_saint_george_active_trigger = yes
 	tv_wonder_bank_of_saint_george_site_control_trigger = yes
 }
 
-# -- tv_wonder_bank_of_saint_george_charter_options_has_contested_entity_trigger ----------------------------------------------
-tv_wonder_bank_of_saint_george_charter_options_has_contested_entity_trigger = {
+# -- tv_wonder_bank_of_saint_george_has_distrusted_pledge_trigger ----------------------------------------------
+tv_wonder_bank_of_saint_george_has_distrusted_pledge_trigger = {
 	OR = {
-		var:tv_wonder_bank_of_saint_george_charter_options_creditor_privilege_status ?= 2
-		var:tv_wonder_bank_of_saint_george_charter_options_crown_supervision_status ?= 2
-		var:tv_wonder_bank_of_saint_george_charter_options_open_merchant_access_status ?= 2
+		var:tv_wonder_bank_of_saint_george_pledge_old_war_debts_status ?= 2
+		var:tv_wonder_bank_of_saint_george_pledge_customs_dues_status ?= 2
+		var:tv_wonder_bank_of_saint_george_pledge_salt_tax_status ?= 2
+		var:tv_wonder_bank_of_saint_george_pledge_port_tolls_status ?= 2
+		var:tv_wonder_bank_of_saint_george_pledge_coin_assays_status ?= 2
+		var:tv_wonder_bank_of_saint_george_pledge_archive_volumes_status ?= 2
 	}
-}
-
-# -- tv_wonder_bank_of_saint_george_charter_options_creditor_privilege_status_favorable_trigger ----------------------------------------------
-tv_wonder_bank_of_saint_george_charter_options_creditor_privilege_status_favorable_trigger = {
-	var:tv_wonder_bank_of_saint_george_charter_options_creditor_privilege_status ?= 1
-}
-
-# -- tv_wonder_bank_of_saint_george_charter_options_crown_supervision_status_favorable_trigger ----------------------------------------------
-tv_wonder_bank_of_saint_george_charter_options_crown_supervision_status_favorable_trigger = {
-	var:tv_wonder_bank_of_saint_george_charter_options_crown_supervision_status ?= 1
-}
-
-# -- tv_wonder_bank_of_saint_george_charter_options_open_merchant_access_status_favorable_trigger ----------------------------------------------
-tv_wonder_bank_of_saint_george_charter_options_open_merchant_access_status_favorable_trigger = {
-	var:tv_wonder_bank_of_saint_george_charter_options_open_merchant_access_status ?= 1
-}
-
-# -- tv_wonder_bank_of_saint_george_public_credit_pledges_row_completion_trigger ----------------------------------------------
-tv_wonder_bank_of_saint_george_public_credit_pledges_row_completion_trigger = {
-	has_variable = tv_wonder_bank_of_saint_george_public_credit_pledges_completed
-	var:tv_wonder_bank_of_saint_george_public_credit_pledges_completed ?= 1
-}
-
-# -- tv_wonder_bank_of_saint_george_public_credit_pledges_eligibility_trigger ----------------------------------------------
-tv_wonder_bank_of_saint_george_public_credit_pledges_eligibility_trigger = {
-	tv_wonder_bank_of_saint_george_active_trigger = yes
-	tv_wonder_bank_of_saint_george_site_control_trigger = yes
-}
-
-# -- tv_wonder_bank_of_saint_george_public_credit_pledges_has_contested_entity_trigger ----------------------------------------------
-tv_wonder_bank_of_saint_george_public_credit_pledges_has_contested_entity_trigger = {
-	OR = {
-		var:tv_wonder_bank_of_saint_george_public_credit_pledges_old_war_debts_status ?= 2
-		var:tv_wonder_bank_of_saint_george_public_credit_pledges_customs_dues_status ?= 2
-		var:tv_wonder_bank_of_saint_george_public_credit_pledges_salt_tax_status ?= 2
-		var:tv_wonder_bank_of_saint_george_public_credit_pledges_port_tolls_status ?= 2
-		var:tv_wonder_bank_of_saint_george_public_credit_pledges_coin_assays_status ?= 2
-		var:tv_wonder_bank_of_saint_george_public_credit_pledges_archive_volumes_status ?= 2
-	}
-}
-
-# -- tv_wonder_bank_of_saint_george_public_credit_pledges_old_war_debts_status_favorable_trigger ----------------------------------------------
-tv_wonder_bank_of_saint_george_public_credit_pledges_old_war_debts_status_favorable_trigger = {
-	var:tv_wonder_bank_of_saint_george_public_credit_pledges_old_war_debts_status ?= 1
-}
-
-# -- tv_wonder_bank_of_saint_george_public_credit_pledges_customs_dues_status_favorable_trigger ----------------------------------------------
-tv_wonder_bank_of_saint_george_public_credit_pledges_customs_dues_status_favorable_trigger = {
-	var:tv_wonder_bank_of_saint_george_public_credit_pledges_customs_dues_status ?= 1
-}
-
-# -- tv_wonder_bank_of_saint_george_public_credit_pledges_salt_tax_status_favorable_trigger ----------------------------------------------
-tv_wonder_bank_of_saint_george_public_credit_pledges_salt_tax_status_favorable_trigger = {
-	var:tv_wonder_bank_of_saint_george_public_credit_pledges_salt_tax_status ?= 1
-}
-
-# -- tv_wonder_bank_of_saint_george_public_credit_pledges_port_tolls_status_favorable_trigger ----------------------------------------------
-tv_wonder_bank_of_saint_george_public_credit_pledges_port_tolls_status_favorable_trigger = {
-	var:tv_wonder_bank_of_saint_george_public_credit_pledges_port_tolls_status ?= 1
-}
-
-# -- tv_wonder_bank_of_saint_george_public_credit_pledges_coin_assays_status_favorable_trigger ----------------------------------------------
-tv_wonder_bank_of_saint_george_public_credit_pledges_coin_assays_status_favorable_trigger = {
-	var:tv_wonder_bank_of_saint_george_public_credit_pledges_coin_assays_status ?= 1
-}
-
-# -- tv_wonder_bank_of_saint_george_public_credit_pledges_archive_volumes_status_favorable_trigger ----------------------------------------------
-tv_wonder_bank_of_saint_george_public_credit_pledges_archive_volumes_status_favorable_trigger = {
-	var:tv_wonder_bank_of_saint_george_public_credit_pledges_archive_volumes_status ?= 1
 }

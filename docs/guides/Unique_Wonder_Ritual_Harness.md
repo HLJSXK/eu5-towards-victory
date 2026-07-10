@@ -3,368 +3,51 @@
 Use this Harness when authoring bespoke rituals for `data/unique_wonders.yaml`.
 The goal is to push AI authors toward high-innovation, wonder-specific ritual design,
 not to compress every design into a few fixed mechanism shapes. Design fidelity comes
-before current codegen convenience. Each batch should preserve the full playable design
-first, then map only the verified projection into the current Harness graph or generator.
+before implementation convenience.
 
-## Current Phase Freeze
+## History: the retired source-compiler ceremony
 
-The Harness design-carrying phase is complete: all 123 unique-wonder ritual designs are carried
-by the Harness intermediate layer. Current counts are `compiler_mapped=117`,
-`source_codegen_ready=4`, `implemented_parity=2`, `stub=0`, `harness_generated=0`, and
-registry/codegen `may_write_src=0`.
+An earlier version of this Harness spent 40+ commits building a "no-write" source-compiler
+pipeline (`node_graph` DSL -> capability/archetype contracts -> a chain of evidence/preview/
+readiness-ledger/bundle-gate layers) that was meant to eventually generate loadable EU5
+source automatically. It never did: after all that scaffolding, 0/123 specs ever reached
+real source through it, and its one real attempt to write source (an Alhambra vertical
+slice) produced an unrelated generic 8-event skeleton with `always = yes` triggers — not
+usable content. Roughly 22,700 lines of that ceremony (everything downstream of spec/
+node_graph schema validation) have been deleted, along with the codegen script and test
+suite built around it. **The design corpus was not deleted** — every spec's `design_ir`,
+`mechanic_signature`, `cadence_signature`, and `compiler_gap_ledger` in
+`data/unique_wonder_ritual_specs.yaml` remains intact and is still the design source of
+truth. What changed is how a spec becomes real source: by hand-writing it, not by waiting
+for a generator that was never finished.
 
-`compiler_mapped` is not source-ready. It only means the design has a current semantic
-`node_graph` projection. The source generation stage has not started, `source_codegen_ready`
-remains limited to the four intermediate-fragment pilots, and v1 codegen may only emit
-intermediate Markdown fragments under `data/generated_fragments/unique_wonder_rituals/`.
-Every template, capability, and archetype contract must keep `may_write_src: false`.
+## How specs become real source
 
-The 17 design-matrix future gaps are the next source compiler / EU5 verification backlog.
-Keep them in the matrix and explain them; do not delete or flatten them just to clear the
-matrix warning.
-
-## Next Phase Boundary
-
-The next phase is source-compiler planning and EU5 interface verification, not another
-full-corpus design or semantic-projection pass. Treat the existing 123 specs as the design
-corpus to preserve. Work should start from `compiler_gap_ledger.search_questions`, the
-17 matrix future-gap rows, and the four intermediate-fragment pilots, then prove concrete
-source interfaces before any readiness promotion.
-
-Do not promote additional specs to `source_codegen_ready`, legacy `implementation_ready`,
-or `harness_generated` merely because their `node_graph` validates. Do not set any
-template, capability, archetype, or generator path to `may_write_src: true` until a later
-source-writer contract has exact EU5 syntax evidence, generator ownership, source-target
-boundaries, validation coverage, and rollback-free lifecycle semantics.
-
-For each next-phase audit, report whether the current work preserves the high-fidelity
-`design_ir` or has flattened it. Any proposed source compiler primitive must name the
-required EU5 files/interfaces, evidence paths, owned generator/data contracts, validation
-gate, and the specs it would unlock.
-
-## Source Compiler Vertical Slice: Repeated Entity Rows
-
-The first source-compiler contract slice is the repeated entity row family:
-checklist rows, incident-log rows, and closely related material/route/actor row summaries.
-It is shared by all four intermediate-fragment pilots:
-
-- `unique_dome_of_the_rock`: sanctuary access group incident rows and custody-duty checklist rows.
-- `unique_alhambra`: treaty-clause checklist rows and palace-risk incident rows.
-- `unique_st_peters_basilica`: sacred-official actor state plus apostolic service-duty incident rows.
-- `unique_bank_of_saint_george`: charter-option checklist rows and public-credit pledge/default-risk incident rows.
-
-For this slice, `design_ir.tracked_entity_sets` is the canonical source for row keys,
-state values, per-row variables, selectors, UI bindings, and cleanup expectations. The
-current `node_graph` may summarize those rows through aggregate variables, but that
-projection is intentionally lossy and must not replace the high-fidelity row design.
-
-Current evidence supports only contract preparation. Pharos proves that bespoke generated
-source can write per-entity variables and render repeated GUI rows, and
-`repeated_entity_row_checklist_incident_log_backend` proves the Harness can preserve these
-semantics as intermediate summaries. Neither one proves that the Harness can write
-loadable EU5 GUI, event, effect, trigger, localization, or cleanup source for arbitrary
-ritual row sets.
-
-The Harness repeated-row preflight is a source-compiler pre-check, not a source writer.
-It inventories `design_ir.tracked_entity_sets`, current lossy `node_graph` projection
-variables, UI bindings, and source-writer blockers so the contract is machine-checkable.
-It must not write `src/`, set `may_write_src: true`, promote specs, or treat aggregate
-`node_graph.variables` as a replacement for per-row design semantics.
-
-The repeated-row source-plan contract is the next pre-source-writer layer. It converts
-preflight blockers into planned event, scripted-effect, scripted-trigger, GUI,
-localization, cleanup, and Alhambra-only listener artifacts with owner-generator names,
-EU5 interface candidates, source-target boundaries, row-set keys, entity keys, and
-aggregate projection variables. These artifacts are planning data only: every artifact
-must keep `may_write_src: false`, block the future source writer, and name missing
-generator ownership or EU5 evidence instead of claiming generated source readiness.
-For the event, scripted-effect, cleanup, scripted-trigger, GUI, and localization artifact
-families, structured evidence mappings record EU5 syntax candidates, source paths, and
-generator candidates. GUI mappings are interface candidates for repeated checklist,
-incident-log, and actor-slot rows only: they prove fixed generated row widgets,
-visibility expressions, per-row variable reads, localized text keys, and actor/action
-slot patterns, but still require `design_ir.tracked_entity_sets` per-row semantics and
-cannot read only aggregate projection variables. Localization mappings are interface
-candidates for row labels, status text, incident text, tooltips, and summary text only:
-the existing bilingual generators prove English/Simplified Chinese source boundaries,
-`loc_line()` quote/newline escaping, and UTF-8 BOM output, but do not assign repeated-row
-loc keys or authorize a localization source writer.
-Listener mappings are Alhambra-only war listener interface candidates: the existing
-`on_pre_winning_war` / `on_ending_war` registry bridge, selected-ritual scripted triggers,
-and completion handoff prove a possible listener interface for the Alhambra war-validation
-branch, not loadable Alhambra source generation. They still lack source writer ownership,
-source-target boundary validation, and an Alhambra row-state write contract, so they must
-remain `may_write_src: false` and must not write `src/`.
-Event mappings prove only interface candidates for country-event skeletons, event ID
-allocation patterns, title/desc/option localization linkage, option-effect handoff, and
-hidden-executor/tooltip safety boundaries; those mappings are still source-writer blockers
-and do not authorize `src/` writes.
-Repeated-row event source-target contracts are the machine-checkable preflight layer for
-that boundary. They name the `tv_engineering_department` namespace, spec `event_ids`,
-`node_graph.nodes[].event_id`, `tv_engineering_department.<event_id>.t/d/a(/b)`
-localization policy, and future event file pattern
-`src/in_game/events/tv_wonder_unique_<wonder_key>_ritual_events.txt`, but those are
-boundary validations only. The future target path is not a source generator, event options
-may only declare future effect handoff, and no event contract may inline row-state writes,
-set `may_write_src: true`, unblock `source_writer_allowed`, or write `src/`.
-The repeated-row source preview compiler is an additive dry-run layer on top of the
-source-plan. It may render structured event skeleton previews, localization key-plan
-previews, scripted-effect name/target plans, cleanup scope/coverage plans,
-scripted-trigger condition-group plans, GUI row contract previews, and the Alhambra-only
-listener hook contract preview for review, using only existing spec event IDs,
-`node_graph.nodes[].event_id`, row-set keys, entity keys, aggregate projection refs, and
-future target path contracts. It never writes `src/`, never assigns new IDs, never emits
-loadable EU5 effect/cleanup/trigger, GUI, or on_action/listener bodies, never authorizes
-row-state writes or unsafe tooltip write paths, and never upgrades contracts or specs to
-source-ready. The current repeated-row source preview coverage is closed at 177/177:
-event=32, localization=40, scripted-effect=40, cleanup=32, scripted-trigger=24, GUI=8,
-and listener=1, with no skipped artifact kinds.
-The repeated-row source-writer readiness evidence ledger is the next no-write layer after
-that closed preview. It matches every source-plan artifact to its source-preview artifact
-and records the remaining evidence chain for EU5 syntax, generator ownership,
-source-target boundaries, validation coverage, and lifecycle semantics. The ledger is a
-machine-checkable blocker report, not a promotion gate: it keeps all 177 artifacts
-blocked, keeps `ready_artifact_count=0`, records unresolved writer blockers, and treats
-local paths/generator references as `interface_candidate` evidence unless a later task
-adds a complete verified source-writer contract. It does not generate `src/`, does not set
-`may_write_src: true`, does not enable `source_writer_allowed`, and does not promote
-`source_codegen_ready`, `implementation_ready`, `harness_generated`, or any equivalent
-source-ready status.
-Each readiness artifact also carries a `no_write_source_writer_contract_evidence` block
-for review. That block must name explicit future `src/` target path(s), the planned owner
-generator and generator candidate evidence, EU5 syntax evidence paths, the exact
-validation commands for this no-write layer, validation refs, and the still-blocking
-source-writer reasons. It is evidence only: `source_writer_allowed`, `may_write_src`, and
-`writes_src` must remain `false` for event, localization, scripted-effect, cleanup,
-scripted-trigger, GUI, and Alhambra-only listener families.
-The repeated-row source bundle preview is an additional no-write source compiler
-prototype on top of that readiness ledger. It groups the 177 closure contracts into the
-four repeated-row pilot bundles and their event, localization, scripted-effect, cleanup,
-scripted-trigger, GUI, and listener sections so future source-writer evidence can be
-reviewed as machine-readable dry-run data. It is not a source writer, not loadable EU5
-source, and not permission for AI-generated source code: event/localization sections may
-reuse existing body/key-plan previews, while scripted-effect, cleanup, scripted-trigger,
-GUI, and Alhambra listener sections must remain source-body placeholders with
-`contract_only: true`, `body_emitted: false`, `source_ready: false`, `may_write_src:
-false`, `writes_src: false`, and `source_writer_allowed: false`. Non-Alhambra pilots must
-record explicit listener-artifact absence instead of inventing listener artifacts.
-The Alhambra source body candidate is the first no-write source-body vertical slice on top
-of that bundle preview. It selects only the `unique_alhambra` bundle, keeps the full
-seven-family shape, and presents 45 event, localization, scripted-effect, cleanup,
-scripted-trigger, GUI, and listener body candidates for review. Event and localization
-reuse the existing body/key-plan previews; scripted-effect, cleanup, scripted-trigger,
-GUI, and listener entries are EU5-shaped structured drafts only. Every candidate must keep
-`candidate_only: true`, `contract_only: true`, `source_ready: false`, `body_emitted:
-false`, `may_write_src: false`, `writes_src: false`, and `source_writer_allowed: false`.
-The listener candidate remains Alhambra-only and must carry the on_action hook linkage,
-selected-ritual trigger linkage, and war-scope persistence plan. This vertical slice is
-not source-ready evidence, not loadable EU5 source, and not permission to write `src/`.
-The Alhambra source file preview is the target-file-level no-write layer above that body
-candidate. It must derive only from
-`repeated_entity_row_alhambra_source_body_candidate_for_payload(...)` and groups the same
-45 Alhambra body candidates into seven future target-file previews: events,
-scripted-effects/cleanup, scripted-triggers, GUI, on_action listener, English
-localization, and Simplified Chinese localization. Localization must expand the existing
-`<lang>` contract into separate English and Simplified Chinese target paths with an
-explicit language boundary. Every file preview keeps `candidate_only: true`,
-`contract_only: true`, `body_emitted: false`, `source_ready: false`, `may_write_src:
-false`, `writes_src: false`, and `source_writer_allowed: false`, and preserves unresolved
-blockers plus validation refs from the body candidates. The preview is still contract
-evidence only; it does not emit file bodies, authorize a source writer, or write `src/`.
-The Alhambra source-file validation evidence pack is the no-write validation layer above
-those seven previews. It must derive only from
-`repeated_entity_row_alhambra_source_file_preview_for_payload(...)` and emits one
-evidence pack per future target file, preserving the same 45 unique Alhambra source-body
-artifacts. Each pack records repo-local syntax/reference paths, candidate generator
-ownership, a blocked source-target boundary, validation requirements, and unresolved
-blockers. Evidence statuses may only be `interface_candidate` or `blocked`; the pack may
-not claim `verified`, `backend_ready`, `source_ready`, `source_writer_allowed`, or any
-`may_write_src`/`writes_src` permission. Localization evidence must keep English and
-Simplified Chinese target files separate, and the Alhambra listener evidence must retain
-hook linkage, selected-ritual trigger linkage, and war-scope boundary evidence.
-The Alhambra source generator contract is the no-write ownership/emitter interface layer
-above that validation evidence. It must derive only from
-`repeated_entity_row_alhambra_source_file_validation_evidence_for_payload(...)` and emits
-one contract for each of the seven Alhambra target files. Each contract records the
-target path, families, artifact count, evidence pack reference, owner generator,
-`generator_interface_status`, a real source-file-level generator interface draft, input
-data shape, output artifact family, verification commands, required validations, remaining
-blockers, and the same blocked source-target boundary. Each file-level contract must also
-carry an independent `source_body_candidate_ref_provenance` snapshot derived from the
-source-file validation evidence's canonical `source_body_candidate_refs` key set. The
-validator must use that snapshot, not the mutable contract refs, to check
-`contract.source_body_candidate_refs`, `input_data_shape`, `output_artifact_family`, and
-the source-file `no_write_source_writer_contract_evidence`. Each file-level contract also
-carries a `no_write_source_writer_contract_evidence` block that repeats the draft
-interface, input shape, output family, provenance snapshot, validation command list, and
-still-blocked reasons for that exact future target file. `planned_source_writer_exists`
-may advance only to the string `interface_contract_exists`; it must not become
-source-writer permission. The only generator interface statuses are `contract_drafted` and `blocked`, while
-`source_target_boundary.status` remains `blocked`. The contract must keep
-`source_ready: false`, `verified: false`, `backend_ready: false`,
-`source_writer_allowed: false`, `may_write_src: false`, and `writes_src: false`.
-Localization contracts must keep English and Simplified Chinese target files separate,
-and the listener contract must retain hook linkage, selected-trigger linkage, and
-war-scope linkage.
-The Alhambra source generator interface prototypes are dry-run callable interface layers
-above that contract. The event target derives from the event generator contract and
-external source-file validation evidence, exposes exactly one event-family interface, and
-emits exactly eight in-memory/report-level `source_file_contract_artifacts` for the future
-Alhambra event target. The shared scripted-effect/cleanup target derives from the
-scripted-effect target contract and external source-file validation evidence, exposes
-exactly one `scripted_effect_cleanup` interface, and emits exactly eighteen
-in-memory/report-level artifacts while preserving the `cleanup=8` / `effect=10` family
-split. The scripted-trigger target derives from the trigger generator contract and
-external source-file validation evidence, exposes exactly one trigger-family interface,
-and emits exactly six in-memory/report-level artifacts for
-`src/in_game/common/scripted_triggers/tv_wonder_unique_alhambra_ritual_triggers.txt`.
-The GUI target derives from the GUI target contract and external source-file validation
-evidence, exposes exactly one GUI-family dry-run interface, and emits exactly two
-in-memory/report-level artifacts for
-`src/in_game/gui/panels/organization/tv_wonder_unique_alhambra_ritual.gui`: the
-`gui_checklist_row` contract for `treaty_clause_register` and the
-`gui_incident_log_row` contract for `palace_risk_points`. This GUI interface must keep
-`listener_interface_declared: false` and must not declare or imply an Alhambra listener
-interface.
-The listener-family target derives from the listener target contract and external
-source-file validation evidence, exposes exactly one listener-family dry-run interface,
-and emits exactly one in-memory/report-level `listener_war_integration` artifact for
-`src/in_game/common/on_action/tv_wonder_unique_alhambra_ritual_on_actions.txt`. That
-artifact must preserve `on_pre_winning_war` / `on_ending_war` hook linkage, selected
-ritual trigger linkage, and war-scope boundary evidence from the external validation
-pack while keeping the listener body, listener-scope writes, war-scope writes, and source
-writes forbidden.
-The localization-family target derives from the separate English and Simplified Chinese
-localization target contracts and their separate external source-file validation evidence
-packs, exposes one dry-run interface per language target, and emits exactly ten
-in-memory/report-level localization artifacts for
-`src/main_menu/localization/english/tv_wonder_unique_alhambra_ritual_l_english.yml`
-plus exactly ten for
-`src/main_menu/localization/simp_chinese/tv_wonder_unique_alhambra_ritual_l_simp_chinese.yml`.
-All six interface validators must bind those artifacts back to external source-file validation
-evidence rather than trusting the report alone. They must keep
-`output_is_loadable_source: false`, `body_emitted: false`, `source_ready: false`,
-`verified: false`, `backend_ready: false`, `source_writer_allowed: false`,
-`may_write_src: false`, and `writes_src: false`, and they must not write `src/` or
-promote any spec readiness state.
-The Alhambra source generator interface bundle gate sits above those six validators and
-only aggregates their reports. It must verify all seven target files, all six interface
-groups, and exactly fifty-five report-only artifacts: event 8, scripted-effect/cleanup
-18, trigger 6, GUI 2, listener 1, and localization 20. The gate must recompute coverage
-against external source-file validation evidence plus the source-generator contract; it
-must not trust mutable report fields. It must reject missing interface groups,
-duplicate or missing targets, artifact-count drift, missing listener linkage, merged
-English/Simplified Chinese localization targets, any nested `may_write_src: true`, any
-source body emission, and any `implementation_ready` or `harness_generated` promotion.
-The event and localization vertical slices in that ledger are closure contracts only.
-They add machine-checkable event body preview and localization key-contract evidence for
-the four repeated-row pilots, but still keep `may_write_src: false`, `writes_src: false`,
-`source_writer_allowed: false`, and `readiness_status: blocked`. They do not grant source
-generation permission, do not assign new event IDs or localization files, do not write
-`src/`, and do not promote any spec or artifact to source-ready.
-The scripted-effect, cleanup, and scripted-trigger vertical slices are also closure
-contracts in the readiness ledger. They close state and condition semantics for row
-initialization, row-state write boundaries, branch writes, aggregate refreshes, cleanup
-handoffs, completion/failure/ownership-loss/reset cleanup, eligibility checks,
-row-completion checks, and tooltip-safe condition groups. They still only describe
-future target paths and forbidden write contexts; they do not enable a source writer, do
-not emit scripted effect or scripted trigger bodies, and do not authorize tooltip or
-pre-evaluation contexts to call unsafe write paths.
-The GUI and listener vertical slices are now closure contracts in the same readiness
-ledger, not source-generation permission. GUI closures close only the repeated-row UI
-source-writer boundary: fixed row widget plans, per-row variable binding plans,
-checklist/incident-log/actor-slot row policies, tooltip localization linkage,
-GUI/event/localization key linkage, aggregate projection boundaries, and the future
-`src/in_game/gui/panels/organization/tv_wonder_unique_<wonder_key>_ritual.gui` target
-path. They explicitly forbid aggregate-only UI, GUI source body emission, GUI source
-writes, row-state writes, and any ready/source-ready claim. The Alhambra listener closure
-closes only the listener source-writer boundary: the Alhambra-only scope, future
-`src/in_game/common/on_action/tv_wonder_unique_<wonder_key>_ritual_on_actions.txt`
-target path, `on_pre_winning_war`/`on_ending_war` hook linkage, selected ritual trigger
-linkage, war-scope availability/persistence planning, and row-state handoff boundary.
-It does not emit listener bodies, authorize listener or war-scope writes, or permit
-source generation.
-Repeated-row scripted-effect and cleanup source-target contracts are the matching
-source-writer preflight layer for `common/scripted_effects`. They name the future
-scripted-effect file pattern
-`src/in_game/common/scripted_effects/tv_wonder_unique_<wonder_key>_ritual_effects.txt`
-and keep separate `effect` and `cleanup` contract families, including distinct cleanup
-scopes for completion, failure, ownership loss, and ritual reset. These contracts verify
-only future boundaries, row-state writer/reader responsibility, aggregate projection
-boundaries, cleanup coverage, and blocker reasons. They are not scripted-effect source
-generators, do not emit effect bodies, do not authorize row-state write schemas, and do
-not write `src/`.
-Repeated-row scripted-trigger source-target contracts are the preflight layer for
-`common/scripted_triggers`, not scripted-trigger source generators. They name only the
-future trigger file pattern
-`src/in_game/common/scripted_triggers/tv_wonder_unique_<wonder_key>_ritual_triggers.txt`
-and verify trigger-name uniqueness, row-completion linkage, eligibility input coverage,
-tooltip-safe scope boundaries, aggregate projection responsibility, and blocker reasons.
-They do not generate trigger bodies, do not allow tooltip-safe groups to call unsafe
-effect/write paths, do not replace `design_ir.tracked_entity_sets` row/entity semantics,
-and do not write `src/`.
-Repeated-row GUI source-target contracts are source-writer prerequisites for
-`in_game/gui/panels/organization`, not GUI source generators. They name only the future
-GUI file pattern
-`src/in_game/gui/panels/organization/tv_wonder_unique_<wonder_key>_ritual.gui` and
-validate fixed row widget boundaries, per-row variable bindings, actor/checklist/incident
-row policies, tooltip/key linkage, and aggregate projection boundaries. They do not emit
-GUI widgets, do not authorize GUI source writes, do not allow row-state writes, cannot
-replace `design_ir.tracked_entity_sets`, and cannot flatten repeated rows into
-aggregate-only displays.
-Repeated-row localization source-target contracts are source-writer prerequisites for
-`main_menu/localization`, not localization source generators. They name only the future
-localization file pattern
-`src/main_menu/localization/<lang>/tv_wonder_unique_<wonder_key>_ritual_l_<lang>.yml`
-and validate English plus Simplified Chinese coverage, loc key namespaces,
-`loc_line()` quote/newline escaping, UTF-8 BOM output, row/status/incident/tooltip/summary
-coverage, and GUI/event key linkage. They do not write localization files, do not
-authorize missing bilingual coverage or unsafe quote/newline handling, and do not write
-`src/`.
-Preview localization entries are likewise contract previews only: they list bilingual row
-label, status, incident, tooltip, and summary keys under the repeated-row namespace and
-mirror the existing `loc_line()` escaping/BOM policy without claiming file output.
-Scripted-effect, cleanup, scripted-trigger, GUI, and listener previews are also
-dry-run/no-write review artifacts: they list future target paths, future names or scopes,
-row/entity refs, aggregate boundaries, handoff responsibility, lifecycle coverage,
-tooltip-safe predicate plans, fixed GUI row widget and per-row binding plans,
-tooltip/localization and GUI/event linkages, Alhambra war hook linkage, selected-ritual
-trigger linkage, war-scope availability, and blocker reasons. They do not generate source
-bodies, do not authorize `src/` writes, do not produce loadable EU5 GUI/on_action source,
-and do not raise `source_codegen_ready`, `implementation_ready`, `harness_generated`, or
-any other spec readiness.
-The Alhambra-only listener source-target contract is the same kind of source-writer
-prerequisite for `common/on_action`. It names only the future on_action file pattern
-`src/in_game/common/on_action/tv_wonder_unique_<wonder_key>_ritual_on_actions.txt` and
-validates the future hook linkage, listener scope availability, selected-ritual trigger
-linkage, row-state handoff boundary, war-listener scope responsibility, and blocker
-reasons. The on_action bridge remains an interface candidate only; the contract does not
-generate listener bodies, does not authorize listener or war scope writes, and does not
-write `src/`.
-
-A future row-set compiler interface must assign ownership before any source-writing claim:
-
-- data ownership: `design_ir.tracked_entity_sets` owns row keys, labels, states, variable
-  patterns, UI binding, and cleanup point;
-- events generator: owns row-state initialization/update event skeletons only after event
-  IDs are allocated;
-- scripted effects generator: owns row variable writes, aggregate refreshes, branch-state
-  writes, and cleanup effects;
-- scripted triggers generator: owns row completion/eligibility checks and tooltip-safe
-  condition groups;
-- GUI fragment generator: owns fixed repeated checklist/incident rows, starting from the
-  verified Pharos-style expansion pattern;
-- localization generator: owns row labels, status text, incident text, tooltips, and
-  summary text;
-- on_action/listener registry integration: participates only for listener-backed row sets,
-  such as Alhambra's war listener contract;
-- validation: rejects missing row variables, missing writers/readers, missing GUI rows,
-  missing localization, unsafe tooltip paths, missing cleanup, and row/UI mismatches.
-
-Until that interface exists and is verified against exact EU5 syntax, the Harness may only
-emit intermediate row-set summaries, trigger/effect stubs, GUI summaries, and tooltip notes.
-Do not set `may_write_src: true` for this slice, do not write `src/`, and do not treat
-`backend_ready` repeated-row gaps as loadable-source readiness.
+1. Read the wonder's `design_ir`, `mechanic_signature`, and `cadence_signature` in
+   `data/unique_wonder_ritual_specs.yaml` (see Spec Contract below for the schema).
+2. Hand-write a bespoke content module under `scripts/unique_wonder_ritual_content/<key>.py`
+   that implements that specific mechanic, following the pattern in
+   `scripts/gen_unique_wonder_rituals.py` (the single generation pipeline for implemented
+   wonders). `scripts/unique_wonder_ritual_content/_entity_ritual.py` is a legitimate shared
+   helper for wonders whose `design_ir.tracked_entity_sets` genuinely fits a repeated-entity-
+   row shape (per-entity status, checklist/incident-log UI) — reuse it when a wonder's design
+   actually calls for that shape, but it must not become the default shape for every wonder
+   regardless of design. Perform the 3-Step Resolution Rule for any EU5 syntax not already
+   proven elsewhere in the mod before writing.
+3. Regenerate via `scripts/gen_unique_wonder_rituals.py --write`.
+4. Add English + Simplified Chinese localization for any new event/option text.
+5. Run `scripts/validate.py --changed --fix` (0 errors/warnings expected).
+6. **Run `scripts/audit_unique_wonder_ritual_mechanic_similarity.py`** — this is the
+   mandatory post-batch gate that replaces the old ceremony. It statically compares the
+   generated `scripted_effects`/`scripted_triggers` source across every implemented wonder
+   after normalizing away wonder-specific naming, so that two rituals built from the same
+   underlying mechanic template (just with different entity names swapped in) show up as
+   highly similar. Flag and address any pair scoring `combined_ratio >= 0.15` against
+   another implemented wonder, or sharing an identical `random_list` weight tuple 3+ times —
+   both thresholds are empirically justified against the known case (Alhambra / Dome of the
+   Rock / Bank of Saint George / St. Peter's Basilica all reusing `_entity_ritual.py`) and
+   documented in the script's own `--help`. Do not raise the threshold without re-checking
+   the gap on current data.
 
 ## Full-Corpus Authoring Workflow
 
@@ -380,7 +63,7 @@ For any full-corpus pass across all unique wonders, start with
 - Freeze or review the mechanism allocation in the matrix before spec conversion.
 - Only after matrix review should an authoring pass create formal entries in
   `data/unique_wonder_ritual_specs.yaml`, and those specs must still pass the
-  existing Harness audit and codegen checks.
+  existing Harness audit and spec-quality checks.
 - Do not bypass the matrix to bulk-write all unique wonder specs directly.
 
 ## Batch Rule
@@ -388,16 +71,14 @@ For any full-corpus pass across all unique wonders, start with
 - Work on 1-5 unique wonders per pass.
 - Start from `data/unique_wonders.yaml`, `data/unique_wonder_ritual_designs.yaml`,
   `data/unique_wonder_ritual_prompts.yaml`, and `data/wonder_localization.yaml`.
-- Update `data/unique_wonder_ritual_specs.yaml` before writing generated EU5 code.
-- Run the Harness tests and audit before implementation:
-  `conda run --no-capture-output -n eu5 python scripts/test_unique_wonder_ritual_harness.py`
+- Update `data/unique_wonder_ritual_specs.yaml` before writing generated EU5 code:
+  `conda run --no-capture-output -n eu5 python scripts/gen_unique_wonder_ritual_specs.py`
+- Run the audit before implementation:
   `conda run --no-capture-output -n eu5 python scripts/audit_unique_wonder_rituals.py`
 - Allocate event IDs with:
   `conda run --no-capture-output -n eu5 python scripts/allocate_unique_wonder_ritual_event_ids.py --nodes opening crisis resolution`
-- Generate conservative intermediate fragments with:
-  `conda run --no-capture-output -n eu5 python scripts/gen_unique_wonder_ritual_code.py`
-  Add `--write` only after the spec passes validation. The generator writes Harness-owned
-  fragments under `data/generated_fragments/unique_wonder_rituals/`; it does not write `src/`.
+- Implement per "How specs become real source" above, then close the batch with
+  `scripts/audit_unique_wonder_ritual_mechanic_similarity.py`.
   Template support comes from `data/unique_wonder_ritual_codegen_templates.yaml`;
   specs may not invent template keys outside that registry.
   Mechanism capability support comes from `data/unique_wonder_ritual_capabilities.yaml`;
@@ -431,22 +112,19 @@ should be flattened to the current template registry.
 
 ## Evidence Mapping Stage
 
-Run an evidence mapping pass after `design_complete` and before any source compiler or
-source-codegen readiness claim. Use `compiler_gap_ledger.search_questions` as the entry point
-for codebase exploration, then update each row with concrete evidence such as paths, helper
-functions, event IDs, variable names, UI patterns, scopes, capabilities, or templates.
+Run an evidence mapping pass after `design_complete` and before implementation.
+Use `compiler_gap_ledger.search_questions` as the entry point for codebase exploration,
+then update each row with concrete evidence such as paths, helper functions, event IDs,
+variable names, UI patterns, scopes, capabilities, or templates.
 
 - `verified_existing` means codebase evidence exists, often through a manual implementation
-  or bespoke generator. It does not mean the Harness source generator can emit that primitive.
+  or bespoke generator.
 - `interface_candidate` means a likely interface or pattern exists, but the mapping is not
-  proven enough for backend generation.
-- `backend_ready` means the primitive is backed by current Harness capability/template
-  evidence. Use explicit `capability:<key>` or `template:<key>` evidence. A
-  backend-ready capability may still be an intermediate backend contract only; it does not
-  imply loadable EU5 source generation unless a later source generator is separately verified.
-- `source_codegen_ready`, legacy `implementation_ready`, and `harness_generated` require all
-  compiler gap rows to be `backend_ready`; unresolved rows and `verified_existing` rows still
-  block those statuses.
+  proven enough yet.
+- `backend_ready` means the primitive is backed by current capability/template evidence
+  (`capability:<key>` or `template:<key>`).
+- Implementation should not begin while compiler gap rows remain `semantic_only` or
+  `needs_codebase_search` — resolve them to at least `interface_candidate` first.
 
 ## Status Model
 
@@ -454,22 +132,23 @@ Use statuses to describe which layer is complete:
 
 - `design_complete`: the high-fidelity `design_ir` is complete. `compiler_gap_ledger`
   may contain `semantic_only`, `needs_codebase_search`, or `interface_candidate` rows.
-- `compiler_mapped`: the design also has a current Harness `node_graph` projection that
-  passes semantic graph validation. This still does not mean source codegen is ready.
-- `evidence_verified`: the important design primitives have codebase evidence, but source
-  generation may still be missing.
-- `source_codegen_ready`: the spec has no unresolved compiler gaps and passes source/codegen
-  gates.
-- `implementation_ready`: legacy alias for `source_codegen_ready`. Do not use it to mean
-  "design complete."
-- `harness_generated`: generated implementation is owned by the Harness generator.
+- `compiler_mapped`: the design also has a `node_graph` projection that passes semantic
+  graph validation. This does not mean implementation has started.
+- `evidence_verified`: the important design primitives have codebase evidence, but
+  implementation may still be missing.
+- `source_codegen_ready` / legacy `implementation_ready`: the spec has no unresolved
+  compiler gaps and is ready for hand-written implementation per "How specs become real
+  source" above.
+- `implemented_parity`: a manual implementation exists that mirrors the spec. It may carry
+  `design_ir` and `compiler_gap_ledger` to document the full manual design.
 
-`implemented_parity` remains for manual implementations mirrored by the spec. It may carry
-`design_ir` and `compiler_gap_ledger` to document the full manual design.
+`harness_generated` is retired — no path in this project auto-generates loadable source
+from a spec; every implemented wonder is hand-written.
 
 ## Spec Contract
 
-`data/unique_wonder_ritual_specs.yaml` is the executable planning source.
+`data/unique_wonder_ritual_specs.yaml` is the executable planning source, validated by
+`scripts/gen_unique_wonder_ritual_specs.py` / `scripts/wonder_unique_ritual_harness.py`.
 A high-fidelity formal ritual spec must include:
 
 - `identity`: id, key, base key, location, runtime prefix, and status.
@@ -482,20 +161,18 @@ A high-fidelity formal ritual spec must include:
   `design_semantics`, `required_game_interfaces`, `codebase_evidence`,
   `verification_status`, `search_questions`, `blocked_by`, and
   `fallback_if_unavailable`.
-- `node_graph`: for `compiler_mapped`, `source_codegen_ready`, `implementation_ready`,
-  and `harness_generated`, a custom graph with at least 3 player-visible nodes, at least 3 event IDs,
-  at least one failure or retry path, declared listeners, runtime variables, an `entry_node`,
-  `terminal_nodes`, a `mechanic_signature`, a `cadence_signature`, optional graph-level
-  `archetypes`, per-node capabilities, optional scope/listener contracts, and a historical
-  mechanic.
+- `node_graph`: for `compiler_mapped` and above, a custom graph with at least 3
+  player-visible nodes, at least 3 event IDs, at least one failure or retry path, declared
+  listeners, runtime variables, an `entry_node`, `terminal_nodes`, a `mechanic_signature`,
+  a `cadence_signature`, optional graph-level `archetypes`, per-node capabilities, optional
+  scope/listener contracts, and a historical mechanic.
 - `ui_model`: one or more visible UI components from `checklist`, `route_map`, `actor_slots`,
   `material_stockpile`, `incident_log`, or `progress_track`.
 - `rewards`: all three mandatory channels: permanent country modifier, local building reward,
   and one-time reward.
 - `localization`: event rows, panel text keys, and world-news keys.
 - `implementation_notes`: verified EU5 interfaces only; uncertain syntax must remain
-  `needs_verification` and blocks `source_codegen_ready`, legacy `implementation_ready`,
-  or `harness_generated`.
+  `needs_verification` and blocks `source_codegen_ready` / `implementation_ready`.
 
 Allowed `compiler_gap_ledger.verification_status` values are:
 
@@ -506,13 +183,13 @@ Allowed `compiler_gap_ledger.verification_status` values are:
 - `backend_ready`
 
 The first three are unresolved compiler gaps. They do not block `design_complete`; they do
-block `source_codegen_ready`, legacy `implementation_ready`, and `harness_generated`.
-`verified_existing` also blocks source-codegen statuses because it proves existing codebase
-feasibility, not generator support. Only `backend_ready` satisfies source-codegen gap closure.
+block `source_codegen_ready` / `implementation_ready`. `verified_existing` also blocks those
+statuses because it proves existing codebase feasibility, not that the primitive has been
+implemented for this wonder. Only `backend_ready` satisfies compiler gap closure.
 
 ## Projection Contract
 
-`design_ir` is the high-fidelity design layer. `node_graph` is only the current Harness
+`design_ir` is the high-fidelity design layer. `node_graph` is only the current semantic
 projection. When that projection is lossy, `design_ir.projection_notes` must explain what is
 preserved, replaced, compressed, summarized, or intentionally omitted.
 
@@ -521,62 +198,27 @@ preserved, replaced, compressed, summarized, or intentionally omitted.
   anonymous counter.
 - If `design_ir.ui_feedback_model` declares repeated rows or per-entity status, projection
   notes must say whether the current node graph preserves rows/status, substitutes a summary,
-  or compresses them for the current Harness layer.
+  or compresses them for the current layer.
 - `compiler_mapped` may accept a lossy projection when the node graph passes semantic
   validation and the loss is documented.
-- `source_codegen_ready`, legacy `implementation_ready`, and `harness_generated` must still
-  hard fail while any compiler gap row is not `backend_ready`.
+- `source_codegen_ready` / `implementation_ready` must still hard fail while any compiler
+  gap row is not `backend_ready`.
 
 ## Template Registry
 
-`data/unique_wonder_ritual_codegen_templates.yaml` is the only source of truth for Harness
-codegen template contracts. Each template declares supported node/action/check kinds, required
-input fields, output kinds, a verified interface, `may_write_src: false`, and notes. The v1
-registry is intermediate-only: valid output kinds are `markdown_fragment`, `event_skeleton`,
-`effect_stub`, `trigger_stub`, `gui_summary`, and `loc_draft`.
-
-The validator and codegen both reject unknown templates, templates marked as allowed to write
-`src/`, blocked templates, action/check kinds not supported by the selected template, and node
-kinds not covered by `generation.verified_templates`.
+`data/unique_wonder_ritual_codegen_templates.yaml` is the source of truth for spec-level
+template contracts. Each template declares supported node/action/check kinds, required
+input fields, output kinds, a verified interface, and notes.
 
 ## Capability Registry
 
-`data/unique_wonder_ritual_capabilities.yaml` is the only source of truth for Harness
-mechanism semantics. Each capability declares supported node kinds, required node fields,
-required variable roles, supported listeners/UI components/output kinds, a verified interface,
-`may_write_src: false`, and notes. The v1 semantic capabilities are `event_chain`,
-`retry_branch`, `monthly_progress`, `actor_assignment`, `resource_gate`, `route_gate`,
-`listener_gate`, and `final_reward_handoff`. The v1 intermediate backend contracts are
-`actor_assignment_character_selector_backend`,
-`repeated_entity_row_checklist_incident_log_backend`,
-`branch_specific_reward_scaling`, and
-`bounded_opposition_religious_community_pressure`; these contracts provide evidence mapping
-for richer `design_ir` primitives while still producing only intermediate fragments, stubs, or
-summaries. `pilgrimage_route_certification_backend` is the route-certification counterpart:
-it preserves pilgrimage route endpoint, waypoint, offering, recognition-proof, failed-route
-fallback, and local-only circuit semantics as markdown fragments, trigger/effect stubs, GUI
-summaries, and tooltip notes only. It must not generate route source, GUI rows, event chains,
-or other loadable EU5 `src` files. `overland_relay_route_certification_backend` is the
-overland relay counterpart: it preserves named road segments, tambos, rope-bridge
-checkpoints, runner-carried relay message proof, reroute, and domestic-only fallback
-semantics as markdown fragments, trigger/effect stubs, GUI summaries, and tooltip notes
-only. It must not generate route source, GUI rows, event chains, or other loadable EU5
-`src` files. `maritime_trade_route_certification_backend` is the maritime-commercial
-counterpart: it preserves monsoon route endpoints, bonded warehouse certification,
-translator and merchant-law compacts, blocked or unaffordable route incidents, reroute, and
-lower-prestige domestic certification fallback semantics as markdown fragments,
-trigger/effect stubs, GUI summaries, and tooltip notes only. It must not generate trade-route,
-market, GUI, event-chain, or other loadable EU5 `src` files.
-`auxiliary_building_completion_listener_backend` is the construction/auxiliary
-completion counterpart: it preserves completion listener, annex inspection, repair retry, and
-reward-handoff semantics as markdown fragments, trigger/effect stubs, GUI summaries, and
-tooltip notes only. It must not generate `on_action`, `building_type` hooks, or loadable EU5
-source.
-
-Codegen-eligible nodes must declare `capabilities`. The validator rejects unknown
-capabilities, capabilities that do not support the node kind, missing capability-required
-fields, missing required variable roles, unsupported listener contracts, and any capability
-marked as allowed to write `src/`.
+`data/unique_wonder_ritual_capabilities.yaml` is the source of truth for mechanism
+semantics. Each capability declares supported node kinds, required node fields,
+required variable roles, supported listeners/UI components/output kinds, a verified
+interface, and notes. Codegen-eligible nodes must declare `capabilities`. The validator
+rejects unknown capabilities, capabilities that do not support the node kind, missing
+capability-required fields, missing required variable roles, and unsupported listener
+contracts.
 
 ## Archetype Registry
 
@@ -585,111 +227,52 @@ reference archetypes. These are not exclusive mechanism molds; they are reusable
 tags that add positive requirements when a design wants that support. Each archetype
 declares required capabilities, compatible node-kind examples, required variable roles,
 required UI components, required listeners, min/max node counts, retry and hidden-executor
-requirements, terminal-node capability requirements, a verification tier, `may_write_src: false`,
-and notes. The v1 registry archetypes are `expedition_route_chain`,
-`patronage_actor_assignment`, `resource_accumulation_ritual`, `monthly_pressure_countdown`,
-`incident_retry_gauntlet`, `listener_resolution_ritual`, and `hidden_executor_finalization`.
-`public_credit_charter_retry` and `arsenal_ropewalk_launch_inspection` are pilot archetypes
-for public-credit branching and auxiliary-completion inspection respectively.
-`overland_relay_route_proof` is the pilot archetype for road-segment, tambo, rope-bridge,
-runner-message, reroute, and domestic-only relay certification. `maritime_trade_route_covenant`
-is the pilot archetype for monsoon route endpoints, warehouse seals, translator and
-merchant-law compact proof, route incidents, reroute, and domestic-only port certification.
-All four remain
-intermediate-only and keep `may_write_src: false`.
+requirements, terminal-node capability requirements, a verification tier, and notes.
 
-`compiler_mapped`, `source_codegen_ready`, legacy `implementation_ready`, and
-`harness_generated` specs may declare `node_graph.archetypes`.
-Known registry archetypes add their required capability/variable-role/UI/listener/node-count
-checks. Unknown ordinary archetype names are rejected as likely typos. `custom_*` archetype
+`compiler_mapped` and above specs may declare `node_graph.archetypes`. Known registry
+archetypes add their required capability/variable-role/UI/listener/node-count checks.
+Unknown ordinary archetype names are rejected as likely typos. `custom_*` archetype
 labels are allowed only when `mechanic_signature.custom_archetype_statement` explains the
-bespoke shape. The validator rejects archetypes marked as allowed to write `src/`, missing
-registry-archetype-required capabilities/variable roles/UI/listeners, node counts outside
-registry bounds, missing retry paths, missing hidden-executor handoffs, and terminal nodes
-that lack the registry-archetype-required capability. It no longer rejects extra node kinds
-solely because they are outside the union of declared archetype examples.
+bespoke shape.
 
 ## State Machine DSL
 
-`compiler_mapped`, `source_codegen_ready`, legacy `implementation_ready`, and
-`harness_generated` specs must use the strong node-graph DSL.
-`implemented_parity` and `stub` entries may keep the older lightweight shape.
+`compiler_mapped` and above specs must use the strong node-graph DSL. `implemented_parity`
+and `stub` entries may keep the older lightweight shape.
 
-- `node_graph.mechanic_signature`: required for `compiler_mapped`, `source_codegen_ready`,
-  legacy `implementation_ready`, and `harness_generated`; declares the wonder-specific hook, core interaction loop, player
-  decision pattern, state feedback, failure/tension model, reward expression, and reuse-risk
-  mitigation. If `node_graph.archetypes` contains a `custom_*` key, it must also include
+- `node_graph.mechanic_signature`: required for `compiler_mapped` and above; declares the
+  wonder-specific hook, core interaction loop, player decision pattern, state feedback,
+  failure/tension model, reward expression, and reuse-risk mitigation. If
+  `node_graph.archetypes` contains a `custom_*` key, it must also include
   `custom_archetype_statement`.
-- `node_graph.cadence_signature`: required for `compiler_mapped`, `source_codegen_ready`,
-  legacy `implementation_ready`, and `harness_generated`; declares `cadence_type`, `cadence_rationale`,
-  `player_agency_model`, `non_monthly_triggers_or_reason`, and `pacing_failure_mode`.
-  Supported cadence types are `instant_but_branching`, `event_driven`,
-  `player_action_sequence`, `construction_or_auxiliary_building`, `war_validated`,
-  `succession_validated`, `route_certification`, `actor_assignment`, `resource_delivery`,
-  `monthly_institutionalization`, and `hybrid`.
-- `node_graph.archetypes`: optional registry-backed reference tags or `custom_*` labels.
-  Known keys add positive contract checks; unknown non-custom keys are rejected even on
-  non-codegen specs that choose to declare this field.
-- `node_graph.entry_node`: the first runtime node; it must resolve to a declared node.
-- `node_graph.terminal_nodes`: one or more declared terminal nodes.
-- `node_graph.graph_shape`: optional authoring label for the graph shape.
-- `node_graph.completion_policy`: optional lifecycle policy; terminal outgoing edges are
-  rejected unless `allow_terminal_outgoing: true` is explicitly set.
-- `node_graph.nodes`: each node declares `key`, `kind`, a spec-unique `event_id`, visibility,
-  capabilities, historical anchor, enter/completion checks, retry target, next nodes,
-  reads/writes, UI state, and localization refs. Optional `scope_contract` declares
-  root/current/target scopes plus tooltip and unsafe pre-evaluation policy; optional
-  `listener_contract` declares listener, cadence, reads/writes, completion check, and
-  failure route.
-- `node_graph.edges`: each edge declares `from`, `to`, `condition`, `effect`, and `label_key`.
-- `node_graph.actions`: each action declares `key`, `kind`, `scope`, `verified_interface`,
-  and either an `effect_script` or a `generator_template`.
-- `node_graph.checks`: each check declares `key`, `kind`, `tooltip_key`, and either a
-  `trigger_script` or a `generator_template`.
-- `node_graph.variables`: each variable declares name, scope, type, initial value, writer
-  nodes, reader nodes, and cleanup.
+- `node_graph.cadence_signature`: required for `compiler_mapped` and above; declares
+  `cadence_type`, `cadence_rationale`, `player_agency_model`, `non_monthly_triggers_or_reason`,
+  and `pacing_failure_mode`. Supported cadence types are `instant_but_branching`,
+  `event_driven`, `player_action_sequence`, `construction_or_auxiliary_building`,
+  `war_validated`, `succession_validated`, `route_certification`, `actor_assignment`,
+  `resource_delivery`, `monthly_institutionalization`, and `hybrid`.
+- `node_graph.entry_node` / `terminal_nodes` / `nodes` / `edges` / `actions` / `checks` /
+  `variables`: see field requirements in Spec Contract above.
 - `ui_model.bindings`: each binding declares component key, variable refs, node refs, and
   localization refs.
-- `generation`: declares status, target files, verified templates, blocked templates, and
-  dry-run notes. `harness_generated` entries must have target files and verified templates.
+- `generation`: declares status, target files, verified templates, and dry-run notes.
 
-The v1 registry is deliberately small:
-
-- node kinds: `event`, `choice_event`, `assignment_gate`, `resource_gate`, `route_gate`,
-  `listener_gate`, `incident_event`, `hidden_executor_handoff`, `retry_event`,
-  `monthly_progress_gate`, `final_reward_dispatch`
-- listener kinds: `monthly`, `ruler_death`, `pre_winning_war`, `ending_war`,
-  `auxiliary_building_completion`. The auxiliary completion listener is an intermediate
-  Harness contract for construction/annex completion inspection only; the observed
-  `on_construction_ended` source evidence remains owned by source generators outside v1
-  unique-ritual codegen.
-- action kinds: `effect_script`, `generator_template`, `reward_dispatch_stub`
-- check kinds: `trigger_script`, `generator_template`
-- templates: `sequential_event_chain`, `branch_retry_event`, `monthly_progress_gate`,
-  `simple_progress_track_ui_binding`, `final_reward_dispatch_stub`,
-  `semantic_contract_fragment`
+The v1 registry: node kinds `event`, `choice_event`, `assignment_gate`, `resource_gate`,
+`route_gate`, `listener_gate`, `incident_event`, `hidden_executor_handoff`, `retry_event`,
+`monthly_progress_gate`, `final_reward_dispatch`; listener kinds `monthly`, `ruler_death`,
+`pre_winning_war`, `ending_war`, `auxiliary_building_completion`; action kinds
+`effect_script`, `generator_template`, `reward_dispatch_stub`; check kinds `trigger_script`,
+`generator_template`.
 
 Every edge target, retry target, next node, variable read/write, UI binding ref, node event ID,
 and localization ref must resolve to a declared object. Every node must be reachable from
-`entry_node`. Non-terminal nodes need a next node or outgoing edge; terminal nodes may not have
-ordinary outgoing edges by default. Retry targets may not point to terminal nodes. A
-`monthly_progress_gate` must read and write at least one declared progress/count variable, and
-`final_reward_dispatch` nodes must be terminal nodes. Variable `writer_nodes` / `reader_nodes`
-must exactly match the node `writes` / `reads` declarations. Variable `roles` is the canonical
-way to satisfy capability-required roles. `listener_gate` nodes must have `listener_contract`.
-Allowed scope contract values are `country`, `location`, `character`,
-`international_organization`, `gui_fragment`, and `none`. `tooltip_safe: false` nodes/actions
-may not declare `player_facing_tooltip` output, and `unsafe_pre_eval: true` requires a blocked
-reason or hidden executor handoff. `needs_verification` anywhere in a `source_codegen_ready`,
-legacy `implementation_ready`, or `harness_generated` spec blocks validation.
+`entry_node`. A `monthly_progress_gate` must read and write at least one declared
+progress/count variable, and `final_reward_dispatch` nodes must be terminal nodes.
+`needs_verification` anywhere in a `source_codegen_ready` / `implementation_ready` spec
+blocks validation.
 
-Monthly pacing is allowed only when it is designed, not when it is convenient. If
-`node_graph.listeners` includes `monthly`, a node uses `monthly_progress_gate`, a node declares
-`monthly_progress`, a listener contract has monthly cadence, or a generator template uses
-`monthly_progress_gate`, the cadence type must be `monthly_institutionalization` or `hybrid`.
-The rationale must explicitly explain the monthly role. `monthly_institutionalization` still
-needs at least one non-monthly decision, risk, listener, event branch, trigger, or player
-action; `hybrid` must explain monthly as a local/supporting part of a larger non-monthly loop.
+Monthly pacing is allowed only when it is designed, not when it is convenient — see the
+cadence rules above; unjustified monthly cadence is a reject condition.
 
 ## Reject Conditions
 
@@ -714,19 +297,15 @@ Reject implementation if heavy finalization or cleanup is placed in an option to
 tooltips can pre-evaluate variables before they are written. Keep finalization in hidden executor
 paths already verified by the project.
 
-Reject code generation if any used template is not both present in the registry and listed in
-`generation.verified_templates`, if the template does not support the current node/action/check
-kind, or if `generation.blocked_templates` is non-empty. The v1 generator emits Markdown
-skeletons, mechanic/cadence signature summaries, capability summaries, scope/listener contract
-summaries, hidden-executor/tooltip safety notes, and draft inventories only; promotion into
-loadable EU5 script requires a later verified generator.
-
 ## Batch Completion
 
 For each batch, produce:
 
 - audit summary from `scripts/audit_unique_wonder_rituals.py`;
 - generated or updated spec entries;
-- generated intermediate fragments, if the specs passed and implementation is in scope;
+- hand-written `scripts/unique_wonder_ritual_content/<key>.py` implementation, if the specs
+  passed and implementation is in scope, regenerated via `scripts/gen_unique_wonder_rituals.py --write`;
+- similarity audit from `scripts/audit_unique_wonder_ritual_mechanic_similarity.py` confirming
+  no new homogenization against existing implemented wonders;
 - validation result from `scripts/validate.py --changed --fix --ai-report`;
 - a human-readable summary of the gameplay loop, rewards, and remaining verification risks.

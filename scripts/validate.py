@@ -86,15 +86,11 @@ UNIQUE_RITUAL_HARNESS_FILES = {
     "data/wonder_localization.yaml",
     "scripts/wonder_unique_ritual_harness.py",
     "scripts/gen_unique_wonder_ritual_specs.py",
-    "scripts/gen_unique_wonder_ritual_code.py",
     "scripts/audit_unique_wonder_rituals.py",
     "scripts/allocate_unique_wonder_ritual_event_ids.py",
-    "scripts/test_unique_wonder_ritual_harness.py",
     "docs/guides/Unique_Wonder_Ritual_Harness.md",
 }
-UNIQUE_RITUAL_HARNESS_PREFIXES = {
-    "data/generated_fragments/unique_wonder_rituals/",
-}
+UNIQUE_RITUAL_HARNESS_PREFIXES: set[str] = set()
 UTF8_BOM = b"\xef\xbb\xbf"
 VALIDATED_SUFFIXES = {".txt", ".gui", ".yml", ".yaml", ".md", ".py"}
 LOCALIZATION_KEY_PATTERN = re.compile(r"^\s+(\w+)\s*:(?:\d+)?")

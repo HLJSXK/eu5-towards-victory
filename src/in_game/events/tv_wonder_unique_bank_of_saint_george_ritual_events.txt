@@ -15,8 +15,8 @@ tv_engineering_department.1670 = {
 
 	option = {
 		name = tv_engineering_department.1670.a
-		trigger = { tv_wonder_bank_of_saint_george_charter_options_eligibility_trigger = yes }
-		tv_wonder_bank_of_saint_george_charter_options_row_init_effect = yes
+		trigger = { tv_wonder_bank_of_saint_george_eligibility_trigger = yes }
+		tv_wonder_bank_of_saint_george_opening_effect = yes
 	}
 }
 
@@ -29,8 +29,17 @@ tv_engineering_department.1671 = {
 
 	option = {
 		name = tv_engineering_department.1671.a
-		trigger = { tv_wonder_bank_of_saint_george_charter_options_eligibility_trigger = yes }
-		tv_wonder_bank_of_saint_george_charter_options_row_state_write_effect = yes
+		tv_wonder_bank_of_saint_george_choose_creditor_privilege_effect = yes
+	}
+
+	option = {
+		name = tv_engineering_department.1671.b
+		tv_wonder_bank_of_saint_george_choose_crown_supervision_effect = yes
+	}
+
+	option = {
+		name = tv_engineering_department.1671.c
+		tv_wonder_bank_of_saint_george_choose_open_merchant_access_effect = yes
 	}
 }
 
@@ -43,14 +52,14 @@ tv_engineering_department.1672 = {
 
 	option = {
 		name = tv_engineering_department.1672.a
-		trigger = { tv_wonder_bank_of_saint_george_charter_options_has_contested_entity_trigger = yes }
-		tv_wonder_bank_of_saint_george_charter_options_reconcile_effect = yes
+		trigger = { tv_wonder_bank_of_saint_george_has_distrusted_pledge_trigger = yes }
+		tv_wonder_bank_of_saint_george_incident_guarantee_effect = yes
 	}
 
 	option = {
 		name = tv_engineering_department.1672.b
-		trigger = { tv_wonder_bank_of_saint_george_charter_options_has_contested_entity_trigger = yes }
-		tv_wonder_bank_of_saint_george_charter_options_narrow_effect = yes
+		trigger = { tv_wonder_bank_of_saint_george_has_distrusted_pledge_trigger = yes }
+		tv_wonder_bank_of_saint_george_incident_narrow_effect = yes
 	}
 }
 
@@ -63,68 +72,6 @@ tv_engineering_department.1673 = {
 
 	option = {
 		name = tv_engineering_department.1673.a
-		tv_wonder_bank_of_saint_george_charter_options_completion_effect = yes
-	}
-}
-
-# -- tv_engineering_department.1674 ----------------------------------------------
-tv_engineering_department.1674 = {
-	type = country_event
-	title = tv_engineering_department.1674.t
-	desc = tv_engineering_department.1674.d
-	outcome = neutral
-
-	option = {
-		name = tv_engineering_department.1674.a
-		trigger = { tv_wonder_bank_of_saint_george_public_credit_pledges_eligibility_trigger = yes }
-		tv_wonder_bank_of_saint_george_public_credit_pledges_row_init_effect = yes
-	}
-}
-
-# -- tv_engineering_department.1675 ----------------------------------------------
-tv_engineering_department.1675 = {
-	type = country_event
-	title = tv_engineering_department.1675.t
-	desc = tv_engineering_department.1675.d
-	outcome = neutral
-
-	option = {
-		name = tv_engineering_department.1675.a
-		trigger = { tv_wonder_bank_of_saint_george_public_credit_pledges_eligibility_trigger = yes }
-		tv_wonder_bank_of_saint_george_public_credit_pledges_row_state_write_effect = yes
-	}
-}
-
-# -- tv_engineering_department.1676 ----------------------------------------------
-tv_engineering_department.1676 = {
-	type = country_event
-	title = tv_engineering_department.1676.t
-	desc = tv_engineering_department.1676.d
-	outcome = neutral
-
-	option = {
-		name = tv_engineering_department.1676.a
-		trigger = { tv_wonder_bank_of_saint_george_public_credit_pledges_has_contested_entity_trigger = yes }
-		tv_wonder_bank_of_saint_george_public_credit_pledges_reconcile_effect = yes
-	}
-
-	option = {
-		name = tv_engineering_department.1676.b
-		trigger = { tv_wonder_bank_of_saint_george_public_credit_pledges_has_contested_entity_trigger = yes }
-		tv_wonder_bank_of_saint_george_public_credit_pledges_narrow_effect = yes
-	}
-}
-
-# -- tv_engineering_department.1677 ----------------------------------------------
-tv_engineering_department.1677 = {
-	type = country_event
-	title = tv_engineering_department.1677.t
-	desc = tv_engineering_department.1677.d
-	outcome = good
-
-	option = {
-		name = tv_engineering_department.1677.a
-		tv_wonder_bank_of_saint_george_public_credit_pledges_completion_effect = yes
 		tv_wonder_bank_of_saint_george_ritual_grant_reward_effect = yes
 	}
 }

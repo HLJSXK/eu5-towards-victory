@@ -277,6 +277,7 @@ organization_panel = {
 \t\t\t\tspacing = 2
 
 \t\t\t\texpand = {}
+\t\t\t\tspacer = { size = { 250 16 } }
 \t\t\t\ttext_single = {
 \t\t\t\t\tsize = { 250 32 }
 \t\t\t\t\traw_text = "+"

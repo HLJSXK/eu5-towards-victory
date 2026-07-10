@@ -8,14 +8,18 @@ favorably.
 
 This is also the only one of the 6 wonders whose spec declares a real
 `pre_winning_war` / `ending_war` listener_contract (node `alhambra_war_validation`):
-the treaty court cannot open until a war in which the sponsor holds Granada has
-been won or ended. That is implemented here as a real war-validation gate
+the treaty court cannot open until the sponsor has actually *won* a war while
+holding Granada. That is implemented here as a real war-validation gate
 (`tv_wonder_alhambra_war_validated_trigger`), set by a dedicated on_action bridge
 (src/in_game/common/on_action/tv_wonder_unique_alhambra_ritual_on_actions.txt)
 following the exact `tv_engineering_department_ritual_on_pre_winning_war` /
 `_on_ending_war` pattern already proven in
 src/in_game/common/on_action/tv_engineering_department_on_action.txt, gating the
 treaty_clause_register row set's opening event.
+
+Fixed incident: the gate previously validated on *any* war ending while root
+held Granada, win or lose -- see `build_on_action_body` below for the
+`scope:winner = { this = root }` fix and its verification evidence.
 
 Event IDs 1686-1693 allocated via scripts/allocate_unique_wonder_ritual_event_ids.py.
 This replaces the mechanically-generated, unrelated 7309-7316 skeleton produced by
@@ -210,18 +214,26 @@ def append_gui(lines: list[str], indent: int, helpers: dict[str, object]) -> Non
 
 
 def build_on_action_body() -> list[str]:
-    """Alhambra-only war-validation bridge: root scope is the country the
-    on_action fires for (matches the verified
-    tv_engineering_department_ritual_on_pre_winning_war / _on_ending_war
-    pattern in src/in_game/common/on_action/tv_engineering_department_on_action.txt),
-    so no scope:winner/scope:loser lookup is needed — root simply must hold
-    Granada while its Alhambra ritual is in progress."""
+    """Alhambra-only war-validation bridge.
+
+    Fixed incident: this previously set `tv_wonder_alhambra_war_validation`
+    whenever *any* war concluded while root held Granada, win or lose, which
+    let a lost war "validate" a capitulation treaty. `on_pre_winning_war` and
+    `on_ending_war` both expose `scope:winner`/`scope:loser` alongside `root`
+    (root fires for both participants -- see
+    reference_game_files/game/in_game/common/on_action/_hardcoded.txt:1518-1576),
+    and `this = root` is the verified scope-equality idiom for comparing a
+    saved scope back to root (same file, e.g. line 3292 `leader_country ?= { this = root }`;
+    also used throughout src/in_game/common/generic_actions/tv_arts_exhibition_actions.txt).
+    The gate now requires root to actually be the war's winner, not merely a
+    participant in a war that happened to end."""
     T = engine.T
     trigger_lines = [
         f"{T}has_variable = tv_wonder_locked",
         f"{T}var:tv_wonder_locked ?= {WONDER_ID}",
         f"{T}has_variable = tv_wonder_ritual_in_progress",
         f"{T}{engine.site_control_trigger_name(RUNTIME_PREFIX)} = yes",
+        f"{T}scope:winner = {{ this = root }}",
     ]
     lines: list[str] = []
     for on_action_name in (

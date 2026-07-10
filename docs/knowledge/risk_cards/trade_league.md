@@ -46,10 +46,20 @@ covers the rules specific to the Trade League's generated goods/monopoly system.
    Diplomatic Alliance is a separate, explicitly-designed exception that seeds baseline
    no-effect policies; the Trade League is not.
 
+5. Match every `scope:<name>` read to an exact `save_scope_as = <name>` string.
+   `gen_tv_trade_league_effects.py`'s `annual_good_refresh_block` saves the `every_market_in_world`
+   candidate as `save_scope_as = tv_trade_candidate_market`. Any later reference — including
+   from a nested `scope:tv_trade_monopoly_leader = { ... }` block — must use that exact string;
+   a plausible near-miss (e.g. an extra `_location` suffix) resolves to an unset scope with no
+   generation-time error. See `docs/knowledge/anti_patterns.yaml` rule
+   `saved_scope_name_must_match_save_scope_as_exactly`.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`: it lints rule 4
 (`tv_io_initial_laws_seeded`) and the shared IO `monthly_effect` ban automatically. Rules 1–3
 have no automated check — after changing monopoly/intelligence generators, verify in game
 that monopoly control percentages and intelligence network strength match expected market
-data, since a wrong-metric regression here does not fail validation.
+data, since a wrong-metric regression here does not fail validation. Rule 5 has a narrow lint
+(`saved_scope_name_must_match_save_scope_as_exactly`) for the one confirmed name, but is not a
+general saved-scope/reference matcher — verify new `scope:<name>` reads manually.

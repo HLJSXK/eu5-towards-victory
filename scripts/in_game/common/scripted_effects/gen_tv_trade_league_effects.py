@@ -1714,7 +1714,7 @@ def copy_io_rank(prefix: str, src_rank: int, dst_rank: int, good: str, indent: s
 
 def assign_candidate_to_io_rank(prefix: str, rank: int, good: str, indent: str) -> str:
     lines = [
-        f"{indent}set_variable = {{ name = {market_var(prefix, rank, good)} value = scope:tv_trade_candidate_market_location }}",
+        f"{indent}set_variable = {{ name = {market_var(prefix, rank, good)} value = scope:tv_trade_candidate_market }}",
     ]
     for field in STATIC_MARKET_FIELDS:
         lines.append(

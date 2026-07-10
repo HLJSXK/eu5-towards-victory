@@ -3,8 +3,9 @@
 # appends the singletons listed here.
 
 include_trade_league_generated_variables: true
-include_locked_advance_unlock_variables: true
 include_victory_path_generated_variables: true
+include_locked_advance_researched_variables: true
+include_academy_debate_node_variables: true
 
 extra_suppressions:
   - tv_gov_build_cost_pct
@@ -24,3 +25,5 @@ extra_suppressions:
   - tv_wonder_final_building_extra_levels
   - tv_wonder_foundation_progress
   - tv_wonder_function_progress
+  - tv_wonder_final_building_type_to_display_id
+  - parliament_seat

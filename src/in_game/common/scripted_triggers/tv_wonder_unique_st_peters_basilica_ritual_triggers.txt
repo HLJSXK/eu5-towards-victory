@@ -17,98 +17,19 @@ tv_wonder_st_peters_basilica_active_trigger = {
 	has_variable = tv_wonder_ritual_in_progress
 }
 
-# -- tv_wonder_st_peters_basilica_sacred_official_candidates_row_completion_trigger ----------------------------------------------
-tv_wonder_st_peters_basilica_sacred_official_candidates_row_completion_trigger = {
-	has_variable = tv_wonder_st_peters_basilica_sacred_official_candidates_completed
-	var:tv_wonder_st_peters_basilica_sacred_official_candidates_completed ?= 1
-}
-
-# -- tv_wonder_st_peters_basilica_sacred_official_candidates_eligibility_trigger ----------------------------------------------
-tv_wonder_st_peters_basilica_sacred_official_candidates_eligibility_trigger = {
+# -- tv_wonder_st_peters_basilica_eligibility_trigger ----------------------------------------------
+tv_wonder_st_peters_basilica_eligibility_trigger = {
 	tv_wonder_st_peters_basilica_active_trigger = yes
 	tv_wonder_st_peters_basilica_site_control_trigger = yes
 }
 
-# -- tv_wonder_st_peters_basilica_sacred_official_candidates_has_contested_entity_trigger ----------------------------------------------
-tv_wonder_st_peters_basilica_sacred_official_candidates_has_contested_entity_trigger = {
+# -- tv_wonder_st_peters_basilica_has_scandal_trigger ----------------------------------------------
+tv_wonder_st_peters_basilica_has_scandal_trigger = {
 	OR = {
-		var:tv_wonder_st_peters_basilica_sacred_official_candidates_cardinal_administrator_status ?= 2
-		var:tv_wonder_st_peters_basilica_sacred_official_candidates_diocesan_bishop_status ?= 2
-		var:tv_wonder_st_peters_basilica_sacred_official_candidates_relic_custodian_status ?= 2
-		var:tv_wonder_st_peters_basilica_sacred_official_candidates_alms_prefect_status ?= 2
-		var:tv_wonder_st_peters_basilica_sacred_official_candidates_artist_canon_status ?= 2
+		var:tv_wonder_st_peters_basilica_duty_relic_inventory_status ?= 2
+		var:tv_wonder_st_peters_basilica_duty_alms_ledger_status ?= 2
+		var:tv_wonder_st_peters_basilica_duty_pilgrim_threshold_status ?= 2
+		var:tv_wonder_st_peters_basilica_duty_choir_offices_status ?= 2
+		var:tv_wonder_st_peters_basilica_duty_chapel_patronage_status ?= 2
 	}
-}
-
-# -- tv_wonder_st_peters_basilica_sacred_official_candidates_cardinal_administrator_status_favorable_trigger ----------------------------------------------
-tv_wonder_st_peters_basilica_sacred_official_candidates_cardinal_administrator_status_favorable_trigger = {
-	var:tv_wonder_st_peters_basilica_sacred_official_candidates_cardinal_administrator_status ?= 1
-}
-
-# -- tv_wonder_st_peters_basilica_sacred_official_candidates_diocesan_bishop_status_favorable_trigger ----------------------------------------------
-tv_wonder_st_peters_basilica_sacred_official_candidates_diocesan_bishop_status_favorable_trigger = {
-	var:tv_wonder_st_peters_basilica_sacred_official_candidates_diocesan_bishop_status ?= 1
-}
-
-# -- tv_wonder_st_peters_basilica_sacred_official_candidates_relic_custodian_status_favorable_trigger ----------------------------------------------
-tv_wonder_st_peters_basilica_sacred_official_candidates_relic_custodian_status_favorable_trigger = {
-	var:tv_wonder_st_peters_basilica_sacred_official_candidates_relic_custodian_status ?= 1
-}
-
-# -- tv_wonder_st_peters_basilica_sacred_official_candidates_alms_prefect_status_favorable_trigger ----------------------------------------------
-tv_wonder_st_peters_basilica_sacred_official_candidates_alms_prefect_status_favorable_trigger = {
-	var:tv_wonder_st_peters_basilica_sacred_official_candidates_alms_prefect_status ?= 1
-}
-
-# -- tv_wonder_st_peters_basilica_sacred_official_candidates_artist_canon_status_favorable_trigger ----------------------------------------------
-tv_wonder_st_peters_basilica_sacred_official_candidates_artist_canon_status_favorable_trigger = {
-	var:tv_wonder_st_peters_basilica_sacred_official_candidates_artist_canon_status ?= 1
-}
-
-# -- tv_wonder_st_peters_basilica_apostolic_service_duties_row_completion_trigger ----------------------------------------------
-tv_wonder_st_peters_basilica_apostolic_service_duties_row_completion_trigger = {
-	has_variable = tv_wonder_st_peters_basilica_apostolic_service_duties_completed
-	var:tv_wonder_st_peters_basilica_apostolic_service_duties_completed ?= 1
-}
-
-# -- tv_wonder_st_peters_basilica_apostolic_service_duties_eligibility_trigger ----------------------------------------------
-tv_wonder_st_peters_basilica_apostolic_service_duties_eligibility_trigger = {
-	tv_wonder_st_peters_basilica_active_trigger = yes
-	tv_wonder_st_peters_basilica_site_control_trigger = yes
-}
-
-# -- tv_wonder_st_peters_basilica_apostolic_service_duties_has_contested_entity_trigger ----------------------------------------------
-tv_wonder_st_peters_basilica_apostolic_service_duties_has_contested_entity_trigger = {
-	OR = {
-		var:tv_wonder_st_peters_basilica_apostolic_service_duties_relic_inventory_status ?= 2
-		var:tv_wonder_st_peters_basilica_apostolic_service_duties_alms_ledger_status ?= 2
-		var:tv_wonder_st_peters_basilica_apostolic_service_duties_pilgrim_threshold_status ?= 2
-		var:tv_wonder_st_peters_basilica_apostolic_service_duties_choir_offices_status ?= 2
-		var:tv_wonder_st_peters_basilica_apostolic_service_duties_chapel_patronage_status ?= 2
-	}
-}
-
-# -- tv_wonder_st_peters_basilica_apostolic_service_duties_relic_inventory_status_favorable_trigger ----------------------------------------------
-tv_wonder_st_peters_basilica_apostolic_service_duties_relic_inventory_status_favorable_trigger = {
-	var:tv_wonder_st_peters_basilica_apostolic_service_duties_relic_inventory_status ?= 1
-}
-
-# -- tv_wonder_st_peters_basilica_apostolic_service_duties_alms_ledger_status_favorable_trigger ----------------------------------------------
-tv_wonder_st_peters_basilica_apostolic_service_duties_alms_ledger_status_favorable_trigger = {
-	var:tv_wonder_st_peters_basilica_apostolic_service_duties_alms_ledger_status ?= 1
-}
-
-# -- tv_wonder_st_peters_basilica_apostolic_service_duties_pilgrim_threshold_status_favorable_trigger ----------------------------------------------
-tv_wonder_st_peters_basilica_apostolic_service_duties_pilgrim_threshold_status_favorable_trigger = {
-	var:tv_wonder_st_peters_basilica_apostolic_service_duties_pilgrim_threshold_status ?= 1
-}
-
-# -- tv_wonder_st_peters_basilica_apostolic_service_duties_choir_offices_status_favorable_trigger ----------------------------------------------
-tv_wonder_st_peters_basilica_apostolic_service_duties_choir_offices_status_favorable_trigger = {
-	var:tv_wonder_st_peters_basilica_apostolic_service_duties_choir_offices_status ?= 1
-}
-
-# -- tv_wonder_st_peters_basilica_apostolic_service_duties_chapel_patronage_status_favorable_trigger ----------------------------------------------
-tv_wonder_st_peters_basilica_apostolic_service_duties_chapel_patronage_status_favorable_trigger = {
-	var:tv_wonder_st_peters_basilica_apostolic_service_duties_chapel_patronage_status ?= 1
 }
