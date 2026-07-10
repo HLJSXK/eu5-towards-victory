@@ -14,7 +14,7 @@ random_events:
         text:
           english: "The clerks cart the pamphlets to every stall and street corner."
           simp_chinese: "书记员把小册子运到每一个摊位和街角。"
-        progress_delta: 10
+        progress_delta: 5
         rationale:
           english: "Wide distribution makes the new medium a public fact before the old controls can define it, and the debate swings sharply toward accepting the printing press."
           simp_chinese: "广泛散发让新媒介先于旧式管制成为公共事实，辩论也就猛地转向接受印刷机。"
@@ -27,14 +27,14 @@ random_events:
         text:
           english: "We keep the run among scholars until such ink is safe to read aloud."
           simp_chinese: "我们先把这批印品留在学者圈里，等这样的墨迹能公开诵读再说。"
-        progress_delta: -5
+        progress_delta: -2.5
         rationale:
           english: "Keeping the copies among scholars holds the argument in order, but it never lets print prove its worth as a mass political instrument."
           simp_chinese: "把副本留在学者圈里能保住论辩的秩序，却也让印刷术始终无从证明自己作为大众政治工具的价值。"
         effect_blocks:
           - type: resource
             resource: stability
-            amount: 1
+            amount: 2.5
   - design_id: P02
     pool: printing_press
     issue: printing_press
@@ -50,19 +50,19 @@ random_events:
         text:
           english: "The charter is sealed and the presses join the roll of honest trades."
           simp_chinese: "特许状加了印，印刷机就此列入正当行业的名册。"
-        progress_delta: 10
+        progress_delta: 5
         rationale:
           english: "Legal recognition turns printing from a tolerated irregular craft into a regulated civic trade, and the town producers gain a stake in acceptance."
           simp_chinese: "法律承认把印刷从被默许的零散手艺变成受规制的城市行业，城里的生产者也就在接受印刷机中分得了利益。"
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
-            value: 0.04
+            value: 0.1
       b:
         text:
           english: "We would sooner license each press one by one, by its own name."
           simp_chinese: "我们宁可对每一台印刷机逐一发照，各记其名。"
-        progress_delta: -5
+        progress_delta: -2.5
         rationale:
           english: "Licensing press by press preserves the officials' discretion, but it slows the day when printing becomes a confident, settled interest."
           simp_chinese: "逐台发照保住了官员的裁量权，却延缓了印刷业形成自信而稳定利益群体的那一天。"
@@ -86,19 +86,19 @@ random_events:
         text:
           english: "We will not let the church decide which books are born guilty."
           simp_chinese: "我们不会让教会来裁定，哪些书是生来有罪的。"
-        progress_delta: 10
+        progress_delta: 5
         rationale:
           english: "Refusing a sweeping index denies the clerical authorities the power to brand printed inquiry a danger by default."
           simp_chinese: "拒绝一份包罗万象的索引，就是不让教会权威默认把印刷出来的探究打成危险之物。"
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
-            value: -0.05
+            value: -0.1
       b:
         text:
           english: "The index is approved, and every printed argument waits upon the censor's mark."
           simp_chinese: "索引获批，每一份印出来的论点都要等审查官的批注。"
-        progress_delta: -10
+        progress_delta: -5
         rationale:
           english: "Approving the index places printed argument under religious gatekeeping and sharply strengthens the opposition to any press-driven debate."
           simp_chinese: "批准索引把印刷论辩置于宗教把关之下，也明显加强了对印刷推动辩论的反对。"
@@ -122,7 +122,7 @@ random_events:
         text:
           english: "The presses are turned toward reform, one cheap sheet at a time."
           simp_chinese: "印刷机转而为改革效力，一张廉价印单接着一张。"
-        progress_delta: 5
+        progress_delta: 2.5
         rationale:
           english: "Turning print to reform accepts that cheap religious text can outrun the old channels, and it builds practical support for the new medium."
           simp_chinese: "让印刷为改革所用，就是承认廉价宗教文本能跑赢旧渠道，也为新媒介积攒起实际的支持。"
@@ -135,14 +135,14 @@ random_events:
         text:
           english: "Enough, before every hedgerow preacher keeps a press of his own."
           simp_chinese: "够了，免得每个田间野道的传道人都私藏一台印刷机。"
-        progress_delta: -5
+        progress_delta: -2.5
         rationale:
           english: "Restricting village printing reassures the clergy that parish authority still governs how ordinary people are taught to pray."
           simp_chinese: "限制乡村印刷让教士安心，相信堂区权威仍旧管着寻常百姓如何被教导祷告。"
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
-            value: 0.03
+            value: 0.05
   - design_id: P05
     pool: printing_press
     issue: printing_press
@@ -158,7 +158,7 @@ random_events:
         text:
           english: "We will not muzzle the press for printing what the court would rather bury."
           simp_chinese: "我们不会因为印刷机印出了宫廷宁愿掩埋的东西，就去封住它的口。"
-        progress_delta: 5
+        progress_delta: 2.5
         rationale:
           english: "Defending the press even in its vulgar misuse upholds the principle of open publication, though the Crown pays a cost in legitimacy for tolerating the scandal."
           simp_chinese: "即便印刷被低俗滥用也加以维护，能守住公开出版的原则，只是王权要为容忍这桩丑闻付出正统性的代价。"
@@ -170,7 +170,7 @@ random_events:
         text:
           english: "The bailiffs close the shop and return its type to the case."
           simp_chinese: "法警查封了店铺，把它的铅字一一放回字盘。"
-        progress_delta: -10
+        progress_delta: -5
         rationale:
           english: "Punishing the printer restores visible order by making the scandal an example, but it also teaches every onlooker that press freedom ends where court embarrassment begins."
           simp_chinese: "惩罚印刷商把丑闻立成了警示，恢复了看得见的秩序，却也让每个旁观者明白：出版自由止步于宫廷的难堪。"
@@ -195,7 +195,7 @@ random_events:
         text:
           english: "At last, a diagram that stays exactly where its author set it."
           simp_chinese: "总算有了一幅图，它老老实实待在作者摆下的位置。"
-        progress_delta: 10
+        progress_delta: 5
         rationale:
           english: "Adopting the textbook lets print prove its strongest scholarly claim: a single correction can travel faster, farther, and more faithfully than any manuscript ever could."
           simp_chinese: "采用这本课本，让印刷得以证明它最有力的学术主张：一次修正能比任何手抄本传得更快、更远，也更忠实。"
@@ -208,7 +208,7 @@ random_events:
         text:
           english: "The committee holds the book back for another season of review."
           simp_chinese: "委员会把这本书扣下，再审查一个学季。"
-        progress_delta: -5
+        progress_delta: -2.5
         rationale:
           english: "Another season of review reassures the cautious teachers and their conservative patrons, but it treats print's power to standardize knowledge as a risk best delayed."
           simp_chinese: "再审查一季能安抚谨慎的教师和他们保守的赞助者，却把印刷术统一知识的能力当成一桩最好拖着的风险。"
@@ -233,7 +233,7 @@ random_events:
         text:
           english: "The treasury opens, and the mills are turning again by week's end."
           simp_chinese: "国库拨了款，纸坊到周末又重新转了起来。"
-        progress_delta: 10
+        progress_delta: 5
         rationale:
           english: "Subsidizing paper turns a material bottleneck into state-backed capacity, letting the debate spread on real sheets instead of hopeful speeches."
           simp_chinese: "补贴纸张把物资瓶颈变成国家撑腰的产能，让辩论靠真实的纸页扩散，而不是停在满怀希望的演说里。"
@@ -245,7 +245,7 @@ random_events:
         text:
           english: "We will print within our means, or not at all."
           simp_chinese: "我们要么量入为出地印，要么干脆不印。"
-        progress_delta: -10
+        progress_delta: -5
         rationale:
           english: "Limiting the print runs protects the treasury, but it proves the new medium can be checked by supply alone, long before it reshapes opinion."
           simp_chinese: "限制印数保住了国库，却也证明新媒介单凭供应就能被拦下，远在它重塑舆论之前。"
@@ -268,7 +268,7 @@ random_events:
         text:
           english: "Let them shout, the walls have carried worse."
           simp_chinese: "由他们喊去，这些墙壁扛过更难听的话。"
-        progress_delta: 5
+        progress_delta: 2.5
         rationale:
           english: "Tolerating the broadsides accepts unruly public enthusiasm as part of print politics, and lets popular pressure pull the debate toward acceptance."
           simp_chinese: "容忍这些传单，就是把混乱的大众热情当作印刷政治的一部分，也让民间压力把辩论拽向接受。"
@@ -281,7 +281,7 @@ random_events:
         text:
           english: "The watch is set to trace the paste back to whoever mixed it."
           simp_chinese: "巡役受命顺着浆糊追查，看是谁调的。"
-        progress_delta: -5
+        progress_delta: -2.5
         rationale:
           english: "Hunting the authors calms the officials and eases the pressure in the streets, but it casts anonymous print as a threat rather than a sign of a widening debate."
           simp_chinese: "搜捕作者能安抚官员、缓解街头的压力，却把匿名印刷品塑造成威胁，而非辩论扩大的迹象。"
@@ -306,7 +306,7 @@ random_events:
         text:
           english: "We answer them in the same ink, and on the same day."
           simp_chinese: "我们用同样的墨、在同一天回敬他们。"
-        progress_delta: 10
+        progress_delta: 5
         rationale:
           english: "Answering in print shows the Academy can fight distortion with the very same medium, though defending its authority on foreign soil costs prestige."
           simp_chinese: "以印刷回应表明学院能用同一种媒介反击歪曲，只是在异邦维护自己的权威要折损威望。"
@@ -318,7 +318,7 @@ random_events:
         text:
           english: "A dog barking across the border need not be answered."
           simp_chinese: "隔着国界狂吠的狗，不必去理会。"
-        progress_delta: -5
+        progress_delta: -2.5
         rationale:
           english: "Ignoring the reprint keeps the diplomatic tempers cooler, but it leaves foreign printers to define the Academy's argument with no reply of its own."
           simp_chinese: "不理会这次转载能让外交上的火气平些，却把学院论点的解释权拱手交给外国印刷者，自己一言不发。"
@@ -341,7 +341,7 @@ random_events:
         text:
           english: "The scribes are set before the presses and taught the trays of type."
           simp_chinese: "抄写员被安排到印刷机前，教着认识一盘盘铅字。"
-        progress_delta: 5
+        progress_delta: 2.5
         rationale:
           english: "Retraining the scribes makes the labor shock manageable and turns a threatened old profession into a bridge toward practical acceptance of the press."
           simp_chinese: "重新训练抄写员能让这场劳动冲击变得可控，把一个受威胁的旧职业变成通往实际接受印刷机的桥梁。"
@@ -353,7 +353,7 @@ random_events:
         text:
           english: "No craftsman should be pressed out of his own bread."
           simp_chinese: "不该把哪个匠人挤得连自己的口粮都保不住。"
-        progress_delta: -5
+        progress_delta: -2.5
         rationale:
           english: "Protecting the manuscript trade reassures the old literate professions, but it deliberately slows the day when reproducible type replaces the copying hand."
           simp_chinese: "保护手抄行业能安抚旧有的文书职业，却有意拖慢可复制的活字取代抄写之手的那一天。"
@@ -377,7 +377,7 @@ random_events:
         text:
           english: "The Chancery orders every proclamation set in one standard type."
           simp_chinese: "文书院下令，每一份公告都用统一的字体排印。"
-        progress_delta: 10
+        progress_delta: 5
         rationale:
           english: "Standardized printed law proves the press can serve royal administration with speed and consistency, and acceptance gains a strong institutional argument."
           simp_chinese: "标准化的印刷法令证明印刷机能以速度和一致性服务王室行政，接受印刷应用也就有了强有力的制度论据。"
@@ -391,7 +391,7 @@ random_events:
         text:
           english: "We keep our proclamations as the heralds have always cried them."
           simp_chinese: "我们的公告，还是照传令官一贯的喊法来。"
-        progress_delta: -5
+        progress_delta: -2.5
         rationale:
           english: "Keeping the proclamations traditional preserves the local channels of interpretation and lets the regional elites remain useful gatekeepers of the law."
           simp_chinese: "保留传统的公告方式维系了地方的解释渠道，让地方精英继续充当法令的有用把关人。"
@@ -415,26 +415,26 @@ random_events:
         text:
           english: "The book is legalized and reissued, wrapped in official annotation."
           simp_chinese: "这本书被合法化并重新发行，外面裹着一层官方注解。"
-        progress_delta: 10
+        progress_delta: 5
         rationale:
           english: "Legalizing the book and hedging it with official annotation turns forbidden curiosity into supervised public argument, advancing acceptance while angering the clerical guardians."
           simp_chinese: "把禁书合法化、再用官方注解圈护起来，能把被禁激起的好奇转化为受监督的公共论辩，推进接纳的同时也激怒了宗教守门人。"
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
-            value: -0.05
+            value: -0.1
       b:
         text:
           english: "Off the shelves with every last copy."
           simp_chinese: "架上一本不留，统统查抄。"
-        progress_delta: -10
+        progress_delta: -5
         rationale:
           english: "Wider confiscations restore visible order, but they also concede that printed text is dangerous enough to be fought with force."
           simp_chinese: "扩大查禁恢复了看得见的秩序，却也等于承认印刷文本危险到要动用强力去对付。"
         effect_blocks:
           - type: resource
             resource: stability
-            amount: 1
+            amount: 2.5
   - design_id: P13
     pool: printing_press
     issue: printing_press
@@ -450,7 +450,7 @@ random_events:
         text:
           english: "The university is granted a press within its own walls."
           simp_chinese: "大学获准在自己的院墙之内设一台印刷机。"
-        progress_delta: 5
+        progress_delta: 2.5
         rationale:
           english: "Granting the university a press makes printing a scholarly instrument rather than merely an urban trade, giving the learned a direct stake in acceptance."
           simp_chinese: "准许大学设立印刷所，让印刷成为一件学术工具，而不只是城市行业，使学者们直接从接纳中分得利益。"
@@ -463,7 +463,7 @@ random_events:
         text:
           english: "We would have every press in the realm answer to one office."
           simp_chinese: "我们要让国中每一台印刷机，都归一个衙门管辖。"
-        progress_delta: -5
+        progress_delta: -2.5
         rationale:
           english: "Centralizing the presses satisfies the officials who prefer every press to answer upward, but it denies the universities a plain demonstration of scholarly self-direction."
           simp_chinese: "集中管理印刷事务能满足那些希望每台印刷机都向上负责的官员，却剥夺了大学一次展示学术自理的机会。"
@@ -488,7 +488,7 @@ random_events:
         text:
           english: "The presses run again, this time to print the corrections."
           simp_chinese: "印刷机再度开动，这一回印的是勘误。"
-        progress_delta: 5
+        progress_delta: 2.5
         rationale:
           english: "Correction sheets admit the failure while showing that print can mend itself through the very same swift circulation that spread the mistake."
           simp_chinese: "勘误单在承认失败的同时，也表明印刷术能借着传播错误的同一股迅捷去修补自身。"
@@ -500,7 +500,7 @@ random_events:
         text:
           english: "A falsehood set in type is still a falsehood, only faster."
           simp_chinese: "谬误排成了铅字，仍旧是谬误，只是快了些。"
-        progress_delta: -5
+        progress_delta: -2.5
         rationale:
           english: "Treating the error as evidence against the press lets the conservative scholars argue that multiplication magnifies falsehood as readily as truth."
           simp_chinese: "把这次错误当成反对印刷术的证据，让保守学者得以主张：大量复制既能放大真理，也一样能放大谬误。"
@@ -524,7 +524,7 @@ random_events:
         text:
           english: "We let the tune carry what our footnotes never could."
           simp_chinese: "我们让这支曲子去承载脚注永远送不到的地方。"
-        progress_delta: 5
+        progress_delta: 2.5
         rationale:
           english: "Leaning on popular print accepts that a simplified song can carry the debate far beyond the Academy, even when it sands the argument smooth."
           simp_chinese: "借重通俗印刷品，就是承认一首简化的歌谣即便磨平了论证，也能把辩论带到学院之外很远的地方。"
@@ -537,14 +537,14 @@ random_events:
         text:
           english: "The magistrates order the ballad struck from the presses."
           simp_chinese: "地方官下令把这首歌谣从印机上撤下。"
-        progress_delta: -5
+        progress_delta: -2.5
         rationale:
           english: "Suppressing the vulgar version reassures the elites that philosophy will not be handed over to catchy refrains and street interpretation."
           simp_chinese: "压下这个粗俗的版本，让精英们放心：哲学不会被朗朗上口的副歌和街头解读接管。"
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: 0.03
+            value: 0.05
   - design_id: P16
     pool: printing_press
     issue: printing_press
@@ -560,26 +560,26 @@ random_events:
         text:
           english: "The court finds for the printer and lets the pamphlet stand."
           simp_chinese: "法庭判印刷商胜诉，那本小册子得以留存。"
-        progress_delta: 10
+        progress_delta: 5
         rationale:
           english: "Protecting the printer turns a noble's embarrassment into a legal precedent for public criticism, sharply advancing acceptance of the printing press."
           simp_chinese: "保护印刷商把一名贵族的难堪变成公开批评的法律先例，明显推动了对印刷机应用的接受。"
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: -0.05
+            value: -0.1
       b:
         text:
           english: "Costly wit, this. Let him pay for it."
           simp_chinese: "好一份廉价的俏皮话，让他付钱吧。"
-        progress_delta: -10
+        progress_delta: -5
         rationale:
           english: "Fining the printer restores the noble's honor and marks privilege as a line cheap print may not cross, sharply strengthening resistance to the press."
           simp_chinese: "罚款惩戒印刷商恢复了贵族的体面，把特权划成廉价印刷不得逾越的界线，也明显加强了对印刷机的抵制。"
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: 0.05
+            value: 0.1
   - design_id: P17
     pool: printing_press
     issue: printing_press
@@ -595,7 +595,7 @@ random_events:
         text:
           english: "The editions go to press in every tongue the realm speaks."
           simp_chinese: "这些版本以国中通行的每一种语言付印。"
-        progress_delta: 10
+        progress_delta: 5
         rationale:
           english: "Publishing in many tongues lets print carry the issue into communities the official language usually filters out, giving both minorities and the towns a stake in acceptance."
           simp_chinese: "以多种语言出版，让印刷品把议题带进官方语言通常过滤掉的群体，使少数群体和城镇都在接纳中分得利益。"
@@ -606,12 +606,12 @@ random_events:
             cooldown_months: 24
           - type: estate_satisfaction
             estate: burghers_estate
-            value: 0.03
+            value: 0.05
       b:
         text:
           english: "We will keep the argument to a single official tongue."
           simp_chinese: "我们要把这项论点限定在唯一一种官方语言之内。"
-        progress_delta: -5
+        progress_delta: -2.5
         rationale:
           english: "A single official tongue keeps interpretation centralized and the administration tidy, but it narrows the press back into an instrument of authority."
           simp_chinese: "单一的官方语言让解释权保持集中、行政更为齐整，却把印刷术重新收窄成权威机关的工具。"
@@ -634,7 +634,7 @@ random_events:
         text:
           english: "The regimental presses are set to work turning out manuals and sheets."
           simp_chinese: "团属印刷机开动起来，印制手册和单页。"
-        progress_delta: 5
+        progress_delta: 2.5
         rationale:
           english: "Military manuals show that print can standardize practice under pressure, winning practical support from the officers without dragging the debate fully into the street."
           simp_chinese: "军事手册表明印刷术能在高压之下统一操作，从军官那里赢得务实的支持，又不至于把辩论完全拖上街头。"
@@ -647,7 +647,7 @@ random_events:
         text:
           english: "We keep the presses to civil business alone."
           simp_chinese: "我们让印刷机只管民政事务。"
-        progress_delta: -5
+        progress_delta: -2.5
         rationale:
           english: "Keeping the presses civil reassures the conservative officers that barracks discipline will not be rewritten by printed sheets, but it denies the press a genuinely useful technical role."
           simp_chinese: "让印刷机只管民政事务，能让保守的军官相信营房纪律不会被印刷单页改写，却也否认了印刷术一个真正有用的技术角色。"
@@ -672,19 +672,19 @@ random_events:
         text:
           english: "So be it, fame sells as many pages as truth does."
           simp_chinese: "也罢，名声卖出去的页数，并不比真理少。"
-        progress_delta: 5
+        progress_delta: 2.5
         rationale:
           english: "Using the printer's fame accepts that the medium now has its own public figures, letting the urban trades turn all that attention into support for acceptance."
           simp_chinese: "借用印刷商的名声，等于承认这种媒介已经有了自己的公众人物，让城市行业把这份关注转化为对接纳的支持。"
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
-            value: 0.04
+            value: 0.1
       b:
         text:
           english: "The Academy sets the authors' names back above the printer's."
           simp_chinese: "学院把作者的名字重新放回印刷商之上。"
-        progress_delta: -5
+        progress_delta: -2.5
         rationale:
           english: "Recentering the scholars protects learned authorship from commercial showmanship, but it steers the debate away from the very public power the press had gained."
           simp_chinese: "重新把学者放回中心，能保护学术作者免受商业作秀的遮蔽，却也把辩论从印刷术刚刚赢得的公共力量那里引开。"
@@ -707,7 +707,7 @@ random_events:
         text:
           english: "Ink dries faster than a censor's caution."
           simp_chinese: "墨迹干得，总比审查官的谨慎快。"
-        progress_delta: 10
+        progress_delta: 5
         rationale:
           english: "Bypassing the censor keeps procedure from smothering the issue and proves that printing can outrun official delay, though legitimacy suffers for taking the irregular road."
           simp_chinese: "绕过审查官能防止程序把议题闷死，也证明印刷术可以跑赢官方的拖延，只是走了非常规的路，正统性要受些损。"
@@ -719,7 +719,7 @@ random_events:
         text:
           english: "The Academy waits, exactly as the process requires."
           simp_chinese: "学院照着流程的要求，等着。"
-        progress_delta: -10
+        progress_delta: -5
         rationale:
           english: "Respecting the process lets the bureaucrats define delay as prudence, sharply weakening the case that printing deserves faster channels of approval."
           simp_chinese: "尊重既定流程让官僚得以把拖延定义为审慎，明显削弱了印刷术理应享有更快审批渠道的论点。"

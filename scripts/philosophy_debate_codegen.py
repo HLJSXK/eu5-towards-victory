@@ -108,7 +108,7 @@ RANDOM_EVENT_EFFECT_TYPES = {
 }
 RANDOM_EVENT_RESOURCES = {"gold", "legitimacy", "prestige", "stability"}
 RANDOM_EVENT_STANCES = {"support", "oppose", "neutral"}
-RANDOM_EVENT_PROGRESS_DELTAS = {-10, -5, 5, 10}
+RANDOM_EVENT_PROGRESS_DELTAS = {-5, -2.5, 2.5, 5}
 
 
 def load_data() -> dict:

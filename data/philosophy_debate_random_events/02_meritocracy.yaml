@@ -14,14 +14,14 @@ random_events:
         text:
           english: "The clerks strike every name from the papers before the marking begins."
           simp_chinese: "书吏在评分开始前，抹去试卷上的每一个姓名。"
-        progress_delta: 10
+        progress_delta: 5
         rationale:
           english: "Anonymous marking makes the debate's central claim real: an office can be judged by the ability on the page rather than the family in the margin. Nobles lose comfort, for their names no longer do quiet work where the examiner can see them."
           simp_chinese: "匿名评分把这场辩论的核心主张变成实制：官职凭纸面上的本事受评，而非页边的家世。贵族因此不安——他们的姓氏，再不能在考官眼皮底下悄悄使力。"
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: -0.04
+            value: -0.1
           - type: seat_stance
             group: scholarly_community
             stance: support
@@ -30,14 +30,14 @@ random_events:
         text:
           english: "We leave the names where an examiner can see them."
           simp_chinese: "我们把姓名留在考官看得见的地方。"
-        progress_delta: -5
+        progress_delta: -2.5
         rationale:
           english: "Leaving the names in plain sight keeps the old social signals inside the examination itself, slowing the meritocratic case while assuring the great families that rank still has an authorized voice on the page."
           simp_chinese: "把姓名留在明处，等于让旧有的社会信号继续留在考试之内，放慢任人唯才的推进，也向大族保证：门第在纸面上仍有被认可的发言权。"
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: 0.03
+            value: 0.05
           - type: seat_stance
             group: nobility
             stance: oppose
@@ -57,7 +57,7 @@ random_events:
         text:
           english: "We ask the parchments to answer to evidence, not to etiquette."
           simp_chinese: "我们要这些羊皮纸向证据交代，而不是向礼节交代。"
-        progress_delta: 5
+        progress_delta: 2.5
         rationale:
           english: "Questioning the genealogies forces ancestry to answer to evidence instead of etiquette. The Crown spends prestige by publicly doubting houses long accustomed to being treated as their own proof."
           simp_chinese: "质疑族谱，就是逼血统向证据交代，而非向礼节交代。王冠公开怀疑那些惯于把自身当作证据的家族，因而要付出威望。"
@@ -73,14 +73,14 @@ random_events:
         text:
           english: "The court honors service handed down like an heirloom."
           simp_chinese: "宫廷表彰那份像传家宝一样继承下来的功劳。"
-        progress_delta: -10
+        progress_delta: -5
         rationale:
           english: "Honoring hereditary service hands the noble argument its strongest form: a forefather's office becomes a warrant for the heir's. The debate slides away from open assessment and toward inherited entitlement."
           simp_chinese: "表彰世袭功劳，等于把贵族论点推到最有力处：先人的官职成了后代的凭证。辩论也就此从公开考核，滑回继承而来的权利。"
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: 0.05
+            value: 0.1
           - type: seat_stance
             group: nobility
             stance: oppose
@@ -100,7 +100,7 @@ random_events:
         text:
           english: "The Academy summons the stranger to court and a seat near the front."
           simp_chinese: "学院召这位外乡人入朝，并给了他靠前的一个座位。"
-        progress_delta: 10
+        progress_delta: 5
         rationale:
           english: "Bringing the provincial candidate to court turns meritocracy from a theory into a visible ladder. Local elites resent the disturbance, for talent can now climb past their patronage entirely."
           simp_chinese: "把这名外省候选人召入宫廷，任人唯才便从理论变成一道看得见的阶梯。地方精英反感这份扰动，因为人才如今能径直越过他们的庇护往上走。"
@@ -118,7 +118,7 @@ random_events:
         text:
           english: "Admirable, from a safe distance."
           simp_chinese: "可敬——离得远远地敬着。"
-        progress_delta: -5
+        progress_delta: -2.5
         rationale:
           english: "Praising the prodigy from a distance lets the court applaud ability without letting it unsettle a single appointment. Order holds, but the debate notes that talent can still be kept politely on the far side of the door."
           simp_chinese: "遥致嘉奖，让宫廷得以赞美才能，却不必让它动摇一桩任命。秩序保住了，但辩论也记下：人才仍可被客客气气地挡在门外那头。"
@@ -147,7 +147,7 @@ random_events:
         text:
           english: "The clerks lay the bargain open on the record."
           simp_chinese: "书吏把这笔交易摊在记录上，公之于众。"
-        progress_delta: 10
+        progress_delta: 5
         rationale:
           english: "Exposing the sale proves that a bought office is no harmless custom but a direct rival to tested competence. The reform gains force, though the Crown forfeits the coin and noble patrons the goodwill."
           simp_chinese: "揭露这笔交易，证明买来的官职绝非无伤大雅的旧例，而是对考核所得能力的正面对手。改革因此更有力，只是王室失了这笔钱，贵族庇护者也失了好感。"
@@ -157,12 +157,12 @@ random_events:
             scale: -1
           - type: estate_satisfaction
             estate: nobles_estate
-            value: -0.03
+            value: -0.05
       b:
         text:
           english: "We let the coin quietly find its office."
           simp_chinese: "我们由着这笔钱，悄悄找到它的官职。"
-        progress_delta: -10
+        progress_delta: -5
         rationale:
           english: "Accepting the arrangement makes the debate's very enemy into policy: money and connection buy what merit was meant to earn. The treasury breathes easier, but the case for open assessment is badly wounded."
           simp_chinese: "接受这项安排，等于把辩论的敌人立为政策：金钱与关系买下了本应由才能赢得的东西。国库松了一口气，公开考核的主张却受了重创。"
@@ -189,7 +189,7 @@ random_events:
         text:
           english: "The board enters proven command into the record of qualifications."
           simp_chinese: "评审会把经过考验的指挥资历，正式录入资格名册。"
-        progress_delta: 5
+        progress_delta: 2.5
         rationale:
           english: "Recognizing battlefield merit gives the reform a martial constituency and shows that competence can be proven under pressure, not merely on paper. The professional soldiery gains a reason to stand behind the debate."
           simp_chinese: "承认战场功绩，为改革带来一批军中支持者，并说明能力不只见于纸面，也能在压力下证明。职业军人因此有了支持这场辩论的理由。"
@@ -207,14 +207,14 @@ random_events:
         text:
           english: "The sword, like the title, is best kept in the family."
           simp_chinese: "刀剑一如爵位，最好留在家里。"
-        progress_delta: -5
+        progress_delta: -2.5
         rationale:
           english: "Preserving noble command privilege keeps military rank bound to birth and honor. The old command families are reassured, while competence under fire stays second to inherited standing."
           simp_chinese: "维护贵族指挥特权，让军阶继续系于出身与荣誉。旧有的统帅家族得到安抚，而炮火下的本事，仍屈居于继承而来的地位之后。"
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: 0.03
+            value: 0.05
           - type: seat_stance
             group: nobility
             stance: oppose
@@ -234,7 +234,7 @@ random_events:
         text:
           english: "The council sends the nephew to the same trial as any stranger."
           simp_chinese: "议事会把这位侄子送去接受与任何外人一样的考核。"
-        progress_delta: 5
+        progress_delta: 2.5
         rationale:
           english: "Open assessment lifts the appointment away from household access and sets it on measured competence, advancing meritocracy while irritating officials who prefer their recommendations murmured in private."
           simp_chinese: "公开考核把任命从宫廷门路上移开，落到可衡量的能力之上，推动任人唯才，却也惹恼了那些偏爱私下低声举荐的官僚。"
@@ -247,7 +247,7 @@ random_events:
         text:
           english: "We grant the favor and keep the peace of the court."
           simp_chinese: "我们准了这份人情，也保住了宫廷的太平。"
-        progress_delta: -5
+        progress_delta: -2.5
         rationale:
           english: "Granting the favor keeps the court calm and eases the immediate strain on legitimacy, but it teaches the Academy that kinship can still outrank proof at the door of high office."
           simp_chinese: "准了这份人情，宫廷得以安宁，眼前的正统性压力也松了一松，却也等于告诉学院：在高位的门前，亲缘仍可压过实证。"
@@ -270,26 +270,26 @@ random_events:
         text:
           english: "First let the work be shown; the sermon can wait."
           simp_chinese: "先看真本事，讲道容后再说。"
-        progress_delta: 5
+        progress_delta: 2.5
         rationale:
           english: "Putting ability first keeps appointment standards testable and secular enough for the meritocratic argument, but it costs clerical satisfaction by trimming the Church's power of veto."
           simp_chinese: "把能力放在前头，能让任命标准保持可检验，也够世俗，不致让任人唯才的讨论被宗教先行截断；但这会削去教会的否决之权，教士满意度随之下降。"
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
-            value: -0.04
+            value: -0.1
       b:
         text:
           english: "The parish seal is required before the examiner's ink."
           simp_chinese: "教区的印信，须盖在考官落墨之前。"
-        progress_delta: -5
+        progress_delta: -2.5
         rationale:
           english: "Accepting the moral certificate reassures the clergy, yet it sets a corporate seal of approval ahead of any competence a candidate might actually demonstrate."
           simp_chinese: "接受道德证明能安抚教士，却也把一枚团体认可的印信，摆在候选人真正能力得以展现之前。"
         effect_blocks:
           - type: estate_satisfaction
             estate: clergy_estate
-            value: 0.04
+            value: 0.1
   - design_id: M08
     pool: meritocracy
     issue: meritocracy
@@ -305,14 +305,14 @@ random_events:
         text:
           english: "The guild halls open their benches to any candidate the work itself will test."
           simp_chinese: "行会厅堂敞开工作台，任何愿以实活受考的候选人皆可上前。"
-        progress_delta: 10
+        progress_delta: 5
         rationale:
           english: "Practical trials strongly advance meritocracy by making an office depend on demonstrable work, and they reward the burgher institutions able to supply the benches and the judges."
           simp_chinese: "实务试炼以可展示的工作能力决定任用，强力推动任人唯才，也奖励了那些能提供工作台与评判者的市民机构。"
         effect_blocks:
           - type: estate_satisfaction
             estate: burghers_estate
-            value: 0.05
+            value: 0.1
           - type: seat_stance
             group: burghers
             stance: support
@@ -321,7 +321,7 @@ random_events:
         text:
           english: "We keep the old letters and the old learning as our measure."
           simp_chinese: "我们仍以旧日的文凭与旧日的学问为尺。"
-        progress_delta: -5
+        progress_delta: -2.5
         rationale:
           english: "Classical credentials keep the culture of office legible to conservative scholars, but they soften the demand that a candidate prove useful ability with his own hands."
           simp_chinese: "古典资历让任官的一套体统对保守学者仍旧熟悉，却也冲淡了要候选人亲手证明实用能力的那份要求。"
@@ -345,14 +345,14 @@ random_events:
         text:
           english: "The chamber lets the muddy petition be read from the floor, boots and all."
           simp_chinese: "议厅准这份带泥的请愿当众宣读，连同那双靴子。"
-        progress_delta: 10
+        progress_delta: 5
         rationale:
           english: "Hearing the petition widens meritocracy's social base, proving that origin cannot strike a man from the lists before his ability has even been examined."
           simp_chinese: "接纳请愿，拓宽了任人唯才的社会根基，证明出身不能在一个人的能力受检之前，就先把他从名册上划去。"
         effect_blocks:
           - type: estate_satisfaction
             estate: peasants_estate
-            value: 0.05
+            value: 0.1
           - type: seat_stance
             group: peasants
             stance: support
@@ -361,7 +361,7 @@ random_events:
         text:
           english: "Every stream is best judged by its own mill."
           simp_chinese: "溪流如何，自有本乡的水磨来评说。"
-        progress_delta: -5
+        progress_delta: -2.5
         rationale:
           english: "Returning the petition guards administrative order, but it leaves the local hierarchy to decide whether lowborn talent may so much as be heard."
           simp_chinese: "把请愿交还地方，维护了行政秩序，却也把寒门才智是否有资格被听见，交由地方的等级来裁定。"
@@ -386,14 +386,14 @@ random_events:
         text:
           english: "We post the rankings and keep the empty benches."
           simp_chinese: "我们照旧张榜，把那几排空座留着。"
-        progress_delta: 10
+        progress_delta: 5
         rationale:
           english: "Allowing the boycott proves that open ranking will not be held hostage to noble attendance, advancing meritocracy sharply at the cost of noble satisfaction."
           simp_chinese: "任其抵制，证明公开排名不会被贵族的出席所要挟，任人唯才大幅推进，代价是贵族满意度的下降。"
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: -0.06
+            value: -0.1
           - type: seat_stance
             group: nobility
             stance: oppose
@@ -402,14 +402,14 @@ random_events:
         text:
           english: "The Crown suspends the rankings until the great houses return."
           simp_chinese: "王冠暂停排名，直到大族肯回来为止。"
-        progress_delta: -10
+        progress_delta: -5
         rationale:
           english: "Suspending the rankings hands the great families a public victory and steadies their cooperation, but it lets birth grow strong enough to call a halt to evidence."
           simp_chinese: "暂停排名，把一场公开的胜利送给大族，也稳住了他们的配合，却让门第强大到足以叫停证据。"
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: 0.06
+            value: 0.1
           - type: temporary_country_modifier
             key: tv_academy_debate_rankings_suspended
             months: 12
@@ -430,14 +430,14 @@ random_events:
         text:
           english: "The Crown clears the whole examining board from their chairs."
           simp_chinese: "王冠把整个考官席位一并清空。"
-        progress_delta: 5
+        progress_delta: 2.5
         rationale:
           english: "Purging the examiners treats fraud as an institutional threat to measured ability rather than a handful of spoiled papers. The reform gains credibility, though the public upheaval costs stability."
           simp_chinese: "清洗考官队伍，把舞弊当作对能力考核制度的威胁，而非几份坏掉的试卷。改革因此更可信，但公开整顿要消耗社会稳定。"
         effect_blocks:
           - type: resource
             resource: stability
-            amount: -1
+            amount: -2.5
           - type: seat_stance
             group: scholarly_community
             stance: support
@@ -446,7 +446,7 @@ random_events:
         text:
           english: "We void the worst papers and say nothing of the rest."
           simp_chinese: "我们作废最坏的几份，其余的只字不提。"
-        progress_delta: -5
+        progress_delta: -2.5
         rationale:
           english: "Voiding only the worst papers contains the scandal and spares the sitting examiners, protecting administrative calm while quietly implying that fraud is tolerable, provided it is hidden well enough."
           simp_chinese: "只作废最坏的几份，把丑闻压在可控之内，也保住了在任的考官，行政秩序得以维持——却也悄悄暗示：只要藏得够好，舞弊便可容忍。"
@@ -475,14 +475,14 @@ random_events:
         text:
           english: "The list goes up on the gate for every passer-by to read."
           simp_chinese: "名单张贴在大门上，任每个路过的人评说。"
-        progress_delta: 10
+        progress_delta: 5
         rationale:
           english: "Posting the rankings turns private judgement into public evidence and makes patronage far harder to disguise. Public opinion gains a plain standard, while nobles watch family influence outpaced in open figures."
           simp_chinese: "张贴排名，把私下的评定变成公开的证据，也让庇护关系难以再伪装。舆论获得了一把明白的尺子，贵族则眼看家族影响力被白纸黑字地超过。"
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: -0.04
+            value: -0.1
           - type: seat_stance
             group: public_opinion
             stance: support
@@ -491,7 +491,7 @@ random_events:
         text:
           english: "Best settled behind closed doors."
           simp_chinese: "还是关起门来了断为好。"
-        progress_delta: -5
+        progress_delta: -2.5
         rationale:
           english: "Keeping the rankings private lets the court offices manage embarrassment and favors behind closed doors. Bureaucratic discretion is preserved, but the claim that merit can stand in open daylight is weakened."
           simp_chinese: "保持排名私密，让宫廷机构得以在门后处理尴尬与人情。官僚的裁量之权得以保全，但任人唯才能在光天化日下站住脚的主张，也随之削弱。"
@@ -519,7 +519,7 @@ random_events:
         text:
           english: "The board accepts answers written in the plain provincial hand."
           simp_chinese: "评审会接受以朴实省地文字写就的答卷。"
-        progress_delta: 5
+        progress_delta: 2.5
         rationale:
           english: "Permitting local answers separates competence from courtly polish, letting provincial talent be judged on administration rather than accent. Local communities gain confidence that the door is not reserved for the capital's manners."
           simp_chinese: "允许地方语言作答，把能力与宫廷修饰分开，使省份人才可按行政本领而非口音受评。地方社群因此相信，晋身之门并非只为首都的做派而开。"
@@ -537,7 +537,7 @@ random_events:
         text:
           english: "We hold every paper to the one court hand."
           simp_chinese: "我们要求每一份答卷都用统一的宫廷文体。"
-        progress_delta: -5
+        progress_delta: -2.5
         rationale:
           english: "Requiring the court style keeps the standard uniform and comfortable for central officials, but it lets cultivated language sift the candidates before ability is ever allowed to speak plainly."
           simp_chinese: "要求宫廷文体，让标准保持统一，也让中央官员更安心，却让修辞教养在能力得以平白开口之前，就先筛去了人。"
@@ -566,14 +566,14 @@ random_events:
         text:
           english: "The reformers enter the day's failure into the record as evidence."
           simp_chinese: "改革者把这一日的失手，作为证据录入记录。"
-        progress_delta: 10
+        progress_delta: 5
         rationale:
           english: "Using the failure as proof hands the meritocratic side a vivid case that inherited office can imperil public work. The argument leaps forward, while noble satisfaction falls as an old privilege becomes evidence against itself."
           simp_chinese: "把这次失手当作证据，为任人唯才一方送上鲜明的一例：世袭官职会危及公共事务。论点因此大步向前，而贵族满意度下滑，因为旧特权成了指证自身的材料。"
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: -0.05
+            value: -0.1
           - type: seat_stance
             group: public_opinion
             stance: support
@@ -582,7 +582,7 @@ random_events:
         text:
           english: "One slip does not unmake a lineage."
           simp_chinese: "一次失足，废不了一门世家。"
-        progress_delta: -10
+        progress_delta: -5
         rationale:
           english: "Shielding the office averts an immediate crisis of legitimacy and guards the dignity of inherited administration. It also tells the debate that birth may outlast even a public failure of competence."
           simp_chinese: "保护该官职，避开了眼前的正统性危机，也维护了世袭行政的体面。但这也等于告诉辩论：即便能力当众失败，出身仍可幸存。"
@@ -609,7 +609,7 @@ random_events:
         text:
           english: "The Academy throws its own chairs open to open competition."
           simp_chinese: "学院把自家的教席，摆上公开竞争的擂台。"
-        progress_delta: 5
+        progress_delta: 2.5
         rationale:
           english: "Opening the chairs turns meritocracy on the Academy itself, proving it will test its own posts before it lectures the realm. Scholars gain support as their careers cease to hang on a patron's goodwill alone."
           simp_chinese: "开放教席，把任人唯才施于学院自身，证明它愿在规劝国家之前先考核自己的职位。学者因此获得支持，因为他们的前途不再只系于赞助人的一念之善。"
@@ -627,14 +627,14 @@ random_events:
         text:
           english: "We leave the chairs in the hands that endowed them."
           simp_chinese: "我们把教席留在当初捐立它们的那些手里。"
-        progress_delta: -5
+        progress_delta: -2.5
         rationale:
           english: "Confirming patron rights reassures those who fund and shield the Academy's posts, but it leaves scholarship tethered to inherited favor rather than open comparison."
           simp_chinese: "确认赞助人权利，安抚了那些资助并庇护学院职位的人，却也让学术继续拴在继承而来的恩惠上，而非公开的比较。"
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: 0.02
+            value: 0.05
           - type: temporary_country_modifier
             key: tv_academy_debate_patron_rights_confirmed
             months: 18
@@ -655,7 +655,7 @@ random_events:
         text:
           english: "We enter proven years of service into the reckoning for office."
           simp_chinese: "我们把切实的服役年资，计入任官的权衡。"
-        progress_delta: 5
+        progress_delta: 2.5
         rationale:
           english: "Counting disciplined service widens merit beyond the examination hall without letting go of evidence. The professional military approves, for long service becomes a legible qualification rather than a sentimental plea."
           simp_chinese: "将严格的服役计入考量，把才能的范围从考场向外拓展，却不放开对证据的要求。职业军人为此赞同，因为长年效力终成一份可读的资格，而不再只是诉诸旧情的恳求。"
@@ -673,7 +673,7 @@ random_events:
         text:
           english: "The ministries keep the civil rolls and the muster rolls apart."
           simp_chinese: "各部把文职名册与征兵名册分开摆放。"
-        progress_delta: -5
+        progress_delta: -2.5
         rationale:
           english: "Keeping civil posts separate preserves the bureaucratic claim that offices belong to paperwork, schooling, and court procedure. It slows the meritocratic case by declaring one proven form of service beside the point."
           simp_chinese: "保持文职任命独立，维护了官僚体系的主张：职位当由文书、学业与宫廷程序决定。它宣告一种已被证明的效力无关紧要，从而拖慢任人唯才的推进。"
@@ -702,7 +702,7 @@ random_events:
         text:
           english: "Let the mark stand, favorite or no."
           simp_chinese: "分数照算，管他是不是宠儿。"
-        progress_delta: 10
+        progress_delta: 5
         rationale:
           english: "Letting the result stand proves that even royal favor cannot rescue a failed performance. The debate swings sharply toward meritocracy, but the Crown spends legitimacy by allowing its own preference to be overruled in public."
           simp_chinese: "让结果照常生效，证明连王冠的宠信也救不了一场失败的表现。辩论因此大幅倒向任人唯才，但王冠要付出正统性的代价，因为它公开容许自己的偏好被推翻。"
@@ -718,7 +718,7 @@ random_events:
         text:
           english: "The Crown orders the favorite a fresh trial and a fresh chance."
           simp_chinese: "王冠为这位宠儿另开一场考核，另给一次机会。"
-        progress_delta: -10
+        progress_delta: -5
         rationale:
           english: "Ordering a second trial tells the court factions that influence can purchase another chance whenever the evidence proves inconvenient. The old patronage logic recovers ground, and the bureaucracy learns exactly which candidates are protected."
           simp_chinese: "命令重新考核，等于告诉宫廷派系：证据一旦碍事，影响力便能换来第二次机会。旧有的庇护逻辑收复失地，官僚体系也看清了哪些候选人受到庇佑。"
@@ -745,7 +745,7 @@ random_events:
         text:
           english: "The Academy voids the tainted papers before the whole hall."
           simp_chinese: "学院当着满厅的面，作废这些被玷污的试卷。"
-        progress_delta: 10
+        progress_delta: 5
         rationale:
           english: "Publicly voiding the papers drags the corruption into the light and declares clean presentation worthless without a clean process. Prestige is spent, for the Academy must confess that its own examination table was compromised."
           simp_chinese: "公开作废这些试卷，把腐败拖到明处，并宣告没有清白的流程，卷面再干净也一文不值。学院必须承认自己的考场已被渗透，因此要付出威望。"
@@ -761,14 +761,14 @@ random_events:
         text:
           english: "Some ledgers are best left unopened."
           simp_chinese: "有些账本，最好永不翻开。"
-        progress_delta: -10
+        progress_delta: -5
         rationale:
           english: "Burying the investigation shields the patrons from scandal and lets the noble households keep the examination as one more channel of influence. The debate retreats, for merit is permitted to wear borrowed handwriting."
           simp_chinese: "掩埋这场调查，护住了庇护者免于丑闻，也让贵族家族继续把考试当作又一条影响力的渠道。辩论因此倒退，因为所谓才能被允许披上借来的笔迹。"
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: 0.04
+            value: 0.1
           - type: temporary_country_modifier
             key: tv_academy_debate_patronage_buried
             months: 24
@@ -789,7 +789,7 @@ random_events:
         text:
           english: "The Crown grants the provincial school a seat at the examinations."
           simp_chinese: "王冠准这所省立学校的学生入场应试。"
-        progress_delta: 5
+        progress_delta: 2.5
         rationale:
           english: "Recognizing the school concedes that administrative ability can be trained beyond the capital's manners and patronage circuits. Local autonomy gains confidence as provincial institutions are treated as sources of talent."
           simp_chinese: "承认这所学校，等于承认行政才能可在首都的礼法与庇护圈之外培养。地方自治因此更有信心，因为地方机构被视为人才的来源。"
@@ -807,7 +807,7 @@ random_events:
         text:
           english: "Not until the capital sets its seal."
           simp_chinese: "首都不盖印，一概免谈。"
-        progress_delta: -5
+        progress_delta: -2.5
         rationale:
           english: "Requiring capital certification keeps provincial training subordinate to the center. Central bureaucrats approve, for competence still passes through the familiar offices, seals, and court standards."
           simp_chinese: "要求首都认证，让地方训练继续服从中央。中央官僚为此赞成，因为才能仍须经过熟悉的机关、印信与宫廷标准的筛检。"
@@ -836,14 +836,14 @@ random_events:
         text:
           english: "The Crown swears the examiners its protection under seal."
           simp_chinese: "王冠立誓，以印信为考官提供庇护。"
-        progress_delta: 10
+        progress_delta: 5
         rationale:
           english: "Swearing protection makes the examination answer upward to law and Crown rather than sideways to noble reprisal. Meritocracy advances, for examiners may publish unwelcome results without first reckoning the cost in family revenge."
           simp_chinese: "宣誓保护，让考试流程向法律与王冠负责，而非向贵族的报复侧目。任人唯才因此推进，因为考官可以公布不受欢迎的结果，不必先盘算家族复仇的代价。"
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: -0.05
+            value: -0.1
           - type: seat_stance
             group: court_bureaucrats
             stance: support
@@ -852,14 +852,14 @@ random_events:
         text:
           english: "Better not to wake the great houses."
           simp_chinese: "还是别去惊动那些大族为好。"
-        progress_delta: -10
+        progress_delta: -5
         rationale:
           english: "Refusing protection keeps the great houses placid by leaving their intimidation unchallenged. Noble approval rises, but every examiner learns that a correct result may still be too dangerous to commit to print."
           simp_chinese: "拒绝保护，让大族因恐吓未受挑战而保持平静。贵族赞许随之上升，但每位考官都会明白：即便结果正确，也可能危险到不敢付梓。"
         effect_blocks:
           - type: estate_satisfaction
             estate: nobles_estate
-            value: 0.05
+            value: 0.1
           - type: seat_stance
             group: nobility
             stance: oppose
