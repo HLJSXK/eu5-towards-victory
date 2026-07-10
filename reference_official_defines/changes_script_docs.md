@@ -1,543 +1,324 @@
-# Script Documentation 1.2.0
+# Script Documentation 1.3
 ## Table of Contents
-* [Effects](#effects)
-* [Triggers](#triggers)
-* [Event Targets](#event-targets)
-* [Iterators](#iterators)
-* [On Actions](#on-actions)
+ * [Scopes](#scopes)
+ * [Effects](#effects)
+ * [Triggers](#triggers)
+ * [Event Targets](#event-targets)
+ * [Iterators](#iterators)
+ * [On Actions](#on-actions)
+ * [Modifiers](#modifiers)
 ## Notes
-* **Changed** means the description, scopes or anything related to the documentation for this element has changed
-* The on action scope is based on the script documentation, for more information see the `common/on_actions` directory
+ * **Changed** means the description, scopes or anything related to the documentation for this element has changed
+ * The list of iterators do **not** include generated geographic region based iterators
+ * The on action scope is based on the script documentation, for more information see the `common/on_actions` directory
+## Scopes
+| Type | Scope | Supports Variables | Supports Effects | Supports Triggers | Save Game Identifier |
+|--|--|--|--|--|--|
+| Added | `chivalric_order` | False | True | True | `chivalric_order` |
+| Added | `imperial_circle` | False | True | True | `imperial_circle` |
 
 ## Effects
-| Type    | Effect                                       | Description                                                                                                          |
-| ------- | -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| Added   | `add_area_preference`                        | Adds an area preference to the AI of a country                                                                       |
-| Added   | `add_bureaucracy`                            | Adds a new bureaucracy of the supplied type to the country's government.                                             |
-| Added   | `add_movement_modifier`                      | add a modifier to a movement                                                                                         |
-| Added   | `add_omen`                                   | adds an omen to a country                                                                                            |
-| Added   | `add_omen_god`                               | adds god to a country to ask for guidance on selecting an omen                                                       |
-| Added   | `add_spreader`                               | Adds a character who is spreading the movement.                                                                      |
-| Added   | `add_trust_equilibrium`                      | Adds a trust equilibrium modifier,                                                                                   |
-| Added   | `change_entrenchment`                        | Modifies the entrenchment of a bureaucracy by however much                                                           |
-| Added   | `change_score`                               | gives (or takes) score a country                                                                                     |
-| Added   | `demote_accepted_culture`                    | Removes an accepted culture and adds it as tolerated, with a single pop status update                                |
-| Added   | `destroy_building_country`                   | destroys building based country removing all their buildings and releasing subjects.                                 |
-| Added   | `distribute_gold_to_banking_estates`         | Distributes gold proportionally to all banking estates in a country                                                  |
-| Added   | `grant_town_rights`                          | grant town rights to a location                                                                                      |
-| Added   | `io_recalculate_leader`                      | force an international organization to recalculate its character leader from the current ruler of the leader country |
-| Added   | `lock_maintenance`                           | Sets the maintenance of a bureaucracy to be locked or not                                                            |
-| Added   | `marry_character_ignore_blocks`              | Marries character to target character, ignoring social restrictions such as estate, modifiers and same sex ban       |
-| Added   | `remove_all_area_preferences`                | Removes all area preferences from the AI of a country                                                                |
-| Added   | `remove_area_preference`                     | Removes an area preference from the AI of a country                                                                  |
-| Added   | `remove_bureaucracy`                         | removes the supplied bureaucracy from the country's government.                                                      |
-| Added   | `remove_movement_modifier`                   | Remove a modifier from a movement                                                                                    |
-| Added   | `remove_omen`                                | removes an omen from a country                                                                                       |
-| Added   | `remove_spreader`                            | Stops a character from spreading the movement.                                                                       |
-| Added   | `remove_trust_equilibrium`                   | Removes a trust equilibrium modifier,                                                                                |
-| Added   | `reset_ruler_title`                          | resets a ruler's title so it gets generated again                                                                    |
-| Added   | `reverse_add_trust_equilibrium`              | Adds a reverse trust equilibrium modifier,                                                                           |
-| Added   | `revoke_town_rights`                         | Revoke a specific town rights                                                                                        |
-| Added   | `revoke_town_rights_of_type`                 | revoke town rights of a type from a location                                                                         |
-| Added   | `set_entrenchment`                           | Sets the entrenchment of a bureaucracy to the supplied value                                                         |
-| Added   | `set_maintenance`                            | Sets the maintenance of a bureaucracy to the supplied value                                                          |
-| Added   | `set_personality`                            | Sets the AI personality for a country                                                                                |
-| Added   | `spawn_movement`                             | Spawns a movement in a location or on a subunit.                                                                     |
-| Added   | `spread_to_location`                         | Spreads the movement to a new location.                                                                              |
-| Changed | `add_trust`                                  | Adds trust (target = x value = y}                                                                                    |
-| Changed | `join_war_against`                           | joins the target war as an enemy of the target country.                                                              |
-| Changed | `join_war_with`                              | joins the target war as an ally of the target country.                                                               |
-| Changed | `remove_character_modifier`                  | Remove a modifier from a character                                                                                   |
-| Changed | `remove_country_modifier`                    | Remove a modifier from a country                                                                                     |
-| Changed | `remove_dynasty_modifier`                    | Remove a modifier from a dynasty                                                                                     |
-| Changed | `remove_god`                                 | removes a god from a country                                                                                         |
-| Changed | `remove_international_organization_modifier` | Remove a modifier from an international organization                                                                 |
-| Changed | `remove_location_modifier`                   | Remove a modifier from a location                                                                                    |
-| Changed | `remove_mercenary_modifier`                  | Remove a modifier from a mercenary                                                                                   |
-| Changed | `remove_province_modifier`                   | Remove a modifier from a province                                                                                    |
-| Changed | `remove_rebel_modifier`                      | Remove a modifier from a rebel                                                                                       |
-| Changed | `remove_religion_modifier`                   | Remove a modifier from a religion                                                                                    |
-| Changed | `remove_unit_modifier`                       | Remove a modifier from a unit                                                                                        |
-| Changed | `start_weather_system`                       | Starts off a new weather system.                                                                                     |
-| Removed | `remove_trust`                               | Removes a trust modifier,                                                                                            |
-| Removed | `reverse_add_trust`                          | Adds a reverse trust modifier,                                                                                       |
+| Type | Effect | Description |
+|--|--|--|
+| Added | `add_access_for_attackers` | adds access in the target country for all attackers in a war |
+| Added | `add_access_for_defenders` | adds access in the target country for all defenders in a war |
+| Added | `add_circle_satisfaction` | Add or subtract satisfaction from an imperial circle (clamped 0–100). |
+| Added | `add_country_to_circle` | Add a country to an imperial circle. |
+| Added | `add_recovered_army_levy_percentage` | adds recovered land levies into the province based on percentage |
+| Added | `add_recovered_navy_levy_percentage` | adds recovered naval levies into the province based on percentage |
+| Added | `apply_rebel_demands` | Executes the concession effect of the target rebel's demand |
+| Added | `buy_goods_from_market` | A country buys goods from a target market, paying the market buy price in gold and removing the goods from the market stockpile. |
+| Added | `change_art_worth` | Adds delta to the worth override of a work of art. Cannot make a work priceless. Copies type worth first if override is 0. |
+| Added | `change_creditworthiness` | Changes the creditworthiness of a country by the given amount (positive or negative) |
+| Added | `clear_circle_leader` | Clear the leader of an imperial circle. The circle remains but becomes leaderless. |
+| Added | `destroy_movement` | Destroys the unit from the current scope |
+| Added | `hre_start_circle_formation_effect` | Start the Imperial Circle formation process for the scope IO. No-op if already active or circles are already locked. |
+| Added | `join_active_chivalric_order_of` | Joins the active chivalric order of the specified country. Does nothing if the country has no active order. |
+| Added | `join_chivalric_order` | Joins the specified chivalric order. Removes any existing order membership first. |
+| Added | `leave_chivalric_order` | Removes the character from any chivalric order they are currently a member of. |
+| Added | `lend_unit_to_country` | Lends the entire unit to a war ally as a condottieri mercenary. |
+| Added | `recall_lent_unit` | Returns a lent unit to its owner (lender). Do NOT use destroy_mercenary for lent units — that calls Dismiss() which routes subunits to the borrower. |
+| Added | `redeem_bonds` | redeems the targeted government bond; country pays back face value |
+| Added | `remove_country_from_circle` | Remove a country from an imperial circle. If the country was the leader, the leader is also cleared. |
+| Added | `rescue_sub_unit` | Rescues a sub unit |
+| Added | `sell_bonds` | issues a government bond; country receives gold and owes bond_interest monthly |
+| Added | `sell_goods_to_market` | A country sells goods into a target market, receiving the sell price for its capital location in gold and adding the goods to the market stockpile. Has no effect if the country has no capital location. |
+| Added | `set_active_chivalric_order` | Unlocks the specified chivalric order for this country and refreshes the active order immediately. |
+| Added | `set_art_worth` | Sets the worth override of a work of art. -1 = priceless, 0 = use type default, positive = gold value. |
+| Added | `set_circle_leader` | Set the leader of an imperial circle. The country must already be a member. |
+| Added | `set_province_capital` | Locks the province capital to the target location, preventing automatic reassignment. |
+| Added | `set_rebel_demands` | Sets the rebel demand for this rebel, overriding the trigger-based auto-resolve. |
+| Added | `transfer_gold_from_estate` | Country gains gold transferred from a named estate's pool; clamped to BURGHER_GRANT_MAX_FRACTION of the estate's gold |
+| Removed | `add_mercenary_modifier` | add a modifier to a mercenary   |
+| Removed | `change_mercenary_modifier_size` | Change the strength of a modifier applied to the scope mercenary   |
+| Removed | `remove_mercenary_modifier` | Remove a modifier from a mercenary   |
 
 ## Triggers
-| Type    | Trigger                                              | Description                                                                                                                                      | Trait   |
-| ------- | ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------- |
-| Added   | `allowed_bureaucracies`                              | Check if the country is allowed bureaucracies                                                                                                    | Boolean |
-| Added   | `bureaucracy_disliked_by_estate`                     | is this bureaucracy disliked by this estate?                                                                                                     | -       |
-| Added   | `bureaucracy_disliked_by_estate_type`                | is this bureaucracy disliked by this estate type?                                                                                                | -       |
-| Added   | `bureaucracy_liked_by_estate`                        | is this bureaucracy liked by this estate?                                                                                                        | -       |
-| Added   | `bureaucracy_liked_by_estate_type`                   | is this bureaucracy liked by this estate type?                                                                                                   | -       |
-| Added   | `bureaucracy_maintenance`                            | current maintenance of the bureaucracy 0-1                                                                                                       | Value   |
-| Added   | `bureaucracy_type_disliked_by_estate`                | is this bureaucracy type disliked by this estate?                                                                                                | -       |
-| Added   | `bureaucracy_type_disliked_by_estate_type`           | is this bureaucracy type disliked by this estate type?                                                                                           | -       |
-| Added   | `bureaucracy_type_is_enabled`                        | Can we use a bureaucracy for a country?                                                                                                          | -       |
-| Added   | `bureaucracy_type_is_visible`                        | Can we see a bureaucracy for a country?                                                                                                          | -       |
-| Added   | `bureaucracy_type_liked_by_estate`                   | is this bureaucracy type liked by this estate?                                                                                                   | -       |
-| Added   | `bureaucracy_type_liked_by_estate_type`              | is this bureaucracy type liked by this estate type?                                                                                              | -       |
-| Added   | `can_marry_character`                                | Check if the current character scope can marry the target character                                                                              | -       |
-| Added   | `capital_wealth`                                     | Checks the total capital wealth of a country                                                                                                     | Value   |
-| Added   | `colonial_charter_distance`                          | Straight-line distance from country capital to a province's first passable location. Cheap sort proxy for colonial_charter_utility.)             | Value   |
-| Added   | `conquer_area_preference`                            | Gets the AI conquer preference for the supplied area -                                                                                           | Value   |
-| Added   | `entrenchment`                                       | current entrenchment of the bureaucracy 0-100                                                                                                    | Value   |
-| Added   | `get_trust_equilibrium`                              | how much of a trust equilibrium type does the country have towards another country?                                                              | Value   |
-| Added   | `gives_defensive_support_to`                         | Does the scope country give defensive support to specified country?                                                                              | -       |
-| Added   | `gives_offensive_support_to`                         | Does the scope country give offensive support to specified country?                                                                              | -       |
-| Added   | `had_country_rank_level`                             | Checks if a country has been or is currently in that level of the country rank                                                                   | -       |
-| Added   | `harbor_capacity_in_area`                            | gets the sum of harbor capacity (harbor suitability) at the country's ports in an area                                                           | Value   |
-| Added   | `has_ai_disposition_toward_player`                   | Does the country view the player with the given AI disposition? (alarmed/wary/planning_war/covets/rivals/indifferent)                            | -       |
-| Added   | `has_ai_preferred_parliament_law_change`             | Checks if the AI has a preferred parliament law change stored                                                                                    | Boolean |
-| Added   | `has_any_rgo_of_goods_method`                        | True if the country owns at least one location whose raw material uses the specified goods method.                                               | -       |
-| Added   | `has_any_town_rights`                                | Check if a location has town rights                                                                                                              | Boolean |
-| Added   | `has_area_preference`                                | Checks if a country has a specific area preference active                                                                                        | -       |
-| Added   | `has_bureaucracy_of_type`                            | checks if the scope country has a bureaucracy of the supplied type                                                                               | -       |
-| Added   | `has_different_town_rights_than`                     | Checks if a location shares no town right types with another location                                                                            | -       |
-| Added   | `has_max_town_rights`                                | Check if a location has reached its maximum number of town rights                                                                                | Boolean |
-| Added   | `has_old_world_goods_in_market`                      | Checks if a market has a supply of any old world goods                                                                                           | Boolean |
-| Added   | `has_omens`                                          | religion has omens                                                                                                                               | Boolean |
-| Added   | `has_only_prisoners`                                 | returns true if the unit contains ONLY prisoners                                                                                                 | Boolean |
-| Added   | `has_personality`                                    | Does the country have the specified AI personality?                                                                                              | -       |
-| Added   | `has_preference_tag`                                 | if a country has specific preference tag                                                                                                         | -       |
-| Added   | `has_town_rights`                                    | Checks if a location has a specific town_rights                                                                                                  | -       |
-| Added   | `importance`                                         | Checks if a Holy Site has this Importance                                                                                                        | Value   |
-| Added   | `international_organization_economical_base`         | Checks if an international organization has a certain economical base based on their members                                                     | Value   |
-| Added   | `io_exists`                                          | Does the international organization exist?                                                                                                       | -       |
-| Added   | `io_total_great_power_score`                         | returns the cached sum of great power scores of all members of an international organization (updated monthly)                                   | Value   |
-| Added   | `io_total_military_strength`                         | returns the cached sum of army strengths of all members of an international organization (updated monthly)                                       | Value   |
-| Added   | `is_active`                                          | If a culture is active.                                                                                                                          | Boolean |
-| Added   | `is_ai_preferred_parliament_change_law`              | Checks if this law is the AI's preferred parliament law change target (pass actor country as argument)                                           | -       |
-| Added   | `is_ai_preferred_parliament_change_policy`           | Checks if this policy is the AI's preferred parliament policy change target (pass actor country as argument)                                     | -       |
-| Added   | `is_eligible_for_marriage`                           | Check if the current character scope can marry                                                                                                   | Boolean |
-| Added   | `is_god_female`                                      | is the god female?                                                                                                                               | Boolean |
-| Added   | `is_invoking_omen`                                   | country is invoking omen                                                                                                                         | Boolean |
-| Added   | `is_location_holy_site_type`                         | Is the location a holy site of the specified type?                                                                                               | -       |
-| Added   | `is_selected_omen_god`                               | If a god is the one asked for guidance for selecting an omen in the target country                                                               | -       |
-| Added   | `language_population_in_country`                     | The number of speakers of a specific language in the current country                                                                             | Value   |
-| Added   | `max_bureaucracy_slots`                              | Checks if a country has a certain amount of maximum bureaucracy slots                                                                            | Value   |
-| Added   | `merged_culture_group_contains_culture`              | True if this merged culture was formed from a culture group that contained the target culture.                                                   | -       |
-| Added   | `monarch_power_percentage_in_country`                | The percentage of a specific monarch power in the current country                                                                                | Value   |
-| Added   | `monthly_population_change`                          | Check how much the population changes on a monthly base based on the previous month's data                                                       | Value   |
-| Added   | `monthly_satisfaction_change`                        | The monthly satisfaction change of an estate                                                                                                     | Value   |
-| Added   | `movement_presence`                                  | Checks the number of pops affected by a movement in a location or subunit.                                                                       | Value   |
-| Added   | `num_adult_available_dynasty_members`                | Return the number of living adult dynasty members who are neither rulers nor heirs                                                               | Value   |
-| Added   | `num_buildings_owned_by_estate`                      | Checks how many buildings an estate has                                                                                                          | Value   |
-| Added   | `num_bureaucracies`                                  | Checks if a country has a certain amount of bureaucracies active                                                                                 | Value   |
-| Added   | `num_country_that_can_be_called_offensively`         | Checks the number of countries that can be called into an offensive war by this country                                                          | Value   |
-| Added   | `num_locations_affected`                             | calculates the number of locations affected by the movement.                                                                                     | Value   |
-| Added   | `num_of_common_rivals`                               | calculates the amount of common rivals between two countries.                                                                                    | Value   |
-| Added   | `num_of_common_rivals_and_enemies`                   | calculates the amount of common rivals and enemies between two countries.                                                                        | Value   |
-| Added   | `num_omens`                                          | Checks if a country has a certain amount of omens                                                                                                | Value   |
-| Added   | `num_open_bureaucracy_slots`                         | Checks if a country has a certain amount of open bureaucracy slots                                                                               | Value   |
-| Added   | `original_location_rank`                             | Check if a location's rank at campaign start matches the supplied location rank                                                                  | -       |
-| Added   | `original_tag`                                       | if a country is a specific historical tag or was it.                                                                                             | -       |
-| Added   | `owns_or_non_sovereign_subject_owns_entire_province` | Does the country or non-sovereign subjects own all locations in province?                                                                        | -       |
-| Added   | `policy_possible_for_country`                        | Check the is a policy is possible for target counntry                                                                                            | -       |
-| Added   | `policy_utility`                                     | Utility of a policy that can subtract the utility of current policy -                                                                            | Value   |
-| Added   | `prev_favors_with_this`                              | Gets the previous scope country's favors with the current scope country                                                                          | Value   |
-| Added   | `prev_spy_network_in_this`                           | Gets the previous scope country's spy network in the current scope country                                                                       | Value   |
-| Added   | `prev_trust_equilibrium_of_this`                     | Gets the previous scope country's trust equilibrium of the current scope country                                                                 | Value   |
-| Added   | `province_location_wealth`                           | Checks if a Province has a certain total location wealth (possible tax base)                                                                     | Value   |
-| Added   | `receives_defensive_support_from`                    | Does the scope country receive defensive support from the specified country?                                                                     | -       |
-| Added   | `receives_offensive_support_from`                    | Does the scope country receive offensive support from the specified country?                                                                     | -       |
-| Added   | `religion_group_population_in_country`               | The number of population a specific religion group in the current country                                                                        | Value   |
-| Added   | `rgo_level`                                          | Checks if a location has a certain rgo level                                                                                                     | Value   |
-| Added   | `this_favors_with_prev`                              | Gets the current scope country's favors with the previous scope country                                                                          | Value   |
-| Added   | `this_spy_network_in_prev`                           | Gets the current scope country's spy network in the previous scope country                                                                       | Value   |
-| Added   | `this_trust_equilibrium_of_prev`                     | Gets the current scope country's trust equilibrium of the previous scope country                                                                 | Value   |
-| Added   | `trust_equilibrium`                                  | is the country's trust equilibrium towards the target greater or equal than the value?                                                           | Value   |
-| Added   | `unemployed_pops_of_pop_type_in_location`            | gets the number of unemployed pops of the pop type in the location                                                                               | Value   |
-| Added   | `unemployed_pops_of_pop_type_in_province`            | gets the number of unemployed pops of the pop type in the province                                                                               | Value   |
-| Added   | `valid_gender_for_heir_selection`                    | Checks if the character's gender is allowed for the target heir selection                                                                        | -       |
-| Changed | `culture_group_population_in_country`                | The number of population of a specific culture group in the current country                                                                      | Value   |
-| Changed | `culture_population_in_country`                      | The number of population of a specific culture in the current country                                                                            | Value   |
-| Changed | `has_dlc`                                            | Does the host have this DLC enabled? used for synched content                                                                                    | -       |
-| Changed | `has_local_dlc`                                      | Does the local player have this DLC enabled? used for unsynched content like new graphics                                                        | -       |
-| Changed | `has_prisoners`                                      | returns true if the unit contains prisoners                                                                                                      | Boolean |
-| Changed | `has_tag`                                            | Check if that object has the specified tag.                                                                                                      | -       |
-| Changed | `implementation_progress_percentage`                 | Checks if the current implementable scope has been implemented in percentage.                                                                    | Value   |
-| Changed | `is_allowed_for`                                     | Returns true if the current database object is allowed (but not necessarily visible) for the target country.                                     | -       |
-| Changed | `is_available_for`                                   | Returns true if the current database object is available to the target country.                                                                  | -       |
-| Changed | `is_eligible_for_royal_marriage`                     | if character is eligible for royal marriage. Is more restrictive and focused on rulers / heirs than the can_marry trigger                        | Boolean |
-| Changed | `is_fully_implemented_in`                            | Checks if the current implementable scope has been fully implemented in the specified country                                                    | -       |
-| Changed | `is_implementable_in`                                | Checks if the current implementable scope can be implemented in the specified country. Does not check if it has already been implemented or not. | -       |
-| Changed | `is_real_country`                                    | Checks if a country is a real country as opposed to mercenaries or pirates                                                                       | Boolean |
-| Changed | `is_visible_for`                                     | Returns true if the current database object is visible (but not necessarily allowed) to the target country.                                      | -       |
-| Changed | `modifier_utility`                                   | Checks the AI utility of a modifier                                                                                                              | Value   |
-| Changed | `modifier_utility_include_locations`                 | Checks the AI utility of a modifier with location checks                                                                                         | Value   |
-| Changed | `owns_or_has_subject_in`                             | country directly owns or has a subject in the geography supplied?                                                                                | -       |
-| Changed | `pop_type_percentage_in_country`                     | The percentage of population with the specific pop type in the current country                                                                   | Value   |
-| Changed | `pop_type_population_in_country`                     | The number of population with the specific pop type in the current country                                                                       | Value   |
-| Changed | `province_pop_type_population`                       | Checks how much of a pop type lives in the scope location.                                                                                       | Value   |
-| Changed | `religion_population_in_country`                     | The number of population with a specific religion in the current country                                                                         | Value   |
-| Changed | `ruled_country_on_or_after`                          | Check if the character has ruled the target country on or after the specified date.                                                              | -       |
-| Changed | `trust`                                              | How much trust does the country have in the target?                                                                                              | Value   |
-| Removed | `ai_unlock_unit_score`                               | Returns the score for AI to unlock a unit                                                                                                        | Value   |
-| Removed | `get_trust`                                          | how much of a trust type does the country have towards another country?                                                                          | Value   |
+| Type | Trigger | Trait | Description |
+|--|--|--|--|
+| Added | `all_holy_sites_owned_by_or_below_of` |  -  | Check that every holy site of the religion has its location owned by the target country, its subjects, or its subjects' subjects |
+| Added | `allow_subject_creation` | Boolean | Check if a subject type allows subject creation |
+| Added | `art_is_priceless` | Boolean | Check if a work of art is priceless (cannot be bought or sold). |
+| Added | `art_price` | Value | Checks the full sale price of a work of art in gold (worth * quality factor * age factor * sell value modifier). 0 if priceless. |
+| Added | `art_worth` | Value | Checks the effective gold worth of a work of art. -1 if priceless. |
+| Added | `attackers_have_access_in` |  -  | checks if the attacker side has access in the country in a war |
+| Added | `available_army_levy_percentage` | Value | Checks the percentage of available army levies |
+| Added | `available_navy_levy_percentage` | Value | Checks the percentage of available naval levies |
+| Added | `average_control` | Value | Checks the average control in the country |
+| Added | `bond_capacity` | Value | Checks the remaining bond issuance capacity of a country |
+| Added | `character_is_eligible_for_active_order` |  -  | Checks if the character meets the character_eligible conditions of the active chivalric order of the given country. |
+| Added | `character_is_in_order` |  -  | Checks if the character is a member of the specified chivalric order. |
+| Added | `circles_are_active` | Boolean | Are Imperial Circles active in the scope international organization? |
+| Added | `country_has_order` |  -  | Checks if the country's active chivalric order law references the specified order. |
+| Added | `creditworthiness` | Value | Checks the effective creditworthiness (0-1 scale; 0.5 is neutral) of a country |
+| Added | `cultural_influence_power` | Value | Cultural influence normalized to 0-1 range (influence / INFLUENCE_POWER_SCALE, clamped). |
+| Added | `cultural_tradition_power` | Value | Cultural tradition normalized to 0-1 range (tradition / TRADITION_POWER_SCALE, clamped). |
+| Added | `current_bonds` | Value | Checks how much a country has in outstanding government bond debt |
+| Added | `current_day` | Value | Compare the current ingame day (1..31) |
+| Added | `debt_to_estates` | Value | Checks how much a country has in estate loan debt |
+| Added | `defenders_have_access_in` |  -  | checks if the defender side has access in the country in a war |
+| Added | `foreign_debt` | Value | Checks how much a country has in foreign bank loan debt |
+| Added | `great_power_points` | Value | Checks a country's Great Power points accumulated from dominated areas |
+| Added | `has_ai_disposition_toward` |  -  | Does the scope country view the target country with the given AI disposition? |
+| Added | `has_ai_disposition_toward_actor` |  -  | Does the country view scope:actor with the given AI disposition? Used by the disposition map mode to color by the selected country's perspective; scope:actor falls back to the player when nothing is selected. (alarmed/wary/planning_war/covets/domineering/rivals/indifferent/friendly) |
+| Added | `has_chivalric_order` | Boolean | Checks if the country has an active chivalric order (i.e. the ruler has joined one). |
+| Added | `has_circle_leader` | Boolean | Does this imperial circle have a leader? |
+| Added | `has_different_order_of_chivalry` |  -  | Checks if this country and the target country both have different orders. |
+| Added | `has_game_started` | Boolean | Has the game started? |
+| Added | `has_pretender` | Boolean | Checks if a rebel has a pretender character |
+| Added | `has_sellable_art` | Boolean | Check if a country has any non-priceless work of art. |
+| Added | `hre_io_is_in_formation_period` | Boolean | Is the scope IO currently in the circle formation period? |
+| Added | `imperial_circle_member_count` | Value | Number of members in this imperial circle. |
+| Added | `imperial_circle_satisfaction` | Value | Satisfaction level (0–100) of this Imperial Circle. |
+| Added | `in_same_imperial_circle` |  -  | Are the scope country and target country members of the same Imperial Circle? |
+| Added | `international_organization_land_can_be_removed_by_peace_treaty` | Boolean | Return true if locations of this international organization can be removed by the 'remove location from IO' peace treaty |
+| Added | `io_total_tax_base` | Value | Returns the cached sum of total tax of all members of an international organization (updated monthly) |
+| Added | `is_bond` | Boolean | Checks if the loan is a government bond |
+| Added | `is_carrying_or_loaded_unit` | Boolean | Mercenary's underlying unit is embarked on another fleet or has armies embarked on board. Gate destruction/delist actions on this — otherwise the embark link will be torn and the loaded armies will drown. |
+| Added | `is_condottieri` | Boolean | subunit is a lent unit (condottieri) |
+| Added | `is_connected_to_through_realm` |  -  | Check if a location is connected by land/strait to another location in the same realm (top overlord and all subjects) |
+| Added | `is_country_leader_of_circle` |  -  | Is the specified country the leader of this Imperial Circle? |
+| Added | `is_defined_from_culture` |  -  | If a culture was originally defined as (or merged from) the target culture. |
+| Added | `is_dormant_imperial_circle` | Boolean | Is this imperial circle dormant? |
+| Added | `is_estate_loan` | Boolean | Checks if the loan is an estate loan (not from a banking country) |
+| Added | `is_imperial_circle_leader` | Boolean | Is this country the leader of any Imperial Circle? |
+| Added | `is_in_chivalric_order` | Boolean | Checks if the character is a member of any chivalric order. |
+| Added | `is_leader_of_any_imperial_circle_in_io` |  -  | Is this country the leader of any Imperial Circle in the specified IO? |
+| Added | `is_leader_of_imperial_circle` |  -  | Is this country the leader of the specified Imperial Circle? |
+| Added | `is_lent_unit` | Boolean | Check if a mercenary is a unit lent from an ally |
+| Added | `is_member_of_circle` |  -  | Is this country a member of the specified Imperial Circle? |
+| Added | `is_neighbor_of_country_or_across_one_seazone` |  -  | Is the country or location a Neighbor to the specified country, or only a single seazone apart? |
+| Added | `is_regional_power` | Boolean | country is a regional power |
+| Added | `is_system_automated` |  -  | Checks if an automated system is active for the country. |
+| Added | `is_withering` | Boolean | Checks if a market is withering (sustained at-or-below MARKET_WITHERING_LOCATION_THRESHOLD locations with a fallback market available for most of them) |
+| Added | `long_term_eco_growth` | Value | Checks the long-term (50-year) economic base growth rate of a country |
+| Added | `market_location_count` | Value | Number of locations currently assigned to this market |
+| Added | `mercenary_hire_cost` | Value | Cost to hire this sub unit as a mercenary |
+| Added | `mercenary_maintenance_cost` | Value | Cost to maintain this sub unit as a mercenary |
+| Added | `months_at_or_below_withering_threshold` | Value | How many consecutive months this market has had \<= MARKET_WITHERING_LOCATION_THRESHOLD locations |
+| Added | `num_bonds` | Value | Checks if a country has a certain amount of government bonds outstanding |
+| Added | `num_of_locations_with_high_conquer_desire` | Value | Gets how many locations the AI wants to conquer from the supplied country |
+| Added | `potential_army_size` | Value | Gets the total number of armies the country has and could raise |
+| Added | `potential_navy_size` | Value | Gets the total number of navies the country has and could raise |
+| Added | `powerful_ally_weight` | Value | Sum of alliance_weight modifiers across all allies (Great Powers = 1.0, Regional Powers = 0.5 by default) |
+| Added | `province_army_levy_percentage` | Value | Percentage of army levies that can be raised from a province |
+| Added | `province_average_max_control` | Value | Checks the average maximum control of a province |
+| Added | `province_navy_levy_percentage` | Value | Percentage of naval levies that can be raised from a province |
+| Added | `short_term_eco_growth` | Value | Checks the short-term (5-year) economic base growth rate of a country |
+| Added | `union_partner_weight` | Value | Sum of union_weight modifiers across all co-members (Great Powers = 1.0, Regional Powers = 0.5 by default) |
+| Changed | `country_interaction_acceptance` | Value | How high is the target country's AI value of accepting the country interaction done by the current country scope? Always return 0 if the country interaction has no acceptance   |
+| Changed | `great_power_ranking` | Value | Country's rank among Great Powers (1 = most points) |
+| Changed | `great_power_score` | Value | Checks a country's Great Power points (area-dominance score) |
+| Changed | `has_ai_disposition_toward_player` |  -  | Does the country view the player with the given AI disposition? (alarmed/wary/planning_war/covets/domineering/rivals/indifferent/friendly) |
+| Changed | `io_total_great_power_score` | Value | Returns the cached sum of great power scores of all members of an international organization (updated monthly) |
+| Changed | `io_total_military_strength` | Value | Returns the cached sum of army strengths of all members of an international organization (updated monthly) |
+| Changed | `reverse_country_interaction_acceptance` | Value | How high is the current country's AI value of accepting the country interaction done by the specified country scope? Always return 0 if the country interaction has no acceptance   |
+| Removed | `has_mercenary_modifier` |  -  | Does the scoped mercenary have a given modifier   |
+| Removed | `mercenary_modifier_strength` | Value | Does the scoped mercenary have a given modifier with the compared strength. Default modifiers without any scale changes have a strength value of 1   |
+| Removed | `military_tech_level` | Value | Checks if a country has a certain level of military tech |
 
 ## Event Targets
-| Type  | Event Target                                       | Description                                 |
-| ----- | -------------------------------------------------- | ------------------------------------------- |
-| Added | `ai_personality`                                   | Unknown, add something in code registration |
-| Added | `bureaucracy_type`                                 | Unknown, add something in code registration |
-| Added | `movement_definition`                              | Unknown, add something in code registration |
-| Added | `omen`                                             | Unknown, add something in code registration |
-| Added | `town_rights_type`                                 | Unknown, add something in code registration |
-| Added | `ai_personality`                                   | Unknown, add something in code registration |
-| Added | `country_government_reform_fully_implemented_date` | Unknown, add something in code registration |
-| Added | `country_government_reform_implementation_date`    | Unknown, add something in code registration |
-| Added | `implementation_price`                             | Unknown, add something in code registration |
-| Added | `removal_price`                                    | Unknown, add something in code registration |
-| Added | `movement_type`                                    | Unknown, add something in code registration |
-| Added | `linked_pop`                                       | Unknown, add something in code registration |
-| Added | `town_rights_type`                                 | Unknown, add something in code registration |
-| Added | `bureaucracy_type`                                 | Unknown, add something in code registration | 
+| Type | Event Target | Description |
+|--|--|--|
+| Added | `chivalric_order` | Unknown, add something in code registration |
+| Added | `active_chivalric_order` | Gets the chivalric order currently active for this country. Invalid if the country has no active order. |
+| Added | `ai_best_proximity_candidate` | gets the best proximity candidate location |
+| Added | `joined_chivalric_order` | Gets the chivalric order this character has joined. Invalid if the character is not a member of any order. |
+| Added | `circle_leader` | Unknown, add something in code registration |
+| Added | `pretender` | Unknown, add something in code registration |
+| Added | `mercenary` | Unknown, add something in code registration |
 
 ## Iterators
-| Type  | Iterator                                                           | 
-| ----- | ------------------------------------------------------------------ | 
-| Added | `{any\every\ordered\random}_available_dynasty_member`              | 
-| Added | `{any\every\ordered\random}_building_owned_by_estate`              | 
-| Added | `{any\every\ordered\random}_current_bureaucracy`                   | 
-| Added | `{any\every\ordered\random}_current_bureaucracy_type`              | 
-| Added | `{any\every\ordered\random}_estate_type_that_dislikes_bureaucracy` | 
-| Added | `{any\every\ordered\random}_estate_type_that_likes_bureaucracy`    | 
-| Added | `{any\every\ordered\random}_location_with_movement`                | 
-| Added | `{any\every\ordered\random}_locations_with_town_rights_in_country` | 
-| Added | `{any\every\ordered\random}_movement`                              | 
-| Added | `{any\every\ordered\random}_movement_in_country`                   | 
-| Added | `{any\every\ordered\random}_movement_in_culture`                   | 
-| Added | `{any\every\ordered\random}_movement_in_religion`                  | 
-| Added | `{any\every\ordered\random}_omen_in_country`                       | 
-| Added | `{any\every\ordered\random}_omen_in_god`                           | 
-| Added | `{any\every\ordered\random}_omen_in_religion`                      | 
-| Added | `{any\every\ordered\random}_ruled_international_organization`      | 
-| Added | `{any\every\ordered\random}_town_rights_in_country`                | 
-| Added | `{any\every\ordered\random}_town_rights_in_location`               | 
-| Added | `{any\every\ordered\random}_trait`                                 | 
+| Type | Iterator |
+|--|--|
+| Added | `{any\|every\|ordered\|random}_circle_member` |
+| Added | `{any\|every\|ordered\|random}_country_with_chivalric_order` |
+| Added | `{any\|every\|ordered\|random}_every_rented_out_mercenary` |
+| Added | `{any\|every\|ordered\|random}_imperial_circle` |
+| Added | `{any\|every\|ordered\|random}_imperial_circle_country_is_member_of` |
+| Added | `{any\|every\|ordered\|random}_past_court_dialect` |
+
 ## On Actions
-| Type  | On Action                   | Scope     | 
-| ----- | --------------------------- | --------- | 
-| Added | `on_colonize_annexed`       | `none`    | 
-| Added | `on_enforce_peace_declined` | `none`    | 
-| Added | `on_truce_broken`           | `none`    | 
-| Added | `on_bureaucracy_added`      | `none`    | 
-| Added | `on_enforce_peace_accepted` | `none`    | 
-| Added | `on_parliament_established` | `none`    | 
-| Added | `on_shattered_country`      | `none`    | 
-| Added | `on_omen_god_selected`      | `country` | 
-| Added | `on_parliament_abolished`   | `none`    | 
-| Added | `on_bureaucracy_change`     | `none`    | 
-| Added | `on_colonize_annex`         | `none`    | 
-| Added | `on_bureaucracy_removed`    | `none`    | 
-| Added | `on_transfer_subject`       | `none`    | 
+| Type | On Action | Scope |
+|--|--|--|
+| Added | `on_new_age_global` | `none` |
+| Added | `on_estate_culture_changed` | `none` |
+| Added | `on_estate_religion_changed` | `none` |
+| Added | `on_pre_war_declared` | `none` |
 
 ## Modifiers
-| Modififcation Type | Modifier                                                   | Description |
-| ------------------ | ---------------------------------------------------------- | ----------- |
-| Removed            | `antagonism_tolerance`                                     |             |
-| Removed            | `army_cavalry_build_cost_modifier`                         |             |
-| Removed            | `army_cavalry_maintenance_cost_modifier`                   |             |
-| Removed            | `army_cavalry_power`                                       |             |
-| Removed            | `army_cavalry_reinforce_cost_modifier`                     |             |
-| Removed            | `army_infantry_build_cost_modifier`                        |             |
-| Removed            | `army_infantry_maintenance_cost_modifier`                  |             |
-| Removed            | `army_infantry_power`                                      |             |
-| Removed            | `army_infantry_reinforce_cost_modifier`                    |             |
-| Removed            | `army_maintenance_cost`                                    |             |
-| Removed            | `bubonic_plague_resistance_modifier`                       |             |
-| Removed            | `court_spending_cost`                                      |             |
-| Removed            | `global_pop_silver_demand`                                 |             |
-| Removed            | `global_war_score_cost`                                    |             |
-| Removed            | `great_pestilence_resistance_modifier`                     |             |
-| Removed            | `influenza_resistance_modifier`                            |             |
-| Removed            | `local_war_score_cost`                                     |             |
-| Removed            | `malaria_resistance_modifier`                              |             |
-| Removed            | `measles_resistance_modifier`                              |             |
-| Removed            | `mercenary_maintenance_cost`                               |             |
-| Removed            | `merchant_maintenance_cost`                                |             |
-| Removed            | `navy_maintenance_cost`                                    |             |
-| Removed            | `pilgrimage_jain_cost_modifier`                            |             |
-| Removed            | `pilgrimage_piety_cost_modifier`                           |             |
-| Removed            | `pilgrimage_purity_cost_modifier`                          |             |
-| Removed            | `pilgrimage_yanantin_cost_modifier`                        |             |
-| Removed            | `produced_in_market_bonus`                                 |             |
-| Removed            | `smallpox_resistance_modifier`                             |             |
-| Removed            | `trade_efficiency`                                         |             |
-| Removed            | `trade_land_movement_cost_modifier`                        |             |
-| Removed            | `trade_sea_movement_cost_modifier`                         |             |
-| Removed            | `typhus_resistance_modifier`                               |             |
-| Added              | `allelengyon_bureaucracy_impact_modifier`                  |             |
-| Added              | `allow_bureaucracy`                                        |             |
-| Added              | `allow_roman_movement`                                     |             |
-| Added              | `aqueduct_system_max_level`                                |             |
-| Added              | `army_heavy_cavalry_build_cost_modifier`                   |             |
-| Added              | `army_heavy_cavalry_maintenance_cost_modifier`             |             |
-| Added              | `army_heavy_cavalry_power`                                 |             |
-| Added              | `army_heavy_cavalry_reinforce_cost_modifier`               |             |
-| Added              | `army_heavy_infantry_build_cost_modifier`                  |             |
-| Added              | `army_heavy_infantry_maintenance_cost_modifier`            |             |
-| Added              | `army_heavy_infantry_power`                                |             |
-| Added              | `army_heavy_infantry_reinforce_cost_modifier`              |             |
-| Added              | `army_light_cavalry_build_cost_modifier`                   |             |
-| Added              | `army_light_cavalry_maintenance_cost_modifier`             |             |
-| Added              | `army_light_cavalry_power`                                 |             |
-| Added              | `army_light_cavalry_reinforce_cost_modifier`               |             |
-| Added              | `army_light_infantry_build_cost_modifier`                  |             |
-| Added              | `army_light_infantry_maintenance_cost_modifier`            |             |
-| Added              | `army_light_infantry_power`                                |             |
-| Added              | `army_light_infantry_reinforce_cost_modifier`              |             |
-| Added              | `army_maintenance_efficiency`                              |             |
-| Added              | `assign_despot_price_cost_modifier`                        |             |
-| Added              | `blind_character_price_cost_modifier`                      |             |
-| Added              | `build_hippodrome_price_cost_modifier`                     |             |
-| Added              | `byz_born_in_the_purple`                                   |             |
-| Added              | `cabinet_trait_impact_modifier`                            |             |
-| Added              | `can_grant_town_rights`                                    |             |
-| Added              | `can_host_olympiads`                                       |             |
-| Added              | `can_ignore_papal_bulls`                                   |             |
-| Added              | `capital_possible_town_rights`                             |             |
-| Added              | `castrate_character_price_cost_modifier`                   |             |
-| Added              | `coalition_strength_tolerance`                             |             |
-| Added              | `commander_combat_bonus`                                   |             |
-| Added              | `compose_strategikon_price_cost_modifier`                  |             |
-| Added              | `contact_patriarch_of_constantinople_cost_modifier`        |             |
-| Added              | `country_allow_canonization`                               |             |
-| Added              | `country_marriage_banned`                                  |             |
-| Added              | `court_eunuchs_bureaucracy_impact_modifier`                |             |
-| Added              | `court_spending_cost_modifier`                             |             |
-| Added              | `crown_power_from_population`                              |             |
-| Added              | `deselect_orthodox_education_cost_modifier`                |             |
-| Added              | `enable_pronoia_subject`                                   |             |
-| Added              | `expand_aqueduct_system_cost_modifier`                     |             |
-| Added              | `expensive_estate_building_cost_modifier`                  |             |
-| Added              | `export_efficiency`                                        |             |
-| Added              | `export_impact_on_demand`                                  |             |
-| Added              | `fate_of_phoenix_actions_price_cost_modifier`              |             |
-| Added              | `frankokratia_vassal_state_may_declare_war`                |             |
-| Added              | `global_alum_pop_demand`                                   |             |
-| Added              | `global_amber_pop_demand`                                  |             |
-| Added              | `global_beer_pop_demand`                                   |             |
-| Added              | `global_beeswax_pop_demand`                                |             |
-| Added              | `global_books_pop_demand`                                  |             |
-| Added              | `global_bureaucracy_entrenchment_speed_modifier`           |             |
-| Added              | `global_bureaucracy_implementation_cost_modifier`          |             |
-| Added              | `global_bureaucracy_maintenance_cost_modifier`             |             |
-| Added              | `global_bureaucracy_removal_cost_modifier`                 |             |
-| Added              | `global_burghers_pop_growth`                               |             |
-| Added              | `global_cannons_pop_demand`                                |             |
-| Added              | `global_chili_pop_demand`                                  |             |
-| Added              | `global_clay_pop_demand`                                   |             |
-| Added              | `global_clergy_pop_growth`                                 |             |
-| Added              | `global_cloth_pop_demand`                                  |             |
-| Added              | `global_cloves_pop_demand`                                 |             |
-| Added              | `global_coal_pop_demand`                                   |             |
-| Added              | `global_cocoa_pop_demand`                                  |             |
-| Added              | `global_coffee_pop_demand`                                 |             |
-| Added              | `global_copper_pop_demand`                                 |             |
-| Added              | `global_cotton_pop_demand`                                 |             |
-| Added              | `global_dyes_pop_demand`                                   |             |
-| Added              | `global_elephants_pop_demand`                              |             |
-| Added              | `global_estate_satisfaction_from_legitimacy`               |             |
-| Added              | `global_fiber_crops_pop_demand`                            |             |
-| Added              | `global_fine_cloth_pop_demand`                             |             |
-| Added              | `global_firearms_pop_demand`                               |             |
-| Added              | `global_fish_pop_demand`                                   |             |
-| Added              | `global_fruit_pop_demand`                                  |             |
-| Added              | `global_fur_pop_demand`                                    |             |
-| Added              | `global_furniture_pop_demand`                              |             |
-| Added              | `global_gems_pop_demand`                                   |             |
-| Added              | `global_glass_pop_demand`                                  |             |
-| Added              | `global_goods_gold_pop_demand`                             |             |
-| Added              | `global_heathen_pop_conversion_speed_modifier`             |             |
-| Added              | `global_hellenism_religion_movement_growth_modifier`       |             |
-| Added              | `global_hellenism_religion_movement_resistance_modifier`   |             |
-| Added              | `global_heretic_pop_conversion_speed_modifier`             |             |
-| Added              | `global_horses_pop_demand`                                 |             |
-| Added              | `global_incense_pop_demand`                                |             |
-| Added              | `global_iron_pop_demand`                                   |             |
-| Added              | `global_ivory_pop_demand`                                  |             |
-| Added              | `global_jewelry_pop_demand`                                |             |
-| Added              | `global_laborers_pop_growth`                               |             |
-| Added              | `global_lacquerware_pop_demand`                            |             |
-| Added              | `global_lead_pop_demand`                                   |             |
-| Added              | `global_leather_pop_demand`                                |             |
-| Added              | `global_legumes_pop_demand`                                |             |
-| Added              | `global_liquor_pop_demand`                                 |             |
-| Added              | `global_livestock_pop_demand`                              |             |
-| Added              | `global_lumber_pop_demand`                                 |             |
-| Added              | `global_maize_pop_demand`                                  |             |
-| Added              | `global_marble_pop_demand`                                 |             |
-| Added              | `global_masonry_pop_demand`                                |             |
-| Added              | `global_max_bureaucracy_slots`                             |             |
-| Added              | `global_medicaments_pop_demand`                            |             |
-| Added              | `global_mercury_pop_demand`                                |             |
-| Added              | `global_migration_attraction`                              |             |
-| Added              | `global_millet_pop_demand`                                 |             |
-| Added              | `global_naval_supplies_pop_demand`                         |             |
-| Added              | `global_nobles_pop_growth`                                 |             |
-| Added              | `global_non_rural_monthly_development`                     |             |
-| Added              | `global_non_rural_monthly_prosperity`                      |             |
-| Added              | `global_olives_pop_demand`                                 |             |
-| Added              | `global_paper_pop_demand`                                  |             |
-| Added              | `global_pearls_pop_demand`                                 |             |
-| Added              | `global_peasants_pop_growth`                               |             |
-| Added              | `global_pepper_pop_demand`                                 |             |
-| Added              | `global_porcelain_pop_demand`                              |             |
-| Added              | `global_potato_pop_demand`                                 |             |
-| Added              | `global_pottery_pop_demand`                                |             |
-| Added              | `global_rice_pop_demand`                                   |             |
-| Added              | `global_roman_culture_movement_growth_modifier`            |             |
-| Added              | `global_roman_culture_movement_resistance_modifier`        |             |
-| Added              | `global_saffron_pop_demand`                                |             |
-| Added              | `global_salt_pop_demand`                                   |             |
-| Added              | `global_saltpeter_pop_demand`                              |             |
-| Added              | `global_sand_pop_demand`                                   |             |
-| Added              | `global_silk_pop_demand`                                   |             |
-| Added              | `global_silver_pop_demand`                                 |             |
-| Added              | `global_slaves_goods_pop_demand`                           |             |
-| Added              | `global_slaves_pop_growth`                                 |             |
-| Added              | `global_soldiers_pop_growth`                               |             |
-| Added              | `global_steel_pop_demand`                                  |             |
-| Added              | `global_stone_pop_demand`                                  |             |
-| Added              | `global_sugar_pop_demand`                                  |             |
-| Added              | `global_tar_pop_demand`                                    |             |
-| Added              | `global_tea_pop_demand`                                    |             |
-| Added              | `global_tin_pop_demand`                                    |             |
-| Added              | `global_tobacco_pop_demand`                                |             |
-| Added              | `global_tools_pop_demand`                                  |             |
-| Added              | `global_tribesmen_pop_growth`                              |             |
-| Added              | `global_war_score_efficiency`                              |             |
-| Added              | `global_weaponry_pop_demand`                               |             |
-| Added              | `global_wheat_pop_demand`                                  |             |
-| Added              | `global_wild_game_pop_demand`                              |             |
-| Added              | `global_wine_pop_demand`                                   |             |
-| Added              | `global_wool_pop_demand`                                   |             |
-| Added              | `grant_a_triumph_cost_modifier`                            |             |
-| Added              | `grant_town_rights_cost_modifier`                          |             |
-| Added              | `greek_festivals_cost_modifier`                            |             |
-| Added              | `honorary_titles_bureaucracy_impact_modifier`              |             |
-| Added              | `host_olympiad_cost_modifier`                              |             |
-| Added              | `hre_army_building_cost_modifier`                          |             |
-| Added              | `hre_imperial_armory_level`                                |             |
-| Added              | `imperial_senate_bureaucracy_impact_modifier`              |             |
-| Added              | `implement_bureaucracy_price_cost_modifier`                |             |
-| Added              | `import_efficiency`                                        |             |
-| Added              | `invite_patriarch_delegation_cost_modifier`                |             |
-| Added              | `jurchen_confederation_law_price_cost_modifier`            |             |
-| Added              | `kephalai_bureaucracy_impact_modifier`                     |             |
-| Added              | `lat_access_to_latin_reintegration_cabinet`                |             |
-| Added              | `lat_access_to_reconquest_cb`                              |             |
-| Added              | `loan_icon_price_cost_modifier`                            |             |
-| Added              | `local_bubonic_plague_growth_modifier`                     |             |
-| Added              | `local_bubonic_plague_resistance_modifier`                 |             |
-| Added              | `local_burghers_estate_unrest`                             |             |
-| Added              | `local_burghers_pop_growth`                                |             |
-| Added              | `local_clergy_estate_unrest`                               |             |
-| Added              | `local_clergy_pop_growth`                                  |             |
-| Added              | `local_cloth_guild_building_levels`                        |             |
-| Added              | `local_cossacks_estate_unrest`                             |             |
-| Added              | `local_crown_estate_unrest`                                |             |
-| Added              | `local_dhimmi_estate_unrest`                               |             |
-| Added              | `local_fine_cloth_guild_building_levels`                   |             |
-| Added              | `local_food_decay_modifier`                                |             |
-| Added              | `local_great_pestilence_growth_modifier`                   |             |
-| Added              | `local_great_pestilence_resistance_modifier`               |             |
-| Added              | `local_heathen_pop_conversion_speed_modifier`              |             |
-| Added              | `local_hellenism_religion_movement_growth_modifier`        |             |
-| Added              | `local_hellenism_religion_movement_impact_modifier`        |             |
-| Added              | `local_hellenism_religion_movement_resistance_modifier`    |             |
-| Added              | `local_heretic_pop_conversion_speed_modifier`              |             |
-| Added              | `local_influenza_growth_modifier`                          |             |
-| Added              | `local_influenza_resistance_modifier`                      |             |
-| Added              | `local_jewelry_guild_building_levels`                      |             |
-| Added              | `local_laborers_pop_growth`                                |             |
-| Added              | `local_malaria_growth_modifier`                            |             |
-| Added              | `local_malaria_resistance_modifier`                        |             |
-| Added              | `local_marketplace_building_levels`                        |             |
-| Added              | `local_measles_growth_modifier`                            |             |
-| Added              | `local_measles_resistance_modifier`                        |             |
-| Added              | `local_merchant_capacity_modifier`                         |             |
-| Added              | `local_nobles_estate_unrest`                               |             |
-| Added              | `local_nobles_pop_growth`                                  |             |
-| Added              | `local_peasants_estate_unrest`                             |             |
-| Added              | `local_peasants_pop_growth`                                |             |
-| Added              | `local_possible_town_rights`                               |             |
-| Added              | `local_roman_culture_movement_growth_modifier`             |             |
-| Added              | `local_roman_culture_movement_resistance_modifier`         |             |
-| Added              | `local_slaves_pop_growth`                                  |             |
-| Added              | `local_smallpox_growth_modifier`                           |             |
-| Added              | `local_smallpox_resistance_modifier`                       |             |
-| Added              | `local_soldiers_pop_growth`                                |             |
-| Added              | `local_tribes_estate_unrest`                               |             |
-| Added              | `local_tribesmen_pop_growth`                               |             |
-| Added              | `local_typhus_growth_modifier`                             |             |
-| Added              | `local_typhus_resistance_modifier`                         |             |
-| Added              | `local_war_score_efficiency`                               |             |
-| Added              | `magister_militum_bureaucracy_impact_modifier`             |             |
-| Added              | `maintain_bureaucracy_price_cost_modifier`                 |             |
-| Added              | `market_building_levels`                                   |             |
-| Added              | `marriage_desirability`                                    |             |
-| Added              | `max_manpower`                                             |             |
-| Added              | `max_sailors`                                              |             |
-| Added              | `max_siege_memory`                                         |             |
-| Added              | `may_hire_eunuch_advisors`                                 |             |
-| Added              | `megalopolis_upgrade_cost_modifier`                        |             |
-| Added              | `mend_schism_price_cost_modifier`                          |             |
-| Added              | `mercenary_maintenance_efficiency`                         |             |
-| Added              | `merchant_guild_chapel_price_cost_modifier`                |             |
-| Added              | `merchant_maintenance_efficiency`                          |             |
-| Added              | `minimum_fort_level`                                       |             |
-| Added              | `monthly_nahualt_reform_progress`                          |             |
-| Added              | `monthly_towards_hellenization`                            |             |
-| Added              | `monthly_towards_latinization`                             |             |
-| Added              | `nahuatl_religious_actions_price_cost_modifier`            |             |
-| Added              | `national_bubonic_plague_growth_modifier`                  |             |
-| Added              | `national_bubonic_plague_resistance_modifier`              |             |
-| Added              | `national_great_pestilence_growth_modifier`                |             |
-| Added              | `national_great_pestilence_resistance_modifier`            |             |
-| Added              | `national_hellenism_religion_movement_growth_modifier`     |             |
-| Added              | `national_hellenism_religion_movement_resistance_modifier` |             |
-| Added              | `national_influenza_growth_modifier`                       |             |
-| Added              | `national_influenza_resistance_modifier`                   |             |
-| Added              | `national_malaria_growth_modifier`                         |             |
-| Added              | `national_malaria_resistance_modifier`                     |             |
-| Added              | `national_measles_growth_modifier`                         |             |
-| Added              | `national_measles_resistance_modifier`                     |             |
-| Added              | `national_roman_culture_movement_growth_modifier`          |             |
-| Added              | `national_roman_culture_movement_resistance_modifier`      |             |
-| Added              | `national_smallpox_growth_modifier`                        |             |
-| Added              | `national_smallpox_resistance_modifier`                    |             |
-| Added              | `national_typhus_growth_modifier`                          |             |
-| Added              | `national_typhus_resistance_modifier`                      |             |
-| Added              | `navy_maintenance_efficiency`                              |             |
-| Added              | `nomos_empsychos_bureaucracy_impact_modifier`              |             |
-| Added              | `num_of_cataphracts_modifier`                              |             |
-| Added              | `num_of_legionaries_modifier`                              |             |
-| Added              | `omen_strength_modifier`                                   |             |
-| Added              | `omen_time_modifier`                                       |             |
-| Added              | `omens_offered`                                            |             |
-| Added              | `pilgrimage_action_cost_modifier`                          |             |
-| Added              | `reestablish_hellenism_price_cost_modifier`                |             |
-| Added              | `remove_bureaucracy_price_cost_modifier`                   |             |
-| Added              | `restore_rome_primacy_price_cost_modifier`                 |             |
-| Added              | `revoke_town_rights_cost_modifier`                         |             |
-| Added              | `rise_of_the_szlachta_actions_price_cost_modifier`         |             |
-| Added              | `ritualistic_court_bureaucracy_impact_modifier`            |             |
-| Added              | `roman_festivals_cost_modifier`                            |             |
-| Added              | `romanitas_bureaucracy_impact_modifier`                    |             |
-| Added              | `select_omen_god_cost_modifier`                            |             |
-| Added              | `select_orthodox_education_cost_modifier`                  |             |
-| Added              | `selling_efficiency`                                       |             |
-| Added              | `sixty_books_of_the_basilika_bureaucracy_impact_modifier`  |             |
-| Added              | `sponsor_troop_feast_cost_modifier`                        |             |
-| Added              | `subject_pays_pronoia_cost_modifier`                       |             |
-| Added              | `themata_bureaucracy_impact_modifier`                      |             |
-| Added              | `trade_land_efficiency`                                    |             |
-| Added              | `trade_sea_efficiency`                                     |             |
-| Added              | `train_admiral_ability`                                    |             |
-| Added              | `train_general_ability`                                    |             |
-| Added              | `trust_decay`                                              |             |
-| Added              | `trust_recovery`                                           |             |
-| Added              | `war_score_vs_other_religion_efficiency`                   |             |
+### cost > efficiency
+| Old | New |
+| --- | --- |
+| `army_reinforce_cost` | `army_reinforce_efficiency` |
+| `building_upkeep_costs` | `building_upkeep_efficiency` |
+| `colonial_maintenance_cost` | `colonial_maintenance_efficiency` |
+| `court_spending_cost_modifier` | `court_spending_efficiency` |
+| `diplomatic_annexation_cost` | `diplomatic_annexation_efficiency` |
+| `diplomatic_upkeep_modifier` | `diplomatic_upkeep_efficiency` |
+| `exploration_maintenance_cost` | `exploration_maintenance_efficiency` |
+| `food_purchase_cost` | `food_purchase_efficiency` |
+| `foreign_export_from_market_cost_modifier` | `foreign_export_from_market_efficiency` |
+| `fort_maintenance_cost` | `fort_maintenance_efficiency` |
+| `global_build_buildings_cost` | `global_build_buildings_efficiency` |
+| `global_bureaucracy_implementation_cost_modifier` | `global_bureaucracy_implementation_efficiency` |
+| `global_bureaucracy_maintenance_cost_modifier` | `global_bureaucracy_maintenance_efficiency` |
+| `global_bureaucracy_removal_cost_modifier` | `global_bureaucracy_removal_efficiency` |
+| `global_foreign_build_buildings_cost` | `global_foreign_build_buildings_efficiency` |
+| `global_fort_build_buildings_cost` | `global_fort_build_buildings_efficiency` |
+| `global_port_build_buildings_cost` | `global_port_build_buildings_efficiency` |
+| `global_rural_build_buildings_cost` | `global_rural_build_buildings_efficiency` |
+| `global_trade_through_owned_territory_cost_modifier` | `global_trade_through_owned_territory_efficiency` |
+| `global_urban_build_buildings_cost` | `global_urban_build_buildings_efficiency` |
+| `hire_for_cabinet_cost_modifier` | `hire_for_cabinet_efficiency` |
+| `hostile_diplomatic_annexation_cost` | `hostile_diplomatic_annexation_efficiency` |
+| `local_build_buildings_cost` | `local_build_buildings_efficiency` |
+| `local_build_new_buildings_cost` | `local_build_new_buildings_efficiency` |
+| `local_fort_maintenance_cost` | `local_fort_maintenance_efficiency` |
+| `local_port_build_buildings_cost` | `local_port_build_buildings_efficiency` |
+| `local_trade_embark_disembark_cost_modifier` | `local_trade_embark_disembark_efficiency` |
+| `navy_repair_cost` | `navy_repair_efficiency` |
+| `stability_cost` | `stability_cost_efficiency` |
+
+| Modififcation Type | Modifier                                                       | Description |
+| ------------------ | -------------------------------------------------------------- | ----------- |
+| Removed            | `appanage_prevented_from_call_to_war`                          |             |
+| Removed            | `attract_condottieri_price_cost_modifier`                      |             |
+| Removed            | `great_power_score`                                            |             |
+| Removed            | `great_power_score_exempt_from_forfeit`                        |             |
+| Removed            | `great_power_score_modifier`                                   |             |
+| Removed            | `has_chivalric_order`                                          |             |
+| Removed            | `is_in_chivalric_order`                                        |             |
+| Removed            | `peasants_allowed_weapons`                                     |             |
+| Added              | `accepted_culture_maintenance_cost_modifier`                   |             |
+| Added              | `admiralty_board_bureaucracy_impact_modifier`                  |             |
+| Added              | `ai_amount_of_parallel_charters`                               |             |
+| Added              | `ai_conquer_desire_religion_mult`                              |             |
+| Added              | `alliance_weight`                                              |             |
+| Added              | `allow_apprenticeships_education`                              |             |
+| Added              | `allow_clerical_archives`                                      |             |
+| Added              | `allow_dun_fort`                                               |             |
+| Added              | `allow_guild_hall`                                             |             |
+| Added              | `allow_guilds_of_florence_law`                                 |             |
+| Added              | `allow_kulm_town_rights`                                       |             |
+| Added              | `allow_local_noble_delegation`                                 |             |
+| Added              | `allow_magdeburg_rights_town_rights`                           |             |
+| Added              | `allow_military_order_units`                                   |             |
+| Added              | `allow_nobility_fortifications`                                |             |
+| Added              | `allow_noble_villa`                                            |             |
+| Added              | `allow_nobles_recruitment_center`                              |             |
+| Added              | `allow_novi_fori_town_rights`                                  |             |
+| Added              | `allow_nuremberg_rights_town_rights`                           |             |
+| Added              | `allow_peasants_hunting_grounds`                               |             |
+| Added              | `allow_peasants_training_grounds`                              |             |
+| Added              | `allow_theocratic_education`                                   |             |
+| Added              | `allow_ville_franche_town_rights`                              |             |
+| Added              | `allow_warrior_monks_training_grounds`                         |             |
+| Added              | `antagonism_development_impact`                                |             |
+| Added              | `audit_bureau_bureaucracy_impact_modifier`                     |             |
+| Added              | `base_burghers_estate_power_modifier`                          |             |
+| Added              | `base_clergy_estate_power_modifier`                            |             |
+| Added              | `base_cossacks_estate_power_modifier`                          |             |
+| Added              | `base_crown_estate_power_modifier`                             |             |
+| Added              | `base_dhimmi_estate_power_modifier`                            |             |
+| Added              | `base_nobles_estate_power_modifier`                            |             |
+| Added              | `base_peasants_estate_power_modifier`                          |             |
+| Added              | `base_tribes_estate_power_modifier`                            |             |
+| Added              | `block_forums_of_thought`                                      |             |
+| Added              | `board_of_revenue_bureaucracy_impact_modifier`                 |             |
+| Added              | `bond_interest`                                                |             |
+| Added              | `bond_size_modifier`                                           |             |
+| Added              | `building_upkeep_multiplier`                                   |             |
+| Added              | `burghers_estate_power_from_cabinet`                           |             |
+| Added              | `calvinist_preachers_building_cost_modifier`                   |             |
+| Added              | `can_sell_bonds`                                               |             |
+| Added              | `central_secretariat_bureaucracy_impact_modifier`              |             |
+| Added              | `challenge_league_leadership_price_cost_modifier`              |             |
+| Added              | `clergy_estate_power_from_cabinet`                             |             |
+| Added              | `colonial_office_bureaucracy_impact_modifier`                  |             |
+| Added              | `commissariat_bureaucracy_impact_modifier`                     |             |
+| Added              | `cossacks_estate_power_from_cabinet`                           |             |
+| Added              | `creditworthiness_bonus`                                       |             |
+| Added              | `crown_estate_power_from_cabinet`                              |             |
+| Added              | `dhimmi_estate_power_from_cabinet`                             |             |
+| Added              | `dynastic_acquisition_preference_modifier`                     |             |
+| Added              | `establish_italian_administration_center_price_cost_modifier`  |             |
+| Added              | `foreign_ministry_bureaucracy_impact_modifier`                 |             |
+| Added              | `fortify_key_location_price_cost_modifier`                     |             |
+| Added              | `french_subject_prevented_from_call_to_war`                    |             |
+| Added              | `friendly_movement_cost`                                       |             |
+| Added              | `ghibelline_imperial_protection`                               |             |
+| Added              | `global_building_establishment_speed`                          |             |
+| Added              | `global_mills_build_buildings_efficiency`                      |             |
+| Added              | `global_pop_demand`                                            |             |
+| Added              | `grand_secretariat_bureaucracy_impact_modifier`                |             |
+| Added              | `harmony_stability`                                            |             |
+| Added              | `high_kingship_overthrow_cost_modifier`                        |             |
+| Added              | `high_kingship_reclaim_land_cost_modifier`                     |             |
+| Added              | `high_kingship_subjugate_member_cost_modifier`                 |             |
+| Added              | `hostile_movement_cost`                                        |             |
+| Added              | `imperial_censorate_bureaucracy_impact_modifier`               |             |
+| Added              | `italian_league_sponsor_agenda_impact`                         |             |
+| Added              | `italian_league_sponsor_can_participate_in_parliament`         |             |
+| Added              | `italian_league_sponsor_gold_price_cost_modifier`              |             |
+| Added              | `italian_league_sponsor_manpower_price_cost_modifier`          |             |
+| Added              | `local_building_establishment_reduction`                       |             |
+| Added              | `local_building_establishment_speed`                           |             |
+| Added              | `local_calvinism_movement_growth_modifier`                     |             |
+| Added              | `local_calvinism_movement_resistance_modifier`                 |             |
+| Added              | `local_lutheranism_movement_growth_modifier`                   |             |
+| Added              | `local_lutheranism_movement_resistance_modifier`               |             |
+| Added              | `local_may_build_north_american_units`                         |             |
+| Added              | `local_mills_build_buildings_efficiency`                       |             |
+| Added              | `local_pop_demand`                                             |             |
+| Added              | `lutheran_preachers_building_cost_modifier`                    |             |
+| Added              | `max_bonds`                                                    |             |
+| Added              | `max_bonds_modifier`                                           |             |
+| Added              | `merge_colonies_price_cost_modifier`                           |             |
+| Added              | `monthly_creditworthiness_change`                              |             |
+| Added              | `national_calvinism_movement_growth_modifier`                  |             |
+| Added              | `national_calvinism_movement_resistance_modifier`              |             |
+| Added              | `national_lutheranism_movement_growth_modifier`                |             |
+| Added              | `national_lutheranism_movement_resistance_modifier`            |             |
+| Added              | `negotiate_rebels_buy_off_price_cost_modifier`                 |             |
+| Added              | `nobles_estate_power_from_cabinet`                             |             |
+| Added              | `num_italian_administrations`                                  |             |
+| Added              | `ordnance_board_bureaucracy_impact_modifier`                   |             |
+| Added              | `peasants_estate_power_from_cabinet`                           |             |
+| Added              | `privy_council_bureaucracy_impact_modifier`                    |             |
+| Added              | `profess_trust_price_cost_modifier`                            |             |
+| Added              | `request_divorce_price_cost_modifier`                          |             |
+| Added              | `request_work_of_art_purchase_cost_modifier`                   |             |
+| Added              | `sell_work_of_art_cost_modifier`                               |             |
+| Added              | `set_province_capital_cost_modifier`                           |             |
+| Added              | `six_boards_bureaucracy_impact_modifier`                       |             |
+| Added              | `sponsor_the_reformation_cost_modifier`                        |             |
+| Added              | `tolerated_culture_maintenance_cost_modifier`                  |             |
+| Added              | `trade_commission_bureaucracy_impact_modifier`                 |             |
+| Added              | `tribes_estate_power_from_cabinet`                             |             |
+| Added              | `twilight_of_the_tsardom_disaster_actions_price_cost_modifier` |             |
+| Added              | `unintegrated_land_expansion_penalty_modifier`                 |             |
+| Added              | `union_weight`                                                 |             |
+| Added              | `war_council_bureaucracy_impact_modifier`                      |             |
+| Added              | `win_war_chance_lower_limit`                                   |             |
+| Added              | `work_of_art_sell_value_modifier`                              |             |
