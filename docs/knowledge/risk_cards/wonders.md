@@ -144,9 +144,20 @@ generators.
     warning). See `docs/knowledge/anti_patterns.yaml` rule
     `wonder_ritual_cleanup_stale_after_entity_ritual_rename`.
 
+16. Use v1.3 `_efficiency` modifier names, not the old v1.2 `_cost` names.
+    EU5 v1.3 renamed ~29 `_cost`-suffixed static modifiers to `_efficiency` (e.g.
+    `global_build_buildings_cost` -> `global_build_buildings_efficiency`,
+    `local_fort_maintenance_cost` -> `local_fort_maintenance_efficiency`,
+    `stability_cost` -> `stability_cost_efficiency`,
+    `court_spending_cost_modifier` -> `court_spending_efficiency`), flipping
+    `color=bad` to `color=good` at the same nominal-value polarity, so the value must be
+    negated. Wonder data (`data/wonder_final_buildings.yaml`, `data/wonder_generic_rituals.yaml`,
+    `data/unique_wonders.yaml`) is the single largest concentration of these fields in the mod.
+    See `docs/knowledge/anti_patterns.yaml` rule `v1_3_cost_modifier_renamed_to_efficiency`.
+
 ## Validation
 
-Run `validate.py --changed --fix --ai-report`: it lints rule 2 automatically and, when a
+Run `validate.py --changed --fix --ai-report`: it lints rule 2 and rule 16 automatically, and when a
 `data/unique_wonder_ritual_*.yaml` or harness script changes, runs
 `wonder_unique_ritual_harness.validate_unique_ritual_specs_for_repo()`. Also run
 `scripts/test_wonder_mechanics_rules.py` after changing scale-based wonder trigger/effect

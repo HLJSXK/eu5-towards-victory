@@ -1875,7 +1875,7 @@ unique_wonders:
     listeners: []
     runtime_variables: []
     country_modifier:
-      stability_cost: -0.1
+      stability_cost_efficiency: 0.1
     reward: []
     confirmation_trigger_script: ''
     start_effect_script: ''
@@ -2155,7 +2155,7 @@ unique_wonders:
     listeners: []
     runtime_variables: []
     country_modifier:
-      court_spending_cost_modifier: -0.1
+      court_spending_efficiency: 0.1
     reward: []
     confirmation_trigger_script: ''
     start_effect_script: ''
@@ -2563,7 +2563,7 @@ unique_wonders:
     runtime_variables: []
     country_modifier:
       global_production_efficiency: 0.04
-      global_build_buildings_cost: -0.03
+      global_build_buildings_efficiency: 0.03
     reward: []
     confirmation_trigger_script: ''
     start_effect_script: ''
@@ -3054,7 +3054,7 @@ unique_wonders:
     listeners: []
     runtime_variables: []
     country_modifier:
-      global_build_buildings_cost: -0.05
+      global_build_buildings_efficiency: 0.05
       global_production_efficiency: 0.03
     reward: []
     confirmation_trigger_script: ''
@@ -3464,7 +3464,7 @@ unique_wonders:
     listeners: []
     runtime_variables: []
     country_modifier:
-      global_build_buildings_cost: -0.04
+      global_build_buildings_efficiency: 0.04
       monthly_prestige: 0.05
     reward: []
     confirmation_trigger_script: ''
@@ -4693,7 +4693,7 @@ unique_wonders:
     listeners: []
     runtime_variables: []
     country_modifier:
-      fort_maintenance_cost: -0.05
+      fort_maintenance_efficiency: 0.05
       global_garrison_size_modifier: 0.08
     reward: []
     confirmation_trigger_script: ''

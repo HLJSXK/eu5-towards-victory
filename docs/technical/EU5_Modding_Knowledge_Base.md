@@ -381,6 +381,26 @@ my_action_price_cost_modifier = {
 
 Define the modifier type in `main_menu/common/modifier_type_definitions/`, and localize all three keys in every supported language: `my_action_price`, `MODIFIER_TYPE_NAME_my_action_price_cost_modifier`, and `MODIFIER_TYPE_DESC_my_action_price_cost_modifier`. If the modifier type is missing, the engine logs `Missing modifier type for price. <price_key>_cost_modifier`.
 
+#### v1.3 Built-in Modifier Rename: `_cost` -> `_efficiency`
+
+Separate from the mod-defined `<price_key>_cost_modifier` convention above, EU5 v1.3 renamed
+roughly 29 pre-existing built-in static modifiers from a `_cost`/`_cost_modifier` suffix to an
+`_efficiency` suffix (e.g. `global_build_buildings_cost` -> `global_build_buildings_efficiency`,
+`fort_maintenance_cost` -> `fort_maintenance_efficiency`, `army_reinforce_cost` ->
+`army_reinforce_efficiency`, `global_bureaucracy_maintenance_cost_modifier` ->
+`global_bureaucracy_maintenance_efficiency`). Two names don't just gain the suffix:
+`stability_cost` -> `stability_cost_efficiency` and `court_spending_cost_modifier` ->
+`court_spending_efficiency`.
+
+The rename also flips `color = bad` to `color = good`, so every occurrence's value must be
+negated, not just renamed. Confirm via `git diff` on
+`main_menu/common/static_modifiers/00_modifier_types.txt` between reference commits before and
+after a version bump — do not assume a fixed multiplier applies uniformly; Paradox sometimes
+rebalances a field's magnitude at the same time as the rename (verify via a same-named
+`country_modifier`/`static_modifier` block that exists in both versions where possible). See
+`docs/knowledge/anti_patterns.yaml` rule `v1_3_cost_modifier_renamed_to_efficiency` and
+`docs/knowledge/risk_cards/wonders.md` rule 16 for the concrete list this project hit.
+
 #### Modifier Type Icons
 
 Modifier type definitions do not define their own UI icons. EU5 loads modifier icon mappings from `main_menu/common/modifier_icons/*.txt`. Any mod-defined modifier type that can appear in UI should have a same-key icon mapping:

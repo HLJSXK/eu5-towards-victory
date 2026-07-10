@@ -30383,7 +30383,7 @@ unique_wonders:
         ancient place to settle timing and memory: when communities agree on the
         season, the assembly, and the ancestral witness, fewer reforms and
         obligations feel arbitrary. This explains the source reward,
-        stability_cost: the monument lowers the political cost of restoring
+        stability_cost_efficiency: the monument lowers the political cost of restoring
         order because rulers can wrap changes in an accepted calendar and
         shared landscape.
       confirmation_logic: >
@@ -30513,7 +30513,7 @@ unique_wonders:
       intended_rewards:
         permanent_country_modifier:
           >
-            Preserve stability_cost reduction as the sole permanent source theme.
+            Preserve stability_cost_efficiency reduction as the sole permanent source theme.
             It represents a lower political cost to restore order because the
             state has tied assemblies, obligations, and reconciliation to an
             accepted ancient calendar. Do not turn this into a broad prestige,
@@ -36512,7 +36512,7 @@ unique_wonders:
         stipends, robes, entertainments, and factional patronage. It receives
         authority from a disciplined ancestral landscape guarded by banners,
         recorded by scribes, and acknowledged by local communities. That is why
-        court_spending_cost_modifier falls: the palace can spend less on
+        court_spending_efficiency falls: the palace can spend less on
         competitive display when succession, noble rank, and court ceremonial
         order are anchored in a recognized mountain rite.
       confirmation_logic: >
@@ -36534,7 +36534,7 @@ unique_wonders:
         The start effect records the sponsoring country, Girin Ula as the
         ritual site, the final altar building, the current ruler or regency, the
         dynastic context, and the active Changbai investiture cycle. It
-        snapshots country baselines: court_spending_cost_modifier or current
+        snapshots country baselines: court_spending_efficiency or current
         court expenditure pressure, legitimacy or authority, prestige,
         stability, treasury/income, noble or banner estate satisfaction,
         military access to the frontier, war state, and succession risk. It
@@ -36656,7 +36656,7 @@ unique_wonders:
       intended_rewards:
         permanent_country_modifier:
           >
-            Preserve court_spending_cost_modifier as the permanent reward. The
+            Preserve court_spending_efficiency as the permanent reward. The
             altar lowers court spending because dynastic origin, noble rank, and
             ceremonial access are renewed through a scheduled ancestral rite
             tied to Changbai rather than through improvised palace largesse,
@@ -46546,7 +46546,7 @@ unique_wonders:
         ration books, repair ledgers, and seasonal flood reports. The symbolic
         meaning is production through measured restraint. global_production_efficiency
         rises because fields and workshops receive steadier water and fewer
-        flood shocks. global_build_buildings_cost falls because the same
+        flood shocks. global_build_buildings_efficiency falls because the same
         engineers, labor rosters, material depots, and measurement habits teach
         the state to build with local conditions instead of brute-force waste.
       confirmation_logic: >
@@ -46566,7 +46566,7 @@ unique_wonders:
         The start effect records the sponsoring country, Chengdu as ritual site,
         the final waterworks building, the planned auxiliary maintenance
         network, and the active Fish-Mouth division cycle. It snapshots country
-        baselines: global_production_efficiency, global_build_buildings_cost,
+        baselines: global_production_efficiency, global_build_buildings_efficiency,
         treasury/income, construction capacity, labor/manpower pressure,
         stability, corruption, food supply or famine pressure, and war state. It
         snapshots local baselines: occupation, unrest, devastation, prosperity,
@@ -46687,7 +46687,7 @@ unique_wonders:
         permanent_country_modifier:
           >
             Preserve global_production_efficiency and
-            global_build_buildings_cost. Production improves because water
+            global_build_buildings_efficiency. Production improves because water
             reaches fields and workshops more reliably; building costs fall
             because Dujiangyan's offices teach surveying, materials staging,
             labor rationing, and adaptive engineering that reduce waste across
@@ -57260,7 +57260,7 @@ unique_wonders:
         chamber where block marks become enforceable promises. The objects are
         iron wedges, chisels, ropes, sledges, ox yokes, quarry marks, block
         numbers, order books, cranes, measuring rods, sample chips, delivery
-        seals, accident rolls, and sculptor templates. global_build_buildings_cost
+        seals, accident rolls, and sculptor templates. global_build_buildings_efficiency
         falls because standardized blocks, known routes, and signed deliveries
         prevent waste. global_production_efficiency rises because the quarry
         system teaches extraction, grading, transport, and workshop scheduling.
@@ -57280,7 +57280,7 @@ unique_wonders:
         The start effect records the sponsoring country, Prato as ritual site,
         the final quarry building, the Carrara supply route, active building
         demand, and the Marble Contract cycle. It snapshots country baselines:
-        global_build_buildings_cost, global_production_efficiency,
+        global_build_buildings_efficiency, global_production_efficiency,
         treasury/income, construction capacity, artisan demand, burgher or guild
         satisfaction, stability, corruption, infrastructure investment, and war
         state. It snapshots local baselines: occupation, unrest, devastation,
@@ -57388,7 +57388,7 @@ unique_wonders:
       intended_rewards:
         permanent_country_modifier:
           >
-            Preserve global_build_buildings_cost and
+            Preserve global_build_buildings_efficiency and
             global_production_efficiency. Cheaper building comes from standard
             blocks, reliable delivery, and fewer failed orders; production
             efficiency comes from quarry scheduling, marked materials, transport
@@ -65771,7 +65771,7 @@ unique_wonders:
         charter chamber. The objects are measuring cords, stakes, plan drawings,
         foundation stones, brick molds, timber accounts, lime pits, guild plot
         books, academy statutes, market stall licenses, bastion diagrams, and
-        civic charters. global_build_buildings_cost falls because the city
+        civic charters. global_build_buildings_efficiency falls because the city
         standardizes lots, materials, foundations, and street geometry before
         construction wastes money. monthly_prestige rises because envoys,
         nobles, scholars, and merchants see a rational city built as a public
@@ -65896,7 +65896,7 @@ unique_wonders:
       intended_rewards:
         permanent_country_modifier:
           >
-            Preserve global_build_buildings_cost and monthly_prestige. Building
+            Preserve global_build_buildings_efficiency and monthly_prestige. Building
             costs fall through standardized lots, foundations, materials, and
             planned streets; prestige rises because the city displays rational
             Renaissance order, academy life, market privilege, and bastioned
