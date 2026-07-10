@@ -100,11 +100,34 @@ tv_academy_debate_group_nobility_not_in_current_debate_trigger = {
 	NOT = { has_variable = tv_academy_debate_group_court_bureaucrats_left }
 	NOT = { has_variable = tv_academy_debate_group_professional_military_seated }
 	NOT = { has_variable = tv_academy_debate_group_professional_military_left }
+	NOT = { has_variable = tv_academy_debate_group_feudal_levy_nobility_seated }
+	NOT = { has_variable = tv_academy_debate_group_feudal_levy_nobility_left }
+	NOT = { has_variable = tv_academy_debate_group_patronal_aristocracy_seated }
+	NOT = { has_variable = tv_academy_debate_group_patronal_aristocracy_left }
+	NOT = { has_variable = tv_academy_debate_group_serf_holding_lords_seated }
+	NOT = { has_variable = tv_academy_debate_group_serf_holding_lords_left }
+	NOT = { has_variable = tv_academy_debate_group_absolutist_court_faction_seated }
+	NOT = { has_variable = tv_academy_debate_group_absolutist_court_faction_left }
+	NOT = { has_variable = tv_academy_debate_group_constitutionalist_nobility_seated }
+	NOT = { has_variable = tv_academy_debate_group_constitutionalist_nobility_left }
+	NOT = { has_variable = tv_academy_debate_group_war_doctrine_nobility_seated }
+	NOT = { has_variable = tv_academy_debate_group_war_doctrine_nobility_left }
+	NOT = { has_variable = tv_academy_debate_group_fortress_doctrine_nobility_seated }
+	NOT = { has_variable = tv_academy_debate_group_fortress_doctrine_nobility_left }
 }
 
 tv_academy_debate_group_nobility_available_trigger = {
 	tv_academy_debate_group_nobility_not_in_current_debate_trigger = yes
 	country_has_estate = estate_type:nobles_estate
+	NOT = { any_current_bureaucracy = { always = yes } }
+	NOT = { societal_value:quality_vs_quantity < -50 }
+	NOT = { societal_value:quality_vs_quantity > 50 }
+	NOT = { societal_value:aristocracy_vs_plutocracy < -50 }
+	NOT = { societal_value:serfdom_vs_free_subjects < -50 }
+	NOT = { societal_value:absolutism_vs_liberalism < -50 }
+	NOT = { societal_value:absolutism_vs_liberalism > 50 }
+	NOT = { societal_value:offensive_vs_defensive < -50 }
+	NOT = { societal_value:offensive_vs_defensive > 50 }
 }
 
 tv_academy_debate_group_nobility_supports_current_issue_trigger = {
@@ -134,11 +157,33 @@ tv_academy_debate_group_clergy_not_in_current_debate_trigger = {
 	NOT = { has_variable = tv_academy_debate_group_clergy_left }
 	NOT = { has_variable = tv_academy_debate_group_religious_reformers_seated }
 	NOT = { has_variable = tv_academy_debate_group_religious_reformers_left }
+	NOT = { has_variable = tv_academy_debate_group_devout_clergy_seated }
+	NOT = { has_variable = tv_academy_debate_group_devout_clergy_left }
+	NOT = { has_variable = tv_academy_debate_group_humanist_clergy_seated }
+	NOT = { has_variable = tv_academy_debate_group_humanist_clergy_left }
+	NOT = { has_variable = tv_academy_debate_group_mystic_clergy_seated }
+	NOT = { has_variable = tv_academy_debate_group_mystic_clergy_left }
+	NOT = { has_variable = tv_academy_debate_group_canonist_clergy_seated }
+	NOT = { has_variable = tv_academy_debate_group_canonist_clergy_left }
+	NOT = { has_variable = tv_academy_debate_group_latinizing_clergy_seated }
+	NOT = { has_variable = tv_academy_debate_group_latinizing_clergy_left }
+	NOT = { has_variable = tv_academy_debate_group_hellenizing_clergy_seated }
+	NOT = { has_variable = tv_academy_debate_group_hellenizing_clergy_left }
 }
 
 tv_academy_debate_group_clergy_available_trigger = {
 	tv_academy_debate_group_clergy_not_in_current_debate_trigger = yes
 	country_has_estate = estate_type:clergy_estate
+	NOT = {
+		religion.group = religion_group:christian
+		is_situation_active = situation:reformation
+	}
+	NOT = { societal_value:spiritualist_vs_humanist < -50 }
+	NOT = { societal_value:spiritualist_vs_humanist > 50 }
+	NOT = { societal_value:mysticism_vs_jurisprudence < -50 }
+	NOT = { societal_value:mysticism_vs_jurisprudence > 50 }
+	NOT = { societal_value:latinization_vs_hellenization < -50 }
+	NOT = { societal_value:latinization_vs_hellenization > 50 }
 }
 
 tv_academy_debate_group_clergy_supports_current_issue_trigger = {
@@ -170,11 +215,37 @@ tv_academy_debate_group_burghers_not_in_current_debate_trigger = {
 	NOT = { has_variable = tv_academy_debate_group_scholarly_community_left }
 	NOT = { has_variable = tv_academy_debate_group_maritime_merchants_seated }
 	NOT = { has_variable = tv_academy_debate_group_maritime_merchants_left }
+	NOT = { has_variable = tv_academy_debate_group_continental_traders_seated }
+	NOT = { has_variable = tv_academy_debate_group_continental_traders_left }
+	NOT = { has_variable = tv_academy_debate_group_plutocratic_merchants_seated }
+	NOT = { has_variable = tv_academy_debate_group_plutocratic_merchants_left }
+	NOT = { has_variable = tv_academy_debate_group_mercantilist_guilds_seated }
+	NOT = { has_variable = tv_academy_debate_group_mercantilist_guilds_left }
+	NOT = { has_variable = tv_academy_debate_group_free_trade_merchants_seated }
+	NOT = { has_variable = tv_academy_debate_group_free_trade_merchants_left }
+	NOT = { has_variable = tv_academy_debate_group_capitalist_financiers_seated }
+	NOT = { has_variable = tv_academy_debate_group_capitalist_financiers_left }
+	NOT = { has_variable = tv_academy_debate_group_guild_traditionalists_seated }
+	NOT = { has_variable = tv_academy_debate_group_guild_traditionalists_left }
+	NOT = { has_variable = tv_academy_debate_group_colonial_merchants_seated }
+	NOT = { has_variable = tv_academy_debate_group_colonial_merchants_left }
+	NOT = { has_variable = tv_academy_debate_group_insular_guilds_seated }
+	NOT = { has_variable = tv_academy_debate_group_insular_guilds_left }
 }
 
 tv_academy_debate_group_burghers_available_trigger = {
 	tv_academy_debate_group_burghers_not_in_current_debate_trigger = yes
 	country_has_estate = estate_type:burghers_estate
+	NOT = { average_country_literacy > 50 }
+	NOT = { societal_value:land_vs_naval > 50 }
+	NOT = { societal_value:land_vs_naval < -50 }
+	NOT = { societal_value:aristocracy_vs_plutocracy > 50 }
+	NOT = { societal_value:mercantilism_vs_free_trade < -50 }
+	NOT = { societal_value:mercantilism_vs_free_trade > 50 }
+	NOT = { societal_value:capital_economy_vs_traditional_economy < -50 }
+	NOT = { societal_value:capital_economy_vs_traditional_economy > 50 }
+	NOT = { societal_value:outward_vs_inward < -50 }
+	NOT = { societal_value:outward_vs_inward > 50 }
 }
 
 tv_academy_debate_group_burghers_supports_current_issue_trigger = {
@@ -205,11 +276,25 @@ tv_academy_debate_group_peasants_not_in_current_debate_trigger = {
 	NOT = { has_variable = tv_academy_debate_group_public_opinion_left }
 	NOT = { has_variable = tv_academy_debate_group_local_autonomy_seated }
 	NOT = { has_variable = tv_academy_debate_group_local_autonomy_left }
+	NOT = { has_variable = tv_academy_debate_group_crown_subjects_seated }
+	NOT = { has_variable = tv_academy_debate_group_crown_subjects_left }
+	NOT = { has_variable = tv_academy_debate_group_free_subject_peasantry_seated }
+	NOT = { has_variable = tv_academy_debate_group_free_subject_peasantry_left }
+	NOT = { has_variable = tv_academy_debate_group_individualist_smallholders_seated }
+	NOT = { has_variable = tv_academy_debate_group_individualist_smallholders_left }
+	NOT = { has_variable = tv_academy_debate_group_communal_villages_seated }
+	NOT = { has_variable = tv_academy_debate_group_communal_villages_left }
 }
 
 tv_academy_debate_group_peasants_available_trigger = {
 	tv_academy_debate_group_peasants_not_in_current_debate_trigger = yes
 	country_has_estate = estate_type:peasants_estate
+	NOT = { has_policy = no_censorship }
+	NOT = { societal_value:centralization_vs_decentralization > 50 }
+	NOT = { societal_value:centralization_vs_decentralization < -50 }
+	NOT = { societal_value:serfdom_vs_free_subjects > 50 }
+	NOT = { societal_value:individualism_vs_communalism < -50 }
+	NOT = { societal_value:individualism_vs_communalism > 50 }
 }
 
 tv_academy_debate_group_peasants_supports_current_issue_trigger = {
@@ -244,6 +329,13 @@ tv_academy_debate_group_tribes_not_in_current_debate_trigger = {
 tv_academy_debate_group_tribes_available_trigger = {
 	tv_academy_debate_group_tribes_not_in_current_debate_trigger = yes
 	country_has_estate = estate_type:tribes_estate
+	NOT = { any_owned_location = { dominant_culture = { is_accepted_in = root } } }
+	NOT = { societal_value:traditionalist_vs_innovative < -50 }
+	NOT = { societal_value:traditionalist_vs_innovative > 50 }
+	NOT = { societal_value:sinicized_vs_unsinicized < -50 }
+	NOT = { societal_value:sinicized_vs_unsinicized > 50 }
+	NOT = { societal_value:belligerent_vs_conciliatory < -50 }
+	NOT = { societal_value:belligerent_vs_conciliatory > 50 }
 }
 
 tv_academy_debate_group_tribes_supports_current_issue_trigger = {
@@ -277,6 +369,13 @@ tv_academy_debate_group_dhimmi_not_in_current_debate_trigger = {
 tv_academy_debate_group_dhimmi_available_trigger = {
 	tv_academy_debate_group_dhimmi_not_in_current_debate_trigger = yes
 	country_has_estate = estate_type:dhimmi_estate
+	NOT = { any_owned_location = { dominant_culture = { is_accepted_in = root } } }
+	NOT = { societal_value:traditionalist_vs_innovative < -50 }
+	NOT = { societal_value:traditionalist_vs_innovative > 50 }
+	NOT = { societal_value:sinicized_vs_unsinicized < -50 }
+	NOT = { societal_value:sinicized_vs_unsinicized > 50 }
+	NOT = { societal_value:belligerent_vs_conciliatory < -50 }
+	NOT = { societal_value:belligerent_vs_conciliatory > 50 }
 }
 
 tv_academy_debate_group_dhimmi_supports_current_issue_trigger = {
@@ -310,6 +409,13 @@ tv_academy_debate_group_cossacks_not_in_current_debate_trigger = {
 tv_academy_debate_group_cossacks_available_trigger = {
 	tv_academy_debate_group_cossacks_not_in_current_debate_trigger = yes
 	country_has_estate = estate_type:cossacks_estate
+	NOT = { any_owned_location = { dominant_culture = { is_accepted_in = root } } }
+	NOT = { societal_value:traditionalist_vs_innovative < -50 }
+	NOT = { societal_value:traditionalist_vs_innovative > 50 }
+	NOT = { societal_value:sinicized_vs_unsinicized < -50 }
+	NOT = { societal_value:sinicized_vs_unsinicized > 50 }
+	NOT = { societal_value:belligerent_vs_conciliatory < -50 }
+	NOT = { societal_value:belligerent_vs_conciliatory > 50 }
 }
 
 tv_academy_debate_group_cossacks_supports_current_issue_trigger = {
@@ -451,6 +557,7 @@ tv_academy_debate_group_maritime_merchants_available_trigger = {
 	tv_academy_debate_group_maritime_merchants_not_in_current_debate_trigger = yes
 	country_has_estate = estate_type:burghers_estate
 	societal_value:land_vs_naval > 50
+	NOT = { average_country_literacy > 50 }
 }
 
 tv_academy_debate_group_maritime_merchants_supports_current_issue_trigger = {
@@ -487,6 +594,7 @@ tv_academy_debate_group_professional_military_available_trigger = {
 	tv_academy_debate_group_professional_military_not_in_current_debate_trigger = yes
 	country_has_estate = estate_type:nobles_estate
 	societal_value:quality_vs_quantity < -50
+	NOT = { any_current_bureaucracy = { always = yes } }
 }
 
 tv_academy_debate_group_professional_military_supports_current_issue_trigger = {
@@ -559,6 +667,7 @@ tv_academy_debate_group_local_autonomy_available_trigger = {
 	tv_academy_debate_group_local_autonomy_not_in_current_debate_trigger = yes
 	country_has_estate = estate_type:peasants_estate
 	societal_value:centralization_vs_decentralization > 50
+	NOT = { has_policy = no_censorship }
 }
 
 tv_academy_debate_group_local_autonomy_supports_current_issue_trigger = {
@@ -724,6 +833,1332 @@ tv_academy_debate_group_great_scientist_opposes_current_issue_trigger = {
 
 tv_academy_debate_group_great_scientist_neutral_on_current_issue_trigger = {
 	always = no
+}
+
+tv_academy_debate_group_continental_traders_not_in_current_debate_trigger = {
+	NOT = { has_variable = tv_academy_debate_group_continental_traders_seated }
+	NOT = { has_variable = tv_academy_debate_group_continental_traders_left }
+	NOT = { has_variable = tv_academy_debate_group_burghers_seated }
+	NOT = { has_variable = tv_academy_debate_group_burghers_left }
+}
+
+tv_academy_debate_group_continental_traders_available_trigger = {
+	tv_academy_debate_group_continental_traders_not_in_current_debate_trigger = yes
+	country_has_estate = estate_type:burghers_estate
+	societal_value:land_vs_naval < -50
+	NOT = { average_country_literacy > 50 }
+	NOT = { societal_value:land_vs_naval > 50 }
+}
+
+tv_academy_debate_group_continental_traders_supports_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 1
+		var:tv_academy_philosophy_current ?= 3
+		var:tv_academy_philosophy_current ?= 5
+		var:tv_academy_philosophy_current ?= 8
+		var:tv_academy_philosophy_current ?= 9
+	}
+}
+
+tv_academy_debate_group_continental_traders_opposes_current_issue_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_continental_traders_neutral_on_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 2
+		var:tv_academy_philosophy_current ?= 4
+		var:tv_academy_philosophy_current ?= 6
+		var:tv_academy_philosophy_current ?= 7
+	}
+}
+
+tv_academy_debate_group_plutocratic_merchants_not_in_current_debate_trigger = {
+	NOT = { has_variable = tv_academy_debate_group_plutocratic_merchants_seated }
+	NOT = { has_variable = tv_academy_debate_group_plutocratic_merchants_left }
+	NOT = { has_variable = tv_academy_debate_group_burghers_seated }
+	NOT = { has_variable = tv_academy_debate_group_burghers_left }
+}
+
+tv_academy_debate_group_plutocratic_merchants_available_trigger = {
+	tv_academy_debate_group_plutocratic_merchants_not_in_current_debate_trigger = yes
+	country_has_estate = estate_type:burghers_estate
+	societal_value:aristocracy_vs_plutocracy > 50
+	NOT = { average_country_literacy > 50 }
+	NOT = { societal_value:land_vs_naval > 50 }
+	NOT = { societal_value:land_vs_naval < -50 }
+}
+
+tv_academy_debate_group_plutocratic_merchants_supports_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 1
+		var:tv_academy_philosophy_current ?= 2
+		var:tv_academy_philosophy_current ?= 3
+		var:tv_academy_philosophy_current ?= 4
+		var:tv_academy_philosophy_current ?= 5
+		var:tv_academy_philosophy_current ?= 7
+		var:tv_academy_philosophy_current ?= 8
+		var:tv_academy_philosophy_current ?= 9
+	}
+}
+
+tv_academy_debate_group_plutocratic_merchants_opposes_current_issue_trigger = {
+	var:tv_academy_philosophy_current ?= 6
+}
+
+tv_academy_debate_group_plutocratic_merchants_neutral_on_current_issue_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_mercantilist_guilds_not_in_current_debate_trigger = {
+	NOT = { has_variable = tv_academy_debate_group_mercantilist_guilds_seated }
+	NOT = { has_variable = tv_academy_debate_group_mercantilist_guilds_left }
+	NOT = { has_variable = tv_academy_debate_group_burghers_seated }
+	NOT = { has_variable = tv_academy_debate_group_burghers_left }
+}
+
+tv_academy_debate_group_mercantilist_guilds_available_trigger = {
+	tv_academy_debate_group_mercantilist_guilds_not_in_current_debate_trigger = yes
+	country_has_estate = estate_type:burghers_estate
+	societal_value:mercantilism_vs_free_trade < -50
+	NOT = { average_country_literacy > 50 }
+	NOT = { societal_value:land_vs_naval > 50 }
+	NOT = { societal_value:land_vs_naval < -50 }
+	NOT = { societal_value:aristocracy_vs_plutocracy > 50 }
+}
+
+tv_academy_debate_group_mercantilist_guilds_supports_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 1
+		var:tv_academy_philosophy_current ?= 3
+		var:tv_academy_philosophy_current ?= 8
+	}
+}
+
+tv_academy_debate_group_mercantilist_guilds_opposes_current_issue_trigger = {
+	var:tv_academy_philosophy_current ?= 7
+}
+
+tv_academy_debate_group_mercantilist_guilds_neutral_on_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 2
+		var:tv_academy_philosophy_current ?= 4
+		var:tv_academy_philosophy_current ?= 5
+		var:tv_academy_philosophy_current ?= 6
+		var:tv_academy_philosophy_current ?= 9
+	}
+}
+
+tv_academy_debate_group_free_trade_merchants_not_in_current_debate_trigger = {
+	NOT = { has_variable = tv_academy_debate_group_free_trade_merchants_seated }
+	NOT = { has_variable = tv_academy_debate_group_free_trade_merchants_left }
+	NOT = { has_variable = tv_academy_debate_group_burghers_seated }
+	NOT = { has_variable = tv_academy_debate_group_burghers_left }
+}
+
+tv_academy_debate_group_free_trade_merchants_available_trigger = {
+	tv_academy_debate_group_free_trade_merchants_not_in_current_debate_trigger = yes
+	country_has_estate = estate_type:burghers_estate
+	societal_value:mercantilism_vs_free_trade > 50
+	NOT = { average_country_literacy > 50 }
+	NOT = { societal_value:land_vs_naval > 50 }
+	NOT = { societal_value:land_vs_naval < -50 }
+	NOT = { societal_value:aristocracy_vs_plutocracy > 50 }
+	NOT = { societal_value:mercantilism_vs_free_trade < -50 }
+}
+
+tv_academy_debate_group_free_trade_merchants_supports_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 1
+		var:tv_academy_philosophy_current ?= 2
+		var:tv_academy_philosophy_current ?= 3
+		var:tv_academy_philosophy_current ?= 4
+		var:tv_academy_philosophy_current ?= 5
+		var:tv_academy_philosophy_current ?= 7
+		var:tv_academy_philosophy_current ?= 8
+		var:tv_academy_philosophy_current ?= 9
+	}
+}
+
+tv_academy_debate_group_free_trade_merchants_opposes_current_issue_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_free_trade_merchants_neutral_on_current_issue_trigger = {
+	var:tv_academy_philosophy_current ?= 6
+}
+
+tv_academy_debate_group_capitalist_financiers_not_in_current_debate_trigger = {
+	NOT = { has_variable = tv_academy_debate_group_capitalist_financiers_seated }
+	NOT = { has_variable = tv_academy_debate_group_capitalist_financiers_left }
+	NOT = { has_variable = tv_academy_debate_group_burghers_seated }
+	NOT = { has_variable = tv_academy_debate_group_burghers_left }
+}
+
+tv_academy_debate_group_capitalist_financiers_available_trigger = {
+	tv_academy_debate_group_capitalist_financiers_not_in_current_debate_trigger = yes
+	country_has_estate = estate_type:burghers_estate
+	societal_value:capital_economy_vs_traditional_economy < -50
+	NOT = { average_country_literacy > 50 }
+	NOT = { societal_value:land_vs_naval > 50 }
+	NOT = { societal_value:land_vs_naval < -50 }
+	NOT = { societal_value:aristocracy_vs_plutocracy > 50 }
+	NOT = { societal_value:mercantilism_vs_free_trade < -50 }
+	NOT = { societal_value:mercantilism_vs_free_trade > 50 }
+}
+
+tv_academy_debate_group_capitalist_financiers_supports_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 1
+		var:tv_academy_philosophy_current ?= 3
+		var:tv_academy_philosophy_current ?= 7
+		var:tv_academy_philosophy_current ?= 8
+		var:tv_academy_philosophy_current ?= 9
+	}
+}
+
+tv_academy_debate_group_capitalist_financiers_opposes_current_issue_trigger = {
+	var:tv_academy_philosophy_current ?= 6
+}
+
+tv_academy_debate_group_capitalist_financiers_neutral_on_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 2
+		var:tv_academy_philosophy_current ?= 4
+		var:tv_academy_philosophy_current ?= 5
+	}
+}
+
+tv_academy_debate_group_guild_traditionalists_not_in_current_debate_trigger = {
+	NOT = { has_variable = tv_academy_debate_group_guild_traditionalists_seated }
+	NOT = { has_variable = tv_academy_debate_group_guild_traditionalists_left }
+	NOT = { has_variable = tv_academy_debate_group_burghers_seated }
+	NOT = { has_variable = tv_academy_debate_group_burghers_left }
+}
+
+tv_academy_debate_group_guild_traditionalists_available_trigger = {
+	tv_academy_debate_group_guild_traditionalists_not_in_current_debate_trigger = yes
+	country_has_estate = estate_type:burghers_estate
+	societal_value:capital_economy_vs_traditional_economy > 50
+	NOT = { average_country_literacy > 50 }
+	NOT = { societal_value:land_vs_naval > 50 }
+	NOT = { societal_value:land_vs_naval < -50 }
+	NOT = { societal_value:aristocracy_vs_plutocracy > 50 }
+	NOT = { societal_value:mercantilism_vs_free_trade < -50 }
+	NOT = { societal_value:mercantilism_vs_free_trade > 50 }
+	NOT = { societal_value:capital_economy_vs_traditional_economy < -50 }
+}
+
+tv_academy_debate_group_guild_traditionalists_supports_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 1
+		var:tv_academy_philosophy_current ?= 5
+	}
+}
+
+tv_academy_debate_group_guild_traditionalists_opposes_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 3
+		var:tv_academy_philosophy_current ?= 7
+	}
+}
+
+tv_academy_debate_group_guild_traditionalists_neutral_on_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 2
+		var:tv_academy_philosophy_current ?= 4
+		var:tv_academy_philosophy_current ?= 6
+		var:tv_academy_philosophy_current ?= 8
+		var:tv_academy_philosophy_current ?= 9
+	}
+}
+
+tv_academy_debate_group_colonial_merchants_not_in_current_debate_trigger = {
+	NOT = { has_variable = tv_academy_debate_group_colonial_merchants_seated }
+	NOT = { has_variable = tv_academy_debate_group_colonial_merchants_left }
+	NOT = { has_variable = tv_academy_debate_group_burghers_seated }
+	NOT = { has_variable = tv_academy_debate_group_burghers_left }
+}
+
+tv_academy_debate_group_colonial_merchants_available_trigger = {
+	tv_academy_debate_group_colonial_merchants_not_in_current_debate_trigger = yes
+	country_has_estate = estate_type:burghers_estate
+	societal_value:outward_vs_inward < -50
+	NOT = { average_country_literacy > 50 }
+	NOT = { societal_value:land_vs_naval > 50 }
+	NOT = { societal_value:land_vs_naval < -50 }
+	NOT = { societal_value:aristocracy_vs_plutocracy > 50 }
+	NOT = { societal_value:mercantilism_vs_free_trade < -50 }
+	NOT = { societal_value:mercantilism_vs_free_trade > 50 }
+	NOT = { societal_value:capital_economy_vs_traditional_economy < -50 }
+	NOT = { societal_value:capital_economy_vs_traditional_economy > 50 }
+}
+
+tv_academy_debate_group_colonial_merchants_supports_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 2
+		var:tv_academy_philosophy_current ?= 4
+		var:tv_academy_philosophy_current ?= 7
+		var:tv_academy_philosophy_current ?= 8
+		var:tv_academy_philosophy_current ?= 9
+	}
+}
+
+tv_academy_debate_group_colonial_merchants_opposes_current_issue_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_colonial_merchants_neutral_on_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 1
+		var:tv_academy_philosophy_current ?= 3
+		var:tv_academy_philosophy_current ?= 5
+		var:tv_academy_philosophy_current ?= 6
+	}
+}
+
+tv_academy_debate_group_insular_guilds_not_in_current_debate_trigger = {
+	NOT = { has_variable = tv_academy_debate_group_insular_guilds_seated }
+	NOT = { has_variable = tv_academy_debate_group_insular_guilds_left }
+	NOT = { has_variable = tv_academy_debate_group_burghers_seated }
+	NOT = { has_variable = tv_academy_debate_group_burghers_left }
+}
+
+tv_academy_debate_group_insular_guilds_available_trigger = {
+	tv_academy_debate_group_insular_guilds_not_in_current_debate_trigger = yes
+	country_has_estate = estate_type:burghers_estate
+	societal_value:outward_vs_inward > 50
+	NOT = { average_country_literacy > 50 }
+	NOT = { societal_value:land_vs_naval > 50 }
+	NOT = { societal_value:land_vs_naval < -50 }
+	NOT = { societal_value:aristocracy_vs_plutocracy > 50 }
+	NOT = { societal_value:mercantilism_vs_free_trade < -50 }
+	NOT = { societal_value:mercantilism_vs_free_trade > 50 }
+	NOT = { societal_value:capital_economy_vs_traditional_economy < -50 }
+	NOT = { societal_value:capital_economy_vs_traditional_economy > 50 }
+	NOT = { societal_value:outward_vs_inward < -50 }
+}
+
+tv_academy_debate_group_insular_guilds_supports_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 1
+		var:tv_academy_philosophy_current ?= 3
+		var:tv_academy_philosophy_current ?= 5
+	}
+}
+
+tv_academy_debate_group_insular_guilds_opposes_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 4
+		var:tv_academy_philosophy_current ?= 7
+	}
+}
+
+tv_academy_debate_group_insular_guilds_neutral_on_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 2
+		var:tv_academy_philosophy_current ?= 6
+		var:tv_academy_philosophy_current ?= 8
+		var:tv_academy_philosophy_current ?= 9
+	}
+}
+
+tv_academy_debate_group_feudal_levy_nobility_not_in_current_debate_trigger = {
+	NOT = { has_variable = tv_academy_debate_group_feudal_levy_nobility_seated }
+	NOT = { has_variable = tv_academy_debate_group_feudal_levy_nobility_left }
+	NOT = { has_variable = tv_academy_debate_group_nobility_seated }
+	NOT = { has_variable = tv_academy_debate_group_nobility_left }
+}
+
+tv_academy_debate_group_feudal_levy_nobility_available_trigger = {
+	tv_academy_debate_group_feudal_levy_nobility_not_in_current_debate_trigger = yes
+	country_has_estate = estate_type:nobles_estate
+	societal_value:quality_vs_quantity > 50
+	NOT = { any_current_bureaucracy = { always = yes } }
+	NOT = { societal_value:quality_vs_quantity < -50 }
+}
+
+tv_academy_debate_group_feudal_levy_nobility_supports_current_issue_trigger = {
+	var:tv_academy_philosophy_current ?= 6
+}
+
+tv_academy_debate_group_feudal_levy_nobility_opposes_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 1
+		var:tv_academy_philosophy_current ?= 3
+		var:tv_academy_philosophy_current ?= 5
+		var:tv_academy_philosophy_current ?= 7
+		var:tv_academy_philosophy_current ?= 8
+		var:tv_academy_philosophy_current ?= 9
+	}
+}
+
+tv_academy_debate_group_feudal_levy_nobility_neutral_on_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 2
+		var:tv_academy_philosophy_current ?= 4
+	}
+}
+
+tv_academy_debate_group_patronal_aristocracy_not_in_current_debate_trigger = {
+	NOT = { has_variable = tv_academy_debate_group_patronal_aristocracy_seated }
+	NOT = { has_variable = tv_academy_debate_group_patronal_aristocracy_left }
+	NOT = { has_variable = tv_academy_debate_group_nobility_seated }
+	NOT = { has_variable = tv_academy_debate_group_nobility_left }
+}
+
+tv_academy_debate_group_patronal_aristocracy_available_trigger = {
+	tv_academy_debate_group_patronal_aristocracy_not_in_current_debate_trigger = yes
+	country_has_estate = estate_type:nobles_estate
+	societal_value:aristocracy_vs_plutocracy < -50
+	NOT = { any_current_bureaucracy = { always = yes } }
+	NOT = { societal_value:quality_vs_quantity < -50 }
+	NOT = { societal_value:quality_vs_quantity > 50 }
+}
+
+tv_academy_debate_group_patronal_aristocracy_supports_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 6
+		var:tv_academy_philosophy_current ?= 2
+	}
+}
+
+tv_academy_debate_group_patronal_aristocracy_opposes_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 1
+		var:tv_academy_philosophy_current ?= 3
+		var:tv_academy_philosophy_current ?= 5
+		var:tv_academy_philosophy_current ?= 7
+		var:tv_academy_philosophy_current ?= 9
+	}
+}
+
+tv_academy_debate_group_patronal_aristocracy_neutral_on_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 4
+		var:tv_academy_philosophy_current ?= 8
+	}
+}
+
+tv_academy_debate_group_serf_holding_lords_not_in_current_debate_trigger = {
+	NOT = { has_variable = tv_academy_debate_group_serf_holding_lords_seated }
+	NOT = { has_variable = tv_academy_debate_group_serf_holding_lords_left }
+	NOT = { has_variable = tv_academy_debate_group_nobility_seated }
+	NOT = { has_variable = tv_academy_debate_group_nobility_left }
+}
+
+tv_academy_debate_group_serf_holding_lords_available_trigger = {
+	tv_academy_debate_group_serf_holding_lords_not_in_current_debate_trigger = yes
+	country_has_estate = estate_type:nobles_estate
+	societal_value:serfdom_vs_free_subjects < -50
+	NOT = { any_current_bureaucracy = { always = yes } }
+	NOT = { societal_value:quality_vs_quantity < -50 }
+	NOT = { societal_value:quality_vs_quantity > 50 }
+	NOT = { societal_value:aristocracy_vs_plutocracy < -50 }
+}
+
+tv_academy_debate_group_serf_holding_lords_supports_current_issue_trigger = {
+	var:tv_academy_philosophy_current ?= 6
+}
+
+tv_academy_debate_group_serf_holding_lords_opposes_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 1
+		var:tv_academy_philosophy_current ?= 3
+		var:tv_academy_philosophy_current ?= 5
+		var:tv_academy_philosophy_current ?= 7
+		var:tv_academy_philosophy_current ?= 9
+		var:tv_academy_philosophy_current ?= 4
+	}
+}
+
+tv_academy_debate_group_serf_holding_lords_neutral_on_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 2
+		var:tv_academy_philosophy_current ?= 8
+	}
+}
+
+tv_academy_debate_group_absolutist_court_faction_not_in_current_debate_trigger = {
+	NOT = { has_variable = tv_academy_debate_group_absolutist_court_faction_seated }
+	NOT = { has_variable = tv_academy_debate_group_absolutist_court_faction_left }
+	NOT = { has_variable = tv_academy_debate_group_nobility_seated }
+	NOT = { has_variable = tv_academy_debate_group_nobility_left }
+}
+
+tv_academy_debate_group_absolutist_court_faction_available_trigger = {
+	tv_academy_debate_group_absolutist_court_faction_not_in_current_debate_trigger = yes
+	country_has_estate = estate_type:nobles_estate
+	societal_value:absolutism_vs_liberalism < -50
+	NOT = { any_current_bureaucracy = { always = yes } }
+	NOT = { societal_value:quality_vs_quantity < -50 }
+	NOT = { societal_value:quality_vs_quantity > 50 }
+	NOT = { societal_value:aristocracy_vs_plutocracy < -50 }
+	NOT = { societal_value:serfdom_vs_free_subjects < -50 }
+}
+
+tv_academy_debate_group_absolutist_court_faction_supports_current_issue_trigger = {
+	var:tv_academy_philosophy_current ?= 6
+}
+
+tv_academy_debate_group_absolutist_court_faction_opposes_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 1
+		var:tv_academy_philosophy_current ?= 5
+		var:tv_academy_philosophy_current ?= 7
+		var:tv_academy_philosophy_current ?= 9
+	}
+}
+
+tv_academy_debate_group_absolutist_court_faction_neutral_on_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 2
+		var:tv_academy_philosophy_current ?= 4
+		var:tv_academy_philosophy_current ?= 3
+		var:tv_academy_philosophy_current ?= 8
+	}
+}
+
+tv_academy_debate_group_constitutionalist_nobility_not_in_current_debate_trigger = {
+	NOT = { has_variable = tv_academy_debate_group_constitutionalist_nobility_seated }
+	NOT = { has_variable = tv_academy_debate_group_constitutionalist_nobility_left }
+	NOT = { has_variable = tv_academy_debate_group_nobility_seated }
+	NOT = { has_variable = tv_academy_debate_group_nobility_left }
+}
+
+tv_academy_debate_group_constitutionalist_nobility_available_trigger = {
+	tv_academy_debate_group_constitutionalist_nobility_not_in_current_debate_trigger = yes
+	country_has_estate = estate_type:nobles_estate
+	societal_value:absolutism_vs_liberalism > 50
+	NOT = { any_current_bureaucracy = { always = yes } }
+	NOT = { societal_value:quality_vs_quantity < -50 }
+	NOT = { societal_value:quality_vs_quantity > 50 }
+	NOT = { societal_value:aristocracy_vs_plutocracy < -50 }
+	NOT = { societal_value:serfdom_vs_free_subjects < -50 }
+	NOT = { societal_value:absolutism_vs_liberalism < -50 }
+}
+
+tv_academy_debate_group_constitutionalist_nobility_supports_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 1
+		var:tv_academy_philosophy_current ?= 6
+	}
+}
+
+tv_academy_debate_group_constitutionalist_nobility_opposes_current_issue_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_constitutionalist_nobility_neutral_on_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 2
+		var:tv_academy_philosophy_current ?= 4
+		var:tv_academy_philosophy_current ?= 3
+		var:tv_academy_philosophy_current ?= 5
+		var:tv_academy_philosophy_current ?= 7
+		var:tv_academy_philosophy_current ?= 8
+		var:tv_academy_philosophy_current ?= 9
+	}
+}
+
+tv_academy_debate_group_war_doctrine_nobility_not_in_current_debate_trigger = {
+	NOT = { has_variable = tv_academy_debate_group_war_doctrine_nobility_seated }
+	NOT = { has_variable = tv_academy_debate_group_war_doctrine_nobility_left }
+	NOT = { has_variable = tv_academy_debate_group_nobility_seated }
+	NOT = { has_variable = tv_academy_debate_group_nobility_left }
+}
+
+tv_academy_debate_group_war_doctrine_nobility_available_trigger = {
+	tv_academy_debate_group_war_doctrine_nobility_not_in_current_debate_trigger = yes
+	country_has_estate = estate_type:nobles_estate
+	societal_value:offensive_vs_defensive < -50
+	NOT = { any_current_bureaucracy = { always = yes } }
+	NOT = { societal_value:quality_vs_quantity < -50 }
+	NOT = { societal_value:quality_vs_quantity > 50 }
+	NOT = { societal_value:aristocracy_vs_plutocracy < -50 }
+	NOT = { societal_value:serfdom_vs_free_subjects < -50 }
+	NOT = { societal_value:absolutism_vs_liberalism < -50 }
+	NOT = { societal_value:absolutism_vs_liberalism > 50 }
+}
+
+tv_academy_debate_group_war_doctrine_nobility_supports_current_issue_trigger = {
+	var:tv_academy_philosophy_current ?= 6
+}
+
+tv_academy_debate_group_war_doctrine_nobility_opposes_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 1
+		var:tv_academy_philosophy_current ?= 3
+		var:tv_academy_philosophy_current ?= 5
+		var:tv_academy_philosophy_current ?= 7
+		var:tv_academy_philosophy_current ?= 9
+		var:tv_academy_philosophy_current ?= 8
+	}
+}
+
+tv_academy_debate_group_war_doctrine_nobility_neutral_on_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 2
+		var:tv_academy_philosophy_current ?= 4
+	}
+}
+
+tv_academy_debate_group_fortress_doctrine_nobility_not_in_current_debate_trigger = {
+	NOT = { has_variable = tv_academy_debate_group_fortress_doctrine_nobility_seated }
+	NOT = { has_variable = tv_academy_debate_group_fortress_doctrine_nobility_left }
+	NOT = { has_variable = tv_academy_debate_group_nobility_seated }
+	NOT = { has_variable = tv_academy_debate_group_nobility_left }
+}
+
+tv_academy_debate_group_fortress_doctrine_nobility_available_trigger = {
+	tv_academy_debate_group_fortress_doctrine_nobility_not_in_current_debate_trigger = yes
+	country_has_estate = estate_type:nobles_estate
+	societal_value:offensive_vs_defensive > 50
+	NOT = { any_current_bureaucracy = { always = yes } }
+	NOT = { societal_value:quality_vs_quantity < -50 }
+	NOT = { societal_value:quality_vs_quantity > 50 }
+	NOT = { societal_value:aristocracy_vs_plutocracy < -50 }
+	NOT = { societal_value:serfdom_vs_free_subjects < -50 }
+	NOT = { societal_value:absolutism_vs_liberalism < -50 }
+	NOT = { societal_value:absolutism_vs_liberalism > 50 }
+	NOT = { societal_value:offensive_vs_defensive < -50 }
+}
+
+tv_academy_debate_group_fortress_doctrine_nobility_supports_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 6
+		var:tv_academy_philosophy_current ?= 4
+	}
+}
+
+tv_academy_debate_group_fortress_doctrine_nobility_opposes_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 1
+		var:tv_academy_philosophy_current ?= 3
+		var:tv_academy_philosophy_current ?= 9
+	}
+}
+
+tv_academy_debate_group_fortress_doctrine_nobility_neutral_on_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 2
+		var:tv_academy_philosophy_current ?= 5
+		var:tv_academy_philosophy_current ?= 7
+		var:tv_academy_philosophy_current ?= 8
+	}
+}
+
+tv_academy_debate_group_devout_clergy_not_in_current_debate_trigger = {
+	NOT = { has_variable = tv_academy_debate_group_devout_clergy_seated }
+	NOT = { has_variable = tv_academy_debate_group_devout_clergy_left }
+	NOT = { has_variable = tv_academy_debate_group_clergy_seated }
+	NOT = { has_variable = tv_academy_debate_group_clergy_left }
+}
+
+tv_academy_debate_group_devout_clergy_available_trigger = {
+	tv_academy_debate_group_devout_clergy_not_in_current_debate_trigger = yes
+	country_has_estate = estate_type:clergy_estate
+	societal_value:spiritualist_vs_humanist < -50
+	NOT = {
+		religion.group = religion_group:christian
+		is_situation_active = situation:reformation
+	}
+}
+
+tv_academy_debate_group_devout_clergy_supports_current_issue_trigger = {
+	var:tv_academy_philosophy_current ?= 4
+}
+
+tv_academy_debate_group_devout_clergy_opposes_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 1
+		var:tv_academy_philosophy_current ?= 2
+		var:tv_academy_philosophy_current ?= 5
+		var:tv_academy_philosophy_current ?= 6
+		var:tv_academy_philosophy_current ?= 9
+		var:tv_academy_philosophy_current ?= 7
+	}
+}
+
+tv_academy_debate_group_devout_clergy_neutral_on_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 3
+		var:tv_academy_philosophy_current ?= 8
+	}
+}
+
+tv_academy_debate_group_humanist_clergy_not_in_current_debate_trigger = {
+	NOT = { has_variable = tv_academy_debate_group_humanist_clergy_seated }
+	NOT = { has_variable = tv_academy_debate_group_humanist_clergy_left }
+	NOT = { has_variable = tv_academy_debate_group_clergy_seated }
+	NOT = { has_variable = tv_academy_debate_group_clergy_left }
+}
+
+tv_academy_debate_group_humanist_clergy_available_trigger = {
+	tv_academy_debate_group_humanist_clergy_not_in_current_debate_trigger = yes
+	country_has_estate = estate_type:clergy_estate
+	societal_value:spiritualist_vs_humanist > 50
+	NOT = {
+		religion.group = religion_group:christian
+		is_situation_active = situation:reformation
+	}
+	NOT = { societal_value:spiritualist_vs_humanist < -50 }
+}
+
+tv_academy_debate_group_humanist_clergy_supports_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 4
+		var:tv_academy_philosophy_current ?= 2
+		var:tv_academy_philosophy_current ?= 5
+	}
+}
+
+tv_academy_debate_group_humanist_clergy_opposes_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 1
+		var:tv_academy_philosophy_current ?= 6
+	}
+}
+
+tv_academy_debate_group_humanist_clergy_neutral_on_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 3
+		var:tv_academy_philosophy_current ?= 7
+		var:tv_academy_philosophy_current ?= 8
+		var:tv_academy_philosophy_current ?= 9
+	}
+}
+
+tv_academy_debate_group_mystic_clergy_not_in_current_debate_trigger = {
+	NOT = { has_variable = tv_academy_debate_group_mystic_clergy_seated }
+	NOT = { has_variable = tv_academy_debate_group_mystic_clergy_left }
+	NOT = { has_variable = tv_academy_debate_group_clergy_seated }
+	NOT = { has_variable = tv_academy_debate_group_clergy_left }
+}
+
+tv_academy_debate_group_mystic_clergy_available_trigger = {
+	tv_academy_debate_group_mystic_clergy_not_in_current_debate_trigger = yes
+	country_has_estate = estate_type:clergy_estate
+	societal_value:mysticism_vs_jurisprudence < -50
+	NOT = {
+		religion.group = religion_group:christian
+		is_situation_active = situation:reformation
+	}
+	NOT = { societal_value:spiritualist_vs_humanist < -50 }
+	NOT = { societal_value:spiritualist_vs_humanist > 50 }
+}
+
+tv_academy_debate_group_mystic_clergy_supports_current_issue_trigger = {
+	var:tv_academy_philosophy_current ?= 4
+}
+
+tv_academy_debate_group_mystic_clergy_opposes_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 1
+		var:tv_academy_philosophy_current ?= 2
+		var:tv_academy_philosophy_current ?= 5
+		var:tv_academy_philosophy_current ?= 6
+		var:tv_academy_philosophy_current ?= 9
+	}
+}
+
+tv_academy_debate_group_mystic_clergy_neutral_on_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 3
+		var:tv_academy_philosophy_current ?= 7
+		var:tv_academy_philosophy_current ?= 8
+	}
+}
+
+tv_academy_debate_group_canonist_clergy_not_in_current_debate_trigger = {
+	NOT = { has_variable = tv_academy_debate_group_canonist_clergy_seated }
+	NOT = { has_variable = tv_academy_debate_group_canonist_clergy_left }
+	NOT = { has_variable = tv_academy_debate_group_clergy_seated }
+	NOT = { has_variable = tv_academy_debate_group_clergy_left }
+}
+
+tv_academy_debate_group_canonist_clergy_available_trigger = {
+	tv_academy_debate_group_canonist_clergy_not_in_current_debate_trigger = yes
+	country_has_estate = estate_type:clergy_estate
+	societal_value:mysticism_vs_jurisprudence > 50
+	NOT = {
+		religion.group = religion_group:christian
+		is_situation_active = situation:reformation
+	}
+	NOT = { societal_value:spiritualist_vs_humanist < -50 }
+	NOT = { societal_value:spiritualist_vs_humanist > 50 }
+	NOT = { societal_value:mysticism_vs_jurisprudence < -50 }
+}
+
+tv_academy_debate_group_canonist_clergy_supports_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 4
+		var:tv_academy_philosophy_current ?= 1
+	}
+}
+
+tv_academy_debate_group_canonist_clergy_opposes_current_issue_trigger = {
+	var:tv_academy_philosophy_current ?= 6
+}
+
+tv_academy_debate_group_canonist_clergy_neutral_on_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 2
+		var:tv_academy_philosophy_current ?= 3
+		var:tv_academy_philosophy_current ?= 5
+		var:tv_academy_philosophy_current ?= 7
+		var:tv_academy_philosophy_current ?= 8
+		var:tv_academy_philosophy_current ?= 9
+	}
+}
+
+tv_academy_debate_group_latinizing_clergy_not_in_current_debate_trigger = {
+	NOT = { has_variable = tv_academy_debate_group_latinizing_clergy_seated }
+	NOT = { has_variable = tv_academy_debate_group_latinizing_clergy_left }
+	NOT = { has_variable = tv_academy_debate_group_clergy_seated }
+	NOT = { has_variable = tv_academy_debate_group_clergy_left }
+}
+
+tv_academy_debate_group_latinizing_clergy_available_trigger = {
+	tv_academy_debate_group_latinizing_clergy_not_in_current_debate_trigger = yes
+	country_has_estate = estate_type:clergy_estate
+	societal_value:latinization_vs_hellenization < -50
+	NOT = {
+		religion.group = religion_group:christian
+		is_situation_active = situation:reformation
+	}
+	NOT = { societal_value:spiritualist_vs_humanist < -50 }
+	NOT = { societal_value:spiritualist_vs_humanist > 50 }
+	NOT = { societal_value:mysticism_vs_jurisprudence < -50 }
+	NOT = { societal_value:mysticism_vs_jurisprudence > 50 }
+}
+
+tv_academy_debate_group_latinizing_clergy_supports_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 4
+		var:tv_academy_philosophy_current ?= 2
+		var:tv_academy_philosophy_current ?= 5
+	}
+}
+
+tv_academy_debate_group_latinizing_clergy_opposes_current_issue_trigger = {
+	var:tv_academy_philosophy_current ?= 6
+}
+
+tv_academy_debate_group_latinizing_clergy_neutral_on_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 1
+		var:tv_academy_philosophy_current ?= 3
+		var:tv_academy_philosophy_current ?= 7
+		var:tv_academy_philosophy_current ?= 8
+		var:tv_academy_philosophy_current ?= 9
+	}
+}
+
+tv_academy_debate_group_hellenizing_clergy_not_in_current_debate_trigger = {
+	NOT = { has_variable = tv_academy_debate_group_hellenizing_clergy_seated }
+	NOT = { has_variable = tv_academy_debate_group_hellenizing_clergy_left }
+	NOT = { has_variable = tv_academy_debate_group_clergy_seated }
+	NOT = { has_variable = tv_academy_debate_group_clergy_left }
+}
+
+tv_academy_debate_group_hellenizing_clergy_available_trigger = {
+	tv_academy_debate_group_hellenizing_clergy_not_in_current_debate_trigger = yes
+	country_has_estate = estate_type:clergy_estate
+	societal_value:latinization_vs_hellenization > 50
+	NOT = {
+		religion.group = religion_group:christian
+		is_situation_active = situation:reformation
+	}
+	NOT = { societal_value:spiritualist_vs_humanist < -50 }
+	NOT = { societal_value:spiritualist_vs_humanist > 50 }
+	NOT = { societal_value:mysticism_vs_jurisprudence < -50 }
+	NOT = { societal_value:mysticism_vs_jurisprudence > 50 }
+	NOT = { societal_value:latinization_vs_hellenization < -50 }
+}
+
+tv_academy_debate_group_hellenizing_clergy_supports_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 4
+		var:tv_academy_philosophy_current ?= 6
+	}
+}
+
+tv_academy_debate_group_hellenizing_clergy_opposes_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 1
+		var:tv_academy_philosophy_current ?= 2
+		var:tv_academy_philosophy_current ?= 5
+		var:tv_academy_philosophy_current ?= 9
+	}
+}
+
+tv_academy_debate_group_hellenizing_clergy_neutral_on_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 3
+		var:tv_academy_philosophy_current ?= 7
+		var:tv_academy_philosophy_current ?= 8
+	}
+}
+
+tv_academy_debate_group_crown_subjects_not_in_current_debate_trigger = {
+	NOT = { has_variable = tv_academy_debate_group_crown_subjects_seated }
+	NOT = { has_variable = tv_academy_debate_group_crown_subjects_left }
+	NOT = { has_variable = tv_academy_debate_group_peasants_seated }
+	NOT = { has_variable = tv_academy_debate_group_peasants_left }
+}
+
+tv_academy_debate_group_crown_subjects_available_trigger = {
+	tv_academy_debate_group_crown_subjects_not_in_current_debate_trigger = yes
+	country_has_estate = estate_type:peasants_estate
+	societal_value:centralization_vs_decentralization < -50
+	NOT = { has_policy = no_censorship }
+	NOT = { societal_value:centralization_vs_decentralization > 50 }
+}
+
+tv_academy_debate_group_crown_subjects_supports_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 1
+		var:tv_academy_philosophy_current ?= 5
+		var:tv_academy_philosophy_current ?= 6
+	}
+}
+
+tv_academy_debate_group_crown_subjects_opposes_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 3
+		var:tv_academy_philosophy_current ?= 7
+		var:tv_academy_philosophy_current ?= 8
+	}
+}
+
+tv_academy_debate_group_crown_subjects_neutral_on_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 2
+		var:tv_academy_philosophy_current ?= 4
+		var:tv_academy_philosophy_current ?= 9
+	}
+}
+
+tv_academy_debate_group_free_subject_peasantry_not_in_current_debate_trigger = {
+	NOT = { has_variable = tv_academy_debate_group_free_subject_peasantry_seated }
+	NOT = { has_variable = tv_academy_debate_group_free_subject_peasantry_left }
+	NOT = { has_variable = tv_academy_debate_group_peasants_seated }
+	NOT = { has_variable = tv_academy_debate_group_peasants_left }
+}
+
+tv_academy_debate_group_free_subject_peasantry_available_trigger = {
+	tv_academy_debate_group_free_subject_peasantry_not_in_current_debate_trigger = yes
+	country_has_estate = estate_type:peasants_estate
+	societal_value:serfdom_vs_free_subjects > 50
+	NOT = { has_policy = no_censorship }
+	NOT = { societal_value:centralization_vs_decentralization > 50 }
+	NOT = { societal_value:centralization_vs_decentralization < -50 }
+}
+
+tv_academy_debate_group_free_subject_peasantry_supports_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 1
+		var:tv_academy_philosophy_current ?= 5
+		var:tv_academy_philosophy_current ?= 9
+	}
+}
+
+tv_academy_debate_group_free_subject_peasantry_opposes_current_issue_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_free_subject_peasantry_neutral_on_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 2
+		var:tv_academy_philosophy_current ?= 4
+		var:tv_academy_philosophy_current ?= 6
+		var:tv_academy_philosophy_current ?= 3
+		var:tv_academy_philosophy_current ?= 7
+		var:tv_academy_philosophy_current ?= 8
+	}
+}
+
+tv_academy_debate_group_individualist_smallholders_not_in_current_debate_trigger = {
+	NOT = { has_variable = tv_academy_debate_group_individualist_smallholders_seated }
+	NOT = { has_variable = tv_academy_debate_group_individualist_smallholders_left }
+	NOT = { has_variable = tv_academy_debate_group_peasants_seated }
+	NOT = { has_variable = tv_academy_debate_group_peasants_left }
+}
+
+tv_academy_debate_group_individualist_smallholders_available_trigger = {
+	tv_academy_debate_group_individualist_smallholders_not_in_current_debate_trigger = yes
+	country_has_estate = estate_type:peasants_estate
+	societal_value:individualism_vs_communalism < -50
+	NOT = { has_policy = no_censorship }
+	NOT = { societal_value:centralization_vs_decentralization > 50 }
+	NOT = { societal_value:centralization_vs_decentralization < -50 }
+	NOT = { societal_value:serfdom_vs_free_subjects > 50 }
+}
+
+tv_academy_debate_group_individualist_smallholders_supports_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 1
+		var:tv_academy_philosophy_current ?= 5
+	}
+}
+
+tv_academy_debate_group_individualist_smallholders_opposes_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 3
+		var:tv_academy_philosophy_current ?= 7
+		var:tv_academy_philosophy_current ?= 8
+	}
+}
+
+tv_academy_debate_group_individualist_smallholders_neutral_on_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 2
+		var:tv_academy_philosophy_current ?= 4
+		var:tv_academy_philosophy_current ?= 6
+		var:tv_academy_philosophy_current ?= 9
+	}
+}
+
+tv_academy_debate_group_communal_villages_not_in_current_debate_trigger = {
+	NOT = { has_variable = tv_academy_debate_group_communal_villages_seated }
+	NOT = { has_variable = tv_academy_debate_group_communal_villages_left }
+	NOT = { has_variable = tv_academy_debate_group_peasants_seated }
+	NOT = { has_variable = tv_academy_debate_group_peasants_left }
+}
+
+tv_academy_debate_group_communal_villages_available_trigger = {
+	tv_academy_debate_group_communal_villages_not_in_current_debate_trigger = yes
+	country_has_estate = estate_type:peasants_estate
+	societal_value:individualism_vs_communalism > 50
+	NOT = { has_policy = no_censorship }
+	NOT = { societal_value:centralization_vs_decentralization > 50 }
+	NOT = { societal_value:centralization_vs_decentralization < -50 }
+	NOT = { societal_value:serfdom_vs_free_subjects > 50 }
+	NOT = { societal_value:individualism_vs_communalism < -50 }
+}
+
+tv_academy_debate_group_communal_villages_supports_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 1
+		var:tv_academy_philosophy_current ?= 6
+	}
+}
+
+tv_academy_debate_group_communal_villages_opposes_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 3
+		var:tv_academy_philosophy_current ?= 7
+		var:tv_academy_philosophy_current ?= 5
+	}
+}
+
+tv_academy_debate_group_communal_villages_neutral_on_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 2
+		var:tv_academy_philosophy_current ?= 4
+		var:tv_academy_philosophy_current ?= 8
+		var:tv_academy_philosophy_current ?= 9
+	}
+}
+
+tv_academy_debate_group_traditionalist_enclave_not_in_current_debate_trigger = {
+	NOT = { has_variable = tv_academy_debate_group_traditionalist_enclave_seated }
+	NOT = { has_variable = tv_academy_debate_group_traditionalist_enclave_left }
+}
+
+tv_academy_debate_group_traditionalist_enclave_available_trigger = {
+	tv_academy_debate_group_traditionalist_enclave_not_in_current_debate_trigger = yes
+	OR = {
+		AND = {
+			country_has_estate = estate_type:tribes_estate
+			tv_academy_debate_group_tribes_not_in_current_debate_trigger = yes
+		}
+		AND = {
+			country_has_estate = estate_type:dhimmi_estate
+			tv_academy_debate_group_dhimmi_not_in_current_debate_trigger = yes
+		}
+		AND = {
+			country_has_estate = estate_type:cossacks_estate
+			tv_academy_debate_group_cossacks_not_in_current_debate_trigger = yes
+		}
+	}
+	societal_value:traditionalist_vs_innovative < -50
+	NOT = { any_owned_location = { dominant_culture = { is_accepted_in = root } } }
+}
+
+tv_academy_debate_group_traditionalist_enclave_supports_current_issue_trigger = {
+	var:tv_academy_philosophy_current ?= 6
+}
+
+tv_academy_debate_group_traditionalist_enclave_opposes_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 1
+		var:tv_academy_philosophy_current ?= 5
+		var:tv_academy_philosophy_current ?= 9
+		var:tv_academy_philosophy_current ?= 4
+	}
+}
+
+tv_academy_debate_group_traditionalist_enclave_neutral_on_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 2
+		var:tv_academy_philosophy_current ?= 3
+		var:tv_academy_philosophy_current ?= 7
+		var:tv_academy_philosophy_current ?= 8
+	}
+}
+
+tv_academy_debate_group_assimilating_enclave_not_in_current_debate_trigger = {
+	NOT = { has_variable = tv_academy_debate_group_assimilating_enclave_seated }
+	NOT = { has_variable = tv_academy_debate_group_assimilating_enclave_left }
+}
+
+tv_academy_debate_group_assimilating_enclave_available_trigger = {
+	tv_academy_debate_group_assimilating_enclave_not_in_current_debate_trigger = yes
+	OR = {
+		AND = {
+			country_has_estate = estate_type:tribes_estate
+			tv_academy_debate_group_tribes_not_in_current_debate_trigger = yes
+		}
+		AND = {
+			country_has_estate = estate_type:dhimmi_estate
+			tv_academy_debate_group_dhimmi_not_in_current_debate_trigger = yes
+		}
+		AND = {
+			country_has_estate = estate_type:cossacks_estate
+			tv_academy_debate_group_cossacks_not_in_current_debate_trigger = yes
+		}
+	}
+	societal_value:traditionalist_vs_innovative > 50
+	NOT = { any_owned_location = { dominant_culture = { is_accepted_in = root } } }
+	NOT = { societal_value:traditionalist_vs_innovative < -50 }
+}
+
+tv_academy_debate_group_assimilating_enclave_supports_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 1
+		var:tv_academy_philosophy_current ?= 5
+		var:tv_academy_philosophy_current ?= 9
+		var:tv_academy_philosophy_current ?= 7
+	}
+}
+
+tv_academy_debate_group_assimilating_enclave_opposes_current_issue_trigger = {
+	var:tv_academy_philosophy_current ?= 4
+}
+
+tv_academy_debate_group_assimilating_enclave_neutral_on_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 2
+		var:tv_academy_philosophy_current ?= 3
+		var:tv_academy_philosophy_current ?= 6
+		var:tv_academy_philosophy_current ?= 8
+	}
+}
+
+tv_academy_debate_group_sinicized_minority_not_in_current_debate_trigger = {
+	NOT = { has_variable = tv_academy_debate_group_sinicized_minority_seated }
+	NOT = { has_variable = tv_academy_debate_group_sinicized_minority_left }
+}
+
+tv_academy_debate_group_sinicized_minority_available_trigger = {
+	tv_academy_debate_group_sinicized_minority_not_in_current_debate_trigger = yes
+	OR = {
+		AND = {
+			country_has_estate = estate_type:tribes_estate
+			tv_academy_debate_group_tribes_not_in_current_debate_trigger = yes
+		}
+		AND = {
+			country_has_estate = estate_type:dhimmi_estate
+			tv_academy_debate_group_dhimmi_not_in_current_debate_trigger = yes
+		}
+		AND = {
+			country_has_estate = estate_type:cossacks_estate
+			tv_academy_debate_group_cossacks_not_in_current_debate_trigger = yes
+		}
+	}
+	societal_value:sinicized_vs_unsinicized < -50
+	NOT = { any_owned_location = { dominant_culture = { is_accepted_in = root } } }
+	NOT = { societal_value:traditionalist_vs_innovative < -50 }
+	NOT = { societal_value:traditionalist_vs_innovative > 50 }
+}
+
+tv_academy_debate_group_sinicized_minority_supports_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 1
+		var:tv_academy_philosophy_current ?= 5
+		var:tv_academy_philosophy_current ?= 9
+	}
+}
+
+tv_academy_debate_group_sinicized_minority_opposes_current_issue_trigger = {
+	var:tv_academy_philosophy_current ?= 4
+}
+
+tv_academy_debate_group_sinicized_minority_neutral_on_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 2
+		var:tv_academy_philosophy_current ?= 3
+		var:tv_academy_philosophy_current ?= 6
+		var:tv_academy_philosophy_current ?= 7
+		var:tv_academy_philosophy_current ?= 8
+	}
+}
+
+tv_academy_debate_group_unsinicized_minority_not_in_current_debate_trigger = {
+	NOT = { has_variable = tv_academy_debate_group_unsinicized_minority_seated }
+	NOT = { has_variable = tv_academy_debate_group_unsinicized_minority_left }
+}
+
+tv_academy_debate_group_unsinicized_minority_available_trigger = {
+	tv_academy_debate_group_unsinicized_minority_not_in_current_debate_trigger = yes
+	OR = {
+		AND = {
+			country_has_estate = estate_type:tribes_estate
+			tv_academy_debate_group_tribes_not_in_current_debate_trigger = yes
+		}
+		AND = {
+			country_has_estate = estate_type:dhimmi_estate
+			tv_academy_debate_group_dhimmi_not_in_current_debate_trigger = yes
+		}
+		AND = {
+			country_has_estate = estate_type:cossacks_estate
+			tv_academy_debate_group_cossacks_not_in_current_debate_trigger = yes
+		}
+	}
+	societal_value:sinicized_vs_unsinicized > 50
+	NOT = { any_owned_location = { dominant_culture = { is_accepted_in = root } } }
+	NOT = { societal_value:traditionalist_vs_innovative < -50 }
+	NOT = { societal_value:traditionalist_vs_innovative > 50 }
+	NOT = { societal_value:sinicized_vs_unsinicized < -50 }
+}
+
+tv_academy_debate_group_unsinicized_minority_supports_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 6
+		var:tv_academy_philosophy_current ?= 7
+	}
+}
+
+tv_academy_debate_group_unsinicized_minority_opposes_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 4
+		var:tv_academy_philosophy_current ?= 1
+	}
+}
+
+tv_academy_debate_group_unsinicized_minority_neutral_on_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 2
+		var:tv_academy_philosophy_current ?= 3
+		var:tv_academy_philosophy_current ?= 5
+		var:tv_academy_philosophy_current ?= 8
+		var:tv_academy_philosophy_current ?= 9
+	}
+}
+
+tv_academy_debate_group_warrior_clans_not_in_current_debate_trigger = {
+	NOT = { has_variable = tv_academy_debate_group_warrior_clans_seated }
+	NOT = { has_variable = tv_academy_debate_group_warrior_clans_left }
+}
+
+tv_academy_debate_group_warrior_clans_available_trigger = {
+	tv_academy_debate_group_warrior_clans_not_in_current_debate_trigger = yes
+	OR = {
+		AND = {
+			country_has_estate = estate_type:tribes_estate
+			tv_academy_debate_group_tribes_not_in_current_debate_trigger = yes
+		}
+		AND = {
+			country_has_estate = estate_type:dhimmi_estate
+			tv_academy_debate_group_dhimmi_not_in_current_debate_trigger = yes
+		}
+		AND = {
+			country_has_estate = estate_type:cossacks_estate
+			tv_academy_debate_group_cossacks_not_in_current_debate_trigger = yes
+		}
+	}
+	societal_value:belligerent_vs_conciliatory < -50
+	NOT = { any_owned_location = { dominant_culture = { is_accepted_in = root } } }
+	NOT = { societal_value:traditionalist_vs_innovative < -50 }
+	NOT = { societal_value:traditionalist_vs_innovative > 50 }
+	NOT = { societal_value:sinicized_vs_unsinicized < -50 }
+	NOT = { societal_value:sinicized_vs_unsinicized > 50 }
+}
+
+tv_academy_debate_group_warrior_clans_supports_current_issue_trigger = {
+	var:tv_academy_philosophy_current ?= 6
+}
+
+tv_academy_debate_group_warrior_clans_opposes_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 4
+		var:tv_academy_philosophy_current ?= 1
+		var:tv_academy_philosophy_current ?= 9
+	}
+}
+
+tv_academy_debate_group_warrior_clans_neutral_on_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 2
+		var:tv_academy_philosophy_current ?= 3
+		var:tv_academy_philosophy_current ?= 5
+		var:tv_academy_philosophy_current ?= 7
+		var:tv_academy_philosophy_current ?= 8
+	}
+}
+
+tv_academy_debate_group_diplomatic_clans_not_in_current_debate_trigger = {
+	NOT = { has_variable = tv_academy_debate_group_diplomatic_clans_seated }
+	NOT = { has_variable = tv_academy_debate_group_diplomatic_clans_left }
+}
+
+tv_academy_debate_group_diplomatic_clans_available_trigger = {
+	tv_academy_debate_group_diplomatic_clans_not_in_current_debate_trigger = yes
+	OR = {
+		AND = {
+			country_has_estate = estate_type:tribes_estate
+			tv_academy_debate_group_tribes_not_in_current_debate_trigger = yes
+		}
+		AND = {
+			country_has_estate = estate_type:dhimmi_estate
+			tv_academy_debate_group_dhimmi_not_in_current_debate_trigger = yes
+		}
+		AND = {
+			country_has_estate = estate_type:cossacks_estate
+			tv_academy_debate_group_cossacks_not_in_current_debate_trigger = yes
+		}
+	}
+	societal_value:belligerent_vs_conciliatory > 50
+	NOT = { any_owned_location = { dominant_culture = { is_accepted_in = root } } }
+	NOT = { societal_value:traditionalist_vs_innovative < -50 }
+	NOT = { societal_value:traditionalist_vs_innovative > 50 }
+	NOT = { societal_value:sinicized_vs_unsinicized < -50 }
+	NOT = { societal_value:sinicized_vs_unsinicized > 50 }
+	NOT = { societal_value:belligerent_vs_conciliatory < -50 }
+}
+
+tv_academy_debate_group_diplomatic_clans_supports_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 1
+		var:tv_academy_philosophy_current ?= 5
+		var:tv_academy_philosophy_current ?= 7
+		var:tv_academy_philosophy_current ?= 6
+	}
+}
+
+tv_academy_debate_group_diplomatic_clans_opposes_current_issue_trigger = {
+	var:tv_academy_philosophy_current ?= 4
+}
+
+tv_academy_debate_group_diplomatic_clans_neutral_on_current_issue_trigger = {
+	OR = {
+		var:tv_academy_philosophy_current ?= 2
+		var:tv_academy_philosophy_current ?= 3
+		var:tv_academy_philosophy_current ?= 8
+		var:tv_academy_philosophy_current ?= 9
+	}
 }
 
 tv_academy_debate_great_scientist_exists_trigger = {
@@ -907,6 +2342,254 @@ tv_academy_debate_group_great_scientist_positive_defection_condition_trigger = {
 }
 
 tv_academy_debate_group_great_scientist_negative_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_continental_traders_positive_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_continental_traders_negative_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_plutocratic_merchants_positive_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_plutocratic_merchants_negative_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_mercantilist_guilds_positive_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_mercantilist_guilds_negative_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_free_trade_merchants_positive_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_free_trade_merchants_negative_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_capitalist_financiers_positive_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_capitalist_financiers_negative_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_guild_traditionalists_positive_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_guild_traditionalists_negative_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_colonial_merchants_positive_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_colonial_merchants_negative_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_insular_guilds_positive_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_insular_guilds_negative_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_feudal_levy_nobility_positive_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_feudal_levy_nobility_negative_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_patronal_aristocracy_positive_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_patronal_aristocracy_negative_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_serf_holding_lords_positive_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_serf_holding_lords_negative_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_absolutist_court_faction_positive_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_absolutist_court_faction_negative_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_constitutionalist_nobility_positive_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_constitutionalist_nobility_negative_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_war_doctrine_nobility_positive_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_war_doctrine_nobility_negative_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_fortress_doctrine_nobility_positive_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_fortress_doctrine_nobility_negative_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_devout_clergy_positive_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_devout_clergy_negative_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_humanist_clergy_positive_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_humanist_clergy_negative_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_mystic_clergy_positive_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_mystic_clergy_negative_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_canonist_clergy_positive_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_canonist_clergy_negative_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_latinizing_clergy_positive_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_latinizing_clergy_negative_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_hellenizing_clergy_positive_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_hellenizing_clergy_negative_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_crown_subjects_positive_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_crown_subjects_negative_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_free_subject_peasantry_positive_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_free_subject_peasantry_negative_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_individualist_smallholders_positive_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_individualist_smallholders_negative_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_communal_villages_positive_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_communal_villages_negative_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_traditionalist_enclave_positive_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_traditionalist_enclave_negative_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_assimilating_enclave_positive_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_assimilating_enclave_negative_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_sinicized_minority_positive_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_sinicized_minority_negative_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_unsinicized_minority_positive_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_unsinicized_minority_negative_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_warrior_clans_positive_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_warrior_clans_negative_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_diplomatic_clans_positive_defection_condition_trigger = {
+	always = no
+}
+
+tv_academy_debate_group_diplomatic_clans_negative_defection_condition_trigger = {
 	always = no
 }
 
