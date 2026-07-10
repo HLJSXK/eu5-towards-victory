@@ -225,35 +225,17 @@ unique_wonders:
     key: dome_pilgrimage
     mode: immediate
     cost_type: null
-    listeners:
-    - monthly
-    runtime_variables:
-    - tv_wonder_dome_of_the_rock_ritual_stage
-    - tv_wonder_dome_of_the_rock_ritual_pending_event
-    - tv_wonder_dome_of_the_rock_ritual_completed
-    - tv_wonder_dome_of_the_rock_term_index
-    - tv_wonder_dome_of_the_rock_term_cooldown_months
-    - tv_wonder_dome_of_the_rock_previous_holder
-    - tv_wonder_dome_of_the_rock_concord
-    - tv_wonder_dome_of_the_rock_continuity
-    - tv_wonder_dome_of_the_rock_endowment_health
-    - tv_wonder_dome_of_the_rock_service_guardian_family
-    - tv_wonder_dome_of_the_rock_service_waqf_council
-    - tv_wonder_dome_of_the_rock_service_garrison_watch
-    - tv_wonder_dome_of_the_rock_combined_score
+    listeners: []
+    runtime_variables: []
     country_modifier:
+      monthly_legitimacy: 0.1
       tolerance_own: 1
-      diplomatic_reputation: 1
     reward: []
     confirmation_trigger_script: ''
-    start_effect_script: |-
-      tv_wonder_dome_of_the_rock_ritual_start_effect = yes
+    start_effect_script: ''
     snapshot_effect_script: ''
-    progress_effect_script: |-
-      tv_wonder_dome_of_the_rock_ritual_monthly_progress_effect = yes
-    completion_trigger_script: |-
-      has_variable = tv_wonder_dome_of_the_rock_ritual_completed
-      var:tv_wonder_dome_of_the_rock_ritual_completed ?= 1
+    progress_effect_script: ''
+    completion_trigger_script: ''
     completion_effect_script: ''
     timed:
       years: 1
@@ -366,35 +348,17 @@ unique_wonders:
     key: capitulation_treaty
     mode: immediate
     cost_type: null
-    listeners:
-    - monthly
-    runtime_variables:
-    - tv_wonder_alhambra_war_validation
-    - tv_wonder_alhambra_office_step
-    - tv_wonder_alhambra_pending_event
-    - tv_wonder_alhambra_holding_treasury_disposition
-    - tv_wonder_alhambra_holding_garrison_disposition
-    - tv_wonder_alhambra_holding_chancery_disposition
-    - tv_wonder_alhambra_holding_waterworks_disposition
-    - tv_wonder_alhambra_holding_endowment_disposition
-    - tv_wonder_alhambra_legitimacy_score
-    - tv_wonder_alhambra_efficiency_score
-    - tv_wonder_alhambra_extraction_score
-    - tv_wonder_alhambra_dominant_path
-    - tv_wonder_alhambra_ritual_completed
+    listeners: []
+    runtime_variables: []
     country_modifier:
-      monthly_prestige: 0.08
+      monthly_towards_centralization: 0.05
       diplomatic_reputation: 1
     reward: []
     confirmation_trigger_script: ''
-    start_effect_script: |-
-      tv_wonder_alhambra_ritual_start_effect = yes
+    start_effect_script: ''
     snapshot_effect_script: ''
-    progress_effect_script: |-
-      tv_wonder_alhambra_ritual_monthly_progress_effect = yes
-    completion_trigger_script: |-
-      has_variable = tv_wonder_alhambra_ritual_completed
-      var:tv_wonder_alhambra_ritual_completed ?= 1
+    progress_effect_script: ''
+    completion_trigger_script: ''
     completion_effect_script: ''
     timed:
       years: 1
@@ -630,29 +594,17 @@ unique_wonders:
     key: dedication
     mode: immediate
     cost_type: null
-    listeners:
-    - monthly
-    runtime_variables:
-    - tv_wonder_st_peters_basilica_ritual_stage
-    - tv_wonder_st_peters_basilica_ritual_pending_event
-    - tv_wonder_st_peters_basilica_ritual_completed
-    - tv_wonder_st_peters_basilica_tenure_index
-    - tv_wonder_st_peters_basilica_tenure_months
-    - tv_wonder_st_peters_basilica_authority
-    - tv_wonder_st_peters_basilica_succession_mode
+    listeners: []
+    runtime_variables: []
     country_modifier:
+      monthly_legitimacy: 0.1
       tolerance_own: 1
-      clergy_estate_target_satisfaction: 0.05
     reward: []
     confirmation_trigger_script: ''
-    start_effect_script: |-
-      tv_wonder_st_peters_basilica_ritual_start_effect = yes
+    start_effect_script: ''
     snapshot_effect_script: ''
-    progress_effect_script: |-
-      tv_wonder_st_peters_basilica_ritual_monthly_progress_effect = yes
-    completion_trigger_script: |-
-      has_variable = tv_wonder_st_peters_basilica_ritual_completed
-      var:tv_wonder_st_peters_basilica_ritual_completed ?= 1
+    progress_effect_script: ''
+    completion_trigger_script: ''
     completion_effect_script: ''
     timed:
       years: 1
@@ -1052,35 +1004,17 @@ unique_wonders:
     key: bank_founding
     mode: immediate
     cost_type: null
-    listeners:
-    - monthly
-    runtime_variables:
-    - tv_wonder_bank_of_saint_george_stage
-    - tv_wonder_bank_of_saint_george_ritual_pending_event
-    - tv_wonder_bank_of_saint_george_ritual_completed
-    - tv_wonder_bank_of_saint_george_charter_branch
-    - tv_wonder_bank_of_saint_george_principal
-    - tv_wonder_bank_of_saint_george_principal_start
-    - tv_wonder_bank_of_saint_george_interest_rate
-    - tv_wonder_bank_of_saint_george_monthly_pledge
-    - tv_wonder_bank_of_saint_george_elapsed_months
-    - tv_wonder_bank_of_saint_george_next_review_month
-    - tv_wonder_bank_of_saint_george_outcome_tier
-    - tv_wonder_bank_of_saint_george_progress_pct
-    - tv_wonder_bank_of_saint_george_interest_accrual
+    listeners: []
+    runtime_variables: []
     country_modifier:
-      minting_income_factor: 0.08
-      tax_income_efficiency: 0.03
+      tax_income_efficiency: 0.04
+      merchant_maintenance_efficiency: 0.08
     reward: []
     confirmation_trigger_script: ''
-    start_effect_script: |-
-      tv_wonder_bank_of_saint_george_ritual_start_effect = yes
+    start_effect_script: ''
     snapshot_effect_script: ''
-    progress_effect_script: |-
-      tv_wonder_bank_of_saint_george_ritual_monthly_progress_effect = yes
-    completion_trigger_script: |-
-      has_variable = tv_wonder_bank_of_saint_george_ritual_completed
-      var:tv_wonder_bank_of_saint_george_ritual_completed ?= 1
+    progress_effect_script: ''
+    completion_trigger_script: ''
     completion_effect_script: ''
     timed:
       years: 1

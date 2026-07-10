@@ -1,39 +1,25 @@
-"""Generate dedicated source for the 6 fully-implemented Unique Wonder Rituals:
-Pharos Lighthouse, Hagia Sophia, Alhambra, Dome of the Rock, Bank of Saint
-George, and St. Peter's Basilica.
+"""Generate dedicated source for the fully-implemented Unique Wonder Rituals:
+Pharos Lighthouse and Hagia Sophia.
 
-This is the single generation pipeline for these 6 wonders, replacing three
-previously separate pipelines:
-  - scripts/wonder_unique_rituals/ (hardcoded Pharos/Hagia plugins merged into
-    the shared tv_engineering_department_wonder_mechanics_{effects,triggers}.txt
-    and the tv_engineering_department.gui fragment) plus two standalone
-    hardcoded event generators
-    (gen_tv_wonder_unique_{pharos_lighthouse,hagia_sophia}_ritual_events.py).
-  - scripts/gen_repeated_row_pilot_wonders.py + data/repeated_row_pilot_wonders.yaml
-    (Dome of the Rock / Bank of Saint George / St. Peter's Basilica generic
-    row-set skeleton with no per-entity fidelity and no reward effects).
-  - scripts/gen_unique_wonder_ritual_code.py --write-alhambra-source (the
-    Harness-driven Alhambra vertical slice, which emitted an unrelated generic
-    8-event skeleton with `always = yes` triggers).
+Alhambra, Dome of the Rock, Bank of Saint George, and St. Peter's Basilica were
+previously implemented through this same pipeline but had their bespoke rituals
+removed and reverted to the generic immediate-mode ritual in
+data/unique_wonders.yaml; only Pharos and Hagia remain here.
 
 Content for each wonder lives in scripts/unique_wonder_ritual_content/<key>.py.
-Pharos and Hagia already carry full per-entity fidelity in their existing
-hand-written mechanics (ported unchanged); Dome of the Rock, Bank of Saint
-George, St. Peter's Basilica, and Alhambra are implemented through the shared
-per-entity engine in scripts/unique_wonder_ritual_content/_entity_ritual.py.
+Pharos and Hagia carry full per-entity fidelity in their existing hand-written
+mechanics.
 
-GUI cards for all 6 wonders remain merged into the single shared
+GUI cards remain merged into the single shared
 src/in_game/gui/panels/organization/tv_engineering_department.gui panel via the
 existing scripts/in_game/gui/panels/organization/gen_tv_engineering_department_wonder_mechanics_gui.py
 + merge_tv_engineering_department_wonder_mechanics_gui.py mechanism (one organization
 panel, not a per-wonder file) — this script does not touch GUI.
 
-Pharos and Hagia's localization text is intentionally left in its existing,
+Pharos and Hagia's localization text lives in its existing,
 already-correct home (data/wonder_localization.yaml ->
 src/main_menu/localization/*/tv_engineering_department_wonder_mechanics_l_*.yml);
-only the newly-fully-implemented Dome of the Rock, Bank of Saint George,
-St. Peter's Basilica, and Alhambra get dedicated per-wonder localization files
-here, matching their dedicated events/effects/triggers files.
+neither wonder needs a dedicated per-wonder localization file.
 
 Usage:
     C:\\Users\\Hades\\anaconda3\\envs\\eu5\\python.exe scripts\\gen_unique_wonder_rituals.py          # dry-run
@@ -53,16 +39,6 @@ from unique_wonder_ritual_content import RITUAL_MODULES  # noqa: E402
 
 SCRIPT_REL = "scripts/gen_unique_wonder_rituals.py"
 T = "\t"
-
-# Pharos and Hagia keep their existing, already-correct shared localization
-# pipeline (data/wonder_localization.yaml); only the 4 newly-completed wonders
-# get dedicated per-wonder localization files from this driver.
-DEDICATED_LOCALIZATION_SLUGS = {
-    "alhambra",
-    "dome_of_the_rock",
-    "bank_of_saint_george",
-    "st_peters_basilica",
-}
 
 
 def header_lines(data_rel: str, target: str) -> list[str]:
@@ -99,18 +75,6 @@ def build_triggers_file(module) -> str:
     return "\n".join(lines).rstrip() + "\n"
 
 
-def build_localization_file(module, language: str) -> str:
-    suffix = "l_english" if language == "english" else "l_simp_chinese"
-    target = f"src/main_menu/localization/{language}/tv_wonder_unique_{module.NAME_SLUG}_ritual_{suffix}.yml"
-    header_key = suffix
-    lines = [f"{header_key}:"]
-    for hline in header_lines(f"scripts/unique_wonder_ritual_content/{module.__name__.rsplit('.', 1)[-1]}.py", target):
-        lines.append(f" {hline}" if hline else "")
-    lines.append(" ")
-    lines.extend(module.build_localization(language))
-    return "\n".join(lines).rstrip() + "\n"
-
-
 def build_modifiers_file() -> str:
     target = "src/main_menu/common/static_modifiers/towards_victory_unique_wonder_ritual_modifiers.txt"
     lines = header_lines("scripts/unique_wonder_ritual_content/*.py (WONDER['modifier_bundles'])", target)
@@ -140,9 +104,6 @@ def output_paths(module) -> dict[str, Path]:
         "effects": REPO_ROOT / "src" / "in_game" / "common" / "scripted_effects" / f"tv_wonder_unique_{module.NAME_SLUG}_ritual_effects.txt",
         "triggers": REPO_ROOT / "src" / "in_game" / "common" / "scripted_triggers" / f"tv_wonder_unique_{module.NAME_SLUG}_ritual_triggers.txt",
     }
-    if module.NAME_SLUG in DEDICATED_LOCALIZATION_SLUGS:
-        paths["l_english"] = REPO_ROOT / "src" / "main_menu" / "localization" / "english" / f"tv_wonder_unique_{module.NAME_SLUG}_ritual_l_english.yml"
-        paths["l_simp_chinese"] = REPO_ROOT / "src" / "main_menu" / "localization" / "simp_chinese" / f"tv_wonder_unique_{module.NAME_SLUG}_ritual_l_simp_chinese.yml"
     if hasattr(module, "build_on_action_body"):
         paths["on_action"] = REPO_ROOT / "src" / "in_game" / "common" / "on_action" / f"tv_wonder_unique_{module.NAME_SLUG}_ritual_on_actions.txt"
     return paths
@@ -154,9 +115,6 @@ def build_all(module) -> dict[str, str]:
         "effects": build_effects_file(module),
         "triggers": build_triggers_file(module),
     }
-    if module.NAME_SLUG in DEDICATED_LOCALIZATION_SLUGS:
-        outputs["l_english"] = build_localization_file(module, "english")
-        outputs["l_simp_chinese"] = build_localization_file(module, "simp_chinese")
     if hasattr(module, "build_on_action_body"):
         outputs["on_action"] = build_on_action_file(module)
     return outputs

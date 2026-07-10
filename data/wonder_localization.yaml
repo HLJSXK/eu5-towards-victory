@@ -1941,8 +1941,6 @@ wonder_localization:
     tv_wonder_unique_dome_of_the_rock_inaugurated: Dome of the Rock
     tv_wonder_unique_dome_of_the_rock_inaugurated_desc: A golden dome crowns the sacred platform of Jerusalem, binding pilgrimage, sovereignty, and contested memory.
     TV_ENGINEERING_CEREMONY_UNIQUE_DOME_OF_THE_ROCK_INAUGURATED_BUTTON: Sanctuary Dome Pilgrimage
-    TV_ENGINEERING_DOME_OF_THE_ROCK_START_BUTTON: Open the Sanctuary Covenant
-    TV_ENGINEERING_DOME_OF_THE_ROCK_START_BUTTON_DESC: Gather the gate wardens, jurists, pilgrims, notables, and witnesses before the platform's access covenant can be read.
     TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_DOME_OF_THE_ROCK_1: Confirm the Sanctuary Dome Pilgrimage ceremony for the Dome of the Rock. The pilgrimage improves religious tolerance and diplomatic reputation..
     tv_engineering_department.500.d_unique_dome_of_the_rock: A golden dome crowns the sacred platform of Jerusalem, binding pilgrimage, sovereignty, and contested memory. The engineer describes the shrine built over the rock in Jerusalem, where architecture made a claim that every pilgrim could see. The Sanctuary Dome Pilgrimage now completes the wonder at its fixed historical site. The pilgrimage improves religious tolerance and diplomatic reputation.
     game_concept_tv_wonder_unique_angkor_wat_desc: Five towers rise above galleries and moats, making the king's temple a stone diagram of cosmic order. This unique [tv_wonder_construction|e] project must be raised at its fixed historical site, follows the same site rules as its generic archetype, and culminates in the Devaraja Temple Entrance ritual sequence.
@@ -2140,8 +2138,6 @@ wonder_localization:
     tv_wonder_unique_st_peters_basilica_desc: An unconsecrated Saint Peter's Basilica preserved as completed construction.
     tv_wonder_unique_st_peters_basilica_inaugurated: Saint Peter's Basilica
     tv_wonder_unique_st_peters_basilica_inaugurated_desc: A great basilica rises over the apostolic tomb, gathering pilgrims, cardinals, artists, and sovereign claims.
-    TV_ENGINEERING_ST_PETERS_BASILICA_START_BUTTON: Name the Sacred Office
-    TV_ENGINEERING_ST_PETERS_BASILICA_START_BUTTON_DESC: Appoint the cardinal administrator, bishop, relic custodian, alms prefect, and artist canon over the apostolic tomb.
     TV_ENGINEERING_CEREMONY_UNIQUE_ST_PETERS_BASILICA_INAUGURATED_BUTTON: Basilica Dedication
     TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_ST_PETERS_BASILICA_1: Confirm the Basilica Dedication ceremony for the Saint Peter's Basilica. The dedication improves true-faith tolerance and clergy satisfaction..
     tv_engineering_department.500.d_unique_st_peters_basilica: A great basilica rises over the apostolic tomb, gathering pilgrims, cardinals, artists, and sovereign claims. The engineer invokes Saint Peter's in Rome, a church whose dedication made stone, art, and universal authority converge. The Basilica Dedication now completes the wonder at its fixed historical site. The dedication improves true-faith tolerance and clergy satisfaction.
@@ -2398,8 +2394,6 @@ wonder_localization:
     tv_wonder_unique_bank_of_saint_george_desc: An unconsecrated Bank of Saint George preserved as completed construction.
     tv_wonder_unique_bank_of_saint_george_inaugurated: Bank of Saint George
     tv_wonder_unique_bank_of_saint_george_inaugurated_desc: Ledgers, state debts, merchant syndicates, and fortified counters make public credit into an institution.
-    TV_ENGINEERING_BANK_OF_SAINT_GEORGE_START_BUTTON: '@coins! Open the Ledger Oath'
-    TV_ENGINEERING_BANK_OF_SAINT_GEORGE_START_BUTTON_DESC: Gather the doge's officers, creditors, notaries, and mint masters to found the bank's charter and pledge rolls.
     TV_ENGINEERING_CEREMONY_UNIQUE_BANK_OF_SAINT_GEORGE_INAUGURATED_BUTTON: Bank of Saint George Founding
     TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_BANK_OF_SAINT_GEORGE_1: Confirm the Bank of Saint George Founding ceremony for the Bank of Saint George. The founding improves minting income and tax efficiency..
     tv_engineering_department.500.d_unique_bank_of_saint_george: Ledgers, state debts, merchant syndicates, and fortified counters make public credit into an institution. The engineer highlights Genoa's Bank of Saint George, where finance learned to administer territory and government debt. The Bank of Saint George Founding now completes the wonder at its fixed historical site. The founding improves minting income and tax efficiency.
@@ -5080,8 +5074,6 @@ wonder_localization:
     tv_engineering_department.600.d_unique_mecca_haram_expansion: Pilgrims and clerics report that [SCOPE.sCountry('tv_wonder_builder_country').GetName] has completed the [tv_wonder_unique_mecca_haram_expansion|E] at [SCOPE.sLocation('tv_wonder_completed_site').GetName]. Arcades, courtyards, and pilgrim routes expand around the Kaaba, making sacred space hold a world of believers. Pilgrims and rulers alike will find reasons to speak of it beyond the builder's borders.
     tv_engineering_department.600.d_unique_ming_great_wall: Military envoys report that [SCOPE.sCountry('tv_wonder_builder_country').GetName] has completed the [tv_wonder_unique_ming_great_wall|E] at [SCOPE.sLocation('tv_wonder_completed_site').GetName]. Walls, passes, garrisons, beacon towers, and border towns organize the northern frontier into nine military borders. Rivals will measure it in caution as much as admiration.
     tv_engineering_department.600.d_unique_bank_of_saint_george: Merchants carry word that [SCOPE.sCountry('tv_wonder_builder_country').GetName] has completed the [tv_wonder_unique_bank_of_saint_george|E] at [SCOPE.sLocation('tv_wonder_completed_site').GetName]. Ledgers, state debts, merchant syndicates, and fortified counters make public credit into an institution. Merchants abroad will translate the news into prices, routes, and new ambitions.
-    TV_ENGINEERING_DOME_OF_THE_ROCK_COMPACT_STATUS: Sanctuary access compact
-    TV_ENGINEERING_DOME_OF_THE_ROCK_INCIDENT_STATUS: Custody dispute pressure
     tv_engineering_department.1000.t: Custody Covenant of the Noble Rock
     tv_engineering_department.1000.d: The commissioner gathers gate wardens, jurists, reciters, water carriers, scribes, local notables, guarded pilgrims, and supervised witnesses on Jerusalem's sacred platform. The Dome cannot be claimed by an ordinary dedication. It must show that soldiers will lower their weapons at thresholds, that access rules can be read aloud without panic, and that custody of the Rock is recognized as lawful order rather than simple occupation.
     tv_engineering_department.1000.a: Convene the custody covenant.
@@ -5097,54 +5089,6 @@ wonder_localization:
     tv_engineering_department.1003.t: The Custody Covenant Is Read
     tv_engineering_department.1003.d: The final covenant is read beside the Rock. Gate keys, cistern duties, lamp care, endowment deeds, guarded routes, and threshold discipline are named in public. The Dome becomes a sign that the state can guard a contested holy place without turning it into a battlefield, and the reward remains tied to tolerance and diplomatic recognition rather than conquest speed.
     tv_engineering_department.1003.a: Seal the custody covenant.
-    TV_ENGINEERING_ALHAMBRA_WAR_STATUS: Granada war validation
-    TV_ENGINEERING_ALHAMBRA_TREATY_STATUS: Capitulation treaty clauses
-    TV_ENGINEERING_ALHAMBRA_PALACE_RISK_STATUS: Palace preservation risk
-    TV_ENGINEERING_ALHAMBRA_REWARD_BRANCH_STATUS: Reward branch
-    TV_ENGINEERING_ALHAMBRA_CURRENT_STAGE: Current stage
-    TV_ENGINEERING_ALHAMBRA_STAGE_TREATY: Treaty clauses
-    TV_ENGINEERING_ALHAMBRA_STAGE_PALACE: Palace risk
-    TV_ENGINEERING_ALHAMBRA_STAGE_REWARD: Reward ready
-    TV_ENGINEERING_ALHAMBRA_STATUS_WAITING: Waiting
-    TV_ENGINEERING_ALHAMBRA_STATUS_ACTIVE: Active
-    TV_ENGINEERING_ALHAMBRA_STATUS_BRANCH_RECORDED: Branch recorded
-    TV_ENGINEERING_ALHAMBRA_STATUS_COMPLETE: Complete
-    TV_ENGINEERING_ALHAMBRA_STATUS_FAILED: Failed
-    TV_ENGINEERING_ALHAMBRA_START_BUTTON: '@diplomacy! Open the Treaty Court'
-    TV_ENGINEERING_ALHAMBRA_START_BUTTON_DESC: Begin the Alhambra treaty ritual and route its validation through the palace-specific card.
-    TV_ENGINEERING_ALHAMBRA_OPENING_TITLE: Keys of Granada and Courtly Concord
-    TV_ENGINEERING_ALHAMBRA_OPENING_DESC: Envoys, translators, notaries, water overseers, palace guards, protected households, artisans, and foreign observers assemble inside the Alhambra. The palace cannot be inaugurated as a normal court. Its proof begins when the victor can preserve symbolic keys, treaty rolls, safe-conduct passes, and water courts while war still gives the settlement real stakes.
-    TV_ENGINEERING_ALHAMBRA_OPENING_PREPARE: Open the treaty court.
-    TV_ENGINEERING_ALHAMBRA_WAR_VALIDATION_TITLE: Victory Near The Red Walls
-    TV_ENGINEERING_ALHAMBRA_WAR_VALIDATION_DESC: The treaty court waits for a real war or peace window. Granada must remain controlled, the palace must not look sacked, and the settlement must be witnessed before victory becomes ordinary occupation. This validation is deliberately not a timer. The Alhambra proves itself when a war result can be turned into restraint, not when a monthly bar fills.
-    TV_ENGINEERING_ALHAMBRA_WAR_VALIDATION_VALIDATE: Validate the capitulation window.
-    TV_ENGINEERING_ALHAMBRA_TREATY_BRANCH_TITLE: Mercy, Tribute, or Deterrence
-    TV_ENGINEERING_ALHAMBRA_TREATY_BRANCH_DESC: The treaty branch defines the palace's memory. Mercy protects households and artisans, tribute makes surrender profitable, and deterrence warns future rebels through guarded audiences. Each path risks a different failure. Safe-conducts can be dishonored, water courts can be neglected, and foreign copies can record coercion instead of concord.
-    TV_ENGINEERING_ALHAMBRA_TREATY_BRANCH_MERCY: Write a merciful concord.
-    TV_ENGINEERING_ALHAMBRA_TREATY_BRANCH_TRIBUTE: Bind tribute to protected order.
-    TV_ENGINEERING_ALHAMBRA_TREATY_BRANCH_DETERRENCE: Make deterrence visible.
-    TV_ENGINEERING_ALHAMBRA_REWARD_TITLE: The Treaty Is Witnessed
-    TV_ENGINEERING_ALHAMBRA_REWARD_DESC: The symbolic keys are presented in the Hall of Ambassadors. Translators read the terms, water is poured for the protected courts, artisans and households are named, and foreign observers receive copies. The reward remains prestige and diplomatic reputation because the Alhambra has proved that conquest can become a governed court rather than an undisciplined prize.
-    TV_ENGINEERING_ALHAMBRA_REWARD_SEAL: Seal the palace treaty.
-    TV_ENGINEERING_ST_PETERS_OFFICIAL_STATUS: Assigned sacred official
-    TV_ENGINEERING_ST_PETERS_INCIDENT_STATUS: Apostolic service incident
-    TV_ENGINEERING_ST_PETERS_OPENING_TITLE: Apostolic Threshold Dedication
-    TV_ENGINEERING_ST_PETERS_OPENING_DESC: The basilica doors, high altar, tomb confession, sacristy, treasury, choir stalls, pilgrim hostels, relic inventories, and alms ledgers are prepared. Saint Peter's cannot be proved by a single mass under a dome. It must show that a sacred official can organize service around the apostolic tomb before the threshold opens to pilgrims.
-    TV_ENGINEERING_ST_PETERS_OPENING_PREPARE: Prepare the apostolic threshold.
-    TV_ENGINEERING_ST_PETERS_ASSIGNMENT_TITLE: Choose the Sacred Official
-    TV_ENGINEERING_ST_PETERS_ASSIGNMENT_DESC: The player assigns the figure who will carry the keys of service. A cardinal administrator brings authority but factional demands. A bishop steadies doctrine but may lack curial reach. A relic custodian protects the tomb, an alms prefect steadies pilgrims, and an artist-canon binds patronage to devotion. The choice is the ritual's pace.
-    TV_ENGINEERING_ST_PETERS_ASSIGNMENT_CARDINAL: Assign the cardinal administrator.
-    TV_ENGINEERING_ST_PETERS_ASSIGNMENT_BISHOP_OR_CUSTODIAN: Entrust a bishop or custodian.
-    TV_ENGINEERING_ST_PETERS_ASSIGNMENT_SERVICE_OFFICERS: Rely on service officers.
-    TV_ENGINEERING_ST_PETERS_SCANDAL_TITLE: The First Scandal of Service
-    TV_ENGINEERING_ST_PETERS_SCANDAL_DESC: The chosen official is tested immediately. Relic inventories can be questioned, alms can look corrupt, pilgrim access can become disorderly, choir offices can go unpaid, and chapel patronage can become a factional prize. The player may reassign the office, audit the duty, or accept a narrower dedication with weaker institutional reach.
-    TV_ENGINEERING_ST_PETERS_SCANDAL_CORRECT: Correct the official's failing.
-    TV_ENGINEERING_ST_PETERS_SCANDAL_NARROW: Accept a narrower dedication.
-    TV_ENGINEERING_ST_PETERS_REWARD_TITLE: The Threshold Opens
-    TV_ENGINEERING_ST_PETERS_REWARD_DESC: The doors open under recognized obligations. Relics, alms, pilgrim queues, choir offices, and chapel duties answer to the assigned official, and the apostolic tomb becomes a working service network. The reward stays focused on true-faith tolerance and clergy satisfaction because sacred authority has been disciplined into visible care.
-    TV_ENGINEERING_ST_PETERS_REWARD_DEDICATE: Dedicate the basilica.
-    TV_ENGINEERING_BANK_OF_SAINT_GEORGE_CHARTER_STATUS: Public credit charter
-    TV_ENGINEERING_BANK_OF_SAINT_GEORGE_CREDIT_STATUS: Ledger default pressure
     tv_engineering_department.1012.t: Ledger Oath of San Giorgio
     tv_engineering_department.1012.d: The doge's officers, Anziani, merchant creditors, notaries, mint masters, customs farmers, insurers, harbor scribes, and guards gather in the bank hall. San Giorgio is not a generic counting house. The first proof is a public oath that old debts, pledged revenues, coin assays, and archive seals can become trusted state machinery.
     tv_engineering_department.1012.a: Open the public ledger.
@@ -9112,8 +9056,6 @@ wonder_localization:
     tv_wonder_unique_dome_of_the_rock_desc: 尚未落成、但已作为完整工程保留下来的岩石圆顶圣殿。
     tv_wonder_unique_dome_of_the_rock_inaugurated: 岩石圆顶圣殿
     tv_wonder_unique_dome_of_the_rock_inaugurated_desc: 金色穹顶覆盖耶路撒冷圣台，将朝觐、主权与纷争记忆紧密相连。
-    TV_ENGINEERING_DOME_OF_THE_ROCK_START_BUTTON: 开启圣所盟约
-    TV_ENGINEERING_DOME_OF_THE_ROCK_START_BUTTON_DESC: 召集门卫、法学家、朝圣者、贤达与见证人，随后才能宣读圣殿平台的门禁盟约。
     TV_ENGINEERING_CEREMONY_UNIQUE_DOME_OF_THE_ROCK_INAUGURATED_BUTTON: 圣殿封顶朝觐
     TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_DOME_OF_THE_ROCK_1: 确认岩石圆顶圣殿的圣殿封顶朝觐仪式。朝觐提升宗教容忍与外交声誉。。
     tv_engineering_department.500.d_unique_dome_of_the_rock: 金色穹顶覆盖耶路撒冷圣台，将朝觐、主权与纷争记忆紧密相连。 大工程师讲述耶路撒冷岩石之上的圣殿：建筑本身便是每个朝圣者都能看见的主张。 如今，圣殿封顶朝觐为这座奇观完成了固定历史地点上的落成。朝觐提升宗教容忍与外交声誉。
@@ -9312,8 +9254,6 @@ wonder_localization:
     tv_wonder_unique_st_peters_basilica_desc: 尚未落成、但已作为完整工程保留下来的圣亚彼得大教堂。
     tv_wonder_unique_st_peters_basilica_inaugurated: 圣亚彼得大教堂
     tv_wonder_unique_st_peters_basilica_inaugurated_desc: 宏伟圣堂覆于宗徒墓上，汇聚朝圣者、枢机、艺术家与主权宣称。
-    TV_ENGINEERING_ST_PETERS_BASILICA_START_BUTTON: 任命神圣圣职
-    TV_ENGINEERING_ST_PETERS_BASILICA_START_BUTTON_DESC: 任命枢机总务、主教、圣物监护人、施赈长官与艺匠咏礼司铎，掌管使徒墓上的圣职。
     TV_ENGINEERING_CEREMONY_UNIQUE_ST_PETERS_BASILICA_INAUGURATED_BUTTON: 献堂礼
     TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_ST_PETERS_BASILICA_1: 确认圣亚彼得大教堂的献堂礼仪式。献堂礼提升正统信仰容忍与教士满意均衡。。
     tv_engineering_department.500.d_unique_st_peters_basilica: 宏伟圣堂覆于宗徒墓上，汇聚朝圣者、枢机、艺术家与主权宣称。 大工程师援引罗马圣彼得大教堂：献堂礼让石材、艺术与普世权威在此合一。 如今，献堂礼为这座奇观完成了固定历史地点上的落成。献堂礼提升正统信仰容忍与教士满意均衡。
@@ -9564,8 +9504,6 @@ wonder_localization:
     tv_wonder_unique_bank_of_saint_george_desc: 尚未落成、但已作为完整工程保留下来的圣乔治银行。
     tv_wonder_unique_bank_of_saint_george_inaugurated: 圣乔治银行
     tv_wonder_unique_bank_of_saint_george_inaugurated_desc: 账簿、国债、商人集团与坚固柜台把公共信用变成制度。
-    TV_ENGINEERING_BANK_OF_SAINT_GEORGE_START_BUTTON: '@coins! 开启账簿誓言'
-    TV_ENGINEERING_BANK_OF_SAINT_GEORGE_START_BUTTON_DESC: 召集总督官员、债权人、公证人与铸币官，创立银行的宪章与抵押名册。
     TV_ENGINEERING_CEREMONY_UNIQUE_BANK_OF_SAINT_GEORGE_INAUGURATED_BUTTON: 圣乔治银行成立
     TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_BANK_OF_SAINT_GEORGE_1: 确认圣乔治银行的圣乔治银行成立仪式。银行成立提升铸币收入与税收效率。。
     tv_engineering_department.500.d_unique_bank_of_saint_george: 账簿、国债、商人集团与坚固柜台把公共信用变成制度。 大工程师指出热那亚圣乔治银行：金融在那里学会管理领地与国家债务。 如今，圣乔治银行成立为这座奇观完成了固定历史地点上的落成。银行成立提升铸币收入与税收效率。
@@ -11230,8 +11168,6 @@ wonder_localization:
     tv_engineering_department.600.d_unique_mecca_haram_expansion: 朝圣者与教士报告：[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_unique_mecca_haram_expansion|E]。回廊、庭院与朝觐道路围绕克尔白扩展，使圣域容纳一个信众世界。朝圣者与统治者都会把这件事带出建造者的边界。
     tv_engineering_department.600.d_unique_ming_great_wall: 军事使节报告：[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_unique_ming_great_wall|E]。城墙、关隘、军镇、烽燧与边城把北方边疆组织为九处军事边镇。对手会同时用敬意与戒心来衡量它。
     tv_engineering_department.600.d_unique_bank_of_saint_george: 商人传来消息：[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_unique_bank_of_saint_george|E]。账簿、国债、商人集团与坚固柜台把公共信用变成制度。远方商人会把这则消息译成价格、航路与新的野心。
-    TV_ENGINEERING_DOME_OF_THE_ROCK_COMPACT_STATUS: 圣域通行契约
-    TV_ENGINEERING_DOME_OF_THE_ROCK_INCIDENT_STATUS: 守护争议压力
     tv_engineering_department.1000.t: 贵石守护盟约
     tv_engineering_department.1000.d: 委任官在耶路撒冷圣台召集守门人、法官、诵经者、挑水人、书记、地方名望者、受护送的朝圣者和受监督的见证人。岩石圆顶不能用普通献堂来宣称。它必须证明士兵会在门槛前放低武器，通行规则能公开宣读，守护贵石会被承认为法度而非单纯占领。
     tv_engineering_department.1000.a: 召集守护盟约。
@@ -11247,54 +11183,6 @@ wonder_localization:
     tv_engineering_department.1003.t: 守护盟约宣读
     tv_engineering_department.1003.d: 最终盟约在贵石旁宣读。门钥、水池职责、灯火维护、瓦克夫契据、受护送道路与门槛纪律都被公开点名。圆顶证明国家能守护一处受争议的圣地，而不是把它变成战场；奖励仍绑定于容忍和外交承认，而非征服速度。
     tv_engineering_department.1003.a: 盖印守护盟约。
-    TV_ENGINEERING_ALHAMBRA_WAR_STATUS: 格拉纳达战争验证
-    TV_ENGINEERING_ALHAMBRA_TREATY_STATUS: 投降条约条款
-    TV_ENGINEERING_ALHAMBRA_PALACE_RISK_STATUS: 宫廷保存风险
-    TV_ENGINEERING_ALHAMBRA_REWARD_BRANCH_STATUS: 奖励分支
-    TV_ENGINEERING_ALHAMBRA_CURRENT_STAGE: 当前阶段
-    TV_ENGINEERING_ALHAMBRA_STAGE_TREATY: 条约条款
-    TV_ENGINEERING_ALHAMBRA_STAGE_PALACE: 宫廷风险
-    TV_ENGINEERING_ALHAMBRA_STAGE_REWARD: 奖励就绪
-    TV_ENGINEERING_ALHAMBRA_STATUS_WAITING: 等待中
-    TV_ENGINEERING_ALHAMBRA_STATUS_ACTIVE: 进行中
-    TV_ENGINEERING_ALHAMBRA_STATUS_BRANCH_RECORDED: 已记录分支
-    TV_ENGINEERING_ALHAMBRA_STATUS_COMPLETE: 完成
-    TV_ENGINEERING_ALHAMBRA_STATUS_FAILED: 失败
-    TV_ENGINEERING_ALHAMBRA_START_BUTTON: '@diplomacy! 开启条约宫廷'
-    TV_ENGINEERING_ALHAMBRA_START_BUTTON_DESC: 开始阿尔罕布拉宫条约仪式，并通过宫殿专属卡片进行验证。
-    TV_ENGINEERING_ALHAMBRA_OPENING_TITLE: 格拉纳达钥匙与宫廷协和
-    TV_ENGINEERING_ALHAMBRA_OPENING_DESC: 使节、译员、公证人、水务监督、宫廷卫兵、受保护家族、工匠与外国观察者聚集在阿尔罕布拉宫内。这座宫殿不能像普通宫廷那样落成。它的证明始于胜者能否在战争仍有实际分量时保存象征钥匙、条约卷宗、安全通行证与水庭。
-    TV_ENGINEERING_ALHAMBRA_OPENING_PREPARE: 开启条约宫廷。
-    TV_ENGINEERING_ALHAMBRA_WAR_VALIDATION_TITLE: 红墙前的胜利
-    TV_ENGINEERING_ALHAMBRA_WAR_VALIDATION_DESC: 条约宫廷等待真正的战争或和平窗口。格拉纳达必须仍被控制，宫殿不能显得遭到洗劫，结算必须在胜利变成普通占领前被见证。这一验证刻意不是计时器。阿尔罕布拉的证明在于把战争结果转化为克制，而不是填满月度进度。
-    TV_ENGINEERING_ALHAMBRA_WAR_VALIDATION_VALIDATE: 验证投降窗口。
-    TV_ENGINEERING_ALHAMBRA_TREATY_BRANCH_TITLE: 宽恕、贡赋或威慑
-    TV_ENGINEERING_ALHAMBRA_TREATY_BRANCH_DESC: 条约分支定义宫殿的记忆。宽恕保护家族和工匠，贡赋让投降带来收益，威慑通过受控的接见警告未来叛乱。每条路径都有不同失败。安全通行可能被破坏，水庭可能被忽视，外国副本也可能记录强迫而非协和。
-    TV_ENGINEERING_ALHAMBRA_TREATY_BRANCH_MERCY: 写下宽恕协和。
-    TV_ENGINEERING_ALHAMBRA_TREATY_BRANCH_TRIBUTE: 将贡赋绑定到受保护秩序。
-    TV_ENGINEERING_ALHAMBRA_TREATY_BRANCH_DETERRENCE: 让威慑变得可见。
-    TV_ENGINEERING_ALHAMBRA_REWARD_TITLE: 条约获得见证
-    TV_ENGINEERING_ALHAMBRA_REWARD_DESC: 象征钥匙被呈入使节厅。译员宣读条款，水被倒入受保护的庭院，工匠与家族被点名，外国观察者收到副本。奖励仍是威望与外交声誉，因为阿尔罕布拉证明征服可以成为受治理的宫廷，而不是无纪律的战利品。
-    TV_ENGINEERING_ALHAMBRA_REWARD_SEAL: 盖印宫廷条约。
-    TV_ENGINEERING_ST_PETERS_OFFICIAL_STATUS: 已任命圣职官员
-    TV_ENGINEERING_ST_PETERS_INCIDENT_STATUS: 宗徒服务事件
-    TV_ENGINEERING_ST_PETERS_OPENING_TITLE: 宗徒门槛献堂
-    TV_ENGINEERING_ST_PETERS_OPENING_DESC: 大教堂门、高祭台、宗徒墓告解处、圣器室、宝库、唱诗席、朝圣客舍、圣髑清册与施舍账簿都准备就绪。圣彼得大教堂不能只靠穹顶下一场弥撒来证明。它必须表明一位圣职官员能在门槛向朝圣者开放前组织围绕宗徒墓的服务。
-    TV_ENGINEERING_ST_PETERS_OPENING_PREPARE: 准备宗徒门槛。
-    TV_ENGINEERING_ST_PETERS_ASSIGNMENT_TITLE: 选择圣职官员
-    TV_ENGINEERING_ST_PETERS_ASSIGNMENT_DESC: 玩家任命将掌管服务钥匙的人。枢机行政官拥有权威却带来派系要求。主教能稳住教义却可能缺少教廷触角。圣髑保管人保护宗徒墓，施舍长安抚朝圣者，艺术司铎将赞助绑定到虔敬。这一选择就是仪式的节奏。
-    TV_ENGINEERING_ST_PETERS_ASSIGNMENT_CARDINAL: 任命枢机行政官。
-    TV_ENGINEERING_ST_PETERS_ASSIGNMENT_BISHOP_OR_CUSTODIAN: 委托主教或保管人。
-    TV_ENGINEERING_ST_PETERS_ASSIGNMENT_SERVICE_OFFICERS: 依靠服务官员。
-    TV_ENGINEERING_ST_PETERS_SCANDAL_TITLE: 第一次服务丑闻
-    TV_ENGINEERING_ST_PETERS_SCANDAL_DESC: 被选中的官员立刻受到考验。圣髑清册可能遭质疑，施舍可能显得腐败，朝圣通行可能混乱，唱诗席可能欠薪，礼拜堂赞助可能沦为派系战利品。玩家可以重新任命、审计职责，或接受一场制度影响较弱的献堂。
-    TV_ENGINEERING_ST_PETERS_SCANDAL_CORRECT: 纠正官员的失误。
-    TV_ENGINEERING_ST_PETERS_SCANDAL_NARROW: 接受较狭窄的献堂。
-    TV_ENGINEERING_ST_PETERS_REWARD_TITLE: 门槛开启
-    TV_ENGINEERING_ST_PETERS_REWARD_DESC: 大门在公认的职责下开启。圣髑、施舍、朝圣队列、唱诗职责与礼拜堂义务都服从被任命的官员，宗徒墓成为运转中的服务网络。奖励聚焦于正统信仰容忍与教士满意，因为神圣权威已经被约束为可见的照护。
-    TV_ENGINEERING_ST_PETERS_REWARD_DEDICATE: 献堂大教堂。
-    TV_ENGINEERING_BANK_OF_SAINT_GEORGE_CHARTER_STATUS: 公共信用章程
-    TV_ENGINEERING_BANK_OF_SAINT_GEORGE_CREDIT_STATUS: 账簿违约压力
     tv_engineering_department.1012.t: 圣乔治账簿誓约
     tv_engineering_department.1012.d: 总督官员、元老、商人债权人、公证人、铸币师、关税承包人、保险商、港口书记与卫兵聚集在银行大厅。圣乔治不是普通账房。第一项证明是一场公开誓约，旧债、抵押收入、铸币检验与档案封印能由此变成可信的国家机器。
     tv_engineering_department.1012.a: 打开公共账簿。

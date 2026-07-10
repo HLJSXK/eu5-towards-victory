@@ -18,12 +18,8 @@ from wonder_mechanics.schema import (
     suitability_knowledge_for_wonder,
 )
 from unique_wonder_ritual_content import append_unique_ritual_gui
-from unique_wonder_ritual_content.alhambra import WONDER_ID as ALHAMBRA_WONDER_ID
 from unique_wonder_ritual_content.hagia import WONDER_ID as HAGIA_WONDER_ID
 from unique_wonder_ritual_content.pharos import WONDER_ID as PHAROS_WONDER_ID
-from unique_wonder_ritual_content.dome_of_the_rock import WONDER_ID as DOME_OF_THE_ROCK_WONDER_ID
-from unique_wonder_ritual_content.bank_of_saint_george import WONDER_ID as BANK_OF_SAINT_GEORGE_WONDER_ID
-from unique_wonder_ritual_content.st_peters_basilica import WONDER_ID as ST_PETERS_BASILICA_WONDER_ID
 
 OUT_FILE = REPO_ROOT / "data" / "generated_fragments" / "tv_engineering_department_wonder_mechanics.gui"
 SCRIPT_REL = "scripts/in_game/gui/panels/organization/gen_tv_engineering_department_wonder_mechanics_gui.py"
@@ -118,56 +114,12 @@ def hagia_locked_expr() -> str:
     )
 
 
-def alhambra_locked_expr() -> str:
-    return (
-        f"And({player_var('tv_wonder_locked')}.IsSet, "
-        f"{eq('tv_wonder_locked', ALHAMBRA_WONDER_ID)})"
-    )
-
-
-def dome_of_the_rock_locked_expr() -> str:
-    return (
-        f"And({player_var('tv_wonder_locked')}.IsSet, "
-        f"{eq('tv_wonder_locked', DOME_OF_THE_ROCK_WONDER_ID)})"
-    )
-
-
-def bank_of_saint_george_locked_expr() -> str:
-    return (
-        f"And({player_var('tv_wonder_locked')}.IsSet, "
-        f"{eq('tv_wonder_locked', BANK_OF_SAINT_GEORGE_WONDER_ID)})"
-    )
-
-
-def st_peters_basilica_locked_expr() -> str:
-    return (
-        f"And({player_var('tv_wonder_locked')}.IsSet, "
-        f"{eq('tv_wonder_locked', ST_PETERS_BASILICA_WONDER_ID)})"
-    )
-
-
 def not_pharos_locked_expr() -> str:
     return f"Not({pharos_locked_expr()})"
 
 
 def not_hagia_locked_expr() -> str:
     return f"Not({hagia_locked_expr()})"
-
-
-def not_alhambra_locked_expr() -> str:
-    return f"Not({alhambra_locked_expr()})"
-
-
-def not_dome_of_the_rock_locked_expr() -> str:
-    return f"Not({dome_of_the_rock_locked_expr()})"
-
-
-def not_bank_of_saint_george_locked_expr() -> str:
-    return f"Not({bank_of_saint_george_locked_expr()})"
-
-
-def not_st_peters_basilica_locked_expr() -> str:
-    return f"Not({st_peters_basilica_locked_expr()})"
 
 
 def not_special_unique_locked_expr() -> str:
@@ -179,10 +131,6 @@ def not_special_unique_locked_expr() -> str:
         [
             not_pharos_locked_expr(),
             not_hagia_locked_expr(),
-            not_alhambra_locked_expr(),
-            not_dome_of_the_rock_locked_expr(),
-            not_bank_of_saint_george_locked_expr(),
-            not_st_peters_basilica_locked_expr(),
         ],
     )
 
@@ -1153,10 +1101,6 @@ def generate() -> str:
     generic_hold_visible = f"And({base_visible}, {not_special_unique_locked_expr()})"
     pharos_hold_visible = f"And({base_visible}, {pharos_locked_expr()})"
     hagia_hold_visible = f"And({base_visible}, {hagia_locked_expr()})"
-    alhambra_hold_visible = f"And({base_visible}, {alhambra_locked_expr()})"
-    dome_of_the_rock_hold_visible = f"And({base_visible}, {dome_of_the_rock_locked_expr()})"
-    bank_of_saint_george_hold_visible = f"And({base_visible}, {bank_of_saint_george_locked_expr()})"
-    st_peters_basilica_hold_visible = f"And({base_visible}, {st_peters_basilica_locked_expr()})"
     gold_visible = f"And({generic_hold_visible}, {selected_ritual_cost_visible(WONDER_RITUAL_COST_TYPE_IDS['scaled_gold'])})"
     prestige_visible = f"And({generic_hold_visible}, {selected_ritual_cost_visible(WONDER_RITUAL_COST_TYPE_IDS['prestige'])})"
     free_visible = (
@@ -1184,42 +1128,6 @@ def generate() -> str:
             text_key="TV_ENGINEERING_HAGIA_START_BUTTON",
             title_key="TV_ENGINEERING_HAGIA_START_BUTTON",
             desc_key="TV_ENGINEERING_HAGIA_START_BUTTON_DESC",
-        )
-    )
-    lines.append(
-        hold_button(
-            "tv_wonder_confirm_ceremony",
-            alhambra_hold_visible,
-            text_key="TV_ENGINEERING_ALHAMBRA_START_BUTTON",
-            title_key="TV_ENGINEERING_ALHAMBRA_START_BUTTON",
-            desc_key="TV_ENGINEERING_ALHAMBRA_START_BUTTON_DESC",
-        )
-    )
-    lines.append(
-        hold_button(
-            "tv_wonder_confirm_ceremony",
-            dome_of_the_rock_hold_visible,
-            text_key="TV_ENGINEERING_DOME_OF_THE_ROCK_START_BUTTON",
-            title_key="TV_ENGINEERING_DOME_OF_THE_ROCK_START_BUTTON",
-            desc_key="TV_ENGINEERING_DOME_OF_THE_ROCK_START_BUTTON_DESC",
-        )
-    )
-    lines.append(
-        hold_button(
-            "tv_wonder_confirm_ceremony",
-            bank_of_saint_george_hold_visible,
-            text_key="TV_ENGINEERING_BANK_OF_SAINT_GEORGE_START_BUTTON",
-            title_key="TV_ENGINEERING_BANK_OF_SAINT_GEORGE_START_BUTTON",
-            desc_key="TV_ENGINEERING_BANK_OF_SAINT_GEORGE_START_BUTTON_DESC",
-        )
-    )
-    lines.append(
-        hold_button(
-            "tv_wonder_confirm_ceremony",
-            st_peters_basilica_hold_visible,
-            text_key="TV_ENGINEERING_ST_PETERS_BASILICA_START_BUTTON",
-            title_key="TV_ENGINEERING_ST_PETERS_BASILICA_START_BUTTON",
-            desc_key="TV_ENGINEERING_ST_PETERS_BASILICA_START_BUTTON_DESC",
         )
     )
     lines.append("### END TV_WONDER_MECHANICS_HOLD_BUTTONS")

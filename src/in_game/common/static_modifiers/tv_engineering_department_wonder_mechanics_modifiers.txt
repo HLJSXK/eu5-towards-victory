@@ -5450,8 +5450,8 @@ tv_wonder_unique_hagia_sophia_ceremony_modifier = {
 }
 
 tv_wonder_unique_dome_of_the_rock_ceremony_modifier = {
+	monthly_legitimacy = 0.1
 	tolerance_own = 1
-	diplomatic_reputation = 1
 }
 
 tv_wonder_unique_angkor_wat_ceremony_modifier = {
@@ -5465,7 +5465,7 @@ tv_wonder_unique_potala_palace_ceremony_modifier = {
 }
 
 tv_wonder_unique_alhambra_ceremony_modifier = {
-	monthly_prestige = 0.08
+	monthly_towards_centralization = 0.05
 	diplomatic_reputation = 1
 }
 
@@ -5495,8 +5495,8 @@ tv_wonder_unique_topkapi_palace_ceremony_modifier = {
 }
 
 tv_wonder_unique_st_peters_basilica_ceremony_modifier = {
+	monthly_legitimacy = 0.1
 	tolerance_own = 1
-	clergy_estate_target_satisfaction = 0.05
 }
 
 tv_wonder_unique_lalibela_churches_ceremony_modifier = {
@@ -5545,8 +5545,8 @@ tv_wonder_unique_ming_great_wall_ceremony_modifier = {
 }
 
 tv_wonder_unique_bank_of_saint_george_ceremony_modifier = {
-	minting_income_factor = 0.08
-	tax_income_efficiency = 0.03
+	tax_income_efficiency = 0.04
+	merchant_maintenance_efficiency = 0.08
 }
 
 tv_wonder_unique_cahokia_mounds_ceremony_modifier = {

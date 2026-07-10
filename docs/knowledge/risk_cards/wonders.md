@@ -147,9 +147,10 @@ generators.
     verified scope-equality idiom — same reference file line 3292
     `leader_country ?= { this = root }`; also used in
     `src/in_game/common/generic_actions/tv_arts_exhibition_actions.txt`) to require root to
-    actually be the war's winner. Confirmed live instance: Alhambra's war-validation gate
-    (`scripts/unique_wonder_ritual_content/alhambra.py:build_on_action_body`) validated on any
-    war ending while owning Granada, win or lose, until fixed 2026-07.
+    actually be the war's winner. Historical instance: Alhambra's war-validation gate
+    (formerly `scripts/unique_wonder_ritual_content/alhambra.py:build_on_action_body`, since
+    removed along with the rest of Alhambra's bespoke ritual) validated on any war ending while
+    owning Granada, win or lose, until fixed 2026-07.
 
 15. Re-run `gen_tv_wonder_ritual_effects.py` after renaming any bespoke ritual variable.
     `tv_wonder_ritual_effects.txt`'s `tv_wonder_mechanics_clear_selected_ritual_runtime_effect`
@@ -184,8 +185,9 @@ generators.
     re-emits the description a second time as a spurious `.d` option on every *other* event too,
     producing the engine's `Duplicate localization key ... defined in both X and X` warning. See
     `docs/knowledge/anti_patterns.yaml` rule
-    `ritual_content_event_text_dict_letter_key_collides_with_desc` (confirmed live in
-    `st_peters_basilica.py`'s 1678/1679/1680/1681 events, 2026-07).
+    `ritual_content_event_text_dict_letter_key_collides_with_desc` (historical instance: former
+    `st_peters_basilica.py`'s 1678/1679/1680/1681 events, 2026-07; that content module has since
+    been removed along with the rest of St. Peter's Basilica's bespoke ritual).
 
 ## Validation
 

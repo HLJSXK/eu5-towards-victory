@@ -6634,64 +6634,6 @@ tv_wonder_mechanics_clear_selected_ritual_runtime_effect = {
 			remove_location_modifier = tv_wonder_hagia_public_procession_location_modifier
 		}
 	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 10301 }
-		remove_variable = tv_wonder_dome_of_the_rock_ritual_stage
-		remove_variable = tv_wonder_dome_of_the_rock_ritual_pending_event
-		remove_variable = tv_wonder_dome_of_the_rock_ritual_completed
-		remove_variable = tv_wonder_dome_of_the_rock_term_index
-		remove_variable = tv_wonder_dome_of_the_rock_term_cooldown_months
-		remove_variable = tv_wonder_dome_of_the_rock_previous_holder
-		remove_variable = tv_wonder_dome_of_the_rock_concord
-		remove_variable = tv_wonder_dome_of_the_rock_continuity
-		remove_variable = tv_wonder_dome_of_the_rock_endowment_health
-		remove_variable = tv_wonder_dome_of_the_rock_service_guardian_family
-		remove_variable = tv_wonder_dome_of_the_rock_service_waqf_council
-		remove_variable = tv_wonder_dome_of_the_rock_service_garrison_watch
-		remove_variable = tv_wonder_dome_of_the_rock_combined_score
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 10601 }
-		remove_variable = tv_wonder_alhambra_war_validation
-		remove_variable = tv_wonder_alhambra_office_step
-		remove_variable = tv_wonder_alhambra_pending_event
-		remove_variable = tv_wonder_alhambra_holding_treasury_disposition
-		remove_variable = tv_wonder_alhambra_holding_garrison_disposition
-		remove_variable = tv_wonder_alhambra_holding_chancery_disposition
-		remove_variable = tv_wonder_alhambra_holding_waterworks_disposition
-		remove_variable = tv_wonder_alhambra_holding_endowment_disposition
-		remove_variable = tv_wonder_alhambra_legitimacy_score
-		remove_variable = tv_wonder_alhambra_efficiency_score
-		remove_variable = tv_wonder_alhambra_extraction_score
-		remove_variable = tv_wonder_alhambra_dominant_path
-		remove_variable = tv_wonder_alhambra_ritual_completed
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 11201 }
-		remove_variable = tv_wonder_st_peters_basilica_ritual_stage
-		remove_variable = tv_wonder_st_peters_basilica_ritual_pending_event
-		remove_variable = tv_wonder_st_peters_basilica_ritual_completed
-		remove_variable = tv_wonder_st_peters_basilica_tenure_index
-		remove_variable = tv_wonder_st_peters_basilica_tenure_months
-		remove_variable = tv_wonder_st_peters_basilica_authority
-		remove_variable = tv_wonder_st_peters_basilica_succession_mode
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 12201 }
-		remove_variable = tv_wonder_bank_of_saint_george_stage
-		remove_variable = tv_wonder_bank_of_saint_george_ritual_pending_event
-		remove_variable = tv_wonder_bank_of_saint_george_ritual_completed
-		remove_variable = tv_wonder_bank_of_saint_george_charter_branch
-		remove_variable = tv_wonder_bank_of_saint_george_principal
-		remove_variable = tv_wonder_bank_of_saint_george_principal_start
-		remove_variable = tv_wonder_bank_of_saint_george_interest_rate
-		remove_variable = tv_wonder_bank_of_saint_george_monthly_pledge
-		remove_variable = tv_wonder_bank_of_saint_george_elapsed_months
-		remove_variable = tv_wonder_bank_of_saint_george_next_review_month
-		remove_variable = tv_wonder_bank_of_saint_george_outcome_tier
-		remove_variable = tv_wonder_bank_of_saint_george_progress_pct
-		remove_variable = tv_wonder_bank_of_saint_george_interest_accrual
-	}
 }
 
 tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = {
@@ -6753,22 +6695,6 @@ tv_wonder_mechanics_apply_selected_ritual_progress_effect = {
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 10201 }
 		tv_wonder_hagia_monthly_progress_effect = yes
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 10301 }
-		tv_wonder_dome_of_the_rock_ritual_monthly_progress_effect = yes
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 10601 }
-		tv_wonder_alhambra_ritual_monthly_progress_effect = yes
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 11201 }
-		tv_wonder_st_peters_basilica_ritual_monthly_progress_effect = yes
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 12201 }
-		tv_wonder_bank_of_saint_george_ritual_monthly_progress_effect = yes
 	}
 }
 
@@ -7866,42 +7792,6 @@ tv_wonder_mechanics_start_deferred_immediate_ritual_effect = {
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
 	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 10301 }
-		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
-		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
-		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
-		tv_wonder_dome_of_the_rock_ritual_start_effect = yes
-		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
-		tv_wonder_complete_active_ritual_effect = yes
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 10601 }
-		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
-		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
-		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
-		tv_wonder_alhambra_ritual_start_effect = yes
-		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
-		tv_wonder_complete_active_ritual_effect = yes
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 11201 }
-		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
-		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
-		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
-		tv_wonder_st_peters_basilica_ritual_start_effect = yes
-		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
-		tv_wonder_complete_active_ritual_effect = yes
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 12201 }
-		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
-		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
-		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
-		tv_wonder_bank_of_saint_george_ritual_start_effect = yes
-		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
-		tv_wonder_complete_active_ritual_effect = yes
-	}
 }
 
 tv_wonder_mechanics_apply_immediate_ritual_effect = {
@@ -8124,10 +8014,16 @@ tv_wonder_mechanics_apply_immediate_ritual_effect = {
 		add_navy_tradition = 20
 	}
 	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 10301 }
+	}
+	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 10401 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 10501 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 10601 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 10701 }
@@ -8143,6 +8039,9 @@ tv_wonder_mechanics_apply_immediate_ritual_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 11101 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 11201 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 11301 }
@@ -8170,6 +8069,9 @@ tv_wonder_mechanics_apply_immediate_ritual_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 12101 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 12201 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 12301 }
@@ -8806,18 +8708,6 @@ tv_wonder_mechanics_apply_selected_ritual_completion_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 10201 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 10301 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 10601 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 11201 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 12201 }
 	}
 }
 

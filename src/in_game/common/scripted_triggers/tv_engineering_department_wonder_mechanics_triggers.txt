@@ -29810,26 +29810,6 @@ tv_wonder_selected_ritual_custom_completion_requirements_met_trigger = {
 		has_variable = tv_wonder_hagia_completed
 		var:tv_wonder_hagia_completed ?= 1
 	}
-	trigger_else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 10301 }
-		has_variable = tv_wonder_dome_of_the_rock_ritual_completed
-		var:tv_wonder_dome_of_the_rock_ritual_completed ?= 1
-	}
-	trigger_else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 10601 }
-		has_variable = tv_wonder_alhambra_ritual_completed
-		var:tv_wonder_alhambra_ritual_completed ?= 1
-	}
-	trigger_else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 11201 }
-		has_variable = tv_wonder_st_peters_basilica_ritual_completed
-		var:tv_wonder_st_peters_basilica_ritual_completed ?= 1
-	}
-	trigger_else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 12201 }
-		has_variable = tv_wonder_bank_of_saint_george_ritual_completed
-		var:tv_wonder_bank_of_saint_george_ritual_completed ?= 1
-	}
 	trigger_else = { always = no }
 }
 
