@@ -3566,12 +3566,12 @@
       "decimals": 2,
       "en": {
         "description": "This blocks the [export|e] of [ShowGoodsName('tv_wonder_materials')] from all [markets|e] that a [country|e] owns.",
-        "name": "Ban Exports of Wonder Building Materials"
+        "name": "Ban Exports of Great Project Building Materials"
       },
       "value_kind": "boolean",
       "zh": {
         "description": "这会阻止该[country|e]拥有的所有[markets|e]出口[ShowGoodsName('tv_wonder_materials')]。",
-        "name": "禁止奇观建材出口"
+        "name": "禁止伟大工程建材出口"
       }
     },
     "ban_exports_of_weaponry": {
@@ -4616,12 +4616,12 @@
       "decimals": 2,
       "en": {
         "description": "This blocks the [import|e] of [ShowGoodsName('tv_wonder_materials')] to all [markets|e] that a [country|e] owns.",
-        "name": "Ban Imports of Wonder Building Materials"
+        "name": "Ban Imports of Great Project Building Materials"
       },
       "value_kind": "boolean",
       "zh": {
         "description": "这会阻止该[country|e]拥有的所有[markets|e]进口[ShowGoodsName('tv_wonder_materials')]。",
-        "name": "禁止奇观建材进口"
+        "name": "禁止伟大工程建材进口"
       }
     },
     "ban_imports_of_weaponry": {
@@ -7332,12 +7332,12 @@
       "decimals": 2,
       "en": {
         "description": "This allows the extraction of [ShowGoodsName('tv_wonder_materials')] by allowing an [rgo|e] in a [location|e].",
-        "name": "Can Extract Wonder Building Materials"
+        "name": "Can Extract Great Project Building Materials"
       },
       "value_kind": "boolean",
       "zh": {
         "description": "这允许通过在[location|e]中提供[rgo|e]来提取[ShowGoodsName('tv_wonder_materials')]。",
-        "name": "可提取奇观建材"
+        "name": "可提取伟大工程建材"
       }
     },
     "can_extract_weaponry": {
@@ -17244,12 +17244,12 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [output|e] of [ShowGoodsName('tv_wonder_materials')] in the entire [country|e].",
-        "name": "Wonder Building Materials Output"
+        "name": "Great Project Building Materials Output"
       },
       "value_kind": "percent",
       "zh": {
         "description": "这修正整个[country|e]的[ShowGoodsName('tv_wonder_materials')][output|e]。",
-        "name": "奇观建材产出"
+        "name": "伟大工程建材产出"
       }
     },
     "global_tv_wonder_materials_pop_demand": {
@@ -23936,12 +23936,12 @@
       "decimals": 2,
       "en": {
         "description": "This modifies the [output|e] of [ShowGoodsName('tv_wonder_materials')] in this [location|e].",
-        "name": "Local Wonder Building Materials Output"
+        "name": "Local Great Project Building Materials Output"
       },
       "value_kind": "percent",
       "zh": {
         "description": "这修正该[location|e]的[ShowGoodsName('tv_wonder_materials')][output|e]。",
-        "name": "本地奇观建材产出"
+        "name": "本地伟大工程建材产出"
       }
     },
     "local_typhus_growth_modifier": {
@@ -33147,13 +33147,13 @@
       "color": "bad",
       "decimals": 2,
       "en": {
-        "description": "Modifies the gold construction cost of Wonder Worksites.",
-        "name": "Wonder Worksite Cost"
+        "description": "Modifies the gold construction cost of Great Project Worksites.",
+        "name": "Great Project Worksite Cost"
       },
       "value_kind": "percent",
       "zh": {
-        "description": "修正奇观工地的金币建设花费。",
-        "name": "奇观工地花费"
+        "description": "修正伟大工程工地的金币建设花费。",
+        "name": "伟大工程工地花费"
       }
     },
     "tv_wonder_material_dispatch_point_price_cost_modifier": {
@@ -33161,13 +33161,13 @@
       "color": "bad",
       "decimals": 2,
       "en": {
-        "description": "Modifies the gold construction cost of Wonder Material Workshops.",
-        "name": "Wonder Material Workshop Cost"
+        "description": "Modifies the gold construction cost of Great Project Material Workshops.",
+        "name": "Great Project Material Workshop Cost"
       },
       "value_kind": "percent",
       "zh": {
-        "description": "修正奇观建材工坊的金币建设花费。",
-        "name": "奇观建材工坊花费"
+        "description": "修正伟大工程建材工坊的金币建设花费。",
+        "name": "伟大工程建材工坊花费"
       }
     },
     "tv_wonder_materials_impacts_inflation": {
@@ -33176,12 +33176,12 @@
       "decimals": 2,
       "en": {
         "description": "This determines how the production of [ShowGoodsName('tv_wonder_materials')] impacts [inflation|e] in the [country|e].",
-        "name": "Wonder Building Materials Impacts Inflation"
+        "name": "Great Project Building Materials Impacts Inflation"
       },
       "value_kind": "percent",
       "zh": {
         "description": "这决定了[ShowGoodsName('tv_wonder_materials')]的生产如何影响[country|e]的[inflation|e]。",
-        "name": "奇观建材对通货膨胀的影响"
+        "name": "伟大工程建材对通货膨胀的影响"
       }
     },
     "tv_wonder_materials_used_for_minting": {
@@ -33190,12 +33190,12 @@
       "decimals": 2,
       "en": {
         "description": "This determines if [ShowGoodsName('tv_wonder_materials')] is used for coins in the [country|e].",
-        "name": "Wonder Building Materials Used for Coins"
+        "name": "Great Project Building Materials Used for Coins"
       },
       "value_kind": "boolean",
       "zh": {
         "description": "这决定了[ShowGoodsName('tv_wonder_materials')]是否被用作[country|e]的货币。",
-        "name": "奇观建材用作货币"
+        "name": "伟大工程建材用作货币"
       }
     },
     "tv_wonder_ritual_annex_large_price_cost_modifier": {

@@ -1545,7 +1545,7 @@ def format_title(event: dict, lang: str) -> str:
     eng = eng_name(event["eng"], lang) if event.get("eng") else ""
     noneng = noneng_name(event["noneng"], lang) if event.get("noneng") else ""
     core = template.format(eng=eng, eng_effect=eng, noneng=noneng)
-    return f"奇观建设：{core}"
+    return f"[tv_wonder_construction|E]：{core}"
 
 
 def format_desc(event: dict, lang: str) -> str:

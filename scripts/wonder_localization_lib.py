@@ -275,7 +275,7 @@ def _engineering_preview_location_text_values() -> list[tuple[str, str, str]]:
                 f"[ShowLocationName('{location}')], its fixed [location|E]"
             )
             simp_chinese = (
-                "@location! 这是一个[tv_wonder_construction|E]独特奇观，可以建造在"
+                "@location! 这是一项独特[tv_wonder_construction|E]，可以建造在"
                 f"[ShowLocationName('{location}')]这一[location|E]"
             )
         else:
@@ -284,7 +284,7 @@ def _engineering_preview_location_text_values() -> list[tuple[str, str, str]]:
                 "across multiple eligible [location|E] sites"
             )
             simp_chinese = (
-                "@location! 这是一个[tv_wonder_construction|E]通用奇观，可以建造在多个符合条件的[location|E]"
+                "@location! 这是一项通用[tv_wonder_construction|E]，可以建造在多个符合条件的[location|E]"
             )
         values.append((key, english, simp_chinese))
     return values
