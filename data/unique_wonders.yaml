@@ -225,37 +225,17 @@ unique_wonders:
     key: dome_pilgrimage
     mode: immediate
     cost_type: null
-    listeners:
-    - monthly
-    runtime_variables:
-    - tv_wonder_dome_of_the_rock_ritual_stage
-    - tv_wonder_dome_of_the_rock_ritual_pending_event
-    - tv_wonder_dome_of_the_rock_ritual_completed
-    - tv_wonder_dome_of_the_rock_compact_choice
-    - tv_wonder_dome_of_the_rock_access_gate_wardens_status
-    - tv_wonder_dome_of_the_rock_access_religious_jurists_status
-    - tv_wonder_dome_of_the_rock_access_pilgrim_caravans_status
-    - tv_wonder_dome_of_the_rock_access_local_notables_status
-    - tv_wonder_dome_of_the_rock_access_supervised_witnesses_status
-    - tv_wonder_dome_of_the_rock_duty_gate_keys_status
-    - tv_wonder_dome_of_the_rock_duty_cisterns_status
-    - tv_wonder_dome_of_the_rock_duty_lamps_status
-    - tv_wonder_dome_of_the_rock_duty_endowment_deeds_status
-    - tv_wonder_dome_of_the_rock_duty_pilgrim_routes_status
-    - tv_wonder_dome_of_the_rock_ritual_total_favorable
+    listeners: []
+    runtime_variables: []
     country_modifier:
+      monthly_legitimacy: 0.1
       tolerance_own: 1
-      diplomatic_reputation: 1
     reward: []
     confirmation_trigger_script: ''
-    start_effect_script: |-
-      tv_wonder_dome_of_the_rock_ritual_start_effect = yes
+    start_effect_script: ''
     snapshot_effect_script: ''
-    progress_effect_script: |-
-      tv_wonder_dome_of_the_rock_ritual_monthly_progress_effect = yes
-    completion_trigger_script: |-
-      has_variable = tv_wonder_dome_of_the_rock_ritual_completed
-      var:tv_wonder_dome_of_the_rock_ritual_completed ?= 1
+    progress_effect_script: ''
+    completion_trigger_script: ''
     completion_effect_script: ''
     timed:
       years: 1
@@ -368,47 +348,17 @@ unique_wonders:
     key: capitulation_treaty
     mode: immediate
     cost_type: null
-    listeners:
-    - monthly
-    runtime_variables:
-    - tv_wonder_alhambra_war_validation
-    - tv_wonder_alhambra_ritual_row_set_index
-    - tv_wonder_alhambra_ritual_phase
-    - tv_wonder_alhambra_ritual_pending_event
-    - tv_wonder_alhambra_ritual_completed
-    - tv_wonder_alhambra_treaty_clause_register_favorable_count
-    - tv_wonder_alhambra_treaty_clause_register_narrowed
-    - tv_wonder_alhambra_treaty_clause_register_started
-    - tv_wonder_alhambra_treaty_clause_register_completed
-    - tv_wonder_alhambra_treaty_clause_register_symbolic_keys_status
-    - tv_wonder_alhambra_treaty_clause_register_protected_households_status
-    - tv_wonder_alhambra_treaty_clause_register_artisan_rosters_status
-    - tv_wonder_alhambra_treaty_clause_register_acequia_water_status
-    - tv_wonder_alhambra_treaty_clause_register_safe_conducts_status
-    - tv_wonder_alhambra_treaty_clause_register_foreign_copies_status
-    - tv_wonder_alhambra_palace_risk_points_favorable_count
-    - tv_wonder_alhambra_palace_risk_points_narrowed
-    - tv_wonder_alhambra_palace_risk_points_started
-    - tv_wonder_alhambra_palace_risk_points_completed
-    - tv_wonder_alhambra_palace_risk_points_gate_of_justice_status
-    - tv_wonder_alhambra_palace_risk_points_hall_of_ambassadors_status
-    - tv_wonder_alhambra_palace_risk_points_court_of_lions_status
-    - tv_wonder_alhambra_palace_risk_points_water_channels_status
-    - tv_wonder_alhambra_palace_risk_points_vega_overlook_status
-    - tv_wonder_alhambra_ritual_total_favorable
+    listeners: []
+    runtime_variables: []
     country_modifier:
-      monthly_prestige: 0.08
+      monthly_towards_centralization: 0.05
       diplomatic_reputation: 1
     reward: []
     confirmation_trigger_script: ''
-    start_effect_script: |-
-      tv_wonder_alhambra_ritual_start_effect = yes
+    start_effect_script: ''
     snapshot_effect_script: ''
-    progress_effect_script: |-
-      tv_wonder_alhambra_ritual_monthly_progress_effect = yes
-    completion_trigger_script: |-
-      has_variable = tv_wonder_alhambra_ritual_completed
-      var:tv_wonder_alhambra_ritual_completed ?= 1
+    progress_effect_script: ''
+    completion_trigger_script: ''
     completion_effect_script: ''
     timed:
       years: 1
@@ -644,37 +594,17 @@ unique_wonders:
     key: dedication
     mode: immediate
     cost_type: null
-    listeners:
-    - monthly
-    runtime_variables:
-    - tv_wonder_st_peters_basilica_ritual_stage
-    - tv_wonder_st_peters_basilica_ritual_pending_event
-    - tv_wonder_st_peters_basilica_ritual_completed
-    - tv_wonder_st_peters_basilica_assigned_role
-    - tv_wonder_st_peters_basilica_role_cardinal_administrator_status
-    - tv_wonder_st_peters_basilica_role_diocesan_bishop_status
-    - tv_wonder_st_peters_basilica_role_relic_custodian_status
-    - tv_wonder_st_peters_basilica_role_alms_prefect_status
-    - tv_wonder_st_peters_basilica_role_artist_canon_status
-    - tv_wonder_st_peters_basilica_duty_relic_inventory_status
-    - tv_wonder_st_peters_basilica_duty_alms_ledger_status
-    - tv_wonder_st_peters_basilica_duty_pilgrim_threshold_status
-    - tv_wonder_st_peters_basilica_duty_choir_offices_status
-    - tv_wonder_st_peters_basilica_duty_chapel_patronage_status
-    - tv_wonder_st_peters_basilica_ritual_total_favorable
+    listeners: []
+    runtime_variables: []
     country_modifier:
+      monthly_legitimacy: 0.1
       tolerance_own: 1
-      clergy_estate_target_satisfaction: 0.05
     reward: []
     confirmation_trigger_script: ''
-    start_effect_script: |-
-      tv_wonder_st_peters_basilica_ritual_start_effect = yes
+    start_effect_script: ''
     snapshot_effect_script: ''
-    progress_effect_script: |-
-      tv_wonder_st_peters_basilica_ritual_monthly_progress_effect = yes
-    completion_trigger_script: |-
-      has_variable = tv_wonder_st_peters_basilica_ritual_completed
-      var:tv_wonder_st_peters_basilica_ritual_completed ?= 1
+    progress_effect_script: ''
+    completion_trigger_script: ''
     completion_effect_script: ''
     timed:
       years: 1
@@ -1074,36 +1004,17 @@ unique_wonders:
     key: bank_founding
     mode: immediate
     cost_type: null
-    listeners:
-    - monthly
-    runtime_variables:
-    - tv_wonder_bank_of_saint_george_ritual_stage
-    - tv_wonder_bank_of_saint_george_ritual_pending_event
-    - tv_wonder_bank_of_saint_george_ritual_completed
-    - tv_wonder_bank_of_saint_george_charter_branch
-    - tv_wonder_bank_of_saint_george_charter_creditor_privilege_status
-    - tv_wonder_bank_of_saint_george_charter_crown_supervision_status
-    - tv_wonder_bank_of_saint_george_charter_open_merchant_access_status
-    - tv_wonder_bank_of_saint_george_pledge_old_war_debts_status
-    - tv_wonder_bank_of_saint_george_pledge_customs_dues_status
-    - tv_wonder_bank_of_saint_george_pledge_salt_tax_status
-    - tv_wonder_bank_of_saint_george_pledge_port_tolls_status
-    - tv_wonder_bank_of_saint_george_pledge_coin_assays_status
-    - tv_wonder_bank_of_saint_george_pledge_archive_volumes_status
-    - tv_wonder_bank_of_saint_george_ritual_total_favorable
+    listeners: []
+    runtime_variables: []
     country_modifier:
-      minting_income_factor: 0.08
-      tax_income_efficiency: 0.03
+      tax_income_efficiency: 0.04
+      merchant_maintenance_efficiency: 0.08
     reward: []
     confirmation_trigger_script: ''
-    start_effect_script: |-
-      tv_wonder_bank_of_saint_george_ritual_start_effect = yes
+    start_effect_script: ''
     snapshot_effect_script: ''
-    progress_effect_script: |-
-      tv_wonder_bank_of_saint_george_ritual_monthly_progress_effect = yes
-    completion_trigger_script: |-
-      has_variable = tv_wonder_bank_of_saint_george_ritual_completed
-      var:tv_wonder_bank_of_saint_george_ritual_completed ?= 1
+    progress_effect_script: ''
+    completion_trigger_script: ''
     completion_effect_script: ''
     timed:
       years: 1
@@ -1875,7 +1786,7 @@ unique_wonders:
     listeners: []
     runtime_variables: []
     country_modifier:
-      stability_cost: -0.1
+      stability_cost_efficiency: 0.1
     reward: []
     confirmation_trigger_script: ''
     start_effect_script: ''
@@ -2155,7 +2066,7 @@ unique_wonders:
     listeners: []
     runtime_variables: []
     country_modifier:
-      court_spending_cost_modifier: -0.1
+      court_spending_efficiency: 0.1
     reward: []
     confirmation_trigger_script: ''
     start_effect_script: ''
@@ -2563,7 +2474,7 @@ unique_wonders:
     runtime_variables: []
     country_modifier:
       global_production_efficiency: 0.04
-      global_build_buildings_cost: -0.03
+      global_build_buildings_efficiency: 0.03
     reward: []
     confirmation_trigger_script: ''
     start_effect_script: ''
@@ -3054,7 +2965,7 @@ unique_wonders:
     listeners: []
     runtime_variables: []
     country_modifier:
-      global_build_buildings_cost: -0.05
+      global_build_buildings_efficiency: 0.05
       global_production_efficiency: 0.03
     reward: []
     confirmation_trigger_script: ''
@@ -3464,7 +3375,7 @@ unique_wonders:
     listeners: []
     runtime_variables: []
     country_modifier:
-      global_build_buildings_cost: -0.04
+      global_build_buildings_efficiency: 0.04
       monthly_prestige: 0.05
     reward: []
     confirmation_trigger_script: ''
@@ -4693,7 +4604,7 @@ unique_wonders:
     listeners: []
     runtime_variables: []
     country_modifier:
-      fort_maintenance_cost: -0.05
+      fort_maintenance_efficiency: 0.05
       global_garrison_size_modifier: 0.08
     reward: []
     confirmation_trigger_script: ''

@@ -2495,20 +2495,20 @@ def generate_events(data: dict) -> str:
     event_specs = {
         100: ("join", "neutral"),
         101: ("leave", "neutral"),
-        102: ("support_price_join", "good"),
-        103: ("oppose_price_stay_out", "bad"),
-        104: ("quarrel", "bad"),
-        105: ("scientist_sways_support", "good"),
-        106: ("scientist_angers_oppose", "bad"),
-        107: ("scientist_bargain_support", "good"),
+        102: ("support_price_join", "positive"),
+        103: ("oppose_price_stay_out", "negative"),
+        104: ("quarrel", "negative"),
+        105: ("scientist_sways_support", "positive"),
+        106: ("scientist_angers_oppose", "negative"),
+        107: ("scientist_bargain_support", "positive"),
         108: ("great_scientist_requests_seat", "neutral"),
-        109: ("royal_appointment", "good"),
+        109: ("royal_appointment", "positive"),
         110: ("neutral_decides", "neutral"),
-        111: ("neutral_price_support", "good"),
-        112: ("neutral_price_not_oppose", "bad"),
-        113: ("scientist_sways_neutral", "good"),
-        114: ("scientist_angers_neutral", "bad"),
-        115: ("scientist_bargain_neutral", "good"),
+        111: ("neutral_price_support", "positive"),
+        112: ("neutral_price_not_oppose", "negative"),
+        113: ("scientist_sways_neutral", "positive"),
+        114: ("scientist_angers_neutral", "negative"),
+        115: ("scientist_bargain_neutral", "positive"),
     }
     for event_num, (key, outcome) in event_specs.items():
         emit(lines, 0, f"{EVENT_NS}.{event_num} = {{")
@@ -2528,14 +2528,14 @@ def generate_events(data: dict) -> str:
         emit(lines)
 
     notification_specs = {
-        LOCAL_ACTION_POSITIVE_EVENT: "good",
-        LOCAL_ACTION_NEGATIVE_EVENT: "bad",
+        LOCAL_ACTION_POSITIVE_EVENT: "positive",
+        LOCAL_ACTION_NEGATIVE_EVENT: "negative",
         WORLD_DEBATE_START_EVENT: "neutral",
-        WORLD_DEBATE_PROGRESSIVE_EVENT: "good",
-        WORLD_DEBATE_CONSERVATIVE_EVENT: "bad",
+        WORLD_DEBATE_PROGRESSIVE_EVENT: "positive",
+        WORLD_DEBATE_CONSERVATIVE_EVENT: "negative",
         WORLD_DEBATE_NEUTRAL_EVENT: "neutral",
-        AUTO_STANCE_SUPPORT_EVENT: "good",
-        AUTO_STANCE_OPPOSE_EVENT: "bad",
+        AUTO_STANCE_SUPPORT_EVENT: "positive",
+        AUTO_STANCE_OPPOSE_EVENT: "negative",
         AUTO_STANCE_NEUTRAL_EVENT: "neutral",
         AUTO_SEAT_VACATED_EVENT: "neutral",
     }

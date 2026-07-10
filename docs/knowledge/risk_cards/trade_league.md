@@ -54,9 +54,15 @@ covers the rules specific to the Trade League's generated goods/monopoly system.
    generation-time error. See `docs/knowledge/anti_patterns.yaml` rule
    `saved_scope_name_must_match_save_scope_as_exactly`.
 
+6. Use v1.3 `_efficiency` modifier names, not the old v1.2 `_cost` names.
+   `data/trade_league_laws.yaml` uses `court_spending_cost_modifier` and
+   `global_bureaucracy_maintenance_cost_modifier`, both renamed to `_efficiency` in v1.3 with a
+   negated value (`color=bad` -> `color=good`). See `docs/knowledge/anti_patterns.yaml` rule
+   `v1_3_cost_modifier_renamed_to_efficiency`.
+
 ## Validation
 
-Run `validate.py --changed --fix --ai-report`: it lints rule 4
+Run `validate.py --changed --fix --ai-report`: it lints rule 4 and rule 6
 (`tv_io_initial_laws_seeded`) and the shared IO `monthly_effect` ban automatically. Rules 1–3
 have no automated check — after changing monopoly/intelligence generators, verify in game
 that monopoly control percentages and intelligence network strength match expected market

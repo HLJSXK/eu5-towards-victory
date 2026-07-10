@@ -2292,14 +2292,14 @@ tv_govhouse_refresh_governor_display_effect = {
 	}
 	every_in_list = { variable = tv_govhouse_region_list
 		limit = {
-			save_temporary_scope_as = tv_display_region
+			save_temporary_scope_as = tv_display_region_check
 			scope:tv_governing_country = {
 				OR = {
 					NOT = { has_variable_list = tv_govhouse_region_display_region_list }
 					NOT = {
 						is_target_in_variable_list = {
 							name = tv_govhouse_region_display_region_list
-							target = scope:tv_display_region
+							target = scope:tv_display_region_check
 						}
 					}
 				}

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Static mechanic-similarity audit for the 6 implemented unique wonder rituals.
+"""Static mechanic-similarity audit for the implemented unique wonder rituals.
 
 Compares the generated EU5 scripted_effects/scripted_triggers source for each
 implemented unique-wonder ritual after normalizing away wonder-specific naming,
@@ -8,12 +8,12 @@ with different entity/row-set names swapped in) show up as highly similar,
 while genuinely distinct bespoke mechanics show up as dissimilar.
 
 This is a read-only static-analysis spike: it only reads existing src/ files.
-It is meant to become a cheap automated gate run after each future batch of
+It is meant to be a cheap automated gate run after each future batch of
 wonder ritual implementations, to catch the kind of design homogenization that
-produced the current Alhambra / Dome of the Rock / Bank of Saint George /
-St. Peter's Basilica cluster (all four are thin reskins of the same generic
-`_entity_ritual.py` 4-stage shape), before it happens again across the
-remaining 117 unplanned wonders.
+previously produced an Alhambra / Dome of the Rock / Bank of Saint George /
+St. Peter's Basilica cluster (all four were thin reskins of the same generic
+`_entity_ritual.py` 4-stage shape, since removed) before it happens again
+across the remaining 121 unplanned wonders.
 
 Method
 ------
@@ -81,12 +81,8 @@ TRIGGERS_DIR = REPO_ROOT / "src" / "in_game" / "common" / "scripted_triggers"
 # key -> (file-name key used in tv_wonder_unique_<key>_ritual_*.txt,
 #          identifier-name variants to strip from the text, longest first)
 WONDERS: dict[str, list[str]] = {
-    "alhambra": ["alhambra"],
-    "bank_of_saint_george": ["bank_of_saint_george"],
-    "dome_of_the_rock": ["dome_of_the_rock"],
     "hagia_sophia": ["hagia_sophia", "hagia"],
     "pharos_lighthouse": ["pharos_lighthouse", "pharos"],
-    "st_peters_basilica": ["st_peters_basilica"],
 }
 
 KINDS = ("effects", "triggers")
@@ -292,7 +288,7 @@ def main() -> None:
 
     generic_words = _build_generic_vocabulary(raw_texts, args.generic_threshold)
     print(f"# Shared engine vocabulary ({len(generic_words)} segments, "
-          f"threshold={args.generic_threshold}/6 wonders):")
+          f"threshold={args.generic_threshold}/{len(WONDERS)} wonders):")
     print("  " + ", ".join(sorted(generic_words)))
 
     # Per wonder: normalized whole-file text per kind, and set of normalized

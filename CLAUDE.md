@@ -338,7 +338,14 @@ For `.gui` files place these `#` comment lines at the very top, before the first
 ### Script Directory Layout
 
 Infrastructure scripts stay at `scripts/` root:
-`validate.py`, `ai_context.py`, `gen_brief.py`, `gen_index.py`, `gen_scaffold.py`, `gen_victory.py`, `gen_messagetypes.py`, `gen_locked_advances.py`, `check_overview.py`
+`validate.py`, `ai_context.py`, `gen_brief.py`, `gen_index.py`, `gen_scaffold.py`, `gen_victory.py`, `gen_messagetypes.py`, `gen_locked_advances.py`, `check_overview.py`, `sync_reference.py`
+
+`sync_reference.py` rebuilds `reference_game_files/game/` from an installed EU5 game
+folder (mirrors only `in_game/`+`main_menu/`, prunes `gfx/` and non-English/Chinese
+localization — including flat locale-suffixed files like `foo_l_russian.yml` —
+drops known-binary/media extensions plus anything that sniffs as binary content, and
+keeps every other file regardless of extension, under size caps). See
+`reference_game_files/README.md` for the full policy and usage.
 
 One-off asset helpers also stay at repository/script root. `scripts/generate_dds_icon.py` reads `generate_dds_icon_config.json` plus optional `generate_dds_icon.local.json`, selects one target (`trade_good_icon`, `trade_good_illustration`, `building_icon`, `victory_situation_icon`, `victory_path_icon`, or `victory_reward_icon`) or a batch mode (`victory_path_icons`, `victory_reward_icons`, or `wonder_building_icons`), can refine a short prompt, supports target-specific asset-name/prompt overrides, uploads that target's same-type style-reference DDS/PNG files for API generation, can use an explicitly configured local template renderer for deterministic source-DDS transformations, and writes configured DDS targets with enforced dimensions/file-size limits plus optional mipmaps. The icon targets now apply a circular inner-crop pass with transparent outside pixels and a soft alpha falloff near the edge before DDS writing. By default it skips generation when the final DDS target already exists and `output.overwrite` is false; the victory path batch creates `tv_victory_situation.dds` under `src/main_menu/gfx/interface/icons/situations/` plus six route icons under `src/main_menu/gfx/interface/icons/towards_victory/victory_paths/`, the victory reward batch creates six route template icons plus ninety route/milestone/reward-option icons under `src/main_menu/gfx/interface/icons/towards_victory/victory_rewards/`, and the wonder building batch reads the generated Engineering Department wonder data to create one 128x128 building icon task for each generic and unique final wonder building under `src/main_menu/gfx/interface/icons/buildings/`. Run it through the Python Runner Policy; in managed sandboxes use `C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\generate_dds_icon.py`.
 

@@ -145,7 +145,7 @@
  #Monthly Pulse
  fire_event_4_tt: "可能触发[ROOT.GetCountry.GetGovernment.GetEstateName('peasants_estate')]抗税的[event|e]"
  fire_event_5_tt: "可能触发[provinces|e][prosperity|e]降低的[event|e]"
- # Decline of Majapahit
+ #Decline of Majapahit
  #Disaster
  decline_of_majapahit: "$MAJ$的衰落"
  decline_of_majapahit_desc: "如今，[GetCountry('MAJ').GetFlavorRank]已不复往日的繁荣昌盛。内部深受王朝纷争的困扰，正值国力衰弱之际，多个敌国虎视眈眈，伺机侵犯我国边疆。更令人忧心的是，随着[ShowReligionGroupName('muslim')]在[ShowRegionName('indonesia_region')]迅速崛起，我国很可能会失去影响力，成为被遗忘的帝国……"
@@ -275,3 +275,6 @@
  robber_barons_spread_tt: "强盗贵族扩散影响力"
  robber_barons_stay_put_tt: "强盗贵族保持蛰伏"
  TURMOIL_IN_BRANDENBURG_DISASTERS_MODIFIERS_TT_LIST: "在此[disaster|e]期间，国家获得："
+ #Twilight of the Tsardom
+ twilight_of_the_tsardom: "[ShowGovernmentReformNameWithNoTooltip('tsardom')]的黄昏"
+ twilight_of_the_tsardom_desc: "自伊凡·阿森二世去世之后，[GetCountry('BUL').GetName]长期陷入君权衰微、贵族内讧与外敌蚕食交相困扰的困局。在内部割裂与外部威胁的双重夹击之下，[GetCountry('BUL').GetFlavorRank]步入了危机四伏的衰落时期——它要么迎来重整与复兴，要么彻底走向覆灭。"

@@ -25,7 +25,7 @@ laws:
         country_modifier: |
           monthly_legitimacy = 0.10
           monthly_prestige = 0.05
-          court_spending_cost_modifier = 0.15
+          court_spending_efficiency = -0.15
       - id: tv_arts_noble_patronage_policy
         display_comment: "Noble Patronage"
         country_modifier: |
@@ -44,7 +44,7 @@ laws:
           skill_of_new_artists = 0.10
           cultural_tradition_modifier = 0.10
           global_monthly_art_start_chance = -0.05
-          court_spending_cost_modifier = 0.10
+          court_spending_efficiency = -0.10
 
   - id: tv_arts_organization_law
     display_comment: "LAW 2: Artistic Organization"
@@ -59,9 +59,9 @@ laws:
       - id: tv_arts_court_workshops_policy
         display_comment: "Court Workshops"
         country_modifier: |
-          global_build_buildings_cost = -0.05
+          global_build_buildings_efficiency = 0.05
           global_monthly_control = 0.001
-          court_spending_cost_modifier = 0.15
+          court_spending_efficiency = -0.15
       - id: tv_arts_independent_masters_policy
         display_comment: "Independent Masters"
         country_modifier: |
@@ -90,13 +90,13 @@ laws:
         country_modifier: |
           monthly_legitimacy = 0.10
           monthly_prestige = 0.05
-          court_spending_cost_modifier = 0.10
+          court_spending_efficiency = -0.10
       - id: tv_arts_educate_people_policy
         display_comment: "Educate the People"
         country_modifier: |
           global_max_literacy = 5
           pop_join_rebel_threshold = 0.025
-          court_spending_cost_modifier = 0.05
+          court_spending_efficiency = -0.05
       - id: tv_arts_display_civilization_policy
         display_comment: "Display Civilization"
         country_modifier: |
@@ -117,7 +117,7 @@ laws:
         display_comment: "Strict Censorship (default)"
         default: true
         country_modifier: |
-          stability_cost = -0.05
+          stability_cost_efficiency = 0.05
           monthly_rebel_growth = -0.0005
           global_monthly_art_start_chance = -0.10
       - id: tv_arts_licensed_creation_policy
@@ -125,7 +125,7 @@ laws:
         country_modifier: |
           global_monthly_control = 0.001
           cultural_influence_modifier = 0.20
-          court_spending_cost_modifier = 0.10
+          court_spending_efficiency = -0.10
       - id: tv_arts_court_tolerance_policy
         display_comment: "Court Tolerance"
         country_modifier: |
@@ -146,7 +146,7 @@ laws:
         display_comment: "Utilitarianism (default)"
         default: true
         country_modifier: |
-          global_build_buildings_cost = -0.10
+          global_build_buildings_efficiency = 0.10
           cultural_influence_modifier = -0.05
       - id: tv_arts_religious_city_policy
         display_comment: "Religious City"
@@ -158,13 +158,13 @@ laws:
         country_modifier: |
           monthly_prestige = 0.10
           global_monthly_control = 0.001
-          court_spending_cost_modifier = 0.15
+          court_spending_efficiency = -0.15
       - id: tv_arts_classical_planning_policy
         display_comment: "Classical Planning"
         country_modifier: |
           country_cabinet_efficiency = 0.05
           global_monthly_control = 0.001
-          global_build_buildings_cost = 0.05
+          global_build_buildings_efficiency = -0.05
       - id: tv_arts_mixed_autonomy_policy
         display_comment: "Mixed Autonomy"
         country_modifier: |
@@ -209,7 +209,7 @@ laws:
         display_comment: "Plain Ritual (default)"
         default: true
         country_modifier: |
-          court_spending_cost_modifier = -0.10
+          court_spending_efficiency = 0.10
           monthly_prestige = -0.05
       - id: tv_arts_religious_ritual_policy
         display_comment: "Religious Ritualization"
@@ -222,7 +222,7 @@ laws:
         country_modifier: |
           monthly_prestige = 0.20
           monthly_legitimacy = 0.10
-          court_spending_cost_modifier = 0.30
+          court_spending_efficiency = -0.30
       - id: tv_arts_enlightenment_festival_policy
         display_comment: "Enlightenment Public Festivals"
         country_modifier: |
@@ -245,13 +245,13 @@ laws:
         country_modifier: |
           skill_of_new_artists = 0.10
           research_speed_modifier = 0.05
-          court_spending_cost_modifier = 0.20
+          court_spending_efficiency = -0.20
       - id: tv_arts_royal_engineering_art_policy
         display_comment: "Royal Engineering Art"
         country_modifier: |
           global_construction_speed = 0.10
           global_defensive = 0.05
-          global_bureaucracy_maintenance_cost_modifier = 0.10
+          global_bureaucracy_maintenance_efficiency = -0.10
       - id: tv_arts_scientific_aesthetic_unity_policy
         display_comment: "Scientific Aesthetic Unity"
         country_modifier: |

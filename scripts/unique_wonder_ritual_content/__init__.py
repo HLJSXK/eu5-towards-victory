@@ -1,7 +1,7 @@
-"""Content modules for the 6 fully-implemented Unique Wonder Rituals.
+"""Content modules for the fully-implemented Unique Wonder Rituals.
 
 Each module exposes a uniform contract consumed by scripts/gen_unique_wonder_rituals.py
-(dedicated events/effects/triggers/localization files) and by
+(dedicated events/effects/triggers files) and by
 scripts/in_game/gui/panels/organization/gen_tv_engineering_department_wonder_mechanics_gui.py
 (the shared organization-panel GUI fragment):
 
@@ -10,16 +10,14 @@ scripts/in_game/gui/panels/organization/gen_tv_engineering_department_wonder_mec
 - append_effects(lines), append_triggers(lines)
 - append_gui(lines, indent, helpers)
 
-This replaces the retired scripts/wonder_unique_rituals/ package (hardcoded
-Pharos/Hagia plugins merged into shared engineering-department files),
-scripts/gen_repeated_row_pilot_wonders.py (Dome of the Rock / Bank of Saint
-George / St. Peter's Basilica generic row-set skeleton), and the Alhambra-only
-`gen_unique_wonder_ritual_code.py --write-alhambra-source` Harness vertical
-slice with one consistent pipeline.
+Only Pharos Lighthouse and Hagia Sophia are implemented this way; every other unique
+wonder (including the four formerly-bespoke Alhambra, Dome of the Rock, Bank of Saint
+George, and St. Peter's Basilica) uses the generic immediate-mode ritual driven directly
+by data/unique_wonders.yaml.
 """
-from . import alhambra, bank_of_saint_george, dome_of_the_rock, hagia, pharos, st_peters_basilica
+from . import hagia, pharos
 
-RITUAL_MODULES = (pharos, hagia, alhambra, dome_of_the_rock, bank_of_saint_george, st_peters_basilica)
+RITUAL_MODULES = (pharos, hagia)
 
 
 def iter_ritual_modules():

@@ -165,7 +165,6 @@ tv_academy_of_sciences_create_effect = {
 		set_variable = { name = tv_academy_philosophy_phase value = 0 }
 		set_variable = { name = tv_academy_debate_initial_progress_pending value = 1 }
 		tv_academy_philosophy_initialize_timeline_effect = yes
-		tv_research_refresh_potential_projects_effect = yes
 	}
 	if = {
 		limit = {

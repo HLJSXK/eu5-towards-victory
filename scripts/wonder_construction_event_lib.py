@@ -30,18 +30,18 @@ EVENT_KIND_WEIGHTS = {
 }
 
 KIND_OUTCOMES = {
-    "gain_engineering_2": "good",
-    "gain_engineering_1": "good",
+    "gain_engineering_2": "positive",
+    "gain_engineering_1": "positive",
     "trade_noneng_for_eng": "neutral",
     "swing_engineering_1": "neutral",
-    "choose_eng_or_noneng_loss": "bad",
-    "lose_noneng_1": "bad",
-    "lose_noneng_2": "bad",
-    "engineer_gain_engineering_2": "good",
-    "engineer_gain_engineering_1": "good",
+    "choose_eng_or_noneng_loss": "negative",
+    "lose_noneng_1": "negative",
+    "lose_noneng_2": "negative",
+    "engineer_gain_engineering_2": "positive",
+    "engineer_gain_engineering_1": "positive",
     "engineer_swing_engineering_1": "neutral",
-    "engineer_lose_noneng_1": "bad",
-    "engineer_lose_noneng_2": "bad",
+    "engineer_lose_noneng_1": "negative",
+    "engineer_lose_noneng_2": "negative",
 }
 
 KIND_TITLE = {
@@ -1545,7 +1545,7 @@ def format_title(event: dict, lang: str) -> str:
     eng = eng_name(event["eng"], lang) if event.get("eng") else ""
     noneng = noneng_name(event["noneng"], lang) if event.get("noneng") else ""
     core = template.format(eng=eng, eng_effect=eng, noneng=noneng)
-    return f"奇观建设：{core}"
+    return f"[tv_wonder_construction|E]：{core}"
 
 
 def format_desc(event: dict, lang: str) -> str:

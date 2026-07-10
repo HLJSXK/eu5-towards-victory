@@ -5354,7 +5354,7 @@ tv_wonder_crusader_knightly_order = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_fort_maintenance_cost = -0.1
+		local_fort_maintenance_efficiency = 0.1
 		local_defensive = 0.25
 		local_hostile_attrition = 0.05
 		monthly_towards_defensive = 0.05
@@ -5402,7 +5402,7 @@ tv_wonder_frontier_lord_order = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_fort_maintenance_cost = -0.1
+		local_fort_maintenance_efficiency = 0.1
 		local_defensive = 0.25
 		local_hostile_attrition = 0.05
 		monthly_towards_defensive = 0.05
@@ -5450,7 +5450,7 @@ tv_wonder_mercenary_fortress_system = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_fort_maintenance_cost = -0.1
+		local_fort_maintenance_efficiency = 0.1
 		local_defensive = 0.25
 		local_hostile_attrition = 0.05
 		monthly_towards_defensive = 0.05
@@ -5764,7 +5764,7 @@ tv_wonder_worship_clock_bells = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_build_buildings_cost = -0.1
+		local_build_buildings_efficiency = 0.1
 		monthly_towards_inward = 0.05
 	}
 
@@ -5810,7 +5810,7 @@ tv_wonder_curfew_clock_bells = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_build_buildings_cost = -0.1
+		local_build_buildings_efficiency = 0.1
 		monthly_towards_inward = 0.05
 	}
 
@@ -5856,7 +5856,7 @@ tv_wonder_astronomical_calendar_bells = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_build_buildings_cost = -0.1
+		local_build_buildings_efficiency = 0.1
 		monthly_towards_inward = 0.05
 	}
 
@@ -10256,7 +10256,7 @@ tv_wonder_restored_citadel_ruins = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_build_buildings_cost = -0.1
+		local_build_buildings_efficiency = 0.1
 		exploration_mission_speed = 0.1
 		monthly_towards_outward = 0.05
 	}
@@ -10303,7 +10303,7 @@ tv_wonder_antiquarian_quarter_ruins = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_build_buildings_cost = -0.1
+		local_build_buildings_efficiency = 0.1
 		exploration_mission_speed = 0.1
 		monthly_towards_outward = 0.05
 	}
@@ -10350,7 +10350,7 @@ tv_wonder_pilgrim_ruins_preserve = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_build_buildings_cost = -0.1
+		local_build_buildings_efficiency = 0.1
 		exploration_mission_speed = 0.1
 		monthly_towards_outward = 0.05
 	}
@@ -14979,7 +14979,7 @@ tv_wonder_unique_malbork_castle_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_fort_maintenance_cost = -0.2
+		local_fort_maintenance_efficiency = 0.2
 		local_defensive = 0.5
 		local_hostile_attrition = 0.1
 		monthly_towards_defensive = 0.1
@@ -15265,7 +15265,7 @@ tv_wonder_unique_khiva_old_city_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_build_buildings_cost = -0.2
+		local_build_buildings_efficiency = 0.2
 		exploration_mission_speed = 0.2
 		monthly_towards_outward = 0.1
 	}
@@ -15879,7 +15879,7 @@ tv_wonder_unique_colmar_old_town_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_build_buildings_cost = -0.2
+		local_build_buildings_efficiency = 0.2
 		exploration_mission_speed = 0.2
 		monthly_towards_outward = 0.1
 	}
@@ -16681,7 +16681,7 @@ tv_wonder_unique_fez_old_city_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_build_buildings_cost = -0.2
+		local_build_buildings_efficiency = 0.2
 		exploration_mission_speed = 0.2
 		monthly_towards_outward = 0.1
 	}

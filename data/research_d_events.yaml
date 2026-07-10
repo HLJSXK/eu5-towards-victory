@@ -4,7 +4,7 @@
 events:
   - id: 100
     group: all
-    outcome: good
+    outcome: positive
     desc: tiered
     options:
       - suffix: a
@@ -13,7 +13,7 @@ events:
 
   - id: 101
     group: all
-    outcome: bad
+    outcome: negative
     desc: tiered
     options:
       - suffix: a
@@ -22,7 +22,7 @@ events:
 
   - id: 102
     group: all
-    outcome: good
+    outcome: positive
     desc: tiered
     options:
       - suffix: a
@@ -31,7 +31,7 @@ events:
 
   - id: 103
     group: all
-    outcome: bad
+    outcome: negative
     desc: tiered
     options:
       - suffix: a
@@ -40,7 +40,7 @@ events:
 
   - id: 104
     group: tier1
-    outcome: bad
+    outcome: negative
     options:
       - suffix: a
         effect: |
@@ -48,7 +48,7 @@ events:
 
   - id: 105
     group: tier1
-    outcome: bad
+    outcome: negative
     options:
       - suffix: a
         effect: |
@@ -56,7 +56,7 @@ events:
 
   - id: 106
     group: tier1
-    outcome: bad
+    outcome: negative
     options:
       - suffix: a
         effect: |
@@ -67,7 +67,7 @@ events:
 
   - id: 107
     group: tier1_2
-    outcome: bad
+    outcome: negative
     options:
       - suffix: a
         effect: |
@@ -75,7 +75,7 @@ events:
 
   - id: 108
     group: tier1_2
-    outcome: bad
+    outcome: negative
     options:
       - suffix: a
         effect: |
@@ -83,7 +83,7 @@ events:
 
   - id: 109
     group: tier1_2
-    outcome: bad
+    outcome: negative
     options:
       - suffix: a
         effect: |
@@ -91,7 +91,7 @@ events:
 
   - id: 110
     group: tier1_2
-    outcome: bad
+    outcome: negative
     options:
       - suffix: a
         effect: |
@@ -103,7 +103,7 @@ events:
 
   - id: 111
     group: tier2
-    outcome: bad
+    outcome: negative
     requires_cabinet: true
     save_cabinet: true
     options:
@@ -119,7 +119,7 @@ events:
 
   - id: 112
     group: tier2
-    outcome: bad
+    outcome: negative
     options:
       - suffix: a
         effect: |
@@ -130,7 +130,7 @@ events:
 
   - id: 113
     group: tier2
-    outcome: bad
+    outcome: negative
     options:
       - suffix: a
         effect: |
@@ -207,7 +207,7 @@ events:
 
   - id: 120
     group: tier3
-    outcome: good
+    outcome: positive
     options:
       - suffix: a
         effect: |
@@ -215,7 +215,7 @@ events:
 
   - id: 121
     group: tier3
-    outcome: good
+    outcome: positive
     options:
       - suffix: a
         effect: |
@@ -227,7 +227,7 @@ events:
 
   - id: 122
     group: tier3
-    outcome: good
+    outcome: positive
     options:
       - suffix: a
         effect: |
@@ -238,7 +238,7 @@ events:
 
   - id: 123
     group: tier3_4
-    outcome: good
+    outcome: positive
     requires_cabinet: true
     save_cabinet: true
     options:
@@ -249,7 +249,7 @@ events:
 
   - id: 124
     group: tier3_4
-    outcome: good
+    outcome: positive
     options:
       - suffix: a
         effect: |
@@ -257,7 +257,7 @@ events:
 
   - id: 125
     group: tier3_4
-    outcome: good
+    outcome: positive
     options:
       - suffix: a
         effect: |
@@ -268,7 +268,7 @@ events:
 
   - id: 126
     group: tier3_4
-    outcome: good
+    outcome: positive
     options:
       - suffix: a
         effect: |
@@ -277,7 +277,7 @@ events:
 
   - id: 127
     group: tier4
-    outcome: good
+    outcome: positive
     options:
       - suffix: a
         effect: |
@@ -285,7 +285,7 @@ events:
 
   - id: 128
     group: tier4
-    outcome: good
+    outcome: positive
     options:
       - suffix: a
         effect: |
@@ -293,7 +293,7 @@ events:
 
   - id: 129
     group: tier4
-    outcome: good
+    outcome: positive
     options:
       - suffix: a
         effect: |

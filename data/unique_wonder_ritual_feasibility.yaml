@@ -4785,7 +4785,7 @@ unique_wonder_ritual_feasibility:
       condition: "Horizon observations, access clearing, dispute settlement, calendar drafting, attendance, provisions, market order, and final assembly counters complete; Salisbury controlled; final building present; country solvent; site safe and accessible; stones undamaged; provisions adequate."
       possible_implementation: "Custom completion trigger reads tv_stonehenge counters and site state; completion removes upkeep, applies permanent stability-cost country modifier, grants one-time stability/legitimacy/prestige/local cohesion reward, records Stonehenge reckoning memory, and clears transient variables."
       scopes:
-        country: "permanent stability_cost reduction plus one-time stability/legitimacy/prestige/cultural cohesion reward"
+        country: "permanent stability_cost_efficiency reduction plus one-time stability/legitimacy/prestige/cultural cohesion reward"
         location: "optional Salisbury memory for cleared approaches, protected stones, barrow boundaries, horizon marks, assembly calendar, settled disputes, and provision routes"
     rewards_and_costs:
       costs: "Temporary upkeep for guards, provisions, road clearing, scribes/heralds, hospitality, market order, and compensation for disrupted grazing."
@@ -4817,7 +4817,7 @@ unique_wonder_ritual_feasibility:
         scope: country
         evidence_level: guessed_semantics
         confidence: low_medium
-        source_basis: "The source names stability_cost as the sole permanent reward theme; exact modifier key/scope was not verified."
+        source_basis: "The source names stability_cost_efficiency as the sole permanent reward theme; exact modifier key/scope was not verified."
         likely_failure_points: "The key may have a different name or may affect stability actions only in specific contexts."
         verification_needed_later: "Verify exact stability-cost modifier key and country static modifier syntax before implementation."
       - name: cultural/religious acceptance, road access, famine, and provision checks
@@ -4831,12 +4831,12 @@ unique_wonder_ritual_feasibility:
     evidence:
       source_design:
         - "data/unique_wonder_ritual_designs.yaml:8477-8488 sets timed monthly mode for a twelve-month solstice cycle."
-        - "data/unique_wonder_ritual_designs.yaml:8489-8510 defines the ancient-calendar/assembly-ground interpretation and stability_cost reward basis."
+        - "data/unique_wonder_ritual_designs.yaml:8489-8510 defines the ancient-calendar/assembly-ground interpretation and stability_cost_efficiency reward basis."
         - "data/unique_wonder_ritual_designs.yaml:8511-8524 defines Salisbury control, final building, solvency, access, unrest, cultural/religious cohesion, provisions, and crisis checks."
         - "data/unique_wonder_ritual_designs.yaml:8525-8539 defines snapshots, counters, and upkeep."
         - "data/unique_wonder_ritual_designs.yaml:8540-8560 defines monthly progress, pauses, and accelerators."
         - "data/unique_wonder_ritual_designs.yaml:8561-8590 defines completion and delay/failure behavior."
-        - "data/unique_wonder_ritual_designs.yaml:8591-8662 maps implementation candidates and preserves stability_cost as the sole permanent reward theme."
+        - "data/unique_wonder_ritual_designs.yaml:8591-8662 maps implementation candidates and preserves stability_cost_efficiency as the sole permanent reward theme."
       implementation_references:
         - "src/in_game/common/on_action/tv_engineering_department_on_action.txt:144-153 verifies monthly listener dispatch."
         - "scripts/in_game/common/scripted_effects/gen_tv_engineering_department_wonder_mechanics_effects.py:1291-1452 verifies snapshot/progress/deferred completion dispatch and cleanup."
@@ -4846,7 +4846,7 @@ unique_wonder_ritual_feasibility:
     reusable_patterns:
       - timed_monthly_counter_with_subcounters
       - seasonal_cycle_delay_instead_of_hard_timeout
-      - stability_cost_single_theme_reward
+      - stability_cost_efficiency_single_theme_reward
       - ancient_site_as_civic_calendar_not_magic
       - local_site_memory_after_public_assembly
     implementation_risks:
@@ -4858,7 +4858,7 @@ unique_wonder_ritual_feasibility:
       - "Country instability should slow but not always block, because the ritual is meant to make stabilization cheaper."
     unresolved_questions:
       - "Is exact month/solstice detection worth implementing, or should completion use a twelve-tick abstraction?"
-      - "Which exact key implements stability_cost reduction?"
+      - "Which exact key implements stability_cost_efficiency reduction?"
       - "Can food/famine, road access, cultural refusal, or site damage be detected directly?"
       - "Should a moderate instability baseline increase one-time stability relief?"
     feasibility:
@@ -5576,7 +5576,7 @@ unique_wonder_ritual_feasibility:
       condition: "Route, altar, delegate, offering, memorial, return, and ratification counters complete; Girin Ula controlled; final altar present; country solvent; route open; unrest manageable; ruler/regency recognized; sealed mountain memorial returned and entered into court budget."
       possible_implementation: "Custom completion trigger reads tv_changbai counters and site/ruler state; completion removes burden, applies permanent court-spending-cost country modifier, grants one-time legitimacy/prestige/noble-banner loyalty/stability reward, records Changbai site memory, and clears transient counters."
       scopes:
-        country: "permanent court_spending_cost_modifier reward plus one-time legitimacy/prestige/stability/noble-or-banner loyalty outcome"
+        country: "permanent court_spending_efficiency reward plus one-time legitimacy/prestige/stability/noble-or-banner loyalty outcome"
         location: "Girin Ula memory for purified terraces, safe approaches, guides, watch posts, genealogical copies, offering vessels, sealed memorials, and attendance rolls"
         character: "successor investiture can scale reward toward succession acceptance"
     rewards_and_costs:
@@ -5602,7 +5602,7 @@ unique_wonder_ritual_feasibility:
         scope: country
         evidence_level: guessed_semantics
         confidence: low_medium
-        source_basis: "The source names court_spending_cost_modifier; exact key/scope was not verified."
+        source_basis: "The source names court_spending_efficiency; exact key/scope was not verified."
         likely_failure_points: "Court-spending key may be named differently or may affect only a specific court budget category."
         verification_needed_later: "Verify exact court spending cost modifier key and whether it is valid in a permanent country modifier."
       - name: ancestral mountain investiture counters
@@ -5632,7 +5632,7 @@ unique_wonder_ritual_feasibility:
     evidence:
       source_design:
         - "data/unique_wonder_ritual_designs.yaml:9821-9835 sets timed mode with monthly and ruler_death listeners."
-        - "data/unique_wonder_ritual_designs.yaml:9836-9859 defines Changbai ancestral-mountain flavor and court_spending_cost_modifier reward basis."
+        - "data/unique_wonder_ritual_designs.yaml:9836-9859 defines Changbai ancestral-mountain flavor and court_spending_efficiency reward basis."
         - "data/unique_wonder_ritual_designs.yaml:9860-9874 defines Girin Ula/final-building/solvency/route/security/culture/faith/frontier/succession checks."
         - "data/unique_wonder_ritual_designs.yaml:9875-9893 defines snapshots, counters, and temporary burden."
         - "data/unique_wonder_ritual_designs.yaml:9894-9921 defines monthly route/offering progress and ruler-death successor investiture."
@@ -5653,14 +5653,14 @@ unique_wonder_ritual_feasibility:
       - cultural_affinity_requires_design_decision
     implementation_risks:
       - "Non-affine sponsor policy must be decided explicitly; do not silently universalize a dynastic-origin rite."
-      - "court_spending_cost_modifier requires strict key verification."
+      - "court_spending_efficiency requires strict key verification."
       - "Winter, route, banner, and ritual-specialist checks likely need proxies."
       - "Ruler-death handling must not let an overthrown or contested ruler complete the memorial."
       - "Keep permanent effect on court spending, not conquest, pilgrimage, or generic prestige."
       - "Route/supply variables need clear lifecycle to avoid stale failure states."
     unresolved_questions:
       - "Should the rite require Manchu/Qing-like culture, dynasty, or faith affinity, or only scale with it?"
-      - "Which exact key implements court_spending_cost_modifier?"
+      - "Which exact key implements court_spending_efficiency?"
       - "Can winter severity, route safety, banner/noble cooperation, and subject frontier disobedience be represented?"
       - "How should successor investiture behave under regency or contested succession?"
       - "Should treasury relief be a one-time refund or omitted to avoid double counting cost reduction?"
@@ -6690,7 +6690,7 @@ unique_wonder_ritual_feasibility:
       condition: "Required auxiliary level or critical counters complete; Chengdu controlled; final building present; country solvent; works physically usable; gauges usable; Flying Sand Weir cleared; Bottle-Neck open; depots stocked; crews assigned; outlet disputes settled; no destructive flood/occupation."
       possible_implementation: "Custom completion trigger reads tv_dujiangyan counters and auxiliary levels; completion removes burden, certifies maintenance network, applies permanent production-efficiency and reduced-building-cost country modifiers, grants one-time local prosperity/food/construction/flood-resilience reward, records site memory, and clears transient counters."
       scopes:
-        country: "permanent global_production_efficiency and global_build_buildings_cost rewards plus one-time construction/treasury/food outcome"
+        country: "permanent global_production_efficiency and global_build_buildings_efficiency rewards plus one-time construction/treasury/food outcome"
         location: "Chengdu memory for gauge stones, Fish Mouth marks, dredged weir cuts, Bottle-Neck records, bamboo/stone depots, labor ledgers, canal maps, outlet arbitration rolls, and flood reports"
     rewards_and_costs:
       costs: "Temporary burden for wages, ration grain, bamboo, stone, ropes, tools, survey stakes, magistrate travel, and seasonal labor diverted from fields."
@@ -6722,7 +6722,7 @@ unique_wonder_ritual_feasibility:
         scope: country
         evidence_level: guessed_semantics
         confidence: low_medium
-        source_basis: "The source names global_production_efficiency and global_build_buildings_cost; exact keys/scopes were not verified."
+        source_basis: "The source names global_production_efficiency and global_build_buildings_efficiency; exact keys/scopes were not verified."
         likely_failure_points: "Building-cost key polarity may be negative modifier; production-efficiency key may differ."
         verification_needed_later: "Verify exact production efficiency and building cost modifier keys and sign conventions."
       - name: flood, drought, silt, labor, depot, peasant satisfaction, route, and corruption checks
@@ -6762,7 +6762,7 @@ unique_wonder_ritual_feasibility:
       - "Permanent reward should stay production/building efficiency, not prestige."
       - "War should matter only through access/labor disruption."
     unresolved_questions:
-      - "Which exact keys implement global_production_efficiency and global_build_buildings_cost?"
+      - "Which exact keys implement global_production_efficiency and global_build_buildings_efficiency?"
       - "Can flood, drought, silt, agriculture, labor availability, and peasant satisfaction be read directly?"
       - "How many auxiliary maintenance nodes should be required before completion?"
       - "Should local water arbitration be represented as counters, events, or custom variables?"
@@ -8035,7 +8035,7 @@ unique_wonder_ritual_feasibility:
       condition: "Contract, survey, wedge, separation, marking, road, ox, crane, weigh, sculptor, delivery, accident, and final-acceptance counters complete; Prato controlled; final building present; country solvent; route not occupied; roads usable; blocks marked; cranes inspected; transport assigned; contracts valid; at least one sculptor/builder delivery accepted."
       possible_implementation: "Custom completion trigger reads tv_carrara counters and route state; completion removes temporary quarry burden, applies permanent reduced building-cost and production-efficiency country modifiers, grants one-time construction/treasury/artisan/local prosperity/cultural prestige reward, records Carrara route memory, clears transient counters, and retains cooldown/completion flags."
       scopes:
-        country: "permanent global_build_buildings_cost and global_production_efficiency rewards plus one-time construction, treasury, artisan, or prestige outcome"
+        country: "permanent global_build_buildings_efficiency and global_production_efficiency rewards plus one-time construction, treasury, artisan, or prestige outcome"
         location: "Prato memory for quarry contracts, face surveys, block marks, wedge lines, road repairs, ox rosters, crane checks, weigh audits, sculptor orders, delivery seals, and accident rolls"
     rewards_and_costs:
       costs: "Temporary burden for wages, iron tools, rope, sledges, ox feed, road repairs, cranes, guards, notaries, and compensation for dangerous mountain work."
@@ -8059,7 +8059,7 @@ unique_wonder_ritual_feasibility:
         scope: country
         evidence_level: guessed_semantics
         confidence: low_medium
-        source_basis: "The source names global_build_buildings_cost and global_production_efficiency; exact modifier keys/scopes were not verified."
+        source_basis: "The source names global_build_buildings_efficiency and global_production_efficiency; exact modifier keys/scopes were not verified."
         likely_failure_points: "Building cost reduction may require negative value semantics, different build-cost key names, or building-type-specific modifiers."
         verification_needed_later: "Verify exact global build buildings cost, construction/infrastructure cost, production efficiency, and construction progress keys."
       - name: quarrying and delivery monthly counters
@@ -8101,13 +8101,13 @@ unique_wonder_ritual_feasibility:
       - local_site_memory_for_quarry_contracts
     implementation_risks:
       - "Do not make artistic prestige the permanent reward; it is secondary to building cost and production efficiency."
-      - "global_build_buildings_cost and global_production_efficiency keys require verification."
+      - "global_build_buildings_efficiency and global_production_efficiency keys require verification."
       - "Prato as implementation site must clearly represent Carrara supply route control."
       - "Negative cost modifiers need careful value semantics."
       - "Landslides, animal loss, forged marks, and labor revolt likely need proxies."
       - "Route scope should be abstracted without reading nonexistent per-road entities."
     unresolved_questions:
-      - "Which exact keys implement global_build_buildings_cost and global_production_efficiency?"
+      - "Which exact keys implement global_build_buildings_efficiency and global_production_efficiency?"
       - "Can construction capacity, infrastructure investment, mining output, and artisan demand be checked?"
       - "How should Prato represent the Carrara route and quarry access?"
       - "Should accident compensation be required for completion or only a pause/reset state?"
@@ -9196,7 +9196,7 @@ unique_wonder_ritual_feasibility:
       condition: "Survey, street, drainage, foundation, market, arcade, guild, academy, town hall, bastion, gate, material, labor, and final proclamation counters complete; Krasnystaw controlled; final building present; country solvent; worksite orderly; accepted survey; open roads; standard foundations; measured market; assigned plots; academy statute; bastion/gate plan; clean material ledger."
       possible_implementation: "Custom completion trigger reads tv_zamosc counters and worksite/civic state; completion removes planning burden, applies permanent reduced building-cost and monthly-prestige country modifiers, grants one-time construction/local prosperity/burgher/academy/prestige reward, records ideal-city memory, clears transient counters, and retains cooldown/completion flags."
       scopes:
-        country: "permanent global_build_buildings_cost and monthly_prestige rewards plus one-time construction, treasury, burgher, academy, or prestige outcome"
+        country: "permanent global_build_buildings_efficiency and monthly_prestige rewards plus one-time construction, treasury, burgher, academy, or prestige outcome"
         location: "Krasnystaw memory for survey stakes, street grids, drainage plans, foundation standards, market measures, plot books, academy statutes, charters, bastion diagrams, gate lines, material ledgers, and labor rosters"
     rewards_and_costs:
       costs: "Temporary burden for survey pay, materials, lime, bricks, timber, guards, notaries, engineers, academy masters, and compensation for relocating or regularizing plots."
@@ -9220,7 +9220,7 @@ unique_wonder_ritual_feasibility:
         scope: country
         evidence_level: guessed_semantics
         confidence: low_medium
-        source_basis: "The source names global_build_buildings_cost and monthly_prestige; exact modifier keys/scopes were not verified."
+        source_basis: "The source names global_build_buildings_efficiency and monthly_prestige; exact modifier keys/scopes were not verified."
         likely_failure_points: "Build-cost reduction may require negative values or different key names; monthly prestige may use a different prestige modifier key."
         verification_needed_later: "Verify global build buildings cost, monthly prestige, construction progress, local development, and academy/scholar support keys."
       - name: ideal-city planning monthly counters
@@ -9262,13 +9262,13 @@ unique_wonder_ritual_feasibility:
       - local_site_memory_for_grid_charters
     implementation_risks:
       - "Do not turn the permanent reward into generic development; source wants build-cost reduction and prestige."
-      - "global_build_buildings_cost and monthly_prestige keys require verification."
+      - "global_build_buildings_efficiency and monthly_prestige keys require verification."
       - "Negative build-cost modifier semantics need care."
       - "Grid/road/drainage should be abstract variables, not nonexistent map entities."
       - "Plot fraud, engineer loss, material theft, and civic authority failure likely need proxies."
       - "War should matter only through worksite/material route disruption."
     unresolved_questions:
-      - "Which exact keys implement global_build_buildings_cost and monthly_prestige?"
+      - "Which exact keys implement global_build_buildings_efficiency and monthly_prestige?"
       - "Can construction capacity, materials, academy capacity, and local road/infrastructure access be checked?"
       - "Should academy statute provide any research or advisor one-time reward?"
       - "How should drainage failure and plot fraud be represented?"

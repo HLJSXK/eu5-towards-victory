@@ -381,6 +381,26 @@ my_action_price_cost_modifier = {
 
 Define the modifier type in `main_menu/common/modifier_type_definitions/`, and localize all three keys in every supported language: `my_action_price`, `MODIFIER_TYPE_NAME_my_action_price_cost_modifier`, and `MODIFIER_TYPE_DESC_my_action_price_cost_modifier`. If the modifier type is missing, the engine logs `Missing modifier type for price. <price_key>_cost_modifier`.
 
+#### v1.3 Built-in Modifier Rename: `_cost` -> `_efficiency`
+
+Separate from the mod-defined `<price_key>_cost_modifier` convention above, EU5 v1.3 renamed
+roughly 29 pre-existing built-in static modifiers from a `_cost`/`_cost_modifier` suffix to an
+`_efficiency` suffix (e.g. `global_build_buildings_cost` -> `global_build_buildings_efficiency`,
+`fort_maintenance_cost` -> `fort_maintenance_efficiency`, `army_reinforce_cost` ->
+`army_reinforce_efficiency`, `global_bureaucracy_maintenance_cost_modifier` ->
+`global_bureaucracy_maintenance_efficiency`). Two names don't just gain the suffix:
+`stability_cost` -> `stability_cost_efficiency` and `court_spending_cost_modifier` ->
+`court_spending_efficiency`.
+
+The rename also flips `color = bad` to `color = good`, so every occurrence's value must be
+negated, not just renamed. Confirm via `git diff` on
+`main_menu/common/static_modifiers/00_modifier_types.txt` between reference commits before and
+after a version bump — do not assume a fixed multiplier applies uniformly; Paradox sometimes
+rebalances a field's magnitude at the same time as the rename (verify via a same-named
+`country_modifier`/`static_modifier` block that exists in both versions where possible). See
+`docs/knowledge/anti_patterns.yaml` rule `v1_3_cost_modifier_renamed_to_efficiency` and
+`docs/knowledge/risk_cards/wonders.md` rule 16 for the concrete list this project hit.
+
 #### Modifier Type Icons
 
 Modifier type definitions do not define their own UI icons. EU5 loads modifier icon mappings from `main_menu/common/modifier_icons/*.txt`. Any mod-defined modifier type that can appear in UI should have a same-key icon mapping:
@@ -764,6 +784,16 @@ against vanilla `coa_def_BOH_ensign_trigger` (`c:BOH = { save_temporary_scope_as
 inside a trigger-only `scripted_trigger` block). Reserve `save_scope_as` for saves written directly
 inside an effect body (a sibling of `limit`, not inside it).
 
+Temporary and permanent scope target names share one namespace: do not reuse the same name for a
+`limit`-context `save_temporary_scope_as` and a later real `save_scope_as` in the same effect chain
+(e.g. an `every_in_list = { limit = { save_temporary_scope_as = tv_display_region ... } save_scope_as
+= tv_display_region ... } }` loop). The engine logs `Trying to add the temporary target '<name>'
+which has the same name as a permanent target` and the effect silently fails at runtime — this
+reproduced as a broken "appoint regional governor" action in
+`tv_govhouse_refresh_governor_display_effect` (`tv_govhouse_effects.txt`). Give the trigger-context
+temporary save a distinct name (this project's convention is `<name>_check`), keeping the real
+`save_scope_as = <name>` for the effect body outside `limit`.
+
 Do not mirror target availability in the action `allow` block just to avoid an empty chooser.
 The `select_trigger` definition already supports `none_available_msg_key`, documented by
 vanilla as the localization shown when no targets are available. Put target eligibility in
@@ -1124,6 +1154,42 @@ All text displayed to the player is handled through the localization system. Loc
 Keep each localization key/value on one physical line. When a value needs an intentional line break, emit `\n` inside the quoted string; a real newline inside the value makes the next physical line parse as a new key and can produce `Invalid character` / `Missing colon` startup errors.
 
 When using color formatting, put a separator after the color tag before player-facing text or generated placeholders. Use `#Y Text#!`, `#G {group}#!`, or `#R 30#!`, not `#YText#!`, `#G{group}#!`, or `#R30#!`. The localization formatter can otherwise read the adjacent content as part of the formatting tag and drop or mangle the highlighted span.
+
+#### Text Format Tag Catalog
+
+EU5 localization text formatting is `#tag content#!` — every tag must be closed with `#!`, and (per the rule above) needs a separating space before the content. This is not markdown; the available tags below were confirmed empirically by grepping `reference_game_files/game/main_menu/localization/english/*.yml` (2026-07-10), since there is no single reference file for the full tag list (`textformatting.gui` is a `gfx`-adjacent asset pruned from `reference_game_files/` by `sync_reference.py`).
+
+Color tags (single letter):
+- `#R` red (negative/warning, e.g. `#R lose#!`)
+- `#G` green (positive, e.g. `#G 100#!`)
+- `#Y` yellow (neutral highlighted value, most common)
+- `#W` white/strong emphasis (e.g. difficulty labels)
+- `#V` alternate highlight color
+- `#L` light gray (secondary/de-emphasized value)
+- `#P` / `#N` gray "enabled/positive" vs "disabled/negative" labels (e.g. `Enabled`/`Disabled`)
+- `#X` bright red/danger (e.g. invalid-savegame warnings)
+- `#D` debug-only gray (`_debug_l_english.yml`)
+- `#F` flavor-text gray italic (explanatory asides)
+- Lowercase variants `#r #g #y` exist for the same colors at a different inline weight/size
+
+Style tags:
+- `#bold` / `#italic` — matches its name
+- `#weak` — grayed-out/de-emphasized text
+- `#high` — highlighted/emphasized text
+- `#T` — tooltip section header style (e.g. `#T Current Offer#!`)
+- `#subtle_name` — low-emphasis style for proper-noun-style values (religion/climate names, etc.)
+
+Tabular tooltip tags (used together to lay out tooltip columns, see `general_tooltips_l_english.yml`):
+- `#col_t` — column header cell
+- `#col_m` — column "middle"/secondary cell
+- `#col` — regular column cell
+
+Special-behavior tags:
+- `#TOOLTIP:$BREAKDOWN_TAG$ content#!` — makes the wrapped value hoverable to show a scripted value breakdown (used for computed numeric values throughout tooltips)
+- `#indent_newline:N content#!` — indents wrapped content by N levels after a line break
+- `#trigger_pass` / `#trigger_fail` — colors/icons text to match a trigger's pass/fail state
+
+Before inventing a bespoke solution for a localization display need (e.g. a custom color, a manual tooltip breakdown, hand-rolled tabular alignment), check this catalog first — it covers most needs already used throughout vanilla localization.
 
 Event localization scope variables can be read directly from script scopes such as `ROOT` and `THIS`:
 

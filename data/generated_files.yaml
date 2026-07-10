@@ -221,15 +221,15 @@ generated:
     data:   data/wonders.yaml + data/wonder_final_buildings.yaml + data/wonder_generic_rituals.yaml + data/wonder_base_modifiers.yaml + data/wonder_site_rules.yaml + data/unique_wonders.yaml
     output: src/in_game/events/tv_wonder_ownership_events.txt
 
-  # Unified Unique Wonder Ritual pipeline: the 6 wonders with real, loadable
-  # source (Pharos Lighthouse, Hagia Sophia, Alhambra, Dome of the Rock, Bank
-  # of Saint George, St. Peter's Basilica) are generated from per-wonder
+  # Unified Unique Wonder Ritual pipeline: the 2 wonders with real, loadable
+  # source (Pharos Lighthouse, Hagia Sophia) are generated from per-wonder
   # content modules under scripts/unique_wonder_ritual_content/ by a single
-  # generator. This replaces three previously separate pipelines (hardcoded
-  # Pharos/Hagia plugins merged into shared engineering-department files, the
-  # repeated-row pilot generator, and the Alhambra-only Harness vertical
-  # slice) — see docs/guides/Unique_Wonder_Ritual_Harness.md for the frozen
-  # Harness's continuing role for the other 117 design-only unique wonders.
+  # generator. Alhambra, Dome of the Rock, Bank of Saint George, and St.
+  # Peter's Basilica were previously implemented through this same pipeline
+  # but had their bespoke rituals removed and reverted to the generic
+  # immediate-mode ritual in data/unique_wonders.yaml — see
+  # docs/guides/Unique_Wonder_Ritual_Harness.md for the frozen Harness's
+  # continuing role for the other 121 design-only unique wonders.
   - script: scripts/gen_unique_wonder_rituals.py
     data:   scripts/unique_wonder_ritual_content/*.py
     output: src/main_menu/common/static_modifiers/towards_victory_unique_wonder_ritual_modifiers.txt
@@ -257,90 +257,6 @@ generated:
   - script: scripts/gen_unique_wonder_rituals.py
     data:   scripts/unique_wonder_ritual_content/hagia.py
     output: src/in_game/common/scripted_triggers/tv_wonder_unique_hagia_sophia_ritual_triggers.txt
-
-  - script: scripts/gen_unique_wonder_rituals.py
-    data:   scripts/unique_wonder_ritual_content/alhambra.py
-    output: src/in_game/events/tv_wonder_unique_alhambra_ritual_events.txt
-
-  - script: scripts/gen_unique_wonder_rituals.py
-    data:   scripts/unique_wonder_ritual_content/alhambra.py
-    output: src/in_game/common/scripted_effects/tv_wonder_unique_alhambra_ritual_effects.txt
-
-  - script: scripts/gen_unique_wonder_rituals.py
-    data:   scripts/unique_wonder_ritual_content/alhambra.py
-    output: src/in_game/common/scripted_triggers/tv_wonder_unique_alhambra_ritual_triggers.txt
-
-  - script: scripts/gen_unique_wonder_rituals.py
-    data:   scripts/unique_wonder_ritual_content/alhambra.py
-    output: src/main_menu/localization/english/tv_wonder_unique_alhambra_ritual_l_english.yml
-
-  - script: scripts/gen_unique_wonder_rituals.py
-    data:   scripts/unique_wonder_ritual_content/alhambra.py
-    output: src/main_menu/localization/simp_chinese/tv_wonder_unique_alhambra_ritual_l_simp_chinese.yml
-
-  - script: scripts/gen_unique_wonder_rituals.py
-    data:   scripts/unique_wonder_ritual_content/alhambra.py
-    output: src/in_game/common/on_action/tv_wonder_unique_alhambra_ritual_on_actions.txt
-
-  - script: scripts/gen_unique_wonder_rituals.py
-    data:   scripts/unique_wonder_ritual_content/dome_of_the_rock.py
-    output: src/in_game/events/tv_wonder_unique_dome_of_the_rock_ritual_events.txt
-
-  - script: scripts/gen_unique_wonder_rituals.py
-    data:   scripts/unique_wonder_ritual_content/dome_of_the_rock.py
-    output: src/in_game/common/scripted_effects/tv_wonder_unique_dome_of_the_rock_ritual_effects.txt
-
-  - script: scripts/gen_unique_wonder_rituals.py
-    data:   scripts/unique_wonder_ritual_content/dome_of_the_rock.py
-    output: src/in_game/common/scripted_triggers/tv_wonder_unique_dome_of_the_rock_ritual_triggers.txt
-
-  - script: scripts/gen_unique_wonder_rituals.py
-    data:   scripts/unique_wonder_ritual_content/dome_of_the_rock.py
-    output: src/main_menu/localization/english/tv_wonder_unique_dome_of_the_rock_ritual_l_english.yml
-
-  - script: scripts/gen_unique_wonder_rituals.py
-    data:   scripts/unique_wonder_ritual_content/dome_of_the_rock.py
-    output: src/main_menu/localization/simp_chinese/tv_wonder_unique_dome_of_the_rock_ritual_l_simp_chinese.yml
-
-  - script: scripts/gen_unique_wonder_rituals.py
-    data:   scripts/unique_wonder_ritual_content/bank_of_saint_george.py
-    output: src/in_game/events/tv_wonder_unique_bank_of_saint_george_ritual_events.txt
-
-  - script: scripts/gen_unique_wonder_rituals.py
-    data:   scripts/unique_wonder_ritual_content/bank_of_saint_george.py
-    output: src/in_game/common/scripted_effects/tv_wonder_unique_bank_of_saint_george_ritual_effects.txt
-
-  - script: scripts/gen_unique_wonder_rituals.py
-    data:   scripts/unique_wonder_ritual_content/bank_of_saint_george.py
-    output: src/in_game/common/scripted_triggers/tv_wonder_unique_bank_of_saint_george_ritual_triggers.txt
-
-  - script: scripts/gen_unique_wonder_rituals.py
-    data:   scripts/unique_wonder_ritual_content/bank_of_saint_george.py
-    output: src/main_menu/localization/english/tv_wonder_unique_bank_of_saint_george_ritual_l_english.yml
-
-  - script: scripts/gen_unique_wonder_rituals.py
-    data:   scripts/unique_wonder_ritual_content/bank_of_saint_george.py
-    output: src/main_menu/localization/simp_chinese/tv_wonder_unique_bank_of_saint_george_ritual_l_simp_chinese.yml
-
-  - script: scripts/gen_unique_wonder_rituals.py
-    data:   scripts/unique_wonder_ritual_content/st_peters_basilica.py
-    output: src/in_game/events/tv_wonder_unique_st_peters_basilica_ritual_events.txt
-
-  - script: scripts/gen_unique_wonder_rituals.py
-    data:   scripts/unique_wonder_ritual_content/st_peters_basilica.py
-    output: src/in_game/common/scripted_effects/tv_wonder_unique_st_peters_basilica_ritual_effects.txt
-
-  - script: scripts/gen_unique_wonder_rituals.py
-    data:   scripts/unique_wonder_ritual_content/st_peters_basilica.py
-    output: src/in_game/common/scripted_triggers/tv_wonder_unique_st_peters_basilica_ritual_triggers.txt
-
-  - script: scripts/gen_unique_wonder_rituals.py
-    data:   scripts/unique_wonder_ritual_content/st_peters_basilica.py
-    output: src/main_menu/localization/english/tv_wonder_unique_st_peters_basilica_ritual_l_english.yml
-
-  - script: scripts/gen_unique_wonder_rituals.py
-    data:   scripts/unique_wonder_ritual_content/st_peters_basilica.py
-    output: src/main_menu/localization/simp_chinese/tv_wonder_unique_st_peters_basilica_ritual_l_simp_chinese.yml
 
   - script: scripts/gen_unique_wonder_ritual_specs.py
     data:   data/unique_wonders.yaml + data/unique_wonder_ritual_designs.yaml + data/unique_wonder_ritual_prompts.yaml + data/wonder_localization.yaml + data/unique_wonder_ritual_codegen_templates.yaml + data/unique_wonder_ritual_capabilities.yaml

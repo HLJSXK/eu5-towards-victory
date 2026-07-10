@@ -117,6 +117,26 @@ generators.
     their 2026-07 rewrite, even though block-shape Jaccard stayed low, i.e. no verbatim
     duplicate blocks). The high-level narrative shape, not just literal effect bodies, is part
     of what "mechanically distinct" means for this project.
+    Resolved 2026-07 (second rewrite, all four unique wonders using this shared engine):
+    Alhambra/Dome of the Rock/Bank of Saint George/St. Peter's Basilica were each reassigned to
+    a fully independent subagent with no visibility into the other three's implementation or
+    into `_entity_ritual.py`, briefed only on their own wonder's history/theme and the trap to
+    avoid. Result: effects-file `combined_ratio` among Dome/Bank/St Peter's dropped from
+    0.48–0.71 to 0.18–0.32 (Alhambra vs. any of the three stayed under 0.15 throughout). The
+    residual `combined_ratio` (0.21–0.30, still nominally over the 0.15 gate) that remains
+    between those three pairs is no longer driven by the effects/mechanic bodies — it is driven
+    almost entirely by the short, mandatory `site_control_trigger`/`active_trigger` lifecycle
+    gate every ritual in the mod must define near-identically (`owns = location:X`;
+    `has_variable = tv_wonder_locked` + `var:tv_wonder_locked ?= <id>` +
+    `has_variable = tv_wonder_ritual_in_progress`). On a short triggers file (2-3 blocks total),
+    that unavoidable boilerplate is a large fraction of the file, so `SequenceMatcher` still
+    flags the pair even when the actual mechanic is unrelated. Adding a genuine, wonder-specific,
+    differently-shaped extra trigger per wonder (a simple comparison for one wonder, an
+    `OR`-of-`AND` compound check for another) and wiring it into a real `triggered_desc` reduces
+    but does not fully eliminate this artifact — treat 0.15 as a soft gate on *short* triggers
+    files going forward, and judge homogenization primarily from the effects-file ratio and a
+    direct read of the mechanic, not the raw combined score alone, when the triggers file is
+    this small for every wonder being compared.
 
 14. Verify war outcome with `scope:winner`/`scope:loser`, not just "a war ended."
     `on_pre_winning_war` and `on_ending_war` both expose `root` (fires for both participants),
@@ -127,9 +147,10 @@ generators.
     verified scope-equality idiom — same reference file line 3292
     `leader_country ?= { this = root }`; also used in
     `src/in_game/common/generic_actions/tv_arts_exhibition_actions.txt`) to require root to
-    actually be the war's winner. Confirmed live instance: Alhambra's war-validation gate
-    (`scripts/unique_wonder_ritual_content/alhambra.py:build_on_action_body`) validated on any
-    war ending while owning Granada, win or lose, until fixed 2026-07.
+    actually be the war's winner. Historical instance: Alhambra's war-validation gate
+    (formerly `scripts/unique_wonder_ritual_content/alhambra.py:build_on_action_body`, since
+    removed along with the rest of Alhambra's bespoke ritual) validated on any war ending while
+    owning Granada, win or lose, until fixed 2026-07.
 
 15. Re-run `gen_tv_wonder_ritual_effects.py` after renaming any bespoke ritual variable.
     `tv_wonder_ritual_effects.txt`'s `tv_wonder_mechanics_clear_selected_ritual_runtime_effect`
@@ -144,9 +165,33 @@ generators.
     warning). See `docs/knowledge/anti_patterns.yaml` rule
     `wonder_ritual_cleanup_stale_after_entity_ritual_rename`.
 
+16. Use v1.3 `_efficiency` modifier names, not the old v1.2 `_cost` names.
+    EU5 v1.3 renamed ~29 `_cost`-suffixed static modifiers to `_efficiency` (e.g.
+    `global_build_buildings_cost` -> `global_build_buildings_efficiency`,
+    `local_fort_maintenance_cost` -> `local_fort_maintenance_efficiency`,
+    `stability_cost` -> `stability_cost_efficiency`,
+    `court_spending_cost_modifier` -> `court_spending_efficiency`), flipping
+    `color=bad` to `color=good` at the same nominal-value polarity, so the value must be
+    negated. Wonder data (`data/wonder_final_buildings.yaml`, `data/wonder_generic_rituals.yaml`,
+    `data/unique_wonders.yaml`) is the single largest concentration of these fields in the mod.
+    See `docs/knowledge/anti_patterns.yaml` rule `v1_3_cost_modifier_renamed_to_efficiency`.
+
+17. Never let a per-event localization dict's option-letter loop read the same dict as `\"t\"`/`\"d\"`.
+    A content module's `_EVENTS_TEXT[language][event_id]` dict must nest option text under its
+    own `"options"` sub-dict. If option text lives directly on that dict (`{"t":..., "d":...,
+    "a":..., "d": "Install the Alms Prefect."}`), any event reaching option letter `"d"` silently
+    overwrites the dict's own description (`"d"` key collision — Python keeps only the last
+    literal), and `build_localization`'s `for letter in ("a",...,"e"): if letter in text` loop
+    re-emits the description a second time as a spurious `.d` option on every *other* event too,
+    producing the engine's `Duplicate localization key ... defined in both X and X` warning. See
+    `docs/knowledge/anti_patterns.yaml` rule
+    `ritual_content_event_text_dict_letter_key_collides_with_desc` (historical instance: former
+    `st_peters_basilica.py`'s 1678/1679/1680/1681 events, 2026-07; that content module has since
+    been removed along with the rest of St. Peter's Basilica's bespoke ritual).
+
 ## Validation
 
-Run `validate.py --changed --fix --ai-report`: it lints rule 2 automatically and, when a
+Run `validate.py --changed --fix --ai-report`: it lints rule 2 and rule 16 automatically, and when a
 `data/unique_wonder_ritual_*.yaml` or harness script changes, runs
 `wonder_unique_ritual_harness.validate_unique_ritual_specs_for_repo()`. Also run
 `scripts/test_wonder_mechanics_rules.py` after changing scale-based wonder trigger/effect
