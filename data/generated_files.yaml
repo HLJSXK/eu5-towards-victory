@@ -202,7 +202,7 @@ generated:
     output: src/in_game/common/on_action/tv_pulse_bridges.txt
 
   - script: scripts/in_game/common/on_action/gen_tv_cmf_suppressions.py
-    data:   data/cmf_warning_suppressions.yaml + data/trade_league_goods.yaml + data/locked_advances.yaml + data/victory_paths.yaml
+    data:   data/cmf_warning_suppressions.yaml + data/trade_league_goods.yaml + data/victory_paths.yaml
     output: src/in_game/common/on_action/tv_cmf_suppressions.txt
 
   - script: scripts/in_game/events/gen_tv_research_d_events.py
