@@ -119,7 +119,7 @@ organization_panel = {
 	blockoverride "extra_titles" {}
 	blockoverride "organization_panel_extra_item" {
 		widget = {
-			size = { 260 150 }
+			size = { 260 120 }
 			parentanchor = top|right
 			widgetanchor = top|right
 			position = { -12 6 }
@@ -128,13 +128,13 @@ organization_panel = {
 			vbox = {
 				layoutpolicy_horizontal = fixed
 				layoutpolicy_vertical = fixed
-				minimumsize = { 260 150 }
-				maximumsize = { 260 150 }
+				minimumsize = { 260 120 }
+				maximumsize = { 260 120 }
 				using = bg_paper_card_situations
 
 				widget = {
 					layoutpolicy_horizontal = expanding
-					size = {-1 50}
+					size = {-1 42}
 					using = bg_geodiplo_situation_header_secondary
 
 					hbox = {
@@ -158,9 +158,9 @@ organization_panel = {
 				hbox = {
 					layoutpolicy_horizontal = expanding
 					layoutpolicy_vertical = fixed
-					margin = { 10 8 }
+					margin = { 10 4 }
 					vbox = {
-						size = { 236 84 }
+						size = { 236 72 }
 						layoutpolicy_horizontal = fixed
 						layoutpolicy_vertical = fixed
 						ignoreinvisible = yes
