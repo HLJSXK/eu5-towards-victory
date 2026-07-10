@@ -95,12 +95,6 @@ template tv_location_wonder_tooltip {
 										maximumsize = { 444 -1 }
 										margin_bottom = 6
 										spacing = 2
-										text_single = {
-											text = "TV_LOCATION_WONDER_CONSTRUCTION_CONDITIONS_TITLE"
-											max_width = 444
-											align = left|nobaseline
-											fontsize = 13
-										}
 										TooltipRequirementsList = {
 											layoutpolicy_horizontal = expanding
 											textcontext = "[ShowTriggerConditionsForScope(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_1_id').GetValue)), '_base_site_rules_trigger')),LocationView.GetLocation.MakeScope.Self)]"
@@ -309,12 +303,6 @@ template tv_location_wonder_tooltip {
 										maximumsize = { 444 -1 }
 										margin_bottom = 6
 										spacing = 2
-										text_single = {
-											text = "TV_LOCATION_WONDER_CONSTRUCTION_CONDITIONS_TITLE"
-											max_width = 444
-											align = left|nobaseline
-											fontsize = 13
-										}
 										TooltipRequirementsList = {
 											layoutpolicy_horizontal = expanding
 											textcontext = "[ShowTriggerConditionsForScope(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_2_id').GetValue)), '_base_site_rules_trigger')),LocationView.GetLocation.MakeScope.Self)]"
@@ -523,12 +511,6 @@ template tv_location_wonder_tooltip {
 										maximumsize = { 444 -1 }
 										margin_bottom = 6
 										spacing = 2
-										text_single = {
-											text = "TV_LOCATION_WONDER_CONSTRUCTION_CONDITIONS_TITLE"
-											max_width = 444
-											align = left|nobaseline
-											fontsize = 13
-										}
 										TooltipRequirementsList = {
 											layoutpolicy_horizontal = expanding
 											textcontext = "[ShowTriggerConditionsForScope(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_3_id').GetValue)), '_base_site_rules_trigger')),LocationView.GetLocation.MakeScope.Self)]"
@@ -737,12 +719,6 @@ template tv_location_wonder_tooltip {
 										maximumsize = { 444 -1 }
 										margin_bottom = 6
 										spacing = 2
-										text_single = {
-											text = "TV_LOCATION_WONDER_CONSTRUCTION_CONDITIONS_TITLE"
-											max_width = 444
-											align = left|nobaseline
-											fontsize = 13
-										}
 										TooltipRequirementsList = {
 											layoutpolicy_horizontal = expanding
 											textcontext = "[ShowTriggerConditionsForScope(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_4_id').GetValue)), '_base_site_rules_trigger')),LocationView.GetLocation.MakeScope.Self)]"
@@ -951,12 +927,6 @@ template tv_location_wonder_tooltip {
 										maximumsize = { 444 -1 }
 										margin_bottom = 6
 										spacing = 2
-										text_single = {
-											text = "TV_LOCATION_WONDER_CONSTRUCTION_CONDITIONS_TITLE"
-											max_width = 444
-											align = left|nobaseline
-											fontsize = 13
-										}
 										TooltipRequirementsList = {
 											layoutpolicy_horizontal = expanding
 											textcontext = "[ShowTriggerConditionsForScope(Concatenate('tv_wonder_display_', Concatenate(ToString_int32(FixedPointToInt(LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_slot_5_id').GetValue)), '_base_site_rules_trigger')),LocationView.GetLocation.MakeScope.Self)]"
