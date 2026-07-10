@@ -166,16 +166,23 @@ tv_diplomatic_alliance_reinitialize_membership_effect = {
 
 tv_diplomatic_alliance_country_monthly_pulse_effect = {
 	hidden_effect = {
-		save_scope_as = tv_diplomatic_alliance_pulse_country
-		every_international_organizations_member_of = {
-			limit = {
-				international_organization_type = international_organization_type:tv_diplomatic_alliance
-				leader_country ?= scope:tv_diplomatic_alliance_pulse_country
+		# Only alliance leaders drive the monthly IO update (leader_country ?= below
+		# never matches for non-leader members); gate on leadership first so the
+		# every_international_organizations_member_of scan below is skipped entirely
+		# for the vast majority of countries that lead no alliance.
+		if = {
+			limit = { is_leader_of_international_organization_of_type = { type = tv_diplomatic_alliance } }
+			save_scope_as = tv_diplomatic_alliance_pulse_country
+			every_international_organizations_member_of = {
+				limit = {
+					international_organization_type = international_organization_type:tv_diplomatic_alliance
+					leader_country ?= scope:tv_diplomatic_alliance_pulse_country
+				}
+				tv_diplomatic_alliance_update_strongest_member_effect = yes
+				tv_diplomatic_alliance_monthly_victory_points_effect = yes
 			}
-			tv_diplomatic_alliance_update_strongest_member_effect = yes
-			tv_diplomatic_alliance_monthly_victory_points_effect = yes
+			clear_saved_scope = tv_diplomatic_alliance_pulse_country
 		}
-		clear_saved_scope = tv_diplomatic_alliance_pulse_country
 	}
 }
 
