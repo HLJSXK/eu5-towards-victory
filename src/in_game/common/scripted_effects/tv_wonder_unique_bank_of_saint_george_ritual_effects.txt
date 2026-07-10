@@ -7,208 +7,115 @@
 
 # -- tv_wonder_bank_of_saint_george_ritual_start_effect ----------------------------------------------
 tv_wonder_bank_of_saint_george_ritual_start_effect = {
-	set_variable = { name = tv_wonder_bank_of_saint_george_ritual_stage value = 0 }
-	set_variable = { name = tv_wonder_bank_of_saint_george_charter_branch value = 0 }
-	set_variable = { name = tv_wonder_bank_of_saint_george_charter_creditor_privilege_status value = 0 }
-	set_variable = { name = tv_wonder_bank_of_saint_george_charter_crown_supervision_status value = 0 }
-	set_variable = { name = tv_wonder_bank_of_saint_george_charter_open_merchant_access_status value = 0 }
-	set_variable = { name = tv_wonder_bank_of_saint_george_pledge_old_war_debts_status value = 0 }
-	set_variable = { name = tv_wonder_bank_of_saint_george_pledge_customs_dues_status value = 0 }
-	set_variable = { name = tv_wonder_bank_of_saint_george_pledge_salt_tax_status value = 0 }
-	set_variable = { name = tv_wonder_bank_of_saint_george_pledge_port_tolls_status value = 0 }
-	set_variable = { name = tv_wonder_bank_of_saint_george_pledge_coin_assays_status value = 0 }
-	set_variable = { name = tv_wonder_bank_of_saint_george_pledge_archive_volumes_status value = 0 }
+	set_variable = { name = tv_wonder_bank_of_saint_george_stage value = 0 }
 	remove_variable = tv_wonder_bank_of_saint_george_ritual_pending_event
 }
 
 # -- tv_wonder_bank_of_saint_george_opening_effect ----------------------------------------------
 tv_wonder_bank_of_saint_george_opening_effect = {
-	set_variable = { name = tv_wonder_bank_of_saint_george_ritual_stage value = 1 }
+	set_variable = { name = tv_wonder_bank_of_saint_george_stage value = 1 }
 	remove_variable = tv_wonder_bank_of_saint_george_ritual_pending_event
 }
 
-# -- tv_wonder_bank_of_saint_george_choose_creditor_privilege_effect ----------------------------------------------
-tv_wonder_bank_of_saint_george_choose_creditor_privilege_effect = {
+# -- tv_wonder_bank_of_saint_george_choose_conservative_sinking_fund_effect ----------------------------------------------
+tv_wonder_bank_of_saint_george_choose_conservative_sinking_fund_effect = {
 	set_variable = { name = tv_wonder_bank_of_saint_george_charter_branch value = 1 }
-	set_variable = { name = tv_wonder_bank_of_saint_george_charter_creditor_privilege_status value = 1 }
-	set_variable = { name = tv_wonder_bank_of_saint_george_charter_crown_supervision_status value = 3 }
-	set_variable = { name = tv_wonder_bank_of_saint_george_charter_open_merchant_access_status value = 3 }
-	set_variable = { name = tv_wonder_bank_of_saint_george_pledge_old_war_debts_status value = 2 }
-	set_variable = { name = tv_wonder_bank_of_saint_george_pledge_customs_dues_status value = 1 }
-	set_variable = { name = tv_wonder_bank_of_saint_george_pledge_salt_tax_status value = 1 }
-	set_variable = { name = tv_wonder_bank_of_saint_george_pledge_port_tolls_status value = 1 }
-	set_variable = { name = tv_wonder_bank_of_saint_george_pledge_coin_assays_status value = 2 }
-	set_variable = { name = tv_wonder_bank_of_saint_george_pledge_archive_volumes_status value = 1 }
-	set_variable = { name = tv_wonder_bank_of_saint_george_ritual_stage value = 2 }
+	set_variable = { name = tv_wonder_bank_of_saint_george_principal_start value = 80 }
+	set_variable = { name = tv_wonder_bank_of_saint_george_principal value = 80 }
+	set_variable = { name = tv_wonder_bank_of_saint_george_interest_rate value = 0.02 }
+	set_variable = { name = tv_wonder_bank_of_saint_george_monthly_pledge value = 6 }
+	set_variable = { name = tv_wonder_bank_of_saint_george_elapsed_months value = 0 }
+	set_variable = { name = tv_wonder_bank_of_saint_george_next_review_month value = 12 }
+	set_variable = { name = tv_wonder_bank_of_saint_george_progress_pct value = 0 }
+	set_variable = { name = tv_wonder_bank_of_saint_george_stage value = 2 }
 	remove_variable = tv_wonder_bank_of_saint_george_ritual_pending_event
+	change_gold_effect = { scale = -2 }
 }
 
-# -- tv_wonder_bank_of_saint_george_choose_crown_supervision_effect ----------------------------------------------
-tv_wonder_bank_of_saint_george_choose_crown_supervision_effect = {
+# -- tv_wonder_bank_of_saint_george_choose_balanced_compere_effect ----------------------------------------------
+tv_wonder_bank_of_saint_george_choose_balanced_compere_effect = {
 	set_variable = { name = tv_wonder_bank_of_saint_george_charter_branch value = 2 }
-	set_variable = { name = tv_wonder_bank_of_saint_george_charter_creditor_privilege_status value = 3 }
-	set_variable = { name = tv_wonder_bank_of_saint_george_charter_crown_supervision_status value = 1 }
-	set_variable = { name = tv_wonder_bank_of_saint_george_charter_open_merchant_access_status value = 3 }
-	set_variable = { name = tv_wonder_bank_of_saint_george_pledge_old_war_debts_status value = 1 }
-	set_variable = { name = tv_wonder_bank_of_saint_george_pledge_customs_dues_status value = 2 }
-	set_variable = { name = tv_wonder_bank_of_saint_george_pledge_salt_tax_status value = 2 }
-	set_variable = { name = tv_wonder_bank_of_saint_george_pledge_port_tolls_status value = 1 }
-	set_variable = { name = tv_wonder_bank_of_saint_george_pledge_coin_assays_status value = 1 }
-	set_variable = { name = tv_wonder_bank_of_saint_george_pledge_archive_volumes_status value = 1 }
-	set_variable = { name = tv_wonder_bank_of_saint_george_ritual_stage value = 2 }
+	set_variable = { name = tv_wonder_bank_of_saint_george_principal_start value = 110 }
+	set_variable = { name = tv_wonder_bank_of_saint_george_principal value = 110 }
+	set_variable = { name = tv_wonder_bank_of_saint_george_interest_rate value = 0.025 }
+	set_variable = { name = tv_wonder_bank_of_saint_george_monthly_pledge value = 9 }
+	set_variable = { name = tv_wonder_bank_of_saint_george_elapsed_months value = 0 }
+	set_variable = { name = tv_wonder_bank_of_saint_george_next_review_month value = 12 }
+	set_variable = { name = tv_wonder_bank_of_saint_george_progress_pct value = 0 }
+	set_variable = { name = tv_wonder_bank_of_saint_george_stage value = 2 }
 	remove_variable = tv_wonder_bank_of_saint_george_ritual_pending_event
+	change_gold_effect = { scale = -4 }
 }
 
-# -- tv_wonder_bank_of_saint_george_choose_open_merchant_access_effect ----------------------------------------------
-tv_wonder_bank_of_saint_george_choose_open_merchant_access_effect = {
+# -- tv_wonder_bank_of_saint_george_choose_aggressive_consolidation_effect ----------------------------------------------
+tv_wonder_bank_of_saint_george_choose_aggressive_consolidation_effect = {
 	set_variable = { name = tv_wonder_bank_of_saint_george_charter_branch value = 3 }
-	set_variable = { name = tv_wonder_bank_of_saint_george_charter_creditor_privilege_status value = 3 }
-	set_variable = { name = tv_wonder_bank_of_saint_george_charter_crown_supervision_status value = 3 }
-	set_variable = { name = tv_wonder_bank_of_saint_george_charter_open_merchant_access_status value = 1 }
-	set_variable = { name = tv_wonder_bank_of_saint_george_pledge_old_war_debts_status value = 1 }
-	set_variable = { name = tv_wonder_bank_of_saint_george_pledge_customs_dues_status value = 1 }
-	set_variable = { name = tv_wonder_bank_of_saint_george_pledge_salt_tax_status value = 1 }
-	set_variable = { name = tv_wonder_bank_of_saint_george_pledge_port_tolls_status value = 2 }
-	set_variable = { name = tv_wonder_bank_of_saint_george_pledge_coin_assays_status value = 1 }
-	set_variable = { name = tv_wonder_bank_of_saint_george_pledge_archive_volumes_status value = 2 }
-	set_variable = { name = tv_wonder_bank_of_saint_george_ritual_stage value = 2 }
+	set_variable = { name = tv_wonder_bank_of_saint_george_principal_start value = 150 }
+	set_variable = { name = tv_wonder_bank_of_saint_george_principal value = 150 }
+	set_variable = { name = tv_wonder_bank_of_saint_george_interest_rate value = 0.03 }
+	set_variable = { name = tv_wonder_bank_of_saint_george_monthly_pledge value = 14 }
+	set_variable = { name = tv_wonder_bank_of_saint_george_elapsed_months value = 0 }
+	set_variable = { name = tv_wonder_bank_of_saint_george_next_review_month value = 12 }
+	set_variable = { name = tv_wonder_bank_of_saint_george_progress_pct value = 0 }
+	set_variable = { name = tv_wonder_bank_of_saint_george_stage value = 2 }
+	remove_variable = tv_wonder_bank_of_saint_george_ritual_pending_event
+	change_gold_effect = { scale = -7 }
+}
+
+# -- tv_wonder_bank_of_saint_george_assembly_prepay_effect ----------------------------------------------
+tv_wonder_bank_of_saint_george_assembly_prepay_effect = {
+	change_gold_effect = { scale = -5 }
+	change_variable = { name = tv_wonder_bank_of_saint_george_principal subtract = 15 }
+	change_variable = { name = tv_wonder_bank_of_saint_george_next_review_month add = 12 }
 	remove_variable = tv_wonder_bank_of_saint_george_ritual_pending_event
 }
 
-# -- tv_wonder_bank_of_saint_george_incident_guarantee_effect ----------------------------------------------
-tv_wonder_bank_of_saint_george_incident_guarantee_effect = {
-	hidden_effect = {
-		if = {
-			limit = { var:tv_wonder_bank_of_saint_george_pledge_old_war_debts_status ?= 2 }
-			set_variable = { name = tv_wonder_bank_of_saint_george_pledge_old_war_debts_status value = 1 }
-		}
-		if = {
-			limit = { var:tv_wonder_bank_of_saint_george_pledge_customs_dues_status ?= 2 }
-			set_variable = { name = tv_wonder_bank_of_saint_george_pledge_customs_dues_status value = 1 }
-		}
-		if = {
-			limit = { var:tv_wonder_bank_of_saint_george_pledge_salt_tax_status ?= 2 }
-			set_variable = { name = tv_wonder_bank_of_saint_george_pledge_salt_tax_status value = 1 }
-		}
-		if = {
-			limit = { var:tv_wonder_bank_of_saint_george_pledge_port_tolls_status ?= 2 }
-			set_variable = { name = tv_wonder_bank_of_saint_george_pledge_port_tolls_status value = 1 }
-		}
-		if = {
-			limit = { var:tv_wonder_bank_of_saint_george_pledge_coin_assays_status ?= 2 }
-			set_variable = { name = tv_wonder_bank_of_saint_george_pledge_coin_assays_status value = 1 }
-		}
-		if = {
-			limit = { var:tv_wonder_bank_of_saint_george_pledge_archive_volumes_status ?= 2 }
-			set_variable = { name = tv_wonder_bank_of_saint_george_pledge_archive_volumes_status value = 1 }
-		}
-		change_gold_effect = { scale = -3 }
-		set_variable = { name = tv_wonder_bank_of_saint_george_ritual_stage value = 3 }
-		remove_variable = tv_wonder_bank_of_saint_george_ritual_pending_event
-	}
+# -- tv_wonder_bank_of_saint_george_assembly_requisition_effect ----------------------------------------------
+tv_wonder_bank_of_saint_george_assembly_requisition_effect = {
+	change_variable = { name = tv_wonder_bank_of_saint_george_monthly_pledge add = 2 }
+	change_variable = { name = tv_wonder_bank_of_saint_george_next_review_month add = 12 }
+	remove_variable = tv_wonder_bank_of_saint_george_ritual_pending_event
 }
 
-# -- tv_wonder_bank_of_saint_george_incident_narrow_effect ----------------------------------------------
-tv_wonder_bank_of_saint_george_incident_narrow_effect = {
-	hidden_effect = {
-		if = {
-			limit = { var:tv_wonder_bank_of_saint_george_pledge_old_war_debts_status ?= 2 }
-			set_variable = { name = tv_wonder_bank_of_saint_george_pledge_old_war_debts_status value = 3 }
-		}
-		if = {
-			limit = { var:tv_wonder_bank_of_saint_george_pledge_customs_dues_status ?= 2 }
-			set_variable = { name = tv_wonder_bank_of_saint_george_pledge_customs_dues_status value = 3 }
-		}
-		if = {
-			limit = { var:tv_wonder_bank_of_saint_george_pledge_salt_tax_status ?= 2 }
-			set_variable = { name = tv_wonder_bank_of_saint_george_pledge_salt_tax_status value = 3 }
-		}
-		if = {
-			limit = { var:tv_wonder_bank_of_saint_george_pledge_port_tolls_status ?= 2 }
-			set_variable = { name = tv_wonder_bank_of_saint_george_pledge_port_tolls_status value = 3 }
-		}
-		if = {
-			limit = { var:tv_wonder_bank_of_saint_george_pledge_coin_assays_status ?= 2 }
-			set_variable = { name = tv_wonder_bank_of_saint_george_pledge_coin_assays_status value = 3 }
-		}
-		if = {
-			limit = { var:tv_wonder_bank_of_saint_george_pledge_archive_volumes_status ?= 2 }
-			set_variable = { name = tv_wonder_bank_of_saint_george_pledge_archive_volumes_status value = 3 }
-		}
-		set_variable = { name = tv_wonder_bank_of_saint_george_ritual_stage value = 3 }
-		remove_variable = tv_wonder_bank_of_saint_george_ritual_pending_event
-	}
+# -- tv_wonder_bank_of_saint_george_assembly_hold_effect ----------------------------------------------
+tv_wonder_bank_of_saint_george_assembly_hold_effect = {
+	change_variable = { name = tv_wonder_bank_of_saint_george_next_review_month add = 12 }
+	remove_variable = tv_wonder_bank_of_saint_george_ritual_pending_event
 }
 
 # -- tv_wonder_bank_of_saint_george_ritual_grant_reward_effect ----------------------------------------------
 tv_wonder_bank_of_saint_george_ritual_grant_reward_effect = {
-	set_variable = { name = tv_wonder_bank_of_saint_george_ritual_total_favorable value = 0 }
 	if = {
-		limit = { var:tv_wonder_bank_of_saint_george_pledge_old_war_debts_status ?= 1 }
-		change_variable = { name = tv_wonder_bank_of_saint_george_ritual_total_favorable add = 2 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_bank_of_saint_george_pledge_old_war_debts_status ?= 3 }
-		change_variable = { name = tv_wonder_bank_of_saint_george_ritual_total_favorable add = 1 }
-	}
-	if = {
-		limit = { var:tv_wonder_bank_of_saint_george_pledge_customs_dues_status ?= 1 }
-		change_variable = { name = tv_wonder_bank_of_saint_george_ritual_total_favorable add = 2 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_bank_of_saint_george_pledge_customs_dues_status ?= 3 }
-		change_variable = { name = tv_wonder_bank_of_saint_george_ritual_total_favorable add = 1 }
-	}
-	if = {
-		limit = { var:tv_wonder_bank_of_saint_george_pledge_salt_tax_status ?= 1 }
-		change_variable = { name = tv_wonder_bank_of_saint_george_ritual_total_favorable add = 2 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_bank_of_saint_george_pledge_salt_tax_status ?= 3 }
-		change_variable = { name = tv_wonder_bank_of_saint_george_ritual_total_favorable add = 1 }
-	}
-	if = {
-		limit = { var:tv_wonder_bank_of_saint_george_pledge_port_tolls_status ?= 1 }
-		change_variable = { name = tv_wonder_bank_of_saint_george_ritual_total_favorable add = 2 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_bank_of_saint_george_pledge_port_tolls_status ?= 3 }
-		change_variable = { name = tv_wonder_bank_of_saint_george_ritual_total_favorable add = 1 }
-	}
-	if = {
-		limit = { var:tv_wonder_bank_of_saint_george_pledge_coin_assays_status ?= 1 }
-		change_variable = { name = tv_wonder_bank_of_saint_george_ritual_total_favorable add = 2 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_bank_of_saint_george_pledge_coin_assays_status ?= 3 }
-		change_variable = { name = tv_wonder_bank_of_saint_george_ritual_total_favorable add = 1 }
-	}
-	if = {
-		limit = { var:tv_wonder_bank_of_saint_george_pledge_archive_volumes_status ?= 1 }
-		change_variable = { name = tv_wonder_bank_of_saint_george_ritual_total_favorable add = 2 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_bank_of_saint_george_pledge_archive_volumes_status ?= 3 }
-		change_variable = { name = tv_wonder_bank_of_saint_george_ritual_total_favorable add = 1 }
-	}
-	if = {
-		limit = { var:tv_wonder_bank_of_saint_george_ritual_total_favorable >= 12 }
+		limit = { var:tv_wonder_bank_of_saint_george_outcome_tier ?= 1 }
 		add_country_modifier = { modifier = tv_wonder_bank_of_saint_george_ritual_reward_modifier years = -1 mode = add_and_extend }
 		change_gold_effect = { scale = 5 }
 		add_prestige = 5
 	}
 	else_if = {
-		limit = { var:tv_wonder_bank_of_saint_george_ritual_total_favorable >= 8 }
-		add_country_modifier = { modifier = tv_wonder_bank_of_saint_george_ritual_reward_modifier years = -1 mode = add_and_extend }
+		limit = { var:tv_wonder_bank_of_saint_george_outcome_tier ?= 2 }
+		add_country_modifier = { modifier = tv_wonder_bank_of_saint_george_ritual_reward_modifier_partial years = -1 mode = add_and_extend }
 		change_gold_effect = { scale = 3 }
+		add_prestige = 2
 	}
-	else = {
+	else_if = {
+		limit = { var:tv_wonder_bank_of_saint_george_outcome_tier ?= 3 }
 		add_country_modifier = { modifier = tv_wonder_bank_of_saint_george_ritual_reward_modifier_lesser years = -1 mode = add_and_extend }
 		change_gold_effect = { scale = 1 }
 	}
-	remove_variable = tv_wonder_bank_of_saint_george_ritual_total_favorable
-	remove_variable = tv_wonder_bank_of_saint_george_ritual_stage
+	else = {
+		add_country_modifier = { modifier = tv_wonder_bank_of_saint_george_ritual_reward_modifier_lesser years = -1 mode = add_and_extend }
+		add_prestige = -2
+	}
 	remove_variable = tv_wonder_bank_of_saint_george_charter_branch
+	remove_variable = tv_wonder_bank_of_saint_george_principal
+	remove_variable = tv_wonder_bank_of_saint_george_principal_start
+	remove_variable = tv_wonder_bank_of_saint_george_interest_rate
+	remove_variable = tv_wonder_bank_of_saint_george_monthly_pledge
+	remove_variable = tv_wonder_bank_of_saint_george_elapsed_months
+	remove_variable = tv_wonder_bank_of_saint_george_next_review_month
+	remove_variable = tv_wonder_bank_of_saint_george_outcome_tier
+	remove_variable = tv_wonder_bank_of_saint_george_progress_pct
+	remove_variable = tv_wonder_bank_of_saint_george_stage
 	remove_variable = tv_wonder_bank_of_saint_george_ritual_pending_event
 	set_variable = { name = tv_wonder_bank_of_saint_george_ritual_completed value = 1 }
 	tv_wonder_complete_active_ritual_effect = yes
@@ -222,22 +129,54 @@ tv_wonder_bank_of_saint_george_ritual_monthly_progress_effect = {
 			NOT = { has_variable = tv_wonder_bank_of_saint_george_ritual_pending_event }
 		}
 		if = {
-			limit = { var:tv_wonder_bank_of_saint_george_ritual_stage ?= 0 tv_wonder_bank_of_saint_george_site_control_trigger = yes }
+			limit = { var:tv_wonder_bank_of_saint_george_stage ?= 0 tv_wonder_bank_of_saint_george_site_control_trigger = yes }
 			set_variable = { name = tv_wonder_bank_of_saint_george_ritual_pending_event value = 1 }
 			trigger_event_non_silently = { id = tv_engineering_department.1670 days = 1 }
 		}
 		else_if = {
-			limit = { var:tv_wonder_bank_of_saint_george_ritual_stage ?= 1 }
+			limit = { var:tv_wonder_bank_of_saint_george_stage ?= 1 }
 			set_variable = { name = tv_wonder_bank_of_saint_george_ritual_pending_event value = 1 }
 			trigger_event_non_silently = { id = tv_engineering_department.1671 days = 1 }
 		}
 		else_if = {
-			limit = { var:tv_wonder_bank_of_saint_george_ritual_stage ?= 2 }
-			set_variable = { name = tv_wonder_bank_of_saint_george_ritual_pending_event value = 1 }
-			trigger_event_non_silently = { id = tv_engineering_department.1672 days = 1 }
+			limit = { var:tv_wonder_bank_of_saint_george_stage ?= 2 }
+			set_variable = { name = tv_wonder_bank_of_saint_george_interest_accrual value = var:tv_wonder_bank_of_saint_george_principal }
+			change_variable = { name = tv_wonder_bank_of_saint_george_interest_accrual multiply = var:tv_wonder_bank_of_saint_george_interest_rate }
+			change_variable = { name = tv_wonder_bank_of_saint_george_principal add = var:tv_wonder_bank_of_saint_george_interest_accrual }
+			remove_variable = tv_wonder_bank_of_saint_george_interest_accrual
+			change_variable = { name = tv_wonder_bank_of_saint_george_principal subtract = var:tv_wonder_bank_of_saint_george_monthly_pledge }
+			change_variable = { name = tv_wonder_bank_of_saint_george_elapsed_months add = 1 }
+			set_variable = { name = tv_wonder_bank_of_saint_george_progress_pct value = var:tv_wonder_bank_of_saint_george_elapsed_months }
+			change_variable = { name = tv_wonder_bank_of_saint_george_progress_pct multiply = 100 }
+			change_variable = { name = tv_wonder_bank_of_saint_george_progress_pct divide = 96 }
+			clamp_variable = { name = tv_wonder_bank_of_saint_george_progress_pct min = 0 max = 100 }
+			if = {
+				limit = { OR = { var:tv_wonder_bank_of_saint_george_principal <= 0  var:tv_wonder_bank_of_saint_george_elapsed_months >= 96 } }
+				if = {
+					limit = { var:tv_wonder_bank_of_saint_george_principal <= 0  var:tv_wonder_bank_of_saint_george_elapsed_months <= 24 }
+					set_variable = { name = tv_wonder_bank_of_saint_george_outcome_tier value = 1 }
+				}
+				else_if = {
+					limit = { var:tv_wonder_bank_of_saint_george_principal <= 0  var:tv_wonder_bank_of_saint_george_elapsed_months <= 60 }
+					set_variable = { name = tv_wonder_bank_of_saint_george_outcome_tier value = 2 }
+				}
+				else_if = {
+					limit = { var:tv_wonder_bank_of_saint_george_principal <= 0 }
+					set_variable = { name = tv_wonder_bank_of_saint_george_outcome_tier value = 3 }
+				}
+				else = {
+					set_variable = { name = tv_wonder_bank_of_saint_george_outcome_tier value = 4 }
+				}
+				set_variable = { name = tv_wonder_bank_of_saint_george_stage value = 3 }
+			}
+			else_if = {
+				limit = { var:tv_wonder_bank_of_saint_george_elapsed_months >= var:tv_wonder_bank_of_saint_george_next_review_month }
+				set_variable = { name = tv_wonder_bank_of_saint_george_ritual_pending_event value = 1 }
+				trigger_event_non_silently = { id = tv_engineering_department.1672 days = 1 }
+			}
 		}
 		else_if = {
-			limit = { var:tv_wonder_bank_of_saint_george_ritual_stage ?= 3 }
+			limit = { var:tv_wonder_bank_of_saint_george_stage ?= 3 }
 			set_variable = { name = tv_wonder_bank_of_saint_george_ritual_pending_event value = 1 }
 			trigger_event_non_silently = { id = tv_engineering_department.1673 days = 1 }
 		}

@@ -231,18 +231,16 @@ unique_wonders:
     - tv_wonder_dome_of_the_rock_ritual_stage
     - tv_wonder_dome_of_the_rock_ritual_pending_event
     - tv_wonder_dome_of_the_rock_ritual_completed
-    - tv_wonder_dome_of_the_rock_compact_choice
-    - tv_wonder_dome_of_the_rock_access_gate_wardens_status
-    - tv_wonder_dome_of_the_rock_access_religious_jurists_status
-    - tv_wonder_dome_of_the_rock_access_pilgrim_caravans_status
-    - tv_wonder_dome_of_the_rock_access_local_notables_status
-    - tv_wonder_dome_of_the_rock_access_supervised_witnesses_status
-    - tv_wonder_dome_of_the_rock_duty_gate_keys_status
-    - tv_wonder_dome_of_the_rock_duty_cisterns_status
-    - tv_wonder_dome_of_the_rock_duty_lamps_status
-    - tv_wonder_dome_of_the_rock_duty_endowment_deeds_status
-    - tv_wonder_dome_of_the_rock_duty_pilgrim_routes_status
-    - tv_wonder_dome_of_the_rock_ritual_total_favorable
+    - tv_wonder_dome_of_the_rock_term_index
+    - tv_wonder_dome_of_the_rock_term_cooldown_months
+    - tv_wonder_dome_of_the_rock_previous_holder
+    - tv_wonder_dome_of_the_rock_concord
+    - tv_wonder_dome_of_the_rock_continuity
+    - tv_wonder_dome_of_the_rock_endowment_health
+    - tv_wonder_dome_of_the_rock_service_guardian_family
+    - tv_wonder_dome_of_the_rock_service_waqf_council
+    - tv_wonder_dome_of_the_rock_service_garrison_watch
+    - tv_wonder_dome_of_the_rock_combined_score
     country_modifier:
       tolerance_own: 1
       diplomatic_reputation: 1
@@ -372,30 +370,18 @@ unique_wonders:
     - monthly
     runtime_variables:
     - tv_wonder_alhambra_war_validation
-    - tv_wonder_alhambra_ritual_row_set_index
-    - tv_wonder_alhambra_ritual_phase
-    - tv_wonder_alhambra_ritual_pending_event
+    - tv_wonder_alhambra_office_step
+    - tv_wonder_alhambra_pending_event
+    - tv_wonder_alhambra_holding_treasury_disposition
+    - tv_wonder_alhambra_holding_garrison_disposition
+    - tv_wonder_alhambra_holding_chancery_disposition
+    - tv_wonder_alhambra_holding_waterworks_disposition
+    - tv_wonder_alhambra_holding_endowment_disposition
+    - tv_wonder_alhambra_legitimacy_score
+    - tv_wonder_alhambra_efficiency_score
+    - tv_wonder_alhambra_extraction_score
+    - tv_wonder_alhambra_dominant_path
     - tv_wonder_alhambra_ritual_completed
-    - tv_wonder_alhambra_treaty_clause_register_favorable_count
-    - tv_wonder_alhambra_treaty_clause_register_narrowed
-    - tv_wonder_alhambra_treaty_clause_register_started
-    - tv_wonder_alhambra_treaty_clause_register_completed
-    - tv_wonder_alhambra_treaty_clause_register_symbolic_keys_status
-    - tv_wonder_alhambra_treaty_clause_register_protected_households_status
-    - tv_wonder_alhambra_treaty_clause_register_artisan_rosters_status
-    - tv_wonder_alhambra_treaty_clause_register_acequia_water_status
-    - tv_wonder_alhambra_treaty_clause_register_safe_conducts_status
-    - tv_wonder_alhambra_treaty_clause_register_foreign_copies_status
-    - tv_wonder_alhambra_palace_risk_points_favorable_count
-    - tv_wonder_alhambra_palace_risk_points_narrowed
-    - tv_wonder_alhambra_palace_risk_points_started
-    - tv_wonder_alhambra_palace_risk_points_completed
-    - tv_wonder_alhambra_palace_risk_points_gate_of_justice_status
-    - tv_wonder_alhambra_palace_risk_points_hall_of_ambassadors_status
-    - tv_wonder_alhambra_palace_risk_points_court_of_lions_status
-    - tv_wonder_alhambra_palace_risk_points_water_channels_status
-    - tv_wonder_alhambra_palace_risk_points_vega_overlook_status
-    - tv_wonder_alhambra_ritual_total_favorable
     country_modifier:
       monthly_prestige: 0.08
       diplomatic_reputation: 1
@@ -650,18 +636,10 @@ unique_wonders:
     - tv_wonder_st_peters_basilica_ritual_stage
     - tv_wonder_st_peters_basilica_ritual_pending_event
     - tv_wonder_st_peters_basilica_ritual_completed
-    - tv_wonder_st_peters_basilica_assigned_role
-    - tv_wonder_st_peters_basilica_role_cardinal_administrator_status
-    - tv_wonder_st_peters_basilica_role_diocesan_bishop_status
-    - tv_wonder_st_peters_basilica_role_relic_custodian_status
-    - tv_wonder_st_peters_basilica_role_alms_prefect_status
-    - tv_wonder_st_peters_basilica_role_artist_canon_status
-    - tv_wonder_st_peters_basilica_duty_relic_inventory_status
-    - tv_wonder_st_peters_basilica_duty_alms_ledger_status
-    - tv_wonder_st_peters_basilica_duty_pilgrim_threshold_status
-    - tv_wonder_st_peters_basilica_duty_choir_offices_status
-    - tv_wonder_st_peters_basilica_duty_chapel_patronage_status
-    - tv_wonder_st_peters_basilica_ritual_total_favorable
+    - tv_wonder_st_peters_basilica_tenure_index
+    - tv_wonder_st_peters_basilica_tenure_months
+    - tv_wonder_st_peters_basilica_authority
+    - tv_wonder_st_peters_basilica_succession_mode
     country_modifier:
       tolerance_own: 1
       clergy_estate_target_satisfaction: 0.05
@@ -1077,20 +1055,19 @@ unique_wonders:
     listeners:
     - monthly
     runtime_variables:
-    - tv_wonder_bank_of_saint_george_ritual_stage
+    - tv_wonder_bank_of_saint_george_stage
     - tv_wonder_bank_of_saint_george_ritual_pending_event
     - tv_wonder_bank_of_saint_george_ritual_completed
     - tv_wonder_bank_of_saint_george_charter_branch
-    - tv_wonder_bank_of_saint_george_charter_creditor_privilege_status
-    - tv_wonder_bank_of_saint_george_charter_crown_supervision_status
-    - tv_wonder_bank_of_saint_george_charter_open_merchant_access_status
-    - tv_wonder_bank_of_saint_george_pledge_old_war_debts_status
-    - tv_wonder_bank_of_saint_george_pledge_customs_dues_status
-    - tv_wonder_bank_of_saint_george_pledge_salt_tax_status
-    - tv_wonder_bank_of_saint_george_pledge_port_tolls_status
-    - tv_wonder_bank_of_saint_george_pledge_coin_assays_status
-    - tv_wonder_bank_of_saint_george_pledge_archive_volumes_status
-    - tv_wonder_bank_of_saint_george_ritual_total_favorable
+    - tv_wonder_bank_of_saint_george_principal
+    - tv_wonder_bank_of_saint_george_principal_start
+    - tv_wonder_bank_of_saint_george_interest_rate
+    - tv_wonder_bank_of_saint_george_monthly_pledge
+    - tv_wonder_bank_of_saint_george_elapsed_months
+    - tv_wonder_bank_of_saint_george_next_review_month
+    - tv_wonder_bank_of_saint_george_outcome_tier
+    - tv_wonder_bank_of_saint_george_progress_pct
+    - tv_wonder_bank_of_saint_george_interest_accrual
     country_modifier:
       minting_income_factor: 0.08
       tax_income_efficiency: 0.03

@@ -15,7 +15,7 @@ tv_engineering_department.1670 = {
 
 	option = {
 		name = tv_engineering_department.1670.a
-		trigger = { tv_wonder_bank_of_saint_george_eligibility_trigger = yes }
+		trigger = { tv_wonder_bank_of_saint_george_active_trigger = yes tv_wonder_bank_of_saint_george_site_control_trigger = yes }
 		tv_wonder_bank_of_saint_george_opening_effect = yes
 	}
 }
@@ -29,17 +29,17 @@ tv_engineering_department.1671 = {
 
 	option = {
 		name = tv_engineering_department.1671.a
-		tv_wonder_bank_of_saint_george_choose_creditor_privilege_effect = yes
+		tv_wonder_bank_of_saint_george_choose_conservative_sinking_fund_effect = yes
 	}
 
 	option = {
 		name = tv_engineering_department.1671.b
-		tv_wonder_bank_of_saint_george_choose_crown_supervision_effect = yes
+		tv_wonder_bank_of_saint_george_choose_balanced_compere_effect = yes
 	}
 
 	option = {
 		name = tv_engineering_department.1671.c
-		tv_wonder_bank_of_saint_george_choose_open_merchant_access_effect = yes
+		tv_wonder_bank_of_saint_george_choose_aggressive_consolidation_effect = yes
 	}
 }
 
@@ -48,18 +48,27 @@ tv_engineering_department.1672 = {
 	type = country_event
 	title = tv_engineering_department.1672.t
 	desc = tv_engineering_department.1672.d
+	triggered_desc = {
+		trigger = { tv_wonder_bank_of_saint_george_amortization_race_close_trigger = yes }
+		desc = tv_engineering_department.1672.race_close.d
+	}
 	outcome = neutral
 
 	option = {
 		name = tv_engineering_department.1672.a
-		trigger = { tv_wonder_bank_of_saint_george_has_distrusted_pledge_trigger = yes }
-		tv_wonder_bank_of_saint_george_incident_guarantee_effect = yes
+		trigger = { tv_wonder_bank_of_saint_george_debt_outstanding_trigger = yes }
+		tv_wonder_bank_of_saint_george_assembly_prepay_effect = yes
 	}
 
 	option = {
 		name = tv_engineering_department.1672.b
-		trigger = { tv_wonder_bank_of_saint_george_has_distrusted_pledge_trigger = yes }
-		tv_wonder_bank_of_saint_george_incident_narrow_effect = yes
+		trigger = { tv_wonder_bank_of_saint_george_debt_outstanding_trigger = yes }
+		tv_wonder_bank_of_saint_george_assembly_requisition_effect = yes
+	}
+
+	option = {
+		name = tv_engineering_department.1672.c
+		tv_wonder_bank_of_saint_george_assembly_hold_effect = yes
 	}
 }
 

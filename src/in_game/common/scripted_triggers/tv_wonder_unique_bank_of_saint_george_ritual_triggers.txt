@@ -17,20 +17,18 @@ tv_wonder_bank_of_saint_george_active_trigger = {
 	has_variable = tv_wonder_ritual_in_progress
 }
 
-# -- tv_wonder_bank_of_saint_george_eligibility_trigger ----------------------------------------------
-tv_wonder_bank_of_saint_george_eligibility_trigger = {
-	tv_wonder_bank_of_saint_george_active_trigger = yes
-	tv_wonder_bank_of_saint_george_site_control_trigger = yes
+# -- tv_wonder_bank_of_saint_george_debt_outstanding_trigger ----------------------------------------------
+tv_wonder_bank_of_saint_george_debt_outstanding_trigger = {
+	has_variable = tv_wonder_bank_of_saint_george_principal
+	var:tv_wonder_bank_of_saint_george_principal > 0
 }
 
-# -- tv_wonder_bank_of_saint_george_has_distrusted_pledge_trigger ----------------------------------------------
-tv_wonder_bank_of_saint_george_has_distrusted_pledge_trigger = {
-	OR = {
-		var:tv_wonder_bank_of_saint_george_pledge_old_war_debts_status ?= 2
-		var:tv_wonder_bank_of_saint_george_pledge_customs_dues_status ?= 2
-		var:tv_wonder_bank_of_saint_george_pledge_salt_tax_status ?= 2
-		var:tv_wonder_bank_of_saint_george_pledge_port_tolls_status ?= 2
-		var:tv_wonder_bank_of_saint_george_pledge_coin_assays_status ?= 2
-		var:tv_wonder_bank_of_saint_george_pledge_archive_volumes_status ?= 2
+# -- tv_wonder_bank_of_saint_george_amortization_race_close_trigger ----------------------------------------------
+tv_wonder_bank_of_saint_george_amortization_race_close_trigger = {
+	AND = {
+		has_variable = tv_wonder_bank_of_saint_george_elapsed_months
+		has_variable = tv_wonder_bank_of_saint_george_principal
+		var:tv_wonder_bank_of_saint_george_elapsed_months >= 84
+		var:tv_wonder_bank_of_saint_george_principal > 0
 	}
 }

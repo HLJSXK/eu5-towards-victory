@@ -1,33 +1,65 @@
 """St. Peter's Basilica (unique_st_peters_basilica) ritual content.
 
-Bespoke rewrite: the previous version routed through the shared generic
-`_entity_ritual` engine (opening/update/retry/resolve stages, identical
-random_list 60/40 + 80/20 rolls reused across every wonder that used the
-engine), which `scripts/audit_unique_wonder_ritual_mechanic_similarity.py`
-flags as design homogenization (see docs/guides/Unique_Wonder_Ritual_Harness.md).
-Its own docstring candidly noted this was "a scoped simplification" of the
-spec's `actor_assignment` cadence, punted because a live 5-way simultaneous
-character selector isn't proven anywhere in this codebase.
+Second bespoke rewrite. The first bespoke rewrite (2026-07) replaced the shared
+`_entity_ritual` engine with a hand-written mechanic: the player picked 1 of 5
+"sacred official roles", which deterministically flagged 1 of 5 "apostolic
+service duties" as that office's scandal, then a single retry event offered
+"correct at a prestige cost" vs. "overlook for free", with a reward scaled by
+the final favorable-duty count. `scripts/audit_unique_wonder_ritual_mechanic_similarity.py`
+flagged that shape (choice -> deterministic branch marking a fixed subset of
+tracked entities "at risk" -> one retry event offering pay-to-fully-resolve vs.
+accept-for-free-at-a-lesser-tier -> threshold-scaled reward) as homogenized
+with Dome of the Rock and Bank of Saint George (`combined_ratio` 0.48-0.71),
+even after dice and variable names were removed. See
+`docs/knowledge/risk_cards/wonders.md` rule 13.
 
-This version still does not invent an unverified multi-character selector
-(that remains a real, larger follow-up requiring new `generic_actions`
-surface area and its own Step 2/3 verification pass). Instead it uses the
-design's own documented fallback for the `sacred_official_character_selector`
-compiler-gap row in `data/unique_wonder_ritual_specs.yaml`: "Represent the
-official as a semantic role variable while keeping candidate rows in
-design_ir." The player *chooses* which sacred official to install (a real,
-non-random decision, unlike the old dice-roll engine), and that choice
-deterministically decides which one of the five apostolic service duties
-becomes the office's scandal (each role has its own, distinct weak duty), then
-a real choice: correct it at a prestige cost, or overlook it for free. No
-`random_list` is used anywhere in this ritual.
+This version is a different shape entirely: institutional succession over
+time, not a single appointment-then-incident chain. St. Peter's is not one
+office-holder facing one scandal; it is a seat that outlives every
+office-holder, refilled across successive tenures. The ritual runs the
+Archpriest's chair through `TENURE_TOTAL` (3) tenures. Each tenure is opened
+by choosing a *manner of succession* (papal appointment, chapter election, or
+dynastic coadjutor) from a fixed 3-way menu; that choice sets the *rate* at
+which a single continuous "Apostolic Authority" score accrues every month for
+the length of the tenure (`TENURE_DURATION_MONTHS`, 6), with no player action
+during that accrual window. When a tenure's duration elapses, the same 3-way
+menu fires again for the *next* tenure -- and each mode also applies its own
+carry-over multiplier to the authority already accumulated (continuity,
+factional loss, or compounding patronage) plus its own one-time cost (none,
+prestige, or clergy-estate resentment). After the third tenure's duration
+elapses, the office is sealed permanently and the final reward tier is read
+from the accumulated authority score.
 
-GUI rendering reuses `_entity_ritual.append_gui`'s row/status-chip widgets
-(pure rendering, not the flattened mechanic) by feeding it a row-set shape
-matching this module's own variable naming.
+This differs from the flagged template in every axis the audit checks: there
+is no fixed subset of tracked entities marked "at risk" by a deterministic
+branch (there is one continuous scalar, not a marked checklist); there is no
+retry/incident event offering "pay to fully fix vs. accept a narrower version
+for free" (every choice is the same freely-repeated 3-way succession-manner
+menu, not a binary correction dichotomy); and the time structure is a
+multi-cycle institutional loop with real monthly accrual windows, not a single
+linear open -> assign -> incident -> reward chain. The reward-tier threshold on
+a final accumulated score is the one structural element kept from many other
+mechanics in this mod (and is not itself the flagged shape -- the flagged
+shape is the whole choice/branch/retry/reward sequence, not "a reward that
+reads a final number").
+
+This still does not build the design spec's unproven "live 5-way simultaneous
+character selector" for `sacred_official_character_selector`
+(`data/unique_wonder_ritual_specs.yaml`, key `unique_st_peters_basilica`) --
+that remains real, larger follow-up work requiring new `generic_actions`
+surface area and its own Step 2/3 verification pass, exactly as the previous
+rewrite's docstring noted. Instead, per the spec's own documented fallback for
+that primitive ("Represent the official as a semantic role variable"), the
+office-holder's manner of installation is a semantic mode variable
+(`tv_wonder_st_peters_basilica_succession_mode`), not a named character. The
+`sacred_official_candidates` / `apostolic_service_duties` tracked-entity rows
+from the spec's `design_ir` are intentionally not reused here: those rows are
+exactly the shape that produced the flagged homogenization, and the succession
+mode is this rewrite's own three-way selector standing in their place.
 """
-from . import _entity_ritual as engine
-from ._entity_ritual import DASH, NAMESPACE, T
+NAMESPACE = "tv_engineering_department"
+T = "\t"
+DASH = "-" * 74
 
 WONDER_ID = 112
 WONDER_KEY = "unique_st_peters_basilica"
@@ -36,44 +68,57 @@ RUNTIME_PREFIX = "tv_wonder_st_peters_basilica"
 IMAGE = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_st_peters_basilica_cropped.dds"
 LOCATION = "rome"
 
-STATUS_PENDING = 0
-STATUS_FAVORABLE = 1
-STATUS_CONTESTED = 2
-STATUS_NARROWED = 3
+STAGE_OPENING = 0
+STAGE_AWAITING_INSTALLATION = 1
+STAGE_TENURE_ACTIVE = 2
+STAGE_TRANSITION_PENDING = 3
+STAGE_CONSECRATION_PENDING = 4
+
+TENURE_TOTAL = 3
+TENURE_DURATION_MONTHS = 6
 
 OPENING_EVENT_ID = 1678
-ASSIGNMENT_EVENT_ID = 1679
-SCANDAL_EVENT_ID = 1680
-REWARD_EVENT_ID = 1681
+INSTALLATION_EVENT_ID = 1679
+REWARD_EVENT_ID = 1680
 
-ROLES = [
-    {"key": "cardinal_administrator", "en": "Cardinal Administrator", "zh": "枢机总务"},
-    {"key": "diocesan_bishop", "en": "Diocesan Bishop", "zh": "教区主教"},
-    {"key": "relic_custodian", "en": "Relic Custodian", "zh": "圣物监护人"},
-    {"key": "alms_prefect", "en": "Alms Prefect", "zh": "施赈长官"},
-    {"key": "artist_canon", "en": "Artist Canon", "zh": "艺匠咏礼司铎"},
-]
-DUTIES = [
-    {"key": "relic_inventory", "en": "Relic Inventory", "zh": "圣物清册"},
-    {"key": "alms_ledger", "en": "Alms Ledger", "zh": "施赈账簿"},
-    {"key": "pilgrim_threshold", "en": "Pilgrim Threshold", "zh": "朝圣门槛"},
-    {"key": "choir_offices", "en": "Choir Offices", "zh": "唱诗职务"},
-    {"key": "chapel_patronage", "en": "Chapel Patronage", "zh": "小圣堂赞助"},
-]
+REWARD_TIER_HIGH = 65
+REWARD_TIER_MID = 45
 
-# Each role's own weak duty -- a fixed, deterministic mapping (no dice): the
-# administrator's bureaucratic distance from alms honesty, the bishop's
-# disciplinarian neglect of the choir, the custodian's obsession with relics
-# at the pilgrims' expense, the prefect's patronage favoritism, and the
-# canon's artistic focus neglecting the relic bookkeeping.
-ROLES_TABLE = {
-    "cardinal_administrator": {"value": 1, "weak_duty": "alms_ledger"},
-    "diocesan_bishop": {"value": 2, "weak_duty": "choir_offices"},
-    "relic_custodian": {"value": 3, "weak_duty": "pilgrim_threshold"},
-    "alms_prefect": {"value": 4, "weak_duty": "chapel_patronage"},
-    "artist_canon": {"value": 5, "weak_duty": "relic_inventory"},
-}
-ROLE_ORDER = ["cardinal_administrator", "diocesan_bishop", "relic_custodian", "alms_prefect", "artist_canon"]
+# Each succession manner sets this tenure's monthly authority accrual rate,
+# the multiplier applied to authority already accumulated when this manner is
+# chosen (continuity, factional loss, or compounding patronage), and the
+# one-time cost of installing it. No dice anywhere in this ritual.
+MODES = [
+    {
+        "key": "appointment",
+        "value": 1,
+        "en": "Papal Appointment",
+        "zh": "教皇任命",
+        "accrual": 3,
+        "carry_multiply": 1.0,
+        "cost_kind": "none",
+    },
+    {
+        "key": "election",
+        "value": 2,
+        "en": "Chapter Election",
+        "zh": "教士团选举",
+        "accrual": 5,
+        "carry_multiply": 0.8,
+        "cost_kind": "prestige",
+        "cost_value": -2,
+    },
+    {
+        "key": "dynastic",
+        "value": 3,
+        "en": "Dynastic Coadjutor",
+        "zh": "世袭助祭",
+        "accrual": 4,
+        "carry_multiply": 1.15,
+        "cost_kind": "clergy_satisfaction",
+        "cost_value": -0.03,
+    },
+]
 
 WONDER = {
     "wonder_id": WONDER_ID,
@@ -84,25 +129,7 @@ WONDER = {
     },
 }
 
-GUI_WONDER_SHAPE = {
-    "wonder_id": WONDER_ID,
-    "name_slug": NAME_SLUG,
-    "runtime_prefix": RUNTIME_PREFIX,
-    "row_sets": [
-        {"row_set_key": "role", "entities": ROLES},
-        {"row_set_key": "duty", "entities": DUTIES},
-    ],
-}
-
 KEY_PREFIX = f"TV_ENGINEERING_{NAME_SLUG.upper()}"
-
-
-def _role_var(key: str) -> str:
-    return f"{RUNTIME_PREFIX}_role_{key}_status"
-
-
-def _duty_var(key: str) -> str:
-    return f"{RUNTIME_PREFIX}_duty_{key}_status"
 
 
 def _stage_var() -> str:
@@ -113,12 +140,24 @@ def _pending_var() -> str:
     return f"{RUNTIME_PREFIX}_ritual_pending_event"
 
 
-def _assigned_role_var() -> str:
-    return f"{RUNTIME_PREFIX}_assigned_role"
-
-
 def _completed_var() -> str:
     return f"{RUNTIME_PREFIX}_ritual_completed"
+
+
+def _tenure_index_var() -> str:
+    return f"{RUNTIME_PREFIX}_tenure_index"
+
+
+def _tenure_months_var() -> str:
+    return f"{RUNTIME_PREFIX}_tenure_months"
+
+
+def _authority_var() -> str:
+    return f"{RUNTIME_PREFIX}_authority"
+
+
+def _mode_var() -> str:
+    return f"{RUNTIME_PREFIX}_succession_mode"
 
 
 # ---------------------------------------------------------------------------
@@ -141,18 +180,20 @@ def append_triggers(lines: list[str]) -> None:
     lines.append("}")
 
     lines.append("")
-    lines.append(f"# -- {RUNTIME_PREFIX}_eligibility_trigger {DASH}")
-    lines.append(f"{RUNTIME_PREFIX}_eligibility_trigger = {{")
-    lines.append(f"{T}{RUNTIME_PREFIX}_active_trigger = yes")
-    lines.append(f"{T}{RUNTIME_PREFIX}_site_control_trigger = yes")
+    lines.append(f"# -- {RUNTIME_PREFIX}_authority_strong_trigger {DASH}")
+    lines.append(f"{RUNTIME_PREFIX}_authority_strong_trigger = {{")
+    lines.append(f"{T}has_variable = {_authority_var()}")
+    lines.append(f"{T}var:{_authority_var()} >= {REWARD_TIER_HIGH}")
     lines.append("}")
 
     lines.append("")
-    lines.append(f"# -- {RUNTIME_PREFIX}_has_scandal_trigger {DASH}")
-    lines.append(f"{RUNTIME_PREFIX}_has_scandal_trigger = {{")
-    lines.append(f"{T}OR = {{")
-    for duty in DUTIES:
-        lines.append(f"{T}{T}var:{_duty_var(duty['key'])} ?= {STATUS_CONTESTED}")
+    lines.append(f"# -- {RUNTIME_PREFIX}_final_tenure_risk_trigger {DASH}")
+    lines.append(f"{RUNTIME_PREFIX}_final_tenure_risk_trigger = {{")
+    lines.append(f"{T}AND = {{")
+    lines.append(f"{T}{T}has_variable = {_tenure_index_var()}")
+    lines.append(f"{T}{T}has_variable = {_authority_var()}")
+    lines.append(f"{T}{T}var:{_tenure_index_var()} >= {TENURE_TOTAL - 1}")
+    lines.append(f"{T}{T}var:{_authority_var()} < {REWARD_TIER_MID}")
     lines.append(f"{T}}}")
     lines.append("}")
 
@@ -161,18 +202,35 @@ def append_triggers(lines: list[str]) -> None:
 # effects
 # ---------------------------------------------------------------------------
 
-def _role_choice_effect(role_key: str) -> list[str]:
-    role = ROLES_TABLE[role_key]
-    effect_name = f"{RUNTIME_PREFIX}_choose_{role_key}_effect"
+def _mode_install_cost_lines(mode: dict) -> list[str]:
+    cost_kind = mode["cost_kind"]
+    if cost_kind == "none":
+        return []
+    if cost_kind == "prestige":
+        return [f"{T}add_prestige = {mode['cost_value']}"]
+    if cost_kind == "clergy_satisfaction":
+        return [
+            f"{T}if = {{",
+            f"{T}{T}limit = {{ country_has_estate = estate_type:clergy_estate }}",
+            f"{T}{T}add_estate_satisfaction = {{ type = estate_type:clergy_estate value = {mode['cost_value']} }}",
+            f"{T}}}",
+        ]
+    raise ValueError(f"unknown cost_kind {cost_kind!r}")
+
+
+def _choose_mode_effect(mode: dict) -> list[str]:
+    effect_name = f"{RUNTIME_PREFIX}_choose_{mode['key']}_effect"
     lines = [f"# -- {effect_name} {DASH}", f"{effect_name} = {{"]
-    lines.append(f"{T}set_variable = {{ name = {_assigned_role_var()} value = {role['value']} }}")
-    for candidate in ROLES:
-        value = STATUS_FAVORABLE if candidate["key"] == role_key else STATUS_NARROWED
-        lines.append(f"{T}set_variable = {{ name = {_role_var(candidate['key'])} value = {value} }}")
-    for duty in DUTIES:
-        value = STATUS_CONTESTED if duty["key"] == role["weak_duty"] else STATUS_FAVORABLE
-        lines.append(f"{T}set_variable = {{ name = {_duty_var(duty['key'])} value = {value} }}")
-    lines.append(f"{T}set_variable = {{ name = {_stage_var()} value = 2 }}")
+    # Carry the authority already banked into the incoming tenure. At the
+    # very first installation this is a harmless multiply of 0; at every
+    # later transition it is the continuity/loss/compounding tax of the
+    # manner just chosen for the new tenure.
+    lines.append(f"{T}change_variable = {{ name = {_authority_var()} multiply = {mode['carry_multiply']} }}")
+    lines.append(f"{T}set_variable = {{ name = {_mode_var()} value = {mode['value']} }}")
+    lines.extend(_mode_install_cost_lines(mode))
+    lines.append(f"{T}change_variable = {{ name = {_tenure_index_var()} add = 1 }}")
+    lines.append(f"{T}set_variable = {{ name = {_tenure_months_var()} value = 0 }}")
+    lines.append(f"{T}set_variable = {{ name = {_stage_var()} value = {STAGE_TENURE_ACTIVE} }}")
     lines.append(f"{T}remove_variable = {_pending_var()}")
     lines.append("}")
     return lines
@@ -182,89 +240,51 @@ def append_effects(lines: list[str]) -> None:
     lines.append("")
     lines.append(f"# -- {RUNTIME_PREFIX}_ritual_start_effect {DASH}")
     lines.append(f"{RUNTIME_PREFIX}_ritual_start_effect = {{")
-    lines.append(f"{T}set_variable = {{ name = {_stage_var()} value = 0 }}")
-    lines.append(f"{T}set_variable = {{ name = {_assigned_role_var()} value = 0 }}")
-    for role in ROLES:
-        lines.append(f"{T}set_variable = {{ name = {_role_var(role['key'])} value = {STATUS_PENDING} }}")
-    for duty in DUTIES:
-        lines.append(f"{T}set_variable = {{ name = {_duty_var(duty['key'])} value = {STATUS_PENDING} }}")
+    lines.append(f"{T}set_variable = {{ name = {_stage_var()} value = {STAGE_OPENING} }}")
+    lines.append(f"{T}set_variable = {{ name = {_tenure_index_var()} value = 0 }}")
+    lines.append(f"{T}set_variable = {{ name = {_tenure_months_var()} value = 0 }}")
+    lines.append(f"{T}set_variable = {{ name = {_authority_var()} value = 0 }}")
+    lines.append(f"{T}set_variable = {{ name = {_mode_var()} value = 0 }}")
     lines.append(f"{T}remove_variable = {_pending_var()}")
     lines.append("}")
 
     lines.append("")
     lines.append(f"# -- {RUNTIME_PREFIX}_opening_effect {DASH}")
     lines.append(f"{RUNTIME_PREFIX}_opening_effect = {{")
-    lines.append(f"{T}set_variable = {{ name = {_stage_var()} value = 1 }}")
+    lines.append(f"{T}set_variable = {{ name = {_stage_var()} value = {STAGE_AWAITING_INSTALLATION} }}")
     lines.append(f"{T}remove_variable = {_pending_var()}")
     lines.append("}")
 
-    for role_key in ROLE_ORDER:
+    for mode in MODES:
         lines.append("")
-        lines.extend(_role_choice_effect(role_key))
-
-    lines.append("")
-    lines.append(f"# -- {RUNTIME_PREFIX}_scandal_correct_effect {DASH}")
-    lines.append(f"{RUNTIME_PREFIX}_scandal_correct_effect = {{")
-    lines.append(f"{T}hidden_effect = {{")
-    for duty in DUTIES:
-        lines.append(f"{T}{T}if = {{")
-        lines.append(f"{T}{T}{T}limit = {{ var:{_duty_var(duty['key'])} ?= {STATUS_CONTESTED} }}")
-        lines.append(f"{T}{T}{T}set_variable = {{ name = {_duty_var(duty['key'])} value = {STATUS_FAVORABLE} }}")
-        lines.append(f"{T}{T}}}")
-    lines.append(f"{T}{T}add_prestige = -3")
-    lines.append(f"{T}{T}set_variable = {{ name = {_stage_var()} value = 3 }}")
-    lines.append(f"{T}{T}remove_variable = {_pending_var()}")
-    lines.append(f"{T}}}")
-    lines.append("}")
-
-    lines.append("")
-    lines.append(f"# -- {RUNTIME_PREFIX}_scandal_overlook_effect {DASH}")
-    lines.append(f"{RUNTIME_PREFIX}_scandal_overlook_effect = {{")
-    lines.append(f"{T}hidden_effect = {{")
-    for duty in DUTIES:
-        lines.append(f"{T}{T}if = {{")
-        lines.append(f"{T}{T}{T}limit = {{ var:{_duty_var(duty['key'])} ?= {STATUS_CONTESTED} }}")
-        lines.append(f"{T}{T}{T}set_variable = {{ name = {_duty_var(duty['key'])} value = {STATUS_NARROWED} }}")
-        lines.append(f"{T}{T}}}")
-    lines.append(f"{T}{T}set_variable = {{ name = {_stage_var()} value = 3 }}")
-    lines.append(f"{T}{T}remove_variable = {_pending_var()}")
-    lines.append(f"{T}}}")
-    lines.append("}")
+        lines.extend(_choose_mode_effect(mode))
 
     lines.append("")
     lines.append(f"# -- {RUNTIME_PREFIX}_ritual_grant_reward_effect {DASH}")
     lines.append(f"{RUNTIME_PREFIX}_ritual_grant_reward_effect = {{")
-    lines.append(f"{T}set_variable = {{ name = {RUNTIME_PREFIX}_ritual_total_favorable value = 0 }}")
-    for duty in DUTIES:
-        lines.append(f"{T}if = {{")
-        lines.append(f"{T}{T}limit = {{ var:{_duty_var(duty['key'])} ?= {STATUS_FAVORABLE} }}")
-        lines.append(f"{T}{T}change_variable = {{ name = {RUNTIME_PREFIX}_ritual_total_favorable add = 2 }}")
-        lines.append(f"{T}}}")
-        lines.append(f"{T}else_if = {{")
-        lines.append(f"{T}{T}limit = {{ var:{_duty_var(duty['key'])} ?= {STATUS_NARROWED} }}")
-        lines.append(f"{T}{T}change_variable = {{ name = {RUNTIME_PREFIX}_ritual_total_favorable add = 1 }}")
-        lines.append(f"{T}}}")
     lines.append(f"{T}if = {{")
-    lines.append(f"{T}{T}limit = {{ var:{RUNTIME_PREFIX}_ritual_total_favorable >= 10 }}")
+    lines.append(f"{T}{T}limit = {{ var:{_authority_var()} >= {REWARD_TIER_HIGH} }}")
     lines.append(f"{T}{T}add_country_modifier = {{ modifier = {RUNTIME_PREFIX}_ritual_reward_modifier years = -1 mode = add_and_extend }}")
-    lines.append(f"{T}{T}add_prestige = 12")
+    lines.append(f"{T}{T}add_prestige = 14")
     lines.append(f"{T}{T}if = {{")
     lines.append(f"{T}{T}{T}limit = {{ country_has_estate = estate_type:clergy_estate }}")
     lines.append(f"{T}{T}{T}add_estate_satisfaction = {{ type = estate_type:clergy_estate value = 0.05 }}")
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}}}")
     lines.append(f"{T}else_if = {{")
-    lines.append(f"{T}{T}limit = {{ var:{RUNTIME_PREFIX}_ritual_total_favorable >= 9 }}")
+    lines.append(f"{T}{T}limit = {{ var:{_authority_var()} >= {REWARD_TIER_MID} }}")
     lines.append(f"{T}{T}add_country_modifier = {{ modifier = {RUNTIME_PREFIX}_ritual_reward_modifier years = -1 mode = add_and_extend }}")
-    lines.append(f"{T}{T}add_prestige = 6")
+    lines.append(f"{T}{T}add_prestige = 7")
     lines.append(f"{T}}}")
     lines.append(f"{T}else = {{")
     lines.append(f"{T}{T}add_country_modifier = {{ modifier = {RUNTIME_PREFIX}_ritual_reward_modifier_lesser years = -1 mode = add_and_extend }}")
     lines.append(f"{T}{T}add_prestige = 2")
     lines.append(f"{T}}}")
-    lines.append(f"{T}remove_variable = {RUNTIME_PREFIX}_ritual_total_favorable")
+    lines.append(f"{T}remove_variable = {_authority_var()}")
+    lines.append(f"{T}remove_variable = {_mode_var()}")
+    lines.append(f"{T}remove_variable = {_tenure_index_var()}")
+    lines.append(f"{T}remove_variable = {_tenure_months_var()}")
     lines.append(f"{T}remove_variable = {_stage_var()}")
-    lines.append(f"{T}remove_variable = {_assigned_role_var()}")
     lines.append(f"{T}remove_variable = {_pending_var()}")
     lines.append(f"{T}set_variable = {{ name = {_completed_var()} value = 1 }}")
     lines.append(f"{T}tv_wonder_complete_active_ritual_effect = yes")
@@ -279,22 +299,42 @@ def append_effects(lines: list[str]) -> None:
     lines.append(f"{T}{T}{T}NOT = {{ has_variable = {_pending_var()} }}")
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}{T}if = {{")
-    lines.append(f"{T}{T}{T}limit = {{ var:{_stage_var()} ?= 0 {RUNTIME_PREFIX}_site_control_trigger = yes }}")
+    lines.append(f"{T}{T}{T}limit = {{ var:{_stage_var()} ?= {STAGE_OPENING} {RUNTIME_PREFIX}_site_control_trigger = yes }}")
     lines.append(f"{T}{T}{T}set_variable = {{ name = {_pending_var()} value = 1 }}")
     lines.append(f"{T}{T}{T}trigger_event_non_silently = {{ id = {NAMESPACE}.{OPENING_EVENT_ID} days = 1 }}")
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}{T}else_if = {{")
-    lines.append(f"{T}{T}{T}limit = {{ var:{_stage_var()} ?= 1 }}")
+    lines.append(f"{T}{T}{T}limit = {{ var:{_stage_var()} ?= {STAGE_AWAITING_INSTALLATION} }}")
     lines.append(f"{T}{T}{T}set_variable = {{ name = {_pending_var()} value = 1 }}")
-    lines.append(f"{T}{T}{T}trigger_event_non_silently = {{ id = {NAMESPACE}.{ASSIGNMENT_EVENT_ID} days = 1 }}")
+    lines.append(f"{T}{T}{T}trigger_event_non_silently = {{ id = {NAMESPACE}.{INSTALLATION_EVENT_ID} days = 1 }}")
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}{T}else_if = {{")
-    lines.append(f"{T}{T}{T}limit = {{ var:{_stage_var()} ?= 2 }}")
-    lines.append(f"{T}{T}{T}set_variable = {{ name = {_pending_var()} value = 1 }}")
-    lines.append(f"{T}{T}{T}trigger_event_non_silently = {{ id = {NAMESPACE}.{SCANDAL_EVENT_ID} days = 1 }}")
+    lines.append(f"{T}{T}{T}limit = {{ var:{_stage_var()} ?= {STAGE_TENURE_ACTIVE} }}")
+    lines.append(f"{T}{T}{T}change_variable = {{ name = {_tenure_months_var()} add = 1 }}")
+    for mode in MODES:
+        conditional = "if" if mode is MODES[0] else "else_if"
+        lines.append(f"{T}{T}{T}{conditional} = {{")
+        lines.append(f"{T}{T}{T}{T}limit = {{ var:{_mode_var()} ?= {mode['value']} }}")
+        lines.append(f"{T}{T}{T}{T}change_variable = {{ name = {_authority_var()} add = {mode['accrual']} }}")
+        lines.append(f"{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}if = {{")
+    lines.append(f"{T}{T}{T}{T}limit = {{ var:{_tenure_months_var()} >= {TENURE_DURATION_MONTHS} }}")
+    lines.append(f"{T}{T}{T}{T}if = {{")
+    lines.append(f"{T}{T}{T}{T}{T}limit = {{ var:{_tenure_index_var()} >= {TENURE_TOTAL} }}")
+    lines.append(f"{T}{T}{T}{T}{T}set_variable = {{ name = {_stage_var()} value = {STAGE_CONSECRATION_PENDING} }}")
+    lines.append(f"{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}{T}else = {{")
+    lines.append(f"{T}{T}{T}{T}{T}set_variable = {{ name = {_stage_var()} value = {STAGE_TRANSITION_PENDING} }}")
+    lines.append(f"{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}}}")
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}{T}else_if = {{")
-    lines.append(f"{T}{T}{T}limit = {{ var:{_stage_var()} ?= 3 }}")
+    lines.append(f"{T}{T}{T}limit = {{ var:{_stage_var()} ?= {STAGE_TRANSITION_PENDING} }}")
+    lines.append(f"{T}{T}{T}set_variable = {{ name = {_pending_var()} value = 1 }}")
+    lines.append(f"{T}{T}{T}trigger_event_non_silently = {{ id = {NAMESPACE}.{INSTALLATION_EVENT_ID} days = 1 }}")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}{T}else_if = {{")
+    lines.append(f"{T}{T}{T}limit = {{ var:{_stage_var()} ?= {STAGE_CONSECRATION_PENDING} }}")
     lines.append(f"{T}{T}{T}set_variable = {{ name = {_pending_var()} value = 1 }}")
     lines.append(f"{T}{T}{T}trigger_event_non_silently = {{ id = {NAMESPACE}.{REWARD_EVENT_ID} days = 1 }}")
     lines.append(f"{T}{T}}}")
@@ -318,45 +358,33 @@ def build_events_body() -> list[str]:
     lines.append("")
     lines.append(f"{T}option = {{")
     lines.append(f"{T}{T}name = {NAMESPACE}.{OPENING_EVENT_ID}.a")
-    lines.append(f"{T}{T}trigger = {{ {RUNTIME_PREFIX}_eligibility_trigger = yes }}")
+    lines.append(f"{T}{T}trigger = {{ {RUNTIME_PREFIX}_active_trigger = yes {RUNTIME_PREFIX}_site_control_trigger = yes }}")
     lines.append(f"{T}{T}{RUNTIME_PREFIX}_opening_effect = yes")
     lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
 
-    lines.append(f"# -- {NAMESPACE}.{ASSIGNMENT_EVENT_ID} {DASH}")
-    lines.append(f"{NAMESPACE}.{ASSIGNMENT_EVENT_ID} = {{")
+    lines.append(f"# -- {NAMESPACE}.{INSTALLATION_EVENT_ID} {DASH}")
+    lines.append(f"{NAMESPACE}.{INSTALLATION_EVENT_ID} = {{")
     lines.append(f"{T}type = country_event")
-    lines.append(f"{T}title = {NAMESPACE}.{ASSIGNMENT_EVENT_ID}.t")
-    lines.append(f"{T}desc = {NAMESPACE}.{ASSIGNMENT_EVENT_ID}.d")
+    lines.append(f"{T}title = {NAMESPACE}.{INSTALLATION_EVENT_ID}.t")
+    lines.append(f"{T}desc = {NAMESPACE}.{INSTALLATION_EVENT_ID}.d")
+    lines.append(f"{T}triggered_desc = {{")
+    lines.append(f"{T}{T}trigger = {{ {RUNTIME_PREFIX}_authority_strong_trigger = yes }}")
+    lines.append(f"{T}{T}desc = {NAMESPACE}.{INSTALLATION_EVENT_ID}.strong.d")
+    lines.append(f"{T}}}")
+    lines.append(f"{T}triggered_desc = {{")
+    lines.append(f"{T}{T}trigger = {{ {RUNTIME_PREFIX}_final_tenure_risk_trigger = yes }}")
+    lines.append(f"{T}{T}desc = {NAMESPACE}.{INSTALLATION_EVENT_ID}.final_risk.d")
+    lines.append(f"{T}}}")
     lines.append(f"{T}outcome = neutral")
-    for letter, role_key in zip("abcde", ROLE_ORDER):
+    for letter, mode in zip("abc", MODES):
         lines.append("")
         lines.append(f"{T}option = {{")
-        lines.append(f"{T}{T}name = {NAMESPACE}.{ASSIGNMENT_EVENT_ID}.{letter}")
-        lines.append(f"{T}{T}{RUNTIME_PREFIX}_choose_{role_key}_effect = yes")
+        lines.append(f"{T}{T}name = {NAMESPACE}.{INSTALLATION_EVENT_ID}.{letter}")
+        lines.append(f"{T}{T}trigger = {{ {RUNTIME_PREFIX}_active_trigger = yes {RUNTIME_PREFIX}_site_control_trigger = yes }}")
+        lines.append(f"{T}{T}{RUNTIME_PREFIX}_choose_{mode['key']}_effect = yes")
         lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
-
-    lines.append(f"# -- {NAMESPACE}.{SCANDAL_EVENT_ID} {DASH}")
-    lines.append(f"{NAMESPACE}.{SCANDAL_EVENT_ID} = {{")
-    lines.append(f"{T}type = country_event")
-    lines.append(f"{T}title = {NAMESPACE}.{SCANDAL_EVENT_ID}.t")
-    lines.append(f"{T}desc = {NAMESPACE}.{SCANDAL_EVENT_ID}.d")
-    lines.append(f"{T}outcome = neutral")
-    lines.append("")
-    lines.append(f"{T}option = {{")
-    lines.append(f"{T}{T}name = {NAMESPACE}.{SCANDAL_EVENT_ID}.a")
-    lines.append(f"{T}{T}trigger = {{ {RUNTIME_PREFIX}_has_scandal_trigger = yes }}")
-    lines.append(f"{T}{T}{RUNTIME_PREFIX}_scandal_correct_effect = yes")
-    lines.append(f"{T}}}")
-    lines.append("")
-    lines.append(f"{T}option = {{")
-    lines.append(f"{T}{T}name = {NAMESPACE}.{SCANDAL_EVENT_ID}.b")
-    lines.append(f"{T}{T}trigger = {{ {RUNTIME_PREFIX}_has_scandal_trigger = yes }}")
-    lines.append(f"{T}{T}{RUNTIME_PREFIX}_scandal_overlook_effect = yes")
-    lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
 
@@ -383,73 +411,50 @@ def build_events_body() -> list[str]:
 _EVENTS_TEXT = {
     "english": {
         OPENING_EVENT_ID: {
-            "t": "A Keeper for Peter's Tomb",
-            "d": "The basilica doors, high altar, relic inventories, pilgrim hostels, and alms ledgers are prepared, but the threshold cannot open until a sacred official is named to keep the apostolic tomb.",
-            "options": {"a": "Prepare to name the official."},
+            "t": "The Chair Falls Vacant",
+            "d": "The tomb's threshold, high altar, and treasury stand ready, but the chair of the Archpriest has stood empty since the last tenure ended. The basilica cannot be dedicated to a living institution until the office is filled and, in time, refilled again.",
+            "options": {"a": "Open the succession."},
         },
-        ASSIGNMENT_EVENT_ID: {
-            "t": "The Keys Are Offered",
-            "d": "A Cardinal Administrator brings ledgers but risks the alms accounts. A Diocesan Bishop brings discipline but risks the choir offices. A Relic Custodian brings devotion but risks the pilgrim threshold. An Alms Prefect brings charity but risks chapel patronage. An Artist Canon brings splendor but risks the relic inventory.",
+        INSTALLATION_EVENT_ID: {
+            "t": "Filling the Chair",
+            "d": "Whenever the chair falls vacant, Rome must again decide how the office's standing passes to the next hand. A papal appointment keeps the office steady and unremarkable. A vote of the chapter's canons wins zeal and pace, at a political price and some loss of what came before. A kinsman installed as coadjutor compounds the office's authority fastest of all, at the cost of the clergy's goodwill.",
+            "strong_d": "The chair's standing already commands wide recognition. Whoever fills it next inherits an office at the height of its authority, for better or worse.",
+            "final_risk_d": "This is the last tenure before the office is sealed, and its standing so far has been modest at best. Whoever is named now carries the last real chance to lift the chair's authority before it is judged.",
             "options": {
-                "a": "Install the Cardinal Administrator.",
-                "b": "Install the Diocesan Bishop.",
-                "c": "Install the Relic Custodian.",
-                "d": "Install the Alms Prefect.",
-                "e": "Install the Artist Canon.",
-            },
-        },
-        SCANDAL_EVENT_ID: {
-            "t": "The First Scandal",
-            "d": "The office's own weakness has produced its first dispute. It can still be corrected in full, at a cost to the sponsor's own standing, or quietly overlooked for a narrower dedication.",
-            "options": {
-                "a": "Investigate and discipline the office. (-3 prestige)",
-                "b": "Overlook it for a narrower dedication.",
+                "a": "Appoint the Archpriest by papal decree.",
+                "b": "Elect the Archpriest through the canons' chapter. (-2 prestige)",
+                "c": "Install a kinsman as coadjutor. (Clergy estate satisfaction cost)",
             },
         },
         REWARD_EVENT_ID: {
-            "t": "The Apostolic Threshold Sealed",
-            "d": "The sacred official is confirmed in office, the apostolic service duties are all in order, and the threshold opens under recognized clergy obligation.",
-            "options": {"a": "Seal the apostolic threshold."},
+            "t": "The Unbroken Chair",
+            "d": "Three tenures of the Archpriest's chair have passed, each shaped by how its authority was handed to the next. What the office accumulated across appointment, election, and patronage alike is now sealed into the basilica's permanent standing.",
+            "options": {"a": "Seal the apostolic succession."},
         },
     },
     "simp_chinese": {
         OPENING_EVENT_ID: {
-            "t": "为彼得墓寻找监护人",
-            "d": "大教堂的门扉、高坛、圣物清册、朝圣客栈与施赈账簿均已备妥，但在一位圣职人员被任命看守使徒墓之前，门槛无法开启。",
-            "options": {"a": "准备任命圣职人员。"},
+            "t": "圣座空缺",
+            "d": "圣墓门槛、高坛与圣库均已备妥，但自上一任总铎的任期结束以来，总铎之位一直空缺。在此职位被填补、并在日后一再重新填补之前，大教堂无法被奉献给一个真正运作的机构。",
+            "options": {"a": "开启继任程序。"},
         },
-        ASSIGNMENT_EVENT_ID: {
-            "t": "钥匙的授予",
-            "d": "枢机总务带来账目管理，但会使施赈账目陷入风险。教区主教带来教规纪律，但会使唱诗职务陷入风险。圣物监护人带来虔诚，但会使朝圣门槛陷入风险。施赈长官带来慈善，但会使小圣堂赞助陷入风险。艺匠咏礼司铎带来华彩，但会使圣物清册陷入风险。",
+        INSTALLATION_EVENT_ID: {
+            "t": "圣座的填补",
+            "d": "每当圣座空缺，罗马都必须再次决定该职位的威望要如何交到下一任手中。教皇任命使职位保持稳固而平淡。教士团投票选举带来热忱与更快的积累，但需付出政治代价，且会损耗此前积累的部分威望。任命一位族人为助祭则能以最快速度增益职位权柄，但会损耗神职人员的善意。",
+            "strong_d": "圣座的威望已然广受认可。无论谁接掌此职，都将继承一个正处于权柄巅峰的职位——无论这是福是祸。",
+            "final_risk_d": "这是圣座封印之前的最后一任，而迄今其威望至多平平。此刻的任命，将是在最终定论之前提升圣座权柄的最后真正机会。",
             "options": {
-                "a": "任命枢机总务。",
-                "b": "任命教区主教。",
-                "c": "任命圣物监护人。",
-                "d": "任命施赈长官。",
-                "e": "任命艺匠咏礼司铎。",
-            },
-        },
-        SCANDAL_EVENT_ID: {
-            "t": "首次丑闻",
-            "d": "该圣职自身的弱点已经引发了首次争议。仍可完全纠正，但需付出赞助者自身声望的代价；亦可悄然不予追究，转而举行较小规模的奉献礼。",
-            "options": {
-                "a": "调查并惩处该圣职。（声望 -3）",
-                "b": "不予追究，举行较小规模的奉献礼。",
+                "a": "以教皇诏令任命总铎。",
+                "b": "通过教士团选举总铎。（声望 -2）",
+                "c": "任命一位族人为助祭。（神职阶层满意度代价）",
             },
         },
         REWARD_EVENT_ID: {
-            "t": "使徒门槛封印",
-            "d": "圣职人员已在职位上获得确认，使徒职责均已就绪，门槛在获得承认的神职义务下开启。",
-            "options": {"a": "封印使徒门槛。"},
+            "t": "不曾断绝的圣座",
+            "d": "总铎之位已历经三任，每一次交接的方式都塑造了其权柄的走向。无论经由任命、选举还是任人唯亲所积累的一切，如今都已被封存于大教堂的永久地位之中。",
+            "options": {"a": "封印使徒的继任。"},
         },
     },
-}
-
-_STATUS_WORDS = {
-    "pending": ("Not yet named", "尚未任命"),
-    "favorable": ("In good standing", "履职良好"),
-    "contested": ("Under scandal", "陷入丑闻"),
-    "narrowed": ("Not chosen / overlooked", "未选定或已不予追究"),
 }
 
 
@@ -457,31 +462,37 @@ def build_localization(language: str) -> list[str]:
     lang_index = 0 if language == "english" else 1
     lines: list[str] = []
 
-    for event_id in (OPENING_EVENT_ID, ASSIGNMENT_EVENT_ID, SCANDAL_EVENT_ID, REWARD_EVENT_ID):
+    for event_id in (OPENING_EVENT_ID, INSTALLATION_EVENT_ID, REWARD_EVENT_ID):
         text = _EVENTS_TEXT[language][event_id]
         lines.append(f' {NAMESPACE}.{event_id}.t:0 "{text["t"]}"')
         lines.append(f' {NAMESPACE}.{event_id}.d:0 "{text["d"]}"')
+        if "strong_d" in text:
+            lines.append(f' {NAMESPACE}.{event_id}.strong.d:0 "{text["strong_d"]}"')
+        if "final_risk_d" in text:
+            lines.append(f' {NAMESPACE}.{event_id}.final_risk.d:0 "{text["final_risk_d"]}"')
         options = text["options"]
-        for letter in ("a", "b", "c", "d", "e"):
+        for letter in ("a", "b", "c"):
             if letter in options:
                 lines.append(f' {NAMESPACE}.{event_id}.{letter}:0 "{options[letter]}"')
 
-    for status_key, words in _STATUS_WORDS.items():
-        lines.append(f' {KEY_PREFIX}_STATUS_{status_key.upper()}:0 "{words[lang_index]}"')
-
-    labels = {"role": ("Sacred Office", "神圣圣职"), "duty": ("Apostolic Duties", "使徒职责")}
-    for rs_key, words in labels.items():
-        lines.append(f' {KEY_PREFIX}_{rs_key.upper()}_LABEL:0 "{words[lang_index]}"')
+    panel_labels = {
+        f"{KEY_PREFIX}_PANEL_TITLE": ("The Archpriest's Chair", "总铎圣座"),
+        f"{KEY_PREFIX}_TENURE_LABEL": ("Tenure", "任期"),
+        f"{KEY_PREFIX}_AUTHORITY_LABEL": ("Apostolic Authority", "使徒权柄"),
+    }
+    for key, words in panel_labels.items():
+        lines.append(f' {key}:0 "{words[lang_index]}"')
 
     name_field = "en" if language == "english" else "zh"
-    for role in ROLES:
-        lines.append(f' {KEY_PREFIX}_ROLE_{role["key"].upper()}:0 "{role[name_field]}"')
-    for duty in DUTIES:
-        lines.append(f' {KEY_PREFIX}_DUTY_{duty["key"].upper()}:0 "{duty[name_field]}"')
+    for mode in MODES:
+        lines.append(f' {KEY_PREFIX}_MODE_{mode["key"].upper()}:0 "{mode[name_field]}"')
 
-    for modifier_name in WONDER["modifier_bundles"]:
-        label = engine._modifier_display_name(WONDER, modifier_name, language)
-        lines.append(f' STATIC_MODIFIER_NAME_{modifier_name}:0 "{label}"')
+    modifier_labels = {
+        "tv_wonder_st_peters_basilica_ritual_reward_modifier": ("Apostolic Succession Sealed", "使徒继任封印"),
+        "tv_wonder_st_peters_basilica_ritual_reward_modifier_lesser": ("Apostolic Succession Sealed (Lesser)", "使徒继任封印（次等）"),
+    }
+    for modifier_name, words in modifier_labels.items():
+        lines.append(f' STATIC_MODIFIER_NAME_{modifier_name}:0 "{words[lang_index]}"')
 
     return lines
 
@@ -491,4 +502,76 @@ def build_localization(language: str) -> list[str]:
 # ---------------------------------------------------------------------------
 
 def append_gui(lines: list[str], indent: int, helpers: dict[str, object]) -> None:
-    engine.append_gui(GUI_WONDER_SHAPE, lines, indent, helpers)
+    eq = helpers["eq"]
+    player_var = helpers["player_var"]
+    fold_bool = helpers["fold_bool"]
+    active_ritual_visible = helpers["active_ritual_visible"]
+
+    prefix = T * indent
+    card_visible = fold_bool(
+        "And",
+        [
+            active_ritual_visible(),
+            f"{player_var('tv_wonder_locked')}.IsSet",
+            eq("tv_wonder_locked", WONDER_ID),
+        ],
+    )
+    tenure_var = player_var(_tenure_index_var())
+    months_var = player_var(_tenure_months_var())
+    authority_var = player_var(_authority_var())
+
+    lines.append(f"{prefix}widget = {{")
+    lines.append(f'{prefix}{T}visible = "[{card_visible}]"')
+    lines.append(f"{prefix}{T}layoutpolicy_horizontal = expanding")
+    lines.append(f"{prefix}{T}size = {{ 462 118 }}")
+    lines.append(f"{prefix}{T}using = bg_text_mask_container_dark_blue")
+    lines.append("")
+    lines.append(f"{prefix}{T}vbox = {{")
+    lines.append(f"{prefix}{T}{T}margin = {{ 8 7 }}")
+    lines.append(f"{prefix}{T}{T}ignoreinvisible = yes")
+    lines.append(f"{prefix}{T}{T}spacing = 4")
+    lines.append(f'{prefix}{T}{T}text_single = {{ text = "{KEY_PREFIX}_PANEL_TITLE" align = nobaseline|left }}')
+
+    lines.append(f"{prefix}{T}{T}hbox = {{")
+    lines.append(f"{prefix}{T}{T}{T}spacing = 6")
+    lines.append(f'{prefix}{T}{T}{T}text_single = {{ text = "{KEY_PREFIX}_TENURE_LABEL" size = {{ 90 20 }} align = nobaseline|left }}')
+    lines.append(f"{prefix}{T}{T}{T}text_single = {{")
+    lines.append(f'{prefix}{T}{T}{T}{T}visible = "[{tenure_var}.IsSet]"')
+    lines.append(f'{prefix}{T}{T}{T}{T}raw_text = "[{tenure_var}.GetValue|0]/{TENURE_TOTAL}"')
+    lines.append(f"{prefix}{T}{T}{T}{T}size = {{ 60 20 }}")
+    lines.append(f"{prefix}{T}{T}{T}{T}align = nobaseline|left")
+    lines.append(f"{prefix}{T}{T}{T}}}")
+    lines.append(f"{prefix}{T}{T}}}")
+
+    lines.append(f"{prefix}{T}{T}widget = {{")
+    lines.append(f"{prefix}{T}{T}{T}size = {{ 100% 16 }}")
+    lines.append(f"{prefix}{T}{T}{T}progressbar = {{")
+    lines.append(f'{prefix}{T}{T}{T}{T}visible = "[{months_var}.IsSet]"')
+    lines.append(f"{prefix}{T}{T}{T}{T}size = {{ 100% 16 }}")
+    lines.append(f"{prefix}{T}{T}{T}{T}using = progress_bar_goldish")
+    lines.append(f"{prefix}{T}{T}{T}{T}min = 0")
+    lines.append(f"{prefix}{T}{T}{T}{T}max = {TENURE_DURATION_MONTHS}")
+    lines.append(f'{prefix}{T}{T}{T}{T}value = "[{months_var}.GetValue]"')
+    lines.append(f"{prefix}{T}{T}{T}}}")
+    lines.append(f"{prefix}{T}{T}}}")
+
+    for mode in MODES:
+        mode_visible = fold_bool("And", [f"{player_var(_mode_var())}.IsSet", eq(_mode_var(), mode["value"])])
+        lines.append(f"{prefix}{T}{T}text_single = {{")
+        lines.append(f'{prefix}{T}{T}{T}visible = "[{mode_visible}]"')
+        lines.append(f'{prefix}{T}{T}{T}text = "{KEY_PREFIX}_MODE_{mode["key"].upper()}"')
+        lines.append(f"{prefix}{T}{T}{T}align = nobaseline|left")
+        lines.append(f"{prefix}{T}{T}}}")
+
+    lines.append(f"{prefix}{T}{T}hbox = {{")
+    lines.append(f"{prefix}{T}{T}{T}spacing = 6")
+    lines.append(f'{prefix}{T}{T}{T}text_single = {{ text = "{KEY_PREFIX}_AUTHORITY_LABEL" size = {{ 140 20 }} align = nobaseline|left }}')
+    lines.append(f"{prefix}{T}{T}{T}text_single = {{")
+    lines.append(f'{prefix}{T}{T}{T}{T}visible = "[{authority_var}.IsSet]"')
+    lines.append(f'{prefix}{T}{T}{T}{T}raw_text = "[{authority_var}.GetValue|0]"')
+    lines.append(f"{prefix}{T}{T}{T}{T}align = nobaseline|left")
+    lines.append(f"{prefix}{T}{T}{T}}}")
+    lines.append(f"{prefix}{T}{T}}}")
+
+    lines.append(f"{prefix}{T}}}")
+    lines.append(f"{prefix}}}")

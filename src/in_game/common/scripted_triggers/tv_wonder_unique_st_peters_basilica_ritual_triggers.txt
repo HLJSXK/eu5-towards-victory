@@ -5,31 +5,30 @@
 # Target: src/in_game/common/scripted_triggers/tv_wonder_unique_st_peters_basilica_ritual_triggers.txt
 
 
-# -- tv_wonder_st_peters_basilica_site_control_trigger ----------------------------------------------
+# -- tv_wonder_st_peters_basilica_site_control_trigger --------------------------------------------------------------------------
 tv_wonder_st_peters_basilica_site_control_trigger = {
 	owns = location:rome
 }
 
-# -- tv_wonder_st_peters_basilica_active_trigger ----------------------------------------------
+# -- tv_wonder_st_peters_basilica_active_trigger --------------------------------------------------------------------------
 tv_wonder_st_peters_basilica_active_trigger = {
 	has_variable = tv_wonder_locked
 	var:tv_wonder_locked ?= 112
 	has_variable = tv_wonder_ritual_in_progress
 }
 
-# -- tv_wonder_st_peters_basilica_eligibility_trigger ----------------------------------------------
-tv_wonder_st_peters_basilica_eligibility_trigger = {
-	tv_wonder_st_peters_basilica_active_trigger = yes
-	tv_wonder_st_peters_basilica_site_control_trigger = yes
+# -- tv_wonder_st_peters_basilica_authority_strong_trigger --------------------------------------------------------------------------
+tv_wonder_st_peters_basilica_authority_strong_trigger = {
+	has_variable = tv_wonder_st_peters_basilica_authority
+	var:tv_wonder_st_peters_basilica_authority >= 65
 }
 
-# -- tv_wonder_st_peters_basilica_has_scandal_trigger ----------------------------------------------
-tv_wonder_st_peters_basilica_has_scandal_trigger = {
-	OR = {
-		var:tv_wonder_st_peters_basilica_duty_relic_inventory_status ?= 2
-		var:tv_wonder_st_peters_basilica_duty_alms_ledger_status ?= 2
-		var:tv_wonder_st_peters_basilica_duty_pilgrim_threshold_status ?= 2
-		var:tv_wonder_st_peters_basilica_duty_choir_offices_status ?= 2
-		var:tv_wonder_st_peters_basilica_duty_chapel_patronage_status ?= 2
+# -- tv_wonder_st_peters_basilica_final_tenure_risk_trigger --------------------------------------------------------------------------
+tv_wonder_st_peters_basilica_final_tenure_risk_trigger = {
+	AND = {
+		has_variable = tv_wonder_st_peters_basilica_tenure_index
+		has_variable = tv_wonder_st_peters_basilica_authority
+		var:tv_wonder_st_peters_basilica_tenure_index >= 2
+		var:tv_wonder_st_peters_basilica_authority < 45
 	}
 }

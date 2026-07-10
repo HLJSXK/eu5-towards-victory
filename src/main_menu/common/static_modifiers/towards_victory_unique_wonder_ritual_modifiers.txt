@@ -4,14 +4,31 @@
 # Do not edit directly - modify the data file and re-run the generator.
 # Target: src/main_menu/common/static_modifiers/towards_victory_unique_wonder_ritual_modifiers.txt
 
-tv_wonder_alhambra_ritual_reward_modifier = {
-	monthly_prestige = 0.12
+tv_wonder_alhambra_concord_reward_modifier = {
+	monthly_prestige = 0.15
 	diplomatic_reputation = 2
 }
 
-tv_wonder_alhambra_ritual_reward_modifier_lesser = {
+tv_wonder_alhambra_administration_reward_modifier = {
 	monthly_prestige = 0.08
-	diplomatic_reputation = 1
+	global_build_buildings_efficiency = 0.1
+}
+
+tv_wonder_alhambra_extraction_reward_modifier = {
+	monthly_prestige = 0.05
+	diplomatic_reputation = -1
+}
+
+tv_wonder_alhambra_palace_concord_location_modifier = {
+	local_unrest = -0.05
+}
+
+tv_wonder_alhambra_palace_administration_location_modifier = {
+	local_build_buildings_efficiency = 0.1
+}
+
+tv_wonder_alhambra_palace_extraction_location_modifier = {
+	local_unrest = 0.05
 }
 
 tv_wonder_dome_of_the_rock_ritual_reward_modifier = {
@@ -28,8 +45,13 @@ tv_wonder_bank_of_saint_george_ritual_reward_modifier = {
 	tax_income_efficiency = 0.1
 }
 
+tv_wonder_bank_of_saint_george_ritual_reward_modifier_partial = {
+	minting_income_factor = 0.09
+	tax_income_efficiency = 0.06
+}
+
 tv_wonder_bank_of_saint_george_ritual_reward_modifier_lesser = {
-	minting_income_factor = 0.05
+	minting_income_factor = 0.04
 }
 
 tv_wonder_st_peters_basilica_ritual_reward_modifier = {

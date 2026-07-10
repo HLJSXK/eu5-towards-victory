@@ -8,264 +8,125 @@
 # -- tv_wonder_dome_of_the_rock_ritual_start_effect ----------------------------------------------
 tv_wonder_dome_of_the_rock_ritual_start_effect = {
 	set_variable = { name = tv_wonder_dome_of_the_rock_ritual_stage value = 0 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_compact_choice value = 0 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_access_gate_wardens_status value = 0 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_access_religious_jurists_status value = 0 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_access_pilgrim_caravans_status value = 0 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_access_local_notables_status value = 0 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_access_supervised_witnesses_status value = 0 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_duty_gate_keys_status value = 0 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_duty_cisterns_status value = 0 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_duty_lamps_status value = 0 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_duty_endowment_deeds_status value = 0 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_duty_pilgrim_routes_status value = 0 }
+	set_variable = { name = tv_wonder_dome_of_the_rock_term_index value = 1 }
+	set_variable = { name = tv_wonder_dome_of_the_rock_term_cooldown_months value = 0 }
+	set_variable = { name = tv_wonder_dome_of_the_rock_previous_holder value = 0 }
+	set_variable = { name = tv_wonder_dome_of_the_rock_concord value = 0 }
+	set_variable = { name = tv_wonder_dome_of_the_rock_continuity value = 0 }
+	set_variable = { name = tv_wonder_dome_of_the_rock_endowment_health value = 50 }
+	set_variable = { name = tv_wonder_dome_of_the_rock_service_guardian_family value = 0 }
+	set_variable = { name = tv_wonder_dome_of_the_rock_service_waqf_council value = 0 }
+	set_variable = { name = tv_wonder_dome_of_the_rock_service_garrison_watch value = 0 }
 	remove_variable = tv_wonder_dome_of_the_rock_ritual_pending_event
 }
 
 # -- tv_wonder_dome_of_the_rock_opening_effect ----------------------------------------------
 tv_wonder_dome_of_the_rock_opening_effect = {
 	set_variable = { name = tv_wonder_dome_of_the_rock_ritual_stage value = 1 }
+	set_variable = { name = tv_wonder_dome_of_the_rock_term_cooldown_months value = 0 }
 	remove_variable = tv_wonder_dome_of_the_rock_ritual_pending_event
 }
 
-# -- tv_wonder_dome_of_the_rock_choose_guard_discipline_effect ----------------------------------------------
-tv_wonder_dome_of_the_rock_choose_guard_discipline_effect = {
-	set_variable = { name = tv_wonder_dome_of_the_rock_compact_choice value = 1 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_access_gate_wardens_status value = 1 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_access_religious_jurists_status value = 1 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_access_pilgrim_caravans_status value = 2 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_access_local_notables_status value = 2 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_access_supervised_witnesses_status value = 1 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_duty_gate_keys_status value = 1 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_duty_cisterns_status value = 1 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_duty_lamps_status value = 1 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_duty_endowment_deeds_status value = 1 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_duty_pilgrim_routes_status value = 2 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_ritual_stage value = 2 }
-	remove_variable = tv_wonder_dome_of_the_rock_ritual_pending_event
-}
-
-# -- tv_wonder_dome_of_the_rock_choose_jurist_proclamation_effect ----------------------------------------------
-tv_wonder_dome_of_the_rock_choose_jurist_proclamation_effect = {
-	set_variable = { name = tv_wonder_dome_of_the_rock_compact_choice value = 2 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_access_gate_wardens_status value = 2 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_access_religious_jurists_status value = 1 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_access_pilgrim_caravans_status value = 1 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_access_local_notables_status value = 1 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_access_supervised_witnesses_status value = 2 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_duty_gate_keys_status value = 1 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_duty_cisterns_status value = 1 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_duty_lamps_status value = 1 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_duty_endowment_deeds_status value = 2 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_duty_pilgrim_routes_status value = 1 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_ritual_stage value = 2 }
-	remove_variable = tv_wonder_dome_of_the_rock_ritual_pending_event
-}
-
-# -- tv_wonder_dome_of_the_rock_choose_witnessed_tolerance_effect ----------------------------------------------
-tv_wonder_dome_of_the_rock_choose_witnessed_tolerance_effect = {
-	set_variable = { name = tv_wonder_dome_of_the_rock_compact_choice value = 3 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_access_gate_wardens_status value = 2 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_access_religious_jurists_status value = 2 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_access_pilgrim_caravans_status value = 1 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_access_local_notables_status value = 1 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_access_supervised_witnesses_status value = 1 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_duty_gate_keys_status value = 2 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_duty_cisterns_status value = 1 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_duty_lamps_status value = 1 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_duty_endowment_deeds_status value = 1 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_duty_pilgrim_routes_status value = 1 }
-	set_variable = { name = tv_wonder_dome_of_the_rock_ritual_stage value = 2 }
-	remove_variable = tv_wonder_dome_of_the_rock_ritual_pending_event
-}
-
-# -- tv_wonder_dome_of_the_rock_settlement_reconcile_effect ----------------------------------------------
-tv_wonder_dome_of_the_rock_settlement_reconcile_effect = {
-	hidden_effect = {
-		if = {
-			limit = { var:tv_wonder_dome_of_the_rock_access_gate_wardens_status ?= 2 }
-			set_variable = { name = tv_wonder_dome_of_the_rock_access_gate_wardens_status value = 1 }
-		}
-		if = {
-			limit = { var:tv_wonder_dome_of_the_rock_access_religious_jurists_status ?= 2 }
-			set_variable = { name = tv_wonder_dome_of_the_rock_access_religious_jurists_status value = 1 }
-		}
-		if = {
-			limit = { var:tv_wonder_dome_of_the_rock_access_pilgrim_caravans_status ?= 2 }
-			set_variable = { name = tv_wonder_dome_of_the_rock_access_pilgrim_caravans_status value = 1 }
-		}
-		if = {
-			limit = { var:tv_wonder_dome_of_the_rock_access_local_notables_status ?= 2 }
-			set_variable = { name = tv_wonder_dome_of_the_rock_access_local_notables_status value = 1 }
-		}
-		if = {
-			limit = { var:tv_wonder_dome_of_the_rock_access_supervised_witnesses_status ?= 2 }
-			set_variable = { name = tv_wonder_dome_of_the_rock_access_supervised_witnesses_status value = 1 }
-		}
-		if = {
-			limit = { var:tv_wonder_dome_of_the_rock_duty_gate_keys_status ?= 2 }
-			set_variable = { name = tv_wonder_dome_of_the_rock_duty_gate_keys_status value = 1 }
-		}
-		if = {
-			limit = { var:tv_wonder_dome_of_the_rock_duty_cisterns_status ?= 2 }
-			set_variable = { name = tv_wonder_dome_of_the_rock_duty_cisterns_status value = 1 }
-		}
-		if = {
-			limit = { var:tv_wonder_dome_of_the_rock_duty_lamps_status ?= 2 }
-			set_variable = { name = tv_wonder_dome_of_the_rock_duty_lamps_status value = 1 }
-		}
-		if = {
-			limit = { var:tv_wonder_dome_of_the_rock_duty_endowment_deeds_status ?= 2 }
-			set_variable = { name = tv_wonder_dome_of_the_rock_duty_endowment_deeds_status value = 1 }
-		}
-		if = {
-			limit = { var:tv_wonder_dome_of_the_rock_duty_pilgrim_routes_status ?= 2 }
-			set_variable = { name = tv_wonder_dome_of_the_rock_duty_pilgrim_routes_status value = 1 }
-		}
-		add_prestige = -3
-		set_variable = { name = tv_wonder_dome_of_the_rock_ritual_stage value = 3 }
-		remove_variable = tv_wonder_dome_of_the_rock_ritual_pending_event
+# -- tv_wonder_dome_of_the_rock_assign_guardian_family_effect ----------------------------------------------
+tv_wonder_dome_of_the_rock_assign_guardian_family_effect = {
+	change_variable = { name = tv_wonder_dome_of_the_rock_service_guardian_family add = 1 }
+	if = {
+		limit = { var:tv_wonder_dome_of_the_rock_previous_holder ?= 1 }
+		change_variable = { name = tv_wonder_dome_of_the_rock_concord add = -1 }
+		change_variable = { name = tv_wonder_dome_of_the_rock_continuity add = 2 }
 	}
+	else = {
+		change_variable = { name = tv_wonder_dome_of_the_rock_concord add = 3 }
+	}
+	clamp_variable = { name = tv_wonder_dome_of_the_rock_concord min = 0 max = 100 }
+	clamp_variable = { name = tv_wonder_dome_of_the_rock_continuity min = 0 max = 100 }
+	set_variable = { name = tv_wonder_dome_of_the_rock_previous_holder value = 1 }
+	set_variable = { name = tv_wonder_dome_of_the_rock_ritual_stage value = 2 }
+	remove_variable = tv_wonder_dome_of_the_rock_ritual_pending_event
 }
 
-# -- tv_wonder_dome_of_the_rock_settlement_narrow_effect ----------------------------------------------
-tv_wonder_dome_of_the_rock_settlement_narrow_effect = {
-	hidden_effect = {
-		if = {
-			limit = { var:tv_wonder_dome_of_the_rock_access_gate_wardens_status ?= 2 }
-			set_variable = { name = tv_wonder_dome_of_the_rock_access_gate_wardens_status value = 3 }
-		}
-		if = {
-			limit = { var:tv_wonder_dome_of_the_rock_access_religious_jurists_status ?= 2 }
-			set_variable = { name = tv_wonder_dome_of_the_rock_access_religious_jurists_status value = 3 }
-		}
-		if = {
-			limit = { var:tv_wonder_dome_of_the_rock_access_pilgrim_caravans_status ?= 2 }
-			set_variable = { name = tv_wonder_dome_of_the_rock_access_pilgrim_caravans_status value = 3 }
-		}
-		if = {
-			limit = { var:tv_wonder_dome_of_the_rock_access_local_notables_status ?= 2 }
-			set_variable = { name = tv_wonder_dome_of_the_rock_access_local_notables_status value = 3 }
-		}
-		if = {
-			limit = { var:tv_wonder_dome_of_the_rock_access_supervised_witnesses_status ?= 2 }
-			set_variable = { name = tv_wonder_dome_of_the_rock_access_supervised_witnesses_status value = 3 }
-		}
-		if = {
-			limit = { var:tv_wonder_dome_of_the_rock_duty_gate_keys_status ?= 2 }
-			set_variable = { name = tv_wonder_dome_of_the_rock_duty_gate_keys_status value = 3 }
-		}
-		if = {
-			limit = { var:tv_wonder_dome_of_the_rock_duty_cisterns_status ?= 2 }
-			set_variable = { name = tv_wonder_dome_of_the_rock_duty_cisterns_status value = 3 }
-		}
-		if = {
-			limit = { var:tv_wonder_dome_of_the_rock_duty_lamps_status ?= 2 }
-			set_variable = { name = tv_wonder_dome_of_the_rock_duty_lamps_status value = 3 }
-		}
-		if = {
-			limit = { var:tv_wonder_dome_of_the_rock_duty_endowment_deeds_status ?= 2 }
-			set_variable = { name = tv_wonder_dome_of_the_rock_duty_endowment_deeds_status value = 3 }
-		}
-		if = {
-			limit = { var:tv_wonder_dome_of_the_rock_duty_pilgrim_routes_status ?= 2 }
-			set_variable = { name = tv_wonder_dome_of_the_rock_duty_pilgrim_routes_status value = 3 }
-		}
-		set_variable = { name = tv_wonder_dome_of_the_rock_ritual_stage value = 3 }
-		remove_variable = tv_wonder_dome_of_the_rock_ritual_pending_event
+# -- tv_wonder_dome_of_the_rock_assign_waqf_council_effect ----------------------------------------------
+tv_wonder_dome_of_the_rock_assign_waqf_council_effect = {
+	change_variable = { name = tv_wonder_dome_of_the_rock_service_waqf_council add = 1 }
+	if = {
+		limit = { var:tv_wonder_dome_of_the_rock_previous_holder ?= 2 }
+		change_variable = { name = tv_wonder_dome_of_the_rock_concord add = -1 }
+		change_variable = { name = tv_wonder_dome_of_the_rock_continuity add = 2 }
 	}
+	else = {
+		change_variable = { name = tv_wonder_dome_of_the_rock_concord add = 3 }
+	}
+	clamp_variable = { name = tv_wonder_dome_of_the_rock_concord min = 0 max = 100 }
+	clamp_variable = { name = tv_wonder_dome_of_the_rock_continuity min = 0 max = 100 }
+	set_variable = { name = tv_wonder_dome_of_the_rock_previous_holder value = 2 }
+	set_variable = { name = tv_wonder_dome_of_the_rock_ritual_stage value = 2 }
+	remove_variable = tv_wonder_dome_of_the_rock_ritual_pending_event
+}
+
+# -- tv_wonder_dome_of_the_rock_assign_garrison_watch_effect ----------------------------------------------
+tv_wonder_dome_of_the_rock_assign_garrison_watch_effect = {
+	change_variable = { name = tv_wonder_dome_of_the_rock_service_garrison_watch add = 1 }
+	if = {
+		limit = { var:tv_wonder_dome_of_the_rock_previous_holder ?= 3 }
+		change_variable = { name = tv_wonder_dome_of_the_rock_concord add = -1 }
+		change_variable = { name = tv_wonder_dome_of_the_rock_continuity add = 2 }
+	}
+	else = {
+		change_variable = { name = tv_wonder_dome_of_the_rock_concord add = 3 }
+	}
+	clamp_variable = { name = tv_wonder_dome_of_the_rock_concord min = 0 max = 100 }
+	clamp_variable = { name = tv_wonder_dome_of_the_rock_continuity min = 0 max = 100 }
+	set_variable = { name = tv_wonder_dome_of_the_rock_previous_holder value = 3 }
+	set_variable = { name = tv_wonder_dome_of_the_rock_ritual_stage value = 2 }
+	remove_variable = tv_wonder_dome_of_the_rock_ritual_pending_event
+}
+
+# -- tv_wonder_dome_of_the_rock_upkeep_fund_effect ----------------------------------------------
+tv_wonder_dome_of_the_rock_upkeep_fund_effect = {
+	change_variable = { name = tv_wonder_dome_of_the_rock_endowment_health add = 15 }
+	add_prestige = -2
+	clamp_variable = { name = tv_wonder_dome_of_the_rock_endowment_health min = 0 max = 100 }
+	if = {
+		limit = { var:tv_wonder_dome_of_the_rock_term_index >= 6 }
+		set_variable = { name = tv_wonder_dome_of_the_rock_ritual_stage value = 3 }
+	}
+	else = {
+		change_variable = { name = tv_wonder_dome_of_the_rock_term_index add = 1 }
+		set_variable = { name = tv_wonder_dome_of_the_rock_term_cooldown_months value = 4 }
+		set_variable = { name = tv_wonder_dome_of_the_rock_ritual_stage value = 1 }
+	}
+	remove_variable = tv_wonder_dome_of_the_rock_ritual_pending_event
+}
+
+# -- tv_wonder_dome_of_the_rock_upkeep_defer_effect ----------------------------------------------
+tv_wonder_dome_of_the_rock_upkeep_defer_effect = {
+	change_variable = { name = tv_wonder_dome_of_the_rock_endowment_health add = -10 }
+	clamp_variable = { name = tv_wonder_dome_of_the_rock_endowment_health min = 0 max = 100 }
+	if = {
+		limit = { var:tv_wonder_dome_of_the_rock_term_index >= 6 }
+		set_variable = { name = tv_wonder_dome_of_the_rock_ritual_stage value = 3 }
+	}
+	else = {
+		change_variable = { name = tv_wonder_dome_of_the_rock_term_index add = 1 }
+		set_variable = { name = tv_wonder_dome_of_the_rock_term_cooldown_months value = 4 }
+		set_variable = { name = tv_wonder_dome_of_the_rock_ritual_stage value = 1 }
+	}
+	remove_variable = tv_wonder_dome_of_the_rock_ritual_pending_event
 }
 
 # -- tv_wonder_dome_of_the_rock_ritual_grant_reward_effect ----------------------------------------------
 tv_wonder_dome_of_the_rock_ritual_grant_reward_effect = {
-	set_variable = { name = tv_wonder_dome_of_the_rock_ritual_total_favorable value = 0 }
+	set_variable = { name = tv_wonder_dome_of_the_rock_combined_score value = 0 }
+	change_variable = { name = tv_wonder_dome_of_the_rock_combined_score add = var:tv_wonder_dome_of_the_rock_concord }
+	change_variable = { name = tv_wonder_dome_of_the_rock_combined_score add = var:tv_wonder_dome_of_the_rock_continuity }
+	change_variable = { name = tv_wonder_dome_of_the_rock_combined_score add = var:tv_wonder_dome_of_the_rock_endowment_health }
 	if = {
-		limit = { var:tv_wonder_dome_of_the_rock_access_gate_wardens_status ?= 1 }
-		change_variable = { name = tv_wonder_dome_of_the_rock_ritual_total_favorable add = 2 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_dome_of_the_rock_access_gate_wardens_status ?= 3 }
-		change_variable = { name = tv_wonder_dome_of_the_rock_ritual_total_favorable add = 1 }
-	}
-	if = {
-		limit = { var:tv_wonder_dome_of_the_rock_access_religious_jurists_status ?= 1 }
-		change_variable = { name = tv_wonder_dome_of_the_rock_ritual_total_favorable add = 2 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_dome_of_the_rock_access_religious_jurists_status ?= 3 }
-		change_variable = { name = tv_wonder_dome_of_the_rock_ritual_total_favorable add = 1 }
-	}
-	if = {
-		limit = { var:tv_wonder_dome_of_the_rock_access_pilgrim_caravans_status ?= 1 }
-		change_variable = { name = tv_wonder_dome_of_the_rock_ritual_total_favorable add = 2 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_dome_of_the_rock_access_pilgrim_caravans_status ?= 3 }
-		change_variable = { name = tv_wonder_dome_of_the_rock_ritual_total_favorable add = 1 }
-	}
-	if = {
-		limit = { var:tv_wonder_dome_of_the_rock_access_local_notables_status ?= 1 }
-		change_variable = { name = tv_wonder_dome_of_the_rock_ritual_total_favorable add = 2 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_dome_of_the_rock_access_local_notables_status ?= 3 }
-		change_variable = { name = tv_wonder_dome_of_the_rock_ritual_total_favorable add = 1 }
-	}
-	if = {
-		limit = { var:tv_wonder_dome_of_the_rock_access_supervised_witnesses_status ?= 1 }
-		change_variable = { name = tv_wonder_dome_of_the_rock_ritual_total_favorable add = 2 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_dome_of_the_rock_access_supervised_witnesses_status ?= 3 }
-		change_variable = { name = tv_wonder_dome_of_the_rock_ritual_total_favorable add = 1 }
-	}
-	if = {
-		limit = { var:tv_wonder_dome_of_the_rock_duty_gate_keys_status ?= 1 }
-		change_variable = { name = tv_wonder_dome_of_the_rock_ritual_total_favorable add = 2 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_dome_of_the_rock_duty_gate_keys_status ?= 3 }
-		change_variable = { name = tv_wonder_dome_of_the_rock_ritual_total_favorable add = 1 }
-	}
-	if = {
-		limit = { var:tv_wonder_dome_of_the_rock_duty_cisterns_status ?= 1 }
-		change_variable = { name = tv_wonder_dome_of_the_rock_ritual_total_favorable add = 2 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_dome_of_the_rock_duty_cisterns_status ?= 3 }
-		change_variable = { name = tv_wonder_dome_of_the_rock_ritual_total_favorable add = 1 }
-	}
-	if = {
-		limit = { var:tv_wonder_dome_of_the_rock_duty_lamps_status ?= 1 }
-		change_variable = { name = tv_wonder_dome_of_the_rock_ritual_total_favorable add = 2 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_dome_of_the_rock_duty_lamps_status ?= 3 }
-		change_variable = { name = tv_wonder_dome_of_the_rock_ritual_total_favorable add = 1 }
-	}
-	if = {
-		limit = { var:tv_wonder_dome_of_the_rock_duty_endowment_deeds_status ?= 1 }
-		change_variable = { name = tv_wonder_dome_of_the_rock_ritual_total_favorable add = 2 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_dome_of_the_rock_duty_endowment_deeds_status ?= 3 }
-		change_variable = { name = tv_wonder_dome_of_the_rock_ritual_total_favorable add = 1 }
-	}
-	if = {
-		limit = { var:tv_wonder_dome_of_the_rock_duty_pilgrim_routes_status ?= 1 }
-		change_variable = { name = tv_wonder_dome_of_the_rock_ritual_total_favorable add = 2 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_dome_of_the_rock_duty_pilgrim_routes_status ?= 3 }
-		change_variable = { name = tv_wonder_dome_of_the_rock_ritual_total_favorable add = 1 }
-	}
-	if = {
-		limit = { var:tv_wonder_dome_of_the_rock_ritual_total_favorable >= 20 }
+		limit = { var:tv_wonder_dome_of_the_rock_combined_score >= 220 }
 		add_country_modifier = { modifier = tv_wonder_dome_of_the_rock_ritual_reward_modifier years = -1 mode = add_and_extend }
 		add_prestige = 15
 	}
 	else_if = {
-		limit = { var:tv_wonder_dome_of_the_rock_ritual_total_favorable >= 15 }
+		limit = { var:tv_wonder_dome_of_the_rock_combined_score >= 150 }
 		add_country_modifier = { modifier = tv_wonder_dome_of_the_rock_ritual_reward_modifier years = -1 mode = add_and_extend }
 		add_prestige = 8
 	}
@@ -273,9 +134,17 @@ tv_wonder_dome_of_the_rock_ritual_grant_reward_effect = {
 		add_country_modifier = { modifier = tv_wonder_dome_of_the_rock_ritual_reward_modifier_lesser years = -1 mode = add_and_extend }
 		add_prestige = 3
 	}
-	remove_variable = tv_wonder_dome_of_the_rock_ritual_total_favorable
+	remove_variable = tv_wonder_dome_of_the_rock_combined_score
 	remove_variable = tv_wonder_dome_of_the_rock_ritual_stage
-	remove_variable = tv_wonder_dome_of_the_rock_compact_choice
+	remove_variable = tv_wonder_dome_of_the_rock_term_index
+	remove_variable = tv_wonder_dome_of_the_rock_term_cooldown_months
+	remove_variable = tv_wonder_dome_of_the_rock_previous_holder
+	remove_variable = tv_wonder_dome_of_the_rock_concord
+	remove_variable = tv_wonder_dome_of_the_rock_continuity
+	remove_variable = tv_wonder_dome_of_the_rock_endowment_health
+	remove_variable = tv_wonder_dome_of_the_rock_service_guardian_family
+	remove_variable = tv_wonder_dome_of_the_rock_service_waqf_council
+	remove_variable = tv_wonder_dome_of_the_rock_service_garrison_watch
 	remove_variable = tv_wonder_dome_of_the_rock_ritual_pending_event
 	set_variable = { name = tv_wonder_dome_of_the_rock_ritual_completed value = 1 }
 	tv_wonder_complete_active_ritual_effect = yes
@@ -295,8 +164,14 @@ tv_wonder_dome_of_the_rock_ritual_monthly_progress_effect = {
 		}
 		else_if = {
 			limit = { var:tv_wonder_dome_of_the_rock_ritual_stage ?= 1 }
-			set_variable = { name = tv_wonder_dome_of_the_rock_ritual_pending_event value = 1 }
-			trigger_event_non_silently = { id = tv_engineering_department.1663 days = 1 }
+			if = {
+				limit = { var:tv_wonder_dome_of_the_rock_term_cooldown_months >= 1 }
+				change_variable = { name = tv_wonder_dome_of_the_rock_term_cooldown_months add = -1 }
+			}
+			else = {
+				set_variable = { name = tv_wonder_dome_of_the_rock_ritual_pending_event value = 1 }
+				trigger_event_non_silently = { id = tv_engineering_department.1663 days = 1 }
+			}
 		}
 		else_if = {
 			limit = { var:tv_wonder_dome_of_the_rock_ritual_stage ?= 2 }

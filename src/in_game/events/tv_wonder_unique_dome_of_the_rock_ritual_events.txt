@@ -15,7 +15,7 @@ tv_engineering_department.1662 = {
 
 	option = {
 		name = tv_engineering_department.1662.a
-		trigger = { tv_wonder_dome_of_the_rock_eligibility_trigger = yes }
+		trigger = { tv_wonder_dome_of_the_rock_active_trigger = yes tv_wonder_dome_of_the_rock_site_control_trigger = yes }
 		tv_wonder_dome_of_the_rock_opening_effect = yes
 	}
 }
@@ -25,21 +25,25 @@ tv_engineering_department.1663 = {
 	type = country_event
 	title = tv_engineering_department.1663.t
 	desc = tv_engineering_department.1663.d
+	triggered_desc = {
+		trigger = { tv_wonder_dome_of_the_rock_calendar_strained_trigger = yes }
+		desc = tv_engineering_department.1663.strained.d
+	}
 	outcome = neutral
 
 	option = {
 		name = tv_engineering_department.1663.a
-		tv_wonder_dome_of_the_rock_choose_guard_discipline_effect = yes
+		tv_wonder_dome_of_the_rock_assign_guardian_family_effect = yes
 	}
 
 	option = {
 		name = tv_engineering_department.1663.b
-		tv_wonder_dome_of_the_rock_choose_jurist_proclamation_effect = yes
+		tv_wonder_dome_of_the_rock_assign_waqf_council_effect = yes
 	}
 
 	option = {
 		name = tv_engineering_department.1663.c
-		tv_wonder_dome_of_the_rock_choose_witnessed_tolerance_effect = yes
+		tv_wonder_dome_of_the_rock_assign_garrison_watch_effect = yes
 	}
 }
 
@@ -48,18 +52,20 @@ tv_engineering_department.1664 = {
 	type = country_event
 	title = tv_engineering_department.1664.t
 	desc = tv_engineering_department.1664.d
+	triggered_desc = {
+		trigger = { tv_wonder_dome_of_the_rock_endowment_critical_trigger = yes }
+		desc = tv_engineering_department.1664.critical.d
+	}
 	outcome = neutral
 
 	option = {
 		name = tv_engineering_department.1664.a
-		trigger = { tv_wonder_dome_of_the_rock_has_contested_entity_trigger = yes }
-		tv_wonder_dome_of_the_rock_settlement_reconcile_effect = yes
+		tv_wonder_dome_of_the_rock_upkeep_fund_effect = yes
 	}
 
 	option = {
 		name = tv_engineering_department.1664.b
-		trigger = { tv_wonder_dome_of_the_rock_has_contested_entity_trigger = yes }
-		tv_wonder_dome_of_the_rock_settlement_narrow_effect = yes
+		tv_wonder_dome_of_the_rock_upkeep_defer_effect = yes
 	}
 }
 

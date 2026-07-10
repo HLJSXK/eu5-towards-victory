@@ -117,6 +117,26 @@ generators.
     their 2026-07 rewrite, even though block-shape Jaccard stayed low, i.e. no verbatim
     duplicate blocks). The high-level narrative shape, not just literal effect bodies, is part
     of what "mechanically distinct" means for this project.
+    Resolved 2026-07 (second rewrite, all four unique wonders using this shared engine):
+    Alhambra/Dome of the Rock/Bank of Saint George/St. Peter's Basilica were each reassigned to
+    a fully independent subagent with no visibility into the other three's implementation or
+    into `_entity_ritual.py`, briefed only on their own wonder's history/theme and the trap to
+    avoid. Result: effects-file `combined_ratio` among Dome/Bank/St Peter's dropped from
+    0.48–0.71 to 0.18–0.32 (Alhambra vs. any of the three stayed under 0.15 throughout). The
+    residual `combined_ratio` (0.21–0.30, still nominally over the 0.15 gate) that remains
+    between those three pairs is no longer driven by the effects/mechanic bodies — it is driven
+    almost entirely by the short, mandatory `site_control_trigger`/`active_trigger` lifecycle
+    gate every ritual in the mod must define near-identically (`owns = location:X`;
+    `has_variable = tv_wonder_locked` + `var:tv_wonder_locked ?= <id>` +
+    `has_variable = tv_wonder_ritual_in_progress`). On a short triggers file (2-3 blocks total),
+    that unavoidable boilerplate is a large fraction of the file, so `SequenceMatcher` still
+    flags the pair even when the actual mechanic is unrelated. Adding a genuine, wonder-specific,
+    differently-shaped extra trigger per wonder (a simple comparison for one wonder, an
+    `OR`-of-`AND` compound check for another) and wiring it into a real `triggered_desc` reduces
+    but does not fully eliminate this artifact — treat 0.15 as a soft gate on *short* triggers
+    files going forward, and judge homogenization primarily from the effects-file ratio and a
+    direct read of the mechanic, not the raw combined score alone, when the triggers file is
+    this small for every wonder being compared.
 
 14. Verify war outcome with `scope:winner`/`scope:loser`, not just "a war ended."
     `on_pre_winning_war` and `on_ending_war` both expose `root` (fires for both participants),

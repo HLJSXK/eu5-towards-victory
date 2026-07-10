@@ -11,12 +11,12 @@ tv_engineering_department.1686 = {
 	type = country_event
 	title = tv_engineering_department.1686.t
 	desc = tv_engineering_department.1686.d
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_alhambra_cropped.dds"
 	outcome = neutral
 
 	option = {
 		name = tv_engineering_department.1686.a
-		trigger = { tv_wonder_alhambra_treaty_clause_register_eligibility_trigger = yes }
-		tv_wonder_alhambra_treaty_clause_register_row_init_effect = yes
+		tv_wonder_alhambra_advance_office_step_effect = yes
 	}
 }
 
@@ -25,12 +25,22 @@ tv_engineering_department.1687 = {
 	type = country_event
 	title = tv_engineering_department.1687.t
 	desc = tv_engineering_department.1687.d
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_alhambra_cropped.dds"
 	outcome = neutral
 
 	option = {
 		name = tv_engineering_department.1687.a
-		trigger = { tv_wonder_alhambra_treaty_clause_register_eligibility_trigger = yes }
-		tv_wonder_alhambra_treaty_clause_register_row_state_write_effect = yes
+		tv_wonder_alhambra_treasury_preserve_effect = yes
+	}
+
+	option = {
+		name = tv_engineering_department.1687.b
+		tv_wonder_alhambra_treasury_repurpose_effect = yes
+	}
+
+	option = {
+		name = tv_engineering_department.1687.c
+		tv_wonder_alhambra_treasury_dismantle_effect = yes
 	}
 }
 
@@ -39,18 +49,22 @@ tv_engineering_department.1688 = {
 	type = country_event
 	title = tv_engineering_department.1688.t
 	desc = tv_engineering_department.1688.d
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_alhambra_cropped.dds"
 	outcome = neutral
 
 	option = {
 		name = tv_engineering_department.1688.a
-		trigger = { tv_wonder_alhambra_treaty_clause_register_has_contested_entity_trigger = yes }
-		tv_wonder_alhambra_treaty_clause_register_reconcile_effect = yes
+		tv_wonder_alhambra_garrison_preserve_effect = yes
 	}
 
 	option = {
 		name = tv_engineering_department.1688.b
-		trigger = { tv_wonder_alhambra_treaty_clause_register_has_contested_entity_trigger = yes }
-		tv_wonder_alhambra_treaty_clause_register_narrow_effect = yes
+		tv_wonder_alhambra_garrison_repurpose_effect = yes
+	}
+
+	option = {
+		name = tv_engineering_department.1688.c
+		tv_wonder_alhambra_garrison_dismantle_effect = yes
 	}
 }
 
@@ -59,11 +73,22 @@ tv_engineering_department.1689 = {
 	type = country_event
 	title = tv_engineering_department.1689.t
 	desc = tv_engineering_department.1689.d
-	outcome = positive
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_alhambra_cropped.dds"
+	outcome = neutral
 
 	option = {
 		name = tv_engineering_department.1689.a
-		tv_wonder_alhambra_treaty_clause_register_completion_effect = yes
+		tv_wonder_alhambra_chancery_preserve_effect = yes
+	}
+
+	option = {
+		name = tv_engineering_department.1689.b
+		tv_wonder_alhambra_chancery_repurpose_effect = yes
+	}
+
+	option = {
+		name = tv_engineering_department.1689.c
+		tv_wonder_alhambra_chancery_dismantle_effect = yes
 	}
 }
 
@@ -72,12 +97,22 @@ tv_engineering_department.1690 = {
 	type = country_event
 	title = tv_engineering_department.1690.t
 	desc = tv_engineering_department.1690.d
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_alhambra_cropped.dds"
 	outcome = neutral
 
 	option = {
 		name = tv_engineering_department.1690.a
-		trigger = { tv_wonder_alhambra_palace_risk_points_eligibility_trigger = yes }
-		tv_wonder_alhambra_palace_risk_points_row_init_effect = yes
+		tv_wonder_alhambra_waterworks_preserve_effect = yes
+	}
+
+	option = {
+		name = tv_engineering_department.1690.b
+		tv_wonder_alhambra_waterworks_repurpose_effect = yes
+	}
+
+	option = {
+		name = tv_engineering_department.1690.c
+		tv_wonder_alhambra_waterworks_dismantle_effect = yes
 	}
 }
 
@@ -86,12 +121,22 @@ tv_engineering_department.1691 = {
 	type = country_event
 	title = tv_engineering_department.1691.t
 	desc = tv_engineering_department.1691.d
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_alhambra_cropped.dds"
 	outcome = neutral
 
 	option = {
 		name = tv_engineering_department.1691.a
-		trigger = { tv_wonder_alhambra_palace_risk_points_eligibility_trigger = yes }
-		tv_wonder_alhambra_palace_risk_points_row_state_write_effect = yes
+		tv_wonder_alhambra_endowment_preserve_effect = yes
+	}
+
+	option = {
+		name = tv_engineering_department.1691.b
+		tv_wonder_alhambra_endowment_repurpose_effect = yes
+	}
+
+	option = {
+		name = tv_engineering_department.1691.c
+		tv_wonder_alhambra_endowment_dismantle_effect = yes
 	}
 }
 
@@ -100,18 +145,12 @@ tv_engineering_department.1692 = {
 	type = country_event
 	title = tv_engineering_department.1692.t
 	desc = tv_engineering_department.1692.d
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_alhambra_cropped.dds"
 	outcome = neutral
 
 	option = {
 		name = tv_engineering_department.1692.a
-		trigger = { tv_wonder_alhambra_palace_risk_points_has_contested_entity_trigger = yes }
-		tv_wonder_alhambra_palace_risk_points_reconcile_effect = yes
-	}
-
-	option = {
-		name = tv_engineering_department.1692.b
-		trigger = { tv_wonder_alhambra_palace_risk_points_has_contested_entity_trigger = yes }
-		tv_wonder_alhambra_palace_risk_points_narrow_effect = yes
+		tv_wonder_alhambra_apply_reckoning_effect = yes
 	}
 }
 
@@ -120,11 +159,23 @@ tv_engineering_department.1693 = {
 	type = country_event
 	title = tv_engineering_department.1693.t
 	desc = tv_engineering_department.1693.d
+	triggered_desc = {
+		trigger = { var:tv_wonder_alhambra_dominant_path ?= 1 }
+		desc = tv_engineering_department.1693.concord.d
+	}
+	triggered_desc = {
+		trigger = { var:tv_wonder_alhambra_dominant_path ?= 2 }
+		desc = tv_engineering_department.1693.administration.d
+	}
+	triggered_desc = {
+		trigger = { var:tv_wonder_alhambra_dominant_path ?= 3 }
+		desc = tv_engineering_department.1693.extraction.d
+	}
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_alhambra_cropped.dds"
 	outcome = positive
 
 	option = {
 		name = tv_engineering_department.1693.a
-		tv_wonder_alhambra_palace_risk_points_completion_effect = yes
-		tv_wonder_alhambra_ritual_grant_reward_effect = yes
+		tv_wonder_alhambra_grant_final_reward_effect = yes
 	}
 }

@@ -17,24 +17,17 @@ tv_wonder_dome_of_the_rock_active_trigger = {
 	has_variable = tv_wonder_ritual_in_progress
 }
 
-# -- tv_wonder_dome_of_the_rock_eligibility_trigger ----------------------------------------------
-tv_wonder_dome_of_the_rock_eligibility_trigger = {
-	tv_wonder_dome_of_the_rock_active_trigger = yes
-	tv_wonder_dome_of_the_rock_site_control_trigger = yes
+# -- tv_wonder_dome_of_the_rock_calendar_strained_trigger ----------------------------------------------
+tv_wonder_dome_of_the_rock_calendar_strained_trigger = {
+	OR = {
+		AND = { has_variable = tv_wonder_dome_of_the_rock_concord  var:tv_wonder_dome_of_the_rock_concord <= 30 }
+		AND = { has_variable = tv_wonder_dome_of_the_rock_continuity  var:tv_wonder_dome_of_the_rock_continuity <= 30 }
+		AND = { has_variable = tv_wonder_dome_of_the_rock_endowment_health  var:tv_wonder_dome_of_the_rock_endowment_health <= 20 }
+	}
 }
 
-# -- tv_wonder_dome_of_the_rock_has_contested_entity_trigger ----------------------------------------------
-tv_wonder_dome_of_the_rock_has_contested_entity_trigger = {
-	OR = {
-		var:tv_wonder_dome_of_the_rock_access_gate_wardens_status ?= 2
-		var:tv_wonder_dome_of_the_rock_access_religious_jurists_status ?= 2
-		var:tv_wonder_dome_of_the_rock_access_pilgrim_caravans_status ?= 2
-		var:tv_wonder_dome_of_the_rock_access_local_notables_status ?= 2
-		var:tv_wonder_dome_of_the_rock_access_supervised_witnesses_status ?= 2
-		var:tv_wonder_dome_of_the_rock_duty_gate_keys_status ?= 2
-		var:tv_wonder_dome_of_the_rock_duty_cisterns_status ?= 2
-		var:tv_wonder_dome_of_the_rock_duty_lamps_status ?= 2
-		var:tv_wonder_dome_of_the_rock_duty_endowment_deeds_status ?= 2
-		var:tv_wonder_dome_of_the_rock_duty_pilgrim_routes_status ?= 2
-	}
+# -- tv_wonder_dome_of_the_rock_endowment_critical_trigger ----------------------------------------------
+tv_wonder_dome_of_the_rock_endowment_critical_trigger = {
+	has_variable = tv_wonder_dome_of_the_rock_endowment_health
+	var:tv_wonder_dome_of_the_rock_endowment_health <= 20
 }

@@ -4,7 +4,6 @@
 # Do not edit directly - modify the data file and re-run the generator.
 # Target: src/in_game/common/scripted_triggers/tv_wonder_unique_alhambra_ritual_triggers.txt
 
-
 # -- tv_wonder_alhambra_site_control_trigger ----------------------------------------------
 tv_wonder_alhambra_site_control_trigger = {
 	owns = location:granada
@@ -15,109 +14,8 @@ tv_wonder_alhambra_active_trigger = {
 	has_variable = tv_wonder_locked
 	var:tv_wonder_locked ?= 106
 	has_variable = tv_wonder_ritual_in_progress
-}
-
-# -- tv_wonder_alhambra_treaty_clause_register_row_completion_trigger ----------------------------------------------
-tv_wonder_alhambra_treaty_clause_register_row_completion_trigger = {
-	has_variable = tv_wonder_alhambra_treaty_clause_register_completed
-	var:tv_wonder_alhambra_treaty_clause_register_completed ?= 1
-}
-
-# -- tv_wonder_alhambra_treaty_clause_register_eligibility_trigger ----------------------------------------------
-tv_wonder_alhambra_treaty_clause_register_eligibility_trigger = {
-	tv_wonder_alhambra_active_trigger = yes
-	tv_wonder_alhambra_site_control_trigger = yes
-	tv_wonder_alhambra_war_validated_trigger = yes
-}
-
-# -- tv_wonder_alhambra_treaty_clause_register_has_contested_entity_trigger ----------------------------------------------
-tv_wonder_alhambra_treaty_clause_register_has_contested_entity_trigger = {
-	OR = {
-		var:tv_wonder_alhambra_treaty_clause_register_symbolic_keys_status ?= 2
-		var:tv_wonder_alhambra_treaty_clause_register_protected_households_status ?= 2
-		var:tv_wonder_alhambra_treaty_clause_register_artisan_rosters_status ?= 2
-		var:tv_wonder_alhambra_treaty_clause_register_acequia_water_status ?= 2
-		var:tv_wonder_alhambra_treaty_clause_register_safe_conducts_status ?= 2
-		var:tv_wonder_alhambra_treaty_clause_register_foreign_copies_status ?= 2
-	}
-}
-
-# -- tv_wonder_alhambra_treaty_clause_register_symbolic_keys_status_favorable_trigger ----------------------------------------------
-tv_wonder_alhambra_treaty_clause_register_symbolic_keys_status_favorable_trigger = {
-	var:tv_wonder_alhambra_treaty_clause_register_symbolic_keys_status ?= 1
-}
-
-# -- tv_wonder_alhambra_treaty_clause_register_protected_households_status_favorable_trigger ----------------------------------------------
-tv_wonder_alhambra_treaty_clause_register_protected_households_status_favorable_trigger = {
-	var:tv_wonder_alhambra_treaty_clause_register_protected_households_status ?= 1
-}
-
-# -- tv_wonder_alhambra_treaty_clause_register_artisan_rosters_status_favorable_trigger ----------------------------------------------
-tv_wonder_alhambra_treaty_clause_register_artisan_rosters_status_favorable_trigger = {
-	var:tv_wonder_alhambra_treaty_clause_register_artisan_rosters_status ?= 1
-}
-
-# -- tv_wonder_alhambra_treaty_clause_register_acequia_water_status_favorable_trigger ----------------------------------------------
-tv_wonder_alhambra_treaty_clause_register_acequia_water_status_favorable_trigger = {
-	var:tv_wonder_alhambra_treaty_clause_register_acequia_water_status ?= 1
-}
-
-# -- tv_wonder_alhambra_treaty_clause_register_safe_conducts_status_favorable_trigger ----------------------------------------------
-tv_wonder_alhambra_treaty_clause_register_safe_conducts_status_favorable_trigger = {
-	var:tv_wonder_alhambra_treaty_clause_register_safe_conducts_status ?= 1
-}
-
-# -- tv_wonder_alhambra_treaty_clause_register_foreign_copies_status_favorable_trigger ----------------------------------------------
-tv_wonder_alhambra_treaty_clause_register_foreign_copies_status_favorable_trigger = {
-	var:tv_wonder_alhambra_treaty_clause_register_foreign_copies_status ?= 1
-}
-
-# -- tv_wonder_alhambra_palace_risk_points_row_completion_trigger ----------------------------------------------
-tv_wonder_alhambra_palace_risk_points_row_completion_trigger = {
-	has_variable = tv_wonder_alhambra_palace_risk_points_completed
-	var:tv_wonder_alhambra_palace_risk_points_completed ?= 1
-}
-
-# -- tv_wonder_alhambra_palace_risk_points_eligibility_trigger ----------------------------------------------
-tv_wonder_alhambra_palace_risk_points_eligibility_trigger = {
-	tv_wonder_alhambra_active_trigger = yes
-	tv_wonder_alhambra_site_control_trigger = yes
-}
-
-# -- tv_wonder_alhambra_palace_risk_points_has_contested_entity_trigger ----------------------------------------------
-tv_wonder_alhambra_palace_risk_points_has_contested_entity_trigger = {
-	OR = {
-		var:tv_wonder_alhambra_palace_risk_points_gate_of_justice_status ?= 2
-		var:tv_wonder_alhambra_palace_risk_points_hall_of_ambassadors_status ?= 2
-		var:tv_wonder_alhambra_palace_risk_points_court_of_lions_status ?= 2
-		var:tv_wonder_alhambra_palace_risk_points_water_channels_status ?= 2
-		var:tv_wonder_alhambra_palace_risk_points_vega_overlook_status ?= 2
-	}
-}
-
-# -- tv_wonder_alhambra_palace_risk_points_gate_of_justice_status_favorable_trigger ----------------------------------------------
-tv_wonder_alhambra_palace_risk_points_gate_of_justice_status_favorable_trigger = {
-	var:tv_wonder_alhambra_palace_risk_points_gate_of_justice_status ?= 1
-}
-
-# -- tv_wonder_alhambra_palace_risk_points_hall_of_ambassadors_status_favorable_trigger ----------------------------------------------
-tv_wonder_alhambra_palace_risk_points_hall_of_ambassadors_status_favorable_trigger = {
-	var:tv_wonder_alhambra_palace_risk_points_hall_of_ambassadors_status ?= 1
-}
-
-# -- tv_wonder_alhambra_palace_risk_points_court_of_lions_status_favorable_trigger ----------------------------------------------
-tv_wonder_alhambra_palace_risk_points_court_of_lions_status_favorable_trigger = {
-	var:tv_wonder_alhambra_palace_risk_points_court_of_lions_status ?= 1
-}
-
-# -- tv_wonder_alhambra_palace_risk_points_water_channels_status_favorable_trigger ----------------------------------------------
-tv_wonder_alhambra_palace_risk_points_water_channels_status_favorable_trigger = {
-	var:tv_wonder_alhambra_palace_risk_points_water_channels_status ?= 1
-}
-
-# -- tv_wonder_alhambra_palace_risk_points_vega_overlook_status_favorable_trigger ----------------------------------------------
-tv_wonder_alhambra_palace_risk_points_vega_overlook_status_favorable_trigger = {
-	var:tv_wonder_alhambra_palace_risk_points_vega_overlook_status ?= 1
+	has_variable = tv_wonder_alhambra_office_step
+	NOT = { has_variable = tv_wonder_alhambra_ritual_completed }
 }
 
 # -- tv_wonder_alhambra_war_validated_trigger ----------------------------------------------
