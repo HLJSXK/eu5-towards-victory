@@ -385,54 +385,62 @@ _EVENTS_TEXT = {
         OPENING_EVENT_ID: {
             "t": "A Keeper for Peter's Tomb",
             "d": "The basilica doors, high altar, relic inventories, pilgrim hostels, and alms ledgers are prepared, but the threshold cannot open until a sacred official is named to keep the apostolic tomb.",
-            "a": "Prepare to name the official.",
+            "options": {"a": "Prepare to name the official."},
         },
         ASSIGNMENT_EVENT_ID: {
             "t": "The Keys Are Offered",
             "d": "A Cardinal Administrator brings ledgers but risks the alms accounts. A Diocesan Bishop brings discipline but risks the choir offices. A Relic Custodian brings devotion but risks the pilgrim threshold. An Alms Prefect brings charity but risks chapel patronage. An Artist Canon brings splendor but risks the relic inventory.",
-            "a": "Install the Cardinal Administrator.",
-            "b": "Install the Diocesan Bishop.",
-            "c": "Install the Relic Custodian.",
-            "d": "Install the Alms Prefect.",
-            "e": "Install the Artist Canon.",
+            "options": {
+                "a": "Install the Cardinal Administrator.",
+                "b": "Install the Diocesan Bishop.",
+                "c": "Install the Relic Custodian.",
+                "d": "Install the Alms Prefect.",
+                "e": "Install the Artist Canon.",
+            },
         },
         SCANDAL_EVENT_ID: {
             "t": "The First Scandal",
             "d": "The office's own weakness has produced its first dispute. It can still be corrected in full, at a cost to the sponsor's own standing, or quietly overlooked for a narrower dedication.",
-            "a": "Investigate and discipline the office. (-3 prestige)",
-            "b": "Overlook it for a narrower dedication.",
+            "options": {
+                "a": "Investigate and discipline the office. (-3 prestige)",
+                "b": "Overlook it for a narrower dedication.",
+            },
         },
         REWARD_EVENT_ID: {
             "t": "The Apostolic Threshold Sealed",
             "d": "The sacred official is confirmed in office, the apostolic service duties are all in order, and the threshold opens under recognized clergy obligation.",
-            "a": "Seal the apostolic threshold.",
+            "options": {"a": "Seal the apostolic threshold."},
         },
     },
     "simp_chinese": {
         OPENING_EVENT_ID: {
             "t": "为彼得墓寻找监护人",
             "d": "大教堂的门扉、高坛、圣物清册、朝圣客栈与施赈账簿均已备妥，但在一位圣职人员被任命看守使徒墓之前，门槛无法开启。",
-            "a": "准备任命圣职人员。",
+            "options": {"a": "准备任命圣职人员。"},
         },
         ASSIGNMENT_EVENT_ID: {
             "t": "钥匙的授予",
             "d": "枢机总务带来账目管理，但会使施赈账目陷入风险。教区主教带来教规纪律，但会使唱诗职务陷入风险。圣物监护人带来虔诚，但会使朝圣门槛陷入风险。施赈长官带来慈善，但会使小圣堂赞助陷入风险。艺匠咏礼司铎带来华彩，但会使圣物清册陷入风险。",
-            "a": "任命枢机总务。",
-            "b": "任命教区主教。",
-            "c": "任命圣物监护人。",
-            "d": "任命施赈长官。",
-            "e": "任命艺匠咏礼司铎。",
+            "options": {
+                "a": "任命枢机总务。",
+                "b": "任命教区主教。",
+                "c": "任命圣物监护人。",
+                "d": "任命施赈长官。",
+                "e": "任命艺匠咏礼司铎。",
+            },
         },
         SCANDAL_EVENT_ID: {
             "t": "首次丑闻",
             "d": "该圣职自身的弱点已经引发了首次争议。仍可完全纠正，但需付出赞助者自身声望的代价；亦可悄然不予追究，转而举行较小规模的奉献礼。",
-            "a": "调查并惩处该圣职。（声望 -3）",
-            "b": "不予追究，举行较小规模的奉献礼。",
+            "options": {
+                "a": "调查并惩处该圣职。（声望 -3）",
+                "b": "不予追究，举行较小规模的奉献礼。",
+            },
         },
         REWARD_EVENT_ID: {
             "t": "使徒门槛封印",
             "d": "圣职人员已在职位上获得确认，使徒职责均已就绪，门槛在获得承认的神职义务下开启。",
-            "a": "封印使徒门槛。",
+            "options": {"a": "封印使徒门槛。"},
         },
     },
 }
@@ -453,9 +461,10 @@ def build_localization(language: str) -> list[str]:
         text = _EVENTS_TEXT[language][event_id]
         lines.append(f' {NAMESPACE}.{event_id}.t:0 "{text["t"]}"')
         lines.append(f' {NAMESPACE}.{event_id}.d:0 "{text["d"]}"')
+        options = text["options"]
         for letter in ("a", "b", "c", "d", "e"):
-            if letter in text:
-                lines.append(f' {NAMESPACE}.{event_id}.{letter}:0 "{text[letter]}"')
+            if letter in options:
+                lines.append(f' {NAMESPACE}.{event_id}.{letter}:0 "{options[letter]}"')
 
     for status_key, words in _STATUS_WORDS.items():
         lines.append(f' {KEY_PREFIX}_STATUS_{status_key.upper()}:0 "{words[lang_index]}"')

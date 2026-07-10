@@ -155,6 +155,18 @@ generators.
     `data/unique_wonders.yaml`) is the single largest concentration of these fields in the mod.
     See `docs/knowledge/anti_patterns.yaml` rule `v1_3_cost_modifier_renamed_to_efficiency`.
 
+17. Never let a per-event localization dict's option-letter loop read the same dict as `\"t\"`/`\"d\"`.
+    A content module's `_EVENTS_TEXT[language][event_id]` dict must nest option text under its
+    own `"options"` sub-dict. If option text lives directly on that dict (`{"t":..., "d":...,
+    "a":..., "d": "Install the Alms Prefect."}`), any event reaching option letter `"d"` silently
+    overwrites the dict's own description (`"d"` key collision — Python keeps only the last
+    literal), and `build_localization`'s `for letter in ("a",...,"e"): if letter in text` loop
+    re-emits the description a second time as a spurious `.d` option on every *other* event too,
+    producing the engine's `Duplicate localization key ... defined in both X and X` warning. See
+    `docs/knowledge/anti_patterns.yaml` rule
+    `ritual_content_event_text_dict_letter_key_collides_with_desc` (confirmed live in
+    `st_peters_basilica.py`'s 1678/1679/1680/1681 events, 2026-07).
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`: it lints rule 2 and rule 16 automatically, and when a
