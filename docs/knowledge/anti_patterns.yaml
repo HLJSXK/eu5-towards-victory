@@ -93,6 +93,16 @@
   source: "reference_game_files/game/main_menu/common/static_modifiers/"
   notes: "Location auto_modifiers are NON-FUNCTIONAL in EU5; bake effects into static_modifier values instead"
 
+- id: temporary_scope_name_collides_with_permanent_scope
+  pattern: ''
+  detectability: needs_parser
+  bad: "Using `save_temporary_scope_as = <name>` inside a `limit` block (or other trigger context) when the same effect/file also does a real `save_scope_as = <name>` with the identical name for the loop's payload, e.g. `every_in_list = { limit = { save_temporary_scope_as = tv_display_region ... } save_scope_as = tv_display_region ... }`"
+  correction: "Give the trigger-context temporary save a distinct name (e.g. `tv_display_region_check`) and keep the real `save_scope_as = tv_display_region` for the effect body outside `limit`. This mod's convention (see `tv_govhouse_refresh_governor_display_effect`) is `<name>_check` for the limit-only temporary."
+  category: scope
+  scope: any
+  source: "src/in_game/common/scripted_effects/tv_govhouse_effects.txt:2295 (tv_govhouse_refresh_governor_display_effect region-init loop); docs/error_log/error.log jomini_eventscope.cpp:676"
+  notes: "Engine logs `Trying to add the temporary target '<name>' which has the same name as a permanent target` and the effect/action silently fails at runtime (reproduced by appointing a regional governor). Temporary and permanent scope target names share one namespace per game-object scope; a `save_temporary_scope_as` registered inside a `limit`/trigger context conflicts with a later `save_scope_as` of the same name in the same effect chain, even though `save_temporary_scope_as` is otherwise the mandatory form inside trigger contexts (see EU5_Modding_Knowledge_Base.md 'save_scope_as is an effect only')."
+
 - id: location_rank_invalid_village
   pattern: 'location_rank\s*\??=\s*location_rank:village'
   bad: "location_rank:village"

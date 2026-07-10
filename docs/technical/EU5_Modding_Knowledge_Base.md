@@ -784,6 +784,16 @@ against vanilla `coa_def_BOH_ensign_trigger` (`c:BOH = { save_temporary_scope_as
 inside a trigger-only `scripted_trigger` block). Reserve `save_scope_as` for saves written directly
 inside an effect body (a sibling of `limit`, not inside it).
 
+Temporary and permanent scope target names share one namespace: do not reuse the same name for a
+`limit`-context `save_temporary_scope_as` and a later real `save_scope_as` in the same effect chain
+(e.g. an `every_in_list = { limit = { save_temporary_scope_as = tv_display_region ... } save_scope_as
+= tv_display_region ... } }` loop). The engine logs `Trying to add the temporary target '<name>'
+which has the same name as a permanent target` and the effect silently fails at runtime — this
+reproduced as a broken "appoint regional governor" action in
+`tv_govhouse_refresh_governor_display_effect` (`tv_govhouse_effects.txt`). Give the trigger-context
+temporary save a distinct name (this project's convention is `<name>_check`), keeping the real
+`save_scope_as = <name>` for the effect body outside `limit`.
+
 Do not mirror target availability in the action `allow` block just to avoid an empty chooser.
 The `select_trigger` definition already supports `none_available_msg_key`, documented by
 vanilla as the localization shown when no targets are available. Put target eligibility in
