@@ -279,10 +279,10 @@ def add_project_occupancy_triggers(lines: list[str], wonders: list[dict], mechan
     )
 
 
-def append_display_base_site_rules_alias_triggers(lines: list[str], wonders: list[dict]) -> None:
+def append_display_base_site_rules_alias_triggers(lines: list[str], wonders: list[dict], mechanics: dict) -> None:
     for wonder in wonders:
         lines.append(f"tv_wonder_display_{wonder['id']}_base_site_rules_trigger = {{")
-        lines.append(f"{T}tv_wonder_location_meets_{wonder['key']}_base_site_rules_trigger = yes")
+        lines.extend(trigger_conditions(wonder, mechanics, 1))
         lines.append("}")
         lines.append("")
 
@@ -388,7 +388,7 @@ def generate() -> str:
     unique_wonders = [wonder for wonder in all_wonders if wonder.get("is_unique")]
     lines = render_header(SCRIPT_REL)
     add_project_occupancy_triggers(lines, all_wonders, mechanics)
-    append_display_base_site_rules_alias_triggers(lines, all_wonders)
+    append_display_base_site_rules_alias_triggers(lines, all_wonders, mechanics)
     for wonder in all_wonders:
         lines.append(f"tv_wonder_location_can_host_{wonder['key']}_trigger = {{")
         lines.extend(host_site_candidate_conditions(wonder, mechanics, 1))

@@ -183,6 +183,17 @@ Load this card before editing `.gui` files or GUI-bound localization expressions
     monthly_country_pulse hook) — never from a GUI/tooltip read path. Bind the GUI `visible=`
     expression to the mirrored variable.
 
+29. `TooltipTextBlock` does not shrink to match a row-sized `TooltipRequirementsList`/`text_single`.
+    `TooltipTextBlock` (vanilla `main_menu_cooltip_types.gui`) wraps its text in a fixed
+    `vbox { margin = { @tooltip_inner_margin @tooltip_inner_margin } }` (10px each side) around a
+    `text_multi_template` textbox, with no exposed blockoverride for font size or row height.
+    Setting `blockoverride "row_size"` / `blockoverride "field_text_format"` on a sibling
+    `TooltipRequirementsList` (or a plain `text_single`) does not affect `TooltipTextBlock`, so a
+    mutually-exclusive-visibility swap between the two (e.g. "has effect" vs "no effect" rows in
+    the same slot) shows a visible height jump. When a fallback/empty-state line must match a
+    sized row's height, use a plain `text_single` with the same `fontsize`/fixed `size` instead of
+    `TooltipTextBlock`.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`, then check the in-game error log after hover

@@ -2180,12 +2180,23 @@
   pattern: ''
   detectability: advisory
   only_in_paths: ['gui']
-  bad: "Calling ShowTriggerConditionsForScope with a trigger name built by GUI Concatenate(...) from a numeric display id, but only defining the underlying scripted_trigger under its string wonder key"
-  correction: "Generate a thin alias scripted_trigger named with the numeric display id (e.g. tv_wonder_display_<id>_base_site_rules_trigger = { tv_wonder_location_meets_<key>_base_site_rules_trigger = yes }) so the Concatenate-built name resolves. Unlike ShowModifierEffect, scripted_trigger/scripted_effect names are not a separate database lookup, so no unreachable always = no reference block is needed for these aliases; a normal named trigger/effect that simply calls through is sufficient."
+  bad: "Calling ShowTriggerConditionsForScope with a trigger name built by GUI Concatenate(...) from a numeric display id, but only defining the underlying scripted_trigger under its string wonder key; or aliasing straight to a real gameplay trigger that carries extra guard conditions the display context already guarantees"
+  correction: "Generate a thin alias scripted_trigger named with the numeric display id (e.g. tv_wonder_display_<id>_base_site_rules_trigger) so the Concatenate-built name resolves. Unlike ShowModifierEffect, scripted_trigger/scripted_effect names are not a separate database lookup, so no unreachable always = no reference block is needed for these aliases. Do not simply delegate the alias to the real gameplay trigger (tv_wonder_location_meets_<key>_base_site_rules_trigger = yes) if that trigger carries a guard condition (such as unique wonders' this = location:<site>) that is always true in the display's own context — a location tooltip already IS that location, so showing that condition as a row is redundant noise. Instead, re-embed just the site-rule condition list (the same trigger_conditions(...)/site_trigger_lines_for_wonder(...) call the real trigger uses) directly in the display alias, omitting the always-true guard."
   category: gui
   scope: trigger
   source: "reference_official_defines/docs/data_types_uncategorized.txt (ShowTriggerConditions/ShowTriggerConditionsForScope both Arg0 CString, Arg1 Scope -> CString, same shape as ShowScriptedEffectForScope/ShowModifierEffect); location_window.gui wonder construction-conditions block, 2026-07"
-  notes: "tv_wonder_location_meets_<key>_base_site_rules_trigger is already the location-scoped (unwrapped) form of the Engineering Department's any_owned_location-wrapped site rule check, so a GUI block that already runs in LocationView.GetLocation.MakeScope.Self can reuse it directly via ShowTriggerConditionsForScope(Concatenate('tv_wonder_display_', Concatenate(idString, '_base_site_rules_trigger')), LOCATION_SCOPE) without any_owned_location."
+  notes: "tv_wonder_location_meets_<key>_base_site_rules_trigger is already the location-scoped (unwrapped) form of the Engineering Department's any_owned_location-wrapped site rule check, so a GUI block that already runs in LocationView.GetLocation.MakeScope.Self can reuse its condition list directly via ShowTriggerConditionsForScope(Concatenate('tv_wonder_display_', Concatenate(idString, '_base_site_rules_trigger')), LOCATION_SCOPE) without any_owned_location. For unique wonders specifically, keep the this = location:<site> guard only on the real gameplay trigger (still needed so the wonder can only be queued/built at its designated site); the display alias should call trigger_conditions(wonder, mechanics, 1) directly rather than delegating, so the redundant 'is <site>' row does not render."
+
+- id: gui_tooltip_text_block_ignores_row_size_override
+  pattern: ''
+  detectability: advisory
+  only_in_paths: ['gui']
+  bad: "Using TooltipTextBlock for a fallback/empty-state line next to a sibling TooltipRequirementsList or text_single that has blockoverride row_size / field_text_format sizing, expecting both to render at the same height"
+  correction: "TooltipTextBlock (vanilla type in main_menu_cooltip_types.gui) wraps its text in a fixed vbox { margin = { @tooltip_inner_margin @tooltip_inner_margin } } (10px each side) around a text_multi_template textbox, and exposes no blockoverride for font size or row height. blockoverride row_size / field_text_format on a sibling TooltipRequirementsList does not reach it. When a mutually-exclusive fallback line must match a sized row's height (e.g. an effect list vs. its own \"no effect\" line), replace TooltipTextBlock with a plain text_single using the same fontsize and an explicit size, not the templated tooltip type."
+  category: gui
+  scope: sizing
+  source: "reference_game_files/game/main_menu/gui/shared/main_menu_cooltip_types.gui (TooltipTextBlock / tooltip_text_block_template); location_window.gui wonder ritual no-effect row height mismatch, 2026-07"
+  notes: "Observed in src/in_game/gui/location_window.gui: the ritual TooltipRequirementsList was resized to 13pt/22px rows to match the country/local modifier columns, but the mutually-exclusive ritual_no_effect_visible TooltipTextBlock stayed visibly taller until it was swapped for a text_single with fontsize = 13 and size = { -1 22 }."
 
 - id: add_country_modifier_auto_modifier_id
   pattern: 'add_country_modifier\s*=\s*\{[^\n{}]*modifier\s*=\s*[A-Za-z0-9_]*auto[A-Za-z0-9_]*'
