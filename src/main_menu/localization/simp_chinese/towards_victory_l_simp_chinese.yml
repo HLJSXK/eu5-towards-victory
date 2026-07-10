@@ -218,7 +218,7 @@
  tv_io_establishment.5.a: "很好。"
 
  TV_SCIENCE_ESTABLISHMENT_TITLE: "建立科学院"
- TV_SCIENCE_ESTABLISHMENT_STEP1_TEXT: "已研究至少50项[advance|E]。"
+ TV_SCIENCE_ESTABLISHMENT_STEP1_TEXT: "已研究至少50项[advance|E]。（[Country.MakeScope.GetVariable('tv_science_advances_researched_mirror').GetValue|0]/50）"
  TV_SCIENCE_ESTABLISHMENT_STEP2_TEXT: "在首都建造[ShowBuildingTypeName('tv_science_headquarters')]。成本：300@gold!；维护：@glass!玻璃x1、@paper!纸张x1。"
  TV_SCIENCE_ESTABLISHMENT_STEP3_TEXT: "任命一位首席科学家，建立[tv_academy_of_sciences|E]并解锁科技胜利进度。"
  TV_SCIENCE_ESTABLISHMENT_STEP1_REQUIREMENT: "已研究至少50项[advance|E]。"

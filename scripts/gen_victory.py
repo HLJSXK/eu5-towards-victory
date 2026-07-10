@@ -431,6 +431,9 @@ def gen_establishment_effects(data: dict) -> str:
         lines.append("\t\t}")
         if pid == "conquest":
             lines.append("\t\ttv_update_conquest_score_effect = yes")
+        progress_mirror = est.get("progress_mirror")
+        if progress_mirror:
+            lines.append(f"\t\tset_variable = {{ name = {progress_mirror['variable']} value = {progress_mirror['source']} }}")
         lines.append("\t\tif = {")
         lines.append(f"\t\t\tlimit = {{ tv_{pid}_establishment_basic_requirement = yes }}")
         lines.append(f"\t\t\tset_variable = {{ name = tv_{pid}_establishment_basic_done value = 1 }}")
@@ -1060,8 +1063,18 @@ def gen_localization(data: dict, lang: str) -> str:
             build_desc = loc_text(est["loc"]["step2_text"], lang)
             appoint_desc = loc_text(est["loc"]["step3_text"], lang)
             lines.append("")
+            step1_text = loc_text(est["loc"]["step1_text"], lang)
+            progress_mirror = est.get("progress_mirror")
+            if progress_mirror:
+                progress_value = f"[Country.MakeScope.GetVariable('{progress_mirror['variable']}').GetValue|0]"
+                target = progress_mirror["target"]
+                step1_text += (
+                    f" ({progress_value}/{target})"
+                    if lang == "en"
+                    else f"（{progress_value}/{target}）"
+                )
             lines.append(kv(f"TV_{PID}_ESTABLISHMENT_TITLE", title))
-            lines.append(kv(f"TV_{PID}_ESTABLISHMENT_STEP1_TEXT", loc_text(est["loc"]["step1_text"], lang)))
+            lines.append(kv(f"TV_{PID}_ESTABLISHMENT_STEP1_TEXT", step1_text))
             lines.append(kv(f"TV_{PID}_ESTABLISHMENT_STEP2_TEXT", build_desc))
             lines.append(kv(f"TV_{PID}_ESTABLISHMENT_STEP3_TEXT", appoint_desc))
             lines.append(kv(f"TV_{PID}_ESTABLISHMENT_STEP1_REQUIREMENT", loc_text(est["loc"]["step1_text"], lang)))
