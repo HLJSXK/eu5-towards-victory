@@ -1155,6 +1155,42 @@ Keep each localization key/value on one physical line. When a value needs an int
 
 When using color formatting, put a separator after the color tag before player-facing text or generated placeholders. Use `#Y Text#!`, `#G {group}#!`, or `#R 30#!`, not `#YText#!`, `#G{group}#!`, or `#R30#!`. The localization formatter can otherwise read the adjacent content as part of the formatting tag and drop or mangle the highlighted span.
 
+#### Text Format Tag Catalog
+
+EU5 localization text formatting is `#tag content#!` — every tag must be closed with `#!`, and (per the rule above) needs a separating space before the content. This is not markdown; the available tags below were confirmed empirically by grepping `reference_game_files/game/main_menu/localization/english/*.yml` (2026-07-10), since there is no single reference file for the full tag list (`textformatting.gui` is a `gfx`-adjacent asset pruned from `reference_game_files/` by `sync_reference.py`).
+
+Color tags (single letter):
+- `#R` red (negative/warning, e.g. `#R lose#!`)
+- `#G` green (positive, e.g. `#G 100#!`)
+- `#Y` yellow (neutral highlighted value, most common)
+- `#W` white/strong emphasis (e.g. difficulty labels)
+- `#V` alternate highlight color
+- `#L` light gray (secondary/de-emphasized value)
+- `#P` / `#N` gray "enabled/positive" vs "disabled/negative" labels (e.g. `Enabled`/`Disabled`)
+- `#X` bright red/danger (e.g. invalid-savegame warnings)
+- `#D` debug-only gray (`_debug_l_english.yml`)
+- `#F` flavor-text gray italic (explanatory asides)
+- Lowercase variants `#r #g #y` exist for the same colors at a different inline weight/size
+
+Style tags:
+- `#bold` / `#italic` — matches its name
+- `#weak` — grayed-out/de-emphasized text
+- `#high` — highlighted/emphasized text
+- `#T` — tooltip section header style (e.g. `#T Current Offer#!`)
+- `#subtle_name` — low-emphasis style for proper-noun-style values (religion/climate names, etc.)
+
+Tabular tooltip tags (used together to lay out tooltip columns, see `general_tooltips_l_english.yml`):
+- `#col_t` — column header cell
+- `#col_m` — column "middle"/secondary cell
+- `#col` — regular column cell
+
+Special-behavior tags:
+- `#TOOLTIP:$BREAKDOWN_TAG$ content#!` — makes the wrapped value hoverable to show a scripted value breakdown (used for computed numeric values throughout tooltips)
+- `#indent_newline:N content#!` — indents wrapped content by N levels after a line break
+- `#trigger_pass` / `#trigger_fail` — colors/icons text to match a trigger's pass/fail state
+
+Before inventing a bespoke solution for a localization display need (e.g. a custom color, a manual tooltip breakdown, hand-rolled tabular alignment), check this catalog first — it covers most needs already used throughout vanilla localization.
+
 Event localization scope variables can be read directly from script scopes such as `ROOT` and `THIS`:
 
 ```yaml
