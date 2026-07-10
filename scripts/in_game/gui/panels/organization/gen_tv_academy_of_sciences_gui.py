@@ -1648,6 +1648,32 @@ def _append_actions_to_research_block(research_block: str, actions_block: str) -
     )
 
 
+def _wrap_block_in_scrollarea(block: str) -> str:
+    """Wrap a blockoverride's body in the standard scrollarea/scrollwidget pair
+    used by other IO panels (e.g. tv_trade_league.gui, tv_engineering_department.gui)."""
+    open_brace = block.index("{")
+    close_brace = block.rfind("\n\t}")
+    if close_brace == -1:
+        raise ValueError("Could not find block closing brace")
+    header = block[: open_brace + 1]
+    body = block[open_brace + 1 : close_brace]
+    footer = block[close_brace:]
+    scrollarea_open = (
+        "\n"
+        + T * 2 + "margin = { 0 0 }\n"
+        + T * 2 + "layoutpolicy_vertical = expanding\n"
+        + T * 2 + "scrollarea = {\n"
+        + T * 3 + "using = layoutpolicy_expanding\n"
+        + T * 3 + "scrollbarpolicy_horizontal = always_off\n"
+        + T * 3 + "scrollbar_vertical = {\n"
+        + T * 4 + "using = Scrollbar_Vertical\n"
+        + T * 3 + "}\n"
+        + T * 3 + "scrollwidget = {"
+    )
+    scrollarea_close = "\n" + T * 3 + "}\n" + T * 2 + "}"
+    return header + scrollarea_open + body + scrollarea_close + footer
+
+
 def swap_academy_tabs(content: str) -> str:
     """Move Philosophy to overview and Concentrated Research to resolutions."""
     overview_marker = T + 'blockoverride "organization_overview_list_custom_top_extra" {'
@@ -1671,13 +1697,15 @@ def swap_academy_tabs(content: str) -> str:
         'blockoverride "organization_overview_list_custom_top_extra"',
         1,
     )
-    concentrated_research = _append_actions_to_research_block(
-        research_block.replace(
-            'blockoverride "organization_overview_list_custom_top_extra"',
-            'blockoverride "organization_resolutions_content"',
-            1,
-        ),
-        actions_block,
+    concentrated_research = _wrap_block_in_scrollarea(
+        _append_actions_to_research_block(
+            research_block.replace(
+                'blockoverride "organization_overview_list_custom_top_extra"',
+                'blockoverride "organization_resolutions_content"',
+                1,
+            ),
+            actions_block,
+        )
     )
 
     header = content[:overview_start].replace(

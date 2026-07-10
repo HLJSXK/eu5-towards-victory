@@ -235,9 +235,9 @@ organization_panel = {
 				spacing = 2
 
 				expand = {}
-				spacer = { size = { 250 50 } }
+				spacer = { size = { 250 16 } }
 				text_single = {
-					size = { 250 30 }
+					size = { 250 32 }
 					raw_text = "+"
 					fontsize = 34
 					align = center|nobaseline
@@ -6401,6 +6401,15 @@ organization_panel = {
 
 	# -- Concentrated Research tab: use the vanilla resolutions slot ------------
 	blockoverride "organization_resolutions_content" {
+		margin = { 0 0 }
+		layoutpolicy_vertical = expanding
+		scrollarea = {
+			using = layoutpolicy_expanding
+			scrollbarpolicy_horizontal = always_off
+			scrollbar_vertical = {
+				using = Scrollbar_Vertical
+			}
+			scrollwidget = {
 		vbox = {
 			margin = { 10 0 }
 			layoutpolicy_horizontal = expanding
@@ -8138,6 +8147,8 @@ organization_panel = {
 				}
 			}
 			expand = {}
+		}
+			}
 		}
 	}
 
