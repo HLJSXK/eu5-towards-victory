@@ -138,31 +138,37 @@
 
  # ── Prosperity Victory Unique Mechanics ───────────────────────────────────
  game_concept_tv_engineering_department: "Engineering Department"
- game_concept_tv_engineering_department_desc: "A non-unique international organization founded through the [tv_prosperity_victory|e] IO establishment flow. It holds the [tv_great_engineer|e] office and manages wonder proposals, debate, site selection, organization, logistics, and [tv_wonder_construction|e]."
+ game_concept_tv_engineering_department_desc: "A non-unique international organization founded through the [tv_prosperity_victory|e] IO establishment flow. It holds the [tv_great_engineer|e] office and manages every stage of a [tv_wonder_construction|e]: [tv_wonder_concept|e], site [tv_wonder_survey|e], organization, logistics, and final [tv_wonder_ceremony|e]."
 
  game_concept_tv_great_engineer: "Great Engineer"
  game_concept_tv_great_engineer_desc: "The appointed character who leads the [tv_engineering_department|e]. The [tv_great_engineer|e] is stored as a country variable and can be appointed, replaced, or dismissed from the [tv_engineering_department|e] panel."
 
- game_concept_tv_wonder_survey: "Wonder Survey"
- game_concept_tv_wonder_survey_desc: "The site-assessment stage of [tv_wonder_construction|e]. Survey progress rises monthly from the [tv_great_engineer|e]'s Military skill, reveals Scale, Logistics, and Organization competence, and lets the country confirm a construction site once the readings are complete."
+ game_concept_tv_wonder_concept: "Conception"
+ game_concept_tv_wonder_concept_desc: "The proposal stage that opens a new [tv_wonder_construction|e]. Each month the [tv_great_engineer|e]'s Administrative skill advances Conception progress; once it completes, the [tv_great_engineer|e] puts forward a feasible [tv_wonder_small|e], [tv_wonder_medium|e], or [tv_wonder_large|e] project for the country to pursue."
 
- game_concept_tv_wonder_materials: "Wonder Materials"
- game_concept_tv_wonder_materials_desc: "A produced market good used to maintain $tv_wonder_labor_camp$ during active [tv_wonder_construction|e]. Wonder Material Workshops convert basic construction goods into [tv_wonder_materials|e], so supply and price are handled through the normal market."
+ game_concept_tv_wonder_survey: "Survey"
+ game_concept_tv_wonder_survey_desc: "The site-assessment stage of [tv_wonder_construction|e]. Survey progress rises monthly from the [tv_great_engineer|e]'s Military skill, reveals [tv_wonder_scale_competence|e], [tv_wonder_logistics_competence|e], and [tv_wonder_organization_competence|e], and lets the country confirm a construction site once the readings are complete."
 
- game_concept_tv_wonder_ceremony: "Wonder Ceremony"
+ game_concept_tv_wonder_materials: "Building Materials"
+ game_concept_tv_wonder_materials_desc: "A produced market good used to maintain $tv_wonder_labor_camp$ during an active [tv_wonder_construction|e]. Each $tv_wonder_material_dispatch_point$ converts basic construction goods into [tv_wonder_materials|e], so supply and price are handled through the normal market."
+
+ game_concept_tv_wonder_ceremony: "Ceremony"
  game_concept_tv_wonder_ceremony_desc: "The final dedication of a completed [tv_wonder_construction|e] project. The chosen ceremony branch determines the monument's final building, permanent country modifier, and last burst of prestige, stability, and legitimacy from remaining [tv_wonder_domestic_support|e]."
 
- game_concept_tv_wonder_construction: "Wonder Construction"
- game_concept_tv_wonder_construction_desc: "A [tv_prosperity_victory|e] mechanism managed through the [tv_engineering_department|e]. A [tv_great_engineer|e] proposes a feasible [tv_wonder_small|e], [tv_wonder_medium|e], or [tv_wonder_large|e] wonder, the country resolves domestic debate, then selects a site, organizes labor, gathers materials, and builds four construction parts into a wonder level."
+ game_concept_tv_wonder_construction: "Great Project"
+ game_concept_tv_wonder_construction_desc: "A [tv_prosperity_victory|e] mechanism managed through the [tv_engineering_department|e]. Once the [tv_great_engineer|e]'s [tv_wonder_concept|e] yields a feasible [tv_wonder_small|e], [tv_wonder_medium|e], or [tv_wonder_large|e] project and the country resolves domestic debate, it completes a [tv_wonder_survey|e], organizes labor, gathers [tv_wonder_materials|e], and advances four [tv_wonder_construction_part|e]s to raise the project to its final level."
 
- game_concept_tv_wonder_small: "Small Wonder"
- game_concept_tv_wonder_small_desc: "A [tv_wonder_construction|e] size class. Small wonders may be built more than once. Their base country effect is limited to value movement, while local effects and ceremony effects are unrestricted."
+ game_concept_tv_wonder_construction_part: "Construction Part"
+ game_concept_tv_wonder_construction_part_desc: "One of the four parallel tracks — Foundation, Main Structure, Function, and Crowning — that a [tv_wonder_construction|e] advances at once. The project's level is set by whichever of the four parts lags furthest behind, so progress must be spread evenly rather than rushed down a single track."
 
- game_concept_tv_wonder_medium: "Medium Wonder"
- game_concept_tv_wonder_medium_desc: "A [tv_wonder_construction|e] size class between small and large wonders. A country may not start a second medium wonder of the same type, but its base country effects, local effects, and ceremony effects are unrestricted."
+ game_concept_tv_wonder_small: "Small Project"
+ game_concept_tv_wonder_small_desc: "A [tv_wonder_construction|e] size class. Small projects may be built more than once. Their base country effect is limited to value movement, while local effects and ceremony effects are unrestricted."
 
- game_concept_tv_wonder_large: "Large Wonder"
- game_concept_tv_wonder_large_desc: "A [tv_wonder_construction|e] size class. A country may not start a second large wonder of the same type, but its base country effects, local effects, and ceremony effects are unrestricted."
+ game_concept_tv_wonder_medium: "Medium Project"
+ game_concept_tv_wonder_medium_desc: "A [tv_wonder_construction|e] size class between small and large projects. A country may not start a second medium project of the same type, but its base country effects, local effects, and ceremony effects are unrestricted."
+
+ game_concept_tv_wonder_large: "Large Project"
+ game_concept_tv_wonder_large_desc: "A [tv_wonder_construction|e] size class. A country may not start a second large project of the same type, but its base country effects, local effects, and ceremony effects are unrestricted."
 
 
 
@@ -183,13 +189,13 @@
 
 
  game_concept_tv_wonder_domestic_support: "Domestic Support"
- game_concept_tv_wonder_domestic_support_desc: "A [tv_wonder_construction|e] resource representing elite and public willingness to sustain a major wonder project. Reach 100 to end the initial debate; support can be stored up to 200 and decays after the debate ends."
+ game_concept_tv_wonder_domestic_support_desc: "A [tv_wonder_construction|e] resource representing elite and public willingness to sustain a major Great Project. Reach 100 to end the initial debate; support can be stored up to 200 and decays after the debate ends."
 
  game_concept_tv_wonder_scale_competence: "Scale Competence"
- game_concept_tv_wonder_scale_competence_desc: "A [tv_wonder_survey|e] reading for how well the chosen site can carry the wonder's intended size, axes, foundations, and public approach without forcing the design into an awkward shape. It sets maximum wonder level at 20%, 40%, 60%, 80%, and 100%, with level 6 requiring 100%."
+ game_concept_tv_wonder_scale_competence_desc: "A [tv_wonder_survey|e] reading for how well the chosen site can carry the project's intended size, axes, foundations, and public approach without forcing the design into an awkward shape. It sets the maximum Great Project level at 20%, 40%, 60%, 80%, and 100%, with level 6 requiring 100%."
 
  game_concept_tv_wonder_organization_competence: "Organization Competence"
- game_concept_tv_wonder_organization_competence_desc: "A [tv_wonder_survey|e] reading for how cleanly labor rosters, foremen, workshops, and construction stages can be made to answer one plan instead of many competing orders. It linearly sets the maximum Wonder Worksite level from 0 to 20."
+ game_concept_tv_wonder_organization_competence_desc: "A [tv_wonder_survey|e] reading for how cleanly labor rosters, foremen, workshops, and construction stages can be made to answer one plan instead of many competing orders. It linearly sets the maximum Great Project Worksite level from 0 to 20."
 
  game_concept_tv_wonder_logistics_competence: "Logistics Competence"
  game_concept_tv_wonder_logistics_competence_desc: "A [tv_wonder_survey|e] reading for roads, carts, ports, bridges, and handover points that determine whether [tv_wonder_materials|e] reach the site when the masons need them."
