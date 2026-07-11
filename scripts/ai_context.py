@@ -35,6 +35,7 @@ DOMAIN_RULES = [
     ("international_organizations", "src/in_game/common/country_interactions/", "international_organizations.md"),
     ("events", "src/in_game/events/", "events.md"),
     ("on_action", "src/in_game/common/on_action/", "on_action.md"),
+    ("localization", "src/main_menu/localization/", "localization.md"),
 ]
 
 # Some task domains are not isolated in their own directory: their files are

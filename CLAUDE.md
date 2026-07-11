@@ -57,7 +57,7 @@ sandboxes, translate any later `conda run` example to the direct interpreter for
 before executing it.
 
 Read every risk card listed by the script. This is mandatory for high-risk domains such as `generic_actions`, where tooltip and selection pre-evaluation can execute unsafe reads before the player confirms an action. The Events risk card is routed for event files because option tooltips can pre-evaluate option effect chains, including `hidden_effect`, before the player confirms a choice. The IO risk card is also routed for IO definitions, IO laws, and country interactions that find or mutate TV international organizations.
-`src/in_game/common/laws/` is routed to the `international_organizations` risk card because IO policy scopes and AI math pre-evaluation have recurring runtime traps.
+`src/in_game/common/laws/` is routed to the `international_organizations` risk card because IO policy scopes and AI math pre-evaluation have recurring runtime traps. Any file under `src/main_menu/localization/` is routed to the `localization` risk card, which carries the canonical positive/negative/neutral/important/tip/flavor text-tag mapping described in "Localization Text Formatting Convention" below — read it before writing or editing player-facing loc text so tags are chosen by meaning rather than by copying whatever tag happens to be nearby.
 
 The `wonders`, `philosophy_debate`, and `trade_league` domains are not isolated in their own
 directory — their files are interspersed by filename across `common/scripted_effects`,
@@ -231,6 +231,32 @@ When displaying an icon in the UI, follow this exact priority order and stop at 
    or create a new sprite. This is the most expensive option and requires explicit justification.
 
 Before using tier 2 or 3, you MUST output a verification line confirming the icon is absent from `font_icons.gui`.
+
+## Localization Text Formatting Convention
+
+TV localization uses a fixed semantic mapping for the `#tag content#!` color/style tags (see
+`docs/technical/EU5_Modding_Knowledge_Base.md` section 6.3 "Text Format Tag Catalog" for the full
+tag syntax and the mandatory space-before-content rule). When writing player-facing loc text that
+needs emphasis, pick the tag by **meaning**, not by "what looks close enough":
+
+| Semantic need | Tag | Notes |
+|---|---|---|
+| Positive effect (a gain/bonus) | `#G` | Established usage, e.g. `tv_govhouse_l_english.yml` |
+| Negative effect (a loss/malus) | `#R` | Established usage, e.g. `tv_wonder_construction_events_l_english.yml` |
+| Neutral highlighted value/keyword (cost, threshold, non-judged number) | `#Y` | Do NOT use `#G`/`#R` for numbers that aren't inherently good/bad (e.g. a cost or a requirement) — reserve `#G`/`#R` for actual effect gains/losses |
+| Important content (pure emphasis, no positive/negative valence) | `#high` | Do not use `#W` for this — `#W` is reserved for its narrower vanilla role (difficulty labels) |
+| Beginner tip / guidance text | `#weak` | Matches vanilla's own usage for tutorial-style hint/explanatory asides (e.g. `interfaces_l_english.yml`) — despite the name, this is not "de-emphasis for unimportant text," it is the vanilla convention for supplementary guidance |
+| Pure flavor text (wonder descriptions, etc.) | `#F` | Gray italic, matches vanilla flavor-text usage |
+
+Do not invent a new tag or repurpose an unrelated one (e.g. `#X`, `#P`/`#N`, `#L`, `#V`) for these six
+needs — the mapping above is canonical for this mod. Trigger/requirement text (e.g. inside
+`custom_tooltip` conditions) must NOT be manually color-tagged with this table — the engine already
+colors it automatically via `#trigger_pass`/`#trigger_fail`, and manual tags will conflict with that
+automatic coloring.
+
+If a genuinely new semantic need arises that doesn't fit the six rows above (e.g. an irreversible-action
+risk warning, distinct from a stat-based negative effect), ask before assigning it a tag — do not
+silently reuse an existing row for a different meaning.
 
 ## Declarative Verification Requirement
 

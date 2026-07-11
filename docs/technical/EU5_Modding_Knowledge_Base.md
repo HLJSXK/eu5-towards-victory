@@ -1191,6 +1191,10 @@ Special-behavior tags:
 
 Before inventing a bespoke solution for a localization display need (e.g. a custom color, a manual tooltip breakdown, hand-rolled tabular alignment), check this catalog first — it covers most needs already used throughout vanilla localization.
 
+For TV's own six-way semantic mapping (positive/negative effect, neutral value, important emphasis,
+beginner tip, flavor text) onto this tag catalog, see `CLAUDE.md` section "Localization Text
+Formatting Convention" — that table is canonical; do not re-derive it ad hoc per file.
+
 Event localization scope variables can be read directly from script scopes such as `ROOT` and `THIS`:
 
 ```yaml
