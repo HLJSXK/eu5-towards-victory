@@ -114,7 +114,7 @@ tv_wonder_ceremony_grant_stage_1_reward_effect = {
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 110 }
 		add_legitimacy = 15
-		add_bureaucracy = 12
+		add_stability = 12
 		add_government_power = 20
 	}
 	else_if = {
@@ -185,7 +185,7 @@ tv_wonder_ceremony_grant_stage_1_reward_effect = {
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 122 }
 		add_gold = 80
-		add_bureaucracy = 12
+		add_prestige = 12
 		add_yearly_gold = 2
 	}
 	else_if = {
@@ -210,7 +210,7 @@ tv_wonder_ceremony_grant_stage_1_reward_effect = {
 		limit = { var:tv_wonder_locked ?= 126 }
 		add_gold = 100
 		add_yearly_gold = 3
-		add_bureaucracy = 15
+		add_honor = 15
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 127 }
@@ -221,7 +221,7 @@ tv_wonder_ceremony_grant_stage_1_reward_effect = {
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 128 }
 		add_gold = 100
-		add_bureaucracy = 15
+		add_government_power = 15
 		add_honor = 10
 	}
 	else_if = {
@@ -252,7 +252,7 @@ tv_wonder_ceremony_grant_stage_1_reward_effect = {
 		limit = { var:tv_wonder_locked ?= 133 }
 		add_gold = 100
 		add_yearly_gold = 3
-		add_bureaucracy = 15
+		add_government_power = 15
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 134 }
@@ -279,7 +279,7 @@ tv_wonder_ceremony_grant_stage_1_reward_effect = {
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 138 }
 		add_gold = 80
-		add_bureaucracy = 10
+		add_honor = 10
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 139 }
@@ -324,7 +324,7 @@ tv_wonder_ceremony_grant_stage_1_reward_effect = {
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 147 }
 		add_legitimacy = 15
-		add_bureaucracy = 15
+		add_government_power = 15
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 148 }
@@ -436,7 +436,7 @@ tv_wonder_ceremony_grant_stage_1_reward_effect = {
 		limit = { var:tv_wonder_locked ?= 169 }
 		culture = { add_cultural_influence = 10 }
 		add_prestige = 15
-		add_bureaucracy = 10
+		add_honor = 10
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 170 }
@@ -493,7 +493,7 @@ tv_wonder_ceremony_grant_stage_1_reward_effect = {
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 180 }
 		add_prestige = 15
-		add_bureaucracy = 10
+		add_government_power = 10
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 181 }
@@ -513,7 +513,7 @@ tv_wonder_ceremony_grant_stage_1_reward_effect = {
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 184 }
 		culture = { add_cultural_influence = 12 }
-		add_bureaucracy = 15
+		add_honor = 15
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 185 }
@@ -610,7 +610,7 @@ tv_wonder_ceremony_grant_stage_1_reward_effect = {
 		limit = { var:tv_wonder_locked ?= 202 }
 		add_prestige = 15
 		culture = { add_cultural_influence = 10 }
-		add_bureaucracy = 10
+		add_government_power = 10
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 203 }
@@ -664,7 +664,7 @@ tv_wonder_ceremony_grant_stage_1_reward_effect = {
 		limit = { var:tv_wonder_locked ?= 211 }
 		add_gold = 120
 		add_yearly_gold = 4
-		add_bureaucracy = 10
+		add_prestige = 10
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 212 }

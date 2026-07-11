@@ -40,7 +40,7 @@ MARKER = "TV_WONDER_CEREMONY_CARDS"
 def append_card(lines: list[str], stage: int) -> None:
     stage_var = "tv_wonder_ceremony_stage"
     lines.append(f"{T}widget = {{")
-    lines.append(f"{T}{T}visible = \"[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('{stage_var}').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('{stage_var}').GetValue, '(CFixedPoint){stage - 1}.0'))]\"")
+    lines.append(f"{T}{T}visible = \"[And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('{stage_var}').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('{stage_var}').GetValue, '(CFixedPoint){stage - 1}.0'))]\"")
     lines.append(f"{T}{T}layoutpolicy_horizontal = expanding")
     lines.append(f"{T}{T}tv_engineering_department_card_common = {{")
     lines.append(f"{T}{T}{T}blockoverride \"header_size\" {{ size = {{ -1 0 }} }}")
