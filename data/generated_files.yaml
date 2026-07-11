@@ -217,6 +217,16 @@ generated:
     data:   data/wonder_construction_events.yaml
     output: src/in_game/events/tv_wonder_construction_events.txt
 
+  # wonder_construction_event_lib.py is the shared flavor-text data module (title/desc/option
+  # lookup tables and combinatorial-kind variant pools) backing both loc generators below.
+  - script: scripts/main_menu/localization/english/gen_tv_wonder_construction_events_l_english.py
+    data:   scripts/wonder_construction_event_lib.py + data/wonder_construction_events.yaml
+    output: src/main_menu/localization/english/tv_wonder_construction_events_l_english.yml
+
+  - script: scripts/main_menu/localization/simp_chinese/gen_tv_wonder_construction_events_l_simp_chinese.py
+    data:   scripts/wonder_construction_event_lib.py + data/wonder_construction_events.yaml
+    output: src/main_menu/localization/simp_chinese/tv_wonder_construction_events_l_simp_chinese.yml
+
   - script: scripts/in_game/events/gen_tv_wonder_finalization_events.py
     data:   data/wonders.yaml + data/wonder_final_buildings.yaml + data/wonder_generic_rituals.yaml + data/wonder_base_modifiers.yaml + data/wonder_site_rules.yaml + data/unique_wonders.yaml
     output: src/in_game/events/tv_wonder_finalization_events.txt

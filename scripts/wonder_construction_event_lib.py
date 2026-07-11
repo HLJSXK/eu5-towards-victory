@@ -44,408 +44,22 @@ KIND_OUTCOMES = {
     "engineer_lose_noneng_2": "negative",
 }
 
-KIND_TITLE = {
-    "gain_engineering_2": {
-        "en": "{eng_effect} Windfall",
-        "zh": "{eng_effect}激增",
-    },
-    "gain_engineering_1": {
-        "en": "{eng_effect} Improves",
-        "zh": "{eng_effect}改善",
-    },
-    "trade_noneng_for_eng": {
-        "en": "{eng_effect} for {noneng}",
-        "zh": "以{noneng}换取{eng_effect}",
-    },
-    "swing_engineering_1": {
-        "en": "Uncertain {eng_effect}",
-        "zh": "{eng_effect}波动",
-    },
-    "choose_eng_or_noneng_loss": {
-        "en": "{eng_effect} or {noneng}",
-        "zh": "{eng_effect}或{noneng}",
-    },
-    "lose_noneng_1": {
-        "en": "{noneng} Strain",
-        "zh": "{noneng}受压",
-    },
-    "lose_noneng_2": {
-        "en": "{noneng} Crisis",
-        "zh": "{noneng}危机",
-    },
-    "engineer_gain_engineering_2": {
-        "en": "Engineer's {eng_effect} Breakthrough",
-        "zh": "大工程师带来{eng_effect}突破",
-    },
-    "engineer_gain_engineering_1": {
-        "en": "Engineer's {eng_effect} Method",
-        "zh": "大工程师改善{eng_effect}",
-    },
-    "engineer_swing_engineering_1": {
-        "en": "Engineer's Risk on {eng_effect}",
-        "zh": "大工程师冒险处理{eng_effect}",
-    },
-    "engineer_lose_noneng_1": {
-        "en": "Engineer's {noneng} Oversight",
-        "zh": "大工程师忽视{noneng}",
-    },
-    "engineer_lose_noneng_2": {
-        "en": "Engineer's {noneng} Failure",
-        "zh": "大工程师导致{noneng}失败",
-    },
-}
+# Fixed token iteration order used by build_events() below - also doubles as the
+# deterministic index basis for picking a variant out of a combinatorial-kind pool.
+ENG_TOKEN_ORDER = [
+    "domestic_support", "scale_competence", "organization_competence",
+    "logistics_competence", "construction_progress",
+]
+NONENG_TOKEN_ORDER = [
+    "gold", "legitimacy", "stability", "prestige",
+    "nobles_satisfaction", "clergy_satisfaction", "burghers_satisfaction", "peasants_satisfaction",
+    "site_development", "site_prosperity", "capital_development", "capital_prosperity",
+    "site_laborers",
+]
 
-KIND_DESC = {
-    "gain_engineering_2": {
-        "en": (
-            "A rare convergence of practical minds and favorable conditions has given the wonder works a sudden advantage. "
-            "What looked like a routine month has turned into a useful surge of {eng}. Foremen write cleaner schedules, "
-            "clerks find room in the accounts, and the site carries itself with the dangerous confidence of a project that "
-            "has briefly outrun its doubts."
-        ),
-        "zh": (
-            "一次少见的顺利月份降临在奇观工地上。原本只是照常核算的工序，忽然在{eng}方面打开了余地。"
-            "工头的日程更清楚，书记的账册更宽松，选址上的人们也短暂相信这项工程并非只会吞噬命令与耐心。"
-        ),
-    },
-    "gain_engineering_1": {
-        "en": (
-            "The work crews have found a modest but real improvement in {eng}. It is not dramatic enough for court poets, "
-            "but the people who count carts, mark stone, and argue over scaffolds know its worth. The great project advances "
-            "because a hundred small frictions have been filed down."
-        ),
-        "zh": (
-            "工地在{eng}方面取得了一项不算惊人但确实有用的改善。它不足以让宫廷诗人动笔，却足以让数车、量石、"
-            "争论脚手架的人松一口气。奇观正是靠这些细小阻力被磨平而继续向前。"
-        ),
-    },
-    "trade_noneng_for_eng": {
-        "en": (
-            "The Engineering Department can convert a political and material inconvenience into progress on {eng}, but the "
-            "price will be paid in {noneng}. The proposal is practical, slightly graceless, and therefore very tempting. "
-            "The alternative is to let the month pass without disturbing the realm further."
-        ),
-        "zh": (
-            "工程部门提出了一项务实而不甚优雅的办法：以{noneng}为代价，换取{eng}上的进展。"
-            "账面说得通，现场也确实需要，但这笔交换会在工程之外留下痕迹。另一种选择是让这个月平静过去。"
-        ),
-    },
-    "swing_engineering_1": {
-        "en": (
-            "A new decision around {eng} has produced results that nobody is quite ready to name. The same shortcut could save "
-            "the project a month or cost it one; the same improvisation could become a method or a warning. The site waits for "
-            "the verdict with all the dignity of people standing near expensive unfinished stone."
-        ),
-        "zh": (
-            "围绕{eng}的一项临场决定带来了难以预判的结果。同一条捷径可能节省一个月，也可能赔掉一个月；"
-            "同一种权宜可能成为方法，也可能成为教训。昂贵而未完成的石料旁，所有人都在等待答案。"
-        ),
-    },
-    "choose_eng_or_noneng_loss": {
-        "en": (
-            "The month has presented the builders with an unpleasant accounting choice. Either the project absorbs a loss in "
-            "{eng}, or the realm outside the fences pays through {noneng}. There is no clean option, only the familiar art of "
-            "choosing where the bruise will be least visible."
-        ),
-        "zh": (
-            "这个月把一个令人不快的账目选择推到了建筑者面前：要么让工程在{eng}上受损，要么让围栏之外的国家以"
-            "{noneng}承受代价。没有哪一个选择干净，只有把淤青放在哪里更不显眼。"
-        ),
-    },
-    "lose_noneng_1": {
-        "en": (
-            "The wonder has leaned harder on the country than expected. The cost appears first as pressure on {noneng}, then "
-            "as whispers that every magnificent monument casts a practical shadow. The works continue, but the realm has been "
-            "reminded that grandeur never sends only one bill."
-        ),
-        "zh": (
-            "奇观工程对国家施加的压力比预想更重，首先显现在{noneng}上。随后，人们又开始低声谈论："
-            "任何宏伟纪念碑都会投下实际的阴影。工程仍在继续，但国家已经记起壮丽从不会只寄来一张账单。"
-        ),
-    },
-    "lose_noneng_2": {
-        "en": (
-            "A harsher disruption has spilled out from the construction site and struck {noneng}. Officials can explain the "
-            "sequence, but explanations do not repair the damage. For now the wonder remains standing only in promise, while "
-            "the country pays for the promise in advance."
-        ),
-        "zh": (
-            "一场更严厉的扰动从工地溢出，重重击中了{noneng}。官员们能够解释事情如何发生，但解释并不能修复损失。"
-            "奇观此刻仍只存在于承诺之中，而国家已经提前为承诺付款。"
-        ),
-    },
-    "engineer_gain_engineering_2": {
-        "en": (
-            "[SCOPE.sCharacter('tv_wonder_event_engineer').GetShortName] has imposed an unusually elegant solution on the works. "
-            "The result is a sharp improvement in {eng}, and even the skeptical foremen have stopped calling it luck.\\n\\n"
-            "#G This event occurred because the current [tv_great_engineer|E] has effective military ability above 80.#!"
-        ),
-        "zh": (
-            "[SCOPE.sCharacter('tv_wonder_event_engineer').GetShortName]为工程强行理出了一套罕见而漂亮的方案，"
-            "使{eng}大幅改善。连最怀疑的工头也暂时不再把这称作运气。\\n\\n"
-            "#G 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力高于80。#!"
-        ),
-    },
-    "engineer_gain_engineering_1": {
-        "en": (
-            "[SCOPE.sCharacter('tv_wonder_event_engineer').GetShortName] has corrected a stubborn problem in the works. "
-            "The improvement to {eng} is not miraculous, but it has the satisfying shape of competence applied at the right "
-            "moment.\\n\\n#G This event occurred because the current [tv_great_engineer|E] has effective military ability above 50.#!"
-        ),
-        "zh": (
-            "[SCOPE.sCharacter('tv_wonder_event_engineer').GetShortName]修正了工地上一项顽固问题，使{eng}得到改善。"
-            "这并非奇迹，却很像称职之人在正确时刻施加了正确压力。\\n\\n"
-            "#G 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力高于50。#!"
-        ),
-    },
-    "engineer_swing_engineering_1": {
-        "en": (
-            "[SCOPE.sCharacter('tv_wonder_event_engineer').GetShortName] has chosen a bold answer to a problem in {eng}. "
-            "The decision may prove inspired or merely expensive, and the site will learn which soon enough.\\n\\n"
-            "#Y This event occurred because the current [tv_great_engineer|E] has effective military ability between 20 and 80.#!"
-        ),
-        "zh": (
-            "[SCOPE.sCharacter('tv_wonder_event_engineer').GetShortName]对{eng}上的问题采取了大胆方案。"
-            "它可能显得高明，也可能只是昂贵；工地很快就会知道答案。\\n\\n"
-            "#Y 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力处于20到80之间。#!"
-        ),
-    },
-    "engineer_lose_noneng_1": {
-        "en": (
-            "[SCOPE.sCharacter('tv_wonder_event_engineer').GetShortName] has kept eyes fixed on the geometry of the monument and "
-            "missed the pressure gathering around {noneng}. The project survives the oversight, but the country must absorb it.\\n\\n"
-            "#R This event occurred because the current [tv_great_engineer|E] has effective military ability below 50.#!"
-        ),
-        "zh": (
-            "[SCOPE.sCharacter('tv_wonder_event_engineer').GetShortName]把注意力牢牢放在纪念碑的形制上，却忽略了"
-            "{noneng}方面逐渐积累的压力。项目能承受这次疏忽，国家也不得不承受。\\n\\n"
-            "#R 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力低于50。#!"
-        ),
-    },
-    "engineer_lose_noneng_2": {
-        "en": (
-            "[SCOPE.sCharacter('tv_wonder_event_engineer').GetShortName] has allowed a preventable failure to travel beyond the site "
-            "and damage {noneng}. The mistake is not large enough to end the wonder, which may be the cruelest part of it.\\n\\n"
-            "#R This event occurred because the current [tv_great_engineer|E] has effective military ability below 20.#!"
-        ),
-        "zh": (
-            "[SCOPE.sCharacter('tv_wonder_event_engineer').GetShortName]让一场本可避免的失误越过工地边界，损害了"
-            "{noneng}。错误尚不足以终止奇观，这或许正是最残酷之处。\\n\\n"
-            "#R 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力低于20。#!"
-        ),
-    },
-}
-
-KIND_OPTIONS = {
-    "gain_engineering_2": {
-        "a": {"en": "Use this rare opening.", "zh": "抓住这次难得机会。"},
-    },
-    "gain_engineering_1": {
-        "a": {"en": "A useful improvement.", "zh": "一项有用改进。"},
-    },
-    "trade_noneng_for_eng": {
-        "a": {"en": "Make the exchange.", "zh": "接受这笔交换。"},
-        "b": {"en": "Leave the matter alone.", "zh": "让事情维持原状。"},
-    },
-    "swing_engineering_1": {
-        "a": {"en": "Let the site decide.", "zh": "让工地给出答案。"},
-    },
-    "choose_eng_or_noneng_loss": {
-        "a": {"en": "Let the project absorb it.", "zh": "让工程承受代价。"},
-        "b": {"en": "Shift the cost outward.", "zh": "把代价转移出去。"},
-    },
-    "lose_noneng_1": {
-        "a": {"en": "The country will bear it.", "zh": "国家会承受它。"},
-    },
-    "lose_noneng_2": {
-        "a": {"en": "This will be remembered.", "zh": "这会被记住。"},
-    },
-    "engineer_gain_engineering_2": {
-        "a": {"en": "Brilliant work.", "zh": "卓越的工作。"},
-    },
-    "engineer_gain_engineering_1": {
-        "a": {"en": "Good engineering.", "zh": "不错的工程判断。"},
-    },
-    "engineer_swing_engineering_1": {
-        "a": {"en": "Trust the engineer's gamble.", "zh": "相信工程师的冒险。"},
-    },
-    "engineer_lose_noneng_1": {
-        "a": {"en": "Correct what can be corrected.", "zh": "能补救的就补救。"},
-    },
-    "engineer_lose_noneng_2": {
-        "a": {"en": "An ugly lesson.", "zh": "一堂难看的教训。"},
-    },
-}
-
-EN_ENGINEERING_TITLE_FLAVOR = {
-    "domestic_support": {
-        "gain2_title": "The Streets Applaud the Site",
-        "gain1_title": "Street Talk Turns",
-        "swing_title": "Opinion at the Scaffold Wavers",
-        "engineer_gain2_title": "[tv_great_engineer|E] Wins the Street",
-        "engineer_gain1_title": "[tv_great_engineer|E] Calms the Rumor",
-        "engineer_swing_title": "[tv_great_engineer|E] Courts the Crowd",
-        "trade_title": "Public Backing",
-        "choice_title": "Public Doubt",
-    },
-    "scale_competence": {
-        "gain2_title": "A Wider Line on the Earth",
-        "gain1_title": "The Measure Is Corrected",
-        "swing_title": "The Plan Outgrows the Page",
-        "engineer_gain2_title": "[tv_great_engineer|E] Redraws the Grand Line",
-        "engineer_gain1_title": "[tv_great_engineer|E] Sets the Measure",
-        "engineer_swing_title": "[tv_great_engineer|E] Enlarges the Plan",
-        "trade_title": "A Broader Design",
-        "choice_title": "A Narrower Monument",
-    },
-    "organization_competence": {
-        "gain2_title": "Names and Orders Fall Into Place",
-        "gain1_title": "The Yard Learns Its Rhythm",
-        "swing_title": "Orders Change Under the Awning",
-        "engineer_gain2_title": "[tv_great_engineer|E] Rebuilds the Schedule",
-        "engineer_gain1_title": "[tv_great_engineer|E] Straightens the Rolls",
-        "engineer_swing_title": "[tv_great_engineer|E] Rewrites the Shift",
-        "trade_title": "Sharper Orders",
-        "choice_title": "Muddled Rosters",
-    },
-    "logistics_competence": {
-        "gain2_title": "Roads and Carts Find Their Rhythm",
-        "gain1_title": "Ruts Find a Better Road",
-        "swing_title": "The Route Turns Through Mud",
-        "engineer_gain2_title": "[tv_great_engineer|E] Opens the Road",
-        "engineer_gain1_title": "[tv_great_engineer|E] Clears the Convoy",
-        "engineer_swing_title": "[tv_great_engineer|E] Takes the Risky Road",
-        "trade_title": "A Clearer Road",
-        "choice_title": "Delayed Convoys",
-    },
-    "materials_stockpile": {
-        "gain2_title": "Storehouses Full by Morning",
-        "gain1_title": "The Yard Finds Surplus",
-        "swing_title": "Abacuses at the Storehouse Door",
-        "engineer_gain2_title": "[tv_great_engineer|E] Expands the Storeyards",
-        "engineer_gain1_title": "[tv_great_engineer|E] Revives the Stores",
-        "engineer_swing_title": "[tv_great_engineer|E] Recounts the Stock",
-        "trade_title": "Fuller Stores",
-        "choice_title": "Thinning Piles",
-    },
-    "construction_progress": {
-        "gain2_title": "Stone Rises Past the Mark",
-        "gain1_title": "Hammers Draw Completion Near",
-        "swing_title": "A New Method Hangs in the Air",
-        "engineer_gain2_title": "[tv_great_engineer|E] Drives the Main Works",
-        "engineer_gain1_title": "[tv_great_engineer|E] Fits the Critical Joint",
-        "engineer_swing_title": "[tv_great_engineer|E] Tests a Faster Method",
-        "trade_title": "A Sudden Advance",
-        "choice_title": "Lost Progress",
-    },
-}
-
-EN_NON_ENGINEERING_TITLE_FLAVOR = {
-    "gold": {
-        "trade_title": "Treasury Doors Open",
-        "choice_title": "Silver Runs Thin",
-        "strain_title": "A New Gap in the Treasury",
-        "crisis_title": "Silence at the Treasury Door",
-        "engineer_loss1_title": "[tv_great_engineer|E] Miscounts the Coin",
-        "engineer_loss2_title": "[tv_great_engineer|E] Breaks the Ledger",
-    },
-    "legitimacy": {
-        "trade_title": "Royal Authority Is Pledged",
-        "choice_title": "Mandate Wears Thin",
-        "strain_title": "Dust on the Royal Seal",
-        "crisis_title": "Mandate Cracks Before the Site",
-        "engineer_loss1_title": "[tv_great_engineer|E] Forgets the Court",
-        "engineer_loss2_title": "[tv_great_engineer|E] Wounds the Crown",
-    },
-    "stability": {
-        "trade_title": "Villages Give Way",
-        "choice_title": "Order Loosens",
-        "strain_title": "Quiet Towns Are Disturbed",
-        "crisis_title": "Order Splinters in the Levy",
-        "engineer_loss1_title": "[tv_great_engineer|E] Misreads the Villages",
-        "engineer_loss2_title": "[tv_great_engineer|E] Unsettles the Country",
-    },
-    "prestige": {
-        "trade_title": "Reputation Is Spent",
-        "choice_title": "Prestige Gathers Dust",
-        "strain_title": "The Court Loses Color",
-        "crisis_title": "Honor Falters in Public",
-        "engineer_loss1_title": "[tv_great_engineer|E] Speaks Too Soon",
-        "engineer_loss2_title": "[tv_great_engineer|E] Makes a Spectacle",
-    },
-    "nobles_satisfaction": {
-        "trade_title": "Noble Patience Is Borrowed",
-        "choice_title": "Noble Murmurs",
-        "strain_title": "Cold Words at Noble Tables",
-        "crisis_title": "Noble Patience Is Chiseled Through",
-        "engineer_loss1_title": "[tv_great_engineer|E] Slights the Nobles",
-        "engineer_loss2_title": "[tv_great_engineer|E] Angers the Houses",
-    },
-    "clergy_satisfaction": {
-        "trade_title": "The Altars Are Asked to Yield",
-        "choice_title": "Clerical Unease",
-        "strain_title": "Frowns Before the Altar",
-        "crisis_title": "Patience Runs Out in the Vestry",
-        "engineer_loss1_title": "[tv_great_engineer|E] Disturbs the Calendar",
-        "engineer_loss2_title": "[tv_great_engineer|E] Offends the Clergy",
-    },
-    "burghers_satisfaction": {
-        "trade_title": "The Market Lends Its Streets",
-        "choice_title": "Merchant Complaints",
-        "strain_title": "Thinner Ledgers in the Market",
-        "crisis_title": "Anger Reaches the Streets",
-        "engineer_loss1_title": "[tv_great_engineer|E] Blocks the Market",
-        "engineer_loss2_title": "[tv_great_engineer|E] Provokes the Burghers",
-    },
-    "peasants_satisfaction": {
-        "trade_title": "Village Shoulders Are Borrowed",
-        "choice_title": "Tired Villages",
-        "strain_title": "Heavier Backs in the Villages",
-        "crisis_title": "Rural Anger Will Not Stay Quiet",
-        "engineer_loss1_title": "[tv_great_engineer|E] Underestimates the Villages",
-        "engineer_loss2_title": "[tv_great_engineer|E] Breaks the Villages",
-    },
-    "site_development": {
-        "trade_title": "The Site Gives Stone and Space",
-        "choice_title": "The Site Is Hollowed",
-        "strain_title": "The Site Gives Up Its Streets",
-        "crisis_title": "The Site Falls Back",
-        "engineer_loss1_title": "[tv_great_engineer|E] Cuts the Wrong Streets",
-        "engineer_loss2_title": "[tv_great_engineer|E] Injures the Site",
-    },
-    "site_prosperity": {
-        "trade_title": "Local Trade Is Bent Toward the Works",
-        "choice_title": "The Site Cools",
-        "strain_title": "The Site Grows Quieter",
-        "crisis_title": "The Site's Prosperity Is Smothered",
-        "engineer_loss1_title": "[tv_great_engineer|E] Crowds the Site's Livelihoods",
-        "engineer_loss2_title": "[tv_great_engineer|E] Snuffs Out the Site's Markets",
-    },
-    "capital_development": {
-        "trade_title": "Capital Works Are Reassigned",
-        "choice_title": "The Capital Gives Up Its Frame",
-        "strain_title": "Capital Projects Make Way",
-        "crisis_title": "The Capital Pays in Stone",
-        "engineer_loss1_title": "[tv_great_engineer|E] Misuses the Capital",
-        "engineer_loss2_title": "[tv_great_engineer|E] Hollows the Capital's Plans",
-    },
-    "capital_prosperity": {
-        "trade_title": "The Capital's Markets Are Turned",
-        "choice_title": "The Capital Cools",
-        "strain_title": "Quieter Streets in the Capital",
-        "crisis_title": "The Royal City's Trade Is Pressed Low",
-        "engineer_loss1_title": "[tv_great_engineer|E] Disturbs the Royal City",
-        "engineer_loss2_title": "[tv_great_engineer|E] Dims the Capital's Prosperity",
-    },
-    "site_laborers": {
-        "trade_title": "Labor Is Driven Harder",
-        "choice_title": "Laborers Fall",
-        "strain_title": "Names Added to the Injury Roll",
-        "crisis_title": "Sweat Crosses Into Blood",
-        "engineer_loss1_title": "[tv_great_engineer|E] Misjudges the Labor Limit",
-        "engineer_loss2_title": "[tv_great_engineer|E] Causes Casualties",
-    },
-}
+# The 2 kinds whose desc/option text is drawn from a rotating pool (keyed on the
+# specific eng/noneng token pairing) rather than a fixed per-event lookup.
+COMBINATORIAL_KINDS = {"trade_noneng_for_eng", "choose_eng_or_noneng_loss"}
 
 ENGINEERING_CONCEPT_REF_EN = {
     "domestic_support": "[tv_wonder_domestic_support|E]",
@@ -472,1010 +86,893 @@ NON_ENGINEERING_CONCEPT_REF_EN = {
     "site_laborers": "the laboring [population|E] at the site",
 }
 
-EN_CONCEPT_REPLACEMENTS = [
-    ("Engineering Department", "[tv_engineering_department|E]"),
-]
+ENGINEERING_CONCEPT_REF_ZH = {
+    "domestic_support": "[tv_wonder_domestic_support|E]",
+    "scale_competence": "[tv_wonder_scale_competence|E]",
+    "organization_competence": "[tv_wonder_organization_competence|E]",
+    "logistics_competence": "[tv_wonder_logistics_competence|E]",
+    "materials_stockpile": "[tv_wonder_materials|E]",
+    "construction_progress": "[tv_wonder_construction|E]\u8fdb\u5ea6",
+}
 
-ZH_CONCEPT_REPLACEMENTS = [
-    ("国内支持度", "[tv_wonder_domestic_support|E]"),
-    ("规模适性", "[tv_wonder_scale_competence|E]"),
-    ("组织适性", "[tv_wonder_organization_competence|E]"),
-    ("物流适性", "[tv_wonder_logistics_competence|E]"),
-    ("物资储备", "[tv_wonder_materials|E]"),
-    ("建设进度", "[tv_wonder_construction|E]进度"),
-    ("大工程师", "[tv_great_engineer|E]"),
-    ("稳定度", "[stability|E]"),
-    ("正统性", "[legitimacy|E]"),
-    ("威望", "[prestige|E]"),
-    ("发展度", "[development|E]"),
-    ("繁荣度", "[prosperity|E]"),
-    ("贵族阶层满意度", "贵族的[estate_satisfaction|E]"),
-    ("教士阶层满意度", "教士的[estate_satisfaction|E]"),
-    ("市民阶层满意度", "市民的[estate_satisfaction|E]"),
-    ("平民阶层满意度", "平民的[estate_satisfaction|E]"),
-    ("国库资金", "[gold|E]"),
-]
+NON_ENGINEERING_CONCEPT_REF_ZH = {
+    "gold": "[gold|E]",
+    "legitimacy": "[legitimacy|E]",
+    "stability": "[stability|E]",
+    "prestige": "[prestige|E]",
+    "nobles_satisfaction": "\u8d35\u65cf[estate_satisfaction|E]",
+    "clergy_satisfaction": "\u6559\u58eb[estate_satisfaction|E]",
+    "burghers_satisfaction": "\u5e02\u6c11[estate_satisfaction|E]",
+    "peasants_satisfaction": "\u5e73\u6c11[estate_satisfaction|E]",
+    "site_development": "\u5de5\u5740[development|E]",
+    "site_prosperity": "\u5de5\u5740[prosperity|E]",
+    "capital_development": "\u9996\u90fd[development|E]",
+    "capital_prosperity": "\u9996\u90fd[prosperity|E]",
+    "site_laborers": "\u5de5\u5740\u52b3\u5de5[population|E]",
+}
 
-ENGINEER_SCOPE_ZH = "[SCOPE.sCharacter('tv_wonder_event_engineer').GetShortName]"
-ENGINEER_NOTE_80_ZH = "#G 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力高于80。#!"
-ENGINEER_NOTE_50_ZH = "#G 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力高于50。#!"
-ENGINEER_NOTE_SWING_ZH = "#Y 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力处于20到80之间。#!"
-ENGINEER_NOTE_BAD_50_ZH = "#R 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力低于50。#!"
-ENGINEER_NOTE_BAD_20_ZH = "#R 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力低于20。#!"
+# ---- Begin generated data tables (see scripts/_scratch_build_lib_tables.py) ----
 
-ZH_ENGINEERING_FLAVOR = {
-    "domestic_support": {
-        "short": "民心",
-        "gain2_title": "街巷为工地喝彩",
-        "gain1_title": "民议稍向工地",
-        "swing_title": "脚手架旁的人心摇摆",
-        "engineer_gain2_title": "大工程师说服街市",
-        "engineer_gain1_title": "大工程师安定民议",
-        "engineer_swing_title": "大工程师押注公议",
-        "trade_title": "民心归拢",
-        "choice_title": "民望收缩",
-        "trade_need": "民众的耐心和乡绅的背书",
-        "trade_result": "街巷开始把工程称作国家的体面",
-        "choice_pressure": "围观者的赞叹正变得迟疑，工地外的闲谈已经学会计算每一车石料",
-        "choice_loss": "布告会失去光泽，支持者也会把声音压低",
-        "option_gain2": "让这股拥护顺势灌入工地。",
-        "option_gain1": "把新得的耐心登记下来。",
-        "option_swing": "让民议在工棚外自行落定。",
-        "option_engineer_gain2": "把这场说服写进工程日志。",
-        "option_engineer_gain1": "让工程师继续稳住人心。",
-        "option_engineer_swing": "押上工程师的公众判断。",
-        "gain2_desc": (
-            "布告还没贴满，工地外的茶肆已经先把这项工程说成国家的荣光。行会愿意多派熟手，"
-            "乡绅愿意少问几句账目，连原本只看热闹的人也开始替石料车让路。国内支持度被一车车可见的秩序推高，"
-            "奇观第一次像是属于围栏外的所有人。"
-        ),
-        "gain1_desc": (
-            "几名原本皱眉的地方头面人物愿意在名册上添下姓名，市场里的抱怨也少了些锋芒。"
-            "这不是举国欢呼，却足以让工地少听见几句冷话。国内支持度向前挪了一步，"
-            "而大型工程有时正需要这样的半步。"
-        ),
-        "swing_desc": (
-            "一次仓促安排的开放参观把工地推到众人眼前。有人看见秩序，有人只看见泥水和征发；"
-            "同一排脚手架在不同嘴里变成荣光或浪费。国内支持度会向哪边倾斜，"
-            "要等街巷把今日见闻嚼碎之后才知道。"
-        ),
-        "engineer_gain2_desc": (
-            f"{ENGINEER_SCOPE_ZH}没有只谈石料，而是亲自向行会、乡绅和工头解释奇观的用途。"
-            "一场原本可能散成争吵的集会被压成了赞同，国内支持度因此猛然上扬。\\n\\n"
-            f"{ENGINEER_NOTE_80_ZH}"
-        ),
-        "engineer_gain1_desc": (
-            f"{ENGINEER_SCOPE_ZH}补上了工地与民众之间最刺耳的几处误会。"
-            "传令更清楚，征调更有分寸，国内支持度也随之稳稳抬升。\\n\\n"
-            f"{ENGINEER_NOTE_50_ZH}"
-        ),
-        "engineer_swing_desc": (
-            f"{ENGINEER_SCOPE_ZH}决定把一项尚未完工的阶段成果展示给众人。"
-            "这可能换来信任，也可能把未完成的瑕疵暴露得太早；国内支持度正在等待街巷裁决。\\n\\n"
-            f"{ENGINEER_NOTE_SWING_ZH}"
-        ),
+TITLE_EN = {
+    7000: '[tv_wonder_construction|E]：The Streets Applaud the Site',
+    7001: '[tv_wonder_construction|E]：A Wider Line on the Earth',
+    7002: '[tv_wonder_construction|E]：Names and Orders Fall Into Place',
+    7003: '[tv_wonder_construction|E]：Roads and Carts Find Their Rhythm',
+    7004: '[tv_wonder_construction|E]：Stone Rises Past the Mark',
+    7005: '[tv_wonder_construction|E]：Street Talk Turns',
+    7006: '[tv_wonder_construction|E]：The Measure Is Corrected',
+    7007: '[tv_wonder_construction|E]：The Yard Learns Its Rhythm',
+    7008: '[tv_wonder_construction|E]：Ruts Find a Better Road',
+    7009: '[tv_wonder_construction|E]：Hammers Draw Completion Near',
+    7010: '[tv_wonder_construction|E]：Treasury Doors Open for Public Backing',
+    7011: '[tv_wonder_construction|E]：Royal Authority Is Pledged for Public Backing',
+    7012: '[tv_wonder_construction|E]：Villages Give Way for Public Backing',
+    7013: '[tv_wonder_construction|E]：Reputation Is Spent for Public Backing',
+    7014: '[tv_wonder_construction|E]：Noble Patience Is Borrowed for Public Backing',
+    7015: '[tv_wonder_construction|E]：The Altars Are Asked to Yield for Public Backing',
+    7016: '[tv_wonder_construction|E]：The Market Lends Its Streets for Public Backing',
+    7017: '[tv_wonder_construction|E]：Village Shoulders Are Borrowed for Public Backing',
+    7018: '[tv_wonder_construction|E]：The Site Gives Stone and Space for Public Backing',
+    7019: '[tv_wonder_construction|E]：Local Trade Is Bent Toward the Works for Public Backing',
+    7020: '[tv_wonder_construction|E]：Capital Works Are Reassigned for Public Backing',
+    7021: '[tv_wonder_construction|E]：The Capital\'s Markets Are Turned for Public Backing',
+    7022: '[tv_wonder_construction|E]：Labor Is Driven Harder for Public Backing',
+    7023: '[tv_wonder_construction|E]：Treasury Doors Open for A Broader Design',
+    7024: '[tv_wonder_construction|E]：Royal Authority Is Pledged for A Broader Design',
+    7025: '[tv_wonder_construction|E]：Villages Give Way for A Broader Design',
+    7026: '[tv_wonder_construction|E]：Reputation Is Spent for A Broader Design',
+    7027: '[tv_wonder_construction|E]：Noble Patience Is Borrowed for A Broader Design',
+    7028: '[tv_wonder_construction|E]：The Altars Are Asked to Yield for A Broader Design',
+    7029: '[tv_wonder_construction|E]：The Market Lends Its Streets for A Broader Design',
+    7030: '[tv_wonder_construction|E]：Village Shoulders Are Borrowed for A Broader Design',
+    7031: '[tv_wonder_construction|E]：The Site Gives Stone and Space for A Broader Design',
+    7032: '[tv_wonder_construction|E]：Local Trade Is Bent Toward the Works for A Broader Design',
+    7033: '[tv_wonder_construction|E]：Capital Works Are Reassigned for A Broader Design',
+    7034: '[tv_wonder_construction|E]：The Capital\'s Markets Are Turned for A Broader Design',
+    7035: '[tv_wonder_construction|E]：Labor Is Driven Harder for A Broader Design',
+    7036: '[tv_wonder_construction|E]：Treasury Doors Open for Sharper Orders',
+    7037: '[tv_wonder_construction|E]：Royal Authority Is Pledged for Sharper Orders',
+    7038: '[tv_wonder_construction|E]：Villages Give Way for Sharper Orders',
+    7039: '[tv_wonder_construction|E]：Reputation Is Spent for Sharper Orders',
+    7040: '[tv_wonder_construction|E]：Noble Patience Is Borrowed for Sharper Orders',
+    7041: '[tv_wonder_construction|E]：The Altars Are Asked to Yield for Sharper Orders',
+    7042: '[tv_wonder_construction|E]：The Market Lends Its Streets for Sharper Orders',
+    7043: '[tv_wonder_construction|E]：Village Shoulders Are Borrowed for Sharper Orders',
+    7044: '[tv_wonder_construction|E]：The Site Gives Stone and Space for Sharper Orders',
+    7045: '[tv_wonder_construction|E]：Local Trade Is Bent Toward the Works for Sharper Orders',
+    7046: '[tv_wonder_construction|E]：Capital Works Are Reassigned for Sharper Orders',
+    7047: '[tv_wonder_construction|E]：The Capital\'s Markets Are Turned for Sharper Orders',
+    7048: '[tv_wonder_construction|E]：Labor Is Driven Harder for Sharper Orders',
+    7049: '[tv_wonder_construction|E]：Treasury Doors Open for A Clearer Road',
+    7050: '[tv_wonder_construction|E]：Royal Authority Is Pledged for A Clearer Road',
+    7051: '[tv_wonder_construction|E]：Villages Give Way for A Clearer Road',
+    7052: '[tv_wonder_construction|E]：Reputation Is Spent for A Clearer Road',
+    7053: '[tv_wonder_construction|E]：Noble Patience Is Borrowed for A Clearer Road',
+    7054: '[tv_wonder_construction|E]：The Altars Are Asked to Yield for A Clearer Road',
+    7055: '[tv_wonder_construction|E]：The Market Lends Its Streets for A Clearer Road',
+    7056: '[tv_wonder_construction|E]：Village Shoulders Are Borrowed for A Clearer Road',
+    7057: '[tv_wonder_construction|E]：The Site Gives Stone and Space for A Clearer Road',
+    7058: '[tv_wonder_construction|E]：Local Trade Is Bent Toward the Works for A Clearer Road',
+    7059: '[tv_wonder_construction|E]：Capital Works Are Reassigned for A Clearer Road',
+    7060: '[tv_wonder_construction|E]：The Capital\'s Markets Are Turned for A Clearer Road',
+    7061: '[tv_wonder_construction|E]：Labor Is Driven Harder for A Clearer Road',
+    7062: '[tv_wonder_construction|E]：Treasury Doors Open for A Sudden Advance',
+    7063: '[tv_wonder_construction|E]：Royal Authority Is Pledged for A Sudden Advance',
+    7064: '[tv_wonder_construction|E]：Villages Give Way for A Sudden Advance',
+    7065: '[tv_wonder_construction|E]：Reputation Is Spent for A Sudden Advance',
+    7066: '[tv_wonder_construction|E]：Noble Patience Is Borrowed for A Sudden Advance',
+    7067: '[tv_wonder_construction|E]：The Altars Are Asked to Yield for A Sudden Advance',
+    7068: '[tv_wonder_construction|E]：The Market Lends Its Streets for A Sudden Advance',
+    7069: '[tv_wonder_construction|E]：Village Shoulders Are Borrowed for A Sudden Advance',
+    7070: '[tv_wonder_construction|E]：The Site Gives Stone and Space for A Sudden Advance',
+    7071: '[tv_wonder_construction|E]：Local Trade Is Bent Toward the Works for A Sudden Advance',
+    7072: '[tv_wonder_construction|E]：Capital Works Are Reassigned for A Sudden Advance',
+    7073: '[tv_wonder_construction|E]：The Capital\'s Markets Are Turned for A Sudden Advance',
+    7074: '[tv_wonder_construction|E]：Labor Is Driven Harder for A Sudden Advance',
+    7075: '[tv_wonder_construction|E]：Opinion at the Scaffold Wavers',
+    7076: '[tv_wonder_construction|E]：The Plan Outgrows the Page',
+    7077: '[tv_wonder_construction|E]：Orders Change Under the Awning',
+    7078: '[tv_wonder_construction|E]：The Route Turns Through Mud',
+    7079: '[tv_wonder_construction|E]：A New Method Hangs in the Air',
+    7080: '[tv_wonder_construction|E]：Public Doubt or Silver Runs Thin',
+    7081: '[tv_wonder_construction|E]：Public Doubt or Mandate Wears Thin',
+    7082: '[tv_wonder_construction|E]：Public Doubt or Order Loosens',
+    7083: '[tv_wonder_construction|E]：Public Doubt or Prestige Gathers Dust',
+    7084: '[tv_wonder_construction|E]：Public Doubt or Noble Murmurs',
+    7085: '[tv_wonder_construction|E]：Public Doubt or Clerical Unease',
+    7086: '[tv_wonder_construction|E]：Public Doubt or Merchant Complaints',
+    7087: '[tv_wonder_construction|E]：Public Doubt or Tired Villages',
+    7088: '[tv_wonder_construction|E]：Public Doubt or The Site Is Hollowed',
+    7089: '[tv_wonder_construction|E]：Public Doubt or The Site Cools',
+    7090: '[tv_wonder_construction|E]：Public Doubt or The Capital Gives Up Its Frame',
+    7091: '[tv_wonder_construction|E]：Public Doubt or The Capital Cools',
+    7092: '[tv_wonder_construction|E]：Public Doubt or Laborers Fall',
+    7093: '[tv_wonder_construction|E]：A Narrower Monument or Silver Runs Thin',
+    7094: '[tv_wonder_construction|E]：A Narrower Monument or Mandate Wears Thin',
+    7095: '[tv_wonder_construction|E]：A Narrower Monument or Order Loosens',
+    7096: '[tv_wonder_construction|E]：A Narrower Monument or Prestige Gathers Dust',
+    7097: '[tv_wonder_construction|E]：A Narrower Monument or Noble Murmurs',
+    7098: '[tv_wonder_construction|E]：A Narrower Monument or Clerical Unease',
+    7099: '[tv_wonder_construction|E]：A Narrower Monument or Merchant Complaints',
+    7100: '[tv_wonder_construction|E]：A Narrower Monument or Tired Villages',
+    7101: '[tv_wonder_construction|E]：A Narrower Monument or The Site Is Hollowed',
+    7102: '[tv_wonder_construction|E]：A Narrower Monument or The Site Cools',
+    7103: '[tv_wonder_construction|E]：A Narrower Monument or The Capital Gives Up Its Frame',
+    7104: '[tv_wonder_construction|E]：A Narrower Monument or The Capital Cools',
+    7105: '[tv_wonder_construction|E]：A Narrower Monument or Laborers Fall',
+    7106: '[tv_wonder_construction|E]：Muddled Rosters or Silver Runs Thin',
+    7107: '[tv_wonder_construction|E]：Muddled Rosters or Mandate Wears Thin',
+    7108: '[tv_wonder_construction|E]：Muddled Rosters or Order Loosens',
+    7109: '[tv_wonder_construction|E]：Muddled Rosters or Prestige Gathers Dust',
+    7110: '[tv_wonder_construction|E]：Muddled Rosters or Noble Murmurs',
+    7111: '[tv_wonder_construction|E]：Muddled Rosters or Clerical Unease',
+    7112: '[tv_wonder_construction|E]：Muddled Rosters or Merchant Complaints',
+    7113: '[tv_wonder_construction|E]：Muddled Rosters or Tired Villages',
+    7114: '[tv_wonder_construction|E]：Muddled Rosters or The Site Is Hollowed',
+    7115: '[tv_wonder_construction|E]：Muddled Rosters or The Site Cools',
+    7116: '[tv_wonder_construction|E]：Muddled Rosters or The Capital Gives Up Its Frame',
+    7117: '[tv_wonder_construction|E]：Muddled Rosters or The Capital Cools',
+    7118: '[tv_wonder_construction|E]：Muddled Rosters or Laborers Fall',
+    7119: '[tv_wonder_construction|E]：Delayed Convoys or Silver Runs Thin',
+    7120: '[tv_wonder_construction|E]：Delayed Convoys or Mandate Wears Thin',
+    7121: '[tv_wonder_construction|E]：Delayed Convoys or Order Loosens',
+    7122: '[tv_wonder_construction|E]：Delayed Convoys or Prestige Gathers Dust',
+    7123: '[tv_wonder_construction|E]：Delayed Convoys or Noble Murmurs',
+    7124: '[tv_wonder_construction|E]：Delayed Convoys or Clerical Unease',
+    7125: '[tv_wonder_construction|E]：Delayed Convoys or Merchant Complaints',
+    7126: '[tv_wonder_construction|E]：Delayed Convoys or Tired Villages',
+    7127: '[tv_wonder_construction|E]：Delayed Convoys or The Site Is Hollowed',
+    7128: '[tv_wonder_construction|E]：Delayed Convoys or The Site Cools',
+    7129: '[tv_wonder_construction|E]：Delayed Convoys or The Capital Gives Up Its Frame',
+    7130: '[tv_wonder_construction|E]：Delayed Convoys or The Capital Cools',
+    7131: '[tv_wonder_construction|E]：Delayed Convoys or Laborers Fall',
+    7132: '[tv_wonder_construction|E]：Lost Progress or Silver Runs Thin',
+    7133: '[tv_wonder_construction|E]：Lost Progress or Mandate Wears Thin',
+    7134: '[tv_wonder_construction|E]：Lost Progress or Order Loosens',
+    7135: '[tv_wonder_construction|E]：Lost Progress or Prestige Gathers Dust',
+    7136: '[tv_wonder_construction|E]：Lost Progress or Noble Murmurs',
+    7137: '[tv_wonder_construction|E]：Lost Progress or Clerical Unease',
+    7138: '[tv_wonder_construction|E]：Lost Progress or Merchant Complaints',
+    7139: '[tv_wonder_construction|E]：Lost Progress or Tired Villages',
+    7140: '[tv_wonder_construction|E]：Lost Progress or The Site Is Hollowed',
+    7141: '[tv_wonder_construction|E]：Lost Progress or The Site Cools',
+    7142: '[tv_wonder_construction|E]：Lost Progress or The Capital Gives Up Its Frame',
+    7143: '[tv_wonder_construction|E]：Lost Progress or The Capital Cools',
+    7144: '[tv_wonder_construction|E]：Lost Progress or Laborers Fall',
+    7145: '[tv_wonder_construction|E]：A New Gap in the Treasury',
+    7146: '[tv_wonder_construction|E]：Dust on the Royal Seal',
+    7147: '[tv_wonder_construction|E]：Quiet Towns Are Disturbed',
+    7148: '[tv_wonder_construction|E]：The Court Loses Color',
+    7149: '[tv_wonder_construction|E]：Cold Words at Noble Tables',
+    7150: '[tv_wonder_construction|E]：Frowns Before the Altar',
+    7151: '[tv_wonder_construction|E]：Thinner Ledgers in the Market',
+    7152: '[tv_wonder_construction|E]：Heavier Backs in the Villages',
+    7153: '[tv_wonder_construction|E]：The Site Gives Up Its Streets',
+    7154: '[tv_wonder_construction|E]：The Site Grows Quieter',
+    7155: '[tv_wonder_construction|E]：Capital Projects Make Way',
+    7156: '[tv_wonder_construction|E]：Quieter Streets in the Capital',
+    7157: '[tv_wonder_construction|E]：Names Added to the Injury Roll',
+    7158: '[tv_wonder_construction|E]：Silence at the Treasury Door',
+    7159: '[tv_wonder_construction|E]：Mandate Cracks Before the Site',
+    7160: '[tv_wonder_construction|E]：Order Splinters in the Levy',
+    7161: '[tv_wonder_construction|E]：Honor Falters in Public',
+    7162: '[tv_wonder_construction|E]：Noble Patience Is Chiseled Through',
+    7163: '[tv_wonder_construction|E]：Patience Runs Out in the Vestry',
+    7164: '[tv_wonder_construction|E]：Anger Reaches the Streets',
+    7165: '[tv_wonder_construction|E]：Rural Anger Will Not Stay Quiet',
+    7166: '[tv_wonder_construction|E]：The Site Falls Back',
+    7167: '[tv_wonder_construction|E]：The Site\'s Prosperity Is Smothered',
+    7168: '[tv_wonder_construction|E]：The Capital Pays in Stone',
+    7169: '[tv_wonder_construction|E]：The Royal City\'s Trade Is Pressed Low',
+    7170: '[tv_wonder_construction|E]：Sweat Crosses Into Blood',
+    7171: '[tv_wonder_construction|E]：[tv_great_engineer|E] Wins the Street',
+    7172: '[tv_wonder_construction|E]：[tv_great_engineer|E] Redraws the Grand Line',
+    7173: '[tv_wonder_construction|E]：[tv_great_engineer|E] Rebuilds the Schedule',
+    7174: '[tv_wonder_construction|E]：[tv_great_engineer|E] Opens the Road',
+    7175: '[tv_wonder_construction|E]：[tv_great_engineer|E] Drives the Main Works',
+    7176: '[tv_wonder_construction|E]：[tv_great_engineer|E] Calms the Rumor',
+    7177: '[tv_wonder_construction|E]：[tv_great_engineer|E] Sets the Measure',
+    7178: '[tv_wonder_construction|E]：[tv_great_engineer|E] Straightens the Rolls',
+    7179: '[tv_wonder_construction|E]：[tv_great_engineer|E] Clears the Convoy',
+    7180: '[tv_wonder_construction|E]：[tv_great_engineer|E] Fits the Critical Joint',
+    7181: '[tv_wonder_construction|E]：[tv_great_engineer|E] Courts the Crowd',
+    7182: '[tv_wonder_construction|E]：[tv_great_engineer|E] Enlarges the Plan',
+    7183: '[tv_wonder_construction|E]：[tv_great_engineer|E] Rewrites the Shift',
+    7184: '[tv_wonder_construction|E]：[tv_great_engineer|E] Takes the Risky Road',
+    7185: '[tv_wonder_construction|E]：[tv_great_engineer|E] Tests a Faster Method',
+    7186: '[tv_wonder_construction|E]：[tv_great_engineer|E] Miscounts the Coin',
+    7187: '[tv_wonder_construction|E]：[tv_great_engineer|E] Forgets the Court',
+    7188: '[tv_wonder_construction|E]：[tv_great_engineer|E] Misreads the Villages',
+    7189: '[tv_wonder_construction|E]：[tv_great_engineer|E] Speaks Too Soon',
+    7190: '[tv_wonder_construction|E]：[tv_great_engineer|E] Slights the Nobles',
+    7191: '[tv_wonder_construction|E]：[tv_great_engineer|E] Disturbs the Calendar',
+    7192: '[tv_wonder_construction|E]：[tv_great_engineer|E] Blocks the Market',
+    7193: '[tv_wonder_construction|E]：[tv_great_engineer|E] Underestimates the Villages',
+    7194: '[tv_wonder_construction|E]：[tv_great_engineer|E] Cuts the Wrong Streets',
+    7195: '[tv_wonder_construction|E]：[tv_great_engineer|E] Crowds the Site\'s Livelihoods',
+    7196: '[tv_wonder_construction|E]：[tv_great_engineer|E] Misuses the Capital',
+    7197: '[tv_wonder_construction|E]：[tv_great_engineer|E] Disturbs the Royal City',
+    7198: '[tv_wonder_construction|E]：[tv_great_engineer|E] Misjudges the Labor Limit',
+    7199: '[tv_wonder_construction|E]：[tv_great_engineer|E] Breaks the Ledger',
+    7200: '[tv_wonder_construction|E]：[tv_great_engineer|E] Wounds the Crown',
+    7201: '[tv_wonder_construction|E]：[tv_great_engineer|E] Unsettles the Country',
+    7202: '[tv_wonder_construction|E]：[tv_great_engineer|E] Makes a Spectacle',
+    7203: '[tv_wonder_construction|E]：[tv_great_engineer|E] Angers the Houses',
+    7204: '[tv_wonder_construction|E]：[tv_great_engineer|E] Offends the Clergy',
+    7205: '[tv_wonder_construction|E]：[tv_great_engineer|E] Provokes the Burghers',
+    7206: '[tv_wonder_construction|E]：[tv_great_engineer|E] Breaks the Villages',
+    7207: '[tv_wonder_construction|E]：[tv_great_engineer|E] Injures the Site',
+    7208: '[tv_wonder_construction|E]：[tv_great_engineer|E] Snuffs Out the Site\'s Markets',
+    7209: '[tv_wonder_construction|E]：[tv_great_engineer|E] Hollows the Capital\'s Plans',
+    7210: '[tv_wonder_construction|E]：[tv_great_engineer|E] Dims the Capital\'s Prosperity',
+    7211: '[tv_wonder_construction|E]：[tv_great_engineer|E] Causes Casualties',
+}
+
+TITLE_ZH = {
+    7000: '[tv_wonder_construction|E]：围栏外开始叫好',
+    7001: '[tv_wonder_construction|E]：测线证明还能扩建',
+    7002: '[tv_wonder_construction|E]：名册与工序终于对上',
+    7003: '[tv_wonder_construction|E]：补给线终于跑顺了',
+    7004: '[tv_wonder_construction|E]：主工段提前越过标线',
+    7005: '[tv_wonder_construction|E]：工地外的议论缓下来了',
+    7006: '[tv_wonder_construction|E]：图纸上的误差被纠正',
+    7007: '[tv_wonder_construction|E]：工棚里的交接终于理顺',
+    7008: '[tv_wonder_construction|E]：补给线的坏转角被改掉',
+    7009: '[tv_wonder_construction|E]：关键接口终于合上',
+    7010: '[tv_wonder_construction|E]：国库拨款稳住民心',
+    7011: '[tv_wonder_construction|E]：王命压下反对声',
+    7012: '[tv_wonder_construction|E]：地方让路，民议转缓',
+    7013: '[tv_wonder_construction|E]：宫廷声望为工地背书',
+    7014: '[tv_wonder_construction|E]：贵族默许工程继续',
+    7015: '[tv_wonder_construction|E]：教士暂时收起异议',
+    7016: '[tv_wonder_construction|E]：商人把便利让给工地',
+    7017: '[tv_wonder_construction|E]：村社再挤出一口余力',
+    7018: '[tv_wonder_construction|E]：拆开街区安抚了议论',
+    7019: '[tv_wonder_construction|E]：工地吸走了本地买卖',
+    7020: '[tv_wonder_construction|E]：首都工程为奇观让路',
+    7021: '[tv_wonder_construction|E]：王城商路转向工地',
+    7022: '[tv_wonder_construction|E]：劳工多熬了一个月',
+    7023: '[tv_wonder_construction|E]：追加拨款扩出基址',
+    7024: '[tv_wonder_construction|E]：王命压出了更大的蓝图',
+    7025: '[tv_wonder_construction|E]：地方退让，工地得以扩展',
+    7026: '[tv_wonder_construction|E]：宫廷声望托住了扩建',
+    7027: '[tv_wonder_construction|E]：贵族默许更大的规模',
+    7028: '[tv_wonder_construction|E]：教士为扩建让出余地',
+    7029: '[tv_wonder_construction|E]：商路让出更多空间',
+    7030: '[tv_wonder_construction|E]：村社再出力，工地得以扩展',
+    7031: '[tv_wonder_construction|E]：拆开的街区腾出尺度',
+    7032: '[tv_wonder_construction|E]：本地买卖供出了扩建空间',
+    7033: '[tv_wonder_construction|E]：首都修缮让位给扩建',
+    7034: '[tv_wonder_construction|E]：王城商气托起更大规模',
+    7035: '[tv_wonder_construction|E]：劳工把尺度硬撑了出来',
+    7036: '[tv_wonder_construction|E]：追加拨款整顿工序',
+    7037: '[tv_wonder_construction|E]：王命压住了工地杂音',
+    7038: '[tv_wonder_construction|E]：地方让路，排班得以重整',
+    7039: '[tv_wonder_construction|E]：宫廷声望替工地立规矩',
+    7040: '[tv_wonder_construction|E]：贵族默许新的调度',
+    7041: '[tv_wonder_construction|E]：教士让步，工地重排工序',
+    7042: '[tv_wonder_construction|E]：商人让出调度空间',
+    7043: '[tv_wonder_construction|E]：村社出力，工地重新归整',
+    7044: '[tv_wonder_construction|E]：拆开街区重排工队',
+    7045: '[tv_wonder_construction|E]：本地生计为工序让位',
+    7046: '[tv_wonder_construction|E]：首都为工地腾出调度余地',
+    7047: '[tv_wonder_construction|E]：王城商路服从新安排',
+    7048: '[tv_wonder_construction|E]：劳工硬撑住新排班',
+    7049: '[tv_wonder_construction|E]：追加拨款打通运路',
+    7050: '[tv_wonder_construction|E]：王命催开补给线',
+    7051: '[tv_wonder_construction|E]：地方让路，车队得以前行',
+    7052: '[tv_wonder_construction|E]：宫廷声望替车队清障',
+    7053: '[tv_wonder_construction|E]：贵族车马投入工地',
+    7054: '[tv_wonder_construction|E]：教士为运输再让一步',
+    7055: '[tv_wonder_construction|E]：商路改向工地',
+    7056: '[tv_wonder_construction|E]：村社车驾被拉上前线',
+    7057: '[tv_wonder_construction|E]：拆开工址腾出车道',
+    7058: '[tv_wonder_construction|E]：本地买卖先给车队让路',
+    7059: '[tv_wonder_construction|E]：首都让出运力',
+    7060: '[tv_wonder_construction|E]：王城仓储转向工地',
+    7061: '[tv_wonder_construction|E]：劳工硬抢出一条运路',
+    7062: '[tv_wonder_construction|E]：追加拨款推动赶工',
+    7063: '[tv_wonder_construction|E]：王命压出一轮赶工',
+    7064: '[tv_wonder_construction|E]：地方退让，主工段加速',
+    7065: '[tv_wonder_construction|E]：宫廷声望压成一轮赶工',
+    7066: '[tv_wonder_construction|E]：贵族人力补上主工段',
+    7067: '[tv_wonder_construction|E]：教士让出一个工期',
+    7068: '[tv_wonder_construction|E]：商街把余力送上工地',
+    7069: '[tv_wonder_construction|E]：村社把最后一把力交给工地',
+    7070: '[tv_wonder_construction|E]：拆开工址抢回进度',
+    7071: '[tv_wonder_construction|E]：本地买卖替工地挪出工时',
+    7072: '[tv_wonder_construction|E]：首都余裕压进主工段',
+    7073: '[tv_wonder_construction|E]：王城商气化成石料与工时',
+    7074: '[tv_wonder_construction|E]：劳工把进度硬推过线',
+    7075: '[tv_wonder_construction|E]：工地外的议论又起了',
+    7076: '[tv_wonder_construction|E]：场地开始装不下图纸',
+    7077: '[tv_wonder_construction|E]：排班命令一改再改',
+    7078: '[tv_wonder_construction|E]：补给线被迫改道',
+    7079: '[tv_wonder_construction|E]：新工法还站不住脚',
+    7080: '[tv_wonder_construction|E]：民心要稳，国库就得出血',
+    7081: '[tv_wonder_construction|E]：民心要稳，王命就得受折',
+    7082: '[tv_wonder_construction|E]：民心要稳，地方就得受扰',
+    7083: '[tv_wonder_construction|E]：民心要稳，声望就得拿去消耗',
+    7084: '[tv_wonder_construction|E]：民心要稳，贵族就得忍着',
+    7085: '[tv_wonder_construction|E]：民心要稳，教士就得让步',
+    7086: '[tv_wonder_construction|E]：民心要稳，商街就得吃亏',
+    7087: '[tv_wonder_construction|E]：民心要稳，村社就得多扛',
+    7088: '[tv_wonder_construction|E]：民心要稳，工址就得拆出余地',
+    7089: '[tv_wonder_construction|E]：民心要稳，工址买卖就得让路',
+    7090: '[tv_wonder_construction|E]：民心要稳，首都工程就得退后',
+    7091: '[tv_wonder_construction|E]：民心要稳，王城买卖就得降温',
+    7092: '[tv_wonder_construction|E]：民心要稳，劳工就得硬撑',
+    7093: '[tv_wonder_construction|E]：要保住规模，就得继续掏钱',
+    7094: '[tv_wonder_construction|E]：要保住规模，就得再压一次王命',
+    7095: '[tv_wonder_construction|E]：要保住规模，就得惊动地方',
+    7096: '[tv_wonder_construction|E]：要保住规模，就得烧掉声望',
+    7097: '[tv_wonder_construction|E]：要保住规模，就得再借贵族的人情',
+    7098: '[tv_wonder_construction|E]：要保住规模，就得再向教士求让步',
+    7099: '[tv_wonder_construction|E]：要保住规模，就得先让商路受损',
+    7100: '[tv_wonder_construction|E]：要保住规模，就得再压村社一程',
+    7101: '[tv_wonder_construction|E]：要保住规模，就得继续拆工址',
+    7102: '[tv_wonder_construction|E]：要保住规模，就得拿工址繁荣去垫',
+    7103: '[tv_wonder_construction|E]：要保住规模，就得抽走首都工程',
+    7104: '[tv_wonder_construction|E]：要保住规模，就得拿王城买卖去换',
+    7105: '[tv_wonder_construction|E]：要保住规模，就得逼劳工多撑一步',
+    7106: '[tv_wonder_construction|E]：要稳住排班，就得再填一笔钱',
+    7107: '[tv_wonder_construction|E]：要稳住排班，就得再压一次王命',
+    7108: '[tv_wonder_construction|E]：要稳住排班，就得多动地方秩序',
+    7109: '[tv_wonder_construction|E]：要稳住排班，就得继续耗声望',
+    7110: '[tv_wonder_construction|E]：要稳住排班，就得让贵族继续忍着',
+    7111: '[tv_wonder_construction|E]：要稳住排班，就得再向祭坛借时间',
+    7112: '[tv_wonder_construction|E]：要稳住排班，就得让商街再吃一次亏',
+    7113: '[tv_wonder_construction|E]：要稳住排班，就得再压村社人力',
+    7114: '[tv_wonder_construction|E]：要稳住排班，就得继续拆工址',
+    7115: '[tv_wonder_construction|E]：要稳住排班，就得拿工址买卖去垫',
+    7116: '[tv_wonder_construction|E]：要稳住排班，就得抽走首都工力',
+    7117: '[tv_wonder_construction|E]：要稳住排班，就得让王城生意降温',
+    7118: '[tv_wonder_construction|E]：要稳住排班，就得逼劳工再撑一轮',
+    7119: '[tv_wonder_construction|E]：要救车队，就得再花一笔钱',
+    7120: '[tv_wonder_construction|E]：要救车队，就得再借一次王命',
+    7121: '[tv_wonder_construction|E]：要救车队，就得惊动更多地方',
+    7122: '[tv_wonder_construction|E]：要救车队，就得继续透支体面',
+    7123: '[tv_wonder_construction|E]：要救车队，就得再借贵族车马',
+    7124: '[tv_wonder_construction|E]：要救车队，就得让祭坛再忍一次',
+    7125: '[tv_wonder_construction|E]：要救车队，就得先堵住商路',
+    7126: '[tv_wonder_construction|E]：要救车队，就得再抽村社的车驾',
+    7127: '[tv_wonder_construction|E]：要救车队，就得继续拆开工址',
+    7128: '[tv_wonder_construction|E]：要救车队，就得拿工址繁荣去换',
+    7129: '[tv_wonder_construction|E]：要救车队，就得抽走首都运力',
+    7130: '[tv_wonder_construction|E]：要救车队，就得让王城市场让路',
+    7131: '[tv_wonder_construction|E]：要救车队，就得逼人力再撑一次',
+    7132: '[tv_wonder_construction|E]：要抢回进度，就得继续掏钱',
+    7133: '[tv_wonder_construction|E]：要抢回进度，就得再压一次王命',
+    7134: '[tv_wonder_construction|E]：要抢回进度，就得惊动地方',
+    7135: '[tv_wonder_construction|E]：要抢回进度，就得拿声望去垫',
+    7136: '[tv_wonder_construction|E]：要抢回进度，就得再向贵族借力',
+    7137: '[tv_wonder_construction|E]：要抢回进度，就得让祭坛再让一步',
+    7138: '[tv_wonder_construction|E]：要抢回进度，就得先挤占商路',
+    7139: '[tv_wonder_construction|E]：要抢回进度，就得再抽村社一把',
+    7140: '[tv_wonder_construction|E]：要抢回进度，就得继续拆工址',
+    7141: '[tv_wonder_construction|E]：要抢回进度，就得拿工址生计去填',
+    7142: '[tv_wonder_construction|E]：要抢回进度，就得让首都工程后退',
+    7143: '[tv_wonder_construction|E]：要抢回进度，就得让王城生意让路',
+    7144: '[tv_wonder_construction|E]：要抢回进度，就得逼劳工再咬牙',
+    7145: '[tv_wonder_construction|E]：奇观又在国库上挖了个口子',
+    7146: '[tv_wonder_construction|E]：王命被工地磨薄了',
+    7147: '[tv_wonder_construction|E]：施工惊动了地方安宁',
+    7148: '[tv_wonder_construction|E]：宫廷的体面又薄了一层',
+    7149: '[tv_wonder_construction|E]：贵族席间开始说冷话',
+    7150: '[tv_wonder_construction|E]：祭坛前有人皱起了眉头',
+    7151: '[tv_wonder_construction|E]：商街的账本又薄了一页',
+    7152: '[tv_wonder_construction|E]：村社肩上又压了一担',
+    7153: '[tv_wonder_construction|E]：工址街区又被拆开一块',
+    7154: '[tv_wonder_construction|E]：工址周围的买卖冷了下去',
+    7155: '[tv_wonder_construction|E]：首都修缮又给奇观让了路',
+    7156: '[tv_wonder_construction|E]：王城街市也被拖冷了',
+    7157: '[tv_wonder_construction|E]：伤员名册上又添了人',
+    7158: '[tv_wonder_construction|E]：国库先替奇观吞下了代价',
+    7159: '[tv_wonder_construction|E]：王权的体面被工地扯开了',
+    7160: '[tv_wonder_construction|E]：征发把地方搅得更乱了',
+    7161: '[tv_wonder_construction|E]：工地让宫廷声望当众受损',
+    7162: '[tv_wonder_construction|E]：贵族的耐心被工地磨没了',
+    7163: '[tv_wonder_construction|E]：教士的耐心也快用尽了',
+    7164: '[tv_wonder_construction|E]：市民的怒气已经摆上街面',
+    7165: '[tv_wonder_construction|E]：乡间的怨气已经压不住了',
+    7166: '[tv_wonder_construction|E]：工址先为奇观倒退了一步',
+    7167: '[tv_wonder_construction|E]：工址的繁荣先被压暗了',
+    7168: '[tv_wonder_construction|E]：首都先替奇观付了账',
+    7169: '[tv_wonder_construction|E]：王城买卖也被奇观拖慢了',
+    7170: '[tv_wonder_construction|E]：工地把劳工逼出了伤亡',
+    7171: '[tv_wonder_construction|E]：[tv_great_engineer|E]当众说服了围观者',
+    7172: '[tv_wonder_construction|E]：[tv_great_engineer|E]重画了主轴线',
+    7173: '[tv_wonder_construction|E]：[tv_great_engineer|E]把工序全都重排了',
+    7174: '[tv_wonder_construction|E]：[tv_great_engineer|E]重新打通了运路',
+    7175: '[tv_wonder_construction|E]：[tv_great_engineer|E]亲手推过了主工段',
+    7176: '[tv_wonder_construction|E]：[tv_great_engineer|E]把议论压了下去',
+    7177: '[tv_wonder_construction|E]：[tv_great_engineer|E]校准了场地尺度',
+    7178: '[tv_wonder_construction|E]：[tv_great_engineer|E]理顺了工棚名册',
+    7179: '[tv_wonder_construction|E]：[tv_great_engineer|E]疏通了补给车队',
+    7180: '[tv_wonder_construction|E]：[tv_great_engineer|E]补上了关键部件',
+    7181: '[tv_wonder_construction|E]：[tv_great_engineer|E]决定拿工地去赌人心',
+    7182: '[tv_wonder_construction|E]：[tv_great_engineer|E]执意放大了蓝图',
+    7183: '[tv_wonder_construction|E]：[tv_great_engineer|E]当场改了排班',
+    7184: '[tv_wonder_construction|E]：[tv_great_engineer|E]让车队改走险路',
+    7185: '[tv_wonder_construction|E]：[tv_great_engineer|E]强行试了新工法',
+    7186: '[tv_wonder_construction|E]：[tv_great_engineer|E]把修补费用算漏了',
+    7187: '[tv_wonder_construction|E]：[tv_great_engineer|E]把王命用得太随手了',
+    7188: '[tv_wonder_construction|E]：[tv_great_engineer|E]低估了施工扰动',
+    7189: '[tv_wonder_construction|E]：[tv_great_engineer|E]把话说得太满了',
+    7190: '[tv_wonder_construction|E]：[tv_great_engineer|E]把贵族耐性当成了存货',
+    7191: '[tv_wonder_construction|E]：[tv_great_engineer|E]把祭坛也卷进了工期',
+    7192: '[tv_wonder_construction|E]：[tv_great_engineer|E]拿商路给工地让了道',
+    7193: '[tv_wonder_construction|E]：[tv_great_engineer|E]把村社余力看多了',
+    7194: '[tv_wonder_construction|E]：[tv_great_engineer|E]把工址拆过了头',
+    7195: '[tv_wonder_construction|E]：[tv_great_engineer|E]挤掉了工址生计',
+    7196: '[tv_wonder_construction|E]：[tv_great_engineer|E]误动了首都余裕',
+    7197: '[tv_wonder_construction|E]：[tv_great_engineer|E]拖慢了王城买卖',
+    7198: '[tv_wonder_construction|E]：[tv_great_engineer|E]看错了劳工的极限',
+    7199: '[tv_wonder_construction|E]：[tv_great_engineer|E]把账册彻底拖垮了',
+    7200: '[tv_wonder_construction|E]：[tv_great_engineer|E]把王命也拖下了水',
+    7201: '[tv_wonder_construction|E]：[tv_great_engineer|E]把地方搅成了一团',
+    7202: '[tv_wonder_construction|E]：[tv_great_engineer|E]把宫廷体面也赔进去了',
+    7203: '[tv_wonder_construction|E]：[tv_great_engineer|E]把贵族彻底惹恼了',
+    7204: '[tv_wonder_construction|E]：[tv_great_engineer|E]把教士也得罪透了',
+    7205: '[tv_wonder_construction|E]：[tv_great_engineer|E]把市民逼出了火气',
+    7206: '[tv_wonder_construction|E]：[tv_great_engineer|E]把村社压到了极限',
+    7207: '[tv_wonder_construction|E]：[tv_great_engineer|E]先把工址折腾坏了',
+    7208: '[tv_wonder_construction|E]：[tv_great_engineer|E]把工址买卖压熄了',
+    7209: '[tv_wonder_construction|E]：[tv_great_engineer|E]掏空了首都安排',
+    7210: '[tv_wonder_construction|E]：[tv_great_engineer|E]把王城生意也压冷了',
+    7211: '[tv_wonder_construction|E]：[tv_great_engineer|E]把失误变成了伤亡',
+}
+
+DESC_EN = {
+    7000: 'A few visible successes at the fence turn curiosity into pride. Guild elders lend names, neighbors stop treating the works as a royal vanity, and the project gains a sharper claim on [tv_wonder_domestic_support|E].',
+    7001: 'New measurements reveal ground that can bear a broader footprint. What had looked like ambition on parchment now has a tolerable foundation, and [tv_wonder_scale_competence|E] jumps forward.',
+    7002: 'The yard wakes under new rosters. Crews know where to stand, clerks know which tally matters, and [tv_wonder_organization_competence|E] rises because confusion has fewer places to hide.',
+    7003: 'A better route links road, water, storeyard, and scaffold. The first convoy to use it arrives almost embarrassingly on time, and [tv_wonder_logistics_competence|E] surges.',
+    7004: 'The active part rises past its mark before the light fails. No single miracle explains it; the lifts, joints, and hands simply meet at the right hour, pushing [tv_wonder_construction|E] progress ahead.',
+    7005: 'The noise around the site softens. It is not acclaim, but it is permission enough for carts to pass and arguments to end sooner; [tv_wonder_domestic_support|E] rises by a useful margin.',
+    7006: 'A cramped angle is redrawn, a service path widened, and the main line of the monument breathes again. The improvement to [tv_wonder_scale_competence|E] is small but real.',
+    7007: 'A set of missing handovers is repaired. The work is too dry for ceremony, but it keeps tools moving and improves [tv_wonder_organization_competence|E].',
+    7008: 'One bad turn in the supply line is corrected. Fewer carts wait empty, fewer loads arrive cracked, and [tv_wonder_logistics_competence|E] improves.',
+    7009: 'A stubborn joint finally fits, and the next crew can begin without another month of waiting. [tv_wonder_construction|E] progress moves forward in the most satisfying way: visibly.',
+    7075: 'A public demonstration at the site draws a crowd that may become loyal spectators or offended critics. The scaffolds wait while rumor decides whether [tv_wonder_domestic_support|E] has been helped or harmed.',
+    7076: 'A bold adjustment pulls the plan beyond its old limits. It may become the decision that made the monument grand, or the note future clerks underline in red.',
+    7077: 'A new chain of command is imposed under the awnings. It may discipline the yard or merely teach every foreman a new way to argue.',
+    7078: 'A risky route promises to shorten the supply line. If the weather holds it will be praised as foresight; if it fails, everyone will remember who ordered the turn.',
+    7079: 'A faster method is tried on the active part. It may save the month or force the next crew to repair a beautiful mistake.',
+    7145: 'The wonder draws coin faster than the ledgers expected. The treasury can explain the shortage, but explanation does not mint silver.',
+    7146: 'Royal endorsement is stretched over too many compromises. The seal still holds, but it looks thinner.',
+    7147: 'The construction rhythm presses against ordinary life. Markets open late, villages grumble, and order gives a little ground.',
+    7148: 'The court lends color to the works and receives dust in return. Prestige fades in small public jokes and half-finished boasts.',
+    7149: 'Noble households give way once more. The concession is formal and cold, which is often worse than refusal.',
+    7150: 'The sacred calendar bends again for the worksite. The clergy obey, but the obedience has edges.',
+    7151: 'Market business is bent around the project. The burghers can profit from grandeur, but not when every road to it is blocked.',
+    7152: 'Rural shoulders take another load. The project advances, and village patience becomes a thinner thing.',
+    7153: 'The site gives up more of its ordinary fabric. A future wonder gains space, while present streets lose use.',
+    7154: 'The site grows commercially quieter as ordinary exchange is pulled toward the monument. Prosperity can be redirected only so many times before it thins.',
+    7155: 'Capital projects make way for the wonder again. The royal city remains grand, but some of its frame is being borrowed.',
+    7156: 'The capital\'s markets lose a little brightness as the project draws in credit and goods. The court may call it patriotic; merchants call it slower trade.',
+    7157: 'Names are added to the injury rolls. The work continues, but each new mark changes how the laborers look at the stone.',
+    7158: 'A hard demand from the site leaves the treasury visibly hollow. The monument continues, and the realm pays before it can admire anything.',
+    7159: 'The worksite\'s demands force the crown into an undignified posture. The promise of grandeur now leans on damaged authority.',
+    7160: 'A harsher disruption spills past the fence. Officials can name the cause, but they cannot make the country feel settled by naming it.',
+    7161: 'A public embarrassment at the site travels faster than any official correction. Honor pays for stone that is not yet standing.',
+    7162: 'The project cuts into noble patience until courtesy can no longer cover the sound. A monument is a poor guest when it eats inheritance.',
+    7163: 'A construction demand tramples too near the altar. The clergy do not forget when piety is treated as open space.',
+    7164: 'Anger reaches the shopfronts as the worksite swallows space, time, and credit. The city hears the monument before it sees it.',
+    7165: 'Rural anger will not stay quiet after this levy. The wonder\'s shadow reaches farms that may never see its finished face.',
+    7166: 'The works hollow the site hard enough to set it back. The monument has not yet risen, but the place around it has already paid.',
+    7167: 'The worksite smothers the local market for a time. Carts still arrive, but fewer of them are serving the town around the stone.',
+    7168: 'The capital pays in stone, labor, and delayed repairs. A distant monument becomes more real while nearby plans grow hollow.',
+    7169: 'The royal city\'s trade is pressed low by the works. Grandeur far away dulls the streets that must finance it.',
+    7170: 'Sweat crosses into blood at the site. The monument is not cancelled, which may be the cruelest part of the lesson.',
+    7171: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName] turns a technical tour into a public triumph. The result is a major improvement in [tv_wonder_domestic_support|E].\\n\\n#G This event occurred because the current [tv_great_engineer|E] has effective military ability above 80.#!',
+    7172: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName] redraws the main axis with a confidence that makes the larger plan credible. The result is a major improvement in [tv_wonder_scale_competence|E].\\n\\n#G This event occurred because the current [tv_great_engineer|E] has effective military ability above 80.#!',
+    7173: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName] rebuilds the schedule so cleanly that even rival foremen obey it. The result is a major improvement in [tv_wonder_organization_competence|E].\\n\\n#G This event occurred because the current [tv_great_engineer|E] has effective military ability above 80.#!',
+    7174: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName] opens a supply route that makes the old delays look almost foolish. The result is a major improvement in [tv_wonder_logistics_competence|E].\\n\\n#G This event occurred because the current [tv_great_engineer|E] has effective military ability above 80.#!',
+    7175: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName] drives the main works through a problem that had stalled lesser hands. The result is a major improvement in [tv_wonder_construction|E] progress.\\n\\n#G This event occurred because the current [tv_great_engineer|E] has effective military ability above 80.#!',
+    7176: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName] answers rumors with enough plain explanation to steady public confidence. The project gains a steadier improvement in [tv_wonder_domestic_support|E].\\n\\n#G This event occurred because the current [tv_great_engineer|E] has effective military ability above 50.#!',
+    7177: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName] finds enough margin in the site to spare the project from a timid design. The project gains a steadier improvement in [tv_wonder_scale_competence|E].\\n\\n#G This event occurred because the current [tv_great_engineer|E] has effective military ability above 50.#!',
+    7178: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName] straightens a stubborn mess of crews, tools, and watches. The project gains a steadier improvement in [tv_wonder_organization_competence|E].\\n\\n#G This event occurred because the current [tv_great_engineer|E] has effective military ability above 50.#!',
+    7179: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName] clears the worst knot in the convoy schedule. The project gains a steadier improvement in [tv_wonder_logistics_competence|E].\\n\\n#G This event occurred because the current [tv_great_engineer|E] has effective military ability above 50.#!',
+    7180: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName] fits the critical piece and lets the next stage begin sooner. The project gains a steadier improvement in [tv_wonder_construction|E] progress.\\n\\n#G This event occurred because the current [tv_great_engineer|E] has effective military ability above 50.#!',
+    7181: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName] places the unfinished works before the crowd and trusts the spectacle. The decision may lift [tv_wonder_domestic_support|E] or cost the site dearly.\\n\\n#Y This event occurred because the current [tv_great_engineer|E] has effective military ability between 20 and 80.#!',
+    7182: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName] orders the plan enlarged before all doubts have been paid for. The decision may lift [tv_wonder_scale_competence|E] or cost the site dearly.\\n\\n#Y This event occurred because the current [tv_great_engineer|E] has effective military ability between 20 and 80.#!',
+    7183: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName] rewrites the shifts in a single afternoon and dares the yard to keep up. The decision may lift [tv_wonder_organization_competence|E] or cost the site dearly.\\n\\n#Y This event occurred because the current [tv_great_engineer|E] has effective military ability between 20 and 80.#!',
+    7184: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName] sends the carts by a difficult road and trusts calculation over habit. The decision may lift [tv_wonder_logistics_competence|E] or cost the site dearly.\\n\\n#Y This event occurred because the current [tv_great_engineer|E] has effective military ability between 20 and 80.#!',
+    7185: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName] tests a quicker method where failure would be very public. The decision may lift [tv_wonder_construction|E] progress or cost the site dearly.\\n\\n#Y This event occurred because the current [tv_great_engineer|E] has effective military ability between 20 and 80.#!',
+    7186: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName] misjudges the cost of a fix and leaves the treasury to cover the elegance. The works continue, but [gold|E] suffers for the oversight.\\n\\n#R This event occurred because the current [tv_great_engineer|E] has effective military ability below 50.#!',
+    7187: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName] forgets that royal authority is a material too, and spends it carelessly. The works continue, but [legitimacy|E] suffers for the oversight.\\n\\n#R This event occurred because the current [tv_great_engineer|E] has effective military ability below 50.#!',
+    7188: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName] underestimates how much disturbance a neat engineering answer can cause. The works continue, but [stability|E] suffers for the oversight.\\n\\n#R This event occurred because the current [tv_great_engineer|E] has effective military ability below 50.#!',
+    7189: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName] speaks too confidently before the work can support the boast. The works continue, but [prestige|E] suffers for the oversight.\\n\\n#R This event occurred because the current [tv_great_engineer|E] has effective military ability below 50.#!',
+    7190: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName] treats noble patience as if it were another supply stockpile. The works continue, but [estate_satisfaction|E] among the nobles suffers for the oversight.\\n\\n#R This event occurred because the current [tv_great_engineer|E] has effective military ability below 50.#!',
+    7191: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName] moves through the religious calendar as if it were a delivery table. The works continue, but [estate_satisfaction|E] among the clergy suffers for the oversight.\\n\\n#R This event occurred because the current [tv_great_engineer|E] has effective military ability below 50.#!',
+    7192: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName] blocks ordinary trade while chasing a cleaner line for the site. The works continue, but [estate_satisfaction|E] among the burghers suffers for the oversight.\\n\\n#R This event occurred because the current [tv_great_engineer|E] has effective military ability below 50.#!',
+    7193: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName] mistakes exhausted villages for an unused reserve. The works continue, but [estate_satisfaction|E] among the peasants suffers for the oversight.\\n\\n#R This event occurred because the current [tv_great_engineer|E] has effective military ability below 50.#!',
+    7194: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName] cuts through the wrong local arrangements and calls the gap useful. The works continue, but [development|E] at the site suffers for the oversight.\\n\\n#R This event occurred because the current [tv_great_engineer|E] has effective military ability below 50.#!',
+    7195: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName] crowds out local livelihoods while clearing space for the works. The works continue, but [prosperity|E] at the site suffers for the oversight.\\n\\n#R This event occurred because the current [tv_great_engineer|E] has effective military ability below 50.#!',
+    7196: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName] misuses capital resources as though the royal city had no plans of its own. The works continue, but [development|E] in the capital suffers for the oversight.\\n\\n#R This event occurred because the current [tv_great_engineer|E] has effective military ability below 50.#!',
+    7197: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName] disturbs the royal city\'s trade while solving a local engineering problem. The works continue, but [prosperity|E] in the capital suffers for the oversight.\\n\\n#R This event occurred because the current [tv_great_engineer|E] has effective military ability below 50.#!',
+    7198: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName] misjudges the limit of laboring bodies. The works continue, but laboring [population|E] at the site suffers for the oversight.\\n\\n#R This event occurred because the current [tv_great_engineer|E] has effective military ability below 50.#!',
+    7199: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName] lets an avoidable mistake break through the accounts and empty more coin than pride can excuse. The error is not enough to end the wonder, which may be the ugliest part of it.\\n\\n#R This event occurred because the current [tv_great_engineer|E] has effective military ability below 20.#!',
+    7200: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName] turns a preventable site failure into a visible wound to the crown. The error is not enough to end the wonder, which may be the ugliest part of it.\\n\\n#R This event occurred because the current [tv_great_engineer|E] has effective military ability below 20.#!',
+    7201: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName] pushes the country into disorder while trying to solve a site problem. The error is not enough to end the wonder, which may be the ugliest part of it.\\n\\n#R This event occurred because the current [tv_great_engineer|E] has effective military ability below 20.#!',
+    7202: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName] makes the site a spectacle and drags courtly honor into it. The error is not enough to end the wonder, which may be the ugliest part of it.\\n\\n#R This event occurred because the current [tv_great_engineer|E] has effective military ability below 20.#!',
+    7203: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName] angers the houses by solving a site problem through their privileges. The error is not enough to end the wonder, which may be the ugliest part of it.\\n\\n#R This event occurred because the current [tv_great_engineer|E] has effective military ability below 20.#!',
+    7204: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName] offends the clergy by making sacred patience pay for secular stone. The error is not enough to end the wonder, which may be the ugliest part of it.\\n\\n#R This event occurred because the current [tv_great_engineer|E] has effective military ability below 20.#!',
+    7205: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName] provokes the burghers by treating commerce as loose scaffolding. The error is not enough to end the wonder, which may be the ugliest part of it.\\n\\n#R This event occurred because the current [tv_great_engineer|E] has effective military ability below 20.#!',
+    7206: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName] breaks village patience with a demand that should have been avoided. The error is not enough to end the wonder, which may be the ugliest part of it.\\n\\n#R This event occurred because the current [tv_great_engineer|E] has effective military ability below 20.#!',
+    7207: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName] injures the site by solving a technical problem with local destruction. The error is not enough to end the wonder, which may be the ugliest part of it.\\n\\n#R This event occurred because the current [tv_great_engineer|E] has effective military ability below 20.#!',
+    7208: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName] snuffs out the site\'s markets through a preventable decision. The error is not enough to end the wonder, which may be the ugliest part of it.\\n\\n#R This event occurred because the current [tv_great_engineer|E] has effective military ability below 20.#!',
+    7209: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName] hollows the capital\'s plans to cover a mistake at the site. The error is not enough to end the wonder, which may be the ugliest part of it.\\n\\n#R This event occurred because the current [tv_great_engineer|E] has effective military ability below 20.#!',
+    7210: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName] dims capital prosperity through a failure that should never have reached the market. The error is not enough to end the wonder, which may be the ugliest part of it.\\n\\n#R This event occurred because the current [tv_great_engineer|E] has effective military ability below 20.#!',
+    7211: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName] causes casualties by letting a preventable failure pass through the crews. The error is not enough to end the wonder, which may be the ugliest part of it.\\n\\n#R This event occurred because the current [tv_great_engineer|E] has effective military ability below 20.#!',
+}
+
+DESC_ZH = {
+    7000: '围栏外的议论忽然变得顺耳。行会愿意署名，乡绅愿意少问几句，路人也开始把这项工程说成共同的体面。[tv_wonder_domestic_support|E]因此大幅抬升。',
+    7001: '新的测线证明地基还能承受更宽阔的展开。图纸上的野心终于找到可以落脚的土地，[tv_wonder_scale_competence|E]随之大幅提高。',
+    7002: '新名册挂上工棚后，工种、时辰和责任终于彼此对齐。混乱少了藏身处，[tv_wonder_organization_competence|E]大幅提高。',
+    7003: '新路线把道路、水路、堆场与脚手架接成一口气。第一支车队准时得近乎尴尬，[tv_wonder_logistics_competence|E]猛然提高。',
+    7004: '当前部件在天黑前越过标线。没有单一奇迹，只是吊具、榫口和手臂恰好在同一刻对上，[tv_wonder_construction|E]进度大幅推进。',
+    7005: '工地外的冷话少了一些，石料车通过时也少了几道阻拦。这不是举国欢呼，却足以让[tv_wonder_domestic_support|E]向前挪动。',
+    7006: '一处逼仄转角被改顺，主轴线也多出呼吸的余地。[tv_wonder_scale_competence|E]的改善并不炫目，却让宏图更可信。',
+    7007: '几处总被漏掉的交接被补上，工具、夜班和守卫也有了清楚说法。[tv_wonder_organization_competence|E]因此改善。',
+    7008: '补给线上的坏转角被改掉。空等的车少了，摔裂的货少了，[tv_wonder_logistics_competence|E]也随之改善。',
+    7009: '拖延许久的接口终于合上，下一队工匠不用再等一个月。[tv_wonder_construction|E]进度以最令人安心的方式前进：看得见。',
+    7075: '工地前的公开展示引来人群，也引来判断。脚手架旁的每一句惊叹都可能变成支持，每一句讥笑也可能伤到[tv_wonder_domestic_support|E]。',
+    7076: '一项大胆调整把图纸推过旧边界。它可能成就宏伟，也可能成为书记日后用红笔圈出的教训。',
+    7077: '新的号令链在棚下强行推开。它可能让工地守纪律，也可能只是教会每个工头新的争吵方式。',
+    7078: '一条险路有望缩短运线。天气若配合，它就是远见；天气若翻脸，所有人都会记得是谁下的令。',
+    7079: '更快的方法被用在当前部件上。它可能救下这个月，也可能让下一班工匠修补一个漂亮错误。',
+    7145: '奇观吃钱的速度超过账册预期。司库能解释短缺从何而来，却不能把解释铸成银币。',
+    7146: '王命被拉过太多现实妥协。印玺仍然有效，却显得薄了。',
+    7147: '施工节奏压到了寻常生活。市场晚开，村镇低语，秩序稍稍后退。',
+    7148: '宫廷给工程添色，收回的却是灰尘。几句玩笑和几个未兑现的夸口足以磨薄声望。',
+    7149: '贵族家门再次为工程让路。让步很正式，也很冷，这往往比拒绝更难处理。',
+    7150: '神圣日程再次为工地弯折。教士服从了，但服从带着棱角。',
+    7151: '市场生意被迫绕着工程转。市民可以从宏伟中获利，但不能在每条路都被堵住时获利。',
+    7152: '乡村肩膀又添一担。工程前进了，村社耐性也变薄了。',
+    7153: '工址又交出一部分日常肌理。未来奇观得到空间，眼前街巷失去用途。',
+    7154: '当地商业因工程牵引而安静。繁荣可以改道，但改道太多次就会变薄。',
+    7155: '首都工程再次为奇观让路。王城仍然宏伟，只是骨架被借走了一些。',
+    7156: '工程吸走信用和货物，首都市场少了几分亮色。宫廷称之为爱国，商人称之为生意变慢。',
+    7157: '伤员名册添了新名字。工程继续，但每个新标记都会改变劳工看石头的眼神。',
+    7158: '工地一次硬邦邦的索取让国库明显塌下去一块。奇观还没供人瞻仰，国家已经先付了账。',
+    7159: '工地迫使王权摆出并不体面的姿态。宏伟的承诺如今压在受损的权威上。',
+    7160: '更硬的扰动越过围栏。官员能说清原因，却不能靠说明让国家重新安稳。',
+    7161: '工地上的尴尬比官方修正跑得更快。荣誉正在为尚未立起的石头付账。',
+    7162: '工程凿穿了贵族耐性，礼貌已经遮不住声响。会吞家产的奇观，从来不是好客人。',
+    7163: '施工需求踩得离祭坛太近。虔敬被当成空地时，教士不会忘记。',
+    7164: '愤怒抵达店门口；工地吞下空间、时间和信用，城市先听见奇观，再看见奇观。',
+    7165: '这次征调后，乡间怒气不会安静待在田里。奇观的阴影已经落到也许永远看不见它的人身上。',
+    7166: '工程把工址挖空到足以倒退。奇观还没有升起，周围地点已经先付了账。',
+    7167: '工地一时闷住了本地市场。车队仍在抵达，只是其中更少服务于石头周围的城镇。',
+    7168: '首都用石料、劳力和迟到的修缮付账。远处纪念碑更真实，近处计划更空。',
+    7169: '王城贸易被工程压低。远处的宏伟，正在削暗负责供养它的街道。',
+    7170: '汗水在工地越界成血。奇观没有因此停下，这也许正是最残酷的教训。',
+    7171: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName]把一次技术巡视变成公开胜利，使[tv_wonder_domestic_support|E]大幅提高。\\n\\n#G 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力高于80。#!',
+    7172: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName]重画主轴，让更宏大的方案忽然可靠，使[tv_wonder_scale_competence|E]大幅提高。\\n\\n#G 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力高于80。#!',
+    7173: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName]重建排班，连最挑剔的工头也只能照办，使[tv_wonder_organization_competence|E]大幅提高。\\n\\n#G 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力高于80。#!',
+    7174: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName]打开一条补给线，让旧日拖延显得荒唐，使[tv_wonder_logistics_competence|E]大幅提高。\\n\\n#G 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力高于80。#!',
+    7175: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName]带着主体工程越过困住平庸者的问题，使[tv_wonder_construction|E]进度大幅提高。\\n\\n#G 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力高于80。#!',
+    7176: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName]用清楚解释压下谣言，让[tv_wonder_domestic_support|E]获得了稳当的改善。\\n\\n#G 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力高于50。#!',
+    7177: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName]从场地里找出余量，让[tv_wonder_scale_competence|E]获得了稳当的改善。\\n\\n#G 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力高于50。#!',
+    7178: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName]理顺工队、工具和夜班之间的乱结，让[tv_wonder_organization_competence|E]获得了稳当的改善。\\n\\n#G 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力高于50。#!',
+    7179: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName]解开车队日程上最糟的结，让[tv_wonder_logistics_competence|E]获得了稳当的改善。\\n\\n#G 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力高于50。#!',
+    7180: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName]嵌好关键部件，让[tv_wonder_construction|E]进度获得了稳当的改善。\\n\\n#G 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力高于50。#!',
+    7181: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName]把未完工的石头推到人群面前。这个决定可能抬高[tv_wonder_domestic_support|E]，也可能让工地付出昂贵代价。\\n\\n#Y 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力处于20到80之间。#!',
+    7182: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName]在疑虑尚未付清前命令图纸放大。这个决定可能抬高[tv_wonder_scale_competence|E]，也可能让工地付出昂贵代价。\\n\\n#Y 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力处于20到80之间。#!',
+    7183: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName]在一个下午改写班次。这个决定可能抬高[tv_wonder_organization_competence|E]，也可能让工地付出昂贵代价。\\n\\n#Y 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力处于20到80之间。#!',
+    7184: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName]让车队走难路。这个决定可能抬高[tv_wonder_logistics_competence|E]，也可能让工地付出昂贵代价。\\n\\n#Y 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力处于20到80之间。#!',
+    7185: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName]在失败会非常显眼的位置试用更快工法。这个决定可能抬高[tv_wonder_construction|E]进度，也可能让工地付出昂贵代价。\\n\\n#Y 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力处于20到80之间。#!',
+    7186: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName]低估了一项修补的花费，把优雅留给图纸，把窟窿留给国库。工程还能继续，但[gold|E]要为这次疏忽受损。\\n\\n#R 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力低于50。#!',
+    7187: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName]忘记王权也是材料，并且挥霍得太顺手。工程还能继续，但[legitimacy|E]要为这次疏忽受损。\\n\\n#R 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力低于50。#!',
+    7188: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName]低估了一个整齐工程答案会制造多少扰动。工程还能继续，但[stability|E]要为这次疏忽受损。\\n\\n#R 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力低于50。#!',
+    7189: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName]在工程还撑不起豪言前说得太满。工程还能继续，但[prestige|E]要为这次疏忽受损。\\n\\n#R 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力低于50。#!',
+    7190: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName]把贵族耐性当成另一种库存来使用。工程还能继续，但贵族[estate_satisfaction|E]要为这次疏忽受损。\\n\\n#R 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力低于50。#!',
+    7191: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName]把宗教日历当成运输表一样翻动。工程还能继续，但教士[estate_satisfaction|E]要为这次疏忽受损。\\n\\n#R 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力低于50。#!',
+    7192: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName]为了更干净的工程线条挡住了寻常贸易。工程还能继续，但市民[estate_satisfaction|E]要为这次疏忽受损。\\n\\n#R 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力低于50。#!',
+    7193: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName]把疲惫村社误看成未动用储备。工程还能继续，但平民[estate_satisfaction|E]要为这次疏忽受损。\\n\\n#R 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力低于50。#!',
+    7194: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName]切错了当地安排，并把缺口称作可用空间。工程还能继续，但工址[development|E]要为这次疏忽受损。\\n\\n#R 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力低于50。#!',
+    7195: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName]为了清理工地，挤开了当地生计。工程还能继续，但工址[prosperity|E]要为这次疏忽受损。\\n\\n#R 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力低于50。#!',
+    7196: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName]误用首都资源，仿佛王城没有自己的安排。工程还能继续，但首都[development|E]要为这次疏忽受损。\\n\\n#R 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力低于50。#!',
+    7197: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName]为解决本地工程问题扰乱了王城生意。工程还能继续，但首都[prosperity|E]要为这次疏忽受损。\\n\\n#R 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力低于50。#!',
+    7198: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName]误判了劳工身体的极限。工程还能继续，但工址劳工[population|E]要为这次疏忽受损。\\n\\n#R 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力低于50。#!',
+    7199: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName]让本可避免的失误冲破账册，吞下了难以用体面解释的银钱。错误尚不足以终止奇观，这也许正是最难看的地方。\\n\\n#R 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力低于20。#!',
+    7200: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName]把本可避免的现场失误变成王冠上的可见伤口。错误尚不足以终止奇观，这也许正是最难看的地方。\\n\\n#R 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力低于20。#!',
+    7201: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName]为解决工地问题，把国家推入了不必要的动荡。错误尚不足以终止奇观，这也许正是最难看的地方。\\n\\n#R 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力低于20。#!',
+    7202: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName]把工地闹成场面，连带拖下了宫廷荣誉。错误尚不足以终止奇观，这也许正是最难看的地方。\\n\\n#R 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力低于20。#!',
+    7203: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName]用贵族特权填补工地失误，激怒了各大家门。错误尚不足以终止奇观，这也许正是最难看的地方。\\n\\n#R 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力低于20。#!',
+    7204: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName]让神圣耐性为世俗石头付账，冒犯了教士。错误尚不足以终止奇观，这也许正是最难看的地方。\\n\\n#R 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力低于20。#!',
+    7205: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName]把商业当成临时脚手架，激怒了市民。错误尚不足以终止奇观，这也许正是最难看的地方。\\n\\n#R 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力低于20。#!',
+    7206: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName]用一项本可避免的需求压断了村社耐性。错误尚不足以终止奇观，这也许正是最难看的地方。\\n\\n#R 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力低于20。#!',
+    7207: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName]用地方破坏解决技术问题，伤到了工址。错误尚不足以终止奇观，这也许正是最难看的地方。\\n\\n#R 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力低于20。#!',
+    7208: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName]一次本可避免的决定熄低了工址市场。错误尚不足以终止奇观，这也许正是最难看的地方。\\n\\n#R 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力低于20。#!',
+    7209: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName]掏空首都规划来遮盖工地失误。错误尚不足以终止奇观，这也许正是最难看的地方。\\n\\n#R 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力低于20。#!',
+    7210: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName]让本不该抵达市场的失败压暗了首都繁荣。错误尚不足以终止奇观，这也许正是最难看的地方。\\n\\n#R 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力低于20。#!',
+    7211: '[SCOPE.sCharacter(\'tv_wonder_event_engineer\').GetShortName]让本可避免的失误穿过工队，造成了伤亡。错误尚不足以终止奇观，这也许正是最难看的地方。\\n\\n#R 该事件出现是因为当前[tv_great_engineer|E]的等效军事能力低于20。#!',
+}
+
+# id -> {slot: (en_text, zh_text, category)}
+OPTION_EN = {
+    7000: {'a': 'Lets the guild elders\' new goodwill carry the work forward.'},
+    7001: {'a': 'Lays claim to the broader ground the survey just proved.'},
+    7002: {'a': 'We lock the new rosters in before confusion finds its way back.'},
+    7003: {'a': 'Keep those carts rolling on time!'},
+    7004: {'a': 'Lets the lifts press on past the mark.'},
+    7005: {'a': 'Lets the carts through and the arguments die down.'},
+    7006: {'a': 'Widens the path and lets the design breathe.'},
+    7007: {'a': 'We patch the handover and keep the tools moving.'},
+    7008: {'a': 'Straightens the bad turn before more loads crack.'},
+    7009: {'a': 'At last, it fits!'},
+    7075: {'a': 'Lets the demonstration speak for itself.'},
+    7076: {'a': 'Pushes the design past its old limits.'},
+    7077: {'a': 'We push the new chain of command through the yard.'},
+    7078: {'a': 'Take the shorter road!'},
+    7079: {'a': 'Tries the faster method on the active section.'},
+    7145: {'a': 'Stretches the ledgers to cover the gap.'},
+    7146: {'a': 'Lets the royal seal wear a touch thinner.'},
+    7147: {'a': 'We let the villages grumble and press on regardless.'},
+    7148: {'a': 'Trades a little shine for a few court jokes.'},
+    7149: {'a': 'Accepts the nobles\' cold, formal concession.'},
+    7150: {'a': 'We accept the clergy\'s obedience, edges and all.'},
+    7151: {'a': 'Clear the roads and keep building!'},
+    7152: {'a': 'Piles the extra load onto rural shoulders.'},
+    7153: {'a': 'Signs away these streets for tomorrow\'s wonder.'},
+    7154: {'a': 'We steer the site\'s trade toward the monument once more.'},
+    7155: {'a': 'Lends the capital\'s own frame to the wonder.'},
+    7156: {'a': 'Every monument borrows its brightness from somewhere.'},
+    7157: {'a': 'Note the names, and carry on!'},
+    7158: {'a': 'Empties the treasury and lets the stone go up regardless.'},
+    7159: {'a': 'We let the crown bend so the walls can rise.'},
+    7160: {'a': 'Lets the unrest run its course beyond the fence.'},
+    7161: {'a': 'Let them talk!'},
+    7162: {'a': 'Lets the nobles grumble while the masonry advances.'},
+    7163: {'a': 'We accept the clergy\'s cold silence as the price of stone.'},
+    7164: {'a': 'Lets the shopfronts grumble while the scaffolding climbs.'},
+    7165: {'a': 'Let the fields bear it!'},
+    7166: {'a': 'Sets the site back so the monument can move forward.'},
+    7167: {'a': 'Lets the local market thin out while the works carry on.'},
+    7168: {'a': 'We let the capital\'s own repairs wait for the distant wonder.'},
+    7169: {'a': 'Dulls the royal city\'s streets to fund grandeur elsewhere.'},
+    7170: {'a': 'We press on, though the site has paid in blood.'},
+    7171: {'a': 'Turns a routine inspection into a public triumph.'},
+    7172: {'a': 'Makes the grand axis look inevitable, not reckless.'},
+    7173: {'a': 'We fall in line behind the new schedule.'},
+    7174: {'a': 'The road is open at last!'},
+    7175: {'a': 'Drives the stalled works clean through.'},
+    7176: {'a': 'Quiets the rumors with plain talk.'},
+    7177: {'a': 'We give the plan room enough to be bold.'},
+    7178: {'a': 'Sets the crews, tools, and watches back in order.'},
+    7179: {'a': 'Clears the worst knot in the supply line.'},
+    7180: {'a': 'Full speed ahead!'},
+    7181: {'a': 'Lets the crowd pass judgment on the unfinished stones.'},
+    7182: {'a': 'Orders the blueprint enlarged before the doubts are settled.'},
+    7183: {'a': 'We rewrite the shifts and dare the yard to keep up.'},
+    7184: {'a': 'Sends the carts down the harder road, trusting calculation over habit.'},
+    7185: {'a': 'Try the faster method - let it prove itself in public!'},
+    7186: {'a': 'Quietly settles the shortfall before the account is questioned.'},
+    7187: {'a': 'We rein in the careless use of the crown\'s name.'},
+    7188: {'a': 'Smooths over the disturbance the tidy solution left behind.'},
+    7189: {'a': 'Walk the boast back!'},
+    7190: {'a': 'Reminds the engineer that noble patience is not a stockpile to draw from.'},
+    7191: {'a': 'Lets the altars keep their own calendar after all.'},
+    7192: {'a': 'We reopen the market lane the site had closed off.'},
+    7193: {'a': 'Lets the exhausted villages rest instead of being drawn on again.'},
+    7194: {'a': 'Patches over the arrangements that were cut through by mistake.'},
+    7195: {'a': 'We make room again for the livelihoods the clearing crowded out.'},
+    7196: {'a': 'Returns the misused resources to the capital\'s own plans.'},
+    7197: {'a': 'We calm the royal city\'s trade before the disruption spreads.'},
+    7198: {'a': 'Ease the strain before more give out!'},
+    7199: {'a': 'Chalks up the loss and quietly shuts the ledger.'},
+    7200: {'a': 'We wear the crown\'s new scar and carry on.'},
+    7201: {'a': 'Leaves the disorder to burn itself out.'},
+    7202: {'a': 'Let the court have its spectacle!'},
+    7203: {'a': 'Spends the houses\' goodwill to keep the work moving.'},
+    7204: {'a': 'We let sacred patience foot the bill for secular stone.'},
+    7205: {'a': 'Leaves the merchants to mend their own scaffolding.'},
+    7206: {'a': 'We ask the villages\' pardon for a demand we could have spared them.'},
+    7207: {'a': 'Patches the wound the repairs themselves caused.'},
+    7208: {'a': 'So be it—let the stalls fall silent!'},
+    7209: {'a': 'Guts the capital\'s own plans to patch the site\'s mistake.'},
+    7210: {'a': 'We watch the capital\'s shine dim over a failure it never should have seen.'},
+    7211: {'a': 'Counts the dead the crews should never have lost.'},
+}
+
+OPTION_ZH = {
+    7000: {'a': '借行会长老这份新赞誉，为工程继续撑腰。'},
+    7001: {'a': '趁着这次测线，把地基彻底铺开。'},
+    7002: {'a': '赶紧把新名册钉死，免得混乱卷土重来。'},
+    7003: {'a': '让车队照这个点头继续跑下去！'},
+    7004: {'a': '让吊具趁势继续越过标线。'},
+    7005: {'a': '先让车马通行，争论也顺势平息。'},
+    7006: {'a': '拓宽路径，让蓝图重新舒展开来。'},
+    7007: {'a': '我们补上交接的漏洞，让工具不再停摆。'},
+    7008: {'a': '趁早改掉这处坏转角，免得更多货物摔裂。'},
+    7009: {'a': '终于对上了！'},
+    7075: {'a': '让这场展示自己说话。'},
+    7076: {'a': '把设计推过原有的界限。'},
+    7077: {'a': '我们把这道新号令推行到工地。'},
+    7078: {'a': '走这条近路！'},
+    7079: {'a': '在当前部件上试行这套新工法。'},
+    7145: {'a': '拉紧账册填上这个窟窿。'},
+    7146: {'a': '由着王命再磨薄一分。'},
+    7147: {'a': '我们由着村镇低语，照旧推进工程。'},
+    7148: {'a': '拿几分体面换几句宫廷笑话。'},
+    7149: {'a': '接受贵族门第这份冷淡而正式的让步。'},
+    7150: {'a': '我们接受教士带棱角的服从。'},
+    7151: {'a': '清开道路，工程照旧！'},
+    7152: {'a': '让乡村肩膀再多扛一担。'},
+    7153: {'a': '签下这片街巷，换未来的奇观。'},
+    7154: {'a': '我们再次把这片买卖引向工程。'},
+    7155: {'a': '把王城的骨架再借给奇观一次。'},
+    7156: {'a': '每一座丰碑，都要从别处借些光彩。'},
+    7157: {'a': '记下伤名，继续开工！'},
+    7158: {'a': '国库先掏空,工程照常往上砌。'},
+    7159: {'a': '我们宁可让王权低头,也要把高墙立起来。'},
+    7160: {'a': '由它去闹,围栏外的骚动自行平息。'},
+    7161: {'a': '由他们说去!'},
+    7162: {'a': '任凭贵族抱怨,泥瓦照旧往上砌。'},
+    7163: {'a': '我们把教士的冷脸,当作石料的代价收下。'},
+    7164: {'a': '任由店铺发牢骚,脚手架照样往上搭。'},
+    7165: {'a': '让田地扛着去吧!'},
+    7166: {'a': '工址退一步,只为让奇观往前迈一步。'},
+    7167: {'a': '由着本地市场淡下去,工程照旧不停。'},
+    7168: {'a': '我们让首都自己的修缮,给远方的奇观让路。'},
+    7169: {'a': '压暗王城的街市,去供养别处的宏伟。'},
+    7170: {'a': '我们仍然往前走,尽管工地已经流了血。'},
+    7171: {'a': '把一次寻常巡视变成了满城喝彩。'},
+    7172: {'a': '让这条主轴显得理所当然，而非孤注一掷。'},
+    7173: {'a': '我们索性听命于这套新排班。'},
+    7174: {'a': '路终于通了！'},
+    7175: {'a': '把卡住的工段硬生生推了过去。'},
+    7176: {'a': '拿实话把流言压了下去。'},
+    7177: {'a': '我们给方案留出了底气。'},
+    7178: {'a': '把工队、工具和更次都理顺了。'},
+    7179: {'a': '解开了补给线上最糟的死结。'},
+    7180: {'a': '即刻推进，毫不耽搁！'},
+    7181: {'a': '任由人群评判这堆未完工的石头。'},
+    7182: {'a': '趁疑虑未消，先把蓝图放大。'},
+    7183: {'a': '我们改写班次,看工地能否跟得上。'},
+    7184: {'a': '让车队改走险路,赌的是算计而非习惯。'},
+    7185: {'a': '试试这更快的工法,就让它当众见分晓!'},
+    7186: {'a': '先把这笔亏空补上，免得账目被人追问。'},
+    7187: {'a': '我们把这份王命的滥用收一收。'},
+    7188: {'a': '把这套整齐方案惹出的骚动抚平。'},
+    7189: {'a': '把话收回来！'},
+    7190: {'a': '提醒工程师，贵族的耐性可不是随取随用的库存。'},
+    7191: {'a': '把祭坛的日历还给祭坛自己。'},
+    7192: {'a': '我们把工地挡住的商路重新开出来。'},
+    7193: {'a': '让已经疲惫的村社喘一口气，别再被当储备使唤。'},
+    7194: {'a': '把这处切错的地方重新补上。'},
+    7195: {'a': '我们把被工地挤走的生计再腾出些地方。'},
+    7196: {'a': '把这些被挪用的资源还给首都自己的安排。'},
+    7197: {'a': '我们先把王城的生意稳下来，别让乱子扩散。'},
+    7198: {'a': '先松一松，别再累垮更多人！'},
+    7199: {'a': '咬牙认下这笔亏空，悄悄合上账册。'},
+    7200: {'a': '我们背着王冠上的这道新伤，继续前行。'},
+    7201: {'a': '由着这场动乱自行平息。'},
+    7202: {'a': '就让宫廷看这出热闹去吧！'},
+    7203: {'a': '拿贵族的情面换工程继续推进。'},
+    7204: {'a': '我们让神圣的耐性，替这些世俗石料买了单。'},
+    7205: {'a': '由商人自己去修补那些脚手架。'},
+    7206: {'a': '我们为这本可省去的苛求，向村社赔个不是。'},
+    7207: {'a': '草草包扎了那道由抢修引出的创伤。'},
+    7208: {'a': '罢了——就让摊位安静下来吧！'},
+    7209: {'a': '掏空首都的规划，来填补工地的这个窟窿。'},
+    7210: {'a': '我们看着王城的光彩，为这场本不该传到市场的失败而黯淡下去。'},
+    7211: {'a': '清点了那些工队本不该失去的性命。'},
+}
+
+COMBO_DESC_POOL = {
+    'trade_noneng_for_eng': [
+        {'en': 'Somewhere in the ledgers, a clerk finds a line that can be crossed out without anyone asking twice: {noneng} bends a little so that {eng} can move forward. It is the kind of arithmetic that works today and gets reread, unkindly, next season.', 'zh': '工程部门想出了一个办法：拿出一部分{noneng}，直接换成{eng}上的进展。这样做确实有用，只是花出去的东西不会自己回来。'},
+        {'en': 'Like drawing water from one field to save another, the foremen suggest letting {noneng} run a little dry so that {eng} can be irrigated properly. Nobody upstream will thank them for it, but the crop of progress comes in regardless.', 'zh': '为了让{eng}更进一步，这个月要动用一些{noneng}。工头们把账算得很清楚：确实划算，但{noneng}也会跟着实实在在地变少。'},
+        {'en': 'The [tv_engineering_department|E] asks, in effect, to borrow against {noneng}: spend it down now, promise nothing about paying it back, and let the difference show up as hard movement on {eng}. Debts like this rarely stay quiet forever.', 'zh': '工程部门提议先支出一部分{noneng}，把这笔钱直接用在{eng}上面。效果马上看得见，只是这笔支出以后迟早也会被人翻出来问。'},
+        {'en': 'Someone has to sit on the heavier side of the scale, and this month it is {noneng}. Let it settle a little lower, and {eng} rises to match, though the balance rarely stays where you last left it.', 'zh': '这个月，工程部门打算用{noneng}换取{eng}的进展。这不是什么讨巧的办法，只是一笔算得过来的交易。'},
+        {'en': 'The foremen put it plainly: give up a slice of {noneng} this month, and they will turn it directly into {eng}. No one pretends it is a generous exchange, only a workable one.', 'zh': '有人提议牺牲一部分{noneng}，来换取{eng}上的提升。工程确实因此受益，但被牺牲的那部分不会自己补回来。'},
+        {'en': 'Stores meant to last the season get opened early. What leaves as {noneng} does not vanish so much as change shape, arriving on the far side of the ledger as fresh {eng}. Whether that shape is worth the emptied shelf is a question for later.', 'zh': '工程部门算过一笔账：花掉部分{noneng}，就能在{eng}上取得实实在在的进展。这笔交易划算，却也不是白拿的。'},
+        {'en': 'It amounts to a wager: stake {noneng} on the table and see it returned, transformed, as movement on {eng}. The house — in this case, the works themselves — tends to collect on such bets one way or another.', 'zh': '为了推动{eng}，工程部门这次准备从{noneng}里拿出一部分来补上。省下的力气看得见，付出的代价也一样看得见。'},
+        {'en': 'There is no clean way to say it: {noneng} must give a little ground this month if {eng} is to move at all. The engineers accept the trade without much ceremony, aware that ground given rarely returns on its own.', 'zh': '这是一笔简单的交换：用{noneng}换{eng}。工程部门没有掩饰这一点，只是提醒众人，这份代价迟早会被人注意到。'},
+        {'en': 'Building anything worth having means burning something else to light the way. This time the fuel is {noneng}, and the light it throws falls squarely on {eng} — bright enough to notice, costly enough to remember.', 'zh': '工程部门决定用{noneng}换取{eng}上的进展。这个决定谈不上体面，却很实际。'},
+        {'en': 'Someone will have to call in a favor, and this time the favor is paid out of {noneng}. It buys the works an unmistakable step forward in {eng}, but favors spent do not refill themselves.', 'zh': '要让{eng}向前推进，这个月需要动用一些{noneng}。工程部门知道这笔账不太好看，但还是决定这么做。'},
+    ],
+    'choose_eng_or_noneng_loss': [
+        {'en': 'There is no way to absorb this loss cleanly. Either {eng} takes the weight and holds its ground, or the strain lands on {noneng} instead. Someone always pays, one way or another.', 'zh': '这个月的损失躲不掉，只能决定由谁来承担：要么让{eng}受损，要么把代价转到{noneng}身上。不管怎么选，总要有一方付出代价。'},
+        {'en': 'A shock has found its way to the site, and it must land somewhere. Hold firm and let {eng} take the brunt of it, or turn it aside and let {noneng} absorb the fallout.', 'zh': '工地上出了一次意外，损失必须有人承担。可以让{eng}直接受损，也可以把这份压力转移出去，改由{noneng}来承受。'},
+        {'en': 'Something on this scaffold must give. Either {eng} takes the sag, or the load shifts onto {noneng} instead.', 'zh': '工程遇到了麻烦，总得有个地方吃亏。要么让{eng}先受影响，要么把这份负担转给{noneng}。'},
+        {'en': 'Two doors stand open, and only one can be shut in time. Close it on {eng}, and the setback lands there; leave it be, and {noneng} takes the fall instead.', 'zh': '现在有两个选择，只能挑一个：让{eng}承受这次损失，或者把损失转移出去，让{noneng}来承受。'},
+        {'en': 'The trouble behaves like floodwater looking for the lowest ground. Dam it here and {eng} takes the first surge; open the sluice elsewhere and {noneng} takes the water instead.', 'zh': '这次的麻烦总要落在什么地方。挡在这里，损失的就是{eng}；放到别处去，受影响的就变成{noneng}。'},
+        {'en': 'Somebody must carry this debt through the month. Let {eng} sign for it and wear the cost, or push the note across the table so {noneng} settles it instead.', 'zh': '这个月的代价必须有人承担。可以让{eng}直接背这笔账，也可以把账转出去，让{noneng}来还。'},
+        {'en': 'The blow is already swinging and cannot be stopped, only redirected. Take it on {eng}, or send it wide so {noneng} catches it instead.', 'zh': '损失已经无法避免，唯一能决定的是它落在哪里。可以让它冲击{eng}，也可以把它引开，让{noneng}承受。'},
+        {'en': 'A crack has opened somewhere in the work, and mortar alone will not seal it. Let it run through {eng}, or brace that line and let it surface instead in {noneng}.', 'zh': '工程出了问题，代价必须有人承担。让{eng}直接受损是一种办法，把压力转给{noneng}也是一种办法。'},
+        {'en': 'The scales will not sit level no matter how the numbers are read. Tip them so {eng} carries the difference, or tip them the other way and hand the difference to {noneng}.', 'zh': '这笔账无论怎么算都要吃亏。可以让{eng}来承担这个差额，也可以把差额转出去，交给{noneng}。'},
+    ],
+}
+
+COMBO_OPTION_POOL = {
+    'trade_noneng_for_eng': {
+        'a': [
+            {'en': 'Puts the cost to good use.', 'zh': '把这笔支出用在刀刃上。', 'category': 'third_person'},
+            {'en': 'Turns the sacrifice into progress.', 'zh': '把牺牲换成实打实的进展。', 'category': 'third_person'},
+            {'en': 'Makes the trade without hesitation.', 'zh': '毫不犹豫地应下这笔交易。', 'category': 'third_person'},
+            {'en': 'Accepts the bargain.', 'zh': '接受这笔交易。', 'category': 'third_person'},
+            {'en': 'Cashes in the opportunity.', 'zh': '抓住这个机会。', 'category': 'third_person'},
+            {'en': 'Signs off on the exchange.', 'zh': '签下这笔交换。', 'category': 'third_person'},
+            {'en': 'We\'ll pay the price.', 'zh': '我们愿意付这个代价。', 'category': 'first_person'},
+            {'en': 'We accept the trade.', 'zh': '我们接受这笔交易。', 'category': 'first_person'},
+            {'en': 'We\'ll make it count.', 'zh': '我们会让它物有所值。', 'category': 'first_person'},
+            {'en': 'We take the deal.', 'zh': '我们拿下这笔买卖。', 'category': 'first_person'},
+            {'en': 'Do it!', 'zh': '就这么办！', 'category': 'interjection'},
+            {'en': 'Make the trade!', 'zh': '促成交易！', 'category': 'interjection'},
+            {'en': 'Nothing ventured, nothing gained.', 'zh': '舍不得孩子套不住狼。', 'category': 'proverb'},
+        ],
+        'b': [
+            {'en': 'Lets the month pass quietly.', 'zh': '让这个月悄然过去。', 'category': 'third_person'},
+            {'en': 'Leaves the offer on the table.', 'zh': '把这个提议搁在一边。', 'category': 'third_person'},
+            {'en': 'Holds off for now.', 'zh': '暂且按兵不动。', 'category': 'third_person'},
+            {'en': 'Passes on the bargain.', 'zh': '回绝了这笔交易。', 'category': 'third_person'},
+            {'en': 'We\'ll wait this one out.', 'zh': '我们这次先观望。', 'category': 'first_person'},
+            {'en': 'We decline for now.', 'zh': '我们暂时婉拒。', 'category': 'first_person'},
+            {'en': 'We keep our reserves untouched.', 'zh': '我们按兵不动，留住底子。', 'category': 'first_person'},
+            {'en': 'Not this month!', 'zh': '这个月不行！', 'category': 'interjection'},
+            {'en': 'Better safe than sorry.', 'zh': '小心驶得万年船。', 'category': 'proverb'},
+        ],
     },
-    "scale_competence": {
-        "short": "尺度",
-        "gain2_title": "宏图重新合上地平",
-        "gain1_title": "尺规修正宏愿",
-        "swing_title": "尺度在图纸边缘摇晃",
-        "engineer_gain2_title": "大工程师重定宏图",
-        "engineer_gain1_title": "大工程师校准尺度",
-        "engineer_swing_title": "大工程师放大蓝图",
-        "trade_title": "宏图舒展",
-        "choice_title": "尺度折损",
-        "trade_need": "更宽的基址、更多的测量日和更大胆的结构余量",
-        "trade_result": "图纸上的庞大轮廓不再显得像狂想",
-        "choice_pressure": "测量绳拉到尽头，立柱间距却仍在逼迫匠师承认旧图过于保守",
-        "choice_loss": "宏图会被削去锋芒，后世看到的奇观也会矮上一截",
-        "option_gain2": "让扩展后的图纸立刻盖印。",
-        "option_gain1": "按新的尺规修订工程图。",
-        "option_swing": "让测量绳再向外拉一次。",
-        "option_engineer_gain2": "批准这份更大胆的总图。",
-        "option_engineer_gain1": "采纳工程师的尺度修正。",
-        "option_engineer_swing": "让工程师赌一赌更大的轮廓。",
-        "gain2_desc": (
-            "测量队在晨雾中重拉基线，发现原本被视为边界的坡地其实能承受更宏大的展开。"
-            "新图纸把道路、台阶和主轴连成一口气，规模适性骤然提高。"
-            "这不是把奇观画大那么简单，而是让大变得可信。"
-        ),
-        "gain1_desc": (
-            "一处尴尬的转角被重新丈量，几段过紧的通道也被移到更顺手的位置。"
-            "规模适性因此得到改善，宏图少了一些勉强，多了一些能落在土地上的重量。"
-            "工地没有欢呼，只是许多人同时点了点头。"
-        ),
-        "swing_desc": (
-            "匠师们提出要放宽某段布局，以免未来的主殿显得局促。"
-            "若判断正确，规模适性会因此受益；若判断错误，更多空地只会让未完成的部分显得更刺眼。"
-            "每一寸扩张都在询问国家到底想留下多大的影子。"
-        ),
-        "engineer_gain2_desc": (
-            f"{ENGINEER_SCOPE_ZH}把旧图摊在泥地上，亲手划掉了几条让人困惑的轴线。"
-            "新的尺度安排让宏愿与地形重新咬合，规模适性大幅提升。\\n\\n"
-            f"{ENGINEER_NOTE_80_ZH}"
-        ),
-        "engineer_gain1_desc": (
-            f"{ENGINEER_SCOPE_ZH}发现总图里一处迟早会拖慢全局的收束，并在施工前将它校正。"
-            "规模适性因此更稳，工程也少了一份未来的尴尬。\\n\\n"
-            f"{ENGINEER_NOTE_50_ZH}"
-        ),
-        "engineer_swing_desc": (
-            f"{ENGINEER_SCOPE_ZH}坚持把一段设计放大到原先无人敢签字的程度。"
-            "它可能让奇观获得配得上野心的尺度，也可能让工程背上过大的身躯。\\n\\n"
-            f"{ENGINEER_NOTE_SWING_ZH}"
-        ),
-    },
-    "organization_competence": {
-        "short": "组织",
-        "gain2_title": "名册与号令归位",
-        "gain1_title": "工棚秩序理清",
-        "swing_title": "号令在雨棚下改口",
-        "engineer_gain2_title": "大工程师重排工序",
-        "engineer_gain1_title": "大工程师理顺名册",
-        "engineer_swing_title": "大工程师改写排班",
-        "trade_title": "号令整肃",
-        "choice_title": "排班混乱",
-        "trade_need": "更清楚的名册、轮班和责任界线",
-        "trade_result": "工棚里的命令终于能按同一种节拍传下去",
-        "choice_pressure": "同一批工匠被两份命令叫走，材料堆旁的争吵也开始盖过锤声",
-        "choice_loss": "名册会重新长出涂改和空缺，工头也会各自为政",
-        "option_gain2": "把新名册分发到每座工棚。",
-        "option_gain1": "让工头们照此排班。",
-        "option_swing": "让这套临时号令跑满一日。",
-        "option_engineer_gain2": "让工程师的排程成为新规。",
-        "option_engineer_gain1": "按工程师的名册重新点人。",
-        "option_engineer_swing": "用工程师的新排班赌一轮。",
-        "gain2_desc": (
-            "一夜之间，工棚门口的旧名册被换成按工种、时辰和责任划开的新册。"
-            "石匠不再等木匠让路，书记也终于知道每一车灰浆该算在哪一段。"
-            "组织适性的跃升像一道不显眼的梁，把原本松散的工地托了起来。"
-        ),
-        "gain1_desc": (
-            "几个总被遗漏的小组被重新纳入排班，工具领取和夜间守卫也有了清楚的交接。"
-            "组织适性因此改善。它不会让石头自己升起，却能让抬石头的人少走冤枉路。"
-        ),
-        "swing_desc": (
-            "为了赶上某个关键节点，工头们临时打乱了原有排班。"
-            "如果新顺序成立，组织适性会有所提高；如果它只是纸上秩序，工棚明早就会被互相寻找的人塞满。"
-            "命令发出时总显得简单，执行时才显出牙齿。"
-        ),
-        "engineer_gain2_desc": (
-            f"{ENGINEER_SCOPE_ZH}用半日时间拆开了整个工地的排程，再把它按真正的先后关系装回去。"
-            "工棚里的等待和互相推诿突然少了许多，组织适性随之大幅改善。\\n\\n"
-            f"{ENGINEER_NOTE_80_ZH}"
-        ),
-        "engineer_gain1_desc": (
-            f"{ENGINEER_SCOPE_ZH}在名册中找到了几处长期无人承认的空白。"
-            "补上责任人之后，组织适性稳步提高，连书记的墨水都少浪费了一些。\\n\\n"
-            f"{ENGINEER_NOTE_50_ZH}"
-        ),
-        "engineer_swing_desc": (
-            f"{ENGINEER_SCOPE_ZH}下令把三支熟练队伍临时拆散，分插到最拖后的工段。"
-            "这可能立刻治好堵点，也可能让所有人都忘了原本该听谁的。\\n\\n"
-            f"{ENGINEER_NOTE_SWING_ZH}"
-        ),
-    },
-    "logistics_competence": {
-        "short": "转运",
-        "gain2_title": "道路与车队合拍",
-        "gain1_title": "车辙找到新路",
-        "swing_title": "运道在泥水间改线",
-        "engineer_gain2_title": "大工程师打开运道",
-        "engineer_gain1_title": "大工程师疏通车队",
-        "engineer_swing_title": "大工程师改走险路",
-        "trade_title": "运道畅通",
-        "choice_title": "车队迟滞",
-        "trade_need": "桥、仓、驿路和车队之间更可靠的衔接",
-        "trade_result": "石料和木材能按工地真正需要的速度抵达",
-        "choice_pressure": "雨后的车辙陷得太深，码头上的货堆又一次比工地的耐心更高",
-        "choice_loss": "车队会继续误点，工匠也会继续等着看空车回来",
-        "option_gain2": "把新运道纳入正式线路。",
-        "option_gain1": "让车队按这条路试行。",
-        "option_swing": "让货车跟着新标桩走。",
-        "option_engineer_gain2": "照工程师的线路调度车马。",
-        "option_engineer_gain1": "按工程师的办法疏通转运。",
-        "option_engineer_swing": "准许工程师改走这条险路。",
-        "gain2_desc": (
-            "雨停之后，斥候在旧路旁找到一条能避开泥沼的高地车道。"
-            "临时桥板、驿站和堆料点被迅速串联起来，物流适性猛然提高。"
-            "工地第一次听见车轮声像一支守时的队伍，而不是一串借口。"
-        ),
-        "gain1_desc": (
-            "一段绕远的石料路线被改短，码头到仓棚之间也添了更清楚的交接。"
-            "物流适性因此改善。少几次空等，少几车翻覆，奇观就多一点像会准时到来的东西。"
-        ),
-        "swing_desc": (
-            "车队主管建议改走一条更短却更难维护的线路。"
-            "若路基撑得住，物流适性会因此上涨；若撑不住，省下的时辰会被泥水连本带利讨回。"
-            "每一道车辙都像在替工程投票。"
-        ),
-        "engineer_gain2_desc": (
-            f"{ENGINEER_SCOPE_ZH}亲自沿着运道走了一遍，随后把桥板、驿夫和仓位重新排成一张清楚的网。"
-            "物流适性大幅提升，工地终于能预先知道明日会到什么。\\n\\n"
-            f"{ENGINEER_NOTE_80_ZH}"
-        ),
-        "engineer_gain1_desc": (
-            f"{ENGINEER_SCOPE_ZH}找出了车队总在同一处误时的原因，并把那里改成真正的交接点。"
-            "物流适性随之改善，抱怨声至少少了一种。\\n\\n"
-            f"{ENGINEER_NOTE_50_ZH}"
-        ),
-        "engineer_swing_desc": (
-            f"{ENGINEER_SCOPE_ZH}命令转运队伍绕开拥堵官道，改走一条尚未完全压实的新路。"
-            "这条路可能成为捷径，也可能成为下一封坏消息的开头。\\n\\n"
-            f"{ENGINEER_NOTE_SWING_ZH}"
-        ),
-    },
-    "materials_stockpile": {
-        "short": "储料",
-        "gain2_title": "仓廪满过清晨",
-        "gain1_title": "料场多出余裕",
-        "swing_title": "仓门前的算盘声",
-        "engineer_gain2_title": "大工程师扩充料仓",
-        "engineer_gain1_title": "大工程师盘活储料",
-        "engineer_swing_title": "大工程师重估库存",
-        "trade_title": "仓储充盈",
-        "choice_title": "料堆见底",
-        "trade_need": "更多石材、木料、灰浆和能遮雨的仓棚",
-        "trade_result": "料场终于不再贴着最低线呼吸",
-        "choice_pressure": "石材堆的阴影一日比一日短，仓吏却还在等待下一批车队",
-        "choice_loss": "仓棚会继续空出令人心慌的角落",
-        "option_gain2": "把多出的材料立刻入账。",
-        "option_gain1": "把这批余料妥善封存。",
-        "option_swing": "照新的库存估算开仓。",
-        "option_engineer_gain2": "让工程师扩建临时料仓。",
-        "option_engineer_gain1": "按工程师的清单重新配料。",
-        "option_engineer_swing": "相信工程师的库存重算。",
-        "gain2_desc": (
-            "几批早被视为误期的石材同时抵达，木梁也在雨前被推进了遮棚。"
-            "仓吏的算盘响了整整一个上午，最后给出一个令人难得安心的数字。"
-            "物资储备大幅增加，工地终于能把目光从明日转向下月。"
-        ),
-        "gain1_desc": (
-            "旧料堆中被清出一批仍可使用的石块，新到的木材也比预期干燥。"
-            "物资储备因此改善。它不像胜利那样耀眼，却像仓门上的新锁一样令人安心。"
-        ),
-        "swing_desc": (
-            "仓吏提出按新的损耗率提前释放部分材料，以免工段闲置。"
-            "若估算准确，物资储备的使用会更有效；若估算过于乐观，料场很快会露出空地。"
-            "每一次开仓都带着一点赌性。"
-        ),
-        "engineer_gain2_desc": (
-            f"{ENGINEER_SCOPE_ZH}把散落在各处的材料清单合成一份真正可用的库存图。"
-            "被遗忘的石料、可替换的木梁和新的遮棚位置一起出现，物资储备大幅提升。\\n\\n"
-            f"{ENGINEER_NOTE_80_ZH}"
-        ),
-        "engineer_gain1_desc": (
-            f"{ENGINEER_SCOPE_ZH}纠正了仓吏沿用许久的损耗估算，把还能使用的材料从废料名册里救了出来。"
-            "物资储备因此得到改善。\\n\\n"
-            f"{ENGINEER_NOTE_50_ZH}"
-        ),
-        "engineer_swing_desc": (
-            f"{ENGINEER_SCOPE_ZH}要求提前调用一批原本留作备用的材料。"
-            "这可能让本月施工顺畅许多，也可能让下一次缺料来得更响。\\n\\n"
-            f"{ENGINEER_NOTE_SWING_ZH}"
-        ),
-    },
-    "construction_progress": {
-        "short": "工段",
-        "gain2_title": "石层越过标线",
-        "gain1_title": "锤声推近完工",
-        "swing_title": "新工法悬在半空",
-        "engineer_gain2_title": "大工程师推进主工段",
-        "engineer_gain1_title": "大工程师补上关键榫口",
-        "engineer_swing_title": "大工程师试行新工法",
-        "trade_title": "工程突进",
-        "choice_title": "进度回落",
-        "trade_need": "当前部件上更密集的工序、更长的白昼和更少的等待",
-        "trade_result": "未完成的部件越过了昨日谁也不敢保证的标线",
-        "choice_pressure": "脚手架已经搭好，熟手也在场，可每一次停顿都像在把完工日往后推",
-        "choice_loss": "当前部件会少一段本该属于今日的高度",
-        "option_gain2": "让下一层石块紧跟上去。",
-        "option_gain1": "把这段进展钉进日程。",
-        "option_swing": "让新工法在当前部件上试一次。",
-        "option_engineer_gain2": "照工程师的节奏推进主工段。",
-        "option_engineer_gain1": "让工程师补上这处关键榫口。",
-        "option_engineer_swing": "允许工程师试行这套新工法。",
-        "gain2_desc": (
-            "天色尚早，工头就在标线旁发现今日的石层已经超过预定高度。"
-            "临时调整的脚手架没有塌，吊具也没有误时，建设进度因此大幅推进。"
-            "在奇观工地上，这样的日子少得足以让人不敢高声庆祝。"
-        ),
-        "gain1_desc": (
-            "一处拖延许久的榫口终于合上，后续工段得以接上锤声。"
-            "建设进度向前推进了一截。它不是传奇，只是许多手臂在同一刻终于没有互相等待。"
-        ),
-        "swing_desc": (
-            "匠师建议用一套更快的搭接办法处理当前部件。"
-            "若它成功，建设进度会明显受益；若它失败，返工会把节省的时间吞回去。"
-            "未完成的石面沉默地等着这次判断。"
-        ),
-        "engineer_gain2_desc": (
-            f"{ENGINEER_SCOPE_ZH}把最熟练的几支队伍集中到当前部件，并亲自重新安排吊装顺序。"
-            "石层越过旧标线，建设进度大幅推进。\\n\\n"
-            f"{ENGINEER_NOTE_80_ZH}"
-        ),
-        "engineer_gain1_desc": (
-            f"{ENGINEER_SCOPE_ZH}在一处反复卡住的连接点上做出修正，使后续工段重新接续。"
-            "建设进度因此稳步提升。\\n\\n"
-            f"{ENGINEER_NOTE_50_ZH}"
-        ),
-        "engineer_swing_desc": (
-            f"{ENGINEER_SCOPE_ZH}决定在当前部件上试行一套更快但容错更低的工法。"
-            "成功时它会像灵感，失败时它会像傲慢。\\n\\n"
-            f"{ENGINEER_NOTE_SWING_ZH}"
-        ),
+    'choose_eng_or_noneng_loss': {
+        'a': [
+            {'en': 'Lets it take the hit.', 'zh': '由它先扛下这一下。', 'category': 'third_person'},
+            {'en': 'Puts the strain here and holds the line.', 'zh': '把压力扛在这里，稳住阵脚。', 'category': 'third_person'},
+            {'en': 'Takes the weight without flinching.', 'zh': '接下这份重量，眼都不眨。', 'category': 'third_person'},
+            {'en': 'Keeps the loss close and bears it.', 'zh': '把损失留在自己身上扛。', 'category': 'third_person'},
+            {'en': 'Absorbs the blow rather than pass it on.', 'zh': '自己吞下这一击，不转嫁出去。', 'category': 'third_person'},
+            {'en': 'Shoulders the cost outright.', 'zh': '干脆把代价扛下来。', 'category': 'third_person'},
+            {'en': 'We\'ll take the hit here.', 'zh': '我们就在这里扛下这一下。', 'category': 'first_person'},
+            {'en': 'We absorb it and move on.', 'zh': '我们咽下这口气，继续往前走。', 'category': 'first_person'},
+            {'en': 'We hold the line, whatever it costs.', 'zh': '不管代价多少，我们守住这里。', 'category': 'first_person'},
+            {'en': 'We\'ll wear this one ourselves.', 'zh': '这次，我们自己扛。', 'category': 'first_person'},
+            {'en': 'Take the hit!', 'zh': '扛下来！', 'category': 'interjection'},
+            {'en': 'Better a known wound than a hidden one.', 'zh': '宁受明伤，不留暗患。', 'category': 'proverb'},
+        ],
+        'b': [
+            {'en': 'Pushes the burden elsewhere.', 'zh': '把负担推到别处。', 'category': 'third_person'},
+            {'en': 'Shifts the weight outward.', 'zh': '把重量转移出去。', 'category': 'third_person'},
+            {'en': 'Spares it and lets the strain fall on the rest.', 'zh': '护住这一头，让压力落到旁处。', 'category': 'third_person'},
+            {'en': 'Turns the loss aside.', 'zh': '把这份损失挡开、转向别处。', 'category': 'third_person'},
+            {'en': 'We\'ll let the rest absorb this one.', 'zh': '这次，就让别处承担吧。', 'category': 'first_person'},
+            {'en': 'We spare it and pay elsewhere.', 'zh': '我们护住这里，代价挪去别处。', 'category': 'first_person'},
+            {'en': 'We turn the blow aside.', 'zh': '我们把这一击引向别处。', 'category': 'first_person'},
+            {'en': 'Turn it aside!', 'zh': '转个方向！', 'category': 'interjection'},
+            {'en': 'Spare the roof; let the rain find another eave.', 'zh': '留住屋顶，任雨水改道别檐。', 'category': 'proverb'},
+        ],
     },
 }
 
-ZH_NON_ENGINEERING_FLAVOR = {
-    "gold": {
-        "short": "国库",
-        "trade_title": "国库拨款",
-        "choice_title": "银箱吃紧",
-        "strain_title": "国库添上新缺口",
-        "crisis_title": "金库门前的沉默",
-        "engineer_loss1_title": "大工程师漏算库银",
-        "engineer_loss2_title": "大工程师拖垮账册",
-        "trade_scene": "司库打开预备金箱，把原本留给军饷、赈济和宫廷修缮的硬币拨往工地",
-        "trade_after": "空出的账格会被每个有眼睛的官员看见",
-        "choice_pressure": "国库已经为本季度的各项开销列满注脚，任何额外支出都要从别处拔钉",
-        "choice_loss": "钱箱会发出比反对声更清楚的回响",
-        "decline_option": "把国库铁锁重新扣上",
-        "spend_option": "打开国库暗格",
-        "loss1_desc": (
-            "工程继续向前，但国库账页比往常薄了一截。司库能解释每一笔支出，却无法让空出的栏位重新生钱。"
-            "奇观还没立起，国家已经先学会为它垫付耐心。"
-        ),
-        "loss2_desc": (
-            "这次不再只是普通超支。几项早已承诺的拨款被迫后移，金库门前的沉默比任何责问都难听。"
-            "官员们把原因写得很整齐，可整齐的字迹补不上国库资金的裂口。"
-        ),
-        "engineer_loss1_desc": (
-            f"{ENGINEER_SCOPE_ZH}把吊装和石料算得分毫不差，却低估了每一次临时采购会怎样啃食国库。"
-            "账册还能勉强合上，只是合上时声音很重。\\n\\n"
-            f"{ENGINEER_NOTE_BAD_50_ZH}"
-        ),
-        "engineer_loss2_desc": (
-            f"{ENGINEER_SCOPE_ZH}批准了一连串本可避免的急购，把国库推到不得不补洞的境地。"
-            "工地没有停下，账册却替它摔了一跤。\\n\\n"
-            f"{ENGINEER_NOTE_BAD_20_ZH}"
-        ),
-        "option_loss1": "让司库先把缺口缝起来。",
-        "option_loss2": "记下这场昂贵的沉默。",
-        "option_engineer_loss1": "叫工程师重新看账。",
-        "option_engineer_loss2": "让这笔烂账成为训诫。",
-    },
-    "legitimacy": {
-        "short": "正统",
-        "trade_title": "王命背书",
-        "choice_title": "名分受损",
-        "strain_title": "王命染上灰尘",
-        "crisis_title": "名分在工地前裂开",
-        "engineer_loss1_title": "大工程师轻慢名分",
-        "engineer_loss2_title": "大工程师折损王命",
-        "trade_scene": "宫廷愿意把君主的名义压在工程布告上，让反对者暂时不敢把抱怨说得太响",
-        "trade_after": "被动用的威仪很难完全收回",
-        "choice_pressure": "王命若为一处工段反复背书，名分本身也会被拖进泥水里",
-        "choice_loss": "正统性会在每一道催工诏令后变薄",
-        "decline_option": "别让王命替工棚担保",
-        "spend_option": "以王命为工程背书",
-        "loss1_desc": (
-            "几道催工文书以君主名义发出，却没有得到同样庄重的结果。朝臣仍然服从，语气却多了一点计算。"
-            "正统性不是崩塌，只是在奇观阴影下蒙了一层灰。"
-        ),
-        "loss2_desc": (
-            "一场围绕工程的争执被迫抬到王座之前，名分因此成了施工耗材。"
-            "当君主的威仪被拿来解释石料迟到，正统性的裂口便很难再被称作小事。"
-        ),
-        "engineer_loss1_desc": (
-            f"{ENGINEER_SCOPE_ZH}把宫廷礼制当成可以挪动的脚手架，却忘了名分一旦拆动就会留下痕迹。"
-            "工程保住了节奏，正统性却被磨薄。\\n\\n"
-            f"{ENGINEER_NOTE_BAD_50_ZH}"
-        ),
-        "engineer_loss2_desc": (
-            f"{ENGINEER_SCOPE_ZH}让一项工程命令越过了礼制能承受的界线。"
-            "工地得到了一时方便，王命却替这份方便付出沉重代价。\\n\\n"
-            f"{ENGINEER_NOTE_BAD_20_ZH}"
-        ),
-        "option_loss1": "让宫廷尽快修补礼数。",
-        "option_loss2": "这道裂缝会被史官看见。",
-        "option_engineer_loss1": "提醒工程师敬畏名分。",
-        "option_engineer_loss2": "把王命从工地泥水里抬出来。",
-    },
-    "stability": {
-        "short": "安宁",
-        "trade_title": "扰动乡里",
-        "choice_title": "秩序松动",
-        "strain_title": "地方安宁受扰",
-        "crisis_title": "秩序在征发中破声",
-        "engineer_loss1_title": "大工程师误触安宁",
-        "engineer_loss2_title": "大工程师搅乱地方",
-        "trade_scene": "地方官同意加快征调人手和车辆，让原本安静的乡里为工程让出道路",
-        "trade_after": "被惊动的日常秩序不会立刻恢复原状",
-        "choice_pressure": "地方已经被频繁的征调和传令搅得心神不宁，再多一步就会有人把怨气说出口",
-        "choice_loss": "稳定度会在看似普通的命令之间松动",
-        "decline_option": "不要再惊动乡里",
-        "spend_option": "让地方秩序为工程让路",
-        "loss1_desc": (
-            "额外征调打乱了几处市镇的平常节奏，抱怨先在酒馆里出现，随后才进入官员的耳朵。"
-            "稳定度受到冲击，工程也因此显得比石头更重。"
-        ),
-        "loss2_desc": (
-            "几地同时出现延误、争执和拒役，地方秩序被工程牵出一串裂响。"
-            "官员们仍能压住局面，却无法否认稳定度已经为奇观付出一笔硬账。"
-        ),
-        "engineer_loss1_desc": (
-            f"{ENGINEER_SCOPE_ZH}只看见调度表上的空格，却没有看见村镇日常能承受多少扰动。"
-            "工地得到了人手，稳定度却被拉扯了一下。\\n\\n"
-            f"{ENGINEER_NOTE_BAD_50_ZH}"
-        ),
-        "engineer_loss2_desc": (
-            f"{ENGINEER_SCOPE_ZH}连续改变征调安排，使地方官还没解释完上一道命令就收到下一道。"
-            "安宁被搅碎，稳定度也随之下跌。\\n\\n"
-            f"{ENGINEER_NOTE_BAD_20_ZH}"
-        ),
-        "option_loss1": "先把地方怨气压下去。",
-        "option_loss2": "让巡吏去收拾回声。",
-        "option_engineer_loss1": "让工程师听一听地方官。",
-        "option_engineer_loss2": "把混乱从排程里剔除。",
-    },
-    "prestige": {
-        "short": "声名",
-        "trade_title": "透支声名",
-        "choice_title": "威望蒙尘",
-        "strain_title": "宫廷声望失色",
-        "crisis_title": "威望在众目下折损",
-        "engineer_loss1_title": "大工程师误伤声望",
-        "engineer_loss2_title": "大工程师毁了体面",
-        "trade_scene": "宫廷愿意把已经积累的声名借给工地，用典礼、宣告和夸饰遮住几处现实缺口",
-        "trade_after": "夸下的词句会反过来要求结果",
-        "choice_pressure": "若工程继续把宏伟挂在嘴边却拿不出相称进展，宫廷威望就会成为被嘲笑的靶子",
-        "choice_loss": "威望会在每一次过早的宣告后褪色",
-        "decline_option": "别把声望再押上去",
-        "spend_option": "拿宫廷声名替工程开路",
-        "loss1_desc": (
-            "一次本该显示气派的工程展示只让来宾看见了未完成的尴尬。"
-            "威望受到轻微折损，宫廷仍然体面，只是笑声来得比掌声更快。"
-        ),
-        "loss2_desc": (
-            "关于工地失误的消息传得太快，远方使节听到的版本甚至比现场更锋利。"
-            "威望被公开磨损，奇观还未完成，已经先替国家招来一场难看的审视。"
-        ),
-        "engineer_loss1_desc": (
-            f"{ENGINEER_SCOPE_ZH}过早宣布了一项尚未稳固的成果。"
-            "当细节被追问时，工程还能解释，威望却先红了脸。\\n\\n"
-            f"{ENGINEER_NOTE_BAD_50_ZH}"
-        ),
-        "engineer_loss2_desc": (
-            f"{ENGINEER_SCOPE_ZH}把一场施工失误变成了公开笑柄。"
-            "石头可以重砌，威望却不能用同一把凿子修好。\\n\\n"
-            f"{ENGINEER_NOTE_BAD_20_ZH}"
-        ),
-        "option_loss1": "把失色的体面擦一擦。",
-        "option_loss2": "这份羞辱要有人记账。",
-        "option_engineer_loss1": "让工程师少说多做。",
-        "option_engineer_loss2": "先把宫廷脸面救回来。",
-    },
-    "nobles_satisfaction": {
-        "short": "贵族",
-        "trade_title": "借用贵族耐性",
-        "choice_title": "贵族怨言",
-        "strain_title": "贵族席间传出冷语",
-        "crisis_title": "贵族耐心被凿穿",
-        "engineer_loss1_title": "大工程师怠慢贵族",
-        "engineer_loss2_title": "大工程师激怒贵族",
-        "trade_scene": "数家显贵同意把车马、佃户和名义借给工地，只是他们的微笑比契约更薄",
-        "trade_after": "宴席上的沉默会记住这次让步",
-        "choice_pressure": "贵族已经觉得工程拿走了太多车马和面子，再要一次就会从冷淡变成怨恨",
-        "choice_loss": "贵族阶层满意度会在礼貌的沉默里下降",
-        "decline_option": "别再试探贵族耐性",
-        "spend_option": "借贵族的车马与面子",
-        "loss1_desc": (
-            "几位贵族把原本答应的协助照常送到，却在席间把话说得很凉。"
-            "贵族阶层满意度受损，工地得到的帮助也因此带上了欠债的味道。"
-        ),
-        "loss2_desc": (
-            "工程征用越过了某些显贵能忍受的界线，抱怨开始从私人书信流向公开场合。"
-            "贵族阶层满意度明显下跌，奇观的每一块石头都像压在一张纹章上。"
-        ),
-        "engineer_loss1_desc": (
-            f"{ENGINEER_SCOPE_ZH}安排车马时忘了给几家贵族留下体面。"
-            "物资到了，脸色也到了，贵族阶层满意度随之受损。\\n\\n"
-            f"{ENGINEER_NOTE_BAD_50_ZH}"
-        ),
-        "engineer_loss2_desc": (
-            f"{ENGINEER_SCOPE_ZH}把贵族的让步当成理所当然，直到他们决定用冷硬的礼貌回应。"
-            "工程仍有车马，国家却少了贵族的好脸色。\\n\\n"
-            f"{ENGINEER_NOTE_BAD_20_ZH}"
-        ),
-        "option_loss1": "派人去贵族席间解释。",
-        "option_loss2": "这杯冷酒先饮下去。",
-        "option_engineer_loss1": "让工程师补上礼数。",
-        "option_engineer_loss2": "去安抚那些被轻慢的纹章。",
-    },
-    "clergy_satisfaction": {
-        "short": "教士",
-        "trade_title": "动用教士宽容",
-        "choice_title": "祭坛不悦",
-        "strain_title": "祭坛前的眉头",
-        "crisis_title": "教士耐心告罄",
-        "engineer_loss1_title": "大工程师触犯祭坛",
-        "engineer_loss2_title": "大工程师冒犯教士",
-        "trade_scene": "教士们同意缩短若干仪式、让出若干地产便利和祝祷时辰，好让工程赶上安排",
-        "trade_after": "祭坛旁的低语会问这一切是否过于世俗",
-        "choice_pressure": "教士已经觉得奇观把神圣用作施工借口，再多一步就会让讲坛发出责备",
-        "choice_loss": "教士阶层满意度会在祈祷声里冷下去",
-        "decline_option": "别让祭坛继续让步",
-        "spend_option": "请教士为工地让出时辰",
-        "loss1_desc": (
-            "几场仪式因工程安排被迫简化，讲坛上的语气随之变得谨慎而冷。"
-            "教士阶层满意度下降，奇观在神圣名义下多了一层不安。"
-        ),
-        "loss2_desc": (
-            "一项施工决定被教士视为对礼仪的公开冒犯。"
-            "解释可以送到修院，却无法让被冒犯者立刻点头；教士阶层满意度遭到重创。"
-        ),
-        "engineer_loss1_desc": (
-            f"{ENGINEER_SCOPE_ZH}把祭日当成普通日程来排，直到教士们用沉默提醒工地并非万事皆可调度。"
-            "教士阶层满意度因此受损。\\n\\n"
-            f"{ENGINEER_NOTE_BAD_50_ZH}"
-        ),
-        "engineer_loss2_desc": (
-            f"{ENGINEER_SCOPE_ZH}在不合时宜的地点开工，让祭坛旁的人把锤声听成冒犯。"
-            "工程抢到了一日，教士阶层满意度却失去许多。\\n\\n"
-            f"{ENGINEER_NOTE_BAD_20_ZH}"
-        ),
-        "option_loss1": "向祭坛送去迟来的歉意。",
-        "option_loss2": "让神职者先把怒意说完。",
-        "option_engineer_loss1": "让工程师记住祭历。",
-        "option_engineer_loss2": "把工地从祭坛前退开。",
-    },
-    "burghers_satisfaction": {
-        "short": "市民",
-        "trade_title": "占用市民便利",
-        "choice_title": "商街怨声",
-        "strain_title": "商街账本变薄",
-        "crisis_title": "市民怒气上街",
-        "engineer_loss1_title": "大工程师压住商街",
-        "engineer_loss2_title": "大工程师惹恼市民",
-        "trade_scene": "城镇商人同意让仓库、码头和信用暂时偏向工地，哪怕市场因此少了几分顺滑",
-        "trade_after": "账房会把这份不便逐笔记下",
-        "choice_pressure": "市民已经为封路、征车和临时仓储让出太多便利，商街的笑脸快维持不住",
-        "choice_loss": "市民阶层满意度会在账本边缘被削薄",
-        "decline_option": "别再挤压商街",
-        "spend_option": "让商街替工地周转",
-        "loss1_desc": (
-            "几处市场因工程调度改道，商人们照常营业，却把算盘拨得格外响。"
-            "市民阶层满意度下降，工地从商街借来的便利开始计息。"
-        ),
-        "loss2_desc": (
-            "临时征用仓库和码头的命令引发了公开抱怨，商街终于不愿只在账房里生气。"
-            "市民阶层满意度大幅受损，工程的影子压到了每一张柜台上。"
-        ),
-        "engineer_loss1_desc": (
-            f"{ENGINEER_SCOPE_ZH}为了赶料，要求商街连续几日替工地让路。"
-            "货物到了，市民阶层满意度却被堵在路口。\\n\\n"
-            f"{ENGINEER_NOTE_BAD_50_ZH}"
-        ),
-        "engineer_loss2_desc": (
-            f"{ENGINEER_SCOPE_ZH}把商人的仓库视为工地附属，直到市民决定用公开怨声追回界线。"
-            "这次误判让市民阶层满意度狠狠下跌。\\n\\n"
-            f"{ENGINEER_NOTE_BAD_20_ZH}"
-        ),
-        "option_loss1": "向商街许诺补偿。",
-        "option_loss2": "先让市场重新开门。",
-        "option_engineer_loss1": "让工程师给商人让出路来。",
-        "option_engineer_loss2": "把仓库钥匙还给市民。",
-    },
-    "peasants_satisfaction": {
-        "short": "平民",
-        "trade_title": "借走乡民余力",
-        "choice_title": "村社疲惫",
-        "strain_title": "村社肩背发沉",
-        "crisis_title": "平民怨气压不住",
-        "engineer_loss1_title": "大工程师低估乡里",
-        "engineer_loss2_title": "大工程师压垮村社",
-        "trade_scene": "乡村被要求多出劳役、车驾和粮秣，地方官保证这只是临时安排",
-        "trade_after": "田埂上的疲惫不会因为文书写着临时就消失",
-        "choice_pressure": "平民已经在农时和工役之间来回奔走，再加一层负担就会让沉默变成怨声",
-        "choice_loss": "平民阶层满意度会在田垄之间掉落",
-        "decline_option": "别再抽走乡民余力",
-        "spend_option": "让村社再撑一程",
-        "loss1_desc": (
-            "劳役名单又向乡里伸出一截，村社照办，却把怨气藏进晚饭后的沉默里。"
-            "平民阶层满意度下降，奇观的宏伟在田垄上显得格外遥远。"
-        ),
-        "loss2_desc": (
-            "一轮过重的征调撞上农时，村社的忍耐终于破出声来。"
-            "平民阶层满意度明显受损，工地得到的每一双手都带着被迫离开的影子。"
-        ),
-        "engineer_loss1_desc": (
-            f"{ENGINEER_SCOPE_ZH}在排程上看见的是可用人手，在村社里留下的却是缺席的父兄。"
-            "平民阶层满意度因此受损。\\n\\n"
-            f"{ENGINEER_NOTE_BAD_50_ZH}"
-        ),
-        "engineer_loss2_desc": (
-            f"{ENGINEER_SCOPE_ZH}把劳役推过了乡里能承受的边界。"
-            "工地多了人，村社少了耐心，平民阶层满意度随之重挫。\\n\\n"
-            f"{ENGINEER_NOTE_BAD_20_ZH}"
-        ),
-        "option_loss1": "让地方官去听村社诉苦。",
-        "option_loss2": "这份怨气会沿田埂传开。",
-        "option_engineer_loss1": "让工程师重新数一数农时。",
-        "option_engineer_loss2": "把劳役从乡里肩上卸下一些。",
-    },
-    "site_development": {
-        "short": "工址发展",
-        "trade_title": "拆用工址积累",
-        "choice_title": "工址被掏空",
-        "strain_title": "工址街区让出骨肉",
-        "crisis_title": "工址发展倒退",
-        "engineer_loss1_title": "大工程师拆错街区",
-        "engineer_loss2_title": "大工程师伤及工址",
-        "trade_scene": "建设地点周边的既有设施被拆改、征用和改道，好给奇观腾出更顺手的空间",
-        "trade_after": "当地原本积累的便利会留下缺口",
-        "choice_pressure": "工址周边能拆能改的地方越来越少，再动一刀就会伤到当地自己的生计",
-        "choice_loss": "建设地点发展度会被工程从脚下掏走一块",
-        "decline_option": "别再拆用工址街区",
-        "spend_option": "拆改工址既有设施",
-        "loss1_desc": (
-            "几处原本服务当地的设施被改作工程用途，居民仍能生活，却明显绕了更远的路。"
-            "建设地点发展度受损，奇观开始从自己的地基周围取肉。"
-        ),
-        "loss2_desc": (
-            "为了工地便利，一片原本繁忙的街区被强行拆改到失去原有功能。"
-            "建设地点发展度明显下降，未来的奇观将站在一块被它自己削瘦的土地上。"
-        ),
-        "engineer_loss1_desc": (
-            f"{ENGINEER_SCOPE_ZH}把一处看似碍事的街区划入拆改范围，却低估了它对当地日常的支撑。"
-            "建设地点发展度因此受损。\\n\\n"
-            f"{ENGINEER_NOTE_BAD_50_ZH}"
-        ),
-        "engineer_loss2_desc": (
-            f"{ENGINEER_SCOPE_ZH}为赶工拆掉了太多工址周边的骨架。"
-            "奇观得到空间，当地发展却被硬生生削下一层。\\n\\n"
-            f"{ENGINEER_NOTE_BAD_20_ZH}"
-        ),
-        "option_loss1": "先修补工址周边的空洞。",
-        "option_loss2": "这块地会记住拆痕。",
-        "option_engineer_loss1": "让工程师重新画拆改线。",
-        "option_engineer_loss2": "停止继续啃食工址。",
-    },
-    "site_prosperity": {
-        "short": "工址繁荣",
-        "trade_title": "抽走工址生意",
-        "choice_title": "工址繁荣降温",
-        "strain_title": "工址市声变低",
-        "crisis_title": "工址繁荣被压熄",
-        "engineer_loss1_title": "大工程师扰乱工址生计",
-        "engineer_loss2_title": "大工程师熄了工址市声",
-        "trade_scene": "当地的客栈、作坊和集市被要求优先服务工地，原本流动的生意被引向同一个巨口",
-        "trade_after": "被抽走的市声不会立刻回到街角",
-        "choice_pressure": "工址附近的生意已经被工程吞下太多，再继续抽调会让繁荣本身开始退潮",
-        "choice_loss": "建设地点繁荣度会在看似热闹的工棚旁降温",
-        "decline_option": "让工址生意喘口气",
-        "spend_option": "把当地生意转向工地",
-        "loss1_desc": (
-            "工地带来了人潮，却也把当地原本多样的生意挤成单一的供给线。"
-            "建设地点繁荣度下降，街市仍然喧闹，却不再像从前那样自由流动。"
-        ),
-        "loss2_desc": (
-            "连续的封路、征用和优先供应让工址周边的正常交易冷了下来。"
-            "建设地点繁荣度遭到重击，奇观的阴影第一次盖过了街市的烟火气。"
-        ),
-        "engineer_loss1_desc": (
-            f"{ENGINEER_SCOPE_ZH}把当地所有便利都视作工程供应链的一部分。"
-            "工地更顺了，建设地点繁荣度却被挤得发皱。\\n\\n"
-            f"{ENGINEER_NOTE_BAD_50_ZH}"
-        ),
-        "engineer_loss2_desc": (
-            f"{ENGINEER_SCOPE_ZH}连续改变道路和供给安排，使工址周边的生意无处落脚。"
-            "繁荣被施工声压低，损失已经无法装作寻常。\\n\\n"
-            f"{ENGINEER_NOTE_BAD_20_ZH}"
-        ),
-        "option_loss1": "让街市重新流动起来。",
-        "option_loss2": "别让工地吞完整座街市。",
-        "option_engineer_loss1": "让工程师给生意留路。",
-        "option_engineer_loss2": "把市声从锤声下救出来。",
-    },
-    "capital_development": {
-        "short": "首都发展",
-        "trade_title": "挪用首都积累",
-        "choice_title": "首都骨架受削",
-        "strain_title": "首都工程被迫让路",
-        "crisis_title": "首都发展替奇观买单",
-        "engineer_loss1_title": "大工程师误拆首都余裕",
-        "engineer_loss2_title": "大工程师掏空首都安排",
-        "trade_scene": "首都几项原定修缮和扩建被暂缓，熟练工匠与材料转而支援奇观",
-        "trade_after": "宫城与街区会记住被推迟的承诺",
-        "choice_pressure": "首都自己的工程已经多次让路，再抽调一次就会把城市的骨架削得太明显",
-        "choice_loss": "首都发展度会替奇观承担看得见的缺口",
-        "decline_option": "别再挪走首都积累",
-        "spend_option": "让首都工程暂且让路",
-        "loss1_desc": (
-            "首都几处原本排定的修缮被推迟，工匠和材料流向远处或城郊的奇观工地。"
-            "首都发展度受损，中心之城第一次显得像在为自己的荣光节衣缩食。"
-        ),
-        "loss2_desc": (
-            "一轮过重的抽调让首都街区的实际建设停摆，连宫廷也难以假装这只是临时挪用。"
-            "首都发展度明显下降，奇观的账单被送到了王国心脏。"
-        ),
-        "engineer_loss1_desc": (
-            f"{ENGINEER_SCOPE_ZH}从首都调走一批关键匠人时，没有意识到他们原本支撑着多少既定工程。"
-            "首都发展度因此受损。\\n\\n"
-            f"{ENGINEER_NOTE_BAD_50_ZH}"
-        ),
-        "engineer_loss2_desc": (
-            f"{ENGINEER_SCOPE_ZH}把首都的修缮安排拆成了奇观的备用零件。"
-            "工地暂时顺利，首都发展却被掏出一个清楚的洞。\\n\\n"
-            f"{ENGINEER_NOTE_BAD_20_ZH}"
-        ),
-        "option_loss1": "让首都先把缺口遮住。",
-        "option_loss2": "王城也会记账。",
-        "option_engineer_loss1": "让工程师归还首都匠人。",
-        "option_engineer_loss2": "停止拆解首都的未来。",
-    },
-    "capital_prosperity": {
-        "short": "首都繁荣",
-        "trade_title": "借首都商气",
-        "choice_title": "首都繁荣失温",
-        "strain_title": "首都街市变冷",
-        "crisis_title": "王城市声被压低",
-        "engineer_loss1_title": "大工程师扰乱王城市声",
-        "engineer_loss2_title": "大工程师压熄首都繁荣",
-        "trade_scene": "首都市场的信用、仓储和人流被工程吸走一部分，最繁华的街道也为远处的石头腾出余裕",
-        "trade_after": "王城市声会短暂低下去",
-        "choice_pressure": "首都商路已经被工程借走太多周转，再继续抽取会让繁荣在街角失温",
-        "choice_loss": "首都繁荣度会在最亮的橱窗后暗下去",
-        "decline_option": "别再抽走王城市声",
-        "spend_option": "把首都商气引向工地",
-        "loss1_desc": (
-            "首都市场仍旧拥挤，但几条原本最灵活的商路被工程调度牵住。"
-            "首都繁荣度下降，繁华没有消失，只是被迫放慢了呼吸。"
-        ),
-        "loss2_desc": (
-            "连续抽调仓储、车马和信用之后，首都街市明显冷了下来。"
-            "首都繁荣度受到重创，王城第一次像是在替一座尚未完工的纪念碑禁声。"
-        ),
-        "engineer_loss1_desc": (
-            f"{ENGINEER_SCOPE_ZH}为了让材料准时到达，强行改写了首都几条重要商路的节奏。"
-            "工地听见车轮声，王城却少了市声。\\n\\n"
-            f"{ENGINEER_NOTE_BAD_50_ZH}"
-        ),
-        "engineer_loss2_desc": (
-            f"{ENGINEER_SCOPE_ZH}连续从首都市场抽走周转能力，让繁荣像火盆一样被人掀开。"
-            "奇观的供应稳住了，首都繁荣度却明显下跌。\\n\\n"
-            f"{ENGINEER_NOTE_BAD_20_ZH}"
-        ),
-        "option_loss1": "让王城商路重新呼吸。",
-        "option_loss2": "这阵冷清太过刺眼。",
-        "option_engineer_loss1": "让工程师放过几条商路。",
-        "option_engineer_loss2": "把市声还给首都。",
-    },
-    "site_laborers": {
-        "short": "劳工",
-        "trade_title": "压上劳工筋骨",
-        "choice_title": "劳工倒下",
-        "strain_title": "工地伤亡添名",
-        "crisis_title": "劳工血汗越过界线",
-        "engineer_loss1_title": "大工程师误判劳役极限",
-        "engineer_loss2_title": "大工程师酿成伤亡",
-        "trade_scene": "工头要求劳工延长班次，把休息、替换和安全余量一并压缩到最窄",
-        "trade_after": "疲惫的身体会把代价记得比账册更准",
-        "choice_pressure": "劳工已经在石尘和绳索下撑到极限，再赶一步就会有人倒在奇观的影子里",
-        "choice_loss": "建设地点劳工会用伤亡替工程付款",
-        "decline_option": "别再压榨劳工筋骨",
-        "spend_option": "让劳工再撑一轮",
-        "loss1_desc": (
-            "几处工段为了赶时辰压缩了休息，伤病名单随即多出一些本可避免的姓名。"
-            "建设地点劳工遭受损失，工地的进度表第一次显得像一张冷硬的判词。"
-        ),
-        "loss2_desc": (
-            "一次过度赶工造成了严重伤亡，血和石粉一起留在未完成的部件旁。"
-            "建设地点劳工付出惨痛代价，任何关于宏伟的词句都暂时说不出口。"
-        ),
-        "engineer_loss1_desc": (
-            f"{ENGINEER_SCOPE_ZH}把劳工当作排程上可以延展的线，却忘了人的筋骨不会按墨线弯曲。"
-            "伤病增加，建设地点劳工为这次误判付出代价。\\n\\n"
-            f"{ENGINEER_NOTE_BAD_50_ZH}"
-        ),
-        "engineer_loss2_desc": (
-            f"{ENGINEER_SCOPE_ZH}批准了一次过于凶狠的赶工，结果让伤亡越过了所有人能轻描淡写的界线。"
-            "奇观继续沉默地上升，劳工却倒在它脚下。\\n\\n"
-            f"{ENGINEER_NOTE_BAD_20_ZH}"
-        ),
-        "option_loss1": "先把伤者抬离工段。",
-        "option_loss2": "这不是能被石粉盖住的事。",
-        "option_engineer_loss1": "让工程师重新计算人的极限。",
-        "option_engineer_loss2": "停止这场带血的赶工。",
-    },
-}
-
-
-def zh_engineering_flavor(token: dict) -> dict:
-    return ZH_ENGINEERING_FLAVOR[token["id"]]
-
-
-def zh_non_engineering_flavor(token: dict) -> dict:
-    return ZH_NON_ENGINEERING_FLAVOR[token["id"]]
-
-
-def apply_zh_concept_format(text: str) -> str:
-    for old, new in ZH_CONCEPT_REPLACEMENTS:
-        text = text.replace(old, new)
-    return text
-
-
-def apply_en_concept_format(text: str) -> str:
-    for old, new in EN_CONCEPT_REPLACEMENTS:
-        text = text.replace(old, new)
-    return text
-
-
-def en_engineering_title_flavor(token: dict) -> dict:
-    return EN_ENGINEERING_TITLE_FLAVOR[token["id"]]
-
-
-def en_non_engineering_title_flavor(token: dict) -> dict:
-    return EN_NON_ENGINEERING_TITLE_FLAVOR[token["id"]]
-
-
-def format_title_en(event: dict) -> str:
-    kind = event["kind"]
-    eng = en_engineering_title_flavor(event["eng"]) if event.get("eng") else None
-    noneng = en_non_engineering_title_flavor(event["noneng"]) if event.get("noneng") else None
-
-    if kind == "gain_engineering_2":
-        core = eng["gain2_title"]
-    elif kind == "gain_engineering_1":
-        core = eng["gain1_title"]
-    elif kind == "trade_noneng_for_eng":
-        core = f"{noneng['trade_title']} for {eng['trade_title']}"
-    elif kind == "swing_engineering_1":
-        core = eng["swing_title"]
-    elif kind == "choose_eng_or_noneng_loss":
-        core = f"{eng['choice_title']} or {noneng['choice_title']}"
-    elif kind == "lose_noneng_1":
-        core = noneng["strain_title"]
-    elif kind == "lose_noneng_2":
-        core = noneng["crisis_title"]
-    elif kind == "engineer_gain_engineering_2":
-        core = eng["engineer_gain2_title"]
-    elif kind == "engineer_gain_engineering_1":
-        core = eng["engineer_gain1_title"]
-    elif kind == "engineer_swing_engineering_1":
-        core = eng["engineer_swing_title"]
-    elif kind == "engineer_lose_noneng_1":
-        core = noneng["engineer_loss1_title"]
-    elif kind == "engineer_lose_noneng_2":
-        core = noneng["engineer_loss2_title"]
-    else:
-        raise ValueError(f"Unhandled wonder event kind: {kind}")
-    return f"[tv_wonder_construction|E]：{core}"
-
-
-def format_title_zh(event: dict) -> str:
-    kind = event["kind"]
-    eng = zh_engineering_flavor(event["eng"]) if event.get("eng") else None
-    noneng = zh_non_engineering_flavor(event["noneng"]) if event.get("noneng") else None
-
-    if kind == "gain_engineering_2":
-        core = eng["gain2_title"]
-    elif kind == "gain_engineering_1":
-        core = eng["gain1_title"]
-    elif kind == "trade_noneng_for_eng":
-        core = f"{noneng['trade_title']}，换{eng['trade_title']}"
-    elif kind == "swing_engineering_1":
-        core = eng["swing_title"]
-    elif kind == "choose_eng_or_noneng_loss":
-        core = f"{eng['choice_title']}，还是{noneng['choice_title']}"
-    elif kind == "lose_noneng_1":
-        core = noneng["strain_title"]
-    elif kind == "lose_noneng_2":
-        core = noneng["crisis_title"]
-    elif kind == "engineer_gain_engineering_2":
-        core = eng["engineer_gain2_title"]
-    elif kind == "engineer_gain_engineering_1":
-        core = eng["engineer_gain1_title"]
-    elif kind == "engineer_swing_engineering_1":
-        core = eng["engineer_swing_title"]
-    elif kind == "engineer_lose_noneng_1":
-        core = noneng["engineer_loss1_title"]
-    elif kind == "engineer_lose_noneng_2":
-        core = noneng["engineer_loss2_title"]
-    else:
-        raise ValueError(f"Unhandled wonder event kind: {kind}")
-    return apply_zh_concept_format(f"[tv_wonder_construction|E]：{core}")
-
-
-def format_desc_zh(event: dict) -> str:
-    kind = event["kind"]
-    eng = zh_engineering_flavor(event["eng"]) if event.get("eng") else None
-    noneng = zh_non_engineering_flavor(event["noneng"]) if event.get("noneng") else None
-
-    if kind == "gain_engineering_2":
-        return eng["gain2_desc"]
-    if kind == "gain_engineering_1":
-        return eng["gain1_desc"]
-    if kind == "trade_noneng_for_eng":
-        return (
-            f"{noneng['trade_scene']}。工程部门趁这阵并不体面的余裕，把{eng['trade_need']}推进到图纸和工棚之间。"
-            f"{eng['trade_result']}，但{noneng['trade_after']}。这不是没有代价的聪明，"
-            "只是把代价放到了当下最容易被承受的位置。"
-        )
-    if kind == "swing_engineering_1":
-        return eng["swing_desc"]
-    if kind == "choose_eng_or_noneng_loss":
-        return (
-            f"{eng['choice_pressure']}，同时{noneng['choice_pressure']}。"
-            f"若让工程自己吞下这口气，{eng['choice_loss']}；若把压力推出围栏，{noneng['choice_loss']}。"
-            "参事们都能说明两边为何必要，却没有人能把账页变干净。"
-        )
-    if kind == "lose_noneng_1":
-        return noneng["loss1_desc"]
-    if kind == "lose_noneng_2":
-        return noneng["loss2_desc"]
-    if kind == "engineer_gain_engineering_2":
-        return eng["engineer_gain2_desc"]
-    if kind == "engineer_gain_engineering_1":
-        return eng["engineer_gain1_desc"]
-    if kind == "engineer_swing_engineering_1":
-        return eng["engineer_swing_desc"]
-    if kind == "engineer_lose_noneng_1":
-        return noneng["engineer_loss1_desc"]
-    if kind == "engineer_lose_noneng_2":
-        return noneng["engineer_loss2_desc"]
-    raise ValueError(f"Unhandled wonder event kind: {kind}")
-
-
-def option_loc_zh(event: dict, suffix: str) -> str:
-    kind = event["kind"]
-    eng = zh_engineering_flavor(event["eng"]) if event.get("eng") else None
-    noneng = zh_non_engineering_flavor(event["noneng"]) if event.get("noneng") else None
-
-    if kind == "gain_engineering_2":
-        return eng["option_gain2"]
-    if kind == "gain_engineering_1":
-        return eng["option_gain1"]
-    if kind == "trade_noneng_for_eng":
-        if suffix == "a":
-            return f"{noneng['spend_option']}，换来{eng['short']}上的余裕。"
-        return f"{noneng['decline_option']}，让{eng['short']}慢慢积累。"
-    if kind == "swing_engineering_1":
-        return eng["option_swing"]
-    if kind == "choose_eng_or_noneng_loss":
-        if suffix == "a":
-            return f"让{eng['short']}先退一步，免得{noneng['short']}被拖下水。"
-        return f"保住{eng['short']}，把压力推给{noneng['short']}。"
-    if kind == "lose_noneng_1":
-        return noneng["option_loss1"]
-    if kind == "lose_noneng_2":
-        return noneng["option_loss2"]
-    if kind == "engineer_gain_engineering_2":
-        return eng["option_engineer_gain2"]
-    if kind == "engineer_gain_engineering_1":
-        return eng["option_engineer_gain1"]
-    if kind == "engineer_swing_engineering_1":
-        return eng["option_engineer_swing"]
-    if kind == "engineer_lose_noneng_1":
-        return noneng["option_engineer_loss1"]
-    if kind == "engineer_lose_noneng_2":
-        return noneng["option_engineer_loss2"]
-    raise ValueError(f"Unhandled wonder event kind: {kind}")
-
+# ---- End generated data tables ----
 
 def load_data() -> dict:
     with DATA_FILE.open(encoding="utf-8") as f:
         return yaml.safe_load(f)
-
-
-def eng_name(token: dict, lang: str) -> str:
-    return token["loc"]["en_effect" if lang == "en" else "zh_effect"]
-
-
-def noneng_name(token: dict, lang: str) -> str:
-    return token["loc"][lang]
 
 
 def event_weight(kind: str, eng: dict | None = None, noneng: dict | None = None) -> int:
@@ -1536,35 +1033,45 @@ def build_events(data: dict) -> list[dict]:
     return events
 
 
+def _combo_index(event: dict, salt: int = 0) -> int:
+    """Stable index for picking a pool variant for a combinatorial-kind event.
+
+    Deterministic on (eng, noneng) so regeneration is idempotent; `salt` lets desc
+    and option-slot lookups land on different pool entries for the same event
+    instead of moving in lockstep.
+    """
+    eng_index = ENG_TOKEN_ORDER.index(event["eng"]["id"])
+    noneng_index = NONENG_TOKEN_ORDER.index(event["noneng"]["id"])
+    return eng_index * len(NONENG_TOKEN_ORDER) + noneng_index + salt
+
+
 def format_title(event: dict, lang: str) -> str:
-    if lang == "zh":
-        return format_title_zh(event)
-    if lang == "en":
-        return format_title_en(event)
-    template = KIND_TITLE[event["kind"]][lang]
-    eng = eng_name(event["eng"], lang) if event.get("eng") else ""
-    noneng = noneng_name(event["noneng"], lang) if event.get("noneng") else ""
-    core = template.format(eng=eng, eng_effect=eng, noneng=noneng)
-    return f"[tv_wonder_construction|E]：{core}"
+    table = TITLE_EN if lang == "en" else TITLE_ZH
+    return table[event["id"]]
 
 
 def format_desc(event: dict, lang: str) -> str:
-    if lang == "zh":
-        return apply_zh_concept_format(format_desc_zh(event))
-    template = KIND_DESC[event["kind"]][lang]
-    eng = ENGINEERING_CONCEPT_REF_EN[event["eng"]["id"]] if lang == "en" and event.get("eng") else eng_name(event["eng"], lang) if event.get("eng") else ""
-    noneng = NON_ENGINEERING_CONCEPT_REF_EN[event["noneng"]["id"]] if lang == "en" and event.get("noneng") else noneng_name(event["noneng"], lang) if event.get("noneng") else ""
-    return apply_en_concept_format(template.format(eng=eng, noneng=noneng))
+    kind = event["kind"]
+    if kind not in COMBINATORIAL_KINDS:
+        table = DESC_EN if lang == "en" else DESC_ZH
+        return table[event["id"]]
+
+    pool = COMBO_DESC_POOL[kind]
+    variant = pool[_combo_index(event) % len(pool)]
+    eng_ref = (ENGINEERING_CONCEPT_REF_EN if lang == "en" else ENGINEERING_CONCEPT_REF_ZH)[event["eng"]["id"]]
+    noneng_ref = (NON_ENGINEERING_CONCEPT_REF_EN if lang == "en" else NON_ENGINEERING_CONCEPT_REF_ZH)[event["noneng"]["id"]]
+    return variant[lang].format(eng=eng_ref, noneng=noneng_ref)
 
 
-def option_loc(event_or_kind: dict | str, suffix: str, lang: str) -> str:
-    if isinstance(event_or_kind, dict):
-        if lang == "zh":
-            return apply_zh_concept_format(option_loc_zh(event_or_kind, suffix))
-        kind = event_or_kind["kind"]
-    else:
-        kind = event_or_kind
-    return KIND_OPTIONS[kind][suffix][lang]
+def option_loc(event: dict, suffix: str, lang: str) -> str:
+    kind = event["kind"]
+    if kind not in COMBINATORIAL_KINDS:
+        table = OPTION_EN if lang == "en" else OPTION_ZH
+        return table[event["id"]][suffix]
+
+    pool = COMBO_OPTION_POOL[kind][suffix]
+    salt = 7 if suffix == "a" else 13
+    return pool[_combo_index(event, salt=salt) % len(pool)][lang]
 
 
 def indent_lines(text: str, level: int) -> str:
@@ -1580,3 +1087,4 @@ def render_header(script: str, data: str, extra: str = "") -> str:
         "# Do not edit directly - modify the data file and re-run the generator.\n"
         f"{suffix}"
     )
+

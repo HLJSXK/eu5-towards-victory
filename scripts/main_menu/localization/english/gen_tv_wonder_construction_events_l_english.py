@@ -64,9 +64,9 @@ def generate() -> str:
         event_id = event["id"]
         lines.append(f' tv_engineering_department.{event_id}.t:0 "{q(format_title(event, "en"))}"')
         lines.append(f' tv_engineering_department.{event_id}.d:0 "{q(format_desc(event, "en"))}"')
-        lines.append(f' tv_engineering_department.{event_id}.a:0 "{q(option_loc(event["kind"], "a", "en"))}"')
+        lines.append(f' tv_engineering_department.{event_id}.a:0 "{q(option_loc(event, "a", "en"))}"')
         if event["kind"] in {"trade_noneng_for_eng", "choose_eng_or_noneng_loss"}:
-            lines.append(f' tv_engineering_department.{event_id}.b:0 "{q(option_loc(event["kind"], "b", "en"))}"')
+            lines.append(f' tv_engineering_department.{event_id}.b:0 "{q(option_loc(event, "b", "en"))}"')
     return "\n".join(lines) + "\n"
 
 
