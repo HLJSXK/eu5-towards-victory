@@ -929,6 +929,7 @@ tv_wonder_location_meets_mining_city_base_site_rules_trigger = {
 		raw_material = goods:silver
 		raw_material = goods:goods_gold
 		raw_material = goods:marble
+		raw_material = goods:salt
 	}
 }
 
@@ -2145,7 +2146,7 @@ tv_wonder_country_has_national_shipyard_project_or_final_trigger = {
 }
 
 tv_wonder_location_meets_star_fortress_city_base_site_rules_trigger = {
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	always = yes
 }
 
 tv_wonder_location_has_star_fortress_city_intermediate_building_trigger = {
@@ -6266,7 +6267,7 @@ tv_wonder_country_has_megalithic_circle_project_or_final_trigger = {
 }
 
 tv_wonder_location_meets_grand_cathedral_base_site_rules_trigger = {
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	always = yes
 }
 
 tv_wonder_location_has_grand_cathedral_intermediate_building_trigger = {
@@ -7633,7 +7634,7 @@ tv_wonder_country_has_mobile_fortress_project_or_final_trigger = {
 }
 
 tv_wonder_location_meets_ancient_city_ruins_base_site_rules_trigger = {
-	location_rank ?= location_rank:rural_settlement
+	always = yes
 }
 
 tv_wonder_location_has_ancient_city_ruins_intermediate_building_trigger = {
@@ -7784,7 +7785,7 @@ tv_wonder_country_has_ancient_city_ruins_project_or_final_trigger = {
 }
 
 tv_wonder_location_meets_summer_palace_base_site_rules_trigger = {
-	location_rank ?= location_rank:city
+	always = yes
 }
 
 tv_wonder_location_has_summer_palace_intermediate_building_trigger = {
@@ -8900,7 +8901,7 @@ tv_wonder_country_has_unique_machu_picchu_project_or_final_trigger = {
 
 tv_wonder_location_meets_unique_himeji_castle_base_site_rules_trigger = {
 	this = location:shikama
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	always = yes
 }
 
 tv_wonder_location_has_unique_himeji_castle_intermediate_building_trigger = {
@@ -9628,7 +9629,7 @@ tv_wonder_country_has_unique_malacca_port_project_or_final_trigger = {
 
 tv_wonder_location_meets_unique_red_fort_delhi_base_site_rules_trigger = {
 	this = location:delhi
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	always = yes
 }
 
 tv_wonder_location_has_unique_red_fort_delhi_intermediate_building_trigger = {
@@ -10087,7 +10088,7 @@ tv_wonder_country_has_unique_mecca_haram_expansion_project_or_final_trigger = {
 }
 
 tv_wonder_location_meets_unique_ming_great_wall_base_site_rules_trigger = {
-	this = location:dadu
+	this = location:fuchuan_ningxia
 	NOT = { location_rank ?= location_rank:city }
 	NOT = { location_rank ?= location_rank:megalopolis }
 }
@@ -10940,7 +10941,7 @@ tv_wonder_country_has_unique_suez_ancient_canal_project_or_final_trigger = {
 
 tv_wonder_location_meets_unique_kremlin_base_site_rules_trigger = {
 	this = location:moscow
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	always = yes
 }
 
 tv_wonder_location_has_unique_kremlin_intermediate_building_trigger = {
@@ -12076,7 +12077,7 @@ tv_wonder_country_has_unique_stonehenge_project_or_final_trigger = {
 
 tv_wonder_location_meets_unique_tower_of_london_base_site_rules_trigger = {
 	this = location:london
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	always = yes
 }
 
 tv_wonder_location_has_unique_tower_of_london_intermediate_building_trigger = {
@@ -12172,7 +12173,7 @@ tv_wonder_country_has_unique_tower_of_london_project_or_final_trigger = {
 
 tv_wonder_location_meets_unique_notre_dame_de_paris_base_site_rules_trigger = {
 	this = location:paris
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	always = yes
 }
 
 tv_wonder_location_has_unique_notre_dame_de_paris_intermediate_building_trigger = {
@@ -12260,7 +12261,7 @@ tv_wonder_country_has_unique_notre_dame_de_paris_project_or_final_trigger = {
 
 tv_wonder_location_meets_unique_st_basils_cathedral_base_site_rules_trigger = {
 	this = location:moscow
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	always = yes
 }
 
 tv_wonder_location_has_unique_st_basils_cathedral_intermediate_building_trigger = {
@@ -12710,7 +12711,7 @@ tv_wonder_country_has_unique_changbai_mountain_altar_project_or_final_trigger = 
 
 tv_wonder_location_meets_unique_belgrade_fortress_base_site_rules_trigger = {
 	this = location:belgrad
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	always = yes
 }
 
 tv_wonder_location_has_unique_belgrade_fortress_intermediate_building_trigger = {
@@ -13070,7 +13071,7 @@ tv_wonder_country_has_unique_iberian_inquisition_project_or_final_trigger = {
 
 tv_wonder_location_meets_unique_santa_maria_del_fiore_base_site_rules_trigger = {
 	this = location:florence
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	always = yes
 }
 
 tv_wonder_location_has_unique_santa_maria_del_fiore_intermediate_building_trigger = {
@@ -13246,7 +13247,7 @@ tv_wonder_country_has_unique_leaning_tower_of_pisa_project_or_final_trigger = {
 
 tv_wonder_location_meets_unique_milan_cathedral_base_site_rules_trigger = {
 	this = location:milano
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	always = yes
 }
 
 tv_wonder_location_has_unique_milan_cathedral_intermediate_building_trigger = {
@@ -14631,6 +14632,7 @@ tv_wonder_location_meets_unique_carrara_marble_quarries_base_site_rules_trigger 
 		raw_material = goods:silver
 		raw_material = goods:goods_gold
 		raw_material = goods:marble
+		raw_material = goods:salt
 	}
 }
 
@@ -14726,7 +14728,7 @@ tv_wonder_country_has_unique_carrara_marble_quarries_project_or_final_trigger = 
 }
 
 tv_wonder_location_meets_unique_east_india_company_base_site_rules_trigger = {
-	this = location:london
+	this = location:bombay
 	is_port = yes
 	AND = { has_owner = yes NOT = { continent = owner.capital.continent } }
 }
@@ -15097,7 +15099,7 @@ tv_wonder_country_has_unique_brihadishvara_temple_project_or_final_trigger = {
 
 tv_wonder_location_meets_unique_konark_sun_temple_base_site_rules_trigger = {
 	this = location:puri
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	always = yes
 }
 
 tv_wonder_location_has_unique_konark_sun_temple_intermediate_building_trigger = {
@@ -15388,6 +15390,7 @@ tv_wonder_location_meets_unique_wieliczka_salt_mine_base_site_rules_trigger = {
 		raw_material = goods:silver
 		raw_material = goods:goods_gold
 		raw_material = goods:marble
+		raw_material = goods:salt
 	}
 }
 
@@ -15484,7 +15487,7 @@ tv_wonder_country_has_unique_wieliczka_salt_mine_project_or_final_trigger = {
 
 tv_wonder_location_meets_unique_wawel_castle_base_site_rules_trigger = {
 	this = location:krakow
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	always = yes
 }
 
 tv_wonder_location_has_unique_wawel_castle_intermediate_building_trigger = {
@@ -16317,7 +16320,7 @@ tv_wonder_country_has_unique_registan_square_project_or_final_trigger = {
 
 tv_wonder_location_meets_unique_khiva_old_city_base_site_rules_trigger = {
 	this = location:khiva
-	location_rank ?= location_rank:rural_settlement
+	always = yes
 }
 
 tv_wonder_location_has_unique_khiva_old_city_intermediate_building_trigger = {
@@ -16785,7 +16788,7 @@ tv_wonder_country_has_unique_louvre_palace_project_or_final_trigger = {
 
 tv_wonder_location_meets_unique_fontainebleau_palace_base_site_rules_trigger = {
 	this = location:melun
-	location_rank ?= location_rank:city
+	always = yes
 }
 
 tv_wonder_location_has_unique_fontainebleau_palace_intermediate_building_trigger = {
@@ -17152,7 +17155,7 @@ tv_wonder_country_has_unique_lyon_silk_workshops_project_or_final_trigger = {
 }
 
 tv_wonder_location_meets_unique_mont_saint_michel_base_site_rules_trigger = {
-	this = location:avranches
+	this = location:vire
 	OR = {
 		topography = mountains
 		topography = plateau
@@ -17253,7 +17256,7 @@ tv_wonder_country_has_unique_mont_saint_michel_project_or_final_trigger = {
 
 tv_wonder_location_meets_unique_bastille_base_site_rules_trigger = {
 	this = location:paris
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	always = yes
 }
 
 tv_wonder_location_has_unique_bastille_intermediate_building_trigger = {
@@ -17341,7 +17344,7 @@ tv_wonder_country_has_unique_bastille_project_or_final_trigger = {
 
 tv_wonder_location_meets_unique_carcassonne_castle_base_site_rules_trigger = {
 	this = location:carcassonne
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	always = yes
 }
 
 tv_wonder_location_has_unique_carcassonne_castle_intermediate_building_trigger = {
@@ -17525,7 +17528,7 @@ tv_wonder_country_has_unique_brest_naval_port_project_or_final_trigger = {
 
 tv_wonder_location_meets_unique_colmar_old_town_base_site_rules_trigger = {
 	this = location:colmar
-	location_rank ?= location_rank:rural_settlement
+	always = yes
 }
 
 tv_wonder_location_has_unique_colmar_old_town_intermediate_building_trigger = {
@@ -17709,7 +17712,7 @@ tv_wonder_country_has_unique_house_of_wisdom_project_or_final_trigger = {
 
 tv_wonder_location_meets_unique_echmiadzin_cathedral_base_site_rules_trigger = {
 	this = location:armavir
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	always = yes
 }
 
 tv_wonder_location_has_unique_echmiadzin_cathedral_intermediate_building_trigger = {
@@ -17805,7 +17808,7 @@ tv_wonder_country_has_unique_echmiadzin_cathedral_project_or_final_trigger = {
 
 tv_wonder_location_meets_unique_narikala_fortress_base_site_rules_trigger = {
 	this = location:tbilisi
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	always = yes
 }
 
 tv_wonder_location_has_unique_narikala_fortress_intermediate_building_trigger = {
@@ -18268,7 +18271,7 @@ tv_wonder_country_has_unique_electoral_conference_hall_project_or_final_trigger 
 
 tv_wonder_location_meets_unique_aachen_cathedral_base_site_rules_trigger = {
 	this = location:aachen
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	always = yes
 }
 
 tv_wonder_location_has_unique_aachen_cathedral_intermediate_building_trigger = {
@@ -18364,7 +18367,7 @@ tv_wonder_country_has_unique_aachen_cathedral_project_or_final_trigger = {
 
 tv_wonder_location_meets_unique_nuremberg_imperial_castle_base_site_rules_trigger = {
 	this = location:nuremberg
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	always = yes
 }
 
 tv_wonder_location_has_unique_nuremberg_imperial_castle_intermediate_building_trigger = {
@@ -18552,7 +18555,7 @@ tv_wonder_country_has_unique_augsburg_bank_project_or_final_trigger = {
 
 tv_wonder_location_meets_unique_cologne_cathedral_base_site_rules_trigger = {
 	this = location:cologne
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	always = yes
 }
 
 tv_wonder_location_has_unique_cologne_cathedral_intermediate_building_trigger = {
@@ -19110,7 +19113,7 @@ tv_wonder_country_has_unique_heidelberg_university_project_or_final_trigger = {
 
 tv_wonder_location_meets_unique_fez_old_city_base_site_rules_trigger = {
 	this = location:fez
-	location_rank ?= location_rank:rural_settlement
+	always = yes
 }
 
 tv_wonder_location_has_unique_fez_old_city_intermediate_building_trigger = {
@@ -19583,8 +19586,7 @@ tv_wonder_country_has_unique_great_mosque_of_djenne_project_or_final_trigger = {
 
 tv_wonder_location_meets_unique_walls_of_benin_base_site_rules_trigger = {
 	this = location:benin
-	NOT = { location_rank ?= location_rank:city }
-	NOT = { location_rank ?= location_rank:megalopolis }
+	always = yes
 }
 
 tv_wonder_location_has_unique_walls_of_benin_intermediate_building_trigger = {
@@ -22752,6 +22754,7 @@ tv_wonder_display_7_base_site_rules_trigger = {
 		raw_material = goods:silver
 		raw_material = goods:goods_gold
 		raw_material = goods:marble
+		raw_material = goods:salt
 	}
 }
 
@@ -22792,7 +22795,7 @@ tv_wonder_display_14_base_site_rules_trigger = {
 }
 
 tv_wonder_display_15_base_site_rules_trigger = {
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	always = yes
 }
 
 tv_wonder_display_16_base_site_rules_trigger = {
@@ -22944,7 +22947,7 @@ tv_wonder_display_41_base_site_rules_trigger = {
 }
 
 tv_wonder_display_42_base_site_rules_trigger = {
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	always = yes
 }
 
 tv_wonder_display_43_base_site_rules_trigger = {
@@ -22988,11 +22991,11 @@ tv_wonder_display_50_base_site_rules_trigger = {
 }
 
 tv_wonder_display_51_base_site_rules_trigger = {
-	location_rank ?= location_rank:rural_settlement
+	always = yes
 }
 
 tv_wonder_display_52_base_site_rules_trigger = {
-	location_rank ?= location_rank:city
+	always = yes
 }
 
 tv_wonder_display_53_base_site_rules_trigger = {
@@ -23046,7 +23049,7 @@ tv_wonder_display_107_base_site_rules_trigger = {
 }
 
 tv_wonder_display_108_base_site_rules_trigger = {
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	always = yes
 }
 
 tv_wonder_display_109_base_site_rules_trigger = {
@@ -23086,7 +23089,7 @@ tv_wonder_display_115_base_site_rules_trigger = {
 }
 
 tv_wonder_display_116_base_site_rules_trigger = {
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	always = yes
 }
 
 tv_wonder_display_117_base_site_rules_trigger = {
@@ -23182,7 +23185,7 @@ tv_wonder_display_129_base_site_rules_trigger = {
 }
 
 tv_wonder_display_130_base_site_rules_trigger = {
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	always = yes
 }
 
 tv_wonder_display_131_base_site_rules_trigger = {
@@ -23254,15 +23257,15 @@ tv_wonder_display_141_base_site_rules_trigger = {
 }
 
 tv_wonder_display_142_base_site_rules_trigger = {
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	always = yes
 }
 
 tv_wonder_display_143_base_site_rules_trigger = {
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	always = yes
 }
 
 tv_wonder_display_144_base_site_rules_trigger = {
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	always = yes
 }
 
 tv_wonder_display_145_base_site_rules_trigger = {
@@ -23292,7 +23295,7 @@ tv_wonder_display_148_base_site_rules_trigger = {
 }
 
 tv_wonder_display_149_base_site_rules_trigger = {
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	always = yes
 }
 
 tv_wonder_display_150_base_site_rules_trigger = {
@@ -23308,7 +23311,7 @@ tv_wonder_display_152_base_site_rules_trigger = {
 }
 
 tv_wonder_display_153_base_site_rules_trigger = {
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	always = yes
 }
 
 tv_wonder_display_154_base_site_rules_trigger = {
@@ -23316,7 +23319,7 @@ tv_wonder_display_154_base_site_rules_trigger = {
 }
 
 tv_wonder_display_155_base_site_rules_trigger = {
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	always = yes
 }
 
 tv_wonder_display_156_base_site_rules_trigger = {
@@ -23393,6 +23396,7 @@ tv_wonder_display_170_base_site_rules_trigger = {
 		raw_material = goods:silver
 		raw_material = goods:goods_gold
 		raw_material = goods:marble
+		raw_material = goods:salt
 	}
 }
 
@@ -23415,7 +23419,7 @@ tv_wonder_display_174_base_site_rules_trigger = {
 }
 
 tv_wonder_display_175_base_site_rules_trigger = {
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	always = yes
 }
 
 tv_wonder_display_176_base_site_rules_trigger = {
@@ -23438,11 +23442,12 @@ tv_wonder_display_178_base_site_rules_trigger = {
 		raw_material = goods:silver
 		raw_material = goods:goods_gold
 		raw_material = goods:marble
+		raw_material = goods:salt
 	}
 }
 
 tv_wonder_display_179_base_site_rules_trigger = {
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	always = yes
 }
 
 tv_wonder_display_180_base_site_rules_trigger = {
@@ -23487,7 +23492,7 @@ tv_wonder_display_187_base_site_rules_trigger = {
 }
 
 tv_wonder_display_188_base_site_rules_trigger = {
-	location_rank ?= location_rank:rural_settlement
+	always = yes
 }
 
 tv_wonder_display_189_base_site_rules_trigger = {
@@ -23511,7 +23516,7 @@ tv_wonder_display_192_base_site_rules_trigger = {
 }
 
 tv_wonder_display_193_base_site_rules_trigger = {
-	location_rank ?= location_rank:city
+	always = yes
 }
 
 tv_wonder_display_194_base_site_rules_trigger = {
@@ -23535,11 +23540,11 @@ tv_wonder_display_197_base_site_rules_trigger = {
 }
 
 tv_wonder_display_198_base_site_rules_trigger = {
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	always = yes
 }
 
 tv_wonder_display_199_base_site_rules_trigger = {
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	always = yes
 }
 
 tv_wonder_display_200_base_site_rules_trigger = {
@@ -23547,7 +23552,7 @@ tv_wonder_display_200_base_site_rules_trigger = {
 }
 
 tv_wonder_display_201_base_site_rules_trigger = {
-	location_rank ?= location_rank:rural_settlement
+	always = yes
 }
 
 tv_wonder_display_202_base_site_rules_trigger = {
@@ -23555,11 +23560,11 @@ tv_wonder_display_202_base_site_rules_trigger = {
 }
 
 tv_wonder_display_203_base_site_rules_trigger = {
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	always = yes
 }
 
 tv_wonder_display_204_base_site_rules_trigger = {
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	always = yes
 }
 
 tv_wonder_display_205_base_site_rules_trigger = {
@@ -23586,11 +23591,11 @@ tv_wonder_display_208_base_site_rules_trigger = {
 }
 
 tv_wonder_display_209_base_site_rules_trigger = {
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	always = yes
 }
 
 tv_wonder_display_210_base_site_rules_trigger = {
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	always = yes
 }
 
 tv_wonder_display_211_base_site_rules_trigger = {
@@ -23602,7 +23607,7 @@ tv_wonder_display_211_base_site_rules_trigger = {
 }
 
 tv_wonder_display_212_base_site_rules_trigger = {
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	always = yes
 }
 
 tv_wonder_display_213_base_site_rules_trigger = {
@@ -23632,7 +23637,7 @@ tv_wonder_display_217_base_site_rules_trigger = {
 }
 
 tv_wonder_display_218_base_site_rules_trigger = {
-	location_rank ?= location_rank:rural_settlement
+	always = yes
 }
 
 tv_wonder_display_219_base_site_rules_trigger = {
@@ -23653,8 +23658,7 @@ tv_wonder_display_222_base_site_rules_trigger = {
 }
 
 tv_wonder_display_223_base_site_rules_trigger = {
-	NOT = { location_rank ?= location_rank:city }
-	NOT = { location_rank ?= location_rank:megalopolis }
+	always = yes
 }
 
 tv_wonder_location_can_host_sacred_mountain_trigger = {
@@ -23894,6 +23898,7 @@ tv_wonder_player_visible_site_rules_mining_city_trigger = {
 			raw_material = goods:silver
 			raw_material = goods:goods_gold
 			raw_material = goods:marble
+			raw_material = goods:salt
 		}
 	}
 }
@@ -24154,7 +24159,7 @@ tv_wonder_can_build_star_fortress_city_trigger = {
 
 tv_wonder_player_visible_site_rules_star_fortress_city_trigger = {
 	any_owned_location = {
-		NOT = { location_rank ?= location_rank:rural_settlement }
+		always = yes
 	}
 }
 
@@ -25049,7 +25054,7 @@ tv_wonder_can_build_grand_cathedral_trigger = {
 
 tv_wonder_player_visible_site_rules_grand_cathedral_trigger = {
 	any_owned_location = {
-		NOT = { location_rank ?= location_rank:rural_settlement }
+		always = yes
 	}
 }
 
@@ -25341,7 +25346,7 @@ tv_wonder_can_build_ancient_city_ruins_trigger = {
 
 tv_wonder_player_visible_site_rules_ancient_city_ruins_trigger = {
 	any_owned_location = {
-		location_rank ?= location_rank:rural_settlement
+		always = yes
 	}
 }
 
@@ -25373,7 +25378,7 @@ tv_wonder_can_build_summer_palace_trigger = {
 
 tv_wonder_player_visible_site_rules_summer_palace_trigger = {
 	any_owned_location = {
-		location_rank ?= location_rank:city
+		always = yes
 	}
 }
 
@@ -26074,8 +26079,8 @@ tv_wonder_location_can_host_unique_ming_great_wall_trigger = {
 }
 
 tv_wonder_can_build_unique_ming_great_wall_trigger = {
-	owns = location:dadu
-	location:dadu = {
+	owns = location:fuchuan_ningxia
+	location:fuchuan_ningxia = {
 		AND = {
 			tv_wonder_location_meets_unique_ming_great_wall_base_site_rules_trigger = yes
 			NOT = { tv_wonder_location_has_unique_ming_great_wall_intermediate_building_trigger = yes }
@@ -26086,7 +26091,7 @@ tv_wonder_can_build_unique_ming_great_wall_trigger = {
 }
 
 tv_wonder_player_visible_site_rules_unique_ming_great_wall_trigger = {
-	owns = location:dadu
+	owns = location:fuchuan_ningxia
 }
 
 tv_wonder_location_can_host_unique_bank_of_saint_george_trigger = {
@@ -27600,8 +27605,8 @@ tv_wonder_location_can_host_unique_east_india_company_trigger = {
 
 tv_wonder_can_build_unique_east_india_company_trigger = {
 	NOT = { tv_wonder_country_has_unique_east_india_company_project_or_final_trigger = yes }
-	owns = location:london
-	location:london = {
+	owns = location:bombay
+	location:bombay = {
 		AND = {
 			tv_wonder_location_meets_unique_east_india_company_base_site_rules_trigger = yes
 			NOT = { tv_wonder_location_has_unique_east_india_company_intermediate_building_trigger = yes }
@@ -27612,7 +27617,7 @@ tv_wonder_can_build_unique_east_india_company_trigger = {
 }
 
 tv_wonder_player_visible_site_rules_unique_east_india_company_trigger = {
-	owns = location:london
+	owns = location:bombay
 }
 
 tv_wonder_location_can_host_unique_peacock_throne_trigger = {
@@ -28393,8 +28398,8 @@ tv_wonder_location_can_host_unique_mont_saint_michel_trigger = {
 
 tv_wonder_can_build_unique_mont_saint_michel_trigger = {
 	NOT = { tv_wonder_country_has_unique_mont_saint_michel_project_or_final_trigger = yes }
-	owns = location:avranches
-	location:avranches = {
+	owns = location:vire
+	location:vire = {
 		AND = {
 			tv_wonder_location_meets_unique_mont_saint_michel_base_site_rules_trigger = yes
 			NOT = { tv_wonder_location_has_unique_mont_saint_michel_intermediate_building_trigger = yes }
@@ -28405,7 +28410,7 @@ tv_wonder_can_build_unique_mont_saint_michel_trigger = {
 }
 
 tv_wonder_player_visible_site_rules_unique_mont_saint_michel_trigger = {
-	owns = location:avranches
+	owns = location:vire
 }
 
 tv_wonder_location_can_host_unique_bastille_trigger = {

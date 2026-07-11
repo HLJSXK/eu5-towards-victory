@@ -6333,49 +6333,52 @@ tv_wonder_calculate_unique_great_mosque_of_djenne_suitability_actuals_effect = {
 }
 
 tv_wonder_calculate_unique_walls_of_benin_suitability_actuals_effect = {
-	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 161 }
-	add_to_variable_map = { name = tv_wonder_suitability_actual key = 161 value = 0 }
+	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 151 }
+	add_to_variable_map = { name = tv_wonder_suitability_actual key = 151 value = 0 }
 	if = {
 		limit = {
 			var:tv_wonder_survey_site ?= {
 				topography = mountains
 			}
 		}
-		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 161 }
-		add_to_variable_map = { name = tv_wonder_suitability_actual key = 161 value = 15 }
+		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 151 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 151 value = 15 }
 	}
-	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 162 }
-	add_to_variable_map = { name = tv_wonder_suitability_actual key = 162 value = 0 }
+	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 152 }
+	add_to_variable_map = { name = tv_wonder_suitability_actual key = 152 value = 0 }
 	if = {
 		limit = {
 			var:tv_wonder_survey_site ?= {
 				topography = plateau
 			}
 		}
-		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 162 }
-		add_to_variable_map = { name = tv_wonder_suitability_actual key = 162 value = 7.5 }
+		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 152 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 152 value = 7.5 }
 	}
-	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 163 }
-	add_to_variable_map = { name = tv_wonder_suitability_actual key = 163 value = 0 }
+	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 153 }
+	add_to_variable_map = { name = tv_wonder_suitability_actual key = 153 value = 0 }
 	if = {
 		limit = {
 			var:tv_wonder_survey_site ?= {
 				modifier:fort_level > 0
 			}
 		}
-		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 163 }
-		add_to_variable_map = { name = tv_wonder_suitability_actual key = 163 value = 5 }
+		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 153 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 153 value = 5 }
 	}
-	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 164 }
-	add_to_variable_map = { name = tv_wonder_suitability_actual key = 164 value = 0 }
+	remove_from_variable_map = { name = tv_wonder_suitability_actual key = 154 }
+	add_to_variable_map = { name = tv_wonder_suitability_actual key = 154 value = 0 }
 	if = {
 		limit = {
 			var:tv_wonder_survey_site ?= {
-				location_rank ?= location_rank:rural_settlement
+				OR = {
+					location_rank ?= location_rank:city
+					location_rank ?= location_rank:megalopolis
+				}
 			}
 		}
-		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 164 }
-		add_to_variable_map = { name = tv_wonder_suitability_actual key = 164 value = 5 }
+		remove_from_variable_map = { name = tv_wonder_suitability_actual key = 154 }
+		add_to_variable_map = { name = tv_wonder_suitability_actual key = 154 value = 5 }
 	}
 	tv_wonder_mechanics_refresh_current_suitability_display_cache_effect = yes
 }
@@ -11130,7 +11133,7 @@ tv_wonder_mechanics_apply_survey_site_preference_effect = {
 		tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
 		}
 		if = {
-			limit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:rural_settlement } }
+			limit = { var:tv_wonder_survey_site ?= { OR = { location_rank ?= location_rank:city location_rank ?= location_rank:megalopolis } } }
 		tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
 		}
 		tv_wonder_change_scale_competence_target_effect = { value = 100 }

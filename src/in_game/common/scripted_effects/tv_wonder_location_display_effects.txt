@@ -3910,7 +3910,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			}
 		}
 	}
-	location:avranches = {
+	location:vire = {
 		if = {
 			limit = { NOT = { has_building = building_type:tv_wonder_unique_mont_saint_michel_inaugurated } }
 			construct_building = { building_type = building_type:tv_wonder_unique_mont_saint_michel_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }

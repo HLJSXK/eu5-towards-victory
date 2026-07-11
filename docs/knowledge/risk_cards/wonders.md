@@ -207,6 +207,17 @@ generators.
     `docs/knowledge/anti_patterns.yaml` rule
     `gui_show_trigger_conditions_dynamic_key_needs_numeric_id_alias`.
 
+19. Reassigning a unique wonder's `base_key` requires updating `mechanic_key` to match, and
+    checking generic-wonder structural compatibility first.
+    `scripts/wonder_mechanics/_core.py`'s `load_unique_wonders()` hard-requires
+    `mechanic_key == base_key` for every entry in `data/unique_wonders.yaml` and raises before
+    any generator runs otherwise. Before changing `base_key` (e.g. to fix a site-rule mismatch
+    found by `scripts/audit_unique_wonder_site_requirements.py`), diff the old and new
+    `base_key`'s entries in `data/wonders.yaml` for compatible `size`/`category`/`pop_type`/
+    `final_buildings` level count, then update both `base_key` and `mechanic_key` together. See
+    `docs/knowledge/anti_patterns.yaml` rule
+    `unique_wonder_base_key_reassignment_requires_mechanic_key_match`.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`: it lints rule 2 and rule 16 automatically, and when a
@@ -218,3 +229,31 @@ or reworking any unique-wonder ritual. Rules 6–11 have no automated check; ins
 affected tooltip, hover state, or GUI layout in game after any change in those areas. Rule 15
 has no automated staleness check either — after editing a content module's naming helpers,
 always re-run `gen_tv_wonder_ritual_effects.py` even if no runtime error has been observed yet.
+
+Run `scripts/audit_unique_wonder_site_requirements.py` after adding a new unique wonder or
+changing its `location`/`base_key` in `data/unique_wonders.yaml`, or after editing a
+`trigger_script` in `data/wonder_site_rules.yaml`. It statically evaluates every unique
+wonder's fixed `location` against its `base_key`'s site-rule `trigger_script` using real
+vanilla map/setup data (`reference_game_files/game/in_game/map_data/location_templates.txt`
+for topography/raw_material/port suitability, `main_menu/setup/start/07_cities_and_buildings.txt`
+for starting `location_rank`, `main_menu/setup/start/10_countries.txt` for
+ownership/capital, `in_game/setup/countries/*.txt` for owner religion, and
+`in_game/map_data/definitions.txt` for continent), so a wonder pinned to a location that can
+never satisfy its own base site rule (e.g. a `sacred_mountain`-keyed wonder sited on
+non-mountain terrain, or a `colonial_trade_company`-keyed wonder sited on the owner's home
+continent) shows up as `FAIL` with the exact failing condition. `has_river` and
+`is_adjacent_to_lake` have no static source anywhere in `reference_game_files` (rivers/lakes
+are baked into the heightmap, not exposed as text data) and always report `UNKNOWN` rather
+than a guessed value; `dominant_religion = owner.religion` is approximated from the location's
+static seeded religion field, not the true pop-computed dominant religion. Treat `FAIL` as a
+confirmed authoring bug and `UNKNOWN` as a manual in-game/map check.
+
+Reviewed FAIL/UNKNOWN results that are historically-accurate 1337-start facts (e.g. a wonder's
+owner capital is correctly somewhere other than the wonder's location, or the location is
+correctly still rural/non-port at the fixed start date) or are only achievable later in the
+game (e.g. a `colonial_trade_company` port not yet colonized) are recorded in
+`data/wonder_site_requirement_baseline.yaml` and reported as `INTENDED` instead. The script
+checks that each baseline entry's recorded `status` still matches the current computed result
+and reports a `BASELINE DRIFT` section (nonzero exit) if a data/rule change has invalidated an
+entry — never edit the baseline to make a genuinely new result disappear without a rationale
+grounded in real reference data.

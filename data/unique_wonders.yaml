@@ -950,7 +950,7 @@ unique_wonders:
   key: unique_ming_great_wall
   base_key: great_wall
   concept: tv_wonder_unique_ming_great_wall
-  location: dadu
+  location: fuchuan_ningxia
   image: tv_wonder_unique_ming_great_wall
   prompt: Nine Borders Great Wall system across northern China, brick walls over mountains, watchtowers, fortified passes, nine frontier garrisons lighting beacon fires, soldiers and horsemen, historically grounded world wonder key art, cinematic frontier panorama, ultra-detailed, no modern elements.
   is_unique: true
@@ -2990,7 +2990,7 @@ unique_wonders:
   key: unique_east_india_company
   base_key: colonial_trade_company
   concept: tv_wonder_unique_east_india_company
-  location: london
+  location: bombay
   image: tv_wonder_unique_east_india_company
   prompt: The East India Company headquarters in early modern London, royal charter hall, counting houses, fortified warehouses by the Thames, armed merchant ships, clerks with ledgers, spice bales, company banners, and overseas envoys, historically grounded world wonder key art, cinematic commercial-imperial view, ultra-detailed, no modern elements.
   is_unique: true
@@ -4056,7 +4056,7 @@ unique_wonders:
   key: unique_mont_saint_michel
   base_key: sacred_mountain
   concept: tv_wonder_unique_mont_saint_michel
-  location: avranches
+  location: vire
   image: tv_wonder_unique_mont_saint_michel
   prompt: Mont Saint-Michel rising from tidal sands in medieval Normandy, abbey spire, fortified walls, pilgrims crossing the causeway at low tide, monks, banners, sea mist, and distant mainland, historically grounded world wonder key art, cinematic sacred coastal panorama, ultra-detailed stone and water, no modern elements.
   is_unique: true
@@ -5120,14 +5120,14 @@ unique_wonders:
       max_levels: 6
 - id: 223
   key: unique_walls_of_benin
-  base_key: great_wall
+  base_key: star_fortress_city
   concept: tv_wonder_unique_walls_of_benin
   location: benin
   image: tv_wonder_unique_walls_of_benin
   prompt: Walls of Benin around the Edo capital, vast earthen ramparts, moats, gates, palace roads, guards, bronze casters, market processions, forest edge and red earth, historically grounded world wonder key art, cinematic West African defensive urban panorama, ultra-detailed, no modern elements.
   is_unique: true
   initial_level: 1
-  mechanic_key: great_wall
+  mechanic_key: star_fortress_city
   base_effect_multiplier: 2
   final_buildings:
     1: tv_wonder_unique_walls_of_benin_inaugurated
