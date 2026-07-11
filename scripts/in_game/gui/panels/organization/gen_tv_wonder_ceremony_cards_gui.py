@@ -79,7 +79,7 @@ def append_ready_card(lines: list[str]) -> None:
     lines.append(f"{T}{T}{T}{T}{T}{T}parentanchor = center")
     lines.append(f"{T}{T}{T}{T}{T}{T}size = {{ 70% 70% }}")
     lines.append(
-        f'{T}{T}{T}{T}{T}{T}texture = "[GetConceptTexture(Concatenate(\'tv_wonder_display_\', ToString_int32(FixedPointToInt({PLAYER}.GetVariable(\'tv_wonder_locked\').GetValue))))]"'
+        f'{T}{T}{T}{T}{T}{T}texture = "[GetConceptTexture(Concatenate(\'tv_wonder_display_image_\', ToString_int32(FixedPointToInt({PLAYER}.GetVariable(\'tv_wonder_locked\').GetValue))))]"'
     )
     lines.append(f"{T}{T}{T}{T}{T}}}")
     lines.append(f"{T}{T}{T}{T}}}")
@@ -166,7 +166,7 @@ def append_card(lines: list[str], stage: int) -> None:
     lines.append(f"{T}{T}{T}{T}{T}{T}parentanchor = center")
     lines.append(f"{T}{T}{T}{T}{T}{T}size = {{ 70% 70% }}")
     lines.append(
-        f"{T}{T}{T}{T}{T}{T}texture = \"[GetConceptTexture(Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue))))]\""
+        f"{T}{T}{T}{T}{T}{T}texture = \"[GetConceptTexture(Concatenate('tv_wonder_display_image_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue))))]\""
     )
     lines.append(f"{T}{T}{T}{T}{T}}}")
     lines.append(f"{T}{T}{T}{T}}}")

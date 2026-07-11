@@ -2517,3 +2517,13 @@
   scope: any
   source: "src/in_game/gui/panels/organization/tv_engineering_department.gui:8115-8137 (outer card + first-level shrinking wrapper, both correct) vs. :8220-8226 (second-level wrapper, hardcoded `size = { 462 330 }`, fixed 2026-07-11 to `layoutpolicy_vertical = shrinking` + `size = { 462 -1 }` + `set_parent_size_to_minimum = yes` on its vbox)"
   notes: "Reported by the user: the ceremony stage cards (now correctly stacked in sequence per card_common_list_missing_fixed_vertical_size_overlaps_in_vbox) still didn't stretch the outer Ceremony card taller, because that card's ritual-status content sat inside a hardcoded 330px-tall widget dating from when this area only ever held the much shorter Pharos/Hagia step text. The generated ceremony cards fragment itself needed no change; only the hand-maintained wrapper one level up in tv_engineering_department.gui did."
+
+- id: wonder_ceremony_card_icon_wrong_concept_prefix
+  pattern: 'Concatenate\(''tv_wonder_display_'',\s*ToString_int32\(FixedPointToInt\([^)]*GetVariable\(''tv_wonder_locked''\)'
+  detectability: lint
+  bad: "Building a per-wonder card icon texture from GetConceptTexture(Concatenate('tv_wonder_display_', <id>)) -- the bare tv_wonder_display_ prefix concept only carries one of 4 generic category icons (ICONS in gen_tv_engineering_department_wonder_mechanics_concepts.py), not a distinctive per-wonder icon."
+  correction: "Use the tv_wonder_display_image_ prefix (or tv_wonder_display_full_image_ for large 300x200/470x333 illustrations) to get the wonder's own cropped icon texture, matching every existing precedent in location_window.gui and tv_engineering_department.gui. Reserve the bare tv_wonder_display_ prefix for label/tooltip lookups (SelectGameConcept, ShowTriggerConditionsForScope, ShowModifierEffect), never for an icon texture."
+  category: gui
+  scope: any
+  source: "scripts/main_menu/common/game_concepts/gen_tv_engineering_department_wonder_mechanics_concepts.py:24-37 (three concept prefixes); src/in_game/gui/location_window.gui:5042 and tv_engineering_department.gui:813 (correct _image_/_full_image_ precedent)"
+  notes: "Found 2026-07-11: the Unique Wonder Ceremony card fragment (gen_tv_wonder_ceremony_cards_gui.py's ready-card and stage-card icon badges, using bg_circle_piechart_big + nested icon block) used the bare prefix, so every wonder in the same category rendered the same generic icon inside the piechart badge instead of its own icon. Fixed by switching both occurrences to tv_wonder_display_image_."
