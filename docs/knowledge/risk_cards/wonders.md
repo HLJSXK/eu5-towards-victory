@@ -322,6 +322,21 @@ generators.
     text row), and keep `max_width` well below the arithmetic budget rather than flush against
     it. See `docs/knowledge/anti_patterns.yaml` rule
     `card_common_text_wrapped_in_expanding_widget_blows_out_fixed_card`.
+    A third follow-up: the outer Ceremony card (`TV_ENGINEERING_CEREMONY_CARD_TITLE`,
+    `tv_engineering_department.gui:8115-8226`) already used the correct auto-height chain at its
+    outermost level (`maximumsize = { 500 -1 }` on the card_common instance, `layoutpolicy_vertical
+    = shrinking` + `size = { 470 -1 }` + `set_parent_size_to_minimum = yes` on the first nested
+    wrapper/vbox) — but a SECOND, deeper wrapper widget around the ritual-status area
+    (`:8220-8226`) still hardcoded `size = { 462 330 }` with no shrinking policy, a leftover from
+    when this area only ever held the short Pharos/Hagia step text. That single fixed-height link
+    in the chain capped the measured content at 330px regardless of how many ceremony stage cards
+    actually rendered inside it, so the stage cards overflowed past the outer card instead of
+    stretching it taller. The auto-height chain must be applied at every nesting level between the
+    outermost flexible card and the actual variable-height content, not just the first level; fixed
+    2026-07-11 by changing that wrapper to `layoutpolicy_vertical = shrinking` + `size = { 462 -1 }`
+    and adding `set_parent_size_to_minimum = yes` + `layoutpolicy_vertical = shrinking` to its vbox.
+    See `docs/knowledge/anti_patterns.yaml` rule
+    `card_common_shrinking_height_chain_broken_by_one_fixed_height_wrapper`.
 
 ## Validation
 

@@ -8218,9 +8218,12 @@ widget = {
 									}
 
 									widget = {
-										size = { 462 330 }
+										layoutpolicy_vertical = shrinking
+										size = { 462 -1 }
 
 										vbox = {
+											set_parent_size_to_minimum = yes
+											layoutpolicy_vertical = shrinking
 											margin = { 0 0 }
 											ignoreinvisible = yes
 											spacing = 6
