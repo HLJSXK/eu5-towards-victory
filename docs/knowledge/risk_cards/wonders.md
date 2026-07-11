@@ -291,6 +291,38 @@ generators.
     `modify_texture` inside the relevant `background = { ... }` layer, matching
     vanilla's `reference_game_files/game/in_game/gui/attribute_columns/cabinet_action.gui:509-520`.
 
+22. A zero-height `header_size` override does not suppress a card_common header's content;
+    override `common_header` too, and give every stacked card an explicit fixed height.
+    `tv_engineering_department_card_common`'s header widget (icon + title text) is a separate
+    `block "common_header"` nested inside the `header_size`-controlled widget. Forcing
+    `blockoverride "header_size" { size = { -1 0 } }` alone does not stop the default
+    `common_header_icon`/`common_header_text_full` content from being created and rendered — it
+    just overflows the zero-height parent, showing as a leaked duplicate icon+title above the
+    card. Always pair it with `blockoverride "common_header" {}`, matching the verified
+    untitled-card precedent at `tv_engineering_department.gui:7547-7549`/`:7640-7642`. Separately,
+    every stacked `tv_engineering_department_card_common` instance needs `layoutpolicy_vertical =
+    fixed` plus an explicit numeric `minimumsize`/`maximumsize` height set directly on the
+    instantiation (see `:7467-7472`, `:1646-1650`) — a plain `widget` wrapper with only
+    `layoutpolicy_horizontal = expanding` and no vertical size collapses to zero height, so a
+    `vbox` of such cards stacks them all at the same position instead of listing them in
+    sequence. Historical instance: the Unique Wonder Ceremony card fragment
+    (`gen_tv_wonder_ceremony_cards_gui.py`) had neither override, so its 9 cards (1 ready + 8
+    stage) all leaked the same default header at the top of the group and rendered piled on top
+    of each other, fixed 2026-07-11. See `docs/knowledge/anti_patterns.yaml` rules
+    `card_common_untitled_card_missing_common_header_blockoverride` and
+    `card_common_list_missing_fixed_vertical_size_overlaps_in_vbox`.
+    A related follow-up bug in the same fragment: its stage-card text sat in an extra
+    `widget = { layoutpolicy_horizontal = expanding text_multi = { ... max_width = 380 } }`
+    wrapper, which pulled the text column's natural width (observed ~375px) into the row and
+    made the whole fixed-500-wide card overflow, even though 380 nominally fit the arithmetic
+    budget (card width minus margin minus icon column minus spacing gaps). Do not wrap
+    `text_multi` in an extra expanding `widget`; place it directly as the hbox child with
+    `layoutpolicy_horizontal = expanding`, `max_width`, and `autoresize = yes` set on the
+    `text_multi` itself, matching the verified precedent at `:8422-8428` (the Pharos stage-1
+    text row), and keep `max_width` well below the arithmetic budget rather than flush against
+    it. See `docs/knowledge/anti_patterns.yaml` rule
+    `card_common_text_wrapped_in_expanding_widget_blows_out_fixed_card`.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`: it lints rule 2 and rule 16 automatically, and when a

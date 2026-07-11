@@ -2477,3 +2477,33 @@
   scope: global
   source: "docs/error_log/error.log 2026-07-11 session: pdx_localize.cpp hash collisions between STATIC_MODIFIER_NAME_tv_trade_chain_strength_display_{3346,7162,7844,10455,11629} and unrelated vanilla keys (flavor_rus.35.b.entry, name_takayoshi, flavor_ven.49.a, PERFORM_call_parliament_ACTION_DESC, tv_engineering_department.1197.b, break_sow_discontent_desc); one of the collisions (flavor_ven.49.a) subsequently logged as 'Unrecognized loc key' at CEventOptionDesc:172, i.e. the collision measurably broke an unrelated vanilla event option's text that same session."
   notes: "This is a known-accepted risk, not a fix-in-progress. Do not add ad hoc mitigation (renaming just the colliding keys, etc.) without revisiting the project owner's decision -- the actual fix, if pursued, is reducing key volume at the generator level (bucketing), not patching individual collisions as they're discovered."
+
+- id: card_common_untitled_card_missing_common_header_blockoverride
+  pattern: ''
+  detectability: needs_parser
+  bad: "Instantiating tv_engineering_department_card_common (or any similarly-templated *_card_common type with a `common_header` icon+text block) with `blockoverride \"header_size\" { size = { -1 0 } }` to zero out the header row, but not also `blockoverride \"common_header\" {}` -- e.g. gen_tv_wonder_ceremony_cards_gui.py's first draft overrode header_size/header_decor_templates/common_header_back_decor only."
+  correction: "Forcing the header widget's declared size to 0 does not suppress its child content: the default `common_header_icon`/`common_header_text_full` block (an icon plus a literal placeholder title) still gets created and renders, overflowing the zero-height parent and appearing as a leaked duplicate icon+title above the card's real content. Add `blockoverride \"common_header\" {}` alongside header_size/header_decor_templates, matching the verified in-repo precedent at tv_engineering_department.gui:7547-7549 and :7640-7642."
+  category: gui
+  scope: any
+  source: "src/in_game/gui/panels/organization/tv_engineering_department.gui:7547-7549,7640-7642 (working untitled-card precedent) vs. scripts/in_game/gui/panels/organization/gen_tv_wonder_ceremony_cards_gui.py (first draft, missing the common_header override)"
+  notes: "Found 2026-07-11 fixing the Unique Wonder Ceremony card fragment: all 9 cards (the ready card + 8 stage cards) leaked the default 'Card title header' placeholder icon+text once above the whole card group. common_header_back_decor was already empty by default in the type, so overriding it again was a no-op that didn't address the real leak."
+
+- id: card_common_list_missing_fixed_vertical_size_overlaps_in_vbox
+  pattern: ''
+  detectability: advisory
+  bad: "Stacking multiple *_card_common instances directly in a vbox (or wrapping each in a plain `widget = { ... }`) without giving each instance an explicit `layoutpolicy_vertical = fixed` plus a numeric `minimumsize`/`maximumsize` height -- e.g. gen_tv_wonder_ceremony_cards_gui.py's ready/stage cards had no vertical policy or size at all, only `layoutpolicy_horizontal = expanding` on an outer wrapper widget."
+  correction: "A plain `widget` (unlike `hbox`/`vbox`) does not auto-size vertically from its child content in this codebase's GUI convention; every other stacked card usage in tv_engineering_department.gui (7467-7472, 7495-7499, 7542-7545, 7635-7638, 1646-1650) sets `layoutpolicy_vertical = fixed` with an explicit `minimumsize`/`maximumsize` height directly on the card_common instantiation itself (no extra wrapper widget). Without it, every card collapses to zero height and the vbox stacks them all at the same position, reading as cards 'piled on top of each other' instead of listed in sequence."
+  category: gui
+  scope: any
+  source: "src/in_game/gui/panels/organization/tv_engineering_department.gui:7467-7472,1646-1650 (working fixed-height precedents)"
+  notes: "Found 2026-07-11 alongside card_common_untitled_card_missing_common_header_blockoverride in the same ceremony-card fragment; the two bugs compounded visually (the leaked header content from the missing common_header override was what was actually visible piled up at the top of the collapsed card stack)."
+
+- id: card_common_text_wrapped_in_expanding_widget_blows_out_fixed_card
+  pattern: ''
+  detectability: advisory
+  bad: "Wrapping a `text_multi` in an extra `widget = { layoutpolicy_horizontal = expanding text_multi = { layoutpolicy_horizontal = fixed max_width = N autoresize = yes ... } } }` inside a card_common bottom-content row -- e.g. gen_tv_wonder_ceremony_cards_gui.py's stage cards, observed rendering the text column at ~375px against a nominal 380 max_width and pulling the whole fixed-500-wide card wider than its declared minimumsize/maximumsize."
+  correction: "Do not sandwich text_multi inside an extra `layoutpolicy_horizontal = expanding` generic `widget`. Place text_multi directly as the hbox child instead, with `layoutpolicy_horizontal = expanding`, `max_width`, and `autoresize = yes` set on the text_multi itself -- matching the verified working precedent at tv_engineering_department.gui:8422-8428 (the Pharos stage-1 text row). Also keep max_width comfortably below the row's real budget (card width minus card_common_bottom_margin minus the icon column minus hbox spacing gaps), not flush against it -- this project settled on a shared `TEXT_MAX_WIDTH = 340` constant in wonder_ceremony_lib-adjacent gen_tv_wonder_ceremony_cards_gui.py for a 500px card with a 60px icon column."
+  category: gui
+  scope: any
+  source: "src/in_game/gui/panels/organization/tv_engineering_department.gui:8422-8428 (working direct-hbox-child text_multi precedent) vs. scripts/in_game/gui/panels/organization/gen_tv_wonder_ceremony_cards_gui.py (first draft, extra expanding wrapper widget)"
+  notes: "Found 2026-07-11, reported by the user as the ceremony stage cards' right-side text visibly overflowing the card at ~375px. This is the same failure class already documented in docs/technical/EU5_Modding_Knowledge_Base.md (an expanding child pulling its natural width back into the row and blowing out a bounded parent, historically observed at 548.3px against a 470px-bounded card) -- confirms the anti-pattern recurs even when max_width nominally fits the arithmetic budget, because the expanding wrapper widget does not respect the ancestor's declared size clamp at all. See docs/knowledge/risk_cards/wonders.md rule 11 and rule 22."
