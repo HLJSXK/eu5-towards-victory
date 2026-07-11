@@ -66,7 +66,10 @@ directory — their files are interspersed by filename across `common/scripted_e
 of path prefix. Any file with `wonder` or `engineering_department` in its name routes to
 `docs/knowledge/risk_cards/wonders.md`; `philosophy_debate`, `world_debate`, or
 `academy_debate` routes to `docs/knowledge/risk_cards/philosophy_debate.md`; `trade_league` or
-`trade_chain` routes to `docs/knowledge/risk_cards/trade_league.md`.
+`trade_chain` routes to `docs/knowledge/risk_cards/trade_league.md`; `encyclopedia_lateralview`
+routes to `docs/knowledge/risk_cards/europedia.md` (Europedia has no native page/category
+registration point — a custom browsable tab requires a full panel override with a
+`GetVariableSystem`-toggle, not a data-driven registration).
 
 ## Resume / Handoff Discipline
 

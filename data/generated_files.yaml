@@ -406,6 +406,18 @@ generated:
     data:   data/wonders.yaml + data/wonder_final_buildings.yaml + data/wonder_generic_rituals.yaml + data/wonder_base_modifiers.yaml + data/wonder_site_rules.yaml + data/unique_wonders.yaml
     output: src/in_game/gui/location_window.gui
 
+  # Card fragment for the "Towards Victory" Europedia tab. Not merged into
+  # src/in_game/gui/encyclopedia_lateralview.gui via this registry entry: that
+  # shell is hand-maintained (a full override of vanilla's Europedia panel,
+  # since EU5 has no native page/category registration point) and only
+  # partially generated via its own `# BEGIN/END GENERATED
+  # TV_ENCYCLOPEDIA_CARDS` marker pair. After changing this fragment, rerun
+  # scripts/in_game/gui/merge_tv_encyclopedia_wonders_cards_gui.py to splice
+  # the update into the panel.
+  - script: scripts/in_game/gui/gen_tv_encyclopedia_wonders_cards_gui.py
+    data:   data/wonders.yaml + data/wonder_final_buildings.yaml + data/wonder_generic_rituals.yaml + data/wonder_base_modifiers.yaml + data/wonder_site_rules.yaml + data/unique_wonders.yaml
+    output: data/generated_fragments/tv_encyclopedia_wonders_cards.gui
+
   - script: scripts/compat/gen_tv_meiou_and_taxes_location_window.py
     data:   reference_mods/3735059838/in_game/gui/location_window.gui + data/wonders.yaml + data/wonder_final_buildings.yaml + data/wonder_generic_rituals.yaml + data/wonder_base_modifiers.yaml + data/wonder_site_rules.yaml + data/unique_wonders.yaml
     output: submods/tv_meiou_and_taxes_compat/in_game/gui/location_window.gui

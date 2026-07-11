@@ -46,6 +46,7 @@ FILENAME_DOMAIN_RULES = [
     ("wonders", ("wonder", "engineering_department"), "wonders.md"),
     ("philosophy_debate", ("philosophy_debate", "world_debate", "academy_debate"), "philosophy_debate.md"),
     ("trade_league", ("trade_league", "trade_chain"), "trade_league.md"),
+    ("europedia", ("encyclopedia_lateralview",), "europedia.md"),
 ]
 
 
