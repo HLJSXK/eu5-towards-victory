@@ -3,6 +3,13 @@
 #   Regen:   conda run --no-capture-output -n eu5 python scripts/in_game/common/scripted_triggers/gen_tv_academy_philosophy_debate_triggers.py
 # Do not edit directly - modify the data file and re-run the generator.
 
+tv_academy_debate_local_scoring_active_trigger = {
+	var:tv_academy_philosophy_phase ?= 1
+	var:tv_academy_debate_current_node_type ?= 1
+	NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
+	NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
+}
+
 tv_academy_debate_has_empty_seat_trigger = {
 	OR = {
 		NOT = { has_variable = tv_academy_debate_seat_1_group }

@@ -167,188 +167,96 @@ tv_academy_debate_clear_all_seats_effect = {
 tv_academy_debate_initialize_global_maps_effect = {
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 1 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 1 value = estate_type:nobles_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 1 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 1 value = 0.2 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 2 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 2 value = estate_type:clergy_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 2 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 2 value = 0.2 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 3 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 3 value = estate_type:burghers_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 3 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 3 value = 0.2 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 4 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 4 value = estate_type:peasants_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 4 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 4 value = 0.2 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 5 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 5 value = estate_type:tribes_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 5 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 5 value = 0.2 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 6 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 6 value = estate_type:dhimmi_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 6 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 6 value = 0.2 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 7 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 7 value = estate_type:cossacks_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 7 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 7 value = 0.2 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 8 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 8 value = estate_type:burghers_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 8 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 8 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 9 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 9 value = estate_type:peasants_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 9 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 9 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 10 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 10 value = estate_type:nobles_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 10 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 10 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 11 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 11 value = estate_type:burghers_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 11 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 11 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 12 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 12 value = estate_type:nobles_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 12 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 12 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 13 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 13 value = estate_type:clergy_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 13 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 13 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 14 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 14 value = estate_type:peasants_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 14 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 14 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 15 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 15 value = estate_type:peasants_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 15 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 15 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 19 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 19 value = estate_type:burghers_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 19 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 19 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 20 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 20 value = estate_type:burghers_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 20 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 20 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 21 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 21 value = estate_type:burghers_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 21 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 21 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 22 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 22 value = estate_type:burghers_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 22 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 22 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 23 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 23 value = estate_type:burghers_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 23 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 23 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 24 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 24 value = estate_type:burghers_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 24 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 24 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 25 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 25 value = estate_type:burghers_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 25 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 25 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 26 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 26 value = estate_type:burghers_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 26 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 26 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 27 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 27 value = estate_type:nobles_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 27 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 27 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 28 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 28 value = estate_type:nobles_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 28 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 28 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 29 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 29 value = estate_type:nobles_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 29 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 29 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 30 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 30 value = estate_type:nobles_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 30 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 30 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 31 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 31 value = estate_type:nobles_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 31 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 31 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 32 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 32 value = estate_type:nobles_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 32 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 32 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 33 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 33 value = estate_type:nobles_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 33 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 33 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 34 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 34 value = estate_type:clergy_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 34 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 34 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 35 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 35 value = estate_type:clergy_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 35 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 35 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 36 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 36 value = estate_type:clergy_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 36 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 36 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 37 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 37 value = estate_type:clergy_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 37 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 37 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 38 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 38 value = estate_type:clergy_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 38 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 38 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 39 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 39 value = estate_type:clergy_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 39 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 39 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 40 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 40 value = estate_type:peasants_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 40 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 40 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 41 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 41 value = estate_type:peasants_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 41 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 41 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 42 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 42 value = estate_type:peasants_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 42 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 42 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 43 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 43 value = estate_type:peasants_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 43 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 43 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 44 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 44 value = estate_type:peasants_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 44 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 44 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 45 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 45 value = estate_type:peasants_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 45 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 45 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 46 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 46 value = estate_type:peasants_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 46 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 46 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 47 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 47 value = estate_type:peasants_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 47 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 47 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 48 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 48 value = estate_type:peasants_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 48 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 48 value = 0.4 }
 	remove_from_global_variable_map = { name = tv_academy_debate_group_to_estate key = 49 }
 	add_to_global_variable_map = { name = tv_academy_debate_group_to_estate key = 49 value = estate_type:peasants_estate }
-	remove_from_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 49 }
-	add_to_global_variable_map = { name = tv_academy_debate_group_to_power_multiplier key = 49 value = 0.4 }
 }
 
 tv_academy_debate_initialize_debate_effect = {
@@ -558,6 +466,404 @@ tv_academy_debate_remove_group_seated_by_id_effect = {
 	else_if = {
 		limit = { $group$ ?= 49 }
 		remove_variable = tv_academy_debate_group_diplomatic_clans_seated
+	}
+}
+
+tv_academy_debate_set_group_active_stance_effect = {
+	if = {
+		limit = { $group$ ?= 1 }
+		set_variable = { name = tv_academy_debate_group_nobility_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 2 }
+		set_variable = { name = tv_academy_debate_group_clergy_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 3 }
+		set_variable = { name = tv_academy_debate_group_burghers_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 4 }
+		set_variable = { name = tv_academy_debate_group_peasants_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 5 }
+		set_variable = { name = tv_academy_debate_group_tribes_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 6 }
+		set_variable = { name = tv_academy_debate_group_dhimmi_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 7 }
+		set_variable = { name = tv_academy_debate_group_cossacks_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 8 }
+		set_variable = { name = tv_academy_debate_group_scholarly_community_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 9 }
+		set_variable = { name = tv_academy_debate_group_public_opinion_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 10 }
+		set_variable = { name = tv_academy_debate_group_court_bureaucrats_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 11 }
+		set_variable = { name = tv_academy_debate_group_maritime_merchants_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 12 }
+		set_variable = { name = tv_academy_debate_group_professional_military_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 13 }
+		set_variable = { name = tv_academy_debate_group_religious_reformers_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 14 }
+		set_variable = { name = tv_academy_debate_group_local_autonomy_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 15 }
+		set_variable = { name = tv_academy_debate_group_minorities_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 16 }
+		set_variable = { name = tv_academy_debate_group_artists_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 17 }
+		set_variable = { name = tv_academy_debate_group_foreign_power_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 18 }
+		set_variable = { name = tv_academy_debate_group_great_scientist_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 19 }
+		set_variable = { name = tv_academy_debate_group_continental_traders_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 20 }
+		set_variable = { name = tv_academy_debate_group_plutocratic_merchants_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 21 }
+		set_variable = { name = tv_academy_debate_group_mercantilist_guilds_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 22 }
+		set_variable = { name = tv_academy_debate_group_free_trade_merchants_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 23 }
+		set_variable = { name = tv_academy_debate_group_capitalist_financiers_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 24 }
+		set_variable = { name = tv_academy_debate_group_guild_traditionalists_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 25 }
+		set_variable = { name = tv_academy_debate_group_colonial_merchants_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 26 }
+		set_variable = { name = tv_academy_debate_group_insular_guilds_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 27 }
+		set_variable = { name = tv_academy_debate_group_feudal_levy_nobility_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 28 }
+		set_variable = { name = tv_academy_debate_group_patronal_aristocracy_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 29 }
+		set_variable = { name = tv_academy_debate_group_serf_holding_lords_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 30 }
+		set_variable = { name = tv_academy_debate_group_absolutist_court_faction_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 31 }
+		set_variable = { name = tv_academy_debate_group_constitutionalist_nobility_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 32 }
+		set_variable = { name = tv_academy_debate_group_war_doctrine_nobility_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 33 }
+		set_variable = { name = tv_academy_debate_group_fortress_doctrine_nobility_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 34 }
+		set_variable = { name = tv_academy_debate_group_devout_clergy_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 35 }
+		set_variable = { name = tv_academy_debate_group_humanist_clergy_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 36 }
+		set_variable = { name = tv_academy_debate_group_mystic_clergy_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 37 }
+		set_variable = { name = tv_academy_debate_group_canonist_clergy_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 38 }
+		set_variable = { name = tv_academy_debate_group_latinizing_clergy_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 39 }
+		set_variable = { name = tv_academy_debate_group_hellenizing_clergy_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 40 }
+		set_variable = { name = tv_academy_debate_group_crown_subjects_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 41 }
+		set_variable = { name = tv_academy_debate_group_free_subject_peasantry_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 42 }
+		set_variable = { name = tv_academy_debate_group_individualist_smallholders_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 43 }
+		set_variable = { name = tv_academy_debate_group_communal_villages_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 44 }
+		set_variable = { name = tv_academy_debate_group_traditionalist_enclave_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 45 }
+		set_variable = { name = tv_academy_debate_group_assimilating_enclave_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 46 }
+		set_variable = { name = tv_academy_debate_group_sinicized_minority_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 47 }
+		set_variable = { name = tv_academy_debate_group_unsinicized_minority_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 48 }
+		set_variable = { name = tv_academy_debate_group_warrior_clans_active_stance value = $stance$ }
+	}
+	else_if = {
+		limit = { $group$ ?= 49 }
+		set_variable = { name = tv_academy_debate_group_diplomatic_clans_active_stance value = $stance$ }
+	}
+}
+
+tv_academy_debate_clear_group_active_stance_effect = {
+	if = {
+		limit = { $group$ ?= 1 }
+		remove_variable = tv_academy_debate_group_nobility_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 2 }
+		remove_variable = tv_academy_debate_group_clergy_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 3 }
+		remove_variable = tv_academy_debate_group_burghers_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 4 }
+		remove_variable = tv_academy_debate_group_peasants_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 5 }
+		remove_variable = tv_academy_debate_group_tribes_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 6 }
+		remove_variable = tv_academy_debate_group_dhimmi_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 7 }
+		remove_variable = tv_academy_debate_group_cossacks_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 8 }
+		remove_variable = tv_academy_debate_group_scholarly_community_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 9 }
+		remove_variable = tv_academy_debate_group_public_opinion_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 10 }
+		remove_variable = tv_academy_debate_group_court_bureaucrats_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 11 }
+		remove_variable = tv_academy_debate_group_maritime_merchants_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 12 }
+		remove_variable = tv_academy_debate_group_professional_military_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 13 }
+		remove_variable = tv_academy_debate_group_religious_reformers_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 14 }
+		remove_variable = tv_academy_debate_group_local_autonomy_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 15 }
+		remove_variable = tv_academy_debate_group_minorities_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 16 }
+		remove_variable = tv_academy_debate_group_artists_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 17 }
+		remove_variable = tv_academy_debate_group_foreign_power_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 18 }
+		remove_variable = tv_academy_debate_group_great_scientist_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 19 }
+		remove_variable = tv_academy_debate_group_continental_traders_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 20 }
+		remove_variable = tv_academy_debate_group_plutocratic_merchants_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 21 }
+		remove_variable = tv_academy_debate_group_mercantilist_guilds_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 22 }
+		remove_variable = tv_academy_debate_group_free_trade_merchants_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 23 }
+		remove_variable = tv_academy_debate_group_capitalist_financiers_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 24 }
+		remove_variable = tv_academy_debate_group_guild_traditionalists_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 25 }
+		remove_variable = tv_academy_debate_group_colonial_merchants_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 26 }
+		remove_variable = tv_academy_debate_group_insular_guilds_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 27 }
+		remove_variable = tv_academy_debate_group_feudal_levy_nobility_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 28 }
+		remove_variable = tv_academy_debate_group_patronal_aristocracy_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 29 }
+		remove_variable = tv_academy_debate_group_serf_holding_lords_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 30 }
+		remove_variable = tv_academy_debate_group_absolutist_court_faction_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 31 }
+		remove_variable = tv_academy_debate_group_constitutionalist_nobility_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 32 }
+		remove_variable = tv_academy_debate_group_war_doctrine_nobility_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 33 }
+		remove_variable = tv_academy_debate_group_fortress_doctrine_nobility_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 34 }
+		remove_variable = tv_academy_debate_group_devout_clergy_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 35 }
+		remove_variable = tv_academy_debate_group_humanist_clergy_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 36 }
+		remove_variable = tv_academy_debate_group_mystic_clergy_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 37 }
+		remove_variable = tv_academy_debate_group_canonist_clergy_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 38 }
+		remove_variable = tv_academy_debate_group_latinizing_clergy_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 39 }
+		remove_variable = tv_academy_debate_group_hellenizing_clergy_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 40 }
+		remove_variable = tv_academy_debate_group_crown_subjects_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 41 }
+		remove_variable = tv_academy_debate_group_free_subject_peasantry_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 42 }
+		remove_variable = tv_academy_debate_group_individualist_smallholders_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 43 }
+		remove_variable = tv_academy_debate_group_communal_villages_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 44 }
+		remove_variable = tv_academy_debate_group_traditionalist_enclave_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 45 }
+		remove_variable = tv_academy_debate_group_assimilating_enclave_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 46 }
+		remove_variable = tv_academy_debate_group_sinicized_minority_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 47 }
+		remove_variable = tv_academy_debate_group_unsinicized_minority_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 48 }
+		remove_variable = tv_academy_debate_group_warrior_clans_active_stance
+	}
+	else_if = {
+		limit = { $group$ ?= 49 }
+		remove_variable = tv_academy_debate_group_diplomatic_clans_active_stance
 	}
 }
 
@@ -2557,8 +2863,11 @@ tv_academy_debate_royal_option_3_seated_tooltip_effect = {
 tv_academy_debate_clear_seat_effect = {
 	if = {
 		limit = { has_variable = tv_academy_debate_seat_$seat$_group }
+		tv_academy_debate_clear_group_active_stance_effect = { group = var:tv_academy_debate_seat_$seat$_group }
 		tv_academy_debate_remove_group_seated_by_id_effect = { group = var:tv_academy_debate_seat_$seat$_group }
 	}
+	if = { limit = { has_variable = tv_academy_debate_seat_$seat$_artist } remove_variable = tv_academy_debate_active_artist_char }
+	if = { limit = { has_variable = tv_academy_debate_seat_$seat$_foreign_country } remove_variable = tv_academy_debate_active_foreign_country }
 	remove_variable = tv_academy_debate_seat_$seat$_group
 	remove_variable = tv_academy_debate_seat_$seat$_stance
 	remove_variable = tv_academy_debate_seat_$seat$_cooldown
@@ -7802,9 +8111,10 @@ tv_academy_debate_assign_selected_group_to_specific_seat_effect = {
 	set_variable = { name = tv_academy_debate_seat_$seat$_group value = var:tv_academy_debate_event_group }
 	set_variable = { name = tv_academy_debate_seat_$seat$_stance value = var:tv_academy_debate_event_stance }
 	set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
-	if = { limit = { exists = scope:tv_academy_debate_selected_artist } set_variable = { name = tv_academy_debate_seat_$seat$_artist value = scope:tv_academy_debate_selected_artist } }
-	if = { limit = { exists = scope:tv_academy_debate_selected_foreign_country } set_variable = { name = tv_academy_debate_seat_$seat$_foreign_country value = scope:tv_academy_debate_selected_foreign_country } }
+	if = { limit = { exists = scope:tv_academy_debate_selected_artist } set_variable = { name = tv_academy_debate_seat_$seat$_artist value = scope:tv_academy_debate_selected_artist } set_variable = { name = tv_academy_debate_active_artist_char value = scope:tv_academy_debate_selected_artist } }
+	if = { limit = { exists = scope:tv_academy_debate_selected_foreign_country } set_variable = { name = tv_academy_debate_seat_$seat$_foreign_country value = scope:tv_academy_debate_selected_foreign_country } set_variable = { name = tv_academy_debate_active_foreign_country value = scope:tv_academy_debate_selected_foreign_country } }
 	if = { limit = { exists = scope:tv_academy_debate_selected_scientist } set_variable = { name = tv_academy_debate_seat_$seat$_scientist value = scope:tv_academy_debate_selected_scientist } }
+	tv_academy_debate_set_group_active_stance_effect = { group = var:tv_academy_debate_event_group stance = var:tv_academy_debate_event_stance }
 	tv_academy_debate_mark_selected_group_seated_effect = yes
 	tv_academy_debate_refresh_local_balance_effect = yes
 }
@@ -7815,26 +8125,31 @@ tv_academy_debate_set_selected_neutral_stance_effect = {
 		limit = { var:tv_academy_debate_event_seat ?= 1 }
 		set_variable = { name = tv_academy_debate_seat_1_stance value = $stance$ }
 		set_variable = { name = tv_academy_debate_seat_1_cooldown value = 60 }
+		tv_academy_debate_set_group_active_stance_effect = { group = var:tv_academy_debate_seat_1_group stance = $stance$ }
 	}
 	else_if = {
 		limit = { var:tv_academy_debate_event_seat ?= 2 }
 		set_variable = { name = tv_academy_debate_seat_2_stance value = $stance$ }
 		set_variable = { name = tv_academy_debate_seat_2_cooldown value = 60 }
+		tv_academy_debate_set_group_active_stance_effect = { group = var:tv_academy_debate_seat_2_group stance = $stance$ }
 	}
 	else_if = {
 		limit = { var:tv_academy_debate_event_seat ?= 3 }
 		set_variable = { name = tv_academy_debate_seat_3_stance value = $stance$ }
 		set_variable = { name = tv_academy_debate_seat_3_cooldown value = 60 }
+		tv_academy_debate_set_group_active_stance_effect = { group = var:tv_academy_debate_seat_3_group stance = $stance$ }
 	}
 	else_if = {
 		limit = { var:tv_academy_debate_event_seat ?= 4 }
 		set_variable = { name = tv_academy_debate_seat_4_stance value = $stance$ }
 		set_variable = { name = tv_academy_debate_seat_4_cooldown value = 60 }
+		tv_academy_debate_set_group_active_stance_effect = { group = var:tv_academy_debate_seat_4_group stance = $stance$ }
 	}
 	else_if = {
 		limit = { var:tv_academy_debate_event_seat ?= 5 }
 		set_variable = { name = tv_academy_debate_seat_5_stance value = $stance$ }
 		set_variable = { name = tv_academy_debate_seat_5_cooldown value = 60 }
+		tv_academy_debate_set_group_active_stance_effect = { group = var:tv_academy_debate_seat_5_group stance = $stance$ }
 	}
 	tv_academy_debate_refresh_local_balance_effect = yes
 }
@@ -10907,12 +11222,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_nobility_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_nobility_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_nobility_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -10922,12 +11239,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_clergy_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_clergy_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_clergy_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -10937,12 +11256,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_burghers_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_burghers_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_burghers_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -10952,12 +11273,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_peasants_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_peasants_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_peasants_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -10967,12 +11290,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_tribes_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_tribes_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_tribes_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -10982,12 +11307,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_dhimmi_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_dhimmi_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_dhimmi_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -10997,12 +11324,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_cossacks_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_cossacks_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_cossacks_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -11012,12 +11341,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_scholarly_community_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_scholarly_community_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_scholarly_community_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -11027,12 +11358,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_public_opinion_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_public_opinion_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_public_opinion_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -11042,12 +11375,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_court_bureaucrats_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_court_bureaucrats_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_court_bureaucrats_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -11057,12 +11392,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_maritime_merchants_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_maritime_merchants_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_maritime_merchants_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -11072,12 +11409,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_professional_military_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_professional_military_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_professional_military_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -11087,12 +11426,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_religious_reformers_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_religious_reformers_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_religious_reformers_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -11102,12 +11443,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_local_autonomy_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_local_autonomy_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_local_autonomy_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -11117,12 +11460,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_minorities_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_minorities_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_minorities_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -11132,12 +11477,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_artists_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_artists_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_artists_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -11161,6 +11508,7 @@ tv_academy_debate_apply_seat_defection_effect = {
 				}
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = var:tv_academy_debate_event_stance }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_foreign_power_active_stance value = var:tv_academy_debate_event_stance }
 			}
 		}
 		else_if = {
@@ -11170,12 +11518,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_continental_traders_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_continental_traders_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_continental_traders_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -11185,12 +11535,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_plutocratic_merchants_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_plutocratic_merchants_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_plutocratic_merchants_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -11200,12 +11552,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_mercantilist_guilds_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_mercantilist_guilds_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_mercantilist_guilds_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -11215,12 +11569,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_free_trade_merchants_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_free_trade_merchants_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_free_trade_merchants_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -11230,12 +11586,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_capitalist_financiers_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_capitalist_financiers_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_capitalist_financiers_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -11245,12 +11603,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_guild_traditionalists_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_guild_traditionalists_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_guild_traditionalists_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -11260,12 +11620,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_colonial_merchants_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_colonial_merchants_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_colonial_merchants_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -11275,12 +11637,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_insular_guilds_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_insular_guilds_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_insular_guilds_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -11290,12 +11654,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_feudal_levy_nobility_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_feudal_levy_nobility_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_feudal_levy_nobility_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -11305,12 +11671,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_patronal_aristocracy_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_patronal_aristocracy_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_patronal_aristocracy_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -11320,12 +11688,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_serf_holding_lords_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_serf_holding_lords_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_serf_holding_lords_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -11335,12 +11705,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_absolutist_court_faction_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_absolutist_court_faction_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_absolutist_court_faction_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -11350,12 +11722,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_constitutionalist_nobility_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_constitutionalist_nobility_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_constitutionalist_nobility_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -11365,12 +11739,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_war_doctrine_nobility_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_war_doctrine_nobility_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_war_doctrine_nobility_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -11380,12 +11756,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_fortress_doctrine_nobility_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_fortress_doctrine_nobility_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_fortress_doctrine_nobility_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -11395,12 +11773,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_devout_clergy_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_devout_clergy_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_devout_clergy_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -11410,12 +11790,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_humanist_clergy_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_humanist_clergy_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_humanist_clergy_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -11425,12 +11807,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_mystic_clergy_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_mystic_clergy_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_mystic_clergy_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -11440,12 +11824,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_canonist_clergy_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_canonist_clergy_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_canonist_clergy_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -11455,12 +11841,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_latinizing_clergy_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_latinizing_clergy_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_latinizing_clergy_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -11470,12 +11858,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_hellenizing_clergy_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_hellenizing_clergy_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_hellenizing_clergy_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -11485,12 +11875,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_crown_subjects_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_crown_subjects_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_crown_subjects_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -11500,12 +11892,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_free_subject_peasantry_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_free_subject_peasantry_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_free_subject_peasantry_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -11515,12 +11909,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_individualist_smallholders_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_individualist_smallholders_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_individualist_smallholders_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -11530,12 +11926,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_communal_villages_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_communal_villages_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_communal_villages_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -11545,12 +11943,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_traditionalist_enclave_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_traditionalist_enclave_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_traditionalist_enclave_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -11560,12 +11960,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_assimilating_enclave_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_assimilating_enclave_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_assimilating_enclave_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -11575,12 +11977,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_sinicized_minority_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_sinicized_minority_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_sinicized_minority_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -11590,12 +11994,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_unsinicized_minority_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_unsinicized_minority_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_unsinicized_minority_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -11605,12 +12011,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_warrior_clans_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_warrior_clans_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_warrior_clans_active_stance value = 1 }
 			}
 		}
 		else_if = {
@@ -11620,12 +12028,14 @@ tv_academy_debate_apply_seat_defection_effect = {
 				set_variable = { name = tv_academy_debate_auto_stance_oppose_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 2 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_diplomatic_clans_active_stance value = 2 }
 			}
 			else_if = {
 				limit = { var:tv_academy_debate_seat_$seat$_stance ?= 2 tv_academy_debate_group_diplomatic_clans_positive_defection_condition_trigger = yes }
 				set_variable = { name = tv_academy_debate_auto_stance_support_pending value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_stance value = 1 }
 				set_variable = { name = tv_academy_debate_seat_$seat$_cooldown value = 60 }
+				set_variable = { name = tv_academy_debate_group_diplomatic_clans_active_stance value = 1 }
 			}
 		}
 	}
@@ -12045,17 +12455,12 @@ tv_academy_debate_action_trigger_meritocracy_positive_on_cabinet_assigned_1_effe
 	# Semantic condition: appoint_high_skill_non_hereditary_cabinet_member
 	if = {
 		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
+			tv_academy_debate_local_scoring_active_trigger = yes
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
 				leader_country ?= root
 			}
 			var:tv_academy_philosophy_current ?= 1
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 		}
 		random_list = {
 			25 = {
@@ -12075,17 +12480,12 @@ tv_academy_debate_action_trigger_meritocracy_positive_on_bureaucracy_added_2_eff
 	# Semantic condition: add_professional_bureaucracy
 	if = {
 		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
+			tv_academy_debate_local_scoring_active_trigger = yes
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
 				leader_country ?= root
 			}
 			var:tv_academy_philosophy_current ?= 1
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 		}
 		random_list = {
 			25 = {
@@ -12105,17 +12505,12 @@ tv_academy_debate_action_trigger_meritocracy_negative_on_cabinet_removed_1_effec
 	# Semantic condition: remove_high_skill_official
 	if = {
 		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
+			tv_academy_debate_local_scoring_active_trigger = yes
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
 				leader_country ?= root
 			}
 			var:tv_academy_philosophy_current ?= 1
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 		}
 		random_list = {
 			25 = {
@@ -12135,17 +12530,12 @@ tv_academy_debate_action_trigger_meritocracy_negative_on_reform_change_2_effect 
 	# Semantic condition: strengthen_hereditary_or_noble_privilege
 	if = {
 		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
+			tv_academy_debate_local_scoring_active_trigger = yes
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
 				leader_country ?= root
 			}
 			var:tv_academy_philosophy_current ?= 1
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 		}
 		random_list = {
 			25 = {
@@ -12165,17 +12555,12 @@ tv_academy_debate_action_trigger_renaissance_positive_on_work_of_art_created_1_e
 	# Semantic condition: create_work_of_art
 	if = {
 		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
+			tv_academy_debate_local_scoring_active_trigger = yes
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
 				leader_country ?= root
 			}
 			var:tv_academy_philosophy_current ?= 2
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 		}
 		random_list = {
 			25 = {
@@ -12195,17 +12580,12 @@ tv_academy_debate_action_trigger_renaissance_positive_building_completed_2_effec
 	# Semantic condition: complete_art_university_court_or_cultural_building
 	if = {
 		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
+			tv_academy_debate_local_scoring_active_trigger = yes
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
 				leader_country ?= root
 			}
 			var:tv_academy_philosophy_current ?= 2
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 		}
 		random_list = {
 			25 = {
@@ -12225,17 +12605,12 @@ tv_academy_debate_action_trigger_renaissance_negative_on_work_of_art_looted_1_ef
 	# Semantic condition: own_work_of_art_looted
 	if = {
 		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
+			tv_academy_debate_local_scoring_active_trigger = yes
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
 				leader_country ?= root
 			}
 			var:tv_academy_philosophy_current ?= 2
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 		}
 		random_list = {
 			25 = {
@@ -12255,17 +12630,12 @@ tv_academy_debate_action_trigger_renaissance_negative_on_location_occupied_2_eff
 	# Semantic condition: capital_or_cultural_center_occupied
 	if = {
 		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
+			tv_academy_debate_local_scoring_active_trigger = yes
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
 				leader_country ?= root
 			}
 			var:tv_academy_philosophy_current ?= 2
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 		}
 		random_list = {
 			25 = {
@@ -12285,17 +12655,12 @@ tv_academy_debate_action_trigger_renaissance_negative_on_siege_won_3_effect = {
 	# Semantic condition: capital_or_cultural_center_occupied
 	if = {
 		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
+			tv_academy_debate_local_scoring_active_trigger = yes
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
 				leader_country ?= root
 			}
 			var:tv_academy_philosophy_current ?= 2
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 		}
 		random_list = {
 			25 = {
@@ -12315,17 +12680,12 @@ tv_academy_debate_action_trigger_banking_positive_on_loan_repaid_1_effect = {
 	# Semantic condition: repay_loan
 	if = {
 		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
+			tv_academy_debate_local_scoring_active_trigger = yes
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
 				leader_country ?= root
 			}
 			var:tv_academy_philosophy_current ?= 3
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 		}
 		random_list = {
 			25 = {
@@ -12345,17 +12705,12 @@ tv_academy_debate_action_trigger_banking_positive_on_parliament_passed_2_effect 
 	# Semantic condition: pass_fiscal_tax_credit_or_currency_reform
 	if = {
 		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
+			tv_academy_debate_local_scoring_active_trigger = yes
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
 				leader_country ?= root
 			}
 			var:tv_academy_philosophy_current ?= 3
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 		}
 		random_list = {
 			25 = {
@@ -12375,17 +12730,12 @@ tv_academy_debate_action_trigger_banking_positive_on_policy_changed_3_effect = {
 	# Semantic condition: pass_fiscal_tax_credit_or_currency_reform
 	if = {
 		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
+			tv_academy_debate_local_scoring_active_trigger = yes
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
 				leader_country ?= root
 			}
 			var:tv_academy_philosophy_current ?= 3
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 		}
 		random_list = {
 			25 = {
@@ -12405,17 +12755,12 @@ tv_academy_debate_action_trigger_banking_negative_on_loan_renewed_1_effect = {
 	# Semantic condition: renew_loan
 	if = {
 		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
+			tv_academy_debate_local_scoring_active_trigger = yes
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
 				leader_country ?= root
 			}
 			var:tv_academy_philosophy_current ?= 3
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 		}
 		random_list = {
 			25 = {
@@ -12435,17 +12780,12 @@ tv_academy_debate_action_trigger_banking_negative_on_bankruptcy_2_effect = {
 	# Semantic condition: go_bankrupt
 	if = {
 		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
+			tv_academy_debate_local_scoring_active_trigger = yes
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
 				leader_country ?= root
 			}
 			var:tv_academy_philosophy_current ?= 3
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 		}
 		random_list = {
 			25 = {
@@ -12465,17 +12805,12 @@ tv_academy_debate_action_trigger_new_world_positive_on_exploration_success_1_eff
 	# Semantic condition: complete_exploration
 	if = {
 		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
+			tv_academy_debate_local_scoring_active_trigger = yes
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
 				leader_country ?= root
 			}
 			var:tv_academy_philosophy_current ?= 4
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 		}
 		random_list = {
 			25 = {
@@ -12495,17 +12830,12 @@ tv_academy_debate_action_trigger_new_world_positive_on_colonial_charter_finished
 	# Semantic condition: complete_colonial_charter
 	if = {
 		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
+			tv_academy_debate_local_scoring_active_trigger = yes
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
 				leader_country ?= root
 			}
 			var:tv_academy_philosophy_current ?= 4
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 		}
 		random_list = {
 			25 = {
@@ -12525,17 +12855,12 @@ tv_academy_debate_action_trigger_new_world_negative_on_colonial_charter_failed_1
 	# Semantic condition: fail_colonial_charter
 	if = {
 		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
+			tv_academy_debate_local_scoring_active_trigger = yes
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
 				leader_country ?= root
 			}
 			var:tv_academy_philosophy_current ?= 4
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 		}
 		random_list = {
 			25 = {
@@ -12555,17 +12880,12 @@ tv_academy_debate_action_trigger_new_world_negative_on_took_location_in_peace_tr
 	# Semantic condition: lose_overseas_colony_or_trade_post
 	if = {
 		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
+			tv_academy_debate_local_scoring_active_trigger = yes
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
 				leader_country ?= root
 			}
 			var:tv_academy_philosophy_current ?= 4
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 		}
 		random_list = {
 			25 = {
@@ -12585,17 +12905,12 @@ tv_academy_debate_action_trigger_printing_press_positive_on_work_of_art_created_
 	# Semantic condition: create_book_map_or_manuscript
 	if = {
 		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
+			tv_academy_debate_local_scoring_active_trigger = yes
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
 				leader_country ?= root
 			}
 			var:tv_academy_philosophy_current ?= 5
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 		}
 		random_list = {
 			25 = {
@@ -12615,17 +12930,12 @@ tv_academy_debate_action_trigger_printing_press_positive_building_completed_2_ef
 	# Semantic condition: complete_university_library_paper_or_book_building
 	if = {
 		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
+			tv_academy_debate_local_scoring_active_trigger = yes
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
 				leader_country ?= root
 			}
 			var:tv_academy_philosophy_current ?= 5
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 		}
 		random_list = {
 			25 = {
@@ -12645,17 +12955,12 @@ tv_academy_debate_action_trigger_printing_press_negative_on_work_of_art_destroye
 	# Semantic condition: book_map_or_manuscript_destroyed_or_looted
 	if = {
 		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
+			tv_academy_debate_local_scoring_active_trigger = yes
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
 				leader_country ?= root
 			}
 			var:tv_academy_philosophy_current ?= 5
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 		}
 		random_list = {
 			25 = {
@@ -12675,17 +12980,12 @@ tv_academy_debate_action_trigger_printing_press_negative_on_work_of_art_looted_2
 	# Semantic condition: book_map_or_manuscript_destroyed_or_looted
 	if = {
 		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
+			tv_academy_debate_local_scoring_active_trigger = yes
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
 				leader_country ?= root
 			}
 			var:tv_academy_philosophy_current ?= 5
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 		}
 		random_list = {
 			25 = {
@@ -12705,17 +13005,12 @@ tv_academy_debate_action_trigger_printing_press_negative_on_policy_changed_3_eff
 	# Semantic condition: adopt_censorship_publication_restriction_or_knowledge_monopoly
 	if = {
 		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
+			tv_academy_debate_local_scoring_active_trigger = yes
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
 				leader_country ?= root
 			}
 			var:tv_academy_philosophy_current ?= 5
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 		}
 		random_list = {
 			25 = {
@@ -12735,17 +13030,12 @@ tv_academy_debate_action_trigger_confessionalism_positive_on_religion_changed_1_
 	# Semantic condition: state_conversion_or_major_confessional_turn
 	if = {
 		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
+			tv_academy_debate_local_scoring_active_trigger = yes
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
 				leader_country ?= root
 			}
 			var:tv_academy_philosophy_current ?= 6
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 		}
 		random_list = {
 			25 = {
@@ -12765,17 +13055,12 @@ tv_academy_debate_action_trigger_confessionalism_positive_on_winning_war_2_effec
 	# Semantic condition: win_religious_war
 	if = {
 		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
+			tv_academy_debate_local_scoring_active_trigger = yes
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
 				leader_country ?= root
 			}
 			var:tv_academy_philosophy_current ?= 6
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 		}
 		random_list = {
 			25 = {
@@ -12795,17 +13080,12 @@ tv_academy_debate_action_trigger_confessionalism_negative_on_losing_war_1_effect
 	# Semantic condition: lose_religious_war
 	if = {
 		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
+			tv_academy_debate_local_scoring_active_trigger = yes
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
 				leader_country ?= root
 			}
 			var:tv_academy_philosophy_current ?= 6
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 		}
 		random_list = {
 			25 = {
@@ -12825,17 +13105,12 @@ tv_academy_debate_action_trigger_confessionalism_negative_on_policy_changed_2_ef
 	# Semantic condition: adopt_toleration_multifaith_or_weaken_state_church_policy
 	if = {
 		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
+			tv_academy_debate_local_scoring_active_trigger = yes
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
 				leader_country ?= root
 			}
 			var:tv_academy_philosophy_current ?= 6
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 		}
 		random_list = {
 			25 = {
@@ -12855,17 +13130,12 @@ tv_academy_debate_action_trigger_global_trade_positive_on_took_location_in_peace
 	# Semantic condition: gain_major_port_trade_center_or_overseas_trade_post
 	if = {
 		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
+			tv_academy_debate_local_scoring_active_trigger = yes
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
 				leader_country ?= root
 			}
 			var:tv_academy_philosophy_current ?= 7
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 		}
 		random_list = {
 			25 = {
@@ -12885,17 +13155,12 @@ tv_academy_debate_action_trigger_global_trade_positive_on_policy_changed_2_effec
 	# Semantic condition: adopt_open_trade_merchant_privilege_or_shipping_support_policy
 	if = {
 		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
+			tv_academy_debate_local_scoring_active_trigger = yes
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
 				leader_country ?= root
 			}
 			var:tv_academy_philosophy_current ?= 7
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 		}
 		random_list = {
 			25 = {
@@ -12915,17 +13180,12 @@ tv_academy_debate_action_trigger_global_trade_negative_on_location_occupied_1_ef
 	# Semantic condition: own_major_port_or_trade_center_occupied
 	if = {
 		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
+			tv_academy_debate_local_scoring_active_trigger = yes
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
 				leader_country ?= root
 			}
 			var:tv_academy_philosophy_current ?= 7
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 		}
 		random_list = {
 			25 = {
@@ -12945,17 +13205,12 @@ tv_academy_debate_action_trigger_global_trade_negative_on_siege_won_2_effect = {
 	# Semantic condition: own_major_port_or_trade_center_occupied
 	if = {
 		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
+			tv_academy_debate_local_scoring_active_trigger = yes
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
 				leader_country ?= root
 			}
 			var:tv_academy_philosophy_current ?= 7
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 		}
 		random_list = {
 			25 = {
@@ -12975,17 +13230,12 @@ tv_academy_debate_action_trigger_global_trade_negative_on_war_declared_3_effect 
 	# Semantic condition: declare_war_on_major_trade_partner_trade_node_or_naval_power
 	if = {
 		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
+			tv_academy_debate_local_scoring_active_trigger = yes
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
 				leader_country ?= root
 			}
 			var:tv_academy_philosophy_current ?= 7
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 		}
 		random_list = {
 			25 = {
@@ -13005,17 +13255,12 @@ tv_academy_debate_action_trigger_manufactories_positive_building_completed_1_eff
 	# Semantic condition: complete_workshop_manufactory_proto_factory_or_production_building
 	if = {
 		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
+			tv_academy_debate_local_scoring_active_trigger = yes
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
 				leader_country ?= root
 			}
 			var:tv_academy_philosophy_current ?= 8
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 		}
 		random_list = {
 			25 = {
@@ -13035,17 +13280,12 @@ tv_academy_debate_action_trigger_manufactories_positive_on_policy_changed_2_effe
 	# Semantic condition: adopt_production_support_guild_reform_or_industrial_organization_policy
 	if = {
 		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
+			tv_academy_debate_local_scoring_active_trigger = yes
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
 				leader_country ?= root
 			}
 			var:tv_academy_philosophy_current ?= 8
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 		}
 		random_list = {
 			25 = {
@@ -13065,17 +13305,12 @@ tv_academy_debate_action_trigger_manufactories_negative_on_location_occupied_1_e
 	# Semantic condition: own_major_production_center_occupied
 	if = {
 		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
+			tv_academy_debate_local_scoring_active_trigger = yes
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
 				leader_country ?= root
 			}
 			var:tv_academy_philosophy_current ?= 8
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 		}
 		random_list = {
 			25 = {
@@ -13095,17 +13330,12 @@ tv_academy_debate_action_trigger_manufactories_negative_on_siege_won_2_effect = 
 	# Semantic condition: own_major_production_center_occupied
 	if = {
 		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
+			tv_academy_debate_local_scoring_active_trigger = yes
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
 				leader_country ?= root
 			}
 			var:tv_academy_philosophy_current ?= 8
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 		}
 		random_list = {
 			25 = {
@@ -13125,17 +13355,12 @@ tv_academy_debate_action_trigger_manufactories_negative_on_bankruptcy_3_effect =
 	# Semantic condition: go_bankrupt
 	if = {
 		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
+			tv_academy_debate_local_scoring_active_trigger = yes
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
 				leader_country ?= root
 			}
 			var:tv_academy_philosophy_current ?= 8
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 		}
 		random_list = {
 			25 = {
@@ -13155,17 +13380,12 @@ tv_academy_debate_action_trigger_scientific_revolution_positive_on_cabinet_assig
 	# Semantic condition: appoint_high_adm_or_scholarly_cabinet_member
 	if = {
 		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
+			tv_academy_debate_local_scoring_active_trigger = yes
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
 				leader_country ?= root
 			}
 			var:tv_academy_philosophy_current ?= 9
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 		}
 		random_list = {
 			25 = {
@@ -13185,17 +13405,12 @@ tv_academy_debate_action_trigger_scientific_revolution_positive_on_work_of_art_c
 	# Semantic condition: create_scientific_book_star_chart_map_or_instrument
 	if = {
 		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
+			tv_academy_debate_local_scoring_active_trigger = yes
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
 				leader_country ?= root
 			}
 			var:tv_academy_philosophy_current ?= 9
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 		}
 		random_list = {
 			25 = {
@@ -13215,17 +13430,12 @@ tv_academy_debate_action_trigger_scientific_revolution_negative_on_cabinet_remov
 	# Semantic condition: remove_high_skill_scholarly_official
 	if = {
 		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
+			tv_academy_debate_local_scoring_active_trigger = yes
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
 				leader_country ?= root
 			}
 			var:tv_academy_philosophy_current ?= 9
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 		}
 		random_list = {
 			25 = {
@@ -13245,17 +13455,12 @@ tv_academy_debate_action_trigger_scientific_revolution_negative_on_work_of_art_d
 	# Semantic condition: scientific_manuscript_map_or_instrument_destroyed_or_looted
 	if = {
 		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
+			tv_academy_debate_local_scoring_active_trigger = yes
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
 				leader_country ?= root
 			}
 			var:tv_academy_philosophy_current ?= 9
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 		}
 		random_list = {
 			25 = {
@@ -13275,17 +13480,12 @@ tv_academy_debate_action_trigger_scientific_revolution_negative_on_work_of_art_l
 	# Semantic condition: scientific_manuscript_map_or_instrument_destroyed_or_looted
 	if = {
 		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
+			tv_academy_debate_local_scoring_active_trigger = yes
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_academy_of_sciences
 				leader_country ?= root
 			}
 			var:tv_academy_philosophy_current ?= 9
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
 		}
 		random_list = {
 			25 = {
@@ -15133,14 +15333,7 @@ tv_academy_world_debate_mirror_all_countries_effect = {
 
 tv_academy_philosophy_apply_monthly_debate_drift_effect = {
 	if = {
-		limit = {
-			var:tv_academy_philosophy_phase ?= 1
-			var:tv_academy_debate_current_node_type ?= 1
-			tv_academy_philosophy_has_current_issue_trigger = yes
-			NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-			NOT = { has_variable = tv_academy_philosophy_result_pending }
-			NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
-		}
+		limit = { tv_academy_debate_local_scoring_active_trigger = yes }
 		trigger_event_silently = { id = tv_academy_debate.1 days = 1 }
 	}
 }

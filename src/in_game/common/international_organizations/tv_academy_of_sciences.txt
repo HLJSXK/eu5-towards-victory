@@ -214,12 +214,7 @@ tv_academy_of_sciences = {
 					if = {
 						limit = {
 							leader_country ?= {
-								var:tv_academy_philosophy_phase ?= 1
-								var:tv_academy_debate_current_node_type ?= 1
-								tv_academy_philosophy_has_current_issue_trigger = yes
-								NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-								NOT = { has_variable = tv_academy_philosophy_result_pending }
-								NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
+								tv_academy_debate_local_scoring_active_trigger = yes
 							}
 						}
 						value = leader_country.estate_power(estate_type:crown_estate)
@@ -227,431 +222,1104 @@ tv_academy_of_sciences = {
 					}
 				}
 				add = {
-					desc = "TV_ACADEMY_DEBATE_SEAT_1_CONTRIBUTION"
+					desc = "TV_ACADEMY_DEBATE_GROUP_NOBILITY"
 					value = 0
 					if = {
 						limit = {
 							leader_country ?= {
-								var:tv_academy_philosophy_phase ?= 1
-								var:tv_academy_debate_current_node_type ?= 1
-								tv_academy_philosophy_has_current_issue_trigger = yes
-								NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-								NOT = { has_variable = tv_academy_philosophy_result_pending }
-								NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
-								has_variable = tv_academy_debate_seat_1_group
-								NOT = { var:tv_academy_debate_seat_1_stance ?= 3 }
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_nobility_active_stance
+								NOT = { var:tv_academy_debate_group_nobility_active_stance ?= 3 }
 							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:nobles_estate)
+							multiply = 0.2
 						}
 						if = {
-							limit = {
-								leader_country ?= {
-									has_global_variable_map = tv_academy_debate_group_to_estate
-									is_key_in_global_variable_map = { name = tv_academy_debate_group_to_estate target = var:tv_academy_debate_seat_1_group }
-								}
-							}
-							set_local_variable = { name = tv_academy_debate_seat_1_estate_local value = "global_variable_map(tv_academy_debate_group_to_estate|leader_country.var:tv_academy_debate_seat_1_group)" }
-							set_local_variable = { name = tv_academy_debate_seat_1_power_multiplier_local value = "global_variable_map(tv_academy_debate_group_to_power_multiplier|leader_country.var:tv_academy_debate_seat_1_group)" }
-							value = 0.1
-							add = {
-								value = leader_country.estate_power(local_var:tv_academy_debate_seat_1_estate_local)
-								multiply = local_var:tv_academy_debate_seat_1_power_multiplier_local
-							}
-						}
-						else_if = {
-							limit = { leader_country ?= { var:tv_academy_debate_seat_1_group ?= 16 } }
-							value = 0.1
-							add = {
-								value = leader_country.var:tv_academy_debate_seat_1_artist.artist_skill
-								multiply = 0.2
-							}
-						}
-						else_if = {
-							limit = { leader_country ?= { var:tv_academy_debate_seat_1_group ?= 17 } }
-							value = 0.1
-							add = {
-								value = leader_country.var:tv_academy_debate_seat_1_foreign_country.great_power_score
-								divide = {
-									value = leader_country.great_power_score
-									min = 1
-								}
-								multiply = 0.2
-							}
-						}
-						else_if = {
-							limit = { leader_country ?= { var:tv_academy_debate_seat_1_group ?= 18 } }
-							value = 0.1
-							if = {
-								limit = {
-									leader_country ?= {
-										has_variable = tv_academy_leader_char
-										var:tv_academy_leader_char ?= { is_alive = yes }
-									}
-								}
-								add = {
-									value = leader_country.var:tv_academy_leader_char.adm
-									if = {
-										limit = { leader_country ?= { var:tv_academy_leader_char ?= { has_trait = tv_great_scientist_3 } } }
-										add = 60
-									}
-									else_if = {
-										limit = { leader_country ?= { var:tv_academy_leader_char ?= { has_trait = tv_great_scientist_2 } } }
-										add = 40
-									}
-									else_if = {
-										limit = { leader_country ?= { var:tv_academy_leader_char ?= { has_trait = tv_great_scientist_1 } } }
-										add = 20
-									}
-									divide = 100
-									multiply = 0.2
-								}
-							}
-						}
-						if = {
-							limit = { leader_country ?= { var:tv_academy_debate_seat_1_stance ?= 2 } }
+							limit = { leader_country ?= { var:tv_academy_debate_group_nobility_active_stance ?= 2 } }
 							multiply = -1
 						}
 					}
 				}
 				add = {
-					desc = "TV_ACADEMY_DEBATE_SEAT_2_CONTRIBUTION"
+					desc = "TV_ACADEMY_DEBATE_GROUP_CLERGY"
 					value = 0
 					if = {
 						limit = {
 							leader_country ?= {
-								var:tv_academy_philosophy_phase ?= 1
-								var:tv_academy_debate_current_node_type ?= 1
-								tv_academy_philosophy_has_current_issue_trigger = yes
-								NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-								NOT = { has_variable = tv_academy_philosophy_result_pending }
-								NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
-								has_variable = tv_academy_debate_seat_2_group
-								NOT = { var:tv_academy_debate_seat_2_stance ?= 3 }
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_clergy_active_stance
+								NOT = { var:tv_academy_debate_group_clergy_active_stance ?= 3 }
 							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:clergy_estate)
+							multiply = 0.2
 						}
 						if = {
-							limit = {
-								leader_country ?= {
-									has_global_variable_map = tv_academy_debate_group_to_estate
-									is_key_in_global_variable_map = { name = tv_academy_debate_group_to_estate target = var:tv_academy_debate_seat_2_group }
-								}
-							}
-							set_local_variable = { name = tv_academy_debate_seat_2_estate_local value = "global_variable_map(tv_academy_debate_group_to_estate|leader_country.var:tv_academy_debate_seat_2_group)" }
-							set_local_variable = { name = tv_academy_debate_seat_2_power_multiplier_local value = "global_variable_map(tv_academy_debate_group_to_power_multiplier|leader_country.var:tv_academy_debate_seat_2_group)" }
-							value = 0.1
-							add = {
-								value = leader_country.estate_power(local_var:tv_academy_debate_seat_2_estate_local)
-								multiply = local_var:tv_academy_debate_seat_2_power_multiplier_local
-							}
-						}
-						else_if = {
-							limit = { leader_country ?= { var:tv_academy_debate_seat_2_group ?= 16 } }
-							value = 0.1
-							add = {
-								value = leader_country.var:tv_academy_debate_seat_2_artist.artist_skill
-								multiply = 0.2
-							}
-						}
-						else_if = {
-							limit = { leader_country ?= { var:tv_academy_debate_seat_2_group ?= 17 } }
-							value = 0.1
-							add = {
-								value = leader_country.var:tv_academy_debate_seat_2_foreign_country.great_power_score
-								divide = {
-									value = leader_country.great_power_score
-									min = 1
-								}
-								multiply = 0.2
-							}
-						}
-						else_if = {
-							limit = { leader_country ?= { var:tv_academy_debate_seat_2_group ?= 18 } }
-							value = 0.1
-							if = {
-								limit = {
-									leader_country ?= {
-										has_variable = tv_academy_leader_char
-										var:tv_academy_leader_char ?= { is_alive = yes }
-									}
-								}
-								add = {
-									value = leader_country.var:tv_academy_leader_char.adm
-									if = {
-										limit = { leader_country ?= { var:tv_academy_leader_char ?= { has_trait = tv_great_scientist_3 } } }
-										add = 60
-									}
-									else_if = {
-										limit = { leader_country ?= { var:tv_academy_leader_char ?= { has_trait = tv_great_scientist_2 } } }
-										add = 40
-									}
-									else_if = {
-										limit = { leader_country ?= { var:tv_academy_leader_char ?= { has_trait = tv_great_scientist_1 } } }
-										add = 20
-									}
-									divide = 100
-									multiply = 0.2
-								}
-							}
-						}
-						if = {
-							limit = { leader_country ?= { var:tv_academy_debate_seat_2_stance ?= 2 } }
+							limit = { leader_country ?= { var:tv_academy_debate_group_clergy_active_stance ?= 2 } }
 							multiply = -1
 						}
 					}
 				}
 				add = {
-					desc = "TV_ACADEMY_DEBATE_SEAT_3_CONTRIBUTION"
+					desc = "TV_ACADEMY_DEBATE_GROUP_BURGHERS"
 					value = 0
 					if = {
 						limit = {
 							leader_country ?= {
-								var:tv_academy_philosophy_phase ?= 1
-								var:tv_academy_debate_current_node_type ?= 1
-								tv_academy_philosophy_has_current_issue_trigger = yes
-								NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-								NOT = { has_variable = tv_academy_philosophy_result_pending }
-								NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
-								has_variable = tv_academy_debate_seat_3_group
-								NOT = { var:tv_academy_debate_seat_3_stance ?= 3 }
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_burghers_active_stance
+								NOT = { var:tv_academy_debate_group_burghers_active_stance ?= 3 }
 							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:burghers_estate)
+							multiply = 0.2
 						}
 						if = {
-							limit = {
-								leader_country ?= {
-									has_global_variable_map = tv_academy_debate_group_to_estate
-									is_key_in_global_variable_map = { name = tv_academy_debate_group_to_estate target = var:tv_academy_debate_seat_3_group }
-								}
-							}
-							set_local_variable = { name = tv_academy_debate_seat_3_estate_local value = "global_variable_map(tv_academy_debate_group_to_estate|leader_country.var:tv_academy_debate_seat_3_group)" }
-							set_local_variable = { name = tv_academy_debate_seat_3_power_multiplier_local value = "global_variable_map(tv_academy_debate_group_to_power_multiplier|leader_country.var:tv_academy_debate_seat_3_group)" }
-							value = 0.1
-							add = {
-								value = leader_country.estate_power(local_var:tv_academy_debate_seat_3_estate_local)
-								multiply = local_var:tv_academy_debate_seat_3_power_multiplier_local
-							}
-						}
-						else_if = {
-							limit = { leader_country ?= { var:tv_academy_debate_seat_3_group ?= 16 } }
-							value = 0.1
-							add = {
-								value = leader_country.var:tv_academy_debate_seat_3_artist.artist_skill
-								multiply = 0.2
-							}
-						}
-						else_if = {
-							limit = { leader_country ?= { var:tv_academy_debate_seat_3_group ?= 17 } }
-							value = 0.1
-							add = {
-								value = leader_country.var:tv_academy_debate_seat_3_foreign_country.great_power_score
-								divide = {
-									value = leader_country.great_power_score
-									min = 1
-								}
-								multiply = 0.2
-							}
-						}
-						else_if = {
-							limit = { leader_country ?= { var:tv_academy_debate_seat_3_group ?= 18 } }
-							value = 0.1
-							if = {
-								limit = {
-									leader_country ?= {
-										has_variable = tv_academy_leader_char
-										var:tv_academy_leader_char ?= { is_alive = yes }
-									}
-								}
-								add = {
-									value = leader_country.var:tv_academy_leader_char.adm
-									if = {
-										limit = { leader_country ?= { var:tv_academy_leader_char ?= { has_trait = tv_great_scientist_3 } } }
-										add = 60
-									}
-									else_if = {
-										limit = { leader_country ?= { var:tv_academy_leader_char ?= { has_trait = tv_great_scientist_2 } } }
-										add = 40
-									}
-									else_if = {
-										limit = { leader_country ?= { var:tv_academy_leader_char ?= { has_trait = tv_great_scientist_1 } } }
-										add = 20
-									}
-									divide = 100
-									multiply = 0.2
-								}
-							}
-						}
-						if = {
-							limit = { leader_country ?= { var:tv_academy_debate_seat_3_stance ?= 2 } }
+							limit = { leader_country ?= { var:tv_academy_debate_group_burghers_active_stance ?= 2 } }
 							multiply = -1
 						}
 					}
 				}
 				add = {
-					desc = "TV_ACADEMY_DEBATE_SEAT_4_CONTRIBUTION"
+					desc = "TV_ACADEMY_DEBATE_GROUP_PEASANTS"
 					value = 0
 					if = {
 						limit = {
 							leader_country ?= {
-								var:tv_academy_philosophy_phase ?= 1
-								var:tv_academy_debate_current_node_type ?= 1
-								tv_academy_philosophy_has_current_issue_trigger = yes
-								NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-								NOT = { has_variable = tv_academy_philosophy_result_pending }
-								NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
-								has_variable = tv_academy_debate_seat_4_group
-								NOT = { var:tv_academy_debate_seat_4_stance ?= 3 }
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_peasants_active_stance
+								NOT = { var:tv_academy_debate_group_peasants_active_stance ?= 3 }
 							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:peasants_estate)
+							multiply = 0.2
 						}
 						if = {
-							limit = {
-								leader_country ?= {
-									has_global_variable_map = tv_academy_debate_group_to_estate
-									is_key_in_global_variable_map = { name = tv_academy_debate_group_to_estate target = var:tv_academy_debate_seat_4_group }
-								}
-							}
-							set_local_variable = { name = tv_academy_debate_seat_4_estate_local value = "global_variable_map(tv_academy_debate_group_to_estate|leader_country.var:tv_academy_debate_seat_4_group)" }
-							set_local_variable = { name = tv_academy_debate_seat_4_power_multiplier_local value = "global_variable_map(tv_academy_debate_group_to_power_multiplier|leader_country.var:tv_academy_debate_seat_4_group)" }
-							value = 0.1
-							add = {
-								value = leader_country.estate_power(local_var:tv_academy_debate_seat_4_estate_local)
-								multiply = local_var:tv_academy_debate_seat_4_power_multiplier_local
-							}
-						}
-						else_if = {
-							limit = { leader_country ?= { var:tv_academy_debate_seat_4_group ?= 16 } }
-							value = 0.1
-							add = {
-								value = leader_country.var:tv_academy_debate_seat_4_artist.artist_skill
-								multiply = 0.2
-							}
-						}
-						else_if = {
-							limit = { leader_country ?= { var:tv_academy_debate_seat_4_group ?= 17 } }
-							value = 0.1
-							add = {
-								value = leader_country.var:tv_academy_debate_seat_4_foreign_country.great_power_score
-								divide = {
-									value = leader_country.great_power_score
-									min = 1
-								}
-								multiply = 0.2
-							}
-						}
-						else_if = {
-							limit = { leader_country ?= { var:tv_academy_debate_seat_4_group ?= 18 } }
-							value = 0.1
-							if = {
-								limit = {
-									leader_country ?= {
-										has_variable = tv_academy_leader_char
-										var:tv_academy_leader_char ?= { is_alive = yes }
-									}
-								}
-								add = {
-									value = leader_country.var:tv_academy_leader_char.adm
-									if = {
-										limit = { leader_country ?= { var:tv_academy_leader_char ?= { has_trait = tv_great_scientist_3 } } }
-										add = 60
-									}
-									else_if = {
-										limit = { leader_country ?= { var:tv_academy_leader_char ?= { has_trait = tv_great_scientist_2 } } }
-										add = 40
-									}
-									else_if = {
-										limit = { leader_country ?= { var:tv_academy_leader_char ?= { has_trait = tv_great_scientist_1 } } }
-										add = 20
-									}
-									divide = 100
-									multiply = 0.2
-								}
-							}
-						}
-						if = {
-							limit = { leader_country ?= { var:tv_academy_debate_seat_4_stance ?= 2 } }
+							limit = { leader_country ?= { var:tv_academy_debate_group_peasants_active_stance ?= 2 } }
 							multiply = -1
 						}
 					}
 				}
 				add = {
-					desc = "TV_ACADEMY_DEBATE_SEAT_5_CONTRIBUTION"
+					desc = "TV_ACADEMY_DEBATE_GROUP_TRIBES"
 					value = 0
 					if = {
 						limit = {
 							leader_country ?= {
-								var:tv_academy_philosophy_phase ?= 1
-								var:tv_academy_debate_current_node_type ?= 1
-								tv_academy_philosophy_has_current_issue_trigger = yes
-								NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }
-								NOT = { has_variable = tv_academy_philosophy_result_pending }
-								NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }
-								has_variable = tv_academy_debate_seat_5_group
-								NOT = { var:tv_academy_debate_seat_5_stance ?= 3 }
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_tribes_active_stance
+								NOT = { var:tv_academy_debate_group_tribes_active_stance ?= 3 }
 							}
 						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:tribes_estate)
+							multiply = 0.2
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_tribes_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_DHIMMI"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_dhimmi_active_stance
+								NOT = { var:tv_academy_debate_group_dhimmi_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:dhimmi_estate)
+							multiply = 0.2
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_dhimmi_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_COSSACKS"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_cossacks_active_stance
+								NOT = { var:tv_academy_debate_group_cossacks_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:cossacks_estate)
+							multiply = 0.2
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_cossacks_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_SCHOLARLY_COMMUNITY"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_scholarly_community_active_stance
+								NOT = { var:tv_academy_debate_group_scholarly_community_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:burghers_estate)
+							multiply = 0.4
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_scholarly_community_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_PUBLIC_OPINION"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_public_opinion_active_stance
+								NOT = { var:tv_academy_debate_group_public_opinion_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:peasants_estate)
+							multiply = 0.4
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_public_opinion_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_COURT_BUREAUCRATS"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_court_bureaucrats_active_stance
+								NOT = { var:tv_academy_debate_group_court_bureaucrats_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:nobles_estate)
+							multiply = 0.4
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_court_bureaucrats_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_MARITIME_MERCHANTS"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_maritime_merchants_active_stance
+								NOT = { var:tv_academy_debate_group_maritime_merchants_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:burghers_estate)
+							multiply = 0.4
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_maritime_merchants_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_PROFESSIONAL_MILITARY"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_professional_military_active_stance
+								NOT = { var:tv_academy_debate_group_professional_military_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:nobles_estate)
+							multiply = 0.4
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_professional_military_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_RELIGIOUS_REFORMERS"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_religious_reformers_active_stance
+								NOT = { var:tv_academy_debate_group_religious_reformers_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:clergy_estate)
+							multiply = 0.4
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_religious_reformers_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_LOCAL_AUTONOMY"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_local_autonomy_active_stance
+								NOT = { var:tv_academy_debate_group_local_autonomy_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:peasants_estate)
+							multiply = 0.4
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_local_autonomy_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_MINORITIES"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_minorities_active_stance
+								NOT = { var:tv_academy_debate_group_minorities_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:peasants_estate)
+							multiply = 0.4
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_minorities_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_ARTISTS"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_artists_active_stance
+								NOT = { var:tv_academy_debate_group_artists_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.var:tv_academy_debate_active_artist_char.artist_skill
+							multiply = 0.2
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_artists_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_FOREIGN_POWER"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_foreign_power_active_stance
+								NOT = { var:tv_academy_debate_group_foreign_power_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.var:tv_academy_debate_active_foreign_country.great_power_score
+							divide = {
+								value = leader_country.great_power_score
+								min = 1
+							}
+							multiply = 0.2
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_foreign_power_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_GREAT_SCIENTIST"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_great_scientist_active_stance
+								NOT = { var:tv_academy_debate_group_great_scientist_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
 						if = {
 							limit = {
 								leader_country ?= {
-									has_global_variable_map = tv_academy_debate_group_to_estate
-									is_key_in_global_variable_map = { name = tv_academy_debate_group_to_estate target = var:tv_academy_debate_seat_5_group }
+									has_variable = tv_academy_leader_char
+									var:tv_academy_leader_char ?= { is_alive = yes }
 								}
 							}
-							set_local_variable = { name = tv_academy_debate_seat_5_estate_local value = "global_variable_map(tv_academy_debate_group_to_estate|leader_country.var:tv_academy_debate_seat_5_group)" }
-							set_local_variable = { name = tv_academy_debate_seat_5_power_multiplier_local value = "global_variable_map(tv_academy_debate_group_to_power_multiplier|leader_country.var:tv_academy_debate_seat_5_group)" }
-							value = 0.1
 							add = {
-								value = leader_country.estate_power(local_var:tv_academy_debate_seat_5_estate_local)
-								multiply = local_var:tv_academy_debate_seat_5_power_multiplier_local
-							}
-						}
-						else_if = {
-							limit = { leader_country ?= { var:tv_academy_debate_seat_5_group ?= 16 } }
-							value = 0.1
-							add = {
-								value = leader_country.var:tv_academy_debate_seat_5_artist.artist_skill
+								value = leader_country.var:tv_academy_leader_char.adm
+								if = {
+									limit = { leader_country ?= { var:tv_academy_leader_char ?= { has_trait = tv_great_scientist_3 } } }
+									add = 60
+								}
+								else_if = {
+									limit = { leader_country ?= { var:tv_academy_leader_char ?= { has_trait = tv_great_scientist_2 } } }
+									add = 40
+								}
+								else_if = {
+									limit = { leader_country ?= { var:tv_academy_leader_char ?= { has_trait = tv_great_scientist_1 } } }
+									add = 20
+								}
+								divide = 100
 								multiply = 0.2
-							}
-						}
-						else_if = {
-							limit = { leader_country ?= { var:tv_academy_debate_seat_5_group ?= 17 } }
-							value = 0.1
-							add = {
-								value = leader_country.var:tv_academy_debate_seat_5_foreign_country.great_power_score
-								divide = {
-									value = leader_country.great_power_score
-									min = 1
-								}
-								multiply = 0.2
-							}
-						}
-						else_if = {
-							limit = { leader_country ?= { var:tv_academy_debate_seat_5_group ?= 18 } }
-							value = 0.1
-							if = {
-								limit = {
-									leader_country ?= {
-										has_variable = tv_academy_leader_char
-										var:tv_academy_leader_char ?= { is_alive = yes }
-									}
-								}
-								add = {
-									value = leader_country.var:tv_academy_leader_char.adm
-									if = {
-										limit = { leader_country ?= { var:tv_academy_leader_char ?= { has_trait = tv_great_scientist_3 } } }
-										add = 60
-									}
-									else_if = {
-										limit = { leader_country ?= { var:tv_academy_leader_char ?= { has_trait = tv_great_scientist_2 } } }
-										add = 40
-									}
-									else_if = {
-										limit = { leader_country ?= { var:tv_academy_leader_char ?= { has_trait = tv_great_scientist_1 } } }
-										add = 20
-									}
-									divide = 100
-									multiply = 0.2
-								}
 							}
 						}
 						if = {
-							limit = { leader_country ?= { var:tv_academy_debate_seat_5_stance ?= 2 } }
+							limit = { leader_country ?= { var:tv_academy_debate_group_great_scientist_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_CONTINENTAL_TRADERS"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_continental_traders_active_stance
+								NOT = { var:tv_academy_debate_group_continental_traders_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:burghers_estate)
+							multiply = 0.4
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_continental_traders_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_PLUTOCRATIC_MERCHANTS"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_plutocratic_merchants_active_stance
+								NOT = { var:tv_academy_debate_group_plutocratic_merchants_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:burghers_estate)
+							multiply = 0.4
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_plutocratic_merchants_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_MERCANTILIST_GUILDS"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_mercantilist_guilds_active_stance
+								NOT = { var:tv_academy_debate_group_mercantilist_guilds_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:burghers_estate)
+							multiply = 0.4
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_mercantilist_guilds_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_FREE_TRADE_MERCHANTS"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_free_trade_merchants_active_stance
+								NOT = { var:tv_academy_debate_group_free_trade_merchants_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:burghers_estate)
+							multiply = 0.4
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_free_trade_merchants_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_CAPITALIST_FINANCIERS"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_capitalist_financiers_active_stance
+								NOT = { var:tv_academy_debate_group_capitalist_financiers_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:burghers_estate)
+							multiply = 0.4
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_capitalist_financiers_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_GUILD_TRADITIONALISTS"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_guild_traditionalists_active_stance
+								NOT = { var:tv_academy_debate_group_guild_traditionalists_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:burghers_estate)
+							multiply = 0.4
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_guild_traditionalists_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_COLONIAL_MERCHANTS"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_colonial_merchants_active_stance
+								NOT = { var:tv_academy_debate_group_colonial_merchants_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:burghers_estate)
+							multiply = 0.4
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_colonial_merchants_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_INSULAR_GUILDS"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_insular_guilds_active_stance
+								NOT = { var:tv_academy_debate_group_insular_guilds_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:burghers_estate)
+							multiply = 0.4
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_insular_guilds_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_FEUDAL_LEVY_NOBILITY"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_feudal_levy_nobility_active_stance
+								NOT = { var:tv_academy_debate_group_feudal_levy_nobility_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:nobles_estate)
+							multiply = 0.4
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_feudal_levy_nobility_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_PATRONAL_ARISTOCRACY"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_patronal_aristocracy_active_stance
+								NOT = { var:tv_academy_debate_group_patronal_aristocracy_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:nobles_estate)
+							multiply = 0.4
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_patronal_aristocracy_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_SERF_HOLDING_LORDS"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_serf_holding_lords_active_stance
+								NOT = { var:tv_academy_debate_group_serf_holding_lords_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:nobles_estate)
+							multiply = 0.4
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_serf_holding_lords_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_ABSOLUTIST_COURT_FACTION"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_absolutist_court_faction_active_stance
+								NOT = { var:tv_academy_debate_group_absolutist_court_faction_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:nobles_estate)
+							multiply = 0.4
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_absolutist_court_faction_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_CONSTITUTIONALIST_NOBILITY"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_constitutionalist_nobility_active_stance
+								NOT = { var:tv_academy_debate_group_constitutionalist_nobility_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:nobles_estate)
+							multiply = 0.4
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_constitutionalist_nobility_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_WAR_DOCTRINE_NOBILITY"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_war_doctrine_nobility_active_stance
+								NOT = { var:tv_academy_debate_group_war_doctrine_nobility_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:nobles_estate)
+							multiply = 0.4
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_war_doctrine_nobility_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_FORTRESS_DOCTRINE_NOBILITY"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_fortress_doctrine_nobility_active_stance
+								NOT = { var:tv_academy_debate_group_fortress_doctrine_nobility_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:nobles_estate)
+							multiply = 0.4
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_fortress_doctrine_nobility_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_DEVOUT_CLERGY"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_devout_clergy_active_stance
+								NOT = { var:tv_academy_debate_group_devout_clergy_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:clergy_estate)
+							multiply = 0.4
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_devout_clergy_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_HUMANIST_CLERGY"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_humanist_clergy_active_stance
+								NOT = { var:tv_academy_debate_group_humanist_clergy_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:clergy_estate)
+							multiply = 0.4
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_humanist_clergy_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_MYSTIC_CLERGY"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_mystic_clergy_active_stance
+								NOT = { var:tv_academy_debate_group_mystic_clergy_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:clergy_estate)
+							multiply = 0.4
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_mystic_clergy_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_CANONIST_CLERGY"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_canonist_clergy_active_stance
+								NOT = { var:tv_academy_debate_group_canonist_clergy_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:clergy_estate)
+							multiply = 0.4
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_canonist_clergy_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_LATINIZING_CLERGY"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_latinizing_clergy_active_stance
+								NOT = { var:tv_academy_debate_group_latinizing_clergy_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:clergy_estate)
+							multiply = 0.4
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_latinizing_clergy_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_HELLENIZING_CLERGY"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_hellenizing_clergy_active_stance
+								NOT = { var:tv_academy_debate_group_hellenizing_clergy_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:clergy_estate)
+							multiply = 0.4
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_hellenizing_clergy_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_CROWN_SUBJECTS"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_crown_subjects_active_stance
+								NOT = { var:tv_academy_debate_group_crown_subjects_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:peasants_estate)
+							multiply = 0.4
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_crown_subjects_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_FREE_SUBJECT_PEASANTRY"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_free_subject_peasantry_active_stance
+								NOT = { var:tv_academy_debate_group_free_subject_peasantry_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:peasants_estate)
+							multiply = 0.4
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_free_subject_peasantry_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_INDIVIDUALIST_SMALLHOLDERS"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_individualist_smallholders_active_stance
+								NOT = { var:tv_academy_debate_group_individualist_smallholders_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:peasants_estate)
+							multiply = 0.4
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_individualist_smallholders_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_COMMUNAL_VILLAGES"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_communal_villages_active_stance
+								NOT = { var:tv_academy_debate_group_communal_villages_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:peasants_estate)
+							multiply = 0.4
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_communal_villages_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_TRADITIONALIST_ENCLAVE"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_traditionalist_enclave_active_stance
+								NOT = { var:tv_academy_debate_group_traditionalist_enclave_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:peasants_estate)
+							multiply = 0.4
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_traditionalist_enclave_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_ASSIMILATING_ENCLAVE"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_assimilating_enclave_active_stance
+								NOT = { var:tv_academy_debate_group_assimilating_enclave_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:peasants_estate)
+							multiply = 0.4
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_assimilating_enclave_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_SINICIZED_MINORITY"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_sinicized_minority_active_stance
+								NOT = { var:tv_academy_debate_group_sinicized_minority_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:peasants_estate)
+							multiply = 0.4
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_sinicized_minority_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_UNSINICIZED_MINORITY"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_unsinicized_minority_active_stance
+								NOT = { var:tv_academy_debate_group_unsinicized_minority_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:peasants_estate)
+							multiply = 0.4
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_unsinicized_minority_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_WARRIOR_CLANS"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_warrior_clans_active_stance
+								NOT = { var:tv_academy_debate_group_warrior_clans_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:peasants_estate)
+							multiply = 0.4
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_warrior_clans_active_stance ?= 2 } }
+							multiply = -1
+						}
+					}
+				}
+				add = {
+					desc = "TV_ACADEMY_DEBATE_GROUP_DIPLOMATIC_CLANS"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								tv_academy_debate_local_scoring_active_trigger = yes
+								has_variable = tv_academy_debate_group_diplomatic_clans_active_stance
+								NOT = { var:tv_academy_debate_group_diplomatic_clans_active_stance ?= 3 }
+							}
+						}
+						value = 0.1
+						add = {
+							value = leader_country.estate_power(estate_type:peasants_estate)
+							multiply = 0.4
+						}
+						if = {
+							limit = { leader_country ?= { var:tv_academy_debate_group_diplomatic_clans_active_stance ?= 2 } }
 							multiply = -1
 						}
 					}
