@@ -218,6 +218,58 @@ generators.
     `docs/knowledge/anti_patterns.yaml` rule
     `unique_wonder_base_key_reassignment_requires_mechanic_key_match`.
 
+20. The Unique Wonder Ceremony framework (`ceremony` block in
+    `data/unique_wonders.yaml`, built by `scripts/wonder_ceremony_lib.py` and
+    its per-file generators) is a deliberately uniform mechanic for the 121
+    unique wonders *without* a bespoke ritual, and is explicitly out of scope
+    for `audit_unique_wonder_ritual_mechanic_similarity.py` (confirmed by the
+    user, 2026-07) — do not treat its shared 8-stage/pay-a-cost-every-3-months
+    shape as a rule 12/13 violation, and do not "fix" it by bespoke-ifying each
+    wonder's ceremony. Only its `stages` flavor text, `cost_type`, and
+    `stage_1_reward` differ per wonder; the mechanical body (monthly tick,
+    cost payment, stage advance, stage-4 `construct_building` call, stage-8
+    completion via the existing `ritual.completion_trigger_script` gate) is
+    100% shared and wonder-id-generic, following the same
+    `var:tv_wonder_locked ?= <id>` dispatch idiom already used throughout
+    `tv_wonder_finalization_effects.txt` for the two genuinely per-wonder
+    dispatch points (stage-1 reward, stage-4 building). Pharos Lighthouse and
+    Hagia Sophia are excluded (`ceremony: null`) and keep their existing
+    bespoke `auxiliary_building`-mode rituals untouched.
+    EU5 event numeric IDs must be `< 10000` (already enforced by
+    `validate.py`'s `event_id` rule) — the ceremony's 8 shared events use ids
+    9300-9307, not the more readable 10000-10007 originally chosen.
+    The GUI card fragment (`data/generated_fragments/tv_wonder_ceremony_cards.gui`,
+    from `scripts/in_game/gui/panels/organization/gen_tv_wonder_ceremony_cards_gui.py`)
+    is merged into `src/in_game/gui/panels/organization/tv_engineering_department.gui`'s
+    Construction-and-ceremony tab by a **dedicated** merge script,
+    `scripts/in_game/gui/panels/organization/merge_tv_wonder_ceremony_cards_gui.py`
+    — it is intentionally separate from
+    `merge_tv_engineering_department_wonder_mechanics_gui.py` (whose marker
+    list and legacy-pruning logic all belong to the old per-style ceremony
+    proposal/button widgets and is not a generic "splice anywhere" tool). The
+    new `# BEGIN/END GENERATED TV_WONDER_CEREMONY_CARDS` marker pair sits
+    right after the existing `TV_WONDER_MECHANICS_ACTIVE_RITUAL_TEXTS` marker
+    (the Pharos/Hagia hand-coded step display); `.gui` syntax is
+    brace-delimited, not indentation-sensitive, so the inserted block does
+    not need to match the surrounding hand-written indentation depth (that
+    existing marker's own content is unindented mid-file too). Regenerate the
+    fragment, then rerun the merge script, to pick up any future changes.
+    This panel's scope root is `InternationalOrganizationsView.GetPlayer.MakeScope`,
+    not `Country.MakeScope` or any bare `GetVariable` — every existing
+    `GetVariable`/`GetConceptTexture` call in this file goes through that
+    exact prefix; a first draft of the card fragment used `Country.MakeScope`
+    by mistake and had to be corrected before merging.
+    The card fragment still uses a static per-stage label
+    (`TV_WONDER_CEREMONY_CARD_STAGE_<n>_LABEL`) rather than the per-active-wonder
+    flavor text now sitting in the `TV_WONDER_CEREMONY_S<n>_DESC_<id>` loc keys:
+    wiring genuine dynamic per-wonder GUI text would need the same
+    `SelectGameConcept(condition, Concatenate('tv_wonder_display_', ToString_int32(...)), fallback)`
+    idiom already proven in `src/in_game/gui/location_window.gui` (dynamic
+    per-id concept name lookup), which requires defining new per-stage game
+    concepts (not verified/built in this pass) rather than resolving an
+    arbitrary loc key directly — do not guess a generic "resolve dynamic loc
+    key" GUI function without finding a working precedent first.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`: it lints rule 2 and rule 16 automatically, and when a

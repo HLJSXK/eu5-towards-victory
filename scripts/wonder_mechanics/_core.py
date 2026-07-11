@@ -504,6 +504,48 @@ def _validate_final_buildings(value: object, context: str) -> dict[int, str]:
     return normalized
 
 
+def _validate_ceremony_stage(value: object, context: str) -> dict[str, str]:
+    stage = _require_mapping(value, context)
+    _expect_keys(
+        stage,
+        required={"title_en", "title_zh", "desc_en", "desc_zh"},
+        optional=set(),
+        context=context,
+    )
+    return {
+        "title_en": _require_string(stage["title_en"], f"{context}.title_en"),
+        "title_zh": _require_string(stage["title_zh"], f"{context}.title_zh"),
+        "desc_en": _require_string(stage["desc_en"], f"{context}.desc_en"),
+        "desc_zh": _require_string(stage["desc_zh"], f"{context}.desc_zh"),
+    }
+
+
+CEREMONY_STAGE_COUNT = 8
+
+
+def _validate_ceremony(value: object, context: str) -> dict | None:
+    if value is None:
+        return None
+    ceremony = _require_mapping(value, context)
+    _expect_keys(
+        ceremony,
+        required={"stage_1_reward", "stages"},
+        optional=set(),
+        context=context,
+    )
+    stages_raw = _require_list(ceremony["stages"], f"{context}.stages")
+    if len(stages_raw) != CEREMONY_STAGE_COUNT:
+        raise ValueError(f"{context}.stages must have exactly {CEREMONY_STAGE_COUNT} entries, got {len(stages_raw)}")
+    stages = [
+        _validate_ceremony_stage(stage, f"{context}.stages[{index}]")
+        for index, stage in enumerate(stages_raw, start=1)
+    ]
+    return {
+        "stage_1_reward": _require_list(ceremony["stage_1_reward"], f"{context}.stage_1_reward"),
+        "stages": stages,
+    }
+
+
 def _validate_parts_section(value: object, context: str) -> list[dict[str, str]]:
     parts = _require_list(value, context)
     normalized: list[dict[str, str]] = []
@@ -904,7 +946,7 @@ def load_unique_wonders_source_data(path: Path = UNIQUE_WONDERS_FILE) -> dict:
                 "final_buildings",
                 "ritual",
             },
-            optional=set(),
+            optional={"ceremony"},
             context=context,
         )
 
@@ -950,6 +992,7 @@ def load_unique_wonders_source_data(path: Path = UNIQUE_WONDERS_FILE) -> dict:
                 "base_effect_multiplier": base_effect_multiplier,
                 "final_buildings": _validate_final_buildings(wonder["final_buildings"], f"{context}.final_buildings"),
                 "ritual": _require_mapping(wonder["ritual"], f"{context}.ritual"),
+                "ceremony": _validate_ceremony(wonder.get("ceremony"), f"{context}.ceremony"),
             }
         )
     return {
