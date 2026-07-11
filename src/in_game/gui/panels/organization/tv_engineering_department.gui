@@ -9426,18 +9426,47 @@ vbox = {
 			blockoverride "header_decor_templates" {}
 			blockoverride "common_header_back_decor" {}
 			blockoverride "card_bg" {
-				using = bg_paper_card_situations
-				modify_texture = {
-					visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)1.0')]"
-					using = color_light_green_texture
-					blend_mode = overlay
-					alpha = 0.85
+				background = {
+					texture = "gfx/interface/cards/paper_card_fancy_01.dds"
+					texture_density = 2
+					spriteType = corneredstretched
+					spriteborder = { 100 100 }
+					margin = { 1 1 }
+					margin_bottom = 2
+					alpha = 0.4
 				}
-				modify_texture = {
-					visible = "[Not(GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)1.0'))]"
-					using = color_yellow_texture
-					blend_mode = overlay
-					alpha = 0.55
+				background = {
+					texture = "gfx/interface/cards/paper_card_fancy_01.dds"
+					texture_density = 2
+					spriteType = corneredstretched
+					spriteborder = { 100 100 }
+					modify_texture = {
+						using = color_paper_texture
+					}
+					modify_texture = {
+						using = color_black_texture
+						alpha = 0.3
+					}
+					modify_texture = {
+						using = overlay_paper_03
+					}
+					modify_texture = {
+						using = overlay_cloth_texture
+						blend_mode = overlay
+						alpha = 0.2
+					}
+					modify_texture = {
+						visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)1.0')]"
+						using = color_light_green_texture
+						blend_mode = overlay
+						alpha = 0.85
+					}
+					modify_texture = {
+						visible = "[Not(GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)1.0'))]"
+						using = color_yellow_texture
+						blend_mode = overlay
+						alpha = 0.55
+					}
 				}
 			}
 			blockoverride "common_bottom_content" {
@@ -9477,18 +9506,47 @@ vbox = {
 			blockoverride "header_decor_templates" {}
 			blockoverride "common_header_back_decor" {}
 			blockoverride "card_bg" {
-				using = bg_paper_card_situations
-				modify_texture = {
-					visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)2.0')]"
-					using = color_light_green_texture
-					blend_mode = overlay
-					alpha = 0.85
+				background = {
+					texture = "gfx/interface/cards/paper_card_fancy_01.dds"
+					texture_density = 2
+					spriteType = corneredstretched
+					spriteborder = { 100 100 }
+					margin = { 1 1 }
+					margin_bottom = 2
+					alpha = 0.4
 				}
-				modify_texture = {
-					visible = "[Not(GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)2.0'))]"
-					using = color_yellow_texture
-					blend_mode = overlay
-					alpha = 0.55
+				background = {
+					texture = "gfx/interface/cards/paper_card_fancy_01.dds"
+					texture_density = 2
+					spriteType = corneredstretched
+					spriteborder = { 100 100 }
+					modify_texture = {
+						using = color_paper_texture
+					}
+					modify_texture = {
+						using = color_black_texture
+						alpha = 0.3
+					}
+					modify_texture = {
+						using = overlay_paper_03
+					}
+					modify_texture = {
+						using = overlay_cloth_texture
+						blend_mode = overlay
+						alpha = 0.2
+					}
+					modify_texture = {
+						visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)2.0')]"
+						using = color_light_green_texture
+						blend_mode = overlay
+						alpha = 0.85
+					}
+					modify_texture = {
+						visible = "[Not(GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)2.0'))]"
+						using = color_yellow_texture
+						blend_mode = overlay
+						alpha = 0.55
+					}
 				}
 			}
 			blockoverride "common_bottom_content" {
@@ -9528,18 +9586,47 @@ vbox = {
 			blockoverride "header_decor_templates" {}
 			blockoverride "common_header_back_decor" {}
 			blockoverride "card_bg" {
-				using = bg_paper_card_situations
-				modify_texture = {
-					visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)3.0')]"
-					using = color_light_green_texture
-					blend_mode = overlay
-					alpha = 0.85
+				background = {
+					texture = "gfx/interface/cards/paper_card_fancy_01.dds"
+					texture_density = 2
+					spriteType = corneredstretched
+					spriteborder = { 100 100 }
+					margin = { 1 1 }
+					margin_bottom = 2
+					alpha = 0.4
 				}
-				modify_texture = {
-					visible = "[Not(GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)3.0'))]"
-					using = color_yellow_texture
-					blend_mode = overlay
-					alpha = 0.55
+				background = {
+					texture = "gfx/interface/cards/paper_card_fancy_01.dds"
+					texture_density = 2
+					spriteType = corneredstretched
+					spriteborder = { 100 100 }
+					modify_texture = {
+						using = color_paper_texture
+					}
+					modify_texture = {
+						using = color_black_texture
+						alpha = 0.3
+					}
+					modify_texture = {
+						using = overlay_paper_03
+					}
+					modify_texture = {
+						using = overlay_cloth_texture
+						blend_mode = overlay
+						alpha = 0.2
+					}
+					modify_texture = {
+						visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)3.0')]"
+						using = color_light_green_texture
+						blend_mode = overlay
+						alpha = 0.85
+					}
+					modify_texture = {
+						visible = "[Not(GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)3.0'))]"
+						using = color_yellow_texture
+						blend_mode = overlay
+						alpha = 0.55
+					}
 				}
 			}
 			blockoverride "common_bottom_content" {
@@ -9579,18 +9666,47 @@ vbox = {
 			blockoverride "header_decor_templates" {}
 			blockoverride "common_header_back_decor" {}
 			blockoverride "card_bg" {
-				using = bg_paper_card_situations
-				modify_texture = {
-					visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)4.0')]"
-					using = color_light_green_texture
-					blend_mode = overlay
-					alpha = 0.85
+				background = {
+					texture = "gfx/interface/cards/paper_card_fancy_01.dds"
+					texture_density = 2
+					spriteType = corneredstretched
+					spriteborder = { 100 100 }
+					margin = { 1 1 }
+					margin_bottom = 2
+					alpha = 0.4
 				}
-				modify_texture = {
-					visible = "[Not(GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)4.0'))]"
-					using = color_yellow_texture
-					blend_mode = overlay
-					alpha = 0.55
+				background = {
+					texture = "gfx/interface/cards/paper_card_fancy_01.dds"
+					texture_density = 2
+					spriteType = corneredstretched
+					spriteborder = { 100 100 }
+					modify_texture = {
+						using = color_paper_texture
+					}
+					modify_texture = {
+						using = color_black_texture
+						alpha = 0.3
+					}
+					modify_texture = {
+						using = overlay_paper_03
+					}
+					modify_texture = {
+						using = overlay_cloth_texture
+						blend_mode = overlay
+						alpha = 0.2
+					}
+					modify_texture = {
+						visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)4.0')]"
+						using = color_light_green_texture
+						blend_mode = overlay
+						alpha = 0.85
+					}
+					modify_texture = {
+						visible = "[Not(GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)4.0'))]"
+						using = color_yellow_texture
+						blend_mode = overlay
+						alpha = 0.55
+					}
 				}
 			}
 			blockoverride "common_bottom_content" {
@@ -9630,18 +9746,47 @@ vbox = {
 			blockoverride "header_decor_templates" {}
 			blockoverride "common_header_back_decor" {}
 			blockoverride "card_bg" {
-				using = bg_paper_card_situations
-				modify_texture = {
-					visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)5.0')]"
-					using = color_light_green_texture
-					blend_mode = overlay
-					alpha = 0.85
+				background = {
+					texture = "gfx/interface/cards/paper_card_fancy_01.dds"
+					texture_density = 2
+					spriteType = corneredstretched
+					spriteborder = { 100 100 }
+					margin = { 1 1 }
+					margin_bottom = 2
+					alpha = 0.4
 				}
-				modify_texture = {
-					visible = "[Not(GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)5.0'))]"
-					using = color_yellow_texture
-					blend_mode = overlay
-					alpha = 0.55
+				background = {
+					texture = "gfx/interface/cards/paper_card_fancy_01.dds"
+					texture_density = 2
+					spriteType = corneredstretched
+					spriteborder = { 100 100 }
+					modify_texture = {
+						using = color_paper_texture
+					}
+					modify_texture = {
+						using = color_black_texture
+						alpha = 0.3
+					}
+					modify_texture = {
+						using = overlay_paper_03
+					}
+					modify_texture = {
+						using = overlay_cloth_texture
+						blend_mode = overlay
+						alpha = 0.2
+					}
+					modify_texture = {
+						visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)5.0')]"
+						using = color_light_green_texture
+						blend_mode = overlay
+						alpha = 0.85
+					}
+					modify_texture = {
+						visible = "[Not(GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)5.0'))]"
+						using = color_yellow_texture
+						blend_mode = overlay
+						alpha = 0.55
+					}
 				}
 			}
 			blockoverride "common_bottom_content" {
@@ -9681,18 +9826,47 @@ vbox = {
 			blockoverride "header_decor_templates" {}
 			blockoverride "common_header_back_decor" {}
 			blockoverride "card_bg" {
-				using = bg_paper_card_situations
-				modify_texture = {
-					visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)6.0')]"
-					using = color_light_green_texture
-					blend_mode = overlay
-					alpha = 0.85
+				background = {
+					texture = "gfx/interface/cards/paper_card_fancy_01.dds"
+					texture_density = 2
+					spriteType = corneredstretched
+					spriteborder = { 100 100 }
+					margin = { 1 1 }
+					margin_bottom = 2
+					alpha = 0.4
 				}
-				modify_texture = {
-					visible = "[Not(GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)6.0'))]"
-					using = color_yellow_texture
-					blend_mode = overlay
-					alpha = 0.55
+				background = {
+					texture = "gfx/interface/cards/paper_card_fancy_01.dds"
+					texture_density = 2
+					spriteType = corneredstretched
+					spriteborder = { 100 100 }
+					modify_texture = {
+						using = color_paper_texture
+					}
+					modify_texture = {
+						using = color_black_texture
+						alpha = 0.3
+					}
+					modify_texture = {
+						using = overlay_paper_03
+					}
+					modify_texture = {
+						using = overlay_cloth_texture
+						blend_mode = overlay
+						alpha = 0.2
+					}
+					modify_texture = {
+						visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)6.0')]"
+						using = color_light_green_texture
+						blend_mode = overlay
+						alpha = 0.85
+					}
+					modify_texture = {
+						visible = "[Not(GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)6.0'))]"
+						using = color_yellow_texture
+						blend_mode = overlay
+						alpha = 0.55
+					}
 				}
 			}
 			blockoverride "common_bottom_content" {
@@ -9732,18 +9906,47 @@ vbox = {
 			blockoverride "header_decor_templates" {}
 			blockoverride "common_header_back_decor" {}
 			blockoverride "card_bg" {
-				using = bg_paper_card_situations
-				modify_texture = {
-					visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)7.0')]"
-					using = color_light_green_texture
-					blend_mode = overlay
-					alpha = 0.85
+				background = {
+					texture = "gfx/interface/cards/paper_card_fancy_01.dds"
+					texture_density = 2
+					spriteType = corneredstretched
+					spriteborder = { 100 100 }
+					margin = { 1 1 }
+					margin_bottom = 2
+					alpha = 0.4
 				}
-				modify_texture = {
-					visible = "[Not(GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)7.0'))]"
-					using = color_yellow_texture
-					blend_mode = overlay
-					alpha = 0.55
+				background = {
+					texture = "gfx/interface/cards/paper_card_fancy_01.dds"
+					texture_density = 2
+					spriteType = corneredstretched
+					spriteborder = { 100 100 }
+					modify_texture = {
+						using = color_paper_texture
+					}
+					modify_texture = {
+						using = color_black_texture
+						alpha = 0.3
+					}
+					modify_texture = {
+						using = overlay_paper_03
+					}
+					modify_texture = {
+						using = overlay_cloth_texture
+						blend_mode = overlay
+						alpha = 0.2
+					}
+					modify_texture = {
+						visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)7.0')]"
+						using = color_light_green_texture
+						blend_mode = overlay
+						alpha = 0.85
+					}
+					modify_texture = {
+						visible = "[Not(GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)7.0'))]"
+						using = color_yellow_texture
+						blend_mode = overlay
+						alpha = 0.55
+					}
 				}
 			}
 			blockoverride "common_bottom_content" {
@@ -9783,18 +9986,47 @@ vbox = {
 			blockoverride "header_decor_templates" {}
 			blockoverride "common_header_back_decor" {}
 			blockoverride "card_bg" {
-				using = bg_paper_card_situations
-				modify_texture = {
-					visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)8.0')]"
-					using = color_light_green_texture
-					blend_mode = overlay
-					alpha = 0.85
+				background = {
+					texture = "gfx/interface/cards/paper_card_fancy_01.dds"
+					texture_density = 2
+					spriteType = corneredstretched
+					spriteborder = { 100 100 }
+					margin = { 1 1 }
+					margin_bottom = 2
+					alpha = 0.4
 				}
-				modify_texture = {
-					visible = "[Not(GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)8.0'))]"
-					using = color_yellow_texture
-					blend_mode = overlay
-					alpha = 0.55
+				background = {
+					texture = "gfx/interface/cards/paper_card_fancy_01.dds"
+					texture_density = 2
+					spriteType = corneredstretched
+					spriteborder = { 100 100 }
+					modify_texture = {
+						using = color_paper_texture
+					}
+					modify_texture = {
+						using = color_black_texture
+						alpha = 0.3
+					}
+					modify_texture = {
+						using = overlay_paper_03
+					}
+					modify_texture = {
+						using = overlay_cloth_texture
+						blend_mode = overlay
+						alpha = 0.2
+					}
+					modify_texture = {
+						visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)8.0')]"
+						using = color_light_green_texture
+						blend_mode = overlay
+						alpha = 0.85
+					}
+					modify_texture = {
+						visible = "[Not(GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)8.0'))]"
+						using = color_yellow_texture
+						blend_mode = overlay
+						alpha = 0.55
+					}
 				}
 			}
 			blockoverride "common_bottom_content" {

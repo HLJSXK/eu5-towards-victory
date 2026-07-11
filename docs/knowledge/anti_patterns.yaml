@@ -231,6 +231,17 @@
   source: "runtime error.log: pdx_data_factory.cpp:1401; reference_game_files/game/in_game/gui/panels/organization/members.gui:927; recurred 2026-07-11 in scripts/in_game/gui/panels/organization/gen_tv_wonder_ceremony_cards_gui.py (8 occurrences merged into tv_engineering_department.gui)"
   notes: "EU5 GUI And() and Or() are binary helpers, not variadic. And(a,b,c) fails conversion with 'Function And expected 2 arguments, got 3'. Pattern left empty because commas inside typed comparison calls make static regex detection noisy."
 
+- id: gui_modify_texture_requires_rendered_layer
+  pattern: ''
+  detectability: advisory
+  only_in_paths: ['gui']
+  bad: "Putting modify_texture directly in a layout/type block such as a card_bg override that expands into a vbox"
+  correction: "Put modify_texture inside a rendered background, icon, or other image-layer block. For card_bg overrides, preserve the card's background layers and place conditional texture modifiers inside the relevant background block."
+  category: gui
+  scope: texture
+  source: "runtime error.log from tv_engineering_department.gui, 2026-07-11; reference_game_files/game/in_game/gui/attribute_columns/cabinet_action.gui:509-520"
+  notes: "modify_texture is handled by image-layer widgets, not layout containers. The ceremony-card generator emitted it beside using = bg_paper_card_situations in a card_bg block that the local card type expands into a vbox, causing 16 Property 'modify_texture' not handled messages and a failed ubervbox property setup. Context-sensitive GUI parsing is required to lint this safely."
+
 - id: gui_icon_percent_position_ignored
   pattern: ''
   only_in_paths: ['gui']

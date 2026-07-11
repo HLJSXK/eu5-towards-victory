@@ -282,6 +282,15 @@ generators.
     rewards that used it. Check effects.log before adding a new reward type to
     this table.
 
+21. Put ceremony-card `modify_texture` blocks inside a rendered `background`.
+    `tv_engineering_department_card_common`'s `card_bg` block expands at its `vbox`
+    level, so a `modify_texture` placed directly in a `blockoverride "card_bg"` is
+    an unsupported property on that layout container. It produces `Property
+    'modify_texture' not handled` and then fails the card's property setup. Preserve
+    the paper card's background layers and place each conditional yellow/green
+    `modify_texture` inside the relevant `background = { ... }` layer, matching
+    vanilla's `reference_game_files/game/in_game/gui/attribute_columns/cabinet_action.gui:509-520`.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`: it lints rule 2 and rule 16 automatically, and when a

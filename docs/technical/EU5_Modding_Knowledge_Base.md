@@ -1262,6 +1262,23 @@ GUI `raw_text` does not expand `$LOCALIZATION_KEY$` substitutions. A value such 
 
 GUI image `fittype` values are EU5-specific, not CSS object-fit names. Vanilla examples use values such as `centercrop`, `fill`, `start`, and `end`; `fittype = contain` logs `Unknown fit type 'contain'` during GUI loading.
 
+`modify_texture` belongs to a rendered image layer such as `background` or `icon`, not to a layout container. A named block can hide this boundary: if a reusable card type defines `block "card_bg"` at its `vbox` level, a `blockoverride "card_bg"` also writes into that `vbox`; placing `modify_texture` beside `using = bg_paper_card_situations` therefore logs `Property 'modify_texture' not handled` and can fail the widget's property setup. Put conditional texture modifiers inside a real background layer instead, as vanilla does in `attribute_columns/cabinet_action.gui`:
+
+```gui
+blockoverride "card_bg" {
+    background = {
+        using = paper_card_texture
+        modify_texture = {
+            visible = "[MyCondition]"
+            using = color_light_green_texture
+            blend_mode = overlay
+        }
+    }
+}
+```
+
+When replacing a template-backed card background, retain its original background layers, texture density, frame/stretch settings, and base overlays before appending the conditional modifier. Do not remove a dynamic state color merely to avoid the property error.
+
 Custom game concepts require both localization and a definition in `main_menu/common/game_concepts/`. A localization pair such as `game_concept_tv_foo` / `game_concept_tv_foo_desc` does not create the concept by itself. If `[tv_foo|e]` is used before `tv_foo = { texture = "..." }` is registered, the localization parser treats `tv_foo` as a data-system function and logs `Could not find data system function 'tv_foo'`.
 
 The in-game Europedia (Encyclopedia) has no native, data-driven way to register a new sidebar page/category — the `Encyclopedia.AccessPages`/`EncyclopediaPage` collection is engine-populated and read-only (getters only: `GetTitle`, `Self`, `AccessSelf`), and a `game_concept`'s `family` field is a thematic tag with no page/category effect in vanilla's own `encyclopedia_lateralview.gui`. A dedicated browsable tab requires fully overriding `in_game/gui/encyclopedia_lateralview.gui` and toggling two mutually-exclusive content trees with a `GetVariableSystem` variable (one button sets it, every vanilla page button clears it, both sides gate their `visible=` on `HasValue`/`Not(HasValue)`) — the only working precedent found, confirmed against released community mod `3613232232`. See `docs/knowledge/risk_cards/europedia.md` and `src/in_game/gui/encyclopedia_lateralview.gui` (the `tv_encyclopedia_active` tab toggle + `tv_encyclopedia_filter` category filter, with a generated card list reusing existing `game_concept_<id>`/`_desc` pairs rather than authoring new prose).
