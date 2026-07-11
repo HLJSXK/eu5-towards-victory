@@ -52,19 +52,4108 @@ tv_wonder_ceremony_monthly_tick_effect = {
 	}
 }
 
-tv_wonder_ceremony_pay_cost_effect = {
+tv_wonder_ceremony_pay_stage_1_cost_effect = {
 	if = {
-		limit = { var:tv_wonder_selected_ritual_cost_type ?= 1 }
+		limit = { var:tv_wonder_locked ?= 103 }
+		add_prestige = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 104 }
+		add_prestige = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 105 }
+		add_devotion = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 106 }
+		add_prestige = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 107 }
+		add_prestige = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 108 }
+		add_prestige = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 109 }
+		add_prestige = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 110 }
+		add_government_power = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 111 }
+		add_prestige = -14
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 112 }
+		change_papal_authority = { value = -10 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 113 }
+		add_devotion = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 114 }
+		add_honor = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 115 }
+		add_gold = -35
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 116 }
+		add_prestige = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 117 }
+		add_prestige = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 118 }
+		add_devotion = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 119 }
+		change_gold_effect = { scale = -3 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 120 }
+		add_devotion = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 121 }
+		add_honor = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 122 }
+		change_gold_effect = { scale = -4 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 123 }
+		add_tribal_cohesion = -8
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 124 }
+		add_tribal_cohesion = -8
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 125 }
+		add_prestige = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 126 }
+		add_government_power = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 127 }
+		add_government_power = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 128 }
+		add_government_power = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 129 }
+		change_gold_effect = { scale = -4 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 130 }
+		add_prestige = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 131 }
+		add_devotion = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 132 }
+		change_gold_effect = { scale = -4 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 133 }
+		change_gold_effect = { scale = -4 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 134 }
+		add_devotion = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 135 }
+		add_prestige = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 136 }
+		change_gold_effect = { scale = -3 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 137 }
+		add_honor = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 138 }
+		change_gold_effect = { scale = -4 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 139 }
+		change_gold_effect = { scale = -4 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 140 }
+		add_harmony = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 141 }
+		add_tribal_cohesion = -8
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 142 }
+		add_prestige = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 143 }
+		culture = { add_cultural_influence = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 144 }
+		add_prestige = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 145 }
+		add_devotion = -8
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 146 }
+		add_prestige = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 147 }
+		add_prestige = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 148 }
+		add_devotion = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 149 }
+		change_gold_effect = { scale = -5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 150 }
+		add_devotion = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 151 }
+		change_gold_effect = { scale = -5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 152 }
+		add_legitimacy = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 153 }
+		culture = { add_cultural_influence = -10 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 154 }
+		culture = { add_cultural_influence = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 155 }
+		add_prestige = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 156 }
+		add_religious_influence = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 157 }
+		add_devotion = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 158 }
+		add_government_power = -8
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 159 }
+		add_devotion = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 160 }
+		change_gold_effect = { scale = -4 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 161 }
+		add_devotion = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 162 }
+		add_gold = -50
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 163 }
+		add_honor = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 164 }
+		add_legitimacy = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 165 }
+		add_honor = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 166 }
+		add_devotion = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 167 }
+		add_prestige = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 168 }
+		change_gold_effect = { scale = -4 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 169 }
 		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
 		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
 	}
 	else_if = {
-		limit = { var:tv_wonder_selected_ritual_cost_type ?= 2 }
+		limit = { var:tv_wonder_locked ?= 170 }
+		change_gold_effect = { scale = -3 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 171 }
+		change_gold_effect = { scale = -4 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 172 }
+		add_legitimacy = -8
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 173 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 174 }
+		add_devotion = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 175 }
+		add_devotion = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 176 }
+		add_legitimacy = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 177 }
+		add_gold = -45
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 178 }
+		add_gold = -40
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 179 }
+		add_legitimacy = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 180 }
+		add_gold = -50
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 181 }
+		change_gold_effect = { scale = -4 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 182 }
+		add_prestige = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 183 }
+		add_harmony = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 184 }
+		add_honor = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 185 }
+		add_devotion = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 186 }
+		add_honor = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 187 }
+		add_prestige = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 188 }
+		change_gold_effect = { scale = -4 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 189 }
+		add_prestige = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 190 }
+		add_legitimacy = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 191 }
+		change_gold_effect = { scale = -4 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 192 }
+		add_prestige = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 193 }
+		add_legitimacy = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 194 }
+		change_gold_effect = { scale = -3 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 195 }
+		change_gold_effect = { scale = -3 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 196 }
+		culture = { add_cultural_influence = -5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 197 }
+		add_devotion = -8
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 198 }
+		add_honor = -6
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 199 }
+		add_honor = -6
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 200 }
+		change_gold_effect = { scale = -3 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 201 }
+		culture = { add_cultural_influence = -5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 202 }
+		add_prestige = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 203 }
+		add_devotion = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 204 }
+		add_honor = -8
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 205 }
+		add_devotion = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 206 }
+		change_gold_effect = { scale = -3 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 207 }
+		add_prestige = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 208 }
+		add_honor = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 209 }
+		add_legitimacy = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 210 }
+		add_honor = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 211 }
+		add_gold = -40
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 212 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 213 }
+		add_gold = -50
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 214 }
+		add_honor = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 215 }
+		culture = { add_cultural_influence = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 216 }
+		add_gold = -30
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 217 }
+		culture = { add_cultural_tradition = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 218 }
+		add_legitimacy = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 219 }
+		add_devotion = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 220 }
+		change_gold_effect = { scale = -4 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 221 }
 		change_gold_effect = { scale = -5 }
 	}
 	else_if = {
-		limit = { var:tv_wonder_selected_ritual_cost_type ?= 3 }
+		limit = { var:tv_wonder_locked ?= 222 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 223 }
+		add_honor = -10
+	}
+}
+
+tv_wonder_ceremony_pay_stage_2_cost_effect = {
+	if = {
+		limit = { var:tv_wonder_locked ?= 103 }
+		add_devotion = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 104 }
+		add_devotion = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 105 }
+		add_religious_influence = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 106 }
+		culture = { add_cultural_influence = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 107 }
+		add_devotion = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 108 }
+		add_devotion = -8
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 109 }
+		add_gold = -40
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 110 }
+		add_devotion = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 111 }
+		add_devotion = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 112 }
+		add_devotion = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 113 }
+		add_religious_influence = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 114 }
+		change_gold_effect = { scale = -5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 115 }
+		culture = { add_cultural_influence = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 116 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 117 }
+		change_gold_effect = { scale = -5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 118 }
+		change_gold_effect = { scale = -5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 119 }
+		add_gold = -30
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 120 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 121 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 122 }
+		add_gold = -40
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 123 }
+		add_manpower = -30
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 124 }
+		change_gold_effect = { scale = -5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 125 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 126 }
+		add_manpower = -30
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 127 }
+		add_manpower = -25
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 128 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 129 }
+		change_gold_effect = { scale = -5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 130 }
+		change_gold_effect = { scale = -5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 131 }
+		change_gold_effect = { scale = -5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 132 }
+		add_manpower = -25
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 133 }
+		add_gold = -60
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 134 }
+		change_gold_effect = { scale = -4 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 135 }
+		add_gold = -80
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 136 }
+		change_gold_effect = { scale = -4 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 137 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 138 }
+		add_research_progress = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 139 }
+		add_gold = -70
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 140 }
+		change_gold_effect = { scale = -5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 141 }
+		add_manpower = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 142 }
+		add_legitimacy = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 143 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 144 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 145 }
+		change_gold_effect = { scale = -5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 146 }
+		add_gold = -40
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 147 }
+		add_legitimacy = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 148 }
+		add_religious_influence = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 149 }
+		change_gold_effect = { scale = -7 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 150 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 151 }
+		change_gold_effect = { scale = -7 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 152 }
+		add_government_power = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 153 }
+		add_research_progress = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 154 }
+		change_gold_effect = { scale = -5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 155 }
+		change_gold_effect = { scale = -4 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 156 }
+		add_devotion = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 157 }
+		change_celestial_authority = { value = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 158 }
+		change_gold_effect = { scale = -4 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 159 }
+		add_devotion = -8
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 160 }
+		change_gold_effect = { scale = -5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 161 }
+		change_gold_effect = { scale = -4 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 162 }
+		change_gold_effect = { scale = -4 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 163 }
+		change_gold_effect = { scale = -4 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 164 }
+		change_gold_effect = { scale = -4 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 165 }
+		change_gold_effect = { scale = -4 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 166 }
+		add_religious_influence = -8
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 167 }
+		change_gold_effect = { scale = -4 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 168 }
+		add_gold = -35
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 169 }
+		culture = { add_cultural_influence = -5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 170 }
+		add_gold = -30
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 171 }
+		add_gold = -45
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 172 }
+		add_gold = -60
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 173 }
+		add_devotion = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 174 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 175 }
+		add_religious_influence = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 176 }
+		change_gold_effect = { scale = -5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 177 }
+		change_gold_effect = { scale = -4 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 178 }
+		change_gold_effect = { scale = -4 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 179 }
+		add_devotion = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 180 }
+		change_gold_effect = { scale = -4 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 181 }
+		change_gold_effect = { scale = -5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 182 }
+		add_manpower = -50
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 183 }
+		add_gold = -40
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 184 }
+		add_gold = -55
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 185 }
+		add_gold = -50
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 186 }
+		add_legitimacy = -8
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 187 }
+		add_gold = -50
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 188 }
+		change_gold_effect = { scale = -5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 189 }
+		add_gold = -50
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 190 }
+		add_gold = -50
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 191 }
+		change_gold_effect = { scale = -5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 192 }
+		add_gold = -55
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 193 }
+		add_diplomats = -1
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 194 }
+		change_gold_effect = { scale = -4 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 195 }
+		change_gold_effect = { scale = -4 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 196 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 197 }
+		add_religious_influence = -6
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 198 }
+		add_prestige = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 199 }
+		add_prestige = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 200 }
+		change_gold_effect = { scale = -5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 201 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 202 }
+		add_gold = -60
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 203 }
+		add_religious_influence = -8
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 204 }
+		add_prestige = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 205 }
+		add_gold = -50
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 206 }
+		add_gold = -40
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 207 }
+		culture = { add_cultural_influence = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 208 }
+		add_government_power = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 209 }
+		culture = { add_cultural_influence = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 210 }
+		add_legitimacy = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 211 }
+		change_gold_effect = { scale = -5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 212 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 213 }
+		change_gold_effect = { scale = -5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 214 }
+		change_gold_effect = { scale = -5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 215 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 216 }
+		change_gold_effect = { scale = -5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 217 }
+		add_gold = -40
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 218 }
+		add_research_progress = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 219 }
+		add_religious_influence = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 220 }
+		change_gold_effect = { scale = -5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 221 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 222 }
+		add_devotion = -8
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 223 }
+		add_government_power = -8
+	}
+}
+
+tv_wonder_ceremony_pay_stage_3_cost_effect = {
+	if = {
+		limit = { var:tv_wonder_locked ?= 103 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 104 }
+		change_gold_effect = { scale = -5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 105 }
+		change_gold_effect = { scale = -5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 106 }
+		change_gold_effect = { scale = -5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 107 }
+		change_gold_effect = { scale = -4 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 108 }
+		change_gold_effect = { scale = -5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 109 }
+		change_gold_effect = { scale = -7 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 110 }
+		change_gold_effect = { scale = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 111 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 112 }
+		change_gold_effect = { scale = -7 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 113 }
+		add_manpower = -40
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 114 }
+		add_devotion = -8
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 115 }
+		change_gold_effect = { scale = -5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 116 }
+		add_manpower = -40
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 117 }
+		add_manpower = -35
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 118 }
+		add_devotion = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 119 }
+		change_gold_effect = { scale = -5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 120 }
+		add_religious_influence = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 121 }
+		add_manpower = -30
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 122 }
+		add_honor = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 123 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 124 }
+		add_devotion = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 125 }
+		add_honor = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 126 }
+		add_devotion = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 127 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 128 }
+		add_religious_influence = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 129 }
+		add_devotion = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 130 }
+		add_devotion = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 131 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 132 }
+		add_devotion = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 133 }
+		add_government_power = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 134 }
+		add_harmony = -8
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 135 }
+		add_honor = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 136 }
+		add_gold = -60
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 137 }
+		add_religious_influence = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 138 }
+		add_harmony = -8
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 139 }
+		add_honor = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 140 }
+		add_devotion = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 141 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 142 }
+		add_honor = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 143 }
+		add_devotion = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 144 }
+		add_devotion = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 145 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 146 }
+		add_honor = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 147 }
+		add_manpower = -50
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 148 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 149 }
+		add_gold = -60
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 150 }
+		add_devotion = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 151 }
+		add_gold = -50
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 152 }
+		add_honor = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 153 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 154 }
+		change_gold_effect = { scale = -7 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 155 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 156 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 157 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 158 }
+		add_manpower = -30
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 159 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 160 }
+		add_gold = -60
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 161 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 162 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 163 }
+		add_army_tradition = -3
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 164 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 165 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 166 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 167 }
+		add_research_progress = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 168 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 169 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 170 }
+		change_gold_effect = { scale = -5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 171 }
+		add_diplomats = -1
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 172 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 173 }
+		change_gold_effect = { scale = -5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 174 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 175 }
+		change_gold_effect = { scale = -5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 176 }
+		culture = { add_cultural_influence = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 177 }
+		add_gold = -60
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 178 }
+		add_gold = -55
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 179 }
+		change_gold_effect = { scale = -5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 180 }
+		add_gold = -65
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 181 }
+		add_gold = -55
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 182 }
+		add_devotion = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 183 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 184 }
+		add_religious_influence = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 185 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 186 }
+		add_army_tradition = -2
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 187 }
+		add_devotion = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 188 }
+		add_devotion = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 189 }
+		add_devotion = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 190 }
+		add_devotion = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 191 }
+		add_gold = -55
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 192 }
+		culture = { add_cultural_influence = -10 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 193 }
+		add_gold = -45
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 194 }
+		add_gold = -40
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 195 }
+		add_gold = -50
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 196 }
+		add_gold = -50
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 197 }
+		add_gold = -50
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 198 }
+		add_gold = -50
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 199 }
+		add_gold = -50
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 200 }
+		add_gold = -60
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 201 }
+		add_gold = -40
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 202 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 203 }
+		add_gold = -50
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 204 }
+		add_manpower = -60
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 205 }
+		add_religious_influence = -8
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 206 }
+		culture = { add_cultural_influence = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 207 }
+		add_devotion = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 208 }
+		add_legitimacy = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 209 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 210 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 211 }
+		add_gold = -70
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 212 }
+		add_devotion = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 213 }
+		change_gold_effect = { scale = -7 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 214 }
+		add_legitimacy = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 215 }
+		add_research_progress = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 216 }
+		add_devotion = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 217 }
+		add_devotion = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 218 }
+		culture = { add_cultural_tradition = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 219 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 220 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 221 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 222 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 223 }
+		add_government_power = -12
+	}
+}
+
+tv_wonder_ceremony_pay_stage_4_cost_effect = {
+	if = {
+		limit = { var:tv_wonder_locked ?= 103 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 104 }
+		add_gold = -60
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 105 }
+		add_gold = -55
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 106 }
+		add_gold = -50
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 107 }
+		add_gold = -45
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 108 }
+		add_gold = -50
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 109 }
+		add_gold = -70
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 110 }
+		add_gold = -55
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 111 }
+		add_gold = -50
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 112 }
+		add_gold = -60
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 113 }
+		add_gold = -50
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 114 }
+		add_gold = -50
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 115 }
+		add_gold = -55
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 116 }
+		change_gold_effect = { scale = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 117 }
+		change_gold_effect = { scale = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 118 }
+		add_manpower = -30
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 119 }
+		add_manpower = -25
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 120 }
+		change_gold_effect = { scale = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 121 }
+		change_gold_effect = { scale = -9 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 122 }
+		change_gold_effect = { scale = -7 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 123 }
+		add_manpower = -35
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 124 }
+		add_manpower = -30
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 125 }
+		change_gold_effect = { scale = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 126 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 127 }
+		change_gold_effect = { scale = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 128 }
+		change_gold_effect = { scale = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 129 }
+		add_manpower = -30
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 130 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 131 }
+		add_manpower = -35
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 132 }
+		add_manpower = -35
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 133 }
+		add_manpower = -30
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 134 }
+		add_manpower = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 135 }
+		add_manpower = -30
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 136 }
+		add_manpower = -25
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 137 }
+		add_manpower = -25
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 138 }
+		add_manpower = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 139 }
+		add_manpower = -25
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 140 }
+		change_gold_effect = { scale = -7 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 141 }
+		add_manpower = -28
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 142 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 143 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 144 }
+		change_gold_effect = { scale = -5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 145 }
+		change_gold_effect = { scale = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 146 }
+		change_gold_effect = { scale = -7 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 147 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 148 }
+		change_gold_effect = { scale = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 149 }
+		change_gold_effect = { scale = -9 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 150 }
+		change_gold_effect = { scale = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 151 }
+		change_gold_effect = { scale = -9 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 152 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 153 }
+		change_gold_effect = { scale = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 154 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 155 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 156 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 157 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 158 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 159 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 160 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 161 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 162 }
+		change_gold_effect = { scale = -7 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 163 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 164 }
+		add_legitimacy = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 165 }
+		add_army_tradition = -2
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 166 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 167 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 168 }
+		add_gold = -65
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 169 }
+		change_gold_effect = { scale = -5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 170 }
+		add_manpower = -40
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 171 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 172 }
+		add_gold = -90
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 173 }
+		add_religious_influence = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 174 }
+		add_devotion = -18
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 175 }
+		add_gold = -55
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 176 }
+		add_gold = -65
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 177 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 178 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 179 }
+		add_gold = -60
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 180 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 181 }
+		add_manpower = -70
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 182 }
+		add_manpower = -90
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 183 }
+		add_manpower = -50
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 184 }
+		add_manpower = -70
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 185 }
+		add_manpower = -70
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 186 }
+		add_honor = -18
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 187 }
+		add_manpower = -70
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 188 }
+		add_gold = -60
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 189 }
+		add_manpower = -70
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 190 }
+		add_manpower = -65
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 191 }
+		add_manpower = -60
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 192 }
+		add_manpower = -75
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 193 }
+		add_manpower = -55
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 194 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 195 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 196 }
+		change_gold_effect = { scale = -5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 197 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 198 }
+		add_army_tradition = -2
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 199 }
+		add_army_tradition = -2
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 200 }
+		change_gold_effect = { scale = -7 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 201 }
+		change_gold_effect = { scale = -5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 202 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 203 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 204 }
+		add_army_tradition = -2
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 205 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 206 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 207 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 208 }
+		change_gold_effect = { scale = -7 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 209 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 210 }
+		change_gold_effect = { scale = -9 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 211 }
+		change_gold_effect = { scale = -7 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 212 }
+		change_gold_effect = { scale = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 213 }
+		change_gold_effect = { scale = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 214 }
+		change_gold_effect = { scale = -7 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 215 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 216 }
+		change_gold_effect = { scale = -7 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 217 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 218 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 219 }
+		change_gold_effect = { scale = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 220 }
+		change_gold_effect = { scale = -7 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 221 }
+		change_gold_effect = { scale = -7 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 222 }
+		change_gold_effect = { scale = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 223 }
+		add_army_tradition = -2
+	}
+}
+
+tv_wonder_ceremony_pay_stage_5_cost_effect = {
+	if = {
+		limit = { var:tv_wonder_locked ?= 103 }
+		add_gold = -80
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 104 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 105 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 106 }
+		add_prestige = -25
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 107 }
+		add_legitimacy = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 108 }
+		culture = { add_cultural_influence = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 109 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 110 }
+		add_manpower = -60
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 111 }
+		add_manpower = -55
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 112 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 113 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 114 }
+		change_gold_effect = { scale = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 115 }
+		change_gold_effect = { scale = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 116 }
+		culture = { add_cultural_influence = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 117 }
+		add_honor = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 118 }
+		change_gold_effect = { scale = -7 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 119 }
+		culture = { add_cultural_influence = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 120 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 121 }
+		add_army_tradition = -2
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 122 }
+		add_gold = -60
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 123 }
+		add_tribal_cohesion = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 124 }
+		culture = { add_cultural_influence = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 125 }
+		culture = { add_cultural_influence = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 126 }
+		change_gold_effect = { scale = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 127 }
+		add_manpower = -30
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 128 }
+		add_manpower = -35
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 129 }
+		change_gold_effect = { scale = -7 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 130 }
+		add_devotion = -18
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 131 }
+		culture = { add_cultural_influence = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 132 }
+		change_gold_effect = { scale = -7 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 133 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 134 }
+		add_manpower = -30
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 135 }
+		add_navy_tradition = -2
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 136 }
+		add_navy_tradition = -2
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 137 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 138 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 139 }
+		add_manpower = -35
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 140 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 141 }
+		add_manpower = -38
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 142 }
+		add_gold = -80
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 143 }
+		add_research_progress = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 144 }
+		add_army_tradition = -2
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 145 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 146 }
+		add_legitimacy = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 147 }
+		add_government_power = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 148 }
+		add_devotion = -18
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 149 }
+		add_gold = -90
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 150 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 151 }
+		add_gold = -80
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 152 }
+		add_devotion = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 153 }
+		add_research_progress = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 154 }
+		add_gold = -60
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 155 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 156 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 157 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 158 }
+		change_gold_effect = { scale = -5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 159 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 160 }
+		culture = { add_cultural_influence = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 161 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 162 }
+		culture = { add_cultural_influence = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 163 }
+		add_navy_tradition = -3
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 164 }
+		add_devotion = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 165 }
+		add_honor = -18
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 166 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 167 }
+		add_navy_tradition = -3
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 168 }
+		add_army_tradition = -2
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 169 }
+		add_gold = -50
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 170 }
+		change_gold_effect = { scale = -7 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 171 }
+		add_gold = -80
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 172 }
+		add_honor = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 173 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 174 }
+		add_gold = -70
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 175 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 176 }
+		add_honor = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 177 }
+		add_gold = -85
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 178 }
+		add_gold = -75
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 179 }
+		add_honor = -18
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 180 }
+		add_research_progress = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 181 }
+		change_gold_effect = { scale = -7 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 182 }
+		add_religious_influence = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 183 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 184 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 185 }
+		add_gold = -100
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 186 }
+		add_army_tradition = -3
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 187 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 188 }
+		change_gold_effect = { scale = -7 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 189 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 190 }
+		add_honor = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 191 }
+		change_gold_effect = { scale = -7 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 192 }
+		add_honor = -18
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 193 }
+		culture = { add_cultural_influence = -10 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 194 }
+		add_gold = -70
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 195 }
+		add_army_tradition = -2
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 196 }
+		culture = { add_cultural_influence = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 197 }
+		add_devotion = -14
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 198 }
+		add_honor = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 199 }
+		add_manpower = -60
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 200 }
+		add_sailors = -60
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 201 }
+		add_legitimacy = -8
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 202 }
+		add_research_progress = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 203 }
+		add_devotion = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 204 }
+		add_prestige = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 205 }
+		add_devotion = -18
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 206 }
+		culture = { add_cultural_influence = -10 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 207 }
+		change_gold_effect = { scale = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 208 }
+		add_honor = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 209 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 210 }
+		add_army_tradition = -2
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 211 }
+		change_gold_effect = { scale = -9 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 212 }
+		add_prestige = -25
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 213 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 214 }
+		change_gold_effect = { scale = -9 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 215 }
+		culture = { add_cultural_influence = -12 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 216 }
+		change_gold_effect = { scale = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 217 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 218 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 219 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 220 }
+		add_navy_tradition = -2
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 221 }
+		add_research_progress = -6
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 222 }
+		add_purity = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 223 }
+		add_army_tradition = -3
+	}
+}
+
+tv_wonder_ceremony_pay_stage_6_cost_effect = {
+	if = {
+		limit = { var:tv_wonder_locked ?= 103 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 104 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 105 }
+		add_legitimacy = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 106 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 107 }
+		add_religious_influence = -18
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 108 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 109 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 110 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 111 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 112 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 113 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 114 }
+		add_gold = -70
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 115 }
+		add_gold = -65
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 116 }
+		add_prestige = -35
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 117 }
+		add_gold = -90
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 118 }
+		change_gold_effect = { scale = -9 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 119 }
+		change_gold_effect = { scale = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 120 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 121 }
+		add_army_tradition = -3
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 122 }
+		change_gold_effect = { scale = -9 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 123 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 124 }
+		add_gold = -80
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 125 }
+		culture = { add_cultural_influence = -12 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 126 }
+		add_gold = -70
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 127 }
+		change_gold_effect = { scale = -9 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 128 }
+		change_gold_effect = { scale = -9 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 129 }
+		add_gold = -70
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 130 }
+		add_army_tradition = -2
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 131 }
+		change_gold_effect = { scale = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 132 }
+		add_gold = -90
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 133 }
+		add_manpower = -45
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 134 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 135 }
+		add_gold = -120
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 136 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 137 }
+		add_manpower = -35
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 138 }
+		add_gold = -70
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 139 }
+		add_navy_tradition = -2
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 140 }
+		change_gold_effect = { scale = -9 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 141 }
+		add_devotion = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 142 }
+		add_manpower = -60
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 143 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 144 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 145 }
+		add_devotion = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 146 }
+		add_gold = -110
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 147 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 148 }
+		add_religious_influence = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 149 }
+		add_manpower = -70
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 150 }
+		change_gold_effect = { scale = -9 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 151 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 152 }
+		add_government_power = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 153 }
+		culture = { add_cultural_tradition = -10 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 154 }
+		add_research_progress = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 155 }
+		add_honor = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 156 }
+		add_research_progress = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 157 }
+		change_celestial_authority = { value = -15 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 158 }
+		add_manpower = -40
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 159 }
+		culture = { add_cultural_influence = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 160 }
+		change_gold_effect = { scale = -7 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 161 }
+		culture = { add_cultural_tradition = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 162 }
+		add_gold = -90
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 163 }
+		add_navy_tradition = -4
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 164 }
+		add_research_progress = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 165 }
+		add_army_tradition = -3
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 166 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 167 }
+		add_research_progress = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 168 }
+		change_gold_effect = { scale = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 169 }
+		add_research_progress = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 170 }
+		culture = { add_cultural_influence = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 171 }
+		add_navy_tradition = -2
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 172 }
+		add_prestige = -25
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 173 }
+		add_harmony = -8
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 174 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 175 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 176 }
+		add_government_power = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 177 }
+		change_gold_effect = { scale = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 178 }
+		change_gold_effect = { scale = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 179 }
+		add_religious_influence = -14
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 180 }
+		add_government_power = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 181 }
+		add_gold = -90
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 182 }
+		add_army_tradition = -3
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 183 }
+		culture = { add_cultural_influence = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 184 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 185 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 186 }
+		add_gold = -50
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 187 }
+		add_research_progress = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 188 }
+		add_gold = -75
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 189 }
+		add_gold = -80
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 190 }
+		add_legitimacy = -18
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 191 }
+		add_gold = -75
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 192 }
+		add_legitimacy = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 193 }
+		add_honor = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 194 }
+		change_gold_effect = { scale = -7 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 195 }
+		add_gold = -80
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 196 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 197 }
+		add_religious_influence = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 198 }
+		add_manpower = -80
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 199 }
+		add_prestige = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 200 }
+		add_navy_tradition = -2
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 201 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 202 }
+		add_research_progress = -18
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 203 }
+		add_religious_influence = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 204 }
+		add_army_tradition = -3
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 205 }
+		add_religious_influence = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 206 }
+		add_gold = -80
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 207 }
+		add_honor = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 208 }
+		change_gold_effect = { scale = -9 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 209 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 210 }
+		add_devotion = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 211 }
+		add_yearly_gold = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 212 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 213 }
+		add_gold = -90
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 214 }
+		culture = { add_cultural_influence = -10 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 215 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 216 }
+		change_gold_effect = { scale = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 217 }
+		change_gold_effect = { scale = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 218 }
+		add_honor = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 219 }
+		add_devotion = -22
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 220 }
+		change_gold_effect = { scale = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 221 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 222 }
+		change_gold_effect = { scale = -10 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 223 }
+		add_prestige = -20
+	}
+}
+
+tv_wonder_ceremony_pay_stage_7_cost_effect = {
+	if = {
+		limit = { var:tv_wonder_locked ?= 103 }
+		add_religious_influence = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 104 }
+		add_manpower = -50
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 105 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 106 }
+		add_honor = -18
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 107 }
+		add_manpower = -70
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 108 }
+		add_army_tradition = -3
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 109 }
+		culture = { add_cultural_influence = -10 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 110 }
+		add_legitimacy = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 111 }
+		add_diplomats = -1
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 112 }
+		add_religious_influence = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 113 }
+		add_religious_influence = -22
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 114 }
+		change_gold_effect = { scale = -10 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 115 }
+		change_gold_effect = { scale = -10 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 116 }
+		add_honor = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 117 }
+		culture = { add_cultural_influence = -12 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 118 }
+		add_army_tradition = -2
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 119 }
+		add_gold = -70
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 120 }
+		add_religious_influence = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 121 }
+		add_prestige = -35
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 122 }
+		add_gold = -100
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 123 }
+		add_harmony = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 124 }
+		change_gold_effect = { scale = -9 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 125 }
+		add_honor = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 126 }
+		change_gold_effect = { scale = -9 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 127 }
+		add_army_tradition = -3
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 128 }
+		add_gold = -80
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 129 }
+		add_gold = -90
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 130 }
+		add_honor = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 131 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 132 }
+		add_yearly_gold = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 133 }
+		add_yearly_gold = -8
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 134 }
+		add_gold = -70
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 135 }
+		add_sailors = -130
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 136 }
+		add_gold = -100
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 137 }
+		add_devotion = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 138 }
+		add_manpower = -30
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 139 }
+		add_gold = -50
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 140 }
+		add_harmony = -18
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 141 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 142 }
+		add_gold = -100
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 143 }
+		add_gold = -90
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 144 }
+		add_gold = -70
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 145 }
+		add_army_tradition = -3
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 146 }
+		add_gold = -140
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 147 }
+		add_government_power = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 148 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 149 }
+		add_army_tradition = -3
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 150 }
+		add_religious_influence = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 151 }
+		add_navy_tradition = -2
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 152 }
+		add_honor = -18
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 153 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 154 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 155 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 156 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 157 }
+		add_legitimacy = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 158 }
+		add_research_progress = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 159 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 160 }
+		add_gold = -100
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 161 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 162 }
+		change_gold_effect = { scale = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 163 }
+		add_honor = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 164 }
+		add_legitimacy = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 165 }
+		add_manpower = -30
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 166 }
+		add_religious_influence = -18
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 167 }
+		add_navy_tradition = -4
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 168 }
+		add_gold = -100
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 169 }
+		add_prestige = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 170 }
+		add_gold = -90
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 171 }
+		add_gold = -100
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 172 }
+		add_honor = -18
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 173 }
+		add_devotion = -18
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 174 }
+		culture = { add_cultural_tradition = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 175 }
+		add_prestige = -22
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 176 }
+		add_harmony = -14
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 177 }
+		add_gold = -110
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 178 }
+		add_devotion = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 179 }
+		add_government_power = -16
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 180 }
+		culture = { add_cultural_influence = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 181 }
+		culture = { add_cultural_influence = -10 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 182 }
+		add_prestige = -35
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 183 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 184 }
+		add_research_progress = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 185 }
+		add_devotion = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 186 }
+		add_honor = -25
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 187 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 188 }
+		change_gold_effect = { scale = -9 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 189 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 190 }
+		add_honor = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 191 }
+		change_gold_effect = { scale = -9 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 192 }
+		culture = { add_cultural_influence = -15 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 193 }
+		add_honor = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 194 }
+		add_prestige = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 195 }
+		add_sailors = -80
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 196 }
+		add_gold = -90
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 197 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 198 }
+		add_government_power = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 199 }
+		add_army_tradition = -3
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 200 }
+		add_gold = -100
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 201 }
+		culture = { add_cultural_influence = -10 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 202 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 203 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 204 }
+		add_manpower = -90
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 205 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 206 }
+		add_devotion = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 207 }
+		culture = { add_cultural_influence = -12 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 208 }
+		add_government_power = -18
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 209 }
+		add_legitimacy = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 210 }
+		add_manpower = -40
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 211 }
+		add_gold = -130
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 212 }
+		culture = { add_cultural_tradition = -8 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 213 }
+		add_yearly_gold = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 214 }
+		add_diplomats = -1
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 215 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 216 }
+		add_gold = -70
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 217 }
+		add_research_progress = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 218 }
+		change_gold_effect = { scale = -9 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 219 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 220 }
+		add_navy_tradition = -3
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 221 }
+		add_research_progress = -12
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 222 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 223 }
+		add_honor = -25
+	}
+}
+
+tv_wonder_ceremony_pay_stage_8_cost_effect = {
+	if = {
+		limit = { var:tv_wonder_locked ?= 103 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+		add_prestige = -45
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 104 }
+		add_devotion = -30
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 105 }
+		add_devotion = -30
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 106 }
+		add_prestige = -40
+		add_legitimacy = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 107 }
+		add_devotion = -30
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 108 }
+		add_honor = -22
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 109 }
 		add_prestige = -50
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 110 }
+		add_government_power = -25
+		add_legitimacy = -30
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 111 }
+		add_prestige = -38
+		add_honor = -22
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 112 }
+		add_devotion = -28
+		change_papal_authority = { value = -18 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 113 }
+		add_devotion = -28
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 114 }
+		add_navy_tradition = -3
+		change_gold_effect = { scale = -12 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 115 }
+		add_yearly_gold = -15
+		change_gold_effect = { scale = -12 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 116 }
+		add_prestige = -50
+		add_army_tradition = -3
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 117 }
+		add_prestige = -45
+		add_honor = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 118 }
+		change_gold_effect = { scale = -12 }
+		add_manpower = -60
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 119 }
+		change_gold_effect = { scale = -10 }
+		add_gold = -100
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 120 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+		add_devotion = -25
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 121 }
+		add_prestige = -50
+		add_honor = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 122 }
+		change_gold_effect = { scale = -12 }
+		add_prestige = -30
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 123 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+		add_harmony = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 124 }
+		change_gold_effect = { scale = -12 }
+		add_gold = -100
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 125 }
+		add_prestige = -40
+		add_honor = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 126 }
+		add_gold = -110
+		add_honor = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 127 }
+		add_government_power = -25
+		add_honor = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 128 }
+		add_gold = -110
+		add_government_power = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 129 }
+		change_gold_effect = { scale = -10 }
+		add_gold = -140
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 130 }
+		add_prestige = -50
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 131 }
+		add_devotion = -28
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 132 }
+		add_harmony = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 133 }
+		change_gold_effect = { scale = -10 }
+		add_government_power = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 134 }
+		add_devotion = -25
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 135 }
+		add_prestige = -40
+		add_navy_tradition = -4
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 136 }
+		change_gold_effect = { scale = -9 }
+		add_gold = -150
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 137 }
+		add_devotion = -30
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 138 }
+		add_gold = -120
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 139 }
+		add_sailors = -140
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 140 }
+		add_devotion = -25
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 141 }
+		add_devotion = -22
+		add_tribal_cohesion = -14
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 142 }
+		add_prestige = -45
+		add_honor = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 143 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+		add_devotion = -25
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 144 }
+		add_legitimacy = -30
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 145 }
+		add_devotion = -30
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 146 }
+		add_prestige = -45
+		add_honor = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 147 }
+		add_government_power = -30
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 148 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+		add_devotion = -28
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 149 }
+		add_honor = -30
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 150 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+		add_devotion = -30
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 151 }
+		add_sailors = -130
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 152 }
+		add_righteousness = -28
+		add_stability = -1
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 153 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 154 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+		culture = { add_cultural_influence = -15 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 155 }
+		add_devotion = -20
+		add_prestige = -40
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 156 }
+		add_religious_influence = -25
+		add_research_progress = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 157 }
+		add_devotion = -35
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 158 }
+		add_yearly_gold = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 159 }
+		add_devotion = -30
+		culture = { add_cultural_influence = -15 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 160 }
+		add_gold = -150
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 161 }
+		add_devotion = -30
+		culture = { add_cultural_tradition = -15 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 162 }
+		add_gold = -130
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 163 }
+		add_prestige = -35
+		add_navy_tradition = -5
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 164 }
+		add_legitimacy = -35
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 165 }
+		add_honor = -30
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 166 }
+		add_religious_influence = -30
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 167 }
+		add_prestige = -35
+		add_navy_tradition = -5
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 168 }
+		change_gold_effect = { scale = -12 }
+		add_army_tradition = -4
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 169 }
+		add_research_progress = -30
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 170 }
+		change_gold_effect = { scale = -12 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 171 }
+		change_gold_effect = { scale = -10 }
+		add_prestige = -30
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 172 }
+		add_prestige = -40
+		add_legitimacy = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 173 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+		add_devotion = -25
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 174 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+		add_devotion = -28
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 175 }
+		add_devotion = -30
+		add_prestige = -35
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 176 }
+		add_honor = -25
+		add_legitimacy = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 177 }
+		change_gold_effect = { scale = -11 }
+		add_sailors = -60
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 178 }
+		change_gold_effect = { scale = -12 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 179 }
+		add_legitimacy = -22
+		add_honor = -28
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 180 }
+		change_gold_effect = { scale = -12 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 181 }
+		change_gold_effect = { scale = -12 }
+		add_gold = -130
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 182 }
+		add_prestige = -45
+		add_honor = -25
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 183 }
+		culture = { add_cultural_influence = -18 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 184 }
+		add_prestige = -35
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 185 }
+		add_religious_influence = -30
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 186 }
+		add_prestige = -40
+		add_army_tradition = -4
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 187 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+		add_prestige = -35
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 188 }
+		change_gold_effect = { scale = -11 }
+		add_gold = -110
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 189 }
+		add_devotion = -30
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 190 }
+		add_legitimacy = -28
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 191 }
+		change_gold_effect = { scale = -12 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 192 }
+		add_prestige = -45
+		add_honor = -25
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 193 }
+		add_legitimacy = -25
+		add_prestige = -30
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 194 }
+		change_gold_effect = { scale = -12 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 195 }
+		change_gold_effect = { scale = -10 }
+		add_navy_tradition = -3
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 196 }
+		culture = { add_cultural_influence = -12 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 197 }
+		add_devotion = -25
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 198 }
+		add_prestige = -40
+		add_honor = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 199 }
+		add_prestige = -35
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 200 }
+		change_gold_effect = { scale = -10 }
+		add_navy_tradition = -4
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 201 }
+		add_prestige = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 202 }
+		add_research_progress = -25
+		add_prestige = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 203 }
+		add_devotion = -25
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 204 }
+		add_honor = -20
+		add_manpower = -120
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 205 }
+		add_devotion = -25
+		add_prestige = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 206 }
+		change_gold_effect = { scale = -10 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 207 }
+		add_prestige = -45
+		add_legitimacy = -15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 208 }
+		add_legitimacy = -30
+		add_prestige = -30
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 209 }
+		add_devotion = -25
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 210 }
+		add_honor = -30
+		add_army_tradition = -4
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 211 }
+		add_yearly_gold = -20
+		add_gold = -150
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 212 }
+		add_devotion = -28
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 213 }
+		add_yearly_gold = -20
+		add_gold = -140
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 214 }
+		add_prestige = -40
+		add_honor = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 215 }
+		add_prestige = -40
+		culture = { add_cultural_influence = -15 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 216 }
+		add_yearly_gold = -15
+		add_gold = -110
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 217 }
+		culture = { add_cultural_influence = -15 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 218 }
+		add_legitimacy = -30
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 219 }
+		add_religious_influence = -25
+		add_devotion = -30
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 220 }
+		add_sailors = -70
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 221 }
+		random_work_of_art_in_country = { save_scope_as = tv_wonder_ceremony_sacrificed_artwork }
+		destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork
+		culture = { add_cultural_influence = -15 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 222 }
+		add_religious_influence = -25
+		add_devotion = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 223 }
+		add_prestige = -40
+		add_honor = -30
 	}
 }
 
@@ -1822,51 +5911,51 @@ tv_wonder_ceremony_start_stage_4_construction_effect = {
 }
 
 tv_wonder_ceremony_advance_to_stage_1_effect = {
-	tv_wonder_ceremony_pay_cost_effect = yes
+	tv_wonder_ceremony_pay_stage_1_cost_effect = yes
 	set_variable = { name = tv_wonder_ceremony_stage value = 1 }
 	set_variable = { name = tv_wonder_ceremony_quarter_month value = 0 }
 	tv_wonder_ceremony_grant_stage_1_reward_effect = yes
 }
 
 tv_wonder_ceremony_advance_to_stage_2_effect = {
-	tv_wonder_ceremony_pay_cost_effect = yes
+	tv_wonder_ceremony_pay_stage_2_cost_effect = yes
 	set_variable = { name = tv_wonder_ceremony_stage value = 2 }
 	set_variable = { name = tv_wonder_ceremony_quarter_month value = 0 }
 }
 
 tv_wonder_ceremony_advance_to_stage_3_effect = {
-	tv_wonder_ceremony_pay_cost_effect = yes
+	tv_wonder_ceremony_pay_stage_3_cost_effect = yes
 	set_variable = { name = tv_wonder_ceremony_stage value = 3 }
 	set_variable = { name = tv_wonder_ceremony_quarter_month value = 0 }
 }
 
 tv_wonder_ceremony_advance_to_stage_4_effect = {
-	tv_wonder_ceremony_pay_cost_effect = yes
+	tv_wonder_ceremony_pay_stage_4_cost_effect = yes
 	set_variable = { name = tv_wonder_ceremony_stage value = 4 }
 	set_variable = { name = tv_wonder_ceremony_quarter_month value = 0 }
 	tv_wonder_ceremony_start_stage_4_construction_effect = yes
 }
 
 tv_wonder_ceremony_advance_to_stage_5_effect = {
-	tv_wonder_ceremony_pay_cost_effect = yes
+	tv_wonder_ceremony_pay_stage_5_cost_effect = yes
 	set_variable = { name = tv_wonder_ceremony_stage value = 5 }
 	set_variable = { name = tv_wonder_ceremony_quarter_month value = 0 }
 }
 
 tv_wonder_ceremony_advance_to_stage_6_effect = {
-	tv_wonder_ceremony_pay_cost_effect = yes
+	tv_wonder_ceremony_pay_stage_6_cost_effect = yes
 	set_variable = { name = tv_wonder_ceremony_stage value = 6 }
 	set_variable = { name = tv_wonder_ceremony_quarter_month value = 0 }
 }
 
 tv_wonder_ceremony_advance_to_stage_7_effect = {
-	tv_wonder_ceremony_pay_cost_effect = yes
+	tv_wonder_ceremony_pay_stage_7_cost_effect = yes
 	set_variable = { name = tv_wonder_ceremony_stage value = 7 }
 	set_variable = { name = tv_wonder_ceremony_quarter_month value = 0 }
 }
 
 tv_wonder_ceremony_advance_to_stage_8_effect = {
-	tv_wonder_ceremony_pay_cost_effect = yes
+	tv_wonder_ceremony_pay_stage_8_cost_effect = yes
 	set_variable = { name = tv_wonder_ceremony_stage value = 8 }
 	set_variable = { name = tv_wonder_ceremony_quarter_month value = 0 }
 }

@@ -171,6 +171,23 @@ STYLE_3_REWARD_EFFECTS = {
     "yearly_manpower": {"effect": "add_yearly_manpower", "scope": "country_scalar"},
     "yearly_sailors": {"effect": "add_yearly_sailors", "scope": "country_scalar"},
 }
+# The Unique Wonder Ceremony's per-stage cost reuses the STYLE_3_REWARD_EFFECTS vocabulary
+# (a cost is the negative of the matching reward), restricted to the country-scope subset
+# wonder_ceremony_lib.reward_effect_lines() actually renders, plus the special "artwork"
+# destroy-a-work-of-art cost that has no scalar effect entry at all.
+CEREMONY_STAGE_COST_REWARD_SCOPES = {
+    "country_scalar",
+    "country_raw",
+    "country_value_block",
+    "country_scale_block",
+    "ruler_scalar",
+    "culture_scalar",
+}
+SUPPORTED_CEREMONY_STAGE_COST_TYPES = {
+    cost_type
+    for cost_type, spec in STYLE_3_REWARD_EFFECTS.items()
+    if spec["scope"] in CEREMONY_STAGE_COST_REWARD_SCOPES
+} | {"artwork"}
 SITE_RULES_SECTION = "site_rules"
 RITUAL_AUXILIARY_ESTATE_POWER_BY_POP_TYPE = {
     "clergy": "local_clergy_estate_power",
@@ -503,11 +520,35 @@ def _validate_final_buildings(value: object, context: str) -> dict[int, str]:
     return normalized
 
 
-def _validate_ceremony_stage(value: object, context: str) -> dict[str, str]:
+def _validate_ceremony_stage_cost_item(value: object, context: str) -> dict[str, object]:
+    item = _require_mapping(value, context)
+    _expect_keys(item, required={"type", "value"}, optional=set(), context=context)
+    cost_type = _require_string(item["type"], f"{context}.type")
+    if cost_type not in SUPPORTED_CEREMONY_STAGE_COST_TYPES:
+        raise ValueError(f"Unsupported ceremony stage cost type in {context}: {cost_type}")
+    cost_value = item["value"]
+    if isinstance(cost_value, bool) or not isinstance(cost_value, (int, float)):
+        raise TypeError(f"{context}.value must be numeric, got {type(cost_value).__name__}")
+    if cost_type == "artwork":
+        if cost_value != 1:
+            raise ValueError(f"{context}.value must be 1 for cost type 'artwork', got {cost_value}")
+    elif cost_value >= 0:
+        raise ValueError(f"{context}.value must be negative (a cost), got {cost_value}")
+    return {"type": cost_type, "value": cost_value}
+
+
+def _validate_ceremony_stage_cost(value: object, context: str) -> list[dict[str, object]]:
+    items = _require_list(value, context)
+    if not items or len(items) > 2:
+        raise ValueError(f"{context} must have 1-2 entries, got {len(items)}")
+    return [_validate_ceremony_stage_cost_item(item, f"{context}[{index}]") for index, item in enumerate(items, start=1)]
+
+
+def _validate_ceremony_stage(value: object, context: str) -> dict[str, object]:
     stage = _require_mapping(value, context)
     _expect_keys(
         stage,
-        required={"title_en", "title_zh", "desc_en", "desc_zh"},
+        required={"title_en", "title_zh", "desc_en", "desc_zh", "cost"},
         optional=set(),
         context=context,
     )
@@ -516,6 +557,7 @@ def _validate_ceremony_stage(value: object, context: str) -> dict[str, str]:
         "title_zh": _require_string(stage["title_zh"], f"{context}.title_zh"),
         "desc_en": _require_string(stage["desc_en"], f"{context}.desc_en"),
         "desc_zh": _require_string(stage["desc_zh"], f"{context}.desc_zh"),
+        "cost": _validate_ceremony_stage_cost(stage["cost"], f"{context}.cost"),
     }
 
 

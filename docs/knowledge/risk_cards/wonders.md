@@ -223,16 +223,25 @@ generators.
     its per-file generators) is a deliberately uniform mechanic for the 121
     unique wonders *without* a bespoke ritual, and is explicitly out of scope
     for `audit_unique_wonder_ritual_mechanic_similarity.py` (confirmed by the
-    user, 2026-07) — do not treat its shared 8-stage/pay-a-cost-every-3-months
-    shape as a rule 12/13 violation, and do not "fix" it by bespoke-ifying each
-    wonder's ceremony. Only its `stages` flavor text, `cost_type`, and
-    `stage_1_reward` differ per wonder; the mechanical body (monthly tick,
-    cost payment, stage advance, stage-4 `construct_building` call, stage-8
-    completion via the existing `ritual.completion_trigger_script` gate) is
-    100% shared and wonder-id-generic, following the same
+    user, 2026-07) — do not treat its shared 8-stage shape as a rule 12/13
+    violation, and do not "fix" it by bespoke-ifying each wonder's ceremony.
+    Since 2026-07, each stage carries its own authored `cost` (a list of 1-2
+    `{type, value}` entries, validated by `_validate_ceremony_stage_cost` /
+    `SUPPORTED_CEREMONY_STAGE_COST_TYPES` in `scripts/wonder_mechanics/_core.py`)
+    instead of the wonder's single `ritual.cost_type` being repeated
+    identically at every stage — `ritual.cost_type` itself is untouched and
+    still only gates/prices the one-time "confirm ceremony" action
+    (`tv_wonder_confirm_ceremony*` in
+    `tv_engineering_department_wonder_mechanics_actions.txt`), a separate cost
+    layer from the per-stage one. `stages` flavor text, `cost_type`,
+    `stage_1_reward`, and now each stage's `cost` differ per wonder; the
+    mechanical body (monthly tick, stage advance, stage-4 `construct_building`
+    call, stage-8 completion via the existing `ritual.completion_trigger_script`
+    gate) is still 100% shared and wonder-id-generic, following the same
     `var:tv_wonder_locked ?= <id>` dispatch idiom already used throughout
-    `tv_wonder_finalization_effects.txt` for the two genuinely per-wonder
-    dispatch points (stage-1 reward, stage-4 building). Pharos Lighthouse and
+    `tv_wonder_finalization_effects.txt` for the other per-wonder dispatch
+    points (stage-1 reward, stage-4 building, and now each stage's
+    `tv_wonder_ceremony_pay_stage_{N}_cost_effect`). Pharos Lighthouse and
     Hagia Sophia are excluded (`ceremony: null`) and keep their existing
     bespoke `auxiliary_building`-mode rituals untouched.
     EU5 event numeric IDs must be `< 10000` (already enforced by

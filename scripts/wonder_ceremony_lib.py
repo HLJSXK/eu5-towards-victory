@@ -26,17 +26,6 @@ EVENT_ID_START = 9300
 STAGE_COUNT = 8
 CEREMONY_IMAGE = "gfx/interface/icons/towards_victory/wonders/tv_wonder_construction_cropped.dds"
 
-COST_TYPE_PAY_LINES = {
-    "artwork": [
-        f"{T}{T}random_work_of_art_in_country = {{ save_scope_as = tv_wonder_ceremony_sacrificed_artwork }}",
-        f"{T}{T}destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork",
-    ],
-    "scaled_gold": [f"{T}{T}change_gold_effect = {{ scale = -5 }}"],
-    "prestige": [f"{T}{T}add_prestige = -50"],
-}
-COST_TYPE_IDS = {"artwork": 1, "scaled_gold": 2, "prestige": 3}
-
-
 def script_rel(path: Path) -> str:
     return str(path.relative_to(REPO_ROOT)).replace("\\", "/")
 
@@ -82,15 +71,23 @@ def decline_option_key(stage: int) -> str:
     return f"{NAMESPACE}.{stage_event_id(stage)}.b"
 
 
-def reward_effect_lines(reward: list[dict], indent: int) -> list[str]:
+def reward_effect_lines(reward: list[dict], indent: int, allow_artwork: bool = False) -> list[str]:
     """Mirrors gen_tv_engineering_department_wonder_mechanics_effects.py's
     country_reward_effect_lines() for the same STYLE_3_REWARD_EFFECTS vocabulary,
     restricted to the country-scope subset the content batches were briefed on
     (country_scalar / country_value_block / country_scale_block / ruler_scalar /
-    culture_scalar)."""
+    culture_scalar). Stage-1 rewards must never see an "artwork" entry (it has no
+    scalar effect), so it only renders when allow_artwork=True, which the per-stage
+    ceremony cost dispatch opts into."""
     prefix = T * indent
     lines: list[str] = []
     for entry in reward:
+        if entry["type"] == "artwork":
+            if not allow_artwork:
+                raise ValueError("'artwork' is not a valid reward type")
+            lines.append(f"{prefix}random_work_of_art_in_country = {{ save_scope_as = tv_wonder_ceremony_sacrificed_artwork }}")
+            lines.append(f"{prefix}destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork")
+            continue
         spec = STYLE_3_REWARD_EFFECTS[entry["type"]]
         effect = spec["effect"]
         scope = spec["scope"]
