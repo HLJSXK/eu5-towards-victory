@@ -14,6 +14,30 @@ DATA_FILE = REPO_ROOT / "data" / "wonder_construction_events.yaml"
 T = "\t"
 
 
+NONENG_MAGNITUDE_DECIMALS = {
+    "gold": 0,
+    "legitimacy": 0,
+    "stability": 0,
+    "prestige": 0,
+    "nobles_satisfaction": 2,
+    "clergy_satisfaction": 2,
+    "burghers_satisfaction": 2,
+    "peasants_satisfaction": 2,
+    "site_development": 2,
+    "capital_development": 2,
+    "site_prosperity": 1,
+    "capital_prosperity": 1,
+    "site_laborers": 0,
+}
+
+
+def format_noneng_magnitude(token_id: str, magnitude: float) -> str:
+    decimals = NONENG_MAGNITUDE_DECIMALS[token_id]
+    if decimals == 0:
+        return str(int(round(magnitude)))
+    return f"{magnitude:.{decimals}f}"
+
+
 EVENT_KIND_WEIGHTS = {
     "gain_engineering_2": 1,
     "gain_engineering_1": 5,

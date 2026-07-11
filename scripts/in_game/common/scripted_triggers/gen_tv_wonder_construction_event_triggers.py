@@ -9,7 +9,13 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_construction_event_lib import build_events, indent_lines, load_data, render_header
+from wonder_construction_event_lib import (
+    build_events,
+    format_noneng_magnitude,
+    indent_lines,
+    load_data,
+    render_header,
+)
 
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "scripted_triggers" / "tv_wonder_construction_event_triggers.txt"
@@ -45,7 +51,8 @@ def eng_negative_trigger(token_id: str) -> list[str]:
     raise ValueError(f"Unhandled engineering token: {token_id}")
 
 
-def noneng_loss_trigger(token_id: str, units: int) -> list[str]:
+def noneng_loss_trigger(token: dict, units: int) -> list[str]:
+    token_id = token["id"]
     if token_id == "nobles_satisfaction":
         return ["country_has_estate = estate_type:nobles_estate"]
     if token_id == "clergy_satisfaction":
@@ -55,17 +62,17 @@ def noneng_loss_trigger(token_id: str, units: int) -> list[str]:
     if token_id == "peasants_satisfaction":
         return ["country_has_estate = estate_type:peasants_estate"]
     if token_id == "site_development":
-        value = 0.25 * units
-        return [f"var:tv_wonder_site ?= {{ development >= {value:.2f} }}"]
+        value = format_noneng_magnitude(token_id, token["value"] * units)
+        return [f"var:tv_wonder_site ?= {{ development >= {value} }}"]
     if token_id == "site_prosperity":
-        value = 0.2 * units
-        return [f"var:tv_wonder_site ?= {{ prosperity >= {value:.1f} }}"]
+        value = format_noneng_magnitude(token_id, token["value"] * units)
+        return [f"var:tv_wonder_site ?= {{ prosperity >= {value} }}"]
     if token_id == "capital_development":
-        value = 0.25 * units
-        return [f"capital ?= {{ development >= {value:.2f} }}"]
+        value = format_noneng_magnitude(token_id, token["value"] * units)
+        return [f"capital ?= {{ development >= {value} }}"]
     if token_id == "capital_prosperity":
-        value = 0.2 * units
-        return [f"capital ?= {{ prosperity >= {value:.1f} }}"]
+        value = format_noneng_magnitude(token_id, token["value"] * units)
+        return [f"capital ?= {{ prosperity >= {value} }}"]
     if token_id == "site_laborers":
         return ["tv_wonder_site_has_laborer_pop_trigger = yes"]
     return []
@@ -98,17 +105,17 @@ def event_trigger_lines(event: dict) -> list[str]:
         lines.extend(eng_positive_trigger(eng["id"]))
     elif kind == "trade_noneng_for_eng":
         lines.extend(eng_positive_trigger(eng["id"]))
-        lines.extend(noneng_loss_trigger(noneng["id"], 1))
+        lines.extend(noneng_loss_trigger(noneng, 1))
     elif kind in {"swing_engineering_1", "engineer_swing_engineering_1"}:
         lines.extend(eng_positive_trigger(eng["id"]))
         lines.extend(eng_negative_trigger(eng["id"]))
     elif kind == "choose_eng_or_noneng_loss":
         lines.extend(eng_negative_trigger(eng["id"]))
-        lines.extend(noneng_loss_trigger(noneng["id"], 1))
+        lines.extend(noneng_loss_trigger(noneng, 1))
     elif kind in {"lose_noneng_1", "engineer_lose_noneng_1"}:
-        lines.extend(noneng_loss_trigger(noneng["id"], 1))
+        lines.extend(noneng_loss_trigger(noneng, 1))
     elif kind in {"lose_noneng_2", "engineer_lose_noneng_2"}:
-        lines.extend(noneng_loss_trigger(noneng["id"], 2))
+        lines.extend(noneng_loss_trigger(noneng, 2))
     else:
         raise ValueError(f"Unhandled kind: {kind}")
 
