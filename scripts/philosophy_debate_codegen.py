@@ -72,8 +72,6 @@ EVENT_STANCE_2 = "tv_academy_debate_event_stance_2"
 EVENT_SEAT = "tv_academy_debate_event_seat"
 EVENT_SEAT_2 = "tv_academy_debate_event_seat_2"
 EVENT_PRICE = "tv_academy_debate_event_price"
-MONTHLY_DELTA = "tv_academy_philosophy_monthly_delta"
-SEAT_CONTRIB = "tv_academy_debate_seat_contribution"
 LOCAL_DEBATE_PROGRESS_VAR = "tv_academy_philosophy_debate_position"
 LOCAL_DEBATE_BALANCE_VAR = "tv_academy_debate_local_balance"
 LOCAL_DEBATE_SUPPORT_SEATS_VAR = "tv_academy_debate_local_support_seats"
@@ -93,6 +91,8 @@ AUTO_STANCE_NEUTRAL_VAR = "tv_academy_debate_auto_stance_neutral_pending"
 AUTO_SEAT_VACATED_VAR = "tv_academy_debate_auto_seat_vacated_pending"
 
 GROUP_ESTATE_MAP = "tv_academy_debate_group_to_estate"
+ACTIVE_ARTIST_VAR = "tv_academy_debate_active_artist_char"
+ACTIVE_FOREIGN_VAR = "tv_academy_debate_active_foreign_country"
 RESULT_GROUP_LOCAL = "tv_academy_debate_result_group"
 RESULT_ESTATE_LOCAL = "tv_academy_debate_result_estate"
 
@@ -370,6 +370,10 @@ def group_var(key: str, suffix: str) -> str:
     return f"tv_academy_debate_group_{key}_{suffix}"
 
 
+def group_active_stance_var(key: str) -> str:
+    return group_var(key, "active_stance")
+
+
 def seat_group(seat: int | str) -> str:
     return f"tv_academy_debate_seat_{seat}_group"
 
@@ -623,6 +627,22 @@ def generate_triggers(data: dict) -> str:
     script = "scripts/in_game/common/scripted_triggers/gen_tv_academy_philosophy_debate_triggers.py"
     lines: list[str] = [header(script).rstrip(), ""]
 
+    # Country-scoped. `tv_academy_philosophy_has_current_issue_trigger` and
+    # `NOT = { has_variable = tv_academy_philosophy_result_pending }` are deliberately
+    # omitted here: tv_academy_philosophy_current is set once at game start and never
+    # removed while phase can be 1, and both result-pending branches in
+    # tv_academy_philosophy_check_debate_endpoint_effect set phase = 0 in the same
+    # atomic block that sets result_pending — so var:tv_academy_philosophy_phase ?= 1
+    # already excludes both cases. Do not re-add either as a defensive check; if either
+    # invariant changes, fix it at that write site rather than re-widening this trigger.
+    emit(lines, 0, "tv_academy_debate_local_scoring_active_trigger = {")
+    emit(lines, 1, "var:tv_academy_philosophy_phase ?= 1")
+    emit(lines, 1, "var:tv_academy_debate_current_node_type ?= 1")
+    emit(lines, 1, "NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }")
+    emit(lines, 1, "NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }")
+    emit(lines, 0, "}")
+    emit(lines)
+
     emit(lines, 0, "tv_academy_debate_has_empty_seat_trigger = {")
     emit(lines, 1, "OR = {")
     for seat in SEATS:
@@ -838,6 +858,22 @@ def gen_remove_group_seated(lines: list[str], level: int, group_id_expr: str, da
         emit(lines, level, "}")
 
 
+def gen_set_group_active_stance(lines: list[str], level: int, group_id_expr: str, stance_expr: str, data: dict) -> None:
+    for idx, group in enumerate(groups(data)):
+        emit(lines, level, ("if" if idx == 0 else "else_if") + " = {")
+        emit(lines, level + 1, f"limit = {{ {group_id_expr} ?= {group['id']} }}")
+        emit(lines, level + 1, f"set_variable = {{ name = {group_active_stance_var(group['key'])} value = {stance_expr} }}")
+        emit(lines, level, "}")
+
+
+def gen_clear_group_active_stance(lines: list[str], level: int, group_id_expr: str, data: dict) -> None:
+    for idx, group in enumerate(groups(data)):
+        emit(lines, level, ("if" if idx == 0 else "else_if") + " = {")
+        emit(lines, level + 1, f"limit = {{ {group_id_expr} ?= {group['id']} }}")
+        emit(lines, level + 1, f"remove_variable = {group_active_stance_var(group['key'])}")
+        emit(lines, level, "}")
+
+
 def gen_set_group_seated(lines: list[str], level: int, data: dict) -> None:
     for idx, group in enumerate(groups(data)):
         emit(lines, level, ("if" if idx == 0 else "else_if") + " = {")
@@ -848,11 +884,12 @@ def gen_set_group_seated(lines: list[str], level: int, data: dict) -> None:
         emit(lines, level, "}")
 
 
-def gen_group_change_tooltip(lines: list[str], level: int, data: dict, change: str) -> None:
+def gen_group_change_tooltip(lines: list[str], level: int, data: dict, change: str, id_var: str = EVENT_GROUP, group_filter=None) -> None:
     key_fn = group_seated_tooltip_key if change == "seated" else group_left_tooltip_key
-    for idx, group in enumerate(groups(data)):
+    candidates = [g for g in groups(data) if group_filter is None or group_filter(g)]
+    for idx, group in enumerate(candidates):
         emit(lines, level, ("if" if idx == 0 else "else_if") + " = {")
-        emit(lines, level + 1, f"limit = {{ {var_eq(EVENT_GROUP, group['id'])} }}")
+        emit(lines, level + 1, f"limit = {{ {var_eq(id_var, group['id'])} }}")
         emit(lines, level + 1, "custom_description = {")
         emit(lines, level + 2, f"text = {key_fn(group)}")
         emit(lines, level + 1, "}")
@@ -918,6 +955,402 @@ def gen_local_debate_progress_effects(lines: list[str]) -> None:
     emit(lines)
 
 
+def debate_monthly_gate_lines() -> list[str]:
+    return ["tv_academy_debate_local_scoring_active_trigger = yes"]
+
+
+def emit_crown_contribution_add(lines: list[str], data: dict) -> None:
+    settings = data["settings"]
+    emit(lines, 4, "add = {")
+    emit(lines, 5, "desc = \"TV_ACADEMY_DEBATE_CROWN_CONTRIBUTION\"")
+    emit(lines, 5, "value = 0")
+    emit(lines, 5, "if = {")
+    emit(lines, 6, "limit = {")
+    emit(lines, 7, "leader_country ?= {")
+    for line in debate_monthly_gate_lines():
+        emit(lines, 8, line)
+    emit(lines, 7, "}")
+    emit(lines, 6, "}")
+    emit(lines, 6, "value = leader_country.estate_power(estate_type:crown_estate)")
+    emit(lines, 6, f"multiply = {settings['crown_contribution_multiplier']}")
+    emit(lines, 5, "}")
+    emit(lines, 4, "}")
+
+
+def emit_group_static_formula(lines: list[str], level: int, group: dict, settings: dict) -> None:
+    base = settings["base_group_contribution"]
+    emit(lines, level, f"value = {base}")
+    if group["type"] == "estate":
+        emit(lines, level, "add = {")
+        emit(lines, level + 1, f"value = leader_country.estate_power(estate_type:{group['estate']})")
+        emit(lines, level + 1, f"multiply = {settings['estate_power_multiplier']}")
+        emit(lines, level, "}")
+    elif group["type"] == "variant":
+        emit(lines, level, "add = {")
+        emit(lines, level + 1, f"value = leader_country.estate_power(estate_type:{group['base_estate']})")
+        emit(lines, level + 1, f"multiply = {settings['variant_power_multiplier']}")
+        emit(lines, level, "}")
+    elif group["type"] == "artists":
+        emit(lines, level, "add = {")
+        emit(lines, level + 1, f"value = leader_country.var:{ACTIVE_ARTIST_VAR}.artist_skill")
+        emit(lines, level + 1, f"multiply = {settings['artist_skill_multiplier']}")
+        emit(lines, level, "}")
+    elif group["type"] == "foreign_power":
+        emit(lines, level, "add = {")
+        emit(lines, level + 1, f"value = leader_country.var:{ACTIVE_FOREIGN_VAR}.great_power_score")
+        emit(lines, level + 1, "divide = {")
+        emit(lines, level + 2, "value = leader_country.great_power_score")
+        emit(lines, level + 2, "min = 1")
+        emit(lines, level + 1, "}")
+        emit(lines, level + 1, f"multiply = {settings['foreign_power_multiplier']}")
+        emit(lines, level, "}")
+    elif group["type"] == "great_scientist":
+        emit(lines, level, "if = {")
+        emit(lines, level + 1, "limit = {")
+        emit(lines, level + 2, "leader_country ?= {")
+        emit(lines, level + 3, "has_variable = tv_academy_leader_char")
+        emit(lines, level + 3, "var:tv_academy_leader_char ?= { is_alive = yes }")
+        emit(lines, level + 2, "}")
+        emit(lines, level + 1, "}")
+        emit(lines, level + 1, "add = {")
+        emit(lines, level + 2, "value = leader_country.var:tv_academy_leader_char.adm")
+        emit(lines, level + 2, "if = {")
+        emit(lines, level + 3, "limit = { leader_country ?= { var:tv_academy_leader_char ?= { has_trait = tv_great_scientist_3 } } }")
+        emit(lines, level + 3, "add = 60")
+        emit(lines, level + 2, "}")
+        emit(lines, level + 2, "else_if = {")
+        emit(lines, level + 3, "limit = { leader_country ?= { var:tv_academy_leader_char ?= { has_trait = tv_great_scientist_2 } } }")
+        emit(lines, level + 3, "add = 40")
+        emit(lines, level + 2, "}")
+        emit(lines, level + 2, "else_if = {")
+        emit(lines, level + 3, "limit = { leader_country ?= { var:tv_academy_leader_char ?= { has_trait = tv_great_scientist_1 } } }")
+        emit(lines, level + 3, "add = 20")
+        emit(lines, level + 2, "}")
+        emit(lines, level + 2, "divide = 100")
+        emit(lines, level + 2, f"multiply = {settings['great_scientist_adm_multiplier']}")
+        emit(lines, level + 1, "}")
+        emit(lines, level, "}")
+
+
+def emit_group_contribution_add(lines: list[str], data: dict, group: dict) -> None:
+    stance_var = group_active_stance_var(group["key"])
+    emit(lines, 4, "add = {")
+    emit(lines, 5, f"desc = \"{group_loc_key(group)}\"")
+    emit(lines, 5, "value = 0")
+    emit(lines, 5, "if = {")
+    emit(lines, 6, "limit = {")
+    emit(lines, 7, "leader_country ?= {")
+    for line in debate_monthly_gate_lines():
+        emit(lines, 8, line)
+    emit(lines, 8, f"has_variable = {stance_var}")
+    emit(lines, 8, f"NOT = {{ var:{stance_var} ?= {STANCE_NEUTRAL} }}")
+    emit(lines, 7, "}")
+    emit(lines, 6, "}")
+    emit_group_static_formula(lines, 6, group, data["settings"])
+    emit(lines, 6, "if = {")
+    emit(lines, 7, f"limit = {{ leader_country ?= {{ var:{stance_var} ?= {STANCE_OPPOSE} }} }}")
+    emit(lines, 7, "multiply = -1")
+    emit(lines, 6, "}")
+    emit(lines, 5, "}")
+    emit(lines, 4, "}")
+
+
+def emit_debate_position_monthly_change(lines: list[str], data: dict) -> None:
+    emit(lines, 3, "monthly_change = {")
+    emit_crown_contribution_add(lines, data)
+    for group in groups(data):
+        emit_group_contribution_add(lines, data, group)
+    emit(lines, 3, "}")
+
+
+def generate_academy_io(data: dict) -> str:
+    script = "scripts/in_game/common/international_organizations/gen_tv_academy_of_sciences.py"
+    lines: list[str] = [header(script, PHILOSOPHY_DEBATE_DATA_SOURCES).rstrip(), ""]
+
+    emit(lines, 0, "# Towards Victory — Academy of Sciences International Organization type definition")
+    emit(lines, 0, "# Non-unique IO; each country pursuing Scientific Victory creates their own instance")
+    emit(lines, 0, "# through the Scientific IO establishment flow.")
+    emit(lines, 0, "# Country membership flag: tv_academy_io_member (set to 1 when joining).")
+    emit(lines, 0, "# Research subprocess state and target advance are country-scoped variables.")
+    emit(lines, 0, "# C and D progress, philosophy inspiration, and local debate progress are all IO variables")
+    emit(lines, 0, "# (vanilla variable system); each computes its own monthly gain in monthly_change.")
+    emit(lines, 0, "#")
+    emit(lines, 0, "# Leader: character (the \"Chief Scientist\"). Selected manually by the leader_country via")
+    emit(lines, 0, "# the Appoint / Remove / Change Leader generic actions (tv_io_leader_actions.txt).")
+    emit(lines, 0, "# The leader country variable tv_academy_leader_char holds the appointed character.")
+    emit(lines, 0, "# D-progress uses the appointed leader's effective ADM skill.")
+    emit(lines, 0, "#")
+    emit(lines, 0, "# Verification — Step 3, Reference: hre.txt:19-44")
+    emit(lines, 0, "#   Quote: \"has_leader_country = yes  leader_title_key = \"HRE_LEADER\"  leader_type = character")
+    emit(lines, 0, "#           leader = { leader_country ?= { ... add_to_list = leaders } }\"")
+    emit(lines, 0, "# NOTE: The vanilla IO \"choose new leader\" effect is GLOBALLY BANNED on TV IOs.")
+    emit(lines, 0, "#   It triggers the leader-election process, violating the no-elections design.")
+    emit(lines, 0, "#   leader_country is locked to the founding country via on_creation and never reassigned.")
+    emit(lines)
+
+    emit(lines, 0, "tv_academy_of_sciences = {")
+    emit(lines, 1, "has_target = no")
+    emit(lines, 1, "unique = no")
+    emit(lines, 1, "has_leader_country = yes")
+    emit(lines, 1, "leader_title_key = \"TV_ACADEMY_IO_LEADER\"")
+    emit(lines, 1, "leader_type = character")
+    emit(lines, 1, "leader_change_trigger_type = none")
+    emit(lines, 1, "leader_change_method = none")
+    emit(lines, 1, "disband_if_no_leader = no")
+    emit(lines, 1, "show_on_diplomatic_map = no")
+    emit(lines)
+    emit(lines, 1, "# Keep the founder-only Academy focused on Laws, Chief Scientist, and Medicine.")
+    emit(lines, 1, "# The shared IO parliament tab is tied to HasParliament in vanilla common.gui.")
+    emit(lines, 1, "has_parliament = no")
+    emit(lines)
+    emit(lines, 1, "leader = {")
+    emit(lines, 2, "leader_country ?= {")
+    emit(lines, 3, "var:tv_academy_leader_char ?= {")
+    emit(lines, 4, "add_to_list = leaders")
+    emit(lines, 3, "}")
+    emit(lines, 2, "}")
+    emit(lines, 1, "}")
+    emit(lines)
+
+    emit(lines, 1, "# ── IO Variables: C and D research progress, Philosophy inspiration ─────────────")
+    emit(lines, 1, "# These are auto-accumulated via monthly_change; completion is detected by")
+    emit(lines, 1, "# tv_academy_of_sciences_monthly_pulse.")
+    emit(lines, 1, "# Calibration C: average_country_literacy * 0.05 /month → 100 in ~40 months at literacy=50.")
+    emit(lines, 1, "# Calibration D: effective ADM * 0.05 /month.")
+    emit(lines, 1, "# D only advances and completes when the Chief Scientist has at least 20 effective ADM.")
+    emit(lines, 1, "# At 50 effective ADM, D gains 2.5/month and finishes in roughly 40 months.")
+    emit(lines, 1, "# D halts when no leader appointed (international_organization_has_leader = no).")
+    emit(lines, 1, "variables = {")
+
+    emit(lines, 2, "tv_research_c_progress = {")
+    emit(lines, 3, "format = \"TV_C_PROGRESS_FORMAT\"")
+    emit(lines, 3, "change_format = \"TV_C_PROGRESS_CHANGE_FORMAT\"")
+    emit(lines, 3, "min = 0")
+    emit(lines, 3, "max = 100")
+    emit(lines, 3, "start = 0")
+    emit(lines, 3, "monthly_change = {")
+    emit(lines, 4, "add = {")
+    emit(lines, 5, "desc = \"TV_C_LITERACY_CONTRIBUTION\"")
+    emit(lines, 5, "value = 0")
+    emit(lines, 5, "if = {")
+    emit(lines, 6, "limit = {")
+    emit(lines, 7, "leader_country ?= {")
+    emit(lines, 8, "custom_tooltip = {")
+    emit(lines, 9, "text = TV_HAS_RESEARCH_PHASE_TT")
+    emit(lines, 9, "has_variable = tv_research_phase")
+    emit(lines, 8, "}")
+    emit(lines, 8, "var:tv_research_phase ?= 1")
+    emit(lines, 8, "NOT = { var:tv_rm_subprocess_c ?= { this >= 2 } }")
+    emit(lines, 7, "}")
+    emit(lines, 6, "}")
+    emit(lines, 6, "value = leader_country.average_country_literacy")
+    emit(lines, 6, "multiply = 0.05")
+    emit(lines, 5, "}")
+    emit(lines, 4, "}")
+    emit(lines, 3, "}")
+    emit(lines, 2, "}")
+
+    emit(lines, 2, "tv_research_d_progress = {")
+    emit(lines, 3, "format = \"TV_D_PROGRESS_FORMAT\"")
+    emit(lines, 3, "change_format = \"TV_D_PROGRESS_CHANGE_FORMAT\"")
+    emit(lines, 3, "min = 0")
+    emit(lines, 3, "max = 100")
+    emit(lines, 3, "start = 0")
+    emit(lines, 3, "monthly_change = {")
+    emit(lines, 4, "add = {")
+    emit(lines, 5, "desc = \"TV_D_RESEARCH_CONTRIBUTION\"")
+    emit(lines, 5, "value = 0")
+    emit(lines, 5, "if = {")
+    emit(lines, 6, "limit = {")
+    emit(lines, 7, "international_organization_has_leader = yes")
+    emit(lines, 7, "leader_country ?= {")
+    emit(lines, 8, "custom_tooltip = {")
+    emit(lines, 9, "text = TV_HAS_RESEARCH_PHASE_TT")
+    emit(lines, 9, "has_variable = tv_research_phase")
+    emit(lines, 8, "}")
+    emit(lines, 8, "var:tv_research_phase ?= 2")
+    emit(lines, 8, "custom_tooltip = {")
+    emit(lines, 9, "text = TV_HAS_ACADEMY_LEADER_CHAR_TT")
+    emit(lines, 9, "has_variable = tv_academy_leader_char")
+    emit(lines, 8, "}")
+    emit(lines, 8, "tv_chief_scientist_effective_adm_at_least_20_trigger = yes")
+    emit(lines, 7, "}")
+    emit(lines, 6, "}")
+    emit(lines, 6, "value = leader_country.var:tv_academy_leader_char.adm")
+    emit(lines, 6, "multiply = 0.05")
+    emit(lines, 5, "}")
+    emit(lines, 4, "}")
+    emit(lines, 4, "add = {")
+    emit(lines, 5, "desc = \"TV_D_RESEARCH_TRAIT_BONUS\"")
+    emit(lines, 5, "value = 0")
+    emit(lines, 5, "if = {")
+    emit(lines, 6, "limit = {")
+    emit(lines, 7, "international_organization_has_leader = yes")
+    emit(lines, 7, "leader_country ?= {")
+    emit(lines, 8, "var:tv_research_phase ?= 2")
+    emit(lines, 8, "tv_chief_scientist_effective_adm_at_least_20_trigger = yes")
+    emit(lines, 8, "var:tv_academy_leader_char ?= { has_trait = tv_great_scientist_3 }")
+    emit(lines, 7, "}")
+    emit(lines, 6, "}")
+    emit(lines, 6, "value = 60")
+    emit(lines, 5, "}")
+    emit(lines, 5, "else_if = {")
+    emit(lines, 6, "limit = {")
+    emit(lines, 7, "international_organization_has_leader = yes")
+    emit(lines, 7, "leader_country ?= {")
+    emit(lines, 8, "var:tv_research_phase ?= 2")
+    emit(lines, 8, "tv_chief_scientist_effective_adm_at_least_20_trigger = yes")
+    emit(lines, 8, "var:tv_academy_leader_char ?= { has_trait = tv_great_scientist_2 }")
+    emit(lines, 7, "}")
+    emit(lines, 6, "}")
+    emit(lines, 6, "value = 40")
+    emit(lines, 5, "}")
+    emit(lines, 5, "else_if = {")
+    emit(lines, 6, "limit = {")
+    emit(lines, 7, "international_organization_has_leader = yes")
+    emit(lines, 7, "leader_country ?= {")
+    emit(lines, 8, "var:tv_research_phase ?= 2")
+    emit(lines, 8, "tv_chief_scientist_effective_adm_at_least_20_trigger = yes")
+    emit(lines, 8, "var:tv_academy_leader_char ?= { has_trait = tv_great_scientist_1 }")
+    emit(lines, 7, "}")
+    emit(lines, 6, "}")
+    emit(lines, 6, "value = 20")
+    emit(lines, 5, "}")
+    emit(lines, 5, "multiply = 0.05")
+    emit(lines, 4, "}")
+    emit(lines, 3, "}")
+    emit(lines, 2, "}")
+
+    emit(lines, 2, "tv_academy_philosophy_inspiration = {")
+    emit(lines, 3, "format = \"TV_PHILOSOPHY_INSPIRATION_FORMAT\"")
+    emit(lines, 3, "change_format = \"TV_PHILOSOPHY_INSPIRATION_CHANGE_FORMAT\"")
+    emit(lines, 3, "min = 0")
+    emit(lines, 3, "max = 100")
+    emit(lines, 3, "start = 0")
+    emit(lines, 3, "monthly_change = {")
+    emit(lines, 4, "add = {")
+    emit(lines, 5, "desc = \"TV_PHILOSOPHY_IDLE_CHIEF_SCIENTIST\"")
+    emit(lines, 5, "value = 0")
+    emit(lines, 5, "if = {")
+    emit(lines, 6, "limit = {")
+    emit(lines, 7, "international_organization_has_leader = yes")
+    emit(lines, 7, "leader_country ?= {")
+    emit(lines, 8, "has_variable = tv_academy_leader_char")
+    emit(lines, 8, "var:tv_academy_leader_char ?= { is_alive = yes }")
+    emit(lines, 8, "tv_chief_scientist_available_for_philosophy_trigger = yes")
+    emit(lines, 7, "}")
+    emit(lines, 6, "}")
+    emit(lines, 6, "value = leader_country.var:tv_academy_leader_char.adm")
+    emit(lines, 6, "if = {")
+    emit(lines, 7, "limit = {")
+    emit(lines, 8, "leader_country ?= {")
+    emit(lines, 9, "var:tv_academy_leader_char ?= { has_trait = tv_great_scientist_3 }")
+    emit(lines, 8, "}")
+    emit(lines, 7, "}")
+    emit(lines, 7, "add = 60")
+    emit(lines, 6, "}")
+    emit(lines, 6, "else_if = {")
+    emit(lines, 7, "limit = {")
+    emit(lines, 8, "leader_country ?= {")
+    emit(lines, 9, "var:tv_academy_leader_char ?= { has_trait = tv_great_scientist_2 }")
+    emit(lines, 8, "}")
+    emit(lines, 7, "}")
+    emit(lines, 7, "add = 40")
+    emit(lines, 6, "}")
+    emit(lines, 6, "else_if = {")
+    emit(lines, 7, "limit = {")
+    emit(lines, 8, "leader_country ?= {")
+    emit(lines, 9, "var:tv_academy_leader_char ?= { has_trait = tv_great_scientist_1 }")
+    emit(lines, 8, "}")
+    emit(lines, 7, "}")
+    emit(lines, 7, "add = 20")
+    emit(lines, 6, "}")
+    emit(lines, 6, "multiply = 0.2")
+    emit(lines, 5, "}")
+    emit(lines, 4, "}")
+    emit(lines, 3, "}")
+    emit(lines, 2, "}")
+
+    emit(lines, 2, f"{LOCAL_DEBATE_PROGRESS_VAR} = {{")
+    emit(lines, 3, "format = \"TV_ACADEMY_DEBATE_POSITION_FORMAT\"")
+    emit(lines, 3, "change_format = \"TV_ACADEMY_DEBATE_POSITION_CHANGE_FORMAT\"")
+    emit(lines, 3, "min = 0")
+    emit(lines, 3, "max = 100")
+    emit(lines, 3, "start = 50")
+    emit_debate_position_monthly_change(lines, data)
+    emit(lines, 2, "}")
+
+    emit(lines, 2, f"{LOCAL_DEBATE_BALANCE_VAR} = {{")
+    emit(lines, 3, "format = \"TV_ACADEMY_DEBATE_LOCAL_BALANCE_FORMAT\"")
+    emit(lines, 3, "change_format = \"TV_ACADEMY_DEBATE_LOCAL_BALANCE_CHANGE_FORMAT\"")
+    emit(lines, 3, "min = 0")
+    emit(lines, 3, "max = 100")
+    emit(lines, 3, "start = 50")
+    emit(lines, 2, "}")
+    emit(lines, 1, "}")
+    emit(lines)
+
+    emit(lines, 1, "modifier = {")
+    emit(lines, 1, "}")
+    emit(lines)
+
+    emit(lines, 1, "can_initiate_policy_votes = {")
+    emit(lines, 2, "is_leader_of_international_organization = scope:recipient")
+    emit(lines, 2, "tv_chief_scientist_available_for_law_change_trigger = yes")
+    emit(lines, 1, "}")
+    emit(lines)
+
+    emit(lines, 1, "on_creation = {")
+    emit(lines, 2, "if = {")
+    emit(lines, 3, "limit = { exists = scope:actor }")
+    emit(lines, 3, "set_leader_country = scope:actor")
+    emit(lines, 2, "}")
+    emit(lines, 1, "}")
+    emit(lines)
+
+    emit(lines, 1, "create_visible_trigger = {")
+    emit(lines, 2, "always = no")
+    emit(lines, 1, "}")
+    emit(lines)
+
+    emit(lines, 1, "invite_visible_trigger = {")
+    emit(lines, 2, "always = no")
+    emit(lines, 1, "}")
+    emit(lines)
+
+    emit(lines, 1, "can_join_trigger = {")
+    emit(lines, 2, "always = no")
+    emit(lines, 1, "}")
+    emit(lines)
+
+    emit(lines, 1, "can_leave_trigger = {")
+    emit(lines, 2, "always = no")
+    emit(lines, 1, "}")
+    emit(lines)
+
+    emit(lines, 1, "auto_leave_trigger = {")
+    emit(lines, 2, "always = no")
+    emit(lines, 1, "}")
+    emit(lines)
+
+    emit(lines, 1, "auto_disband_trigger = {")
+    emit(lines, 2, "total_members < 1")
+    emit(lines, 1, "}")
+    emit(lines)
+
+    emit(lines, 1, "join_defensive_wars_always = {")
+    emit(lines, 2, "always = no")
+    emit(lines, 1, "}")
+    emit(lines)
+
+    emit(lines, 1, "join_offensive_wars_always = {")
+    emit(lines, 2, "always = no")
+    emit(lines, 1, "}")
+    emit(lines, 0, "}")
+
+    return "\n".join(lines) + "\n"
+
+
 def generate_effects(data: dict) -> str:
     script = "scripts/in_game/common/scripted_effects/gen_tv_academy_philosophy_debate_effects.py"
     lines: list[str] = [header(script, PHILOSOPHY_DEBATE_DATA_SOURCES).rstrip(), ""]
@@ -937,14 +1370,7 @@ def generate_effects(data: dict) -> str:
 
     emit(lines, 0, "tv_academy_philosophy_apply_monthly_debate_drift_effect = {")
     emit(lines, 1, "if = {")
-    emit(lines, 2, "limit = {")
-    emit(lines, 3, "var:tv_academy_philosophy_phase ?= 1")
-    emit(lines, 3, "var:tv_academy_debate_current_node_type ?= 1")
-    emit(lines, 3, "tv_academy_philosophy_has_current_issue_trigger = yes")
-    emit(lines, 3, "NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }")
-    emit(lines, 3, f"NOT = {{ has_variable = {PENDING_RESULT_VAR} }}")
-    emit(lines, 3, "NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }")
-    emit(lines, 2, "}")
+    emit(lines, 2, "limit = { tv_academy_debate_local_scoring_active_trigger = yes }")
     emit(lines, 2, f"trigger_event_silently = {{ id = {EVENT_NS}.1 days = 1 }}")
     emit(lines, 1, "}")
     emit(lines, 0, "}")
@@ -990,7 +1416,6 @@ def gen_cleanup_effects(lines: list[str], data: dict) -> None:
     settings = data["settings"]
     runtime_vars = [
         EVENT_GROUP, EVENT_GROUP_2, EVENT_STANCE, EVENT_STANCE_2, EVENT_SEAT, EVENT_SEAT_2, EVENT_PRICE,
-        MONTHLY_DELTA, SEAT_CONTRIB,
         AUTO_STANCE_SUPPORT_VAR, AUTO_STANCE_OPPOSE_VAR, AUTO_STANCE_NEUTRAL_VAR, AUTO_SEAT_VACATED_VAR,
         "tv_academy_debate_left_count", "tv_academy_debate_right_count",
         "tv_academy_debate_royal_option_1_group",
@@ -1045,6 +1470,16 @@ def gen_cleanup_effects(lines: list[str], data: dict) -> None:
     emit(lines, 0, "}")
     emit(lines)
 
+    emit(lines, 0, "tv_academy_debate_set_group_active_stance_effect = {")
+    gen_set_group_active_stance(lines, 1, "$group$", "$stance$", data)
+    emit(lines, 0, "}")
+    emit(lines)
+
+    emit(lines, 0, "tv_academy_debate_clear_group_active_stance_effect = {")
+    gen_clear_group_active_stance(lines, 1, "$group$", data)
+    emit(lines, 0, "}")
+    emit(lines)
+
     emit(lines, 0, "tv_academy_debate_mark_selected_group_seated_effect = {")
     gen_set_group_seated(lines, 1, data)
     emit(lines, 0, "}")
@@ -1092,11 +1527,29 @@ def gen_cleanup_effects(lines: list[str], data: dict) -> None:
     emit(lines, 0, "}")
     emit(lines)
 
+    emit(lines, 0, "tv_academy_debate_group2_seated_tooltip_effect = {")
+    gen_group_change_tooltip(lines, 1, data, "seated", id_var=EVENT_GROUP_2)
+    emit(lines, 0, "}")
+    emit(lines)
+
+    for slot in range(1, 4):
+        emit(lines, 0, f"tv_academy_debate_royal_option_{slot}_seated_tooltip_effect = {{")
+        gen_group_change_tooltip(
+            lines, 1, data, "seated",
+            id_var=f"tv_academy_debate_royal_option_{slot}_group",
+            group_filter=is_estate_or_variant,
+        )
+        emit(lines, 0, "}")
+        emit(lines)
+
     emit(lines, 0, "tv_academy_debate_clear_seat_effect = {")
     emit(lines, 1, "if = {")
     emit(lines, 2, f"limit = {{ has_variable = {seat_group('$seat$')} }}")
+    emit(lines, 2, f"tv_academy_debate_clear_group_active_stance_effect = {{ group = var:{seat_group('$seat$')} }}")
     emit(lines, 2, f"tv_academy_debate_remove_group_seated_by_id_effect = {{ group = var:{seat_group('$seat$')} }}")
     emit(lines, 1, "}")
+    emit(lines, 1, f"if = {{ limit = {{ has_variable = {seat_artist('$seat$')} }} remove_variable = {ACTIVE_ARTIST_VAR} }}")
+    emit(lines, 1, f"if = {{ limit = {{ has_variable = {seat_foreign('$seat$')} }} remove_variable = {ACTIVE_FOREIGN_VAR} }}")
     for var in (seat_group("$seat$"), seat_stance("$seat$"), seat_cooldown("$seat$"), seat_artist("$seat$"), seat_foreign("$seat$"), seat_scientist("$seat$")):
         emit(lines, 1, f"remove_variable = {var}")
     emit(lines, 0, "}")
@@ -1147,7 +1600,7 @@ def gen_issue_accept_effects(lines: list[str], data: dict) -> None:
     emit(lines)
 
     emit(lines, 0, "tv_academy_philosophy_clear_debate_result_effect = {")
-    for var in (PENDING_RESULT_VAR, PENDING_ISSUE_VAR, PENDING_KIND_VAR, MONTHLY_DELTA, SEAT_CONTRIB):
+    for var in (PENDING_RESULT_VAR, PENDING_ISSUE_VAR, PENDING_KIND_VAR):
         emit(lines, 1, f"remove_variable = {var}")
     emit(lines, 0, "}")
     emit(lines)
@@ -1553,9 +2006,10 @@ def gen_seat_effects(lines: list[str], data: dict) -> None:
     emit(lines, 1, f"set_variable = {{ name = {seat_group('$seat$')} value = var:{EVENT_GROUP} }}")
     emit(lines, 1, f"set_variable = {{ name = {seat_stance('$seat$')} value = var:{EVENT_STANCE} }}")
     emit(lines, 1, f"set_variable = {{ name = {seat_cooldown('$seat$')} value = {data['settings']['defection_cooldown_months']} }}")
-    emit(lines, 1, f"if = {{ limit = {{ exists = scope:{SELECTED_ARTIST_SCOPE} }} set_variable = {{ name = {seat_artist('$seat$')} value = scope:{SELECTED_ARTIST_SCOPE} }} }}")
-    emit(lines, 1, f"if = {{ limit = {{ exists = scope:{SELECTED_FOREIGN_SCOPE} }} set_variable = {{ name = {seat_foreign('$seat$')} value = scope:{SELECTED_FOREIGN_SCOPE} }} }}")
+    emit(lines, 1, f"if = {{ limit = {{ exists = scope:{SELECTED_ARTIST_SCOPE} }} set_variable = {{ name = {seat_artist('$seat$')} value = scope:{SELECTED_ARTIST_SCOPE} }} set_variable = {{ name = {ACTIVE_ARTIST_VAR} value = scope:{SELECTED_ARTIST_SCOPE} }} }}")
+    emit(lines, 1, f"if = {{ limit = {{ exists = scope:{SELECTED_FOREIGN_SCOPE} }} set_variable = {{ name = {seat_foreign('$seat$')} value = scope:{SELECTED_FOREIGN_SCOPE} }} set_variable = {{ name = {ACTIVE_FOREIGN_VAR} value = scope:{SELECTED_FOREIGN_SCOPE} }} }}")
     emit(lines, 1, f"if = {{ limit = {{ exists = scope:{SELECTED_SCIENTIST_SCOPE} }} set_variable = {{ name = {seat_scientist('$seat$')} value = scope:{SELECTED_SCIENTIST_SCOPE} }} }}")
+    emit(lines, 1, f"tv_academy_debate_set_group_active_stance_effect = {{ group = var:{EVENT_GROUP} stance = var:{EVENT_STANCE} }}")
     emit(lines, 1, "tv_academy_debate_mark_selected_group_seated_effect = yes")
     emit_refresh_local_balance_effect(lines, 1)
     emit(lines, 0, "}")
@@ -1568,6 +2022,7 @@ def gen_seat_effects(lines: list[str], data: dict) -> None:
         emit(lines, 2, f"limit = {{ {var_eq(EVENT_SEAT, seat)} }}")
         emit(lines, 2, f"set_variable = {{ name = {seat_stance(seat)} value = $stance$ }}")
         emit(lines, 2, f"set_variable = {{ name = {seat_cooldown(seat)} value = {data['settings']['defection_cooldown_months']} }}")
+        emit(lines, 2, f"tv_academy_debate_set_group_active_stance_effect = {{ group = var:{seat_group(seat)} stance = $stance$ }}")
         emit(lines, 1, "}")
     emit_refresh_local_balance_effect(lines, 1)
     emit(lines, 0, "}")
@@ -1614,68 +2069,11 @@ def gen_seat_effects(lines: list[str], data: dict) -> None:
         emit(lines, 1, f"set_variable = {{ name = {EVENT_STANCE} value = {STANCE_SUPPORT} }}")
         emit(lines, 1, "tv_academy_debate_apply_selected_royal_modifier_effect = yes")
         emit(lines, 1, "tv_academy_debate_pick_seat_for_selected_stance_effect = yes")
-        emit(lines, 1, "tv_academy_debate_selected_group_seated_tooltip_effect = yes")
+        emit(lines, 1, f"tv_academy_debate_royal_option_{slot}_seated_tooltip_effect = yes")
         emit(lines, 1, "tv_academy_debate_assign_selected_group_to_seat_effect = yes")
         emit(lines, 1, "tv_academy_debate_clear_event_state_effect = yes")
         emit(lines, 0, "}")
         emit(lines)
-
-
-def contribution_value(group: dict, settings: dict) -> list[str]:
-    base = settings["base_group_contribution"]
-    if group["type"] == "estate":
-        return [
-            "value = {",
-            f"\tvalue = {base}",
-            "\tadd = {",
-            f"\t\tvalue = \"estate_power(estate_type:{group['estate']})\"",
-            f"\t\tmultiply = {settings['estate_power_multiplier']}",
-            "\t}",
-            "}",
-        ]
-    if group["type"] == "variant":
-        return [
-            "value = {",
-            f"\tvalue = {base}",
-            "\tadd = {",
-            f"\t\tvalue = \"estate_power(estate_type:{group['base_estate']})\"",
-            f"\t\tmultiply = {settings['variant_power_multiplier']}",
-            "\t}",
-            "}",
-        ]
-    if group["type"] == "artists":
-        return [
-            "value = {",
-            f"\tvalue = {base}",
-            "\tadd = {",
-            "\t\tvalue = var:CURRENT_SEAT_ARTIST.artist_skill",
-            f"\t\tmultiply = {settings['artist_skill_multiplier']}",
-            "\t}",
-            "}",
-        ]
-    if group["type"] == "foreign_power":
-        return [
-            "value = {",
-            f"\tvalue = {base}",
-            "\tadd = {",
-            "\t\tvalue = var:CURRENT_SEAT_FOREIGN.great_power_score",
-            "\t\tdivide = { value = great_power_score min = 1 }",
-            f"\t\tmultiply = {settings['foreign_power_multiplier']}",
-            "\t}",
-            "}",
-        ]
-    if group["type"] == "great_scientist":
-        return [
-            "value = {",
-            f"\tvalue = {base}",
-            "\tadd = {",
-            "\t\tvalue = var:tv_scientist_effective_adm",
-            "\t\tdivide = 100",
-            f"\t\tmultiply = {settings['great_scientist_adm_multiplier']}",
-            "\t}",
-            "}",
-        ]
-    return [f"value = {base}"]
 
 
 def gen_monthly_tick_effects(lines: list[str], data: dict) -> None:
@@ -1686,7 +2084,6 @@ def gen_monthly_tick_effects(lines: list[str], data: dict) -> None:
     emit(lines, 1, "tv_update_chief_scientist_effective_adm_effect = yes")
     emit(lines, 1, "tv_academy_debate_cleanup_invalid_special_seats_effect = yes")
     emit(lines, 1, "tv_academy_debate_decrement_cooldowns_effect = yes")
-    emit(lines, 1, "tv_academy_debate_apply_monthly_progress_effect = yes")
     emit(lines, 1, "tv_academy_debate_apply_defections_effect = yes")
     emit(lines, 1, "random_list = {")
     emit(lines, 2, f"{settings['monthly_no_event_weight']} = {{ }}")
@@ -1729,51 +2126,6 @@ def gen_monthly_tick_effects(lines: list[str], data: dict) -> None:
         emit(lines, 1, "}")
     emit(lines, 0, "}")
     emit(lines)
-
-    emit(lines, 0, "tv_academy_debate_apply_monthly_progress_effect = {")
-    emit(lines, 1, "set_variable = { name = tv_academy_philosophy_monthly_delta value = 0 }")
-    emit(lines, 1, "set_variable = {")
-    emit(lines, 2, "name = tv_academy_debate_seat_contribution")
-    emit(lines, 2, "value = {")
-    emit(lines, 3, f"value = \"estate_power(estate_type:crown_estate)\"")
-    emit(lines, 3, f"multiply = {settings['crown_contribution_multiplier']}")
-    emit(lines, 2, "}")
-    emit(lines, 1, "}")
-    emit(lines, 1, "change_variable = { name = tv_academy_philosophy_monthly_delta add = var:tv_academy_debate_seat_contribution }")
-    for seat in SEATS:
-        emit(lines, 1, f"tv_academy_debate_apply_seat_{seat}_monthly_progress_effect = yes")
-    emit_change_local_debate_progress_effect(lines, 1, f"var:{MONTHLY_DELTA}")
-    emit(lines, 0, "}")
-    emit(lines)
-
-    emit(lines, 0, "tv_academy_debate_apply_seat_monthly_progress_effect = {")
-    emit(lines, 1, "if = {")
-    emit(lines, 2, f"limit = {{ has_variable = {seat_group('$seat$')} NOT = {{ {var_eq(seat_stance('$seat$'), STANCE_NEUTRAL)} }} }}")
-    for idx, group in enumerate(groups(data)):
-        emit(lines, 2, ("if" if idx == 0 else "else_if") + " = {")
-        emit(lines, 3, f"limit = {{ {var_eq(seat_group('$seat$'), group['id'])} }}")
-        value_lines = contribution_value(group, settings)
-        emit(lines, 3, "set_variable = {")
-        emit(lines, 4, f"name = {SEAT_CONTRIB}")
-        for raw in value_lines:
-            raw = raw.replace("CURRENT_SEAT_ARTIST", seat_artist("$seat$")).replace("CURRENT_SEAT_FOREIGN", seat_foreign("$seat$"))
-            emit(lines, 4 + raw.count("\t"), raw.lstrip("\t"))
-        emit(lines, 3, "}")
-        emit(lines, 2, "}")
-    emit(lines, 2, "if = {")
-    emit(lines, 3, f"limit = {{ {var_eq(seat_stance('$seat$'), STANCE_OPPOSE)} }}")
-    emit(lines, 3, f"change_variable = {{ name = {SEAT_CONTRIB} multiply = -1 }}")
-    emit(lines, 2, "}")
-    emit(lines, 2, f"change_variable = {{ name = {MONTHLY_DELTA} add = var:{SEAT_CONTRIB} }}")
-    emit(lines, 1, "}")
-    emit(lines, 0, "}")
-    emit(lines)
-
-    for seat in SEATS:
-        emit(lines, 0, f"tv_academy_debate_apply_seat_{seat}_monthly_progress_effect = {{")
-        emit(lines, 1, f"tv_academy_debate_apply_seat_monthly_progress_effect = {{ seat = {seat} }}")
-        emit(lines, 0, "}")
-        emit(lines)
 
     emit(lines, 0, "tv_academy_debate_dispatch_monthly_seat_event_effect = {")
     emit(lines, 1, "random_list = {")
@@ -1860,6 +2212,7 @@ def gen_random_event_effect_block(lines: list[str], level: int, data: dict, bloc
             emit(lines, level + 1, f"limit = {{ {var_eq(seat_group(seat), group_id)} }}")
             emit(lines, level + 1, f"set_variable = {{ name = {seat_stance(seat)} value = {stance_value} }}")
             emit(lines, level + 1, f"set_variable = {{ name = {seat_cooldown(seat)} value = {block['cooldown_months']} }}")
+            emit(lines, level + 1, f"set_variable = {{ name = {group_active_stance_var(block['group'])} value = {stance_value} }}")
             emit(lines, level, "}")
     elif effect_type == "seat_cooldown":
         group_id = group_by_key(data)[block["group"]]["id"]
@@ -1994,6 +2347,7 @@ def gen_defection_effects(lines: list[str], data: dict) -> None:
             emit(lines, 4, "}")
             emit(lines, 4, f"set_variable = {{ name = {seat_stance('$seat$')} value = var:{EVENT_STANCE} }}")
             emit(lines, 4, f"set_variable = {{ name = {seat_cooldown('$seat$')} value = {data['settings']['defection_cooldown_months']} }}")
+            emit(lines, 4, f"set_variable = {{ name = {group_active_stance_var(group['key'])} value = var:{EVENT_STANCE} }}")
             emit(lines, 3, "}")
         else:
             emit(lines, 3, "if = {")
@@ -2001,12 +2355,14 @@ def gen_defection_effects(lines: list[str], data: dict) -> None:
             emit(lines, 4, f"set_variable = {{ name = {AUTO_STANCE_OPPOSE_VAR} value = 1 }}")
             emit(lines, 4, f"set_variable = {{ name = {seat_stance('$seat$')} value = {STANCE_OPPOSE} }}")
             emit(lines, 4, f"set_variable = {{ name = {seat_cooldown('$seat$')} value = {data['settings']['defection_cooldown_months']} }}")
+            emit(lines, 4, f"set_variable = {{ name = {group_active_stance_var(group['key'])} value = {STANCE_OPPOSE} }}")
             emit(lines, 3, "}")
             emit(lines, 3, "else_if = {")
             emit(lines, 4, f"limit = {{ {var_eq(seat_stance('$seat$'), STANCE_OPPOSE)} tv_academy_debate_group_{group['key']}_positive_defection_condition_trigger = yes }}")
             emit(lines, 4, f"set_variable = {{ name = {AUTO_STANCE_SUPPORT_VAR} value = 1 }}")
             emit(lines, 4, f"set_variable = {{ name = {seat_stance('$seat$')} value = {STANCE_SUPPORT} }}")
             emit(lines, 4, f"set_variable = {{ name = {seat_cooldown('$seat$')} value = {data['settings']['defection_cooldown_months']} }}")
+            emit(lines, 4, f"set_variable = {{ name = {group_active_stance_var(group['key'])} value = {STANCE_SUPPORT} }}")
             emit(lines, 3, "}")
         emit(lines, 2, "}")
     emit(lines, 1, "}")
@@ -2197,14 +2553,9 @@ def gen_action_trigger_effects(lines: list[str], data: dict) -> None:
         emit(lines, 1, f"# Semantic condition: {trigger['condition']}")
         emit(lines, 1, "if = {")
         emit(lines, 2, "limit = {")
-        emit(lines, 3, "var:tv_academy_philosophy_phase ?= 1")
-        emit(lines, 3, "var:tv_academy_debate_current_node_type ?= 1")
-        emit(lines, 3, "tv_academy_philosophy_has_current_issue_trigger = yes")
+        emit(lines, 3, "tv_academy_debate_local_scoring_active_trigger = yes")
         emit_owned_academy_io_trigger(lines, 3)
         emit(lines, 3, f"var:tv_academy_philosophy_current ?= {trigger['issue_id']}")
-        emit(lines, 3, "NOT = { tv_academy_philosophy_current_issue_embraced_trigger = yes }")
-        emit(lines, 3, f"NOT = {{ has_variable = {PENDING_RESULT_VAR} }}")
-        emit(lines, 3, "NOT = { has_variable = tv_academy_philosophy_recess_notice_pending }")
         emit(lines, 2, "}")
         emit(lines, 2, "random_list = {")
         emit(lines, 3, f"{chance} = {{")
@@ -2606,11 +2957,11 @@ def emit_event_options(lines: list[str], level: int, data: dict, event_num: int,
             "tv_academy_debate_prepare_selected_special_scope_effect = yes",
             "tv_academy_debate_selected_group_seated_tooltip_effect = yes",
             "tv_academy_debate_assign_selected_group_to_seat_effect = yes",
+            "tv_academy_debate_group2_seated_tooltip_effect = yes",
             f"set_variable = {{ name = {EVENT_GROUP} value = var:{EVENT_GROUP_2} }}",
             f"set_variable = {{ name = {EVENT_STANCE} value = {STANCE_OPPOSE} }}",
             f"remove_variable = {EVENT_SEAT}",
             "tv_academy_debate_prepare_selected_special_scope_effect = yes",
-            "tv_academy_debate_selected_group_seated_tooltip_effect = yes",
             "tv_academy_debate_assign_selected_group_to_seat_effect = yes",
             "tv_academy_debate_clear_event_state_effect = yes",
         ])
@@ -2831,6 +3182,7 @@ def generic_loc_entries(data: dict, lang: str) -> dict[str, str]:
         if zh
         else "Compares the share of non-Crown supportive and opposing seats at the local debate roundtable. Neutral and empty seats are excluded."
     )
+    entries["TV_ACADEMY_DEBATE_CROWN_CONTRIBUTION"] = "王室影响力" if zh else "Crown Influence"
     entries["TV_ACADEMY_DEBATE_POSITION_FORMAT"] = "$VAL|0$/100"
     entries["TV_ACADEMY_DEBATE_POSITION_CHANGE_FORMAT"] = "$KEY$: $VALUE|+=2$"
     entries["TV_ACADEMY_DEBATE_LOCAL_BALANCE_FORMAT"] = "$VAL|0$%"

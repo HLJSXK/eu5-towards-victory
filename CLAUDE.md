@@ -383,6 +383,7 @@ To find whether a src file has a generator: look for `scripts/<same-relative-pat
 | `generic_actions/tv_io_leader_actions.txt` | `data/io_leaders.yaml` | `scripts/in_game/common/generic_actions/gen_tv_io_leader_actions.py` |
 | `laws/tv_alliance_laws.txt` | `data/alliance_laws.yaml` | `scripts/in_game/common/laws/gen_tv_alliance_laws.py` |
 | `gui/panels/organization/tv_academy_of_sciences.gui` | `data/locked_advances.yaml` | `scripts/in_game/gui/panels/organization/gen_tv_academy_of_sciences_gui.py` |
+| `international_organizations/tv_academy_of_sciences.txt` | `data/philosophy_debates.yaml` | `scripts/in_game/common/international_organizations/gen_tv_academy_of_sciences.py` |
 
 ### Before Editing Any src File
 

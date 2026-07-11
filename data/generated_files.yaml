@@ -141,6 +141,10 @@ generated:
     data:   data/trade_league_goods.yaml
     output: src/in_game/common/international_organizations/tv_trade_league.txt
 
+  - script: scripts/in_game/common/international_organizations/gen_tv_academy_of_sciences.py
+    data:   data/philosophy_debates.yaml
+    output: src/in_game/common/international_organizations/tv_academy_of_sciences.txt
+
   - script: scripts/in_game/common/scripted_effects/gen_tv_trade_league_effects.py
     data:   data/trade_league_goods.yaml + data/trade_chain.yaml
     output: src/in_game/common/scripted_effects/tv_trade_league_effects.txt

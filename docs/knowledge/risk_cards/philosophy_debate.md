@@ -59,6 +59,20 @@ Load this card before editing any file with `philosophy_debate`, `world_debate`,
    gated in vanilla needs no extra gating here, since `societal_value:<axis>` reads 0
    (neutral, never crosses ±50) for any country where the axis is inactive.
 
+6. Seat-narration tooltips must branch on a variable already persistent before the event opens.
+   `gen_group_change_tooltip` (`philosophy_debate_codegen.py`) branches on an id variable to pick
+   which group's `_seated_text`/`_left_text` to show. Per the Events risk card rule 1/2, a
+   `set_variable` written earlier in the same visible option chain may not be committed yet when
+   a later helper in that chain reads it for the tooltip preview — the actual gameplay effect
+   still applies correctly, only the preview silently fails to render. When a seat-narration call
+   needs to describe a group whose id isn't `tv_academy_debate_event_group` itself (e.g. a second
+   simultaneous entrant, or one of several pre-rolled candidates), pass `gen_group_change_tooltip`
+   the already-persistent source variable via its `id_var` param (see
+   `tv_academy_debate_group2_seated_tooltip_effect` reading `tv_academy_debate_event_group_2`, and
+   `tv_academy_debate_royal_option_{slot}_seated_tooltip_effect` reading
+   `tv_academy_debate_royal_option_{slot}_group`) instead of overwriting `tv_academy_debate_event_group`
+   mid-option and re-reading it with the generic tooltip effect.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report` after any codegen or data change. It lints
