@@ -28,6 +28,18 @@ def q(text: str) -> str:
     return text.replace('"', '\\"')
 
 
+def ceremony_hint(stage: int) -> str:
+    if stage < STAGE_COUNT:
+        return (
+            "\\n\\n#weak Pay the required price to advance the ceremony to its "
+            "next stage — or wait if the moment is not yet right.#!"
+        )
+    return (
+        "\\n\\n#weak Pay the required price to complete the ceremony — the "
+        "wonder's final building will rise as a result.#!"
+    )
+
+
 def generate() -> str:
     wonders = ceremony_wonders()
     lines = ["l_english:"]
@@ -46,7 +58,9 @@ def generate() -> str:
         stages = wonder["ceremony"]["stages"]
         for stage_index, stage_data in enumerate(stages, start=1):
             lines.append(f' {title_key(stage_index, wonder["id"])}:0 "{q(stage_data["title_en"])}"')
-            lines.append(f' {desc_key(stage_index, wonder["id"])}:0 "{q(stage_data["desc_en"])}"')
+            lines.append(
+                f' {desc_key(stage_index, wonder["id"])}:0 "{q(stage_data["desc_en"] + ceremony_hint(stage_index))}"'
+            )
     return "\n".join(lines).rstrip() + "\n"
 
 

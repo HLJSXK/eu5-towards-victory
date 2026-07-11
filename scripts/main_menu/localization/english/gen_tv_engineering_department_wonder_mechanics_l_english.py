@@ -62,6 +62,14 @@ EXCLUDED_LOC_KEYS = {
 }
 
 
+FINALIZATION_VISIBLE_DESC_PREFIX = "tv_engineering_department.500.d"
+FINALIZATION_HINT = (
+    "\n\n#weak Construction of the wonder is complete and its final building "
+    "will now rise — review its effects in the Engineering Department or at "
+    "the site itself.#!"
+)
+
+
 def generate() -> str:
     localization = load_wonder_localization_data()["english"]
     lines = ["l_english:"]
@@ -70,6 +78,8 @@ def generate() -> str:
     for key, value in localization.items():
         if key in EXCLUDED_LOC_KEYS:
             continue
+        if key.startswith(FINALIZATION_VISIBLE_DESC_PREFIX):
+            value = value + FINALIZATION_HINT
         lines.append(loc_line(key, value))
     return "\n".join(lines).rstrip() + "\n"
 

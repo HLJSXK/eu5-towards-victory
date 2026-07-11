@@ -26,13 +26,28 @@ OWNERSHIP_LOC_KEYS = [
 ]
 
 
+OWNERSHIP_HINTS = {
+    "tv_wonder_ownership.800.d": (
+        "\n\n#weak The wonder now belongs to us — review its effects in the "
+        "Engineering Department and consider whether it can be expanded "
+        "further.#!"
+    ),
+    "tv_wonder_ownership.900.d": (
+        "\n\n#weak With the province lost, the wonder's fixed benefits are "
+        "gone — if it is retaken later, confirm its status in the Engineering "
+        "Department.#!"
+    ),
+}
+
+
 def generate() -> str:
     localization = load_wonder_localization_data()["english"]
     lines = ["l_english:"]
     for line in render_header(SCRIPT_REL, DATA_REL):
         lines.append(f" {line}")
     for key in OWNERSHIP_LOC_KEYS:
-        lines.append(loc_line(key, localization[key]))
+        value = localization[key] + OWNERSHIP_HINTS.get(key, "")
+        lines.append(loc_line(key, value))
     return "\n".join(lines).rstrip() + "\n"
 
 

@@ -5,8 +5,8 @@
  # Do not edit directly - modify the data file and re-run the generator.
  
  tv_wonder_ownership.800.t:0 "World Wonder Secured"
- tv_wonder_ownership.800.d:0 "The newly acquired province of [SCOPE.sLocation('tv_wonder_ownership_site').GetName] contains a completed [tv_wonder_construction|E]. Its base effects now answer to our rule, and our engineers have recorded it as a possible expansion site if its preserved scale allows further work."
+ tv_wonder_ownership.800.d:0 "The newly acquired province of [SCOPE.sLocation('tv_wonder_ownership_site').GetName] contains a completed [tv_wonder_construction|E]. Its base effects now answer to our rule, and our engineers have recorded it as a possible expansion site if its preserved scale allows further work.\n\n#weak The wonder now belongs to us — review its effects in the Engineering Department and consider whether it can be expanded further.#!"
  tv_wonder_ownership.800.a:0 "Put it to work."
  tv_wonder_ownership.900.t:0 "A World Wonder Lost"
- tv_wonder_ownership.900.d:0 "With [SCOPE.sLocation('tv_wonder_ownership_site').GetName] lost, the completed [tv_wonder_construction|E] there no longer supports our realm. Any permanent national ceremony benefit tied only to that wonder has been withdrawn from our ledgers."
+ tv_wonder_ownership.900.d:0 "With [SCOPE.sLocation('tv_wonder_ownership_site').GetName] lost, the completed [tv_wonder_construction|E] there no longer supports our realm. Any permanent national ceremony benefit tied only to that wonder has been withdrawn from our ledgers.\n\n#weak With the province lost, the wonder's fixed benefits are gone — if it is retaken later, confirm its status in the Engineering Department.#!"
  tv_wonder_ownership.900.a:0 "Record the loss."
