@@ -10,6 +10,39 @@ vbox = {
 	layoutpolicy_horizontal = expanding
 	spacing = 4
 	widget = {
+		visible = "[And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').GetValue, '(CFixedPoint)1.0')), And(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').IsSet), And(Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)101.0'))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)102.0'))))))]"
+		layoutpolicy_horizontal = expanding
+		tv_engineering_department_card_common = {
+			blockoverride "header_size" { size = { -1 0 } }
+			blockoverride "header_decor_templates" {}
+			blockoverride "common_header_back_decor" {}
+			blockoverride "common_bottom_content" {
+				widget = {
+					layoutpolicy_horizontal = fixed
+					size = { 60 60 }
+					widget = {
+						size = { 52 52 }
+						parentanchor = center
+						widgetanchor = center
+						using = bg_circle_piechart_big
+						icon = {
+							parentanchor = center
+							size = { 70% 70% }
+							texture = "[GetConceptTexture(Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue))))]"
+						}
+					}
+				}
+				vbox = {
+					layoutpolicy_horizontal = expanding
+					spacing = 4
+					text_single = { text = "TV_WONDER_CEREMONY_READY_LABEL" align = nobaseline|left }
+					text_multi = { max_width = 380 autoresize = yes text = "TV_WONDER_CEREMONY_READY_DESC" align = nobaseline|left }
+				}
+				expand = {}
+			}
+		}
+	}
+	widget = {
 		visible = "[And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)0.0'))]"
 		layoutpolicy_horizontal = expanding
 		tv_engineering_department_card_common = {

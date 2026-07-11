@@ -6557,6 +6557,8 @@ tv_wonder_mechanics_clear_selected_ritual_runtime_effect = {
 	remove_variable = tv_wonder_ritual_auxiliary_building_finished
 	remove_variable = tv_wonder_ritual_months_completed
 	remove_variable = tv_wonder_ritual_progress_pct
+	remove_variable = tv_wonder_ceremony_stage
+	remove_variable = tv_wonder_ceremony_quarter_month
 	if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 10101 }
 		remove_variable = tv_wonder_pharos_stage
@@ -6695,6 +6697,490 @@ tv_wonder_mechanics_apply_selected_ritual_progress_effect = {
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 10201 }
 		tv_wonder_hagia_monthly_progress_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 10301 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 10401 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 10501 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 10601 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 10701 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 10801 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 10901 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 11001 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 11101 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 11201 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 11301 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 11401 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 11501 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 11601 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 11701 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 11801 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 11901 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 12001 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 12101 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 12201 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 12301 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 12401 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 12501 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 12601 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 12701 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 12801 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 12901 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 13001 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 13101 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 13201 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 13301 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 13401 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 13501 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 13601 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 13701 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 13801 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 13901 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 14001 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 14101 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 14201 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 14301 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 14401 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 14501 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 14601 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 14701 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 14801 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 14901 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 15001 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 15101 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 15201 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 15301 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 15401 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 15501 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 15601 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 15701 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 15801 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 15901 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 16001 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 16101 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 16201 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 16301 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 16401 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 16501 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 16601 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 16701 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 16801 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 16901 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 17001 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 17101 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 17201 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 17301 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 17401 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 17501 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 17601 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 17701 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 17801 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 17901 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 18001 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 18101 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 18201 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 18301 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 18401 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 18501 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 18601 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 18701 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 18801 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 18901 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 19001 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 19101 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 19201 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 19301 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 19401 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 19501 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 19601 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 19701 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 19801 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 19901 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 20001 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 20101 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 20201 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 20301 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 20401 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 20501 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 20601 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 20701 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 20801 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 20901 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 21001 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 21101 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 21201 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 21301 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 21401 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 21501 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 21601 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 21701 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 21801 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 21901 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 22001 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 22101 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 22201 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 22301 }
+		tv_wonder_ceremony_monthly_tick_effect = yes
 	}
 }
 
@@ -7792,6 +8278,974 @@ tv_wonder_mechanics_start_deferred_immediate_ritual_effect = {
 		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
 		tv_wonder_complete_active_ritual_effect = yes
 	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 10301 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 10401 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 10501 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 10601 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 10701 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 10801 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 10901 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 11001 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 11101 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 11201 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 11301 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 11401 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 11501 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 11601 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 11701 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 11801 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 11901 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 12001 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 12101 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 12201 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 12301 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 12401 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 12501 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 12601 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 12701 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 12801 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 12901 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 13001 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 13101 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 13201 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 13301 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 13401 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 13501 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 13601 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 13701 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 13801 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 13901 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 14001 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 14101 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 14201 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 14301 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 14401 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 14501 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 14601 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 14701 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 14801 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 14901 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 15001 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 15101 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 15201 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 15301 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 15401 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 15501 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 15601 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 15701 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 15801 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 15901 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 16001 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 16101 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 16201 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 16301 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 16401 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 16501 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 16601 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 16701 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 16801 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 16901 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 17001 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 17101 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 17201 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 17301 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 17401 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 17501 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 17601 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 17701 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 17801 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 17901 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 18001 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 18101 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 18201 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 18301 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 18401 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 18501 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 18601 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 18701 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 18801 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 18901 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 19001 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 19101 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 19201 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 19301 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 19401 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 19501 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 19601 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 19701 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 19801 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 19901 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 20001 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 20101 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 20201 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 20301 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 20401 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 20501 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 20601 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 20701 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 20801 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 20901 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 21001 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 21101 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 21201 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 21301 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 21401 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 21501 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 21601 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 21701 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 21801 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 21901 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 22001 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 22101 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 22201 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 22301 }
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+		tv_wonder_complete_active_ritual_effect = yes
+	}
 }
 
 tv_wonder_mechanics_apply_immediate_ritual_effect = {
@@ -8012,6 +9466,339 @@ tv_wonder_mechanics_apply_immediate_ritual_effect = {
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 5403 }
 		add_navy_tradition = 20
+	}
+}
+
+tv_wonder_mechanics_apply_selected_ritual_completion_effect = {
+	if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 101 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 102 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 201 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 202 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 301 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 302 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 401 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 402 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 501 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 502 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 601 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 602 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 701 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 702 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 801 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 802 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 901 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 902 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 1001 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 1002 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 1101 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 1102 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 1201 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 1202 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 1301 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 1302 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 1401 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 1402 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 1501 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 1502 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 1601 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 1602 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 1701 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 1702 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 1801 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 1802 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 1901 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 1902 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 2001 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 2002 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 2101 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 2102 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 2201 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 2202 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 2301 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 2302 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 2401 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 2402 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 2501 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 2502 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 2601 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 2602 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 2701 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 2702 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 2801 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 2802 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 2901 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 2902 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 3001 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 3002 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 3101 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 3102 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 3201 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 3202 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 3301 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 3302 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 3401 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 3402 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 3501 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 3502 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 3601 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 3602 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 3701 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 3702 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 3801 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 3802 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 3901 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 3902 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 4001 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 4002 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 4101 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 4102 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 4201 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 4202 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 4301 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 4302 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 4401 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 4402 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 4501 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 4502 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 4601 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 4602 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 4701 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 4702 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 4801 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 4802 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 4901 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 4902 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 5001 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 5002 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 5101 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 5102 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 5201 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 5202 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 5301 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 5302 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 5401 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 5402 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 10101 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_selected_ritual_id ?= 10201 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 10301 }
@@ -8375,339 +10162,6 @@ tv_wonder_mechanics_apply_immediate_ritual_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 22301 }
-	}
-}
-
-tv_wonder_mechanics_apply_selected_ritual_completion_effect = {
-	if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 101 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 102 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 201 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 202 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 301 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 302 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 401 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 402 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 501 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 502 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 601 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 602 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 701 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 702 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 801 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 802 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 901 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 902 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 1001 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 1002 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 1101 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 1102 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 1201 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 1202 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 1301 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 1302 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 1401 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 1402 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 1501 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 1502 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 1601 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 1602 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 1701 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 1702 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 1801 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 1802 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 1901 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 1902 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 2001 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 2002 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 2101 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 2102 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 2201 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 2202 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 2301 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 2302 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 2401 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 2402 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 2501 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 2502 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 2601 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 2602 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 2701 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 2702 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 2801 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 2802 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 2901 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 2902 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 3001 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 3002 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 3101 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 3102 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 3201 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 3202 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 3301 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 3302 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 3401 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 3402 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 3501 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 3502 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 3601 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 3602 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 3701 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 3702 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 3801 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 3802 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 3901 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 3902 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 4001 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 4002 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 4101 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 4102 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 4201 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 4202 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 4301 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 4302 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 4401 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 4402 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 4501 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 4502 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 4601 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 4602 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 4701 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 4702 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 4801 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 4802 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 4901 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 4902 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 5001 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 5002 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 5101 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 5102 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 5201 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 5202 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 5301 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 5302 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 5401 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 5402 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 10101 }
-	}
-	else_if = {
-		limit = { var:tv_wonder_selected_ritual_id ?= 10201 }
 	}
 }
 

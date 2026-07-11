@@ -35,6 +35,58 @@ OUT_FILE = REPO_ROOT / "data" / "generated_fragments" / "tv_wonder_ceremony_card
 SCRIPT_REL = "scripts/in_game/gui/panels/organization/gen_tv_wonder_ceremony_cards_gui.py"
 DATA_REL = "data/unique_wonders.yaml"
 MARKER = "TV_WONDER_CEREMONY_CARDS"
+PLAYER = "InternationalOrganizationsView.GetPlayer.MakeScope"
+
+
+def ready_card_visible() -> str:
+    locked = f"{PLAYER}.GetVariable('tv_wonder_locked')"
+    is_unique = f"{PLAYER}.GetVariable('tv_wonder_locked_is_unique')"
+    stage = f"{PLAYER}.GetVariable('tv_wonder_ceremony_stage')"
+    pharos = f"And({locked}.IsSet, EqualTo_CFixedPoint({locked}.GetValue, '(CFixedPoint)101.0'))"
+    hagia = f"And({locked}.IsSet, EqualTo_CFixedPoint({locked}.GetValue, '(CFixedPoint)102.0'))"
+    return (
+        f"And3({locked}.IsSet, "
+        f"And({is_unique}.IsSet, EqualTo_CFixedPoint({is_unique}.GetValue, '(CFixedPoint)1.0')), "
+        f"And(Not({stage}.IsSet), And(Not({pharos}), Not({hagia}))))"
+    )
+
+
+def append_ready_card(lines: list[str]) -> None:
+    lines.append(f"{T}widget = {{")
+    lines.append(f'{T}{T}visible = "[{ready_card_visible()}]"')
+    lines.append(f"{T}{T}layoutpolicy_horizontal = expanding")
+    lines.append(f"{T}{T}tv_engineering_department_card_common = {{")
+    lines.append(f"{T}{T}{T}blockoverride \"header_size\" {{ size = {{ -1 0 }} }}")
+    lines.append(f"{T}{T}{T}blockoverride \"header_decor_templates\" {{}}")
+    lines.append(f"{T}{T}{T}blockoverride \"common_header_back_decor\" {{}}")
+    lines.append(f"{T}{T}{T}blockoverride \"common_bottom_content\" {{")
+    lines.append(f"{T}{T}{T}{T}widget = {{")
+    lines.append(f"{T}{T}{T}{T}{T}layoutpolicy_horizontal = fixed")
+    lines.append(f"{T}{T}{T}{T}{T}size = {{ 60 60 }}")
+    lines.append(f"{T}{T}{T}{T}{T}widget = {{")
+    lines.append(f"{T}{T}{T}{T}{T}{T}size = {{ 52 52 }}")
+    lines.append(f"{T}{T}{T}{T}{T}{T}parentanchor = center")
+    lines.append(f"{T}{T}{T}{T}{T}{T}widgetanchor = center")
+    lines.append(f"{T}{T}{T}{T}{T}{T}using = bg_circle_piechart_big")
+    lines.append(f"{T}{T}{T}{T}{T}{T}icon = {{")
+    lines.append(f"{T}{T}{T}{T}{T}{T}{T}parentanchor = center")
+    lines.append(f"{T}{T}{T}{T}{T}{T}{T}size = {{ 70% 70% }}")
+    lines.append(
+        f'{T}{T}{T}{T}{T}{T}{T}texture = "[GetConceptTexture(Concatenate(\'tv_wonder_display_\', ToString_int32(FixedPointToInt({PLAYER}.GetVariable(\'tv_wonder_locked\').GetValue))))]"'
+    )
+    lines.append(f"{T}{T}{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}{T}vbox = {{")
+    lines.append(f"{T}{T}{T}{T}{T}layoutpolicy_horizontal = expanding")
+    lines.append(f"{T}{T}{T}{T}{T}spacing = 4")
+    lines.append(f'{T}{T}{T}{T}{T}text_single = {{ text = "TV_WONDER_CEREMONY_READY_LABEL" align = nobaseline|left }}')
+    lines.append(f'{T}{T}{T}{T}{T}text_multi = {{ max_width = 380 autoresize = yes text = "TV_WONDER_CEREMONY_READY_DESC" align = nobaseline|left }}')
+    lines.append(f"{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}{T}expand = {{}}")
+    lines.append(f"{T}{T}{T}}}")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}}}")
 
 
 def append_card(lines: list[str], stage: int) -> None:
@@ -134,6 +186,7 @@ def generate() -> str:
     lines.append("vbox = {")
     lines.append(f"{T}layoutpolicy_horizontal = expanding")
     lines.append(f"{T}spacing = 4")
+    append_ready_card(lines)
     for stage in range(1, STAGE_COUNT + 1):
         append_card(lines, stage)
     lines.append("}")

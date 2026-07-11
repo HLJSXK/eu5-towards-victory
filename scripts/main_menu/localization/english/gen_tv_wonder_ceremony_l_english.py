@@ -36,6 +36,8 @@ def generate() -> str:
             lines.append(f" {line}")
         else:
             lines.append("")
+    lines.append(' TV_WONDER_CEREMONY_READY_LABEL:0 "Eight-stage ceremony ready"')
+    lines.append(' TV_WONDER_CEREMONY_READY_DESC:0 "Begin the ceremony to start stage 1. Every three months, the next stage event will require a new contribution before the ritual can continue."')
     for stage in range(1, STAGE_COUNT + 1):
         lines.append(f' {pay_option_key(stage)}:0 "Pay the price."')
         lines.append(f' {decline_option_key(stage)}:0 "Not yet."')

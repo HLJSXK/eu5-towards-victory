@@ -106,6 +106,8 @@ RITUAL_SHARED_RUNTIME_VARS = [
     "tv_wonder_ritual_auxiliary_building_finished",
     "tv_wonder_ritual_months_completed",
     "tv_wonder_ritual_progress_pct",
+    "tv_wonder_ceremony_stage",
+    "tv_wonder_ceremony_quarter_month",
 ]
 SUITABILITY_CONDITION_SCRIPTS = {
     "topography_mountains": "topography = mountains",
