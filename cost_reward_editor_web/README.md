@@ -1,18 +1,28 @@
 # Reward & Modifier Unit Editor Web
 
-一个独立的本地 Web 工具，用于编辑 `data/cost_reward_units.yaml` —— 一套**独立于任何具体机制**的
-底层数值目录，对应 `docs/design/Cost_Reward_Unit_Concepts.md` 的设计概念。这是项目的**底层数据**：
-奇观建设随机事件（`data/wonder_construction_events.yaml`）与奇观自身的 modifier 数据
-（`data/wonder_base_modifiers.yaml`、`data/wonder_final_buildings.yaml`）是它的最初灵感来源，也用到
-了其中一部分数值，但这些文件之间**没有一一对应关系、也没有代码层面的引用关系**——奇观维护自己独立
-的数值，本工具管理的目录是给未来项目中其他系统（尚未实现）查表使用的通用基础数据。
+一个独立的本地 Web 工具，用于编辑 `data/cost_reward_units.yaml` 与 `data/task_pool.yaml`
+—— 两套**独立于任何具体机制**的底层数据目录，对应 `docs/design/Cost_Reward_Unit_Concepts.md`
+的设计概念（第 1-5 节 / 第 6 节）。这是项目的**底层数据**：奇观建设随机事件
+（`data/wonder_construction_events.yaml`）与奇观自身的 modifier 数据
+（`data/wonder_base_modifiers.yaml`、`data/wonder_final_buildings.yaml`）是 `cost_reward_units.yaml`
+的最初灵感来源，也用到了其中一部分数值，但这些文件之间**没有一一对应关系、也没有代码层面的引用
+关系**——奇观维护自己独立的数值，本工具管理的两套目录是给未来项目中其他系统（尚未实现）查表使用的
+通用基础数据。
 
-界面按五个标签页分类：
+界面按七个标签页分类，前五个对应 `cost_reward_units.yaml`，后两个对应 `task_pool.yaml`：
 
 - **国家级奖励** (`country_reward`) / **本地级奖励** (`local_reward`) /
   **角色级奖励** (`character_reward`) —— 一次性数值变化
 - **国家级 Modifier（每级）** (`country_modifier`) / **本地级 Modifier（每级）** (`local_modifier`)
   —— 持续性、随等级累加的 modifier 增量，`value` 表示每提升一级增加的数值，而非一次性数值
+- **on_action 型任务** (`on_action_task`) —— 通过挂钩真实 EU5 on_action 检测完成状态的任务；
+  可编辑字段为 `wired`（该 on_action 是否已在 `data/pulse_registry.yaml` 中桥接——勾选状态仅记录，
+  不会自动改写注册表）和 `completion_note`（如何从裸的 on_action 触发收窄为“此任务已完成”的补充说明）
+- **Trigger 型任务** (`trigger_task`) —— 通过每月轮询真实 EU5 trigger 检测“是否达到某状态”的任务；
+  可编辑字段为 `comparison`（`gte`/`lte`/`boolean`）和 `representative_threshold`（示意性起始阈值，
+  `comparison` 为 `boolean` 时必须留空）
+
+两个任务类别都**不存奖励**：只记录任务如何被检测到，把任务与奖励配对留给未来消费它的具体机制决定。
 
 **目录不单独存代价（cost）行。** 需要代价时，取对应奖励行的 `value` 取相反数即可——
 `government_power` 奖励是 `+5`，需要代价效果时直接用 `-5`。唯一的例外是 `country_reward.inflation`：
@@ -34,8 +44,12 @@ gold/government_power 词汇——`clergy_estate_max_tax` 这样的 modifier key
 机制 `final_local` 中出现过的每一个数值 modifier key，外加每座最终奇观建筑都携带的
 `local_cultural_tradition`/`local_cultural_influence` 基线——不是随手挑的一小撮示例。`value`
 表示每提升一级增加的持续 modifier 数值，**可以为负数**（例如花费类修正在数值为负时才是有益效果）。
-本工具只编辑每个条目的 `value`；新增/删除条目、重命名 `id` 需要直接编辑 YAML 文件。整套目录目前
-共 104 条（奖励三类各 14/3/4 条，modifier 两类共 83 条）。
+
+本工具对 `cost_reward_units.yaml` 的五个类别只编辑每个条目的 `value`；对 `task_pool.yaml` 的两个
+任务类别只编辑 `wired`/`completion_note`（on_action 型）或 `comparison`/`representative_threshold`
+（Trigger 型）。所有类别的 `id`、`loc` 均只读；新增/删除条目、重命名 `id`、新增 `on_action`/`trigger`
+名称都需要直接编辑对应的 YAML 文件。`cost_reward_units.yaml` 目前共 104 条（奖励三类各 14/3/4 条，
+modifier 两类共 83 条）；`task_pool.yaml` 目前共 48 条（`on_action_task`/`trigger_task` 各 24 条）。
 
 ## 安装依赖
 
@@ -58,13 +72,15 @@ conda run --no-capture-output -n eu5 python scripts/cost_reward_editor.py --host
 conda run --no-capture-output -n eu5 python scripts/cost_reward_editor.py --check
 ```
 
-`--check` 只做无头数据校验（奖励三个类别要求 `value` 为正数，modifier 两个类别只要求非零，
-允许负数），不启动服务器。
+`--check` 只做无头数据校验，不启动服务器：`cost_reward_units.yaml` 奖励三个类别要求 `value` 为
+正数、modifier 两个类别只要求非零（允许负数）；`task_pool.yaml` 的 `on_action_task` 要求 `wired`
+为布尔值且 `completion_note` 非空，`trigger_task` 要求 `comparison` 属于 `gte`/`lte`/`boolean`
+且 `representative_threshold` 与 `comparison` 保持一致（`boolean` 时必须为空，否则必须有数值）。
 
 ## 保存行为
 
-点击"保存"后，工具会校验所有编辑过的 `value`（奖励三个类别必须为正数，modifier 两个类别只要求
-非零），然后整体重写
-`data/cost_reward_units.yaml`（保留文件顶部的说明注释）。由于这是底层数据，目前没有任何生成脚本
-消费它，保存后**不会**触发任何代码生成；未来当某个系统开始读取这套目录时，才需要在那个系统自己的
-生成脚本里接入。
+点击"保存"后，工具会先校验所有本次编辑过的字段（规则同上），只有全部通过才会写盘：涉及
+`cost_reward_units.yaml` 五个类别的编辑会整体重写该文件，涉及 `task_pool.yaml` 两个任务类别的
+编辑会整体重写该文件（两者各自保留文件顶部的说明注释，互不影响；只有实际被编辑的那个文件会被
+重写）。由于这两套都是底层数据，目前没有任何生成脚本消费它们，保存后**不会**触发任何代码生成；
+未来当某个系统开始读取其中一套目录时，才需要在那个系统自己的生成脚本里接入。

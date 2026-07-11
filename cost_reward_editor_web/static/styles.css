@@ -66,6 +66,10 @@ section {
   margin-bottom: 1.5rem;
 }
 
+.table-wrap {
+  overflow-x: auto;
+}
+
 table {
   border-collapse: collapse;
   width: 100%;
@@ -76,14 +80,21 @@ td {
   border: 1px solid #333;
   padding: 0.35rem 0.6rem;
   text-align: left;
+  vertical-align: top;
 }
 
 th {
   background: #1f232a;
+  white-space: nowrap;
 }
 
 td.readonly {
   color: #9aa0a6;
+}
+
+td.wrap-cell {
+  max-width: 22rem;
+  white-space: pre-wrap;
 }
 
 input[type="number"] {
@@ -92,6 +103,29 @@ input[type="number"] {
   color: #e6e6e6;
   border: 1px solid #444;
   padding: 0.15rem 0.3rem;
+}
+
+input[type="checkbox"] {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+select {
+  background: #0f1114;
+  color: #e6e6e6;
+  border: 1px solid #444;
+  padding: 0.15rem 0.3rem;
+}
+
+textarea {
+  width: 18rem;
+  min-height: 2.4rem;
+  background: #0f1114;
+  color: #e6e6e6;
+  border: 1px solid #444;
+  padding: 0.25rem 0.4rem;
+  font-family: inherit;
+  resize: vertical;
 }
 
 .actions {

@@ -3,7 +3,7 @@
 ## Purpose
 
 This is a reusable design vocabulary for AI-assisted design work across Towards Victory. It
-packages five basic concepts, grouped into two families with different levels of independence
+packages six basic concepts, grouped into three families with different levels of independence
 from any one mechanic:
 
 - **One-shot units** (sections 1-3): a **country-level unit**, a **local-level unit**, and a
@@ -30,6 +30,14 @@ from any one mechanic:
   system already uses, kept independent of it (not read by, and does not read from, the wonder
   system's live data). Sections 4 and 5 below document the generic catalog entries first, then
   the wonder system's own live implementation as a worked example of the same underlying keys.
+- **Task pool** (section 6): a catalog of assignable "task" definitions — things a future
+  mechanic can assign to the player that resolve to a clear complete/incomplete state — split
+  into an **on_action-driven family** (completion detected by hooking a real EU5 on_action
+  callback) and a **trigger-driven family** (completion detected by polling a real EU5 trigger
+  from the shared monthly dispatcher). These live in a sibling standalone catalog,
+  `data/task_pool.yaml` — same independence convention as sections 1-5: nothing in the mod reads
+  from it yet, and no reward is stored alongside a task (pairing a task with a reward, e.g. from
+  this doc's sections 1-5, is left to whichever future mechanic consumes it).
 
 When designing a new random event or persistent mechanic elsewhere in the mod, reuse these unit
 tables instead of inventing new magnitudes from scratch.
@@ -377,6 +385,112 @@ display them. That mirrored copy is display-only — the actual national/global 
 by the country-level modifier unit (section 4) through the Country Auto modifier, not by the
 building. Do not read the mirrored values as a second, independent local-level effect.
 
+## 6. Task pool
+
+`data/task_pool.yaml` — a standalone catalog of assignable task definitions, independent of
+sections 1-5 and of any mechanic that might consume it. A "task" is something assignable to the
+player that resolves to a clear complete/incomplete state. Unlike sections 1-5, no reward value
+is stored: this catalog only records *what must happen* or *what must be reached*, and *how the
+engine detects it*. Pairing a task with a reward (e.g. an entry from sections 1-5 above) is a
+decision for whichever future mechanic consumes the task.
+
+Two families, split by how completion is detected — the same two detection mechanisms already
+used throughout the rest of the mod (on_action callbacks and the shared monthly poll
+dispatcher), not a new detection mechanism invented for this catalog.
+
+### 6.1 On_action-driven tasks
+
+`data/task_pool.yaml`'s `on_action_task` list, 24 entries. Completion is detected by hooking a
+real EU5 on_action — an engine callback that fires the moment a qualifying action happens
+in-game — rather than by polling game state. Every entry names a real vanilla on_action, verified
+against `reference_game_files/game/in_game/common/on_action/_hardcoded.txt` (plus a few from
+`exploration_mission_monthly.txt` and `parliament_monthly_pulse.txt`) and cross-checked against
+`reference_official_defines/`, together with the exact `root`/`scope:x` variables that on_action
+provides (copied from the vanilla source comment, not paraphrased) and a `completion_note`
+recording any extra condition needed to turn "the on_action fired at all" into "this specific
+task is complete" (e.g. only root's own action counts, not the counterparty's).
+
+**The `wired` flag is the key implementation-cost signal**, following the existing pulse-registry
+mechanism documented in `data/pulse_registry.yaml` and generated into
+`src/in_game/common/on_action/tv_pulse_bridges.txt` by
+`scripts/in_game/common/on_action/gen_tv_pulse_registry.py`:
+
+- `wired: true` — this on_action already has a Towards Victory bridge entry. A consuming
+  mechanic adds its own TV-named on_action under the existing bridge block without touching
+  `data/pulse_registry.yaml` itself. 13 of the 24 entries are already wired (all inherited from
+  existing TV systems' own hooks): `on_winning_war`, `on_siege_won`,
+  `on_took_location_in_peace_treaty`, `on_royal_marriage`, `on_subject_created`,
+  `on_becoming_free`, `on_reform_change`, `on_capital_moved`, `on_work_of_art_created`,
+  `on_institution_embraced`, `on_colonial_charter_finished`, `on_exploration_success`,
+  `on_parliament_passed`.
+- `wired: false` — a real, verified vanilla hook, but nothing in the mod currently bridges it. A
+  consuming mechanic must add a new entry to `data/pulse_registry.yaml`'s `bridges` map and
+  re-run the generator before it can fire. 11 entries: `on_great_battle_won`, `on_annexed`,
+  `on_union_formation`, `on_enforce_peace_accepted`, `on_gift_sent`, `on_government_type_change`,
+  `on_international_organization_creation`, `on_international_organization_changed_leader`,
+  `on_gain_great_power_status`, `on_made_saint`, `on_new_country_formed`.
+
+Categorized as `military` (5: win a war/siege/great battle, annex a country, take a location in
+peace), `diplomatic` (6: royal marriage, personal union, mediate peace, send a gift, gain a
+subject, become independent), `political` (6: enact/change government reform or type, relocate
+capital, found or lead an International Organization, achieve Great Power status),
+`religious_cultural` (3: canonize a saint, create a work of art, embrace an institution), and
+`economic_colonial` (4: colonial charter, exploration mission, found a new country, pass a
+parliament vote).
+
+**Reuse note:** `create_masterpiece` (`on_work_of_art_created`) is already consumed by the live
+Cultural Victory CIP source (`tv_on_work_of_art_created_callback` in the `on_work_of_art_created`
+bridge block — see `Towards_Victory_Design.md` section 3.5). A new task built on the same hook
+adds its own TV-named on_action under that existing bridge block rather than a second bridge
+entry for the same vanilla key — the risk card rule against duplicate direct bridges to one
+vanilla on_action key applies here (see `docs/knowledge/risk_cards/on_action.md`).
+
+### 6.2 Trigger-driven tasks
+
+`data/task_pool.yaml`'s `trigger_task` list, 24 entries. Completion is detected by polling a real
+EU5 trigger — verified against `reference_official_defines/docs/triggers.log` — from a monthly
+check, reusing the same `monthly_country_pulse` dispatcher every other TV system's monthly logic
+already goes through (see `data/pulse_registry.yaml`'s `pulses.monthly_country_pulse` list), not
+a separate polling mechanism invented for this catalog.
+
+Each entry has a `scope` (`country` for all but two entries, `international_organization` for
+`reach_io_electors`/`reach_io_total_great_power_score`), a `comparison` direction, and a
+`representative_threshold`:
+
+- `comparison: gte` — the ordinary case, e.g. `reach_owned_locations` (`num_locations >= 50`).
+- `comparison: lte` — inverted polarity, paralleling `country_reward.inflation` in section 1:
+  completion means the value stays AT OR BELOW the threshold. The one entry using this today is
+  `keep_war_exhaustion_low` (`war_exhaustion <= 5`).
+- `comparison: boolean` — the trigger is itself a yes/no fact with no numeric threshold (e.g.
+  `become_recognized_great_power` on the `is_great_power` trigger); `representative_threshold` is
+  `null` for these entries.
+
+**The threshold is illustrative only** — exactly like the "1 unit" convention in sections 1-5: a
+single plausible instance of "reach this," not a tuned milestone tier. A future mechanic scales
+it up or down, or substitutes its own multi-tier ladder entirely (the same way
+`victory_paths.yaml`'s milestones use their own 5-tier thresholds per path rather than one flat
+number) — playtesting decides the final number, not this catalog.
+
+Three entries deliberately mirror an existing victory path's own core metric, so a future
+mechanic can sanity-check a task threshold against a live, already-balanced number:
+`sustain_monthly_trade_income` (`monthly_trade_income`, mirrors Trade Victory, section 3.3 of
+`Towards_Victory_Design.md`), `reach_owned_locations` (`num_locations`, mirrors Conquest Victory,
+section 3.1), and `reach_advances_researched` (`num_of_advances_researched`, mirrors Scientific
+Victory, section 3.6).
+
+Categorized as `economic` (5: treasury, monthly income, monthly trade income, markets with
+merchants, colonial charters), `territorial` (3: owned locations, owned provinces, total
+development), `military` (6: army/regular-army/navy size, manpower/sailors pools, war
+exhaustion), `diplomatic` (7: prestige, stability, government power, diplomats, average estate
+satisfaction, Great Power score, recognized Great Power status), `science` (1: advances
+researched), and `international_organization` (2: IO electors, IO combined Great Power score).
+
+**Milestone tooltip reuse:** if a future mechanic surfaces a trigger-driven task's progress in
+the UI, the CLAUDE.md **Milestone Trigger Tooltip Pattern** (one `custom_tooltip` block per
+condition group, not `custom_description`) is the proven pattern to copy — it is exactly how
+`data/victory_paths.yaml`'s own milestone triggers already display a "reach X" condition with an
+independent pass/fail indicator per line.
+
 ## Usage guidance for future design work
 
 - When designing a new random event or one-off effect elsewhere in the mod, pick an entry from
@@ -407,6 +521,15 @@ building. Do not read the mirrored values as a second, independent local-level e
 - If a small-sized wonder-like mechanic is involved, remember the `monthly_towards_*`-only
   restriction on country-level modifier keys (section 4) applies to size, not to level or
   uniqueness.
+- When designing a new assignable-task mechanic, pick an entry from `data/task_pool.yaml`'s
+  `on_action_task`/`trigger_task` lists (section 6) instead of inventing a new detection hook
+  from scratch. For an on_action-driven task, check the entry's `wired` flag first — `wired:
+  true` needs only a new TV-named on_action under the existing bridge block, while `wired: false`
+  needs a new `data/pulse_registry.yaml` bridge entry plus a regenerator run before the hook can
+  fire. For a trigger-driven task, treat `representative_threshold` as a starting point only and
+  retune it during playtesting, the same as any milestone threshold elsewhere in the mod. Neither
+  family stores a reward — pair the chosen task with an entry from sections 1-5 above (or a
+  bespoke reward) as part of designing the consuming mechanic, not by editing this catalog.
 - This doc packages existing numbers; it is not a live proxy for either data source. If
   `data/cost_reward_units.yaml` changes (any of its five lists), update the matching section(s)
   above to match; if the wonder system's own modifier magnitudes change, update the wonder-specific
@@ -444,3 +567,20 @@ building. Do not read the mirrored values as a second, independent local-level e
   generated, level-gated Country Auto modifiers (section 4).
 - `src/in_game/common/building_types/tv_engineering_department_wonder_mechanics_buildings.txt` —
   generated final/helper building `modifier`/`raw_modifier` blocks (section 5).
+- `data/task_pool.yaml` — the standalone task-pool catalog (section 6), two top-level lists:
+  `on_action_task` (24 entries: `id`/`on_action`/`wired`/`scope`/`category`/`completion_note`/`loc`)
+  and `trigger_task` (24 entries: `id`/`trigger`/`scope`/`comparison`/`representative_threshold`/
+  `category`/`loc`). No reward is stored; no generator or web editor tab exists for it yet
+  (edited by hand, unlike `cost_reward_editor_web/`'s five tabs for `cost_reward_units.yaml`).
+- `data/pulse_registry.yaml` + `scripts/in_game/common/on_action/gen_tv_pulse_registry.py` —
+  the existing on_action bridge registry a `wired: false` task entry (section 6.1) must be added
+  to before its on_action can fire; `wired: true` entries already have a bridge block here.
+- `reference_game_files/game/in_game/common/on_action/_hardcoded.txt` (plus
+  `exploration_mission_monthly.txt`, `parliament_monthly_pulse.txt`) — the vanilla on_action
+  definitions section 6.1's entries were verified against, including each hook's `root`/`scope:x`
+  comment.
+- `reference_official_defines/docs/triggers.log` — the vanilla trigger reference section 6.2's
+  entries were verified against (supported scopes, comparison operators).
+- `docs/knowledge/risk_cards/on_action.md` — the singleton-bridge-registry rule (never a second
+  direct `effect` body on a shared vanilla on_action key) that governs how a `wired: false`
+  section 6.1 entry must be implemented.

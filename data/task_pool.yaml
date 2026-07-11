@@ -1,0 +1,542 @@
+# Foundational task-pool catalog for AI-assisted design across Towards Victory.
+#
+# This is base-layer data, not owned by or tied to any single mechanic — the same
+# independence convention as data/cost_reward_units.yaml (see
+# docs/design/Cost_Reward_Unit_Concepts.md, section 6). Nothing in the mod reads from
+# this catalog yet; it exists so a future "assignable task" mechanic (or several) can pick
+# a pre-vetted, engine-verified task definition instead of inventing one from scratch.
+#
+# A "task" here means: something assignable to the player that resolves to a clear
+# complete/incomplete state. Two families, cutting by how completion is detected:
+#
+# - `on_action_task` — an "action" characteristic. Completion is detected by hooking a
+#   specific EU5 on_action (an engine callback that fires the moment a qualifying action
+#   happens in-game — winning a war, marrying into a foreign dynasty, founding an
+#   International Organization, etc.), not by polling game state. Each entry names a real
+#   vanilla on_action (verified against reference_game_files/game/in_game/common/on_action/
+#   and reference_official_defines/), the scope variables that on_action provides
+#   (root/scope:x, copied from the vanilla source comment), and a `wired` flag:
+#     - `wired: true`  — this on_action already has a Towards Victory bridge entry in
+#       data/pulse_registry.yaml / src/in_game/common/on_action/tv_pulse_bridges.txt. A
+#       consuming mechanic can add its own TV-named on_action under the existing bridge
+#       block without touching the registry file itself.
+#     - `wired: false` — this on_action is a real, verified vanilla hook, but nothing in
+#       the mod currently bridges it. A consuming mechanic must add a new entry to
+#       data/pulse_registry.yaml's `bridges` map and re-run
+#       scripts/in_game/common/on_action/gen_tv_pulse_registry.py before it can fire.
+#   `completion_note` records any extra condition needed to tell "the on_action fired at
+#   all" apart from "the task's specific player-facing condition is satisfied" (e.g. only
+#   root's own action counts, not the counterparty's).
+#
+# - `trigger_task` — a "reach state X" characteristic. Completion is detected by polling a
+#   real EU5 trigger (verified against reference_official_defines/docs/triggers.log) from a
+#   monthly check, the same monthly_country_pulse dispatcher already used by every other TV
+#   system's monthly polling logic (see data/pulse_registry.yaml). Each entry names the
+#   trigger, its supported scope, a comparison direction, and a `representative_threshold`.
+#   The threshold is illustrative only, exactly like the "1 unit" convention in sections 1-5
+#   of the sibling cost/reward catalog: a single plausible instance of "reach this," not a
+#   tuned milestone tier. A future mechanic scales it up/down (or ignores it and substitutes
+#   its own tier ladder, the same way victory_paths.yaml's milestones use their own 5-tier
+#   thresholds rather than a single flat number) — playtesting, not this catalog, decides the
+#   final number. `comparison: boolean` entries have no threshold (the trigger itself is a
+#   yes/no fact, e.g. `is_great_power`). `comparison: lte` entries are the inverted-polarity
+#   case (paralleling `country_reward.inflation` in section 1): completion means the value
+#   stays AT OR BELOW the threshold, not above it (e.g. keeping war exhaustion low).
+#
+# Neither family stores a reward. This catalog only records "what must happen" /
+# "what must be reached" and how the engine detects it — pairing a task with a reward
+# (e.g. from data/cost_reward_units.yaml) is left to whichever future mechanic consumes it.
+#
+# Edited by hand today; no generator required — the sibling cost_reward_editor_web/ tool now
+# also exposes this catalog as two additional tabs (on_action_task/trigger_task), editing only
+# `wired`/`completion_note` and `comparison`/`representative_threshold` respectively.
+
+on_action_task:
+  # --- Military ---
+  - id: win_a_war
+    on_action: on_winning_war
+    wired: true
+    scope: "root = country, scope:winner = country, scope:loser = country, scope:war = war"
+    category: military
+    completion_note: >-
+      Counts only when root = scope:winner (the war's victor), not every participant on the
+      winning side's coalition.
+    loc:
+      en: "Win a war as the victorious party."
+      zh: "作为胜利方赢得一场战争。"
+  - id: win_a_siege
+    on_action: on_siege_won
+    wired: true
+    scope: "root = country, scope:target = location, scope:character = leading general character"
+    category: military
+    completion_note: >-
+      Fires once per successful siege; a task consumer wanting "N sieges" must accumulate
+      across firings itself (this on_action carries no running count).
+    loc:
+      en: "Win a siege against a fortified location."
+      zh: "攻克一座设防地点的围城战。"
+  - id: win_a_great_battle
+    on_action: on_great_battle_won
+    wired: false
+    scope: >-
+      root = actor (winning unit), scope:actor = winning unit, scope:target = losing unit;
+      supports scope:killed_land_units/killed_navy_units/lost_land_units/lost_navy_units/war_score
+    category: military
+    completion_note: >-
+      "Great battle" is the engine's own large-battle classification, distinct from the
+      plain on_battle_won hook — no extra size condition needs to be added by the consumer.
+    loc:
+      en: "Win a great battle (a large-scale engagement, not a minor skirmish)."
+      zh: "赢得一场大规模会战（而非小规模冲突）。"
+  - id: annex_a_country
+    on_action: on_annexed
+    wired: false
+    scope: "root = country doing the annexing, scope:target = country being annexed"
+    category: military
+    completion_note: >-
+      Fires after any annexation method completes (military/diplomatic/civil-war/colonize) —
+      use this generic hook rather than the four method-specific "_annexed" variants unless
+      the task cares which method was used.
+    loc:
+      en: "Annex another country in its entirety, by any method."
+      zh: "以任意方式完全吞并另一个国家。"
+  - id: take_location_in_peace
+    on_action: on_took_location_in_peace_treaty
+    wired: true
+    scope: "root = winner, scope:location = location, scope:winner = new owner, scope:loser = old owner"
+    category: military
+    completion_note: "Counts only when root = scope:winner, i.e. the location's new owner."
+    loc:
+      en: "Gain a location through a peace treaty."
+      zh: "通过和约获得一处地点。"
+
+  # --- Diplomatic ---
+  - id: conclude_royal_marriage
+    on_action: on_royal_marriage
+    wired: true
+    scope: >-
+      root, scope:actor = sender, scope:recipient = receiver, scope:target_1 = actor's married
+      character, scope:target_2 = recipient's married character
+    category: diplomatic
+    completion_note: "Counts for both scope:actor and scope:recipient; no extra filter needed."
+    loc:
+      en: "Conclude a royal marriage with another ruling dynasty."
+      zh: "与另一统治王朝缔结王室联姻。"
+  - id: form_personal_union
+    on_action: on_union_formation
+    wired: false
+    scope: >-
+      root = new union IO, scope:ruler = ruling character or heir, scope:first_leader
+      (optional) = leader country of the first union in the merge, scope:second_leader
+      (optional) = leader country of the second union in the merge
+    category: diplomatic
+    completion_note: >-
+      Root here is the union's International Organization scope, not a country — a country-
+      scope consumer must resolve the union's member country from scope:ruler.owner or the
+      leader-country links before crediting a specific country.
+    loc:
+      en: "Form a personal union with another crown."
+      zh: "与另一王室建立共主邦联。"
+  - id: mediate_peace
+    on_action: on_enforce_peace_accepted
+    wired: false
+    scope: "happens before the war ends; scope:actor = mediator, scope:recipient = accepting party, scope:war = war"
+    category: diplomatic
+    completion_note: "Root is not documented on this hook; resolve the mediator from scope:actor."
+    loc:
+      en: "Successfully mediate peace between two warring parties."
+      zh: "成功斡旋交战双方达成和平。"
+  - id: send_diplomatic_gift
+    on_action: on_gift_sent
+    wired: false
+    scope: "root, scope:actor = sender, scope:recipient = receiver, scope:target = amount of gold sent"
+    category: diplomatic
+    completion_note: >-
+      Counts only when root = scope:actor (the sender); a "received a gift" task would
+      instead filter on root = scope:recipient.
+    loc:
+      en: "Send a diplomatic gift to another country."
+      zh: "向他国赠送外交礼物。"
+  - id: gain_subject
+    on_action: on_subject_created
+    wired: true
+    scope: "root = new subject, scope:overlord = country which created the subject, scope:subject_type = subject type"
+    category: diplomatic
+    completion_note: "Counts for the overlord's task progress; filter root = scope:overlord's own perspective by reading scope:overlord directly, not root."
+    loc:
+      en: "Bring another country into your sphere as a subject."
+      zh: "使另一国成为你的附庸。"
+  - id: become_independent
+    on_action: on_becoming_free
+    wired: true
+    scope: "root = country, scope:overlord = former overlord"
+    category: diplomatic
+    completion_note: "Root is the newly-freed country; no extra filter needed."
+    loc:
+      en: "Break free from subject status and become independent."
+      zh: "摆脱附庸地位，获得独立。"
+
+  # --- Political / Administrative ---
+  - id: enact_government_reform
+    on_action: on_reform_change
+    wired: true
+    scope: "root = country"
+    category: political
+    completion_note: >-
+      This hook fires on any reform change; a task targeting one specific reform must add
+      its own trigger check (e.g. has_reform = government_reform:<id>) in the consumer, since
+      the on_action itself carries no reform identity in scope.
+    loc:
+      en: "Enact a new government reform."
+      zh: "颁布一项新的政府改革。"
+  - id: change_government_type
+    on_action: on_government_type_change
+    wired: false
+    scope: "root = country, scope:from = old government_type, scope:to = new government_type"
+    category: political
+    completion_note: "A task targeting a specific transition (e.g. monarchy -> republic) filters on scope:from/scope:to directly; both are available on this hook."
+    loc:
+      en: "Change your country's government type."
+      zh: "改变国家的政体类型。"
+  - id: relocate_capital
+    on_action: on_capital_moved
+    wired: true
+    scope: "root = country"
+    category: political
+    completion_note: "No extra filter needed; fires once per capital relocation."
+    loc:
+      en: "Relocate your capital to a new location."
+      zh: "将首都迁移至新的地点。"
+  - id: found_international_organization
+    on_action: on_international_organization_creation
+    wired: false
+    scope: "root = international organization, scope:actor = creator (optional), scope:target = target (optional)"
+    category: political
+    completion_note: >-
+      Root is the IO scope, not a country — a country-scope consumer resolves the founder
+      from scope:actor when present.
+    loc:
+      en: "Found a new International Organization."
+      zh: "创立一个新的国际组织。"
+  - id: become_io_leader
+    on_action: on_international_organization_changed_leader
+    wired: false
+    scope: "root = new_ruler (new leader country), target = organization, scope:old_ruler = previous leader"
+    category: political
+    completion_note: "Counts for root (the incoming leader country) taking over leadership of the named organization."
+    loc:
+      en: "Become the leader country of an International Organization."
+      zh: "成为某国际组织的领导国。"
+  - id: achieve_great_power_status
+    on_action: on_gain_great_power_status
+    wired: false
+    scope: "root = country"
+    category: political
+    completion_note: "No extra filter needed; fires once when Great Power status is newly gained."
+    loc:
+      en: "Achieve recognized Great Power status."
+      zh: "获得公认的列强地位。"
+
+  # --- Religious / Cultural ---
+  - id: canonize_a_saint
+    on_action: on_made_saint
+    wired: false
+    scope: "root = country, scope:recipient = character"
+    category: religious_cultural
+    completion_note: "No extra filter needed; fires once per canonization."
+    loc:
+      en: "Have a character canonized as a saint."
+      zh: "使一位人物被封为圣徒。"
+  - id: create_masterpiece
+    on_action: on_work_of_art_created
+    wired: true
+    scope: "root = country the art is created for (see also data/pulse_registry.yaml's existing tv_on_work_of_art_created_callback bridge, which already grants Cultural Influence Points from this same hook)"
+    category: religious_cultural
+    completion_note: >-
+      Already consumed by the live Cultural Victory CIP source — a new task built on the
+      same hook should add its own TV-named on_action under the existing
+      on_work_of_art_created bridge block rather than a second bridge entry for the same
+      vanilla key.
+    loc:
+      en: "Commission or otherwise cause a new work of art to be created."
+      zh: "委托创作或以其他方式促成一件新艺术品的诞生。"
+  - id: embrace_institution
+    on_action: on_institution_embraced
+    wired: true
+    scope: "root = country"
+    category: religious_cultural
+    completion_note: >-
+      Fires on any institution; a task targeting one specific institution must add its own
+      trigger check (has_embraced_institution = institution:<id>) in the consumer.
+    loc:
+      en: "Embrace a new institution."
+      zh: "接纳一项新的制度（Institution）。"
+
+  # --- Economic / Colonial / Exploration ---
+  - id: complete_colonial_charter
+    on_action: on_colonial_charter_finished
+    wired: true
+    scope: "root = country, scope:target = province"
+    category: economic_colonial
+    completion_note: "No extra filter needed; fires once per completed charter."
+    loc:
+      en: "Complete a colonial charter."
+      zh: "完成一份殖民特许状。"
+  - id: complete_exploration_mission
+    on_action: on_exploration_success
+    wired: true
+    scope: "see reference_game_files/game/in_game/common/on_action/exploration_mission_monthly.txt for exact scope variables"
+    category: economic_colonial
+    completion_note: "No extra filter needed beyond what the vanilla hook already guarantees on success."
+    loc:
+      en: "Successfully complete an exploration mission."
+      zh: "成功完成一次探索任务。"
+  - id: found_new_country
+    on_action: on_new_country_formed
+    wired: false
+    scope: "root = newly formed country"
+    category: economic_colonial
+    completion_note: "No extra filter needed; fires once for the new country itself, not its predecessor."
+    loc:
+      en: "Form a new country (e.g. through a country-formation mechanic)."
+      zh: "通过国家转变机制建立一个新国家。"
+  - id: pass_parliament_vote
+    on_action: on_parliament_passed
+    wired: true
+    scope: "root = country (see reference_game_files/game/in_game/common/on_action/parliament_monthly_pulse.txt for full scope variables)"
+    category: economic_colonial
+    completion_note: >-
+      Fires on any passed parliamentary issue; a task targeting a specific issue must add its
+      own identity check in the consumer.
+    loc:
+      en: "Pass a vote in your country's parliament."
+      zh: "在本国议会中通过一项表决。"
+
+trigger_task:
+  # --- Economic ---
+  - id: accumulate_treasury
+    trigger: gold
+    scope: country
+    comparison: gte
+    representative_threshold: 500
+    category: economic
+    loc:
+      en: "Accumulate at least this much gold in the treasury."
+      zh: "国库积累至少达到此数额的金币。"
+  - id: sustain_monthly_income
+    trigger: monthly_income_total
+    scope: country
+    comparison: gte
+    representative_threshold: 20
+    category: economic
+    loc:
+      en: "Sustain at least this much total monthly income."
+      zh: "维持至少此数额的每月总收入。"
+  - id: sustain_monthly_trade_income
+    trigger: monthly_trade_income
+    scope: country
+    comparison: gte
+    representative_threshold: 10
+    category: economic
+    loc:
+      en: "Sustain at least this much monthly trade income (mirrors the Trade Victory core metric — see Towards_Victory_Design.md section 3.3)."
+      zh: "维持至少此数额的每月贸易收入（对应贸易胜利核心指标，参见 Towards_Victory_Design.md 3.3 节）。"
+  - id: reach_markets_with_merchants
+    trigger: num_of_markets_with_merchants
+    scope: country
+    comparison: gte
+    representative_threshold: 10
+    category: economic
+    loc:
+      en: "Have merchants present in at least this many markets."
+      zh: "在至少这么多个市场中派驻商人。"
+  - id: reach_colonial_charters
+    trigger: num_colonial_charters
+    scope: country
+    comparison: gte
+    representative_threshold: 3
+    category: economic
+    loc:
+      en: "Hold at least this many colonial charters."
+      zh: "持有至少这么多份殖民特许状。"
+
+  # --- Territorial ---
+  - id: reach_owned_locations
+    trigger: num_locations
+    scope: country
+    comparison: gte
+    representative_threshold: 50
+    category: territorial
+    loc:
+      en: "Own at least this many locations (mirrors the Conquest Victory core metric — see Towards_Victory_Design.md section 3.1)."
+      zh: "拥有至少这么多个地点（对应征服胜利核心指标，参见 Towards_Victory_Design.md 3.1 节）。"
+  - id: reach_owned_provinces
+    trigger: num_provinces
+    scope: country
+    comparison: gte
+    representative_threshold: 15
+    category: territorial
+    loc:
+      en: "Own at least this many provinces."
+      zh: "拥有至少这么多个省份。"
+  - id: reach_total_development
+    trigger: total_development
+    scope: country
+    comparison: gte
+    representative_threshold: 500
+    category: territorial
+    loc:
+      en: "Reach at least this much total development across all owned locations."
+      zh: "所有拥有地点的总发展度达到此数值。"
+
+  # --- Military ---
+  - id: reach_army_size
+    trigger: army_size
+    scope: country
+    comparison: gte
+    representative_threshold: 10000
+    category: military
+    loc:
+      en: "Raise an army of at least this size."
+      zh: "组建至少此规模的陆军。"
+  - id: reach_regular_army_size
+    trigger: regular_army_size
+    scope: country
+    comparison: gte
+    representative_threshold: 5000
+    category: military
+    loc:
+      en: "Raise a regular (maximum-strength) army of at least this size."
+      zh: "组建至少此规模的满编正规陆军。"
+  - id: reach_navy_size
+    trigger: navy_size
+    scope: country
+    comparison: gte
+    representative_threshold: 20
+    category: military
+    loc:
+      en: "Build a navy of at least this many ships."
+      zh: "建造至少这么多艘舰船的海军。"
+  - id: reach_manpower_pool
+    trigger: manpower
+    scope: country
+    comparison: gte
+    representative_threshold: 10000
+    category: military
+    loc:
+      en: "Build up a manpower pool of at least this size."
+      zh: "储备至少此数量的人力。"
+  - id: reach_sailors_pool
+    trigger: sailors
+    scope: country
+    comparison: gte
+    representative_threshold: 5000
+    category: military
+    loc:
+      en: "Build up a sailors pool of at least this size."
+      zh: "储备至少此数量的水手。"
+  - id: keep_war_exhaustion_low
+    trigger: war_exhaustion
+    scope: country
+    comparison: lte
+    representative_threshold: 5
+    category: military
+    loc:
+      en: "Keep war exhaustion at or below this level (inverted polarity, same convention as country_reward.inflation in section 1 — completion means staying under the threshold, not exceeding it)."
+      zh: "将战争疲劳维持在此水平及以下（方向相反，与第 1 节 country_reward.inflation 的约定相同——达成条件是保持在阈值之下，而非超过阈值）。"
+
+  # --- Diplomatic / Great Power ---
+  - id: reach_prestige
+    trigger: prestige
+    scope: country
+    comparison: gte
+    representative_threshold: 50
+    category: diplomatic
+    loc:
+      en: "Reach at least this much prestige."
+      zh: "威望达到此数值。"
+  - id: reach_stability
+    trigger: stability
+    scope: country
+    comparison: gte
+    representative_threshold: 3
+    category: diplomatic
+    loc:
+      en: "Reach at least this much stability."
+      zh: "稳定度达到此数值。"
+  - id: reach_government_power
+    trigger: government_power
+    scope: country
+    comparison: gte
+    representative_threshold: 50
+    category: diplomatic
+    loc:
+      en: "Reach at least this much government power (auto-resolves to legitimacy/republican_tradition/devotion/horde_unity/tribal_cohesion by government type, mirroring country_reward.government_power in section 1)."
+      zh: "政府权力值达到此数值（按政府类型自动对应正统性/共和传统/虔诚度/部落统一度/部落凝聚力，对应第 1 节 country_reward.government_power）。"
+  - id: reach_diplomats
+    trigger: num_of_diplomats
+    scope: country
+    comparison: gte
+    representative_threshold: 3
+    category: diplomatic
+    loc:
+      en: "Have at least this many diplomats available."
+      zh: "拥有至少这么多名可用外交官。"
+  - id: reach_average_estate_satisfaction
+    trigger: average_estate_satisfaction
+    scope: country
+    comparison: gte
+    representative_threshold: 0.6
+    category: diplomatic
+    loc:
+      en: "Reach at least this much average estate satisfaction (crown estate excluded, matching the trigger's own definition)."
+      zh: "平均阶层满意度达到此数值（不含王室阶层，与该 trigger 本身的定义一致）。"
+  - id: reach_great_power_score
+    trigger: great_power_score
+    scope: country
+    comparison: gte
+    representative_threshold: 100
+    category: diplomatic
+    loc:
+      en: "Reach at least this much Great Power (area-dominance) score."
+      zh: "列强（地区支配力）分数达到此数值。"
+  - id: become_recognized_great_power
+    trigger: is_great_power
+    scope: country
+    comparison: boolean
+    representative_threshold: null
+    category: diplomatic
+    loc:
+      en: "Be recognized as a Great Power."
+      zh: "被公认为列强。"
+
+  # --- Science ---
+  - id: reach_advances_researched
+    trigger: num_of_advances_researched
+    scope: country
+    comparison: gte
+    representative_threshold: 15
+    category: science
+    loc:
+      en: "Research at least this many Advances (mirrors the Scientific Victory core metric — see Towards_Victory_Design.md section 3.6)."
+      zh: "研究至少这么多项技术进步（Advance）（对应科技胜利核心指标，参见 Towards_Victory_Design.md 3.6 节）。"
+
+  # --- International Organization scope ---
+  - id: reach_io_electors
+    trigger: num_of_electors
+    scope: international_organization
+    comparison: gte
+    representative_threshold: 4
+    category: international_organization
+    loc:
+      en: "Have at least this many electors within an International Organization."
+      zh: "某国际组织内拥有至少这么多名选帝侯（选举人）。"
+  - id: reach_io_total_great_power_score
+    trigger: io_total_great_power_score
+    scope: international_organization
+    comparison: gte
+    representative_threshold: 200
+    category: international_organization
+    loc:
+      en: "Reach at least this much combined Great Power score across an International Organization's membership (cached, updated monthly by the engine)."
+      zh: "某国际组织全体成员的列强分数总和达到此数值（引擎每月缓存更新）。"

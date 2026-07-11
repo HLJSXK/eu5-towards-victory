@@ -21,7 +21,7 @@ class SaveTokensRequest(BaseModel):
 
 def create_app() -> FastAPI:
     app = FastAPI(
-        title="Cost/Reward & Modifier Unit Editor Web",
+        title="Cost/Reward & Modifier & Task Pool Unit Editor Web",
         docs_url=None,
         redoc_url=None,
     )
