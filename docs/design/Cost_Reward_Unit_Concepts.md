@@ -400,10 +400,11 @@ dispatcher), not a new detection mechanism invented for this catalog.
 
 ### 6.1 On_action-driven tasks
 
-`data/task_pool.yaml`'s `on_action_task` list, 24 entries. Completion is detected by hooking a
-real EU5 on_action — an engine callback that fires the moment a qualifying action happens
-in-game — rather than by polling game state. Every entry names a real vanilla on_action, verified
-against `reference_game_files/game/in_game/common/on_action/_hardcoded.txt` (plus a few from
+`data/task_pool.yaml`'s `on_action_task` list, 48 entries (24 from the initial pass, 24 from a
+bolder second wave — see 6.3). Completion is detected by hooking a real EU5 on_action — an engine
+callback that fires the moment a qualifying action happens in-game — rather than by polling game
+state. Every entry names a real vanilla on_action, verified against
+`reference_game_files/game/in_game/common/on_action/_hardcoded.txt` (plus a few from
 `exploration_mission_monthly.txt` and `parliament_monthly_pulse.txt`) and cross-checked against
 `reference_official_defines/`, together with the exact `root`/`scope:x` variables that on_action
 provides (copied from the vanilla source comment, not paraphrased) and a `completion_note`
@@ -417,26 +418,35 @@ mechanism documented in `data/pulse_registry.yaml` and generated into
 
 - `wired: true` — this on_action already has a Towards Victory bridge entry. A consuming
   mechanic adds its own TV-named on_action under the existing bridge block without touching
-  `data/pulse_registry.yaml` itself. 13 of the 24 entries are already wired (all inherited from
-  existing TV systems' own hooks): `on_winning_war`, `on_siege_won`,
-  `on_took_location_in_peace_treaty`, `on_royal_marriage`, `on_subject_created`,
-  `on_becoming_free`, `on_reform_change`, `on_capital_moved`, `on_work_of_art_created`,
-  `on_institution_embraced`, `on_colonial_charter_finished`, `on_exploration_success`,
-  `on_parliament_passed`.
+  `data/pulse_registry.yaml` itself. 19 of the 48 entries are already wired: the 13 from the first
+  wave (`on_winning_war`, `on_siege_won`, `on_took_location_in_peace_treaty`, `on_royal_marriage`,
+  `on_subject_created`, `on_becoming_free`, `on_reform_change`, `on_capital_moved`,
+  `on_work_of_art_created`, `on_institution_embraced`, `on_colonial_charter_finished`,
+  `on_exploration_success`, `on_parliament_passed`) plus 6 more from the second wave
+  (`on_bureaucracy_added`, `on_policy_changed`, `on_cabinet_assigned`,
+  `on_character_moved_country`, `on_transfer_subject`, `on_dependency_gained` — all already
+  bridged for other TV systems' own on_action needs).
 - `wired: false` — a real, verified vanilla hook, but nothing in the mod currently bridges it. A
   consuming mechanic must add a new entry to `data/pulse_registry.yaml`'s `bridges` map and
-  re-run the generator before it can fire. 11 entries: `on_great_battle_won`, `on_annexed`,
-  `on_union_formation`, `on_enforce_peace_accepted`, `on_gift_sent`, `on_government_type_change`,
-  `on_international_organization_creation`, `on_international_organization_changed_leader`,
-  `on_gain_great_power_status`, `on_made_saint`, `on_new_country_formed`.
+  re-run the generator before it can fire. 29 of the 48 entries: the 11 from the first wave
+  (`on_great_battle_won`, `on_annexed`, `on_union_formation`, `on_enforce_peace_accepted`,
+  `on_gift_sent`, `on_government_type_change`, `on_international_organization_creation`,
+  `on_international_organization_changed_leader`, `on_gain_great_power_status`, `on_made_saint`,
+  `on_new_country_formed`) plus 18 more from the second wave (`on_command_gained`, `on_election`,
+  `on_character_estate_change`, `on_parliament_established`, `on_io_parliament_passed`,
+  `on_international_organization_disbanding`, `on_marriage_union_formation`,
+  `on_released_country`, `on_regency_end`, `on_heir_selection_changed`,
+  `on_subject_type_changed`, `on_country_rank_change`, `on_gain_hegemon_status`,
+  `on_mission_completion`, `on_embrace_revolution`, `on_culture_changed`,
+  `on_international_organization_policy_changed`, `on_insult`).
 
-Categorized as `military` (5: win a war/siege/great battle, annex a country, take a location in
-peace), `diplomatic` (6: royal marriage, personal union, mediate peace, send a gift, gain a
-subject, become independent), `political` (6: enact/change government reform or type, relocate
-capital, found or lead an International Organization, achieve Great Power status),
-`religious_cultural` (3: canonize a saint, create a work of art, embrace an institution), and
-`economic_colonial` (4: colonial charter, exploration mission, found a new country, pass a
-parliament vote).
+Categorized as `political` (21: government/policy/reform/parliament/heir-law changes, IO
+founding/leadership/disbanding/policy votes, rank, hegemon status, revolution, missions),
+`diplomatic` (12: royal/other marriages, unions, subjects and independence, mediation, gifts,
+insults), `military` (6: win a war/siege/great battle, annex a country, take a location in peace,
+take command of an army), `economic_colonial` (5: colonial charter, exploration mission, found a
+new country, pass a parliament vote, complete a country mission), and `religious_cultural` (4:
+canonize a saint, create a work of art, embrace an institution, change primary culture).
 
 **Reuse note:** `create_masterpiece` (`on_work_of_art_created`) is already consumed by the live
 Cultural Victory CIP source (`tv_on_work_of_art_created_callback` in the `on_work_of_art_created`
@@ -447,23 +457,25 @@ vanilla on_action key applies here (see `docs/knowledge/risk_cards/on_action.md`
 
 ### 6.2 Trigger-driven tasks
 
-`data/task_pool.yaml`'s `trigger_task` list, 24 entries. Completion is detected by polling a real
-EU5 trigger — verified against `reference_official_defines/docs/triggers.log` — from a monthly
-check, reusing the same `monthly_country_pulse` dispatcher every other TV system's monthly logic
-already goes through (see `data/pulse_registry.yaml`'s `pulses.monthly_country_pulse` list), not
-a separate polling mechanism invented for this catalog.
+`data/task_pool.yaml`'s `trigger_task` list, 48 entries (24 from the initial pass, 24 from the
+second wave). Completion is detected by polling a real EU5 trigger — verified against
+`reference_official_defines/docs/triggers.log` — from a monthly check, reusing the same
+`monthly_country_pulse` dispatcher every other TV system's monthly logic already goes through
+(see `data/pulse_registry.yaml`'s `pulses.monthly_country_pulse` list), not a separate polling
+mechanism invented for this catalog.
 
-Each entry has a `scope` (`country` for all but two entries, `international_organization` for
-`reach_io_electors`/`reach_io_total_great_power_score`), a `comparison` direction, and a
+Each entry has a `scope` (`country`: 38, `character`: 7, `international_organization`: 2, `unit`:
+1 — the last two are second-wave additions, see 6.3), a `comparison` direction, and a
 `representative_threshold`:
 
-- `comparison: gte` — the ordinary case, e.g. `reach_owned_locations` (`num_locations >= 50`).
-- `comparison: lte` — inverted polarity, paralleling `country_reward.inflation` in section 1:
-  completion means the value stays AT OR BELOW the threshold. The one entry using this today is
-  `keep_war_exhaustion_low` (`war_exhaustion <= 5`).
-- `comparison: boolean` — the trigger is itself a yes/no fact with no numeric threshold (e.g.
-  `become_recognized_great_power` on the `is_great_power` trigger); `representative_threshold` is
-  `null` for these entries.
+- `comparison: gte` (41 entries) — the ordinary case, e.g. `reach_owned_locations`
+  (`num_locations >= 50`).
+- `comparison: lte` (1 entry) — inverted polarity, paralleling `country_reward.inflation` in
+  section 1: completion means the value stays AT OR BELOW the threshold. The one entry using
+  this today is `keep_war_exhaustion_low` (`war_exhaustion <= 5`).
+- `comparison: boolean` (6 entries) — the trigger is itself a yes/no fact with no numeric
+  threshold (e.g. `become_recognized_great_power` on the `is_great_power` trigger);
+  `representative_threshold` is `null` for these entries.
 
 **The threshold is illustrative only** — exactly like the "1 unit" convention in sections 1-5: a
 single plausible instance of "reach this," not a tuned milestone tier. A future mechanic scales
@@ -478,18 +490,53 @@ mechanic can sanity-check a task threshold against a live, already-balanced numb
 section 3.1), and `reach_advances_researched` (`num_of_advances_researched`, mirrors Scientific
 Victory, section 3.6).
 
-Categorized as `economic` (5: treasury, monthly income, monthly trade income, markets with
-merchants, colonial charters), `territorial` (3: owned locations, owned provinces, total
-development), `military` (6: army/regular-army/navy size, manpower/sailors pools, war
-exhaustion), `diplomatic` (7: prestige, stability, government power, diplomats, average estate
-satisfaction, Great Power score, recognized Great Power status), `science` (1: advances
-researched), and `international_organization` (2: IO electors, IO combined Great Power score).
+Categorized as `military` (13: army/regular/expected/potential army and navy sizes,
+manpower/sailors pools, war exhaustion, army/navy tradition, at-war-with-a-rival, unit morale),
+`diplomatic` (10: prestige, stability, government power/legitimacy percentage, diplomats,
+average estate satisfaction, Great Power score/status, recognized-as-subject), `economic` (7:
+treasury and treasury percentage, monthly income, monthly trade income, markets with merchants,
+colonial charters, owned ports), `character` (7, second-wave only: ADM/DIP/MIL thresholds, trait
+count, child count, longevity, having an heir), `territorial` (3: owned locations, owned
+provinces, total development), `religious_cultural` (3: dominant state religion, a specific
+culture's or religion's population share), `international_organization` (2: IO electors, IO
+combined Great Power score), `economic_colonial` (1: colonial overlord status), `science` (1:
+advances researched), and `political` (1: hold a specific government reform).
 
 **Milestone tooltip reuse:** if a future mechanic surfaces a trigger-driven task's progress in
 the UI, the CLAUDE.md **Milestone Trigger Tooltip Pattern** (one `custom_tooltip` block per
 condition group, not `custom_description`) is the proven pattern to copy — it is exactly how
 `data/victory_paths.yaml`'s own milestone triggers already display a "reach X" condition with an
 independent pass/fail indicator per line.
+
+### 6.3 Second wave: wider and bolder
+
+The second wave deliberately reaches into scopes and on_action hooks the first wave left
+untouched, at the cost of some entries being less certain to map cleanly onto a "task" the moment
+they're implemented. Two optional fields mark that explicitly rather than silently:
+
+- **`requires_target`** (`trigger_task` only, 4 entries: `dominant_culture_share`,
+  `dominant_religion_in_realm`, `hold_specific_reform`, `at_war_with_rival`) — the trigger itself
+  needs an extra parameter (a specific culture/religion/reform/country id) beyond scope and
+  threshold that this catalog cannot pin down generically; the field records what kind of target
+  is needed, and the consuming mechanic supplies the actual id.
+- **`verify_in_game: true`** (10 `on_action_task` entries, 5 `trigger_task` entries) — the
+  on_action/trigger *name* is still verified against source the same as every other entry, but
+  the task design built on top of it — its scope resolution, its "is this really a reachable,
+  positive task" framing, or an ambiguous direction (e.g. `on_country_rank_change` fires on a
+  rank *change*, not specifically a rise) — has not been confirmed by loading the game. Each such
+  entry's `completion_note`/`loc` spells out exactly what is uncertain. Treat these as
+  design-complete but implementation-unverified: spot-check the specific hook/trigger behavior
+  in-game before building a real mechanic on one.
+
+The second wave's new scopes: **character-scope** on_actions (`take_command_of_army` on
+`on_command_gained`) and triggers (`adm`/`dip`/`mil`/`num_of_traits`/`num_of_children`/
+`age_in_years`/`is_heir` — a person, not the country, is what must change or reach a value);
+**International Organization-scope** on_actions (`pass_io_parliament_vote`,
+`disband_international_organization`, `adopt_io_policy`) beyond the first wave's country-scope
+entries; **unit-scope** (`unit_morale_threshold` on `morale_percentage` — a specific army/navy
+unit, not the country); and **percentage-of-maximum** triggers
+(`gold_percentage`/`prestige_percentage`/`legitimacy_percentage`), a different flavor of "reach X"
+from the first wave's flat magnitudes.
 
 ## Usage guidance for future design work
 
@@ -568,10 +615,15 @@ independent pass/fail indicator per line.
 - `src/in_game/common/building_types/tv_engineering_department_wonder_mechanics_buildings.txt` —
   generated final/helper building `modifier`/`raw_modifier` blocks (section 5).
 - `data/task_pool.yaml` — the standalone task-pool catalog (section 6), two top-level lists:
-  `on_action_task` (24 entries: `id`/`on_action`/`wired`/`scope`/`category`/`completion_note`/`loc`)
-  and `trigger_task` (24 entries: `id`/`trigger`/`scope`/`comparison`/`representative_threshold`/
-  `category`/`loc`). No reward is stored; no generator or web editor tab exists for it yet
-  (edited by hand, unlike `cost_reward_editor_web/`'s five tabs for `cost_reward_units.yaml`).
+  `on_action_task` (48 entries: `id`/`on_action`/`wired`/`scope`/`category`/`completion_note`/`loc`,
+  optionally `verify_in_game`) and `trigger_task` (48 entries:
+  `id`/`trigger`/`scope`/`comparison`/`representative_threshold`/`category`/`loc`, optionally
+  `requires_target`/`verify_in_game`). No reward is stored; no generator exists (plain data, same
+  as `cost_reward_units.yaml`). Edited through the same standalone `cost_reward_editor_web/` tool
+  (two additional tabs beyond the original five, editing only `wired`/`completion_note` for
+  `on_action_task` and `comparison`/`representative_threshold` for `trigger_task` — everything
+  else, including the two second-wave-only fields, stays read-only in the editor and is edited
+  directly in the YAML).
 - `data/pulse_registry.yaml` + `scripts/in_game/common/on_action/gen_tv_pulse_registry.py` —
   the existing on_action bridge registry a `wired: false` task entry (section 6.1) must be added
   to before its on_action can fire; `wired: true` entries already have a bridge block here.

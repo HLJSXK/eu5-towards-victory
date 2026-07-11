@@ -49,7 +49,9 @@ gold/government_power 词汇——`clergy_estate_max_tax` 这样的 modifier key
 任务类别只编辑 `wired`/`completion_note`（on_action 型）或 `comparison`/`representative_threshold`
 （Trigger 型）。所有类别的 `id`、`loc` 均只读；新增/删除条目、重命名 `id`、新增 `on_action`/`trigger`
 名称都需要直接编辑对应的 YAML 文件。`cost_reward_units.yaml` 目前共 104 条（奖励三类各 14/3/4 条，
-modifier 两类共 83 条）；`task_pool.yaml` 目前共 48 条（`on_action_task`/`trigger_task` 各 24 条）。
+modifier 两类共 83 条）；`task_pool.yaml` 目前共 96 条（`on_action_task`/`trigger_task` 各 48 条，
+含首轮 24 条 + 更大胆的第二轮 24 条，第二轮新增 `requires_target`/`verify_in_game` 两个可选字段，
+本工具暂不编辑这两个字段，需直接改 YAML）。
 
 ## 安装依赖
 

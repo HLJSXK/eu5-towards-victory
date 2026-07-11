@@ -50,6 +50,21 @@
 # Edited by hand today; no generator required — the sibling cost_reward_editor_web/ tool now
 # also exposes this catalog as two additional tabs (on_action_task/trigger_task), editing only
 # `wired`/`completion_note` and `comparison`/`representative_threshold` respectively.
+#
+# Second wave (bolder, wider net): both lists were roughly doubled with entries reaching into
+# less commonly touched EU5 scopes — character-scope on_actions/triggers (a specific person, not
+# the country), International Organization-scope on_actions, percentage-of-maximum triggers
+# (`*_percentage`), and a few on_actions whose "is this a positive task" framing is genuinely
+# ambiguous (e.g. a regency ending, a country's power rank changing in either direction). Two
+# extra optional fields mark that boldness explicitly rather than silently:
+#
+# - `requires_target` (on trigger_task only) — this trigger takes an extra parameter beyond the
+#   scope itself (a specific culture/religion/reform/country id) that the catalog does not and
+#   cannot pin down generically; the consuming mechanic supplies it.
+# - `verify_in_game: true` (either family) — the entry's real-engine behavior, scope resolution,
+#   or "is this actually a reachable positive task" framing has not been confirmed by loading the
+#   game; the on_action/trigger name itself is still verified against source, but the task design
+#   built on top of it should be spot-checked in-game before relying on it.
 
 on_action_task:
   # --- Military ---
@@ -312,6 +327,283 @@ on_action_task:
       en: "Pass a vote in your country's parliament."
       zh: "在本国议会中通过一项表决。"
 
+  # --- Wave 2 (bolder, wider net) ---
+  - id: take_command_of_army
+    on_action: on_command_gained
+    wired: false
+    scope: "root = character, scope:unit = unit"
+    category: military
+    completion_note: >-
+      Character-scope, not country-scope — a country-level consumer resolves the country from
+      root.owner. No extra filter needed beyond the character actually taking command.
+    loc:
+      en: "Have a character take command of a military unit."
+      zh: "任命一名人物统领一支部队。"
+  - id: win_country_election
+    on_action: on_election
+    wired: false
+    scope: "root = country"
+    category: political
+    completion_note: >-
+      Fires on any election outcome; the hook does not distinguish who won the election from
+      who merely held one, so a consumer wanting "won" specifically must add its own
+      post-election ruler/government check.
+    verify_in_game: true
+    loc:
+      en: "Win a country election."
+      zh: "赢得一次国家选举。"
+  - id: expand_bureaucracy
+    on_action: on_bureaucracy_added
+    wired: true
+    scope: "root = country, scope:bureaucracy_type = the bureaucracy type added"
+    category: political
+    completion_note: >-
+      Fires on any bureaucracy type gained; a task targeting one specific type must filter on
+      scope:bureaucracy_type in the consumer.
+    loc:
+      en: "Gain a new bureaucracy type."
+      zh: "获得一种新的官僚机构类型。"
+  - id: ennoble_a_commoner
+    on_action: on_character_estate_change
+    wired: false
+    scope: "root = character, scope:estate = estate type"
+    category: political
+    completion_note: >-
+      Fires on any estate change; counts as "ennoble" only when scope:estate =
+      estate_type:nobles_estate — the consumer must add that filter itself.
+    loc:
+      en: "Elevate a character into the nobility."
+      zh: "将一名人物提升为贵族。"
+  - id: adopt_new_policy
+    on_action: on_policy_changed
+    wired: true
+    scope: "root = country"
+    category: political
+    completion_note: >-
+      Fires on any policy slot change; a task targeting one specific policy must filter in the
+      consumer, since the on_action carries no policy identity in scope.
+    loc:
+      en: "Adopt a new policy."
+      zh: "推行一项新政策。"
+  - id: establish_parliament
+    on_action: on_parliament_established
+    wired: false
+    scope: "root = country (parliament type changed from no_parliament to one with a parliament)"
+    category: political
+    completion_note: "No extra filter needed; fires once when a country first gains a parliament."
+    loc:
+      en: "Establish a parliament for the first time."
+      zh: "首次建立议会。"
+  - id: pass_io_parliament_vote
+    on_action: on_io_parliament_passed
+    wired: false
+    scope: "root = international organization, scope:target = parliament issue, scope:location = parliament seat location"
+    category: political
+    completion_note: >-
+      Root is the IO scope, not a country — a country-scope consumer must resolve the relevant
+      country (e.g. the IO's leader country) from context.
+    verify_in_game: true
+    loc:
+      en: "Pass a vote in an International Organization's parliament."
+      zh: "在某国际组织的议会中通过一项表决。"
+  - id: disband_international_organization
+    on_action: on_international_organization_disbanding
+    wired: false
+    scope: "root = international organization, scope:actor = instigator (optional); sent just before the IO disbands"
+    category: political
+    completion_note: >-
+      Root is the IO scope, not a country; resolve the instigator from scope:actor when
+      present. Whether disbanding an IO should read as a positive task depends heavily on the
+      consuming mechanic's framing.
+    verify_in_game: true
+    loc:
+      en: "Disband an International Organization."
+      zh: "解散一个国际组织。"
+  - id: secure_marriage_union
+    on_action: on_marriage_union_formation
+    wired: false
+    scope: "root = union, scope:ruler = ruling character, consorts list = the list of all consort characters"
+    category: diplomatic
+    completion_note: >-
+      Root is the union scope, not a country — a country-scope consumer resolves the member
+      country from scope:ruler.owner.
+    loc:
+      en: "Secure a marriage-based personal union."
+      zh: "通过联姻建立共主邦联。"
+  - id: grant_independence_to_subject
+    on_action: on_released_country
+    wired: false
+    scope: "root = released country, scope:overlord = overlord"
+    category: diplomatic
+    completion_note: >-
+      Counts for the grantor's task progress by reading scope:overlord directly, not root
+      (root is the newly released country).
+    loc:
+      en: "Voluntarily grant independence to one of your subjects."
+      zh: "主动允许一个附庸获得独立。"
+  - id: weather_a_regency
+    on_action: on_regency_end
+    wired: false
+    scope: "root = country"
+    category: political
+    completion_note: >-
+      The hook only confirms a regency period concluded, not that it concluded well (no coup,
+      no lost territory, etc.) — a "successful" framing needs an extra state check in the
+      consumer.
+    verify_in_game: true
+    loc:
+      en: "Bring a regency period to a close."
+      zh: "结束一段摄政时期。"
+  - id: appoint_a_minister
+    on_action: on_cabinet_assigned
+    wired: true
+    scope: "root = country, scope:target = character who got assigned to the cabinet"
+    category: political
+    completion_note: "No extra filter needed; fires once per cabinet appointment."
+    loc:
+      en: "Appoint a minister to your cabinet."
+      zh: "任命一位内阁大臣。"
+  - id: attract_a_notable_character
+    on_action: on_character_moved_country
+    wired: true
+    scope: "root = character, scope:target = new country, scope:owner = old country"
+    category: political
+    completion_note: >-
+      Counts for scope:target (the receiving country), not root. The hook fires for any
+      character switching employer, not only "notable" ones — a consumer wanting a quality bar
+      (e.g. minimum ADM/DIP/MIL) must add its own character filter.
+    verify_in_game: true
+    loc:
+      en: "Attract a notable character into your service from abroad."
+      zh: "从他国招揽一位知名人物为己所用。"
+  - id: reform_heir_selection
+    on_action: on_heir_selection_changed
+    wired: false
+    scope: "root = country; scope:old_heir_selection; scope:heir_selection"
+    category: political
+    completion_note: >-
+      Fires on any heir-selection law change; a task targeting a specific selection law filters
+      on scope:heir_selection in the consumer.
+    loc:
+      en: "Change your country's heir selection law."
+      zh: "改变国家的继承人选定法律。"
+  - id: upgrade_subject_relationship
+    on_action: on_subject_type_changed
+    wired: false
+    scope: "root = subject, scope:overlord = overlord, scope:subject_type = current subject type, scope:old_subject_type = subject type before the change"
+    category: diplomatic
+    completion_note: >-
+      Fires from the subject's own perspective (root); an overlord-scope consumer resolves
+      scope:overlord instead. Whether a given scope:old_subject_type -> scope:subject_type
+      transition counts as an "upgrade" needs a consumer-defined ordering, since the hook
+      itself carries no ranking.
+    verify_in_game: true
+    loc:
+      en: "Change a subject relationship to a different subject type."
+      zh: "将附庸关系转变为另一种附庸类型。"
+  - id: receive_transferred_subject
+    on_action: on_transfer_subject
+    wired: true
+    scope: "root = subject, scope:overlord = new overlord, scope:former_overlord = old overlord (fires after the transfer)"
+    category: diplomatic
+    completion_note: "Counts for scope:overlord (the receiving country), not root."
+    loc:
+      en: "Receive a subject transferred from another overlord."
+      zh: "接收一个由他国转让而来的附庸。"
+  - id: rise_in_power_rank
+    on_action: on_country_rank_change
+    wired: false
+    scope: "root = country, scope:old_rank = country's old rank"
+    category: political
+    completion_note: >-
+      Fires on ANY rank change, up or down — a consumer confirming a genuine rise must compare
+      the country's current rank trigger value against scope:old_rank itself; the on_action
+      carries no direction.
+    verify_in_game: true
+    loc:
+      en: "Improve your country's overall power rank."
+      zh: "提升国家的整体实力排名。"
+  - id: achieve_hegemon_status
+    on_action: on_gain_hegemon_status
+    wired: false
+    scope: "root = country, scope:target = hegemony"
+    category: political
+    completion_note: "No extra filter needed; fires once when hegemon status is newly gained."
+    loc:
+      en: "Achieve recognized Hegemon status."
+      zh: "获得公认的霸权地位。"
+  - id: complete_country_mission
+    on_action: on_mission_completion
+    wired: false
+    scope: "root = country"
+    category: economic_colonial
+    completion_note: >-
+      Fires on any completed country mission (the vanilla mission-tree system); a task
+      targeting one specific mission must add its own identity check in the consumer, since the
+      on_action carries no mission identity in scope.
+    loc:
+      en: "Complete a country mission."
+      zh: "完成一项国家任务（Mission）。"
+  - id: embrace_the_revolution
+    on_action: on_embrace_revolution
+    wired: false
+    scope: "root = country"
+    category: political
+    completion_note: >-
+      Tied to the Age of Revolution flavor content (fires alongside the_revolution.9);
+      reachability depends on that content actually being active in a given campaign — treat as
+      a late-game-only task.
+    verify_in_game: true
+    loc:
+      en: "Embrace the Revolution."
+      zh: "拥抱大革命。"
+  - id: change_state_culture
+    on_action: on_culture_changed
+    wired: false
+    scope: "root = country, scope:old_culture = old culture"
+    category: religious_cultural
+    completion_note: "No extra filter needed; fires once per primary-culture change."
+    loc:
+      en: "Change your country's primary culture."
+      zh: "改变国家的主体文化。"
+  - id: secure_a_protector
+    on_action: on_dependency_gained
+    wired: true
+    scope: "root = country, scope:overlord = new overlord"
+    category: diplomatic
+    completion_note: >-
+      Counts for root itself (the country entering the dependency), distinct from
+      gain_subject's overlord-side perspective on the same lifecycle moment.
+    loc:
+      en: "Secure a powerful protector by becoming its subject."
+      zh: "成为强国的附庸以寻求庇护。"
+  - id: adopt_io_policy
+    on_action: on_international_organization_policy_changed
+    wired: false
+    scope: "root = international organization"
+    category: political
+    completion_note: >-
+      Root is the IO scope with no country or actor link documented on this hook — a
+      country-scope consumer must resolve which country to credit from other context (e.g. the
+      vote's own effect chain), not from this on_action's scope alone.
+    verify_in_game: true
+    loc:
+      en: "Have an International Organization adopt a new policy."
+      zh: "使某国际组织通过一项新政策。"
+  - id: provoke_a_rival
+    on_action: on_insult
+    wired: false
+    scope: "root, scope:actor = sender, scope:recipient = receiver"
+    category: diplomatic
+    completion_note: >-
+      Counts for scope:actor (the sender). Framing an insult as a rewarded "task" is an
+      unusual, aggressive-diplomacy playstyle choice — double-check against the mod's mostly
+      positive-achievement tone before using this in a real mechanic.
+    verify_in_game: true
+    loc:
+      en: "Send a diplomatic insult to another country."
+      zh: "向他国发出外交侮辱。"
+
 trigger_task:
   # --- Economic ---
   - id: accumulate_treasury
@@ -540,3 +832,242 @@ trigger_task:
     loc:
       en: "Reach at least this much combined Great Power score across an International Organization's membership (cached, updated monthly by the engine)."
       zh: "某国际组织全体成员的列强分数总和达到此数值（引擎每月缓存更新）。"
+
+  # --- Wave 2 (bolder, wider net) ---
+  # --- Character scope ---
+  - id: character_adm_threshold
+    trigger: adm
+    scope: character
+    comparison: gte
+    representative_threshold: 5
+    category: character
+    loc:
+      en: "Have a character reach at least this much administrative (ADM) skill."
+      zh: "使一名人物的行政（ADM）能力达到此数值。"
+  - id: character_dip_threshold
+    trigger: dip
+    scope: character
+    comparison: gte
+    representative_threshold: 5
+    category: character
+    loc:
+      en: "Have a character reach at least this much diplomatic (DIP) skill."
+      zh: "使一名人物的外交（DIP）能力达到此数值。"
+  - id: character_mil_threshold
+    trigger: mil
+    scope: character
+    comparison: gte
+    representative_threshold: 5
+    category: character
+    loc:
+      en: "Have a character reach at least this much military (MIL) skill."
+      zh: "使一名人物的军事（MIL）能力达到此数值。"
+  - id: character_num_traits
+    trigger: num_of_traits
+    scope: character
+    comparison: gte
+    representative_threshold: 3
+    category: character
+    loc:
+      en: "Have a character accumulate at least this many traits."
+      zh: "使一名人物积累至少这么多个特质。"
+  - id: character_num_children
+    trigger: num_of_children
+    scope: character
+    comparison: gte
+    representative_threshold: 3
+    category: character
+    loc:
+      en: "Have a character raise a family of at least this many children."
+      zh: "使一名人物拥有至少这么多个子女。"
+  - id: character_longevity
+    trigger: age_in_years
+    scope: character
+    comparison: gte
+    representative_threshold: 60
+    category: character
+    loc:
+      en: "Have a character live to at least this age."
+      zh: "使一名人物活到至少此年龄。"
+  - id: character_has_heir
+    trigger: is_heir
+    scope: character
+    comparison: boolean
+    representative_threshold: null
+    category: character
+    loc:
+      en: "Designate a character as heir apparent."
+      zh: "指定一名人物为法定继承人。"
+
+  # --- Religious / cultural, target-parameterized ---
+  - id: dominant_state_religion
+    trigger: religious_unity
+    scope: country
+    comparison: gte
+    representative_threshold: 0.8
+    category: religious_cultural
+    loc:
+      en: "Reach at least this fraction of the population sharing your country's own religion."
+      zh: "使信奉本国国教的人口比例达到此数值。"
+  - id: dominant_culture_share
+    trigger: culture_percentage_in_country
+    scope: country
+    comparison: gte
+    representative_threshold: 0.5
+    requires_target: "culture (a specific culture id)"
+    verify_in_game: true
+    category: religious_cultural
+    loc:
+      en: "Have a specific culture reach at least this population share within your country."
+      zh: "使某一特定文化在本国的人口占比达到此数值。"
+  - id: dominant_religion_in_realm
+    trigger: religion_percentage
+    scope: country
+    comparison: gte
+    representative_threshold: 0.5
+    requires_target: >-
+      religion (a specific religion id); the trigger also supports
+      location/province/province_definition/area/region/subcontinent/continent/scripted_geography
+      scopes per triggers.log — country-scope aggregation behavior was not separately confirmed
+    verify_in_game: true
+    category: religious_cultural
+    loc:
+      en: "Have a specific religion reach at least this population share within your realm."
+      zh: "使某一特定宗教在本国境内的人口占比达到此数值。"
+  - id: hold_specific_reform
+    trigger: has_reform
+    scope: country
+    comparison: boolean
+    representative_threshold: null
+    requires_target: "government_reform (a specific reform id)"
+    category: political
+    loc:
+      en: "Hold a specific government reform."
+      zh: "拥有一项特定的政府改革。"
+  - id: at_war_with_rival
+    trigger: is_at_war_with
+    scope: country
+    comparison: boolean
+    representative_threshold: null
+    requires_target: "country (a specific rival country)"
+    verify_in_game: true
+    category: military
+    loc:
+      en: "Be at war with a specific designated rival."
+      zh: "与某个特定的对手处于战争状态。"
+  - id: become_colonial_overlord
+    trigger: is_colonial_overlord
+    scope: country
+    comparison: boolean
+    representative_threshold: null
+    category: economic_colonial
+    loc:
+      en: "Become the overlord of a colonial subject."
+      zh: "成为殖民附庸的宗主国。"
+
+  # --- Military breadth ---
+  - id: reach_regular_navy_size
+    trigger: regular_navy_size
+    scope: country
+    comparison: gte
+    representative_threshold: 15
+    category: military
+    loc:
+      en: "Build a regular (maximum-strength) navy of at least this many ships."
+      zh: "建造至少这么多艘满编正规舰船的海军。"
+  - id: reach_owned_ports
+    trigger: num_of_ports
+    scope: country
+    comparison: gte
+    representative_threshold: 5
+    category: economic
+    loc:
+      en: "Own at least this many ports."
+      zh: "拥有至少这么多个港口。"
+  - id: reach_expected_army_size
+    trigger: expected_army_size
+    scope: country
+    comparison: gte
+    representative_threshold: 12000
+    category: military
+    loc:
+      en: "Reach at least this much expected army size."
+      zh: "预期陆军规模达到此数值。"
+  - id: reach_potential_navy_size
+    trigger: potential_navy_size
+    scope: country
+    comparison: gte
+    representative_threshold: 25
+    category: military
+    loc:
+      en: "Reach at least this much potential navy size (ships the country has and could still raise)."
+      zh: "潜在海军规模（已有及可征召舰船总数）达到此数值。"
+
+  # --- Tradition / percentage-of-maximum ---
+  - id: army_tradition_threshold
+    trigger: army_tradition
+    scope: country
+    comparison: gte
+    representative_threshold: 30
+    category: military
+    loc:
+      en: "Reach at least this much army tradition."
+      zh: "陆军传统达到此数值。"
+  - id: navy_tradition_threshold
+    trigger: navy_tradition
+    scope: country
+    comparison: gte
+    representative_threshold: 30
+    category: military
+    loc:
+      en: "Reach at least this much navy tradition."
+      zh: "海军传统达到此数值。"
+  - id: prestige_percentage_threshold
+    trigger: prestige_percentage
+    scope: country
+    comparison: gte
+    representative_threshold: 0.75
+    category: diplomatic
+    loc:
+      en: "Reach at least this percentage of your maximum possible prestige."
+      zh: "威望达到其理论上限的此百分比。"
+  - id: legitimacy_percentage_threshold
+    trigger: legitimacy_percentage
+    scope: country
+    comparison: gte
+    representative_threshold: 0.9
+    verify_in_game: true
+    category: diplomatic
+    loc:
+      en: "Reach at least this percentage of maximum legitimacy (this trigger name is monarchy-specific; other government types may need a differently-named equivalent percentage trigger — verify before use)."
+      zh: "正统性达到其理论上限的此百分比（该 trigger 名称为君主制专属，其他政体可能需要另一个同类百分比 trigger——使用前请核实）。"
+
+  # --- Alternate detection / bold ---
+  - id: recognized_as_subject
+    trigger: is_subject
+    scope: country
+    comparison: boolean
+    representative_threshold: null
+    category: diplomatic
+    loc:
+      en: "Be recognized as another country's subject (an alternative trigger-based detection of the same fact as the on_action_task entry secure_a_protector — a consumer should pick one detection method, not both)."
+      zh: "被承认为他国的附庸（与 on_action_task 中 secure_a_protector 检测的是同一事实，只是改用 trigger 轮询——消费方应二选一，不要同时使用）。"
+  - id: unit_morale_threshold
+    trigger: morale_percentage
+    scope: unit
+    comparison: gte
+    representative_threshold: 1.0
+    verify_in_game: true
+    category: military
+    loc:
+      en: "Have a military unit reach at least this much morale, as a fraction of maximum (unit scope — a country-level consumer must iterate the country's own units to apply this)."
+      zh: "使一支部队的士气（占理论上限的比例）达到此数值（部队级 scope——国家级消费方需要自行遍历本国部队来应用此项）。"
+  - id: gold_percentage_threshold
+    trigger: gold_percentage
+    scope: country
+    comparison: gte
+    representative_threshold: 0.9
+    category: economic
+    loc:
+      en: "Reach at least this percentage of your maximum possible treasury."
+      zh: "国库金币达到其理论上限的此百分比。"
