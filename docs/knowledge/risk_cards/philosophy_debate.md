@@ -73,6 +73,17 @@ Load this card before editing any file with `philosophy_debate`, `world_debate`,
    `tv_academy_debate_royal_option_{slot}_group`) instead of overwriting `tv_academy_debate_event_group`
    mid-option and re-reading it with the generic tooltip effect.
 
+7. Quote function-call-style event target links used as script values.
+   `emit_crown_contribution_add` and `emit_group_static_formula` (`philosophy_debate_codegen.py`)
+   emit `leader_country.estate_power(estate_type:<id>)` as the source of the Crown/Nobility/etc.
+   contribution to `tv_academy_philosophy_debate_position.monthly_change`. `estate_power(...)` is
+   a parenthesized-argument event target link, not a colon-suffixed one, so the entire
+   scope+call expression must be wrapped in double quotes on the RHS of `value =`
+   (`value = "leader_country.estate_power(estate_type:crown_estate)"`). Leaving it unquoted
+   parses as three separate malformed tokens (`(`, `)`, `=`) and the estate contribution silently
+   never applies. See `docs/technical/EU5_Modding_Knowledge_Base.md` section 5.3
+   "Function-Call-Style Event Target Links Must Be Quoted".
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report` after any codegen or data change. It lints

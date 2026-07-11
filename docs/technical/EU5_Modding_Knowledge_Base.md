@@ -723,6 +723,20 @@ Script values always execute in the scope they are *called from*, not from the s
   ```
   Engine error: `Event target link 'location' did not get a matching scope type. Expected 'character, pop, …', but got 'location'`
 
+#### Function-Call-Style Event Target Links Must Be Quoted
+
+Some event target links take a parenthesized argument instead of a colon suffix, e.g. `estate_power(estate_type:crown_estate)` or `estate(estate_type:nobles_estate)`. When one of these is chained after a scope and used as the RHS of `value =`, a trigger comparison, `add =`, `subtract =`, etc., the **entire scope + call expression must be wrapped in double quotes**:
+
+```pdx
+value = "leader_country.estate_power(estate_type:crown_estate)"
+```
+
+```pdx
+limit = { "root.estate_power(estate_type:crown_estate)" >= 0.5 }
+```
+
+Without quotes, the parser splits on the bare `(` and fails with a cluster of three errors: `jomini_eventtarget.cpp: No data specified for an event target link that requires data`, `jomini_scriptvalue.h: Cannot read [...] as a script value`, and `pdx_persistent_reader.cpp: Unexpected token: (` (immediately followed by `Unexpected token: )` and `Unexpected token: =` on the next lines). This differs from plain colon-suffixed links (`var:X`, `estate:crown_estate`), which never need quoting. See `reference_game_files/game/in_game/common/disasters/coup_attempt.txt:13` and `reference_game_files/game/in_game/common/attribute_columns/57_parliament_issues.txt:40` for verified vanilla precedent.
+
 ### 5.4. Generic Action `select_trigger` Pre-evaluation
 
 When a generic action has multiple `select_trigger` steps, EU5 **pre-evaluates the `effect` block at each step** before the user finishes all selections:

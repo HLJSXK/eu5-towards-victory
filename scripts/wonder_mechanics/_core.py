@@ -130,7 +130,6 @@ WONDER_RITUAL_COST_TYPE_IDS = {
 STYLE_3_REWARD_EFFECTS = {
     "all_estate_satisfaction": {"effect": "add_all_estate_satisfaction", "scope": "country_value_block"},
     "army_tradition": {"effect": "add_army_tradition", "scope": "country_scalar"},
-    "bureaucracy": {"effect": "add_bureaucracy", "scope": "country_scalar"},
     "celestial_authority": {"effect": "change_celestial_authority", "scope": "country_value_block"},
     "cultural_influence": {"effect": "add_cultural_influence", "scope": "culture_scalar"},
     "cultural_tradition": {"effect": "add_cultural_tradition", "scope": "culture_scalar"},

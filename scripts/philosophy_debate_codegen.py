@@ -971,7 +971,7 @@ def emit_crown_contribution_add(lines: list[str], data: dict) -> None:
         emit(lines, 8, line)
     emit(lines, 7, "}")
     emit(lines, 6, "}")
-    emit(lines, 6, "value = leader_country.estate_power(estate_type:crown_estate)")
+    emit(lines, 6, "value = \"leader_country.estate_power(estate_type:crown_estate)\"")
     emit(lines, 6, f"multiply = {settings['crown_contribution_multiplier']}")
     emit(lines, 5, "}")
     emit(lines, 4, "}")
@@ -982,12 +982,12 @@ def emit_group_static_formula(lines: list[str], level: int, group: dict, setting
     emit(lines, level, f"value = {base}")
     if group["type"] == "estate":
         emit(lines, level, "add = {")
-        emit(lines, level + 1, f"value = leader_country.estate_power(estate_type:{group['estate']})")
+        emit(lines, level + 1, f"value = \"leader_country.estate_power(estate_type:{group['estate']})\"")
         emit(lines, level + 1, f"multiply = {settings['estate_power_multiplier']}")
         emit(lines, level, "}")
     elif group["type"] == "variant":
         emit(lines, level, "add = {")
-        emit(lines, level + 1, f"value = leader_country.estate_power(estate_type:{group['base_estate']})")
+        emit(lines, level + 1, f"value = \"leader_country.estate_power(estate_type:{group['base_estate']})\"")
         emit(lines, level + 1, f"multiply = {settings['variant_power_multiplier']}")
         emit(lines, level, "}")
     elif group["type"] == "artists":

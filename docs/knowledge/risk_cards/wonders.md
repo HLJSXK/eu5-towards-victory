@@ -269,6 +269,18 @@ generators.
     concepts (not verified/built in this pass) rather than resolving an
     arbitrary loc key directly — do not guess a generic "resolve dynamic loc
     key" GUI function without finding a working precedent first.
+    `gen_tv_wonder_ceremony_cards_gui.py`'s per-stage `visible` line used
+    `And(a, b, c)` (3 operands) — GUI `And`/`Or` are binary-only; use `And3(...)`
+    for exactly three operands (see the GUI risk card / `gui_boolean_helper_arity`).
+    Separately, the `ceremony` block's `stage_N_reward` vocabulary
+    (`STYLE_3_REWARD_EFFECTS` in `scripts/wonder_mechanics/_core.py`) must only
+    list reward types whose mapped effect is a genuine scalar per
+    `reference_official_defines/docs/effects.log`'s "Supported Targets" line —
+    `bureaucracy` was removed after `add_bureaucracy = 12` turned out to require
+    a `bureaucracy_type` target, not a number, and silently no-op'd
+    (`PostValidate of effect 'add_bureaucracy' returned false`) in all 12 ceremony
+    rewards that used it. Check effects.log before adding a new reward type to
+    this table.
 
 ## Validation
 
