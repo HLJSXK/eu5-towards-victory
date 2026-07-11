@@ -135,6 +135,23 @@ def not_special_unique_locked_expr() -> str:
     )
 
 
+def special_unique_locked_expr() -> str:
+    return fold_bool(
+        "Or",
+        [
+            pharos_locked_expr(),
+            hagia_locked_expr(),
+        ],
+    )
+
+
+def generic_wonder_locked_expr() -> str:
+    return (
+        f"And({player_var('tv_wonder_locked_is_unique')}.IsSet, "
+        f"Not({eq('tv_wonder_locked_is_unique', 1)}))"
+    )
+
+
 def fmt_decimal(value: Decimal) -> str:
     normalized = value.normalize()
     text = format(normalized, "f")
@@ -356,7 +373,7 @@ def ritual_style_1_progress_row(indent: int) -> list[str]:
             active_ritual_visible(),
             f"{player_var('tv_wonder_selected_ritual_style')}.IsSet",
             eq("tv_wonder_selected_ritual_style", 1),
-            not_special_unique_locked_expr(),
+            generic_wonder_locked_expr(),
         ],
     )
     progress_pct = player_var(RITUAL_PROGRESS_PCT_VAR)
@@ -640,15 +657,13 @@ def active_ritual_display() -> str:
         f"And({player_var('tv_wonder_locked_is_unique')}.IsSet, "
         f"{eq('tv_wonder_locked_is_unique', 1)})"
     )
-    is_generic = (
-        f"And({player_var('tv_wonder_locked_is_unique')}.IsSet, "
-        f"Not({eq('tv_wonder_locked_is_unique', 1)}))"
-    )
+    is_generic = generic_wonder_locked_expr()
     generic_visible = f"And({visible}, {is_generic})"
-    unique_visible = f"And3({visible}, {is_unique}, {not_special_unique_locked_expr()})"
+    unique_visible = f"And3({visible}, {is_unique}, {special_unique_locked_expr()})"
+    display_visible = f"And({visible}, Or({is_generic}, {special_unique_locked_expr()}))"
     lines: list[str] = [
         f"{T}vbox = {{",
-        f'{T}{T}visible = "[{visible}]"',
+        f'{T}{T}visible = "[{display_visible}]"',
         f"{T}{T}layoutpolicy_horizontal = expanding",
         f"{T}{T}ignoreinvisible = yes",
         f"{T}{T}spacing = 6",
