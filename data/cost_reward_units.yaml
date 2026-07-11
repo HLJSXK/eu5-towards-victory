@@ -1,0 +1,581 @@
+# Foundational cost/reward unit catalog for AI-assisted design across Towards Victory.
+#
+# This is base-layer data, not owned by or tied to any single mechanic. It was originally
+# extracted from the Engineering Department Wonder Construction random-event system (see
+# docs/design/Cost_Reward_Unit_Concepts.md), but is maintained independently: the wonder
+# system's own data (data/wonder_construction_events.yaml) does not read from this file, and
+# this file is not scoped to only what wonder events currently use. Other mechanics designed
+# later are expected to look up a "1 unit" magnitude here directly.
+#
+# Five categories. Three are one-shot units, cutting by scope only (country/local/character) —
+# there is no separate "cost" category: a cost is simply the negative of the matching
+# country_reward/local_reward/character_reward value. Consumers that need a cost read the reward
+# `value` and negate it themselves; this catalog does not store cost and reward as separate rows.
+# `character_reward` covers effects applied to a character (e.g. a ruler, Great Engineer, or
+# artist), not a country or a location — added because add_adm/add_dip/add_mil and
+# add_artist_skill are the single most recurring one-shot effect pattern in the mod (used across
+# 7+ event/effect files spanning Academy debate, Arts Exhibition, Research, Engineering
+# Department, and Governor's House), more so than any individual country-scope stat.
+#
+# `country_reward.government_power` intentionally generalizes the wonder system's original
+# `legitimacy` entry: EU5's real effect is `add_government_power`, which auto-resolves to
+# whichever of legitimacy/republican_tradition/devotion/horde_unity/tribal_cohesion applies to the
+# country's government type — using the specific `add_legitimacy` effect would only work for
+# monarchies. The value (5) is unchanged from the original wonder-extracted `legitimacy` number.
+#
+# `country_reward.inflation` has inverted polarity versus every other entry: because lower
+# inflation is the desirable direction, applying this catalog's stored positive `value` as a
+# REWARD means REDUCING inflation (i.e. calling the real effect with a negative amount), and a
+# COST means INCREASING inflation (a positive amount) — the opposite of every other row, where a
+# reward adds the stored value and a cost subtracts it. Consumers must handle this row specially.
+#
+# The other two, country_modifier/local_modifier, are persistent PER-LEVEL modifier units — real
+# EU5 modifier keys, not one-shot effects. "value" is the per-level increment a future multi-level
+# mechanic would add per completed level; it can be negative when the real modifier is beneficial
+# as a negative number (e.g. a cost-reduction modifier). These entries are extracted directly from
+# the Engineering Department Wonder system's own per-level modifier magnitudes: EVERY distinct
+# numeric modifier key across all ~51 generic wonder mechanics is included (country_modifier from
+# data/wonder_base_modifiers.yaml, local_modifier from data/wonder_final_buildings.yaml's
+# final_local, plus the local_cultural_tradition/local_cultural_influence baseline every final
+# wonder building carries), not just a small illustrative sample. They are real modifier keys the
+# wonder system already uses, not the generic cost/reward stat vocabulary above (a modifier key
+# like "clergy_estate_max_tax" has no equivalent as a one-shot effect, and vice versa: "legitimacy"
+# is a one-shot effect target, not a valid static-modifier key). The 19 distinct `monthly_towards_*`
+# value-movement axes used across the wonder system (free_trade, conciliatory, decentralization,
+# outward, spiritualist, centralization, naval, traditionalist, capital_economy,
+# traditional_economy, innovative, free_subjects, defensive, offensive, mercantilism, belligerent,
+# inward, humanist, plutocracy — all at the same 0.05 magnitude) are generalized into one
+# `monthly_towards_axis` entry rather than 19 duplicate rows. Where the same real key is used at
+# different magnitudes by different wonders, one representative value was kept.
+#
+# Edit through the standalone cost_reward_editor_web tool (scripts/cost_reward_editor.py).
+
+country_reward:
+  - id: gold
+    value: 1
+    loc:
+      en: "treasury funds"
+      zh: "国库资金"
+  - id: government_power
+    value: 5
+    loc:
+      en: "government power (auto-resolves to legitimacy/republican_tradition/devotion/horde_unity/tribal_cohesion by government type)"
+      zh: "政府权力值（按政府类型自动对应正统性/共和传统/虔诚度/部落统一度/部落凝聚力）"
+  - id: stability
+    value: 7
+    loc:
+      en: "stability"
+      zh: "稳定度"
+  - id: prestige
+    value: 10
+    loc:
+      en: "prestige"
+      zh: "威望"
+  - id: nobles_satisfaction
+    value: 0.10
+    loc:
+      en: "noble satisfaction"
+      zh: "贵族阶层满意度"
+  - id: clergy_satisfaction
+    value: 0.10
+    loc:
+      en: "clergy satisfaction"
+      zh: "教士阶层满意度"
+  - id: burghers_satisfaction
+    value: 0.10
+    loc:
+      en: "burgher satisfaction"
+      zh: "市民阶层满意度"
+  - id: peasants_satisfaction
+    value: 0.20
+    loc:
+      en: "peasant satisfaction"
+      zh: "平民阶层满意度"
+  - id: research_progress
+    value: 5
+    loc:
+      en: "research progress"
+      zh: "科研进度"
+  - id: army_tradition
+    value: 2.5
+    loc:
+      en: "army tradition"
+      zh: "陆军传统"
+  - id: navy_tradition
+    value: 2.5
+    loc:
+      en: "navy tradition"
+      zh: "海军传统"
+  - id: manpower
+    value: 50
+    loc:
+      en: "manpower"
+      zh: "人力"
+  - id: sailors
+    value: 50
+    loc:
+      en: "sailors"
+      zh: "水手"
+  - id: inflation
+    value: 0.05
+    loc:
+      en: "inflation (inverted polarity: reward reduces inflation by this amount, cost increases it)"
+      zh: "通胀（方向相反：奖励是降低该数值，代价是提高该数值）"
+
+local_reward:
+  - id: development
+    value: 0.25
+    loc:
+      en: "development"
+      zh: "发展度"
+  - id: prosperity
+    value: 0.2
+    loc:
+      en: "prosperity"
+      zh: "繁荣度"
+  - id: laborers
+    value: 10
+    loc:
+      en: "laborers"
+      zh: "劳工"
+
+character_reward:
+  - id: adm
+    value: 3
+    loc:
+      en: "administrative skill points (ADM)"
+      zh: "行政技能点"
+  - id: dip
+    value: 3
+    loc:
+      en: "diplomatic skill points (DIP)"
+      zh: "外交技能点"
+  - id: mil
+    value: 3
+    loc:
+      en: "military skill points (MIL)"
+      zh: "军事技能点"
+  - id: artist_skill
+    value: 0.05
+    loc:
+      en: "artist skill"
+      zh: "艺术家技巧"
+
+country_modifier:
+  - id: global_merchant_power
+    value: 0.2
+    loc:
+      en: "global merchant power"
+      zh: "全球商人力量"
+  - id: global_merchant_capacity_modifier
+    value: 0.1
+    loc:
+      en: "global merchant capacity modifier"
+      zh: "全球商人容量修正"
+  - id: country_cabinet_efficiency
+    value: 0.1
+    loc:
+      en: "cabinet efficiency"
+      zh: "内阁效率"
+  - id: legislative_efficiency
+    value: 0.1
+    loc:
+      en: "legislative efficiency"
+      zh: "立法效率"
+  - id: exploration_mission_speed
+    value: 0.1
+    loc:
+      en: "exploration mission speed"
+      zh: "探索任务速度"
+  - id: clergy_estate_max_tax
+    value: 0.1
+    loc:
+      en: "clergy estate max tax cap"
+      zh: "教士阶层税收上限"
+  - id: clergy_estate_target_satisfaction
+    value: 0.05
+    loc:
+      en: "clergy estate target satisfaction"
+      zh: "教士阶层目标满意度"
+  - id: monthly_legitimacy
+    value: 0.05
+    loc:
+      en: "monthly legitimacy gain"
+      zh: "每月正统性增长"
+  - id: pop_join_rebel_threshold
+    value: -0.025
+    loc:
+      en: "population rebel-join threshold"
+      zh: "人口加入叛军阈值"
+  - id: pop_leave_rebels_threshold
+    value: -0.025
+    loc:
+      en: "population rebel-leave threshold"
+      zh: "人口脱离叛军阈值"
+  - id: trade_range
+    value: 200
+    loc:
+      en: "trade range"
+      zh: "贸易范围"
+  - id: naval_range
+    value: 200
+    loc:
+      en: "naval range"
+      zh: "海军范围"
+  - id: colonial_range
+    value: 200
+    loc:
+      en: "colonial range"
+      zh: "殖民范围"
+  - id: research_speed
+    value: 0.05
+    loc:
+      en: "research speed"
+      zh: "科研速度"
+  - id: global_distance_from_capital_speed_propagation
+    value: 0.05
+    loc:
+      en: "distance-from-capital speed propagation"
+      zh: "距首都速度衰减传播"
+  - id: global_pop_conversion_speed
+    value: 0.002
+    loc:
+      en: "population conversion speed"
+      zh: "人口皈依速度"
+  - id: ship_build_speed
+    value: 0.2
+    loc:
+      en: "ship build speed"
+      zh: "造船速度"
+  - id: tax_income_efficiency
+    value: 0.02
+    loc:
+      en: "tax income efficiency"
+      zh: "税收效率"
+  - id: merchant_maintenance_efficiency
+    value: 0.03
+    loc:
+      en: "merchant maintenance efficiency"
+      zh: "商人维护效率"
+  - id: global_pop_promotion_speed
+    value: 0.005
+    loc:
+      en: "population promotion speed"
+      zh: "人口晋升速度"
+  - id: global_monthly_prosperity
+    value: 0.0005
+    loc:
+      en: "monthly prosperity"
+      zh: "每月繁荣度"
+  - id: global_food_capacity_modifier
+    value: 0.2
+    loc:
+      en: "food capacity modifier"
+      zh: "粮食容量修正"
+  - id: monthly_army_tradition
+    value: 0.05
+    loc:
+      en: "monthly army tradition"
+      zh: "每月陆军传统"
+  - id: num_possible_artists
+    value: 1
+    loc:
+      en: "possible artist slots"
+      zh: "可用艺术家名额"
+  - id: artist_salary_modifier
+    value: -0.1
+    loc:
+      en: "artist salary modifier"
+      zh: "艺术家薪资修正"
+  - id: cultural_influence_modifier
+    value: 0.1
+    loc:
+      en: "cultural influence modifier"
+      zh: "文化影响力修正"
+  - id: skill_of_new_artists
+    value: 0.05
+    loc:
+      en: "skill of new artists"
+      zh: "新晋艺术家技巧"
+  - id: diplomatic_reputation
+    value: 1
+    loc:
+      en: "diplomatic reputation"
+      zh: "外交声誉"
+  - id: monthly_rebel_growth
+    value: -0.0005
+    loc:
+      en: "monthly rebel growth"
+      zh: "每月叛军增长"
+  - id: global_trade_center_power
+    value: 0.1
+    loc:
+      en: "trade center power"
+      zh: "贸易中心力量"
+  - id: minting_income_factor
+    value: 0.1
+    loc:
+      en: "minting income factor"
+      zh: "铸币收入系数"
+  - id: cultures_capacity
+    value: 0.5
+    loc:
+      en: "accepted cultures capacity"
+      zh: "可接受文化容量"
+  - id: tolerance_heretic
+    value: 0.5
+    loc:
+      en: "tolerance of heretics"
+      zh: "对异端的容忍度"
+  - id: tolerance_heathen
+    value: 0.5
+    loc:
+      en: "tolerance of heathens"
+      zh: "对异教徒的容忍度"
+  - id: tolerance_own
+    value: 0.5
+    loc:
+      en: "tolerance of own religion"
+      zh: "对本教容忍度"
+  - id: monthly_navy_tradition
+    value: 0.05
+    loc:
+      en: "monthly navy tradition"
+      zh: "每月海军传统"
+  - id: hire_privateer_cost_modifier
+    value: -0.05
+    loc:
+      en: "privateer hiring cost modifier"
+      zh: "雇佣私掠船花费修正"
+  - id: privateer_maintenance_cost_modifier
+    value: -0.03
+    loc:
+      en: "privateer maintenance cost modifier"
+      zh: "私掠船维护花费修正"
+  - id: privateer_durability
+    value: 0.05
+    loc:
+      en: "privateer durability"
+      zh: "私掠船耐久度"
+  - id: monthly_towards_axis
+    value: 0.05
+    loc:
+      en: "monthly movement toward a societal/political stance (any monthly_towards_* modifier; 19 distinct axes are used across the wonder system)"
+      zh: "每月价值观倾向变化（任意 monthly_towards_* 类型 modifier；奇观系统本身共用到 19 种不同倾向轴）"
+
+local_modifier:
+  - id: local_cultural_tradition
+    value: 0.5
+    loc:
+      en: "local culture tradition"
+      zh: "本地文化传统"
+  - id: local_cultural_influence
+    value: 0.5
+    loc:
+      en: "local culture influence"
+      zh: "本地文化影响力"
+  - id: local_merchant_power
+    value: 5
+    loc:
+      en: "local merchant power"
+      zh: "本地商人力量"
+  - id: local_merchant_capacity
+    value: 2.5
+    loc:
+      en: "local merchant capacity"
+      zh: "本地商人容量"
+  - id: local_manpower
+    value: 0.01
+    loc:
+      en: "local manpower"
+      zh: "本地人力"
+  - id: movement_cost
+    value: -0.1
+    loc:
+      en: "movement cost"
+      zh: "移动花费"
+  - id: local_build_buildings_efficiency
+    value: 0.1
+    loc:
+      en: "local building construction efficiency"
+      zh: "本地建筑建造效率"
+  - id: local_proximity_source
+    value: 10
+    loc:
+      en: "local proximity source"
+      zh: "本地邻近度来源"
+  - id: local_crown_estate_power
+    value: 0.5
+    loc:
+      en: "local crown estate power"
+      zh: "本地王室领地力量"
+  - id: harbor_suitability
+    value: 0.1
+    loc:
+      en: "harbor suitability"
+      zh: "港口适宜度"
+  - id: local_trade_center_power
+    value: 0.1
+    loc:
+      en: "local trade center power"
+      zh: "本地贸易中心力量"
+  - id: local_production_efficiency
+    value: 0.05
+    loc:
+      en: "local production efficiency"
+      zh: "本地生产效率"
+  - id: local_max_rgo_size_modifier
+    value: 0.5
+    loc:
+      en: "local max raw-material site size modifier"
+      zh: "本地原材料产地规模上限修正"
+  - id: local_pop_promotion_speed_modifier
+    value: 0.25
+    loc:
+      en: "local population promotion speed modifier"
+      zh: "本地人口晋升速度修正"
+  - id: local_distance_from_capital_speed_propagation
+    value: 0.1
+    loc:
+      en: "local distance-from-capital speed propagation"
+      zh: "本地距首都速度衰减传播"
+  - id: local_pop_promotion_speed
+    value: 0.01
+    loc:
+      en: "local population promotion speed"
+      zh: "本地人口晋升速度"
+  - id: local_max_literacy
+    value: 10
+    loc:
+      en: "local max literacy"
+      zh: "本地识字率上限"
+  - id: local_pop_conversion_speed
+    value: 0.01
+    loc:
+      en: "local population conversion speed"
+      zh: "本地人口皈依速度"
+  - id: local_monthly_development_modifier
+    value: 0.1
+    loc:
+      en: "local monthly development modifier"
+      zh: "本地每月发展度修正"
+  - id: local_ship_build_speed
+    value: 0.2
+    loc:
+      en: "local ship build speed"
+      zh: "本地造船速度"
+  - id: max_ships_built_at_same_time
+    value: 1
+    loc:
+      en: "max ships built at the same time"
+      zh: "同时建造船只上限"
+  - id: local_defensive
+    value: 0.2
+    loc:
+      en: "local defensiveness"
+      zh: "本地防御力"
+  - id: local_garrison_size
+    value: 0.25
+    loc:
+      en: "local garrison size"
+      zh: "本地驻军规模"
+  - id: local_frontage_allowed
+    value: -0.5
+    loc:
+      en: "local frontage allowed"
+      zh: "本地允许战线宽度"
+  - id: local_manpower_modifier
+    value: 0.2
+    loc:
+      en: "local manpower modifier"
+      zh: "本地人力修正"
+  - id: local_monthly_food_modifier
+    value: 0.2
+    loc:
+      en: "local monthly food modifier"
+      zh: "本地每月粮食修正"
+  - id: local_population_growth
+    value: 0.00025
+    loc:
+      en: "local population growth"
+      zh: "本地人口增长"
+  - id: local_food_capacity_modifier
+    value: 5000
+    loc:
+      en: "local food capacity modifier"
+      zh: "本地粮食容量修正"
+  - id: local_monthly_prosperity
+    value: 0.001
+    loc:
+      en: "local monthly prosperity"
+      zh: "本地每月繁荣度"
+  - id: local_migration_attraction
+    value: 1
+    loc:
+      en: "local migration attraction"
+      zh: "本地移民吸引力"
+  - id: local_rgo_build_time
+    value: -0.1
+    loc:
+      en: "local raw-material site build time"
+      zh: "本地原材料产地建造时间"
+  - id: local_raw_material_output
+    value: 0.1
+    loc:
+      en: "local raw material output"
+      zh: "本地原材料产量"
+  - id: local_port_cost_distance_impact
+    value: -0.5
+    loc:
+      en: "local port cost distance impact"
+      zh: "本地港口花费距离影响"
+  - id: local_fort_maintenance_efficiency
+    value: 0.1
+    loc:
+      en: "local fort maintenance efficiency"
+      zh: "本地要塞维护效率"
+  - id: local_hostile_attrition
+    value: 0.05
+    loc:
+      en: "local hostile attrition"
+      zh: "本地敌军减员"
+  - id: local_unrest
+    value: -0.1
+    loc:
+      en: "local unrest"
+      zh: "本地动乱度"
+  - id: local_market_access
+    value: 0.1
+    loc:
+      en: "local market access"
+      zh: "本地市场准入"
+  - id: local_merchant_capacity_modifier
+    value: 0.25
+    loc:
+      en: "local merchant capacity modifier"
+      zh: "本地商人容量修正"
+  - id: free_building_levels
+    value: 25
+    loc:
+      en: "free building levels"
+      zh: "免费建筑等级"
+  - id: local_clergy_max_literacy
+    value: 10
+    loc:
+      en: "local clergy max literacy"
+      zh: "本地教士识字率上限"
+  - id: local_pop_conversion_speed_modifier
+    value: 0.2
+    loc:
+      en: "local population conversion speed modifier"
+      zh: "本地人口皈依速度修正"
+  - id: local_maritime_presence
+    value: 0.1
+    loc:
+      en: "local maritime presence"
+      zh: "本地海事存在"
+  - id: local_navy_attrition
+    value: 0.05
+    loc:
+      en: "local navy attrition"
+      zh: "本地海军减员"

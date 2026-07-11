@@ -9,7 +9,13 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_construction_event_lib import build_events, indent_lines, load_data, render_header
+from wonder_construction_event_lib import (
+    build_events,
+    format_noneng_magnitude,
+    indent_lines,
+    load_data,
+    render_header,
+)
 
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "events" / "tv_wonder_construction_events.txt"
@@ -29,19 +35,19 @@ ENG_EFFECTS = {
 }
 
 NONENG_EFFECTS = {
-    "gold": "change_gold_effect = { scale = -1 }",
-    "legitimacy": "add_legitimacy = -5",
-    "stability": "add_stability = -7",
-    "prestige": "add_prestige = -10",
-    "nobles_satisfaction": "add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.10 }",
-    "clergy_satisfaction": "add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.10 }",
-    "burghers_satisfaction": "add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.10 }",
-    "peasants_satisfaction": "add_estate_satisfaction = { type = estate_type:peasants_estate value = -0.20 }",
-    "site_development": "var:tv_wonder_site ?= { change_development = -0.25 }",
-    "site_prosperity": "var:tv_wonder_site ?= { change_prosperity = -0.2 }",
-    "capital_development": "capital ?= { change_development = -0.25 }",
-    "capital_prosperity": "capital ?= { change_prosperity = -0.2 }",
-    "site_laborers": "tv_wonder_site_laborer_casualty_effect = { value = 10 }",
+    "gold": "change_gold_effect = { scale = -VALUE }",
+    "legitimacy": "add_legitimacy = -VALUE",
+    "stability": "add_stability = -VALUE",
+    "prestige": "add_prestige = -VALUE",
+    "nobles_satisfaction": "add_estate_satisfaction = { type = estate_type:nobles_estate value = -VALUE }",
+    "clergy_satisfaction": "add_estate_satisfaction = { type = estate_type:clergy_estate value = -VALUE }",
+    "burghers_satisfaction": "add_estate_satisfaction = { type = estate_type:burghers_estate value = -VALUE }",
+    "peasants_satisfaction": "add_estate_satisfaction = { type = estate_type:peasants_estate value = -VALUE }",
+    "site_development": "var:tv_wonder_site ?= { change_development = -VALUE }",
+    "site_prosperity": "var:tv_wonder_site ?= { change_prosperity = -VALUE }",
+    "capital_development": "capital ?= { change_development = -VALUE }",
+    "capital_prosperity": "capital ?= { change_prosperity = -VALUE }",
+    "site_laborers": "tv_wonder_site_laborer_casualty_effect = { value = VALUE }",
 }
 
 
@@ -51,36 +57,9 @@ def eng_effect(token: dict, units: int, sign: int) -> str:
 
 
 def noneng_effect(token: dict, units: int) -> str:
-    effect = NONENG_EFFECTS[token["id"]]
-    if units == 1:
-        return effect
-    if token["id"] == "gold":
-        return effect.replace("scale = -1", f"scale = -{units}")
-    if token["id"] == "legitimacy":
-        return f"add_legitimacy = -{5 * units}"
-    if token["id"] == "stability":
-        return f"add_stability = -{7 * units}"
-    if token["id"] == "prestige":
-        return f"add_prestige = -{10 * units}"
-    if token["id"] == "nobles_satisfaction":
-        return f"add_estate_satisfaction = {{ type = estate_type:nobles_estate value = -{0.10 * units:.2f} }}"
-    if token["id"] == "clergy_satisfaction":
-        return f"add_estate_satisfaction = {{ type = estate_type:clergy_estate value = -{0.10 * units:.2f} }}"
-    if token["id"] == "burghers_satisfaction":
-        return f"add_estate_satisfaction = {{ type = estate_type:burghers_estate value = -{0.10 * units:.2f} }}"
-    if token["id"] == "peasants_satisfaction":
-        return f"add_estate_satisfaction = {{ type = estate_type:peasants_estate value = -{0.20 * units:.2f} }}"
-    if token["id"] == "site_development":
-        return f"var:tv_wonder_site ?= {{ change_development = -{0.25 * units:.2f} }}"
-    if token["id"] == "site_prosperity":
-        return f"var:tv_wonder_site ?= {{ change_prosperity = -{0.2 * units:.1f} }}"
-    if token["id"] == "capital_development":
-        return f"capital ?= {{ change_development = -{0.25 * units:.2f} }}"
-    if token["id"] == "capital_prosperity":
-        return f"capital ?= {{ change_prosperity = -{0.2 * units:.1f} }}"
-    if token["id"] == "site_laborers":
-        return f"tv_wonder_site_laborer_casualty_effect = {{ value = {10 * units} }}"
-    raise ValueError(f"Unhandled non-engineering token: {token['id']}")
+    magnitude = token["value"] * units
+    text = format_noneng_magnitude(token["id"], magnitude)
+    return NONENG_EFFECTS[token["id"]].replace("VALUE", text)
 
 
 def eligibility_effect_call(event: dict) -> str:
