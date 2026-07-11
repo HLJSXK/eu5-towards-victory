@@ -47,6 +47,14 @@ content, or wiring any `game_concept` into a curated (as opposed to search/link-
    `wonder['key']`) rather than reaching for a dynamic `Concatenate(...)` expression at GUI-eval
    time, which renders blank (see `docs/knowledge/risk_cards/gui.md` rule 19).
 
+7. Preserve the scrollbox sizing contract on custom content. The custom tab's visible root and
+   its `scrollbox` must use `layoutpolicy_expanding`; the static card-list root inside
+   `scrollbox_content` must also use it and set `set_parent_dimension_to_minimum = height`.
+   Each filter `button_regular` needs `layoutpolicy_horizontal = expanding`. Otherwise the
+   scrollbox receives no stable content height and the cards/buttons can collapse into the panel's
+   upper-left corner. This follows the same expanding-content shape used by vanilla
+   `ui_library.gui`.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`, then manually open the Europedia panel in-game,

@@ -361,9 +361,8 @@ lateralview_full = {
                         }
 
                         vbox = {
+                            using = layoutpolicy_expanding
                             visible = "[GetVariableSystem.HasValue('tv_encyclopedia_active', 'yes')]"
-                            layoutpolicy_horizontal = expanding
-                            layoutpolicy_vertical = expanding
                             spacing = 10
 
                             hbox = {
@@ -373,24 +372,28 @@ lateralview_full = {
 
                                 button_regular = {
                                     name = "tv_filter_all"
+                                    layoutpolicy_horizontal = expanding
                                     text = "TV_ENCYCLOPEDIA_FILTER_ALL"
                                     onclick = "[GetVariableSystem.Set('tv_encyclopedia_filter', 'all')]"
                                     down = "[GetVariableSystem.HasValue('tv_encyclopedia_filter', 'all')]"
                                 }
                                 button_regular = {
                                     name = "tv_filter_mechanics"
+                                    layoutpolicy_horizontal = expanding
                                     text = "TV_ENCYCLOPEDIA_FILTER_MECHANICS"
                                     onclick = "[GetVariableSystem.Set('tv_encyclopedia_filter', 'mechanics')]"
                                     down = "[GetVariableSystem.HasValue('tv_encyclopedia_filter', 'mechanics')]"
                                 }
                                 button_regular = {
                                     name = "tv_filter_generic"
+                                    layoutpolicy_horizontal = expanding
                                     text = "TV_ENCYCLOPEDIA_FILTER_GENERIC"
                                     onclick = "[GetVariableSystem.Set('tv_encyclopedia_filter', 'generic')]"
                                     down = "[GetVariableSystem.HasValue('tv_encyclopedia_filter', 'generic')]"
                                 }
                                 button_regular = {
                                     name = "tv_filter_unique"
+                                    layoutpolicy_horizontal = expanding
                                     text = "TV_ENCYCLOPEDIA_FILTER_UNIQUE"
                                     onclick = "[GetVariableSystem.Set('tv_encyclopedia_filter', 'unique')]"
                                     down = "[GetVariableSystem.HasValue('tv_encyclopedia_filter', 'unique')]"
@@ -400,14 +403,14 @@ lateralview_full = {
                             }
 
                             scrollbox = {
-                                layoutpolicy_horizontal = expanding
-                                layoutpolicy_vertical = expanding
+                                using = layoutpolicy_expanding
 
                                 blockoverride "scrollbox_content" {
 # TV_ENCYCLOPEDIA_CARDS_ANCHOR
 # BEGIN GENERATED TV_ENCYCLOPEDIA_CARDS
 vbox = {
-	layoutpolicy_horizontal = expanding
+	using = layoutpolicy_expanding
+	set_parent_dimension_to_minimum = height
 	spacing = 4
 
 	vbox = {
