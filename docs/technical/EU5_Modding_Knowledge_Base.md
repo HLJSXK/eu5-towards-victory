@@ -984,6 +984,24 @@ For direct cabinet-action/province eligibility, do not treat `dominant_religion 
 
 For broader regional priority heuristics, follow the mechanic's design intent rather than blindly copying the vanilla OR. Governor's House autonomous religion conversion intentionally uses only the share of owned locations whose dominant religion is not the governing country's religion, ignoring minority cleanup once the state religion is dominant.
 
+### 5.11. Subject Type Availability (`vassal` vs `samanta`)
+
+Never hardcode `make_subject_of = { type = subject_type:vassal ... }` as the only outcome of a subjugation-style effect. `subject_type:vassal`'s `visible`/`creation_visible` blocks require `NOT = { has_advance = samanta_advance }` on the overlord (`reference_game_files/game/in_game/common/subject_types/vassal.txt:17,38`), so any country that has researched `samanta_advance` (the Indian-subcontinent feudalism advance) cannot create vassals at all — the action's `make_subject_of` call fails/no-ops for that overlord.
+
+`subject_type:samanta` (`reference_game_files/game/in_game/common/subject_types/samanta.txt`) is the vanilla substitute: its `creation_visible` is simply `has_advance = samanta_advance`. The two are mutually exclusive by design (one requires the advance, the other forbids it), so a script that creates subjects on behalf of a player-chosen overlord must branch on the overlord's `has_advance = samanta_advance` and pick `subject_type:vassal` or `subject_type:samanta` accordingly, e.g.:
+
+```pdx
+if = {
+    limit = { NOT = { scope:actor = { has_advance = samanta_advance } } }
+    scope:target = { make_subject_of = { target = scope:actor type = subject_type:vassal } }
+}
+else = {
+    scope:target = { make_subject_of = { target = scope:actor type = subject_type:samanta } }
+}
+```
+
+Vanilla peace-treaty code exposes a native `can_make_subject_of = { target = <overlord> type = subject_type:<x> }` trigger (`reference_game_files/game/in_game/common/peace_treaties/subjugate_neighbor_native.txt:24`) that encapsulates a subject type's full `visible`/`creation_visible` eligibility; every confirmed vanilla usage is inside a peace-treaty `potential`/`create_enabled` block evaluated during an active war (`scope:war` in scope). Prefer the direct `has_advance = samanta_advance` branch above for subjugation logic that runs outside a war/peace-treaty context, since that condition is verified to work in any scope.
+
 ## 6. Game Content Modding
 
 This section covers the modding of specific game content types.

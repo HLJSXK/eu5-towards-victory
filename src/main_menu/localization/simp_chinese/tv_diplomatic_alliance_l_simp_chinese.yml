@@ -31,7 +31,7 @@
  tv_expel_diplomatic_alliance_member: "驱逐联盟成员"
  tv_expel_diplomatic_alliance_member_desc: "将一名成员移出我们的[tv_diplomatic_alliance|E]。"
  tv_alliance_sublime_empire_subjugate_member: "降伏联盟成员"
- tv_alliance_sublime_empire_subjugate_member_desc: "消耗等于10加目标相对军事实力乘以50的[tv_alliance_cohesion|E]，将选中的普通联盟成员变为[tv_alliance_advocator|E]的附庸国。"
+ tv_alliance_sublime_empire_subjugate_member_desc: "消耗等于10加目标相对军事实力乘以50的[tv_alliance_cohesion|E]，将选中的普通联盟成员变为[tv_alliance_advocator|E]的附庸国（若[tv_alliance_advocator|E]无法拥有附庸，则改为三曼多附属国）。"
  tv_select_diplomatic_alliance_member: "选择联盟成员"
  tv_no_diplomatic_alliance_member_available: "@trigger_no! 没有可驱逐的联盟成员。"
  TV_DIPLOMATIC_ALLIANCE_OVERVIEW_DESC: "累积[tv_alliance_cohesion|E]以推动联盟法律改革。旧法律第2/3/4级分别需要25/50/75点凝聚力，战争法第2/3级需要25/50点凝聚力。升级后的法律会提高[tv_alliance_tier|E]，上限为21。每级联盟等级每月为盟主提供+1外交胜利点。"

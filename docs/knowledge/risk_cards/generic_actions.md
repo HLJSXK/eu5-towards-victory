@@ -214,3 +214,8 @@ rationale.
 - `on_action_simulates_generic_action_actor_context` [advisory]: Do not duplicate generic-action
   AI flows in monthly/yearly pulses when the copied chain can evaluate helpers or building
   `allow` blocks that expect literal `scope:actor`.
+- `subjugation_effect_hardcodes_vassal_subject_type` [advisory]: A subjugation effect must not
+  unconditionally call `make_subject_of` with `subject_type:vassal`; branch on the overlord's
+  `has_advance = samanta_advance` and fall back to `subject_type:samanta`, since vassal is
+  uncreatable for any overlord with that advance. See
+  `docs/technical/EU5_Modding_Knowledge_Base.md` section 5.11.

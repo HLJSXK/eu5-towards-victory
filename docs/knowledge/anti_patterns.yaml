@@ -83,6 +83,16 @@
   source: "git diff <pre-v1.3 commit>^..c7978920 -- reference_game_files/game/main_menu/common/static_modifiers/00_modifier_types.txt"
   notes: "v1.3 renamed ~29 `_cost`-suffixed static modifiers to `_efficiency`. Also lost the `min=-0.95` floor clamp on the three `global_bureaucracy_*_cost_modifier` -> `_efficiency` fields. Discovered during the v1.3 migration pass (2026-07-10); ~114 usage sites found across hand-written src files and ~10 generator data YAMLs (victory_paths.yaml, trade_league_laws.yaml, govhouse_laws.yaml, arts_exhibition_laws.yaml, academy_laws.yaml, wonder_final_buildings.yaml, wonder_generic_rituals.yaml, unique_wonders.yaml). Unrelated to the separate v1.3 building_type.cpp validator capping local_manpower/employment_size <= 0.0125 (undocumented, not a rename)."
 
+- id: subjugation_effect_hardcodes_vassal_subject_type
+  pattern: ''
+  detectability: advisory
+  bad: "Writing a subjugation-style effect (or peace/interaction/IO effect) that unconditionally calls `make_subject_of = { type = subject_type:vassal ... }` on a player-chosen overlord"
+  correction: "`subject_type:vassal` is invisible/uncreatable for any overlord with `has_advance = samanta_advance` (Indian-subcontinent feudalism); its vanilla substitute is `subject_type:samanta`. Branch on `scope:<overlord> = { has_advance = samanta_advance }` and call `make_subject_of` with `subject_type:vassal` when absent, `subject_type:samanta` when present. See docs/technical/EU5_Modding_Knowledge_Base.md section 5.11."
+  category: scope
+  scope: country
+  source: "reference_game_files/game/in_game/common/subject_types/vassal.txt:17,38 (creation_visible/visible: NOT = { has_advance = samanta_advance }); reference_game_files/game/in_game/common/subject_types/samanta.txt:8,18 (has_advance = samanta_advance)"
+  notes: "Found fixing tv_alliance_sublime_empire_subjugate_member (src/in_game/common/generic_actions/tv_diplomatic_alliance_actions.txt), which called make_subject_of with a hardcoded subject_type:vassal — silently failing to subjugate alliance members whose leader country had researched samanta_advance. Any future TV mechanic that lets a player-chosen country become an overlord (alliance/IO subjugation, victory-path rewards, custom peace options) needs the same vassal/samanta branch instead of assuming vassal always works."
+
 - id: v1_3_event_outcome_enum_good_bad_rejected
   pattern: '\boutcome\s*=\s*(good|bad)\b'
   detectability: lint

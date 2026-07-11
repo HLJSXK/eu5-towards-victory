@@ -150,10 +150,23 @@ tv_alliance_sublime_empire_subjugate_member = {
 						}
 						change_variable = { name = tv_alliance_cohesion subtract = local_var:tv_alliance_subjugation_cost }
 						clamp_variable = { name = tv_alliance_cohesion min = 0 max = 100 }
-						scope:target = {
-							make_subject_of = {
-								target = scope:actor
-								type = subject_type:vassal
+						if = {
+							limit = {
+								NOT = { scope:actor = { has_advance = samanta_advance } }
+							}
+							scope:target = {
+								make_subject_of = {
+									target = scope:actor
+									type = subject_type:vassal
+								}
+							}
+						}
+						else = {
+							scope:target = {
+								make_subject_of = {
+									target = scope:actor
+									type = subject_type:samanta
+								}
 							}
 						}
 					}

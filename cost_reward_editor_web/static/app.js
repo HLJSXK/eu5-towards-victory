@@ -57,7 +57,15 @@ function renderTabs() {
   });
 }
 
-function renderTable(group) {
+function appendReadonlyCell(tr, text) {
+  const td = document.createElement("td");
+  td.textContent = text || "";
+  td.className = "readonly";
+  tr.appendChild(td);
+  return td;
+}
+
+function renderRewardModifierTable(group) {
   const table = document.createElement("table");
 
   const thead = document.createElement("thead");
@@ -74,10 +82,7 @@ function renderTable(group) {
   group.tokens.forEach((token) => {
     const tr = document.createElement("tr");
 
-    const idCell = document.createElement("td");
-    idCell.textContent = token.id;
-    idCell.className = "readonly";
-    tr.appendChild(idCell);
+    appendReadonlyCell(tr, token.id);
 
     const valueCell = document.createElement("td");
     const valueInput = document.createElement("input");
@@ -91,20 +96,136 @@ function renderTable(group) {
     valueCell.appendChild(valueInput);
     tr.appendChild(valueCell);
 
-    const locEnCell = document.createElement("td");
-    locEnCell.textContent = (token.loc && token.loc.en) || "";
-    locEnCell.className = "readonly";
-    tr.appendChild(locEnCell);
-
-    const locZhCell = document.createElement("td");
-    locZhCell.textContent = (token.loc && token.loc.zh) || "";
-    locZhCell.className = "readonly";
-    tr.appendChild(locZhCell);
+    appendReadonlyCell(tr, (token.loc && token.loc.en) || "");
+    appendReadonlyCell(tr, (token.loc && token.loc.zh) || "");
 
     tbody.appendChild(tr);
   });
   table.appendChild(tbody);
   return table;
+}
+
+function renderOnActionTaskTable(group) {
+  const table = document.createElement("table");
+
+  const thead = document.createElement("thead");
+  const headRow = document.createElement("tr");
+  ["id", "on_action", "category", "wired", "scope", "completion_note", "loc.en", "loc.zh"].forEach((label) => {
+    const th = document.createElement("th");
+    th.textContent = label;
+    headRow.appendChild(th);
+  });
+  thead.appendChild(headRow);
+  table.appendChild(thead);
+
+  const tbody = document.createElement("tbody");
+  group.tokens.forEach((token) => {
+    const tr = document.createElement("tr");
+
+    appendReadonlyCell(tr, token.id);
+    appendReadonlyCell(tr, token.on_action);
+    appendReadonlyCell(tr, token.category);
+
+    const wiredCell = document.createElement("td");
+    const wiredInput = document.createElement("input");
+    wiredInput.type = "checkbox";
+    wiredInput.checked = !!token.wired;
+    wiredInput.addEventListener("change", () => stageEdit(group.key, token.id, "wired", wiredInput.checked));
+    wiredCell.appendChild(wiredInput);
+    tr.appendChild(wiredCell);
+
+    appendReadonlyCell(tr, token.scope).classList.add("wrap-cell");
+
+    const noteCell = document.createElement("td");
+    const noteInput = document.createElement("textarea");
+    noteInput.rows = 2;
+    noteInput.value = token.completion_note || "";
+    noteInput.addEventListener("input", () => stageEdit(group.key, token.id, "completion_note", noteInput.value));
+    noteCell.appendChild(noteInput);
+    tr.appendChild(noteCell);
+
+    appendReadonlyCell(tr, (token.loc && token.loc.en) || "").classList.add("wrap-cell");
+    appendReadonlyCell(tr, (token.loc && token.loc.zh) || "").classList.add("wrap-cell");
+
+    tbody.appendChild(tr);
+  });
+  table.appendChild(tbody);
+  return table;
+}
+
+function renderTriggerTaskTable(group) {
+  const table = document.createElement("table");
+
+  const thead = document.createElement("thead");
+  const headRow = document.createElement("tr");
+  ["id", "trigger", "scope", "category", "comparison", "representative_threshold", "loc.en", "loc.zh"].forEach((label) => {
+    const th = document.createElement("th");
+    th.textContent = label;
+    headRow.appendChild(th);
+  });
+  thead.appendChild(headRow);
+  table.appendChild(thead);
+
+  const tbody = document.createElement("tbody");
+  group.tokens.forEach((token) => {
+    const tr = document.createElement("tr");
+
+    appendReadonlyCell(tr, token.id);
+    appendReadonlyCell(tr, token.trigger);
+    appendReadonlyCell(tr, token.scope);
+    appendReadonlyCell(tr, token.category);
+
+    const comparisonCell = document.createElement("td");
+    const comparisonSelect = document.createElement("select");
+    ["gte", "lte", "boolean"].forEach((option) => {
+      const opt = document.createElement("option");
+      opt.value = option;
+      opt.textContent = option;
+      if (token.comparison === option) opt.selected = true;
+      comparisonSelect.appendChild(opt);
+    });
+    comparisonCell.appendChild(comparisonSelect);
+    tr.appendChild(comparisonCell);
+
+    const thresholdCell = document.createElement("td");
+    const thresholdInput = document.createElement("input");
+    thresholdInput.type = "number";
+    thresholdInput.step = "any";
+    const isBoolean = token.comparison === "boolean";
+    thresholdInput.value = isBoolean || token.representative_threshold === null || token.representative_threshold === undefined
+      ? ""
+      : token.representative_threshold;
+    thresholdInput.disabled = isBoolean;
+    thresholdInput.addEventListener("input", () =>
+      stageEdit(group.key, token.id, "representative_threshold", thresholdInput.value)
+    );
+    thresholdCell.appendChild(thresholdInput);
+    tr.appendChild(thresholdCell);
+
+    comparisonSelect.addEventListener("change", () => {
+      stageEdit(group.key, token.id, "comparison", comparisonSelect.value);
+      if (comparisonSelect.value === "boolean") {
+        thresholdInput.value = "";
+        thresholdInput.disabled = true;
+        stageEdit(group.key, token.id, "representative_threshold", "");
+      } else {
+        thresholdInput.disabled = false;
+      }
+    });
+
+    appendReadonlyCell(tr, (token.loc && token.loc.en) || "").classList.add("wrap-cell");
+    appendReadonlyCell(tr, (token.loc && token.loc.zh) || "").classList.add("wrap-cell");
+
+    tbody.appendChild(tr);
+  });
+  table.appendChild(tbody);
+  return table;
+}
+
+function renderTable(group) {
+  if (group.key === "on_action_task") return renderOnActionTaskTable(group);
+  if (group.key === "trigger_task") return renderTriggerTaskTable(group);
+  return renderRewardModifierTable(group);
 }
 
 function renderPanels() {
@@ -131,6 +252,25 @@ function renderPanels() {
     panelsEl.appendChild(hint);
   }
 
+  if (group.key === "on_action_task") {
+    const hint = document.createElement("p");
+    hint.className = "hint";
+    hint.textContent =
+      "wired = 该 on_action 是否已在 data/pulse_registry.yaml 中桥接；勾选/取消勾选只更新此处的记录状态，" +
+      "并不会自动改写 pulse_registry.yaml —— 实际接入 on_action 仍需按需编辑该注册表并重新运行 " +
+      "scripts/in_game/common/on_action/gen_tv_pulse_registry.py。本目录不存奖励，只记录任务如何被检测到。";
+    panelsEl.appendChild(hint);
+  }
+
+  if (group.key === "trigger_task") {
+    const hint = document.createElement("p");
+    hint.className = "hint";
+    hint.textContent =
+      "representative_threshold 只是示意性的“1 unit”式起始值，供未来玩法调优，并非里程碑式的最终数值。" +
+      "comparison 为 boolean 时 representative_threshold 必须留空；为 gte/lte 时必须填写数值。";
+    panelsEl.appendChild(hint);
+  }
+
   if (group.tokens.length === 0) {
     const empty = document.createElement("p");
     empty.className = "empty-state";
@@ -139,7 +279,10 @@ function renderPanels() {
     return;
   }
 
-  panelsEl.appendChild(renderTable(group));
+  const wrap = document.createElement("div");
+  wrap.className = "table-wrap";
+  wrap.appendChild(renderTable(group));
+  panelsEl.appendChild(wrap);
 }
 
 function applyBootstrapPayload(payload) {
