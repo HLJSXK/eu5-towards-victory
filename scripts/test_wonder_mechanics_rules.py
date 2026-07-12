@@ -2,14 +2,19 @@
 """Validate scale-based Engineering Department wonder data rules."""
 
 import importlib.util
+import json
 import sys
+from copy import deepcopy
 from pathlib import Path
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 REPO_ROOT = Path(__file__).parent.parent
-sys.path.insert(0, str(REPO_ROOT / "scripts"))
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+if str(REPO_ROOT / "scripts") not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT / "scripts"))
 TRIGGER_GENERATOR = (
     REPO_ROOT
     / "scripts"
@@ -90,9 +95,15 @@ from wonder_mechanics.modifiers import (
     validate_wonder_size_base_country_modifier_rules,
     wonder_base_country_modifiers,
 )
-from wonder_mechanics.rituals import ceremony_styles
+from wonder_mechanics.rituals import ceremony_styles, normalize_unique_ceremony
 from wonder_mechanics.schema import validate_unique_wonder_single_site_shape
 from wonder_ceremony_lib import COMPLETION_EVENT_ID, reward_effect_lines, stage_1_reward_for_wonder
+from wonder_localization_editor_web.service import (
+    WONDER_DATA_REGEN_SCRIPTS,
+    build_unique_ceremony_editor_state,
+    ceremony_stage_cost_options,
+    unique_ceremony_from_editor_state,
+)
 
 
 def require(condition: bool, message: str) -> None:
@@ -445,6 +456,108 @@ def validate_generated_ceremony_gui(wonders: list[dict]) -> None:
         )
 
 
+def validate_unique_ceremony_editor_support(wonders: list[dict]) -> None:
+    ceremony_wonders = [
+        wonder
+        for wonder in wonders
+        if wonder.get("is_unique") and wonder.get("ceremony") is not None
+    ]
+    require(ceremony_wonders, "Expected ceremony-enabled unique wonders.")
+
+    for wonder in ceremony_wonders:
+        state = build_unique_ceremony_editor_state(wonder["ceremony"], cost_type_options=[])
+        parsed = unique_ceremony_from_editor_state(state, context=f"{wonder['key']}.ceremony")
+        normalized = normalize_unique_ceremony({**wonder, "ceremony": parsed})
+        require(
+            normalized == wonder["ceremony"],
+            f"{wonder['key']} ceremony must round-trip through the editor state.",
+        )
+
+    dome_of_the_rock = next(wonder for wonder in ceremony_wonders if wonder["id"] == 103)
+    editor_state = build_unique_ceremony_editor_state(
+        dome_of_the_rock["ceremony"],
+        cost_type_options=ceremony_stage_cost_options([]),
+    )
+    require(len(editor_state["stages"]) == 8, "The ceremony editor must render all eight fixed stages.")
+    require(
+        editor_state["stages"][0]["cost"]["options"],
+        "The ceremony editor must expose the restricted stage cost vocabulary.",
+    )
+
+    editor_state["stages"][0]["title_en"] = "Editor round-trip stage"
+    saved_ceremony = normalize_unique_ceremony(
+        {
+            **dome_of_the_rock,
+            "ceremony": unique_ceremony_from_editor_state(
+                json.dumps(editor_state, ensure_ascii=False),
+                context="unique_dome_of_the_rock.ceremony",
+            ),
+        }
+    )
+    require(
+        saved_ceremony["stages"][0]["title_en"] == "Editor round-trip stage",
+        "The ceremony editor must preserve edited stage text through normalization.",
+    )
+
+    for wonder_id in (101, 102):
+        bespoke_wonder = next(wonder for wonder in wonders if wonder["id"] == wonder_id)
+        require(
+            bespoke_wonder["ceremony"] is None,
+            f"Bespoke unique wonder {wonder_id} must remain outside the shared ceremony.",
+        )
+
+    invalid_state = deepcopy(editor_state)
+    invalid_state["stages"] = invalid_state["stages"][:-1]
+    try:
+        normalize_unique_ceremony(
+            {
+                **ceremony_wonders[0],
+                "ceremony": unique_ceremony_from_editor_state(invalid_state, context="invalid ceremony"),
+            }
+        )
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("The ceremony editor must reject fewer than eight stages.")
+
+    invalid_state = deepcopy(editor_state)
+    cost_type = next(
+        option["value"]
+        for option in invalid_state["stages"][0]["cost"]["options"]
+        if option["value"] != "artwork"
+    )
+    invalid_state["stages"][0]["cost"]["rows"] = [{"type": cost_type, "value": "1"}]
+    try:
+        normalize_unique_ceremony(
+            {
+                **ceremony_wonders[0],
+                "ceremony": unique_ceremony_from_editor_state(invalid_state, context="invalid ceremony"),
+            }
+        )
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("The ceremony editor must reject positive non-artwork costs.")
+
+    ceremony_regen_scripts = (
+        "scripts/in_game/common/scripted_effects/gen_tv_wonder_ceremony_effects.py",
+        "scripts/in_game/events/gen_tv_wonder_ceremony_events.py",
+        "scripts/main_menu/localization/english/gen_tv_wonder_ceremony_l_english.py",
+        "scripts/main_menu/localization/simp_chinese/gen_tv_wonder_ceremony_l_simp_chinese.py",
+        "scripts/in_game/gui/panels/organization/gen_tv_wonder_ceremony_cards_gui.py",
+        "scripts/in_game/gui/panels/organization/merge_tv_wonder_ceremony_cards_gui.py",
+    )
+    for script in ceremony_regen_scripts:
+        require(script in WONDER_DATA_REGEN_SCRIPTS, f"Ceremony edits must regenerate {script}.")
+    require(
+        WONDER_DATA_REGEN_SCRIPTS.index(
+            "scripts/in_game/gui/panels/organization/merge_tv_engineering_department_wonder_mechanics_gui.py"
+        )
+        < WONDER_DATA_REGEN_SCRIPTS.index(ceremony_regen_scripts[-1]),
+        "The ceremony card merge must run after the main mechanics GUI merge.",
+    )
+
+
 def main() -> None:
     wonders, mechanics = load_all_wonder_mechanics()
 
@@ -454,6 +567,7 @@ def main() -> None:
     validate_generated_ceremony_flow(wonders, mechanics)
     validate_generated_ceremony_autostart(wonders)
     validate_generated_ceremony_gui(wonders)
+    validate_unique_ceremony_editor_support(wonders)
 
     small_violations: list[str] = []
     medium_large_non_value: list[str] = []

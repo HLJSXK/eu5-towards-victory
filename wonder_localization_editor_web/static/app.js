@@ -717,6 +717,7 @@ const STRUCTURED_FIELD_TYPES = new Set([
     "modifier_table",
     "reward_editor",
     "unique_ritual_editor",
+    "unique_ceremony_editor",
     "site_trigger_template",
     "site_preference_template",
 ]);
@@ -841,6 +842,18 @@ function uniqueRitualPayloadFromState(stateValue) {
     };
 }
 
+function uniqueCeremonyPayloadFromState(stateValue) {
+    return {
+        stages: (stateValue.stages || []).map((stage) => ({
+            title_en: normalizeMultilineText(String(stage.title_en ?? "")),
+            title_zh: normalizeMultilineText(String(stage.title_zh ?? "")),
+            desc_en: normalizeMultilineText(String(stage.desc_en ?? "")),
+            desc_zh: normalizeMultilineText(String(stage.desc_zh ?? "")),
+            cost: rowsToRewardList(stage.cost?.rows),
+        })),
+    };
+}
+
 function optionByValue(options) {
     const mapping = new Map();
     for (const option of options || []) {
@@ -942,6 +955,9 @@ function previewPayloadForField(field, stateValue) {
     }
     if (field.field_type === "unique_ritual_editor") {
         return uniqueRitualPayloadFromState(stateValue);
+    }
+    if (field.field_type === "unique_ceremony_editor") {
+        return uniqueCeremonyPayloadFromState(stateValue);
     }
     return stateValue;
 }
@@ -1446,12 +1462,16 @@ function buildRowListEditor(config) {
     const header = document.createElement("div");
     header.className = "structured-group-head";
     header.innerHTML = `<h4>${escapeHtml(config.title)}</h4>`;
+    let addButton = null;
     if (!readonly) {
-        const addButton = document.createElement("button");
+        addButton = document.createElement("button");
         addButton.type = "button";
         addButton.className = "mini-button";
         addButton.textContent = config.addLabel || "Add row";
         addButton.addEventListener("click", () => {
+            if (Number.isInteger(config.maxRows) && config.rows.length >= config.maxRows) {
+                return;
+            }
             config.rows.push(config.createRow());
             renderRows();
             config.onChange();
@@ -1472,6 +1492,9 @@ function buildRowListEditor(config) {
     section.append(rowsNode);
 
     const renderRows = () => {
+        if (addButton) {
+            addButton.disabled = Number.isInteger(config.maxRows) && config.rows.length >= config.maxRows;
+        }
         rowsNode.innerHTML = "";
         if (!config.rows.length) {
             const empty = document.createElement("div");
@@ -1561,6 +1584,7 @@ function buildRowListEditor(config) {
                 removeButton.type = "button";
                 removeButton.className = "mini-button danger";
                 removeButton.textContent = "Remove";
+                removeButton.disabled = Number.isInteger(config.minRows) && config.rows.length <= config.minRows;
                 removeButton.addEventListener("click", () => {
                     config.rows.splice(index, 1);
                     renderRows();
@@ -2109,6 +2133,73 @@ function renderUniqueRitualEditorField(field, scope) {
     return shell.shell;
 }
 
+function renderUniqueCeremonyEditorField(field, scope) {
+    const shell = createStructuredShell(field, scope);
+    const { editor, stateValue, commit } = shell;
+    const stageCount = Number.parseInt(
+        String(stateValue.stage_count ?? stateValue.stages?.length ?? ""),
+        10,
+    );
+
+    for (const [index, stage] of (stateValue.stages || []).entries()) {
+        const group = document.createElement("section");
+        group.className = "structured-group";
+
+        const header = document.createElement("div");
+        header.className = "structured-group-head";
+        const title = document.createElement("h4");
+        title.textContent = `Stage ${index + 1} of ${
+            Number.isFinite(stageCount) ? stageCount : stateValue.stages.length
+        }`;
+        header.append(title);
+
+        const textFields = document.createElement("div");
+        textFields.className = "scalar-grid";
+        textFields.append(
+            buildScalarEditor("Title (English)", stage.title_en, (value) => {
+                stage.title_en = value;
+                commit();
+            }),
+            buildScalarEditor("Title (Simplified Chinese)", stage.title_zh, (value) => {
+                stage.title_zh = value;
+                commit();
+            }),
+            buildTextareaEditor("Description (English)", stage.desc_en, 4, (value) => {
+                stage.desc_en = value;
+                commit();
+            }),
+            buildTextareaEditor("Description (Simplified Chinese)", stage.desc_zh, 4, (value) => {
+                stage.desc_zh = value;
+                commit();
+            }),
+        );
+
+        group.append(
+            header,
+            textFields,
+            buildRowListEditor({
+                title: "Stage costs (one or two required)",
+                rows: stage.cost.rows,
+                primaryKey: "type",
+                secondaryKey: "value",
+                primaryLabel: "Cost type",
+                secondaryLabel: "Value",
+                primaryOptions: stage.cost.options || [],
+                primaryControl: "select",
+                addLabel: "Add cost",
+                minRows: 1,
+                maxRows: 2,
+                createRow: () => ({ type: "", value: "" }),
+                onChange: commit,
+            }),
+        );
+        editor.append(group);
+    }
+
+    commit();
+    return shell.shell;
+}
+
 function renderStructuredFieldByType(field, scope) {
     if (field.field_type === "modifier_table") {
         return renderModifierTableField(field, scope);
@@ -2118,6 +2209,9 @@ function renderStructuredFieldByType(field, scope) {
     }
     if (field.field_type === "unique_ritual_editor") {
         return renderUniqueRitualEditorField(field, scope);
+    }
+    if (field.field_type === "unique_ceremony_editor") {
+        return renderUniqueCeremonyEditorField(field, scope);
     }
     if (field.field_type === "site_trigger_template") {
         return renderSiteTriggerField(field, scope);

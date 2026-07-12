@@ -586,6 +586,11 @@ def _validate_ceremony(value: object, context: str) -> dict | None:
     }
 
 
+def normalize_unique_ceremony(wonder: dict, *, context: str | None = None) -> dict | None:
+    ceremony_context = context or f"unique wonder {wonder['key']}.ceremony"
+    return _validate_ceremony(wonder.get("ceremony"), ceremony_context)
+
+
 def _validate_parts_section(value: object, context: str) -> list[dict[str, str]]:
     parts = _require_list(value, context)
     normalized: list[dict[str, str]] = []
@@ -1032,7 +1037,7 @@ def load_unique_wonders_source_data(path: Path = UNIQUE_WONDERS_FILE) -> dict:
                 "base_effect_multiplier": base_effect_multiplier,
                 "final_buildings": _validate_final_buildings(wonder["final_buildings"], f"{context}.final_buildings"),
                 "ritual": _require_mapping(wonder["ritual"], f"{context}.ritual"),
-                "ceremony": _validate_ceremony(wonder.get("ceremony"), f"{context}.ceremony"),
+                "ceremony": normalize_unique_ceremony(wonder, context=f"{context}.ceremony"),
             }
         )
     return {
