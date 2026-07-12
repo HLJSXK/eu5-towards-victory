@@ -2557,3 +2557,13 @@
   scope: any
   source: "reference_game_files/game/in_game/gui/shared/cards.gui:4168 (piechart + pieslices); reference_game_files/game/main_menu/gui/shared/font_icons.gui (verified font icon declarations); reference_game_files/game/in_game/gui/build_location_lateralview.gui:789 (dynamic inline icon-name syntax); scripts/in_game/gui/panels/organization/gen_tv_wonder_ceremony_cards_gui.py"
   notes: "The first fragment repeated one wonder illustration across all eight cards. A later correction overgeneralized that failure into a global eight-stage icon map, so different wonders again showed the same designs. The canonical fix keeps the real piechart but makes icon selection explicit per wonder and per stage in data, with a short rationale that can be reviewed alongside the flavor text."
+
+- id: background_stretched_only_distorts_wide_illustration_aspect
+  pattern: 'spriteType\s*=\s*[Ss]tretched(?!\s*\n\s*fittype)'
+  detectability: advisory
+  bad: "Filling a fixed-height, expanding-width `background = { texture = ... }` widget with only `spriteType = stretched` for a wide non-tileable illustration (e.g. the 2048x1152 victory reward-tree banners) -- e.g. gen_tv_victory_situation_gui.py's first draft on append_tree_background."
+  correction: "`spriteType = Stretched` alone stretches the source texture to exactly fill the widget bounds, distorting its aspect ratio whenever the widget's runtime width/height ratio differs from the texture's. Add `fittype = centercrop` alongside it so the texture scales proportionally to cover the widget (cropping overflow) instead of being squashed -- verified precedent at reference_game_files/game/in_game/gui/mission_lateralview.gui:327-329."
+  category: gui
+  scope: any
+  source: "reference_game_files/game/in_game/gui/mission_lateralview.gui:326-330; scripts/in_game/gui/panels/situation/gen_tv_victory_situation_gui.py append_tree_background"
+  notes: "Found 2026-07-12 wiring the six victory-path reward-tree background DDS assets into tv_victory_situation.gui: a plain `spriteType = stretched` banner visibly squashed the wide 16:9 tree art to the fixed 220px-tall, dynamically-wide container."
