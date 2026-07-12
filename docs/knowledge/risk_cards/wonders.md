@@ -90,7 +90,16 @@ generators.
     Do not put paragraph-style localized text in an unconstrained `hbox` elastic column (a
     `layoutpolicy_horizontal = expanding` child can pull its natural text width back into the
     row and blow out a bounded parent card). Use a fixed-width `text_multi` container with
-    `max_width` and `autoresize`.
+    `max_width` and `autoresize`. This is only half the contract: the surrounding `hbox`/`vbox`
+    itself must also declare `layoutpolicy_horizontal = expanding` whenever it sets an explicit
+    `size` alongside expanding children (fixed icon column + expanding text, etc.) — a container
+    with `size` but no `layoutpolicy_horizontal` of its own falls back to sizing off children's
+    intrinsic minimums instead of the declared size, silently collapsing the whole row toward the
+    fixed column's width and leaving the expanding text column at ~0 width. See rule 22's fifth
+    follow-up and `docs/knowledge/anti_patterns.yaml` rule
+    `hbox_explicit_size_without_layoutpolicy_horizontal_collapses_to_content_width` for the
+    verified instance and precedent citations. `max_width`/`autoresize` on the `text_multi` alone
+    does not substitute for this container-level property.
 
 12. Do not let a wonder ritual's implementation reuse another wonder's mechanic template.
     The Unique Wonder Ritual Harness's old "no-write source compiler" ceremony
@@ -391,6 +400,21 @@ generators.
     unit opens at the same nesting depth) — do not assume a function "looks complete" just
     because its last few lines contain closing braces. See `docs/knowledge/anti_patterns.yaml`
     rule `gui_generator_function_missing_final_closing_brace_cascades_nesting`.
+    A fifth follow-up, found right after the brace fix above: the per-card `common_bottom_content`
+    `hbox` (`gen_tv_wonder_ceremony_cards_gui.py`, icon column + flavor `text_multi`) declared an
+    explicit `size = { 432 104 }` but no `layoutpolicy_horizontal` of its own. In-game inspection
+    showed the hbox actually rendering at only ~80px wide (roughly the fixed 64px icon column plus
+    spacing) with its `text_multi` collapsed to an unselectable, effectively 0-width column --
+    i.e. the declared `size` was not being honored at all. Every other stacked-content hbox in
+    this file that combines an explicit `size` with expanding children sets
+    `layoutpolicy_horizontal = expanding` on the hbox itself (the Pharos stage rows,
+    `tv_engineering_department.gui:8401-8402`; the Hagia active-ritual row,
+    `:9372-9375`) -- without it, the container's own width falls back to summing children's
+    intrinsic minimums (a fixed 64px icon plus a `text_multi` with no `minimumsize`, whose
+    intrinsic width is 0 until layout stretch is applied) instead of honoring the literal `size`
+    hint. Fixed 2026-07-12 by adding `layoutpolicy_horizontal = expanding` as the first property
+    of that hbox. See `docs/knowledge/anti_patterns.yaml` rule
+    `hbox_explicit_size_without_layoutpolicy_horizontal_collapses_to_content_width`.
 
 ## Validation
 

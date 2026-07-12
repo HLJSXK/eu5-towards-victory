@@ -184,6 +184,7 @@ def append_card(lines: list[str], stage: int) -> None:
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}{T}blockoverride \"common_bottom_content\" {{")
     lines.append(f"{T}{T}{T}hbox = {{")
+    lines.append(f"{T}{T}{T}{T}layoutpolicy_horizontal = expanding")
     lines.append(f"{T}{T}{T}{T}size = {{ {CARD_CONTENT_WIDTH} 104 }}")
     lines.append(f"{T}{T}{T}{T}spacing = 8")
     lines.append(f"{T}{T}{T}{T}widget = {{")

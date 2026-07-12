@@ -2518,6 +2518,16 @@
   source: "src/in_game/gui/panels/organization/tv_engineering_department.gui:8115-8137 (outer card + first-level shrinking wrapper, both correct) vs. :8220-8226 (second-level wrapper, hardcoded `size = { 462 330 }`, fixed 2026-07-11 to `layoutpolicy_vertical = shrinking` + `size = { 462 -1 }` + `set_parent_size_to_minimum = yes` on its vbox)"
   notes: "Reported by the user: the ceremony stage cards (now correctly stacked in sequence per card_common_list_missing_fixed_vertical_size_overlaps_in_vbox) still didn't stretch the outer Ceremony card taller, because that card's ritual-status content sat inside a hardcoded 330px-tall widget dating from when this area only ever held the much shorter Pharos/Hagia step text. The generated ceremony cards fragment itself needed no change; only the hand-maintained wrapper one level up in tv_engineering_department.gui did."
 
+- id: hbox_explicit_size_without_layoutpolicy_horizontal_collapses_to_content_width
+  pattern: ''
+  detectability: advisory
+  bad: "An hbox/vbox sets an explicit `size = { W H }` to bound a mixed fixed-column + expanding-column layout (e.g. a fixed icon widget plus an expanding text_multi) but does not itself declare `layoutpolicy_horizontal = expanding` -- e.g. gen_tv_wonder_ceremony_cards_gui.py's per-card `hbox = { size = {432 104} spacing = 8 widget {...64px icon...} text_multi {...} }`."
+  correction: "When a container combines an explicit `size` hint with expanding children, also set `layoutpolicy_horizontal = expanding` (and `layoutpolicy_vertical` if relevant) on the container itself, matching this file's own established precedent (Pharos stage rows at tv_engineering_department.gui:8401-8402; the Hagia active-ritual row at :9372-9375). Without it, the declared `size` is not honored -- the container instead sizes itself to the sum of its children's intrinsic minimums, so a fixed-width icon column plus a text_multi with no minimumsize (0 intrinsic width until stretch is applied) collapses the whole row to roughly just the icon's width, leaving the text column effectively 0px wide and unselectable."
+  category: gui
+  scope: any
+  source: "src/in_game/gui/panels/organization/tv_engineering_department.gui:8401-8402 (Pharos hbox, layoutpolicy_horizontal = expanding + explicit size, correct precedent); :9372-9375 (Hagia hbox, same pattern); TV_WONDER_CEREMONY_CARDS per-card hbox, fixed 2026-07-12 by gen_tv_wonder_ceremony_cards_gui.py"
+  notes: "Reported by the user via in-game inspection: the per-card content hbox rendered at ~80px wide (icon column + spacing only) instead of its declared 432px, and the flavor text_multi was unselectable (effectively 0 width). A prior guess that the missing property was `ignoreinvisible = yes` on the same hbox was reverted by the user as not addressing the actual observed symptom; the real gap was the container's own layoutpolicy_horizontal."
+
 - id: gui_generator_function_missing_final_closing_brace_cascades_nesting
   pattern: ''
   detectability: advisory

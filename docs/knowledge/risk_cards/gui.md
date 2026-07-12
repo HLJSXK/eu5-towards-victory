@@ -19,6 +19,17 @@ Load this card before editing `.gui` files or GUI-bound localization expressions
 4. Keep text layout bounded.
    Multiline text inside elastic `hbox`/`vbox` columns needs explicit width or `text_multi`
    with `max_width`; otherwise natural text width can resize the parent.
+   The opposite failure is just as common and easier to miss: an `hbox`/`vbox` that sets an
+   explicit `size = { W H }` alongside a fixed column (icon, portrait) plus an expanding
+   `text_multi` must also declare `layoutpolicy_horizontal = expanding` on the container
+   itself. Without it, the container ignores its own declared `size` and instead sizes off
+   the sum of children's intrinsic minimums — a `text_multi` with no `minimumsize` has ~0
+   intrinsic width — so the whole row silently collapses toward the fixed column's width and
+   the text column renders at effectively 0 width (unselectable/unhoverable), with no error
+   in the log. `max_width`/`autoresize` on the `text_multi` does not substitute for this
+   container-level property; both are required together. See
+   `docs/knowledge/anti_patterns.yaml` rule
+   `hbox_explicit_size_without_layoutpolicy_horizontal_collapses_to_content_width`.
 
 5. Verify blockoverride shape from vanilla.
    Some blockoverrides replace scalar properties, not widget containers. Read the template
@@ -203,3 +214,6 @@ testing the panel. GUI failures often appear only when the widget is rendered or
 
 - `gui_list_filter_needs_cached_variable` [advisory]: GUI row/list visibility cannot bind to a
   scripted_trigger directly; mirror it into a country variable refreshed from a lifecycle hook.
+- `hbox_explicit_size_without_layoutpolicy_horizontal_collapses_to_content_width` [advisory]: an
+  hbox/vbox with an explicit `size` and mixed fixed/expanding children also needs
+  `layoutpolicy_horizontal = expanding` on itself, or it collapses to children's intrinsic width.

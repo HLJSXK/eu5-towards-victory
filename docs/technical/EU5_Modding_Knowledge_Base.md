@@ -1388,6 +1388,8 @@ widget = {
 
 Vanilla IO header help text uses the same bounded `text_multi` pattern with `max_width` and `autoresize`.
 
+The above guards against a row growing too wide; the opposite failure — a row collapsing too narrow — has a different, easy-to-miss cause. An `hbox`/`vbox` that declares an explicit `size = { W H }` alongside a mix of fixed and expanding children (e.g. a fixed-width icon column plus an expanding `text_multi`) must also set `layoutpolicy_horizontal = expanding` on the container itself. Without it, the container does not honor its own declared `size` at all: it falls back to sizing off the sum of its children's intrinsic minimums, and a `text_multi` with no `minimumsize` has an intrinsic width of ~0 until layout stretch is applied. The net effect is the whole row silently collapsing to roughly the fixed column's width, with the expanding text column rendering at effectively 0 width (and consequently unselectable/unhoverable). `max_width`/`autoresize` on the `text_multi` itself does not substitute for this container-level property — both are required together. See `docs/knowledge/risk_cards/wonders.md` rule 11 and `docs/knowledge/anti_patterns.yaml` rule `hbox_explicit_size_without_layoutpolicy_horizontal_collapses_to_content_width` for the verified instance (`tv_engineering_department.gui`'s ceremony stage cards) and working precedent citations.
+
 Standalone `io_character_card` widgets inherit `character_entry` name sort highlights. Those highlights call `FilteredSortedList.IsKeyHoveredByWidgetName`, which only works when a `FilteredSortedList` datacontext exists. For cards shown in custom IO panels, situation panels, or other non-sortable contexts, override both inherited highlight blocks:
 
 ```gui
