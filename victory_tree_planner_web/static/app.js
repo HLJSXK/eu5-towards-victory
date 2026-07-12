@@ -1,6 +1,21 @@
 const STAGE_W = 2048;
 const STAGE_H = 1152;
 const BRANCH_COLORS = ["#2563eb", "#16a34a", "#dc2626", "#9333ea", "#0891b2"];
+// Each victory path's own theme color (conquest=red, prosperity=green,
+// trade=gold, diplomatic=gray, cultural=purple, science=blue). The connector
+// lines for a path's whole tree (trunk + every branch) all use a single pale
+// tint of that path's theme color and a uniform width, so once overlaid on
+// the real background art in-game they read as one soft, consistent guide
+// per path rather than a rainbow of per-branch UI-editor colors.
+const PATH_LINE_COLORS = {
+  conquest: "#fca5a5",
+  prosperity: "#86efac",
+  trade: "#fcd34d",
+  diplomatic: "#d1d5db",
+  cultural: "#d8b4fe",
+  science: "#93c5fd",
+};
+const LINE_WIDTH = 0.6;
 const SVG_NS = "http://www.w3.org/2000/svg";
 
 const state = {
@@ -163,15 +178,17 @@ function renderLinks(path) {
   svg.innerHTML = "";
   if (!document.getElementById("toggleLinks").checked) return;
 
+  const lineColor = PATH_LINE_COLORS[path.id] || "#e5e7eb";
+
   const trunkNodes = path.nodes.filter((n) => n.kind === "trunk");
-  drawChain(svg, trunkNodes, "#d97706cc", 1.1);
+  drawChain(svg, trunkNodes, lineColor, LINE_WIDTH);
 
   for (let b = 0; b < 5; b++) {
     const branchNodes = path.nodes.filter((n) => n.kind === "branch" && n.branch_index === b);
     if (!branchNodes.length) continue;
     const attachNode = nodeById(path, branchNodes[0].parent_id);
     const chain = attachNode ? [attachNode, ...branchNodes] : branchNodes;
-    drawChain(svg, chain, BRANCH_COLORS[b] + "b3", 0.7);
+    drawChain(svg, chain, lineColor, LINE_WIDTH);
   }
 }
 
