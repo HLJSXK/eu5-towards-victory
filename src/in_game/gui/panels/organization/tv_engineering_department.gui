@@ -7750,19 +7750,6 @@ widget = {
 					spacing = 10
 					margin = { 10 2 }
 
-					widget = {
-						layoutpolicy_horizontal = expanding
-						size = { 500 48 }
-						using = bg_text_mask_container_dark_blue
-						text_multi = {
-							margin = { 8 6 }
-							max_width = 484
-							autoresize = yes
-							text = "TV_ENGINEERING_CONSTRUCTION_EXPANSION_HINT"
-							align = nobaseline|left
-						}
-					}
-
 					tv_engineering_department_card_common = {
 						visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet)]"
 						layoutpolicy_vertical = fixed
@@ -7794,8 +7781,8 @@ widget = {
 					tv_engineering_department_card_common = {
 						visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet]"
 						layoutpolicy_vertical = fixed
-						minimumsize = { 500 390 }
-						maximumsize = { 500 390 }
+						minimumsize = { 500 544 }
+						maximumsize = { 500 544 }
 
 						blockoverride "common_header_icon_texture" {
 							texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
@@ -7807,7 +7794,7 @@ widget = {
 
 						blockoverride "common_bottom_content" {
 							widget = {
-								size = { 470 340 }
+								size = { 470 494 }
 
 								vbox = {
 									layoutpolicy_horizontal = expanding
@@ -8082,6 +8069,26 @@ widget = {
 										description = "tv_wonder_finish_construction_desc"
 										actor = "[InternationalOrganizationsView.GetPlayer]"
 										left_action = { action_name = "tv_wonder_finish_construction" }
+									}
+
+									tv_engineering_department_card_common = {
+										layoutpolicy_vertical = fixed
+										minimumsize = { 462 148 }
+										maximumsize = { 462 148 }
+
+										blockoverride "header_size" { size = { -1 0 } }
+										blockoverride "header_decor_templates" {}
+										blockoverride "common_header" {}
+										blockoverride "card_common_bottom_margin" { margin = { 10 8 } }
+										blockoverride "common_bottom_content" {
+											text_multi = {
+												layoutpolicy_horizontal = expanding
+												max_width = 442
+												autoresize = yes
+												text = "TV_ENGINEERING_CONSTRUCTION_HELP_TEXT"
+												align = nobaseline|left
+											}
+										}
 									}
 								}
 							}
