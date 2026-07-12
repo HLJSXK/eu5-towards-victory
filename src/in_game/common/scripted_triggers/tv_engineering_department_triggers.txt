@@ -251,6 +251,13 @@ tv_wonder_domestic_support_can_decrease_trigger = {
 	}
 }
 
+tv_wonder_domestic_support_maxed_trigger = {
+	any_international_organizations_member_of = {
+		international_organization_type = international_organization_type:tv_engineering_department
+		var:tv_wonder_domestic_support ?= { this >= 200 }
+	}
+}
+
 tv_wonder_foundation_below_max_trigger = {
 	OR = {
 		AND = { var:tv_wonder_scale_tier ?= 1 var:tv_wonder_foundation_units ?= { this < 1 } }
