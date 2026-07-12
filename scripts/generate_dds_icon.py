@@ -1464,6 +1464,9 @@ def build_victory_tree_background_batch_tasks(
     for path_config in paths:
         path_id = str(path_config["id"])
         path_label = str(path_config["label"])
+        if bool(path_config.get("skip")):
+            print(f"[skip] {VICTORY_TREE_BATCH}.paths.{path_id} has skip = true; not queued")
+            continue
         asset_name = safe_slug(format_task_template(name_template, {"path": path_id}))
         style_reference_paths = parse_path_list(
             path_config.get("style_reference_paths", []),
