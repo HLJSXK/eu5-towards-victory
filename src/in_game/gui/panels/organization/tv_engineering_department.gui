@@ -7780,9 +7780,7 @@ widget = {
 
 					tv_engineering_department_card_common = {
 						visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet]"
-						layoutpolicy_vertical = fixed
-						minimumsize = { 500 544 }
-						maximumsize = { 500 544 }
+						maximumsize = { 500 -1 }
 
 						blockoverride "common_header_icon_texture" {
 							texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
@@ -7794,20 +7792,31 @@ widget = {
 
 						blockoverride "common_bottom_content" {
 							widget = {
-								size = { 470 494 }
+								layoutpolicy_vertical = shrinking
+								size = { 470 -1 }
 
 								vbox = {
+									set_parent_size_to_minimum = yes
 									layoutpolicy_horizontal = expanding
+									layoutpolicy_vertical = shrinking
+									ignoreinvisible = yes
 									spacing = 6
-									margin = { 4 6 }
 
-									hbox = {
-										layoutpolicy_horizontal = expanding
-										ignoreinvisible = no
-										spacing = 5
-										action_button_diamond = { size = { 48 28 } text = "TV_ENGINEERING_BUILD_SHORT_BUTTON" title = "tv_wonder_begin_foundation" description = "tv_wonder_begin_foundation_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_begin_foundation" } }
-										text_single = { size = { 112 28 } text = "TV_ENGINEERING_CONSTRUCTION_PART_FOUNDATION" align = nobaseline|left }
-										hbox = {
+									widget = {
+										size = { 470 340 }
+
+										vbox = {
+											layoutpolicy_horizontal = expanding
+											spacing = 6
+											margin = { 4 6 }
+
+											hbox = {
+												layoutpolicy_horizontal = expanding
+												ignoreinvisible = no
+												spacing = 5
+												action_button_diamond = { size = { 48 28 } text = "TV_ENGINEERING_BUILD_SHORT_BUTTON" title = "tv_wonder_begin_foundation" description = "tv_wonder_begin_foundation_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_begin_foundation" } }
+											text_single = { size = { 112 28 } text = "TV_ENGINEERING_CONSTRUCTION_PART_FOUNDATION" align = nobaseline|left }
+											hbox = {
 											ignoreinvisible = no
 											spacing = 0
 											size = { 264 28 }
@@ -8069,6 +8078,8 @@ widget = {
 										description = "tv_wonder_finish_construction_desc"
 										actor = "[InternationalOrganizationsView.GetPlayer]"
 										left_action = { action_name = "tv_wonder_finish_construction" }
+									}
+										}
 									}
 
 									tv_engineering_department_card_common = {
