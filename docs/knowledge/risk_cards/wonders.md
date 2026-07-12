@@ -246,12 +246,14 @@ generators.
     Sophia remain outside that trigger and retain their dedicated manual
     buttons. The stage flavor and each stage's `cost` remain authored per
     wonder, while the three reward channels deliberately reuse the matching
-    generic mechanic: stage 1 applies
+    generic mechanic: stage 2 applies
     `generic_rituals[mechanic_key].style_3.reward` (including a
     `location_scalar` reward inside `var:tv_wonder_site`), stage 4 constructs
-    `tv_wonder_{mechanic_key}_ritual_annex`, and stage 8 applies the unique
-    ritual's permanent country modifier through the canonical completion
-    chain. Do not restore a hand-authored `ceremony.stage_1_reward` field or
+    `tv_wonder_{mechanic_key}_ritual_annex` from the prototype's style 2 local
+    modifier, and stage 8 applies the prototype's
+    `generic_rituals[mechanic_key].style_1.country_modifier` through the
+    canonical completion chain while retaining a unique modifier identity per
+    wonder. Do not restore a hand-authored `ceremony.stage_2_reward` field or
     construct the unique final building at stage 4: both duplicate or replace
     the wrong reward channel. The shared stage-8 effect schedules the hidden
     `tv_engineering_department.9308` event one day later; its `immediate`

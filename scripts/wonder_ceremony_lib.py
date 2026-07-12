@@ -57,8 +57,8 @@ def ceremony_wonders() -> list[dict]:
     return ceremony_wonders_and_mechanics()[0]
 
 
-def stage_1_reward_for_wonder(wonder: dict, mechanics: dict) -> list[dict]:
-    """Reuse the matching generic style-3 reward as the ceremony's immediate reward."""
+def stage_2_reward_for_wonder(wonder: dict, mechanics: dict) -> list[dict]:
+    """Reuse the matching generic style-3 reward at ceremony stage two."""
     return mechanics["generic_rituals"][wonder["mechanic_key"]]["style_3"]["reward"]
 
 
@@ -85,7 +85,7 @@ def decline_option_key(stage: int) -> str:
 
 def reward_effect_lines(reward: list[dict], indent: int, allow_artwork: bool = False) -> list[str]:
     """Mirrors gen_tv_engineering_department_wonder_mechanics_effects.py's
-    reward_effect_lines() for the same STYLE_3_REWARD_EFFECTS vocabulary. Stage-one
+    reward_effect_lines() for the same STYLE_3_REWARD_EFFECTS vocabulary. Stage-two
     rewards retain site-scoped entries, while ceremony costs are restricted by the
     data validator. An "artwork" entry has no scalar effect, so it only renders when
     allow_artwork=True, which the per-stage ceremony cost dispatch opts into."""

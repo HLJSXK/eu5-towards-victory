@@ -1301,6 +1301,11 @@ def normalize_unique_ritual(wonder: dict) -> dict:
         raw["country_modifier"],
         f"unique wonder {wonder['key']}.ritual.country_modifier",
     )
+    if wonder.get("ceremony") is not None and country_modifier:
+        raise ValueError(
+            f"Ceremony unique wonder {wonder['key']} must leave ritual.country_modifier empty; "
+            "stage eight derives it from generic ritual style 1 data"
+        )
     reward = _require_list(raw["reward"], f"unique wonder {wonder['key']}.ritual.reward")
     confirmation_trigger_script = _validate_script_text(
         raw["confirmation_trigger_script"],
@@ -1429,7 +1434,11 @@ def ritual_plan_for_style(wonder: dict, mechanics: dict, style: int) -> dict:
     if wonder.get("is_unique"):
         if style != 1:
             raise ValueError(f"Unique wonder {wonder['key']} only supports style 1 ritual plans")
-        return unique_ritual(wonder)
+        plan = unique_ritual(wonder)
+        if wonder.get("ceremony") is not None:
+            plan = deepcopy(plan)
+            plan["country_modifier"] = deepcopy(generic_ritual_for_wonder(mechanics, wonder)["style_1"]["country_modifier"])
+        return plan
 
     ritual = generic_ritual_for_wonder(mechanics, wonder)
     if style == 1:
@@ -1924,7 +1933,7 @@ def unique_ceremony_modifier_name(wonder: dict) -> str:
 
 
 def generic_ritual_for_wonder(mechanics: dict, wonder: dict) -> dict:
-    return mechanics["generic_rituals"][wonder["key"]]
+    return mechanics["generic_rituals"][mechanic_key(wonder)]
 
 
 def ritual_auxiliary_building(wonder: dict) -> str:

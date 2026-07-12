@@ -111,9 +111,9 @@ from wonder_mechanics.modifiers import (
     validate_wonder_size_base_country_modifier_rules,
     wonder_base_country_modifiers,
 )
-from wonder_mechanics.rituals import ceremony_styles, normalize_unique_ceremony
+from wonder_mechanics.rituals import ceremony_styles, normalize_unique_ceremony, ritual_plan_for_style
 from wonder_mechanics.schema import validate_unique_wonder_single_site_shape
-from wonder_ceremony_lib import COMPLETION_EVENT_ID, reward_effect_lines, stage_1_reward_for_wonder
+from wonder_ceremony_lib import COMPLETION_EVENT_ID, reward_effect_lines, stage_2_reward_for_wonder
 from wonder_localization_lib import load_engineering_department_suffix_map, load_wonder_localization_data
 from wonder_localization_editor_web.service import (
     WONDER_DATA_REGEN_SCRIPTS,
@@ -270,7 +270,9 @@ def validate_generated_ceremony_flow(wonders: list[dict], mechanics: dict) -> No
     require(ceremony_wonders, "Expected ceremony-enabled unique wonders.")
 
     ceremony_effects = load_ceremony_effect_generator().generate()
-    stage_1_rewards = extract_trigger_block(ceremony_effects, "tv_wonder_ceremony_grant_stage_1_reward_effect")
+    stage_2_rewards = extract_trigger_block(ceremony_effects, "tv_wonder_ceremony_grant_stage_2_reward_effect")
+    stage_1_advance = extract_trigger_block(ceremony_effects, "tv_wonder_ceremony_advance_to_stage_1_effect")
+    stage_2_advance = extract_trigger_block(ceremony_effects, "tv_wonder_ceremony_advance_to_stage_2_effect")
     stage_4_construction = extract_trigger_block(ceremony_effects, "tv_wonder_ceremony_start_stage_4_construction_effect")
     stage_8_advance = extract_trigger_block(ceremony_effects, "tv_wonder_ceremony_advance_to_stage_8_effect")
     completion_triggers = extract_trigger_block(
@@ -280,16 +282,25 @@ def validate_generated_ceremony_flow(wonders: list[dict], mechanics: dict) -> No
 
     for wonder in ceremony_wonders:
         require(
-            "stage_1_reward" not in wonder["ceremony"],
-            f"{wonder['key']} must derive its stage-one reward from generic style 3 data.",
+            "stage_1_reward" not in wonder["ceremony"] and "stage_2_reward" not in wonder["ceremony"],
+            f"{wonder['key']} must derive its stage-two reward from generic style 3 data.",
         )
-        reward = stage_1_reward_for_wonder(wonder, mechanics)
-        require(reward, f"{wonder['key']} needs a generic style-3 reward for ceremony stage one.")
+        reward = stage_2_reward_for_wonder(wonder, mechanics)
+        require(reward, f"{wonder['key']} needs a generic style-3 reward for ceremony stage two.")
         reward_lines = "\n".join(reward_effect_lines(reward, 2))
         reward_branch = f"limit = {{ var:tv_wonder_locked ?= {wonder['id']} }}\n{reward_lines}"
         require(
-            reward_branch in stage_1_rewards,
-            f"{wonder['key']} stage one must emit its generic style-3 reward.",
+            reward_branch in stage_2_rewards,
+            f"{wonder['key']} stage two must emit its generic style-3 reward.",
+        )
+        require(
+            wonder["ritual"]["country_modifier"] == {},
+            f"{wonder['key']} must not keep a unique stage-eight country modifier.",
+        )
+        require(
+            ritual_plan_for_style(wonder, mechanics, 1)["country_modifier"]
+            == mechanics["generic_rituals"][wonder["mechanic_key"]]["style_1"]["country_modifier"],
+            f"{wonder['key']} stage eight must derive its country modifier from generic style 1 data.",
         )
 
         dispatch_start = stage_4_construction.find(f"limit = {{ var:tv_wonder_locked ?= {wonder['id']} }}")
@@ -308,6 +319,14 @@ def validate_generated_ceremony_flow(wonders: list[dict], mechanics: dict) -> No
         )
 
     scheduler = f"trigger_event_silently = {{ id = tv_engineering_department.{COMPLETION_EVENT_ID} days = 1 }}"
+    require(
+        "tv_wonder_ceremony_grant_stage_2_reward_effect = yes" not in stage_1_advance,
+        "Stage one must not grant the one-time reward.",
+    )
+    require(
+        "tv_wonder_ceremony_grant_stage_2_reward_effect = yes" in stage_2_advance,
+        "Stage two must grant the one-time reward.",
+    )
     require(scheduler in stage_8_advance, "Stage eight must schedule the hidden ceremony completion event.")
 
     completion_event = extract_trigger_block(
@@ -559,6 +578,8 @@ def validate_unique_ceremony_editor_support(wonders: list[dict]) -> None:
         raise AssertionError("The ceremony editor must reject positive non-artwork costs.")
 
     ceremony_regen_scripts = (
+        "scripts/in_game/common/static_modifiers/gen_tv_engineering_department_wonder_mechanics_modifiers.py",
+        "scripts/in_game/common/scripted_effects/gen_tv_wonder_ritual_effects.py",
         "scripts/in_game/common/scripted_effects/gen_tv_wonder_ceremony_effects.py",
         "scripts/in_game/events/gen_tv_wonder_ceremony_events.py",
         "scripts/main_menu/localization/english/gen_tv_wonder_ceremony_l_english.py",

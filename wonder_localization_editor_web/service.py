@@ -59,6 +59,7 @@ from scripts.wonder_mechanics.rituals import (
     ceremony_styles,
     normalize_unique_ceremony,
     normalize_unique_ritual,
+    ritual_plan_for_style,
     ritual_blessing_modifier_name,
     ritual_burden_modifier_name,
     unique_ceremony_modifier_name,
@@ -130,6 +131,7 @@ WONDER_DATA_REGEN_SCRIPTS = (
     "scripts/in_game/common/scripted_triggers/gen_tv_engineering_department_wonder_mechanics_triggers.py",
     "scripts/in_game/common/scripted_effects/gen_tv_wonder_module_effects.py",
     "scripts/in_game/common/scripted_effects/gen_tv_engineering_department_wonder_mechanics_effects.py",
+    "scripts/in_game/common/scripted_effects/gen_tv_wonder_ritual_effects.py",
     "scripts/main_menu/common/game_concepts/gen_tv_engineering_department_wonder_mechanics_concepts.py",
     GENERATED_LOC_SCRIPT_REL["english"],
     GENERATED_LOC_SCRIPT_REL["simp_chinese"],
@@ -1131,10 +1133,9 @@ def unique_ritual_prompt_index(data: dict[str, Any]) -> dict[str, dict[str, Any]
 
 
 def ceremony_modifier_for_style(wonder: dict[str, Any], mechanics: dict[str, Any], style: int) -> tuple[str, dict] | None:
-    del mechanics, style
     if not wonder.get("is_unique"):
         return None
-    modifiers = dict(wonder.get("ritual", {}).get("country_modifier", {}))
+    modifiers = ritual_plan_for_style(wonder, mechanics, style).get("country_modifier", {})
     if not modifiers:
         return None
     return unique_ceremony_modifier_name(wonder), modifiers
@@ -3136,7 +3137,8 @@ class WonderLocalizationService:
                     height=32,
                     help_text=(
                         "Structured editor for the automatic eight-stage ceremony. "
-                        "Stage 1 rewards, stage 4 annex construction, and stage 8 finalization remain generated."
+                        "Stage 2 uses the prototype style 3 reward, stage 4 builds its style 2 annex, "
+                        "and stage 8 applies its style 1 modifier through finalization."
                     ),
                     target_path=f"unique_wonders[{unique_key}].ceremony",
                     structured_value=ceremony_editor_state,

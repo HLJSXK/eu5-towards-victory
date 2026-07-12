@@ -5450,225 +5450,189 @@ tv_wonder_unique_hagia_sophia_ceremony_modifier = {
 }
 
 tv_wonder_unique_dome_of_the_rock_ceremony_modifier = {
-	monthly_legitimacy = 0.1
-	tolerance_own = 1
+	global_pop_assimilation_speed_modifier = 0.2
 }
 
 tv_wonder_unique_angkor_wat_ceremony_modifier = {
-	monthly_legitimacy = 0.1
-	tolerance_own = 1
+	war_score_vs_other_religion_efficiency = 0.2
 }
 
 tv_wonder_unique_potala_palace_ceremony_modifier = {
-	global_pop_conversion_speed_modifier = 0.05
-	tolerance_own = 1
+	revoke_privilege_cost_modifier = -0.2
 }
 
 tv_wonder_unique_alhambra_ceremony_modifier = {
-	monthly_towards_centralization = 0.05
-	diplomatic_reputation = 1
+	subject_loyalty = 10
 }
 
 tv_wonder_unique_machu_picchu_ceremony_modifier = {
-	global_monthly_prosperity = 0.003
-	monthly_legitimacy = 0.05
+	revoke_privilege_cost_modifier = -0.2
 }
 
 tv_wonder_unique_himeji_castle_ceremony_modifier = {
-	global_garrison_size_modifier = 0.1
-	land_morale_modifier = 0.03
+	antagonism_received_modifier = -0.1
 }
 
 tv_wonder_unique_taj_mahal_ceremony_modifier = {
-	monthly_legitimacy = 0.1
-	monthly_prestige = 0.1
+	stability_investment = 0.05
 }
 
 tv_wonder_unique_forbidden_city_ceremony_modifier = {
-	monthly_legitimacy = 0.15
-	global_distance_from_capital_speed_propagation = 0.05
+	subject_income_modifier = 0.2
 }
 
 tv_wonder_unique_topkapi_palace_ceremony_modifier = {
-	monthly_towards_centralization = 0.05
-	diplomatic_reputation = 1
+	subject_loyalty = 10
 }
 
 tv_wonder_unique_st_peters_basilica_ceremony_modifier = {
-	monthly_legitimacy = 0.1
-	tolerance_own = 1
+	global_pop_assimilation_speed_modifier = 0.2
 }
 
 tv_wonder_unique_lalibela_churches_ceremony_modifier = {
-	global_pop_conversion_speed_modifier = 0.05
-	tolerance_own = 1
+	revoke_privilege_cost_modifier = -0.2
 }
 
 tv_wonder_unique_venetian_arsenal_ceremony_modifier = {
-	ship_build_speed = 0.1
-	naval_morale_modifier = 0.05
+	exploration_preparation_time_modifier = -0.5
 }
 
 tv_wonder_unique_malacca_port_ceremony_modifier = {
-	trade_income = 0.05
-	trade_range = 100
+	trade_sea_efficiency = 0.2
 }
 
 tv_wonder_unique_red_fort_delhi_ceremony_modifier = {
-	monthly_legitimacy = 0.1
-	global_garrison_size_modifier = 0.05
+	antagonism_received_modifier = -0.1
 }
 
 tv_wonder_unique_versailles_palace_ceremony_modifier = {
-	monthly_prestige = 0.2
-	monthly_towards_centralization = 0.05
+	subject_income_modifier = 0.2
 }
 
 tv_wonder_unique_tenochtitlan_causeways_ceremony_modifier = {
-	army_movement_speed = 0.05
-	global_monthly_prosperity = 0.002
+	army_movement_speed = 0.2
 }
 
 tv_wonder_unique_amsterdam_canal_ring_ceremony_modifier = {
-	trade_income = 0.05
-	global_production_efficiency = 0.03
+	stability_investment = 0.05
 }
 
 tv_wonder_unique_mecca_haram_expansion_ceremony_modifier = {
-	tolerance_own = 2
-	global_pop_conversion_speed_modifier = 0.05
+	global_pop_assimilation_speed_modifier = 0.2
 }
 
 tv_wonder_unique_ming_great_wall_ceremony_modifier = {
-	global_garrison_size_modifier = 0.1
-	army_movement_speed = 0.05
+	stability_cost_efficiency = 0.2
 }
 
 tv_wonder_unique_bank_of_saint_george_ceremony_modifier = {
-	tax_income_efficiency = 0.04
-	merchant_maintenance_efficiency = 0.08
+	tax_income_efficiency = 0.08
 }
 
 tv_wonder_unique_cahokia_mounds_ceremony_modifier = {
 	monthly_prestige = 0.1
-	global_monthly_prosperity = 0.003
 }
 
 tv_wonder_unique_great_zimbabwe_ceremony_modifier = {
-	trade_income = 0.06
-	global_raw_material_output = 0.03
+	spy_network_construction = 0.4
 }
 
 tv_wonder_unique_isfahan_square_ceremony_modifier = {
-	monthly_prestige = 0.1
-	trade_income = 0.03
+	subject_income_modifier = 0.2
 }
 
 tv_wonder_unique_grand_canal_ceremony_modifier = {
-	global_distance_from_capital_speed_propagation = 0.08
-	global_raw_material_output = 0.03
+	tax_income_efficiency = 0.05
 }
 
 tv_wonder_unique_inca_royal_road_ceremony_modifier = {
-	army_movement_speed = 0.05
-	global_distance_from_capital_speed_propagation = 0.05
+	global_peasants_migration_allowed = yes
+	global_laborers_migration_allowed = yes
 }
 
 tv_wonder_unique_roman_aqueducts_ceremony_modifier = {
-	global_monthly_prosperity = 0.003
-	global_production_efficiency = 0.03
+	global_rural_build_buildings_efficiency = 0.2
 }
 
 tv_wonder_unique_suez_ancient_canal_ceremony_modifier = {
-	trade_range = 150
-	trade_income = 0.04
+	tax_income_efficiency = 0.05
 }
 
 tv_wonder_unique_kremlin_ceremony_modifier = {
-	monthly_legitimacy = 0.1
-	land_morale_modifier = 0.03
+	antagonism_received_modifier = -0.1
 }
 
 tv_wonder_unique_teotihuacan_ceremony_modifier = {
 	monthly_prestige = 0.1
-	tolerance_own = 1
 }
 
 tv_wonder_unique_angkor_hydraulic_system_ceremony_modifier = {
-	global_raw_material_output = 0.04
-	global_monthly_prosperity = 0.003
+	global_rural_build_buildings_efficiency = 0.2
 }
 
 tv_wonder_unique_dutch_polders_ceremony_modifier = {
-	global_raw_material_output = 0.04
-	global_production_efficiency = 0.03
+	peasants_estate_target_satisfaction = 0.025
 }
 
 tv_wonder_unique_machu_picchu_terraces_ceremony_modifier = {
-	global_raw_material_output = 0.05
-	global_monthly_prosperity = 0.002
+	rural_migration_attraction = 0.5
 }
 
 tv_wonder_unique_british_navy_dockyards_ceremony_modifier = {
-	naval_morale_modifier = 0.2
+	exploration_preparation_time_modifier = -0.5
 }
 
 tv_wonder_unique_spanish_silver_fleet_ceremony_modifier = {
-	trade_income = 0.06
-	minting_income_factor = 0.05
+	trade_income = 0.05
 }
 
 tv_wonder_unique_ottoman_hajj_road_ceremony_modifier = {
-	tolerance_own = 1
-	global_distance_from_capital_speed_propagation = 0.05
+	global_peasants_migration_allowed = yes
+	global_laborers_migration_allowed = yes
 }
 
 tv_wonder_unique_persian_qanat_ceremony_modifier = {
-	global_monthly_prosperity = 0.003
-	global_raw_material_output = 0.03
+	global_rural_build_buildings_efficiency = 0.2
 }
 
 tv_wonder_unique_longjiang_shipyard_ceremony_modifier = {
-	naval_range = 150
-	ship_build_speed = 0.1
+	exploration_preparation_time_modifier = -0.5
 }
 
 tv_wonder_unique_jerusalem_holy_city_ceremony_modifier = {
-	tolerance_own = 1
-	diplomatic_reputation = 1
-	monthly_prestige = 0.05
+	monthly_prestige = 0.1
 }
 
 tv_wonder_unique_stonehenge_ceremony_modifier = {
-	stability_cost_efficiency = 0.1
+	monthly_prestige = 0.05
 }
 
 tv_wonder_unique_tower_of_london_ceremony_modifier = {
-	global_crown_estate_power = 0.1
+	antagonism_received_modifier = -0.1
 }
 
 tv_wonder_unique_notre_dame_de_paris_ceremony_modifier = {
-	num_possible_artists = 1
+	court_spending_efficiency = 0.05
 }
 
 tv_wonder_unique_st_basils_cathedral_ceremony_modifier = {
-	monthly_legitimacy = 0.05
+	court_spending_efficiency = 0.05
 }
 
 tv_wonder_unique_trinity_lavra_ceremony_modifier = {
-	research_speed = 0.05
+	clergy_estate_target_satisfaction = 0.05
 }
 
 tv_wonder_unique_winter_palace_ceremony_modifier = {
-	diplomatic_reputation = 1
+	subject_income_modifier = 0.2
 }
 
 tv_wonder_unique_gyeongbokgung_ceremony_modifier = {
-	country_cabinet_efficiency = 0.2
+	subject_income_modifier = 0.2
 }
 
 tv_wonder_unique_changbai_mountain_altar_ceremony_modifier = {
-	court_spending_efficiency = 0.1
+	revoke_privilege_cost_modifier = -0.2
 }
 
 tv_wonder_unique_belgrade_fortress_ceremony_modifier = {
@@ -5676,372 +5640,302 @@ tv_wonder_unique_belgrade_fortress_ceremony_modifier = {
 }
 
 tv_wonder_unique_meteora_monasteries_ceremony_modifier = {
-	stability_investment = 0.05
+	clergy_estate_target_satisfaction = 0.05
 }
 
 tv_wonder_unique_belem_tower_ceremony_modifier = {
-	naval_range = 150
-	trade_income = 0.04
+	global_estate_power = -0.25
 }
 
 tv_wonder_unique_iberian_inquisition_ceremony_modifier = {
-	global_pop_conversion_speed_modifier = 0.08
-	stability_investment = 0.05
+	clergy_estate_target_satisfaction = 0.05
 }
 
 tv_wonder_unique_santa_maria_del_fiore_ceremony_modifier = {
-	monthly_prestige = 0.1
-	cultural_tradition_modifier = 0.05
+	court_spending_efficiency = 0.05
 }
 
 tv_wonder_unique_leaning_tower_of_pisa_ceremony_modifier = {
-	monthly_prestige = 0.08
-	research_speed = 0.03
+	global_estate_power = -0.25
 }
 
 tv_wonder_unique_milan_cathedral_ceremony_modifier = {
-	tolerance_own = 1
-	monthly_prestige = 0.08
+	court_spending_efficiency = 0.05
 }
 
 tv_wonder_unique_vatican_archives_ceremony_modifier = {
-	research_speed = 0.04
-	diplomatic_reputation = 1
+	research_speed_modifier = 0.2
 }
 
 tv_wonder_unique_temple_of_heaven_ceremony_modifier = {
-	monthly_legitimacy = 0.1
-	tolerance_own = 1
+	global_pop_assimilation_speed_modifier = 0.2
 }
 
 tv_wonder_unique_dujiangyan_ceremony_modifier = {
-	global_production_efficiency = 0.04
-	global_build_buildings_efficiency = 0.03
+	peasants_estate_target_satisfaction = 0.025
 }
 
 tv_wonder_unique_porcelain_tower_of_nanjing_ceremony_modifier = {
-	monthly_prestige = 0.1
-	global_pop_conversion_speed_modifier = 0.05
+	war_score_vs_other_religion_efficiency = 0.2
 }
 
 tv_wonder_unique_jingdezhen_imperial_kilns_ceremony_modifier = {
-	global_production_efficiency = 0.05
-	trade_income = 0.04
+	burghers_estate_target_satisfaction = 0.025
 }
 
 tv_wonder_unique_mogao_caves_ceremony_modifier = {
-	cultural_tradition_modifier = 0.06
-	monthly_prestige = 0.08
+	antagonism_received_modifier = -0.2
 }
 
 tv_wonder_unique_canton_thirteen_factories_ceremony_modifier = {
-	trade_income = 0.05
-	diplomatic_reputation = 1
+	merchant_maintenance_efficiency = 0.25
 }
 
 tv_wonder_unique_dardanelles_fortress_ceremony_modifier = {
-	naval_morale_modifier = 0.06
-	global_defensive = 0.05
+	trade_sea_efficiency = 0.2
 }
 
 tv_wonder_unique_escorial_monastery_ceremony_modifier = {
-	monthly_legitimacy = 0.1
-	stability_investment = 0.05
+	clergy_estate_target_satisfaction = 0.05
 }
 
 tv_wonder_unique_toledo_armory_ceremony_modifier = {
-	land_morale_modifier = 0.05
-	global_manpower_modifier = 0.05
+	land_morale_modifier = 0.1
 }
 
 tv_wonder_unique_camino_de_santiago_ceremony_modifier = {
-	global_pop_conversion_speed_modifier = 0.05
-	diplomatic_reputation = 1
+	global_peasants_migration_allowed = yes
+	global_laborers_migration_allowed = yes
 }
 
 tv_wonder_unique_sagres_navigation_school_ceremony_modifier = {
-	naval_range = 150
-	naval_morale_modifier = 0.04
+	global_maritime_presence_modifier = 0.2
 }
 
 tv_wonder_unique_milan_arsenal_ceremony_modifier = {
-	land_morale_modifier = 0.04
-	global_production_efficiency = 0.04
+	land_morale_modifier = 0.1
 }
 
 tv_wonder_unique_university_of_bologna_ceremony_modifier = {
-	research_speed = 0.05
-	global_pop_promotion_speed_modifier = 0.04
+	skill_of_new_artists = 0.1
 }
 
 tv_wonder_unique_carrara_marble_quarries_ceremony_modifier = {
-	global_build_buildings_efficiency = 0.05
-	global_production_efficiency = 0.03
+	peasants_estate_target_satisfaction = 0.025
 }
 
 tv_wonder_unique_east_india_company_ceremony_modifier = {
-	trade_income = 0.06
-	subject_pays_trade_company_cost_modifier = 0.08
+	trade_income = 0.1
 }
 
 tv_wonder_unique_peacock_throne_ceremony_modifier = {
-	monthly_legitimacy = 0.1
-	diplomatic_reputation = 1
+	subject_loyalty = 10
 }
 
 tv_wonder_unique_varanasi_ghats_ceremony_modifier = {
-	stability_investment = 0.05
-	global_pop_conversion_speed_modifier = 0.04
+	global_pop_assimilation_speed_modifier = 0.2
 }
 
 tv_wonder_unique_brihadishvara_temple_ceremony_modifier = {
-	monthly_legitimacy = 0.1
-	global_pop_conversion_speed_modifier = 0.04
+	war_score_vs_other_religion_efficiency = 0.2
 }
 
 tv_wonder_unique_konark_sun_temple_ceremony_modifier = {
-	monthly_prestige = 0.08
-	global_pop_conversion_speed_modifier = 0.04
+	court_spending_efficiency = 0.05
 }
 
 tv_wonder_unique_fatehpur_sikri_ceremony_modifier = {
-	country_cabinet_efficiency = 0.08
-	diplomatic_reputation = 1
+	government_reform_slots = 1
 }
 
 tv_wonder_unique_calicut_port_city_ceremony_modifier = {
-	trade_income = 0.05
-	trade_range = 150
+	trade_sea_efficiency = 0.2
 }
 
 tv_wonder_unique_wieliczka_salt_mine_ceremony_modifier = {
-	global_production_efficiency = 0.05
-	trade_income = 0.03
+	peasants_estate_target_satisfaction = 0.025
 }
 
 tv_wonder_unique_wawel_castle_ceremony_modifier = {
-	monthly_legitimacy = 0.1
-	land_morale_modifier = 0.04
+	antagonism_received_modifier = -0.1
 }
 
 tv_wonder_unique_zamosc_ideal_city_ceremony_modifier = {
-	global_build_buildings_efficiency = 0.04
-	monthly_prestige = 0.05
+	global_urban_build_buildings_efficiency = 0.05
 }
 
 tv_wonder_unique_gdansk_port_ceremony_modifier = {
-	trade_income = 0.06
-	trade_range = 150
+	trade_sea_efficiency = 0.2
 }
 
 tv_wonder_unique_malbork_castle_ceremony_modifier = {
-	land_morale_modifier = 0.05
-	global_manpower_modifier = 0.05
+	land_morale_modifier = 0.1
 }
 
 tv_wonder_unique_brest_synagogue_quarter_ceremony_modifier = {
-	research_speed = 0.03
-	trade_income = 0.04
+	government_reform_slots = 1
 }
 
 tv_wonder_unique_vilnius_university_ceremony_modifier = {
-	research_speed = 0.05
-	global_pop_promotion_speed_modifier = 0.04
+	skill_of_new_artists = 0.1
 }
 
 tv_wonder_unique_cave_monastery_ceremony_modifier = {
-	research_speed = 0.04
-	global_pop_conversion_speed_modifier = 0.04
+	clergy_estate_target_satisfaction = 0.05
 }
 
 tv_wonder_unique_zaporizhian_sich_ceremony_modifier = {
-	land_morale_modifier = 0.05
-	global_manpower_modifier = 0.06
+	global_levy_recruitment_speed_modifier = 0.5
 }
 
 tv_wonder_unique_registan_square_ceremony_modifier = {
-	monthly_prestige = 0.08
-	diplomatic_reputation = 1
+	global_monthly_art_start_chance = 0.2
 }
 
 tv_wonder_unique_khiva_old_city_ceremony_modifier = {
-	monthly_prestige = 0.05
-	monthly_legitimacy = 0.05
+	court_spending_efficiency = 0.2
 }
 
 tv_wonder_unique_bukhara_kalyan_minaret_ceremony_modifier = {
-	monthly_prestige = 0.06
-	global_pop_conversion_speed_modifier = 0.04
+	war_score_vs_other_religion_efficiency = 0.2
 }
 
 tv_wonder_unique_ferghana_palace_ceremony_modifier = {
-	diplomatic_reputation = 1
-	monthly_legitimacy = 0.08
+	subject_loyalty = 10
 }
 
 tv_wonder_unique_tashkent_old_bazaar_ceremony_modifier = {
-	trade_income = 0.05
-	diplomatic_reputation = 1
+	spy_network_construction = 0.4
 }
 
 tv_wonder_unique_louvre_palace_ceremony_modifier = {
-	monthly_prestige = 0.08
-	diplomatic_reputation = 1
+	subject_loyalty = 10
 }
 
 tv_wonder_unique_fontainebleau_palace_ceremony_modifier = {
-	monthly_prestige = 0.08
-	monthly_legitimacy = 0.05
+	government_size = 1
 }
 
 tv_wonder_unique_bordeaux_port_ceremony_modifier = {
-	trade_income = 0.05
-	trade_range = 100
+	trade_sea_efficiency = 0.2
 }
 
 tv_wonder_unique_marseille_old_port_ceremony_modifier = {
-	trade_income = 0.04
-	naval_range = 100
+	trade_sea_efficiency = 0.2
 }
 
 tv_wonder_unique_lyon_silk_workshops_ceremony_modifier = {
-	global_production_efficiency = 0.05
-	trade_income = 0.04
+	burghers_estate_target_satisfaction = 0.025
 }
 
 tv_wonder_unique_mont_saint_michel_ceremony_modifier = {
-	tolerance_own = 1
-	monthly_prestige = 0.06
+	revoke_privilege_cost_modifier = -0.2
 }
 
 tv_wonder_unique_bastille_ceremony_modifier = {
-	global_garrison_size_modifier = 0.08
-	monthly_legitimacy = 0.05
+	antagonism_received_modifier = -0.1
 }
 
 tv_wonder_unique_carcassonne_castle_ceremony_modifier = {
-	global_garrison_size_modifier = 0.1
-	land_morale_modifier = 0.03
+	antagonism_received_modifier = -0.1
 }
 
 tv_wonder_unique_brest_naval_port_ceremony_modifier = {
-	naval_morale_modifier = 0.05
-	naval_range = 100
+	exploration_preparation_time_modifier = -0.5
 }
 
 tv_wonder_unique_colmar_old_town_ceremony_modifier = {
-	monthly_prestige = 0.05
-	monthly_legitimacy = 0.05
+	court_spending_efficiency = 0.2
 }
 
 tv_wonder_unique_house_of_wisdom_ceremony_modifier = {
-	research_speed = 0.05
-	global_monthly_literacy = 0.003
+	research_speed_modifier = 0.2
 }
 
 tv_wonder_unique_echmiadzin_cathedral_ceremony_modifier = {
-	tolerance_own = 1
-	clergy_estate_target_satisfaction = 0.04
+	court_spending_efficiency = 0.05
 }
 
 tv_wonder_unique_narikala_fortress_ceremony_modifier = {
-	global_garrison_size_modifier = 0.08
-	land_morale_modifier = 0.03
+	antagonism_received_modifier = -0.1
 }
 
 tv_wonder_unique_baku_ateshgah_ceremony_modifier = {
-	monthly_prestige = 0.06
-	tolerance_own = 1
+	war_score_vs_other_religion_efficiency = 0.2
 }
 
 tv_wonder_unique_sanaa_old_city_ceremony_modifier = {
-	trade_income = 0.05
-	diplomatic_reputation = 1
+	spy_network_construction = 0.4
 }
 
 tv_wonder_unique_schoenbrunn_palace_ceremony_modifier = {
-	diplomatic_reputation = 1
-	monthly_prestige = 0.08
+	subject_loyalty = 10
 }
 
 tv_wonder_unique_electoral_conference_hall_ceremony_modifier = {
-	monthly_legitimacy = 0.12
+	government_reform_slots = 1
 }
 
 tv_wonder_unique_aachen_cathedral_ceremony_modifier = {
-	monthly_legitimacy = 0.08
-	clergy_estate_target_satisfaction = 0.03
+	court_spending_efficiency = 0.05
 }
 
 tv_wonder_unique_nuremberg_imperial_castle_ceremony_modifier = {
-	fort_maintenance_efficiency = 0.05
-	global_garrison_size_modifier = 0.08
+	antagonism_received_modifier = -0.1
 }
 
 tv_wonder_unique_augsburg_bank_ceremony_modifier = {
-	tax_income_efficiency = 0.04
-	merchant_maintenance_efficiency = 0.08
+	tax_income_efficiency = 0.08
 }
 
 tv_wonder_unique_cologne_cathedral_ceremony_modifier = {
-	global_pop_conversion_speed = 0.05
-	monthly_prestige = 0.06
+	court_spending_efficiency = 0.05
 }
 
 tv_wonder_unique_hanseatic_kontor_ceremony_modifier = {
-	trade_income = 0.04
-	merchant_maintenance_efficiency = 0.08
+	merchant_maintenance_efficiency = 0.25
 }
 
 tv_wonder_unique_hanseatic_town_hall_ceremony_modifier = {
-	diplomatic_reputation = 1
-	burghers_estate_target_satisfaction = 0.04
+	government_reform_slots = 1
 }
 
 tv_wonder_unique_dresden_art_gallery_ceremony_modifier = {
-	art_creation_speed = 0.05
-	monthly_prestige = 0.08
+	tolerance_own = 1
 }
 
 tv_wonder_unique_munich_royal_brewery_ceremony_modifier = {
-	global_production_efficiency = 0.04
-	stability_investment = 0.05
+	burghers_estate_target_satisfaction = 0.025
 }
 
 tv_wonder_unique_heidelberg_university_ceremony_modifier = {
-	research_speed = 0.04
-	global_monthly_literacy = 0.002
+	skill_of_new_artists = 0.1
 }
 
 tv_wonder_unique_fez_old_city_ceremony_modifier = {
-	monthly_legitimacy = 0.06
-	monthly_prestige = 0.05
+	court_spending_efficiency = 0.2
 }
 
 tv_wonder_unique_kairouan_holy_city_ceremony_modifier = {
-	tolerance_own = 1
-	clergy_estate_target_satisfaction = 0.025
+	global_pop_assimilation_speed_modifier = 0.2
 }
 
 tv_wonder_unique_algiers_pirate_port_ceremony_modifier = {
-	can_hire_privateers = yes
-	privateer_durability = 0.1
+	hire_privateer_cost_modifier = -0.2
+	privateer_maintenance_cost_modifier = -0.1
 	shameless_privateering_modifier = yes
 }
 
 tv_wonder_unique_sankore_university_ceremony_modifier = {
-	research_speed = 0.04
-	global_monthly_literacy = 0.002
+	skill_of_new_artists = 0.1
 }
 
 tv_wonder_unique_great_mosque_of_djenne_ceremony_modifier = {
-	global_pop_conversion_speed_modifier = 0.04
-	monthly_prestige = 0.06
+	war_score_vs_other_religion_efficiency = 0.2
 }
 
 tv_wonder_unique_walls_of_benin_ceremony_modifier = {
-	global_garrison_size_modifier = 0.06
-	monthly_towards_defensive = 0.05
+	antagonism_received_modifier = -0.1
 }
 
 tv_wonder_hagia_ruler_procession_modifier = {

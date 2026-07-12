@@ -748,11 +748,16 @@ def build_record(
     ceremony_meta: dict[str, object] = {}
     if ceremony_modifier is not None:
         ceremony_meta["source"] = ceremony_modifier[0]
+    ritual_country_modifier = (
+        ceremony_modifier[1]
+        if wonder.get("is_unique") and ceremony_modifier is not None
+        else ritual.get("country_modifier", {})
+    )
     section = effect_section(
         "ritual_country_modifier",
         "Ritual country modifiers",
         "仪式国家修正",
-        rows_from_mapping(ritual.get("country_modifier", {}), modifier_index=modifier_index),
+        rows_from_mapping(ritual_country_modifier, modifier_index=modifier_index),
         scope="country",
         meta=ceremony_meta,
     )

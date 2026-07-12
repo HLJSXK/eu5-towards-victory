@@ -2,8 +2,8 @@
 
 The monthly tick and stage-advance skeleton are wonder-id-generic shared effects;
 the stage cost (data/unique_wonders.yaml ceremony.stages[i].cost, one authored
-cost per stage), the stage-1 one-time reward, and the stage-4 "start building the
-real final building" branch each dispatch per wonder id, matching the existing
+cost per stage), the stage-2 one-time reward, and the stage-4 generic ritual-annex
+construction branch each dispatch per wonder id, matching the existing
 121-way `var:tv_wonder_locked ?= <id>` idiom already used in
 tv_wonder_finalization_effects.txt.
 """
@@ -25,7 +25,7 @@ from wonder_ceremony_lib import (  # noqa: E402
     render_header,
     reward_effect_lines,
     script_rel,
-    stage_1_reward_for_wonder,
+    stage_2_reward_for_wonder,
     stage_event_id,
 )
 
@@ -104,11 +104,11 @@ def append_stage_cost_dispatch(lines: list[str], wonders: list[dict]) -> None:
         lines.append("")
 
 
-def append_stage_1_reward_dispatch(lines: list[str], wonders: list[dict], mechanics: dict) -> None:
-    lines.append("tv_wonder_ceremony_grant_stage_1_reward_effect = {")
+def append_stage_2_reward_dispatch(lines: list[str], wonders: list[dict], mechanics: dict) -> None:
+    lines.append("tv_wonder_ceremony_grant_stage_2_reward_effect = {")
     first = True
     for wonder in wonders:
-        reward = stage_1_reward_for_wonder(wonder, mechanics)
+        reward = stage_2_reward_for_wonder(wonder, mechanics)
         if not reward:
             continue
         head = "if" if first else "else_if"
@@ -150,8 +150,8 @@ def append_advance_stage_effects(lines: list[str]) -> None:
         lines.append(f"{T}tv_wonder_ceremony_pay_stage_{stage}_cost_effect = yes")
         lines.append(f"{T}set_variable = {{ name = tv_wonder_ceremony_stage value = {stage} }}")
         lines.append(f"{T}set_variable = {{ name = tv_wonder_ceremony_quarter_month value = 0 }}")
-        if stage == 1:
-            lines.append(f"{T}tv_wonder_ceremony_grant_stage_1_reward_effect = yes")
+        if stage == 2:
+            lines.append(f"{T}tv_wonder_ceremony_grant_stage_2_reward_effect = yes")
         if stage == 4:
             lines.append(f"{T}tv_wonder_ceremony_start_stage_4_construction_effect = yes")
         if stage == STAGE_COUNT:
@@ -168,7 +168,7 @@ def generate() -> str:
     append_begin_effect(lines)
     append_monthly_tick(lines)
     append_stage_cost_dispatch(lines, wonders)
-    append_stage_1_reward_dispatch(lines, wonders, mechanics)
+    append_stage_2_reward_dispatch(lines, wonders, mechanics)
     append_stage_4_construction_dispatch(lines, wonders)
     append_advance_stage_effects(lines)
     return "\n".join(lines).rstrip() + "\n"

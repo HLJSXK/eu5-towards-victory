@@ -4172,7 +4172,7 @@ tv_wonder_ceremony_pay_stage_8_cost_effect = {
 	}
 }
 
-tv_wonder_ceremony_grant_stage_1_reward_effect = {
+tv_wonder_ceremony_grant_stage_2_reward_effect = {
 	if = {
 		limit = { var:tv_wonder_locked ?= 103 }
 		add_all_estate_satisfaction = { value = 0.2 }
@@ -5758,13 +5758,13 @@ tv_wonder_ceremony_advance_to_stage_1_effect = {
 	tv_wonder_ceremony_pay_stage_1_cost_effect = yes
 	set_variable = { name = tv_wonder_ceremony_stage value = 1 }
 	set_variable = { name = tv_wonder_ceremony_quarter_month value = 0 }
-	tv_wonder_ceremony_grant_stage_1_reward_effect = yes
 }
 
 tv_wonder_ceremony_advance_to_stage_2_effect = {
 	tv_wonder_ceremony_pay_stage_2_cost_effect = yes
 	set_variable = { name = tv_wonder_ceremony_stage value = 2 }
 	set_variable = { name = tv_wonder_ceremony_quarter_month value = 0 }
+	tv_wonder_ceremony_grant_stage_2_reward_effect = yes
 }
 
 tv_wonder_ceremony_advance_to_stage_3_effect = {
