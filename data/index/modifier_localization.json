@@ -3571,7 +3571,7 @@
       "value_kind": "boolean",
       "zh": {
         "description": "这会阻止该[country|e]拥有的所有[markets|e]出口[ShowGoodsName('tv_wonder_materials')]。",
-        "name": "禁止伟大工程建材出口"
+        "name": "禁止建材出口"
       }
     },
     "ban_exports_of_weaponry": {
@@ -4621,7 +4621,7 @@
       "value_kind": "boolean",
       "zh": {
         "description": "这会阻止该[country|e]拥有的所有[markets|e]进口[ShowGoodsName('tv_wonder_materials')]。",
-        "name": "禁止伟大工程建材进口"
+        "name": "禁止建材进口"
       }
     },
     "ban_imports_of_weaponry": {
@@ -7337,7 +7337,7 @@
       "value_kind": "boolean",
       "zh": {
         "description": "这允许通过在[location|e]中提供[rgo|e]来提取[ShowGoodsName('tv_wonder_materials')]。",
-        "name": "可提取伟大工程建材"
+        "name": "可提取建材"
       }
     },
     "can_extract_weaponry": {
@@ -17249,7 +17249,7 @@
       "value_kind": "percent",
       "zh": {
         "description": "这修正整个[country|e]的[ShowGoodsName('tv_wonder_materials')][output|e]。",
-        "name": "伟大工程建材产出"
+        "name": "建材产出"
       }
     },
     "global_tv_wonder_materials_pop_demand": {
@@ -23941,7 +23941,7 @@
       "value_kind": "percent",
       "zh": {
         "description": "这修正该[location|e]的[ShowGoodsName('tv_wonder_materials')][output|e]。",
-        "name": "本地伟大工程建材产出"
+        "name": "本地建材产出"
       }
     },
     "local_typhus_growth_modifier": {
@@ -33152,8 +33152,8 @@
       },
       "value_kind": "percent",
       "zh": {
-        "description": "修正伟大工程工地的金币建设花费。",
-        "name": "伟大工程工地花费"
+        "description": "修正工地的金币建设花费。",
+        "name": "工地花费"
       }
     },
     "tv_wonder_material_dispatch_point_price_cost_modifier": {
@@ -33181,7 +33181,7 @@
       "value_kind": "percent",
       "zh": {
         "description": "这决定了[ShowGoodsName('tv_wonder_materials')]的生产如何影响[country|e]的[inflation|e]。",
-        "name": "伟大工程建材对通货膨胀的影响"
+        "name": "建材对通货膨胀的影响"
       }
     },
     "tv_wonder_materials_used_for_minting": {
@@ -33195,7 +33195,7 @@
       "value_kind": "boolean",
       "zh": {
         "description": "这决定了[ShowGoodsName('tv_wonder_materials')]是否被用作[country|e]的货币。",
-        "name": "伟大工程建材用作货币"
+        "name": "建材用作货币"
       }
     },
     "tv_wonder_ritual_annex_large_price_cost_modifier": {

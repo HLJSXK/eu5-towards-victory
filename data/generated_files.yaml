@@ -234,7 +234,7 @@ generated:
   # shared build-logic module backing all 5 generators below. Excludes Pharos
   # Lighthouse and Hagia Sophia, which keep their existing bespoke rituals.
   - script: scripts/in_game/common/scripted_effects/gen_tv_wonder_ceremony_effects.py
-    data:   scripts/wonder_ceremony_lib.py + data/unique_wonders.yaml
+    data:   scripts/wonder_ceremony_lib.py + data/unique_wonders.yaml + data/wonder_generic_rituals.yaml
     output: src/in_game/common/scripted_effects/tv_wonder_ceremony_effects.txt
 
   - script: scripts/in_game/events/gen_tv_wonder_ceremony_events.py

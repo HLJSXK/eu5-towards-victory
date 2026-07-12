@@ -313,6 +313,23 @@ def selected_ritual_id_limit(wonder: dict, style: int) -> str:
     return f"var:tv_wonder_selected_ritual_id ?= {wonder_ritual_composite_id(int(wonder['id']), int(style))}"
 
 
+def append_selected_unique_ceremony_framework_trigger(lines: list[str], wonders: list[dict]) -> None:
+    """Match only unique wonders handled by the shared eight-stage ceremony."""
+    ceremony_wonders = [
+        wonder
+        for wonder in wonders
+        if wonder.get("is_unique") and wonder.get("ceremony") is not None
+    ]
+    lines.append("tv_wonder_selected_unique_ceremony_framework_trigger = {")
+    lines.append(f"{T}tv_wonder_has_selected_ceremony_trigger = yes")
+    lines.append(f"{T}OR = {{")
+    for wonder in ceremony_wonders:
+        lines.append(f"{T}{T}var:tv_wonder_locked ?= {wonder['id']}")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+
 def selected_ritual_script_trigger(
     name: str,
     wonders: list[dict],
@@ -548,9 +565,12 @@ def generate() -> str:
     lines.append("}")
     lines.append("")
 
+    append_selected_unique_ceremony_framework_trigger(lines, all_wonders)
+
     lines.append("tv_wonder_ceremony_ready_for_confirmation_trigger = {")
     lines.append(f"{T}tv_wonder_has_selected_ceremony_trigger = yes")
     lines.append(f"{T}NOT = {{ has_variable = tv_wonder_ritual_in_progress }}")
+    lines.append(f"{T}NOT = {{ tv_wonder_selected_unique_ceremony_framework_trigger = yes }}")
     lines.append(f"{T}tv_wonder_selected_ritual_confirmation_requirements_met_trigger = yes")
     lines.append("}")
     lines.append("")

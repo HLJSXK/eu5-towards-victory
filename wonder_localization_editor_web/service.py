@@ -19,6 +19,7 @@ if hasattr(sys.stdout, "reconfigure"):
 from scripts.wonder_localization_lib import (
     REPO_ROOT,
     WONDER_LOCALIZATION_FILE,
+    engineering_department_wonder_mechanics_localization_map,
     load_engineering_department_suffix_map,
     load_localization_map,
     load_wonder_localization_data,
@@ -50,10 +51,13 @@ from scripts.wonder_mechanics.naming import (
 )
 from scripts.wonder_mechanics.render import loc_line, render_header
 from scripts.wonder_mechanics.rituals import (
+    CEREMONY_STAGE_COUNT,
+    SUPPORTED_CEREMONY_STAGE_COST_TYPES,
     SUPPORTED_RITUAL_COST_TYPES,
     SUPPORTED_RITUAL_LISTENERS,
     SUPPORTED_UNIQUE_RITUAL_MODES,
     ceremony_styles,
+    normalize_unique_ceremony,
     normalize_unique_ritual,
     ritual_blessing_modifier_name,
     ritual_burden_modifier_name,
@@ -102,14 +106,6 @@ GENERATED_LOC_FILES = {
     "english": REPO_ROOT / "src" / "main_menu" / "localization" / "english" / "tv_engineering_department_wonder_mechanics_l_english.yml",
     "simp_chinese": REPO_ROOT / "src" / "main_menu" / "localization" / "simp_chinese" / "tv_engineering_department_wonder_mechanics_l_simp_chinese.yml",
 }
-GENERATED_LOC_EXCLUDED_KEYS = {
-    "tv_wonder_ownership.800.t",
-    "tv_wonder_ownership.800.d",
-    "tv_wonder_ownership.800.a",
-    "tv_wonder_ownership.900.t",
-    "tv_wonder_ownership.900.d",
-    "tv_wonder_ownership.900.a",
-}
 GENERATED_LOC_SCRIPT_REL = {
     "english": "scripts/main_menu/localization/english/gen_tv_engineering_department_wonder_mechanics_l_english.py",
     "simp_chinese": "scripts/main_menu/localization/simp_chinese/gen_tv_engineering_department_wonder_mechanics_l_simp_chinese.py",
@@ -139,6 +135,12 @@ WONDER_DATA_REGEN_SCRIPTS = (
     GENERATED_LOC_SCRIPT_REL["simp_chinese"],
     "scripts/in_game/gui/panels/organization/gen_tv_engineering_department_wonder_mechanics_gui.py",
     "scripts/in_game/gui/panels/organization/merge_tv_engineering_department_wonder_mechanics_gui.py",
+    "scripts/in_game/common/scripted_effects/gen_tv_wonder_ceremony_effects.py",
+    "scripts/in_game/events/gen_tv_wonder_ceremony_events.py",
+    "scripts/main_menu/localization/english/gen_tv_wonder_ceremony_l_english.py",
+    "scripts/main_menu/localization/simp_chinese/gen_tv_wonder_ceremony_l_simp_chinese.py",
+    "scripts/in_game/gui/panels/organization/gen_tv_wonder_ceremony_cards_gui.py",
+    "scripts/in_game/gui/panels/organization/merge_tv_wonder_ceremony_cards_gui.py",
     "scripts/in_game/gui/gen_location_window.py",
 )
 CONCEPT_FILE = REPO_ROOT / "src" / "main_menu" / "common" / "game_concepts" / "tv_engineering_department_wonder_mechanics_concepts.txt"
@@ -778,6 +780,73 @@ def unique_ritual_from_editor_state(raw_value: object, *, context: str) -> dict[
             "max_levels": max_levels,
         },
     }
+
+
+def ceremony_stage_cost_options(reward_type_options: list[dict[str, Any]]) -> list[dict[str, str]]:
+    labels = {
+        str(option.get("value", "")): str(option.get("label", ""))
+        for option in reward_type_options
+        if str(option.get("value", ""))
+    }
+    return [
+        {
+            "value": cost_type,
+            "label": labels.get(cost_type) or cost_type.replace("_", " ").title(),
+        }
+        for cost_type in sorted(SUPPORTED_CEREMONY_STAGE_COST_TYPES)
+    ]
+
+
+def build_unique_ceremony_editor_state(
+    ceremony: dict[str, Any],
+    *,
+    cost_type_options: list[dict[str, str]],
+) -> dict[str, Any]:
+    stages = ceremony.get("stages", [])
+    return {
+        "stage_count": CEREMONY_STAGE_COUNT,
+        "stages": [
+            {
+                "title_en": stage.get("title_en", ""),
+                "title_zh": stage.get("title_zh", ""),
+                "desc_en": stage.get("desc_en", ""),
+                "desc_zh": stage.get("desc_zh", ""),
+                "cost": {
+                    "rows": reward_rows_from_list(list(stage.get("cost", []))),
+                    "options": list(cost_type_options),
+                },
+            }
+            for stage in stages
+        ],
+    }
+
+
+def unique_ceremony_from_editor_state(raw_value: object, *, context: str) -> dict[str, Any]:
+    payload = parse_structured_editor_value(raw_value, context=context)
+    if not isinstance(payload, dict):
+        raise ValueError(f"{context} must be an object")
+
+    stages = payload.get("stages", [])
+    if not isinstance(stages, list):
+        raise ValueError(f"{context}.stages must be a list")
+
+    normalized_stages: list[dict[str, Any]] = []
+    for index, stage in enumerate(stages, start=1):
+        if not isinstance(stage, dict):
+            raise ValueError(f"{context}.stages[{index}] must be an object")
+        normalized_stages.append(
+            {
+                "title_en": normalize_multiline_editor_text(str(stage.get("title_en", ""))),
+                "title_zh": normalize_multiline_editor_text(str(stage.get("title_zh", ""))),
+                "desc_en": normalize_multiline_editor_text(str(stage.get("desc_en", ""))),
+                "desc_zh": normalize_multiline_editor_text(str(stage.get("desc_zh", ""))),
+                "cost": reward_list_from_rows(
+                    stage.get("cost", {}),
+                    context=f"{context}.stages[{index}].cost",
+                ),
+            }
+        )
+    return {"stages": normalized_stages}
 
 
 def _prettify_option_key(value: object) -> str:
@@ -2073,27 +2142,20 @@ def validate_canonical_localization_data(
 ) -> set[str]:
     english_keys = set(localization_data["english"])
     chinese_keys = set(localization_data["simp_chinese"])
+    required_keys = required_canonical_localization_keys(wonders, mechanics, suffixes)
 
-    missing_in_chinese = sorted(english_keys - chinese_keys)
+    missing_in_chinese = sorted(required_keys - chinese_keys)
     if missing_in_chinese:
         preview = ", ".join(missing_in_chinese[:10])
         raise ValueError(
             f"Missing Simplified Chinese localization keys in {WONDER_LOCALIZATION_FILE}: {preview}"
         )
 
-    missing_in_english = sorted(chinese_keys - english_keys)
+    missing_in_english = sorted(required_keys - english_keys)
     if missing_in_english:
         preview = ", ".join(missing_in_english[:10])
         raise ValueError(
             f"Missing English localization keys in {WONDER_LOCALIZATION_FILE}: {preview}"
-        )
-
-    required_keys = required_canonical_localization_keys(wonders, mechanics, suffixes)
-    missing_required = sorted(required_keys - english_keys)
-    if missing_required:
-        preview = ", ".join(missing_required[:10])
-        raise KeyError(
-            f"Missing required canonical localization keys in {WONDER_LOCALIZATION_FILE}: {preview}"
         )
 
     return required_keys
@@ -2110,11 +2172,7 @@ def render_expected_localization_output(language: str, localization_data: dict[s
 
 
 def generated_localization_map(language: str, localization_data: dict[str, dict[str, str]]) -> dict[str, str]:
-    return {
-        key: value
-        for key, value in localization_data[language].items()
-        if key not in GENERATED_LOC_EXCLUDED_KEYS
-    }
+    return engineering_department_wonder_mechanics_localization_map(language, localization_data[language])
 
 
 def render_expected_concepts_output(wonders: list[dict[str, Any]]) -> str:
@@ -2142,6 +2200,7 @@ class WonderLocalizationService:
         self.country_modifier_options: list[dict[str, Any]] = []
         self.local_modifier_options: list[dict[str, Any]] = []
         self.reward_type_options: list[dict[str, Any]] = []
+        self.ceremony_cost_type_options: list[dict[str, str]] = []
         self.reload_from_disk()
         self._append_log("[server] Wonder Localization Editor ready\n")
 
@@ -2171,6 +2230,7 @@ class WonderLocalizationService:
                 self.local_modifier_options,
                 self.reward_type_options,
             ) = _modifier_option_catalog(self.mechanics_data, self.unique_wonders_data)
+            self.ceremony_cost_type_options = ceremony_stage_cost_options(self.reward_type_options)
             validate_canonical_localization_data(
                 self.wonders,
                 self.mechanics,
@@ -2272,6 +2332,7 @@ class WonderLocalizationService:
                 "modifier_table",
                 "reward_editor",
                 "unique_ritual_editor",
+                "unique_ceremony_editor",
                 "site_trigger_template",
                 "site_preference_template",
             }:
@@ -2385,6 +2446,18 @@ class WonderLocalizationService:
                 updated_entry["ritual"] = parsed
                 updated_entry["ritual"] = normalize_unique_ritual(updated_entry)
                 entry["ritual"] = updated_entry["ritual"]
+                unique_file_changed = True
+                continue
+
+            if spec.target_kind == "unique_ceremony":
+                if spec.field_type == "unique_ceremony_editor":
+                    parsed = unique_ceremony_from_editor_state(value, context=spec.key)
+                else:
+                    parsed = parse_yaml_editor_value(value, expected_type=dict)
+                entry = self._get_unique_wonder_source(spec.target_key)
+                updated_entry = dict(entry)
+                updated_entry["ceremony"] = parsed
+                entry["ceremony"] = normalize_unique_ceremony(updated_entry)
                 unique_file_changed = True
                 continue
 
@@ -3043,6 +3116,31 @@ class WonderLocalizationService:
                     reward_type_options=self.reward_type_options,
                 ),
             )
+            ceremony = unique_entry.get("ceremony")
+            if ceremony is not None:
+                ceremony_editor_state = build_unique_ceremony_editor_state(
+                    ceremony,
+                    cost_type_options=self.ceremony_cost_type_options,
+                )
+                self._add_mechanics_spec(
+                    specs,
+                    group="Unique Wonder",
+                    label="Eight-stage ceremony",
+                    key=f"mechanics.unique_ceremony.{unique_key}",
+                    source_kind="unique",
+                    file_path=UNIQUE_WONDERS_FILE,
+                    original_value=serialize_structured_editor_value(ceremony_editor_state),
+                    field_type="unique_ceremony_editor",
+                    target_kind="unique_ceremony",
+                    target_key=unique_key,
+                    height=32,
+                    help_text=(
+                        "Structured editor for the automatic eight-stage ceremony. "
+                        "Stage 1 rewards, stage 4 annex construction, and stage 8 finalization remain generated."
+                    ),
+                    target_path=f"unique_wonders[{unique_key}].ceremony",
+                    structured_value=ceremony_editor_state,
+                )
             return specs
 
         generic_ritual = self.mechanics_data.get("generic_rituals", {}).get(wonder["key"], {})

@@ -5,8 +5,8 @@
  # Do not edit directly - modify the data file and re-run the generator.
  
  tv_wonder_ownership.800.t:0 "已掌控世界奇观"
- tv_wonder_ownership.800.d:0 "新获得的省份[SCOPE.sLocation('tv_wonder_ownership_site').GetName]存在一座已经落成的[tv_wonder_construction|E]。它的基础加成现在归我方统治受益；若该地点保留的规模仍允许扩建，工程师也会将其记录为可扩建候选。"
+ tv_wonder_ownership.800.d:0 "新获得的省份[SCOPE.sLocation('tv_wonder_ownership_site').GetName]存在一座已经落成的[tv_wonder_construction|E]。它的基础加成现在归我方统治受益；若该地点保留的规模仍允许扩建，工程师也会将其记录为可扩建候选。\n\n#weak 该奇观现已归属于我们：可前往工程部查看其效果，并评估进一步扩建的可能。#!"
  tv_wonder_ownership.800.a:0 "让它为我们效力。"
  tv_wonder_ownership.900.t:0 "失去一座世界奇观"
- tv_wonder_ownership.900.d:0 "随着[SCOPE.sLocation('tv_wonder_ownership_site').GetName]失守，当地已经落成的[tv_wonder_construction|E]不再支撑我国。若该奇观曾提供只属于我国的永久国家仪式收益，相关效果已从账册中静默移除。"
+ tv_wonder_ownership.900.d:0 "随着[SCOPE.sLocation('tv_wonder_ownership_site').GetName]失守，当地已经落成的[tv_wonder_construction|E]不再支撑我国。若该奇观曾提供只属于我国的永久国家仪式收益，相关效果已从账册中静默移除。\n\n#weak 随着该省份易主，这座奇观带来的固定效果已经失去：日后若重新夺回，可在工程部确认其状态。#!"
  tv_wonder_ownership.900.a:0 "记下这笔损失。"

@@ -106,6 +106,8 @@ RITUAL_SHARED_RUNTIME_VARS = [
     "tv_wonder_ritual_auxiliary_building_finished",
     "tv_wonder_ritual_months_completed",
     "tv_wonder_ritual_progress_pct",
+    "tv_wonder_ceremony_stage",
+    "tv_wonder_ceremony_quarter_month",
 ]
 SUITABILITY_CONDITION_SCRIPTS = {
     "topography_mountains": "topography = mountains",
@@ -1733,7 +1735,11 @@ def append_ritual_effects(lines: list[str], all_wonders: list[dict], mechanics: 
     lines.append("tv_wonder_mechanics_start_deferred_immediate_ritual_effect = {")
     first = True
     for wonder, style, ritual_plan in ritual_entry_list:
-        if ritual_plan["mode"] != "immediate" or not ritual_uses_deferred_completion(ritual_plan):
+        if (
+            ritual_plan["mode"] != "immediate"
+            or not ritual_uses_deferred_completion(ritual_plan)
+            or wonder.get("ceremony") is not None
+        ):
             continue
         head = "if" if first else "else_if"
         first = False

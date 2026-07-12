@@ -65,6 +65,55 @@ LOCALIZATION_LINE_START_RE = re.compile(r'^\s*(?P<key>[A-Za-z0-9_.-]+):(?P<versi
 LOCALIZATION_HEADER_RE = re.compile(r"^l_[A-Za-z_]+:\s*$")
 ENGINEERING_DEPARTMENT_500_ID_RE = re.compile(r"var:tv_wonder_locked \?= (?P<id>\d+)")
 ENGINEERING_DEPARTMENT_500_DESC_RE = re.compile(r"desc = tv_engineering_department\.500\.d_(?P<suffix>[A-Za-z0-9_]+?)(?:_(?P<style>\d+))?$")
+ENGINEERING_DEPARTMENT_WONDER_MECHANICS_EXCLUDED_LOC_KEYS = frozenset(
+    {
+        "tv_wonder_ownership.800.t",
+        "tv_wonder_ownership.800.d",
+        "tv_wonder_ownership.800.a",
+        "tv_wonder_ownership.900.t",
+        "tv_wonder_ownership.900.d",
+        "tv_wonder_ownership.900.a",
+        "tv_engineering_department.1000.t",
+        "tv_engineering_department.1000.d",
+        "tv_engineering_department.1000.a",
+        "tv_engineering_department.1001.t",
+        "tv_engineering_department.1001.d",
+        "tv_engineering_department.1001.a",
+        "tv_engineering_department.1001.b",
+        "tv_engineering_department.1001.c",
+        "tv_engineering_department.1002.t",
+        "tv_engineering_department.1002.d",
+        "tv_engineering_department.1002.a",
+        "tv_engineering_department.1002.b",
+        "tv_engineering_department.1003.t",
+        "tv_engineering_department.1003.d",
+        "tv_engineering_department.1003.a",
+        "tv_engineering_department.1012.t",
+        "tv_engineering_department.1012.d",
+        "tv_engineering_department.1012.a",
+        "tv_engineering_department.1013.t",
+        "tv_engineering_department.1013.d",
+        "tv_engineering_department.1013.a",
+        "tv_engineering_department.1013.b",
+        "tv_engineering_department.1013.c",
+        "tv_engineering_department.1014.t",
+        "tv_engineering_department.1014.d",
+        "tv_engineering_department.1014.a",
+        "tv_engineering_department.1014.b",
+        "tv_engineering_department.1015.t",
+        "tv_engineering_department.1015.d",
+        "tv_engineering_department.1015.a",
+    }
+)
+ENGINEERING_DEPARTMENT_WONDER_MECHANICS_FINALIZATION_HINTS = {
+    "english": (
+        "\n\n#weak Construction of the wonder is complete and its final building "
+        "will now rise — review its effects in the Engineering Department or at "
+        "the site itself.#!"
+    ),
+    "simp_chinese": "\n\n#weak 奇观的建设已经完成，最终建筑即将落成：可前往工程部或该地点查看其效果。#!",
+}
+ENGINEERING_DEPARTMENT_WONDER_MECHANICS_FINALIZATION_VISIBLE_DESC_PREFIX = "tv_engineering_department.500.d"
 
 
 class StrictWonderLocalizationLoader(yaml.SafeLoader):
@@ -603,6 +652,24 @@ def load_wonder_localization_data() -> dict[str, dict[str, str]]:
             normalized[key] = value
         result[language] = normalized
     return expand_wonder_localization_data(result)
+
+
+def engineering_department_wonder_mechanics_localization_map(
+    language: str,
+    localization: dict[str, str],
+) -> dict[str, str]:
+    if language not in LANGUAGES:
+        raise ValueError(f"Unsupported localization language: {language}")
+    finalization_hint = ENGINEERING_DEPARTMENT_WONDER_MECHANICS_FINALIZATION_HINTS[language]
+    return {
+        key: (
+            value + finalization_hint
+            if key.startswith(ENGINEERING_DEPARTMENT_WONDER_MECHANICS_FINALIZATION_VISIBLE_DESC_PREFIX)
+            else value
+        )
+        for key, value in localization.items()
+        if key not in ENGINEERING_DEPARTMENT_WONDER_MECHANICS_EXCLUDED_LOC_KEYS
+    }
 
 
 def save_wonder_localization_data(localization: dict[str, dict[str, str]]) -> None:

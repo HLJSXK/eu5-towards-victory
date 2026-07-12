@@ -152,7 +152,8 @@ def generate() -> str:
     lines = render_header(SCRIPT_REL)
     lines.append(f"# BEGIN GENERATED {MARKER}")
     lines.append("vbox = {")
-    lines.append(f"{T}layoutpolicy_horizontal = expanding")
+    lines.append(f"{T}using = layoutpolicy_expanding")
+    lines.append(f"{T}set_parent_dimension_to_minimum = height")
     lines.append(f"{T}spacing = 4")
     lines.append("")
 

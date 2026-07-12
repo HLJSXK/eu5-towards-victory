@@ -8,16 +8,46 @@
 # BEGIN GENERATED TV_WONDER_CEREMONY_CARDS
 vbox = {
 	layoutpolicy_horizontal = expanding
+	ignoreinvisible = yes
 	spacing = 4
-	widget = {
+	tv_engineering_department_card_common = {
 		visible = "[And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)0.0'))]"
-		layoutpolicy_horizontal = expanding
-		tv_engineering_department_card_common = {
-			blockoverride "header_size" { size = { -1 0 } }
-			blockoverride "header_decor_templates" {}
-			blockoverride "common_header_back_decor" {}
-			blockoverride "card_bg" {
-				using = bg_paper_card_situations
+		layoutpolicy_vertical = fixed
+		minimumsize = { 462 144 }
+		maximumsize = { 462 144 }
+		blockoverride "header_size" { size = { -1 0 } }
+		blockoverride "header_decor_templates" {}
+		blockoverride "common_header" {}
+		blockoverride "card_bg" {
+			background = {
+				texture = "gfx/interface/cards/paper_card_fancy_01.dds"
+				texture_density = 2
+				spriteType = corneredstretched
+				spriteborder = { 100 100 }
+				margin = { 1 1 }
+				margin_bottom = 2
+				alpha = 0.4
+			}
+			background = {
+				texture = "gfx/interface/cards/paper_card_fancy_01.dds"
+				texture_density = 2
+				spriteType = corneredstretched
+				spriteborder = { 100 100 }
+				modify_texture = {
+					using = color_paper_texture
+				}
+				modify_texture = {
+					using = color_black_texture
+					alpha = 0.3
+				}
+				modify_texture = {
+					using = overlay_paper_03
+				}
+				modify_texture = {
+					using = overlay_cloth_texture
+					blend_mode = overlay
+					alpha = 0.2
+				}
 				modify_texture = {
 					visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)1.0')]"
 					using = color_light_green_texture
@@ -31,44 +61,124 @@ vbox = {
 					alpha = 0.55
 				}
 			}
-			blockoverride "common_bottom_content" {
+		}
+		blockoverride "common_bottom_content" {
+			hbox = {
+				size = { 432 104 }
+				spacing = 8
 				widget = {
-					layoutpolicy_horizontal = fixed
-					size = { 60 60 }
-					widget = {
+				layoutpolicy_horizontal = fixed
+				size = { 64 104 }
+					piechart = {
+						visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)1.0')]"
 						size = { 52 52 }
+						minimumsize = { 52 52 }
 						parentanchor = center
 						widgetanchor = center
+						using = piechart_angles
 						using = bg_circle_piechart_big
-						icon = {
+						pieslice = {
+							texture = "gfx/interface/pie_charts/pie_chart_alpha_80_green.dds"
+							value = 1
+							color = { 1 1 1 1 }
+						}
+						pieslice = {
+							texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds"
+							value = 0
+							color = { 1 1 1 0 }
+						}
+						text_single = {
 							parentanchor = center
-							size = { 70% 70% }
-							texture = "[GetConceptTexture(Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue))))]"
+							size = { 100% 100% }
+							raw_text = "@government!"
+							fontsize = 17
+							align = center|nobaseline
+						}
+					}
+					piechart = {
+						visible = "[Not(GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)1.0'))]"
+						size = { 52 52 }
+						minimumsize = { 52 52 }
+						parentanchor = center
+						widgetanchor = center
+						using = piechart_angles
+						using = bg_circle_piechart_big
+						pieslice = {
+							texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds"
+							value = 0.5
+							color = { 0.95 0.76 0.25 1 }
+						}
+						pieslice = {
+							texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds"
+							value = 0.5
+							color = { 1 1 1 0 }
+						}
+						text_single = {
+							parentanchor = center
+							size = { 100% 100% }
+							raw_text = "@government!"
+							fontsize = 17
+							align = center|nobaseline
 						}
 					}
 				}
-				widget = {
-					layoutpolicy_horizontal = expanding
-					text_multi = {
-						layoutpolicy_horizontal = fixed
-						max_width = 380
-						autoresize = yes
-						text = "TV_WONDER_CEREMONY_CARD_STAGE_1_LABEL"
-					}
-				}
-				expand = {}
+			text_multi = {
+				visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)1.0')]"
+				layoutpolicy_horizontal = expanding
+				max_width = 344
+				autoresize = yes
+				text = "[Localize(Concatenate('TV_WONDER_CEREMONY_CARD_COMPLETED_S1_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue))))]"
+				align = nobaseline|left
 			}
+			text_multi = {
+				visible = "[Not(GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)1.0'))]"
+				layoutpolicy_horizontal = expanding
+				max_width = 344
+				autoresize = yes
+				text = "[Localize(Concatenate('TV_WONDER_CEREMONY_CARD_ACTIVE_S1_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue))))]"
+				align = nobaseline|left
+			}
+			expand = {}
 		}
 	}
-	widget = {
+	tv_engineering_department_card_common = {
 		visible = "[And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)1.0'))]"
-		layoutpolicy_horizontal = expanding
-		tv_engineering_department_card_common = {
-			blockoverride "header_size" { size = { -1 0 } }
-			blockoverride "header_decor_templates" {}
-			blockoverride "common_header_back_decor" {}
-			blockoverride "card_bg" {
-				using = bg_paper_card_situations
+		layoutpolicy_vertical = fixed
+		minimumsize = { 462 144 }
+		maximumsize = { 462 144 }
+		blockoverride "header_size" { size = { -1 0 } }
+		blockoverride "header_decor_templates" {}
+		blockoverride "common_header" {}
+		blockoverride "card_bg" {
+			background = {
+				texture = "gfx/interface/cards/paper_card_fancy_01.dds"
+				texture_density = 2
+				spriteType = corneredstretched
+				spriteborder = { 100 100 }
+				margin = { 1 1 }
+				margin_bottom = 2
+				alpha = 0.4
+			}
+			background = {
+				texture = "gfx/interface/cards/paper_card_fancy_01.dds"
+				texture_density = 2
+				spriteType = corneredstretched
+				spriteborder = { 100 100 }
+				modify_texture = {
+					using = color_paper_texture
+				}
+				modify_texture = {
+					using = color_black_texture
+					alpha = 0.3
+				}
+				modify_texture = {
+					using = overlay_paper_03
+				}
+				modify_texture = {
+					using = overlay_cloth_texture
+					blend_mode = overlay
+					alpha = 0.2
+				}
 				modify_texture = {
 					visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)2.0')]"
 					using = color_light_green_texture
@@ -82,44 +192,124 @@ vbox = {
 					alpha = 0.55
 				}
 			}
-			blockoverride "common_bottom_content" {
+		}
+		blockoverride "common_bottom_content" {
+			hbox = {
+				size = { 432 104 }
+				spacing = 8
 				widget = {
-					layoutpolicy_horizontal = fixed
-					size = { 60 60 }
-					widget = {
+				layoutpolicy_horizontal = fixed
+				size = { 64 104 }
+					piechart = {
+						visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)2.0')]"
 						size = { 52 52 }
+						minimumsize = { 52 52 }
 						parentanchor = center
 						widgetanchor = center
+						using = piechart_angles
 						using = bg_circle_piechart_big
-						icon = {
+						pieslice = {
+							texture = "gfx/interface/pie_charts/pie_chart_alpha_80_green.dds"
+							value = 1
+							color = { 1 1 1 1 }
+						}
+						pieslice = {
+							texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds"
+							value = 0
+							color = { 1 1 1 0 }
+						}
+						text_single = {
 							parentanchor = center
-							size = { 70% 70% }
-							texture = "[GetConceptTexture(Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue))))]"
+							size = { 100% 100% }
+							raw_text = "@topography!"
+							fontsize = 17
+							align = center|nobaseline
+						}
+					}
+					piechart = {
+						visible = "[Not(GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)2.0'))]"
+						size = { 52 52 }
+						minimumsize = { 52 52 }
+						parentanchor = center
+						widgetanchor = center
+						using = piechart_angles
+						using = bg_circle_piechart_big
+						pieslice = {
+							texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds"
+							value = 0.5
+							color = { 0.95 0.76 0.25 1 }
+						}
+						pieslice = {
+							texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds"
+							value = 0.5
+							color = { 1 1 1 0 }
+						}
+						text_single = {
+							parentanchor = center
+							size = { 100% 100% }
+							raw_text = "@topography!"
+							fontsize = 17
+							align = center|nobaseline
 						}
 					}
 				}
-				widget = {
-					layoutpolicy_horizontal = expanding
-					text_multi = {
-						layoutpolicy_horizontal = fixed
-						max_width = 380
-						autoresize = yes
-						text = "TV_WONDER_CEREMONY_CARD_STAGE_2_LABEL"
-					}
-				}
-				expand = {}
+			text_multi = {
+				visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)2.0')]"
+				layoutpolicy_horizontal = expanding
+				max_width = 344
+				autoresize = yes
+				text = "[Localize(Concatenate('TV_WONDER_CEREMONY_CARD_COMPLETED_S2_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue))))]"
+				align = nobaseline|left
 			}
+			text_multi = {
+				visible = "[Not(GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)2.0'))]"
+				layoutpolicy_horizontal = expanding
+				max_width = 344
+				autoresize = yes
+				text = "[Localize(Concatenate('TV_WONDER_CEREMONY_CARD_ACTIVE_S2_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue))))]"
+				align = nobaseline|left
+			}
+			expand = {}
 		}
 	}
-	widget = {
+	tv_engineering_department_card_common = {
 		visible = "[And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)2.0'))]"
-		layoutpolicy_horizontal = expanding
-		tv_engineering_department_card_common = {
-			blockoverride "header_size" { size = { -1 0 } }
-			blockoverride "header_decor_templates" {}
-			blockoverride "common_header_back_decor" {}
-			blockoverride "card_bg" {
-				using = bg_paper_card_situations
+		layoutpolicy_vertical = fixed
+		minimumsize = { 462 144 }
+		maximumsize = { 462 144 }
+		blockoverride "header_size" { size = { -1 0 } }
+		blockoverride "header_decor_templates" {}
+		blockoverride "common_header" {}
+		blockoverride "card_bg" {
+			background = {
+				texture = "gfx/interface/cards/paper_card_fancy_01.dds"
+				texture_density = 2
+				spriteType = corneredstretched
+				spriteborder = { 100 100 }
+				margin = { 1 1 }
+				margin_bottom = 2
+				alpha = 0.4
+			}
+			background = {
+				texture = "gfx/interface/cards/paper_card_fancy_01.dds"
+				texture_density = 2
+				spriteType = corneredstretched
+				spriteborder = { 100 100 }
+				modify_texture = {
+					using = color_paper_texture
+				}
+				modify_texture = {
+					using = color_black_texture
+					alpha = 0.3
+				}
+				modify_texture = {
+					using = overlay_paper_03
+				}
+				modify_texture = {
+					using = overlay_cloth_texture
+					blend_mode = overlay
+					alpha = 0.2
+				}
 				modify_texture = {
 					visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)3.0')]"
 					using = color_light_green_texture
@@ -133,44 +323,124 @@ vbox = {
 					alpha = 0.55
 				}
 			}
-			blockoverride "common_bottom_content" {
+		}
+		blockoverride "common_bottom_content" {
+			hbox = {
+				size = { 432 104 }
+				spacing = 8
 				widget = {
-					layoutpolicy_horizontal = fixed
-					size = { 60 60 }
-					widget = {
+				layoutpolicy_horizontal = fixed
+				size = { 64 104 }
+					piechart = {
+						visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)3.0')]"
 						size = { 52 52 }
+						minimumsize = { 52 52 }
 						parentanchor = center
 						widgetanchor = center
+						using = piechart_angles
 						using = bg_circle_piechart_big
-						icon = {
+						pieslice = {
+							texture = "gfx/interface/pie_charts/pie_chart_alpha_80_green.dds"
+							value = 1
+							color = { 1 1 1 1 }
+						}
+						pieslice = {
+							texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds"
+							value = 0
+							color = { 1 1 1 0 }
+						}
+						text_single = {
 							parentanchor = center
-							size = { 70% 70% }
-							texture = "[GetConceptTexture(Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue))))]"
+							size = { 100% 100% }
+							raw_text = "@laborers!"
+							fontsize = 17
+							align = center|nobaseline
+						}
+					}
+					piechart = {
+						visible = "[Not(GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)3.0'))]"
+						size = { 52 52 }
+						minimumsize = { 52 52 }
+						parentanchor = center
+						widgetanchor = center
+						using = piechart_angles
+						using = bg_circle_piechart_big
+						pieslice = {
+							texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds"
+							value = 0.5
+							color = { 0.95 0.76 0.25 1 }
+						}
+						pieslice = {
+							texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds"
+							value = 0.5
+							color = { 1 1 1 0 }
+						}
+						text_single = {
+							parentanchor = center
+							size = { 100% 100% }
+							raw_text = "@laborers!"
+							fontsize = 17
+							align = center|nobaseline
 						}
 					}
 				}
-				widget = {
-					layoutpolicy_horizontal = expanding
-					text_multi = {
-						layoutpolicy_horizontal = fixed
-						max_width = 380
-						autoresize = yes
-						text = "TV_WONDER_CEREMONY_CARD_STAGE_3_LABEL"
-					}
-				}
-				expand = {}
+			text_multi = {
+				visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)3.0')]"
+				layoutpolicy_horizontal = expanding
+				max_width = 344
+				autoresize = yes
+				text = "[Localize(Concatenate('TV_WONDER_CEREMONY_CARD_COMPLETED_S3_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue))))]"
+				align = nobaseline|left
 			}
+			text_multi = {
+				visible = "[Not(GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)3.0'))]"
+				layoutpolicy_horizontal = expanding
+				max_width = 344
+				autoresize = yes
+				text = "[Localize(Concatenate('TV_WONDER_CEREMONY_CARD_ACTIVE_S3_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue))))]"
+				align = nobaseline|left
+			}
+			expand = {}
 		}
 	}
-	widget = {
+	tv_engineering_department_card_common = {
 		visible = "[And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)3.0'))]"
-		layoutpolicy_horizontal = expanding
-		tv_engineering_department_card_common = {
-			blockoverride "header_size" { size = { -1 0 } }
-			blockoverride "header_decor_templates" {}
-			blockoverride "common_header_back_decor" {}
-			blockoverride "card_bg" {
-				using = bg_paper_card_situations
+		layoutpolicy_vertical = fixed
+		minimumsize = { 462 144 }
+		maximumsize = { 462 144 }
+		blockoverride "header_size" { size = { -1 0 } }
+		blockoverride "header_decor_templates" {}
+		blockoverride "common_header" {}
+		blockoverride "card_bg" {
+			background = {
+				texture = "gfx/interface/cards/paper_card_fancy_01.dds"
+				texture_density = 2
+				spriteType = corneredstretched
+				spriteborder = { 100 100 }
+				margin = { 1 1 }
+				margin_bottom = 2
+				alpha = 0.4
+			}
+			background = {
+				texture = "gfx/interface/cards/paper_card_fancy_01.dds"
+				texture_density = 2
+				spriteType = corneredstretched
+				spriteborder = { 100 100 }
+				modify_texture = {
+					using = color_paper_texture
+				}
+				modify_texture = {
+					using = color_black_texture
+					alpha = 0.3
+				}
+				modify_texture = {
+					using = overlay_paper_03
+				}
+				modify_texture = {
+					using = overlay_cloth_texture
+					blend_mode = overlay
+					alpha = 0.2
+				}
 				modify_texture = {
 					visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)4.0')]"
 					using = color_light_green_texture
@@ -184,44 +454,124 @@ vbox = {
 					alpha = 0.55
 				}
 			}
-			blockoverride "common_bottom_content" {
+		}
+		blockoverride "common_bottom_content" {
+			hbox = {
+				size = { 432 104 }
+				spacing = 8
 				widget = {
-					layoutpolicy_horizontal = fixed
-					size = { 60 60 }
-					widget = {
+				layoutpolicy_horizontal = fixed
+				size = { 64 104 }
+					piechart = {
+						visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)4.0')]"
 						size = { 52 52 }
+						minimumsize = { 52 52 }
 						parentanchor = center
 						widgetanchor = center
+						using = piechart_angles
 						using = bg_circle_piechart_big
-						icon = {
+						pieslice = {
+							texture = "gfx/interface/pie_charts/pie_chart_alpha_80_green.dds"
+							value = 1
+							color = { 1 1 1 1 }
+						}
+						pieslice = {
+							texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds"
+							value = 0
+							color = { 1 1 1 0 }
+						}
+						text_single = {
 							parentanchor = center
-							size = { 70% 70% }
-							texture = "[GetConceptTexture(Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue))))]"
+							size = { 100% 100% }
+							raw_text = "@construction!"
+							fontsize = 17
+							align = center|nobaseline
+						}
+					}
+					piechart = {
+						visible = "[Not(GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)4.0'))]"
+						size = { 52 52 }
+						minimumsize = { 52 52 }
+						parentanchor = center
+						widgetanchor = center
+						using = piechart_angles
+						using = bg_circle_piechart_big
+						pieslice = {
+							texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds"
+							value = 0.5
+							color = { 0.95 0.76 0.25 1 }
+						}
+						pieslice = {
+							texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds"
+							value = 0.5
+							color = { 1 1 1 0 }
+						}
+						text_single = {
+							parentanchor = center
+							size = { 100% 100% }
+							raw_text = "@construction!"
+							fontsize = 17
+							align = center|nobaseline
 						}
 					}
 				}
-				widget = {
-					layoutpolicy_horizontal = expanding
-					text_multi = {
-						layoutpolicy_horizontal = fixed
-						max_width = 380
-						autoresize = yes
-						text = "TV_WONDER_CEREMONY_CARD_STAGE_4_LABEL"
-					}
-				}
-				expand = {}
+			text_multi = {
+				visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)4.0')]"
+				layoutpolicy_horizontal = expanding
+				max_width = 344
+				autoresize = yes
+				text = "[Localize(Concatenate('TV_WONDER_CEREMONY_CARD_COMPLETED_S4_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue))))]"
+				align = nobaseline|left
 			}
+			text_multi = {
+				visible = "[Not(GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)4.0'))]"
+				layoutpolicy_horizontal = expanding
+				max_width = 344
+				autoresize = yes
+				text = "[Localize(Concatenate('TV_WONDER_CEREMONY_CARD_ACTIVE_S4_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue))))]"
+				align = nobaseline|left
+			}
+			expand = {}
 		}
 	}
-	widget = {
+	tv_engineering_department_card_common = {
 		visible = "[And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)4.0'))]"
-		layoutpolicy_horizontal = expanding
-		tv_engineering_department_card_common = {
-			blockoverride "header_size" { size = { -1 0 } }
-			blockoverride "header_decor_templates" {}
-			blockoverride "common_header_back_decor" {}
-			blockoverride "card_bg" {
-				using = bg_paper_card_situations
+		layoutpolicy_vertical = fixed
+		minimumsize = { 462 144 }
+		maximumsize = { 462 144 }
+		blockoverride "header_size" { size = { -1 0 } }
+		blockoverride "header_decor_templates" {}
+		blockoverride "common_header" {}
+		blockoverride "card_bg" {
+			background = {
+				texture = "gfx/interface/cards/paper_card_fancy_01.dds"
+				texture_density = 2
+				spriteType = corneredstretched
+				spriteborder = { 100 100 }
+				margin = { 1 1 }
+				margin_bottom = 2
+				alpha = 0.4
+			}
+			background = {
+				texture = "gfx/interface/cards/paper_card_fancy_01.dds"
+				texture_density = 2
+				spriteType = corneredstretched
+				spriteborder = { 100 100 }
+				modify_texture = {
+					using = color_paper_texture
+				}
+				modify_texture = {
+					using = color_black_texture
+					alpha = 0.3
+				}
+				modify_texture = {
+					using = overlay_paper_03
+				}
+				modify_texture = {
+					using = overlay_cloth_texture
+					blend_mode = overlay
+					alpha = 0.2
+				}
 				modify_texture = {
 					visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)5.0')]"
 					using = color_light_green_texture
@@ -235,44 +585,124 @@ vbox = {
 					alpha = 0.55
 				}
 			}
-			blockoverride "common_bottom_content" {
+		}
+		blockoverride "common_bottom_content" {
+			hbox = {
+				size = { 432 104 }
+				spacing = 8
 				widget = {
-					layoutpolicy_horizontal = fixed
-					size = { 60 60 }
-					widget = {
+				layoutpolicy_horizontal = fixed
+				size = { 64 104 }
+					piechart = {
+						visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)5.0')]"
 						size = { 52 52 }
+						minimumsize = { 52 52 }
 						parentanchor = center
 						widgetanchor = center
+						using = piechart_angles
 						using = bg_circle_piechart_big
-						icon = {
+						pieslice = {
+							texture = "gfx/interface/pie_charts/pie_chart_alpha_80_green.dds"
+							value = 1
+							color = { 1 1 1 1 }
+						}
+						pieslice = {
+							texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds"
+							value = 0
+							color = { 1 1 1 0 }
+						}
+						text_single = {
 							parentanchor = center
-							size = { 70% 70% }
-							texture = "[GetConceptTexture(Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue))))]"
+							size = { 100% 100% }
+							raw_text = "@building_levels!"
+							fontsize = 17
+							align = center|nobaseline
+						}
+					}
+					piechart = {
+						visible = "[Not(GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)5.0'))]"
+						size = { 52 52 }
+						minimumsize = { 52 52 }
+						parentanchor = center
+						widgetanchor = center
+						using = piechart_angles
+						using = bg_circle_piechart_big
+						pieslice = {
+							texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds"
+							value = 0.5
+							color = { 0.95 0.76 0.25 1 }
+						}
+						pieslice = {
+							texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds"
+							value = 0.5
+							color = { 1 1 1 0 }
+						}
+						text_single = {
+							parentanchor = center
+							size = { 100% 100% }
+							raw_text = "@building_levels!"
+							fontsize = 17
+							align = center|nobaseline
 						}
 					}
 				}
-				widget = {
-					layoutpolicy_horizontal = expanding
-					text_multi = {
-						layoutpolicy_horizontal = fixed
-						max_width = 380
-						autoresize = yes
-						text = "TV_WONDER_CEREMONY_CARD_STAGE_5_LABEL"
-					}
-				}
-				expand = {}
+			text_multi = {
+				visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)5.0')]"
+				layoutpolicy_horizontal = expanding
+				max_width = 344
+				autoresize = yes
+				text = "[Localize(Concatenate('TV_WONDER_CEREMONY_CARD_COMPLETED_S5_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue))))]"
+				align = nobaseline|left
 			}
+			text_multi = {
+				visible = "[Not(GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)5.0'))]"
+				layoutpolicy_horizontal = expanding
+				max_width = 344
+				autoresize = yes
+				text = "[Localize(Concatenate('TV_WONDER_CEREMONY_CARD_ACTIVE_S5_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue))))]"
+				align = nobaseline|left
+			}
+			expand = {}
 		}
 	}
-	widget = {
+	tv_engineering_department_card_common = {
 		visible = "[And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)5.0'))]"
-		layoutpolicy_horizontal = expanding
-		tv_engineering_department_card_common = {
-			blockoverride "header_size" { size = { -1 0 } }
-			blockoverride "header_decor_templates" {}
-			blockoverride "common_header_back_decor" {}
-			blockoverride "card_bg" {
-				using = bg_paper_card_situations
+		layoutpolicy_vertical = fixed
+		minimumsize = { 462 144 }
+		maximumsize = { 462 144 }
+		blockoverride "header_size" { size = { -1 0 } }
+		blockoverride "header_decor_templates" {}
+		blockoverride "common_header" {}
+		blockoverride "card_bg" {
+			background = {
+				texture = "gfx/interface/cards/paper_card_fancy_01.dds"
+				texture_density = 2
+				spriteType = corneredstretched
+				spriteborder = { 100 100 }
+				margin = { 1 1 }
+				margin_bottom = 2
+				alpha = 0.4
+			}
+			background = {
+				texture = "gfx/interface/cards/paper_card_fancy_01.dds"
+				texture_density = 2
+				spriteType = corneredstretched
+				spriteborder = { 100 100 }
+				modify_texture = {
+					using = color_paper_texture
+				}
+				modify_texture = {
+					using = color_black_texture
+					alpha = 0.3
+				}
+				modify_texture = {
+					using = overlay_paper_03
+				}
+				modify_texture = {
+					using = overlay_cloth_texture
+					blend_mode = overlay
+					alpha = 0.2
+				}
 				modify_texture = {
 					visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)6.0')]"
 					using = color_light_green_texture
@@ -286,44 +716,124 @@ vbox = {
 					alpha = 0.55
 				}
 			}
-			blockoverride "common_bottom_content" {
+		}
+		blockoverride "common_bottom_content" {
+			hbox = {
+				size = { 432 104 }
+				spacing = 8
 				widget = {
-					layoutpolicy_horizontal = fixed
-					size = { 60 60 }
-					widget = {
+				layoutpolicy_horizontal = fixed
+				size = { 64 104 }
+					piechart = {
+						visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)6.0')]"
 						size = { 52 52 }
+						minimumsize = { 52 52 }
 						parentanchor = center
 						widgetanchor = center
+						using = piechart_angles
 						using = bg_circle_piechart_big
-						icon = {
+						pieslice = {
+							texture = "gfx/interface/pie_charts/pie_chart_alpha_80_green.dds"
+							value = 1
+							color = { 1 1 1 1 }
+						}
+						pieslice = {
+							texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds"
+							value = 0
+							color = { 1 1 1 0 }
+						}
+						text_single = {
 							parentanchor = center
-							size = { 70% 70% }
-							texture = "[GetConceptTexture(Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue))))]"
+							size = { 100% 100% }
+							raw_text = "@building!"
+							fontsize = 17
+							align = center|nobaseline
+						}
+					}
+					piechart = {
+						visible = "[Not(GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)6.0'))]"
+						size = { 52 52 }
+						minimumsize = { 52 52 }
+						parentanchor = center
+						widgetanchor = center
+						using = piechart_angles
+						using = bg_circle_piechart_big
+						pieslice = {
+							texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds"
+							value = 0.5
+							color = { 0.95 0.76 0.25 1 }
+						}
+						pieslice = {
+							texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds"
+							value = 0.5
+							color = { 1 1 1 0 }
+						}
+						text_single = {
+							parentanchor = center
+							size = { 100% 100% }
+							raw_text = "@building!"
+							fontsize = 17
+							align = center|nobaseline
 						}
 					}
 				}
-				widget = {
-					layoutpolicy_horizontal = expanding
-					text_multi = {
-						layoutpolicy_horizontal = fixed
-						max_width = 380
-						autoresize = yes
-						text = "TV_WONDER_CEREMONY_CARD_STAGE_6_LABEL"
-					}
-				}
-				expand = {}
+			text_multi = {
+				visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)6.0')]"
+				layoutpolicy_horizontal = expanding
+				max_width = 344
+				autoresize = yes
+				text = "[Localize(Concatenate('TV_WONDER_CEREMONY_CARD_COMPLETED_S6_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue))))]"
+				align = nobaseline|left
 			}
+			text_multi = {
+				visible = "[Not(GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)6.0'))]"
+				layoutpolicy_horizontal = expanding
+				max_width = 344
+				autoresize = yes
+				text = "[Localize(Concatenate('TV_WONDER_CEREMONY_CARD_ACTIVE_S6_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue))))]"
+				align = nobaseline|left
+			}
+			expand = {}
 		}
 	}
-	widget = {
+	tv_engineering_department_card_common = {
 		visible = "[And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)6.0'))]"
-		layoutpolicy_horizontal = expanding
-		tv_engineering_department_card_common = {
-			blockoverride "header_size" { size = { -1 0 } }
-			blockoverride "header_decor_templates" {}
-			blockoverride "common_header_back_decor" {}
-			blockoverride "card_bg" {
-				using = bg_paper_card_situations
+		layoutpolicy_vertical = fixed
+		minimumsize = { 462 144 }
+		maximumsize = { 462 144 }
+		blockoverride "header_size" { size = { -1 0 } }
+		blockoverride "header_decor_templates" {}
+		blockoverride "common_header" {}
+		blockoverride "card_bg" {
+			background = {
+				texture = "gfx/interface/cards/paper_card_fancy_01.dds"
+				texture_density = 2
+				spriteType = corneredstretched
+				spriteborder = { 100 100 }
+				margin = { 1 1 }
+				margin_bottom = 2
+				alpha = 0.4
+			}
+			background = {
+				texture = "gfx/interface/cards/paper_card_fancy_01.dds"
+				texture_density = 2
+				spriteType = corneredstretched
+				spriteborder = { 100 100 }
+				modify_texture = {
+					using = color_paper_texture
+				}
+				modify_texture = {
+					using = color_black_texture
+					alpha = 0.3
+				}
+				modify_texture = {
+					using = overlay_paper_03
+				}
+				modify_texture = {
+					using = overlay_cloth_texture
+					blend_mode = overlay
+					alpha = 0.2
+				}
 				modify_texture = {
 					visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)7.0')]"
 					using = color_light_green_texture
@@ -337,44 +847,124 @@ vbox = {
 					alpha = 0.55
 				}
 			}
-			blockoverride "common_bottom_content" {
+		}
+		blockoverride "common_bottom_content" {
+			hbox = {
+				size = { 432 104 }
+				spacing = 8
 				widget = {
-					layoutpolicy_horizontal = fixed
-					size = { 60 60 }
-					widget = {
+				layoutpolicy_horizontal = fixed
+				size = { 64 104 }
+					piechart = {
+						visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)7.0')]"
 						size = { 52 52 }
+						minimumsize = { 52 52 }
 						parentanchor = center
 						widgetanchor = center
+						using = piechart_angles
 						using = bg_circle_piechart_big
-						icon = {
+						pieslice = {
+							texture = "gfx/interface/pie_charts/pie_chart_alpha_80_green.dds"
+							value = 1
+							color = { 1 1 1 1 }
+						}
+						pieslice = {
+							texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds"
+							value = 0
+							color = { 1 1 1 0 }
+						}
+						text_single = {
 							parentanchor = center
-							size = { 70% 70% }
-							texture = "[GetConceptTexture(Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue))))]"
+							size = { 100% 100% }
+							raw_text = "@art_work!"
+							fontsize = 17
+							align = center|nobaseline
+						}
+					}
+					piechart = {
+						visible = "[Not(GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)7.0'))]"
+						size = { 52 52 }
+						minimumsize = { 52 52 }
+						parentanchor = center
+						widgetanchor = center
+						using = piechart_angles
+						using = bg_circle_piechart_big
+						pieslice = {
+							texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds"
+							value = 0.5
+							color = { 0.95 0.76 0.25 1 }
+						}
+						pieslice = {
+							texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds"
+							value = 0.5
+							color = { 1 1 1 0 }
+						}
+						text_single = {
+							parentanchor = center
+							size = { 100% 100% }
+							raw_text = "@art_work!"
+							fontsize = 17
+							align = center|nobaseline
 						}
 					}
 				}
-				widget = {
-					layoutpolicy_horizontal = expanding
-					text_multi = {
-						layoutpolicy_horizontal = fixed
-						max_width = 380
-						autoresize = yes
-						text = "TV_WONDER_CEREMONY_CARD_STAGE_7_LABEL"
-					}
-				}
-				expand = {}
+			text_multi = {
+				visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)7.0')]"
+				layoutpolicy_horizontal = expanding
+				max_width = 344
+				autoresize = yes
+				text = "[Localize(Concatenate('TV_WONDER_CEREMONY_CARD_COMPLETED_S7_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue))))]"
+				align = nobaseline|left
 			}
+			text_multi = {
+				visible = "[Not(GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)7.0'))]"
+				layoutpolicy_horizontal = expanding
+				max_width = 344
+				autoresize = yes
+				text = "[Localize(Concatenate('TV_WONDER_CEREMONY_CARD_ACTIVE_S7_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue))))]"
+				align = nobaseline|left
+			}
+			expand = {}
 		}
 	}
-	widget = {
+	tv_engineering_department_card_common = {
 		visible = "[And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)7.0'))]"
-		layoutpolicy_horizontal = expanding
-		tv_engineering_department_card_common = {
-			blockoverride "header_size" { size = { -1 0 } }
-			blockoverride "header_decor_templates" {}
-			blockoverride "common_header_back_decor" {}
-			blockoverride "card_bg" {
-				using = bg_paper_card_situations
+		layoutpolicy_vertical = fixed
+		minimumsize = { 462 144 }
+		maximumsize = { 462 144 }
+		blockoverride "header_size" { size = { -1 0 } }
+		blockoverride "header_decor_templates" {}
+		blockoverride "common_header" {}
+		blockoverride "card_bg" {
+			background = {
+				texture = "gfx/interface/cards/paper_card_fancy_01.dds"
+				texture_density = 2
+				spriteType = corneredstretched
+				spriteborder = { 100 100 }
+				margin = { 1 1 }
+				margin_bottom = 2
+				alpha = 0.4
+			}
+			background = {
+				texture = "gfx/interface/cards/paper_card_fancy_01.dds"
+				texture_density = 2
+				spriteType = corneredstretched
+				spriteborder = { 100 100 }
+				modify_texture = {
+					using = color_paper_texture
+				}
+				modify_texture = {
+					using = color_black_texture
+					alpha = 0.3
+				}
+				modify_texture = {
+					using = overlay_paper_03
+				}
+				modify_texture = {
+					using = overlay_cloth_texture
+					blend_mode = overlay
+					alpha = 0.2
+				}
 				modify_texture = {
 					visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)8.0')]"
 					using = color_light_green_texture
@@ -388,33 +978,84 @@ vbox = {
 					alpha = 0.55
 				}
 			}
-			blockoverride "common_bottom_content" {
+		}
+		blockoverride "common_bottom_content" {
+			hbox = {
+				size = { 432 104 }
+				spacing = 8
 				widget = {
-					layoutpolicy_horizontal = fixed
-					size = { 60 60 }
-					widget = {
+				layoutpolicy_horizontal = fixed
+				size = { 64 104 }
+					piechart = {
+						visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)8.0')]"
 						size = { 52 52 }
+						minimumsize = { 52 52 }
 						parentanchor = center
 						widgetanchor = center
+						using = piechart_angles
 						using = bg_circle_piechart_big
-						icon = {
+						pieslice = {
+							texture = "gfx/interface/pie_charts/pie_chart_alpha_80_green.dds"
+							value = 1
+							color = { 1 1 1 1 }
+						}
+						pieslice = {
+							texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds"
+							value = 0
+							color = { 1 1 1 0 }
+						}
+						text_single = {
 							parentanchor = center
-							size = { 70% 70% }
-							texture = "[GetConceptTexture(Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue))))]"
+							size = { 100% 100% }
+							raw_text = "@building_open!"
+							fontsize = 17
+							align = center|nobaseline
+						}
+					}
+					piechart = {
+						visible = "[Not(GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)8.0'))]"
+						size = { 52 52 }
+						minimumsize = { 52 52 }
+						parentanchor = center
+						widgetanchor = center
+						using = piechart_angles
+						using = bg_circle_piechart_big
+						pieslice = {
+							texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds"
+							value = 0.5
+							color = { 0.95 0.76 0.25 1 }
+						}
+						pieslice = {
+							texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds"
+							value = 0.5
+							color = { 1 1 1 0 }
+						}
+						text_single = {
+							parentanchor = center
+							size = { 100% 100% }
+							raw_text = "@building_open!"
+							fontsize = 17
+							align = center|nobaseline
 						}
 					}
 				}
-				widget = {
-					layoutpolicy_horizontal = expanding
-					text_multi = {
-						layoutpolicy_horizontal = fixed
-						max_width = 380
-						autoresize = yes
-						text = "TV_WONDER_CEREMONY_CARD_STAGE_8_LABEL"
-					}
-				}
-				expand = {}
+			text_multi = {
+				visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)8.0')]"
+				layoutpolicy_horizontal = expanding
+				max_width = 344
+				autoresize = yes
+				text = "[Localize(Concatenate('TV_WONDER_CEREMONY_CARD_COMPLETED_S8_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue))))]"
+				align = nobaseline|left
 			}
+			text_multi = {
+				visible = "[Not(GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)8.0'))]"
+				layoutpolicy_horizontal = expanding
+				max_width = 344
+				autoresize = yes
+				text = "[Localize(Concatenate('TV_WONDER_CEREMONY_CARD_ACTIVE_S8_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue))))]"
+				align = nobaseline|left
+			}
+			expand = {}
 		}
 	}
 }

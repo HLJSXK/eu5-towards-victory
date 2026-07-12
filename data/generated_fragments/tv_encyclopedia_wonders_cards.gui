@@ -5,7 +5,8 @@
 
 # BEGIN GENERATED TV_ENCYCLOPEDIA_CARDS
 vbox = {
-	layoutpolicy_horizontal = expanding
+	using = layoutpolicy_expanding
+	set_parent_dimension_to_minimum = height
 	spacing = 4
 
 	vbox = {

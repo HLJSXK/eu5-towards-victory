@@ -17,25 +17,15 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_mechanics.io import load_unique_wonders  # noqa: E402
+from wonder_mechanics.io import load_all_wonder_mechanics  # noqa: E402
 from wonder_mechanics.rituals import STYLE_3_REWARD_EFFECTS  # noqa: E402
 
 T = "\t"
 NAMESPACE = "tv_engineering_department"
 EVENT_ID_START = 9300
 STAGE_COUNT = 8
+COMPLETION_EVENT_ID = EVENT_ID_START + STAGE_COUNT
 CEREMONY_IMAGE = "gfx/interface/icons/towards_victory/wonders/tv_wonder_construction_cropped.dds"
-
-COST_TYPE_PAY_LINES = {
-    "artwork": [
-        f"{T}{T}random_work_of_art_in_country = {{ save_scope_as = tv_wonder_ceremony_sacrificed_artwork }}",
-        f"{T}{T}destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork",
-    ],
-    "scaled_gold": [f"{T}{T}change_gold_effect = {{ scale = -5 }}"],
-    "prestige": [f"{T}{T}add_prestige = -50"],
-}
-COST_TYPE_IDS = {"artwork": 1, "scaled_gold": 2, "prestige": 3}
-
 
 def script_rel(path: Path) -> str:
     return str(path.relative_to(REPO_ROOT)).replace("\\", "/")
@@ -52,13 +42,24 @@ def render_header(script: str, data: str, target: str) -> list[str]:
     ]
 
 
-def ceremony_wonders() -> list[dict]:
-    """Every unique wonder that carries a `ceremony` block (excludes Pharos/Hagia)."""
-    wonders = load_unique_wonders()
-    return sorted(
-        (w for w in wonders if w.get("ceremony") is not None),
+def ceremony_wonders_and_mechanics() -> tuple[list[dict], dict]:
+    """Ceremony-enabled unique wonders and the generic reward data they reuse."""
+    wonders, mechanics = load_all_wonder_mechanics()
+    ceremony_wonders = sorted(
+        (wonder for wonder in wonders if wonder.get("is_unique") and wonder.get("ceremony") is not None),
         key=lambda w: int(w["id"]),
     )
+    return ceremony_wonders, mechanics
+
+
+def ceremony_wonders() -> list[dict]:
+    """Every unique wonder that carries a `ceremony` block (excludes Pharos/Hagia)."""
+    return ceremony_wonders_and_mechanics()[0]
+
+
+def stage_1_reward_for_wonder(wonder: dict, mechanics: dict) -> list[dict]:
+    """Reuse the matching generic style-3 reward as the ceremony's immediate reward."""
+    return mechanics["generic_rituals"][wonder["mechanic_key"]]["style_3"]["reward"]
 
 
 def stage_event_id(stage: int) -> int:
@@ -82,15 +83,21 @@ def decline_option_key(stage: int) -> str:
     return f"{NAMESPACE}.{stage_event_id(stage)}.b"
 
 
-def reward_effect_lines(reward: list[dict], indent: int) -> list[str]:
+def reward_effect_lines(reward: list[dict], indent: int, allow_artwork: bool = False) -> list[str]:
     """Mirrors gen_tv_engineering_department_wonder_mechanics_effects.py's
-    country_reward_effect_lines() for the same STYLE_3_REWARD_EFFECTS vocabulary,
-    restricted to the country-scope subset the content batches were briefed on
-    (country_scalar / country_value_block / country_scale_block / ruler_scalar /
-    culture_scalar)."""
+    reward_effect_lines() for the same STYLE_3_REWARD_EFFECTS vocabulary. Stage-one
+    rewards retain site-scoped entries, while ceremony costs are restricted by the
+    data validator. An "artwork" entry has no scalar effect, so it only renders when
+    allow_artwork=True, which the per-stage ceremony cost dispatch opts into."""
     prefix = T * indent
     lines: list[str] = []
     for entry in reward:
+        if entry["type"] == "artwork":
+            if not allow_artwork:
+                raise ValueError("'artwork' is not a valid reward type")
+            lines.append(f"{prefix}random_work_of_art_in_country = {{ save_scope_as = tv_wonder_ceremony_sacrificed_artwork }}")
+            lines.append(f"{prefix}destroy_art = scope:tv_wonder_ceremony_sacrificed_artwork")
+            continue
         spec = STYLE_3_REWARD_EFFECTS[entry["type"]]
         effect = spec["effect"]
         scope = spec["scope"]
@@ -105,6 +112,8 @@ def reward_effect_lines(reward: list[dict], indent: int) -> list[str]:
             lines.append(f"{prefix}ruler ?= {{ {effect} = {value} }}")
         elif scope == "culture_scalar":
             lines.append(f"{prefix}culture = {{ {effect} = {value} }}")
+        elif scope == "location_scalar":
+            lines.append(f"{prefix}var:tv_wonder_site ?= {{ {effect} = {value} }}")
         else:
             raise ValueError(f"Unsupported ceremony reward scope: {scope}")
     return lines

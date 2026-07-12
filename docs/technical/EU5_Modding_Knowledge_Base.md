@@ -1258,9 +1258,35 @@ The user interface is highly moddable through `.gui` files. The system is modula
 
 GUI `text = "KEY"` properties are localization lookups. If the key is missing from `main_menu/localization`, the engine logs `Unlocalized text 'KEY'` from `pdx_gui_localize.cpp`. Correct the key to one defined by the current data/localization set, add the key for all supported languages, or use `raw_text` only when the intended display is a literal string.
 
+For non-clickable dynamic text, GUI can resolve a generated key directly with
+`text = "[Localize(Concatenate('PREFIX_', ToString_int32(FixedPointToInt(value))))]"`.
+The Engineering Department proposal text at
+`src/in_game/gui/panels/organization/tv_engineering_department.gui:556` is the
+working local precedent. This is appropriate for ordinary localized prose such
+as a ceremony stage's active/completed flavor sentence; it does not create or
+link a game concept. Continue to use a registered raw concept id with
+`SelectGameConcept` only when a clickable concept link is required.
+
 GUI `raw_text` does not expand `$LOCALIZATION_KEY$` substitutions. A value such as `raw_text = "@trade! $TV_TRADE_LEAGUE_IO_COLUMN$"` renders the `$TV_TRADE_LEAGUE_IO_COLUMN$` text literally. For static localized labels with icons, use `text = "TV_TRADE_LEAGUE_IO_COLUMN"` and put `@trade! ...` inside the localization value. For dynamic values that must use `raw_text`, split the localized label into a separate `text` widget if needed.
 
 GUI image `fittype` values are EU5-specific, not CSS object-fit names. Vanilla examples use values such as `centercrop`, `fill`, `start`, and `end`; `fittype = contain` logs `Unknown fit type 'contain'` during GUI loading.
+
+`modify_texture` belongs to a rendered image layer such as `background` or `icon`, not to a layout container. A named block can hide this boundary: if a reusable card type defines `block "card_bg"` at its `vbox` level, a `blockoverride "card_bg"` also writes into that `vbox`; placing `modify_texture` beside `using = bg_paper_card_situations` therefore logs `Property 'modify_texture' not handled` and can fail the widget's property setup. Put conditional texture modifiers inside a real background layer instead, as vanilla does in `attribute_columns/cabinet_action.gui`:
+
+```gui
+blockoverride "card_bg" {
+    background = {
+        using = paper_card_texture
+        modify_texture = {
+            visible = "[MyCondition]"
+            using = color_light_green_texture
+            blend_mode = overlay
+        }
+    }
+}
+```
+
+When replacing a template-backed card background, retain its original background layers, texture density, frame/stretch settings, and base overlays before appending the conditional modifier. Do not remove a dynamic state color merely to avoid the property error.
 
 Custom game concepts require both localization and a definition in `main_menu/common/game_concepts/`. A localization pair such as `game_concept_tv_foo` / `game_concept_tv_foo_desc` does not create the concept by itself. If `[tv_foo|e]` is used before `tv_foo = { texture = "..." }` is registered, the localization parser treats `tv_foo` as a data-system function and logs `Could not find data system function 'tv_foo'`.
 
@@ -1324,6 +1350,12 @@ When a widget is a direct child of `hbox` or `vbox`, the box layout owns placeme
 `progressbar` does not handle `margin_top`. If a progressbar needs vertical offset or centering inside an `hbox`/`vbox`, put a fixed-size wrapper `widget` in the layout and anchor the progressbar inside the wrapper with `parentanchor` / `widgetanchor`, leaving the progressbar itself free of `margin_top`.
 
 Keep `ignoreinvisible` on layout containers, not on plain `widget` wrappers. A generic image wrapper `widget` with `ignoreinvisible = yes` logs `Property 'ignoreinvisible' not handled` and fails property setup for the `uberwidget`. For conditional illustration areas, set `visible = ...` on the wrapper and put the actual images in child widgets with their own `visible` expressions.
+
+Zeroing a reusable card type's header height does not hide its header content, and stacked cards need an explicit height. A card template built like this project's `tv_engineering_department_card_common` (`type ... = hbox { widget = { block "header_size" {...} ... block "common_header" { block "common_header_icon" {...} block "common_header_text_full" {...} } } ... }`) still creates and renders the default `common_header` icon+text even when the caller does `blockoverride "header_size" { size = { -1 0 } }` — that size override only constrains the header widget's own declared bounds, not its child content, so the default placeholder icon+title overflows the collapsed parent and appears as a leaked duplicate above the card. To make a card genuinely untitled, also `blockoverride "common_header" {}` (empties the icon+text block itself). Separately, a plain `widget` wrapper in this codebase's GUI convention does not auto-size vertically from its child content the way `hbox`/`vbox` do — every working stacked-card usage sets `layoutpolicy_vertical = fixed` plus an explicit numeric `minimumsize`/`maximumsize` height directly on the card instantiation. Omitting it collapses every card to zero height, so a `vbox` of such cards renders them all piled on the same position instead of listed in sequence. See `docs/knowledge/risk_cards/wonders.md` rule 22.
+
+The "expanding child blows out a bounded parent" failure above recurs even when the numbers look safe on paper. The ceremony cards' text column sat in an extra `widget = { layoutpolicy_horizontal = expanding text_multi = { max_width = 380 ... } } }`, and even though 380 fit the arithmetic budget (card width minus margin minus icon column minus spacing), the rendered text column still measured ~375px and pulled the fixed-500-wide card wider than its declared bound — because the expanding wrapper widget doesn't respect an ancestor's size clamp at all, regardless of whether the inner content numerically fits. Do not wrap `text_multi` in an extra expanding `widget`; place it directly as the `hbox` child with `layoutpolicy_horizontal = expanding`, `max_width`, and `autoresize = yes` set on the `text_multi` itself (verified precedent: `tv_engineering_department.gui:8422-8428`), and keep `max_width` with a comfortable safety margin below the arithmetic budget rather than flush against it.
+
+An auto-height ("shrinking") chain must be unbroken from the outermost flexible card down to the actual variable-height content — one hardcoded-height wrapper anywhere in the middle caps the whole chain. The pattern is: `layoutpolicy_vertical = shrinking` + `size = { W -1 }` on each nested wrapper `widget`, and `set_parent_size_to_minimum = yes` + `layoutpolicy_vertical = shrinking` on each nested `vbox`, repeated at every level between the card and its content — not just the first level. A card whose outer instantiation and first-level wrapper both correctly use this pattern can still fail to grow if a second- or third-level wrapper further in reverts to an old fixed `size = { W N }` with no shrinking policy (e.g. a leftover from when that area only ever held much shorter content); that single link caps the measured content at its hardcoded number regardless of how much actually renders inside it, so new variable-count content silently overflows past the card instead of stretching it taller.
 
 When a conditional illustration is a fixed preview column with mutually exclusive background images, give the wrapper explicit bounds and size the visible preview child to fill them. `layoutpolicy_expanding` alone does not guarantee a button or background texture will paint at the intended size; if the preview sits inside a plain `widget`, the child `button` can shrink to the natural width of its content unless it also fills the card. In wonder-location panels, keep the existing card/hbox/vbox structure, make the clickable wrapper fill the card, give the image column its own fixed width, and size the preview widget with fixed pixels that match the content area.
 
