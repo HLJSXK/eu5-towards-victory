@@ -370,6 +370,27 @@ generators.
     and adding `set_parent_size_to_minimum = yes` + `layoutpolicy_vertical = shrinking` to its vbox.
     See `docs/knowledge/anti_patterns.yaml` rule
     `card_common_shrinking_height_chain_broken_by_one_fixed_height_wrapper`.
+    A fourth follow-up: `gen_tv_wonder_ceremony_cards_gui.py`'s `append_card()` emitted the
+    closing brace for the `hbox` and for `blockoverride "common_bottom_content"` but never
+    emitted the final closing brace for the `tv_engineering_department_card_common = { ... }`
+    instantiation itself. Since a `.gui` block's scope is determined purely by brace balance
+    (not by generator function boundaries), each of the 8 stage cards silently nested inside
+    the previous one instead of closing as a sibling in the `TV_WONDER_CEREMONY_CARDS` vbox —
+    stage 1 opened at depth 1, stage 2 opened at depth 2 (one level *inside* stage 1's own
+    `common_bottom_content` blockoverride), stage 3 at depth 3, and so on, cascading all 8
+    cards' content into the base type's single header `hbox` (`tv_engineering_department.gui:59`)
+    instead of stacking as 8 independent cards. This rendered as all 8 cards' icon+text content
+    packed side by side in one row and pushed to an extreme height, i.e. exactly inverted from
+    the intended wide/short vertically-stacked cards — a brace-balance bug, not a
+    layoutpolicy/size bug like the three follow-ups above. Detected by counting `{`/`}` per card
+    span and confirming each `tv_engineering_department_card_common = {` opened at a
+    strictly-increasing depth instead of a constant one; fixed 2026-07-12 by adding the missing
+    `lines.append(f"{T}}}")` at the end of `append_card()`. When a generator emits a nested
+    brace structure across many `lines.append` calls, verify total `{`/`}` counts for one
+    generated unit balance to zero (or, for a list of repeated siblings, that every repeated
+    unit opens at the same nesting depth) — do not assume a function "looks complete" just
+    because its last few lines contain closing braces. See `docs/knowledge/anti_patterns.yaml`
+    rule `gui_generator_function_missing_final_closing_brace_cascades_nesting`.
 
 ## Validation
 

@@ -225,6 +225,7 @@ def append_card(lines: list[str], stage: int) -> None:
     lines.append(f"{T}{T}{T}expand = {{}}")
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}}}")
+    lines.append(f"{T}}}")
 
 
 def generate() -> str:
