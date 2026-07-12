@@ -80,6 +80,22 @@ CEREMONY_CHINESE_LOC_GENERATOR = (
     / "simp_chinese"
     / "gen_tv_wonder_ceremony_l_simp_chinese.py"
 )
+WONDER_MECHANICS_ENGLISH_LOC_GENERATOR = (
+    REPO_ROOT
+    / "scripts"
+    / "main_menu"
+    / "localization"
+    / "english"
+    / "gen_tv_engineering_department_wonder_mechanics_l_english.py"
+)
+WONDER_MECHANICS_CHINESE_LOC_GENERATOR = (
+    REPO_ROOT
+    / "scripts"
+    / "main_menu"
+    / "localization"
+    / "simp_chinese"
+    / "gen_tv_engineering_department_wonder_mechanics_l_simp_chinese.py"
+)
 ENGINEERING_DEPARTMENT_EFFECTS = (
     REPO_ROOT
     / "src"
@@ -98,11 +114,14 @@ from wonder_mechanics.modifiers import (
 from wonder_mechanics.rituals import ceremony_styles, normalize_unique_ceremony
 from wonder_mechanics.schema import validate_unique_wonder_single_site_shape
 from wonder_ceremony_lib import COMPLETION_EVENT_ID, reward_effect_lines, stage_1_reward_for_wonder
+from wonder_localization_lib import load_engineering_department_suffix_map, load_wonder_localization_data
 from wonder_localization_editor_web.service import (
     WONDER_DATA_REGEN_SCRIPTS,
     build_unique_ceremony_editor_state,
     ceremony_stage_cost_options,
+    render_expected_localization_output,
     unique_ceremony_from_editor_state,
+    validate_canonical_localization_data,
 )
 
 
@@ -558,6 +577,33 @@ def validate_unique_ceremony_editor_support(wonders: list[dict]) -> None:
     )
 
 
+def validate_editor_localization_ignores_design_only_english(wonders: list[dict], mechanics: dict) -> None:
+    localization_data = load_wonder_localization_data()
+    required_keys = validate_canonical_localization_data(
+        wonders,
+        mechanics,
+        load_engineering_department_suffix_map(),
+        localization_data,
+    )
+    design_only_english = set(localization_data["english"]) - set(localization_data["simp_chinese"])
+    require(design_only_english, "Expected Harness design-only English localization inventory.")
+    require(
+        design_only_english.isdisjoint(required_keys),
+        "Design-only English localization must not be treated as required gameplay/editor text.",
+    )
+
+
+def validate_editor_localization_rendering_matches_generators() -> None:
+    localization_data = load_wonder_localization_data()
+    for language, name, path in (
+        ("english", "wonder_mechanics_english_loc_generator", WONDER_MECHANICS_ENGLISH_LOC_GENERATOR),
+        ("simp_chinese", "wonder_mechanics_chinese_loc_generator", WONDER_MECHANICS_CHINESE_LOC_GENERATOR),
+    ):
+        actual = load_ceremony_loc_generator(name, path).generate()
+        expected = render_expected_localization_output(language, localization_data)
+        require(actual == expected, f"Editor localization rendering must match {name}.")
+
+
 def main() -> None:
     wonders, mechanics = load_all_wonder_mechanics()
 
@@ -568,6 +614,8 @@ def main() -> None:
     validate_generated_ceremony_autostart(wonders)
     validate_generated_ceremony_gui(wonders)
     validate_unique_ceremony_editor_support(wonders)
+    validate_editor_localization_ignores_design_only_english(wonders, mechanics)
+    validate_editor_localization_rendering_matches_generators()
 
     small_violations: list[str] = []
     medium_large_non_value: list[str] = []

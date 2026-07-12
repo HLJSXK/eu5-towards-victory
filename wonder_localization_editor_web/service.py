@@ -19,6 +19,7 @@ if hasattr(sys.stdout, "reconfigure"):
 from scripts.wonder_localization_lib import (
     REPO_ROOT,
     WONDER_LOCALIZATION_FILE,
+    engineering_department_wonder_mechanics_localization_map,
     load_engineering_department_suffix_map,
     load_localization_map,
     load_wonder_localization_data,
@@ -104,14 +105,6 @@ WONDER_IMAGE_URL_PREFIX = "/wonder-images"
 GENERATED_LOC_FILES = {
     "english": REPO_ROOT / "src" / "main_menu" / "localization" / "english" / "tv_engineering_department_wonder_mechanics_l_english.yml",
     "simp_chinese": REPO_ROOT / "src" / "main_menu" / "localization" / "simp_chinese" / "tv_engineering_department_wonder_mechanics_l_simp_chinese.yml",
-}
-GENERATED_LOC_EXCLUDED_KEYS = {
-    "tv_wonder_ownership.800.t",
-    "tv_wonder_ownership.800.d",
-    "tv_wonder_ownership.800.a",
-    "tv_wonder_ownership.900.t",
-    "tv_wonder_ownership.900.d",
-    "tv_wonder_ownership.900.a",
 }
 GENERATED_LOC_SCRIPT_REL = {
     "english": "scripts/main_menu/localization/english/gen_tv_engineering_department_wonder_mechanics_l_english.py",
@@ -2149,27 +2142,20 @@ def validate_canonical_localization_data(
 ) -> set[str]:
     english_keys = set(localization_data["english"])
     chinese_keys = set(localization_data["simp_chinese"])
+    required_keys = required_canonical_localization_keys(wonders, mechanics, suffixes)
 
-    missing_in_chinese = sorted(english_keys - chinese_keys)
+    missing_in_chinese = sorted(required_keys - chinese_keys)
     if missing_in_chinese:
         preview = ", ".join(missing_in_chinese[:10])
         raise ValueError(
             f"Missing Simplified Chinese localization keys in {WONDER_LOCALIZATION_FILE}: {preview}"
         )
 
-    missing_in_english = sorted(chinese_keys - english_keys)
+    missing_in_english = sorted(required_keys - english_keys)
     if missing_in_english:
         preview = ", ".join(missing_in_english[:10])
         raise ValueError(
             f"Missing English localization keys in {WONDER_LOCALIZATION_FILE}: {preview}"
-        )
-
-    required_keys = required_canonical_localization_keys(wonders, mechanics, suffixes)
-    missing_required = sorted(required_keys - english_keys)
-    if missing_required:
-        preview = ", ".join(missing_required[:10])
-        raise KeyError(
-            f"Missing required canonical localization keys in {WONDER_LOCALIZATION_FILE}: {preview}"
         )
 
     return required_keys
@@ -2186,11 +2172,7 @@ def render_expected_localization_output(language: str, localization_data: dict[s
 
 
 def generated_localization_map(language: str, localization_data: dict[str, dict[str, str]]) -> dict[str, str]:
-    return {
-        key: value
-        for key, value in localization_data[language].items()
-        if key not in GENERATED_LOC_EXCLUDED_KEYS
-    }
+    return engineering_department_wonder_mechanics_localization_map(language, localization_data[language])
 
 
 def render_expected_concepts_output(wonders: list[dict[str, Any]]) -> str:
