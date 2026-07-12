@@ -2588,3 +2588,13 @@
   scope: any
   source: "scripts/in_game/gui/panels/situation/gen_tv_victory_situation_gui.py append_tree_background"
   notes: "Found 2026-07-12 wiring the six victory-path reward-tree background DDS assets into tv_victory_situation.gui. First fix attempt (fittype = centercrop) was rejected by the user as both an unwanted crop and non-functional; the working fix is a hard pixel size (508 wide, proportional height) instead of any fit-mode reliance on a floating container width."
+
+- id: tooltip_requirements_list_maximumsize_without_matching_minimumsize_override
+  pattern: ''
+  detectability: advisory
+  bad: "A `TooltipRequirementsList = { ... maximumsize = { N -1 } ... }` block with N narrower than the template's default minimumsize (400px, from `@tooltip_inner_wide = @tooltip_title_wide(420) - @tooltip_inner_margin(10)*2`) and no `blockoverride \"tooltip_minimumsize\"` to match -- e.g. tv_engineering_department.gui's three wonder-debate demand-row TooltipRequirementsList instances (nobles/burghers/clergy), each declaring only `maximumsize = { 230 -1 }`."
+  correction: "Whenever `maximumsize` on a `TooltipRequirementsList` is set narrower than the inherited 400px default, also add `blockoverride \"tooltip_minimumsize\" { minimumsize = { N -1 } }` with the same N. Without it, the wider inherited minimumsize wins over the narrower maximumsize and the widget renders near its ~400px minimum regardless, which -- inside a non-clipping `layoutpolicy_horizontal = fixed` ancestor chain -- bubbles up through every expanding container and stretches an outer fixed-`maximumsize` card wider than declared. Match the working precedent already used by every other TooltipRequirementsList instance in the same file (e.g. the 'suitability location conditions' blocks pairing `maximumsize = { 218 -1 }` with `blockoverride \"tooltip_minimumsize\" { minimumsize = { 218 -1 } }`)."
+  category: gui
+  scope: any
+  source: "reference_game_files/game/main_menu/gui/shared/main_menu_cooltip_types.gui:337 (template default); src/in_game/gui/panels/organization/tv_engineering_department.gui:1728-1736 (working precedent with tooltip_minimumsize override) vs. :1418-1426/:1490-1498/:1562-1570 (bug instance, fixed 2026-07-13)"
+  notes: "Reported by the user as the Engineering Department wonder-debate Card (declared maximumsize = { 500 -1 }) visibly widening only while the debate stage (tv_wonder_stage == 1) was active, then reverting to 500px once the debate ended -- exactly matching the demand rows' visibility gate. Fixed by adding the missing tooltip_minimumsize override to all three TooltipRequirementsList instances."

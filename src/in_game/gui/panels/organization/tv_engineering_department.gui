@@ -1419,6 +1419,7 @@ widget = {
 													layoutpolicy_horizontal = fixed
 													textcontext = "[ShowScriptedEffectForScope('tv_wonder_accept_nobles_demand_effect',InternationalOrganizationsView.GetPlayer.MakeScope.Self)]"
 													maximumsize = { 230 -1 }
+													blockoverride "tooltip_minimumsize" { minimumsize = { 230 -1 } }
 													blockoverride "field_text_format" { fontsize = 13 }
 													blockoverride "row_size" { maximumsize = { -1 22 } minimumsize = { -1 22 } }
 													blockoverride "block_title" { block "block_title" { visible = no } }
@@ -1491,6 +1492,7 @@ widget = {
 													layoutpolicy_horizontal = fixed
 													textcontext = "[ShowScriptedEffectForScope('tv_wonder_accept_burghers_demand_effect',InternationalOrganizationsView.GetPlayer.MakeScope.Self)]"
 													maximumsize = { 230 -1 }
+													blockoverride "tooltip_minimumsize" { minimumsize = { 230 -1 } }
 													blockoverride "field_text_format" { fontsize = 13 }
 													blockoverride "row_size" { maximumsize = { -1 22 } minimumsize = { -1 22 } }
 													blockoverride "block_title" { block "block_title" { visible = no } }
@@ -1563,6 +1565,7 @@ widget = {
 													layoutpolicy_horizontal = fixed
 													textcontext = "[ShowScriptedEffectForScope('tv_wonder_accept_clergy_demand_effect',InternationalOrganizationsView.GetPlayer.MakeScope.Self)]"
 													maximumsize = { 230 -1 }
+													blockoverride "tooltip_minimumsize" { minimumsize = { 230 -1 } }
 													blockoverride "field_text_format" { fontsize = 13 }
 													blockoverride "row_size" { maximumsize = { -1 22 } minimumsize = { -1 22 } }
 													blockoverride "block_title" { block "block_title" { visible = no } }

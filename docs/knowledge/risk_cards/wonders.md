@@ -475,6 +475,30 @@ generators.
     conflicting gate. See `docs/knowledge/anti_patterns.yaml` rule
     `wonder_existing_wonder_location_never_seeded_as_surveyed`.
 
+23. `TooltipRequirementsList` needs an explicit `tooltip_minimumsize` override whenever
+    `maximumsize` is narrower than the template default, or the wider default minimumsize wins.
+    `TooltipRequirementsList`'s base type (`main_menu_cooltip_types.gui:337`) declares
+    `block "tooltip_minimumsize" { minimumsize = { @tooltip_inner_wide -1 } }`, where
+    `@tooltip_inner_wide` resolves to `420 - 10*2 = 400`. Setting only `maximumsize = { N -1 }`
+    with `N < 400` and no `blockoverride "tooltip_minimumsize"` leaves the inherited 400px
+    minimumsize in place, which conflicts with and overrides the narrower maximumsize — the
+    widget renders at its ~400px minimum regardless. Inside a `layoutpolicy_horizontal = fixed`
+    wrapper that does not clip children, that extra width bubbles up through every ancestor
+    `expanding` container and stretches an outer fixed-`maximumsize` card wider than declared.
+    Historical instance: the Engineering Department's three wonder-debate demand rows
+    (nobles/burghers/clergy, `tv_engineering_department.gui`, debate-stage-only content nested
+    under `tv_engineering_department_card_common`'s `maximumsize = { 500 -1 }`) each declared
+    `maximumsize = { 230 -1 }` on their `TooltipRequirementsList` with no matching
+    `tooltip_minimumsize` override, stretching the 500px-wide card wider only while the debate
+    stage (`tv_wonder_stage == 1`) was active and its demand rows visible — reverting to 500px
+    once the debate ended and that content collapsed. Fixed 2026-07-13 by adding
+    `blockoverride "tooltip_minimumsize" { minimumsize = { 230 -1 } }` to each of the three
+    instances, matching the working precedent already used by every "suitability location
+    conditions" `TooltipRequirementsList` elsewhere in the same file (e.g. `:1728-1736`, which
+    pairs `maximumsize = { 218 -1 }` with `blockoverride "tooltip_minimumsize" { minimumsize =
+    { 218 -1 } }`). See `docs/knowledge/anti_patterns.yaml` rule
+    `tooltip_requirements_list_maximumsize_without_matching_minimumsize_override`.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`: it lints rule 2 and rule 16 automatically, and when a
