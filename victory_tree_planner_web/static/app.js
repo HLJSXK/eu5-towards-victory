@@ -1,6 +1,7 @@
 const STAGE_W = 2048;
 const STAGE_H = 1152;
 const BRANCH_COLORS = ["#2563eb", "#16a34a", "#dc2626", "#9333ea", "#0891b2"];
+const SVG_NS = "http://www.w3.org/2000/svg";
 
 const state = {
   paths: [],
@@ -119,25 +120,59 @@ function renderStage() {
   renderLinks(path);
 }
 
+// Uniform Catmull-Rom -> cubic Bezier conversion. Produces ONE continuous path
+// through an ordered list of points with matching tangents at every interior
+// point (C1-continuous), instead of independently-curved per-edge segments
+// that would kink at each node. Standard 1/6 tangent-scale conversion.
+function catmullRomPath(points) {
+  if (points.length < 2) return "";
+  if (points.length === 2) {
+    return `M ${points[0].x} ${points[0].y} L ${points[1].x} ${points[1].y}`;
+  }
+  let d = `M ${points[0].x} ${points[0].y}`;
+  for (let i = 0; i < points.length - 1; i++) {
+    const p0 = points[i - 1] || points[i];
+    const p1 = points[i];
+    const p2 = points[i + 1];
+    const p3 = points[i + 2] || p2;
+    const cp1x = p1.x + (p2.x - p0.x) / 6;
+    const cp1y = p1.y + (p2.y - p0.y) / 6;
+    const cp2x = p2.x - (p3.x - p1.x) / 6;
+    const cp2y = p2.y - (p3.y - p1.y) / 6;
+    d += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${p2.x} ${p2.y}`;
+  }
+  return d;
+}
+
+function drawChain(svg, nodes, color, strokeWidth) {
+  if (nodes.length < 2) return;
+  const points = nodes.map((n) => ({ x: n.x * 100, y: n.y * 100 }));
+  const path2d = document.createElementNS(SVG_NS, "path");
+  path2d.setAttribute("d", catmullRomPath(points));
+  path2d.style.stroke = color;
+  path2d.style.strokeWidth = strokeWidth;
+  svg.appendChild(path2d);
+}
+
+// Tree-logic connectors: one smooth spline for the trunk chain (t1..t5), and
+// one smooth spline per branch running from its fork point (a trunk node)
+// through its own chain of nodes — rather than one curve per edge, so each
+// chain reads as a single continuous line matching the tree's actual branches.
 function renderLinks(path) {
   const svg = document.getElementById("links");
   svg.innerHTML = "";
   if (!document.getElementById("toggleLinks").checked) return;
 
-  path.nodes.forEach((node) => {
-    if (!node.parent_id) return;
-    const parent = nodeById(path, node.parent_id);
-    if (!parent) return;
-    const x1 = parent.x * 100;
-    const y1 = parent.y * 100;
-    const x2 = node.x * 100;
-    const y2 = node.y * 100;
-    const midX = (x1 + x2) / 2;
-    const path2d = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    path2d.setAttribute("d", `M ${x1}% ${y1}% Q ${midX}% ${y1}% ${midX}% ${(y1 + y2) / 2}% T ${x2}% ${y2}%`);
-    path2d.style.stroke = node.kind === "trunk" ? "rgba(217,119,6,0.65)" : nodeColorHex(node) + "a6";
-    svg.appendChild(path2d);
-  });
+  const trunkNodes = path.nodes.filter((n) => n.kind === "trunk");
+  drawChain(svg, trunkNodes, "#d97706cc", 1.1);
+
+  for (let b = 0; b < 5; b++) {
+    const branchNodes = path.nodes.filter((n) => n.kind === "branch" && n.branch_index === b);
+    if (!branchNodes.length) continue;
+    const attachNode = nodeById(path, branchNodes[0].parent_id);
+    const chain = attachNode ? [attachNode, ...branchNodes] : branchNodes;
+    drawChain(svg, chain, BRANCH_COLORS[b] + "b3", 0.7);
+  }
 }
 
 function renderNodeList() {
