@@ -3890,10 +3890,21 @@ tv_govhouse_confirm_local_administration_effect = {
 # what lets automation open one confirmation event per blocked region at once.
 # Called only after the event option has queued visible Local Administration
 # construction; instant construction does not reliably update building-level
-# reads before later hidden effects in the same option.
+# reads before later hidden effects in the same option, so this effect does
+# NOT re-check has_building_with_at_least_one_level -- it trusts that the
+# option's own construct_building already ran and only re-validates ownership.
+# Validates scope:tv_govhouse_pending_local_admin_scope directly instead of
+# re-deriving a "current" candidate from tv_govhouse_region_to_admin_location_map:
+# this event can sit open (non-silent) for arbitrary game time, during which
+# on_location_changed_owner / admin-location-loss handling can legitimately
+# reselect the map's candidate for this region. Re-deriving and identity-
+# matching against that live map value would silently skip the appointment
+# below whenever the map moved on while the popup was open, even though the
+# player's build actually landed on the location captured at queue time.
 # Scope: country event root.
 tv_govhouse_confirm_local_administration_event_scope_effect = {
 	save_scope_as = tv_governing_country
+	set_local_variable = { name = tv_govhouse_confirm_committed value = 0 }
 	if = {
 		limit = {
 			exists = scope:tv_govhouse_pending_governor_scope
@@ -3905,14 +3916,11 @@ tv_govhouse_confirm_local_administration_event_scope_effect = {
 			save_scope_as = target_1
 			save_scope_as = tv_govhouse_target_region
 		}
-		tv_govhouse_save_admin_location_for_target_region_effect = yes
 		if = {
 			limit = {
 				exists = scope:target
 				exists = scope:target_1
-				exists = scope:tv_govhouse_selected_admin_location
-				scope:tv_govhouse_selected_admin_location = {
-					this = scope:tv_govhouse_pending_local_admin_scope
+				scope:tv_govhouse_pending_local_admin_scope = {
 					owner ?= scope:tv_governing_country
 				}
 				scope:target = {
@@ -3945,9 +3953,18 @@ tv_govhouse_confirm_local_administration_event_scope_effect = {
 			}
 			tv_govhouse_clear_pending_governor_reservation_effect = yes
 			tv_governor_appoint_effect = yes
+			set_local_variable = { name = tv_govhouse_confirm_committed value = 1 }
 		}
 	}
-	tv_govhouse_clear_pending_local_administration_effect = yes
+	# Only discard the pending request once it actually committed. If the
+	# confirmed location lost ownership while the popup was open, leave the
+	# pending variables in place instead of silently dropping the request;
+	# the ownership-change handling (tv_govhouse_refresh_changed_region_cache_effect)
+	# re-derives a fresh candidate and the normal request flow can re-fire.
+	if = {
+		limit = { local_var:tv_govhouse_confirm_committed > 0 }
+		tv_govhouse_clear_pending_local_administration_effect = yes
+	}
 }
 
 # Appoints a governor to a region. Displaces any existing governor for that region.
