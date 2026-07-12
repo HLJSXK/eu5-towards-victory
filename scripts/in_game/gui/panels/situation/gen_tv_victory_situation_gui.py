@@ -791,7 +791,8 @@ def append_tree_background(lines: list[str], level: int, path: dict) -> None:
     emit(lines, level + 1, "size = { -1 220 }")
     emit(lines, level + 1, "background = {")
     emit(lines, level + 2, f'texture = "{tree_background_path(pid)}"')
-    emit(lines, level + 2, "spriteType = stretched")
+    emit(lines, level + 2, "spriteType = Stretched")
+    emit(lines, level + 2, "fittype = centercrop")
     emit(lines, level + 1, "}")
     emit(lines, level, "}")
 
