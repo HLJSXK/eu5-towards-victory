@@ -363,8 +363,8 @@
       }
     },
     "prompt_prefix": "Create a wide, route-specific victory reward tree background for",
-    "tree_rules": "A beautiful, high-quality 16:9 painting or photograph of a single tree standing close to the viewer, large enough to dominate the frame and partly block a hazy, distant landscape beyond it — near and far are the same place under the same light, not a collage. Let the tree feel bigger than the picture: at the edge named below, a branch or the trunk simply runs off the frame, as though only part of a larger tree was caught in view, so no roots or ground appear there. Let the trunk fork naturally into a handful of branches as it grows, each with some open, unembellished stretches of bark — a round button will be overlaid on the branches later, so avoid drawing circles, rings, or icons, but otherwise trust your own eye for where and how the branches should fall. Prioritize a gorgeous, atmospheric, painterly result over any rigid structure. No text or UI elements.",
-    "negative_prompt": "text, letters, numbers, labels, UI buttons, circular nodes or rings, badges, medallions, icons on the tree, logos, watermark, flat 2D illustration, cutout foreground pasted over a backdrop, mismatched lighting between tree and background, visible roots or ground line at the cropped edge, whole tree fully contained in frame, second tree",
+    "tree_rules": "A beautiful, high-quality 16:9 painting or photograph of a single tree standing close to the viewer, large enough to dominate the frame and partly block a hazy, distant landscape beyond it — near and far are the same place under the same light, not a collage. Let the tree feel bigger than the picture: at the edge named below, a branch or the trunk simply runs off the frame, as though only part of a larger tree was caught in view, so no roots or ground appear there. Each route below names one exact entry point on one border and one direction the tree grows toward on the far side of the frame — anchor the trunk at that exact point (don't default to the generic 'trunk rooted in the bottom-left corner' shot unless that is the named point) and let it sweep across the frame toward the named direction, its branches spreading out along the way so the tree commands most of the picture. The six routes should read as differently angled at a glance because their entry points and directions differ, not because the tree is boxed into a smaller region. Let the trunk fork naturally into a handful of branches as it grows, each with some open, unembellished stretches of bark — a round button will be overlaid on the branches later, so avoid drawing circles, rings, or icons, but otherwise trust your own eye for where and how the branches should fall. Prioritize a gorgeous, atmospheric, painterly result over any rigid structure. No text or UI elements.",
+    "negative_prompt": "text, letters, numbers, labels, UI buttons, circular nodes or rings, badges, medallions, icons on the tree, logos, watermark, flat 2D illustration, cutout foreground pasted over a backdrop, mismatched lighting between tree and background, visible roots or ground line at the cropped edge, whole tree fully contained in frame, second tree, trunk entering from a different border than the one specified, tree cropped small into one corner instead of sweeping across most of the frame",
     "paths": [
       {
         "id": "conquest",
@@ -372,12 +372,11 @@
         "style_reference_paths": [
           "src/main_menu/gfx/interface/icons/towards_victory/victory_paths/tv_victory_conquest.dds"
         ],
-        "tree_prompt": "A medieval mood in crimson and iron: a stark, weathered ironwood tree against a dusty frontier of far-off fortress walls. It enters cropped at the lower-left edge and climbs diagonally toward the upper-right, branching outward in a disciplined, angular way as it ascends. Forceful, territorial, irreversible."
+        "tree_prompt": "A medieval mood in crimson and iron: a stark, weathered ironwood tree against a dusty frontier of far-off fortress walls. The trunk enters at the lower-left corner and sweeps diagonally across nearly the whole frame toward the upper-right, its branches spreading out along that climb to command most of the picture. Forceful, territorial, irreversible."
       },
       {
         "id": "prosperity",
         "label": "Prosperity Victory",
-        "skip": true,
         "style_reference_paths": [
           "src/main_menu/gfx/interface/icons/towards_victory/victory_paths/tv_victory_prosperity.dds"
         ],
@@ -389,7 +388,7 @@
         "style_reference_paths": [
           "src/main_menu/gfx/interface/icons/towards_victory/victory_paths/tv_victory_trade.dds"
         ],
-        "tree_prompt": "A maritime trade mood in gold and ink-navy: a wind-bent tree with a strongly horizontal trunk, set against a hazy harbor of distant sails and warehouses. It enters cropped at the left-center edge and reaches across toward the right-center, branching above and below the trunk like shipping lanes. Expansive, adventurous, far-reaching."
+        "tree_prompt": "A maritime trade mood in gold and ink-navy: a wind-bent tree with a strongly horizontal trunk, set against a hazy harbor of distant sails and warehouses. The trunk enters at the vertical midpoint of the left border — clearly above the bottom-left corner — and reaches horizontally across nearly the whole frame toward the right, its branches sweeping above and below along the way like shipping lanes to command most of the picture. Expansive, adventurous, far-reaching."
       },
       {
         "id": "diplomatic",
@@ -397,7 +396,7 @@
         "style_reference_paths": [
           "src/main_menu/gfx/interface/icons/towards_victory/victory_paths/tv_victory_diplomatic.dds"
         ],
-        "tree_prompt": "A restrained Baroque mood in ivory and antique gold: an elegant tree with finely spaced branches, set against a hazy palace garden. It enters cropped at the upper-left edge and descends diagonally toward the lower-right, its branches arcing outward in balanced pairs. Composed, negotiated, dignified rather than forceful."
+        "tree_prompt": "A restrained Baroque mood in ivory and antique gold: an elegant tree with finely spaced branches, set against a hazy palace garden. The trunk enters at the upper-left corner and sweeps diagonally across nearly the whole frame toward the lower-right, its branches arcing outward in balanced pairs along the way to command most of the picture. Composed, negotiated, dignified rather than forceful."
       },
       {
         "id": "cultural",
@@ -405,7 +404,7 @@
         "style_reference_paths": [
           "src/main_menu/gfx/interface/icons/towards_victory/victory_paths/tv_victory_cultural.dds"
         ],
-        "tree_prompt": "A Chinese ink-wash mood on rice paper, charcoal black with soft purple accents, set against a misty wash of distant academy roofs. One commanding tree rendered in confident dry-brush strokes. It enters cropped at the lower-right edge and rises diagonally toward the upper-left, its brush branches flowing outward with generous blank-paper space. Contemplative, refined. No Chinese characters."
+        "tree_prompt": "A Chinese ink-wash mood on rice paper, charcoal black with soft purple accents, set against a misty wash of distant academy roofs. One commanding tree rendered in confident dry-brush strokes. The trunk enters at the lower-right corner and sweeps diagonally across nearly the whole frame toward the upper-left, its brush branches flowing outward along the way to command most of the picture, with generous blank-paper space between them. Contemplative, refined. No Chinese characters."
       },
       {
         "id": "science",
@@ -413,7 +412,7 @@
         "style_reference_paths": [
           "src/main_menu/gfx/interface/icons/towards_victory/victory_paths/tv_victory_science.dds"
         ],
-        "tree_prompt": "A clean, modern mood in azure and cool white: an innovation tree with a luminous geometric spine, set against a hazy field of observatory machinery. It enters cropped at the top-center edge and descends vertically toward the bottom-center, branching alternately left and right like careful circuitry. Precise, exploratory, forward-looking."
+        "tree_prompt": "A clean, modern mood in azure and cool white: an innovation tree with a luminous geometric spine, set against a hazy field of observatory machinery. The trunk enters at the horizontal midpoint of the top border and descends vertically across nearly the whole frame toward the bottom, branching alternately left and right along the way like careful circuitry to command most of the picture. Precise, exploratory, forward-looking."
       }
     ]
   }
