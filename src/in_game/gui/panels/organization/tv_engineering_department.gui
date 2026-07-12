@@ -714,6 +714,7 @@ widget = {
 				text = "[SelectGameConcept(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_display_id').IsSet, Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_display_id').GetValue))), 'tv_wonder_construction')]"
 				size = { 100% 100% }
 				parentanchor = center
+				position = { 0 -4 }
 				max_width = 454
 				fontsize = 15
 				align = center|nobaseline

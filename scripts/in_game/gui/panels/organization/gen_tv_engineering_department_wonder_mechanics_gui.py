@@ -74,6 +74,7 @@ RITUAL_PROGRESS_MONTHS_VAR = "tv_wonder_ritual_months_completed"
 RITUAL_PROGRESS_PCT_VAR = "tv_wonder_ritual_progress_pct"
 RITUAL_PROGRESS_MAX_MONTHS = 12
 LOCKED_NAME_CARD_HEIGHT = 50
+LOCKED_NAME_CARD_TEXT_Y_OFFSET = -4
 PROPOSAL_SIZE_ROW_HEIGHT = 24
 PROPOSAL_SIZE_ROW_SPACING = 4
 PROPOSAL_PREVIEW_HEIGHT = PROPOSAL_SIZE_ROW_HEIGHT + PROPOSAL_SIZE_ROW_SPACING + PREVIEW_IMAGE_HEIGHT
@@ -948,6 +949,7 @@ def locked_wonder_name_card(indent: int, visible: str) -> list[str]:
         f'{prefix}{T}{T}text = "{dynamic_locked_wonder_concept_link()}"',
         f"{prefix}{T}{T}size = {{ 100% 100% }}",
         f"{prefix}{T}{T}parentanchor = center",
+        f"{prefix}{T}{T}position = {{ 0 {LOCKED_NAME_CARD_TEXT_Y_OFFSET} }}",
         f"{prefix}{T}{T}max_width = {PREVIEW_CONTENT_WIDTH}",
         f"{prefix}{T}{T}fontsize = 15",
         f"{prefix}{T}{T}align = center|nobaseline",
