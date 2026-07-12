@@ -89,6 +89,20 @@ Load this card before editing `.gui` files or GUI-bound localization expressions
     with `size = { W -1 }` or `minimumsize`, set the containing layout to size
     itself from its children, and keep `ignoreinvisible = yes` on the container
     so hidden wonder levels do not reserve space.
+    This "size itself from its children" behavior (`set_parent_size_to_minimum = yes`
+    on a `vbox`) has a sharp edge that bites specifically on WIDTH: it computes the
+    vbox's size from the MINIMUM size each child reports, not from any
+    `layoutpolicy_horizontal`/`size` set on the vbox or its own parent `widget`. A bare
+    `text_multi` with only `max_width`/`autoresize`/`layoutpolicy_horizontal = expanding`
+    (no `minimumsize` of its own) reports a 0 intrinsic width, so it silently zeroes out
+    the whole chain — the vbox (and anything wrapping it) collapses to margin-only width,
+    and the text renders unselectable at effectively 0 width, with no error in the log.
+    Give every bare `text_multi`/leaf that sits inside a `set_parent_size_to_minimum`
+    vbox its own `minimumsize = { W -1 }` matching its `max_width`, even though the row/
+    container above it already looks correctly constrained — a correctly-sized ancestor
+    does not help if the one leaf actually rendering content reports zero width. See
+    `docs/knowledge/anti_patterns.yaml` rule
+    `set_parent_size_to_minimum_vbox_needs_leaf_minimumsize_for_width`.
 
 15. Match scripted-effect tooltip scopes to the GUI object passed in.
     `ShowScriptedEffectForScope(..., LocationView.GetLocation.MakeScope.Self)`

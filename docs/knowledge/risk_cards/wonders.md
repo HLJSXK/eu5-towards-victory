@@ -415,6 +415,40 @@ generators.
     hint. Fixed 2026-07-12 by adding `layoutpolicy_horizontal = expanding` as the first property
     of that hbox. See `docs/knowledge/anti_patterns.yaml` rule
     `hbox_explicit_size_without_layoutpolicy_horizontal_collapses_to_content_width`.
+    A sixth follow-up, found when the user reported the ceremony-finalized text ("the wonder
+    has already completed its inauguration") also rendering narrow and tall: this one is a
+    DIFFERENT mechanism from the fifth follow-up above, not the same fix applied one level up.
+    `TV_ENGINEERING_CEREMONY_ACTION_ONGOING`/`_FINALIZED_TEXT` (`:10520-10536`) are bare
+    `text_multi` leaves (only `max_width`/`autoresize`/`layoutpolicy_horizontal = expanding`, no
+    `minimumsize`) inside a `vbox` that uses `set_parent_size_to_minimum = yes` (`:8132`/`:8224`,
+    the standard auto-height chain from the third follow-up above). `set_parent_size_to_minimum`
+    computes the vbox's OWN size from the minimum size each child reports, not from any
+    `layoutpolicy_horizontal`/`size` on the vbox or its parent widget -- two live-tested guesses
+    confirmed this: adding `ignoreinvisible = yes` to a sibling hbox did nothing (wrong
+    container), and adding/removing `layoutpolicy_horizontal`/`layoutpolicy_vertical`/explicit
+    `size` on the ancestor `widget = { size = { 470 -1 } ... }` (`:8128`) and its `vbox` (`:8132`)
+    also did nothing -- the user's own measurements showed the vbox stuck at exactly its own
+    doubled horizontal margin (8 = 4+4) regardless, and removing the widget's own
+    `layoutpolicy_vertical = shrinking` broke the widget's OWN width too (470 -> 8). The real fix:
+    give the bare `text_multi` itself `minimumsize = { 462 -1 }` matching its `max_width`, so it
+    reports a real width instead of 0 into the `set_parent_size_to_minimum` computation. Fixed
+    2026-07-12. Rule 14 in `docs/knowledge/risk_cards/gui.md` and the tooltip-row paragraph in
+    `docs/technical/EU5_Modding_Knowledge_Base.md` already said to give the ROW a `minimumsize`
+    under `set_parent_size_to_minimum` -- neither said the LEAF content widget also needs one,
+    which is why this took three attempts instead of one doc lookup; both docs are now corrected.
+    See `docs/knowledge/anti_patterns.yaml` rule
+    `set_parent_size_to_minimum_vbox_needs_leaf_minimumsize_for_width`.
+    Two more bare leaves were found sharing the exact same vbox (`:8132`) and fixed the same
+    way: `TV_ENGINEERING_CEREMONY_HELP_TEXT` (`:8140`) and `TV_ENGINEERING_CEREMONY_LOCKED_
+    BY_EXPANSION_TEXT` (`:8211`). A quick project-wide regex/brace scan for other bare
+    `text_multi` leaves under a `set_parent_size_to_minimum` ancestor produced far more false
+    positives than real hits -- it cannot tell that an intervening fully-literal-sized `widget`
+    (explicit numeric width AND height, e.g. the `size = { 462 136 }` boxes at `:8263`/
+    `:8298`-style ritual-requirement rows) breaks the dependency chain and makes everything
+    inside it safe regardless of ancestors further up. Do not trust a naive scan for this
+    pattern; a real fix needs a `needs_parser` `validate.py` check that tracks whether such a
+    literal-size wrapper intervenes before treating a `set_parent_size_to_minimum` ancestor as
+    live.
 
 ## Validation
 
