@@ -4,6 +4,21 @@
 # Do not edit directly - modify the data file and re-run the generator.
 # Target: src/in_game/common/scripted_effects/tv_wonder_ceremony_effects.txt
 
+tv_wonder_ceremony_begin_effect = {
+	if = {
+		limit = {
+			tv_wonder_selected_unique_ceremony_framework_trigger = yes
+			NOT = { has_variable = tv_wonder_ritual_in_progress }
+		}
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		set_variable = { name = tv_wonder_ceremony_stage value = 0 }
+		set_variable = { name = tv_wonder_ceremony_quarter_month value = 0 }
+		tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes
+	}
+}
+
 tv_wonder_ceremony_monthly_tick_effect = {
 	if = {
 		limit = { NOT = { has_variable = tv_wonder_ceremony_stage } }

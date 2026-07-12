@@ -34,6 +34,30 @@ SCRIPT_REL = "scripts/in_game/common/scripted_effects/gen_tv_wonder_ceremony_eff
 DATA_REL = "data/unique_wonders.yaml + data/wonder_generic_rituals.yaml"
 
 
+def append_begin_effect(lines: list[str]) -> None:
+    """Start the shared ceremony at stage zero without consuming a monthly tick.
+
+    Construction completion invokes this after the selected ritual cache has been
+    populated.  Leaving the progress effect untouched here makes the first
+    stage transition occur only after three subsequent monthly pulses.
+    """
+    lines.append("tv_wonder_ceremony_begin_effect = {")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{")
+    lines.append(f"{T}{T}{T}tv_wonder_selected_unique_ceremony_framework_trigger = yes")
+    lines.append(f"{T}{T}{T}NOT = {{ has_variable = tv_wonder_ritual_in_progress }}")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}{T}tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes")
+    lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_ritual_in_progress value = 1 }}")
+    lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_ceremony_locked value = 1 }}")
+    lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_ceremony_stage value = 0 }}")
+    lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_ceremony_quarter_month value = 0 }}")
+    lines.append(f"{T}{T}tv_wonder_mechanics_apply_selected_ritual_snapshot_effect = yes")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+
 def append_monthly_tick(lines: list[str]) -> None:
     lines.append("tv_wonder_ceremony_monthly_tick_effect = {")
     lines.append(f"{T}if = {{")
@@ -141,6 +165,7 @@ def append_advance_stage_effects(lines: list[str]) -> None:
 def generate() -> str:
     wonders, mechanics = ceremony_wonders_and_mechanics()
     lines = render_header(SCRIPT_REL, DATA_REL, script_rel(OUT_FILE))
+    append_begin_effect(lines)
     append_monthly_tick(lines)
     append_stage_cost_dispatch(lines, wonders)
     append_stage_1_reward_dispatch(lines, wonders, mechanics)

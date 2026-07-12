@@ -11,56 +11,6 @@ vbox = {
 	ignoreinvisible = yes
 	spacing = 4
 	tv_engineering_department_card_common = {
-		visible = "[And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').GetValue, '(CFixedPoint)1.0')), And(Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').IsSet), And(Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)101.0'))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)102.0'))))))]"
-		layoutpolicy_vertical = fixed
-		minimumsize = { 462 144 }
-		maximumsize = { 462 144 }
-		blockoverride "header_size" { size = { -1 0 } }
-		blockoverride "header_decor_templates" {}
-		blockoverride "common_header" {}
-		blockoverride "common_bottom_content" {
-			hbox = {
-				size = { 432 104 }
-				spacing = 8
-				widget = {
-				layoutpolicy_horizontal = fixed
-				size = { 64 104 }
-					piechart = {
-						size = { 52 52 }
-						minimumsize = { 52 52 }
-						parentanchor = center
-						widgetanchor = center
-						using = piechart_angles
-						using = bg_circle_piechart_big
-						pieslice = {
-							texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds"
-							value = 0.125
-							color = { 0.95 0.76 0.25 1 }
-						}
-						pieslice = {
-							texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds"
-							value = 0.875
-							color = { 1 1 1 0 }
-						}
-						text_single = {
-							parentanchor = center
-							size = { 100% 100% }
-							raw_text = "@construction!"
-							fontsize = 17
-							align = center|nobaseline
-						}
-					}
-				}
-				vbox = {
-					layoutpolicy_horizontal = expanding
-					spacing = 4
-					text_single = { text = "TV_WONDER_CEREMONY_READY_LABEL" align = nobaseline|left }
-					text_multi = { max_width = 344 autoresize = yes text = "TV_WONDER_CEREMONY_READY_DESC" align = nobaseline|left }
-				}
-				expand = {}
-		}
-	}
-	tv_engineering_department_card_common = {
 		visible = "[And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_stage').GetValue, '(CFixedPoint)0.0'))]"
 		layoutpolicy_vertical = fixed
 		minimumsize = { 462 144 }

@@ -54,8 +54,6 @@ def generate() -> str:
             lines.append(f" {line}")
         else:
             lines.append("")
-    lines.append(' TV_WONDER_CEREMONY_READY_LABEL:0 "八阶段仪式已就绪"')
-    lines.append(' TV_WONDER_CEREMONY_READY_DESC:0 "执行仪式后将进入第 1 阶段。此后每三个月会出现下一阶段事件，完成当前阶段的献纳后才能继续。"')
     for stage in range(1, STAGE_COUNT + 1):
         lines.append(f' {pay_option_key(stage)}:0 "支付代价。"')
         lines.append(f' {decline_option_key(stage)}:0 "暂缓。"')

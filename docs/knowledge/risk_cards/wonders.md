@@ -229,13 +229,24 @@ generators.
     `{type, value}` entries, validated by `_validate_ceremony_stage_cost` /
     `SUPPORTED_CEREMONY_STAGE_COST_TYPES` in `scripts/wonder_mechanics/_core.py`)
     instead of the wonder's single `ritual.cost_type` being repeated
-    identically at every stage — `ritual.cost_type` itself is untouched and
-    still only gates/prices the one-time "confirm ceremony" action
-    (`tv_wonder_confirm_ceremony*` in
-    `tv_engineering_department_wonder_mechanics_actions.txt`), a separate cost
-    layer from the per-stage one. The stage flavor and each stage's `cost`
-    remain authored per wonder, while the three reward channels deliberately
-    reuse the matching generic mechanic: stage 1 applies
+    identically at every stage. The framework has no manual confirmation
+    entry: `tv_wonder_finish_construction_effect` calls
+    `tv_wonder_initialize_ceremony_runtime_state_effect`, which selects style
+    1, refreshes the selected-ritual cache, and calls
+    `tv_wonder_ceremony_begin_effect`. That effect must be limited to
+    `tv_wonder_selected_unique_ceremony_framework_trigger` (the 121
+    `ceremony != null` unique wonders), clear prior runtime state, set
+    `tv_wonder_ritual_in_progress`, `tv_wonder_ceremony_locked`,
+    `tv_wonder_ceremony_stage = 0`, and
+    `tv_wonder_ceremony_quarter_month = 0`, without calling the completion or
+    monthly-tick effect. The first stage event is therefore emitted only after
+    three later monthly pulses. Keep the framework exclusion in
+    `tv_wonder_ceremony_ready_for_confirmation_trigger`; do not restore a
+    ready card or shared Hold Ceremony button. Pharos Lighthouse and Hagia
+    Sophia remain outside that trigger and retain their dedicated manual
+    buttons. The stage flavor and each stage's `cost` remain authored per
+    wonder, while the three reward channels deliberately reuse the matching
+    generic mechanic: stage 1 applies
     `generic_rituals[mechanic_key].style_3.reward` (including a
     `location_scalar` reward inside `var:tv_wonder_site`), stage 4 constructs
     `tv_wonder_{mechanic_key}_ritual_annex`, and stage 8 applies the unique
@@ -284,8 +295,8 @@ generators.
     via `@icon!`. Do not route ceremony-card icons through `GetConceptTexture`:
     these are step-state glyphs, not wonder illustrations.
     The outer Ceremony card is 500px wide, but its content column is 462px;
-    every ready/stage nested card must therefore use a fixed 462px width, not
-    500px, or the card margins expand the tab to roughly 538px at runtime.
+    every nested stage card must therefore use a fixed 462px width, not 500px,
+    or the card margins expand the tab to roughly 538px at runtime.
     `gen_tv_wonder_ceremony_cards_gui.py`'s per-stage `visible` line used
     `And(a, b, c)` (3 operands) — GUI `And`/`Or` are binary-only; use `And3(...)`
     for exactly three operands (see the GUI risk card / `gui_boolean_helper_arity`).

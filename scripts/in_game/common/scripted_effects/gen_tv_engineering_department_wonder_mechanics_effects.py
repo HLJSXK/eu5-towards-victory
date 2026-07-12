@@ -1735,7 +1735,11 @@ def append_ritual_effects(lines: list[str], all_wonders: list[dict], mechanics: 
     lines.append("tv_wonder_mechanics_start_deferred_immediate_ritual_effect = {")
     first = True
     for wonder, style, ritual_plan in ritual_entry_list:
-        if ritual_plan["mode"] != "immediate" or not ritual_uses_deferred_completion(ritual_plan):
+        if (
+            ritual_plan["mode"] != "immediate"
+            or not ritual_uses_deferred_completion(ritual_plan)
+            or wonder.get("ceremony") is not None
+        ):
             continue
         head = "if" if first else "else_if"
         first = False

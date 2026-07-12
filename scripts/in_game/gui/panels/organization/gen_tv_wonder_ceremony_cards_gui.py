@@ -19,6 +19,10 @@ color_light_green_texture done). The outer Ceremony card is 500px wide; its
 content column is 462px wide, so every nested ceremony card is exactly 462px
 wide and cannot expand the parent -- see docs/knowledge/risk_cards/wonders.md
 for the verified piechart, dynamic-localization, and bounded-text precedents.
+
+There is no ready state: a newly initialized ceremony has stage 0, which makes
+only its first card visible and in progress. Each advancement completes the
+current card and reveals the next one in progress.
 """
 
 import sys
@@ -56,19 +60,6 @@ STAGE_ICONS = {
     7: "art_work",
     8: "building_open",
 }
-
-
-def ready_card_visible() -> str:
-    locked = f"{PLAYER}.GetVariable('tv_wonder_locked')"
-    is_unique = f"{PLAYER}.GetVariable('tv_wonder_locked_is_unique')"
-    stage = f"{PLAYER}.GetVariable('tv_wonder_ceremony_stage')"
-    pharos = f"And({locked}.IsSet, EqualTo_CFixedPoint({locked}.GetValue, '(CFixedPoint)101.0'))"
-    hagia = f"And({locked}.IsSet, EqualTo_CFixedPoint({locked}.GetValue, '(CFixedPoint)102.0'))"
-    return (
-        f"And3({locked}.IsSet, "
-        f"And({is_unique}.IsSet, EqualTo_CFixedPoint({is_unique}.GetValue, '(CFixedPoint)1.0')), "
-        f"And(Not({stage}.IsSet), And(Not({pharos}), Not({hagia}))))"
-    )
 
 
 def stage_value() -> str:
@@ -133,41 +124,6 @@ def append_piechart(
     lines.append(f"{T}{T}{T}{T}{T}{T}{T}align = center|nobaseline")
     lines.append(f"{T}{T}{T}{T}{T}{T}}}")
     lines.append(f"{T}{T}{T}{T}{T}}}")
-
-
-def append_ready_card(lines: list[str]) -> None:
-    lines.append(f"{T}tv_engineering_department_card_common = {{")
-    lines.append(f'{T}{T}visible = "[{ready_card_visible()}]"')
-    lines.append(f"{T}{T}layoutpolicy_vertical = fixed")
-    lines.append(f"{T}{T}minimumsize = {{ {CARD_WIDTH} {CARD_HEIGHT} }}")
-    lines.append(f"{T}{T}maximumsize = {{ {CARD_WIDTH} {CARD_HEIGHT} }}")
-    lines.append(f"{T}{T}blockoverride \"header_size\" {{ size = {{ -1 0 }} }}")
-    lines.append(f"{T}{T}blockoverride \"header_decor_templates\" {{}}")
-    lines.append(f"{T}{T}blockoverride \"common_header\" {{}}")
-    lines.append(f"{T}{T}blockoverride \"common_bottom_content\" {{")
-    lines.append(f"{T}{T}{T}hbox = {{")
-    lines.append(f"{T}{T}{T}{T}size = {{ {CARD_CONTENT_WIDTH} 104 }}")
-    lines.append(f"{T}{T}{T}{T}spacing = 8")
-    lines.append(f"{T}{T}{T}{T}widget = {{")
-    lines.append(f"{T}{T}{T}{T}layoutpolicy_horizontal = fixed")
-    lines.append(f"{T}{T}{T}{T}size = {{ {ICON_COLUMN_WIDTH} 104 }}")
-    append_piechart(
-        lines,
-        icon="construction",
-        value=0.125,
-        texture="gfx/interface/pie_charts/pie_chart_alpha_80.dds",
-        color="{ 0.95 0.76 0.25 1 }",
-    )
-    lines.append(f"{T}{T}{T}{T}}}")
-    lines.append(f"{T}{T}{T}{T}vbox = {{")
-    lines.append(f"{T}{T}{T}{T}{T}layoutpolicy_horizontal = expanding")
-    lines.append(f"{T}{T}{T}{T}{T}spacing = 4")
-    lines.append(f'{T}{T}{T}{T}{T}text_single = {{ text = "TV_WONDER_CEREMONY_READY_LABEL" align = nobaseline|left }}')
-    lines.append(f'{T}{T}{T}{T}{T}text_multi = {{ max_width = {TEXT_MAX_WIDTH} autoresize = yes text = "TV_WONDER_CEREMONY_READY_DESC" align = nobaseline|left }}')
-    lines.append(f"{T}{T}{T}{T}}}")
-    lines.append(f"{T}{T}{T}{T}expand = {{}}")
-    lines.append(f"{T}{T}}}")
-    lines.append(f"{T}}}")
 
 
 def append_card(lines: list[str], stage: int) -> None:
@@ -283,7 +239,6 @@ def generate() -> str:
     lines.append(f"{T}layoutpolicy_horizontal = expanding")
     lines.append(f"{T}ignoreinvisible = yes")
     lines.append(f"{T}spacing = 4")
-    append_ready_card(lines)
     for stage in range(1, STAGE_COUNT + 1):
         append_card(lines, stage)
     lines.append("}")

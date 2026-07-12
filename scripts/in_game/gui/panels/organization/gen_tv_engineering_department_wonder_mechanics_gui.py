@@ -11,7 +11,6 @@ sys.path.insert(0, str(REPO_ROOT / "scripts"))
 from wonder_mechanics.io import load_all_wonder_mechanics_data
 from wonder_mechanics.naming import mechanic_key
 from wonder_mechanics.render import render_header
-from wonder_mechanics.rituals import WONDER_RITUAL_COST_TYPE_IDS
 from wonder_mechanics.schema import (
     suitability_current_actual_variable,
     suitability_current_revealed_variable,
@@ -120,19 +119,6 @@ def not_pharos_locked_expr() -> str:
 
 def not_hagia_locked_expr() -> str:
     return f"Not({hagia_locked_expr()})"
-
-
-def not_special_unique_locked_expr() -> str:
-    # Wonders with a complete, dedicated Unique Wonder Ritual GUI card (see
-    # scripts/unique_wonder_ritual_content/) must not also show the generic
-    # unique-ritual "requirements"/"effects" placeholder card.
-    return fold_bool(
-        "And",
-        [
-            not_pharos_locked_expr(),
-            not_hagia_locked_expr(),
-        ],
-    )
 
 
 def special_unique_locked_expr() -> str:
@@ -737,13 +723,6 @@ def hold_button_base_visible(max_wonder_id: int) -> str:
     )
 
 
-def selected_ritual_cost_visible(cost_type_id: int) -> str:
-    return (
-        f"And({PLAYER}.GetVariable('tv_wonder_selected_ritual_cost_type').IsSet, "
-        f"{eq('tv_wonder_selected_ritual_cost_type', cost_type_id)})"
-    )
-
-
 def hold_button(
     action_name: str,
     visible: str,
@@ -1114,20 +1093,8 @@ def generate() -> str:
     lines.append("")
     lines.append("### BEGIN TV_WONDER_MECHANICS_HOLD_BUTTONS")
     base_visible = hold_button_base_visible(max_wonder_id)
-    generic_hold_visible = f"And({base_visible}, {not_special_unique_locked_expr()})"
     pharos_hold_visible = f"And({base_visible}, {pharos_locked_expr()})"
     hagia_hold_visible = f"And({base_visible}, {hagia_locked_expr()})"
-    gold_visible = f"And({generic_hold_visible}, {selected_ritual_cost_visible(WONDER_RITUAL_COST_TYPE_IDS['scaled_gold'])})"
-    prestige_visible = f"And({generic_hold_visible}, {selected_ritual_cost_visible(WONDER_RITUAL_COST_TYPE_IDS['prestige'])})"
-    free_visible = (
-        f"And3({generic_hold_visible}, "
-        f"{PLAYER}.GetVariable('tv_wonder_selected_ritual_cost_type').IsSet, "
-        f"Not(Or({selected_ritual_cost_visible(WONDER_RITUAL_COST_TYPE_IDS['scaled_gold'])}, "
-        f"{selected_ritual_cost_visible(WONDER_RITUAL_COST_TYPE_IDS['prestige'])})))"
-    )
-    lines.append(hold_button("tv_wonder_confirm_ceremony", free_visible))
-    lines.append(hold_button("tv_wonder_confirm_ceremony_scaled_gold", gold_visible))
-    lines.append(hold_button("tv_wonder_confirm_ceremony_prestige", prestige_visible))
     lines.append(
         hold_button(
             "tv_wonder_confirm_ceremony",
