@@ -26,6 +26,7 @@ PATH_COLOR_TEXTURES = {
 }
 
 VICTORY_REWARD_ICON_DIR = "gfx/interface/icons/towards_victory/victory_rewards"
+VICTORY_TREE_ICON_DIR = "gfx/interface/icons/towards_victory/victory_trees"
 VICTORY_SITUATION_ICON = "gfx/interface/icons/situations/tv_victory_situation.dds"
 
 HEADER = """\
@@ -86,6 +87,10 @@ def reward_modifier_id(pid: str, n: int, choice: int) -> str:
 
 def reward_icon_path(pid: str, n: int, choice: int) -> str:
     return f"{VICTORY_REWARD_ICON_DIR}/tv_victory_{pid}_m{n}_reward_{choice}.dds"
+
+
+def tree_background_path(pid: str) -> str:
+    return f"{VICTORY_TREE_ICON_DIR}/tv_victory_{pid}_tree.dds"
 
 
 def milestone_label_key(n: int) -> str:
@@ -778,6 +783,19 @@ def append_establishment_card(lines: list[str], level: int, path: dict, est: dic
     emit(lines, level, "}")
 
 
+def append_tree_background(lines: list[str], level: int, path: dict) -> None:
+    pid = path["id"]
+    emit(lines, level, "widget = {")
+    emit(lines, level + 1, "layoutpolicy_horizontal = expanding")
+    emit(lines, level + 1, "layoutpolicy_vertical = fixed")
+    emit(lines, level + 1, "size = { -1 220 }")
+    emit(lines, level + 1, "background = {")
+    emit(lines, level + 2, f'texture = "{tree_background_path(pid)}"')
+    emit(lines, level + 2, "spriteType = stretched")
+    emit(lines, level + 1, "}")
+    emit(lines, level, "}")
+
+
 def append_victory_progress_content(lines: list[str], level: int, path: dict) -> None:
     emit(lines, level, "vbox = {")
     emit(lines, level + 1, f'visible = "[{victory_enabled_expr(path["id"])}]"')
@@ -785,6 +803,7 @@ def append_victory_progress_content(lines: list[str], level: int, path: dict) ->
     emit(lines, level + 1, "layoutpolicy_vertical = fixed")
     emit(lines, level + 1, "ignoreinvisible = yes")
     emit(lines, level + 1, "spacing = 14")
+    append_tree_background(lines, level + 1, path)
     append_path_overview_card(lines, level + 1, path)
     append_progress_and_rewards(lines, level + 1, path)
     append_leaderboard(lines, level + 1, path)
@@ -808,6 +827,7 @@ def append_path_page(lines: list[str], level: int, path: dict, est: dict | None)
         emit(lines, level + 1, "}")
         append_victory_progress_content(lines, level + 1, path)
     else:
+        append_tree_background(lines, level + 1, path)
         append_path_overview_card(lines, level + 1, path)
         append_progress_and_rewards(lines, level + 1, path)
         append_leaderboard(lines, level + 1, path)
