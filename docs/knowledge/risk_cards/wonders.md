@@ -450,6 +450,31 @@ generators.
     literal-size wrapper intervenes before treating a `set_parent_size_to_minimum` ancestor as
     live.
 
+22. `tv_wonder_surveyed` is a shared gate for three different consumers — seed it atomically
+    with priority-candidate registration, never separately.
+    `tv_wonder_initialize_existing_unique_wonders_effect`
+    (`append_existing_unique_wonders_initialization_effect` in
+    `gen_tv_engineering_department_wonder_mechanics_effects.py`, feeding
+    `generate_location_display_effects()` -> `tv_wonder_location_display_effects.txt`, not the
+    file's own `OUT_FILE`/`generate()`) fires on both `on_game_start` and `on_game_load`. The
+    `NOT is_key_in_variable_map(tv_wonder_surveyed, wonder_id)` guard around
+    `append_register_existing_unique_priority_candidate` exists so that reloading a save does not
+    re-register the priority candidate every time. The same `tv_wonder_surveyed` map is also
+    read by `tv_wonder_mechanics_copy_completed_survey_from_location_effect` (restores saved
+    competence into the country's active project) and by
+    `tv_wonder_selected_survey_already_cached_trigger` (checked from
+    `tv_wonder_mechanics_start_survey_effect` to decide whether reassigning the survey site to a
+    location restores cached competence or starts a fresh survey from 0). Because the
+    existing-wonder priority-resume path (`tv_wonder_prepare_priority_project_effect`) never
+    runs a real survey, `tv_wonder_surveyed` was never being set for these wonders at all, so
+    reassigning the survey site to that location always took the from-0 branch. Fix: seed
+    `tv_wonder_surveyed=1` plus `tv_wonder_survey_scale_competence` / `..._logistics_competence`
+    / `..._organization_competence` / `..._scale_tier` for that wonder id inside the SAME
+    not-yet-surveyed guarded block that calls `append_register_existing_unique_priority_candidate`
+    — this satisfies all three consumers at once instead of requiring a second map or a
+    conflicting gate. See `docs/knowledge/anti_patterns.yaml` rule
+    `wonder_existing_wonder_location_never_seeded_as_surveyed`.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`: it lints rule 2 and rule 16 automatically, and when a
