@@ -19,14 +19,14 @@ TASK_POOL_REL = "data/task_pool.yaml"
 # YAML list, independent of any single mechanic's data (see the file's own header comment).
 # The first three are one-shot units (magnitude only, always positive) — there is no separate
 # "cost" category: a cost is simply the negative of the matching reward value, applied by
-# whichever system consumes it. The last two are persistent per-level modifier units: real EU5
-# modifier keys extracted from the wonder system's own data, which can legitimately be negative
-# (e.g. a cost-reduction modifier is beneficial as a negative number).
+# whichever system consumes it. The last two are persistent modifier units: numeric entries are
+# per-level values and country_modifier may also contain unscaled boolean unlocks. Numeric values
+# can legitimately be negative (e.g. a cost-reduction modifier is beneficial as a negative number).
 CATEGORY_DEFS = (
     {"key": "country_reward", "label_en": "Country-level Reward", "label_zh": "国家级奖励"},
     {"key": "local_reward", "label_en": "Local-level Reward", "label_zh": "本地级奖励"},
     {"key": "character_reward", "label_en": "Character-level Reward", "label_zh": "角色级奖励"},
-    {"key": "country_modifier", "label_en": "Country-level Modifier (per level)", "label_zh": "国家级 Modifier（每级）"},
+    {"key": "country_modifier", "label_en": "Country-level Modifier / Unlock", "label_zh": "国家级 Modifier / 解锁"},
     {"key": "local_modifier", "label_en": "Local-level Modifier (per level)", "label_zh": "本地级 Modifier（每级）"},
 )
 CATEGORY_KEYS = tuple(category["key"] for category in CATEGORY_DEFS)
@@ -105,11 +105,16 @@ class CostRewardEditorService:
                 raise KeyError(f"Unknown unit id in {category_key}: {token_id}")
             token = by_id[token_id]
             if "value" in fields:
-                value = _parse_scalar(fields["value"])
-                if value == 0:
-                    raise ValueError(f"{category_key}.{token_id}.value must not be zero")
-                if category_key not in MODIFIER_CATEGORY_KEYS and value <= 0:
-                    raise ValueError(f"{category_key}.{token_id}.value must be a positive number")
+                if isinstance(token.get("value"), bool):
+                    if category_key != "country_modifier":
+                        raise ValueError(f"{category_key}.{token_id}.value cannot be a boolean unlock")
+                    value = _parse_bool(fields["value"])
+                else:
+                    value = _parse_scalar(fields["value"])
+                    if value == 0:
+                        raise ValueError(f"{category_key}.{token_id}.value must not be zero")
+                    if category_key not in MODIFIER_CATEGORY_KEYS and value <= 0:
+                        raise ValueError(f"{category_key}.{token_id}.value must be a positive number")
                 token["value"] = value
 
     def _apply_on_action_task_edits(self, edits: dict[str, dict[str, Any]]) -> None:
@@ -200,7 +205,11 @@ def _check_cost_reward(data: dict) -> list[str]:
             total += 1
             token_id = token.get("id", "?")
             value = token.get("value")
-            if not isinstance(value, (int, float)) or isinstance(value, bool) or value == 0:
+            if isinstance(value, bool):
+                if category_key != "country_modifier":
+                    lines.append(f"[FAIL] {category_key}.{token_id}: boolean unlocks are only valid for country_modifier")
+                continue
+            if not isinstance(value, (int, float)) or value == 0:
                 lines.append(f"[FAIL] {category_key}.{token_id}: value must be a nonzero number, got {value!r}")
             elif category_key not in MODIFIER_CATEGORY_KEYS and value <= 0:
                 lines.append(f"[FAIL] {category_key}.{token_id}: value must be a positive number, got {value!r}")
