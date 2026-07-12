@@ -783,16 +783,19 @@ def append_establishment_card(lines: list[str], level: int, path: dict, est: dic
     emit(lines, level, "}")
 
 
+TREE_BACKGROUND_WIDTH = 508
+TREE_BACKGROUND_HEIGHT = round(TREE_BACKGROUND_WIDTH * 1152 / 2048)
+
+
 def append_tree_background(lines: list[str], level: int, path: dict) -> None:
     pid = path["id"]
     emit(lines, level, "widget = {")
-    emit(lines, level + 1, "layoutpolicy_horizontal = expanding")
+    emit(lines, level + 1, "layoutpolicy_horizontal = fixed")
     emit(lines, level + 1, "layoutpolicy_vertical = fixed")
-    emit(lines, level + 1, "size = { -1 220 }")
+    emit(lines, level + 1, f"size = {{ {TREE_BACKGROUND_WIDTH} {TREE_BACKGROUND_HEIGHT} }}")
     emit(lines, level + 1, "background = {")
     emit(lines, level + 2, f'texture = "{tree_background_path(pid)}"')
     emit(lines, level + 2, "spriteType = Stretched")
-    emit(lines, level + 2, "fittype = centercrop")
     emit(lines, level + 1, "}")
     emit(lines, level, "}")
 
