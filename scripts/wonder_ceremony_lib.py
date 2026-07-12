@@ -17,13 +17,14 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from wonder_mechanics.io import load_unique_wonders  # noqa: E402
+from wonder_mechanics.io import load_all_wonder_mechanics  # noqa: E402
 from wonder_mechanics.rituals import STYLE_3_REWARD_EFFECTS  # noqa: E402
 
 T = "\t"
 NAMESPACE = "tv_engineering_department"
 EVENT_ID_START = 9300
 STAGE_COUNT = 8
+COMPLETION_EVENT_ID = EVENT_ID_START + STAGE_COUNT
 CEREMONY_IMAGE = "gfx/interface/icons/towards_victory/wonders/tv_wonder_construction_cropped.dds"
 
 def script_rel(path: Path) -> str:
@@ -41,13 +42,24 @@ def render_header(script: str, data: str, target: str) -> list[str]:
     ]
 
 
-def ceremony_wonders() -> list[dict]:
-    """Every unique wonder that carries a `ceremony` block (excludes Pharos/Hagia)."""
-    wonders = load_unique_wonders()
-    return sorted(
-        (w for w in wonders if w.get("ceremony") is not None),
+def ceremony_wonders_and_mechanics() -> tuple[list[dict], dict]:
+    """Ceremony-enabled unique wonders and the generic reward data they reuse."""
+    wonders, mechanics = load_all_wonder_mechanics()
+    ceremony_wonders = sorted(
+        (wonder for wonder in wonders if wonder.get("is_unique") and wonder.get("ceremony") is not None),
         key=lambda w: int(w["id"]),
     )
+    return ceremony_wonders, mechanics
+
+
+def ceremony_wonders() -> list[dict]:
+    """Every unique wonder that carries a `ceremony` block (excludes Pharos/Hagia)."""
+    return ceremony_wonders_and_mechanics()[0]
+
+
+def stage_1_reward_for_wonder(wonder: dict, mechanics: dict) -> list[dict]:
+    """Reuse the matching generic style-3 reward as the ceremony's immediate reward."""
+    return mechanics["generic_rituals"][wonder["mechanic_key"]]["style_3"]["reward"]
 
 
 def stage_event_id(stage: int) -> int:
@@ -73,12 +85,10 @@ def decline_option_key(stage: int) -> str:
 
 def reward_effect_lines(reward: list[dict], indent: int, allow_artwork: bool = False) -> list[str]:
     """Mirrors gen_tv_engineering_department_wonder_mechanics_effects.py's
-    country_reward_effect_lines() for the same STYLE_3_REWARD_EFFECTS vocabulary,
-    restricted to the country-scope subset the content batches were briefed on
-    (country_scalar / country_value_block / country_scale_block / ruler_scalar /
-    culture_scalar). Stage-1 rewards must never see an "artwork" entry (it has no
-    scalar effect), so it only renders when allow_artwork=True, which the per-stage
-    ceremony cost dispatch opts into."""
+    reward_effect_lines() for the same STYLE_3_REWARD_EFFECTS vocabulary. Stage-one
+    rewards retain site-scoped entries, while ceremony costs are restricted by the
+    data validator. An "artwork" entry has no scalar effect, so it only renders when
+    allow_artwork=True, which the per-stage ceremony cost dispatch opts into."""
     prefix = T * indent
     lines: list[str] = []
     for entry in reward:
@@ -102,6 +112,8 @@ def reward_effect_lines(reward: list[dict], indent: int, allow_artwork: bool = F
             lines.append(f"{prefix}ruler ?= {{ {effect} = {value} }}")
         elif scope == "culture_scalar":
             lines.append(f"{prefix}culture = {{ {effect} = {value} }}")
+        elif scope == "location_scalar":
+            lines.append(f"{prefix}var:tv_wonder_site ?= {{ {effect} = {value} }}")
         else:
             raise ValueError(f"Unsupported ceremony reward scope: {scope}")
     return lines

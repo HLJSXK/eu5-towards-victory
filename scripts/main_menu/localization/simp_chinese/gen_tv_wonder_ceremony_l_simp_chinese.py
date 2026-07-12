@@ -1,5 +1,6 @@
 """Generate Simplified Chinese localization for the Unique Wonder Ceremony framework."""
 
+import re
 import sys
 from pathlib import Path
 
@@ -28,6 +29,17 @@ def q(text: str) -> str:
     return text.replace('"', '\\"')
 
 
+def first_sentence(text: str) -> str:
+    match = re.search(r"[。！？]", text)
+    return text[: match.end()] if match else text
+
+
+def card_flavor_text(stage_data: dict, status: str) -> str:
+    title = q(stage_data["title_zh"])
+    flavor = q(first_sentence(stage_data["desc_zh"]))
+    return f"{status} — #high {title}#!\\n#F {flavor}#!"
+
+
 def ceremony_hint(stage: int) -> str:
     if stage < STAGE_COUNT:
         return "\\n\\n#weak 支付所需的代价，即可将仪式推进至下一阶段；若尚未准备好，也可以静待时机。#!"
@@ -47,10 +59,17 @@ def generate() -> str:
     for stage in range(1, STAGE_COUNT + 1):
         lines.append(f' {pay_option_key(stage)}:0 "支付代价。"')
         lines.append(f' {decline_option_key(stage)}:0 "暂缓。"')
-        lines.append(f' TV_WONDER_CEREMONY_CARD_STAGE_{stage}_LABEL:0 "第 {stage} / 8 阶段"')
     for wonder in wonders:
         stages = wonder["ceremony"]["stages"]
         for stage_index, stage_data in enumerate(stages, start=1):
+            lines.append(
+                f' TV_WONDER_CEREMONY_CARD_ACTIVE_S{stage_index}_{wonder["id"]}:0 '
+                f'"{card_flavor_text(stage_data, "#Y 进行中#!")}"'
+            )
+            lines.append(
+                f' TV_WONDER_CEREMONY_CARD_COMPLETED_S{stage_index}_{wonder["id"]}:0 '
+                f'"{card_flavor_text(stage_data, "#G 已完成#!")}"'
+            )
             lines.append(f' {title_key(stage_index, wonder["id"])}:0 "{q(stage_data["title_zh"])}"')
             lines.append(
                 f' {desc_key(stage_index, wonder["id"])}:0 "{q(stage_data["desc_zh"] + ceremony_hint(stage_index))}"'

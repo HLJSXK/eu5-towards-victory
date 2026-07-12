@@ -233,17 +233,23 @@ generators.
     still only gates/prices the one-time "confirm ceremony" action
     (`tv_wonder_confirm_ceremony*` in
     `tv_engineering_department_wonder_mechanics_actions.txt`), a separate cost
-    layer from the per-stage one. `stages` flavor text, `cost_type`,
-    `stage_1_reward`, and now each stage's `cost` differ per wonder; the
-    mechanical body (monthly tick, stage advance, stage-4 `construct_building`
-    call, stage-8 completion via the existing `ritual.completion_trigger_script`
-    gate) is still 100% shared and wonder-id-generic, following the same
-    `var:tv_wonder_locked ?= <id>` dispatch idiom already used throughout
-    `tv_wonder_finalization_effects.txt` for the other per-wonder dispatch
-    points (stage-1 reward, stage-4 building, and now each stage's
-    `tv_wonder_ceremony_pay_stage_{N}_cost_effect`). Pharos Lighthouse and
-    Hagia Sophia are excluded (`ceremony: null`) and keep their existing
-    bespoke `auxiliary_building`-mode rituals untouched.
+    layer from the per-stage one. The stage flavor and each stage's `cost`
+    remain authored per wonder, while the three reward channels deliberately
+    reuse the matching generic mechanic: stage 1 applies
+    `generic_rituals[mechanic_key].style_3.reward` (including a
+    `location_scalar` reward inside `var:tv_wonder_site`), stage 4 constructs
+    `tv_wonder_{mechanic_key}_ritual_annex`, and stage 8 applies the unique
+    ritual's permanent country modifier through the canonical completion
+    chain. Do not restore a hand-authored `ceremony.stage_1_reward` field or
+    construct the unique final building at stage 4: both duplicate or replace
+    the wrong reward channel. The shared stage-8 effect schedules the hidden
+    `tv_engineering_department.9308` event one day later; its `immediate`
+    calls `tv_wonder_complete_active_ritual_effect`, which reaches
+    `tv_wonder_finalize_effect` only after the generated custom-completion
+    trigger verifies stage 8. This keeps the heavy finalization chain out of
+    the visible event option while retaining the normal inauguration/world-news
+    path. Pharos Lighthouse and Hagia Sophia are excluded (`ceremony: null`)
+    and keep their existing bespoke `auxiliary_building`-mode rituals untouched.
     EU5 event numeric IDs must be `< 10000` (already enforced by
     `validate.py`'s `event_id` rule) — the ceremony's 8 shared events use ids
     9300-9307, not the more readable 10000-10007 originally chosen.
@@ -264,32 +270,34 @@ generators.
     existing marker's own content is unindented mid-file too). Regenerate the
     fragment, then rerun the merge script, to pick up any future changes.
     This panel's scope root is `InternationalOrganizationsView.GetPlayer.MakeScope`,
-    not `Country.MakeScope` or any bare `GetVariable` — every existing
-    `GetVariable`/`GetConceptTexture` call in this file goes through that
-    exact prefix; a first draft of the card fragment used `Country.MakeScope`
-    by mistake and had to be corrected before merging.
-    The card fragment still uses a static per-stage label
-    (`TV_WONDER_CEREMONY_CARD_STAGE_<n>_LABEL`) rather than the per-active-wonder
-    flavor text now sitting in the `TV_WONDER_CEREMONY_S<n>_DESC_<id>` loc keys:
-    wiring genuine dynamic per-wonder GUI text would need the same
-    `SelectGameConcept(condition, Concatenate('tv_wonder_display_', ToString_int32(...)), fallback)`
-    idiom already proven in `src/in_game/gui/location_window.gui` (dynamic
-    per-id concept name lookup), which requires defining new per-stage game
-    concepts (not verified/built in this pass) rather than resolving an
-    arbitrary loc key directly — do not guess a generic "resolve dynamic loc
-    key" GUI function without finding a working precedent first.
+    not `Country.MakeScope` or any bare `GetVariable`. The status text is plain,
+    non-clickable localization and must use the verified dynamic form
+    `Localize(Concatenate('TV_WONDER_CEREMONY_CARD_<ACTIVE|COMPLETED>_S<n>_',
+    ToString_int32(FixedPointToInt(...))))`, matching the working proposal-text
+    precedent at `tv_engineering_department.gui:556`; it does **not** need a
+    game-concept route. Generate both active and completed flavor keys from the
+    stage title/first description sentence, rather than reverting to `x/8`.
+    The left badge must be a real `piechart` using `piechart_angles` and two
+    `pieslice` entries, with its central `text_single` using one of the eight
+    verified built-in font icons (`government`, `topography`, `laborers`,
+    `construction`, `building_levels`, `building`, `art_work`, `building_open`)
+    via `@icon!`. Do not route ceremony-card icons through `GetConceptTexture`:
+    these are step-state glyphs, not wonder illustrations.
+    The outer Ceremony card is 500px wide, but its content column is 462px;
+    every ready/stage nested card must therefore use a fixed 462px width, not
+    500px, or the card margins expand the tab to roughly 538px at runtime.
     `gen_tv_wonder_ceremony_cards_gui.py`'s per-stage `visible` line used
     `And(a, b, c)` (3 operands) — GUI `And`/`Or` are binary-only; use `And3(...)`
     for exactly three operands (see the GUI risk card / `gui_boolean_helper_arity`).
-    Separately, the `ceremony` block's `stage_N_reward` vocabulary
+    Separately, the generic style-3 reward vocabulary
     (`STYLE_3_REWARD_EFFECTS` in `scripts/wonder_mechanics/_core.py`) must only
     list reward types whose mapped effect is a genuine scalar per
     `reference_official_defines/docs/effects.log`'s "Supported Targets" line —
     `bureaucracy` was removed after `add_bureaucracy = 12` turned out to require
     a `bureaucracy_type` target, not a number, and silently no-op'd
-    (`PostValidate of effect 'add_bureaucracy' returned false`) in all 12 ceremony
-    rewards that used it. Check effects.log before adding a new reward type to
-    this table.
+    (`PostValidate of effect 'add_bureaucracy' returned false`) in the historical
+    ceremony reward entries that used it. Check effects.log before adding a new
+    reward type to this table.
 
 21. Put ceremony-card `modify_texture` blocks inside a rendered `background`.
     `tv_engineering_department_card_common`'s `card_bg` block expands at its `vbox`

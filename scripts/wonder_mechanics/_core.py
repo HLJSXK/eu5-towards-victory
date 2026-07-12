@@ -570,7 +570,7 @@ def _validate_ceremony(value: object, context: str) -> dict | None:
     ceremony = _require_mapping(value, context)
     _expect_keys(
         ceremony,
-        required={"stage_1_reward", "stages"},
+        required={"stages"},
         optional=set(),
         context=context,
     )
@@ -582,7 +582,6 @@ def _validate_ceremony(value: object, context: str) -> dict | None:
         for index, stage in enumerate(stages_raw, start=1)
     ]
     return {
-        "stage_1_reward": _require_list(ceremony["stage_1_reward"], f"{context}.stage_1_reward"),
         "stages": stages,
     }
 

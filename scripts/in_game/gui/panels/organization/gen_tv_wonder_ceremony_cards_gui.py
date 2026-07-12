@@ -12,12 +12,13 @@ exclusive by construction, not by an explicit id check.
 
 Card layout (per stage, 8 total): built on this mod's own
 tv_engineering_department_card_common (defined in that same panel file),
-untitled (zero-height header), left column a bg_circle_piechart badge with the
-wonder's flavor icon, right column the stage's flavor text, and a state color
-overlay (color_yellow_texture in progress / color_light_green_texture done) --
-see docs/knowledge/risk_cards/wonders.md and this mod's tv_victory_situation.gui
-for the verified precedents (bg_circle_piechart usage, modify_texture overlay
-idiom, and text_multi width-bounding per risk card rule 11).
+untitled (zero-height header), left column a real piechart with a centered
+built-in stage icon, right column dynamically resolved stage flavor text, and a
+state color overlay (color_yellow_texture in progress /
+color_light_green_texture done). The outer Ceremony card is 500px wide; its
+content column is 462px wide, so every nested ceremony card is exactly 462px
+wide and cannot expand the parent -- see docs/knowledge/risk_cards/wonders.md
+for the verified piechart, dynamic-localization, and bounded-text precedents.
 """
 
 import sys
@@ -36,12 +37,25 @@ SCRIPT_REL = "scripts/in_game/gui/panels/organization/gen_tv_wonder_ceremony_car
 DATA_REL = "data/unique_wonders.yaml"
 MARKER = "TV_WONDER_CEREMONY_CARDS"
 PLAYER = "InternationalOrganizationsView.GetPlayer.MakeScope"
-# Card width 500, minus the type's default card_common_bottom_margin {15 10} (30 total),
-# minus the 60px icon column and two 4px hbox spacing gaps (icon->text, text->trailing
-# expand) leaves a 402px budget; keep a wide safety margin below that so the text column
-# cannot pull the row wider than the fixed card (see docs/knowledge/risk_cards/wonders.md
-# rule 11 and the KB's documented "expanding child blows out a bounded parent" precedent).
-TEXT_MAX_WIDTH = 340
+# The outer Ceremony card is 500px wide. Its card_common margins leave a 462px
+# content column, and each nested card has another 15px left/right margin.
+# 64px icon + 8px gap + 344px text stays below that 432px inner budget.
+CARD_WIDTH = 462
+CARD_HEIGHT = 144
+CARD_CONTENT_WIDTH = 432
+ICON_COLUMN_WIDTH = 64
+TEXT_MAX_WIDTH = 344
+
+STAGE_ICONS = {
+    1: "government",
+    2: "topography",
+    3: "laborers",
+    4: "construction",
+    5: "building_levels",
+    6: "building",
+    7: "art_work",
+    8: "building_open",
+}
 
 
 def ready_card_visible() -> str:
@@ -57,51 +71,118 @@ def ready_card_visible() -> str:
     )
 
 
+def stage_value() -> str:
+    return f"{PLAYER}.GetVariable('tv_wonder_ceremony_stage').GetValue"
+
+
+def stage_completed_visible(stage: int) -> str:
+    return (
+        f"[GreaterThanOrEqualTo_CFixedPoint({stage_value()}, "
+        f"'(CFixedPoint){stage}.0')]"
+    )
+
+
+def stage_active_visible(stage: int) -> str:
+    return f"[Not(GreaterThanOrEqualTo_CFixedPoint({stage_value()}, '(CFixedPoint){stage}.0'))]"
+
+
+def stage_flavor_text(stage: int, state: str) -> str:
+    locked = f"{PLAYER}.GetVariable('tv_wonder_locked').GetValue"
+    return (
+        f"[Localize(Concatenate('TV_WONDER_CEREMONY_CARD_{state}_S{stage}_', "
+        f"ToString_int32(FixedPointToInt({locked}))))]"
+    )
+
+
+def append_piechart(
+    lines: list[str],
+    *,
+    icon: str,
+    value: float,
+    texture: str,
+    color: str,
+    visible: str | None = None,
+) -> None:
+    """Append a rendered piechart with an inline built-in icon at its center."""
+    value_text = f"{value:g}"
+    remaining_text = f"{1 - value:g}"
+    lines.append(f"{T}{T}{T}{T}{T}piechart = {{")
+    if visible is not None:
+        lines.append(f'{T}{T}{T}{T}{T}{T}visible = "{visible}"')
+    lines.append(f"{T}{T}{T}{T}{T}{T}size = {{ 52 52 }}")
+    lines.append(f"{T}{T}{T}{T}{T}{T}minimumsize = {{ 52 52 }}")
+    lines.append(f"{T}{T}{T}{T}{T}{T}parentanchor = center")
+    lines.append(f"{T}{T}{T}{T}{T}{T}widgetanchor = center")
+    lines.append(f"{T}{T}{T}{T}{T}{T}using = piechart_angles")
+    lines.append(f"{T}{T}{T}{T}{T}{T}using = bg_circle_piechart_big")
+    lines.append(f"{T}{T}{T}{T}{T}{T}pieslice = {{")
+    lines.append(f'{T}{T}{T}{T}{T}{T}{T}texture = "{texture}"')
+    lines.append(f"{T}{T}{T}{T}{T}{T}{T}value = {value_text}")
+    lines.append(f"{T}{T}{T}{T}{T}{T}{T}color = {color}")
+    lines.append(f"{T}{T}{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}{T}{T}{T}pieslice = {{")
+    lines.append(f'{T}{T}{T}{T}{T}{T}{T}texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds"')
+    lines.append(f"{T}{T}{T}{T}{T}{T}{T}value = {remaining_text}")
+    lines.append(f"{T}{T}{T}{T}{T}{T}{T}color = {{ 1 1 1 0 }}")
+    lines.append(f"{T}{T}{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}{T}{T}{T}text_single = {{")
+    lines.append(f"{T}{T}{T}{T}{T}{T}{T}parentanchor = center")
+    lines.append(f"{T}{T}{T}{T}{T}{T}{T}size = {{ 100% 100% }}")
+    lines.append(f'{T}{T}{T}{T}{T}{T}{T}raw_text = "@{icon}!"')
+    lines.append(f"{T}{T}{T}{T}{T}{T}{T}fontsize = 17")
+    lines.append(f"{T}{T}{T}{T}{T}{T}{T}align = center|nobaseline")
+    lines.append(f"{T}{T}{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}{T}{T}}}")
+
+
 def append_ready_card(lines: list[str]) -> None:
     lines.append(f"{T}tv_engineering_department_card_common = {{")
     lines.append(f'{T}{T}visible = "[{ready_card_visible()}]"')
     lines.append(f"{T}{T}layoutpolicy_vertical = fixed")
-    lines.append(f"{T}{T}minimumsize = {{ 500 100 }}")
-    lines.append(f"{T}{T}maximumsize = {{ 500 100 }}")
+    lines.append(f"{T}{T}minimumsize = {{ {CARD_WIDTH} {CARD_HEIGHT} }}")
+    lines.append(f"{T}{T}maximumsize = {{ {CARD_WIDTH} {CARD_HEIGHT} }}")
     lines.append(f"{T}{T}blockoverride \"header_size\" {{ size = {{ -1 0 }} }}")
     lines.append(f"{T}{T}blockoverride \"header_decor_templates\" {{}}")
     lines.append(f"{T}{T}blockoverride \"common_header\" {{}}")
     lines.append(f"{T}{T}blockoverride \"common_bottom_content\" {{")
-    lines.append(f"{T}{T}{T}widget = {{")
-    lines.append(f"{T}{T}{T}{T}layoutpolicy_horizontal = fixed")
-    lines.append(f"{T}{T}{T}{T}size = {{ 60 60 }}")
+    lines.append(f"{T}{T}{T}hbox = {{")
+    lines.append(f"{T}{T}{T}{T}size = {{ {CARD_CONTENT_WIDTH} 104 }}")
+    lines.append(f"{T}{T}{T}{T}spacing = 8")
     lines.append(f"{T}{T}{T}{T}widget = {{")
-    lines.append(f"{T}{T}{T}{T}{T}size = {{ 52 52 }}")
-    lines.append(f"{T}{T}{T}{T}{T}parentanchor = center")
-    lines.append(f"{T}{T}{T}{T}{T}widgetanchor = center")
-    lines.append(f"{T}{T}{T}{T}{T}using = bg_circle_piechart_big")
-    lines.append(f"{T}{T}{T}{T}{T}icon = {{")
-    lines.append(f"{T}{T}{T}{T}{T}{T}parentanchor = center")
-    lines.append(f"{T}{T}{T}{T}{T}{T}size = {{ 70% 70% }}")
-    lines.append(
-        f'{T}{T}{T}{T}{T}{T}texture = "[GetConceptTexture(Concatenate(\'tv_wonder_display_image_\', ToString_int32(FixedPointToInt({PLAYER}.GetVariable(\'tv_wonder_locked\').GetValue))))]"'
+    lines.append(f"{T}{T}{T}{T}layoutpolicy_horizontal = fixed")
+    lines.append(f"{T}{T}{T}{T}size = {{ {ICON_COLUMN_WIDTH} 104 }}")
+    append_piechart(
+        lines,
+        icon="construction",
+        value=0.125,
+        texture="gfx/interface/pie_charts/pie_chart_alpha_80.dds",
+        color="{ 0.95 0.76 0.25 1 }",
     )
-    lines.append(f"{T}{T}{T}{T}{T}}}")
     lines.append(f"{T}{T}{T}{T}}}")
-    lines.append(f"{T}{T}{T}}}")
-    lines.append(f"{T}{T}{T}vbox = {{")
-    lines.append(f"{T}{T}{T}{T}layoutpolicy_horizontal = expanding")
-    lines.append(f"{T}{T}{T}{T}spacing = 4")
-    lines.append(f'{T}{T}{T}{T}text_single = {{ text = "TV_WONDER_CEREMONY_READY_LABEL" align = nobaseline|left }}')
-    lines.append(f'{T}{T}{T}{T}text_multi = {{ max_width = {TEXT_MAX_WIDTH} autoresize = yes text = "TV_WONDER_CEREMONY_READY_DESC" align = nobaseline|left }}')
-    lines.append(f"{T}{T}{T}}}")
-    lines.append(f"{T}{T}{T}expand = {{}}")
+    lines.append(f"{T}{T}{T}{T}vbox = {{")
+    lines.append(f"{T}{T}{T}{T}{T}layoutpolicy_horizontal = expanding")
+    lines.append(f"{T}{T}{T}{T}{T}spacing = 4")
+    lines.append(f'{T}{T}{T}{T}{T}text_single = {{ text = "TV_WONDER_CEREMONY_READY_LABEL" align = nobaseline|left }}')
+    lines.append(f'{T}{T}{T}{T}{T}text_multi = {{ max_width = {TEXT_MAX_WIDTH} autoresize = yes text = "TV_WONDER_CEREMONY_READY_DESC" align = nobaseline|left }}')
+    lines.append(f"{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}{T}expand = {{}}")
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}}}")
 
 
 def append_card(lines: list[str], stage: int) -> None:
     stage_var = "tv_wonder_ceremony_stage"
+    locked = f"{PLAYER}.GetVariable('tv_wonder_locked')"
+    stage_scope = f"{PLAYER}.GetVariable('{stage_var}')"
+    card_visible = (
+        f"[And3({locked}.IsSet, {stage_scope}.IsSet, "
+        f"GreaterThanOrEqualTo_CFixedPoint({stage_scope}.GetValue, '(CFixedPoint){stage - 1}.0'))]"
+    )
     lines.append(f"{T}tv_engineering_department_card_common = {{")
-    lines.append(f"{T}{T}visible = \"[And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('{stage_var}').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('{stage_var}').GetValue, '(CFixedPoint){stage - 1}.0'))]\"")
+    lines.append(f'{T}{T}visible = "{card_visible}"')
     lines.append(f"{T}{T}layoutpolicy_vertical = fixed")
-    lines.append(f"{T}{T}minimumsize = {{ 500 80 }}")
-    lines.append(f"{T}{T}maximumsize = {{ 500 80 }}")
+    lines.append(f"{T}{T}minimumsize = {{ {CARD_WIDTH} {CARD_HEIGHT} }}")
+    lines.append(f"{T}{T}maximumsize = {{ {CARD_WIDTH} {CARD_HEIGHT} }}")
     lines.append(f"{T}{T}blockoverride \"header_size\" {{ size = {{ -1 0 }} }}")
     lines.append(f"{T}{T}blockoverride \"header_decor_templates\" {{}}")
     lines.append(f"{T}{T}blockoverride \"common_header\" {{}}")
@@ -136,17 +217,13 @@ def append_card(lines: list[str], stage: int) -> None:
     lines.append(f"{T}{T}{T}{T}{T}alpha = 0.2")
     lines.append(f"{T}{T}{T}{T}}}")
     lines.append(f"{T}{T}{T}{T}modify_texture = {{")
-    lines.append(
-        f"{T}{T}{T}{T}{T}visible = \"[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('{stage_var}').GetValue, '(CFixedPoint){stage}.0')]\""
-    )
+    lines.append(f'{T}{T}{T}{T}{T}visible = "{stage_completed_visible(stage)}"')
     lines.append(f"{T}{T}{T}{T}{T}using = color_light_green_texture")
     lines.append(f"{T}{T}{T}{T}{T}blend_mode = overlay")
     lines.append(f"{T}{T}{T}{T}{T}alpha = 0.85")
     lines.append(f"{T}{T}{T}{T}}}")
     lines.append(f"{T}{T}{T}{T}modify_texture = {{")
-    lines.append(
-        f"{T}{T}{T}{T}{T}visible = \"[Not(GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('{stage_var}').GetValue, '(CFixedPoint){stage}.0'))]\""
-    )
+    lines.append(f'{T}{T}{T}{T}{T}visible = "{stage_active_visible(stage)}"')
     lines.append(f"{T}{T}{T}{T}{T}using = color_yellow_texture")
     lines.append(f"{T}{T}{T}{T}{T}blend_mode = overlay")
     lines.append(f"{T}{T}{T}{T}{T}alpha = 0.55")
@@ -154,28 +231,44 @@ def append_card(lines: list[str], stage: int) -> None:
     lines.append(f"{T}{T}{T}}}")
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}{T}blockoverride \"common_bottom_content\" {{")
-    lines.append(f"{T}{T}{T}widget = {{")
-    lines.append(f"{T}{T}{T}{T}layoutpolicy_horizontal = fixed")
-    lines.append(f"{T}{T}{T}{T}size = {{ 60 60 }}")
+    lines.append(f"{T}{T}{T}hbox = {{")
+    lines.append(f"{T}{T}{T}{T}size = {{ {CARD_CONTENT_WIDTH} 104 }}")
+    lines.append(f"{T}{T}{T}{T}spacing = 8")
     lines.append(f"{T}{T}{T}{T}widget = {{")
-    lines.append(f"{T}{T}{T}{T}{T}size = {{ 52 52 }}")
-    lines.append(f"{T}{T}{T}{T}{T}parentanchor = center")
-    lines.append(f"{T}{T}{T}{T}{T}widgetanchor = center")
-    lines.append(f"{T}{T}{T}{T}{T}using = bg_circle_piechart_big")
-    lines.append(f"{T}{T}{T}{T}{T}icon = {{")
-    lines.append(f"{T}{T}{T}{T}{T}{T}parentanchor = center")
-    lines.append(f"{T}{T}{T}{T}{T}{T}size = {{ 70% 70% }}")
-    lines.append(
-        f"{T}{T}{T}{T}{T}{T}texture = \"[GetConceptTexture(Concatenate('tv_wonder_display_image_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue))))]\""
+    lines.append(f"{T}{T}{T}{T}layoutpolicy_horizontal = fixed")
+    lines.append(f"{T}{T}{T}{T}size = {{ {ICON_COLUMN_WIDTH} 104 }}")
+    append_piechart(
+        lines,
+        icon=STAGE_ICONS[stage],
+        value=1,
+        texture="gfx/interface/pie_charts/pie_chart_alpha_80_green.dds",
+        color="{ 1 1 1 1 }",
+        visible=stage_completed_visible(stage),
     )
-    lines.append(f"{T}{T}{T}{T}{T}}}")
+    append_piechart(
+        lines,
+        icon=STAGE_ICONS[stage],
+        value=0.5,
+        texture="gfx/interface/pie_charts/pie_chart_alpha_80.dds",
+        color="{ 0.95 0.76 0.25 1 }",
+        visible=stage_active_visible(stage),
+    )
     lines.append(f"{T}{T}{T}{T}}}")
-    lines.append(f"{T}{T}{T}}}")
     lines.append(f"{T}{T}{T}text_multi = {{")
+    lines.append(f'{T}{T}{T}{T}visible = "{stage_completed_visible(stage)}"')
     lines.append(f"{T}{T}{T}{T}layoutpolicy_horizontal = expanding")
     lines.append(f"{T}{T}{T}{T}max_width = {TEXT_MAX_WIDTH}")
     lines.append(f"{T}{T}{T}{T}autoresize = yes")
-    lines.append(f'{T}{T}{T}{T}text = "TV_WONDER_CEREMONY_CARD_STAGE_{stage}_LABEL"')
+    lines.append(f'{T}{T}{T}{T}text = "{stage_flavor_text(stage, "COMPLETED")}"')
+    lines.append(f"{T}{T}{T}{T}align = nobaseline|left")
+    lines.append(f"{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}text_multi = {{")
+    lines.append(f'{T}{T}{T}{T}visible = "{stage_active_visible(stage)}"')
+    lines.append(f"{T}{T}{T}{T}layoutpolicy_horizontal = expanding")
+    lines.append(f"{T}{T}{T}{T}max_width = {TEXT_MAX_WIDTH}")
+    lines.append(f"{T}{T}{T}{T}autoresize = yes")
+    lines.append(f'{T}{T}{T}{T}text = "{stage_flavor_text(stage, "ACTIVE")}"')
+    lines.append(f"{T}{T}{T}{T}align = nobaseline|left")
     lines.append(f"{T}{T}{T}}}")
     lines.append(f"{T}{T}{T}expand = {{}}")
     lines.append(f"{T}{T}}}")

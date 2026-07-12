@@ -26,6 +26,46 @@ EFFECT_GENERATOR = (
     / "scripted_effects"
     / "gen_tv_engineering_department_wonder_mechanics_effects.py"
 )
+CEREMONY_EFFECT_GENERATOR = (
+    REPO_ROOT
+    / "scripts"
+    / "in_game"
+    / "common"
+    / "scripted_effects"
+    / "gen_tv_wonder_ceremony_effects.py"
+)
+CEREMONY_EVENT_GENERATOR = (
+    REPO_ROOT
+    / "scripts"
+    / "in_game"
+    / "events"
+    / "gen_tv_wonder_ceremony_events.py"
+)
+CEREMONY_GUI_GENERATOR = (
+    REPO_ROOT
+    / "scripts"
+    / "in_game"
+    / "gui"
+    / "panels"
+    / "organization"
+    / "gen_tv_wonder_ceremony_cards_gui.py"
+)
+CEREMONY_ENGLISH_LOC_GENERATOR = (
+    REPO_ROOT
+    / "scripts"
+    / "main_menu"
+    / "localization"
+    / "english"
+    / "gen_tv_wonder_ceremony_l_english.py"
+)
+CEREMONY_CHINESE_LOC_GENERATOR = (
+    REPO_ROOT
+    / "scripts"
+    / "main_menu"
+    / "localization"
+    / "simp_chinese"
+    / "gen_tv_wonder_ceremony_l_simp_chinese.py"
+)
 
 from wonder_mechanics.io import load_all_wonder_mechanics
 from wonder_mechanics.modifiers import (
@@ -35,6 +75,7 @@ from wonder_mechanics.modifiers import (
 )
 from wonder_mechanics.rituals import ceremony_styles
 from wonder_mechanics.schema import validate_unique_wonder_single_site_shape
+from wonder_ceremony_lib import COMPLETION_EVENT_ID, reward_effect_lines, stage_1_reward_for_wonder
 
 
 def require(condition: bool, message: str) -> None:
@@ -53,6 +94,38 @@ def load_trigger_generator():
 def load_effect_generator():
     spec = importlib.util.spec_from_file_location("wonder_mechanics_effect_generator", EFFECT_GENERATOR)
     require(spec is not None and spec.loader is not None, "Could not load wonder mechanics effect generator.")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_ceremony_effect_generator():
+    spec = importlib.util.spec_from_file_location("wonder_ceremony_effect_generator", CEREMONY_EFFECT_GENERATOR)
+    require(spec is not None and spec.loader is not None, "Could not load wonder ceremony effect generator.")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_ceremony_event_generator():
+    spec = importlib.util.spec_from_file_location("wonder_ceremony_event_generator", CEREMONY_EVENT_GENERATOR)
+    require(spec is not None and spec.loader is not None, "Could not load wonder ceremony event generator.")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_ceremony_gui_generator():
+    spec = importlib.util.spec_from_file_location("wonder_ceremony_gui_generator", CEREMONY_GUI_GENERATOR)
+    require(spec is not None and spec.loader is not None, "Could not load wonder ceremony GUI generator.")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_ceremony_loc_generator(name: str, path: Path):
+    spec = importlib.util.spec_from_file_location(name, path)
+    require(spec is not None and spec.loader is not None, f"Could not load {name}.")
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
@@ -137,12 +210,118 @@ def validate_existing_unique_initialization_does_not_seed_survey_maps(wonders: l
             )
 
 
+def validate_generated_ceremony_flow(wonders: list[dict], mechanics: dict) -> None:
+    ceremony_wonders = [wonder for wonder in wonders if wonder.get("is_unique") and wonder.get("ceremony") is not None]
+    require(ceremony_wonders, "Expected ceremony-enabled unique wonders.")
+
+    ceremony_effects = load_ceremony_effect_generator().generate()
+    stage_1_rewards = extract_trigger_block(ceremony_effects, "tv_wonder_ceremony_grant_stage_1_reward_effect")
+    stage_4_construction = extract_trigger_block(ceremony_effects, "tv_wonder_ceremony_start_stage_4_construction_effect")
+    stage_8_advance = extract_trigger_block(ceremony_effects, "tv_wonder_ceremony_advance_to_stage_8_effect")
+    completion_triggers = extract_trigger_block(
+        load_trigger_generator().generate(),
+        "tv_wonder_selected_ritual_custom_completion_requirements_met_trigger",
+    )
+
+    for wonder in ceremony_wonders:
+        require(
+            "stage_1_reward" not in wonder["ceremony"],
+            f"{wonder['key']} must derive its stage-one reward from generic style 3 data.",
+        )
+        reward = stage_1_reward_for_wonder(wonder, mechanics)
+        require(reward, f"{wonder['key']} needs a generic style-3 reward for ceremony stage one.")
+        reward_lines = "\n".join(reward_effect_lines(reward, 2))
+        reward_branch = f"limit = {{ var:tv_wonder_locked ?= {wonder['id']} }}\n{reward_lines}"
+        require(
+            reward_branch in stage_1_rewards,
+            f"{wonder['key']} stage one must emit its generic style-3 reward.",
+        )
+
+        dispatch_start = stage_4_construction.find(f"limit = {{ var:tv_wonder_locked ?= {wonder['id']} }}")
+        require(dispatch_start >= 0, f"Missing stage-four construction dispatch for {wonder['key']}.")
+        dispatch = stage_4_construction[dispatch_start : dispatch_start + 800]
+        annex = f"building_type = building_type:tv_wonder_{wonder['mechanic_key']}_ritual_annex"
+        require(annex in dispatch, f"{wonder['key']} stage four must construct its generic ritual annex.")
+
+        ritual_id = f"{wonder['id']}01"
+        completion_start = completion_triggers.find(f"var:tv_wonder_selected_ritual_id ?= {ritual_id}")
+        require(completion_start >= 0, f"Missing completion trigger dispatch for {wonder['key']}.")
+        completion_dispatch = completion_triggers[completion_start : completion_start + 400]
+        require(
+            "var:tv_wonder_ceremony_stage ?= 8" in completion_dispatch,
+            f"{wonder['key']} completion trigger must wait for ceremony stage eight.",
+        )
+
+    scheduler = f"trigger_event_silently = {{ id = tv_engineering_department.{COMPLETION_EVENT_ID} days = 1 }}"
+    require(scheduler in stage_8_advance, "Stage eight must schedule the hidden ceremony completion event.")
+
+    completion_event = extract_trigger_block(
+        load_ceremony_event_generator().generate(),
+        f"tv_engineering_department.{COMPLETION_EVENT_ID}",
+    )
+    require("hidden = yes" in completion_event, "Ceremony completion event must remain hidden.")
+    require(
+        "tv_wonder_complete_active_ritual_effect = yes" in completion_event,
+        "Ceremony completion event must use the canonical ritual finalization chain.",
+    )
+
+
+def validate_generated_ceremony_gui(wonders: list[dict]) -> None:
+    ceremony_wonders = [wonder for wonder in wonders if wonder.get("is_unique") and wonder.get("ceremony") is not None]
+    expected_flavor_key_count = len(ceremony_wonders) * 8
+    fragment = load_ceremony_gui_generator().generate()
+
+    require("GetConceptTexture" not in fragment, "Ceremony stage cards must not route icons through concepts.")
+    require(fragment.count("piechart = {") == 17, "Ceremony cards need a real ready piechart and active/completed piecharts for all eight stages.")
+    require(fragment.count("minimumsize = { 462 144 }") == 9, "Every nested ceremony card must keep the 462x144 size contract.")
+    require("minimumsize = { 500" not in fragment, "Nested ceremony cards must not use the outer 500px width.")
+    require("TV_WONDER_CEREMONY_CARD_STAGE_" not in fragment, "Ceremony cards must not fall back to static x/8 labels.")
+
+    for icon in (
+        "government",
+        "topography",
+        "laborers",
+        "construction",
+        "building_levels",
+        "building",
+        "art_work",
+        "building_open",
+    ):
+        require(f"@{icon}!" in fragment, f"Ceremony cards must render the built-in @{icon}! stage icon.")
+    for stage in range(1, 9):
+        require(
+            fragment.count(f"TV_WONDER_CEREMONY_CARD_ACTIVE_S{stage}_") == 1,
+            f"Stage {stage} needs one active dynamic flavor route.",
+        )
+        require(
+            fragment.count(f"TV_WONDER_CEREMONY_CARD_COMPLETED_S{stage}_") == 1,
+            f"Stage {stage} needs one completed dynamic flavor route.",
+        )
+
+    for name, path in (
+        ("wonder_ceremony_english_loc_generator", CEREMONY_ENGLISH_LOC_GENERATOR),
+        ("wonder_ceremony_chinese_loc_generator", CEREMONY_CHINESE_LOC_GENERATOR),
+    ):
+        localization = load_ceremony_loc_generator(name, path).generate()
+        require(
+            localization.count("TV_WONDER_CEREMONY_CARD_ACTIVE_S") == expected_flavor_key_count,
+            f"{name} must generate one active flavor key per ceremony stage.",
+        )
+        require(
+            localization.count("TV_WONDER_CEREMONY_CARD_COMPLETED_S") == expected_flavor_key_count,
+            f"{name} must generate one completed flavor key per ceremony stage.",
+        )
+        require("TV_WONDER_CEREMONY_CARD_STAGE_" not in localization, f"{name} must not emit static stage labels.")
+
+
 def main() -> None:
     wonders, mechanics = load_all_wonder_mechanics()
 
     validate_wonder_size_base_country_modifier_rules(wonders, mechanics)
     validate_generated_trigger_scope_layers(wonders)
     validate_existing_unique_initialization_does_not_seed_survey_maps(wonders)
+    validate_generated_ceremony_flow(wonders, mechanics)
+    validate_generated_ceremony_gui(wonders)
 
     small_violations: list[str] = []
     medium_large_non_value: list[str] = []

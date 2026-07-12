@@ -1258,6 +1258,15 @@ The user interface is highly moddable through `.gui` files. The system is modula
 
 GUI `text = "KEY"` properties are localization lookups. If the key is missing from `main_menu/localization`, the engine logs `Unlocalized text 'KEY'` from `pdx_gui_localize.cpp`. Correct the key to one defined by the current data/localization set, add the key for all supported languages, or use `raw_text` only when the intended display is a literal string.
 
+For non-clickable dynamic text, GUI can resolve a generated key directly with
+`text = "[Localize(Concatenate('PREFIX_', ToString_int32(FixedPointToInt(value))))]"`.
+The Engineering Department proposal text at
+`src/in_game/gui/panels/organization/tv_engineering_department.gui:556` is the
+working local precedent. This is appropriate for ordinary localized prose such
+as a ceremony stage's active/completed flavor sentence; it does not create or
+link a game concept. Continue to use a registered raw concept id with
+`SelectGameConcept` only when a clickable concept link is required.
+
 GUI `raw_text` does not expand `$LOCALIZATION_KEY$` substitutions. A value such as `raw_text = "@trade! $TV_TRADE_LEAGUE_IO_COLUMN$"` renders the `$TV_TRADE_LEAGUE_IO_COLUMN$` text literally. For static localized labels with icons, use `text = "TV_TRADE_LEAGUE_IO_COLUMN"` and put `@trade! ...` inside the localization value. For dynamic values that must use `raw_text`, split the localized label into a separate `text` widget if needed.
 
 GUI image `fittype` values are EU5-specific, not CSS object-fit names. Vanilla examples use values such as `centercrop`, `fill`, `start`, and `end`; `fittype = contain` logs `Unknown fit type 'contain'` during GUI loading.

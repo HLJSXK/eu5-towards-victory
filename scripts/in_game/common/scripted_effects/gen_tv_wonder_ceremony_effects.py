@@ -18,18 +18,20 @@ REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 from wonder_ceremony_lib import (  # noqa: E402
+    COMPLETION_EVENT_ID,
     STAGE_COUNT,
     T,
-    ceremony_wonders,
+    ceremony_wonders_and_mechanics,
     render_header,
     reward_effect_lines,
     script_rel,
+    stage_1_reward_for_wonder,
     stage_event_id,
 )
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "scripted_effects" / "tv_wonder_ceremony_effects.txt"
 SCRIPT_REL = "scripts/in_game/common/scripted_effects/gen_tv_wonder_ceremony_effects.py"
-DATA_REL = "data/unique_wonders.yaml"
+DATA_REL = "data/unique_wonders.yaml + data/wonder_generic_rituals.yaml"
 
 
 def append_monthly_tick(lines: list[str]) -> None:
@@ -78,11 +80,11 @@ def append_stage_cost_dispatch(lines: list[str], wonders: list[dict]) -> None:
         lines.append("")
 
 
-def append_stage_1_reward_dispatch(lines: list[str], wonders: list[dict]) -> None:
+def append_stage_1_reward_dispatch(lines: list[str], wonders: list[dict], mechanics: dict) -> None:
     lines.append("tv_wonder_ceremony_grant_stage_1_reward_effect = {")
     first = True
     for wonder in wonders:
-        reward = wonder["ceremony"]["stage_1_reward"]
+        reward = stage_1_reward_for_wonder(wonder, mechanics)
         if not reward:
             continue
         head = "if" if first else "else_if"
@@ -99,7 +101,7 @@ def append_stage_4_construction_dispatch(lines: list[str], wonders: list[dict]) 
     lines.append("tv_wonder_ceremony_start_stage_4_construction_effect = {")
     first = True
     for wonder in wonders:
-        building = wonder["final_buildings"][1]
+        building = f"tv_wonder_{wonder['mechanic_key']}_ritual_annex"
         head = "if" if first else "else_if"
         first = False
         lines.append(f"{T}{head} = {{")
@@ -128,16 +130,20 @@ def append_advance_stage_effects(lines: list[str]) -> None:
             lines.append(f"{T}tv_wonder_ceremony_grant_stage_1_reward_effect = yes")
         if stage == 4:
             lines.append(f"{T}tv_wonder_ceremony_start_stage_4_construction_effect = yes")
+        if stage == STAGE_COUNT:
+            lines.append(
+                f"{T}trigger_event_silently = {{ id = tv_engineering_department.{COMPLETION_EVENT_ID} days = 1 }}"
+            )
         lines.append("}")
         lines.append("")
 
 
 def generate() -> str:
-    wonders = ceremony_wonders()
+    wonders, mechanics = ceremony_wonders_and_mechanics()
     lines = render_header(SCRIPT_REL, DATA_REL, script_rel(OUT_FILE))
     append_monthly_tick(lines)
     append_stage_cost_dispatch(lines, wonders)
-    append_stage_1_reward_dispatch(lines, wonders)
+    append_stage_1_reward_dispatch(lines, wonders, mechanics)
     append_stage_4_construction_dispatch(lines, wonders)
     append_advance_stage_effects(lines)
     return "\n".join(lines).rstrip() + "\n"

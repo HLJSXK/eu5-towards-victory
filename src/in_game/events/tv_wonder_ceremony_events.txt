@@ -7989,3 +7989,24 @@ tv_engineering_department.9307 = {
 		name = tv_engineering_department.9307.b
 	}
 }
+
+# -- tv_engineering_department.9308 (ceremony completion) -----------------------------------------
+tv_engineering_department.9308 = {
+	type = country_event
+	outcome = neutral
+	title = empty_text
+	desc = empty_text
+	hidden = yes
+
+	trigger = {
+		has_variable = tv_engineering_department_member
+		has_variable = tv_wonder_locked
+		has_variable = tv_wonder_ritual_in_progress
+		has_variable = tv_wonder_ceremony_stage
+		var:tv_wonder_ceremony_stage ?= 8
+	}
+
+	immediate = {
+		tv_wonder_complete_active_ritual_effect = yes
+	}
+}
