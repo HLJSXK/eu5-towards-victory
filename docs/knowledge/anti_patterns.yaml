@@ -917,6 +917,17 @@
   source: "tv_govhouse.5 Local Administration confirmation cleanup, 2026-07-07"
   notes: "The Governor's House local-administration event option said 'Build ... for 400 ducats' while a hidden follow-up paid tv_govhouse_local_administration_price and constructed the building with cost_multiplier = 0. Moving construct_building into the visible option made the engine render the actual building cost and avoids stale duplicated cost text."
 
+- id: variable_map_reread_as_confirmation_gate
+  detectability: advisory
+  pattern: ''
+  only_in_paths: ['events', 'scripted_effects']
+  bad: "A non-silent confirmation event's hidden follow-up re-reads a variable_map/global_variable_map entry for the event's key and identity-matches it against the scope captured when the event was queued, instead of validating the captured scope directly"
+  correction: "When an event can stay open for arbitrary game time before the player answers, do not treat a variable_map lookup at confirm-time as the source of truth for what the player is confirming. Validate the scope saved at queue time/immediate (ownership, building state, etc.) directly, and only write it back into the map after that direct validation succeeds. Make any trailing unconditional cleanup effect conditional on the confirmation having actually committed, so a failed confirm leaves the pending state for the real recovery/re-request path instead of silently discarding it."
+  category: event
+  scope: variable_map
+  source: "tv_govhouse.5 Local Administration confirmation region-disappears-from-list bug, 2026-07-12"
+  notes: "tv_govhouse_confirm_local_administration_event_scope_effect re-derived scope:tv_govhouse_selected_admin_location from tv_govhouse_region_to_admin_location_map and required it to `this =` match scope:tv_govhouse_pending_local_admin_scope. Because tv_govhouse.5 is trigger_event_non_silently and can sit open while on_location_changed_owner / admin-location-loss handling legitimately reselects the map's candidate for the region, the map value could drift away from the location the player actually built on. The identity match then silently failed, tv_governor_appoint_effect (and therefore the tv_govhouse_region_display_list rebuild) was skipped, and the unconditional trailing cleanup discarded the pending request anyway -- making the region vanish from the Governor's House list. Fixed by validating scope:tv_govhouse_pending_local_admin_scope directly (owner ?= only -- NOT has_building_with_at_least_one_level, since the same instant construct_building in this option's visible effect does not reliably update that read yet) and gating the cleanup on a committed flag."
+
 - id: generic_action_effect_reads_newly_set_variable
   detectability: needs_parser
   pattern: ''
