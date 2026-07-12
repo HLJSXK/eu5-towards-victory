@@ -18,18 +18,20 @@ from any one mechanic:
   on any existing system. **There is no separate cost category**: only
   `country_reward`/`local_reward`/`character_reward` are stored, and a cost is simply the
   negative of the matching reward value, applied by whichever system consumes it.
-- **Persistent per-level modifier units** (sections 4-5): a **country-level modifier unit** and a
+- **Persistent modifier units** (sections 4-5): a **country-level modifier/unlock unit** and a
   **local-level modifier unit** — real EU5 modifier keys (`clergy_estate_max_tax`, `trade_range`,
   `local_merchant_power`, etc.), *not* one-shot effects, and *not* the same stat vocabulary as
   sections 1-3 (a modifier key like `clergy_estate_max_tax` has no equivalent as a one-shot
   effect, and conversely `government_power` is a one-shot effect target, not a valid
-  static-modifier key). These live in the same base-layer catalog, `data/cost_reward_units.yaml`'s
-  `country_modifier`/`local_modifier` lists, extracted directly from the wonder system's own
-  representative per-level modifier magnitudes (`data/wonder_base_modifiers.yaml` for country,
-  `data/wonder_final_buildings.yaml`'s `final_local` for local) — real modifier keys the wonder
-  system already uses, kept independent of it (not read by, and does not read from, the wonder
-  system's live data). Sections 4 and 5 below document the generic catalog entries first, then
-  the wonder system's own live implementation as a worked example of the same underlying keys.
+  static-modifier key). Numeric entries are per-level increments; `country_modifier` also holds
+  two non-scaling boolean unlocks as YAML `value: true`/`value: false`. These live in the same
+  base-layer catalog, `data/cost_reward_units.yaml`: country numeric entries combine the original
+  wonder-derived set with current vanilla-supported `Country` keys from reference mod `3599735023`'s
+  country blocks, while local numeric entries remain extracted from
+  `data/wonder_final_buildings.yaml`'s `final_local`. The catalog is independent of those sources
+  (it neither reads them nor is read by them). Sections 4 and 5
+  document the generic catalog entries first, then the wonder system's own live implementation as
+  a worked example of the same underlying keys.
 - **Task pool** (section 6): a catalog of assignable "task" definitions — things a future
   mechanic can assign to the player that resolve to a clear complete/incomplete state — split
   into an **on_action-driven family** (completion detected by hooking a real EU5 on_action
@@ -93,9 +95,11 @@ wonder-specific event-design choice, not part of this catalog: a future system i
 the same 1x/2x convention or invent its own multiplier scheme on top of the "1 unit" baseline
 stored here.
 
-The remaining two lists, `country_modifier` and `local_modifier`, cover the persistent per-level
-modifier units described in sections 4-5 below; see "Core idea: the 'per level' unit" further
-down for how their `value` differs in meaning from the three lists above.
+The remaining two lists, `country_modifier` and `local_modifier`, cover the persistent modifier
+units described in sections 4-5 below. Their numeric `value` fields are per-level increments;
+`country_modifier` additionally has two non-scaling YAML `value: true`/`value: false` unlock
+switches. See "Core idea: the 'per level' unit" further down for how numeric modifier values differ
+from the three one-shot reward lists above.
 
 ## 1. Country-level unit
 
@@ -204,26 +208,30 @@ stored *is* the per-level increment — some scaling mechanism (an explicit `sca
 the engine's native per-building-level application) multiplies it by the current level at
 runtime, so it is never pre-multiplied in the source data.
 
-Two sources exist for this idea, the second feeding the first:
+The generic catalog and its source data have distinct roles:
 
 - **The generic catalog** — `data/cost_reward_units.yaml`'s `country_modifier`/`local_modifier`
   lists. Unlike sections 1-3, these are **not** the generic gold/government_power/stability/
   prestige stat vocabulary — a real EU5 static modifier key like `clergy_estate_max_tax` or
   `trade_range` has no equivalent as a one-shot effect, and conversely `government_power` is a
-  one-shot effect target with no meaning as a static-modifier key. Each entry's `value` is the
-  real per-level increment extracted from the wonder system's own representative modifier
-  magnitudes, and can be negative when the real modifier is beneficial as a negative number (e.g.
-  a cost-reduction modifier). These entries are plain data with no generator wiring of their own,
-  kept independent of the wonder system despite sharing its exact magnitudes at extraction time.
+  one-shot effect target with no meaning as a static-modifier key. Numeric entries are real
+  per-level increments and can be negative when the real modifier is beneficial as a negative
+  number (e.g. a cost-reduction modifier). The country list combines 40 original wonder-derived
+  numeric entries with 353 numeric entries from current vanilla-supported `Country` keys in
+  reference mod `3599735023` country blocks; after resolving vanilla script values, the latter use
+  the smallest nonzero absolute value for each key. It also contains two literal YAML
+  `value: true`/`value: false` unlock switches, which never scale by level. These entries are
+  plain data with no generator wiring of their own.
 - **The wonder system's own live data** — `data/wonder_base_modifiers.yaml` and
   `data/wonder_final_buildings.yaml`, which carry the wonder system's actual, much more
   heterogeneous set of per-level modifier keys (percentages, flat ranges, tax rates — there is no
   single universal "1 unit = X" constant across all of them). This is real, live wonder data —
-  retuning it retunes the wonder system directly — and is where the generic catalog's entries were
-  extracted from.
+  retuning it retunes the wonder system directly — and remains the source for the original country
+  subset and the local catalog entries.
 
 Sections 4-5 below present the generic catalog entries first, then the wonder system's own live
-magnitudes as the source they were extracted from.
+magnitudes as a worked implementation; the reference-mod source for the expanded country catalog
+is documented in section 4 and the source references.
 
 This per-level convention is **size-independent** in the wonder system: a small, medium, or large
 wonder uses the same per-level magnitude for a given modifier key, and every wonder shares the
@@ -236,32 +244,33 @@ value.
 
 ## 4. Country-level modifier unit
 
-**Generic catalog** — `data/cost_reward_units.yaml`'s `country_modifier` list, **exhaustively**
-extracted from the wonder system's own per-level country modifier magnitudes: every distinct
-numeric modifier key across all ~51 generic wonder mechanics in `data/wonder_base_modifiers.yaml`
-(40 entries total), not a small illustrative sample. The 19 distinct `monthly_towards_*`
-value-movement axes the wonder system uses (free_trade, conciliatory, decentralization, outward,
-spiritualist, centralization, naval, traditionalist, capital_economy, traditional_economy,
-innovative, free_subjects, defensive, offensive, mercantilism, belligerent, inward, humanist,
-plutocracy — all at the identical 0.05 magnitude) are generalized into one `monthly_towards_axis`
-entry rather than 19 near-duplicate rows. Where the same real key is used at different magnitudes
-by different wonders (e.g. `local_defensive` at 0.2 in some, 0.25 in others — see section 5), one
-representative value was kept. A representative sample:
+**Generic catalog** — `data/cost_reward_units.yaml`'s `country_modifier` list has 395 entries:
+393 numeric per-level modifier keys and two boolean unlock keys. It retains the original 40 numeric
+keys exhaustively extracted from the wonder system's ~51 generic mechanics, then adds 353 numeric
+keys retrieved from current vanilla-supported `Country` keys in reference mod `3599735023`'s
+country blocks. For each reference numeric key, the catalog first resolves the vanilla script value,
+then uses the smallest nonzero absolute value across its source occurrences. Reference-mod-specific
+custom modifier types, including its administrative-innovation-point types, are intentionally excluded.
+The 34 distinct `monthly_towards_*` value-movement axes remain generalized into one
+`monthly_towards_axis` entry rather than 34 near-duplicate rows. The catalog also includes
+`imperial_authority_modifier`. The two boolean entries use literal YAML `value: true`/`value: false`
+as non-scaling unlock switches, not numeric per-level magnitudes. A representative numeric sample:
 
-| id | `country_modifier` value (per level) |
+| id | `country_modifier` numeric value (per level) |
 |---|---|
 | `clergy_estate_max_tax` | 0.1 |
 | `clergy_estate_target_satisfaction` | 0.05 |
-| `monthly_towards_axis` (generalizes any `monthly_towards_*` value-movement modifier; 19 axes used) | 0.05 |
+| `monthly_towards_axis` (generalizes any `monthly_towards_*` value-movement modifier; 34 axes used) | 0.05 |
 | `monthly_legitimacy` | 0.05 |
 | `trade_range` / `naval_range` / `colonial_range` | 200 |
 | `hire_privateer_cost_modifier` | -0.05 |
 | `privateer_maintenance_cost_modifier` | -0.03 |
 | `privateer_durability` | 0.05 |
+| `imperial_authority_modifier` | 0.05 |
 | `global_pop_conversion_speed` | 0.002 |
 | `tolerance_heretic` / `tolerance_heathen` / `tolerance_own` | 0.5 |
 
-See `data/cost_reward_units.yaml` for the complete list of 40 entries (also covering
+See `data/cost_reward_units.yaml` for the complete 395-entry list (also retaining the original
 `global_merchant_power`, `country_cabinet_efficiency`, `exploration_mission_speed`,
 `pop_join_rebel_threshold`/`pop_leave_rebels_threshold`, `research_speed`, `ship_build_speed`,
 `tax_income_efficiency`, `merchant_maintenance_efficiency`, `global_pop_promotion_speed`,
@@ -275,7 +284,8 @@ Some entries are negative because a lower value is the beneficial direction (e.g
 privateer-cost modifiers) — `value` is a real signed modifier amount here, not a magnitude with
 direction implied by the list (unlike sections 1-3). No generator reads this list yet; it is
 plain data for a future leveled mechanic to consume directly, independent of the wonder system
-below.
+below. The two boolean unlocks are the exception: their YAML `value: true`/`value: false` is a
+flat switch and must never be multiplied by the mechanic's level.
 
 **Wonder system's own live data** — authored in `data/wonder_base_modifiers.yaml` as
 `base_modifiers.<mechanic_key>.<modifier_key>: <value>`.
@@ -300,8 +310,10 @@ Representative 1-unit (generic, level-1-equivalent) magnitudes actually in use:
 **Non-numeric (unlock-type) modifiers are a separate, unscaled unit.** A boolean/flag value (e.g.
 `can_hire_privateers: true`) is split by the generator into a second, hidden Country Auto
 modifier (`..._unscaled`, `hide_effects = yes`) that unlocks flat the moment any level exists — it
-does not multiply by level. Treat this as "1 unlock unit," distinct from "1 per-level numeric
-unit," when designing a new country-level modifier.
+does not multiply by level. The generic catalog's two country unlock rows use the same semantics:
+they store only YAML `value: true`/`value: false`, with no extra kind field and no level scaling.
+Treat this as "1 unlock unit," distinct from "1 per-level numeric unit," when designing a new
+country-level modifier.
 
 **Small-wonder restriction:** small wonders may only use `monthly_towards_*` value-movement
 modifiers as their country-level modifier unit (enforced by `validate_wonder_size_base_country_modifier_rules`
@@ -549,10 +561,12 @@ from the first wave's flat magnitudes.
   first check `data/cost_reward_units.yaml`'s `country_modifier`/`local_modifier` lists (the
   generic catalog part of sections 4-5) for a matching modifier key before inventing a new
   per-level rate — these are independent of the wonder system, same as sections 1-3, and already
-  cover several real modifier keys (e.g. `trade_range`, `local_merchant_power`). Only reach for
-  the wonder-specific tables (the rest of sections 4-5, still the wonder system's own live data)
-  as a worked-syntax reference, or when the new mechanic genuinely needs a modifier key that has
-  no equivalent in the generic catalog yet — in which case, consider adding it to the generic
+  cover several real modifier keys (e.g. `trade_range`, `imperial_authority_modifier`,
+  `local_merchant_power`). For a country-level boolean unlock, use a literal YAML
+  `value: true`/`value: false` as a non-scaling switch, never as a per-level value. Only reach
+  for the wonder-specific tables (the rest of sections 4-5, still the wonder system's own live
+  data) as a worked-syntax reference, or when the new mechanic genuinely needs a modifier key that
+  has no equivalent in the generic catalog yet — in which case, consider adding it to the generic
   catalog too if it's reusable beyond that one mechanic. Keep the country/local,
   `modifier`/`raw_modifier`, and scaled/unscaled distinctions intact when following the
   wonder-specific tables — they are structural, not stylistic.
@@ -589,9 +603,11 @@ from the first wave's flat magnitudes.
 
 - `data/cost_reward_units.yaml` — the standalone, foundational unit catalog, five top-level
   lists: `country_reward`/`local_reward`/`character_reward` (sections 1-3, one-shot — negate for
-  a cost, no separate cost list) and `country_modifier`/`local_modifier` (sections 4-5,
-  per-level). Each entry is an `id`/`value`/`loc`. Edited through the standalone
-  `cost_reward_editor_web/` tool (`scripts/cost_reward_editor.py`, default port 8766, five tabs).
+  a cost, no separate cost list) and `country_modifier`/`local_modifier` (sections 4-5).
+  Numeric modifier entries are per-level; the two country unlock rows are literal YAML
+  `value: true`/`value: false` non-scaling switches. Each entry is an `id`/`value`/`loc`.
+  Edited through the standalone `cost_reward_editor_web/` tool
+  (`scripts/cost_reward_editor.py`, default port 8766, five tabs).
 - `data/wonder_construction_events.yaml` — the wonder system's own, independent copy of
   cost/reward token magnitudes (both `engineering_tokens` and `non_engineering_tokens` carry a
   `value` field). Not read by, and does not read from, `cost_reward_units.yaml`.
@@ -607,6 +623,10 @@ from the first wave's flat magnitudes.
 - `data/wonder_base_modifiers.yaml` — per-wonder-mechanic country-level modifier values (section 4).
 - `data/wonder_final_buildings.yaml` — per-wonder-mechanic `final_local`/`final_maintenance`/`final_attributes`
   values (section 5).
+- `reference_mods/3599735023/` — reference source for the 353 added numeric country modifier keys:
+  retain only current vanilla-supported `Country` keys in its country blocks, resolve vanilla script
+  values, then use the smallest nonzero absolute value for each key; exclude modifier types added
+  by that reference mod itself.
 - `scripts/wonder_mechanics/_core.py` — `wonder_base_country_modifiers`, `authored_final_building_local_modifiers`,
   `scale_numeric_modifier_mapping`, `split_scaled_modifiers`, `validate_wonder_size_base_country_modifier_rules`,
   and the engine-fixed-scale ceiling check.

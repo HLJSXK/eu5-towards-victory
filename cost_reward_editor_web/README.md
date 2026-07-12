@@ -13,8 +13,10 @@
 
 - **国家级奖励** (`country_reward`) / **本地级奖励** (`local_reward`) /
   **角色级奖励** (`character_reward`) —— 一次性数值变化
-- **国家级 Modifier（每级）** (`country_modifier`) / **本地级 Modifier（每级）** (`local_modifier`)
-  —— 持续性、随等级累加的 modifier 增量，`value` 表示每提升一级增加的数值，而非一次性数值
+- **国家级 Modifier / 解锁** (`country_modifier`) —— 数值条目是持续性、随等级累加的 modifier
+  增量，`value` 表示每提升一级增加的数值；两个布尔 unlock 的 `true`/`false` 则是非缩放开关
+- **本地级 Modifier（每级）** (`local_modifier`) —— 持续性、随等级累加的 modifier 增量，
+  `value` 表示每提升一级增加的数值，而非一次性数值
 - **on_action 型任务** (`on_action_task`) —— 通过挂钩真实 EU5 on_action 检测完成状态的任务；
   可编辑字段为 `wired`（该 on_action 是否已在 `data/pulse_registry.yaml` 中桥接——勾选状态仅记录，
   不会自动改写注册表）和 `completion_note`（如何从裸的 on_action 触发收窄为“此任务已完成”的补充说明）
@@ -35,21 +37,27 @@ horde_unity/tribal_cohesion 五种政府类型的 `add_government_power`、stabi
 角色级条目（adm、dip、mil、artist_skill）是全 mod 中复现频率最高的一次性效果模式——横跨学院哲学
 辩论、艺术展览、科研机制、工程部门、总督府等多个系统，比任何单一国家级数值都更常见。
 
-后两个 modifier 类别是**真正的 EU5 modifier key**，不是一次性效果，也不复用前三类的
+后两个 modifier 类别使用**真正的 EU5 modifier key**，不是一次性效果，也不复用前三类的
 gold/government_power 词汇——`clergy_estate_max_tax` 这样的 modifier key 没有对应的一次性效果，
-反过来 `government_power` 也不是合法的 modifier key。这两个类别是**穷举提取**的结果：
-`country_modifier`（40 条）覆盖了 `data/wonder_base_modifiers.yaml` 中全部约 51 个通用奇观机制里
-出现过的每一个数值 modifier key（19 种不同的 `monthly_towards_*` 价值观倾向轴合并为一条
-`monthly_towards_axis`），`local_modifier`（43 条）覆盖了 `data/wonder_final_buildings.yaml` 各
-机制 `final_local` 中出现过的每一个数值 modifier key，外加每座最终奇观建筑都携带的
-`local_cultural_tradition`/`local_cultural_influence` 基线——不是随手挑的一小撮示例。`value`
-表示每提升一级增加的持续 modifier 数值，**可以为负数**（例如花费类修正在数值为负时才是有益效果）。
+反过来 `government_power` 也不是合法的 modifier key。`country_modifier` 现有 395 条（393 个
+数值条目、2 个布尔 unlock）：原先从 `data/wonder_base_modifiers.yaml` 提取的 40 个数值条目仍保留，
+另有 353 个数值 key 从参考 mod `3599735023` 检索而来：只保留其 country block 中当前原版支持
+`Country` 的 key；每个参考数值先解析原版 script value，再取所有出现值中**绝对值最小的非零值**。
+参考 mod 自行新增的 modifier 类型（包括“行政创新点数”等）不纳入目录。34 种不同的
+`monthly_towards_*` 价值观倾向轴仍合并为一条 `monthly_towards_axis`，并包含
+`imperial_authority_modifier`。`local_modifier`（43 条）仍覆盖
+`data/wonder_final_buildings.yaml` 各机制 `final_local` 中出现过的每一个数值 modifier key，外加每座
+最终奇观建筑都携带的 `local_cultural_tradition`/`local_cultural_influence` 基线——不是随手挑的一小撮
+示例。数值 `value` 表示每提升一级增加的持续 modifier 数值，**可以为负数**（例如花费类修正在数值为负
+时才是有益效果）；两个 country unlock 的 YAML `value: true`/`value: false` 是不随等级变化的开关。
 
-本工具对 `cost_reward_units.yaml` 的五个类别只编辑每个条目的 `value`；对 `task_pool.yaml` 的两个
-任务类别只编辑 `wired`/`completion_note`（on_action 型）或 `comparison`/`representative_threshold`
+本工具对 `cost_reward_units.yaml` 的五个类别编辑每个条目的 `value`；其中数值条目使用数值输入，
+`country_modifier` 的两个布尔 unlock 使用 YAML `value: true`/`value: false` 开关。对 `task_pool.yaml`
+的两个任务类别只编辑 `wired`/`completion_note`（on_action 型）或 `comparison`/`representative_threshold`
 （Trigger 型）。所有类别的 `id`、`loc` 均只读；新增/删除条目、重命名 `id`、新增 `on_action`/`trigger`
-名称都需要直接编辑对应的 YAML 文件。`cost_reward_units.yaml` 目前共 104 条（奖励三类各 14/3/4 条，
-modifier 两类共 83 条）；`task_pool.yaml` 目前共 96 条（`on_action_task`/`trigger_task` 各 48 条，
+名称都需要直接编辑对应的 YAML 文件。`cost_reward_units.yaml` 目前共 459 条（奖励三类各 14/3/4 条，
+`country_modifier` 395 条〔393 个数值 + 2 个布尔 unlock〕，`local_modifier` 43 条）；
+`task_pool.yaml` 目前共 96 条（`on_action_task`/`trigger_task` 各 48 条，
 含首轮 24 条 + 更大胆的第二轮 24 条，第二轮新增 `requires_target`/`verify_in_game` 两个可选字段，
 本工具暂不编辑这两个字段，需直接改 YAML）。
 
@@ -75,7 +83,8 @@ conda run --no-capture-output -n eu5 python scripts/cost_reward_editor.py --chec
 ```
 
 `--check` 只做无头数据校验，不启动服务器：`cost_reward_units.yaml` 奖励三个类别要求 `value` 为
-正数、modifier 两个类别只要求非零（允许负数）；`task_pool.yaml` 的 `on_action_task` 要求 `wired`
+正数；modifier 数值条目要求非零（允许负数），YAML `value: true`/`value: false` 只允许出现在
+`country_modifier`，并作为非缩放 unlock 开关；`task_pool.yaml` 的 `on_action_task` 要求 `wired`
 为布尔值且 `completion_note` 非空，`trigger_task` 要求 `comparison` 属于 `gte`/`lte`/`boolean`
 且 `representative_threshold` 与 `comparison` 保持一致（`boolean` 时必须为空，否则必须有数值）。
 

@@ -12,8 +12,9 @@ Usage:
 The script expands a short asset idea into a production prompt for one selected
 target, uploads that target's style-reference images, writes the generated PNG,
 and converts it into one DDS target with enforced dimensions and byte limits.
-It can also run the victory path icon batch, the victory reward icon batch,
-and a wonder building icon batch for every generated final wonder building.
+It can also run victory path icon, victory reward icon, and victory reward
+tree-background batches, plus a wonder building icon batch for every generated
+final wonder building.
 """
 
 from __future__ import annotations
@@ -67,6 +68,7 @@ WONDER_LOCALIZATION_PATH = REPO_ROOT / "data" / "wonder_localization.yaml"
 DEFAULT_STYLE_UPLOAD_FIELD = "image"
 VICTORY_REWARD_BATCH = "victory_reward_icons"
 VICTORY_PATH_BATCH = "victory_path_icons"
+VICTORY_TREE_BATCH = "victory_tree_backgrounds"
 WONDER_BUILDING_BATCH = "wonder_building_icons"
 
 TARGET_PRESETS: dict[str, dict[str, Any]] = {
@@ -184,6 +186,29 @@ TARGET_PRESETS: dict[str, dict[str, Any]] = {
             "texture, no text, no letters, no logo, no UI frame, and no complex scene."
         ),
     },
+    "victory_tree_background": {
+        "label": "victory reward tree background",
+        "path": "src/main_menu/gfx/interface/icons/towards_victory/victory_trees/{name}.dds",
+        "width": 2048,
+        "height": 1152,
+        "resize": "cover",
+        "dds_format": "DXT1",
+        "mipmaps": False,
+        "circle_crop": False,
+        "circle_crop_feather_px": 0,
+        "max_file_size_bytes": 1_200_000,
+        "image_size": "2048x1152",
+        "prompt_requirements": (
+            "This is a 16:9 game UI background for a future victory reward tree. Build a "
+            "two-depth composition: a broad, deliberately blurred low-contrast route-themed "
+            "backdrop and one crisp, connected foreground tree that carries the full reward "
+            "route. The foreground must fill most of the canvas, begin at the prescribed "
+            "outer edge, preserve the prescribed main-trunk and branch topology, and leave "
+            "quiet unmarked circular clear zones around every structural waypoint for later UI "
+            "button overlays. Do not draw buttons, circles, badges, dots, endpoint markers, "
+            "labels, letters, numbers, logos, UI frames, or watermarks."
+        ),
+    },
 }
 
 TARGET_ALIASES = {
@@ -210,6 +235,11 @@ TARGET_ALIASES = {
     "victory_route_icons": VICTORY_PATH_BATCH,
     "victory_path_icons": VICTORY_PATH_BATCH,
     "victory_paths": VICTORY_PATH_BATCH,
+    "victory_tree": "victory_tree_background",
+    "victory_tree_background": "victory_tree_background",
+    "victory_tree_backgrounds": VICTORY_TREE_BATCH,
+    "victory_reward_trees": VICTORY_TREE_BATCH,
+    "victory_trees": VICTORY_TREE_BATCH,
     "wonder_building_icons": WONDER_BUILDING_BATCH,
     "wonder_buildings": WONDER_BUILDING_BATCH,
     "wonder_final_building_icons": WONDER_BUILDING_BATCH,
@@ -217,7 +247,7 @@ TARGET_ALIASES = {
     "wonder_icons": WONDER_BUILDING_BATCH,
 }
 
-BATCH_TARGETS = {VICTORY_REWARD_BATCH, VICTORY_PATH_BATCH, WONDER_BUILDING_BATCH}
+BATCH_TARGETS = {VICTORY_REWARD_BATCH, VICTORY_PATH_BATCH, VICTORY_TREE_BATCH, WONDER_BUILDING_BATCH}
 
 
 @dataclass(frozen=True)
@@ -851,6 +881,13 @@ def victory_path_batch_config(config: dict[str, Any]) -> dict[str, Any]:
     return value
 
 
+def victory_tree_batch_config(config: dict[str, Any]) -> dict[str, Any]:
+    value = config.get(VICTORY_TREE_BATCH, {})
+    if not isinstance(value, dict):
+        raise ValueError(f"{VICTORY_TREE_BATCH} must be a JSON object")
+    return value
+
+
 def load_victory_path_configs(batch_config: dict[str, Any]) -> list[dict[str, Any]]:
     raw_paths = batch_config.get("paths", default_victory_reward_paths())
     if not isinstance(raw_paths, list) or not raw_paths:
@@ -884,6 +921,43 @@ def load_victory_path_icon_configs(batch_config: dict[str, Any]) -> list[dict[st
         path_config["id"] = path_id
         path_config["label"] = str(path_config.get("label") or path_id.replace("_", " ").title())
         paths.append(path_config)
+    return paths
+
+
+def load_victory_tree_path_configs(batch_config: dict[str, Any]) -> list[dict[str, Any]]:
+    raw_paths = batch_config.get("paths")
+    if not isinstance(raw_paths, list) or not raw_paths:
+        raise ValueError(f"{VICTORY_TREE_BATCH}.paths must be a non-empty list")
+    paths: list[dict[str, Any]] = []
+    seen_ids: set[str] = set()
+    for index, raw_path in enumerate(raw_paths, start=1):
+        if not isinstance(raw_path, dict):
+            raise ValueError(f"{VICTORY_TREE_BATCH}.paths[{index}] must be a JSON object")
+        path_id = safe_slug(str(raw_path.get("id") or ""))
+        if not path_id:
+            raise ValueError(f"{VICTORY_TREE_BATCH}.paths[{index}].id must be set")
+        if path_id in seen_ids:
+            raise ValueError(f"{VICTORY_TREE_BATCH}.paths contains duplicate id {path_id!r}")
+        tree_prompt = str(raw_path.get("tree_prompt") or raw_path.get("prompt") or "").strip()
+        if not tree_prompt:
+            raise ValueError(f"{VICTORY_TREE_BATCH}.paths.{path_id}.tree_prompt must be set")
+        seen_ids.add(path_id)
+        path_config = dict(raw_path)
+        path_config["id"] = path_id
+        path_config["label"] = str(path_config.get("label") or path_id.replace("_", " ").title())
+        path_config["tree_prompt"] = tree_prompt
+        paths.append(path_config)
+
+    expected_ids = {"conquest", "prosperity", "trade", "diplomatic", "cultural", "science"}
+    if seen_ids != expected_ids:
+        missing = ", ".join(sorted(expected_ids - seen_ids))
+        unexpected = ", ".join(sorted(seen_ids - expected_ids))
+        details = []
+        if missing:
+            details.append(f"missing: {missing}")
+        if unexpected:
+            details.append(f"unexpected: {unexpected}")
+        raise ValueError(f"{VICTORY_TREE_BATCH}.paths must define the six victory routes ({'; '.join(details)})")
     return paths
 
 
@@ -1346,6 +1420,86 @@ def build_victory_path_icon_batch_tasks(
     return tasks
 
 
+def build_victory_tree_background_batch_tasks(
+    config: dict[str, Any],
+    output_config: dict[str, Any],
+    style_config: dict[str, Any],
+    image_config: dict[str, Any],
+    prompt_config: dict[str, Any],
+) -> list[BatchIconTask]:
+    batch_config = victory_tree_batch_config(config)
+    target_name = "victory_tree_background"
+    target_defaults = target_override(output_config, target_name)
+    base_target_config = deep_merge(TARGET_PRESETS[target_name], target_defaults)
+    base_target_config = deep_merge(base_target_config, require_object(batch_config, "target"))
+
+    paths = load_victory_tree_path_configs(batch_config)
+    output_dir = str(
+        batch_config.get("output_dir")
+        or base_target_config.get("path", TARGET_PRESETS[target_name]["path"]).rsplit("/", 1)[0]
+    )
+    name_template = str(batch_config.get("name_template") or "tv_victory_{path}_tree")
+    artifact_stem_template = str(batch_config.get("artifact_stem") or "{name}")
+    prompt_prefix = str(
+        batch_config.get("prompt_prefix")
+        or "Create a wide, route-specific victory reward tree background for"
+    )
+    tree_rules = str(
+        batch_config.get("tree_rules")
+        or TARGET_PRESETS[target_name]["prompt_requirements"]
+    )
+    negative_prompt = str(
+        batch_config.get("negative_prompt")
+        or (
+            "text, letters, numbers, labels, UI chrome, UI buttons, circular nodes, badges, dots, "
+            "icons placed on tree anchors, endpoint markers, logos, watermark, framed card, busy "
+            "foreground scenery, sharp detailed background, photorealistic screenshot, disconnected "
+            "branches, extra unplanned branches, tangled crossings, a second tree"
+        )
+    )
+
+    batch_output_config = dict(output_config)
+    batch_output_config["artifact_stem"] = artifact_stem_template
+    tasks: list[BatchIconTask] = []
+    for path_config in paths:
+        path_id = str(path_config["id"])
+        path_label = str(path_config["label"])
+        asset_name = safe_slug(format_task_template(name_template, {"path": path_id}))
+        style_reference_paths = parse_path_list(
+            path_config.get("style_reference_paths", []),
+            f"{VICTORY_TREE_BATCH}.paths.{path_id}.style_reference_paths",
+        )
+        tree_prompt = str(path_config["tree_prompt"])
+        target_config = deep_merge(
+            base_target_config,
+            {
+                "asset_name": asset_name,
+                "path": f"{output_dir}/{{name}}.dds",
+                "style_reference_paths": style_reference_paths,
+                "prompt_requirements": tree_rules,
+                "image": {
+                    "natural_prompt": f"{prompt_prefix} {path_label}.\n{tree_prompt}\n\nShared production rules:\n{tree_rules}",
+                    "negative_prompt": negative_prompt,
+                },
+            },
+        )
+        target = build_target_spec(target_name, target_config, batch_output_config, style_config)
+        tasks.append(
+            BatchIconTask(
+                kind="tree_background",
+                path_id=path_id,
+                path_label=path_label,
+                milestone=None,
+                choice=None,
+                target=target,
+                image_config=apply_target_image_settings(image_config, target),
+                prompt_config=prompt_config,
+                output_config=batch_output_config,
+            )
+        )
+    return tasks
+
+
 def resolve_api_key(api_config: dict[str, Any]) -> str:
     configured = str(api_config.get("api_key") or "").strip()
     env_names = api_config.get("api_key_env", ["PACKY_API_KEY", "PACKY_SORA_TOKEN"])
@@ -1600,12 +1754,29 @@ def refine_prompt(
     composition_rules = str(prompt_config.get("composition_rules") or "").strip()
     negative_prompt = str(image_config.get("negative_prompt") or "").strip()
 
+    composition_instruction = (
+        "Composition: follow the explicit edge-starting tree direction, trunk, branch topology, "
+        "and clear waypoint zones in the subject. This is a full UI background, not a centered icon."
+        if target.name == "victory_tree_background"
+        else "Composition: keep the main subject centered, readable, and high-contrast, with no watermark, "
+        "no letters, no logo, and no UI chrome baked into the art."
+    )
+    reference_instruction = (
+        "Reference image: retain only this route's identity motifs and restrained color language from the "
+        "uploaded icon. The requested full-scene art medium and tree composition take precedence; do not "
+        "turn this wide asset into an icon or copy the reference composition."
+        if target.name == "victory_tree_background"
+        else "Reference image: use the uploaded target-specific reference image only as style guidance for palette, "
+        "brushwork, lighting, surface treatment, and framing discipline. Do not copy its subject, exact composition, "
+        "silhouette, ornament placement, or any text."
+    )
+
     parts = [
         f"Create a Europa Universalis V {target.label} DDS asset.",
         f"Subject: {prompt}",
-        "Reference image: use the uploaded target-specific reference image only as style guidance for palette, brushwork, lighting, surface treatment, and framing discipline. Do not copy its subject, exact composition, silhouette, ornament placement, or any text.",
+        reference_instruction,
         "Distinctiveness: keep the result in the same visual family as the reference, but make it visibly different at a glance through changed shape language, object arrangement, cropping, or decorative accents.",
-        "Composition: keep the main subject centered, readable, and high-contrast, with no watermark, no letters, no logo, and no UI chrome baked into the art.",
+        composition_instruction,
         f"Target format: final DDS target is exactly {target.width}x{target.height} and must stay under {format_bytes(target.max_file_size_bytes)}.",
         f"Target-specific requirement: {target.prompt_requirements}",
     ]
@@ -2261,6 +2432,39 @@ def run_victory_reward_batch(
     return 0
 
 
+def run_victory_tree_background_batch(
+    args: argparse.Namespace,
+    config: dict[str, Any],
+    api_config: dict[str, Any],
+    prompt_config: dict[str, Any],
+    image_config: dict[str, Any],
+    style_config: dict[str, Any],
+    output_config: dict[str, Any],
+) -> int:
+    if args.convert_existing_png:
+        raise ValueError("--convert-existing-png is only supported for a single selected target")
+    tasks = build_victory_tree_background_batch_tasks(
+        config,
+        output_config,
+        style_config,
+        image_config,
+        prompt_config,
+    )
+    print(f"[batch] {VICTORY_TREE_BATCH}: trees={len(tasks)}")
+    for index, task in enumerate(tasks, start=1):
+        print(f"[batch] {index}/{len(tasks)} tree background path={task.path_id}")
+        run_target_generation(
+            args,
+            api_config,
+            task.prompt_config,
+            task.image_config,
+            style_config,
+            task.output_config,
+            task.target,
+        )
+    return 0
+
+
 def run_victory_path_icon_batch(
     args: argparse.Namespace,
     config: dict[str, Any],
@@ -2364,6 +2568,16 @@ def main(argv: list[str] | None = None) -> int:
         )
     if selected_target == VICTORY_REWARD_BATCH:
         return run_victory_reward_batch(
+            args,
+            config,
+            api_config,
+            prompt_config,
+            image_config,
+            style_config,
+            output_config,
+        )
+    if selected_target == VICTORY_TREE_BATCH:
+        return run_victory_tree_background_batch(
             args,
             config,
             api_config,

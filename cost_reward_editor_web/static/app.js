@@ -86,13 +86,19 @@ function renderRewardModifierTable(group) {
 
     const valueCell = document.createElement("td");
     const valueInput = document.createElement("input");
-    valueInput.type = "number";
-    valueInput.step = "any";
-    if (!group.key.endsWith("_modifier")) {
-      valueInput.min = "0";
+    if (typeof token.value === "boolean") {
+      valueInput.type = "checkbox";
+      valueInput.checked = token.value;
+      valueInput.addEventListener("change", () => stageEdit(group.key, token.id, "value", valueInput.checked));
+    } else {
+      valueInput.type = "number";
+      valueInput.step = "any";
+      if (!group.key.endsWith("_modifier")) {
+        valueInput.min = "0";
+      }
+      valueInput.value = token.value;
+      valueInput.addEventListener("input", () => stageEdit(group.key, token.id, "value", valueInput.value));
     }
-    valueInput.value = token.value;
-    valueInput.addEventListener("input", () => stageEdit(group.key, token.id, "value", valueInput.value));
     valueCell.appendChild(valueInput);
     tr.appendChild(valueCell);
 
