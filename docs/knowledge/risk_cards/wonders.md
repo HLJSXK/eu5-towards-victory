@@ -291,11 +291,14 @@ generators.
     game-concept route. Generate both active and completed flavor keys from the
     stage title/first description sentence, rather than reverting to `x/8`.
     The left badge must be a real `piechart` using `piechart_angles` and two
-    `pieslice` entries, with its central `text_single` using one of the eight
-    verified built-in font icons (`government`, `topography`, `laborers`,
-    `construction`, `building_levels`, `building`, `art_work`, `building_open`)
-    via `@icon!`. Do not route ceremony-card icons through `GetConceptTexture`:
-    these are step-state glyphs, not wonder illustrations.
+    `pieslice` entries. Its central `text_single` must dynamically localize
+    `TV_WONDER_CEREMONY_CARD_ICON_S<n>_<wonder_id>`, whose `@icon!` value comes
+    from that exact `ceremony.stages[i].icon` field. Every stage must also carry
+    a non-empty `icon_rationale` that explains its title/description connection;
+    validate icon names against `font_icons.gui`. Do not restore a global
+    stage-number icon table or route ceremony-card icons through
+    `GetConceptTexture`: the badge represents this wonder's current ritual act,
+    not a reused wonder illustration or a generic step counter.
     The outer Ceremony card is 500px wide, but its content column is 462px;
     every nested stage card must therefore use a fixed 462px width, not 500px,
     or the card margins expand the tab to roughly 538px at runtime.

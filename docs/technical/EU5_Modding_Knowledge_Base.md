@@ -1267,6 +1267,15 @@ as a ceremony stage's active/completed flavor sentence; it does not create or
 link a game concept. Continue to use a registered raw concept id with
 `SelectGameConcept` only when a clickable concept link is required.
 
+The same `text = "[Localize(Concatenate(...))]"` route can render a dynamically
+chosen inline font icon: make each generated localization value exactly
+`@icon_name!`, where `icon_name` is validated against
+`main_menu/gui/shared/font_icons.gui`. This is the right pattern for compact,
+data-owned state badges such as unique-wonder ceremony steps. Keep the icon
+selection with the per-entity/per-step data and emit a key containing both
+identifiers; do not replace it with a global position-to-icon map, a
+`GetConceptTexture` illustration, or an unbounded set of static GUI branches.
+
 GUI `raw_text` does not expand `$LOCALIZATION_KEY$` substitutions. A value such as `raw_text = "@trade! $TV_TRADE_LEAGUE_IO_COLUMN$"` renders the `$TV_TRADE_LEAGUE_IO_COLUMN$` text literally. For static localized labels with icons, use `text = "TV_TRADE_LEAGUE_IO_COLUMN"` and put `@trade! ...` inside the localization value. For dynamic values that must use `raw_text`, split the localized label into a separate `text` widget if needed.
 
 GUI image `fittype` values are EU5-specific, not CSS object-fit names. Vanilla examples use values such as `centercrop`, `fill`, `start`, and `end`; `fittype = contain` logs `Unknown fit type 'contain'` during GUI loading.

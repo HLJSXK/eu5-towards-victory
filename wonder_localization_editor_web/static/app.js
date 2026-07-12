@@ -849,6 +849,8 @@ function uniqueCeremonyPayloadFromState(stateValue) {
             title_zh: normalizeMultilineText(String(stage.title_zh ?? "")),
             desc_en: normalizeMultilineText(String(stage.desc_en ?? "")),
             desc_zh: normalizeMultilineText(String(stage.desc_zh ?? "")),
+            icon: String(stage.icon ?? "").trim(),
+            icon_rationale: normalizeMultilineText(String(stage.icon_rationale ?? "")),
             cost: rowsToRewardList(stage.cost?.rows),
         })),
     };
@@ -2170,6 +2172,14 @@ function renderUniqueCeremonyEditorField(field, scope) {
             }),
             buildTextareaEditor("Description (Simplified Chinese)", stage.desc_zh, 4, (value) => {
                 stage.desc_zh = value;
+                commit();
+            }),
+            buildScalarEditor("Card icon (vanilla font icon key)", stage.icon, (value) => {
+                stage.icon = value;
+                commit();
+            }),
+            buildTextareaEditor("Icon rationale", stage.icon_rationale, 2, (value) => {
+                stage.icon_rationale = value;
                 commit();
             }),
         );

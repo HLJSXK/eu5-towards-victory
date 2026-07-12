@@ -813,6 +813,8 @@ def build_unique_ceremony_editor_state(
                 "title_zh": stage.get("title_zh", ""),
                 "desc_en": stage.get("desc_en", ""),
                 "desc_zh": stage.get("desc_zh", ""),
+                "icon": stage.get("icon", ""),
+                "icon_rationale": stage.get("icon_rationale", ""),
                 "cost": {
                     "rows": reward_rows_from_list(list(stage.get("cost", []))),
                     "options": list(cost_type_options),
@@ -842,6 +844,8 @@ def unique_ceremony_from_editor_state(raw_value: object, *, context: str) -> dic
                 "title_zh": normalize_multiline_editor_text(str(stage.get("title_zh", ""))),
                 "desc_en": normalize_multiline_editor_text(str(stage.get("desc_en", ""))),
                 "desc_zh": normalize_multiline_editor_text(str(stage.get("desc_zh", ""))),
+                "icon": str(stage.get("icon", "")).strip(),
+                "icon_rationale": normalize_multiline_editor_text(str(stage.get("icon_rationale", ""))),
                 "cost": reward_list_from_rows(
                     stage.get("cost", {}),
                     context=f"{context}.stages[{index}].cost",

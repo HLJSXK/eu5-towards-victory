@@ -258,7 +258,7 @@ generated:
   # scripts/in_game/gui/panels/organization/merge_tv_wonder_ceremony_cards_gui.py
   # to splice the update into the panel.
   - script: scripts/in_game/gui/panels/organization/gen_tv_wonder_ceremony_cards_gui.py
-    data:   scripts/wonder_ceremony_lib.py
+    data:   scripts/wonder_ceremony_lib.py + data/unique_wonders.yaml
     output: data/generated_fragments/tv_wonder_ceremony_cards.gui
 
   - script: scripts/in_game/events/gen_tv_wonder_finalization_events.py

@@ -75,6 +75,10 @@ def desc_key(stage: int, wonder_id: int) -> str:
     return f"TV_WONDER_CEREMONY_S{stage}_DESC_{wonder_id}"
 
 
+def card_icon_key(stage: int, wonder_id: int) -> str:
+    return f"TV_WONDER_CEREMONY_CARD_ICON_S{stage}_{wonder_id}"
+
+
 def pay_option_key(stage: int) -> str:
     return f"{NAMESPACE}.{stage_event_id(stage)}.a"
 

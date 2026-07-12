@@ -13,8 +13,8 @@ exclusive by construction, not by an explicit id check.
 Card layout (per stage, 8 total): built on this mod's own
 tv_engineering_department_card_common (defined in that same panel file),
 untitled (zero-height header), left column a real piechart with a centered
-built-in stage icon, right column dynamically resolved stage flavor text, and a
-state color overlay (color_yellow_texture in progress /
+built-in icon selected from the current wonder's stage data, right column
+dynamically resolved stage flavor text, and a state color overlay (color_yellow_texture in progress /
 color_light_green_texture done). The outer Ceremony card is 500px wide; its
 content column is 462px wide, so every nested ceremony card is exactly 462px
 wide and cannot expand the parent -- see docs/knowledge/risk_cards/wonders.md
@@ -50,18 +50,6 @@ CARD_CONTENT_WIDTH = 432
 ICON_COLUMN_WIDTH = 64
 TEXT_MAX_WIDTH = 344
 
-STAGE_ICONS = {
-    1: "government",
-    2: "topography",
-    3: "laborers",
-    4: "construction",
-    5: "building_levels",
-    6: "building",
-    7: "art_work",
-    8: "building_open",
-}
-
-
 def stage_value() -> str:
     return f"{PLAYER}.GetVariable('tv_wonder_ceremony_stage').GetValue"
 
@@ -85,10 +73,18 @@ def stage_flavor_text(stage: int, state: str) -> str:
     )
 
 
+def stage_icon_text(stage: int) -> str:
+    locked = f"{PLAYER}.GetVariable('tv_wonder_locked').GetValue"
+    return (
+        f"[Localize(Concatenate('TV_WONDER_CEREMONY_CARD_ICON_S{stage}_', "
+        f"ToString_int32(FixedPointToInt({locked}))))]"
+    )
+
+
 def append_piechart(
     lines: list[str],
     *,
-    icon: str,
+    icon_text: str,
     value: float,
     texture: str,
     color: str,
@@ -119,7 +115,7 @@ def append_piechart(
     lines.append(f"{T}{T}{T}{T}{T}{T}text_single = {{")
     lines.append(f"{T}{T}{T}{T}{T}{T}{T}parentanchor = center")
     lines.append(f"{T}{T}{T}{T}{T}{T}{T}size = {{ 100% 100% }}")
-    lines.append(f'{T}{T}{T}{T}{T}{T}{T}raw_text = "@{icon}!"')
+    lines.append(f'{T}{T}{T}{T}{T}{T}{T}text = "{icon_text}"')
     lines.append(f"{T}{T}{T}{T}{T}{T}{T}fontsize = 17")
     lines.append(f"{T}{T}{T}{T}{T}{T}{T}align = center|nobaseline")
     lines.append(f"{T}{T}{T}{T}{T}{T}}}")
@@ -195,7 +191,7 @@ def append_card(lines: list[str], stage: int) -> None:
     lines.append(f"{T}{T}{T}{T}size = {{ {ICON_COLUMN_WIDTH} 104 }}")
     append_piechart(
         lines,
-        icon=STAGE_ICONS[stage],
+        icon_text=stage_icon_text(stage),
         value=1,
         texture="gfx/interface/pie_charts/pie_chart_alpha_80_green.dds",
         color="{ 1 1 1 1 }",
@@ -203,7 +199,7 @@ def append_card(lines: list[str], stage: int) -> None:
     )
     append_piechart(
         lines,
-        icon=STAGE_ICONS[stage],
+        icon_text=stage_icon_text(stage),
         value=0.5,
         texture="gfx/interface/pie_charts/pie_chart_alpha_80.dds",
         color="{ 0.95 0.76 0.25 1 }",

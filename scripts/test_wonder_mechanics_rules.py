@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Validate scale-based Engineering Department wonder data rules."""
 
+from collections import Counter
 import importlib.util
 import json
 import sys
@@ -111,9 +112,19 @@ from wonder_mechanics.modifiers import (
     validate_wonder_size_base_country_modifier_rules,
     wonder_base_country_modifiers,
 )
-from wonder_mechanics.rituals import ceremony_styles, normalize_unique_ceremony, ritual_plan_for_style
+from wonder_mechanics.rituals import (
+    SUPPORTED_CEREMONY_STAGE_ICONS,
+    ceremony_styles,
+    normalize_unique_ceremony,
+    ritual_plan_for_style,
+)
 from wonder_mechanics.schema import validate_unique_wonder_single_site_shape
-from wonder_ceremony_lib import COMPLETION_EVENT_ID, reward_effect_lines, stage_2_reward_for_wonder
+from wonder_ceremony_lib import (
+    COMPLETION_EVENT_ID,
+    card_icon_key,
+    reward_effect_lines,
+    stage_2_reward_for_wonder,
+)
 from wonder_localization_lib import load_engineering_department_suffix_map, load_wonder_localization_data
 from wonder_localization_editor_web.service import (
     WONDER_DATA_REGEN_SCRIPTS,
@@ -425,25 +436,40 @@ def validate_generated_ceremony_gui(wonders: list[dict]) -> None:
     ceremony_wonders = [wonder for wonder in wonders if wonder.get("is_unique") and wonder.get("ceremony") is not None]
     expected_flavor_key_count = len(ceremony_wonders) * 8
     fragment = load_ceremony_gui_generator().generate()
+    generator_source = CEREMONY_GUI_GENERATOR.read_text(encoding="utf-8")
 
     require("GetConceptTexture" not in fragment, "Ceremony stage cards must not route icons through concepts.")
+    require("STAGE_ICONS" not in generator_source, "Ceremony card icons must not use a global stage-number mapping.")
     require(fragment.count("piechart = {") == 16, "Ceremony cards need active/completed piecharts for all eight stages.")
     require(fragment.count("minimumsize = { 462 144 }") == 8, "Every stage card must keep the 462x144 size contract.")
     require("minimumsize = { 500" not in fragment, "Nested ceremony cards must not use the outer 500px width.")
     require("TV_WONDER_CEREMONY_READY_" not in fragment, "Automatic ceremonies must not show a ready card.")
     require("TV_WONDER_CEREMONY_CARD_STAGE_" not in fragment, "Ceremony cards must not fall back to static x/8 labels.")
 
-    for icon in (
-        "government",
-        "topography",
-        "laborers",
-        "construction",
-        "building_levels",
-        "building",
-        "art_work",
-        "building_open",
-    ):
-        require(f"@{icon}!" in fragment, f"Ceremony cards must render the built-in @{icon}! stage icon.")
+    icon_sequences: dict[tuple[str, ...], str] = {}
+    for wonder in ceremony_wonders:
+        stages = wonder["ceremony"]["stages"]
+        require(len(stages) == 8, f"{wonder['key']} must retain all eight ceremony stages.")
+        icons = tuple(stage_data["icon"] for stage_data in stages)
+        require(
+            len(set(icons)) == len(icons),
+            f"{wonder['key']} must use a distinct icon for each of its eight ceremony acts.",
+        )
+        require(
+            icons not in icon_sequences,
+            f"{wonder['key']} must not repeat {icon_sequences.get(icons)}'s full ceremony icon design.",
+        )
+        icon_sequences[icons] = wonder["key"]
+        for stage_index, stage_data in enumerate(stages, start=1):
+            icon = stage_data["icon"]
+            require(
+                icon in SUPPORTED_CEREMONY_STAGE_ICONS,
+                f"{wonder['key']} stage {stage_index} must use a verified vanilla font icon.",
+            )
+            require(
+                bool(stage_data["icon_rationale"].strip()),
+                f"{wonder['key']} stage {stage_index} needs an icon rationale tied to its flavor.",
+            )
     for stage in range(1, 9):
         require(
             fragment.count(f"TV_WONDER_CEREMONY_CARD_ACTIVE_S{stage}_") == 1,
@@ -452,6 +478,19 @@ def validate_generated_ceremony_gui(wonders: list[dict]) -> None:
         require(
             fragment.count(f"TV_WONDER_CEREMONY_CARD_COMPLETED_S{stage}_") == 1,
             f"Stage {stage} needs one completed dynamic flavor route.",
+        )
+        require(
+            fragment.count(f"TV_WONDER_CEREMONY_CARD_ICON_S{stage}_") == 2,
+            f"Stage {stage} needs one data-driven icon route for each piechart state.",
+        )
+        stage_icon_counts = Counter(
+            wonder["ceremony"]["stages"][stage - 1]["icon"] for wonder in ceremony_wonders
+        )
+        most_common_icon, most_common_count = stage_icon_counts.most_common(1)[0]
+        require(
+            most_common_count * 100 <= len(ceremony_wonders) * 25,
+            f"Stage {stage} overuses @{most_common_icon}! ({most_common_count}/{len(ceremony_wonders)}); "
+            "select icons from each wonder's actual ritual flavor instead of a global stage pattern.",
         )
 
     for name, path in (
@@ -467,6 +506,17 @@ def validate_generated_ceremony_gui(wonders: list[dict]) -> None:
             localization.count("TV_WONDER_CEREMONY_CARD_COMPLETED_S") == expected_flavor_key_count,
             f"{name} must generate one completed flavor key per ceremony stage.",
         )
+        require(
+            localization.count("TV_WONDER_CEREMONY_CARD_ICON_S") == expected_flavor_key_count,
+            f"{name} must generate one data-driven icon key per ceremony stage.",
+        )
+        for wonder in ceremony_wonders:
+            for stage_index, stage_data in enumerate(wonder["ceremony"]["stages"], start=1):
+                expected_icon_line = f' {card_icon_key(stage_index, wonder["id"])}:0 "@{stage_data["icon"]}!"'
+                require(
+                    expected_icon_line in localization,
+                    f"{name} must render {wonder['key']} stage {stage_index}'s selected icon.",
+                )
         require("TV_WONDER_CEREMONY_READY_" not in localization, f"{name} must not emit ready-card localization.")
         require("TV_WONDER_CEREMONY_CARD_STAGE_" not in localization, f"{name} must not emit static stage labels.")
 
@@ -521,8 +571,18 @@ def validate_unique_ceremony_editor_support(wonders: list[dict]) -> None:
         editor_state["stages"][0]["cost"]["options"],
         "The ceremony editor must expose the restricted stage cost vocabulary.",
     )
+    require(
+        editor_state["stages"][0]["icon"] == dome_of_the_rock["ceremony"]["stages"][0]["icon"],
+        "The ceremony editor must preserve each stage's data-owned icon.",
+    )
+    require(
+        editor_state["stages"][0]["icon_rationale"] == dome_of_the_rock["ceremony"]["stages"][0]["icon_rationale"],
+        "The ceremony editor must preserve each stage's icon rationale.",
+    )
 
     editor_state["stages"][0]["title_en"] = "Editor round-trip stage"
+    editor_state["stages"][0]["icon"] = "government"
+    editor_state["stages"][0]["icon_rationale"] = "Represents the public decree beginning the ceremony."
     saved_ceremony = normalize_unique_ceremony(
         {
             **dome_of_the_rock,
@@ -535,6 +595,11 @@ def validate_unique_ceremony_editor_support(wonders: list[dict]) -> None:
     require(
         saved_ceremony["stages"][0]["title_en"] == "Editor round-trip stage",
         "The ceremony editor must preserve edited stage text through normalization.",
+    )
+    require(
+        saved_ceremony["stages"][0]["icon"] == "government"
+        and saved_ceremony["stages"][0]["icon_rationale"] == "Represents the public decree beginning the ceremony.",
+        "The ceremony editor must preserve edited stage icon metadata through normalization.",
     )
 
     for wonder_id in (101, 102):
@@ -576,6 +641,20 @@ def validate_unique_ceremony_editor_support(wonders: list[dict]) -> None:
         pass
     else:
         raise AssertionError("The ceremony editor must reject positive non-artwork costs.")
+
+    invalid_state = deepcopy(editor_state)
+    invalid_state["stages"][0]["icon"] = "not_a_real_font_icon"
+    try:
+        normalize_unique_ceremony(
+            {
+                **ceremony_wonders[0],
+                "ceremony": unique_ceremony_from_editor_state(invalid_state, context="invalid ceremony"),
+            }
+        )
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("The ceremony editor must reject an unknown font icon.")
 
     ceremony_regen_scripts = (
         "scripts/in_game/common/static_modifiers/gen_tv_engineering_department_wonder_mechanics_modifiers.py",

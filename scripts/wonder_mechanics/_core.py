@@ -23,6 +23,7 @@ UNIQUE_WONDERS_FILE = REPO_ROOT / "data" / "unique_wonders.yaml"
 PULSE_REGISTRY_FILE = REPO_ROOT / "data" / "pulse_registry.yaml"
 GENERIC_WONDER_IMAGE_PROMPTS_FILE = REPO_ROOT / "data" / "wonder_image_prompts.yaml"
 MANUAL_TV_GAME_CONCEPTS_FILE = REPO_ROOT / "src" / "main_menu" / "common" / "game_concepts" / "tv_game_concepts.txt"
+FONT_ICONS_FILE = REPO_ROOT / "reference_game_files" / "game" / "main_menu" / "gui" / "shared" / "font_icons.gui"
 ALL_WONDER_MIN_ID = 1
 ALL_WONDER_MAX_ID = 54
 UNIQUE_WONDER_MIN_ID = 101
@@ -40,6 +41,7 @@ FIXED_WONDER_STAGE_IMAGE_TASKS = [
     {"id": -6, "key": "stage_complete", "name": "tv_wonder_complete"},
 ]
 GAME_CONCEPT_DECL_RE = re.compile(r"^([A-Za-z0-9_]+)\s*=\s*\{$")
+FONT_ICON_DECL_RE = re.compile(r"^\s*icon\s*=\s*([A-Za-z0-9_]+)\s*$", re.MULTILINE)
 ROMAN_NUMERALS = {
     1: "I",
     2: "II",
@@ -52,6 +54,18 @@ SUPPORTED_RITUAL_COST_TYPES = {None, "artwork", "scaled_gold", "prestige"}
 SUPPORTED_UNIQUE_RITUAL_MODES = {"immediate", "timed", "auxiliary_building"}
 WONDER_RITUAL_LISTENER_KEYS = ["monthly", "ruler_death", "pre_winning_war", "ending_war"]
 SUPPORTED_RITUAL_LISTENERS = set(WONDER_RITUAL_LISTENER_KEYS)
+
+
+def _load_font_icon_names() -> frozenset[str]:
+    if not FONT_ICONS_FILE.exists():
+        raise FileNotFoundError(f"Missing vanilla font icon source: {FONT_ICONS_FILE}")
+    names = frozenset(FONT_ICON_DECL_RE.findall(FONT_ICONS_FILE.read_text(encoding="utf-8")))
+    if not names:
+        raise ValueError(f"No font icons found in {FONT_ICONS_FILE}")
+    return names
+
+
+SUPPORTED_CEREMONY_STAGE_ICONS = _load_font_icon_names()
 SUPPORTED_SUITABILITY_KNOWLEDGE_ROW_TYPES = {"condition_bonus", "scaled_bonus"}
 ENGINE_SCALED_FIXED_MODIFIER_MAX = 0.5
 VALUE_MOVEMENT_MODIFIER_PREFIX = "monthly_towards_"
@@ -548,15 +562,20 @@ def _validate_ceremony_stage(value: object, context: str) -> dict[str, object]:
     stage = _require_mapping(value, context)
     _expect_keys(
         stage,
-        required={"title_en", "title_zh", "desc_en", "desc_zh", "cost"},
+        required={"title_en", "title_zh", "desc_en", "desc_zh", "cost", "icon", "icon_rationale"},
         optional=set(),
         context=context,
     )
+    icon = _require_string(stage["icon"], f"{context}.icon")
+    if icon not in SUPPORTED_CEREMONY_STAGE_ICONS:
+        raise ValueError(f"{context}.icon must name a vanilla font icon, got {icon!r}")
     return {
         "title_en": _require_string(stage["title_en"], f"{context}.title_en"),
         "title_zh": _require_string(stage["title_zh"], f"{context}.title_zh"),
         "desc_en": _require_string(stage["desc_en"], f"{context}.desc_en"),
         "desc_zh": _require_string(stage["desc_zh"], f"{context}.desc_zh"),
+        "icon": icon,
+        "icon_rationale": _require_string(stage["icon_rationale"], f"{context}.icon_rationale"),
         "cost": _validate_ceremony_stage_cost(stage["cost"], f"{context}.cost"),
     }
 
