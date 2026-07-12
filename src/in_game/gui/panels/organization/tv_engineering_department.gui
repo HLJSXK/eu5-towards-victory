@@ -203,7 +203,7 @@ organization_panel = {
 							align = nobaseline|left
 						}
 						text_single = {
-							visible = "[And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet))]"
+							visible = "[And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet), And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_stage').GetValue, '(CFixedPoint)2.0'), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet)))]"
 							text = "TV_ENGINEERING_HEADER_NEXT_CONFIRM_SITE"
 							fontsize = 14
 							align = nobaseline|left
@@ -270,7 +270,7 @@ organization_panel = {
 							align = nobaseline|left
 						}
 						text_multi = {
-							visible = "[And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet, Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet))]"
+							visible = "[And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_survey_complete').IsSet), And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_stage').GetValue, '(CFixedPoint)2.0'), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet)))]"
 							max_width = 236
 							autoresize = yes
 							text = "TV_ENGINEERING_HEADER_GUIDANCE_CONFIRM_SITE"
