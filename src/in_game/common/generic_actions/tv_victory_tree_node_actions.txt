@@ -2,11 +2,17 @@
 #   Data:    data/victory_path_tree_variant.yaml
 #   Regen:   conda run --no-capture-output -n eu5 python scripts/in_game/common/generic_actions/gen_tv_victory_tree_node_actions.py
 # Do not edit directly — modify the data file and re-run the generator.
-# Click-to-unlock generic action per node.
+# Click-to-select and confirm/cancel generic actions per node.
 
+
+# ═══════════════════════════════════════════════════════════════════════
+# SECTION 1: PER-NODE SELECT ACTIONS
+# Clicking a node only stages it as the pending selection; the actual
+# unlock (tv_tree_pending_id dispatch) happens via tv_tree_confirm_pending below.
+# ═══════════════════════════════════════════════════════════════════════
 
 # Conquest Victory Tree
-tv_tree_unlock_conquest_t1 = {
+tv_tree_select_conquest_t1 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -28,14 +34,14 @@ tv_tree_unlock_conquest_t1 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_conquest_t1_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 0 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_conquest_t2 = {
+tv_tree_select_conquest_t2 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -58,14 +64,14 @@ tv_tree_unlock_conquest_t2 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_conquest_t2_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 1 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_conquest_t3 = {
+tv_tree_select_conquest_t3 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -88,14 +94,14 @@ tv_tree_unlock_conquest_t3 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_conquest_t3_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 2 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_conquest_t4 = {
+tv_tree_select_conquest_t4 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -118,14 +124,14 @@ tv_tree_unlock_conquest_t4 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_conquest_t4_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 3 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_conquest_t5 = {
+tv_tree_select_conquest_t5 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -148,14 +154,14 @@ tv_tree_unlock_conquest_t5 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_conquest_t5_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 4 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_conquest_b1_1 = {
+tv_tree_select_conquest_b1_1 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -178,14 +184,14 @@ tv_tree_unlock_conquest_b1_1 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_conquest_b1_1_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 5 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_conquest_b1_2 = {
+tv_tree_select_conquest_b1_2 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -208,14 +214,14 @@ tv_tree_unlock_conquest_b1_2 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_conquest_b1_2_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 6 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_conquest_b2_1 = {
+tv_tree_select_conquest_b2_1 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -238,14 +244,14 @@ tv_tree_unlock_conquest_b2_1 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_conquest_b2_1_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 7 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_conquest_b2_2 = {
+tv_tree_select_conquest_b2_2 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -268,14 +274,14 @@ tv_tree_unlock_conquest_b2_2 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_conquest_b2_2_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 8 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_conquest_b2_3 = {
+tv_tree_select_conquest_b2_3 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -298,14 +304,14 @@ tv_tree_unlock_conquest_b2_3 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_conquest_b2_3_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 9 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_conquest_b3_1 = {
+tv_tree_select_conquest_b3_1 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -328,14 +334,14 @@ tv_tree_unlock_conquest_b3_1 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_conquest_b3_1_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 10 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_conquest_b3_2 = {
+tv_tree_select_conquest_b3_2 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -358,14 +364,14 @@ tv_tree_unlock_conquest_b3_2 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_conquest_b3_2_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 11 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_conquest_b4_1 = {
+tv_tree_select_conquest_b4_1 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -388,14 +394,14 @@ tv_tree_unlock_conquest_b4_1 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_conquest_b4_1_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 12 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_conquest_b4_2 = {
+tv_tree_select_conquest_b4_2 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -418,14 +424,14 @@ tv_tree_unlock_conquest_b4_2 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_conquest_b4_2_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 13 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_conquest_b4_3 = {
+tv_tree_select_conquest_b4_3 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -448,14 +454,14 @@ tv_tree_unlock_conquest_b4_3 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_conquest_b4_3_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 14 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_conquest_b5_1 = {
+tv_tree_select_conquest_b5_1 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -478,14 +484,14 @@ tv_tree_unlock_conquest_b5_1 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_conquest_b5_1_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 15 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_conquest_b5_2 = {
+tv_tree_select_conquest_b5_2 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -508,7 +514,7 @@ tv_tree_unlock_conquest_b5_2 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_conquest_b5_2_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 16 }
 		}
 	}
 
@@ -516,7 +522,7 @@ tv_tree_unlock_conquest_b5_2 = {
 }
 
 # Prosperity Victory Tree
-tv_tree_unlock_prosperity_t1 = {
+tv_tree_select_prosperity_t1 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -538,14 +544,14 @@ tv_tree_unlock_prosperity_t1 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_prosperity_t1_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 1000 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_prosperity_t2 = {
+tv_tree_select_prosperity_t2 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -568,14 +574,14 @@ tv_tree_unlock_prosperity_t2 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_prosperity_t2_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 1001 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_prosperity_t3 = {
+tv_tree_select_prosperity_t3 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -598,14 +604,14 @@ tv_tree_unlock_prosperity_t3 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_prosperity_t3_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 1002 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_prosperity_t4 = {
+tv_tree_select_prosperity_t4 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -628,14 +634,14 @@ tv_tree_unlock_prosperity_t4 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_prosperity_t4_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 1003 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_prosperity_t5 = {
+tv_tree_select_prosperity_t5 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -658,14 +664,14 @@ tv_tree_unlock_prosperity_t5 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_prosperity_t5_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 1004 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_prosperity_b1_1 = {
+tv_tree_select_prosperity_b1_1 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -688,14 +694,14 @@ tv_tree_unlock_prosperity_b1_1 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_prosperity_b1_1_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 1005 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_prosperity_b1_2 = {
+tv_tree_select_prosperity_b1_2 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -718,14 +724,14 @@ tv_tree_unlock_prosperity_b1_2 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_prosperity_b1_2_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 1006 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_prosperity_b1_3 = {
+tv_tree_select_prosperity_b1_3 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -748,14 +754,14 @@ tv_tree_unlock_prosperity_b1_3 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_prosperity_b1_3_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 1007 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_prosperity_b2_1 = {
+tv_tree_select_prosperity_b2_1 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -778,14 +784,14 @@ tv_tree_unlock_prosperity_b2_1 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_prosperity_b2_1_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 1008 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_prosperity_b2_2 = {
+tv_tree_select_prosperity_b2_2 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -808,14 +814,14 @@ tv_tree_unlock_prosperity_b2_2 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_prosperity_b2_2_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 1009 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_prosperity_b2_3 = {
+tv_tree_select_prosperity_b2_3 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -838,14 +844,14 @@ tv_tree_unlock_prosperity_b2_3 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_prosperity_b2_3_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 1010 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_prosperity_b2_4 = {
+tv_tree_select_prosperity_b2_4 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -868,14 +874,14 @@ tv_tree_unlock_prosperity_b2_4 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_prosperity_b2_4_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 1011 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_prosperity_b3_1 = {
+tv_tree_select_prosperity_b3_1 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -898,14 +904,14 @@ tv_tree_unlock_prosperity_b3_1 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_prosperity_b3_1_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 1012 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_prosperity_b3_2 = {
+tv_tree_select_prosperity_b3_2 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -928,14 +934,14 @@ tv_tree_unlock_prosperity_b3_2 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_prosperity_b3_2_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 1013 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_prosperity_b4_1 = {
+tv_tree_select_prosperity_b4_1 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -958,14 +964,14 @@ tv_tree_unlock_prosperity_b4_1 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_prosperity_b4_1_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 1014 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_prosperity_b4_2 = {
+tv_tree_select_prosperity_b4_2 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -988,14 +994,14 @@ tv_tree_unlock_prosperity_b4_2 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_prosperity_b4_2_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 1015 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_prosperity_b4_3 = {
+tv_tree_select_prosperity_b4_3 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -1018,14 +1024,14 @@ tv_tree_unlock_prosperity_b4_3 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_prosperity_b4_3_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 1016 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_prosperity_b5_1 = {
+tv_tree_select_prosperity_b5_1 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -1048,14 +1054,14 @@ tv_tree_unlock_prosperity_b5_1 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_prosperity_b5_1_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 1017 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_prosperity_b5_2 = {
+tv_tree_select_prosperity_b5_2 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -1078,14 +1084,14 @@ tv_tree_unlock_prosperity_b5_2 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_prosperity_b5_2_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 1018 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_prosperity_b5_3 = {
+tv_tree_select_prosperity_b5_3 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -1108,7 +1114,7 @@ tv_tree_unlock_prosperity_b5_3 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_prosperity_b5_3_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 1019 }
 		}
 	}
 
@@ -1116,7 +1122,7 @@ tv_tree_unlock_prosperity_b5_3 = {
 }
 
 # Trade Victory Tree
-tv_tree_unlock_trade_t1 = {
+tv_tree_select_trade_t1 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -1138,14 +1144,14 @@ tv_tree_unlock_trade_t1 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_trade_t1_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 2000 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_trade_t2 = {
+tv_tree_select_trade_t2 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -1168,14 +1174,14 @@ tv_tree_unlock_trade_t2 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_trade_t2_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 2001 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_trade_t3 = {
+tv_tree_select_trade_t3 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -1198,14 +1204,14 @@ tv_tree_unlock_trade_t3 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_trade_t3_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 2002 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_trade_t4 = {
+tv_tree_select_trade_t4 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -1228,14 +1234,14 @@ tv_tree_unlock_trade_t4 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_trade_t4_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 2003 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_trade_t5 = {
+tv_tree_select_trade_t5 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -1258,14 +1264,14 @@ tv_tree_unlock_trade_t5 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_trade_t5_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 2004 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_trade_b1_1 = {
+tv_tree_select_trade_b1_1 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -1288,14 +1294,14 @@ tv_tree_unlock_trade_b1_1 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_trade_b1_1_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 2005 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_trade_b1_2 = {
+tv_tree_select_trade_b1_2 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -1318,14 +1324,14 @@ tv_tree_unlock_trade_b1_2 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_trade_b1_2_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 2006 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_trade_b2_1 = {
+tv_tree_select_trade_b2_1 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -1348,14 +1354,14 @@ tv_tree_unlock_trade_b2_1 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_trade_b2_1_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 2007 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_trade_b2_2 = {
+tv_tree_select_trade_b2_2 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -1378,14 +1384,14 @@ tv_tree_unlock_trade_b2_2 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_trade_b2_2_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 2008 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_trade_b2_3 = {
+tv_tree_select_trade_b2_3 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -1408,14 +1414,14 @@ tv_tree_unlock_trade_b2_3 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_trade_b2_3_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 2009 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_trade_b3_1 = {
+tv_tree_select_trade_b3_1 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -1438,14 +1444,14 @@ tv_tree_unlock_trade_b3_1 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_trade_b3_1_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 2010 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_trade_b3_2 = {
+tv_tree_select_trade_b3_2 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -1468,14 +1474,14 @@ tv_tree_unlock_trade_b3_2 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_trade_b3_2_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 2011 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_trade_b3_3 = {
+tv_tree_select_trade_b3_3 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -1498,14 +1504,14 @@ tv_tree_unlock_trade_b3_3 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_trade_b3_3_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 2012 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_trade_b3_4 = {
+tv_tree_select_trade_b3_4 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -1528,14 +1534,14 @@ tv_tree_unlock_trade_b3_4 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_trade_b3_4_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 2013 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_trade_b4_1 = {
+tv_tree_select_trade_b4_1 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -1558,14 +1564,14 @@ tv_tree_unlock_trade_b4_1 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_trade_b4_1_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 2014 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_trade_b4_2 = {
+tv_tree_select_trade_b4_2 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -1588,14 +1594,14 @@ tv_tree_unlock_trade_b4_2 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_trade_b4_2_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 2015 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_trade_b5_1 = {
+tv_tree_select_trade_b5_1 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -1618,14 +1624,14 @@ tv_tree_unlock_trade_b5_1 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_trade_b5_1_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 2016 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_trade_b5_2 = {
+tv_tree_select_trade_b5_2 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -1648,7 +1654,7 @@ tv_tree_unlock_trade_b5_2 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_trade_b5_2_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 2017 }
 		}
 	}
 
@@ -1656,7 +1662,7 @@ tv_tree_unlock_trade_b5_2 = {
 }
 
 # Diplomatic Victory Tree
-tv_tree_unlock_diplomatic_t1 = {
+tv_tree_select_diplomatic_t1 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -1678,14 +1684,14 @@ tv_tree_unlock_diplomatic_t1 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_diplomatic_t1_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 3000 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_diplomatic_t2 = {
+tv_tree_select_diplomatic_t2 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -1708,14 +1714,14 @@ tv_tree_unlock_diplomatic_t2 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_diplomatic_t2_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 3001 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_diplomatic_t3 = {
+tv_tree_select_diplomatic_t3 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -1738,14 +1744,14 @@ tv_tree_unlock_diplomatic_t3 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_diplomatic_t3_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 3002 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_diplomatic_t4 = {
+tv_tree_select_diplomatic_t4 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -1768,14 +1774,14 @@ tv_tree_unlock_diplomatic_t4 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_diplomatic_t4_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 3003 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_diplomatic_t5 = {
+tv_tree_select_diplomatic_t5 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -1798,14 +1804,14 @@ tv_tree_unlock_diplomatic_t5 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_diplomatic_t5_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 3004 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_diplomatic_b1_1 = {
+tv_tree_select_diplomatic_b1_1 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -1828,14 +1834,14 @@ tv_tree_unlock_diplomatic_b1_1 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_diplomatic_b1_1_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 3005 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_diplomatic_b1_2 = {
+tv_tree_select_diplomatic_b1_2 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -1858,14 +1864,14 @@ tv_tree_unlock_diplomatic_b1_2 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_diplomatic_b1_2_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 3006 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_diplomatic_b2_1 = {
+tv_tree_select_diplomatic_b2_1 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -1888,14 +1894,14 @@ tv_tree_unlock_diplomatic_b2_1 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_diplomatic_b2_1_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 3007 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_diplomatic_b2_2 = {
+tv_tree_select_diplomatic_b2_2 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -1918,14 +1924,14 @@ tv_tree_unlock_diplomatic_b2_2 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_diplomatic_b2_2_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 3008 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_diplomatic_b2_3 = {
+tv_tree_select_diplomatic_b2_3 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -1948,14 +1954,14 @@ tv_tree_unlock_diplomatic_b2_3 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_diplomatic_b2_3_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 3009 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_diplomatic_b3_1 = {
+tv_tree_select_diplomatic_b3_1 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -1978,14 +1984,14 @@ tv_tree_unlock_diplomatic_b3_1 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_diplomatic_b3_1_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 3010 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_diplomatic_b3_2 = {
+tv_tree_select_diplomatic_b3_2 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -2008,14 +2014,14 @@ tv_tree_unlock_diplomatic_b3_2 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_diplomatic_b3_2_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 3011 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_diplomatic_b3_3 = {
+tv_tree_select_diplomatic_b3_3 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -2038,14 +2044,14 @@ tv_tree_unlock_diplomatic_b3_3 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_diplomatic_b3_3_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 3012 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_diplomatic_b4_1 = {
+tv_tree_select_diplomatic_b4_1 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -2068,14 +2074,14 @@ tv_tree_unlock_diplomatic_b4_1 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_diplomatic_b4_1_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 3013 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_diplomatic_b4_2 = {
+tv_tree_select_diplomatic_b4_2 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -2098,14 +2104,14 @@ tv_tree_unlock_diplomatic_b4_2 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_diplomatic_b4_2_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 3014 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_diplomatic_b4_3 = {
+tv_tree_select_diplomatic_b4_3 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -2128,14 +2134,14 @@ tv_tree_unlock_diplomatic_b4_3 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_diplomatic_b4_3_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 3015 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_diplomatic_b5_1 = {
+tv_tree_select_diplomatic_b5_1 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -2158,14 +2164,14 @@ tv_tree_unlock_diplomatic_b5_1 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_diplomatic_b5_1_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 3016 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_diplomatic_b5_2 = {
+tv_tree_select_diplomatic_b5_2 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -2188,7 +2194,7 @@ tv_tree_unlock_diplomatic_b5_2 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_diplomatic_b5_2_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 3017 }
 		}
 	}
 
@@ -2196,7 +2202,7 @@ tv_tree_unlock_diplomatic_b5_2 = {
 }
 
 # Cultural Victory Tree
-tv_tree_unlock_cultural_t1 = {
+tv_tree_select_cultural_t1 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -2218,14 +2224,14 @@ tv_tree_unlock_cultural_t1 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_cultural_t1_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 4000 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_cultural_t2 = {
+tv_tree_select_cultural_t2 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -2248,14 +2254,14 @@ tv_tree_unlock_cultural_t2 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_cultural_t2_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 4001 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_cultural_t3 = {
+tv_tree_select_cultural_t3 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -2278,14 +2284,14 @@ tv_tree_unlock_cultural_t3 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_cultural_t3_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 4002 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_cultural_t4 = {
+tv_tree_select_cultural_t4 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -2308,14 +2314,14 @@ tv_tree_unlock_cultural_t4 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_cultural_t4_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 4003 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_cultural_t5 = {
+tv_tree_select_cultural_t5 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -2338,14 +2344,14 @@ tv_tree_unlock_cultural_t5 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_cultural_t5_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 4004 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_cultural_b1_1 = {
+tv_tree_select_cultural_b1_1 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -2368,14 +2374,14 @@ tv_tree_unlock_cultural_b1_1 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_cultural_b1_1_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 4005 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_cultural_b1_2 = {
+tv_tree_select_cultural_b1_2 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -2398,14 +2404,14 @@ tv_tree_unlock_cultural_b1_2 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_cultural_b1_2_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 4006 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_cultural_b2_1 = {
+tv_tree_select_cultural_b2_1 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -2428,14 +2434,14 @@ tv_tree_unlock_cultural_b2_1 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_cultural_b2_1_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 4007 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_cultural_b2_2 = {
+tv_tree_select_cultural_b2_2 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -2458,14 +2464,14 @@ tv_tree_unlock_cultural_b2_2 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_cultural_b2_2_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 4008 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_cultural_b3_1 = {
+tv_tree_select_cultural_b3_1 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -2488,14 +2494,14 @@ tv_tree_unlock_cultural_b3_1 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_cultural_b3_1_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 4009 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_cultural_b3_2 = {
+tv_tree_select_cultural_b3_2 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -2518,14 +2524,14 @@ tv_tree_unlock_cultural_b3_2 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_cultural_b3_2_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 4010 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_cultural_b4_1 = {
+tv_tree_select_cultural_b4_1 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -2548,14 +2554,14 @@ tv_tree_unlock_cultural_b4_1 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_cultural_b4_1_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 4011 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_cultural_b4_2 = {
+tv_tree_select_cultural_b4_2 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -2578,14 +2584,14 @@ tv_tree_unlock_cultural_b4_2 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_cultural_b4_2_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 4012 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_cultural_b5_1 = {
+tv_tree_select_cultural_b5_1 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -2608,14 +2614,14 @@ tv_tree_unlock_cultural_b5_1 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_cultural_b5_1_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 4013 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_cultural_b5_2 = {
+tv_tree_select_cultural_b5_2 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -2638,7 +2644,7 @@ tv_tree_unlock_cultural_b5_2 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_cultural_b5_2_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 4014 }
 		}
 	}
 
@@ -2646,7 +2652,7 @@ tv_tree_unlock_cultural_b5_2 = {
 }
 
 # Science Victory Tree
-tv_tree_unlock_science_t1 = {
+tv_tree_select_science_t1 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -2668,14 +2674,14 @@ tv_tree_unlock_science_t1 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_science_t1_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 5000 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_science_t2 = {
+tv_tree_select_science_t2 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -2698,14 +2704,14 @@ tv_tree_unlock_science_t2 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_science_t2_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 5001 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_science_t3 = {
+tv_tree_select_science_t3 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -2728,14 +2734,14 @@ tv_tree_unlock_science_t3 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_science_t3_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 5002 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_science_t4 = {
+tv_tree_select_science_t4 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -2758,14 +2764,14 @@ tv_tree_unlock_science_t4 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_science_t4_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 5003 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_science_t5 = {
+tv_tree_select_science_t5 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -2788,14 +2794,14 @@ tv_tree_unlock_science_t5 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_science_t5_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 5004 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_science_b1_1 = {
+tv_tree_select_science_b1_1 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -2818,14 +2824,14 @@ tv_tree_unlock_science_b1_1 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_science_b1_1_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 5005 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_science_b1_2 = {
+tv_tree_select_science_b1_2 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -2848,14 +2854,14 @@ tv_tree_unlock_science_b1_2 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_science_b1_2_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 5006 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_science_b2_1 = {
+tv_tree_select_science_b2_1 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -2878,14 +2884,14 @@ tv_tree_unlock_science_b2_1 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_science_b2_1_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 5007 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_science_b2_2 = {
+tv_tree_select_science_b2_2 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -2908,14 +2914,14 @@ tv_tree_unlock_science_b2_2 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_science_b2_2_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 5008 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_science_b2_3 = {
+tv_tree_select_science_b2_3 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -2938,14 +2944,14 @@ tv_tree_unlock_science_b2_3 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_science_b2_3_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 5009 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_science_b3_1 = {
+tv_tree_select_science_b3_1 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -2968,14 +2974,14 @@ tv_tree_unlock_science_b3_1 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_science_b3_1_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 5010 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_science_b3_2 = {
+tv_tree_select_science_b3_2 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -2998,14 +3004,14 @@ tv_tree_unlock_science_b3_2 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_science_b3_2_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 5011 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_science_b4_1 = {
+tv_tree_select_science_b4_1 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -3028,14 +3034,14 @@ tv_tree_unlock_science_b4_1 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_science_b4_1_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 5012 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_science_b4_2 = {
+tv_tree_select_science_b4_2 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -3058,14 +3064,14 @@ tv_tree_unlock_science_b4_2 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_science_b4_2_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 5013 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_science_b5_1 = {
+tv_tree_select_science_b5_1 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -3088,14 +3094,14 @@ tv_tree_unlock_science_b5_1 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_science_b5_1_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 5014 }
 		}
 	}
 
 	ai_will_do = { add = -100 }
 }
 
-tv_tree_unlock_science_b5_2 = {
+tv_tree_select_science_b5_2 = {
 	type = owncountry
 	sound = UI_action_religion_generic
 	show_message = no
@@ -3118,7 +3124,473 @@ tv_tree_unlock_science_b5_2 = {
 
 	effect = {
 		scope:actor = {
-			tv_tree_science_b5_2_unlock_effect = yes
+			set_variable = { name = tv_tree_pending_id value = 5015 }
+		}
+	}
+
+	ai_will_do = { add = -100 }
+}
+
+# ═══════════════════════════════════════════════════════════════════════
+# SECTION 2: SHARED CONFIRM / CANCEL DISPATCH ACTIONS
+# tv_tree_confirm_pending maps the pending id back to the node's unlock effect;
+# tv_tree_cancel_pending discards the pending selection untouched.
+# ═══════════════════════════════════════════════════════════════════════
+
+tv_tree_confirm_pending = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	show_message = no
+	ai_tick = never
+	automation_tick = never
+
+	potential = { always = yes }
+
+	allow = {
+		scope:actor = { has_variable = tv_tree_pending_id }
+	}
+
+	effect = {
+		scope:actor = {
+			if = {
+				limit = { var:tv_tree_pending_id = 0 }
+				tv_tree_conquest_t1_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 1 }
+				tv_tree_conquest_t2_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 2 }
+				tv_tree_conquest_t3_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 3 }
+				tv_tree_conquest_t4_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 4 }
+				tv_tree_conquest_t5_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 5 }
+				tv_tree_conquest_b1_1_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 6 }
+				tv_tree_conquest_b1_2_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 7 }
+				tv_tree_conquest_b2_1_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 8 }
+				tv_tree_conquest_b2_2_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 9 }
+				tv_tree_conquest_b2_3_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 10 }
+				tv_tree_conquest_b3_1_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 11 }
+				tv_tree_conquest_b3_2_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 12 }
+				tv_tree_conquest_b4_1_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 13 }
+				tv_tree_conquest_b4_2_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 14 }
+				tv_tree_conquest_b4_3_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 15 }
+				tv_tree_conquest_b5_1_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 16 }
+				tv_tree_conquest_b5_2_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 1000 }
+				tv_tree_prosperity_t1_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 1001 }
+				tv_tree_prosperity_t2_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 1002 }
+				tv_tree_prosperity_t3_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 1003 }
+				tv_tree_prosperity_t4_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 1004 }
+				tv_tree_prosperity_t5_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 1005 }
+				tv_tree_prosperity_b1_1_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 1006 }
+				tv_tree_prosperity_b1_2_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 1007 }
+				tv_tree_prosperity_b1_3_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 1008 }
+				tv_tree_prosperity_b2_1_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 1009 }
+				tv_tree_prosperity_b2_2_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 1010 }
+				tv_tree_prosperity_b2_3_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 1011 }
+				tv_tree_prosperity_b2_4_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 1012 }
+				tv_tree_prosperity_b3_1_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 1013 }
+				tv_tree_prosperity_b3_2_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 1014 }
+				tv_tree_prosperity_b4_1_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 1015 }
+				tv_tree_prosperity_b4_2_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 1016 }
+				tv_tree_prosperity_b4_3_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 1017 }
+				tv_tree_prosperity_b5_1_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 1018 }
+				tv_tree_prosperity_b5_2_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 1019 }
+				tv_tree_prosperity_b5_3_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 2000 }
+				tv_tree_trade_t1_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 2001 }
+				tv_tree_trade_t2_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 2002 }
+				tv_tree_trade_t3_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 2003 }
+				tv_tree_trade_t4_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 2004 }
+				tv_tree_trade_t5_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 2005 }
+				tv_tree_trade_b1_1_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 2006 }
+				tv_tree_trade_b1_2_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 2007 }
+				tv_tree_trade_b2_1_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 2008 }
+				tv_tree_trade_b2_2_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 2009 }
+				tv_tree_trade_b2_3_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 2010 }
+				tv_tree_trade_b3_1_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 2011 }
+				tv_tree_trade_b3_2_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 2012 }
+				tv_tree_trade_b3_3_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 2013 }
+				tv_tree_trade_b3_4_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 2014 }
+				tv_tree_trade_b4_1_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 2015 }
+				tv_tree_trade_b4_2_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 2016 }
+				tv_tree_trade_b5_1_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 2017 }
+				tv_tree_trade_b5_2_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 3000 }
+				tv_tree_diplomatic_t1_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 3001 }
+				tv_tree_diplomatic_t2_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 3002 }
+				tv_tree_diplomatic_t3_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 3003 }
+				tv_tree_diplomatic_t4_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 3004 }
+				tv_tree_diplomatic_t5_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 3005 }
+				tv_tree_diplomatic_b1_1_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 3006 }
+				tv_tree_diplomatic_b1_2_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 3007 }
+				tv_tree_diplomatic_b2_1_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 3008 }
+				tv_tree_diplomatic_b2_2_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 3009 }
+				tv_tree_diplomatic_b2_3_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 3010 }
+				tv_tree_diplomatic_b3_1_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 3011 }
+				tv_tree_diplomatic_b3_2_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 3012 }
+				tv_tree_diplomatic_b3_3_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 3013 }
+				tv_tree_diplomatic_b4_1_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 3014 }
+				tv_tree_diplomatic_b4_2_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 3015 }
+				tv_tree_diplomatic_b4_3_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 3016 }
+				tv_tree_diplomatic_b5_1_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 3017 }
+				tv_tree_diplomatic_b5_2_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 4000 }
+				tv_tree_cultural_t1_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 4001 }
+				tv_tree_cultural_t2_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 4002 }
+				tv_tree_cultural_t3_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 4003 }
+				tv_tree_cultural_t4_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 4004 }
+				tv_tree_cultural_t5_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 4005 }
+				tv_tree_cultural_b1_1_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 4006 }
+				tv_tree_cultural_b1_2_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 4007 }
+				tv_tree_cultural_b2_1_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 4008 }
+				tv_tree_cultural_b2_2_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 4009 }
+				tv_tree_cultural_b3_1_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 4010 }
+				tv_tree_cultural_b3_2_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 4011 }
+				tv_tree_cultural_b4_1_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 4012 }
+				tv_tree_cultural_b4_2_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 4013 }
+				tv_tree_cultural_b5_1_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 4014 }
+				tv_tree_cultural_b5_2_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 5000 }
+				tv_tree_science_t1_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 5001 }
+				tv_tree_science_t2_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 5002 }
+				tv_tree_science_t3_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 5003 }
+				tv_tree_science_t4_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 5004 }
+				tv_tree_science_t5_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 5005 }
+				tv_tree_science_b1_1_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 5006 }
+				tv_tree_science_b1_2_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 5007 }
+				tv_tree_science_b2_1_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 5008 }
+				tv_tree_science_b2_2_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 5009 }
+				tv_tree_science_b2_3_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 5010 }
+				tv_tree_science_b3_1_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 5011 }
+				tv_tree_science_b3_2_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 5012 }
+				tv_tree_science_b4_1_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 5013 }
+				tv_tree_science_b4_2_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 5014 }
+				tv_tree_science_b5_1_unlock_effect = yes
+			}
+			else_if = {
+				limit = { var:tv_tree_pending_id = 5015 }
+				tv_tree_science_b5_2_unlock_effect = yes
+			}
+			remove_variable = tv_tree_pending_id
+		}
+	}
+
+	ai_will_do = { add = -100 }
+}
+
+tv_tree_cancel_pending = {
+	type = owncountry
+	sound = UI_action_religion_generic
+	show_message = no
+	ai_tick = never
+	automation_tick = never
+
+	potential = { always = yes }
+
+	allow = {
+		scope:actor = { has_variable = tv_tree_pending_id }
+	}
+
+	effect = {
+		scope:actor = {
+			remove_variable = tv_tree_pending_id
 		}
 	}
 
