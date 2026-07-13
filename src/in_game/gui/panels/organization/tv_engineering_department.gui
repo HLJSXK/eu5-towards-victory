@@ -1999,6 +1999,20 @@ widget = {
 													align = nobaseline|left
 												}
 											}
+											TooltipManualTableField = {
+												blockoverride "row_size" {
+													maximumsize = { -1 50 }
+													minimumsize = { -1 50 }
+												}
+												text_multi = {
+													layoutpolicy_horizontal = expanding
+													max_width = 380
+													minimumsize = { 380 -1 }
+													autoresize = yes
+													text = "TV_ENGINEERING_SURVEY_HELP_TEXT_5"
+													align = nobaseline|left
+												}
+											}
 										}
 									}
 								}
@@ -2109,6 +2123,20 @@ widget = {
 											minimumsize = { 380 -1 }
 											autoresize = yes
 											text = "TV_ENGINEERING_SURVEY_HELP_TEXT_4"
+											align = nobaseline|left
+										}
+									}
+									TooltipManualTableField = {
+										blockoverride "row_size" {
+											maximumsize = { -1 50 }
+											minimumsize = { -1 50 }
+										}
+										text_multi = {
+											layoutpolicy_horizontal = expanding
+											max_width = 380
+											minimumsize = { 380 -1 }
+											autoresize = yes
+											text = "TV_ENGINEERING_SURVEY_HELP_TEXT_5"
 											align = nobaseline|left
 										}
 									}
@@ -3649,48 +3677,6 @@ widget = {
 														align = nobaseline|left
 													}
 												}
-												TooltipManualTableField = {
-													blockoverride "row_size" {
-														maximumsize = { -1 50 }
-														minimumsize = { -1 50 }
-													}
-													text_multi = {
-														layoutpolicy_horizontal = expanding
-														max_width = 380
-														minimumsize = { 380 -1 }
-														autoresize = yes
-														text = "TV_ENGINEERING_CEREMONY_HELP_GENERIC_TEXT_2"
-														align = nobaseline|left
-													}
-												}
-												TooltipManualTableField = {
-													blockoverride "row_size" {
-														maximumsize = { -1 50 }
-														minimumsize = { -1 50 }
-													}
-													text_multi = {
-														layoutpolicy_horizontal = expanding
-														max_width = 380
-														minimumsize = { 380 -1 }
-														autoresize = yes
-														text = "TV_ENGINEERING_CEREMONY_HELP_GENERIC_TEXT_3"
-														align = nobaseline|left
-													}
-												}
-												TooltipManualTableField = {
-													blockoverride "row_size" {
-														maximumsize = { -1 50 }
-														minimumsize = { -1 50 }
-													}
-													text_multi = {
-														layoutpolicy_horizontal = expanding
-														max_width = 380
-														minimumsize = { 380 -1 }
-														autoresize = yes
-														text = "TV_ENGINEERING_CEREMONY_HELP_GENERIC_TEXT_4"
-														align = nobaseline|left
-													}
-												}
 											}
 
 											text_single = {
@@ -3734,34 +3720,6 @@ widget = {
 														minimumsize = { 380 -1 }
 														autoresize = yes
 														text = "TV_ENGINEERING_CEREMONY_HELP_UNIQUE_TEXT_2"
-														align = nobaseline|left
-													}
-												}
-												TooltipManualTableField = {
-													blockoverride "row_size" {
-														maximumsize = { -1 50 }
-														minimumsize = { -1 50 }
-													}
-													text_multi = {
-														layoutpolicy_horizontal = expanding
-														max_width = 380
-														minimumsize = { 380 -1 }
-														autoresize = yes
-														text = "TV_ENGINEERING_CEREMONY_HELP_UNIQUE_TEXT_3"
-														align = nobaseline|left
-													}
-												}
-												TooltipManualTableField = {
-													blockoverride "row_size" {
-														maximumsize = { -1 50 }
-														minimumsize = { -1 50 }
-													}
-													text_multi = {
-														layoutpolicy_horizontal = expanding
-														max_width = 380
-														minimumsize = { 380 -1 }
-														autoresize = yes
-														text = "TV_ENGINEERING_CEREMONY_HELP_UNIQUE_TEXT_4"
 														align = nobaseline|left
 													}
 												}
@@ -3850,48 +3808,6 @@ widget = {
 														align = nobaseline|left
 													}
 												}
-												TooltipManualTableField = {
-													blockoverride "row_size" {
-														maximumsize = { -1 50 }
-														minimumsize = { -1 50 }
-													}
-													text_multi = {
-														layoutpolicy_horizontal = expanding
-														max_width = 380
-														minimumsize = { 380 -1 }
-														autoresize = yes
-														text = "TV_ENGINEERING_CEREMONY_HELP_GENERIC_TEXT_2"
-														align = nobaseline|left
-													}
-												}
-												TooltipManualTableField = {
-													blockoverride "row_size" {
-														maximumsize = { -1 50 }
-														minimumsize = { -1 50 }
-													}
-													text_multi = {
-														layoutpolicy_horizontal = expanding
-														max_width = 380
-														minimumsize = { 380 -1 }
-														autoresize = yes
-														text = "TV_ENGINEERING_CEREMONY_HELP_GENERIC_TEXT_3"
-														align = nobaseline|left
-													}
-												}
-												TooltipManualTableField = {
-													blockoverride "row_size" {
-														maximumsize = { -1 50 }
-														minimumsize = { -1 50 }
-													}
-													text_multi = {
-														layoutpolicy_horizontal = expanding
-														max_width = 380
-														minimumsize = { 380 -1 }
-														autoresize = yes
-														text = "TV_ENGINEERING_CEREMONY_HELP_GENERIC_TEXT_4"
-														align = nobaseline|left
-													}
-												}
 											}
 
 											text_single = {
@@ -3935,34 +3851,6 @@ widget = {
 														minimumsize = { 380 -1 }
 														autoresize = yes
 														text = "TV_ENGINEERING_CEREMONY_HELP_UNIQUE_TEXT_2"
-														align = nobaseline|left
-													}
-												}
-												TooltipManualTableField = {
-													blockoverride "row_size" {
-														maximumsize = { -1 50 }
-														minimumsize = { -1 50 }
-													}
-													text_multi = {
-														layoutpolicy_horizontal = expanding
-														max_width = 380
-														minimumsize = { 380 -1 }
-														autoresize = yes
-														text = "TV_ENGINEERING_CEREMONY_HELP_UNIQUE_TEXT_3"
-														align = nobaseline|left
-													}
-												}
-												TooltipManualTableField = {
-													blockoverride "row_size" {
-														maximumsize = { -1 50 }
-														minimumsize = { -1 50 }
-													}
-													text_multi = {
-														layoutpolicy_horizontal = expanding
-														max_width = 380
-														minimumsize = { 380 -1 }
-														autoresize = yes
-														text = "TV_ENGINEERING_CEREMONY_HELP_UNIQUE_TEXT_4"
 														align = nobaseline|left
 													}
 												}
