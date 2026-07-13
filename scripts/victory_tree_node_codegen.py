@@ -282,4 +282,11 @@ def generate_loc(data: dict, regen_script: str, *, lang: str) -> str:
             lines.append(f' {key}:0 "#G {title}#!"')
             lines.append(f' {key}_desc:0 "{desc_line}"')
             lines.append(f' STATIC_MODIFIER_NAME_{modifier_name(pid, node["id"])}:0 "{title}"')
+            if zh:
+                lines.append(f' PERFORM_{key}_ACTION_SETUP:0 "当我们解锁一个胜利之路树状节点时。"')
+                lines.append(f' PERFORM_{key}_ACTION_LOG:0 "我们解锁了一个胜利之路树状节点。"')
+            else:
+                lines.append(f' PERFORM_{key}_ACTION_SETUP:0 "When we unlock a Victory Path Tree node."')
+                lines.append(f' PERFORM_{key}_ACTION_LOG:0 "We unlocked a Victory Path Tree node."')
+            lines.append(f' PERFORM_{key}_ACTION_MAP:0 ""')
     return "\n".join(lines) + "\n"

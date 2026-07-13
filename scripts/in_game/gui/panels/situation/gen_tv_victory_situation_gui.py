@@ -835,7 +835,7 @@ def append_tree_node_button(lines: list[str], level: int, pid: str, node: dict) 
     emit(lines, level, "widget = {")
     emit(lines, level + 1, f"position = {{ {x_px} {y_px} }}")
     emit(lines, level + 1, f"size = {{ {NODE_BUTTON_SIZE} {NODE_BUTTON_SIZE} }}")
-    emit(lines, level + 1, "parentanchor = topleft")
+    emit(lines, level + 1, "parentanchor = top|left")
     emit(lines, level + 1, "widgetanchor = center")
     for visible, alpha in ((unlocked, "1.0"), (f"Not({unlocked})", "0.35")):
         emit(lines, level + 1, "widget = {")
