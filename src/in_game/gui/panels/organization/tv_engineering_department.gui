@@ -507,7 +507,7 @@ organization_panel = {
 
 	blockoverride "organization_overview_list_custom_top_extra" {
 		vbox = {
-			margin = { 10 0 }
+			margin = { 10 10 }
 			layoutpolicy_horizontal = expanding
 			ignoreinvisible = yes
 			spacing = 10
@@ -2507,7 +2507,6 @@ widget = {
 	}
 
 	blockoverride "organization_custom_content" {
-		margin_top = -5
 		spacing = 0
 		layoutpolicy_vertical = expanding
 
@@ -2525,7 +2524,7 @@ widget = {
 					layoutpolicy_vertical = expanding
 					ignoreinvisible = yes
 					spacing = 10
-					margin = { 10 2 }
+					margin = { 10 10 }
 
 					tv_engineering_department_card_common = {
 						visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet)]"
