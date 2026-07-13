@@ -541,6 +541,67 @@ organization_panel = {
 									layoutpolicy_horizontal = expanding
 									layoutpolicy_vertical = shrinking
 									spacing = 6
+
+									background = {
+										using = bg_container_framed_texture
+									}
+
+									TooltipManualTableField = {
+										blockoverride "row_size" {
+											maximumsize = { -1 50 }
+											minimumsize = { -1 50 }
+										}
+										text_multi = {
+											layoutpolicy_horizontal = expanding
+											max_width = 380
+											minimumsize = { 380 -1 }
+											autoresize = yes
+											text = "TV_ENGINEERING_CONCEPT_HELP_TEXT_1"
+											align = nobaseline|left
+										}
+									}
+									TooltipManualTableField = {
+										blockoverride "row_size" {
+											maximumsize = { -1 50 }
+											minimumsize = { -1 50 }
+										}
+										text_multi = {
+											layoutpolicy_horizontal = expanding
+											max_width = 380
+											minimumsize = { 380 -1 }
+											autoresize = yes
+											text = "TV_ENGINEERING_CONCEPT_HELP_TEXT_2"
+											align = nobaseline|left
+										}
+									}
+									TooltipManualTableField = {
+										blockoverride "row_size" {
+											maximumsize = { -1 50 }
+											minimumsize = { -1 50 }
+										}
+										text_multi = {
+											layoutpolicy_horizontal = expanding
+											max_width = 380
+											minimumsize = { 380 -1 }
+											autoresize = yes
+											text = "TV_ENGINEERING_CONCEPT_HELP_TEXT_3"
+											align = nobaseline|left
+										}
+									}
+									TooltipManualTableField = {
+										blockoverride "row_size" {
+											maximumsize = { -1 50 }
+											minimumsize = { -1 50 }
+										}
+										text_multi = {
+											layoutpolicy_horizontal = expanding
+											max_width = 380
+											minimumsize = { 380 -1 }
+											autoresize = yes
+											text = "TV_ENGINEERING_CONCEPT_HELP_TEXT_4"
+											align = nobaseline|left
+										}
+									}
 								}
 							}
 						}
@@ -1441,6 +1502,67 @@ widget = {
 									layoutpolicy_horizontal = expanding
 									layoutpolicy_vertical = shrinking
 									spacing = 6
+
+									background = {
+										using = bg_container_framed_texture
+									}
+
+									TooltipManualTableField = {
+										blockoverride "row_size" {
+											maximumsize = { -1 50 }
+											minimumsize = { -1 50 }
+										}
+										text_multi = {
+											layoutpolicy_horizontal = expanding
+											max_width = 380
+											minimumsize = { 380 -1 }
+											autoresize = yes
+											text = "TV_ENGINEERING_DEBATE_HELP_TEXT_1"
+											align = nobaseline|left
+										}
+									}
+									TooltipManualTableField = {
+										blockoverride "row_size" {
+											maximumsize = { -1 50 }
+											minimumsize = { -1 50 }
+										}
+										text_multi = {
+											layoutpolicy_horizontal = expanding
+											max_width = 380
+											minimumsize = { 380 -1 }
+											autoresize = yes
+											text = "TV_ENGINEERING_DEBATE_HELP_TEXT_2"
+											align = nobaseline|left
+										}
+									}
+									TooltipManualTableField = {
+										blockoverride "row_size" {
+											maximumsize = { -1 50 }
+											minimumsize = { -1 50 }
+										}
+										text_multi = {
+											layoutpolicy_horizontal = expanding
+											max_width = 380
+											minimumsize = { 380 -1 }
+											autoresize = yes
+											text = "TV_ENGINEERING_DEBATE_HELP_TEXT_3"
+											align = nobaseline|left
+										}
+									}
+									TooltipManualTableField = {
+										blockoverride "row_size" {
+											maximumsize = { -1 50 }
+											minimumsize = { -1 50 }
+										}
+										text_multi = {
+											layoutpolicy_horizontal = expanding
+											max_width = 380
+											minimumsize = { 380 -1 }
+											autoresize = yes
+											text = "TV_ENGINEERING_DEBATE_HELP_TEXT_4"
+											align = nobaseline|left
+										}
+									}
 								}
 							}
 						}
@@ -1842,6 +1964,67 @@ widget = {
 									layoutpolicy_horizontal = expanding
 									layoutpolicy_vertical = shrinking
 									spacing = 6
+
+									background = {
+										using = bg_container_framed_texture
+									}
+
+									TooltipManualTableField = {
+										blockoverride "row_size" {
+											maximumsize = { -1 50 }
+											minimumsize = { -1 50 }
+										}
+										text_multi = {
+											layoutpolicy_horizontal = expanding
+											max_width = 380
+											minimumsize = { 380 -1 }
+											autoresize = yes
+											text = "TV_ENGINEERING_SURVEY_HELP_TEXT_1"
+											align = nobaseline|left
+										}
+									}
+									TooltipManualTableField = {
+										blockoverride "row_size" {
+											maximumsize = { -1 50 }
+											minimumsize = { -1 50 }
+										}
+										text_multi = {
+											layoutpolicy_horizontal = expanding
+											max_width = 380
+											minimumsize = { 380 -1 }
+											autoresize = yes
+											text = "TV_ENGINEERING_SURVEY_HELP_TEXT_2"
+											align = nobaseline|left
+										}
+									}
+									TooltipManualTableField = {
+										blockoverride "row_size" {
+											maximumsize = { -1 50 }
+											minimumsize = { -1 50 }
+										}
+										text_multi = {
+											layoutpolicy_horizontal = expanding
+											max_width = 380
+											minimumsize = { 380 -1 }
+											autoresize = yes
+											text = "TV_ENGINEERING_SURVEY_HELP_TEXT_3"
+											align = nobaseline|left
+										}
+									}
+									TooltipManualTableField = {
+										blockoverride "row_size" {
+											maximumsize = { -1 50 }
+											minimumsize = { -1 50 }
+										}
+										text_multi = {
+											layoutpolicy_horizontal = expanding
+											max_width = 380
+											minimumsize = { 380 -1 }
+											autoresize = yes
+											text = "TV_ENGINEERING_SURVEY_HELP_TEXT_4"
+											align = nobaseline|left
+										}
+									}
 								}
 							}
 						}
