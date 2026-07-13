@@ -2588,3 +2588,13 @@
   scope: any
   source: "scripts/gen_tv_victory_tree_connectors.py; reference_game_files grep for `rotation\\s*=` (coat_of_arms only, verified 2026-07-13)"
   notes: "Discovered 2026-07-13 while designing the Victory Path Tree node-overlay UI (docs/design/Victory_Path_Tree_Variant_Design.md). Applies to any future node-graph/skill-tree-style panel with fixed node positions and prerequisite connector lines."
+
+- id: gui_anchor_invalid_concatenated_token
+  pattern: '(parentanchor|widgetanchor)\s*=\s*(topleft|topright|bottomleft|bottomright)\b'
+  detectability: lint
+  bad: "Writing `parentanchor = topleft` (or topright/bottomleft/bottomright) as a single concatenated token for a corner anchor."
+  correction: "EU5 GUI anchor values are combined with `|`, not concatenated: use `parentanchor = top|left` (verified via reference_game_files, which only ever uses combos like `top|left`, `bottom|right`, `left|top`, never a fused word). Runtime logs `Unknown anchor 'topleft'` at load time and the position falls back to default, not the intended pixel offset."
+  category: gui
+  scope: any
+  source: "reference_game_files grep for `parentanchor\\s*=` (only `|`-joined combinations found, no concatenated corner tokens); scripts/in_game/gui/panels/situation/gen_tv_victory_situation_gui.py append_tree_node_button"
+  notes: "Found 2026-07-13 wiring absolutely-positioned Victory Path Tree node buttons into tv_victory_situation.gui — `parentanchor = topleft` loaded without a hard error but logged 'Unknown anchor' for all 104 node widgets and silently used a fallback anchor instead of the intended top-left corner. Fixed to `top|left`."
