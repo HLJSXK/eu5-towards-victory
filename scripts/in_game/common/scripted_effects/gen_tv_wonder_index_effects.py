@@ -27,6 +27,11 @@ from wonder_mechanics.rituals import (
     ritual_uses_deferred_completion,
 )
 from wonder_mechanics.schema import suitability_knowledge_for_wonder
+from wonder_mechanics.suitability_conditions import (
+    format_weight_literal,
+    suitability_row_condition_id,
+    suitability_row_weight,
+)
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "scripted_effects" / "tv_wonder_index_effects.txt"
 SCRIPT_REL = "scripts/in_game/common/scripted_effects/gen_tv_wonder_index_effects.py"
@@ -82,6 +87,17 @@ RITUAL_MAP_NAMES = [
 SUITABILITY_ROW_MAP_NAMES = [
     "tv_wonder_mechanic_id_to_suitability_row_count",
 ]
+
+# Global, generation-time-static per-(mechanic_id, row) lookup tables backing the
+# dynamic engineering department suitability panel widget. Keyed by
+# flag:tv_wonder_suitability_<mechanic_id>_<row_index> (named, not a bare number, so an
+# unused-flag warning in error.log is recognizable as this system's own state rather
+# than looking like a stray concatenation bug) so the GUI can rebuild the same key at
+# runtime via MakeScopeFlag(Concatenate(...)) - see
+# gen_tv_engineering_department_wonder_mechanics_gui.py.
+SUITABILITY_CONDITION_TYPE_MAP = "tv_wonder_suitability_condition_type"
+SUITABILITY_WEIGHT_MAP = "tv_wonder_suitability_weight"
+SUITABILITY_KNOWLEDGE_ROW_SLOTS = 5
 
 FINAL_BUILDING_DISPLAY_ID_MAP = "tv_wonder_final_building_type_to_display_id"
 INTERMEDIATE_BUILDING_WONDER_ID_MAP = "tv_wonder_intermediate_building_type_to_wonder_id"
@@ -330,9 +346,19 @@ def append_rebuild_global_maps(lines: list[str], wonders: list[dict], mechanics:
         mechanic_id = int(wonder["id"])
         rows = suitability_knowledge_for_wonder(mechanics, wonder)
         lines.extend(map_replace_line("tv_wonder_mechanic_id_to_suitability_row_count", str(mechanic_id), len(rows)))
-        for row_index, _row in enumerate(rows, start=1):
+        for row_index in range(1, SUITABILITY_KNOWLEDGE_ROW_SLOTS + 1):
             if row_index > 9:
                 raise ValueError(f"Suitability row key only reserves row 1..9: {wonder['key']} row {row_index}")
+            row_key = f"flag:tv_wonder_suitability_{mechanic_id}_{row_index}"
+            if row_index <= len(rows):
+                row = rows[row_index - 1]
+                condition_id = suitability_row_condition_id(row)
+                weight = format_weight_literal(suitability_row_weight(row))
+            else:
+                condition_id = 0
+                weight = "0"
+            lines.extend(map_replace_line(SUITABILITY_CONDITION_TYPE_MAP, row_key, condition_id))
+            lines.extend(map_replace_line(SUITABILITY_WEIGHT_MAP, row_key, weight))
 
     lines.append("}")
     lines.append("")

@@ -499,6 +499,33 @@ generators.
     { 218 -1 } }`). See `docs/knowledge/anti_patterns.yaml` rule
     `tooltip_requirements_list_maximumsize_without_matching_minimumsize_override`.
 
+24. Collapse homogeneous per-entity static GUI branches into one dynamic-routed widget with
+    `MakeScopeFlag(Concatenate(...))` + `GetVariableFromGlobalVariableMap(...)`, not N copies.
+    When a GUI block would otherwise emit one near-identical static `widget` per data-table row
+    (e.g. one per wonder id) purely to show a (label, value) pair, build a composite runtime key
+    with `MakeScopeFlag(Concatenate(<id_string>, '_<slot>'))`, read a value baked into a global
+    variable map at generation time via `GetVariableFromGlobalVariableMap('<map_name>',
+    <composite_key>).GetValue`, and resolve a dynamic loc key from a small numeric enum id with
+    `text = "[Localize(Concatenate('PREFIX_', ToString_int32(FixedPointToInt(<id_value>))))]"`.
+    Both the composite-key read pattern and the `Localize(Concatenate(...))` loc-key pattern are
+    confirmed working in vanilla/community GUI (see
+    `docs/knowledge/anti_patterns.yaml` rule `gui_dynamic_composite_key_variable_map_lookup`).
+    This only applies when the *display* is homogeneous (same widget shape, different data) — it
+    does not license flattening genuinely heterogeneous per-target logic, such as each wonder's
+    distinct survey trigger script (rule 1's local/national split and this project's Structural
+    Fidelity Rule still require those to stay explicit per-wonder branches. Applied 2026-07-13 to
+    the "suitability location conditions" block: 54 static per-wonder widgets (~4000 generated
+    lines) collapsed to one shared widget backed by two new global variable maps
+    (`tv_wonder_suitability_condition_type`, `tv_wonder_suitability_weight`, keyed
+    `flag:tv_wonder_suitability_<mechanic_id>_<slot 1..5>`), dropping
+    `tv_engineering_department.gui` from 9041 to 5168 lines. Always prefix a generated composite
+    flag key with the owning system's name, not a bare `<id>_<slot>` number pair — otherwise its
+    benign "flag is set but never used" startup log line (see
+    `docs/knowledge/anti_patterns.yaml` rule `gui_dynamic_composite_key_variable_map_lookup`)
+    reads as an unrelated concatenation bug. `validate.py` cannot execute
+    `Concatenate`/`MakeScopeFlag`/`GetVariableFromGlobalVariableMap` — verify any change to this
+    pattern in-game per wonder/reveal-tier combination.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`: it lints rule 2 and rule 16 automatically, and when a

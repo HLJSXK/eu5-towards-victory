@@ -1,5 +1,4 @@
 import sys
-from decimal import Decimal, InvalidOperation
 from pathlib import Path
 
 if hasattr(sys.stdout, "reconfigure"):
@@ -9,12 +8,10 @@ REPO_ROOT = Path(__file__).resolve().parents[5]
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 from wonder_mechanics.io import load_all_wonder_mechanics_data
-from wonder_mechanics.naming import mechanic_key
 from wonder_mechanics.render import render_header
 from wonder_mechanics.schema import (
     suitability_current_actual_variable,
     suitability_current_revealed_variable,
-    suitability_knowledge_for_wonder,
 )
 from unique_wonder_ritual_content import append_unique_ritual_gui
 from unique_wonder_ritual_content.hagia import WONDER_ID as HAGIA_WONDER_ID
@@ -25,38 +22,7 @@ SCRIPT_REL = "scripts/in_game/gui/panels/organization/gen_tv_engineering_departm
 T = "\t"
 PLAYER = "InternationalOrganizationsView.GetPlayer.MakeScope"
 PLAYER_SCOPE = f"{PLAYER}.Self"
-SUITABILITY_CONDITION_LOC_KEYS = {
-    "topography_mountains": "TV_ENGINEERING_SUITABILITY_CONDITION_TOPOGRAPHY_MOUNTAINS",
-    "topography_plateau": "TV_ENGINEERING_SUITABILITY_CONDITION_TOPOGRAPHY_PLATEAU",
-    "topography_hills": "TV_ENGINEERING_SUITABILITY_CONDITION_TOPOGRAPHY_HILLS",
-    "vegetation_forest": "TV_ENGINEERING_SUITABILITY_CONDITION_VEGETATION_FOREST",
-    "vegetation_woods": "TV_ENGINEERING_SUITABILITY_CONDITION_VEGETATION_WOODS",
-    "vegetation_forest_or_woods": "TV_ENGINEERING_SUITABILITY_CONDITION_VEGETATION_FOREST_OR_WOODS",
-    "rank_rural": "TV_ENGINEERING_SUITABILITY_CONDITION_RANK_RURAL",
-    "rank_city": "TV_ENGINEERING_SUITABILITY_CONDITION_RANK_CITY",
-    "rank_megalopolis": "TV_ENGINEERING_SUITABILITY_CONDITION_RANK_MEGALOPOLIS",
-    "neighbor_city": "TV_ENGINEERING_SUITABILITY_CONDITION_NEIGHBOR_CITY",
-    "neighbor_town": "TV_ENGINEERING_SUITABILITY_CONDITION_NEIGHBOR_TOWN",
-    "has_monastery": "TV_ENGINEERING_SUITABILITY_CONDITION_HAS_MONASTERY",
-    "has_cathedral": "TV_ENGINEERING_SUITABILITY_CONDITION_HAS_CATHEDRAL",
-    "dominant_religion_owner": "TV_ENGINEERING_SUITABILITY_CONDITION_DOMINANT_RELIGION_OWNER",
-    "has_bridge_infrastructure": "TV_ENGINEERING_SUITABILITY_CONDITION_HAS_BRIDGE_INFRASTRUCTURE",
-    "neighbor_bridge_opening": "TV_ENGINEERING_SUITABILITY_CONDITION_NEIGHBOR_BRIDGE_OPENING",
-    "waterway_or_port": "TV_ENGINEERING_SUITABILITY_CONDITION_WATERWAY_OR_PORT",
-    "is_port": "TV_ENGINEERING_SUITABILITY_CONDITION_IS_PORT",
-    "fort_level": "TV_ENGINEERING_SUITABILITY_CONDITION_FORT_LEVEL",
-    "urban_rank": "TV_ENGINEERING_SUITABILITY_CONDITION_URBAN_RANK",
-    "is_capital": "TV_ENGINEERING_SUITABILITY_CONDITION_IS_CAPITAL",
-    "raw_coin_metal": "TV_ENGINEERING_SUITABILITY_CONDITION_RAW_COIN_METAL",
-    "has_armory": "TV_ENGINEERING_SUITABILITY_CONDITION_HAS_ARMORY",
-}
-SUITABILITY_SOURCE_LOC_KEYS = {
-    "development": "TV_ENGINEERING_SUITABILITY_SOURCE_DEVELOPMENT",
-    "total_building_levels": "TV_ENGINEERING_SUITABILITY_SOURCE_TOTAL_BUILDING_LEVELS",
-    "harbor_suitability": "TV_ENGINEERING_SUITABILITY_SOURCE_HARBOR_SUITABILITY",
-    "free_building_levels": "TV_ENGINEERING_SUITABILITY_SOURCE_FREE_BUILDING_LEVELS",
-    "average_location_literacy": "TV_ENGINEERING_SUITABILITY_SOURCE_AVERAGE_LOCATION_LITERACY",
-}
+SUITABILITY_KNOWLEDGE_ROW_SLOTS = 5
 SUITABILITY_KNOWLEDGE_COLUMNS_WIDTH = 444
 SUITABILITY_KNOWLEDGE_COLUMN_WIDTH = 218
 SUITABILITY_KNOWLEDGE_COLUMN_SPACING = 8
@@ -139,37 +105,6 @@ def generic_wonder_locked_expr() -> str:
     )
 
 
-def fmt_decimal(value: Decimal) -> str:
-    normalized = value.normalize()
-    text = format(normalized, "f")
-    if "." in text:
-        text = text.rstrip("0").rstrip(".")
-    return text or "0"
-
-
-def fmt_numeric_text(value: object) -> str:
-    try:
-        return fmt_decimal(Decimal(str(value)))
-    except (InvalidOperation, ValueError):
-        return str(value)
-
-
-def fmt_bonus_text(value: object) -> str:
-    text = fmt_numeric_text(value)
-    if text.startswith("-"):
-        return f"#N {text}#!"
-    return f"#P +{text}#!"
-
-
-def scaled_bonus_value(row: dict[str, str]) -> str:
-    try:
-        maximum = Decimal(str(row["max"]))
-        multiplier = Decimal(str(row["multiplier"]))
-        return fmt_decimal(maximum * multiplier)
-    except (InvalidOperation, ValueError):
-        return str(row["multiplier"])
-
-
 def reveal_progress_visible(var: str, row_index: int) -> str:
     return (
         f"And({PLAYER}.GetVariable('{var}').IsSet, "
@@ -202,6 +137,10 @@ def concept_in_progress() -> str:
 
 def dynamic_localized_text_key(prefix: str, var_name: str) -> str:
     return f"Localize(Concatenate('{prefix}', {fixed_point_to_int_string(player_var(var_name))}))"
+
+
+def dynamic_localized_text_key_from_accessor(prefix: str, accessor: str) -> str:
+    return f"Localize(Concatenate('{prefix}', {fixed_point_to_int_string(accessor)}))"
 
 
 def dynamic_image_texture(var_name: str) -> str:
@@ -487,22 +426,27 @@ def suitability_location_conditions_type() -> str:
     return "\n".join(lines)
 
 
-def suitability_row_label_key(row: dict[str, str]) -> str:
-    if row["type"] == "condition_bonus":
-        condition = row["condition"]
-        if condition not in SUITABILITY_CONDITION_LOC_KEYS:
-            raise ValueError(f"Missing suitability condition loc key mapping for {condition}")
-        return SUITABILITY_CONDITION_LOC_KEYS[condition]
-    source = row["source"]
-    if source not in SUITABILITY_SOURCE_LOC_KEYS:
-        raise ValueError(f"Missing suitability source loc key mapping for {source}")
-    return SUITABILITY_SOURCE_LOC_KEYS[source]
+def suitability_composite_key_expr(row_index: int) -> str:
+    mechanic_id_str = fixed_point_to_int_string(player_var("tv_wonder_locked_mechanic_id"))
+    return f"MakeScopeFlag(Concatenate('tv_wonder_suitability_', Concatenate({mechanic_id_str}, '_{row_index}')))"
 
 
-def suitability_row_value(row: dict[str, str]) -> str:
-    if row["type"] == "condition_bonus":
-        return fmt_bonus_text(row["value"])
-    return fmt_bonus_text(scaled_bonus_value(row))
+def suitability_condition_id_accessor(row_index: int) -> str:
+    return (
+        "GetVariableFromGlobalVariableMap('tv_wonder_suitability_condition_type', "
+        f"{suitability_composite_key_expr(row_index)})"
+    )
+
+
+def suitability_weight_accessor(row_index: int) -> str:
+    return (
+        "GetVariableFromGlobalVariableMap('tv_wonder_suitability_weight', "
+        f"{suitability_composite_key_expr(row_index)})"
+    )
+
+
+def suitability_row_used_visible(row_index: int) -> str:
+    return f"Not(EqualTo_CFixedPoint({suitability_condition_id_accessor(row_index)}.GetValue, '(CFixedPoint)0'))"
 
 
 def suitability_row_actual_complete_visible(actual_var: str) -> str:
@@ -512,48 +456,45 @@ def suitability_row_actual_complete_visible(actual_var: str) -> str:
     )
 
 
-def suitability_row_actual_text(actual_var: str, row: dict[str, str]) -> str:
-    maximum = suitability_row_value(row)
-    return f"#P [{PLAYER}.GetVariable('{actual_var}').GetValue|+=]#!/{maximum}"
-
-
-def suitability_row_unknown_text(row: dict[str, str]) -> str:
-    return f"#T ?#!/{suitability_row_value(row)}"
-
-
-def suitability_knowledge_row(row: dict[str, str], reveal_var: str, row_index: int, indent: int) -> list[str]:
+def suitability_dynamic_row(row_index: int, reveal_var: str, indent: int) -> list[str]:
     prefix = T * indent
     revealed = reveal_progress_visible(reveal_var, row_index)
     actual_var = suitability_current_actual_variable(row_index)
     completed = suitability_row_actual_complete_visible(actual_var)
+    label_expr = dynamic_localized_text_key_from_accessor(
+        "TV_ENGINEERING_SUITABILITY_CONDITION_ID_", suitability_condition_id_accessor(row_index)
+    )
+    weight_text = f"#P [{suitability_weight_accessor(row_index)}.GetValue|+=]#!"
+    actual_text = f"#P [{PLAYER}.GetVariable('{actual_var}').GetValue|+=]#!/{weight_text}"
+    unknown_text = f"#T ?#!/{weight_text}"
     return [
-        f"{prefix}hbox = {{",
-        f'{prefix}{T}visible = "[{revealed}]"',
-        f"{prefix}{T}layoutpolicy_horizontal = expanding",
-        f"{prefix}{T}spacing = 4",
-        f'{prefix}{T}text_single = {{ text = "{suitability_row_label_key(row)}" max_width = {SUITABILITY_ROW_LABEL_MAX_WIDTH} fontsize = 13 align = nobaseline|left }}',
-        f"{prefix}{T}expand = {{}}",
-        f'{prefix}{T}text_single = {{ visible = "[{completed}]" raw_text = "{suitability_row_actual_text(actual_var, row)}" fontsize = 13 align = nobaseline|right }}',
-        f'{prefix}{T}text_single = {{ visible = "[Not({completed})]" raw_text = "{suitability_row_unknown_text(row)}" fontsize = 13 align = nobaseline|right }}',
-        f"{prefix}}}",
-        f"{prefix}text_single = {{",
-        f'{prefix}{T}visible = "[Not({revealed})]"',
-        f'{prefix}{T}text = "TV_ENGINEERING_SUITABILITY_ROW_HIDDEN"',
-        f"{prefix}{T}max_width = {SUITABILITY_ROW_HIDDEN_MAX_WIDTH}",
-        f"{prefix}{T}fontsize = 13",
-        f"{prefix}{T}align = nobaseline|left",
+        f"{prefix}vbox = {{",
+        f'{prefix}{T}visible = "[{suitability_row_used_visible(row_index)}]"',
+        f"{prefix}{T}ignoreinvisible = yes",
+        f"{prefix}{T}hbox = {{",
+        f'{prefix}{T}{T}visible = "[{revealed}]"',
+        f"{prefix}{T}{T}layoutpolicy_horizontal = expanding",
+        f"{prefix}{T}{T}spacing = 4",
+        f'{prefix}{T}{T}text_single = {{ text = "[{label_expr}]" max_width = {SUITABILITY_ROW_LABEL_MAX_WIDTH} fontsize = 13 align = nobaseline|left }}',
+        f"{prefix}{T}{T}expand = {{}}",
+        f'{prefix}{T}{T}text_single = {{ visible = "[{completed}]" raw_text = "{actual_text}" fontsize = 13 align = nobaseline|right }}',
+        f'{prefix}{T}{T}text_single = {{ visible = "[Not({completed})]" raw_text = "{unknown_text}" fontsize = 13 align = nobaseline|right }}',
+        f"{prefix}{T}}}",
+        f"{prefix}{T}text_single = {{",
+        f'{prefix}{T}{T}visible = "[Not({revealed})]"',
+        f'{prefix}{T}{T}text = "TV_ENGINEERING_SUITABILITY_ROW_HIDDEN"',
+        f"{prefix}{T}{T}max_width = {SUITABILITY_ROW_HIDDEN_MAX_WIDTH}",
+        f"{prefix}{T}{T}fontsize = 13",
+        f"{prefix}{T}{T}align = nobaseline|left",
+        f"{prefix}{T}}}",
         f"{prefix}}}",
     ]
 
 
-def suitability_knowledge_display(wonder: dict, mechanics: dict) -> str:
-    rows = suitability_knowledge_for_wonder(mechanics, wonder)
+def suitability_knowledge_display() -> str:
     reveal_var = suitability_current_revealed_variable()
-    visible = (
-        f"And({player_var('tv_wonder_locked_mechanic_id')}.IsSet, "
-        f"{eq('tv_wonder_locked_mechanic_id', int(wonder['id']))})"
-    )
-    min_height = 82 + len(rows) * 20
+    visible = f"{player_var('tv_wonder_locked_mechanic_id')}.IsSet"
+    min_height = 82 + SUITABILITY_KNOWLEDGE_ROW_SLOTS * 20
     lines: list[str] = [
         f"{T}widget = {{",
         f'{T}{T}visible = "[{visible}]"',
@@ -575,26 +516,17 @@ def suitability_knowledge_display(wonder: dict, mechanics: dict) -> str:
         f"{T}{T}{T}{T}spacing = {SUITABILITY_KNOWLEDGE_COLUMN_SPACING}",
         f"{T}{T}{T}{T}ignoreinvisible = yes",
         f"{T}{T}{T}{T}tv_engineering_suitability_location_conditions_column = {{ }}",
+        f"{T}{T}{T}{T}vbox = {{",
+        f"{T}{T}{T}{T}{T}layoutpolicy_horizontal = fixed",
+        f"{T}{T}{T}{T}{T}layoutpolicy_vertical = expanding",
+        f"{T}{T}{T}{T}{T}minimumsize = {{ {SUITABILITY_KNOWLEDGE_COLUMN_WIDTH} -1 }}",
+        f"{T}{T}{T}{T}{T}maximumsize = {{ {SUITABILITY_KNOWLEDGE_COLUMN_WIDTH} -1 }}",
+        f"{T}{T}{T}{T}{T}ignoreinvisible = yes",
+        f"{T}{T}{T}{T}{T}spacing = 3",
+        f'{T}{T}{T}{T}{T}text_single = {{ text = "TV_ENGINEERING_SUITABILITY_CONDITIONS_TITLE" max_width = {SUITABILITY_KNOWLEDGE_COLUMN_WIDTH} fontsize = 13 align = nobaseline|left }}',
     ]
-    lines.extend(
-        [
-            f"{T}{T}{T}{T}vbox = {{",
-            f"{T}{T}{T}{T}{T}layoutpolicy_horizontal = fixed",
-            f"{T}{T}{T}{T}{T}layoutpolicy_vertical = expanding",
-            f"{T}{T}{T}{T}{T}minimumsize = {{ {SUITABILITY_KNOWLEDGE_COLUMN_WIDTH} -1 }}",
-            f"{T}{T}{T}{T}{T}maximumsize = {{ {SUITABILITY_KNOWLEDGE_COLUMN_WIDTH} -1 }}",
-            f"{T}{T}{T}{T}{T}ignoreinvisible = yes",
-            f"{T}{T}{T}{T}{T}spacing = 3",
-        ]
-    )
-    if rows:
-        lines.extend(
-            [
-                f'{T}{T}{T}{T}{T}text_single = {{ text = "TV_ENGINEERING_SUITABILITY_CONDITIONS_TITLE" max_width = {SUITABILITY_KNOWLEDGE_COLUMN_WIDTH} fontsize = 13 align = nobaseline|left }}',
-            ]
-        )
-    for row_index, row in enumerate(rows, start=1):
-        lines.extend(suitability_knowledge_row(row, reveal_var, row_index, 5))
+    for row_index in range(1, SUITABILITY_KNOWLEDGE_ROW_SLOTS + 1):
+        lines.extend(suitability_dynamic_row(row_index, reveal_var, 5))
     lines.extend(
         [
             f"{T}{T}{T}{T}{T}expand = {{}}",
@@ -1038,17 +970,8 @@ def proposal_preview_widget(wonders: list[dict], visible: str) -> str:
     return "\n".join(lines)
 
 
-def suitability_representatives(wonders: list[dict]) -> list[dict]:
-    wonder_by_key = {wonder["key"]: wonder for wonder in wonders}
-    representatives: dict[str, dict] = {}
-    for wonder in wonders:
-        key = mechanic_key(wonder)
-        representatives.setdefault(key, wonder_by_key.get(key, wonder))
-    return sorted(representatives.values(), key=lambda wonder: int(wonder["id"]))
-
-
 def generate() -> str:
-    wonders, mechanics = load_all_wonder_mechanics_data()
+    wonders, _mechanics = load_all_wonder_mechanics_data()
     max_wonder_id = max(wonder["id"] for wonder in wonders)
 
     lines = render_header(SCRIPT_REL)
@@ -1087,8 +1010,7 @@ def generate() -> str:
     lines.append("### END TV_WONDER_MECHANICS_SUITABILITY_LOCATION_CONDITIONS_TYPE")
     lines.append("")
     lines.append("### BEGIN TV_WONDER_MECHANICS_SUITABILITY_KNOWLEDGE")
-    for wonder in suitability_representatives(wonders):
-        lines.append(suitability_knowledge_display(wonder, mechanics))
+    lines.append(suitability_knowledge_display())
     lines.append("### END TV_WONDER_MECHANICS_SUITABILITY_KNOWLEDGE")
     lines.append("")
     lines.append("### BEGIN TV_WONDER_MECHANICS_PROPOSAL_BUTTONS")
