@@ -78,6 +78,39 @@ types EngineeringDepartmentTypes
 			expand = {}
 		}
 	}
+
+	# BEGIN GENERATED TV_WONDER_MECHANICS_SUITABILITY_LOCATION_CONDITIONS_TYPE
+	type tv_engineering_suitability_location_conditions_column = vbox {
+		layoutpolicy_horizontal = fixed
+		layoutpolicy_vertical = expanding
+		minimumsize = { 218 -1 }
+		maximumsize = { 218 -1 }
+		ignoreinvisible = yes
+		spacing = 3
+		text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
+		TooltipRequirementsList = {
+			layoutpolicy_horizontal = fixed
+			textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
+			maximumsize = { 218 -1 }
+			blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
+			blockoverride "field_text_format" {
+				fontsize = 13
+			}
+			blockoverride "row_size" {
+				maximumsize = { -1 22 }
+				minimumsize = { -1 22 }
+			}
+			blockoverride "block_title" {
+				block "block_title" {
+					visible = no
+				}
+			}
+			blockoverride "requirementslist_datamodel_is_empty" {
+				visible = no
+			}
+		}
+	}
+	# END GENERATED TV_WONDER_MECHANICS_SUITABILITY_LOCATION_CONDITIONS_TYPE
 }
 
 organization_panel = {
@@ -1720,36 +1753,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -1862,36 +1866,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -1956,36 +1931,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -2034,36 +1980,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -2144,36 +2061,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -2222,36 +2110,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -2348,36 +2207,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -2442,36 +2272,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -2552,36 +2353,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -2662,36 +2434,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -2772,36 +2515,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -2898,36 +2612,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -3008,36 +2693,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -3118,36 +2774,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -3212,36 +2839,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -3338,36 +2936,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -3464,36 +3033,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -3574,36 +3114,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -3700,36 +3211,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -3778,36 +3260,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -3872,36 +3325,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -3966,36 +3390,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -4060,36 +3455,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -4138,36 +3504,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -4232,36 +3569,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -4358,36 +3666,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -4452,36 +3731,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -4562,36 +3812,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -4640,36 +3861,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -4750,36 +3942,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -4860,36 +4023,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -4970,36 +4104,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -5064,36 +4169,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -5158,36 +4234,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -5236,36 +4283,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -5330,36 +4348,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -5408,36 +4397,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -5502,36 +4462,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -5580,36 +4511,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -5690,36 +4592,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -5784,36 +4657,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -5910,36 +4754,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -6036,36 +4851,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -6162,36 +4948,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -6272,36 +5029,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -6398,36 +5126,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -6492,36 +5191,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -6586,36 +5256,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -6680,36 +5321,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -6806,36 +5418,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -6900,36 +5483,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -6978,36 +5532,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -7056,36 +5581,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding
@@ -7182,36 +5678,7 @@ widget = {
 							size = { 444 -1 }
 							spacing = 8
 							ignoreinvisible = yes
-							vbox = {
-								layoutpolicy_horizontal = fixed
-								layoutpolicy_vertical = expanding
-								minimumsize = { 218 -1 }
-								maximumsize = { 218 -1 }
-								ignoreinvisible = yes
-								spacing = 3
-								text_single = { text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
-								TooltipRequirementsList = {
-									layoutpolicy_horizontal = fixed
-									textcontext = "[ShowTriggerConditions('tv_wonder_site_rule_player_visible_locked_wonder_trigger', PlayerScope.Self)]"
-									maximumsize = { 218 -1 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 218 -1 } }
-									blockoverride "field_text_format" {
-										fontsize = 13
-									}
-									blockoverride "row_size" {
-										maximumsize = { -1 22 }
-										minimumsize = { -1 22 }
-									}
-									blockoverride "block_title" {
-										block "block_title" {
-											visible = no
-										}
-									}
-									blockoverride "requirementslist_datamodel_is_empty" {
-										visible = no
-									}
-								}
-							}
+							tv_engineering_suitability_location_conditions_column = { }
 							vbox = {
 								layoutpolicy_horizontal = fixed
 								layoutpolicy_vertical = expanding

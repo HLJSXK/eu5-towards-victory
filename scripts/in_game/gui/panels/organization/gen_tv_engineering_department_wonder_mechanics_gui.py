@@ -464,6 +464,28 @@ def trigger_conditions_list(trigger_name: str, indent: int, width: int | None = 
     return lines
 
 
+def suitability_location_conditions_type() -> str:
+    lines = [
+        "type tv_engineering_suitability_location_conditions_column = vbox {",
+        f"{T}layoutpolicy_horizontal = fixed",
+        f"{T}layoutpolicy_vertical = expanding",
+        f"{T}minimumsize = {{ {SUITABILITY_KNOWLEDGE_COLUMN_WIDTH} -1 }}",
+        f"{T}maximumsize = {{ {SUITABILITY_KNOWLEDGE_COLUMN_WIDTH} -1 }}",
+        f"{T}ignoreinvisible = yes",
+        f"{T}spacing = 3",
+        f'{T}text_single = {{ text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = {SUITABILITY_KNOWLEDGE_COLUMN_WIDTH} fontsize = 13 align = nobaseline|left }}',
+    ]
+    lines.extend(
+        trigger_conditions_list(
+            "tv_wonder_site_rule_player_visible_locked_wonder_trigger",
+            1,
+            width=SUITABILITY_KNOWLEDGE_COLUMN_WIDTH,
+        )
+    )
+    lines.append("}")
+    return "\n".join(lines)
+
+
 def suitability_row_label_key(row: dict[str, str]) -> str:
     if row["type"] == "condition_bonus":
         condition = row["condition"]
@@ -551,25 +573,10 @@ def suitability_knowledge_display(wonder: dict, mechanics: dict) -> str:
         f"{T}{T}{T}{T}size = {{ {SUITABILITY_KNOWLEDGE_COLUMNS_WIDTH} -1 }}",
         f"{T}{T}{T}{T}spacing = {SUITABILITY_KNOWLEDGE_COLUMN_SPACING}",
         f"{T}{T}{T}{T}ignoreinvisible = yes",
-        f"{T}{T}{T}{T}vbox = {{",
-        f"{T}{T}{T}{T}{T}layoutpolicy_horizontal = fixed",
-        f"{T}{T}{T}{T}{T}layoutpolicy_vertical = expanding",
-        f"{T}{T}{T}{T}{T}minimumsize = {{ {SUITABILITY_KNOWLEDGE_COLUMN_WIDTH} -1 }}",
-        f"{T}{T}{T}{T}{T}maximumsize = {{ {SUITABILITY_KNOWLEDGE_COLUMN_WIDTH} -1 }}",
-        f"{T}{T}{T}{T}{T}ignoreinvisible = yes",
-        f"{T}{T}{T}{T}{T}spacing = 3",
-        f'{T}{T}{T}{T}{T}text_single = {{ text = "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE" max_width = {SUITABILITY_KNOWLEDGE_COLUMN_WIDTH} fontsize = 13 align = nobaseline|left }}',
+        f"{T}{T}{T}{T}tv_engineering_suitability_location_conditions_column = {{ }}",
     ]
     lines.extend(
-        trigger_conditions_list(
-            "tv_wonder_site_rule_player_visible_locked_wonder_trigger",
-            5,
-            width=SUITABILITY_KNOWLEDGE_COLUMN_WIDTH,
-        )
-    )
-    lines.extend(
         [
-            f"{T}{T}{T}{T}}}",
             f"{T}{T}{T}{T}vbox = {{",
             f"{T}{T}{T}{T}{T}layoutpolicy_horizontal = fixed",
             f"{T}{T}{T}{T}{T}layoutpolicy_vertical = expanding",
@@ -1073,6 +1080,10 @@ def generate() -> str:
     lines.append("### BEGIN TV_WONDER_MECHANICS_LOCKED_TEXTS")
     lines.append(dynamic_locked_text())
     lines.append("### END TV_WONDER_MECHANICS_LOCKED_TEXTS")
+    lines.append("")
+    lines.append("### BEGIN TV_WONDER_MECHANICS_SUITABILITY_LOCATION_CONDITIONS_TYPE")
+    lines.append(suitability_location_conditions_type())
+    lines.append("### END TV_WONDER_MECHANICS_SUITABILITY_LOCATION_CONDITIONS_TYPE")
     lines.append("")
     lines.append("### BEGIN TV_WONDER_MECHANICS_SUITABILITY_KNOWLEDGE")
     for wonder in suitability_representatives(wonders):
