@@ -2390,6 +2390,22 @@ widget = {
 							text = "TV_ENGINEERING_CONSTRUCTION_CARD_TITLE"
 						}
 
+						blockoverride "common_header_extra_left" {
+							spacer = { size = { 50 -1 } }
+							expand = {}
+						}
+
+						blockoverride "common_header_extra_right" {
+							expand = {}
+							icon = {
+								size = { 30 30 }
+								margin = { 6 0 }
+								texture = "gfx/interface/icons/flat_icons/tabicons/europedia_flat_icon.dds"
+								tooltip = "TV_ENGINEERING_CONSTRUCTION_HELP_TT"
+							}
+							spacer = { size = { 20 -1 } }
+						}
+
 						blockoverride "common_bottom_content" {
 							widget = {
 								layoutpolicy_vertical = shrinking
@@ -2677,14 +2693,20 @@ widget = {
 										layoutpolicy_vertical = shrinking
 										set_parent_size_to_minimum = yes
 										spacing = 4
-										margin = { 10 8 }
+										margin = { 0 0 }
+										using = bg_paper_card_situations
 
 										hbox = {
 											layoutpolicy_horizontal = expanding
+											background = {
+												using = color_bone_texture
+												alpha = 0.5
+												margin = { -4 -2 }
+											}
 											text_multi = {
 												layoutpolicy_horizontal = expanding
-												max_width = 442
-												minimumsize = { 442 -1 }
+												max_width = 462
+												minimumsize = { 462 -1 }
 												autoresize = yes
 												text = "TV_ENGINEERING_CONSTRUCTION_HELP_TEXT_1"
 												align = nobaseline|left
@@ -2692,10 +2714,15 @@ widget = {
 										}
 										hbox = {
 											layoutpolicy_horizontal = expanding
+											background = {
+												using = color_light_paper_texture
+												alpha = 0.5
+												margin = { -4 -2 }
+											}
 											text_multi = {
 												layoutpolicy_horizontal = expanding
-												max_width = 442
-												minimumsize = { 442 -1 }
+												max_width = 462
+												minimumsize = { 462 -1 }
 												autoresize = yes
 												text = "TV_ENGINEERING_CONSTRUCTION_HELP_TEXT_2"
 												align = nobaseline|left
@@ -2703,10 +2730,15 @@ widget = {
 										}
 										hbox = {
 											layoutpolicy_horizontal = expanding
+											background = {
+												using = color_bone_texture
+												alpha = 0.5
+												margin = { -4 -2 }
+											}
 											text_multi = {
 												layoutpolicy_horizontal = expanding
-												max_width = 442
-												minimumsize = { 442 -1 }
+												max_width = 462
+												minimumsize = { 462 -1 }
 												autoresize = yes
 												text = "TV_ENGINEERING_CONSTRUCTION_HELP_TEXT_3"
 												align = nobaseline|left
@@ -2714,10 +2746,15 @@ widget = {
 										}
 										hbox = {
 											layoutpolicy_horizontal = expanding
+											background = {
+												using = color_light_paper_texture
+												alpha = 0.5
+												margin = { -4 -2 }
+											}
 											text_multi = {
 												layoutpolicy_horizontal = expanding
-												max_width = 442
-												minimumsize = { 442 -1 }
+												max_width = 462
+												minimumsize = { 462 -1 }
 												autoresize = yes
 												text = "TV_ENGINEERING_CONSTRUCTION_HELP_TEXT_4"
 												align = nobaseline|left
@@ -2725,10 +2762,15 @@ widget = {
 										}
 										hbox = {
 											layoutpolicy_horizontal = expanding
+											background = {
+												using = color_bone_texture
+												alpha = 0.5
+												margin = { -4 -2 }
+											}
 											text_multi = {
 												layoutpolicy_horizontal = expanding
-												max_width = 442
-												minimumsize = { 442 -1 }
+												max_width = 462
+												minimumsize = { 462 -1 }
 												autoresize = yes
 												text = "TV_ENGINEERING_CONSTRUCTION_HELP_TEXT_5"
 												align = nobaseline|left
