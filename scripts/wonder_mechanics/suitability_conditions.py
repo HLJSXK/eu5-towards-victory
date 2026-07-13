@@ -66,6 +66,17 @@ ID_TO_SOURCE_LOC_KEY: dict[int, str] = {
     **{SOURCE_IDS[key]: loc_key for key, loc_key in SOURCE_LOC_KEYS.items()},
 }
 
+# Fixed slot count per mechanic row (matches suitability_row_key below). Shared
+# by the index-effects generator (writes the condition/weight maps) and the
+# wonder-mechanics triggers generator (emits the static has_flag reference so
+# error.log's "flag is set but never used" scanner sees these composite keys
+# as used -- see tv_wonder_suitability_flag_static_reference_trigger).
+SUITABILITY_KNOWLEDGE_ROW_SLOTS = 5
+
+
+def suitability_row_key(mechanic_id: int, row_index: int) -> str:
+    return f"tv_wonder_suitability_{mechanic_id}_{row_index}"
+
 
 def suitability_row_condition_id(row: dict[str, str]) -> int:
     key = row["condition"] if row["type"] == "condition_bonus" else row["source"]

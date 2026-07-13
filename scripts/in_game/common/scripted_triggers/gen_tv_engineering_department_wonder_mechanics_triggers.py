@@ -24,6 +24,10 @@ from wonder_mechanics.rituals import (
     ritual_plan_for_style,
 )
 from wonder_mechanics.schema import site_trigger_lines_for_wonder
+from wonder_mechanics.suitability_conditions import (
+    SUITABILITY_KNOWLEDGE_ROW_SLOTS,
+    suitability_row_key,
+)
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "scripted_triggers" / "tv_engineering_department_wonder_mechanics_triggers.txt"
 SCRIPT_REL = "scripts/in_game/common/scripted_triggers/gen_tv_engineering_department_wonder_mechanics_triggers.py"
@@ -399,11 +403,36 @@ def append_site_rule_dispatch_triggers(lines: list[str], wonders: list[dict]) ->
     )
 
 
+def append_suitability_flag_static_reference_trigger(lines: list[str], generic_wonders: list[dict]) -> None:
+    """OR-reference every baked tv_wonder_suitability_<mechanic_id>_<slot> flag key.
+
+    These flags only ever appear as global_variable_map keys (add_to_global_variable_map
+    key = flag:... in tv_wonder_index_effects.txt, MakeScopeFlag(Concatenate(...)) in the
+    engineering department GUI); GUI reads don't count as "used" for error.log's flag
+    scanner, so without a real has_flag reference from a *reachable* scripted trigger/effect,
+    every baked key logs "is set but is never used" on load. This trigger is called once
+    from tv_wonder_initialize_index_on_game_start/_on_game_load (see
+    tv_engineering_department_on_action.txt), which makes it "used" and satisfies the
+    scanner. The has_flag checks always evaluate false since these flags are never actually
+    set/cleared as booleans -- that's expected and harmless.
+    """
+    lines.append("tv_wonder_suitability_flag_static_reference_trigger = {")
+    lines.append(f"{T}OR = {{")
+    for wonder in generic_wonders:
+        mechanic_id = int(wonder["id"])
+        for row_index in range(1, SUITABILITY_KNOWLEDGE_ROW_SLOTS + 1):
+            lines.append(f"{T}{T}has_flag = {suitability_row_key(mechanic_id, row_index)}")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+
 def generate() -> str:
     all_wonders, mechanics = load_all_wonder_mechanics()
     generic_wonders = [wonder for wonder in all_wonders if not wonder.get("is_unique")]
     unique_wonders = [wonder for wonder in all_wonders if wonder.get("is_unique")]
     lines = render_header(SCRIPT_REL)
+    append_suitability_flag_static_reference_trigger(lines, generic_wonders)
     add_project_occupancy_triggers(lines, all_wonders, mechanics)
     append_display_base_site_rules_alias_triggers(lines, all_wonders, mechanics)
     for wonder in all_wonders:

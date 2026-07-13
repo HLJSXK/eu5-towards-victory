@@ -28,8 +28,10 @@ from wonder_mechanics.rituals import (
 )
 from wonder_mechanics.schema import suitability_knowledge_for_wonder
 from wonder_mechanics.suitability_conditions import (
+    SUITABILITY_KNOWLEDGE_ROW_SLOTS,
     format_weight_literal,
     suitability_row_condition_id,
+    suitability_row_key,
     suitability_row_weight,
 )
 
@@ -97,7 +99,6 @@ SUITABILITY_ROW_MAP_NAMES = [
 # gen_tv_engineering_department_wonder_mechanics_gui.py.
 SUITABILITY_CONDITION_TYPE_MAP = "tv_wonder_suitability_condition_type"
 SUITABILITY_WEIGHT_MAP = "tv_wonder_suitability_weight"
-SUITABILITY_KNOWLEDGE_ROW_SLOTS = 5
 
 FINAL_BUILDING_DISPLAY_ID_MAP = "tv_wonder_final_building_type_to_display_id"
 INTERMEDIATE_BUILDING_WONDER_ID_MAP = "tv_wonder_intermediate_building_type_to_wonder_id"
@@ -349,7 +350,7 @@ def append_rebuild_global_maps(lines: list[str], wonders: list[dict], mechanics:
         for row_index in range(1, SUITABILITY_KNOWLEDGE_ROW_SLOTS + 1):
             if row_index > 9:
                 raise ValueError(f"Suitability row key only reserves row 1..9: {wonder['key']} row {row_index}")
-            row_key = f"flag:tv_wonder_suitability_{mechanic_id}_{row_index}"
+            row_key = f"flag:{suitability_row_key(mechanic_id, row_index)}"
             if row_index <= len(rows):
                 row = rows[row_index - 1]
                 condition_id = suitability_row_condition_id(row)

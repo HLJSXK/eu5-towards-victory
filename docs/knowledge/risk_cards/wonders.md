@@ -524,7 +524,17 @@ generators.
     `docs/knowledge/anti_patterns.yaml` rule `gui_dynamic_composite_key_variable_map_lookup`)
     reads as an unrelated concatenation bug. `validate.py` cannot execute
     `Concatenate`/`MakeScopeFlag`/`GetVariableFromGlobalVariableMap` — verify any change to this
-    pattern in-game per wonder/reveal-tier combination.
+    pattern in-game per wonder/reveal-tier combination. That "flag is set but never used" line is
+    benign and does not need fixing by default, but if it must be eliminated, a `has_flag` reference
+    only satisfies the engine's flag-usage scanner when it sits inside a scripted trigger/effect that
+    is itself reachable from a real on_action/event/decision entry point — a `has_flag` placed in a
+    trigger/effect that is never called anywhere still logs the warning (the engine's own message
+    says so: "Use in unused scripted triggers and effects also does not count"). The working fix,
+    `tv_wonder_suitability_flag_static_reference_trigger`
+    (`gen_tv_engineering_department_wonder_mechanics_triggers.py`), ORs `has_flag` across every baked
+    `tv_wonder_suitability_<mechanic_id>_<slot>` key and is called once, as a side-effect-free no-op,
+    from the already-reachable `tv_wonder_initialize_index_on_game_start`/`_on_game_load` hooks in
+    `tv_engineering_department_on_action.txt`.
 
 ## Validation
 
