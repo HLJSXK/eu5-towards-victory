@@ -162,6 +162,9 @@
  game_concept_tv_wonder_construction: "伟大工程"
  game_concept_tv_wonder_construction_desc: "由[tv_engineering_department|e]管理的[tv_prosperity_victory|e]机制。[tv_great_engineer|e]的[tv_wonder_concept|e]提出可行的[tv_wonder_small|e]、[tv_wonder_medium|e]或[tv_wonder_large|e]方案，国家完成国内论证后，完成[tv_wonder_survey|e]、组织劳工、收集[tv_wonder_materials|e]，并推进四个[tv_wonder_construction_part|e]，将工程提升到最终等级。"
 
+ game_concept_tv_wonder_expansion: "扩建"
+ game_concept_tv_wonder_expansion_desc: "在同一地点将已落成的[tv_wonder_construction|e]继续建设为更高规模。扩建沿用该奇观此前落成时选定的[tv_wonder_ceremony|e]风格，不会损失任何已获得的落成奖励，且会继续利用该地点已经保存的[tv_wonder_survey|e]适性。"
+
  game_concept_tv_wonder_construction_part: "建设部件"
  game_concept_tv_wonder_construction_part_desc: "[tv_wonder_construction|e]同时推进的四条平行进度之一——基础建设、主体结构、功能实现与封顶装饰。工程的等级取决于四部分中进度最落后的一项，因此进度必须均衡推进，而非只赶完其中一条。"
 
@@ -173,6 +176,12 @@
 
  game_concept_tv_wonder_large: "大型工程"
  game_concept_tv_wonder_large_desc: "[tv_wonder_construction|e]的规模分级。同一国家不能同时开启第二座同类型的大型工程。\n大型工程每提升一级通常约需#Y 30000@gold!#!。"
+
+ game_concept_tv_wonder_generic: "通用奇观"
+ game_concept_tv_wonder_generic_desc: "由[tv_great_engineer|e]提议、可自由选址建造的[tv_wonder_small|e]、[tv_wonder_medium|e]或[tv_wonder_large|e]规模[tv_wonder_construction|e]，与预先固定于地图上的[tv_wonder_unique|e]相对。落成时可选择一种[tv_wonder_ceremony|e]风格。"
+
+ game_concept_tv_wonder_unique: "独特奇观"
+ game_concept_tv_wonder_unique_desc: "预先固定于地图特定地点的历史性[tv_wonder_construction|e]，与国家自由选址建造的[tv_wonder_generic|e]相对。大多数独特奇观在建设完成后会自动依次推进8阶段的[tv_wonder_ceremony|e]，少数拥有专属手动仪式流程。"
 
 
 
