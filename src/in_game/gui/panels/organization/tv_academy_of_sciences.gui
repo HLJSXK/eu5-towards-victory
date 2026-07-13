@@ -337,23 +337,8 @@ organization_panel = {
 							size = { 462 28 }
 							ignoreinvisible = yes
 							text_single = {
-								visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_current_node_type').GetValue, '(CFixedPoint)0.0')]"
 								size = { 462 28 }
-								text = "TV_ACADEMY_DEBATE_CURRENT_NODE_LINE_HISTORY"
-								fontsize = 16
-								align = center|nobaseline
-							}
-							text_single = {
-								visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_current_node_type').GetValue, '(CFixedPoint)1.0')]"
-								size = { 462 28 }
-								text = "TV_ACADEMY_DEBATE_CURRENT_NODE_LINE_LOCAL"
-								fontsize = 16
-								align = center|nobaseline
-							}
-							text_single = {
-								visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_debate_current_node_type').GetValue, '(CFixedPoint)2.0')]"
-								size = { 462 28 }
-								text = "TV_ACADEMY_DEBATE_CURRENT_NODE_LINE_WORLD"
+								text = "TV_ACADEMY_DEBATE_CURRENT_NODE_LINE"
 								fontsize = 16
 								align = center|nobaseline
 							}
@@ -671,7 +656,7 @@ organization_panel = {
 											widgetanchor = center
 											size = { 160 90 }
 											text_multi = {
-												visible = "[Not(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_phase').GetValue, '(CFixedPoint)1.0'))]"
+												visible = "[Not(And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_phase').GetValue, '(CFixedPoint)1.0'), InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_current').IsSet))]"
 												size = { 160 48 }
 												max_width = 160
 												text = "TV_ACADEMY_PHILOSOPHY_RECESS"
@@ -679,82 +664,10 @@ organization_panel = {
 												align = center|nobaseline
 											}
 											text_multi = {
-												visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_phase').GetValue, '(CFixedPoint)1.0'), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_current').IsSet))]"
-												size = { 160 48 }
-												max_width = 160
-												text = "TV_ACADEMY_PHILOSOPHY_RECESS"
-												fontsize = 16
-												align = center|nobaseline
-											}
-											text_multi = {
-												visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_phase').GetValue, '(CFixedPoint)1.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_current').GetValue, '(CFixedPoint)1.0'))]"
+												visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_phase').GetValue, '(CFixedPoint)1.0'), InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_current').IsSet)]"
 												size = { 160 56 }
 												max_width = 160
-												text = "TV_ACADEMY_PHILOSOPHY_NAME_MERITOCRACY"
-												fontsize = 16
-												align = center|nobaseline
-											}
-											text_multi = {
-												visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_phase').GetValue, '(CFixedPoint)1.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_current').GetValue, '(CFixedPoint)2.0'))]"
-												size = { 160 56 }
-												max_width = 160
-												text = "TV_ACADEMY_PHILOSOPHY_NAME_RENAISSANCE"
-												fontsize = 16
-												align = center|nobaseline
-											}
-											text_multi = {
-												visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_phase').GetValue, '(CFixedPoint)1.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_current').GetValue, '(CFixedPoint)3.0'))]"
-												size = { 160 56 }
-												max_width = 160
-												text = "TV_ACADEMY_PHILOSOPHY_NAME_BANKING"
-												fontsize = 16
-												align = center|nobaseline
-											}
-											text_multi = {
-												visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_phase').GetValue, '(CFixedPoint)1.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_current').GetValue, '(CFixedPoint)4.0'))]"
-												size = { 160 56 }
-												max_width = 160
-												text = "TV_ACADEMY_PHILOSOPHY_NAME_NEW_WORLD"
-												fontsize = 16
-												align = center|nobaseline
-											}
-											text_multi = {
-												visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_phase').GetValue, '(CFixedPoint)1.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_current').GetValue, '(CFixedPoint)5.0'))]"
-												size = { 160 56 }
-												max_width = 160
-												text = "TV_ACADEMY_PHILOSOPHY_NAME_PRINTING_PRESS"
-												fontsize = 16
-												align = center|nobaseline
-											}
-											text_multi = {
-												visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_phase').GetValue, '(CFixedPoint)1.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_current').GetValue, '(CFixedPoint)6.0'))]"
-												size = { 160 56 }
-												max_width = 160
-												text = "TV_ACADEMY_PHILOSOPHY_NAME_CONFESSIONALISM"
-												fontsize = 16
-												align = center|nobaseline
-											}
-											text_multi = {
-												visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_phase').GetValue, '(CFixedPoint)1.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_current').GetValue, '(CFixedPoint)7.0'))]"
-												size = { 160 56 }
-												max_width = 160
-												text = "TV_ACADEMY_PHILOSOPHY_NAME_GLOBAL_TRADE"
-												fontsize = 16
-												align = center|nobaseline
-											}
-											text_multi = {
-												visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_phase').GetValue, '(CFixedPoint)1.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_current').GetValue, '(CFixedPoint)8.0'))]"
-												size = { 160 56 }
-												max_width = 160
-												text = "TV_ACADEMY_PHILOSOPHY_NAME_MANUFACTORIES"
-												fontsize = 16
-												align = center|nobaseline
-											}
-											text_multi = {
-												visible = "[And(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_phase').GetValue, '(CFixedPoint)1.0'), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_philosophy_current').GetValue, '(CFixedPoint)9.0'))]"
-												size = { 160 56 }
-												max_width = 160
-												text = "TV_ACADEMY_PHILOSOPHY_NAME_SCIENTIFIC_REVOLUTION"
+												text = "TV_ACADEMY_PHILOSOPHY_CURRENT_NAME"
 												fontsize = 16
 												align = center|nobaseline
 											}

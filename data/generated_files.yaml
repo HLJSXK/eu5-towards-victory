@@ -201,6 +201,14 @@ generated:
     data:   data/io_leaders.yaml
     output: src/in_game/common/customizable_localization/character_title.txt
 
+  - script: scripts/in_game/common/customizable_localization/gen_tv_academy_debate_groups.py
+    data:   data/philosophy_debates.yaml
+    output: src/in_game/common/customizable_localization/tv_academy_debate_groups.txt
+
+  - script: scripts/in_game/common/customizable_localization/gen_tv_academy_gui_text.py
+    data:   scripts/in_game/gui/panels/organization/gen_tv_academy_of_sciences_gui.py (PHILOSOPHY_ISSUES, CURRENT_NODE_LINE_KEYS)
+    output: src/in_game/common/customizable_localization/tv_academy_gui_text.txt
+
   - script: scripts/in_game/common/on_action/gen_tv_pulse_registry.py
     data:   data/pulse_registry.yaml
     output: src/in_game/common/on_action/tv_pulse_bridges.txt
