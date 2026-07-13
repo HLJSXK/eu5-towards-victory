@@ -3281,23 +3281,151 @@ widget = {
 											layoutpolicy_vertical = shrinking
 											spacing = 6
 
-											background = {
-												using = bg_container_framed_texture
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												fontsize = 16
+												text = "TV_ENGINEERING_CEREMONY_GENERIC_SECTION_TITLE"
+												align = center|nobaseline
+											}
+											vbox = {
+												set_parent_size_to_minimum = yes
+												layoutpolicy_horizontal = expanding
+												layoutpolicy_vertical = shrinking
+												margin = { 4 4 }
+
+												background = {
+													using = bg_container_framed_texture
+												}
+
+												TooltipManualTableField = {
+													blockoverride "row_size" {
+														maximumsize = { -1 50 }
+														minimumsize = { -1 50 }
+													}
+													text_multi = {
+														layoutpolicy_horizontal = expanding
+														max_width = 380
+														minimumsize = { 380 -1 }
+														autoresize = yes
+														text = "TV_ENGINEERING_CEREMONY_HELP_GENERIC_TEXT_1"
+														align = nobaseline|left
+													}
+												}
+												TooltipManualTableField = {
+													blockoverride "row_size" {
+														maximumsize = { -1 50 }
+														minimumsize = { -1 50 }
+													}
+													text_multi = {
+														layoutpolicy_horizontal = expanding
+														max_width = 380
+														minimumsize = { 380 -1 }
+														autoresize = yes
+														text = "TV_ENGINEERING_CEREMONY_HELP_GENERIC_TEXT_2"
+														align = nobaseline|left
+													}
+												}
+												TooltipManualTableField = {
+													blockoverride "row_size" {
+														maximumsize = { -1 50 }
+														minimumsize = { -1 50 }
+													}
+													text_multi = {
+														layoutpolicy_horizontal = expanding
+														max_width = 380
+														minimumsize = { 380 -1 }
+														autoresize = yes
+														text = "TV_ENGINEERING_CEREMONY_HELP_GENERIC_TEXT_3"
+														align = nobaseline|left
+													}
+												}
+												TooltipManualTableField = {
+													blockoverride "row_size" {
+														maximumsize = { -1 50 }
+														minimumsize = { -1 50 }
+													}
+													text_multi = {
+														layoutpolicy_horizontal = expanding
+														max_width = 380
+														minimumsize = { 380 -1 }
+														autoresize = yes
+														text = "TV_ENGINEERING_CEREMONY_HELP_GENERIC_TEXT_4"
+														align = nobaseline|left
+													}
+												}
 											}
 
-											TooltipManualTableField = {
-												visible = "[Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').GetValue, '(CFixedPoint)1.0')))]"
-												blockoverride "row_size" {
-													maximumsize = { -1 50 }
-													minimumsize = { -1 50 }
+											text_single = {
+												layoutpolicy_horizontal = expanding
+												fontsize = 16
+												text = "TV_ENGINEERING_CEREMONY_UNIQUE_SECTION_TITLE"
+												align = center|nobaseline
+											}
+											vbox = {
+												set_parent_size_to_minimum = yes
+												layoutpolicy_horizontal = expanding
+												layoutpolicy_vertical = shrinking
+												margin = { 4 4 }
+
+												background = {
+													using = bg_container_framed_texture
 												}
-												text_multi = {
-													layoutpolicy_horizontal = expanding
-													max_width = 380
-													minimumsize = { 380 -1 }
-													autoresize = yes
-													text = "TV_ENGINEERING_CEREMONY_HELP_TEXT"
-													align = nobaseline|left
+
+												TooltipManualTableField = {
+													blockoverride "row_size" {
+														maximumsize = { -1 50 }
+														minimumsize = { -1 50 }
+													}
+													text_multi = {
+														layoutpolicy_horizontal = expanding
+														max_width = 380
+														minimumsize = { 380 -1 }
+														autoresize = yes
+														text = "TV_ENGINEERING_CEREMONY_HELP_UNIQUE_TEXT_1"
+														align = nobaseline|left
+													}
+												}
+												TooltipManualTableField = {
+													blockoverride "row_size" {
+														maximumsize = { -1 50 }
+														minimumsize = { -1 50 }
+													}
+													text_multi = {
+														layoutpolicy_horizontal = expanding
+														max_width = 380
+														minimumsize = { 380 -1 }
+														autoresize = yes
+														text = "TV_ENGINEERING_CEREMONY_HELP_UNIQUE_TEXT_2"
+														align = nobaseline|left
+													}
+												}
+												TooltipManualTableField = {
+													blockoverride "row_size" {
+														maximumsize = { -1 50 }
+														minimumsize = { -1 50 }
+													}
+													text_multi = {
+														layoutpolicy_horizontal = expanding
+														max_width = 380
+														minimumsize = { 380 -1 }
+														autoresize = yes
+														text = "TV_ENGINEERING_CEREMONY_HELP_UNIQUE_TEXT_3"
+														align = nobaseline|left
+													}
+												}
+												TooltipManualTableField = {
+													blockoverride "row_size" {
+														maximumsize = { -1 50 }
+														minimumsize = { -1 50 }
+													}
+													text_multi = {
+														layoutpolicy_horizontal = expanding
+														max_width = 380
+														minimumsize = { 380 -1 }
+														autoresize = yes
+														text = "TV_ENGINEERING_CEREMONY_HELP_UNIQUE_TEXT_4"
+														align = nobaseline|left
+													}
 												}
 											}
 										}
