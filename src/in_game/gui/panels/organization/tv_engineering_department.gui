@@ -2397,11 +2397,26 @@ widget = {
 
 						blockoverride "common_header_extra_right" {
 							expand = {}
-							icon = {
-								size = { 30 30 }
+							button_regular = {
+								size = { 32 32 }
 								margin = { 6 0 }
-								texture = "gfx/interface/icons/flat_icons/tabicons/europedia_flat_icon.dds"
-								tooltip = "TV_ENGINEERING_CONSTRUCTION_HELP_TT"
+
+								icon = {
+									size = { 30 30 }
+									parentanchor = center
+									texture = "gfx/interface/icons/flat_icons/tabicons/europedia_flat_icon.dds"
+								}
+
+								action_tooltip = {
+									click_type = left
+									click_mode = single
+									title = "TV_ENGINEERING_CONSTRUCTION_HELP_TT"
+									on_action = "[OpenLateralView('encyclopedia')]"
+								}
+
+								tooltipwidget = {
+									BasicFunctionalTooltip = {}
+								}
 							}
 							spacer = { size = { 20 -1 } }
 						}
