@@ -5009,16 +5009,16 @@ wonder_localization:
     mapmode_tv_wonder_name: Great Projects
     MAPMODE_TV_WONDER: '#T $mapmode_tv_wonder_name$#!
 
-      Colors fixed unique Great Project sites and completed Towards Victory Great Projects. Unique projects use green, generic projects use blue, and completed project colors reach full saturation at level 6. Potential unique project sites use light red. Other land locations use light gold.'
+      Colors fixed [tv_wonder_unique|e] sites and completed Towards Victory Great Projects. [tv_wonder_unique|e]s use green, [tv_wonder_generic|e]s use blue, and completed project colors reach full saturation at level 6. Potential [tv_wonder_unique|e] sites use light red. Other land locations use light gold.'
     MAPMODE_TV_WONDER_LEGEND_UNIQUE: Completed Unique Great Project
     MAPMODE_TV_WONDER_LEGEND_GENERIC: Completed Generic Great Project
     MAPMODE_TV_WONDER_LEGEND_POTENTIAL: Potential Unique Great Project Site
     MAPMODE_TV_WONDER_LEGEND_NONE: No Great Project
     MAPMODE_TV_WONDER_TT_WATER: '[ROOT.GetLocation.GetName] is not a land [location|E].'
-    MAPMODE_TV_WONDER_TT_UNIQUE: '[ROOT.GetLocation.GetName] hosts a completed unique [tv_wonder_construction|E]. Green saturation follows the highest unique Great Project level here.'
-    MAPMODE_TV_WONDER_TT_GENERIC: '[ROOT.GetLocation.GetName] hosts a completed generic [tv_wonder_construction|E]. Blue saturation follows the highest generic Great Project level here.'
-    MAPMODE_TV_WONDER_TT_POTENTIAL: '[ROOT.GetLocation.GetName] is a fixed historical site for a unique [tv_wonder_construction|E], marked in light red before completion.'
-    MAPMODE_TV_WONDER_TT_NONE: '[ROOT.GetLocation.GetName] has no completed Towards Victory Great Project and is not a fixed unique Great Project site.'
+    MAPMODE_TV_WONDER_TT_UNIQUE: '[ROOT.GetLocation.GetName] hosts a completed [tv_wonder_unique|e]. Green saturation follows the highest [tv_wonder_unique|e] level here.'
+    MAPMODE_TV_WONDER_TT_GENERIC: '[ROOT.GetLocation.GetName] hosts a completed [tv_wonder_generic|e]. Blue saturation follows the highest [tv_wonder_generic|e] level here.'
+    MAPMODE_TV_WONDER_TT_POTENTIAL: '[ROOT.GetLocation.GetName] is a fixed historical site for a [tv_wonder_unique|e], marked in light red before completion.'
+    MAPMODE_TV_WONDER_TT_NONE: '[ROOT.GetLocation.GetName] has no completed Towards Victory Great Project and is not a fixed [tv_wonder_unique|e] site.'
     TV_ENGINEERING_WONDER_SIZE_SMALL_LABEL: '[tv_wonder_small|E]'
     TV_ENGINEERING_WONDER_SIZE_MEDIUM_LABEL: '[tv_wonder_medium|E]'
     TV_ENGINEERING_WONDER_SIZE_LARGE_LABEL: '[tv_wonder_large|E]'
@@ -11103,16 +11103,16 @@ wonder_localization:
     mapmode_tv_wonder_name: 伟大工程
     MAPMODE_TV_WONDER: '#T $mapmode_tv_wonder_name$#!
 
-      显示固定独特伟大工程地点与已建成的胜利之路伟大工程。独特工程使用绿色，通用工程使用蓝色；已建成工程的颜色会在6级达到满饱和。潜在独特工程地点使用浅红色。其他陆地地点使用浅金色。'
+      显示固定[tv_wonder_unique|e]地点与已建成的胜利之路伟大工程。[tv_wonder_unique|e]使用绿色，[tv_wonder_generic|e]使用蓝色；已建成工程的颜色会在6级达到满饱和。潜在[tv_wonder_unique|e]地点使用浅红色。其他陆地地点使用浅金色。'
     MAPMODE_TV_WONDER_LEGEND_UNIQUE: 已建成独特伟大工程
     MAPMODE_TV_WONDER_LEGEND_GENERIC: 已建成通用伟大工程
     MAPMODE_TV_WONDER_LEGEND_POTENTIAL: 潜在独特伟大工程地点
     MAPMODE_TV_WONDER_LEGEND_NONE: 无伟大工程
     MAPMODE_TV_WONDER_TT_WATER: '[ROOT.GetLocation.GetName]不是陆地[location|E]。'
-    MAPMODE_TV_WONDER_TT_UNIQUE: '[ROOT.GetLocation.GetName]拥有已建成的独特[tv_wonder_construction|E]。绿色饱和度取决于此地最高的独特伟大工程等级。'
-    MAPMODE_TV_WONDER_TT_GENERIC: '[ROOT.GetLocation.GetName]拥有已建成的通用[tv_wonder_construction|E]。蓝色饱和度取决于此地最高的通用伟大工程等级。'
-    MAPMODE_TV_WONDER_TT_POTENTIAL: '[ROOT.GetLocation.GetName]是某项独特[tv_wonder_construction|E]的固定历史地点，建成前以浅红色标记。'
-    MAPMODE_TV_WONDER_TT_NONE: '[ROOT.GetLocation.GetName]没有已建成的胜利之路伟大工程，也不是固定独特伟大工程地点。'
+    MAPMODE_TV_WONDER_TT_UNIQUE: '[ROOT.GetLocation.GetName]拥有已建成的[tv_wonder_unique|e]。绿色饱和度取决于此地最高的[tv_wonder_unique|e]等级。'
+    MAPMODE_TV_WONDER_TT_GENERIC: '[ROOT.GetLocation.GetName]拥有已建成的[tv_wonder_generic|e]。蓝色饱和度取决于此地最高的[tv_wonder_generic|e]等级。'
+    MAPMODE_TV_WONDER_TT_POTENTIAL: '[ROOT.GetLocation.GetName]是某项[tv_wonder_unique|e]的固定历史地点，建成前以浅红色标记。'
+    MAPMODE_TV_WONDER_TT_NONE: '[ROOT.GetLocation.GetName]没有已建成的胜利之路伟大工程，也不是固定[tv_wonder_unique|e]地点。'
     TV_ENGINEERING_WONDER_SIZE_SMALL_LABEL: '[tv_wonder_small|E]'
     TV_ENGINEERING_WONDER_SIZE_MEDIUM_LABEL: '[tv_wonder_medium|E]'
     TV_ENGINEERING_WONDER_SIZE_LARGE_LABEL: '[tv_wonder_large|E]'
