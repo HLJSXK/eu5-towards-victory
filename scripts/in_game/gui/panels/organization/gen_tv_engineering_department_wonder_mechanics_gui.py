@@ -470,6 +470,7 @@ def suitability_dynamic_row(row_index: int, reveal_var: str, indent: int) -> lis
     return [
         f"{prefix}vbox = {{",
         f'{prefix}{T}visible = "[{suitability_row_used_visible(row_index)}]"',
+        f"{prefix}{T}layoutpolicy_horizontal = expanding",
         f"{prefix}{T}ignoreinvisible = yes",
         f"{prefix}{T}hbox = {{",
         f'{prefix}{T}{T}visible = "[{revealed}]"',

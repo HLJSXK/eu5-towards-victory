@@ -507,6 +507,7 @@ type tv_engineering_suitability_location_conditions_column = vbox {
 					text_single = { text = "TV_ENGINEERING_SUITABILITY_CONDITIONS_TITLE" max_width = 218 fontsize = 13 align = nobaseline|left }
 					vbox = {
 						visible = "[Not(EqualTo_CFixedPoint(GetVariableFromGlobalVariableMap('tv_wonder_suitability_condition_type', MakeScopeFlag(Concatenate('tv_wonder_suitability_', Concatenate(ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_mechanic_id').GetValue)), '_1')))).GetValue, '(CFixedPoint)0'))]"
+						layoutpolicy_horizontal = expanding
 						ignoreinvisible = yes
 						hbox = {
 							visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)1.0'))]"
@@ -527,6 +528,7 @@ type tv_engineering_suitability_location_conditions_column = vbox {
 					}
 					vbox = {
 						visible = "[Not(EqualTo_CFixedPoint(GetVariableFromGlobalVariableMap('tv_wonder_suitability_condition_type', MakeScopeFlag(Concatenate('tv_wonder_suitability_', Concatenate(ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_mechanic_id').GetValue)), '_2')))).GetValue, '(CFixedPoint)0'))]"
+						layoutpolicy_horizontal = expanding
 						ignoreinvisible = yes
 						hbox = {
 							visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)2.0'))]"
@@ -547,6 +549,7 @@ type tv_engineering_suitability_location_conditions_column = vbox {
 					}
 					vbox = {
 						visible = "[Not(EqualTo_CFixedPoint(GetVariableFromGlobalVariableMap('tv_wonder_suitability_condition_type', MakeScopeFlag(Concatenate('tv_wonder_suitability_', Concatenate(ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_mechanic_id').GetValue)), '_3')))).GetValue, '(CFixedPoint)0'))]"
+						layoutpolicy_horizontal = expanding
 						ignoreinvisible = yes
 						hbox = {
 							visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)3.0'))]"
@@ -567,6 +570,7 @@ type tv_engineering_suitability_location_conditions_column = vbox {
 					}
 					vbox = {
 						visible = "[Not(EqualTo_CFixedPoint(GetVariableFromGlobalVariableMap('tv_wonder_suitability_condition_type', MakeScopeFlag(Concatenate('tv_wonder_suitability_', Concatenate(ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_mechanic_id').GetValue)), '_4')))).GetValue, '(CFixedPoint)0'))]"
+						layoutpolicy_horizontal = expanding
 						ignoreinvisible = yes
 						hbox = {
 							visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)4.0'))]"
@@ -587,6 +591,7 @@ type tv_engineering_suitability_location_conditions_column = vbox {
 					}
 					vbox = {
 						visible = "[Not(EqualTo_CFixedPoint(GetVariableFromGlobalVariableMap('tv_wonder_suitability_condition_type', MakeScopeFlag(Concatenate('tv_wonder_suitability_', Concatenate(ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_mechanic_id').GetValue)), '_5')))).GetValue, '(CFixedPoint)0'))]"
+						layoutpolicy_horizontal = expanding
 						ignoreinvisible = yes
 						hbox = {
 							visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').IsSet, GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_suitability_current_revealed').GetValue, '(CFixedPoint)5.0'))]"

@@ -536,6 +536,24 @@ generators.
     from the already-reachable `tv_wonder_initialize_index_on_game_start`/`_on_game_load` hooks in
     `tv_engineering_department_on_action.txt`.
 
+25. A wrapper `vbox`/`hbox` does not inherit its ancestor's fixed width — give it its own
+    `layoutpolicy_horizontal = expanding` whenever it sits between a fixed-width column and an
+    `expanding` row (especially one containing `expand = {}`). `suitability_dynamic_row()`
+    (`gen_tv_engineering_department_wonder_mechanics_gui.py`) wraps each suitability condition row's
+    `hbox` in a new per-row `vbox` (to gate the row + its "hidden" placeholder text behind one shared
+    `visible` check) — introduced 2026-07-13 by the same commit that added the dynamic composite-key
+    lookup (rule 24). That wrapper vbox has no `layoutpolicy_horizontal` of its own, so — unlike the
+    pre-refactor flat hbox/text_single siblings that sat directly under the fixed-218px
+    `tv_engineering_suitability_location_conditions_column` vbox — it shrinks to its content's natural
+    width instead of inheriting the column's fixed width, starving the inner `expanding` hbox and
+    zeroing its `expand = {}` widget. Fixed by adding `layoutpolicy_horizontal = expanding` to the
+    wrapper vbox. This GUI section is fragment-generated then merged into the hand-maintained file
+    (`gen_..._gui.py` writes `data/generated_fragments/...gui`, then
+    `merge_tv_engineering_department_wonder_mechanics_gui.py` splices it into
+    `tv_engineering_department.gui` between markers) — regenerating requires running both scripts, not
+    just the generator. See `docs/knowledge/anti_patterns.yaml` rule
+    `expanding_row_wrapper_vbox_missing_layoutpolicy_horizontal`.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`: it lints rule 2 and rule 16 automatically, and when a
