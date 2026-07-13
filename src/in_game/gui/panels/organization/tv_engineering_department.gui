@@ -2432,6 +2432,11 @@ widget = {
 												set_parent_size_to_minimum = yes
 												layoutpolicy_horizontal = expanding
 												layoutpolicy_vertical = shrinking
+												margin = { 4 4 }
+
+												background = {
+													using = bg_container_framed_texture
+												}
 
 												TooltipManualTableField = {
 													blockoverride "row_size" {
