@@ -2672,21 +2672,65 @@ widget = {
 										left_action = { action_name = "tv_wonder_finish_construction" }
 									}
 
-									tv_engineering_department_card_common = {
-										layoutpolicy_vertical = fixed
-										minimumsize = { 462 148 }
-										maximumsize = { 462 148 }
+									vbox = {
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = shrinking
+										set_parent_size_to_minimum = yes
+										spacing = 4
+										margin = { 10 8 }
 
-										blockoverride "header_size" { size = { -1 0 } }
-										blockoverride "header_decor_templates" {}
-										blockoverride "common_header" {}
-										blockoverride "card_common_bottom_margin" { margin = { 10 8 } }
-										blockoverride "common_bottom_content" {
+										hbox = {
+											layoutpolicy_horizontal = expanding
 											text_multi = {
 												layoutpolicy_horizontal = expanding
 												max_width = 442
+												minimumsize = { 442 -1 }
 												autoresize = yes
-												text = "TV_ENGINEERING_CONSTRUCTION_HELP_TEXT"
+												text = "TV_ENGINEERING_CONSTRUCTION_HELP_TEXT_1"
+												align = nobaseline|left
+											}
+										}
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											text_multi = {
+												layoutpolicy_horizontal = expanding
+												max_width = 442
+												minimumsize = { 442 -1 }
+												autoresize = yes
+												text = "TV_ENGINEERING_CONSTRUCTION_HELP_TEXT_2"
+												align = nobaseline|left
+											}
+										}
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											text_multi = {
+												layoutpolicy_horizontal = expanding
+												max_width = 442
+												minimumsize = { 442 -1 }
+												autoresize = yes
+												text = "TV_ENGINEERING_CONSTRUCTION_HELP_TEXT_3"
+												align = nobaseline|left
+											}
+										}
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											text_multi = {
+												layoutpolicy_horizontal = expanding
+												max_width = 442
+												minimumsize = { 442 -1 }
+												autoresize = yes
+												text = "TV_ENGINEERING_CONSTRUCTION_HELP_TEXT_4"
+												align = nobaseline|left
+											}
+										}
+										hbox = {
+											layoutpolicy_horizontal = expanding
+											text_multi = {
+												layoutpolicy_horizontal = expanding
+												max_width = 442
+												minimumsize = { 442 -1 }
+												autoresize = yes
+												text = "TV_ENGINEERING_CONSTRUCTION_HELP_TEXT_5"
 												align = nobaseline|left
 											}
 										}
