@@ -482,6 +482,7 @@ def suitability_location_conditions_type() -> str:
             width=SUITABILITY_KNOWLEDGE_COLUMN_WIDTH,
         )
     )
+    lines.append(f"{T}expand = {{}}")
     lines.append("}")
     return "\n".join(lines)
 
