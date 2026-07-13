@@ -2099,8 +2099,8 @@ widget = {
 			tv_engineering_department_card_common = {
 				visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet]"
 				layoutpolicy_vertical = fixed
-				minimumsize = { 500 610 }
-				maximumsize = { 500 610 }
+				minimumsize = { 500 320 }
+				maximumsize = { 500 320 }
 
 				blockoverride "common_header_icon_texture" {
 					texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
@@ -2110,9 +2110,208 @@ widget = {
 					text = "TV_ENGINEERING_ORG_LOG_CARD_TITLE"
 				}
 
+				blockoverride "common_header_extra_left" {
+					spacer = { size = { 50 -1 } }
+					expand = {}
+				}
+
+				blockoverride "common_header_extra_right" {
+					expand = {}
+					button_regular = {
+						size = { 32 32 }
+						margin = { 6 0 }
+
+						icon = {
+							size = { 30 30 }
+							parentanchor = center
+							texture = "gfx/interface/icons/flat_icons/tabicons/europedia_flat_icon.dds"
+						}
+
+						action_tooltip = {
+							click_type = left
+							click_mode = single
+							title = "OPEN_EUROPEDIA"
+							on_action = "[OpenLateralView('encyclopedia')]"
+						}
+
+						tooltipwidget = {
+							ConceptTooltipType = {
+								blockoverride "title_icon" {
+									icon = {
+										texture = "gfx/interface/icons/flat_icons/tabicons/europedia_flat_icon.dds"
+										using = tooltip_title_icon_size
+									}
+								}
+
+								blockoverride "title_text" {
+									text = "TV_ENGINEERING_ORG_LOG_CARD_TITLE"
+								}
+
+								blockoverride "tooltip_content" {
+									vbox = {
+										set_parent_size_to_minimum = yes
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = shrinking
+										spacing = 6
+
+										text_single = {
+											layoutpolicy_horizontal = expanding
+											fontsize = 16
+											text = "TV_ENGINEERING_ORGANIZATION_SECTION_TITLE"
+											align = center|nobaseline
+										}
+										vbox = {
+											set_parent_size_to_minimum = yes
+											layoutpolicy_horizontal = expanding
+											layoutpolicy_vertical = shrinking
+											margin = { 4 4 }
+
+											background = {
+												using = bg_container_framed_texture
+											}
+
+											TooltipManualTableField = {
+												blockoverride "row_size" {
+													maximumsize = { -1 50 }
+													minimumsize = { -1 50 }
+												}
+												text_multi = {
+													layoutpolicy_horizontal = expanding
+													max_width = 380
+													minimumsize = { 380 -1 }
+													autoresize = yes
+													text = "TV_ENGINEERING_ORG_LOG_HELP_ORGANIZATION_TEXT_1"
+													align = nobaseline|left
+												}
+											}
+											TooltipManualTableField = {
+												blockoverride "row_size" {
+													maximumsize = { -1 50 }
+													minimumsize = { -1 50 }
+												}
+												text_multi = {
+													layoutpolicy_horizontal = expanding
+													max_width = 380
+													minimumsize = { 380 -1 }
+													autoresize = yes
+													text = "TV_ENGINEERING_ORG_LOG_HELP_ORGANIZATION_TEXT_2"
+													align = nobaseline|left
+												}
+											}
+											TooltipManualTableField = {
+												blockoverride "row_size" {
+													maximumsize = { -1 50 }
+													minimumsize = { -1 50 }
+												}
+												text_multi = {
+													layoutpolicy_horizontal = expanding
+													max_width = 380
+													minimumsize = { 380 -1 }
+													autoresize = yes
+													text = "TV_ENGINEERING_ORG_LOG_HELP_ORGANIZATION_TEXT_3"
+													align = nobaseline|left
+												}
+											}
+											TooltipManualTableField = {
+												blockoverride "row_size" {
+													maximumsize = { -1 50 }
+													minimumsize = { -1 50 }
+												}
+												text_multi = {
+													layoutpolicy_horizontal = expanding
+													max_width = 380
+													minimumsize = { 380 -1 }
+													autoresize = yes
+													text = "TV_ENGINEERING_ORG_LOG_HELP_ORGANIZATION_TEXT_4"
+													align = nobaseline|left
+												}
+											}
+											TooltipManualTableField = {
+												blockoverride "row_size" {
+													maximumsize = { -1 50 }
+													minimumsize = { -1 50 }
+												}
+												text_multi = {
+													layoutpolicy_horizontal = expanding
+													max_width = 380
+													minimumsize = { 380 -1 }
+													autoresize = yes
+													text = "TV_ENGINEERING_ORG_LOG_HELP_ORGANIZATION_TEXT_5"
+													align = nobaseline|left
+												}
+											}
+										}
+
+										text_single = {
+											layoutpolicy_horizontal = expanding
+											fontsize = 16
+											text = "TV_ENGINEERING_LOGISTICS_SECTION_TITLE"
+											align = center|nobaseline
+										}
+										vbox = {
+											set_parent_size_to_minimum = yes
+											layoutpolicy_horizontal = expanding
+											layoutpolicy_vertical = shrinking
+											margin = { 4 4 }
+
+											background = {
+												using = bg_container_framed_texture
+											}
+
+											TooltipManualTableField = {
+												blockoverride "row_size" {
+													maximumsize = { -1 50 }
+													minimumsize = { -1 50 }
+												}
+												text_multi = {
+													layoutpolicy_horizontal = expanding
+													max_width = 380
+													minimumsize = { 380 -1 }
+													autoresize = yes
+													text = "TV_ENGINEERING_ORG_LOG_HELP_LOGISTICS_TEXT_1"
+													align = nobaseline|left
+												}
+											}
+											TooltipManualTableField = {
+												blockoverride "row_size" {
+													maximumsize = { -1 50 }
+													minimumsize = { -1 50 }
+												}
+												text_multi = {
+													layoutpolicy_horizontal = expanding
+													max_width = 380
+													minimumsize = { 380 -1 }
+													autoresize = yes
+													text = "TV_ENGINEERING_ORG_LOG_HELP_LOGISTICS_TEXT_2"
+													align = nobaseline|left
+												}
+											}
+											TooltipManualTableField = {
+												blockoverride "row_size" {
+													maximumsize = { -1 50 }
+													minimumsize = { -1 50 }
+												}
+												text_multi = {
+													layoutpolicy_horizontal = expanding
+													max_width = 380
+													minimumsize = { 380 -1 }
+													autoresize = yes
+													text = "TV_ENGINEERING_ORG_LOG_HELP_LOGISTICS_TEXT_3"
+													align = nobaseline|left
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+					spacer = { size = { 20 -1 } }
+				}
+
 				blockoverride "common_bottom_content" {
 					widget = {
-						size = { 470 560 }
+						size = { 470 270 }
 
 						vbox = {
 							layoutpolicy_horizontal = expanding
@@ -2139,26 +2338,6 @@ widget = {
 											}
 											expand = {}
 										}
-									}
-								}
-							}
-
-							tv_engineering_department_card_common = {
-								layoutpolicy_vertical = fixed
-								minimumsize = { 462 148 }
-								maximumsize = { 462 148 }
-
-								blockoverride "header_size" { size = { -1 0 } }
-								blockoverride "header_decor_templates" {}
-								blockoverride "common_header" {}
-								blockoverride "card_common_bottom_margin" { margin = { 10 8 } }
-								blockoverride "common_bottom_content" {
-									text_multi = {
-										layoutpolicy_horizontal = expanding
-										max_width = 442
-										autoresize = yes
-										text = "TV_ENGINEERING_ORGANIZATION_HELP_TEXT"
-										align = nobaseline|left
 									}
 								}
 							}
@@ -2232,26 +2411,6 @@ widget = {
 											}
 											expand = {}
 										}
-									}
-								}
-							}
-
-							tv_engineering_department_card_common = {
-								layoutpolicy_vertical = fixed
-								minimumsize = { 462 120 }
-								maximumsize = { 462 120 }
-
-								blockoverride "header_size" { size = { -1 0 } }
-								blockoverride "header_decor_templates" {}
-								blockoverride "common_header" {}
-								blockoverride "card_common_bottom_margin" { margin = { 10 8 } }
-								blockoverride "common_bottom_content" {
-									text_multi = {
-										layoutpolicy_horizontal = expanding
-										max_width = 442
-										autoresize = yes
-										text = "TV_ENGINEERING_LOGISTICS_HELP_TEXT"
-										align = nobaseline|left
 									}
 								}
 							}
