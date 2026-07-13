@@ -10,11 +10,14 @@ step display) -- this feature's `tv_wonder_ceremony_stage` variable is only
 ever set for the other 121 unique wonders, so the two displays are mutually
 exclusive by construction, not by an explicit id check.
 
-Card layout (per stage, 8 total): built on this mod's own
-tv_engineering_department_card_common (defined in that same panel file),
-untitled (zero-height header), left column a real piechart with a centered
-built-in icon selected from the current wonder's stage data, right column
-dynamically resolved stage flavor text, and a state color overlay (color_yellow_texture in progress /
+Card layout (per stage, 8 total): a hand-built vbox (not the shared
+tv_engineering_department_card_common type -- these cards already override
+every default it renders, so the type gave them nothing but its outer
+hbox>vbox skeleton and the card_common_bottom_margin default of
+margin = { 15 10 }, both reproduced directly here), untitled (no header),
+left column a real piechart with a centered built-in icon selected from the
+current wonder's stage data, right column dynamically resolved stage flavor
+text, and a state color overlay (color_yellow_texture in progress /
 color_light_green_texture done). The outer Ceremony card is 500px wide; its
 content column is 462px wide, so every nested ceremony card is exactly 462px
 wide and cannot expand the parent -- see docs/knowledge/risk_cards/wonders.md
@@ -123,6 +126,15 @@ def append_piechart(
 
 
 def append_card(lines: list[str], stage: int) -> None:
+    """Render one stage card by hand instead of instantiating
+    tv_engineering_department_card_common. These cards fully override every
+    default the shared type provides that actually renders (blank header,
+    replaced card_bg, replaced common_bottom_content), so the type gave them
+    nothing but its outer hbox>vbox skeleton and the card_common_bottom_margin
+    default of margin = { 15 10 } -- reproduced here directly. That 15px
+    horizontal margin is why the content hbox is CARD_CONTENT_WIDTH (432 =
+    462 - 15*2), not the full CARD_WIDTH.
+    """
     stage_var = "tv_wonder_ceremony_stage"
     locked = f"{PLAYER}.GetVariable('tv_wonder_locked')"
     stage_scope = f"{PLAYER}.GetVariable('{stage_var}')"
@@ -130,59 +142,58 @@ def append_card(lines: list[str], stage: int) -> None:
         f"[And3({locked}.IsSet, {stage_scope}.IsSet, "
         f"GreaterThanOrEqualTo_CFixedPoint({stage_scope}.GetValue, '(CFixedPoint){stage - 1}.0'))]"
     )
-    lines.append(f"{T}tv_engineering_department_card_common = {{")
+    lines.append(f"{T}vbox = {{")
     lines.append(f'{T}{T}visible = "{card_visible}"')
+    lines.append(f"{T}{T}layoutpolicy_horizontal = expanding")
     lines.append(f"{T}{T}layoutpolicy_vertical = fixed")
     lines.append(f"{T}{T}minimumsize = {{ {CARD_WIDTH} {CARD_HEIGHT} }}")
     lines.append(f"{T}{T}maximumsize = {{ {CARD_WIDTH} {CARD_HEIGHT} }}")
-    lines.append(f"{T}{T}blockoverride \"header_size\" {{ size = {{ -1 0 }} }}")
-    lines.append(f"{T}{T}blockoverride \"header_decor_templates\" {{}}")
-    lines.append(f"{T}{T}blockoverride \"common_header\" {{}}")
-    lines.append(f"{T}{T}blockoverride \"card_bg\" {{")
-    lines.append(f"{T}{T}{T}background = {{")
-    lines.append(f'{T}{T}{T}{T}texture = "gfx/interface/cards/paper_card_fancy_01.dds"')
-    lines.append(f"{T}{T}{T}{T}texture_density = 2")
-    lines.append(f"{T}{T}{T}{T}spriteType = corneredstretched")
-    lines.append(f"{T}{T}{T}{T}spriteborder = {{ 100 100 }}")
-    lines.append(f"{T}{T}{T}{T}margin = {{ 1 1 }}")
-    lines.append(f"{T}{T}{T}{T}margin_bottom = 2")
-    lines.append(f"{T}{T}{T}{T}alpha = 0.4")
+    lines.append(f"{T}{T}background = {{")
+    lines.append(f'{T}{T}{T}texture = "gfx/interface/cards/paper_card_fancy_01.dds"')
+    lines.append(f"{T}{T}{T}texture_density = 2")
+    lines.append(f"{T}{T}{T}spriteType = corneredstretched")
+    lines.append(f"{T}{T}{T}spriteborder = {{ 100 100 }}")
+    lines.append(f"{T}{T}{T}margin = {{ 1 1 }}")
+    lines.append(f"{T}{T}{T}margin_bottom = 2")
+    lines.append(f"{T}{T}{T}alpha = 0.4")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}{T}background = {{")
+    lines.append(f'{T}{T}{T}texture = "gfx/interface/cards/paper_card_fancy_01.dds"')
+    lines.append(f"{T}{T}{T}texture_density = 2")
+    lines.append(f"{T}{T}{T}spriteType = corneredstretched")
+    lines.append(f"{T}{T}{T}spriteborder = {{ 100 100 }}")
+    lines.append(f"{T}{T}{T}modify_texture = {{")
+    lines.append(f"{T}{T}{T}{T}using = color_paper_texture")
     lines.append(f"{T}{T}{T}}}")
-    lines.append(f"{T}{T}{T}background = {{")
-    lines.append(f'{T}{T}{T}{T}texture = "gfx/interface/cards/paper_card_fancy_01.dds"')
-    lines.append(f"{T}{T}{T}{T}texture_density = 2")
-    lines.append(f"{T}{T}{T}{T}spriteType = corneredstretched")
-    lines.append(f"{T}{T}{T}{T}spriteborder = {{ 100 100 }}")
-    lines.append(f"{T}{T}{T}{T}modify_texture = {{")
-    lines.append(f"{T}{T}{T}{T}{T}using = color_paper_texture")
-    lines.append(f"{T}{T}{T}{T}}}")
-    lines.append(f"{T}{T}{T}{T}modify_texture = {{")
-    lines.append(f"{T}{T}{T}{T}{T}using = color_black_texture")
-    lines.append(f"{T}{T}{T}{T}{T}alpha = 0.3")
-    lines.append(f"{T}{T}{T}{T}}}")
-    lines.append(f"{T}{T}{T}{T}modify_texture = {{")
-    lines.append(f"{T}{T}{T}{T}{T}using = overlay_paper_03")
-    lines.append(f"{T}{T}{T}{T}}}")
-    lines.append(f"{T}{T}{T}{T}modify_texture = {{")
-    lines.append(f"{T}{T}{T}{T}{T}using = overlay_cloth_texture")
-    lines.append(f"{T}{T}{T}{T}{T}blend_mode = overlay")
-    lines.append(f"{T}{T}{T}{T}{T}alpha = 0.2")
-    lines.append(f"{T}{T}{T}{T}}}")
-    lines.append(f"{T}{T}{T}{T}modify_texture = {{")
-    lines.append(f'{T}{T}{T}{T}{T}visible = "{stage_completed_visible(stage)}"')
-    lines.append(f"{T}{T}{T}{T}{T}using = color_light_green_texture")
-    lines.append(f"{T}{T}{T}{T}{T}blend_mode = overlay")
-    lines.append(f"{T}{T}{T}{T}{T}alpha = 0.85")
-    lines.append(f"{T}{T}{T}{T}}}")
-    lines.append(f"{T}{T}{T}{T}modify_texture = {{")
-    lines.append(f'{T}{T}{T}{T}{T}visible = "{stage_active_visible(stage)}"')
-    lines.append(f"{T}{T}{T}{T}{T}using = color_yellow_texture")
-    lines.append(f"{T}{T}{T}{T}{T}blend_mode = overlay")
-    lines.append(f"{T}{T}{T}{T}{T}alpha = 0.55")
-    lines.append(f"{T}{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}modify_texture = {{")
+    lines.append(f"{T}{T}{T}{T}using = color_black_texture")
+    lines.append(f"{T}{T}{T}{T}alpha = 0.3")
+    lines.append(f"{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}modify_texture = {{")
+    lines.append(f"{T}{T}{T}{T}using = overlay_paper_03")
+    lines.append(f"{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}modify_texture = {{")
+    lines.append(f"{T}{T}{T}{T}using = overlay_cloth_texture")
+    lines.append(f"{T}{T}{T}{T}blend_mode = overlay")
+    lines.append(f"{T}{T}{T}{T}alpha = 0.2")
+    lines.append(f"{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}modify_texture = {{")
+    lines.append(f'{T}{T}{T}{T}visible = "{stage_completed_visible(stage)}"')
+    lines.append(f"{T}{T}{T}{T}using = color_light_green_texture")
+    lines.append(f"{T}{T}{T}{T}blend_mode = overlay")
+    lines.append(f"{T}{T}{T}{T}alpha = 0.85")
+    lines.append(f"{T}{T}{T}}}")
+    lines.append(f"{T}{T}{T}modify_texture = {{")
+    lines.append(f'{T}{T}{T}{T}visible = "{stage_active_visible(stage)}"')
+    lines.append(f"{T}{T}{T}{T}using = color_yellow_texture")
+    lines.append(f"{T}{T}{T}{T}blend_mode = overlay")
+    lines.append(f"{T}{T}{T}{T}alpha = 0.55")
     lines.append(f"{T}{T}{T}}}")
     lines.append(f"{T}{T}}}")
-    lines.append(f"{T}{T}blockoverride \"common_bottom_content\" {{")
+    lines.append(f"{T}{T}hbox = {{")
+    lines.append(f"{T}{T}{T}layoutpolicy_horizontal = expanding")
+    lines.append(f"{T}{T}{T}spacing = 4")
+    lines.append(f"{T}{T}{T}margin = {{ 15 10 }}")
     lines.append(f"{T}{T}{T}hbox = {{")
     lines.append(f"{T}{T}{T}{T}layoutpolicy_horizontal = expanding")
     lines.append(f"{T}{T}{T}{T}size = {{ {CARD_CONTENT_WIDTH} 104 }}")
@@ -226,6 +237,7 @@ def append_card(lines: list[str], stage: int) -> None:
     lines.append(f"{T}{T}{T}expand = {{}}")
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}}}")
+    lines.append(f"{T}{T}expand = {{}}")
     lines.append(f"{T}}}")
 
 
