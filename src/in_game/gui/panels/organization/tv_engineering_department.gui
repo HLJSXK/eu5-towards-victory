@@ -2401,14 +2401,7 @@ widget = {
 									layoutpolicy_vertical = shrinking
 									ignoreinvisible = yes
 									spacing = 6
-
-									widget = {
-										size = { 470 340 }
-
-										vbox = {
-											layoutpolicy_horizontal = expanding
-											spacing = 6
-											margin = { 4 6 }
+									margin = { 4 6 }
 
 											hbox = {
 												layoutpolicy_horizontal = expanding
@@ -2672,8 +2665,6 @@ widget = {
 										description = "tv_wonder_finish_construction_desc"
 										actor = "[InternationalOrganizationsView.GetPlayer]"
 										left_action = { action_name = "tv_wonder_finish_construction" }
-									}
-										}
 									}
 
 									tv_engineering_department_card_common = {
