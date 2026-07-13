@@ -1112,12 +1112,6 @@ PHILOSOPHY_ISSUES = [
     (9, "TV_ACADEMY_PHILOSOPHY_NAME_SCIENTIFIC_REVOLUTION"),
 ]
 
-NODE_TYPE_LABELS = [
-    (0, "TV_ACADEMY_DEBATE_NODE_TYPE_HISTORY"),
-    (1, "TV_ACADEMY_DEBATE_NODE_TYPE_LOCAL"),
-    (2, "TV_ACADEMY_DEBATE_NODE_TYPE_WORLD"),
-]
-
 NODE_TYPE_ICONS = [
     (0, "@time!", "TV_ACADEMY_DEBATE_NODE_HISTORY_TT"),
     (1, "@location!", "TV_ACADEMY_DEBATE_NODE_LOCAL_TT"),
@@ -1139,16 +1133,6 @@ def current_node_type_eq(value: int) -> str:
 
 def debate_active_expr() -> str:
     return player_var_eq("tv_academy_philosophy_phase", 1)
-
-
-def append_node_type_text(lines: list[str], level: int, var_name: str, font_size: int = 15) -> None:
-    for value, loc_key in NODE_TYPE_LABELS:
-        emit(lines, level, "text_single = {")
-        emit(lines, level + 1, f'visible = "[{player_var_eq(var_name, value)}]"')
-        emit(lines, level + 1, f'text = "{loc_key}"')
-        emit(lines, level + 1, f"fontsize = {font_size}")
-        emit(lines, level + 1, "align = center|nobaseline")
-        emit(lines, level, "}")
 
 
 def append_current_philosophy_name(lines: list[str], level: int, width: int, font_size: int = 16) -> None:
