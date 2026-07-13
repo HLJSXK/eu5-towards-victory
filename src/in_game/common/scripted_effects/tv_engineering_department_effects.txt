@@ -1337,7 +1337,7 @@ tv_wonder_bribe_clergy_demand_effect = {
 tv_wonder_end_debate_effect = {
 	set_variable = { name = tv_wonder_stage value = 2 }
 	set_variable = { name = tv_wonder_debate_ended value = 1 }
-	trigger_event_non_silently = { id = tv_engineering_department.203 days = 1 }
+	trigger_event_non_silently = { id = tv_engineering_department.203 }
 }
 
 tv_wonder_update_construction_tiers_from_competence_effect = {
