@@ -20143,6 +20143,7 @@ situation_panel = {
 			}
 		}
 		widget = {
+			datacontext = "[SituationView.GetPlayer]"
 			visible = "[Country.MakeScope.GetVariable('tv_tree_pending_id').IsSet]"
 			parentanchor = top|left
 			size = { 100% 100% }
