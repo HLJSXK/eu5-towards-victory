@@ -35,6 +35,18 @@ content, or wiring any `game_concept` into a curated (as opposed to search/link-
    block for the key to resolve — reusing an already-registered concept's keys (as this mod's tab
    does) needs no new concept registration, only the two loc keys to already exist.
 
+   For the fixed Engineering Department / Great Project mechanic cards specifically (the
+   `MECHANICS` list in `gen_tv_encyclopedia_wonders_cards_gui.py`), a concept in that
+   generator's `EXPANDED_MECHANICS` set uses an optional third key,
+   `game_concept_<id>_europedia_desc`, as its card body instead of `_desc`
+   (`body_key_for()` picks the key). This lets Europedia carry a longer, more detailed
+   explanation than the concise `_desc` used for in-game tooltips/`[id|e]` cross-links
+   elsewhere, without lengthening the tooltip text itself. Only add `_europedia_desc` for
+   ids in `EXPANDED_MECHANICS`; concepts outside that set fall back to the normal `_desc` and
+   need no extra key. Ground any new `_europedia_desc` prose in confirmed mechanic facts from
+   `docs/knowledge/PROJECT_OVERVIEW.md` / `docs/knowledge/risk_cards/wonders.md` — do not
+   invent numbers or behavior not already documented there.
+
 5. Bound card text width explicitly (shared with `docs/knowledge/risk_cards/wonders.md` rule 11).
    Use `text_multi` with matching `max_width`/`min_width` (1450, matching vanilla) and
    `autoresize = yes`; an unconstrained elastic `hbox`/`vbox` column can blow out a card's bounded

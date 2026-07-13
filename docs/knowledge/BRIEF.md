@@ -868,7 +868,7 @@ Correction (2026-07-13, same-day follow-up): the `has_flag` reference itself was
 | Scripted Triggers | 3675 | `data/index/scripted_triggers.txt` | Verify name before using in `trigger = { ... }` |
 | Scripted Effects | 4034 | `data/index/scripted_effects.txt` | Verify name before using in `effect = { ... }` |
 | Static Modifiers | 2435 | `data/index/static_modifiers.txt` | Modifier name whitelist; validate.py checks these |
-| English Loc Keys | 39738 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
+| English Loc Keys | 39748 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
 
 ## Codegen Script Map
 

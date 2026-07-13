@@ -13,10 +13,18 @@ concepts (MECHANICS below, textures mirrored from
 src/main_menu/common/game_concepts/tv_game_concepts.txt -- not re-derived), then
 every generic wonder archetype, then every unique wonder, both from the shared
 wonder_mechanics data package (the same merged list
-gen_tv_engineering_department_wonder_mechanics_concepts.py already uses). Every
-card reuses an EXISTING game_concept_<id>/_desc localization pair -- no new
-prose is authored here. Each card is gated by a `tv_encyclopedia_filter` value
-('mechanics' / 'generic' / 'unique') so the shell's filter buttons can show it.
+gen_tv_engineering_department_wonder_mechanics_concepts.py already uses).
+
+Generic/unique wonder cards reuse an EXISTING game_concept_<id>/_desc
+localization pair verbatim -- no new prose is authored for those. Mechanic
+cards in EXPANDED_MECHANICS instead prefer an optional
+game_concept_<id>_europedia_desc key (see body_key_for()): Europedia can carry
+a longer, more detailed explanation than the concise game_concept_<id>_desc
+used for in-game tooltips/[id|e] cross-links, so the two are kept as separate
+localization keys rather than lengthening the tooltip text itself. Mechanic
+concepts not in EXPANDED_MECHANICS fall back to the normal _desc key. Each
+card is gated by a `tv_encyclopedia_filter` value ('mechanics' / 'generic' /
+'unique') so the shell's filter buttons can show it.
 """
 
 import sys
@@ -42,19 +50,45 @@ MECHANICS = [
     "tv_engineering_department",
     "tv_great_engineer",
     "tv_wonder_concept",
+    "tv_wonder_debate",
     "tv_wonder_survey",
     "tv_wonder_materials",
     "tv_wonder_ceremony",
     "tv_wonder_construction",
+    "tv_wonder_expansion",
     "tv_wonder_construction_part",
     "tv_wonder_small",
     "tv_wonder_medium",
     "tv_wonder_large",
+    "tv_wonder_generic",
+    "tv_wonder_unique",
     "tv_wonder_domestic_support",
     "tv_wonder_scale_competence",
     "tv_wonder_organization_competence",
     "tv_wonder_logistics_competence",
 ]
+
+# Mechanic concepts that get a longer, Europedia-only explanation via an
+# optional game_concept_<id>_europedia_desc key instead of the concise
+# tooltip-facing game_concept_<id>_desc. See body_key_for().
+EXPANDED_MECHANICS = {
+    "tv_engineering_department",
+    "tv_wonder_concept",
+    "tv_wonder_debate",
+    "tv_wonder_survey",
+    "tv_wonder_materials",
+    "tv_wonder_construction",
+    "tv_wonder_construction_part",
+    "tv_wonder_ceremony",
+    "tv_wonder_generic",
+    "tv_wonder_unique",
+}
+
+
+def body_key_for(concept: str) -> str:
+    if concept in EXPANDED_MECHANICS:
+        return f"game_concept_{concept}_europedia_desc"
+    return f"game_concept_{concept}_desc"
 
 
 def wonder_icon_texture(wonder: dict) -> str:
@@ -163,7 +197,7 @@ def generate() -> str:
             category="mechanics",
             texture=MECHANICS_TEXTURE,
             title_key=f"game_concept_{concept}",
-            body_key=f"game_concept_{concept}_desc",
+            body_key=body_key_for(concept),
         )
         lines.append("")
 

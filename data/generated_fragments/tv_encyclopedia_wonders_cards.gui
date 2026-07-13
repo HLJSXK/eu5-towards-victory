@@ -78,7 +78,7 @@ vbox = {
 							min_width = 1450
 							autoresize = yes
 
-							text = "game_concept_tv_engineering_department_desc"
+							text = "game_concept_tv_engineering_department_europedia_desc"
 							margin = { 40 10 }
 						}
 					}
@@ -240,7 +240,88 @@ vbox = {
 							min_width = 1450
 							autoresize = yes
 
-							text = "game_concept_tv_wonder_concept_desc"
+							text = "game_concept_tv_wonder_concept_europedia_desc"
+							margin = { 40 10 }
+						}
+					}
+				}
+				block "block_scrollarea" {
+					maximumsize = { -1 800 }
+				}
+			}
+		}
+	}
+
+	vbox = {
+		visible = "[Or(GetVariableSystem.HasValue('tv_encyclopedia_filter', 'all'), GetVariableSystem.HasValue('tv_encyclopedia_filter', 'mechanics'))]"
+		set_parent_size_to_minimum = yes
+		margin = { 0 10 }
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+			spacing = 10
+			using = bg_paper_card
+
+			blockoverride "card_color" {
+				using = color_intense_bg_blue_texture
+				blend_mode = multiply
+			}
+
+			max_width = 1450
+			min_width = 1450
+
+			icon = {
+				layoutpolicy_horizontal = expanding
+				using = button_main_tab_texture
+				frame = 4
+
+				modify_texture = {
+					using = color_intense_bg_blue_texture
+					blend_mode = multiply
+				}
+
+				modify_texture = {
+					using = overlay_leather_texture
+					blend_mode = overlay
+					alpha = 0.2
+				}
+
+				hbox = {
+					margin = { 40 0 }
+					margin_top = 8
+
+					icon = {
+						name = "image"
+						texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
+						size = { 45 45 }
+					}
+
+					text_single = {
+						name = "title"
+						using = layoutpolicy_expanding
+						using = Font_Size_Medium
+						fontsize = 18
+						autoresize = no
+
+						default_format = "#yellow_titles"
+						text = "game_concept_tv_wonder_debate"
+					}
+				}
+			}
+
+			TooltipListScrollArea = {
+				blockoverride "scrollarea_content" {
+					vbox = {
+						set_parent_dimension_to_minimum = height
+						layoutpolicy_horizontal = expanding
+
+						text_multi = {
+							name = "body"
+							max_width = 1450
+							min_width = 1450
+							autoresize = yes
+
+							text = "game_concept_tv_wonder_debate_europedia_desc"
 							margin = { 40 10 }
 						}
 					}
@@ -321,7 +402,7 @@ vbox = {
 							min_width = 1450
 							autoresize = yes
 
-							text = "game_concept_tv_wonder_survey_desc"
+							text = "game_concept_tv_wonder_survey_europedia_desc"
 							margin = { 40 10 }
 						}
 					}
@@ -402,7 +483,7 @@ vbox = {
 							min_width = 1450
 							autoresize = yes
 
-							text = "game_concept_tv_wonder_materials_desc"
+							text = "game_concept_tv_wonder_materials_europedia_desc"
 							margin = { 40 10 }
 						}
 					}
@@ -483,7 +564,7 @@ vbox = {
 							min_width = 1450
 							autoresize = yes
 
-							text = "game_concept_tv_wonder_ceremony_desc"
+							text = "game_concept_tv_wonder_ceremony_europedia_desc"
 							margin = { 40 10 }
 						}
 					}
@@ -564,7 +645,88 @@ vbox = {
 							min_width = 1450
 							autoresize = yes
 
-							text = "game_concept_tv_wonder_construction_desc"
+							text = "game_concept_tv_wonder_construction_europedia_desc"
+							margin = { 40 10 }
+						}
+					}
+				}
+				block "block_scrollarea" {
+					maximumsize = { -1 800 }
+				}
+			}
+		}
+	}
+
+	vbox = {
+		visible = "[Or(GetVariableSystem.HasValue('tv_encyclopedia_filter', 'all'), GetVariableSystem.HasValue('tv_encyclopedia_filter', 'mechanics'))]"
+		set_parent_size_to_minimum = yes
+		margin = { 0 10 }
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+			spacing = 10
+			using = bg_paper_card
+
+			blockoverride "card_color" {
+				using = color_intense_bg_blue_texture
+				blend_mode = multiply
+			}
+
+			max_width = 1450
+			min_width = 1450
+
+			icon = {
+				layoutpolicy_horizontal = expanding
+				using = button_main_tab_texture
+				frame = 4
+
+				modify_texture = {
+					using = color_intense_bg_blue_texture
+					blend_mode = multiply
+				}
+
+				modify_texture = {
+					using = overlay_leather_texture
+					blend_mode = overlay
+					alpha = 0.2
+				}
+
+				hbox = {
+					margin = { 40 0 }
+					margin_top = 8
+
+					icon = {
+						name = "image"
+						texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
+						size = { 45 45 }
+					}
+
+					text_single = {
+						name = "title"
+						using = layoutpolicy_expanding
+						using = Font_Size_Medium
+						fontsize = 18
+						autoresize = no
+
+						default_format = "#yellow_titles"
+						text = "game_concept_tv_wonder_expansion"
+					}
+				}
+			}
+
+			TooltipListScrollArea = {
+				blockoverride "scrollarea_content" {
+					vbox = {
+						set_parent_dimension_to_minimum = height
+						layoutpolicy_horizontal = expanding
+
+						text_multi = {
+							name = "body"
+							max_width = 1450
+							min_width = 1450
+							autoresize = yes
+
+							text = "game_concept_tv_wonder_expansion_desc"
 							margin = { 40 10 }
 						}
 					}
@@ -645,7 +807,7 @@ vbox = {
 							min_width = 1450
 							autoresize = yes
 
-							text = "game_concept_tv_wonder_construction_part_desc"
+							text = "game_concept_tv_wonder_construction_part_europedia_desc"
 							margin = { 40 10 }
 						}
 					}
@@ -889,6 +1051,168 @@ vbox = {
 							autoresize = yes
 
 							text = "game_concept_tv_wonder_large_desc"
+							margin = { 40 10 }
+						}
+					}
+				}
+				block "block_scrollarea" {
+					maximumsize = { -1 800 }
+				}
+			}
+		}
+	}
+
+	vbox = {
+		visible = "[Or(GetVariableSystem.HasValue('tv_encyclopedia_filter', 'all'), GetVariableSystem.HasValue('tv_encyclopedia_filter', 'mechanics'))]"
+		set_parent_size_to_minimum = yes
+		margin = { 0 10 }
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+			spacing = 10
+			using = bg_paper_card
+
+			blockoverride "card_color" {
+				using = color_intense_bg_blue_texture
+				blend_mode = multiply
+			}
+
+			max_width = 1450
+			min_width = 1450
+
+			icon = {
+				layoutpolicy_horizontal = expanding
+				using = button_main_tab_texture
+				frame = 4
+
+				modify_texture = {
+					using = color_intense_bg_blue_texture
+					blend_mode = multiply
+				}
+
+				modify_texture = {
+					using = overlay_leather_texture
+					blend_mode = overlay
+					alpha = 0.2
+				}
+
+				hbox = {
+					margin = { 40 0 }
+					margin_top = 8
+
+					icon = {
+						name = "image"
+						texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
+						size = { 45 45 }
+					}
+
+					text_single = {
+						name = "title"
+						using = layoutpolicy_expanding
+						using = Font_Size_Medium
+						fontsize = 18
+						autoresize = no
+
+						default_format = "#yellow_titles"
+						text = "game_concept_tv_wonder_generic"
+					}
+				}
+			}
+
+			TooltipListScrollArea = {
+				blockoverride "scrollarea_content" {
+					vbox = {
+						set_parent_dimension_to_minimum = height
+						layoutpolicy_horizontal = expanding
+
+						text_multi = {
+							name = "body"
+							max_width = 1450
+							min_width = 1450
+							autoresize = yes
+
+							text = "game_concept_tv_wonder_generic_europedia_desc"
+							margin = { 40 10 }
+						}
+					}
+				}
+				block "block_scrollarea" {
+					maximumsize = { -1 800 }
+				}
+			}
+		}
+	}
+
+	vbox = {
+		visible = "[Or(GetVariableSystem.HasValue('tv_encyclopedia_filter', 'all'), GetVariableSystem.HasValue('tv_encyclopedia_filter', 'mechanics'))]"
+		set_parent_size_to_minimum = yes
+		margin = { 0 10 }
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+			spacing = 10
+			using = bg_paper_card
+
+			blockoverride "card_color" {
+				using = color_intense_bg_blue_texture
+				blend_mode = multiply
+			}
+
+			max_width = 1450
+			min_width = 1450
+
+			icon = {
+				layoutpolicy_horizontal = expanding
+				using = button_main_tab_texture
+				frame = 4
+
+				modify_texture = {
+					using = color_intense_bg_blue_texture
+					blend_mode = multiply
+				}
+
+				modify_texture = {
+					using = overlay_leather_texture
+					blend_mode = overlay
+					alpha = 0.2
+				}
+
+				hbox = {
+					margin = { 40 0 }
+					margin_top = 8
+
+					icon = {
+						name = "image"
+						texture = "gfx/interface/icons/location_icons/new/prosperity.dds"
+						size = { 45 45 }
+					}
+
+					text_single = {
+						name = "title"
+						using = layoutpolicy_expanding
+						using = Font_Size_Medium
+						fontsize = 18
+						autoresize = no
+
+						default_format = "#yellow_titles"
+						text = "game_concept_tv_wonder_unique"
+					}
+				}
+			}
+
+			TooltipListScrollArea = {
+				blockoverride "scrollarea_content" {
+					vbox = {
+						set_parent_dimension_to_minimum = height
+						layoutpolicy_horizontal = expanding
+
+						text_multi = {
+							name = "body"
+							max_width = 1450
+							min_width = 1450
+							autoresize = yes
+
+							text = "game_concept_tv_wonder_unique_europedia_desc"
 							margin = { 40 10 }
 						}
 					}
