@@ -946,6 +946,7 @@ def append_tree_pending_confirm_overlay(lines: list[str], level: int) -> None:
     it works regardless of which victory path tab is active.
     """
     emit(lines, level, "widget = {")
+    emit(lines, level + 1, 'datacontext = "[SituationView.GetPlayer]"')
     emit(lines, level + 1, f'visible = "[{tree_pending_expr()}]"')
     emit(lines, level + 1, "parentanchor = top|left")
     emit(lines, level + 1, "size = { 100% 100% }")
