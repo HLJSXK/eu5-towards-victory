@@ -34,6 +34,30 @@ Load this card before editing `.gui` files or GUI-bound localization expressions
 5. Verify blockoverride shape from vanilla.
    Some blockoverrides replace scalar properties, not widget containers. Read the template
    source before adding child widgets inside a blockoverride.
+   This also governs `parentanchor`/percentage-`size` legality: a `blockoverride "X"` body is
+   NOT automatically a plain container just because it looks like a sibling of other widgets
+   in your own `.gui` file — find where the base type declares `block "X" {}` in
+   `reference_game_files` and check what actually encloses it. `situation_panel_main_content`
+   is declared inside `scrollwidget = { vbox = { ... block "situation_panel_main_content" {}
+   ... } }`, so every direct child emitted inside that blockoverride is really a vbox child at
+   runtime and cannot use `parentanchor` or a percentage `size` directly. Do NOT wrap the
+   ENTIRE blockoverride body (including the real scrollable tabs/pages content) in one outer
+   `widget` to fix this — a plain `widget` does not propagate its children's natural height to
+   its parent the way `vbox` does, so that hides the scrollable content's true height from the
+   enclosing `scrollarea` and disables scrolling. Instead, wrap only the OFFENDING widget: give
+   it its own `vbox = { ignoreinvisible = yes ... }` (a plain `widget` cannot set
+   `ignoreinvisible` on itself — see point 8 below) as a sibling of the real content vbox, then
+   nest a plain `widget` inside that, and put `parentanchor`/percentage `size` on a THIRD widget
+   nested one level deeper still. See `docs/knowledge/anti_patterns.yaml` rule
+   `blockoverride_content_indirectly_inside_vbox_via_base_template`.
+
+6. Don't chain `.Custom(...)` off `.MakeScope`.
+   `MakeScope` converts a typed scope (Country/Character/Location) into the generic `Scope`
+   object used for `GetVariable`/`var:` access, which does not expose the customizable-
+   localization `Custom` data function. Call `.Custom('key')` directly on the typed scope
+   (e.g. `InternationalOrganizationsView.GetPlayer.Custom('key')`), matching the scope `type`
+   declared in the `.txt` customizable_localization block. See
+   `docs/knowledge/anti_patterns.yaml` rule `makescope_loses_type_needed_for_custom_data_function`.
 
 6. Distinguish game concept links from plain localization keys.
    In GUI-bound localized text, `[key|E]` requires `key` to be registered in

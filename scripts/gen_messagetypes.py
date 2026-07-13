@@ -15,8 +15,6 @@ ROOT = pathlib.Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT))
 
 from scripts.victory_tree_node_codegen import action_name as tree_action_name
-from scripts.victory_tree_node_codegen import CONFIRM_ACTION as tree_confirm_action
-from scripts.victory_tree_node_codegen import CANCEL_ACTION as tree_cancel_action
 from scripts.victory_tree_node_codegen import flatten_nodes as tree_flatten_nodes
 from scripts.victory_tree_node_codegen import load_data as load_tree_variant_data
 
@@ -77,8 +75,6 @@ def victory_tree_node_action_ids() -> list[str]:
         pid = path["id"]
         for node in tree_flatten_nodes(path):
             actions.append(tree_action_name(pid, node["id"]))
-    actions.append(tree_confirm_action)
-    actions.append(tree_cancel_action)
     return actions
 
 

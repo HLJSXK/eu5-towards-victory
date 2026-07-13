@@ -27,23 +27,6 @@ DATA_FILE = REPO_ROOT / "data" / "victory_path_tree_variant.yaml"
 
 TREE_POINTS_TRICKLE = 1  # flat placeholder points/month per active path — NOT balanced
 
-# Stable per-node numeric id scheme for the click -> pending -> confirm/cancel flow.
-# Mirrors victory_paths.yaml's gui.order for the *other* (linear) system purely so the
-# numbering scheme reads consistently across both GUI generators; this file stays
-# independent of victory_paths.yaml otherwise (see module docstring).
-PATH_ORDER = {
-    "conquest": 0,
-    "prosperity": 1,
-    "trade": 2,
-    "diplomatic": 3,
-    "cultural": 4,
-    "science": 5,
-}
-
-PENDING_VAR = "tv_tree_pending_id"
-CONFIRM_ACTION = "tv_tree_confirm_pending"
-CANCEL_ACTION = "tv_tree_cancel_pending"
-
 PATH_LABELS_EN = {
     "conquest": "Conquest",
     "prosperity": "Prosperity",
@@ -110,23 +93,13 @@ def unlock_effect_name(pid: str, node_id: str) -> str:
 
 
 def action_name(pid: str, node_id: str) -> str:
-    """GUI-facing action: click a node to stage it as the pending selection."""
+    """GUI-facing action: click a node to unlock it (engine shows its own confirm dialog,
+    see `force_click_and_confirm_or_hold` in generate_actions)."""
     return f"tv_tree_select_{pid}_{node_id}"
 
 
 def points_var(pid: str) -> str:
     return f"tv_{pid}_tree_points"
-
-
-def node_uid(data: dict, pid: str, node_id: str) -> int:
-    """Stable numeric id for the pending-selection variable, unique across all paths."""
-    for path in data["paths"]:
-        if path["id"] != pid:
-            continue
-        for index, node in enumerate(flatten_nodes(path)):
-            if node["id"] == node_id:
-                return PATH_ORDER[pid] * 1000 + index
-    raise KeyError(f"Unknown tree node {pid}/{node_id}")
 
 
 def fmt_value(value: str) -> str:
@@ -211,11 +184,13 @@ def generate_effects(data: dict, regen_script: str) -> str:
 # ─────────────────────────────────────────────────────────────────────────────
 
 def generate_actions(data: dict, regen_script: str) -> str:
-    lines = [header(regen_script, "Click-to-select and confirm/cancel generic actions per node."), ""]
+    lines = [header(regen_script, "Click-to-unlock generic actions per node, one per tree node."), ""]
     lines.append("# " + "═" * 71)
-    lines.append("# SECTION 1: PER-NODE SELECT ACTIONS")
-    lines.append("# Clicking a node only stages it as the pending selection; the actual")
-    lines.append(f"# unlock ({PENDING_VAR} dispatch) happens via {CONFIRM_ACTION} below.")
+    lines.append("# Clicking a node unlocks it directly; `force_click_and_confirm_or_hold`")
+    lines.append("# makes the engine show its own native confirmation dialog first (see")
+    lines.append("# reference_game_files/game/in_game/common/generic_actions/readme.txt and")
+    lines.append("# tatar_yoke.txt/italian_wars.txt for the vanilla precedent). No mod-side")
+    lines.append("# pending-variable/overlay GUI is needed for this.")
     lines.append("# " + "═" * 71)
     lines.append("")
     for path in data["paths"]:
@@ -224,9 +199,9 @@ def generate_actions(data: dict, regen_script: str) -> str:
         for node in flatten_nodes(path):
             node_id = node["id"]
             name = action_name(pid, node_id)
-            uid = node_uid(data, pid, node_id)
             lines.append(f"{name} = {{")
             lines.append("\ttype = owncountry")
+            lines.append("\tforce_click_and_confirm_or_hold = yes")
             lines.append("\tsound = UI_action_religion_generic")
             lines.append("\tshow_message = no")
             lines.append("\tai_tick = never")
@@ -249,7 +224,7 @@ def generate_actions(data: dict, regen_script: str) -> str:
             lines.append("")
             lines.append("\teffect = {")
             lines.append("\t\tscope:actor = {")
-            lines.append(f"\t\t\tset_variable = {{ name = {PENDING_VAR} value = {uid} }}")
+            lines.append(f"\t\t\t{unlock_effect_name(pid, node_id)} = yes")
             lines.append("\t\t}")
             lines.append("\t}")
             lines.append("")
@@ -257,68 +232,6 @@ def generate_actions(data: dict, regen_script: str) -> str:
             lines.append("}")
             lines.append("")
 
-    lines.append("# " + "═" * 71)
-    lines.append("# SECTION 2: SHARED CONFIRM / CANCEL DISPATCH ACTIONS")
-    lines.append(f"# {CONFIRM_ACTION} maps the pending id back to the node's unlock effect;")
-    lines.append(f"# {CANCEL_ACTION} discards the pending selection untouched.")
-    lines.append("# " + "═" * 71)
-    lines.append("")
-    lines.append(f"{CONFIRM_ACTION} = {{")
-    lines.append("\ttype = owncountry")
-    lines.append("\tsound = UI_action_religion_generic")
-    lines.append("\tshow_message = no")
-    lines.append("\tai_tick = never")
-    lines.append("\tautomation_tick = never")
-    lines.append("")
-    lines.append("\tpotential = { always = yes }")
-    lines.append("")
-    lines.append("\tallow = {")
-    lines.append("\t\tscope:actor = { has_variable = " + PENDING_VAR + " }")
-    lines.append("\t}")
-    lines.append("")
-    lines.append("\teffect = {")
-    lines.append("\t\tscope:actor = {")
-    first = True
-    for path in data["paths"]:
-        pid = path["id"]
-        for node in flatten_nodes(path):
-            node_id = node["id"]
-            uid = node_uid(data, pid, node_id)
-            branch = "if" if first else "else_if"
-            first = False
-            lines.append(f"\t\t\t{branch} = {{")
-            lines.append(f"\t\t\t\tlimit = {{ var:{PENDING_VAR} = {uid} }}")
-            lines.append(f"\t\t\t\t{unlock_effect_name(pid, node_id)} = yes")
-            lines.append("\t\t\t}")
-    lines.append(f"\t\t\tremove_variable = {PENDING_VAR}")
-    lines.append("\t\t}")
-    lines.append("\t}")
-    lines.append("")
-    lines.append("\tai_will_do = { add = -100 }")
-    lines.append("}")
-    lines.append("")
-    lines.append(f"{CANCEL_ACTION} = {{")
-    lines.append("\ttype = owncountry")
-    lines.append("\tsound = UI_action_religion_generic")
-    lines.append("\tshow_message = no")
-    lines.append("\tai_tick = never")
-    lines.append("\tautomation_tick = never")
-    lines.append("")
-    lines.append("\tpotential = { always = yes }")
-    lines.append("")
-    lines.append("\tallow = {")
-    lines.append("\t\tscope:actor = { has_variable = " + PENDING_VAR + " }")
-    lines.append("\t}")
-    lines.append("")
-    lines.append("\teffect = {")
-    lines.append("\t\tscope:actor = {")
-    lines.append(f"\t\t\tremove_variable = {PENDING_VAR}")
-    lines.append("\t\t}")
-    lines.append("\t}")
-    lines.append("")
-    lines.append("\tai_will_do = { add = -100 }")
-    lines.append("}")
-    lines.append("")
     return "\n".join(lines)
 
 
@@ -331,8 +244,6 @@ def generate_ai_list(data: dict, regen_script: str) -> str:
         pid = path["id"]
         for node in flatten_nodes(path):
             lines.append(f"\t\t{action_name(pid, node['id'])}")
-    lines.append(f"\t\t{CONFIRM_ACTION}")
-    lines.append(f"\t\t{CANCEL_ACTION}")
     lines.append("\t}")
     lines.append("}")
     lines.append("")
@@ -384,37 +295,11 @@ def generate_loc(data: dict, regen_script: str, *, lang: str) -> str:
             lines.append(f' {key}_desc:0 "{desc_line}"')
             lines.append(f' STATIC_MODIFIER_NAME_{modifier_name(pid, node["id"])}:0 "{title}"')
             if zh:
-                lines.append(f' PERFORM_{key}_ACTION_SETUP:0 "当我们选择一个胜利之路树状节点时。"')
-                lines.append(f' PERFORM_{key}_ACTION_LOG:0 "我们选择了一个胜利之路树状节点，等待确认。"')
+                lines.append(f' PERFORM_{key}_ACTION_SETUP:0 "当我们解锁一个胜利之路树状节点时。"')
+                lines.append(f' PERFORM_{key}_ACTION_LOG:0 "我们解锁了一个胜利之路树状节点。"')
             else:
-                lines.append(f' PERFORM_{key}_ACTION_SETUP:0 "When we select a Victory Path Tree node."')
-                lines.append(f' PERFORM_{key}_ACTION_LOG:0 "We selected a Victory Path Tree node, pending confirmation."')
+                lines.append(f' PERFORM_{key}_ACTION_SETUP:0 "When we unlock a Victory Path Tree node."')
+                lines.append(f' PERFORM_{key}_ACTION_LOG:0 "We unlocked a Victory Path Tree node."')
             lines.append(f' PERFORM_{key}_ACTION_MAP:0 ""')
 
-    if zh:
-        lines.append(' TV_TREE_CONFIRM_TITLE:0 "确认解锁"')
-        lines.append(' TV_TREE_CONFIRM_BUTTON:0 "确认"')
-        lines.append(' TV_TREE_CANCEL_BUTTON:0 "取消"')
-        lines.append(f' {CONFIRM_ACTION}:0 "确认"')
-        lines.append(f' {CONFIRM_ACTION}_desc:0 "解锁当前选中的胜利之路树状节点。"')
-        lines.append(f' {CANCEL_ACTION}:0 "取消"')
-        lines.append(f' {CANCEL_ACTION}_desc:0 "放弃当前选择，不解锁任何节点。"')
-        lines.append(f' PERFORM_{CONFIRM_ACTION}_ACTION_SETUP:0 "当我们确认一个胜利之路树状节点的解锁时。"')
-        lines.append(f' PERFORM_{CONFIRM_ACTION}_ACTION_LOG:0 "我们确认解锁了一个胜利之路树状节点。"')
-        lines.append(f' PERFORM_{CANCEL_ACTION}_ACTION_SETUP:0 "当我们取消一个待确认的胜利之路树状节点选择时。"')
-        lines.append(f' PERFORM_{CANCEL_ACTION}_ACTION_LOG:0 "我们取消了一个待确认的胜利之路树状节点选择。"')
-    else:
-        lines.append(' TV_TREE_CONFIRM_TITLE:0 "Confirm Unlock"')
-        lines.append(' TV_TREE_CONFIRM_BUTTON:0 "Confirm"')
-        lines.append(' TV_TREE_CANCEL_BUTTON:0 "Cancel"')
-        lines.append(f' {CONFIRM_ACTION}:0 "Confirm"')
-        lines.append(f' {CONFIRM_ACTION}_desc:0 "Unlock the currently selected Victory Path Tree node."')
-        lines.append(f' {CANCEL_ACTION}:0 "Cancel"')
-        lines.append(f' {CANCEL_ACTION}_desc:0 "Discard the current selection without unlocking anything."')
-        lines.append(f' PERFORM_{CONFIRM_ACTION}_ACTION_SETUP:0 "When we confirm unlocking a Victory Path Tree node."')
-        lines.append(f' PERFORM_{CONFIRM_ACTION}_ACTION_LOG:0 "We confirmed unlocking a Victory Path Tree node."')
-        lines.append(f' PERFORM_{CANCEL_ACTION}_ACTION_SETUP:0 "When we cancel a pending Victory Path Tree node selection."')
-        lines.append(f' PERFORM_{CANCEL_ACTION}_ACTION_LOG:0 "We cancelled a pending Victory Path Tree node selection."')
-    lines.append(f' PERFORM_{CONFIRM_ACTION}_ACTION_MAP:0 ""')
-    lines.append(f' PERFORM_{CANCEL_ACTION}_ACTION_MAP:0 ""')
     return "\n".join(lines) + "\n"
