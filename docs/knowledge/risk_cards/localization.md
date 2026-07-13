@@ -83,7 +83,13 @@ localization keys.
    with the same block name does not merge with the first — the engine logs
    `Duplicated key <block_name> will not be created` and silently drops the duplicate. To extend
    existing customizable localization (e.g. add title text), edit/copy the full original block
-   rather than adding a second file.
+   rather than adding a second file. **General syntax/usage** (the `type`/`random_valid`/`text`/
+   `trigger`/`fallback` block shape, and calling it from loc text with `Custom('block_name')`
+   chained off a scope, e.g. `ROOT.GetCountry.Custom('ruler_residence')`) is documented in
+   `docs/technical/EU5_Modding_Knowledge_Base.md` §6.3 "Customizable Localization Syntax and
+   Usage" — read it before writing a new customizable-localization block or a `Custom(...)` call,
+   since this system (conditional key selection via triggers, not a plain loc key) is unlike
+   other Paradox games and easy to misuse as a normal loc lookup.
 
 9. **Every generated modifier/database id needs its matching `_NAME_<id>` (and, for static
    modifiers, `_DESC_<id>`) loc key in every supported language** — this applies to
