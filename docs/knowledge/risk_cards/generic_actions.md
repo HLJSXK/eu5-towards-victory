@@ -125,18 +125,21 @@ execution time can still spam runtime errors while the mouse is merely hovering 
    actor/current country. Save the current country or actor with `save_scope_as` at effect entry,
    before entering IO/member iterators, and compare nested state to `scope:<saved_owner>`.
 
-19. Build "confirm before commit" with a pending variable + overlay, not an engine window.
-   There is no mod-facing modal confirmation window (`main_menu/gui/confirm_window.gui`'s
-   `ConfirmWindow` is a hardcoded C++ singleton for engine prompts only). When a click should
-   ask for confirmation first, split it into: a select action that only `set_variable`s a
-   shared pending-id country variable (re-running the real `allow` gate so staging still
-   respects eligibility), a single shared overlay `widget` gated on `has_variable(pending_id)`
-   that renders on top of the panel regardless of active tab, and Confirm/Cancel actions where
-   Confirm dispatches via one `if`/`else_if` chain over the pending id to the real effect. See
-   `generic_action_confirmation_needs_pending_variable_overlay_not_engine_window` in
-   `anti_patterns.yaml` and `scripts/victory_tree_node_codegen.py` /
-   `gen_tv_victory_situation_gui.py` (`append_tree_pending_confirm_overlay`) for the working
-   implementation.
+19. Use `force_click_and_confirm_or_hold = yes` for "confirm before commit" — do NOT build a
+   custom pending-variable + overlay GUI for it.
+   Set `force_click_and_confirm_or_hold = yes` directly on the `generic_action` (see
+   `reference_game_files/game/in_game/common/generic_actions/readme.txt:76`, and
+   `tatar_yoke.txt`/`italian_wars.txt` for vanilla usage). The engine shows its own native
+   confirmation dialog before running `effect`, reusing the SAME `title`/`description` loc
+   keys the action's `action_button` already sets for its tooltip — no pending variable, no
+   shared overlay widget, no `if`/`else_if` dispatch chain needed. `main_menu/gui/
+   confirm_window.gui`'s `ConfirmWindow` is a separate, unrelated hardcoded C++ singleton for
+   engine prompts (multiplayer/load/save) that a mod genuinely cannot parametrize — do not
+   confuse the two. See `generic_action_confirmation_needs_pending_variable_overlay_not_engine_
+   window` in `anti_patterns.yaml` (RETRACTED and corrected 2026-07-13: an earlier version of
+   this rule wrongly concluded no native mechanism existed and prescribed the workaround this
+   point now warns against) and `scripts/victory_tree_node_codegen.py` `generate_actions` for
+   the corrected implementation.
 
 ## Safe Skeleton
 
