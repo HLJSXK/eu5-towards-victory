@@ -2578,3 +2578,13 @@
   scope: any
   source: "scripts/in_game/gui/panels/situation/gen_tv_victory_situation_gui.py append_tree_background"
   notes: "Found 2026-07-12 wiring the six victory-path reward-tree background DDS assets into tv_victory_situation.gui. First fix attempt (fittype = centercrop) was rejected by the user as both an unwanted crop and non-functional; the working fix is a hard pixel size (508 wide, proportional height) instead of any fit-mode reliance on a floating container width."
+
+- id: gui_node_graph_connectors_need_prebaked_overlay
+  pattern: ''
+  detectability: advisory
+  bad: "Trying to draw a prerequisite-to-node connector line between two arbitrary widget positions using engine GUI widgets/properties (e.g. a rotated stretched sprite, a 'line' widget type, or a dynamically-angled background)."
+  correction: "EU5 .gui has no rotation/line-drawing primitive outside coat-of-arms rendering (verified: grepping reference_game_files for `rotation\\s*=` only hits coat_of_arms files). When node positions are fixed at generation time (e.g. an authored skill-tree layout), pre-render all connector curves as one transparent full-canvas PNG/DDS overlay in Python instead, then place it as a plain `background` widget layered under the node buttons. See scripts/gen_tv_victory_tree_connectors.py, which ports the Catmull-Rom curve math from victory_tree_planner_web/static/app.js (catmullRomPath/drawChain) into a pure-Python rasterizer (via scripts/dds_image_lib.py) so the in-game connectors match what was authored in the planner tool."
+  category: gui
+  scope: any
+  source: "scripts/gen_tv_victory_tree_connectors.py; reference_game_files grep for `rotation\\s*=` (coat_of_arms only, verified 2026-07-13)"
+  notes: "Discovered 2026-07-13 while designing the Victory Path Tree node-overlay UI (docs/design/Victory_Path_Tree_Variant_Design.md). Applies to any future node-graph/skill-tree-style panel with fixed node positions and prerequisite connector lines."

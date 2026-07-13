@@ -219,6 +219,16 @@ Load this card before editing `.gui` files or GUI-bound localization expressions
     sized row's height, use a plain `text_single` with the same `fontsize`/fixed `size` instead of
     `TooltipTextBlock`.
 
+30. Pre-bake connector lines for fixed-position node-graph overlays.
+    `.gui` has no rotation/line-drawing primitive outside coat-of-arms rendering (verified: only
+    `coat_of_arms` files use `rotation = ...` in `reference_game_files`). If a panel needs
+    prerequisite-to-node connector lines between fixed authored positions (a skill-tree/node-graph
+    layout), do not try to fake it with stretched/rotated sprites. Pre-render all connectors as one
+    transparent full-canvas PNG/DDS overlay in Python (see
+    `scripts/gen_tv_victory_tree_connectors.py`, which ports the Catmull-Rom curve math from
+    `victory_tree_planner_web/static/app.js` via `scripts/dds_image_lib.py`), then place it as a
+    plain `background` widget layered under the node buttons.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`, then check the in-game error log after hover
@@ -231,3 +241,6 @@ testing the panel. GUI failures often appear only when the widget is rendered or
 - `hbox_explicit_size_without_layoutpolicy_horizontal_collapses_to_content_width` [advisory]: an
   hbox/vbox with an explicit `size` and mixed fixed/expanding children also needs
   `layoutpolicy_horizontal = expanding` on itself, or it collapses to children's intrinsic width.
+- `gui_node_graph_connectors_need_prebaked_overlay` [advisory]: fixed-position node-graph
+  connector lines cannot be drawn with engine GUI widgets; pre-render them as a transparent
+  overlay DDS in Python instead.

@@ -12,221 +12,233 @@
 # a branch (e.g. prosperity branch 5's second "内阁效率") are recorded verbatim
 # as distinct nodes per the doc's "no balancing/renaming before implementation"
 # rule — do not deduplicate them.
+#
+# `modifier_id` is the verified EU5 static-modifier effect key (from
+# reference_game_files/game/main_menu/common/modifier_type_definitions/00_modifier_types.txt,
+# cross-checked against modifier_types_l_simp_chinese.yml display-name strings and,
+# where available, data/victory_paths.yaml reward_options) that implements each
+# node's Chinese `effect` label. `null` means no single static_modifier exists for
+# that effect; such nodes instead carry a `modifier_ids` list (multiple modifier
+# keys bundled into one static_modifier block, all using the node's `value`).
+#
+# `cost` is a flat placeholder unlock cost only — 10 for every trunk node, 15 for
+# every branch node. Uniform placeholders, NOT balanced; this project's point
+# economy is intentionally undesigned yet (see the design doc's own open items).
 paths:
   - id: conquest
     trunk:
-      - { id: t1, effect: "陆军士气", value: "+0.1" }
-      - { id: t2, effect: "稳定度投资", value: "+0.05" }
-      - { id: t3, effect: "战争分数效率", value: "+0.5" }
-      - { id: t4, effect: "地方总督上限", value: "+1" }
-      - { id: t5, effect: "海军总督上限", value: "+1" }
+      - { id: t1, effect: "陆军士气", value: "+0.1", modifier_id: land_morale_modifier, cost: 10 }
+      - { id: t2, effect: "稳定度投资", value: "+0.05", modifier_id: stability_investment, cost: 10 }
+      - { id: t3, effect: "战争分数效率", value: "+0.5", modifier_id: global_war_score_efficiency, cost: 10 }
+      - { id: t4, effect: "地方总督上限", value: "+1", modifier_id: num_local_governors, cost: 10 }
+      - { id: t5, effect: "海军总督上限", value: "+1", modifier_id: num_naval_governors, cost: 10 }
     branches:
       - id: b1
         attach_after: t1
         nodes:
-          - { id: b1_1, effect: "军事战术", value: "+0.25" }
-          - { id: b1_2, effect: "训练度", value: "+0.05" }
+          - { id: b1_1, effect: "军事战术", value: "+0.25", modifier_id: military_tactics, cost: 15 }
+          - { id: b1_2, effect: "训练度", value: "+0.05", modifier_id: discipline, cost: 15 }
       - id: b2
         attach_after: t1
         nodes:
-          - { id: b2_1, effect: "海军士气", value: "+0.1" }
-          - { id: b2_2, effect: "海军承受伤害", value: "-0.1" }
-          - { id: b2_3, effect: "海军打击", value: "+0.1" }
+          - { id: b2_1, effect: "海军士气", value: "+0.1", modifier_id: naval_morale_modifier, cost: 15 }
+          - { id: b2_2, effect: "海军承受伤害", value: "-0.1", modifier_id: naval_damage_taken, cost: 15 }
+          - { id: b2_3, effect: "海军打击", value: "+0.1", modifier_id: naval_damage_done, cost: 15 }
       - id: b3
         attach_after: t2
         nodes:
-          - { id: b3_1, effect: "皈依速度", value: "+0.01" }
-          - { id: b3_2, effect: "同化速度", value: "+0.01" }
+          - { id: b3_1, effect: "皈依速度", value: "+0.01", modifier_id: global_pop_conversion_speed, cost: 15 }
+          - { id: b3_2, effect: "同化速度", value: "+0.01", modifier_id: global_pop_assimilation_speed, cost: 15 }
       - id: b4
         attach_after: t2
         nodes:
-          - { id: b4_1, effect: "征召规模", value: "+0.1" }
-          - { id: b4_2, effect: "雇佣兵维护效率", value: "+0.2" }
-          - { id: b4_3, effect: "人力", value: "+0.2" }
+          - { id: b4_1, effect: "征召规模", value: "+0.1", modifier_id: global_levy_size_modifier, cost: 15 }
+          - { id: b4_2, effect: "雇佣兵维护效率", value: "+0.2", modifier_id: mercenary_maintenance_efficiency, cost: 15 }
+          - { id: b4_3, effect: "人力", value: "+0.2", modifier_id: global_manpower_modifier, cost: 15 }
       - id: b5
         attach_after: t3
         nodes:
-          - { id: b5_1, effect: "整合速度", value: "+0.5" }
-          - { id: b5_2, effect: "吞并速度", value: "+0.5" }
+          - { id: b5_1, effect: "整合速度", value: "+0.5", modifier_id: global_integration_speed_modifier, cost: 15 }
+          - { id: b5_2, effect: "吞并速度", value: "+0.5", modifier_id: annexation_speed_modifier, cost: 15 }
 
   - id: prosperity
     trunk:
-      - { id: t1, effect: "每月繁荣度", value: "+0.001" }
-      - { id: t2, effect: "建筑建造效率", value: "+0.1" }
-      - { id: t3, effect: "内阁效率", value: "+0.5" }
-      - { id: t4, effect: "政府改革槽位", value: "+1" }
-      - { id: t5, effect: "征税上限", value: "+0.5" }
+      - { id: t1, effect: "每月繁荣度", value: "+0.001", modifier_id: global_monthly_prosperity, cost: 10 }
+      - { id: t2, effect: "建筑建造效率", value: "+0.1", modifier_id: global_build_buildings_efficiency, cost: 10 }
+      - { id: t3, effect: "内阁效率", value: "+0.5", modifier_id: country_cabinet_efficiency, cost: 10 }
+      - { id: t4, effect: "政府改革槽位", value: "+1", modifier_id: government_reform_slots, cost: 10 }
+      - { id: t5, effect: "征税上限", value: "+0.5", modifier_id: global_estate_max_tax, cost: 10 }
     branches:
       - id: b1
         attach_after: t1
         nodes:
-          - { id: b1_1, effect: "每月发展度", value: "+0.001" }
-          - { id: b1_2, effect: "人口增长", value: "+0.001" }
-          - { id: b1_3, effect: "人口晋升速度", value: "+0.005" }
+          - { id: b1_1, effect: "每月发展度", value: "+0.001", modifier_id: global_monthly_development, cost: 15 }
+          - { id: b1_2, effect: "人口增长", value: "+0.001", modifier_id: global_population_growth, cost: 15 }
+          - { id: b1_3, effect: "人口晋升速度", value: "+0.005", modifier_id: global_pop_promotion_speed_modifier, cost: 15 }
       - id: b2
         attach_after: t1
         nodes:
-          - { id: b2_1, effect: "税收效率", value: "+0.025" }
-          - { id: b2_2, effect: "原料产出", value: "+0.1" }
-          - { id: b2_3, effect: "加工生产效率", value: "+0.05" }
-          - { id: b2_4, effect: "银行利率", value: "-0.005" }
+          - { id: b2_1, effect: "税收效率", value: "+0.025", modifier_id: tax_income_efficiency, cost: 15 }
+          - { id: b2_2, effect: "原料产出", value: "+0.1", modifier_id: global_raw_material_output, cost: 15 }
+          - { id: b2_3, effect: "加工生产效率", value: "+0.05", modifier_id: global_production_efficiency, cost: 15 }
+          - { id: b2_4, effect: "银行利率", value: "-0.005", modifier_id: bank_interest, cost: 15 }
       - id: b3
         attach_after: t2
         nodes:
-          - { id: b3_1, effect: "农村最大原产雇佣规模", value: "+0.2" }
-          - { id: b3_2, effect: "城镇最大原产雇佣规模", value: "+0.2" }
+          - { id: b3_1, effect: "农村最大原产雇佣规模", value: "+0.2", modifier_id: global_max_rgo_size_modifier_in_rural, cost: 15 }
+          - { id: b3_2, effect: "城镇最大原产雇佣规模", value: "+0.2", modifier_id: global_max_rgo_size_modifier_in_non_rural, cost: 15 }
       - id: b4
         attach_after: t2
         nodes:
-          - { id: b4_1, effect: "邻近度效率", value: "+0.1" }
-          - { id: b4_2, effect: "陆地邻近度效率", value: "+0.2" }
-          - { id: b4_3, effect: "海洋邻近度消耗", value: "-1" }
+          - { id: b4_1, effect: "邻近度效率", value: "+0.1", modifier_id: global_distance_from_capital_speed_propagation, cost: 15 }
+          - { id: b4_2, effect: "陆地邻近度效率", value: "+0.2", modifier_id: land_cost_on_distance_from_capital_speed_propagation, cost: 15 }
+          - { id: b4_3, effect: "海洋邻近度消耗", value: "-1", modifier_id: sea_cost_on_distance_from_capital_when_maritime, cost: 15 }
       - id: b5
         attach_after: t3
         nodes:
-          - { id: b5_1, effect: "阶层满意度均衡点", value: "+0.05" }
-          - { id: b5_2, effect: "内阁效率", value: "+0.5" }
-          - { id: b5_3, effect: "每月通胀", value: "-0.001" }
+          - { id: b5_1, effect: "阶层满意度均衡点", value: "+0.05", modifier_id: global_estate_target_satisfaction, cost: 15 }
+          - { id: b5_2, effect: "内阁效率", value: "+0.5", modifier_id: country_cabinet_efficiency, cost: 15 }
+          - { id: b5_3, effect: "每月通胀", value: "-0.001", modifier_id: monthly_inflation, cost: 15 }
 
   - id: trade
     trunk:
-      - { id: t1, effect: "商人维护效率", value: "+0.1" }
-      - { id: t2, effect: "外国建筑建造效率", value: "+0.1" }
-      - { id: t3, effect: "贸易范围", value: "+1000" }
-      - { id: t4, effect: "贸易收入", value: "+0.2" }
-      - { id: t5, effect: "迁移市场花费", value: "-1" }
+      - { id: t1, effect: "商人维护效率", value: "+0.1", modifier_id: merchant_maintenance_efficiency, cost: 10 }
+      - { id: t2, effect: "外国建筑建造效率", value: "+0.1", modifier_id: global_foreign_build_buildings_efficiency, cost: 10 }
+      - { id: t3, effect: "贸易范围", value: "+1000", modifier_id: trade_range, cost: 10 }
+      - { id: t4, effect: "贸易收入", value: "+0.2", modifier_id: trade_income, cost: 10 }
+      - { id: t5, effect: "迁移市场花费", value: "-1", modifier_id: relocate_market_cost_modifier, cost: 10 }
     branches:
       - id: b1
         attach_after: t1
         nodes:
-          - { id: b1_1, effect: "商人力量", value: "+0.2" }
-          - { id: b1_2, effect: "贸易容量", value: "+0.1" }
+          - { id: b1_1, effect: "商人力量", value: "+0.2", modifier_id: global_merchant_power, cost: 15 }
+          - { id: b1_2, effect: "贸易容量", value: "+0.1", modifier_id: global_merchant_capacity_modifier, cost: 15 }
       - id: b2
         attach_after: t2
         nodes:
-          - { id: b2_1, effect: "外交声誉", value: "+2" }
-          - { id: b2_2, effect: "间谍网建设效率", value: "+0.2" }
-          - { id: b2_3, effect: "力量投射", value: "+10" }
+          - { id: b2_1, effect: "外交声誉", value: "+2", modifier_id: diplomatic_reputation, cost: 15 }
+          - { id: b2_2, effect: "间谍网建设效率", value: "+0.2", modifier_id: spy_network_construction, cost: 15 }
+          - { id: b2_3, effect: "力量投射", value: "+10", modifier_id: power_projection, cost: 15 }
       - id: b3
         attach_after: t2
         nodes:
-          - { id: b3_1, effect: "外交范围", value: "+1000" }
-          - { id: b3_2, effect: "每月探索进度", value: "+0.1" }
-          - { id: b3_3, effect: "殖民范围", value: "+1000" }
-          - { id: b3_4, effect: "每月殖民迁移", value: "+0.1" }
+          - { id: b3_1, effect: "外交范围", value: "+1000", modifier_id: diplomatic_range, cost: 15 }
+          - { id: b3_2, effect: "每月探索进度", value: "+0.1", modifier_id: exploration_mission_speed, cost: 15 }  # NOT FULLY VERIFIED: exploration_mission_speed and exploration_mission_speed_modifier share the identical Chinese display name "每月探索进度" in modifier_types_l_simp_chinese.yml; picked the non-"_modifier" base key per this file's established convention (Chinese text has no literal "modifier" suffix elsewhere), but neither key appears in victory_paths.yaml to cross-check against — double check before implementation.
+          - { id: b3_3, effect: "殖民范围", value: "+1000", modifier_id: colonial_range, cost: 15 }
+          - { id: b3_4, effect: "每月殖民迁移", value: "+0.1", modifier_id: colonial_migration_size, cost: 15 }
       - id: b4
         attach_after: t3
         nodes:
-          - { id: b4_1, effect: "市场保护", value: "+0.4" }
-          - { id: b4_2, effect: "市场吸引力", value: "+0.2" }
+          - { id: b4_1, effect: "市场保护", value: "+0.4", modifier_id: global_trade_protection_factor, cost: 15 }
+          - { id: b4_2, effect: "市场吸引力", value: "+0.2", modifier_id: global_trade_center_power, cost: 15 }
       - id: b5
         attach_after: t3
         nodes:
-          - { id: b5_1, effect: "海上存在衰减", value: "-0.001" }
-          - { id: b5_2, effect: "每月海军传统", value: "+0.05" }
+          - { id: b5_1, effect: "海上存在衰减", value: "-0.001", modifier_id: global_maritime_presence_decay, cost: 15 }
+          - { id: b5_2, effect: "每月海军传统", value: "+0.05", modifier_id: monthly_navy_tradition, cost: 15 }
 
   - id: diplomatic
     trunk:
-      - { id: t1, effect: "外交声誉", value: "+2" }
-      - { id: t2, effect: "每月宗教影响力", value: "+0.1" }
-      - { id: t3, effect: "外交范围", value: "+1000" }
-      - { id: t4, effect: "内阁席位", value: "+1" }
-      - { id: t5, effect: "无理由宣战花费", value: "-1" }
+      - { id: t1, effect: "外交声誉", value: "+2", modifier_id: diplomatic_reputation, cost: 10 }
+      - { id: t2, effect: "每月宗教影响力", value: "+0.1", modifier_id: monthly_religious_influence, cost: 10 }
+      - { id: t3, effect: "外交范围", value: "+1000", modifier_id: diplomatic_range, cost: 10 }
+      - { id: t4, effect: "内阁席位", value: "+1", modifier_id: government_size, cost: 10 }
+      - { id: t5, effect: "无理由宣战花费", value: "-1", modifier_id: war_no_cb_cost_modifier, cost: 10 }
     branches:
       - id: b1
         attach_after: t1
         nodes:
-          - { id: b1_1, effect: "关系改善效率", value: "+0.2" }
-          - { id: b1_2, effect: "间谍网建设效率", value: "+0.2" }
+          - { id: b1_1, effect: "关系改善效率", value: "+0.2", modifier_id: improve_relation_impact, cost: 15 }
+          - { id: b1_2, effect: "间谍网建设效率", value: "+0.2", modifier_id: spy_network_construction, cost: 15 }
       - id: b2
         attach_after: t1
         nodes:
-          - { id: b2_1, effect: "外交容量", value: "+0.25" }
-          - { id: b2_2, effect: "每月外交官", value: "+0.1" }
-          - { id: b2_3, effect: "预期外交支出", value: "-0.01" }
+          - { id: b2_1, effect: "外交容量", value: "+0.25", modifier_id: diplomatic_capacity_modifier, cost: 15 }
+          - { id: b2_2, effect: "每月外交官", value: "+0.1", modifier_id: monthly_diplomats, cost: 15 }
+          - { id: b2_3, effect: "预期外交支出", value: "-0.01", modifier_id: diplomatic_spending_cost, cost: 15 }
       - id: b3
         attach_after: t2
         nodes:
-          - { id: b3_1, effect: "正统信仰容忍", value: "+1" }
-          - { id: b3_2, effect: "异端信仰容忍", value: "+1" }
-          - { id: b3_3, effect: "异教信仰容忍", value: "+1" }
+          - { id: b3_1, effect: "正统信仰容忍", value: "+1", modifier_id: tolerance_own, cost: 15 }
+          - { id: b3_2, effect: "异端信仰容忍", value: "+1", modifier_id: tolerance_heretic, cost: 15 }
+          - { id: b3_3, effect: "异教信仰容忍", value: "+1", modifier_id: tolerance_heathen, cost: 15 }
       - id: b4
         attach_after: t2
         nodes:
-          - { id: b4_1, effect: "附属国上缴金额", value: "+0.2" }
-          - { id: b4_2, effect: "附属国忠诚度", value: "+10" }
-          - { id: b4_3, effect: "附属国好感", value: "+20" }
+          - { id: b4_1, effect: "附属国上缴金额", value: "+0.2", modifier_id: subject_income_modifier, cost: 15 }
+          - { id: b4_2, effect: "附属国忠诚度", value: "+10", modifier_id: subject_loyalty, cost: 15 }
+          - { id: b4_3, effect: "附属国好感", value: "+20", modifier_id: subject_opinions, cost: 15 }
       - id: b5
         attach_after: t3
         nodes:
-          - { id: b5_1, effect: "探索任务速度", value: "+0.1" }
-          - { id: b5_2, effect: "每月威望", value: "+0.1" }
+          - { id: b5_1, effect: "探索任务速度", value: "+0.1", modifier_id: exploration_mission_speed_modifier, cost: 15 }  # NOT FULLY VERIFIED: no modifier in modifier_types_l_simp_chinese.yml is named exactly "探索任务速度"; nearest concept is exploration_mission_speed_modifier ("每月探索进度"), chosen as best-guess match. Double check intent against the design doc before implementation.
+          - { id: b5_2, effect: "每月威望", value: "+0.1", modifier_id: monthly_prestige, cost: 15 }
 
   - id: cultural
     trunk:
-      - { id: t1, effect: "艺术家招募上限", value: "+1" }
-      - { id: t2, effect: "每月威望", value: "+0.05" }
-      - { id: t3, effect: "文化容量", value: "+2" }
-      - { id: t4, effect: "教育期间能力提升", value: "+0.1" }
-      - { id: t5, effect: "性别平等", value: "" }
+      - { id: t1, effect: "艺术家招募上限", value: "+1", modifier_id: num_possible_artists, cost: 10 }
+      - { id: t2, effect: "每月威望", value: "+0.05", modifier_id: monthly_prestige, cost: 10 }
+      - { id: t3, effect: "文化容量", value: "+2", modifier_id: cultures_capacity, cost: 10 }
+      - { id: t4, effect: "教育期间能力提升", value: "+0.1", modifier_id: country_child_education, cost: 10 }
+      - { id: t5, effect: "性别平等", value: "", modifier_id: gender_equality, cost: 10 }
     branches:
       - id: b1
         attach_after: t1
         nodes:
-          - { id: b1_1, effect: "新晋艺术家技艺", value: "+0.1" }
-          - { id: b1_2, effect: "艺术家每月创作几率", value: "+0.2" }
+          - { id: b1_1, effect: "新晋艺术家技艺", value: "+0.1", modifier_id: skill_of_new_artists, cost: 15 }
+          - { id: b1_2, effect: "艺术家每月创作几率", value: "+0.2", modifier_id: artist_monthly_start_chance, cost: 15 }
       - id: b2
         attach_after: t1
         nodes:
-          - { id: b2_1, effect: "艺术家薪水", value: "-0.1" }
-          - { id: b2_2, effect: "雇佣艺术家花费", value: "-0.5" }
+          - { id: b2_1, effect: "艺术家薪水", value: "-0.1", modifier_id: artist_salary_modifier, cost: 15 }
+          - { id: b2_2, effect: "雇佣艺术家花费", value: "-0.5", modifier_id: hire_artist_cost_modifier, cost: 15 }
       - id: b3
         attach_after: t2
         nodes:
-          - { id: b3_1, effect: "内阁效率", value: "+0.25" }
-          - { id: b3_2, effect: "每月叛乱增长", value: "-0.0005" }
+          - { id: b3_1, effect: "内阁效率", value: "+0.25", modifier_id: country_cabinet_efficiency, cost: 15 }
+          - { id: b3_2, effect: "每月叛乱增长", value: "-0.0005", modifier_id: monthly_rebel_growth, cost: 15 }
       - id: b4
         attach_after: t2
         nodes:
-          - { id: b4_1, effect: "文化传统 modifier", value: "+0.25" }
-          - { id: b4_2, effect: "文化影响力 modifier", value: "+0.25" }
+          - { id: b4_1, effect: "文化传统 modifier", value: "+0.25", modifier_id: cultural_tradition_modifier, cost: 15 }
+          - { id: b4_2, effect: "文化影响力 modifier", value: "+0.25", modifier_id: cultural_influence_modifier, cost: 15 }
       - id: b5
         attach_after: t3
         nodes:
-          - { id: b5_1, effect: "文化容量 modifier", value: "+0.25" }
-          - { id: b5_2, effect: "同化速度", value: "+0.5" }
+          - { id: b5_1, effect: "文化容量 modifier", value: "+0.25", modifier_id: cultures_capacity_modifier, cost: 15 }
+          - { id: b5_2, effect: "同化速度", value: "+0.5", modifier_id: global_pop_assimilation_speed_modifier, cost: 15 }
 
   - id: science
     trunk:
-      - { id: t1, effect: "最大识字率", value: "+5" }
-      - { id: t2, effect: "思潮增长", value: "+0.2" }
-      - { id: t3, effect: "研究速度 modifier", value: "+0.05" }
-      - { id: t4, effect: "疫病抗性", value: "+0.05" }
-      - { id: t5, effect: "研究速度", value: "+0.05" }
+      - { id: t1, effect: "最大识字率", value: "+5", modifier_id: global_max_literacy, cost: 10 }
+      - { id: t2, effect: "思潮增长", value: "+0.2", modifier_id: global_institution_growth_modifier, cost: 10 }
+      - { id: t3, effect: "研究速度 modifier", value: "+0.05", modifier_id: research_speed_modifier, cost: 10 }
+      - { id: t4, effect: "疫病抗性", value: "+0.05", modifier_id: global_disease_resistance, cost: 10 }
+      - { id: t5, effect: "研究速度", value: "+0.05", modifier_id: research_speed, cost: 10 }
     branches:
       - id: b1
         attach_after: t1
         nodes:
-          - { id: b1_1, effect: "贵族、教士、市民最大识字率各", value: "+10" }
-          - { id: b1_2, effect: "农民、劳工、士兵最大识字率各", value: "+10" }
+          - { id: b1_1, effect: "贵族、教士、市民最大识字率各", value: "+10", modifier_id: null, modifier_ids: [global_nobles_max_literacy, global_clergy_max_literacy, global_burghers_max_literacy], cost: 15 }  # no single static_modifier covers all three pop types at once; bundled into one static_modifier block with all three keys via modifier_ids.
+          - { id: b1_2, effect: "农民、劳工、士兵最大识字率各", value: "+10", modifier_id: null, modifier_ids: [global_peasants_max_literacy, global_laborers_max_literacy, global_soldiers_max_literacy], cost: 15 }  # no single static_modifier covers all three pop types at once; bundled into one static_modifier block with all three keys via modifier_ids.
       - id: b2
         attach_after: t1
         nodes:
-          - { id: b2_1, effect: "每月识字率", value: "+0.002" }
-          - { id: b2_2, effect: "教士阶层满意度均衡点", value: "+0.025" }
-          - { id: b2_3, effect: "立法效率", value: "+0.2" }
+          - { id: b2_1, effect: "每月识字率", value: "+0.002", modifier_id: global_monthly_literacy, cost: 15 }
+          - { id: b2_2, effect: "教士阶层满意度均衡点", value: "+0.025", modifier_id: clergy_estate_target_satisfaction, cost: 15 }
+          - { id: b2_3, effect: "立法效率", value: "+0.2", modifier_id: legislative_efficiency, cost: 15 }
       - id: b3
         attach_after: t2
         nodes:
-          - { id: b3_1, effect: "加工生产效率", value: "+0.05" }
-          - { id: b3_2, effect: "城镇迁徙吸引力", value: "+1" }
+          - { id: b3_1, effect: "加工生产效率", value: "+0.05", modifier_id: global_production_efficiency, cost: 15 }
+          - { id: b3_2, effect: "城镇迁徙吸引力", value: "+1", modifier_id: non_rural_migration_attraction, cost: 15 }
       - id: b4
         attach_after: t2
         nodes:
-          - { id: b4_1, effect: "原料产出", value: "+0.1" }
-          - { id: b4_2, effect: "乡村迁徙吸引力", value: "+1" }
+          - { id: b4_1, effect: "原料产出", value: "+0.1", modifier_id: global_raw_material_output, cost: 15 }
+          - { id: b4_2, effect: "乡村迁徙吸引力", value: "+1", modifier_id: rural_migration_attraction, cost: 15 }
       - id: b5
         attach_after: t3
         nodes:
-          - { id: b5_1, effect: "人口迁徙速度", value: "+0.5" }
-          - { id: b5_2, effect: "人口升级速度", value: "+0.5" }
+          - { id: b5_1, effect: "人口迁徙速度", value: "+0.5", modifier_id: global_migration_speed_modifier, cost: 15 }
+          - { id: b5_2, effect: "人口升级速度", value: "+0.5", modifier_id: global_pop_promotion_speed_modifier, cost: 15 }
