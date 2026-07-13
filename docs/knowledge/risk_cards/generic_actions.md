@@ -125,6 +125,19 @@ execution time can still spam runtime errors while the mouse is merely hovering 
    actor/current country. Save the current country or actor with `save_scope_as` at effect entry,
    before entering IO/member iterators, and compare nested state to `scope:<saved_owner>`.
 
+19. Build "confirm before commit" with a pending variable + overlay, not an engine window.
+   There is no mod-facing modal confirmation window (`main_menu/gui/confirm_window.gui`'s
+   `ConfirmWindow` is a hardcoded C++ singleton for engine prompts only). When a click should
+   ask for confirmation first, split it into: a select action that only `set_variable`s a
+   shared pending-id country variable (re-running the real `allow` gate so staging still
+   respects eligibility), a single shared overlay `widget` gated on `has_variable(pending_id)`
+   that renders on top of the panel regardless of active tab, and Confirm/Cancel actions where
+   Confirm dispatches via one `if`/`else_if` chain over the pending id to the real effect. See
+   `generic_action_confirmation_needs_pending_variable_overlay_not_engine_window` in
+   `anti_patterns.yaml` and `scripts/victory_tree_node_codegen.py` /
+   `gen_tv_victory_situation_gui.py` (`append_tree_pending_confirm_overlay`) for the working
+   implementation.
+
 ## Safe Skeleton
 
 ```txt

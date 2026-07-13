@@ -16,6 +16,10 @@ from scripts.victory_tree_node_codegen import (
     action_name as tree_action_name,
     flatten_nodes as tree_flatten_nodes,
     unlocked_var as tree_unlocked_var,
+    node_uid as tree_node_uid,
+    PENDING_VAR as TREE_PENDING_VAR,
+    CONFIRM_ACTION as TREE_CONFIRM_ACTION,
+    CANCEL_ACTION as TREE_CANCEL_ACTION,
 )
 
 DATA_FILE = REPO_ROOT / "data" / "victory_paths.yaml"
@@ -125,6 +129,19 @@ def tree_connectors_path(pid: str) -> str:
 
 def node_unlocked_expr(pid: str, node_id: str) -> str:
     return f"{player_var(tree_unlocked_var(pid, node_id))}.IsSet"
+
+
+def node_uid_for(pid: str, node_id: str) -> int:
+    return tree_node_uid({"paths": [TREE_VARIANT_BY_ID[pid]]}, pid, node_id)
+
+
+def tree_pending_expr() -> str:
+    return f"{player_var(TREE_PENDING_VAR)}.IsSet"
+
+
+def tree_pending_matches_expr(pid: str, node_id: str) -> str:
+    uid = node_uid_for(pid, node_id)
+    return f"EqualTo_CFixedPoint({player_var(TREE_PENDING_VAR)}.GetValue, '{fp(uid)}')"
 
 
 def milestone_label_key(n: int) -> str:
@@ -827,7 +844,12 @@ NODE_BUTTON_SIZE = 22
 def append_tree_node_button(lines: list[str], level: int, pid: str, node: dict) -> None:
     node_id = node["id"]
     ring_color = PATH_COLOR_TEXTURES[pid]
-    unlocked = node_unlocked_expr(pid, node_id)
+    selected = node_unlocked_expr(pid, node_id)
+    parent_id = node["parent_id"]
+    parent_ok = node_unlocked_expr(pid, parent_id) if parent_id else victory_enabled_expr(pid)
+    selectable = f"And(Not({selected}), {parent_ok})"
+    bright = f"Or({selected}, {selectable})"
+    dark = f"Not({bright})"
     action = tree_action_name(pid, node_id)
     x_px = round(node["x"] * TREE_BACKGROUND_WIDTH)
     y_px = round(node["y"] * TREE_BACKGROUND_HEIGHT)
@@ -837,7 +859,19 @@ def append_tree_node_button(lines: list[str], level: int, pid: str, node: dict) 
     emit(lines, level + 1, f"size = {{ {NODE_BUTTON_SIZE} {NODE_BUTTON_SIZE} }}")
     emit(lines, level + 1, "parentanchor = top|left")
     emit(lines, level + 1, "widgetanchor = center")
-    for visible, alpha in ((unlocked, "1.0"), (f"Not({unlocked})", "0.35")):
+    # Selected halo — an extra, larger outer ring shown only once the node is unlocked,
+    # rendered first (behind the state icon), matching the old reward-button halo pattern.
+    emit(lines, level + 1, "icon = {")
+    emit(lines, level + 2, f'visible = "[{selected}]"')
+    emit(lines, level + 2, "parentanchor = center")
+    emit(lines, level + 2, "size = { 190% 190% }")
+    emit(lines, level + 2, 'texture = "gfx/interface/component_tiles/hud_corners/circle_progress_bg.dds"')
+    emit(lines, level + 2, "modify_texture = {")
+    emit(lines, level + 3, f"using = {ring_color}")
+    emit(lines, level + 2, "}")
+    emit(lines, level + 2, "alpha = 0.95")
+    emit(lines, level + 1, "}")
+    for visible, alpha in ((bright, "1.0"), (dark, "0.35")):
         emit(lines, level + 1, "widget = {")
         emit(lines, level + 2, f'visible = "[{visible}]"')
         emit(lines, level + 2, f"size = {{ {NODE_BUTTON_SIZE} {NODE_BUTTON_SIZE} }}")
@@ -856,6 +890,7 @@ def append_tree_node_button(lines: list[str], level: int, pid: str, node: dict) 
         emit(lines, level + 2, "}")
         emit(lines, level + 1, "}")
     emit(lines, level + 1, "action_button = {")
+    emit(lines, level + 2, f'visible = "[Not({selected})]"')
     emit(lines, level + 2, f"size = {{ {NODE_BUTTON_SIZE} {NODE_BUTTON_SIZE} }}")
     emit(lines, level + 2, "alpha = 0")
     emit(lines, level + 2, "alwaystransparent = no")
@@ -899,6 +934,89 @@ def append_tree_background(lines: list[str], level: int, path: dict) -> None:
     emit(lines, level + 2, "spriteType = Stretched")
     emit(lines, level + 1, "}")
     append_tree_node_overlay(lines, level + 1, path)
+    emit(lines, level, "}")
+
+
+def append_tree_pending_confirm_overlay(lines: list[str], level: int) -> None:
+    """Shared click-to-select confirmation popup for every tree node across all paths.
+
+    Nodes stage themselves via a select action that only sets tv_tree_pending_id
+    (see victory_tree_node_codegen.py); this overlay is the confirm/cancel step that
+    actually dispatches to the node's unlock effect. It sits above the tab content so
+    it works regardless of which victory path tab is active.
+    """
+    emit(lines, level, "widget = {")
+    emit(lines, level + 1, f'visible = "[{tree_pending_expr()}]"')
+    emit(lines, level + 1, "parentanchor = top|left")
+    emit(lines, level + 1, "size = { 100% 100% }")
+    emit(lines, level + 1, "background = { using = color_black_texture  alpha = 0.6 }")
+    emit(lines, level + 1, "widget = {")
+    emit(lines, level + 2, "parentanchor = center")
+    emit(lines, level + 2, "size = { 360 240 }")
+    emit(lines, level + 2, "background = { using = color_dark_blue_texture  alpha = 0.95 }")
+    emit(lines, level + 2, "vbox = {")
+    emit(lines, level + 3, "parentanchor = center")
+    emit(lines, level + 3, "size = { 320 -1 }")
+    emit(lines, level + 3, "spacing = 8")
+    emit(lines, level + 3, "margin = { 20 20 }")
+    emit(lines, level + 3, "text_single = {")
+    emit(lines, level + 4, "layoutpolicy_horizontal = expanding")
+    emit(lines, level + 4, 'text = "TV_TREE_CONFIRM_TITLE"')
+    emit(lines, level + 4, "align = center")
+    emit(lines, level + 4, "using = Font_Type_Headers")
+    emit(lines, level + 3, "}")
+    emit(lines, level + 3, "widget = { size = { -1 1 }  background = { using = color_gold  alpha = 0.3 } }")
+    for path in TREE_VARIANT_BY_ID.values():
+        pid = path["id"]
+        for node in tree_flatten_nodes(path):
+            node_id = node["id"]
+            action = tree_action_name(pid, node_id)
+            match = tree_pending_matches_expr(pid, node_id)
+            emit(lines, level + 3, "text_single = {")
+            emit(lines, level + 4, f'visible = "[{match}]"')
+            emit(lines, level + 4, "layoutpolicy_horizontal = expanding")
+            emit(lines, level + 4, f'text = "{action}"')
+            emit(lines, level + 4, "align = center")
+            emit(lines, level + 3, "}")
+            emit(lines, level + 3, "text_multi = {")
+            emit(lines, level + 4, f'visible = "[{match}]"')
+            emit(lines, level + 4, "layoutpolicy_horizontal = expanding")
+            emit(lines, level + 4, f'text = "{action}_desc"')
+            emit(lines, level + 4, "align = center")
+            emit(lines, level + 3, "}")
+    emit(lines, level + 3, "widget = { size = { -1 1 }  background = { using = color_gold  alpha = 0.3 } }")
+    emit(lines, level + 3, "hbox = {")
+    emit(lines, level + 4, "layoutpolicy_horizontal = expanding")
+    emit(lines, level + 4, "spacing = 12")
+    emit(lines, level + 4, "expand = {}")
+    emit(lines, level + 4, "action_button = {")
+    emit(lines, level + 5, "size = { 120 30 }")
+    emit(lines, level + 5, "using = button_regular_texture_alt_green")
+    emit(lines, level + 5, "using = action_button_common_template")
+    emit(lines, level + 5, "using = button_common_textobj_template")
+    emit(lines, level + 5, "fontsize = 14")
+    emit(lines, level + 5, 'text = "TV_TREE_CONFIRM_BUTTON"')
+    emit(lines, level + 5, f'title = "{TREE_CONFIRM_ACTION}"')
+    emit(lines, level + 5, f'description = "{TREE_CONFIRM_ACTION}_desc"')
+    emit(lines, level + 5, 'actor = "[SituationView.GetPlayer]"')
+    emit(lines, level + 5, f'left_action = {{ action_name = "{TREE_CONFIRM_ACTION}" }}')
+    emit(lines, level + 4, "}")
+    emit(lines, level + 4, "action_button = {")
+    emit(lines, level + 5, "size = { 120 30 }")
+    emit(lines, level + 5, "using = button_regular_texture_alt_red")
+    emit(lines, level + 5, "using = action_button_common_template")
+    emit(lines, level + 5, "using = button_common_textobj_template")
+    emit(lines, level + 5, "fontsize = 14")
+    emit(lines, level + 5, 'text = "TV_TREE_CANCEL_BUTTON"')
+    emit(lines, level + 5, f'title = "{TREE_CANCEL_ACTION}"')
+    emit(lines, level + 5, f'description = "{TREE_CANCEL_ACTION}_desc"')
+    emit(lines, level + 5, 'actor = "[SituationView.GetPlayer]"')
+    emit(lines, level + 5, f'left_action = {{ action_name = "{TREE_CANCEL_ACTION}" }}')
+    emit(lines, level + 4, "}")
+    emit(lines, level + 4, "expand = {}")
+    emit(lines, level + 3, "}")
+    emit(lines, level + 2, "}")
+    emit(lines, level + 1, "}")
     emit(lines, level, "}")
 
 
@@ -1226,6 +1344,7 @@ def append_panel(lines: list[str], paths: list[dict], establishment: dict[str, d
     for path in paths:
         append_path_page(lines, 3, path, establishment.get(path["id"]))
     emit(lines, 2, "}")
+    append_tree_pending_confirm_overlay(lines, 2)
     emit(lines, 1, "}")
     emit(lines, 0, "}")
 
