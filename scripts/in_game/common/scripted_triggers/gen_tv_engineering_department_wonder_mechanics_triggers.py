@@ -409,19 +409,23 @@ def append_suitability_flag_static_reference_trigger(lines: list[str], generic_w
     These flags only ever appear as global_variable_map keys (add_to_global_variable_map
     key = flag:... in tv_wonder_index_effects.txt, MakeScopeFlag(Concatenate(...)) in the
     engineering department GUI); GUI reads don't count as "used" for error.log's flag
-    scanner, so without a real has_flag reference from a *reachable* scripted trigger/effect,
-    every baked key logs "is set but is never used" on load. This trigger is called once
-    from tv_wonder_initialize_index_on_game_start/_on_game_load (see
-    tv_engineering_department_on_action.txt), which makes it "used" and satisfies the
-    scanner. The has_flag checks always evaluate false since these flags are never actually
-    set/cleared as booleans -- that's expected and harmless.
+    scanner, so without a real reference from a *reachable* scripted trigger/effect, every
+    baked key logs "is set but is never used" on load. `has_flag` is not a valid EU5 trigger
+    (it logs "Unknown trigger type: has_flag"); the real check for a variable-map flag key is
+    `is_key_in_global_variable_map` against the map that keys off it
+    (tv_wonder_suitability_condition_type, see gen_tv_wonder_index_effects.py). This trigger
+    is called once from tv_wonder_initialize_index_on_game_start/_on_game_load (see
+    tv_engineering_department_on_action.txt), which makes the keys "used" and satisfies the
+    scanner. The checks always evaluate true since every key is baked at init -- this trigger
+    is a static reference, not real gameplay logic.
     """
     lines.append("tv_wonder_suitability_flag_static_reference_trigger = {")
     lines.append(f"{T}OR = {{")
     for wonder in generic_wonders:
         mechanic_id = int(wonder["id"])
         for row_index in range(1, SUITABILITY_KNOWLEDGE_ROW_SLOTS + 1):
-            lines.append(f"{T}{T}has_flag = {suitability_row_key(mechanic_id, row_index)}")
+            flag_key = suitability_row_key(mechanic_id, row_index)
+            lines.append(f"{T}{T}is_key_in_global_variable_map = {{ name = tv_wonder_suitability_condition_type target = flag:{flag_key} }}")
     lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
