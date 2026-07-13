@@ -318,22 +318,6 @@ def random_event_loc_key(event: dict, suffix: str) -> str:
     return f"{EVENT_NS}.{event['event_num']}.{suffix}"
 
 
-def group_seated_tooltip_key(group: dict) -> str:
-    return f"tv_academy_debate_group_{group['key']}_seated_text"
-
-
-def group_left_tooltip_key(group: dict) -> str:
-    return f"tv_academy_debate_group_{group['key']}_left_text"
-
-
-def group_seated_tooltip_negative_key(group: dict) -> str:
-    return f"tv_academy_debate_group_{group['key']}_seated_negative_text"
-
-
-def group_left_tooltip_negative_key(group: dict) -> str:
-    return f"tv_academy_debate_group_{group['key']}_left_negative_text"
-
-
 def random_event_reason_hint(data: dict, event: dict, lang: str) -> str:
     """Single trailing line explaining why this random debate event appeared.
 
@@ -547,6 +531,19 @@ def group_loc_key(group: dict) -> str:
 
 def group_tt_key(group: dict) -> str:
     return loc_key("TV_ACADEMY_DEBATE_GROUP", group["key"]) + "_TT"
+
+
+def tooltip_change_text(change: str, negative: bool, loc_lang: str, cl_block: str) -> str:
+    """Wrap a customizable_localization group-name pick in the seated/left phrasing."""
+    custom_expr = f"[ROOT.Custom('{cl_block}')]"
+    if loc_lang == "simp_chinese":
+        phrase = {"seated": "未入席" if negative else "已入席", "left": "未离席" if negative else "已离席"}[change]
+        return f"{custom_expr}{phrase}"
+    phrase = {
+        "seated": "Seat not filled: " if negative else "Seat filled: ",
+        "left": "Seat not vacated: " if negative else "Seat vacated: ",
+    }[change]
+    return f"{phrase}{custom_expr}"
 
 
 def issue_progressive_var(issue: dict) -> str:
@@ -881,18 +878,6 @@ def gen_set_group_seated(lines: list[str], level: int, data: dict) -> None:
         emit(lines, level + 1, f"set_variable = {{ name = {group_var(group['key'], 'seated')} value = 1 }}")
         if group["key"] == "great_scientist":
             emit(lines, level + 1, "set_variable = { name = tv_academy_debate_great_scientist_seated value = 1 }")
-        emit(lines, level, "}")
-
-
-def gen_group_change_tooltip(lines: list[str], level: int, data: dict, change: str, id_var: str = EVENT_GROUP, group_filter=None) -> None:
-    key_fn = group_seated_tooltip_key if change == "seated" else group_left_tooltip_key
-    candidates = [g for g in groups(data) if group_filter is None or group_filter(g)]
-    for idx, group in enumerate(candidates):
-        emit(lines, level, ("if" if idx == 0 else "else_if") + " = {")
-        emit(lines, level + 1, f"limit = {{ {var_eq(id_var, group['id'])} }}")
-        emit(lines, level + 1, "custom_description = {")
-        emit(lines, level + 2, f"text = {key_fn(group)}")
-        emit(lines, level + 1, "}")
         emit(lines, level, "}")
 
 
@@ -1395,20 +1380,74 @@ EFFECT_LOCALIZATION_PERSPECTIVES = (
 )
 
 
+CL_BLOCK_BY_EVENT_GROUP = "tv_academy_debate_group_by_event_group"
+CL_BLOCK_BY_EVENT_GROUP_2 = "tv_academy_debate_group_by_event_group_2"
+
+
+def cl_block_by_royal_option(slot: int) -> str:
+    return f"tv_academy_debate_group_by_royal_option_{slot}"
+
+
+# (customizable_localization block name, id variable it triggers on, group filter or None)
+CL_GROUP_DISPATCHES = [
+    (CL_BLOCK_BY_EVENT_GROUP, EVENT_GROUP, None),
+    (CL_BLOCK_BY_EVENT_GROUP_2, EVENT_GROUP_2, None),
+] + [
+    (cl_block_by_royal_option(slot), f"tv_academy_debate_royal_option_{slot}_group", is_estate_or_variant)
+    for slot in (1, 2, 3)
+]
+
+# (positive text key, negative text key, customizable_localization block it resolves the group name through, change)
+TOOLTIP_TEXT_KEYS = [
+    ("tv_academy_debate_group_seated_text", "tv_academy_debate_group_seated_negative_text", CL_BLOCK_BY_EVENT_GROUP, "seated"),
+    ("tv_academy_debate_group_left_text", "tv_academy_debate_group_left_negative_text", CL_BLOCK_BY_EVENT_GROUP, "left"),
+    ("tv_academy_debate_group2_seated_text", "tv_academy_debate_group2_seated_negative_text", CL_BLOCK_BY_EVENT_GROUP_2, "seated"),
+] + [
+    (
+        f"tv_academy_debate_royal_option_{slot}_seated_text",
+        f"tv_academy_debate_royal_option_{slot}_seated_negative_text",
+        cl_block_by_royal_option(slot),
+        "seated",
+    )
+    for slot in (1, 2, 3)
+]
+
+# Effect names bound to TOOLTIP_TEXT_KEYS by position (same seated/left/group2/royal_option order).
+TOOLTIP_EFFECT_NAMES = [
+    "tv_academy_debate_selected_group_seated_tooltip_effect",
+    "tv_academy_debate_selected_group_left_tooltip_effect",
+    "tv_academy_debate_group2_seated_tooltip_effect",
+] + [f"tv_academy_debate_royal_option_{slot}_seated_tooltip_effect" for slot in (1, 2, 3)]
+
+
+def generate_debate_group_customizable_localization(data: dict) -> str:
+    script = "scripts/in_game/common/customizable_localization/gen_tv_academy_debate_groups.py"
+    lines: list[str] = [header(script, "data/philosophy_debates.yaml").rstrip(), ""]
+    for cl_block, id_var, group_filter in CL_GROUP_DISPATCHES:
+        candidates = [g for g in groups(data) if group_filter is None or group_filter(g)]
+        emit(lines, 0, f"{cl_block} = {{")
+        emit(lines, 1, "type = country")
+        emit(lines)
+        for group in candidates:
+            emit(lines, 1, "text = {")
+            emit(lines, 2, f"trigger = {{ {var_eq(id_var, group['id'])} }}")
+            emit(lines, 2, f"localization_key = {group_loc_key(group)}")
+            emit(lines, 1, "}")
+        emit(lines, 0, "}")
+        emit(lines)
+    return "\n".join(lines).rstrip() + "\n"
+
+
 def generate_effect_localization(data: dict) -> str:
     script = "scripts/in_game/common/effect_localization/gen_tv_academy_philosophy_debate_effect_localization.py"
     lines: list[str] = [header(script, "data/philosophy_debates.yaml").rstrip(), ""]
-    for group in groups(data):
-        for key, negative_key in (
-            (group_seated_tooltip_key(group), group_seated_tooltip_negative_key(group)),
-            (group_left_tooltip_key(group), group_left_tooltip_negative_key(group)),
-        ):
-            emit(lines, 0, f"{key} = {{")
-            for perspective in EFFECT_LOCALIZATION_PERSPECTIVES:
-                loc_key = negative_key if perspective.endswith("_neg") else key
-                emit(lines, 1, f"{perspective} = {loc_key}")
-            emit(lines, 0, "}")
-            emit(lines)
+    for key, negative_key, _cl_block, _change in TOOLTIP_TEXT_KEYS:
+        emit(lines, 0, f"{key} = {{")
+        for perspective in EFFECT_LOCALIZATION_PERSPECTIVES:
+            loc_key = negative_key if perspective.endswith("_neg") else key
+            emit(lines, 1, f"{perspective} = {loc_key}")
+        emit(lines, 0, "}")
+        emit(lines)
     return "\n".join(lines).rstrip() + "\n"
 
 
@@ -1517,28 +1556,11 @@ def gen_cleanup_effects(lines: list[str], data: dict) -> None:
     emit(lines, 0, "}")
     emit(lines)
 
-    emit(lines, 0, "tv_academy_debate_selected_group_seated_tooltip_effect = {")
-    gen_group_change_tooltip(lines, 1, data, "seated")
-    emit(lines, 0, "}")
-    emit(lines)
-
-    emit(lines, 0, "tv_academy_debate_selected_group_left_tooltip_effect = {")
-    gen_group_change_tooltip(lines, 1, data, "left")
-    emit(lines, 0, "}")
-    emit(lines)
-
-    emit(lines, 0, "tv_academy_debate_group2_seated_tooltip_effect = {")
-    gen_group_change_tooltip(lines, 1, data, "seated", id_var=EVENT_GROUP_2)
-    emit(lines, 0, "}")
-    emit(lines)
-
-    for slot in range(1, 4):
-        emit(lines, 0, f"tv_academy_debate_royal_option_{slot}_seated_tooltip_effect = {{")
-        gen_group_change_tooltip(
-            lines, 1, data, "seated",
-            id_var=f"tv_academy_debate_royal_option_{slot}_group",
-            group_filter=is_estate_or_variant,
-        )
+    for effect_name, (text_key, _neg_key, _cl_block, _change) in zip(TOOLTIP_EFFECT_NAMES, TOOLTIP_TEXT_KEYS):
+        emit(lines, 0, f"{effect_name} = {{")
+        emit(lines, 1, "custom_description = {")
+        emit(lines, 2, f"text = {text_key}")
+        emit(lines, 1, "}")
         emit(lines, 0, "}")
         emit(lines)
 
@@ -3053,16 +3075,9 @@ def generate_loc(data: dict, language: str) -> str:
     for group in groups(data):
         entries[group_loc_key(group)] = group["loc"][loc_lang]
         entries[group_tt_key(group)] = f"{group['icon']} {group['loc'][loc_lang]}"
-        if loc_lang == "simp_chinese":
-            entries[group_seated_tooltip_key(group)] = f"{group['loc'][loc_lang]}已入席"
-            entries[group_left_tooltip_key(group)] = f"{group['loc'][loc_lang]}已离席"
-            entries[group_seated_tooltip_negative_key(group)] = f"{group['loc'][loc_lang]}未入席"
-            entries[group_left_tooltip_negative_key(group)] = f"{group['loc'][loc_lang]}未离席"
-        else:
-            entries[group_seated_tooltip_key(group)] = f"Seat filled: {group['loc'][loc_lang]}"
-            entries[group_left_tooltip_key(group)] = f"Seat vacated: {group['loc'][loc_lang]}"
-            entries[group_seated_tooltip_negative_key(group)] = f"Seat not filled: {group['loc'][loc_lang]}"
-            entries[group_left_tooltip_negative_key(group)] = f"Seat not vacated: {group['loc'][loc_lang]}"
+    for text_key, negative_key, cl_block, change in TOOLTIP_TEXT_KEYS:
+        entries[text_key] = tooltip_change_text(change, False, loc_lang, cl_block)
+        entries[negative_key] = tooltip_change_text(change, True, loc_lang, cl_block)
     for price in data["prices"]:
         entries[price_loc_key(price)] = price["loc"][loc_lang]
     entries[f"{EVENT_NS}.1.t"] = "Academy Debate Monthly Tick" if language == "english" else "科学院辩论月度刻"

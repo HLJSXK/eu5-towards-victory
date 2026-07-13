@@ -1244,6 +1244,65 @@ context-independent global binding such as `Player.MakeScope.GetVariable(...)`; 
 scoped GUI widget/tooltip only when the text needs non-player scopes. Do not replace requested
 dynamic action text with static fallback merely to silence the log.
 
+#### Customizable Localization Syntax and Usage
+
+Unlike other Paradox games, EU5 custom localization is not called with a bare loc key — it is called with the data function `Custom('custom_localization_name')`, where the name refers to a scripted block defined in `in_game/common/customizable_localization/`. This is a conditional-text system: the engine picks one of several localization keys at read time based on triggers evaluated in a fixed scope, rather than the caller choosing a key directly.
+
+Each customizable localization block has:
+- a **top-level block name** — this is the database key passed to `Custom('...')`, and is itself a non-additive database entry (see below)
+- `type` — the scope the block's triggers evaluate in (e.g. `country`, `character`, `building`)
+- `random_valid` — optional, defaults to `no`. If `no`, the engine uses the *first* `text` entry whose trigger passes. If `yes`, the engine picks *randomly* among all `text` entries whose trigger passes.
+- one or more `text = { trigger = { ... } localization_key = ... }` entries, evaluated top-to-bottom in the block's `type` scope
+- an optional `fallback = yes` entry — its `trigger` is ignored, and it is used only when no other `text` entry validates. Do not rely on `always = no` inside a `fallback` entry to mean "never used"; `fallback = yes` is what makes it the catch-all.
+
+Example block (`in_game/common/customizable_localization/`):
+
+```
+ruler_residence = {
+    type = country
+    random_valid = yes
+
+    text = {
+        trigger = {
+            government_type = government_type:monarchy
+        }
+        localization_key = custom_royal_palace
+    }
+
+    text = {
+        trigger = {
+            government_type = government_type:republic
+        }
+        localization_key = custom_presidential_palace
+    }
+
+    text = {
+        trigger = {
+            any_owned_location = { is_coastal = yes }
+        }
+        localization_key = custom_seaside_palace
+    }
+
+    text = {
+        trigger = { always = no }
+        fallback = yes
+        localization_key = custom_palace
+    }
+}
+```
+
+Every `localization_key` referenced above (`custom_royal_palace`, `custom_presidential_palace`, `custom_seaside_palace`, `custom_palace`) must still be defined as an ordinary key in a `.yml` localization file — the customizable localization block only selects *which* key resolves, it does not itself hold the display string.
+
+**Calling it from localization text:** use `Custom('block_name')` chained off a scope promote, the same way any other data function is chained. For example, inside an event description:
+
+```yaml
+ruler_killed_event.1.d: "Our ruler was killed yesterday, while at the [ROOT.GetCountry.Custom('ruler_residence')]."
+```
+
+The engine evaluates `ruler_residence`'s triggers against `ROOT.GetCountry` (matching the block's `type = country`) and substitutes whichever key's text resolves for that scope — so the same loc line can render as "royal palace", "presidential palace", "seaside palace", or the "palace" fallback depending on live game state, without scripting a triggered_desc or separate loc keys per case in the calling text itself.
+
+This is the mechanism to prefer over hand-rolled `triggered_desc`-in-loc chains when the *only* thing that varies per-scope is a noun/phrase substitution driven by simple triggers — it keeps the conditional logic in one script block instead of duplicating trigger conditions across every calling loc string.
+
 #### Customizable Localization Database Keys
 
 Customizable localization files under `in_game/common/customizable_localization/` are parsed as database entries keyed by the top-level block name. These keys are not additive merge blocks. For example, adding a second file with `character_title_prefix = { ... }` causes the engine to ignore the duplicate and log `Duplicated key character_title_prefix will not be created`.
