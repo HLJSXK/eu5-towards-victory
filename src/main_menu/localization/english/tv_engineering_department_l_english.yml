@@ -242,6 +242,7 @@
  TV_ENGINEERING_ACTIVE_PART_FUNCTION: "Function"
  TV_ENGINEERING_ACTIVE_PART_DECORATION: "Crowning"
  TV_ENGINEERING_CONSTRUCTION_PROGRESS_TT: "Each [tv_wonder_construction_part|e] unit uses [tv_wonder_construction|e] progress from the [tv_engineering_department|e]. [tv_wonder_small|E] units require 100,000 progress, [tv_wonder_medium|E] units require 200,000, and [tv_wonder_large|E] units require 300,000."
+ TV_ENGINEERING_CONSTRUCTION_NO_ACTIVE_SITE_TEXT: "No active work site."
  TV_ENGINEERING_CONSTRUCTION_REMAINING_TEXT: "At the current speed, this wonder unit is expected to need [Country.MakeScope.GetVariable('tv_wonder_remaining_years').GetValue|0] years and [Country.MakeScope.GetVariable('tv_wonder_remaining_months_mod').GetValue|0] months."
  TV_ENGINEERING_CONSTRUCTION_PERCENT_TEXT: "[Country.MakeScope.GetVariable('tv_wonder_construction_progress_pct').GetValue|0]%/100%"
  TV_ENGINEERING_CONSTRUCTION_UNIT_COMPLETE_TT: "This construction unit is complete."

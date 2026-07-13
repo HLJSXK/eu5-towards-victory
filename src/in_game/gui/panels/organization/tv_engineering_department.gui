@@ -2634,13 +2634,18 @@ widget = {
 										text_single = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').GetValue, '(CFixedPoint)4.0')]" text = "TV_ENGINEERING_ACTIVE_PART_DECORATION" align = nobaseline }
 									}
 									progressbar = {
-										visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').IsSet]"
 										size = { 462 16 }
 										using = progress_bar_goldish
 										min = 0
 										max = 100
 										value = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_construction_progress_pct').GetValue]"
 										tooltip = "TV_ENGINEERING_CONSTRUCTION_PROGRESS_TT"
+									}
+									text_single = {
+										visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').IsSet)]"
+										layoutpolicy_horizontal = expanding
+										text = "TV_ENGINEERING_CONSTRUCTION_NO_ACTIVE_SITE_TEXT"
+										align = nobaseline|left
 									}
 									hbox = {
 										visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_active_part').IsSet]"

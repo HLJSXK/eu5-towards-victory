@@ -242,6 +242,7 @@
  TV_ENGINEERING_ACTIVE_PART_FUNCTION: "功能实现"
  TV_ENGINEERING_ACTIVE_PART_DECORATION: "封顶装饰"
  TV_ENGINEERING_CONSTRUCTION_PROGRESS_TT: "每个[tv_wonder_construction_part|e]单元都会使用来自[tv_engineering_department|e]的[tv_wonder_construction|e]进度。[tv_wonder_small|E]单元需要100000进度，[tv_wonder_medium|E]单元需要200000进度，[tv_wonder_large|E]单元需要300000进度。"
+ TV_ENGINEERING_CONSTRUCTION_NO_ACTIVE_SITE_TEXT: "无运转中的工地。"
  TV_ENGINEERING_CONSTRUCTION_REMAINING_TEXT: "按照当前速度，我们预计当前奇观单元的建设还需[Country.MakeScope.GetVariable('tv_wonder_remaining_years').GetValue|0]年[Country.MakeScope.GetVariable('tv_wonder_remaining_months_mod').GetValue|0]月。"
  TV_ENGINEERING_CONSTRUCTION_PERCENT_TEXT: "[Country.MakeScope.GetVariable('tv_wonder_construction_progress_pct').GetValue|0]%/100%"
  TV_ENGINEERING_CONSTRUCTION_UNIT_COMPLETE_TT: "该建设单元已完成。"
