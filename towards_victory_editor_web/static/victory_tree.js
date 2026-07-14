@@ -43,11 +43,11 @@ async function fetchJson(url, options) {
 }
 
 function setLog(text) {
-  document.getElementById("log").textContent = text || "";
+  document.getElementById("vt-log").textContent = text || "";
 }
 
 function appendLog(text) {
-  const log = document.getElementById("log");
+  const log = document.getElementById("vt-log");
   log.textContent += text;
   log.scrollTop = log.scrollHeight;
 }
@@ -69,7 +69,7 @@ function nodeColorHex(node) {
 }
 
 function renderTabs() {
-  const tabsEl = document.getElementById("tabs");
+  const tabsEl = document.getElementById("vt-tabs");
   tabsEl.innerHTML = "";
   state.paths.forEach((path) => {
     const btn = document.createElement("button");
@@ -319,12 +319,12 @@ function applyBootstrapPayload(payload) {
 }
 
 async function loadBootstrap() {
-  const payload = await fetchJson("/api/bootstrap");
+  const payload = await fetchJson("api/victory-tree/bootstrap");
   applyBootstrapPayload(payload);
 }
 
 async function save() {
-  const saveBtn = document.getElementById("save-btn");
+  const saveBtn = document.getElementById("vt-save-btn");
   saveBtn.disabled = true;
   try {
     const edits = {};
@@ -335,7 +335,7 @@ async function save() {
       });
       edits[path.id] = coords;
     });
-    const payload = await fetchJson("/api/save", {
+    const payload = await fetchJson("api/victory-tree/save", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ edits }),
@@ -349,8 +349,8 @@ async function save() {
   }
 }
 
-document.getElementById("save-btn").addEventListener("click", save);
-document.getElementById("reload-btn").addEventListener("click", () => {
+document.getElementById("vt-save-btn").addEventListener("click", save);
+document.getElementById("vt-reload-btn").addEventListener("click", () => {
   loadBootstrap().catch((err) => appendLog(`\n[error] ${err.message}\n`));
 });
 

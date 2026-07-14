@@ -9,6 +9,8 @@ if hasattr(sys.stdout, "reconfigure"):
 
 from scripts.wonder_mechanics.io import REPO_ROOT, load_yaml, save_yaml_document
 
+from .common import RollingLog
+
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 from dds_image_lib import encode_png_rgba, read_dds  # noqa: E402
 
@@ -105,7 +107,7 @@ def _default_positions(path: dict[str, Any]) -> dict[str, dict[str, float]]:
 class VictoryTreePlannerService:
     def __init__(self) -> None:
         self._lock = threading.Lock()
-        self._log_lines: list[str] = []
+        self._log = RollingLog(max_lines=4000)
         self.tree_variant: dict = load_yaml(TREE_VARIANT_FILE)
         self.positions: dict[str, dict[str, dict[str, float]]] = self._load_positions()
         self._ensure_tree_previews()
@@ -136,11 +138,7 @@ class VictoryTreePlannerService:
                 continue
             image = read_dds(dds_path)
             png_path.write_bytes(encode_png_rgba(image))
-            self._append_log(f"[preview] Decoded {dds_path.relative_to(REPO_ROOT)} -> {png_path.relative_to(REPO_ROOT)}\n")
-
-    def _append_log(self, text: str) -> None:
-        self._log_lines.append(text)
-        del self._log_lines[:-4000]
+            self._log.append(f"[preview] Decoded {dds_path.relative_to(REPO_ROOT)} -> {png_path.relative_to(REPO_ROOT)}\n")
 
     def bootstrap_payload(self) -> dict:
         paths = []
@@ -162,7 +160,7 @@ class VictoryTreePlannerService:
             )
         return {
             "paths": paths,
-            "log": "".join(self._log_lines[-200:]),
+            "log": self._log.tail_text(200),
         }
 
     def save_positions(self, edits: dict[str, dict[str, dict[str, Any]]]) -> dict:
@@ -188,7 +186,7 @@ class VictoryTreePlannerService:
                 self.positions[path_id] = normalized
 
             save_yaml_document(POSITIONS_FILE, self.positions, preserve_leading_comments=True)
-            self._append_log(f"[save] Wrote {POSITIONS_REL}\n")
+            self._log.append(f"[save] Wrote {POSITIONS_REL}\n")
             return self.bootstrap_payload()
 
 

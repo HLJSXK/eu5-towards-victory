@@ -126,7 +126,7 @@ from wonder_ceremony_lib import (
     stage_2_reward_for_wonder,
 )
 from wonder_localization_lib import load_engineering_department_suffix_map, load_wonder_localization_data
-from wonder_localization_editor_web.service import (
+from towards_victory_editor_web.services.wonder_localization import (
     WONDER_DATA_REGEN_SCRIPTS,
     build_unique_ceremony_editor_state,
     ceremony_stage_cost_options,

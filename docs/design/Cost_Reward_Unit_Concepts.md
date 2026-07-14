@@ -52,15 +52,15 @@ tables instead of inventing new magnitudes from scratch.
 
 Section 1-3 numbers, and the `country_modifier`/`local_modifier` generic entries in sections 4-5,
 all live in `data/cost_reward_units.yaml` and can be tuned independently of any one system
-through the standalone `cost_reward_editor_web/` tool (`scripts/cost_reward_editor.py`, five
-tabs), without touching any other file or triggering any regeneration. The wonder-specific
+through the merged `towards_victory_editor_web/` tool's cost/reward tab (`scripts/towards_victory_editor.py`,
+five tabs), without touching any other file or triggering any regeneration. The wonder-specific
 modifier tables in sections 4-5 are still the wonder system's own live data; retuning them
 retunes the wonder system directly. If a future mechanic genuinely needs different magnitudes
 than the shared catalog provides, add a new sibling table with a stated divergence rationale (see
 "Usage guidance" below) rather than silently drifting these values.
 
 Source systems: `data/cost_reward_units.yaml` (sections 1-3 and the generic entries in sections
-4-5, standalone catalog, edited via `cost_reward_editor_web/`); `data/wonder_base_modifiers.yaml`
+4-5, standalone catalog, edited via `towards_victory_editor_web/`); `data/wonder_base_modifiers.yaml`
 + `data/wonder_final_buildings.yaml` + `scripts/wonder_mechanics/_core.py` (the wonder-specific
 worked examples in sections 4-5, the generated
 `src/in_game/common/auto_modifiers/tv_engineering_department_wonder_mechanics_auto_modifiers.txt`
@@ -622,8 +622,8 @@ from the first wave's flat magnitudes.
   a cost, no separate cost list) and `country_modifier`/`local_modifier` (sections 4-5).
   Numeric modifier entries are per-level; the two country unlock rows are literal YAML
   `value: true`/`value: false` non-scaling switches. Each entry is an `id`/`value`/`loc`.
-  Edited through the standalone `cost_reward_editor_web/` tool
-  (`scripts/cost_reward_editor.py`, default port 8766, five tabs).
+  Edited through the merged `towards_victory_editor_web/` tool's cost/reward tab
+  (`scripts/towards_victory_editor.py`, default port 8760, five tabs).
 - `data/wonder_construction_events.yaml` — the wonder system's own, independent copy of
   cost/reward token magnitudes (both `engineering_tokens` and `non_engineering_tokens` carry a
   `value` field). Not read by, and does not read from, `cost_reward_units.yaml`.
@@ -655,8 +655,8 @@ from the first wave's flat magnitudes.
   optionally `verify_in_game`) and `trigger_task` (48 entries:
   `id`/`trigger`/`scope`/`comparison`/`representative_threshold`/`category`/`loc`, optionally
   `requires_target`/`verify_in_game`). No reward is stored; no generator exists (plain data, same
-  as `cost_reward_units.yaml`). Edited through the same standalone `cost_reward_editor_web/` tool
-  (two additional tabs beyond the original five, editing only `wired`/`completion_note` for
+  as `cost_reward_units.yaml`). Edited through the same merged `towards_victory_editor_web/` tool's
+  cost/reward tab (two additional tabs beyond the original five, editing only `wired`/`completion_note` for
   `on_action_task` and `comparison`/`representative_threshold` for `trigger_task` — everything
   else, including the two second-wave-only fields, stays read-only in the editor and is edited
   directly in the YAML).

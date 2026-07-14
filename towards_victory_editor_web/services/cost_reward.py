@@ -9,6 +9,8 @@ if hasattr(sys.stdout, "reconfigure"):
 
 from scripts.wonder_mechanics.io import REPO_ROOT, load_yaml, save_yaml_document
 
+from .common import RollingLog
+
 DATA_FILE = REPO_ROOT / "data" / "cost_reward_units.yaml"
 DATA_REL = "data/cost_reward_units.yaml"
 
@@ -72,17 +74,13 @@ def _parse_bool(raw: Any) -> bool:
 class CostRewardEditorService:
     def __init__(self) -> None:
         self._lock = threading.Lock()
-        self._log_lines: list[str] = []
+        self._log = RollingLog(max_lines=4000)
         self.data: dict = load_yaml(DATA_FILE)
         self.task_data: dict = load_yaml(TASK_POOL_FILE)
 
     def reload_from_disk(self) -> None:
         self.data = load_yaml(DATA_FILE)
         self.task_data = load_yaml(TASK_POOL_FILE)
-
-    def _append_log(self, text: str) -> None:
-        self._log_lines.append(text)
-        del self._log_lines[:-4000]
 
     def bootstrap_payload(self) -> dict:
         groups = []
@@ -94,7 +92,7 @@ class CostRewardEditorService:
             groups.append({**category, "tokens": tokens})
         return {
             "groups": groups,
-            "log": "".join(self._log_lines[-200:]),
+            "log": self._log.tail_text(200),
         }
 
     def _apply_reward_modifier_edits(self, category_key: str, edits: dict[str, dict[str, Any]]) -> None:
@@ -188,10 +186,10 @@ class CostRewardEditorService:
 
             if touched_cost_reward:
                 save_yaml_document(DATA_FILE, self.data, preserve_leading_comments=True)
-                self._append_log(f"[save] Wrote {DATA_REL}\n")
+                self._log.append(f"[save] Wrote {DATA_REL}\n")
             if touched_task_pool:
                 save_yaml_document(TASK_POOL_FILE, self.task_data, preserve_leading_comments=True)
-                self._append_log(f"[save] Wrote {TASK_POOL_REL}\n")
+                self._log.append(f"[save] Wrote {TASK_POOL_REL}\n")
 
             self.reload_from_disk()
             return self.bootstrap_payload()

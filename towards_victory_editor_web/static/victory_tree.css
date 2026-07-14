@@ -1,14 +1,13 @@
-:root {
-  color-scheme: light dark;
-  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-}
-
-body {
-  margin: 0;
+/* Scoped replacement for the original bare `body { ... }` page-background rule:
+   this tool now lives in a <section>, not the document body, and body is not
+   inside that section's subtree so an @scope-wrapped selector wouldn't match it. */
+.tool-victory-tree {
   padding: 1.5rem;
   background: #14161a;
   color: #e6e6e6;
 }
+
+@scope (.tool-victory-tree) {
 
 header h1 {
   margin-bottom: 0.2rem;
@@ -291,7 +290,7 @@ button:disabled {
   cursor: default;
 }
 
-#log {
+#vt-log {
   background: #0f1114;
   border: 1px solid #333;
   padding: 0.75rem;
@@ -300,3 +299,5 @@ button:disabled {
   overflow: auto;
   white-space: pre-wrap;
 }
+
+} /* end @scope (.tool-victory-tree) */

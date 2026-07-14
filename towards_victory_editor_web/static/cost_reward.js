@@ -21,11 +21,11 @@ async function fetchJson(url, options) {
 }
 
 function setLog(text) {
-  document.getElementById("log").textContent = text || "";
+  document.getElementById("cr-log").textContent = text || "";
 }
 
 function appendLog(text) {
-  const log = document.getElementById("log");
+  const log = document.getElementById("cr-log");
   log.textContent += text;
   log.scrollTop = log.scrollHeight;
 }
@@ -41,7 +41,7 @@ function stageEdit(categoryKey, tokenId, field, rawValue) {
 }
 
 function renderTabs() {
-  const tabsEl = document.getElementById("tabs");
+  const tabsEl = document.getElementById("cr-tabs");
   tabsEl.innerHTML = "";
   state.groups.forEach((group) => {
     const btn = document.createElement("button");
@@ -303,15 +303,15 @@ function applyBootstrapPayload(payload) {
 }
 
 async function loadBootstrap() {
-  const payload = await fetchJson("/api/bootstrap");
+  const payload = await fetchJson("api/cost-reward/bootstrap");
   applyBootstrapPayload(payload);
 }
 
 async function save() {
-  const saveBtn = document.getElementById("save-btn");
+  const saveBtn = document.getElementById("cr-save-btn");
   saveBtn.disabled = true;
   try {
-    const payload = await fetchJson("/api/save", {
+    const payload = await fetchJson("api/cost-reward/save", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ edits: state.edits }),
@@ -325,8 +325,8 @@ async function save() {
   }
 }
 
-document.getElementById("save-btn").addEventListener("click", save);
-document.getElementById("reload-btn").addEventListener("click", () => {
+document.getElementById("cr-save-btn").addEventListener("click", save);
+document.getElementById("cr-reload-btn").addEventListener("click", () => {
   loadBootstrap().catch((err) => appendLog(`\n[error] ${err.message}\n`));
 });
 

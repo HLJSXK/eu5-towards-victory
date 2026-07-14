@@ -66,6 +66,7 @@ from scripts.wonder_mechanics.rituals import (
     ritual_burden_modifier_name,
     unique_ceremony_modifier_name,
 )
+from .common import RollingLog
 from scripts.wonder_mechanics.schema import (
     site_preference_script_for_key,
     site_trigger_script_for_key,
@@ -2253,7 +2254,7 @@ def render_expected_concepts_output(wonders: list[dict[str, Any]]) -> str:
 class WonderLocalizationService:
     def __init__(self) -> None:
         self._lock = threading.RLock()
-        self._log_fragments: list[str] = []
+        self._log = RollingLog(max_lines=400)
         self.wonders: list[dict[str, Any]] = []
         self.mechanics: dict[str, Any] = {}
         self.wonders_data: dict[str, Any] = {}
@@ -2269,16 +2270,14 @@ class WonderLocalizationService:
         self.reward_type_options: list[dict[str, Any]] = []
         self.ceremony_cost_type_options: list[dict[str, str]] = []
         self.reload_from_disk()
-        self._append_log("[server] Wonder Localization Editor ready\n")
+        self._log.append("[server] Wonder Localization Editor ready\n")
 
     @property
     def log_text(self) -> str:
-        return "".join(self._log_fragments)
+        return self._log.text
 
     def _append_log(self, text: str) -> None:
-        self._log_fragments.append(text)
-        if len(self._log_fragments) > 400:
-            self._log_fragments = self._log_fragments[-400:]
+        self._log.append(text)
 
     def reload_from_disk(self) -> None:
         with self._lock:

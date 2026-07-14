@@ -66,7 +66,7 @@ def header(regen_script: str, output_desc: str) -> str:
 
 
 def flatten_nodes(path: dict) -> list[dict]:
-    """Ordered node list with kind/parent_id, mirroring victory_tree_planner_web/service.py's _build_path_nodes."""
+    """Ordered node list with kind/parent_id, mirroring towards_victory_editor_web/services/victory_tree.py's _build_path_nodes."""
     nodes = []
     trunk = path["trunk"]
     for i, n in enumerate(trunk):

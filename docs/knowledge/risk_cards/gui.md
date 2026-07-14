@@ -250,7 +250,7 @@ Load this card before editing `.gui` files or GUI-bound localization expressions
     layout), do not try to fake it with stretched/rotated sprites. Pre-render all connectors as one
     transparent full-canvas PNG/DDS overlay in Python (see
     `scripts/gen_tv_victory_tree_connectors.py`, which ports the Catmull-Rom curve math from
-    `victory_tree_planner_web/static/app.js` via `scripts/dds_image_lib.py`), then place it as a
+    `towards_victory_editor_web/static/victory_tree.js` via `scripts/dds_image_lib.py`), then place it as a
     plain `background` widget layered under the node buttons.
 
 ## Validation

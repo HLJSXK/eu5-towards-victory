@@ -14,6 +14,8 @@ const state = {
     ritualPromptDrafts: {},
 };
 
+const toolSection = document.querySelector('[data-tool="wonder-localization"]');
+
 const elements = {
     appTitle: document.getElementById("app-title"),
     wonderKindTabs: document.getElementById("wonder-kind-tabs"),
@@ -83,7 +85,7 @@ function setBusy(isBusy) {
     for (const control of document.querySelectorAll("[data-ritual-prompt-control='true']")) {
         control.disabled = isBusy;
     }
-    document.body.dataset.busy = String(isBusy);
+    toolSection.dataset.busy = String(isBusy);
 }
 
 function getEditorFields() {
@@ -2768,7 +2770,7 @@ async function loadBootstrap() {
     setBusy(true);
     updateStatus("正在加载", "working");
     try {
-        const payload = await fetchJson("/api/bootstrap");
+        const payload = await fetchJson("api/wonder-localization/bootstrap");
         state.title = payload.title;
         state.wonders = payload.wonders;
         state.ritualDesigns = payload.ritual_designs || null;
@@ -2800,7 +2802,7 @@ async function selectWonder(wonderId) {
     setBusy(true);
     updateStatus("正在切换奇观", "working");
     try {
-        const payload = await fetchJson(`/api/wonders/${wonderId}`);
+        const payload = await fetchJson(`api/wonder-localization/wonders/${wonderId}`);
         setCurrentWonderPayload(payload);
         state.status = payload.status;
         state.statusKind = "default";
@@ -2831,7 +2833,7 @@ async function saveCurrentWonder() {
     setBusy(true);
     updateStatus("正在保存并重新生成", "working");
     try {
-        const payload = await fetchJson("/api/wonders/save", {
+        const payload = await fetchJson("api/wonder-localization/wonders/save", {
             method: "POST",
             body: JSON.stringify({
                 regenerate: true,
@@ -2866,7 +2868,7 @@ async function saveCurrentRitualPrompt(prompt) {
     updateStatus("正在保存 Prompt", "working");
     try {
         const normalizedPrompt = normalizeMultilineText(String(prompt || ""));
-        const payload = await fetchJson(`/api/ritual-prompts/${wonderId}`, {
+        const payload = await fetchJson(`api/wonder-localization/ritual-prompts/${wonderId}`, {
             method: "POST",
             body: JSON.stringify({
                 prompt: normalizedPrompt,
@@ -2905,7 +2907,7 @@ async function reloadCurrentWonder() {
     setBusy(true);
     updateStatus("正在重新加载", "working");
     try {
-        const payload = await fetchJson(`/api/wonders/${state.currentWonder.summary.id}/reload`, {
+        const payload = await fetchJson(`api/wonder-localization/wonders/${state.currentWonder.summary.id}/reload`, {
             method: "POST",
         });
         delete state.pageDrafts[String(currentId)];
@@ -2960,6 +2962,9 @@ elements.copyLogButton.addEventListener("click", () => {
 });
 
 window.addEventListener("keydown", (event) => {
+    if (document.body.dataset.activeTool !== "wonder-localization") {
+        return;
+    }
     if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "s") {
         event.preventDefault();
         void saveCurrentWonder();

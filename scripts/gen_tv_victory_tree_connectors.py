@@ -6,7 +6,7 @@ The engine's .gui widgets have no rotation/line-drawing primitive, so
 prerequisite-to-node connector lines are pre-rendered here as a transparent
 full-canvas overlay instead of being built from GUI widgets. The curve math
 (Catmull-Rom through each chain, one smooth spline per trunk/branch — see
-victory_tree_planner_web/static/app.js's catmullRomPath/drawChain/renderLinks)
+towards_victory_editor_web/static/victory_tree.js's catmullRomPath/drawChain/renderLinks)
 and per-path line colors (PATH_LINE_COLORS in the same file) are mirrored here
 so the in-game connectors match what was authored in the planner tool.
 
@@ -41,7 +41,7 @@ LINE_RADIUS_PX = LINE_WIDTH_PX / 2
 STEP_PX = 4
 LINE_ALPHA = 235
 
-# Mirrors PATH_LINE_COLORS in victory_tree_planner_web/static/app.js.
+# Mirrors PATH_LINE_COLORS in towards_victory_editor_web/static/victory_tree.js.
 PATH_LINE_COLORS = {
     "conquest": (0xFC, 0xA5, 0xA5),
     "prosperity": (0x86, 0xEF, 0xAC),
@@ -64,7 +64,7 @@ def _bezier_point(p0, p1, p2, p3, t: float) -> tuple[float, float]:
 
 
 def catmull_rom_polyline(points: list[tuple[float, float]], step_px: float) -> list[tuple[float, float]]:
-    """Port of catmullRomPath()/drawChain() in victory_tree_planner_web/static/app.js,
+    """Port of catmullRomPath()/drawChain() in towards_victory_editor_web/static/victory_tree.js,
     expanded into a dense polyline (instead of an SVG path string) for rasterization."""
     if len(points) < 2:
         return list(points)

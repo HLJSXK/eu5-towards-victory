@@ -20,13 +20,10 @@
     --font-mono: "Cascadia Code", "Sarasa Mono SC", "Consolas", monospace;
 }
 
-* {
-    box-sizing: border-box;
-}
-
-html,
-body {
-    margin: 0;
+/* Scoped replacement for the original bare `html, body { ... }` page-background rule:
+   this tool now lives in a <section>, not the document body, and :root/body are not
+   inside that section's subtree so an @scope-wrapped selector wouldn't match them. */
+.tool-wonder-localization {
     min-height: 100%;
     background:
         radial-gradient(circle at top left, rgba(179, 92, 46, 0.08), transparent 30%),
@@ -36,8 +33,14 @@ body {
     font-family: var(--font-sans);
 }
 
-body[data-busy="true"] {
+.tool-wonder-localization[data-busy="true"] {
     cursor: progress;
+}
+
+@scope (.tool-wonder-localization) {
+
+* {
+    box-sizing: border-box;
 }
 
 button,
@@ -1324,3 +1327,5 @@ textarea {
         width: 100%;
     }
 }
+
+} /* end @scope (.tool-wonder-localization) */
