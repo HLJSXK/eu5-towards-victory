@@ -1,8 +1,10 @@
 settings:
   seat_count: 5
   initial_progress: 50
-  monthly_event_chance_weight: 10
-  monthly_no_event_weight: 90
+  monthly_seat_event_chance_weight: 10
+  monthly_seat_no_event_weight: 90
+  monthly_progress_event_chance_weight: 5
+  monthly_progress_no_event_weight: 95
   defection_cooldown_months: 60
   crown_contribution_multiplier: 0.1
   base_group_contribution: 0.1
