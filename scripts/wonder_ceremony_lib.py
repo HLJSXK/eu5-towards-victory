@@ -18,7 +18,12 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 from wonder_mechanics.io import load_all_wonder_mechanics  # noqa: E402
-from wonder_mechanics.rituals import STYLE_3_REWARD_EFFECTS  # noqa: E402
+from wonder_mechanics.rituals import (  # noqa: E402
+    STYLE_3_REWARD_EFFECTS,
+    ceremony_cost_country_modifier_name,
+    ceremony_cost_local_modifier_name,
+    ceremony_cost_stage_multiplier,
+)
 
 T = "\t"
 NAMESPACE = "tv_engineering_department"
@@ -87,6 +92,76 @@ def decline_option_key(stage: int) -> str:
     return f"{NAMESPACE}.{stage_event_id(stage)}.b"
 
 
+def option_pay_text_key(stage: int, wonder_id: int) -> str:
+    return f"TV_WONDER_CEREMONY_S{stage}_OPTION_PAY_{wonder_id}"
+
+
+def option_decline_text_key(stage: int, wonder_id: int) -> str:
+    return f"TV_WONDER_CEREMONY_S{stage}_OPTION_DECLINE_{wonder_id}"
+
+
+def option_pay_fallback_key(stage: int) -> str:
+    return f"TV_WONDER_CEREMONY_S{stage}_OPTION_PAY_FALLBACK"
+
+
+def option_decline_fallback_key(stage: int) -> str:
+    return f"TV_WONDER_CEREMONY_S{stage}_OPTION_DECLINE_FALLBACK"
+
+
+def used_ceremony_cost_tiers(wonders: list[dict], catalog: str) -> list[tuple[str, int]]:
+    """Every distinct (id, tier) pair actually referenced by an authored ceremony stage cost
+    for the given catalog ("country_modifier" or "local_modifier") — shared by the static
+    modifier generators and the loc generators' STATIC_MODIFIER_NAME_ entries, so both stay
+    in sync with exactly what's used (not the full catalog x tier cross product)."""
+    used: set[tuple[str, int]] = set()
+    for wonder in wonders:
+        for stage_index, stage in enumerate(wonder["ceremony"]["stages"], start=1):
+            tier = ceremony_cost_stage_multiplier(stage_index)
+            for item in stage["cost"]:
+                if item["catalog"] == catalog:
+                    used.add((item["type"], tier))
+    return sorted(used)
+
+
+def option_pay_cl_block(stage: int) -> str:
+    """Customizable Localization block name for a stage's 'pay' option text."""
+    return f"tv_wonder_ceremony_stage_{stage}_pay"
+
+
+def option_decline_cl_block(stage: int) -> str:
+    """Customizable Localization block name for a stage's 'decline' option text."""
+    return f"tv_wonder_ceremony_stage_{stage}_decline"
+
+
+def append_option_customizable_localization_block(
+    lines: list[str], stage: int, wonders: list[dict], *, pay: bool
+) -> None:
+    """One Customizable Localization block (type = country) per stage/option, dispatching
+    on var:tv_wonder_locked to the per-wonder option text key. The event's option.name stays
+    a single flat key (tv_engineering_department.<event_id>.a/.b, unchanged); only that key's
+    localization VALUE calls Custom(<block name>) to resolve per-wonder — see
+    docs/technical/EU5_Modding_Knowledge_Base.md "Customizable Localization Syntax and Usage"
+    and this mod's own tv_academy_debate_groups.txt precedent."""
+    block_name = option_pay_cl_block(stage) if pay else option_decline_cl_block(stage)
+    key_fn = option_pay_text_key if pay else option_decline_text_key
+    fallback_fn = option_pay_fallback_key if pay else option_decline_fallback_key
+    lines.append(f"{block_name} = {{")
+    lines.append(f"{T}type = country")
+    lines.append("")
+    for wonder in wonders:
+        lines.append(f"{T}text = {{")
+        lines.append(f"{T}{T}trigger = {{ var:tv_wonder_locked ?= {wonder['id']} }}")
+        lines.append(f"{T}{T}localization_key = {key_fn(stage, wonder['id'])}")
+        lines.append(f"{T}}}")
+    lines.append(f"{T}text = {{")
+    lines.append(f"{T}{T}trigger = {{ always = no }}")
+    lines.append(f"{T}{T}fallback = yes")
+    lines.append(f"{T}{T}localization_key = {fallback_fn(stage)}")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+
 def reward_effect_lines(reward: list[dict], indent: int, allow_artwork: bool = False) -> list[str]:
     """Mirrors gen_tv_engineering_department_wonder_mechanics_effects.py's
     reward_effect_lines() for the same STYLE_3_REWARD_EFFECTS vocabulary. Stage-two
@@ -120,4 +195,98 @@ def reward_effect_lines(reward: list[dict], indent: int, allow_artwork: bool = F
             lines.append(f"{prefix}var:tv_wonder_site ?= {{ {effect} = {value} }}")
         else:
             raise ValueError(f"Unsupported ceremony reward scope: {scope}")
+    return lines
+
+
+CEREMONY_COST_TEMPORARY_MODIFIER_YEARS = 5
+
+# country_reward ids that reuse an existing STYLE_3_REWARD_EFFECTS scalar effect verbatim
+# (same effect name, new magnitude sourced from data/cost_reward_units.yaml).
+CEREMONY_COST_COUNTRY_REWARD_EFFECTS = {
+    "gold": "add_gold",
+    "government_power": "add_government_power",
+    "stability": "add_stability",
+    "prestige": "add_prestige",
+    "research_progress": "add_research_progress",
+    "army_tradition": "add_army_tradition",
+    "navy_tradition": "add_navy_tradition",
+    "manpower": "add_manpower",
+    "sailors": "add_sailors",
+}
+CEREMONY_COST_ESTATE_SATISFACTION_TYPES = {
+    "nobles_satisfaction": "estate_type:nobles_estate",
+    "clergy_satisfaction": "estate_type:clergy_estate",
+    "burghers_satisfaction": "estate_type:burghers_estate",
+    "peasants_satisfaction": "estate_type:peasants_estate",
+}
+CEREMONY_COST_LOCAL_REWARD_EFFECTS = {
+    "development": "change_development",
+    "prosperity": "change_prosperity",
+}
+CEREMONY_COST_CHARACTER_RULER_EFFECTS = {
+    "adm": "add_adm",
+    "dip": "add_dip",
+    "mil": "add_mil",
+}
+
+
+def ceremony_cost_effect_lines(cost: list[dict], indent: int, stage_index: int) -> list[str]:
+    """Renders a Unique Wonder Ceremony stage's cost — data/cost_reward_units.yaml-backed,
+    {catalog, type, value} shape — into EU5 effect lines. New, separate from
+    reward_effect_lines() above, which remains the STYLE_3_REWARD_EFFECTS renderer for the
+    unrelated stage-2/4/8 reward channels (see docs/knowledge/risk_cards/wonders.md rule 20)."""
+    prefix = T * indent
+    lines: list[str] = []
+    for entry in cost:
+        catalog = entry["catalog"]
+        entry_id = entry["type"]
+        value = entry["value"]
+        if catalog == "country_reward":
+            if entry_id in CEREMONY_COST_COUNTRY_REWARD_EFFECTS:
+                lines.append(f"{prefix}{CEREMONY_COST_COUNTRY_REWARD_EFFECTS[entry_id]} = {value}")
+            elif entry_id == "inflation":
+                lines.append(f"{prefix}add_inflation = {value}")
+            elif entry_id in CEREMONY_COST_ESTATE_SATISFACTION_TYPES:
+                estate = CEREMONY_COST_ESTATE_SATISFACTION_TYPES[entry_id]
+                lines.append(f"{prefix}add_estate_satisfaction = {{ type = {estate} value = {value} }}")
+            else:
+                raise ValueError(f"Unsupported country_reward cost id: {entry_id}")
+        elif catalog == "local_reward":
+            if entry_id not in CEREMONY_COST_LOCAL_REWARD_EFFECTS:
+                raise ValueError(f"Unsupported local_reward cost id: {entry_id}")
+            effect = CEREMONY_COST_LOCAL_REWARD_EFFECTS[entry_id]
+            lines.append(f"{prefix}var:tv_wonder_site ?= {{ {effect} = {value} }}")
+        elif catalog == "character_reward":
+            if entry_id in CEREMONY_COST_CHARACTER_RULER_EFFECTS:
+                effect = CEREMONY_COST_CHARACTER_RULER_EFFECTS[entry_id]
+                lines.append(f"{prefix}ruler ?= {{ {effect} = {value} }}")
+            elif entry_id == "artist_skill":
+                lines.append(
+                    f"{prefix}random_artist = {{ limit = {{ is_alive = yes }} "
+                    f"save_scope_as = tv_wonder_ceremony_cost_artist }}"
+                )
+                lines.append(f"{prefix}if = {{")
+                lines.append(f"{prefix}{T}limit = {{ exists = scope:tv_wonder_ceremony_cost_artist }}")
+                lines.append(f"{prefix}{T}scope:tv_wonder_ceremony_cost_artist = {{ add_artist_skill = {value} }}")
+                lines.append(f"{prefix}}}")
+            else:
+                raise ValueError(f"Unsupported character_reward cost id: {entry_id}")
+        elif catalog == "country_modifier":
+            tier = ceremony_cost_stage_multiplier(stage_index)
+            modifier_name = ceremony_cost_country_modifier_name(entry_id, tier)
+            lines.append(
+                f"{prefix}add_country_modifier = {{ modifier = {modifier_name} "
+                f"years = {CEREMONY_COST_TEMPORARY_MODIFIER_YEARS} mode = add_and_extend }}"
+            )
+        elif catalog == "local_modifier":
+            tier = ceremony_cost_stage_multiplier(stage_index)
+            modifier_name = ceremony_cost_local_modifier_name(entry_id, tier)
+            lines.append(f"{prefix}var:tv_wonder_site ?= {{")
+            lines.append(
+                f"{prefix}{T}add_location_modifier = {{ modifier = {modifier_name} "
+                f"years = {CEREMONY_COST_TEMPORARY_MODIFIER_YEARS} mode = add_and_extend }}"
+            )
+            lines.append(f"{prefix}}}")
+        else:
+            raise ValueError(f"Unsupported ceremony cost catalog: {catalog}")
     return lines

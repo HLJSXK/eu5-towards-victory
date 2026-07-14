@@ -12,10 +12,16 @@ from any one mechanic:
   mechanic**. The catalog's starting magnitudes were extracted from across the mod (originally
   the Engineering Department's Wonder Construction random-event system, later broadened to other
   recurring one-shot effects used across Academy debate, Arts Exhibition, Research, Governor's
-  House, and wonder rituals), but it is maintained **independently**: nothing in the mod reads
-  from this catalog, and it is not scoped to only what any one system uses. Future mechanics —
-  not yet built — are expected to look up a "1 unit" magnitude here directly, with no dependency
-  on any existing system. **There is no separate cost category**: only
+  House, and wonder rituals), but it is maintained **independently**: it is not scoped to only
+  what any one system uses. **As of 2026-07 this catalog has its first real consumer**: the
+  Unique Wonder Ceremony framework's per-stage `cost` (`data/unique_wonders.yaml`
+  `ceremony.stages[i].cost`, see `docs/knowledge/risk_cards/wonders.md` rule 20) reads
+  `country_reward`/`local_reward`/`character_reward`/`country_modifier`/`local_modifier`
+  directly, negating each entry's value (per the convention below) and, for the two modifier
+  categories, applying it as a 5-year temporary modifier rather than a persistent per-level
+  one. Future mechanics are still free to look up a "1 unit" magnitude here directly, with no
+  dependency on the wonder ceremony or any other existing system. **There is no separate cost
+  category**: only
   `country_reward`/`local_reward`/`character_reward` are stored, and a cost is simply the
   negative of the matching reward value, applied by whichever system consumes it.
 - **Persistent modifier units** (sections 4-5): a **country-level modifier/unlock unit** and a
@@ -253,8 +259,13 @@ then uses the smallest nonzero absolute value across its source occurrences. Ref
 custom modifier types, including its administrative-innovation-point types, are intentionally excluded.
 The 34 distinct `monthly_towards_*` value-movement axes remain generalized into one
 `monthly_towards_axis` entry rather than 34 near-duplicate rows. The catalog also includes
-`imperial_authority_modifier`. The two boolean entries use literal YAML `value: true`/`value: false`
-as non-scaling unlock switches, not numeric per-level magnitudes. A representative numeric sample:
+`imperial_authority_modifier`. The two boolean entries (`allow_open_sea_exploration`,
+`gender_equality`) use literal YAML `value: true` as non-scaling unlock switches, not numeric
+per-level magnitudes — despite the general `value: true`/`value: false` convention described
+throughout this doc, both currently-defined boolean entries happen to be `true`; there is no
+`value: false` example in the catalog today. The Unique Wonder Ceremony's cost consumer (see
+`docs/knowledge/risk_cards/wonders.md` rule 26) excludes both from its usable pool for this
+reason, along with the `monthly_towards_axis` placeholder. A representative numeric sample:
 
 | id | `country_modifier` numeric value (per level) |
 |---|---|
@@ -282,9 +293,12 @@ See `data/cost_reward_units.yaml` for the complete 395-entry list (also retainin
 
 Some entries are negative because a lower value is the beneficial direction (e.g. the two
 privateer-cost modifiers) — `value` is a real signed modifier amount here, not a magnitude with
-direction implied by the list (unlike sections 1-3). No generator reads this list yet; it is
-plain data for a future leveled mechanic to consume directly, independent of the wonder system
-below. The two boolean unlocks are the exception: their YAML `value: true`/`value: false` is a
+direction implied by the list (unlike sections 1-3). The Unique Wonder Ceremony's cost consumer
+(see `docs/knowledge/risk_cards/wonders.md` rule 26) is this list's first real reader, applying
+each usable entry as a 5-year temporary country modifier rather than a persistent per-level one
+— it is otherwise still plain data for a future leveled mechanic to consume directly, independent
+of the wonder system below. The two boolean unlocks are excluded from the ceremony's usable pool
+(see the note in section 4 above); more generally, their YAML `value: true`/`value: false` is a
 flat switch and must never be multiplied by the mechanic's level.
 
 **Wonder system's own live data** — authored in `data/wonder_base_modifiers.yaml` as
@@ -363,9 +377,11 @@ See `data/cost_reward_units.yaml` for the complete list of 43 entries (also cove
 `local_clergy_max_literacy`, `local_maritime_presence`, and `local_navy_attrition`).
 
 `fort_level` is deliberately excluded: it is a flat, non-per-level `raw_modifier` in the wonder
-system (see below), so it does not fit this per-level catalog's definition. No generator reads
-this list yet; it is plain data for a future leveled mechanic to consume directly, independent of
-the wonder system below.
+system (see below), so it does not fit this per-level catalog's definition. The Unique Wonder
+Ceremony's cost consumer (see `docs/knowledge/risk_cards/wonders.md` rule 26) is this list's
+first real reader, applying each entry as a 5-year temporary location modifier at the wonder's
+own site rather than a persistent per-level one — it is otherwise still plain data for a future
+leveled mechanic to consume directly, independent of the wonder system below.
 
 **Wonder system's own live data** — authored in `data/wonder_final_buildings.yaml` as
 `buildings.<mechanic_key>.final_local.<modifier_key>: <value>`.

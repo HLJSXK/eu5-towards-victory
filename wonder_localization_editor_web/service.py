@@ -51,12 +51,14 @@ from scripts.wonder_mechanics.naming import (
 )
 from scripts.wonder_mechanics.render import loc_line, render_header
 from scripts.wonder_mechanics.rituals import (
+    CEREMONY_COST_CATALOGS,
     CEREMONY_STAGE_COUNT,
-    SUPPORTED_CEREMONY_STAGE_COST_TYPES,
     SUPPORTED_RITUAL_COST_TYPES,
     SUPPORTED_RITUAL_LISTENERS,
     SUPPORTED_UNIQUE_RITUAL_MODES,
+    ceremony_cost_computed_value,
     ceremony_styles,
+    load_cost_reward_units,
     normalize_unique_ceremony,
     normalize_unique_ritual,
     ritual_plan_for_style,
@@ -784,19 +786,70 @@ def unique_ritual_from_editor_state(raw_value: object, *, context: str) -> dict[
     }
 
 
-def ceremony_stage_cost_options(reward_type_options: list[dict[str, Any]]) -> list[dict[str, str]]:
-    labels = {
-        str(option.get("value", "")): str(option.get("label", ""))
-        for option in reward_type_options
-        if str(option.get("value", ""))
-    }
-    return [
-        {
-            "value": cost_type,
-            "label": labels.get(cost_type) or cost_type.replace("_", " ").title(),
-        }
-        for cost_type in sorted(SUPPORTED_CEREMONY_STAGE_COST_TYPES)
-    ]
+def ceremony_stage_cost_options() -> list[dict[str, str]]:
+    """Options for the ceremony cost row editor. The dropdown 'type' value is a composite
+    'catalog:id' string (e.g. 'country_modifier:clergy_estate_max_tax') so the existing
+    generic type+value row-grid UI needs no frontend changes; the row's 'value' cell is
+    display-only — the actual saved value is always recomputed from catalog/id/stage index,
+    never taken from user-typed text (see ceremony_cost_list_from_rows)."""
+    catalogs = load_cost_reward_units()
+    options: list[dict[str, str]] = []
+    for catalog in CEREMONY_COST_CATALOGS:
+        for entry_id in sorted(catalogs.get(catalog, {})):
+            options.append(
+                {
+                    "value": f"{catalog}:{entry_id}",
+                    "label": f"[{catalog}] {entry_id.replace('_', ' ')}",
+                }
+            )
+    return options
+
+
+def ceremony_cost_rows_from_list(cost: list[object]) -> list[dict[str, str]]:
+    rows: list[dict[str, str]] = []
+    for item in cost:
+        if not isinstance(item, dict):
+            continue
+        catalog = str(item.get("catalog", "")).strip()
+        entry_id = str(item.get("type", "")).strip()
+        composite = f"{catalog}:{entry_id}" if catalog else entry_id
+        rows.append(
+            {
+                "type": composite,
+                "value": stringify_editor_scalar(item.get("value", "")),
+            }
+        )
+    return rows
+
+
+def ceremony_cost_list_from_rows(raw_value: object, *, context: str, stage_index: int) -> list[dict[str, object]]:
+    payload = parse_structured_editor_value(raw_value, context=context)
+    if not isinstance(payload, dict):
+        raise ValueError(f"{context} must be an object")
+    rows = payload.get("rows", [])
+    if not isinstance(rows, list):
+        raise ValueError(f"{context}.rows must be a list")
+    cost: list[dict[str, object]] = []
+    for index, row in enumerate(rows, start=1):
+        if not isinstance(row, dict):
+            raise ValueError(f"{context}.rows[{index}] must be an object")
+        composite = str(row.get("type", "")).strip()
+        if not composite:
+            continue
+        if ":" not in composite:
+            raise ValueError(f"{context}.rows[{index}] cost type must be 'catalog:id', got {composite!r}")
+        catalog, _, entry_id = composite.partition(":")
+        cost.append(
+            {
+                "catalog": catalog,
+                "type": entry_id,
+                # Always recomputed from the catalog + stage parity — never trust a
+                # user-edited value cell, since the schema no longer allows hand-picked
+                # magnitudes (see docs/knowledge/risk_cards/wonders.md rule 20).
+                "value": ceremony_cost_computed_value(catalog, entry_id, stage_index),
+            }
+        )
+    return cost
 
 
 def build_unique_ceremony_editor_state(
@@ -816,9 +869,13 @@ def build_unique_ceremony_editor_state(
                 "icon": stage.get("icon", ""),
                 "icon_rationale": stage.get("icon_rationale", ""),
                 "cost": {
-                    "rows": reward_rows_from_list(list(stage.get("cost", []))),
+                    "rows": ceremony_cost_rows_from_list(list(stage.get("cost", []))),
                     "options": list(cost_type_options),
                 },
+                "option_pay_en": stage.get("option_pay_en", ""),
+                "option_pay_zh": stage.get("option_pay_zh", ""),
+                "option_decline_en": stage.get("option_decline_en", ""),
+                "option_decline_zh": stage.get("option_decline_zh", ""),
             }
             for stage in stages
         ],
@@ -846,10 +903,15 @@ def unique_ceremony_from_editor_state(raw_value: object, *, context: str) -> dic
                 "desc_zh": normalize_multiline_editor_text(str(stage.get("desc_zh", ""))),
                 "icon": str(stage.get("icon", "")).strip(),
                 "icon_rationale": normalize_multiline_editor_text(str(stage.get("icon_rationale", ""))),
-                "cost": reward_list_from_rows(
+                "cost": ceremony_cost_list_from_rows(
                     stage.get("cost", {}),
                     context=f"{context}.stages[{index}].cost",
+                    stage_index=index,
                 ),
+                "option_pay_en": normalize_multiline_editor_text(str(stage.get("option_pay_en", ""))),
+                "option_pay_zh": normalize_multiline_editor_text(str(stage.get("option_pay_zh", ""))),
+                "option_decline_en": normalize_multiline_editor_text(str(stage.get("option_decline_en", ""))),
+                "option_decline_zh": normalize_multiline_editor_text(str(stage.get("option_decline_zh", ""))),
             }
         )
     return {"stages": normalized_stages}
@@ -2235,7 +2297,7 @@ class WonderLocalizationService:
                 self.local_modifier_options,
                 self.reward_type_options,
             ) = _modifier_option_catalog(self.mechanics_data, self.unique_wonders_data)
-            self.ceremony_cost_type_options = ceremony_stage_cost_options(self.reward_type_options)
+            self.ceremony_cost_type_options = ceremony_stage_cost_options()
             validate_canonical_localization_data(
                 self.wonders,
                 self.mechanics,

@@ -852,6 +852,10 @@ function uniqueCeremonyPayloadFromState(stateValue) {
             icon: String(stage.icon ?? "").trim(),
             icon_rationale: normalizeMultilineText(String(stage.icon_rationale ?? "")),
             cost: rowsToRewardList(stage.cost?.rows),
+            option_pay_en: normalizeMultilineText(String(stage.option_pay_en ?? "")),
+            option_pay_zh: normalizeMultilineText(String(stage.option_pay_zh ?? "")),
+            option_decline_en: normalizeMultilineText(String(stage.option_decline_en ?? "")),
+            option_decline_zh: normalizeMultilineText(String(stage.option_decline_zh ?? "")),
         })),
     };
 }
@@ -2203,6 +2207,28 @@ function renderUniqueCeremonyEditorField(field, scope) {
                 onChange: commit,
             }),
         );
+
+        const optionFields = document.createElement("div");
+        optionFields.className = "scalar-grid";
+        optionFields.append(
+            buildTextareaEditor("Pay option text (English)", stage.option_pay_en, 2, (value) => {
+                stage.option_pay_en = value;
+                commit();
+            }),
+            buildTextareaEditor("Pay option text (Simplified Chinese)", stage.option_pay_zh, 2, (value) => {
+                stage.option_pay_zh = value;
+                commit();
+            }),
+            buildTextareaEditor("Decline option text (English)", stage.option_decline_en, 2, (value) => {
+                stage.option_decline_en = value;
+                commit();
+            }),
+            buildTextareaEditor("Decline option text (Simplified Chinese)", stage.option_decline_zh, 2, (value) => {
+                stage.option_decline_zh = value;
+                commit();
+            }),
+        );
+        group.append(optionFields);
         editor.append(group);
     }
 

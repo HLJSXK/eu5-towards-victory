@@ -20,6 +20,7 @@ WONDER_MECHANICS_DATA_REL = (
     "data/wonder_base_modifiers.yaml + data/wonder_site_rules.yaml"
 )
 UNIQUE_WONDERS_FILE = REPO_ROOT / "data" / "unique_wonders.yaml"
+COST_REWARD_UNITS_FILE = REPO_ROOT / "data" / "cost_reward_units.yaml"
 PULSE_REGISTRY_FILE = REPO_ROOT / "data" / "pulse_registry.yaml"
 GENERIC_WONDER_IMAGE_PROMPTS_FILE = REPO_ROOT / "data" / "wonder_image_prompts.yaml"
 MANUAL_TV_GAME_CONCEPTS_FILE = REPO_ROOT / "src" / "main_menu" / "common" / "game_concepts" / "tv_game_concepts.txt"
@@ -185,23 +186,104 @@ STYLE_3_REWARD_EFFECTS = {
     "yearly_manpower": {"effect": "add_yearly_manpower", "scope": "country_scalar"},
     "yearly_sailors": {"effect": "add_yearly_sailors", "scope": "country_scalar"},
 }
-# The Unique Wonder Ceremony's per-stage cost reuses the STYLE_3_REWARD_EFFECTS vocabulary
-# (a cost is the negative of the matching reward), restricted to the country-scope subset
-# wonder_ceremony_lib.reward_effect_lines() actually renders, plus the special "artwork"
-# destroy-a-work-of-art cost that has no scalar effect entry at all.
-CEREMONY_STAGE_COST_REWARD_SCOPES = {
-    "country_scalar",
-    "country_raw",
-    "country_value_block",
-    "country_scale_block",
-    "ruler_scalar",
-    "culture_scalar",
+# The Unique Wonder Ceremony's per-stage cost is drawn from the standalone
+# data/cost_reward_units.yaml catalog (country_reward/local_reward/character_reward/
+# country_modifier/local_modifier), converting each catalog "reward" entry into a cost
+# (negated, except country_reward.inflation which is inverted-polarity by design). A small
+# number of catalog entries are excluded because they have no meaningful reading as a
+# ceremony cost: the two boolean unlock switches (a flat unlock has no "5-year malus"
+# reading), the monthly_towards_axis representative placeholder (not itself a real
+# static-modifier field name), and local_reward.laborers (no one-shot EU5 effect exists for
+# it). See docs/knowledge/risk_cards/wonders.md rule 20 for the full rationale.
+CEREMONY_COST_CATALOGS = (
+    "country_reward",
+    "local_reward",
+    "character_reward",
+    "country_modifier",
+    "local_modifier",
+)
+CEREMONY_COST_EXCLUDED_IDS = {
+    ("country_modifier", "allow_open_sea_exploration"),
+    ("country_modifier", "gender_equality"),
+    ("country_modifier", "monthly_towards_axis"),
+    ("local_reward", "laborers"),
 }
-SUPPORTED_CEREMONY_STAGE_COST_TYPES = {
-    cost_type
-    for cost_type, spec in STYLE_3_REWARD_EFFECTS.items()
-    if spec["scope"] in CEREMONY_STAGE_COST_REWARD_SCOPES
-} | {"artwork"}
+_COST_REWARD_UNITS_CACHE: dict[str, dict[str, float]] | None = None
+_COST_REWARD_UNIT_LABELS_CACHE: dict[str, dict[str, dict[str, str]]] | None = None
+
+
+def load_cost_reward_units() -> dict[str, dict[str, float]]:
+    """Load data/cost_reward_units.yaml, filtered to the ceremony-cost-usable
+    {catalog: {id: base_value}} map. Cached after the first call."""
+    global _COST_REWARD_UNITS_CACHE
+    if _COST_REWARD_UNITS_CACHE is None:
+        data = load_yaml(COST_REWARD_UNITS_FILE)
+        catalogs: dict[str, dict[str, float]] = {}
+        for catalog in CEREMONY_COST_CATALOGS:
+            usable: dict[str, float] = {}
+            for entry in data[catalog]:
+                entry_id = entry["id"]
+                if (catalog, entry_id) in CEREMONY_COST_EXCLUDED_IDS:
+                    continue
+                value = entry["value"]
+                if isinstance(value, bool):
+                    continue
+                usable[entry_id] = value
+            catalogs[catalog] = usable
+        _COST_REWARD_UNITS_CACHE = catalogs
+    return _COST_REWARD_UNITS_CACHE
+
+
+def load_cost_reward_unit_labels() -> dict[str, dict[str, dict[str, str]]]:
+    """Load data/cost_reward_units.yaml's {en, zh} loc text per id, filtered the same way as
+    load_cost_reward_units(). Used to name the generated static modifiers' required
+    STATIC_MODIFIER_NAME_<id> localization key (see validate.py check_static_modifier_name_loc_coverage)."""
+    global _COST_REWARD_UNIT_LABELS_CACHE
+    if _COST_REWARD_UNIT_LABELS_CACHE is None:
+        data = load_yaml(COST_REWARD_UNITS_FILE)
+        catalogs: dict[str, dict[str, dict[str, str]]] = {}
+        for catalog in CEREMONY_COST_CATALOGS:
+            labels: dict[str, dict[str, str]] = {}
+            for entry in data[catalog]:
+                entry_id = entry["id"]
+                if (catalog, entry_id) in CEREMONY_COST_EXCLUDED_IDS:
+                    continue
+                if isinstance(entry["value"], bool):
+                    continue
+                labels[entry_id] = {"en": entry["loc"]["en"], "zh": entry["loc"]["zh"]}
+            catalogs[catalog] = labels
+        _COST_REWARD_UNIT_LABELS_CACHE = catalogs
+    return _COST_REWARD_UNIT_LABELS_CACHE
+
+
+def ceremony_cost_stage_multiplier(stage_index: int) -> int:
+    if not (1 <= stage_index <= CEREMONY_STAGE_COUNT):
+        raise ValueError(f"stage_index must be 1-{CEREMONY_STAGE_COUNT}, got {stage_index}")
+    return 1 if stage_index % 2 == 1 else 2
+
+
+def ceremony_cost_computed_value(catalog: str, entry_id: str, stage_index: int) -> float:
+    cost_catalogs = load_cost_reward_units()
+    if catalog not in cost_catalogs or entry_id not in cost_catalogs[catalog]:
+        raise ValueError(f"Unknown ceremony cost catalog entry: {catalog}.{entry_id}")
+    base_value = cost_catalogs[catalog][entry_id]
+    multiplier = ceremony_cost_stage_multiplier(stage_index)
+    # country_reward.inflation is the catalog's one inverted-polarity row: a reward reduces
+    # inflation (negative amount), so a cost increases it (positive amount) — every other
+    # entry is the opposite (reward = positive/add, cost = negative/subtract).
+    if catalog == "country_reward" and entry_id == "inflation":
+        return round(base_value * multiplier, 10)
+    return round(-base_value * multiplier, 10)
+
+
+def ceremony_cost_country_modifier_name(entry_id: str, tier: int) -> str:
+    return f"tv_wonder_ceremony_cost_country_modifier_{entry_id}_tier{tier}"
+
+
+def ceremony_cost_local_modifier_name(entry_id: str, tier: int) -> str:
+    return f"tv_wonder_ceremony_cost_local_modifier_{entry_id}_tier{tier}"
+
+
 SITE_RULES_SECTION = "site_rules"
 RITUAL_AUXILIARY_ESTATE_POWER_BY_POP_TYPE = {
     "clergy": "local_clergy_estate_power",
@@ -534,35 +616,46 @@ def _validate_final_buildings(value: object, context: str) -> dict[int, str]:
     return normalized
 
 
-def _validate_ceremony_stage_cost_item(value: object, context: str) -> dict[str, object]:
+def _validate_ceremony_stage_cost_item(value: object, context: str, *, stage_index: int) -> dict[str, object]:
     item = _require_mapping(value, context)
-    _expect_keys(item, required={"type", "value"}, optional=set(), context=context)
-    cost_type = _require_string(item["type"], f"{context}.type")
-    if cost_type not in SUPPORTED_CEREMONY_STAGE_COST_TYPES:
-        raise ValueError(f"Unsupported ceremony stage cost type in {context}: {cost_type}")
+    _expect_keys(item, required={"catalog", "type", "value"}, optional=set(), context=context)
+    catalog = _require_string(item["catalog"], f"{context}.catalog")
+    if catalog not in CEREMONY_COST_CATALOGS:
+        raise ValueError(f"{context}.catalog must be one of {sorted(CEREMONY_COST_CATALOGS)}, got {catalog!r}")
+    entry_id = _require_string(item["type"], f"{context}.type")
+    cost_catalogs = load_cost_reward_units()
+    if entry_id not in cost_catalogs.get(catalog, {}):
+        raise ValueError(f"Unsupported ceremony stage cost id in {context}: {catalog}.{entry_id}")
     cost_value = item["value"]
     if isinstance(cost_value, bool) or not isinstance(cost_value, (int, float)):
         raise TypeError(f"{context}.value must be numeric, got {type(cost_value).__name__}")
-    if cost_type == "artwork":
-        if cost_value != 1:
-            raise ValueError(f"{context}.value must be 1 for cost type 'artwork', got {cost_value}")
-    elif cost_value >= 0:
-        raise ValueError(f"{context}.value must be negative (a cost), got {cost_value}")
-    return {"type": cost_type, "value": cost_value}
+    expected = ceremony_cost_computed_value(catalog, entry_id, stage_index)
+    if abs(cost_value - expected) > 1e-9:
+        raise ValueError(
+            f"{context}.value must equal the computed magnitude for {catalog}.{entry_id} at stage "
+            f"{stage_index} ({expected}), got {cost_value}"
+        )
+    return {"catalog": catalog, "type": entry_id, "value": cost_value}
 
 
-def _validate_ceremony_stage_cost(value: object, context: str) -> list[dict[str, object]]:
+def _validate_ceremony_stage_cost(value: object, context: str, *, stage_index: int) -> list[dict[str, object]]:
     items = _require_list(value, context)
     if not items or len(items) > 2:
         raise ValueError(f"{context} must have 1-2 entries, got {len(items)}")
-    return [_validate_ceremony_stage_cost_item(item, f"{context}[{index}]") for index, item in enumerate(items, start=1)]
+    return [
+        _validate_ceremony_stage_cost_item(item, f"{context}[{index}]", stage_index=stage_index)
+        for index, item in enumerate(items, start=1)
+    ]
 
 
-def _validate_ceremony_stage(value: object, context: str) -> dict[str, object]:
+def _validate_ceremony_stage(value: object, context: str, *, stage_index: int) -> dict[str, object]:
     stage = _require_mapping(value, context)
     _expect_keys(
         stage,
-        required={"title_en", "title_zh", "desc_en", "desc_zh", "cost", "icon", "icon_rationale"},
+        required={
+            "title_en", "title_zh", "desc_en", "desc_zh", "cost", "icon", "icon_rationale",
+            "option_pay_en", "option_pay_zh", "option_decline_en", "option_decline_zh",
+        },
         optional=set(),
         context=context,
     )
@@ -576,7 +669,11 @@ def _validate_ceremony_stage(value: object, context: str) -> dict[str, object]:
         "desc_zh": _require_string(stage["desc_zh"], f"{context}.desc_zh"),
         "icon": icon,
         "icon_rationale": _require_string(stage["icon_rationale"], f"{context}.icon_rationale"),
-        "cost": _validate_ceremony_stage_cost(stage["cost"], f"{context}.cost"),
+        "cost": _validate_ceremony_stage_cost(stage["cost"], f"{context}.cost", stage_index=stage_index),
+        "option_pay_en": _require_string(stage["option_pay_en"], f"{context}.option_pay_en"),
+        "option_pay_zh": _require_string(stage["option_pay_zh"], f"{context}.option_pay_zh"),
+        "option_decline_en": _require_string(stage["option_decline_en"], f"{context}.option_decline_en"),
+        "option_decline_zh": _require_string(stage["option_decline_zh"], f"{context}.option_decline_zh"),
     }
 
 
@@ -597,7 +694,7 @@ def _validate_ceremony(value: object, context: str) -> dict | None:
     if len(stages_raw) != CEREMONY_STAGE_COUNT:
         raise ValueError(f"{context}.stages must have exactly {CEREMONY_STAGE_COUNT} entries, got {len(stages_raw)}")
     stages = [
-        _validate_ceremony_stage(stage, f"{context}.stages[{index}]")
+        _validate_ceremony_stage(stage, f"{context}.stages[{index}]", stage_index=index)
         for index, stage in enumerate(stages_raw, start=1)
     ]
     return {

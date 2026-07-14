@@ -266,7 +266,7 @@ generated:
   # shared build-logic module backing all 5 generators below. Excludes Pharos
   # Lighthouse and Hagia Sophia, which keep their existing bespoke rituals.
   - script: scripts/in_game/common/scripted_effects/gen_tv_wonder_ceremony_effects.py
-    data:   scripts/wonder_ceremony_lib.py + data/unique_wonders.yaml + data/wonder_generic_rituals.yaml
+    data:   scripts/wonder_ceremony_lib.py + data/unique_wonders.yaml + data/wonder_generic_rituals.yaml + data/cost_reward_units.yaml
     output: src/in_game/common/scripted_effects/tv_wonder_ceremony_effects.txt
 
   - script: scripts/in_game/events/gen_tv_wonder_ceremony_events.py
@@ -280,6 +280,28 @@ generated:
   - script: scripts/main_menu/localization/simp_chinese/gen_tv_wonder_ceremony_l_simp_chinese.py
     data:   scripts/wonder_ceremony_lib.py + data/unique_wonders.yaml
     output: src/main_menu/localization/simp_chinese/tv_wonder_ceremony_l_simp_chinese.yml
+
+  # Ceremony stage option-text dispatch (Customizable Localization): 16 blocks
+  # (8 stages x pay/decline), each dispatching var:tv_wonder_locked to a
+  # per-wonder-per-stage localization key so the two event options read as
+  # that wonder's own flavor text instead of one generic pair. The event's
+  # option.name field itself is untouched; only that key's loc value calls
+  # Custom(<block name>) (see docs/knowledge/risk_cards/wonders.md rule 20).
+  - script: scripts/in_game/common/customizable_localization/gen_tv_wonder_ceremony_options.py
+    data:   scripts/wonder_ceremony_lib.py + data/unique_wonders.yaml
+    output: src/in_game/common/customizable_localization/tv_wonder_ceremony_options.txt
+
+  # Ceremony cost temporary modifiers: one tiny static modifier per (catalog
+  # id, tier) pair actually referenced by an authored ceremony stage cost,
+  # for the country_modifier/local_modifier catalog categories, applied for a
+  # fixed 5 years via add_country_modifier/add_location_modifier.
+  - script: scripts/main_menu/common/static_modifiers/gen_tv_wonder_ceremony_cost_country_modifiers.py
+    data:   scripts/wonder_ceremony_lib.py + data/unique_wonders.yaml + data/cost_reward_units.yaml
+    output: src/main_menu/common/static_modifiers/tv_wonder_ceremony_cost_country_modifiers.txt
+
+  - script: scripts/main_menu/common/static_modifiers/gen_tv_wonder_ceremony_cost_local_modifiers.py
+    data:   scripts/wonder_ceremony_lib.py + data/unique_wonders.yaml + data/cost_reward_units.yaml
+    output: src/main_menu/common/static_modifiers/tv_wonder_ceremony_cost_local_modifiers.txt
 
   # GUI card fragment. Not merged into tv_engineering_department.gui via this
   # registry entry: that panel is hand-maintained (like the older

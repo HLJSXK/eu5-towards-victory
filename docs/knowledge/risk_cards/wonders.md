@@ -554,6 +554,77 @@ generators.
     just the generator. See `docs/knowledge/anti_patterns.yaml` rule
     `expanding_row_wrapper_vbox_missing_layoutpolicy_horizontal`.
 
+26. Since 2026-07, the Unique Wonder Ceremony's per-stage `cost` is drawn from
+    `data/cost_reward_units.yaml`'s standalone catalog, not the old ~39-type
+    `STYLE_3_REWARD_EFFECTS`-derived vocabulary — this rework is that catalog's first real
+    consumer (see `docs/design/Cost_Reward_Unit_Concepts.md`, previously "nothing in the mod
+    reads from this catalog"). Each `cost` item is now `{catalog, type, value}`, where
+    `catalog` is one of `country_reward`/`local_reward`/`character_reward`/
+    `country_modifier`/`local_modifier` and `type` is an id within that catalog list.
+    `value` is **always computed**, never hand-authored: `-1 × base_value × stage_multiplier`
+    (stage 1/3/5/7 → ×1, stage 2/4/6/8 → ×2), except `country_reward.inflation` which is
+    inverted (`+1 × ...`, since a cost there *increases* inflation). `_validate_ceremony_stage_cost_item`
+    (`scripts/wonder_mechanics/_core.py`) cross-checks the authored `value` against this
+    formula and rejects any drift. Three `country_modifier` ids and one `local_reward` id are
+    excluded from the usable pool and must never be picked: `allow_open_sea_exploration`/
+    `gender_equality` (the catalog's only two boolean unlock switches — a flat unlock has no
+    "5-year temporary cost" reading), `monthly_towards_axis` (a representative placeholder for
+    34 real `monthly_towards_*` keys, not itself a valid static-modifier field name), and
+    `laborers` (no one-shot EU5 effect exists for it — confirmed absent from
+    `reference_official_defines/docs/effects.log`). The old cost vocabulary
+    (`CEREMONY_STAGE_COST_REWARD_SCOPES`/`SUPPORTED_CEREMONY_STAGE_COST_TYPES`, including the
+    `"artwork"` special case) was fully removed, not layered alongside the new one — do not
+    reintroduce it. `STYLE_3_REWARD_EFFECTS`/`reward_effect_lines()` themselves are unchanged
+    and still back the unrelated stage-2/4/8 reward channels; the new cost path uses a
+    separate function, `wonder_ceremony_lib.ceremony_cost_effect_lines()`, specifically so
+    those reward channels are never touched by a cost-schema change.
+
+    Per-category effect syntax: `country_reward`/`local_reward`/`character_reward` (adm/dip/mil)
+    reuse `STYLE_3_REWARD_EFFECTS`'s existing effect names where the id matches 1:1 (verified
+    via this mod's own `tv_wonder_construction_events.txt` for the 4 estate-satisfaction ids,
+    which use `add_estate_satisfaction = { type = estate_type:<x>_estate value = <v> }`).
+    `character_reward.artist_skill` needed a new scope not previously supported by the ceremony
+    cost path: `random_artist = { limit = { is_alive = yes } save_scope_as = ... }` then a
+    guarded `if = { limit = { exists = scope:... } ... }` (confirmed via this mod's own
+    `tv_engineering_department_effects.txt` and vanilla precedent) — **accepted tradeoff**: if
+    the paying country has zero living artists, this cost silently no-ops that one time (rare,
+    ~2 expected uses across 968 stages; not worth a compensating fallback).
+    `country_modifier`/`local_modifier` ids are persistent-modifier keys, not one-shot effects,
+    so each usable id gets two new tiny static modifiers (`_tier1`/`_tier2`, matching the ×1/×2
+    stage multiplier) generated data-driven off actually-used `(id, tier)` pairs — never the
+    full catalog × tier cross product — by two new generators,
+    `gen_tv_wonder_ceremony_cost_country_modifiers.py` and `_local_modifiers.py`. These are
+    applied as **5-year temporary** modifiers (`add_country_modifier`/`add_location_modifier`
+    with `years = 5 mode = add_and_extend`), not a permanent Country Auto modifier — confirmed
+    via vanilla precedent (`personality_events.txt:409`, `culture_japan.txt:544`,
+    `ennoble.txt:70-74`) and this mod's own `tv_academy_philosophy_debate_events.txt:4263-4267`,
+    all of which use `years =`/`months =`, never `duration =` in days. New location-scoped
+    static modifier names are brand-new `tv_`-prefixed identifiers with no vanilla/mod
+    collision, so — despite CLAUDE.md's general "use `TRY_REPLACE`" wording for
+    location-scoped statics — no `TRY_REPLACE:` wrapper is needed or used; every existing
+    wonder-domain location-modifier generator (e.g.
+    `gen_tv_engineering_department_wonder_ritual_auxiliary_location_modifiers.py`) already
+    confirms this narrower rule in practice. `TRY_REPLACE` is only for overriding an
+    already-existing (vanilla/other-mod) modifier name.
+
+    The two event options at each stage ("Pay the price."/"Not yet." previously, identical
+    across all 121 wonders × 8 stages) now read as wonder-specific flavor text coordinating
+    with that stage's own `desc`, via EU5's **Customizable Localization** mechanism
+    (`in_game/common/customizable_localization/`, documented in
+    `docs/technical/EU5_Modding_Knowledge_Base.md` "Customizable Localization Syntax and
+    Usage") — not a change to the event's option structure. `option.name` in
+    `tv_wonder_ceremony_events.txt` stays a single flat key per stage/option exactly as before
+    (matching every vanilla `option.name` precedent, which is always a flat key — there is no
+    vanilla or mod precedent anywhere for a per-condition dynamic `option.name` block, so this
+    mechanism was deliberately routed around rather than attempted). Only that flat key's
+    localization **value** changed, to `[ROOT.Custom('tv_wonder_ceremony_stage_<n>_<pay|
+    decline>')]`. 16 new Customizable Localization blocks (8 stages × pay/decline, generated by
+    the new `gen_tv_wonder_ceremony_options.py` into
+    `tv_wonder_ceremony_options.txt`) each carry `type = country` and 121 `text` entries
+    dispatched on `var:tv_wonder_locked`, plus a `fallback = yes` entry, following this mod's
+    own already-proven pattern (`tv_academy_debate_groups.txt`). Two new required stage fields,
+    `option_pay_en/zh` and `option_decline_en/zh`, hold the actual per-wonder-per-stage text.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`: it lints rule 2 and rule 16 automatically, and when a

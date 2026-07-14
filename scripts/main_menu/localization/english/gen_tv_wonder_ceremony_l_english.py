@@ -16,18 +16,34 @@ from wonder_ceremony_lib import (  # noqa: E402
     ceremony_wonders,
     decline_option_key,
     desc_key,
+    option_decline_cl_block,
+    option_decline_fallback_key,
+    option_decline_text_key,
+    option_pay_cl_block,
+    option_pay_fallback_key,
+    option_pay_text_key,
     pay_option_key,
     render_header,
     title_key,
+    used_ceremony_cost_tiers,
+)
+from wonder_mechanics.rituals import (  # noqa: E402
+    ceremony_cost_country_modifier_name,
+    ceremony_cost_local_modifier_name,
+    load_cost_reward_unit_labels,
 )
 
 OUT_FILE = REPO_ROOT / "src" / "main_menu" / "localization" / "english" / "tv_wonder_ceremony_l_english.yml"
 SCRIPT_REL = "scripts/main_menu/localization/english/gen_tv_wonder_ceremony_l_english.py"
-DATA_REL = "data/unique_wonders.yaml"
+DATA_REL = "data/unique_wonders.yaml + data/cost_reward_units.yaml"
 
 
 def q(text: str) -> str:
     return text.replace('"', '\\"')
+
+
+def capitalize_first(text: str) -> str:
+    return text[:1].upper() + text[1:] if text else text
 
 
 def first_sentence(text: str) -> str:
@@ -62,8 +78,10 @@ def generate() -> str:
         else:
             lines.append("")
     for stage in range(1, STAGE_COUNT + 1):
-        lines.append(f' {pay_option_key(stage)}:0 "Pay the price."')
-        lines.append(f' {decline_option_key(stage)}:0 "Not yet."')
+        lines.append(f' {pay_option_key(stage)}:0 "[ROOT.Custom(\'{option_pay_cl_block(stage)}\')]"')
+        lines.append(f' {decline_option_key(stage)}:0 "[ROOT.Custom(\'{option_decline_cl_block(stage)}\')]"')
+        lines.append(f' {option_pay_fallback_key(stage)}:0 "Pay the price."')
+        lines.append(f' {option_decline_fallback_key(stage)}:0 "Not yet."')
     for wonder in wonders:
         stages = wonder["ceremony"]["stages"]
         for stage_index, stage_data in enumerate(stages, start=1):
@@ -80,6 +98,19 @@ def generate() -> str:
             lines.append(
                 f' {desc_key(stage_index, wonder["id"])}:0 "{q(stage_data["desc_en"] + ceremony_hint(stage_index))}"'
             )
+            lines.append(
+                f' {option_pay_text_key(stage_index, wonder["id"])}:0 "{q(stage_data["option_pay_en"])}"'
+            )
+            lines.append(
+                f' {option_decline_text_key(stage_index, wonder["id"])}:0 "{q(stage_data["option_decline_en"])}"'
+            )
+    labels = load_cost_reward_unit_labels()
+    for entry_id, tier in used_ceremony_cost_tiers(wonders, "country_modifier"):
+        name = ceremony_cost_country_modifier_name(entry_id, tier)
+        lines.append(f' STATIC_MODIFIER_NAME_{name}:0 "{q(capitalize_first(labels["country_modifier"][entry_id]["en"]))}"')
+    for entry_id, tier in used_ceremony_cost_tiers(wonders, "local_modifier"):
+        name = ceremony_cost_local_modifier_name(entry_id, tier)
+        lines.append(f' STATIC_MODIFIER_NAME_{name}:0 "{q(capitalize_first(labels["local_modifier"][entry_id]["en"]))}"')
     return "\n".join(lines).rstrip() + "\n"
 
 

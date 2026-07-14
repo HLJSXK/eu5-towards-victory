@@ -21,6 +21,7 @@ from wonder_ceremony_lib import (  # noqa: E402
     COMPLETION_EVENT_ID,
     STAGE_COUNT,
     T,
+    ceremony_cost_effect_lines,
     ceremony_wonders_and_mechanics,
     render_header,
     reward_effect_lines,
@@ -31,7 +32,7 @@ from wonder_ceremony_lib import (  # noqa: E402
 
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "common" / "scripted_effects" / "tv_wonder_ceremony_effects.txt"
 SCRIPT_REL = "scripts/in_game/common/scripted_effects/gen_tv_wonder_ceremony_effects.py"
-DATA_REL = "data/unique_wonders.yaml + data/wonder_generic_rituals.yaml"
+DATA_REL = "data/unique_wonders.yaml + data/wonder_generic_rituals.yaml + data/cost_reward_units.yaml"
 
 
 def append_begin_effect(lines: list[str]) -> None:
@@ -98,7 +99,7 @@ def append_stage_cost_dispatch(lines: list[str], wonders: list[dict]) -> None:
             first = False
             lines.append(f"{T}{head} = {{")
             lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} }}")
-            lines.extend(reward_effect_lines(cost, 2, allow_artwork=True))
+            lines.extend(ceremony_cost_effect_lines(cost, 2, stage_index=stage))
             lines.append(f"{T}}}")
         lines.append("}")
         lines.append("")
