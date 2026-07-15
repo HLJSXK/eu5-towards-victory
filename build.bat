@@ -6,12 +6,14 @@ REM Usage: build.bat
 
 set "ROOT=%~dp0"
 set "SRC=%ROOT%src"
+set "ED_SRC=%ROOT%src_engineering_department"
 set "MNT_COMPAT=%ROOT%submods\tv_meiou_and_taxes_compat"
 set "MOD_DIR=C:\Program Files (x86)\Steam\steamapps\common\Europa Universalis V\game\mod"
 set "DEST=%MOD_DIR%\tv"
+set "ED_DEST=%MOD_DIR%\tv_engineering_department"
 set "MNT_COMPAT_DEST=%MOD_DIR%\tv_meiou_and_taxes_compat"
 
-echo === [1/3] Validating mod source ===
+echo === [1/4] Validating mod source ===
 set "VALIDATE_OUT=%TEMP%\tv_validate_out.txt"
 if not defined EU5_PYTHON set "EU5_PYTHON=C:\Users\Hades\anaconda3\envs\eu5\python.exe"
 if not exist "!EU5_PYTHON!" (
@@ -32,7 +34,7 @@ if !VALIDATE_RC! neq 0 (
 )
 
 echo.
-echo === [2/3] Deploying src to !DEST! ===
+echo === [2/4] Deploying src to !DEST! ===
 if not exist "!MOD_DIR!" (
     echo [ERROR] EU5 mod directory not found: !MOD_DIR!
     pause
@@ -49,7 +51,24 @@ if !RC! GEQ 8 (
 )
 
 echo.
-echo === [3/3] Deploying M^&T compatibility submod to !MNT_COMPAT_DEST! ===
+echo === [3/4] Deploying Engineering Department src to !ED_DEST! ===
+if not exist "!ED_SRC!" (
+    echo [ERROR] Engineering Department source not found: !ED_SRC!
+    pause
+    exit /b 1
+)
+
+robocopy "!ED_SRC!" "!ED_DEST!" /MIR
+set "RC=!errorlevel!"
+if !RC! GEQ 8 (
+    echo.
+    echo [ERROR] robocopy failed with exit code !RC!.
+    pause
+    exit /b 1
+)
+
+echo.
+echo === [4/4] Deploying M^&T compatibility submod to !MNT_COMPAT_DEST! ===
 if not exist "!MNT_COMPAT!" (
     echo [ERROR] Compatibility submod source not found: !MNT_COMPAT!
     pause
@@ -66,6 +85,6 @@ if !RC! GEQ 8 (
 )
 
 echo.
-echo [DONE] Deployed to !DEST! and !MNT_COMPAT_DEST!
+echo [DONE] Deployed to !DEST!, !ED_DEST!, and !MNT_COMPAT_DEST!
 endlocal
 pause

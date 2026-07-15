@@ -5,8 +5,8 @@ if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(REPO_ROOT / "scripts"))
-sys.path.insert(0, str(REPO_ROOT / "scripts" / "in_game" / "gui"))
+sys.path.insert(0, str(REPO_ROOT / "scripts_engineering_department"))
+sys.path.insert(0, str(REPO_ROOT / "scripts_engineering_department" / "in_game" / "gui"))
 
 import gen_location_window as tv_location_window
 from wonder_mechanics.render import render_header

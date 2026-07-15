@@ -49,7 +49,11 @@ from dds_image_lib import (
     resize_rgba,
     write_dds,
 )
-from wonder_mechanics._core import (
+
+# wonder_mechanics now lives in the standalone Engineering Department mod's
+# own script tree, not scripts/.
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts_engineering_department"))
+from wonder_mechanics._core import (  # noqa: E402
     load_all_wonder_mechanics_data,
     load_generic_wonder_image_prompts,
     load_yaml as load_wonder_yaml,

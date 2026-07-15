@@ -27,15 +27,26 @@ RISK_CARDS_DIR = KNOWLEDGE_DIR / "risk_cards"
 GENERATED_REGISTRY = REPO_ROOT / "data" / "generated_files.yaml"
 MANAGED_SANDBOX_PYTHON = r"C:\Users\Hades\anaconda3\envs\eu5\python.exe"
 
+# Two deployable mod roots: the main "Towards Victory" mod and the split-out,
+# standalone "Engineering Department" mod. Path-prefix domain routing below
+# is expanded across both so a moved file keeps matching its generic domain
+# card (e.g. "gui.md") in addition to whatever FILENAME_DOMAIN_RULES match.
+MOD_ROOT_NAMES = ("src", "src_engineering_department")
+
+
+def _mod_prefixes(subpath: str) -> tuple[str, ...]:
+    return tuple(f"{root_name}/{subpath}" for root_name in MOD_ROOT_NAMES)
+
+
 DOMAIN_RULES = [
-    ("generic_actions", "src/in_game/common/generic_actions/", "generic_actions.md"),
-    ("gui", "src/in_game/gui/", "gui.md"),
-    ("international_organizations", "src/in_game/common/international_organizations/", "international_organizations.md"),
-    ("international_organizations", "src/in_game/common/laws/", "international_organizations.md"),
-    ("international_organizations", "src/in_game/common/country_interactions/", "international_organizations.md"),
-    ("events", "src/in_game/events/", "events.md"),
-    ("on_action", "src/in_game/common/on_action/", "on_action.md"),
-    ("localization", "src/main_menu/localization/", "localization.md"),
+    ("generic_actions", _mod_prefixes("in_game/common/generic_actions/"), "generic_actions.md"),
+    ("gui", _mod_prefixes("in_game/gui/"), "gui.md"),
+    ("international_organizations", _mod_prefixes("in_game/common/international_organizations/"), "international_organizations.md"),
+    ("international_organizations", _mod_prefixes("in_game/common/laws/"), "international_organizations.md"),
+    ("international_organizations", _mod_prefixes("in_game/common/country_interactions/"), "international_organizations.md"),
+    ("events", _mod_prefixes("in_game/events/"), "events.md"),
+    ("on_action", _mod_prefixes("in_game/common/on_action/"), "on_action.md"),
+    ("localization", _mod_prefixes("main_menu/localization/"), "localization.md"),
 ]
 
 # Some task domains are not isolated in their own directory: their files are

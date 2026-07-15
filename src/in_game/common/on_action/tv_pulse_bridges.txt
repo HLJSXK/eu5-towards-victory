@@ -27,14 +27,6 @@ monthly_country_pulse = {
 		tv_govhouse_governor_events_monthly_pulse
 		tv_govhouse_war_tent_monthly_pulse
 		tv_arts_exchange_monthly_pulse
-		tv_engineering_department_concept_monthly_pulse
-		tv_engineering_department_debate_monthly_pulse
-		tv_engineering_department_support_resolution_monthly_pulse
-		tv_engineering_department_survey_monthly_pulse
-		tv_engineering_department_construction_monthly_pulse
-		tv_engineering_department_construction_random_events_monthly_pulse
-		tv_engineering_department_ritual_monthly_pulse
-		tv_engineering_department_wonder_auto_cache_monthly_pulse
 		tv_diplomatic_alliance_monthly_pulse
 		tv_trade_league_monthly_pulse
 		tv_victory_tree_points_monthly_pulse
@@ -58,14 +50,6 @@ on_character_death = {
 		tv_govhouse_governor_death
 		tv_arts_exhibition_char_death
 		tv_academy_char_death
-		tv_engineering_department_char_death
-	}
-}
-
-on_ruler_death = {
-	on_actions = {
-		# Towards Victory additions
-		tv_engineering_department_ritual_on_ruler_death
 	}
 }
 
@@ -76,11 +60,6 @@ on_game_start = {
 		# Towards Victory additions
 		tv_govhouse_initialize_on_game_start
 		tv_academy_debate_initialize_global_maps_on_game_start
-		tv_wonder_initialize_index_on_game_start
-		tv_wonder_sync_final_building_level_maps_on_game_start
-		tv_wonder_initialize_existing_unique_wonders_on_game_start
-		tv_wonder_initialize_country_auto_cache_on_game_start
-		tv_wonder_initialize_location_display_state_on_game_start
 	}
 }
 
@@ -90,11 +69,6 @@ on_game_load = {
 		tv_govhouse_initialize_on_game_load
 		tv_io_establishment_save_load_validation
 		tv_academy_debate_initialize_global_maps_on_game_load
-		tv_wonder_initialize_index_on_game_load
-		tv_wonder_sync_final_building_level_maps_on_game_load
-		tv_wonder_initialize_existing_unique_wonders_on_game_load
-		tv_wonder_initialize_country_auto_cache_on_game_load
-		tv_wonder_initialize_location_display_state_on_game_load
 	}
 }
 
@@ -307,14 +281,6 @@ on_ending_war = {
 	on_actions = {
 		# Towards Victory additions
 		tv_govhouse_war_tent_on_ending_war
-		tv_engineering_department_ritual_on_ending_war
-	}
-}
-
-on_pre_winning_war = {
-	on_actions = {
-		# Towards Victory additions
-		tv_engineering_department_ritual_on_pre_winning_war
 	}
 }
 
@@ -336,7 +302,6 @@ on_location_changed_owner = {
 	on_actions = {
 		# Towards Victory additions
 		tv_govhouse_location_changed_owner
-		tv_wonder_ownership_location_changed_owner
 	}
 }
 

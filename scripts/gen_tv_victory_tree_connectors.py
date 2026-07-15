@@ -29,7 +29,7 @@ sys.path.insert(0, str(REPO_ROOT))
 
 from scripts.dds_image_lib import RgbaImage, write_dds
 from scripts.victory_tree_node_codegen import flatten_nodes, load_data
-from scripts.wonder_mechanics.io import load_yaml
+from scripts_engineering_department.wonder_mechanics.io import load_yaml
 
 POSITIONS_FILE = REPO_ROOT / "data" / "victory_tree_node_positions.yaml"
 OUT_DIR = REPO_ROOT / "src/main_menu/gfx/interface/icons/towards_victory/victory_trees"

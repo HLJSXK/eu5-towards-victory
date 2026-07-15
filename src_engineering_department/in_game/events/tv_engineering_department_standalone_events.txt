@@ -1,0 +1,19 @@
+﻿# Towards Victory Engineering Department — standalone onboarding event
+
+namespace = tv_engineering_department_standalone
+
+tv_engineering_department_standalone.1 = {
+	type = country_event
+	title = tv_engineering_department_standalone.1.t
+	desc = tv_engineering_department_standalone.1.d
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_construction_cropped.dds"
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department_standalone.1.a
+		tv_engineering_department_create_effect = yes
+		hidden_effect = {
+			set_global_variable = tv_engineering_department_standalone_initialized
+		}
+	}
+}

@@ -109,6 +109,12 @@ Do NOT resolve ambiguity by picking the "most reasonable" interpretation and pro
 - `reference_game_files/` -> vanilla script source files
 - `reference_mods/` -> some representative community mods
 - `docs/knowledge/risk_cards/` -> short, task-domain warning cards loaded by `scripts/ai_context.py`
+- `src_engineering_department/` / `scripts_engineering_department/` -> the standalone
+  Engineering Department / Wonder Construction mod (since 2026-07), mirroring
+  `src/`/`scripts/`'s layout. `scripts/validate.py`, `scripts/ai_context.py`, and
+  `scripts/gen_index.py` all treat both mod roots as first-class. See
+  `docs/knowledge/risk_cards/wonders.md` for the split's dependency direction and
+  the shared-file split/no-split decisions.
 
 ## AI Context Bootstrap
 

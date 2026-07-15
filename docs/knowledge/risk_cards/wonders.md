@@ -1,11 +1,37 @@
 # Wonders / Engineering Department Risk Card
 
-Load this card before editing any file with `wonder` or `engineering_department` in its
-filename: generated `scripted_effects`, `scripted_triggers`, `static_modifiers`,
-`auto_modifiers`, `building_types`, `generic_actions`, `game_concepts`, and `gui` files under
-`common/`, their localization, `src/in_game/gui/location_window.gui`, and the
-`data/wonder*.yaml` / `data/unique_wonder*.yaml` sources plus their `scripts/*wonder*.py`
-generators.
+Since 2026-07, the entire Engineering Department / Wonder Construction subsystem
+lives in its own standalone, deployable mod root, `src_engineering_department/`
+(mirroring `src/`'s `in_game/`/`main_menu/` layout), with its own generator tree
+`scripts_engineering_department/` (mirroring `scripts/`). This mod works fully
+standalone (no dependency on the main "Towards Victory" mod); the main mod
+declares a hard dependency on it instead, since Prosperity Victory's
+establishment effect calls `tv_engineering_department_create_effect`, which now
+lives only there. Load this card before editing any file with `wonder` or
+`engineering_department` in its filename, under **either** mod root: generated
+`scripted_effects`, `scripted_triggers`, `static_modifiers`, `auto_modifiers`,
+`building_types`, `generic_actions`, `game_concepts`, and `gui` files under
+`common/`, their localization, `src_engineering_department/in_game/gui/location_window.gui`
+and `encyclopedia_lateralview.gui`, and the `data/wonder*.yaml` /
+`data/unique_wonder*.yaml` sources (data stays in the repo-root `data/` for both
+mods) plus their `scripts_engineering_department/*wonder*.py` generators.
+
+A handful of small shared files serving all 6 Towards Victory IOs generically
+were split so the standalone mod is self-contained: `tv_io_leader_actions.txt`
+and `tv_pulse_bridges.txt` are now multi-output generators (like `gen_victory.py`)
+emitting a second file into the new mod root, filtered by the same
+`wonder`/`engineering_department` substring convention applied to IO type names
+and on_action ids; `tv_io_role_modifiers.txt`, `tv_game_concepts.txt` (+ loc),
+and `tv_io_chief_alert_triggers.txt` had their Engineering-Department-specific
+entries hand-moved out. `character_title.txt` and `messagetypes.txt` were
+deliberately **not** split — both are "full vanilla copy with insertions"
+files where the engine keeps only the most recently loaded definition, so
+splitting would silently drop either mod's entries when both are loaded
+together (see each generator's own docstring). Running the standalone mod
+alone therefore has two small, accepted cosmetic gaps: the Great Engineer's
+title prefix and the cross-IO "vacant chief" alert badge (and a proposal/reward
+message-type label) don't appear without the main mod also loaded — core
+gameplay is unaffected either way.
 
 ## Required Checks
 

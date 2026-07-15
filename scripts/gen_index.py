@@ -30,6 +30,10 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parent.parent
 INDEX_DIR = REPO_ROOT / "data" / "index"
 
+# Two deployable mod roots feed these indexes: the main "Towards Victory" mod
+# and the split-out, standalone "Engineering Department" mod.
+MOD_ROOTS = [REPO_ROOT / "src", REPO_ROOT / "src_engineering_department"]
+
 FONT_ICONS_FILE = (
     REPO_ROOT / "reference_game_files" / "game" / "main_menu" / "gui" / "shared" / "font_icons.gui"
 )
@@ -40,9 +44,10 @@ MODIFIER_TYPES_FILE = (
 MODIFIER_TYPE_FILES = [
     MODIFIER_TYPES_FILE,
     *(
-        (REPO_ROOT / "src" / "main_menu" / "common" / "modifier_type_definitions").glob("*.txt")
-        if (REPO_ROOT / "src" / "main_menu" / "common" / "modifier_type_definitions").exists()
-        else []
+        f
+        for mod_dir in (root / "main_menu" / "common" / "modifier_type_definitions" for root in MOD_ROOTS)
+        if mod_dir.exists()
+        for f in mod_dir.glob("*.txt")
     ),
 ]
 REFERENCE_LOC_DIRS = {
@@ -50,20 +55,14 @@ REFERENCE_LOC_DIRS = {
     "zh": REPO_ROOT / "reference_game_files" / "game" / "main_menu" / "localization" / "simp_chinese",
 }
 MOD_LOC_DIRS = {
-    "en": REPO_ROOT / "src" / "main_menu" / "localization" / "english",
-    "zh": REPO_ROOT / "src" / "main_menu" / "localization" / "simp_chinese",
+    "en": [root / "main_menu" / "localization" / "english" for root in MOD_ROOTS],
+    "zh": [root / "main_menu" / "localization" / "simp_chinese" for root in MOD_ROOTS],
 }
 VANILLA_TRIGGERS_DIR = REPO_ROOT / "reference_game_files" / "game" / "in_game" / "common" / "scripted_triggers"
 VANILLA_EFFECTS_DIR  = REPO_ROOT / "reference_game_files" / "game" / "in_game" / "common" / "scripted_effects"
-MOD_TRIGGERS_DIRS = [
-    REPO_ROOT / "src" / "in_game" / "common" / "scripted_triggers",
-]
-MOD_EFFECTS_DIRS = [
-    REPO_ROOT / "src" / "in_game" / "common" / "scripted_effects",
-]
-LOC_EN_DIRS = [
-    REPO_ROOT / "src" / "main_menu" / "localization" / "english",
-]
+MOD_TRIGGERS_DIRS = [root / "in_game" / "common" / "scripted_triggers" for root in MOD_ROOTS]
+MOD_EFFECTS_DIRS = [root / "in_game" / "common" / "scripted_effects" for root in MOD_ROOTS]
+LOC_EN_DIRS = [root / "main_menu" / "localization" / "english" for root in MOD_ROOTS]
 
 
 def _write_index(path: Path, entries: list[str], verbose: bool, label: str) -> None:
@@ -85,7 +84,8 @@ def _write_json_index(path: Path, payload: dict, verbose: bool, label: str, coun
 
 def _localization_files_for_language(language: str) -> list[Path]:
     files: list[Path] = []
-    for loc_dir in (REFERENCE_LOC_DIRS.get(language), MOD_LOC_DIRS.get(language)):
+    loc_dirs = [REFERENCE_LOC_DIRS.get(language), *MOD_LOC_DIRS.get(language, [])]
+    for loc_dir in loc_dirs:
         if loc_dir and loc_dir.exists():
             files.extend(sorted(loc_dir.rglob("*.yml")))
     return files
@@ -319,7 +319,8 @@ def _trigger_loc_key_to_index_key(loc_key: str) -> tuple[str, str] | None:
 
 def _trigger_source_files(language: str) -> list[Path]:
     files: list[Path] = []
-    for loc_dir in (REFERENCE_LOC_DIRS.get(language), MOD_LOC_DIRS.get(language)):
+    loc_dirs = [REFERENCE_LOC_DIRS.get(language), *MOD_LOC_DIRS.get(language, [])]
+    for loc_dir in loc_dirs:
         if not loc_dir or not loc_dir.exists():
             continue
         files.extend(sorted(loc_dir.rglob("triggers_l_*.yml")))

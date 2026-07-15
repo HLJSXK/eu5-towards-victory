@@ -3,8 +3,11 @@
 EU5 Mod Static Validator
 Catches common errors before game loading. Reads docs/knowledge/*.yaml for patterns.
 
+Validates both deployable mod roots: src/ (Towards Victory) and
+src_engineering_department/ (the standalone Engineering Department mod).
+
 Usage:
-  python scripts/validate.py                   # validate entire src/
+  python scripts/validate.py                   # validate every mod root
   python scripts/validate.py src/              # validate one directory
   python scripts/validate.py --changed         # validate only git-changed files
   python scripts/validate.py --ai-report       # JSON output for AI tools
@@ -28,10 +31,18 @@ except ImportError:
     print("[ERROR] PyYAML not installed. Run: pip install pyyaml")
     sys.exit(1)
 
-sys.path.insert(0, str(Path(__file__).parent))
+REPO_ROOT = Path(__file__).parent.parent
+# wonder_unique_ritual_harness.py lives in the standalone Engineering
+# Department mod's own script tree, not scripts/.
+sys.path.insert(0, str(REPO_ROOT / "scripts_engineering_department"))
 from wonder_unique_ritual_harness import validate_unique_ritual_specs_for_repo  # noqa: E402
 
-REPO_ROOT = Path(__file__).parent.parent
+# Two deployable mod roots share this validator: the main "Towards Victory" mod
+# and the split-out, standalone "Engineering Department" mod. Every directory
+# constant/check below that used to assume a single `src/` root now iterates
+# MOD_ROOTS instead.
+MOD_ROOTS = (REPO_ROOT / "src", REPO_ROOT / "src_engineering_department")
+MOD_ROOT_NAMES = tuple(root.name for root in MOD_ROOTS)
 KNOWLEDGE_DIR = REPO_ROOT / "docs" / "knowledge"
 VALIDATION_BASELINE_FILE = REPO_ROOT / "data" / "validation_baseline.yaml"
 PULSE_REGISTRY_FILE = REPO_ROOT / "data" / "pulse_registry.yaml"
@@ -47,9 +58,10 @@ MODIFIER_TYPES_FILE = (
 MODIFIER_TYPE_FILES = [
     MODIFIER_TYPES_FILE,
     *(
-        (REPO_ROOT / "src" / "main_menu" / "common" / "modifier_type_definitions").glob("*.txt")
-        if (REPO_ROOT / "src" / "main_menu" / "common" / "modifier_type_definitions").exists()
-        else []
+        f
+        for mod_dir in (root / "main_menu" / "common" / "modifier_type_definitions" for root in MOD_ROOTS)
+        if mod_dir.exists()
+        for f in mod_dir.glob("*.txt")
     ),
 ]
 HARD_CODED_ON_ACTIONS_FILE = (
@@ -61,20 +73,42 @@ HARD_CODED_ON_ACTIONS_FILE = (
     / "on_action"
     / "_hardcoded.txt"
 )
-TV_IO_DIR = REPO_ROOT / "src" / "in_game" / "common" / "international_organizations"
-TV_IO_ICON_DIR = (
-    REPO_ROOT
-    / "src"
-    / "main_menu"
-    / "gfx"
-    / "interface"
-    / "icons"
-    / "international_organizations"
-)
-STATIC_MODIFIER_DIRS = (
-    REPO_ROOT / "src" / "in_game" / "common" / "static_modifiers",
-    REPO_ROOT / "src" / "main_menu" / "common" / "static_modifiers",
-)
+
+
+def _mod_root_dirs(*parts: str) -> list[Path]:
+    """Existing directories at the given relative path under every mod root."""
+    return [root.joinpath(*parts) for root in MOD_ROOTS if root.joinpath(*parts).exists()]
+
+
+def _relative_to_mod_root(rel: str) -> str | None:
+    """Strip whichever mod root `rel` (forward-slash, REPO_ROOT-relative) falls under."""
+    for root_name in MOD_ROOT_NAMES:
+        prefix = root_name + "/"
+        if rel.startswith(prefix):
+            return rel[len(prefix):]
+    return None
+
+
+def _io_root_pairs() -> list[tuple[Path, Path]]:
+    """(international_organizations dir, IO icon dir) pairs for every mod root that has one."""
+    pairs = []
+    for root in MOD_ROOTS:
+        io_dir = root / "in_game" / "common" / "international_organizations"
+        if io_dir.exists():
+            icon_dir = root / "main_menu" / "gfx" / "interface" / "icons" / "international_organizations"
+            pairs.append((io_dir, icon_dir))
+    return pairs
+
+
+def _static_modifier_dirs() -> list[Path]:
+    dirs = []
+    for root in MOD_ROOTS:
+        dirs.append(root / "in_game" / "common" / "static_modifiers")
+        dirs.append(root / "main_menu" / "common" / "static_modifiers")
+    return dirs
+
+
+STATIC_MODIFIER_DIRS = _static_modifier_dirs()
 UNIQUE_RITUAL_HARNESS_FILES = {
     "data/unique_wonders.yaml",
     "data/unique_wonder_ritual_designs.yaml",
@@ -84,10 +118,10 @@ UNIQUE_RITUAL_HARNESS_FILES = {
     "data/unique_wonder_ritual_capabilities.yaml",
     "data/unique_wonder_ritual_archetypes.yaml",
     "data/wonder_localization.yaml",
-    "scripts/wonder_unique_ritual_harness.py",
-    "scripts/gen_unique_wonder_ritual_specs.py",
-    "scripts/audit_unique_wonder_rituals.py",
-    "scripts/allocate_unique_wonder_ritual_event_ids.py",
+    "scripts_engineering_department/wonder_unique_ritual_harness.py",
+    "scripts_engineering_department/gen_unique_wonder_ritual_specs.py",
+    "scripts_engineering_department/audit_unique_wonder_rituals.py",
+    "scripts_engineering_department/allocate_unique_wonder_ritual_event_ids.py",
     "docs/guides/Unique_Wonder_Ritual_Harness.md",
 }
 UNIQUE_RITUAL_HARNESS_PREFIXES: set[str] = set()
@@ -374,24 +408,21 @@ def _iter_yaml_localization_keys(path: Path):
 
 def check_loc_physical_lines() -> None:
     """Catch localization values split across real physical lines."""
-    loc_root = REPO_ROOT / "src" / "main_menu" / "localization"
-    if not loc_root.exists():
-        return
-
-    for loc_file in sorted(loc_root.rglob("*.yml")):
-        for line_num, line in enumerate(loc_file.read_text(encoding="utf-8-sig").splitlines(), 1):
-            stripped = line.strip()
-            if not stripped or stripped.startswith("#"):
-                continue
-            if LOCALIZATION_HEADER_PATTERN.match(line):
-                continue
-            if LOCALIZATION_ENTRY_LINE_PATTERN.match(line):
-                continue
-            issues.append(
-                f"[LOCALIZATION] {loc_file.relative_to(REPO_ROOT)}:{line_num} -- "
-                "Malformed localization physical line; keep each key/value on one line and "
-                "escape intentional line breaks as \\n inside the quoted value."
-            )
+    for loc_root in _mod_root_dirs("main_menu", "localization"):
+        for loc_file in sorted(loc_root.rglob("*.yml")):
+            for line_num, line in enumerate(loc_file.read_text(encoding="utf-8-sig").splitlines(), 1):
+                stripped = line.strip()
+                if not stripped or stripped.startswith("#"):
+                    continue
+                if LOCALIZATION_HEADER_PATTERN.match(line):
+                    continue
+                if LOCALIZATION_ENTRY_LINE_PATTERN.match(line):
+                    continue
+                issues.append(
+                    f"[LOCALIZATION] {loc_file.relative_to(REPO_ROOT)}:{line_num} -- "
+                    "Malformed localization physical line; keep each key/value on one line and "
+                    "escape intentional line breaks as \\n inside the quoted value."
+                )
 
 
 def _iter_game_concept_keys(path: Path):
@@ -402,15 +433,12 @@ def _iter_game_concept_keys(path: Path):
 
 
 def check_game_concept_duplicate_keys() -> None:
-    """Verify each main-menu game concept key is declared only once."""
-    concepts_dir = REPO_ROOT / "src" / "main_menu" / "common" / "game_concepts"
-    if not concepts_dir.exists():
-        return
-
+    """Verify each main-menu game concept key is declared only once across all mod roots."""
     key_defs: dict[str, list[tuple[Path, int]]] = {}
-    for concept_file in sorted(concepts_dir.rglob("*.txt")):
-        for key, line_num in _iter_game_concept_keys(concept_file):
-            key_defs.setdefault(key, []).append((concept_file, line_num))
+    for concepts_dir in _mod_root_dirs("main_menu", "common", "game_concepts"):
+        for concept_file in sorted(concepts_dir.rglob("*.txt")):
+            for key, line_num in _iter_game_concept_keys(concept_file):
+                key_defs.setdefault(key, []).append((concept_file, line_num))
 
     for key, definitions in sorted(key_defs.items()):
         if len(definitions) < 2:
@@ -425,15 +453,20 @@ def check_game_concept_duplicate_keys() -> None:
 
 
 def check_loc_duplicate_keys() -> None:
-    """Verify each main-menu localization key is defined only once per language."""
-    loc_root = REPO_ROOT / "src" / "main_menu" / "localization"
-    if not loc_root.exists():
-        return
-    for language_dir in sorted(path for path in loc_root.iterdir() if path.is_dir()):
+    """Verify each main-menu localization key is defined only once per language, across all mod roots."""
+    language_names: set[str] = set()
+    for loc_root in _mod_root_dirs("main_menu", "localization"):
+        language_names.update(path.name for path in loc_root.iterdir() if path.is_dir())
+
+    for language_name in sorted(language_names):
         key_defs: dict[str, list[tuple[Path, int]]] = {}
-        for loc_file in sorted(language_dir.rglob("*.yml")):
-            for key, line_num in _iter_yaml_localization_keys(loc_file):
-                key_defs.setdefault(key, []).append((loc_file, line_num))
+        for loc_root in _mod_root_dirs("main_menu", "localization"):
+            language_dir = loc_root / language_name
+            if not language_dir.exists():
+                continue
+            for loc_file in sorted(language_dir.rglob("*.yml")):
+                for key, line_num in _iter_yaml_localization_keys(loc_file):
+                    key_defs.setdefault(key, []).append((loc_file, line_num))
         for key, definitions in sorted(key_defs.items()):
             if len(definitions) < 2:
                 continue
@@ -442,44 +475,44 @@ def check_loc_duplicate_keys() -> None:
                 for path, line_num in definitions
             )
             issues.append(
-                f"[LOCALIZATION] Duplicate localization key '{key}' in {language_dir.name}: {locations}"
+                f"[LOCALIZATION] Duplicate localization key '{key}' in {language_name}: {locations}"
             )
 
 
 def check_loc_coverage() -> None:
-    """Verify every key in English localization also exists in simp_chinese."""
-    en_dir = REPO_ROOT / "src" / "main_menu" / "localization" / "english"
-    zh_dir = REPO_ROOT / "src" / "main_menu" / "localization" / "simp_chinese"
-    if not en_dir.exists():
-        return
-    for en_file in sorted(en_dir.glob("*_l_english.yml")):
-        stem = en_file.stem[: -len("_l_english")]
-        zh_file = zh_dir / f"{stem}_l_simp_chinese.yml"
-        en_keys = {key for key, _ in _iter_yaml_localization_keys(en_file)}
-        if not zh_file.exists():
-            issues.append(f"[LOC] Missing simp_chinese file: {zh_file.relative_to(REPO_ROOT)}")
+    """Verify every key in English localization also exists in simp_chinese, per mod root."""
+    for root in MOD_ROOTS:
+        en_dir = root / "main_menu" / "localization" / "english"
+        zh_dir = root / "main_menu" / "localization" / "simp_chinese"
+        if not en_dir.exists():
             continue
-        zh_keys = {key for key, _ in _iter_yaml_localization_keys(zh_file)}
-        missing = sorted(en_keys - zh_keys)
-        if missing:
-            issues.append(
-                f"[LOC] {zh_file.relative_to(REPO_ROOT)}: "
-                f"{len(missing)} key(s) missing from simp_chinese: "
-                + ", ".join(missing)
-            )
+        for en_file in sorted(en_dir.glob("*_l_english.yml")):
+            stem = en_file.stem[: -len("_l_english")]
+            zh_file = zh_dir / f"{stem}_l_simp_chinese.yml"
+            en_keys = {key for key, _ in _iter_yaml_localization_keys(en_file)}
+            if not zh_file.exists():
+                issues.append(f"[LOC] Missing simp_chinese file: {zh_file.relative_to(REPO_ROOT)}")
+                continue
+            zh_keys = {key for key, _ in _iter_yaml_localization_keys(zh_file)}
+            missing = sorted(en_keys - zh_keys)
+            if missing:
+                issues.append(
+                    f"[LOC] {zh_file.relative_to(REPO_ROOT)}: "
+                    f"{len(missing)} key(s) missing from simp_chinese: "
+                    + ", ".join(missing)
+                )
 
 
 def check_trigger_loc_coverage() -> None:
     """Verify every custom_description text key in scripted_triggers has an entry in trigger_localization/."""
-    triggers_dir = REPO_ROOT / "src" / "in_game" / "common" / "scripted_triggers"
-    trig_loc_dir = REPO_ROOT / "src" / "in_game" / "common" / "trigger_localization"
-    if not triggers_dir.exists():
+    triggers_dirs = _mod_root_dirs("in_game", "common", "scripted_triggers")
+    if not triggers_dirs:
         return
 
-    # Collect all registered trigger loc keys from trigger_localization/ files
+    # Collect all registered trigger loc keys from trigger_localization/ files across every mod root
     registered: set[str] = set()
-    if trig_loc_dir.exists():
-        key_pat = re.compile(r"^(\w+)\s*=\s*\{")
+    key_pat = re.compile(r"^(\w+)\s*=\s*\{")
+    for trig_loc_dir in _mod_root_dirs("in_game", "common", "trigger_localization"):
         for f in trig_loc_dir.glob("*.txt"):
             for line in f.read_text(encoding="utf-8-sig").splitlines():
                 m = key_pat.match(line.strip())
@@ -488,28 +521,30 @@ def check_trigger_loc_coverage() -> None:
 
     # Check each scripted_trigger file for custom_description text keys
     cd_pat = re.compile(r"custom_description\s*=\s*\{[^}]*?text\s*=\s*(\w+)", re.DOTALL)
-    for f in triggers_dir.glob("*.txt"):
-        content = f.read_text(encoding="utf-8-sig")
-        for m in cd_pat.finditer(content):
-            key = m.group(1)
-            if key not in registered:
-                line_num = content[: m.start()].count("\n") + 1
-                issues.append(
-                    f"[LOCALIZATION] {f.relative_to(REPO_ROOT)}:{line_num} -- "
-                    f"custom_description text key '{key}' not registered in "
-                    f"src/in_game/common/trigger_localization/ (engine error: 'No trigger loc {key}')"
-                )
+    for triggers_dir in triggers_dirs:
+        for f in triggers_dir.glob("*.txt"):
+            content = f.read_text(encoding="utf-8-sig")
+            for m in cd_pat.finditer(content):
+                key = m.group(1)
+                if key not in registered:
+                    line_num = content[: m.start()].count("\n") + 1
+                    issues.append(
+                        f"[LOCALIZATION] {f.relative_to(REPO_ROOT)}:{line_num} -- "
+                        f"custom_description text key '{key}' not registered in "
+                        f"in_game/common/trigger_localization/ (engine error: 'No trigger loc {key}')"
+                    )
 
 
 def check_effect_loc_coverage() -> None:
     """Verify every custom_description text key in scripted_effects has an effect_localization entry."""
-    effects_dir = REPO_ROOT / "src" / "in_game" / "common" / "scripted_effects"
-    effect_loc_dirs = (
-        REPO_ROOT / "reference_game_files" / "game" / "in_game" / "common" / "effect_localization",
-        REPO_ROOT / "src" / "in_game" / "common" / "effect_localization",
-    )
-    if not effects_dir.exists():
+    effects_dirs = _mod_root_dirs("in_game", "common", "scripted_effects")
+    if not effects_dirs:
         return
+
+    effect_loc_dirs = [
+        REPO_ROOT / "reference_game_files" / "game" / "in_game" / "common" / "effect_localization",
+        *_mod_root_dirs("in_game", "common", "effect_localization"),
+    ]
 
     registered: set[str] = set()
     key_pat = re.compile(r"^([A-Za-z_][A-Za-z0-9_.]*)\s*=\s*\{")
@@ -526,17 +561,18 @@ def check_effect_loc_coverage() -> None:
         r"custom_description\s*=\s*\{[^}]*?text\s*=\s*\"?([A-Za-z_][A-Za-z0-9_.]*)\"?",
         re.DOTALL,
     )
-    for f in effects_dir.glob("*.txt"):
-        content = f.read_text(encoding="utf-8-sig")
-        for m in cd_pat.finditer(content):
-            key = m.group(1)
-            if key not in registered:
-                line_num = content[: m.start()].count("\n") + 1
-                issues.append(
-                    f"[LOCALIZATION] {f.relative_to(REPO_ROOT)}:{line_num} -- "
-                    f"custom_description text key '{key}' not registered in "
-                    f"src/in_game/common/effect_localization/ (engine error: 'No effect loc {key}')"
-                )
+    for effects_dir in effects_dirs:
+        for f in effects_dir.glob("*.txt"):
+            content = f.read_text(encoding="utf-8-sig")
+            for m in cd_pat.finditer(content):
+                key = m.group(1)
+                if key not in registered:
+                    line_num = content[: m.start()].count("\n") + 1
+                    issues.append(
+                        f"[LOCALIZATION] {f.relative_to(REPO_ROOT)}:{line_num} -- "
+                        f"custom_description text key '{key}' not registered in "
+                        f"in_game/common/effect_localization/ (engine error: 'No effect loc {key}')"
+                    )
 
 
 def check_effect_loc_positive_negative_pairs(path: Path, content: str) -> None:
@@ -564,27 +600,33 @@ def check_effect_loc_positive_negative_pairs(path: Path, content: str) -> None:
 
 def check_effect_loc_negative_perspectives() -> None:
     """Verify effect_localization positive/negative perspectives use distinct loc keys."""
-    effect_loc_dir = REPO_ROOT / "src" / "in_game" / "common" / "effect_localization"
-    if not effect_loc_dir.exists():
-        return
-    for f in sorted(effect_loc_dir.glob("*.txt")):
-        check_effect_loc_positive_negative_pairs(f, f.read_text(encoding="utf-8-sig"))
+    for effect_loc_dir in _mod_root_dirs("in_game", "common", "effect_localization"):
+        for f in sorted(effect_loc_dir.glob("*.txt")):
+            check_effect_loc_positive_negative_pairs(f, f.read_text(encoding="utf-8-sig"))
 
 
 def check_static_modifier_name_loc_coverage() -> None:
     """Verify every static modifier has a STATIC_MODIFIER_NAME_<id> localization key."""
-    loc_root = REPO_ROOT / "src" / "main_menu" / "localization"
-    if not loc_root.exists():
+    loc_roots = _mod_root_dirs("main_menu", "localization")
+    if not loc_roots:
         return
 
+    language_names: set[str] = set()
+    for loc_root in loc_roots:
+        language_names.update(path.name for path in loc_root.iterdir() if path.is_dir())
+
     loc_keys_by_language: dict[str, set[str]] = {}
-    for language_dir in sorted(path for path in loc_root.iterdir() if path.is_dir()):
+    for language_name in language_names:
         keys: set[str] = set()
-        for loc_file in sorted(language_dir.rglob("*.yml")):
-            for key, _loc_line_num in _iter_yaml_localization_keys(loc_file):
-                if key.startswith("STATIC_MODIFIER_NAME_"):
-                    keys.add(key)
-        loc_keys_by_language[language_dir.name] = keys
+        for loc_root in loc_roots:
+            language_dir = loc_root / language_name
+            if not language_dir.exists():
+                continue
+            for loc_file in sorted(language_dir.rglob("*.yml")):
+                for key, _loc_line_num in _iter_yaml_localization_keys(loc_file):
+                    if key.startswith("STATIC_MODIFIER_NAME_"):
+                        keys.add(key)
+        loc_keys_by_language[language_name] = keys
 
     if not loc_keys_by_language:
         return
@@ -716,13 +758,13 @@ def _check_generated_output_fresh(
 
 def check_location_window_generated_freshness() -> None:
     """Ensure generated location-window GUI files match current reference/data inputs."""
-    gui_scripts_dir = REPO_ROOT / "scripts" / "in_game" / "gui"
+    gui_scripts_dir = REPO_ROOT / "scripts_engineering_department" / "in_game" / "gui"
     if str(gui_scripts_dir) not in sys.path:
         sys.path.insert(0, str(gui_scripts_dir))
 
     _check_generated_output_fresh(
-        output=REPO_ROOT / "src" / "in_game" / "gui" / "location_window.gui",
-        generator=REPO_ROOT / "scripts" / "in_game" / "gui" / "gen_location_window.py",
+        output=REPO_ROOT / "src_engineering_department" / "in_game" / "gui" / "location_window.gui",
+        generator=REPO_ROOT / "scripts_engineering_department" / "in_game" / "gui" / "gen_location_window.py",
         module_name="validate_gen_location_window",
         label="location_window.gui",
     )
@@ -736,9 +778,14 @@ def check_location_window_generated_freshness() -> None:
 
 def check_vanilla_copy_integrity() -> None:
     """Ensure generated vanilla-copy files preserve copied vanilla content."""
-    character_out = REPO_ROOT / "src/in_game/common/customizable_localization/character_title.txt"
     character_vanilla = REPO_ROOT / "reference_game_files/game/in_game/common/customizable_localization/character_title.txt"
-    if character_out.exists() and character_vanilla.exists():
+    # Split across mod roots: main src/ keeps most IO leader titles, the
+    # standalone Engineering Department mod carries only its own. Both copies
+    # independently splice the same vanilla base, so both must stay in sync.
+    for root in MOD_ROOTS:
+        character_out = root / "in_game" / "common" / "customizable_localization" / "character_title.txt"
+        if not (character_out.exists() and character_vanilla.exists()):
+            continue
         copied = _strip_generated_header(_read_normalized_text(character_out))
         copied_without_tv = re.sub(
             r"\n\t# Towards Victory IO leader titles\n\n[\s\S]*?\n(?=\})",
@@ -749,7 +796,7 @@ def check_vanilla_copy_integrity() -> None:
         vanilla = _read_normalized_text(character_vanilla)
         if not _same_ignoring_final_newline(copied_without_tv, vanilla):
             issues.append(
-                "[VANILLA_COPY] src/in_game/common/customizable_localization/character_title.txt "
+                f"[VANILLA_COPY] {character_out.relative_to(REPO_ROOT)} "
                 "-- copied vanilla content differs from "
                 "reference_game_files/game/in_game/common/customizable_localization/character_title.txt; "
                 "only the TV leader title entries may differ"
@@ -770,58 +817,55 @@ def check_vanilla_copy_integrity() -> None:
 
 def check_tv_io_icon_assets() -> None:
     """Every mod-defined IO type needs the matching GetIcon DDS asset."""
-    if not TV_IO_DIR.exists():
-        return
-
     io_decl = re.compile(r"^(tv_[A-Za-z0-9_]+)\s*=\s*\{")
-    for path in sorted(TV_IO_DIR.glob("*.txt")):
-        try:
-            content = path.read_text(encoding="utf-8-sig")
-        except OSError:
-            continue
-        for match in io_decl.finditer(content):
-            io_type = match.group(1)
-            icon = TV_IO_ICON_DIR / f"{io_type}.dds"
-            if not icon.exists():
-                line_num = _line_num(content, match.start())
-                issues.append(
-                    f"[GUI] {path.relative_to(REPO_ROOT)}:{line_num} -- "
-                    f"Missing GetIcon asset {icon.relative_to(REPO_ROOT)} for IO type {io_type}"
-                )
+    for tv_io_dir, tv_io_icon_dir in _io_root_pairs():
+        for path in sorted(tv_io_dir.glob("*.txt")):
+            try:
+                content = path.read_text(encoding="utf-8-sig")
+            except OSError:
+                continue
+            for match in io_decl.finditer(content):
+                io_type = match.group(1)
+                icon = tv_io_icon_dir / f"{io_type}.dds"
+                if not icon.exists():
+                    line_num = _line_num(content, match.start())
+                    issues.append(
+                        f"[GUI] {path.relative_to(REPO_ROOT)}:{line_num} -- "
+                        f"Missing GetIcon asset {icon.relative_to(REPO_ROOT)} for IO type {io_type}"
+                    )
 
 
 def check_tv_io_monthly_effect_blocks() -> None:
     """Ban IO monthly_effect blocks; use monthly_change or country pulses instead."""
-    if not TV_IO_DIR.exists():
-        return
-
     monthly_effect_re = re.compile(r"\bmonthly_effect\s*=")
-    for path in sorted(TV_IO_DIR.rglob("*.txt")):
-        try:
-            content = path.read_text(encoding="utf-8-sig", errors="replace")
-        except OSError as exc:
-            issues.append(f"[IO_MONTHLY_EFFECT] Cannot read {path.relative_to(REPO_ROOT)}: {exc}")
-            continue
-
-        for line_num, raw_line in enumerate(content.splitlines(), 1):
-            line = raw_line.split("#", 1)[0]
-            if not monthly_effect_re.search(line):
+    for tv_io_dir, _tv_io_icon_dir in _io_root_pairs():
+        for path in sorted(tv_io_dir.rglob("*.txt")):
+            try:
+                content = path.read_text(encoding="utf-8-sig", errors="replace")
+            except OSError as exc:
+                issues.append(f"[IO_MONTHLY_EFFECT] Cannot read {path.relative_to(REPO_ROOT)}: {exc}")
                 continue
-            issues.append(
-                f"[IO_MONTHLY_EFFECT] {path.relative_to(REPO_ROOT)}:{line_num} -- "
-                "TV international_organization types must not define `monthly_effect` blocks; "
-                "IO monthly effects have severe performance costs. Keep visible variable arithmetic "
-                "in IO variable `monthly_change`, and move maintenance/completion side effects to "
-                "registered country monthly pulses or explicit lifecycle hooks."
-            )
+
+            for line_num, raw_line in enumerate(content.splitlines(), 1):
+                line = raw_line.split("#", 1)[0]
+                if not monthly_effect_re.search(line):
+                    continue
+                issues.append(
+                    f"[IO_MONTHLY_EFFECT] {path.relative_to(REPO_ROOT)}:{line_num} -- "
+                    "TV international_organization types must not define `monthly_effect` blocks; "
+                    "IO monthly effects have severe performance costs. Keep visible variable arithmetic "
+                    "in IO variable `monthly_change`, and move maintenance/completion side effects to "
+                    "registered country monthly pulses or explicit lifecycle hooks."
+                )
 
 
 def check_event_id_numeric_range(path: Path, content: str) -> None:
     """Catch event IDs whose numeric part exceeds Jomini's four-digit limit."""
     rel = str(path.relative_to(REPO_ROOT)).replace("\\", "/")
     if not (
-        rel.startswith("src/")
+        _relative_to_mod_root(rel) is not None
         or rel.startswith("scripts/")
+        or rel.startswith("scripts_engineering_department/")
         or rel.startswith("data/")
     ):
         return
@@ -837,7 +881,8 @@ def check_event_id_numeric_range(path: Path, content: str) -> None:
 def check_event_option_effect_blocks(path: Path, content: str) -> None:
     """Event options execute effects directly; `effect = {}` is parsed as an unknown effect."""
     rel = str(path.relative_to(REPO_ROOT)).replace("\\", "/")
-    if not (rel.startswith("src/in_game/events/") and path.suffix == ".txt"):
+    sub = _relative_to_mod_root(rel)
+    if not (sub is not None and sub.startswith("in_game/events/") and path.suffix == ".txt"):
         return
 
     for match in re.finditer(r"(?m)^[ \t]*option\s*=\s*\{", content):
@@ -975,39 +1020,44 @@ def check_unique_wonder_ritual_harness(files: list[Path]) -> None:
         issues.append(f"[UNIQUE_RITUAL_HARNESS] {error}")
 
 
+def _mod_prefixes(*subpaths: str) -> tuple[str, ...]:
+    """Expand relative subpaths into a prefix per mod root, e.g. 'src/x', 'src_engineering_department/x'."""
+    return tuple(f"{root_name}/{sub}" for root_name in MOD_ROOT_NAMES for sub in subpaths)
+
+
 def run_global_checks(files: list[Path], use_changed: bool, anti_patterns: list[dict]) -> None:
     rels = {_rel_path(path) for path in files}
 
-    if not use_changed or _paths_match(rels, prefixes=("src/main_menu/common/game_concepts/",)):
+    if not use_changed or _paths_match(rels, prefixes=_mod_prefixes("main_menu/common/game_concepts/")):
         check_game_concept_duplicate_keys()
-    if not use_changed or _paths_match(rels, prefixes=("src/main_menu/localization/",)):
+    if not use_changed or _paths_match(rels, prefixes=_mod_prefixes("main_menu/localization/")):
         check_loc_physical_lines()
         check_loc_duplicate_keys()
         check_loc_coverage()
     if not use_changed or _paths_match(
         rels,
         exact=("scripts/validate.py",),
-        prefixes=(
-            "src/in_game/common/static_modifiers/",
-            "src/main_menu/common/static_modifiers/",
-            "src/main_menu/localization/",
+        prefixes=_mod_prefixes(
+            "in_game/common/static_modifiers/",
+            "main_menu/common/static_modifiers/",
+            "main_menu/localization/",
         ),
     ):
         check_static_modifier_name_loc_coverage()
     if not use_changed or _paths_match(
         rels,
-        prefixes=(
-            "src/in_game/common/scripted_triggers/",
-            "src/in_game/common/trigger_localization/",
+        prefixes=_mod_prefixes(
+            "in_game/common/scripted_triggers/",
+            "in_game/common/trigger_localization/",
         ),
     ):
         check_trigger_loc_coverage()
     if not use_changed or _paths_match(
         rels,
         exact=("scripts/validate.py",),
-        prefixes=(
-            "src/in_game/common/scripted_effects/",
-            "src/in_game/common/effect_localization/",
+        prefixes=_mod_prefixes(
+            "in_game/common/scripted_effects/",
+            "in_game/common/effect_localization/",
         ),
     ):
         check_effect_loc_coverage()
@@ -1019,7 +1069,7 @@ def run_global_checks(files: list[Path], use_changed: bool, anti_patterns: list[
     if not use_changed or _paths_match(
         rels,
         exact=(
-            "src/in_game/common/customizable_localization/character_title.txt",
+            *(f"{root_name}/in_game/common/customizable_localization/character_title.txt" for root_name in MOD_ROOT_NAMES),
             "src/main_menu/gui/messagetypes.txt",
             "reference_game_files/game/in_game/common/customizable_localization/character_title.txt",
             "reference_game_files/game/main_menu/gui/messagetypes.txt",
@@ -1029,18 +1079,18 @@ def run_global_checks(files: list[Path], use_changed: bool, anti_patterns: list[
     if not use_changed or _paths_match(
         rels,
         exact=(
-            "src/in_game/gui/location_window.gui",
+            "src_engineering_department/in_game/gui/location_window.gui",
             "submods/tv_meiou_and_taxes_compat/in_game/gui/location_window.gui",
-            "scripts/in_game/gui/gen_location_window.py",
+            "scripts_engineering_department/in_game/gui/gen_location_window.py",
             "scripts/compat/gen_tv_meiou_and_taxes_location_window.py",
         ),
     ):
         check_location_window_generated_freshness()
     if not use_changed or _paths_match(
         rels,
-        prefixes=(
-            "src/in_game/common/international_organizations/",
-            "src/main_menu/gfx/interface/icons/international_organizations/",
+        prefixes=_mod_prefixes(
+            "in_game/common/international_organizations/",
+            "main_menu/gfx/interface/icons/international_organizations/",
         ),
     ):
         check_tv_io_icon_assets()
@@ -1048,9 +1098,9 @@ def run_global_checks(files: list[Path], use_changed: bool, anti_patterns: list[
     if not use_changed or _paths_match(
         rels,
         exact=("data/pulse_registry.yaml",),
-        prefixes=(
-            "src/in_game/common/on_action/",
-            "src/in_game/common/scripted_effects/",
+        prefixes=_mod_prefixes(
+            "in_game/common/on_action/",
+            "in_game/common/scripted_effects/",
         ),
     ):
         check_monthly_country_pulse_event_delay()
@@ -1299,8 +1349,8 @@ def _load_monthly_country_pulse_config() -> tuple[list[str], int]:
 def _load_tv_on_action_and_effect_blocks() -> dict[str, dict]:
     blocks: dict[str, dict] = {}
     roots = [
-        REPO_ROOT / "src" / "in_game" / "common" / "on_action",
-        REPO_ROOT / "src" / "in_game" / "common" / "scripted_effects",
+        *_mod_root_dirs("in_game", "common", "on_action"),
+        *_mod_root_dirs("in_game", "common", "scripted_effects"),
     ]
     for root in roots:
         if not root.exists():
@@ -1458,7 +1508,8 @@ def _generic_action_warning(path: Path, line: int, action: str, code: str, messa
 def check_generic_action_pre_eval_risks(path: Path, content: str) -> None:
     """Heuristic, brace-aware checks for hover/tooltip pre-evaluation hazards."""
     rel = str(path.relative_to(REPO_ROOT)).replace("\\", "/")
-    if "src/in_game/common/generic_actions/" not in rel:
+    sub = _relative_to_mod_root(rel)
+    if sub is None or "in_game/common/generic_actions/" not in sub:
         return
 
     hover_blocks = ["allow", "select_trigger"]
@@ -1572,7 +1623,8 @@ def check_generic_action_pre_eval_risks(path: Path, content: str) -> None:
 def check_io_policy_ai_scope_recipient_guard(path: Path, content: str) -> None:
     """Catch IO policy AI math that can be evaluated without a recipient IO target."""
     rel = str(path.relative_to(REPO_ROOT)).replace("\\", "/")
-    if "src/in_game/common/laws/" not in rel:
+    sub = _relative_to_mod_root(rel)
+    if sub is None or "in_game/common/laws/" not in sub:
         return
 
     ai_math_blocks = [
@@ -1599,7 +1651,8 @@ def check_io_policy_ai_scope_recipient_guard(path: Path, content: str) -> None:
 def check_on_action_singleton_effect_delegate(path: Path, content: str, hardcoded_on_actions: set[str]) -> None:
     """Catch additive mod files that stack a second direct effect onto a vanilla hardcoded on_action."""
     rel = str(path.relative_to(REPO_ROOT)).replace("\\", "/")
-    if "src/in_game/common/on_action/" not in rel:
+    sub = _relative_to_mod_root(rel)
+    if sub is None or "in_game/common/on_action/" not in sub:
         return
     for block_name, open_pos, close_pos in _iter_top_level_blocks(content):
         if block_name not in hardcoded_on_actions:
@@ -1704,7 +1757,10 @@ def main():
         for t in targets:
             files.extend(collect_files(REPO_ROOT / t))
     else:
-        files = collect_files(REPO_ROOT / "src")
+        files = []
+        for root in MOD_ROOTS:
+            if root.exists():
+                files.extend(collect_files(root))
 
     if files:
         for path in files:
@@ -1714,7 +1770,7 @@ def main():
                 issues.append(f"[ENCODING] Cannot read {path.relative_to(REPO_ROOT)}: {e}")
                 continue
 
-            if not raw.startswith(UTF8_BOM) and path.is_relative_to(REPO_ROOT / "src"):
+            if not raw.startswith(UTF8_BOM) and any(path.is_relative_to(root) for root in MOD_ROOTS):
                 if use_fix:
                     path.write_bytes(UTF8_BOM + raw)
                     fixed.append(str(path.relative_to(REPO_ROOT)))
@@ -1737,7 +1793,7 @@ def main():
             check_event_option_effect_blocks(path, content)
 
             is_game_content = (
-                path.is_relative_to(REPO_ROOT / "src")
+                any(path.is_relative_to(root) for root in MOD_ROOTS)
                 or path.is_relative_to(REPO_ROOT / "data")
             )
             if is_game_content:

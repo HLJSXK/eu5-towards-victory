@@ -59,11 +59,27 @@ before executing it.
 Read every risk card listed by the script. This is mandatory for high-risk domains such as `generic_actions`, where tooltip and selection pre-evaluation can execute unsafe reads before the player confirms an action. The Events risk card is routed for event files because option tooltips can pre-evaluate option effect chains, including `hidden_effect`, before the player confirms a choice. The IO risk card is also routed for IO definitions, IO laws, and country interactions that find or mutate TV international organizations.
 `src/in_game/common/laws/` is routed to the `international_organizations` risk card because IO policy scopes and AI math pre-evaluation have recurring runtime traps. Any file under `src/main_menu/localization/` is routed to the `localization` risk card, which carries the canonical positive/negative/neutral/important/tip/flavor text-tag mapping described in "Localization Text Formatting Convention" below — read it before writing or editing player-facing loc text so tags are chosen by meaning rather than by copying whatever tag happens to be nearby.
 
+**Two deployable mod roots.** Since 2026-07, the Engineering Department /
+Wonder Construction subsystem lives in its own standalone mod at repo-root
+`src_engineering_department/` (mirroring `src/`'s `in_game/`/`main_menu/`
+layout), with its own generator tree `scripts_engineering_department/`
+(mirroring `scripts/`). It has no dependency on the main mod and works fully
+standalone; the main mod declares a hard dependency on it instead (Prosperity
+Victory's establishment effect calls `tv_engineering_department_create_effect`,
+which now lives only there). `scripts/validate.py`, `scripts/ai_context.py`,
+and `scripts/gen_index.py` all iterate both mod roots. `build.bat` deploys it
+as a fourth step. See `docs/knowledge/risk_cards/wonders.md` for the full
+split rationale, including the small set of shared multi-IO files (e.g.
+`tv_io_leader_actions.txt`, `tv_pulse_bridges.txt`) that were split into
+multi-output generators so the new mod stays self-contained, and the two
+"vanilla-copy" files (`character_title.txt`, `messagetypes.txt`) deliberately
+left whole in the main mod.
+
 The `wonders`, `philosophy_debate`, and `trade_league` domains are not isolated in their own
 directory — their files are interspersed by filename across `common/scripted_effects`,
 `static_modifiers`, `building_types`, `generic_actions`, `gui`, and localization — so
 `scripts/ai_context.py` routes them by filename substring (`FILENAME_DOMAIN_RULES`) instead
-of path prefix. Any file with `wonder` or `engineering_department` in its name routes to
+of path prefix, under either mod root. Any file with `wonder` or `engineering_department` in its name routes to
 `docs/knowledge/risk_cards/wonders.md`; `philosophy_debate`, `world_debate`, or
 `academy_debate` routes to `docs/knowledge/risk_cards/philosophy_debate.md`; `trade_league` or
 `trade_chain` routes to `docs/knowledge/risk_cards/trade_league.md`; `encyclopedia_lateralview`
@@ -487,18 +503,25 @@ C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\gen_brief.py
 
 ## Path Mapping
 
-- `src/` — mod source (Towards Victory)
+- `src/` — main mod source (Towards Victory)
   - `src/in_game/common/` — victory triggers, effects, situations, modifiers, on_action
   - `src/in_game/events/` — milestone notification events (`towards_victory_events.txt`)
   - `src/in_game/gui/` — situation panel GUI (manually maintained)
   - `src/main_menu/localization/` — hand-written strings (`towards_victory_l_*.yml`)
+- `src_engineering_department/` — standalone Engineering Department / Wonder Construction
+  mod source, mirroring `src/`'s `in_game/`/`main_menu/` layout. No dependency on `src/`;
+  `src/` declares a hard dependency on it instead. See `docs/knowledge/risk_cards/wonders.md`.
 - `docs/knowledge/` — `BRIEF.md` (auto-generated), `PROJECT_OVERVIEW.md`, `anti_patterns.yaml`, `valid_enums.yaml`, `risk_cards/`
 - `docs/guides/AI_Tool_Workflow_Prompt.md` — full 3-step rule and violation history
 - `docs/design/Towards_Victory_Design.md` — victory conditions design philosophy
 - `docs/technical/` — EU5 modding reference
 - `scripts/` — infrastructure: `ai_context.py`, `gen_brief.py`, `gen_index.py`, `gen_scaffold.py`, `validate.py`, `check_overview.py`, `gen_victory.py`, `gen_locked_advances.py`, `gen_messagetypes.py`
 - `scripts/in_game/` — 1:1 feature generators mirroring `src/in_game/` (see Script System section)
-- `data/` — YAML sources for generated files; `data/generated_files.yaml` is the authoritative registry
+- `scripts_engineering_department/` — 1:1 feature generators mirroring `src_engineering_department/`
+  (see Script System section); a few generators here are shared multi-output exceptions with
+  `scripts/` (e.g. `gen_tv_io_leader_actions.py`, `gen_tv_pulse_registry.py`), producing one
+  output in each mod root, filtered by IO-type/on_action-id substring.
+- `data/` — YAML sources for generated files (shared by both mod roots); `data/generated_files.yaml` is the authoritative registry
 - `data/index/` — symbol lookup tables (auto-generated by gen_index.py)
 - `reference_official_defines/` — official EU5 define/type reference files
 - `reference_game_files/` — vanilla EU5 script sources (Step 3 verification)

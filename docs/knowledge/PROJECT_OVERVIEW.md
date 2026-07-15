@@ -27,6 +27,57 @@ the old path instead of preserving the compatibility layer.
 
 ## Summary
 
+**Standalone Engineering Department mod (2026-07):** the entire Engineering
+Department IO / Wonder Construction subsystem (conception, debate, survey,
+organization, logistics, construction, ceremony, finalization, ownership
+transfer, map mode, Europedia cards, all 54 generic + 123 unique wonders) was
+split out of the main "Towards Victory" mod into its own standalone,
+independently-deployed mod at repo-root `src_engineering_department/`
+(mirroring `src/`'s `in_game/`/`main_menu/` layout), with its own generator
+tree at `scripts_engineering_department/` (mirroring `scripts/`). It has no
+dependency on the main mod and is fully playable alone; the main mod instead
+declares a hard dependency on it (`src/.metadata/metadata.json`), since
+Prosperity Victory's establishment effect calls
+`tv_engineering_department_create_effect`, which now lives only there —
+that call is already idempotent (guards on `any_international_organizations_member_of`),
+so it needs no changes now that the new mod also creates the IO unconditionally.
+`build.bat` deploys it as a fourth step (`tv_engineering_department` folder).
+Six shared files that serve all 6 Towards Victory IOs generically were split
+so the new mod is self-contained: `gen_tv_io_leader_actions.py` and
+`gen_tv_pulse_registry.py` became multi-output generators (like `gen_victory.py`)
+emitting a second file filtered by the `wonder`/`engineering_department`
+substring convention already used for filename-based domain routing, applied
+here to IO-type names and on_action ids; `tv_io_role_modifiers.txt`,
+`tv_game_concepts.txt` (+ loc), and `tv_io_chief_alert_triggers.txt` had their
+Engineering-Department-specific entries hand-moved. `character_title.txt` and
+`messagetypes.txt` were deliberately left whole in the main mod — both are
+single "vanilla copy with insertions" files where the engine keeps only the
+most recently loaded definition, so splitting them would silently drop
+whichever mod loads second (see `docs/knowledge/anti_patterns.yaml` rule
+`eu5_vanilla_copy_singleton_file_cannot_split_across_mods`); running the
+standalone mod alone therefore has two small, accepted cosmetic gaps (Great
+Engineer's title prefix, and the cross-IO "vacant chief" alert badge/message
+labels) that don't appear without the main mod also loaded, with no effect on
+core gameplay. `scripts/validate.py`, `scripts/ai_context.py`, and
+`scripts/gen_index.py` all now iterate both mod roots. The new mod ships 3
+bootstrap behaviors, registered via `data/pulse_registry.yaml` and
+implemented in `tv_engineering_department_standalone_on_action.txt`/
+`_events.txt`: an `on_game_start` hook queues a one-time intro event
+(`tv_engineering_department_standalone.1`, EN/ZH, option "Understood"/"了解了")
+for every country, fired one month later via `monthly_country_pulse` (firing
+`trigger_event` directly from `on_game_start`/`on_game_load` is unsafe in this
+engine — confirmed by the deferred-to-monthly-check pattern in reference mod
+3613232232's own welcome-situation bootstrap); the option effect creates the
+Engineering Department IO for that country and sets a save-wide
+`tv_global_variable` marker (`tv_engineering_department_standalone_initialized`,
+via `set_global_variable`/`has_global_variable` — EU5's actual global-flag
+equivalent, confirmed since this mod had no prior global-flag usage and EU4/CK2-style
+`set_global_flag` does not exist in EU5); `on_game_load` re-queues the intro
+event for every country when that marker is absent (an old or foreign save),
+and unconditionally, silently backfills the Engineering Department IO for any
+country still missing one via the same idempotent creation effect (a
+corrupted save).
+
 The root-level `towards_victory_editor_web/` (wonder-localization tab) now exposes the fixed eight-stage `ceremony` data for every framework-backed unique wonder (all except Pharos Lighthouse and Hagia Sophia): each stage edits its English/Simplified Chinese title and description, a verified vanilla-font `icon`, its flavor rationale, one or two costs, and per-wonder pay/decline option flavor text. Saving ceremony changes validates the canonical schema before writing `data/unique_wonders.yaml`, then regenerates the ceremony effects, events, options Customizable Localization, cost static modifiers, localization, GUI-card fragment, and merged Engineering Department panel in the required order.
 
 Since 2026-07, each ceremony stage's `cost` is `{catalog, type, value}`, drawn from the standalone `data/cost_reward_units.yaml` catalog (`country_reward`/`local_reward`/`character_reward`/`country_modifier`/`local_modifier`) instead of the old ~39-type `STYLE_3_REWARD_EFFECTS`-derived vocabulary; `value` is always computed (never hand-authored) as `-1 × base_value × stage_multiplier` (odd stage → ×1, even → ×2), except the inverted-polarity `country_reward.inflation`. Two new per-stage fields, `option_pay_en/zh` and `option_decline_en/zh`, hold wonder-specific flavor text for the two event options at each stage (previously one generic "Pay the price."/"Not yet." pair shared by all 121 wonders × 8 stages); these are wired through 16 new Customizable Localization dispatch blocks (`scripts/in_game/common/customizable_localization/gen_tv_wonder_ceremony_options.py` → `src/in_game/common/customizable_localization/tv_wonder_ceremony_options.txt`) rather than any change to the ceremony event file itself. The `country_modifier`/`local_modifier` cost categories are applied as 5-year temporary modifiers (`years = 5 mode = add_and_extend`), backed by two new data-driven static-modifier generators, `scripts/main_menu/common/static_modifiers/gen_tv_wonder_ceremony_cost_country_modifiers.py` and `gen_tv_wonder_ceremony_cost_local_modifiers.py`, each emitting one tiny modifier per actually-used `(id, tier)` pair (not the full catalog × tier cross product). A new one-time/rerunnable script, `scripts/wonder_mechanics/merge_ceremony_cost_options.py`, surgically splices authored content into `data/unique_wonders.yaml` via anchored line-based text splicing (not a full YAML round-trip — see `docs/knowledge/risk_cards/wonders.md` rule 26 for the full rationale and effect-syntax mapping per cost category).
