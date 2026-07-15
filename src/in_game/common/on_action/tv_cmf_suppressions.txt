@@ -2239,13 +2239,8 @@ tv_cmf_warning_suppressions_monthly_pulse = {
 			cmf_suppress = { v = tv_trade_virtual_supply_used_pct_wine }
 			cmf_suppress = { v = tv_trade_virtual_supply_used_pct_wool }
 			cmf_suppress = { v = tv_victory_selected_path }
-			cmf_suppress = { v = tv_wonder_body_progress }
-			cmf_suppress = { v = tv_wonder_construction_paused }
-			cmf_suppress = { v = tv_wonder_decoration_progress }
-			cmf_suppress = { v = tv_wonder_final_building_extra_levels }
-			cmf_suppress = { v = tv_wonder_final_building_type_to_display_id }
-			cmf_suppress = { v = tv_wonder_foundation_progress }
-			cmf_suppress = { v = tv_wonder_function_progress }
+			cmf_suppress = { v = tv_wonder_suitability_flag_static_reference_never_set }
+			cmf_suppress = { v = tv_wonder_suitability_weight }
 		}
 	}
 }

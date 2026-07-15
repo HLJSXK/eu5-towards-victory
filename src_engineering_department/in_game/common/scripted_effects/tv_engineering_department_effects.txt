@@ -1789,7 +1789,6 @@ tv_wonder_select_construction_site_effect = {
 		set_variable = { name = tv_wonder_stage value = 3 }
 		remove_variable = tv_wonder_construction_complete
 		remove_variable = tv_wonder_active_part
-		remove_variable = tv_wonder_construction_paused
 		tv_wonder_update_construction_tiers_from_competence_effect = yes
 		tv_wonder_initialize_construction_parts_effect = yes
 		tv_wonder_restore_locked_wonder_final_building_state_effect = yes
@@ -1805,7 +1804,6 @@ tv_wonder_select_construction_site_effect = {
 
 tv_wonder_begin_construction_part_effect = {
 	set_variable = { name = tv_wonder_active_part value = $part$ }
-	remove_variable = tv_wonder_construction_paused
 	tv_wonder_set_io_construction_progress_effect = { value = 0 }
 	tv_wonder_update_construction_progress_display_effect = yes
 }
@@ -1936,7 +1934,6 @@ tv_wonder_monthly_construction_effect = {
 	tv_wonder_update_logistics_metrics_effect = yes
 	if = {
 		limit = { tv_wonder_construction_active_trigger = yes }
-		remove_variable = tv_wonder_construction_paused
 		tv_wonder_check_construction_unit_completion_effect = yes
 	}
 	else_if = {
@@ -1980,7 +1977,6 @@ tv_wonder_finish_construction_effect = {
 		set_variable = { name = tv_wonder_construction_complete value = 1 }
 		set_variable = { name = tv_wonder_stage value = 4 }
 		remove_variable = tv_wonder_active_part
-		remove_variable = tv_wonder_construction_paused
 		tv_wonder_destroy_labor_camp_effect = yes
 		tv_change_wonder_domestic_support_effect = { value = 20 }
 		tv_wonder_initialize_ceremony_runtime_state_effect = yes
@@ -2339,20 +2335,14 @@ tv_wonder_clear_project_state_core_effect = {
 	remove_variable = tv_wonder_base_monthly_construction_progress
 	remove_variable = tv_wonder_monthly_construction_progress
 	remove_variable = tv_wonder_active_part
-	remove_variable = tv_wonder_construction_paused
 	remove_variable = tv_wonder_construction_complete
 	remove_variable = tv_wonder_finalized
 	remove_variable = tv_wonder_foundation_units
 	remove_variable = tv_wonder_body_units
 	remove_variable = tv_wonder_function_units
 	remove_variable = tv_wonder_decoration_units
-	remove_variable = tv_wonder_foundation_progress
-	remove_variable = tv_wonder_body_progress
-	remove_variable = tv_wonder_function_progress
-	remove_variable = tv_wonder_decoration_progress
 	remove_variable = tv_wonder_level
 	remove_variable = tv_wonder_previous_level
-	remove_variable = tv_wonder_final_building_extra_levels
 	remove_variable = tv_wonder_final_support_reward_source
 	remove_variable = tv_wonder_final_stability_reward
 	remove_variable = tv_wonder_final_legitimacy_reward

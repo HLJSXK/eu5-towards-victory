@@ -668,6 +668,36 @@ every country regardless so missing or damaged IOs are repaired.
     own already-proven pattern (`tv_academy_debate_groups.txt`). Two new required stage fields,
     `option_pay_en/zh` and `option_decline_en/zh`, hold the actual per-wonder-per-stage text.
 
+27. A `cmf_suppress = { v = X }` entry (via `data/cmf_warning_suppressions.yaml` +
+    `gen_tv_cmf_suppressions.py`) is never proof by itself that variable `X` is a handled false
+    positive — `cmf_suppress`'s own definition
+    (`reference_mods/3692202776/in_game/common/scripted_effects/cmf_utility_effects.txt`) is an
+    `always = no`-guarded dead branch referencing `$v$` in every set/get form specifically to make
+    the engine's static scanner see both a "set" and a "used" occurrence for
+    `jomini_effect.cpp`'s "used but never set"/"set but never used" lines — whether that trick
+    reliably fires through this project's own extra outer `always = no` wrapper for every
+    reference shape is not independently confirmed one way or the other without an in-game
+    error.log re-check after redeploying. What is certain regardless: `tv_wonder_{foundation,
+    body,function,decoration}_progress` and `tv_wonder_construction_paused` were suppressed since
+    this file's first commit while having zero real setters anywhere, dead cleanup left over
+    after the design moved to a shared `tv_wonder_construction_progress` + `tv_wonder_active_part`
+    model — the suppression entry was masking dead code, not a real false positive. Before
+    trusting any suppression entry, grep for a real setter and a real reader (script or GUI)
+    first; delete dead `remove_variable` calls and their suppression entries together rather than
+    re-suppressing. `tv_wonder_suitability_weight` (read only via GUI
+    `GetVariableFromGlobalVariableMap`, which the native script-only scanner cannot see) and
+    `tv_wonder_suitability_flag_static_reference_never_set` (an intentional, self-documented
+    trade-off on `tv_wonder_suitability_flag_static_reference_trigger` — one accepted variable
+    warning instead of dozens of unused-flag warnings) are both cases where the code itself is
+    correct; both are now suppressed for consistency with every other GUI-only-read/deliberate-
+    workaround entry in that file. `tv_wonder_final_building_type_to_display_id` (formerly
+    `gen_tv_wonder_index_effects.py`'s `FINAL_BUILDING_DISPLAY_ID_MAP`) turned out to be a dead
+    duplicate of `tv_wonder_final_building_type_to_wonder_id` (same generator loop, same
+    `wonder_id` value, zero readers anywhere) rather than a genuine dynamic-reference case like its
+    sibling maps `tv_wonder_final_building_type_to_wonder_id`/`_to_ritual_style` (both read in three
+    effect files) — deleted from the generator and the suppression list rather than kept. See
+    `[[cmf_suppress_status_is_not_proof_a_variable_reference_is_real]]`.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`: it lints rule 2 and rule 16 automatically, and when a

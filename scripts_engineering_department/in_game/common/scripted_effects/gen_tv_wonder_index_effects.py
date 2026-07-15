@@ -100,7 +100,6 @@ SUITABILITY_ROW_MAP_NAMES = [
 SUITABILITY_CONDITION_TYPE_MAP = "tv_wonder_suitability_condition_type"
 SUITABILITY_WEIGHT_MAP = "tv_wonder_suitability_weight"
 
-FINAL_BUILDING_DISPLAY_ID_MAP = "tv_wonder_final_building_type_to_display_id"
 INTERMEDIATE_BUILDING_WONDER_ID_MAP = "tv_wonder_intermediate_building_type_to_wonder_id"
 FINAL_BUILDING_WONDER_ID_MAP = "tv_wonder_final_building_type_to_wonder_id"
 FINAL_BUILDING_RITUAL_STYLE_MAP = "tv_wonder_final_building_type_to_ritual_style"
@@ -324,7 +323,6 @@ def append_rebuild_global_maps(lines: list[str], wonders: list[dict], mechanics:
             final_building = f"building_type:{wonder['final_buildings'][style]}"
             lines.extend(map_replace_line(final_building_type_map_name(style), key, final_building))
             lines.extend(map_replace_line(FINAL_BUILDING_WONDER_ID_MAP, final_building, wonder_id))
-            lines.extend(map_replace_line(FINAL_BUILDING_DISPLAY_ID_MAP, final_building, wonder_id))
             lines.extend(map_replace_line(FINAL_BUILDING_RITUAL_STYLE_MAP, final_building, style))
 
         if wonder.get("is_unique"):
