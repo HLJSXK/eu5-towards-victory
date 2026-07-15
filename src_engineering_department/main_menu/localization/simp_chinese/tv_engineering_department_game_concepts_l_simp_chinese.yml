@@ -1,12 +1,15 @@
 ﻿l_simp_chinese:
  # ── 通用触发提示 ──────────────────────────────────
+ TV_HAS_VARIABLE_NOT_SET_TT: "所需状态未激活。"
+ TV_CHARACTER_NOT_ALREADY_TV_IO_CHIEF_TT: "该角色尚未担任任何胜利之路IO的首席。"
  TV_HAS_ENGINEERING_DEPARTMENT_MEMBER_TT: "该国家是[tv_engineering_department|E]成员。"
  TV_HAS_GREAT_ENGINEER_CHAR_TT: "已任命[tv_great_engineer|E]。"
+ TV_IO_HEADER_APPOINT_CHIEF_PROMPT: "任命一位首席"
 
  # ── 工程部/伟大工程 ──────────────────────────────────
  game_concept_tv_engineering_department: "工程部"
- game_concept_tv_engineering_department_desc: "通过[tv_prosperity_victory|e]IO建立流程创立的非唯一国际组织。它负责[tv_great_engineer|e]职位，并管理[tv_wonder_construction|e]的每个阶段：[tv_wonder_concept|e]、[tv_wonder_survey|e]、组织、物流，以及最终的[tv_wonder_ceremony|e]。"
- game_concept_tv_engineering_department_europedia_desc: "只要国家走上[tv_prosperity_victory|e]之路，工程部便会自动成立，成为该国每一项[tv_wonder_construction|e]背后的常设机构。它唯一的官员——[tv_great_engineer|e]——亲自推动整条流程：其行政能力推进[tv_wonder_concept|e]，其军事能力推进[tv_wonder_survey|e]，其任期也决定了最终[tv_wonder_ceremony|e]上谁将被铭记。撤换或失去大工程师不会让已经开工的工程归零，但职位空缺期间，构想与测绘的进度都会停滞，直到有人继任。"
+ game_concept_tv_engineering_department_desc: "战役初始化时会为每个国家自动成立的非唯一国际组织。它负责[tv_great_engineer|e]职位，并管理[tv_wonder_construction|e]的每个阶段：[tv_wonder_concept|e]、[tv_wonder_survey|e]、组织、物流，以及最终的[tv_wonder_ceremony|e]。"
+ game_concept_tv_engineering_department_europedia_desc: "开始新战役时，或首次在一个既有存档中启用工程部时，该机构都会为每个国家自动成立，成为该国每一项[tv_wonder_construction|e]背后的常设机构。它唯一的官员——[tv_great_engineer|e]——亲自推动整条流程：其行政能力推进[tv_wonder_concept|e]，其军事能力推进[tv_wonder_survey|e]，其任期也决定了最终[tv_wonder_ceremony|e]上谁将被铭记。撤换或失去大工程师不会让已经开工的工程归零，但职位空缺期间，构想与测绘的进度都会停滞，直到有人继任。"
 
  game_concept_tv_great_engineer: "大工程师"
  game_concept_tv_great_engineer_desc: "领导[tv_engineering_department|e]的任命角色。[tv_great_engineer|e]以国家变量保存，可在[tv_engineering_department|e]面板中任命、更换或撤职。"
@@ -32,7 +35,7 @@
  game_concept_tv_wonder_ceremony_europedia_desc: "伟大工程如何收尾，取决于它是哪一类奇观。[tv_wonder_generic|e]工程落成时，国家可在三种仪式风格中择一：为期一年、最终换来永久祝福的负担仪式；能提升当地地产权力的附属建筑；或是以艺术品、黄金与威望一次性支付的装饰仪式。而大多数[tv_wonder_unique|e]则会在竣工后自动进入一套共享的八阶段仪式，大致每季度推进一个新阶段，最终换来永久的国家修正。少数具有独特历史地位的地点——例如亚历山大灯塔与圣索菲亚大教堂——则完全跳过这套共享框架，各自拥有专属的手写仪式流程。"
 
  game_concept_tv_wonder_construction: "伟大工程"
- game_concept_tv_wonder_construction_desc: "由[tv_engineering_department|e]管理的[tv_prosperity_victory|e]机制。[tv_great_engineer|e]的[tv_wonder_concept|e]提出可行的[tv_wonder_small|e]、[tv_wonder_medium|e]或[tv_wonder_large|e]方案，国家完成国内论证后，完成[tv_wonder_survey|e]、组织劳工、收集[tv_wonder_materials|e]，并推进四个[tv_wonder_construction_part|e]，将工程提升到最终等级。"
+ game_concept_tv_wonder_construction_desc: "由[tv_engineering_department|e]管理的伟大工程机制。[tv_great_engineer|e]的[tv_wonder_concept|e]提出可行的[tv_wonder_small|e]、[tv_wonder_medium|e]或[tv_wonder_large|e]方案，国家完成国内论证后，完成[tv_wonder_survey|e]、组织劳工、收集[tv_wonder_materials|e]，并推进四个[tv_wonder_construction_part|e]，将工程提升到最终等级。"
  game_concept_tv_wonder_construction_europedia_desc: "伟大工程是贯穿全国、把一座奇观从构想推向落成的主线。[tv_great_engineer|e]首先完成[tv_wonder_concept|e]，提出一项可行的[tv_wonder_small|e]、[tv_wonder_medium|e]或[tv_wonder_large|e]方案；随后国家需要化解国内[tv_wonder_debate|e]；再由[tv_wonder_survey|e]确认选址能否承载工程；此后才真正进入建设阶段，四条[tv_wonder_construction_part|e]依靠[tv_wonder_materials|e]与有组织的劳力同步推进，直至整座工程达到最终等级，并以一场[tv_wonder_ceremony|e]收尾。一座已落成的[tv_wonder_generic|e]工程日后还可通过[tv_wonder_expansion|e]继续扩建，而无需重走此前的各个阶段。"
 
  game_concept_tv_wonder_expansion: "扩建"
@@ -70,3 +73,10 @@
 
  game_concept_tv_wonder_logistics_competence: "物流适性"
  game_concept_tv_wonder_logistics_competence_desc: "[tv_wonder_survey|e]读数，衡量道路、车队、港口、桥梁与交接点能否让[tv_wonder_materials|e]在匠人需要时抵达工地。"
+
+ # ── 百科页签 UI ─────────────────────────────────────────────────────────────────────────
+ TV_ENCYCLOPEDIA_TAB_TITLE: "工程部"
+ TV_ENCYCLOPEDIA_FILTER_ALL: "全部"
+ TV_ENCYCLOPEDIA_FILTER_MECHANICS: "玩法机制"
+ TV_ENCYCLOPEDIA_FILTER_GENERIC: "通用奇观"
+ TV_ENCYCLOPEDIA_FILTER_UNIQUE: "唯一奇观"

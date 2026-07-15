@@ -1,6 +1,7 @@
 ﻿# Towards Victory - Engineering Department International Organization
-# Non-unique IO; each country pursuing Prosperity Victory creates its own
-# instance through the Prosperity IO establishment flow. Country membership flag:
+# Non-unique, founder-only IO. The standalone bootstrap guarantees one instance
+# per country; tv_engineering_department_create_effect also repairs a damaged
+# existing instance instead of creating a duplicate. Country membership flag:
 # tv_engineering_department_member.
 #
 # Leader: Great Engineer character. Selected manually by leader_country via

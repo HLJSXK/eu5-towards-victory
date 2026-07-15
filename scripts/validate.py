@@ -688,9 +688,16 @@ def check_generated_headers() -> None:
     if not registry or "generated" not in registry:
         return
     seen_outputs: set[str] = set()
+    # messagetypes.txt must begin with the copied vanilla bytes so the engine's
+    # singleton database remains a true full-copy prefix; its generator is
+    # tracked in the registry but cannot place a header in the first five lines.
+    header_exempt_outputs = {
+        f"{root_name}/main_menu/gui/messagetypes.txt"
+        for root_name in MOD_ROOT_NAMES
+    }
     for entry in registry["generated"]:
         output = entry.get("output", "")
-        if not output or output in seen_outputs:
+        if not output or output in seen_outputs or output in header_exempt_outputs:
             continue
         seen_outputs.add(output)
         out_path = REPO_ROOT / output
@@ -779,14 +786,23 @@ def check_location_window_generated_freshness() -> None:
 def check_vanilla_copy_integrity() -> None:
     """Ensure generated vanilla-copy files preserve copied vanilla content."""
     character_vanilla = REPO_ROOT / "reference_game_files/game/in_game/common/customizable_localization/character_title.txt"
-    # Split across mod roots: main src/ keeps most IO leader titles, the
-    # standalone Engineering Department mod carries only its own. Both copies
-    # independently splice the same vanilla base, so both must stay in sync.
+    title_modifiers_by_root: dict[str, set[str]] = {}
+    # Both roots carry a full vanilla copy. The dependency-loaded main copy is
+    # a strict superset of the standalone Engineering Department insertion.
     for root in MOD_ROOTS:
         character_out = root / "in_game" / "common" / "customizable_localization" / "character_title.txt"
         if not (character_out.exists() and character_vanilla.exists()):
             continue
         copied = _strip_generated_header(_read_normalized_text(character_out))
+        tv_section = re.search(
+            r"\n\t# Towards Victory IO leader titles\n\n(?P<body>[\s\S]*?)\n(?=\})",
+            copied,
+        )
+        title_modifiers_by_root[root.name] = set(
+            re.findall(r"has_character_modifier\s*=\s*([A-Za-z0-9_]+)", tv_section.group("body"))
+            if tv_section
+            else []
+        )
         copied_without_tv = re.sub(
             r"\n\t# Towards Victory IO leader titles\n\n[\s\S]*?\n(?=\})",
             "",
@@ -802,17 +818,69 @@ def check_vanilla_copy_integrity() -> None:
                 "only the TV leader title entries may differ"
             )
 
-    message_out = REPO_ROOT / "src/main_menu/gui/messagetypes.txt"
+    main_titles = title_modifiers_by_root.get("src", set())
+    engineering_titles = title_modifiers_by_root.get("src_engineering_department", set())
+    if engineering_titles != {"tv_great_engineer_role_modifier"}:
+        issues.append(
+            "[VANILLA_COPY] src_engineering_department/in_game/common/customizable_localization/character_title.txt "
+            "-- standalone copy must contain exactly the Great Engineer title mapping"
+        )
+    if not engineering_titles.issubset(main_titles):
+        issues.append(
+            "[VANILLA_COPY] character_title.txt -- the later-loaded main-mod copy must be a superset "
+            "of the Engineering Department title mappings"
+        )
+
     message_vanilla = REPO_ROOT / "reference_game_files/game/main_menu/gui/messagetypes.txt"
-    if message_out.exists() and message_vanilla.exists():
-        copied = _read_normalized_text(message_out)
+    message_types_by_root: dict[str, set[str]] = {}
+    if message_vanilla.exists():
         vanilla = _read_normalized_text(message_vanilla)
-        if not copied.startswith(vanilla):
-            issues.append(
-                "[VANILLA_COPY] src/main_menu/gui/messagetypes.txt -- copied vanilla "
-                "prefix differs from reference_game_files/game/main_menu/gui/messagetypes.txt; "
-                "only appended TV message type entries may differ"
-            )
+        for root in MOD_ROOTS:
+            message_out = root / "main_menu" / "gui" / "messagetypes.txt"
+            if not message_out.exists():
+                issues.append(
+                    f"[VANILLA_COPY] {message_out.relative_to(REPO_ROOT)} -- required full-copy "
+                    "message type database is missing"
+                )
+                continue
+            copied = _read_normalized_text(message_out)
+            if not copied.startswith(vanilla):
+                issues.append(
+                    f"[VANILLA_COPY] {message_out.relative_to(REPO_ROOT)} -- copied vanilla "
+                    "prefix differs from reference_game_files/game/main_menu/gui/messagetypes.txt; "
+                    "only appended TV message type entries may differ"
+                )
+            message_types = set(re.findall(r"(?m)^([A-Z][A-Za-z0-9_]*)\s*=\s*\{", copied))
+            message_types_by_root[root.name] = message_types
+            action_dir = root / "in_game" / "common" / "generic_actions"
+            action_re = re.compile(r"(?m)^([a-z][A-Za-z0-9_]*)\s*=\s*\{")
+            expected_action_messages: set[str] = set()
+            for action_file in sorted(action_dir.glob("*.txt")):
+                for action in action_re.findall(_read_normalized_text(action_file)):
+                    expected = f"PERFORM_{action}_ACTION"
+                    expected_action_messages.add(expected)
+                    if expected not in message_types:
+                        issues.append(
+                            f"[MESSAGE_TYPE] {action_file.relative_to(REPO_ROOT)} -- generic action "
+                            f"{action} is missing {expected} from {message_out.relative_to(REPO_ROOT)}"
+                        )
+            if root.name == "src_engineering_department":
+                standalone_tv_messages = {
+                    key for key in message_types if key.startswith("PERFORM_tv_")
+                }
+                if standalone_tv_messages != expected_action_messages:
+                    issues.append(
+                        "[MESSAGE_TYPE] src_engineering_department/main_menu/gui/messagetypes.txt -- "
+                        "standalone TV message types must exactly match its generic actions"
+                    )
+
+    main_messages = message_types_by_root.get("src", set())
+    engineering_messages = message_types_by_root.get("src_engineering_department", set())
+    if not engineering_messages.issubset(main_messages):
+        issues.append(
+            "[VANILLA_COPY] messagetypes.txt -- the later-loaded main-mod copy must be a superset "
+            "of the Engineering Department message types"
+        )
 
 
 def check_tv_io_icon_assets() -> None:
@@ -1070,7 +1138,7 @@ def run_global_checks(files: list[Path], use_changed: bool, anti_patterns: list[
         rels,
         exact=(
             *(f"{root_name}/in_game/common/customizable_localization/character_title.txt" for root_name in MOD_ROOT_NAMES),
-            "src/main_menu/gui/messagetypes.txt",
+            *(f"{root_name}/main_menu/gui/messagetypes.txt" for root_name in MOD_ROOT_NAMES),
             "reference_game_files/game/in_game/common/customizable_localization/character_title.txt",
             "reference_game_files/game/main_menu/gui/messagetypes.txt",
         ),

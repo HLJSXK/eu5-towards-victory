@@ -23,13 +23,26 @@ tv_engineering_department_create_effect = {
 	}
 	if = {
 		limit = {
-			NOT = {
-				any_international_organizations_member_of = {
-					international_organization_type = international_organization_type:tv_engineering_department
-					leader_country ?= scope:tv_engineering_department_founder
-				}
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_engineering_department
 			}
 		}
+		# Membership identifies this founder-only IO even if a damaged save has
+		# lost or misplaced its leader. Repair that IO instead of creating a
+		# second instance whose country effects would run in parallel.
+		every_international_organizations_member_of = {
+			limit = {
+				international_organization_type = international_organization_type:tv_engineering_department
+			}
+			if = {
+				limit = {
+					NOT = { leader_country ?= scope:tv_engineering_department_founder }
+				}
+				set_leader_country = scope:tv_engineering_department_founder
+			}
+		}
+	}
+	else = {
 		create_international_organization = {
 			type = international_organization_type:tv_engineering_department
 			add_country_to_international_organization = prev

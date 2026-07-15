@@ -13,6 +13,7 @@ tv_engineering_department_standalone.1 = {
 		name = tv_engineering_department_standalone.1.a
 		tv_engineering_department_create_effect = yes
 		hidden_effect = {
+			remove_variable = tv_engineering_department_standalone_pending
 			set_global_variable = tv_engineering_department_standalone_initialized
 		}
 	}

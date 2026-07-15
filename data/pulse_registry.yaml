@@ -18,7 +18,8 @@ pulses:
     - tv_io_establishment_monthly_pulse # six IO establishment basic checks, HQ cache, and AI auto-progress
     - tv_leaderboard_monthly_pulse    # leaderboard + touring artist roll + research/medicine/diplo inline
     - tv_cmf_warning_suppressions_monthly_pulse # CMF suppressions for intentional static warning noise
-    - tv_io_chief_alert_monthly_pulse # CMF alert for missing TV IO chief great people
+    - tv_io_chief_alert_monthly_pulse # CMF alerts for missing chiefs in the five main-mod IOs
+    - tv_engineering_department_chief_alert_monthly_pulse # standalone mod: CMF alert for a missing Great Engineer
     - tv_local_exhibition_monthly_pulse # Domestic Exhibition timer and monthly events
     - tv_research_target_completed_pulse # cancel focused research when target is unlocked normally
     - tv_research_a_pulse             # sub-process A random events
@@ -42,7 +43,6 @@ pulses:
     - tv_engineering_department_construction_random_events_monthly_pulse # Wonder construction monthly random events
     - tv_engineering_department_ritual_monthly_pulse # Wonder timed ceremony completion checks
     - tv_engineering_department_wonder_auto_cache_monthly_pulse # Wonder owned-level country auto modifier cache
-    - tv_engineering_department_standalone_monthly_pulse # standalone mod: fires the queued intro event one day later
     - tv_diplomatic_alliance_monthly_pulse # Diplomatic Alliance victory-point maintenance
     - tv_trade_league_monthly_pulse # Trade League leader-country slot monopoly maintenance
     - tv_victory_tree_points_monthly_pulse # Victory Path Tree placeholder points trickle
@@ -72,7 +72,7 @@ bridges:
     - tv_wonder_initialize_existing_unique_wonders_on_game_start
     - tv_wonder_initialize_country_auto_cache_on_game_start
     - tv_wonder_initialize_location_display_state_on_game_start
-    - tv_engineering_department_standalone_game_start_bridge # standalone mod: queue the intro event for every country
+    - tv_engineering_department_standalone_game_start_bridge # standalone mod: schedule the intro event for every country one day later
 
   on_game_load:
     - tv_govhouse_initialize_on_game_load
@@ -83,7 +83,7 @@ bridges:
     - tv_wonder_initialize_existing_unique_wonders_on_game_load
     - tv_wonder_initialize_country_auto_cache_on_game_load
     - tv_wonder_initialize_location_display_state_on_game_load
-    - tv_engineering_department_standalone_game_load_bridge # standalone mod: repair/queue intro event, see rule below
+    - tv_engineering_department_standalone_game_load_bridge # standalone mod: repair IOs and schedule missing-save intro events one day later
 
   on_work_of_art_created:
     - tv_on_work_of_art_created_callback # Cultural Influence Points from newly created art
@@ -200,3 +200,4 @@ bridges:
 
   cmf_on_callback:
     - tv_io_chief_alert_on_cmf_callback
+    - tv_engineering_department_chief_alert_on_cmf_callback

@@ -9,18 +9,18 @@ import yaml
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
-try:
-    from scripts.wonder_mechanics.io import load_all_wonder_mechanics_data
-    from scripts.wonder_mechanics.naming import (
+if __package__:
+    from .wonder_mechanics.io import load_all_wonder_mechanics_data
+    from .wonder_mechanics.naming import (
         final_building_for_style,
         wonder_auto_modifier_name,
         wonder_auto_unscaled_modifier_name,
         wonder_static_display_modifier_name,
         wonder_static_local_display_modifier_name,
     )
-    from scripts.wonder_mechanics.modifiers import wonder_base_country_modifiers
-    from scripts.wonder_mechanics.render import level_static_modifier_loc
-    from scripts.wonder_mechanics.rituals import (
+    from .wonder_mechanics.modifiers import wonder_base_country_modifiers
+    from .wonder_mechanics.render import level_static_modifier_loc
+    from .wonder_mechanics.rituals import (
         ceremony_styles,
         ritual_auxiliary_building,
         ritual_auxiliary_display_modifier_name,
@@ -28,7 +28,7 @@ try:
         ritual_plan_for_style,
         unique_ceremony_modifier_name,
     )
-except ModuleNotFoundError:
+else:
     from wonder_mechanics.io import load_all_wonder_mechanics_data
     from wonder_mechanics.naming import (
         final_building_for_style,

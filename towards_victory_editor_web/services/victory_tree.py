@@ -7,7 +7,7 @@ from typing import Any
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
-from scripts.wonder_mechanics.io import REPO_ROOT, load_yaml, save_yaml_document
+from scripts_engineering_department.wonder_mechanics.io import REPO_ROOT, load_yaml, save_yaml_document
 
 from .common import RollingLog
 

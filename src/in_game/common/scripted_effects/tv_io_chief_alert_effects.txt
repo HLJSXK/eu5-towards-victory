@@ -27,15 +27,6 @@
 	}
 
 	if = {
-		limit = { tv_missing_engineering_department_chief_alert_trigger = yes }
-		cmf_show_alert = { alert = tv_missing_engineering_department_chief_alert }
-	}
-	else_if = {
-		limit = { cmf_is_alert_active = { alert = tv_missing_engineering_department_chief_alert } }
-		cmf_remove_alert = { alert = tv_missing_engineering_department_chief_alert }
-	}
-
-	if = {
 		limit = { tv_missing_trade_league_chief_alert_trigger = yes }
 		cmf_show_alert = { alert = tv_missing_trade_league_chief_alert }
 	}
@@ -68,10 +59,6 @@ tv_handle_io_chief_alert_callback_effect = {
 	else_if = {
 		limit = { var:cmf_callback = flag:tv_missing_academy_chief_alert }
 		set_variable = { name = tv_io_chief_alert_open_requested value = 3 }
-	}
-	else_if = {
-		limit = { var:cmf_callback = flag:tv_missing_engineering_department_chief_alert }
-		set_variable = { name = tv_io_chief_alert_open_requested value = 4 }
 	}
 	else_if = {
 		limit = { var:cmf_callback = flag:tv_missing_trade_league_chief_alert }

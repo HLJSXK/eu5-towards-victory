@@ -63,17 +63,24 @@ Read every risk card listed by the script. This is mandatory for high-risk domai
 Wonder Construction subsystem lives in its own standalone mod at repo-root
 `src_engineering_department/` (mirroring `src/`'s `in_game/`/`main_menu/`
 layout), with its own generator tree `scripts_engineering_department/`
-(mirroring `scripts/`). It has no dependency on the main mod and works fully
-standalone; the main mod declares a hard dependency on it instead (Prosperity
+(mirroring `scripts/`). It requires Community Mod Framework (CMF) 2.x for the
+custom `on_game_load` callback, but has no dependency on the main mod and is
+fully playable without it; the main mod declares a hard dependency on it
+instead (Prosperity
 Victory's establishment effect calls `tv_engineering_department_create_effect`,
 which now lives only there). `scripts/validate.py`, `scripts/ai_context.py`,
 and `scripts/gen_index.py` all iterate both mod roots. `build.bat` deploys it
 as a fourth step. See `docs/knowledge/risk_cards/wonders.md` for the full
 split rationale, including the small set of shared multi-IO files (e.g.
 `tv_io_leader_actions.txt`, `tv_pulse_bridges.txt`) that were split into
-multi-output generators so the new mod stays self-contained, and the two
-"vanilla-copy" files (`character_title.txt`, `messagetypes.txt`) deliberately
-left whole in the main mod.
+multi-output generators so the new mod stays self-contained. The singleton
+"vanilla-copy" files `character_title.txt` and `messagetypes.txt` are also
+generated into both mod roots: the Engineering Department copy is the
+standalone subset, while the main-mod copy is a strict superset. Because the
+main mod depends on the Engineering Department mod, the superset loads later
+and wins; `scripts/validate.py` guards the full-copy and superset invariants.
+The missing-Great-Engineer CMF alert likewise lives entirely in the Engineering
+Department root, including its pulse, callback, effects, GUI bridge, and loc.
 
 The `wonders`, `philosophy_debate`, and `trade_league` domains are not isolated in their own
 directory — their files are interspersed by filename across `common/scripted_effects`,
@@ -392,9 +399,11 @@ drops known-binary/media extensions plus anything that sniffs as binary content,
 keeps every other file regardless of extension, under size caps). See
 `reference_game_files/README.md` for the full policy and usage.
 
-One-off asset helpers also stay at repository/script root. `scripts/generate_dds_icon.py` reads `generate_dds_icon_config.json` plus optional `generate_dds_icon.local.json`, selects one target (`trade_good_icon`, `trade_good_illustration`, `building_icon`, `victory_situation_icon`, `victory_path_icon`, or `victory_reward_icon`) or a batch mode (`victory_path_icons`, `victory_reward_icons`, or `wonder_building_icons`), can refine a short prompt, supports target-specific asset-name/prompt overrides, uploads that target's same-type style-reference DDS/PNG files for API generation, can use an explicitly configured local template renderer for deterministic source-DDS transformations, and writes configured DDS targets with enforced dimensions/file-size limits plus optional mipmaps. The icon targets now apply a circular inner-crop pass with transparent outside pixels and a soft alpha falloff near the edge before DDS writing. By default it skips generation when the final DDS target already exists and `output.overwrite` is false; the victory path batch creates `tv_victory_situation.dds` under `src/main_menu/gfx/interface/icons/situations/` plus six route icons under `src/main_menu/gfx/interface/icons/towards_victory/victory_paths/`, the victory reward batch creates six route template icons plus ninety route/milestone/reward-option icons under `src/main_menu/gfx/interface/icons/towards_victory/victory_rewards/`, and the wonder building batch reads the generated Engineering Department wonder data to create one 128x128 building icon task for each generic and unique final wonder building under `src/main_menu/gfx/interface/icons/buildings/`. Run it through the Python Runner Policy; in managed sandboxes use `C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\generate_dds_icon.py`.
+One-off asset helpers also stay at repository/script root. `scripts/generate_dds_icon.py` reads `generate_dds_icon_config.json` plus optional `generate_dds_icon.local.json`, selects one target (`trade_good_icon`, `trade_good_illustration`, `building_icon`, `victory_situation_icon`, `victory_path_icon`, or `victory_reward_icon`) or a batch mode (`victory_path_icons`, `victory_reward_icons`, or `wonder_building_icons`), can refine a short prompt, supports target-specific asset-name/prompt overrides, uploads that target's same-type style-reference DDS/PNG files for API generation, can use an explicitly configured local template renderer for deterministic source-DDS transformations, and writes configured DDS targets with enforced dimensions/file-size limits plus optional mipmaps. The icon targets now apply a circular inner-crop pass with transparent outside pixels and a soft alpha falloff near the edge before DDS writing. By default it skips generation when the final DDS target already exists and `output.overwrite` is false; the victory path batch creates `tv_victory_situation.dds` under `src/main_menu/gfx/interface/icons/situations/` plus six route icons under `src/main_menu/gfx/interface/icons/towards_victory/victory_paths/`, the victory reward batch creates six route template icons plus ninety route/milestone/reward-option icons under `src/main_menu/gfx/interface/icons/towards_victory/victory_rewards/`, and the wonder building batch reads the generated Engineering Department wonder data to create one 128x128 building icon task for each generic and unique final wonder building under `src_engineering_department/main_menu/gfx/interface/icons/buildings/`. Run it through the Python Runner Policy; in managed sandboxes use `C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\generate_dds_icon.py`.
 
-**1:1 feature scripts** live under `scripts/` mirroring `src/`, named `gen_<target_filename_without_extension>.py`:
+**1:1 feature scripts** live under `scripts/` for the main mod and
+`scripts_engineering_department/` for the Engineering Department mod, mirroring
+their respective source roots and named `gen_<target_filename_without_extension>.py`:
 ```
 scripts/
 ├── in_game/
@@ -406,7 +415,8 @@ scripts/
 └── ...
 ```
 
-To find whether a src file has a generator: look for `scripts/<same-relative-path>/gen_<filename>.py`.
+To find whether a source file has a generator, use the matching script root and
+look for `<script-root>/<same-relative-path>/gen_<filename>.py`.
 
 ### gen_victory.py Exception (multi-output)
 
@@ -414,7 +424,7 @@ To find whether a src file has a generator: look for `scripts/<same-relative-pat
 
 ### Current Generated Files
 
-| Generated file (in src/) | Data source | Script |
+| Generated file | Data source | Script |
 |---|---|---|
 | `scripted_triggers/towards_victory_triggers.txt` | `data/victory_paths.yaml` | `scripts/gen_victory.py` |
 | `scripted_effects/towards_victory_effects.txt` | `data/victory_paths.yaml` | `scripts/gen_victory.py` |
@@ -426,6 +436,10 @@ To find whether a src file has a generator: look for `scripts/<same-relative-pat
 | `scripted_effects/tv_advance_unlock_effects.txt` | `data/locked_advances.yaml` | `scripts/gen_locked_advances.py` |
 | `building_types/towards_victory_buildings.txt` | `data/academy_buildings.yaml` | `scripts/in_game/common/building_types/gen_towards_victory_buildings.py` |
 | `generic_actions/tv_io_leader_actions.txt` | `data/io_leaders.yaml` | `scripts/in_game/common/generic_actions/gen_tv_io_leader_actions.py` |
+| `src/in_game/common/customizable_localization/character_title.txt` | vanilla `character_title.txt` + all TV IO leader titles | `scripts/in_game/common/customizable_localization/gen_character_title.py` |
+| `src_engineering_department/in_game/common/customizable_localization/character_title.txt` | vanilla `character_title.txt` + Great Engineer title | `scripts/in_game/common/customizable_localization/gen_character_title.py` |
+| `src/main_menu/gui/messagetypes.txt` | vanilla `messagetypes.txt` + all TV generic actions | `scripts/gen_messagetypes.py` |
+| `src_engineering_department/main_menu/gui/messagetypes.txt` | vanilla `messagetypes.txt` + Engineering Department generic actions | `scripts/gen_messagetypes.py` |
 | `laws/tv_alliance_laws.txt` | `data/alliance_laws.yaml` | `scripts/in_game/common/laws/gen_tv_alliance_laws.py` |
 | `gui/panels/organization/tv_academy_of_sciences.gui` | `data/locked_advances.yaml` | `scripts/in_game/gui/panels/organization/gen_tv_academy_of_sciences_gui.py` |
 | `international_organizations/tv_academy_of_sciences.txt` | `data/philosophy_debates.yaml` | `scripts/in_game/common/international_organizations/gen_tv_academy_of_sciences.py` |
@@ -509,8 +523,9 @@ C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\gen_brief.py
   - `src/in_game/gui/` — situation panel GUI (manually maintained)
   - `src/main_menu/localization/` — hand-written strings (`towards_victory_l_*.yml`)
 - `src_engineering_department/` — standalone Engineering Department / Wonder Construction
-  mod source, mirroring `src/`'s `in_game/`/`main_menu/` layout. No dependency on `src/`;
-  `src/` declares a hard dependency on it instead. See `docs/knowledge/risk_cards/wonders.md`.
+  mod source, mirroring `src/`'s `in_game/`/`main_menu/` layout. It depends on CMF 2.x,
+  not on `src/`; `src/` declares a hard dependency on it instead. See
+  `docs/knowledge/risk_cards/wonders.md`.
 - `docs/knowledge/` — `BRIEF.md` (auto-generated), `PROJECT_OVERVIEW.md`, `anti_patterns.yaml`, `valid_enums.yaml`, `risk_cards/`
 - `docs/guides/AI_Tool_Workflow_Prompt.md` — full 3-step rule and violation history
 - `docs/design/Towards_Victory_Design.md` — victory conditions design philosophy
@@ -518,9 +533,9 @@ C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\gen_brief.py
 - `scripts/` — infrastructure: `ai_context.py`, `gen_brief.py`, `gen_index.py`, `gen_scaffold.py`, `validate.py`, `check_overview.py`, `gen_victory.py`, `gen_locked_advances.py`, `gen_messagetypes.py`
 - `scripts/in_game/` — 1:1 feature generators mirroring `src/in_game/` (see Script System section)
 - `scripts_engineering_department/` — 1:1 feature generators mirroring `src_engineering_department/`
-  (see Script System section); a few generators here are shared multi-output exceptions with
-  `scripts/` (e.g. `gen_tv_io_leader_actions.py`, `gen_tv_pulse_registry.py`), producing one
-  output in each mod root, filtered by IO-type/on_action-id substring.
+  (see Script System section). A few generators under `scripts/` are shared multi-output
+  exceptions (e.g. `gen_tv_io_leader_actions.py`, `gen_tv_pulse_registry.py`) that produce
+  one output in each mod root, filtered by IO-type/on_action-id substring.
 - `data/` — YAML sources for generated files (shared by both mod roots); `data/generated_files.yaml` is the authoritative registry
 - `data/index/` — symbol lookup tables (auto-generated by gen_index.py)
 - `reference_official_defines/` — official EU5 define/type reference files

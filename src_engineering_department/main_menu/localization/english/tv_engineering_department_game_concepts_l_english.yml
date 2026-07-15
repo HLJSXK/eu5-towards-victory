@@ -1,12 +1,15 @@
 ﻿l_english:
  # ── Generic trigger tooltips ───────────────────────────────────────────────
+ TV_HAS_VARIABLE_NOT_SET_TT: "Required state is not active."
+ TV_CHARACTER_NOT_ALREADY_TV_IO_CHIEF_TT: "This character is not already serving as a TV IO chief."
  TV_HAS_ENGINEERING_DEPARTMENT_MEMBER_TT: "This country is a member of the [tv_engineering_department|E]."
  TV_HAS_GREAT_ENGINEER_CHAR_TT: "A [tv_great_engineer|E] has been appointed."
+ TV_IO_HEADER_APPOINT_CHIEF_PROMPT: "Appoint a Chief"
 
  # ── Engineering Department / Wonder Construction ──────────────────────────
  game_concept_tv_engineering_department: "Engineering Department"
- game_concept_tv_engineering_department_desc: "A non-unique international organization founded through the [tv_prosperity_victory|e] IO establishment flow. It holds the [tv_great_engineer|e] office and manages every stage of a [tv_wonder_construction|e]: [tv_wonder_concept|e], site [tv_wonder_survey|e], organization, logistics, and final [tv_wonder_ceremony|e]."
- game_concept_tv_engineering_department_europedia_desc: "Founded automatically once a country pursues the [tv_prosperity_victory|e] path, the Engineering Department is the standing institution behind every [tv_wonder_construction|e] it attempts. Its single officer, the [tv_great_engineer|e], personally drives the pipeline: their Administrative skill advances [tv_wonder_concept|e], their Military skill advances [tv_wonder_survey|e], and their tenure determines who is remembered at the final [tv_wonder_ceremony|e]. A project already underway is not reset by losing or replacing the Great Engineer, but a vacant office stalls Conception and Survey progress until a successor is appointed."
+ game_concept_tv_engineering_department_desc: "A non-unique international organization established automatically for every country during campaign initialization. It holds the [tv_great_engineer|e] office and manages every stage of a [tv_wonder_construction|e]: [tv_wonder_concept|e], site [tv_wonder_survey|e], organization, logistics, and final [tv_wonder_ceremony|e]."
+ game_concept_tv_engineering_department_europedia_desc: "Established automatically for every country at campaign start, or the first time the Engineering Department is added to an existing save, this is the standing institution behind every [tv_wonder_construction|e] a country attempts. Its single officer, the [tv_great_engineer|e], personally drives the pipeline: their Administrative skill advances [tv_wonder_concept|e], their Military skill advances [tv_wonder_survey|e], and their tenure determines who is remembered at the final [tv_wonder_ceremony|e]. A project already underway is not reset by losing or replacing the Great Engineer, but a vacant office stalls Conception and Survey progress until a successor is appointed."
 
  game_concept_tv_great_engineer: "Great Engineer"
  game_concept_tv_great_engineer_desc: "The appointed character who leads the [tv_engineering_department|e]. The [tv_great_engineer|e] is stored as a country variable and can be appointed, replaced, or dismissed from the [tv_engineering_department|e] panel."
@@ -32,7 +35,7 @@
  game_concept_tv_wonder_ceremony_europedia_desc: "How a Great Project is closed out depends on what kind of wonder it is. A [tv_wonder_generic|e] project's inauguration lets the country choose between three ceremony styles — a year-long burden ending in a permanent blessing, an auxiliary annex building that boosts local estate power, or a one-time decoration paid for with art, gold, and prestige. Most [tv_wonder_unique|e] wonders instead advance automatically through a shared eight-stage ceremony once construction completes, reaching roughly one new stage per quarter and culminating in a permanent country modifier. A handful of historically distinctive sites — among them the Pharos Lighthouse and the Hagia Sophia — bypass that shared framework entirely for their own dedicated, hand-authored ritual instead."
 
  game_concept_tv_wonder_construction: "Great Project"
- game_concept_tv_wonder_construction_desc: "A [tv_prosperity_victory|e] mechanism managed through the [tv_engineering_department|e]. Once the [tv_great_engineer|e]'s [tv_wonder_concept|e] yields a feasible [tv_wonder_small|e], [tv_wonder_medium|e], or [tv_wonder_large|e] project and the country resolves domestic debate, it completes a [tv_wonder_survey|e], organizes labor, gathers [tv_wonder_materials|e], and advances four [tv_wonder_construction_part|e]s to raise the project to its final level."
+ game_concept_tv_wonder_construction_desc: "A Great Project mechanism managed through the [tv_engineering_department|e]. Once the [tv_great_engineer|e]'s [tv_wonder_concept|e] yields a feasible [tv_wonder_small|e], [tv_wonder_medium|e], or [tv_wonder_large|e] project and the country resolves domestic debate, it completes a [tv_wonder_survey|e], organizes labor, gathers [tv_wonder_materials|e], and advances four [tv_wonder_construction_part|e]s to raise the project to its final level."
  game_concept_tv_wonder_construction_europedia_desc: "A Great Project is the country-wide thread that carries a wonder from idea to monument. A [tv_great_engineer|e] first completes [tv_wonder_concept|e] to propose a feasible [tv_wonder_small|e], [tv_wonder_medium|e], or [tv_wonder_large|e] undertaking; the country then resolves domestic [tv_wonder_debate|e]; a [tv_wonder_survey|e] confirms the chosen site can bear it; and only then does construction proper begin, with four [tv_wonder_construction_part|e]s rising together on [tv_wonder_materials|e] and organized labor until the whole project reaches its final level and is closed out with a [tv_wonder_ceremony|e]. A finished [tv_wonder_generic|e] project can later be carried further through [tv_wonder_expansion|e] without repeating any of the earlier stages."
 
  game_concept_tv_wonder_expansion: "Expansion"
@@ -70,3 +73,10 @@
 
  game_concept_tv_wonder_logistics_competence: "Logistics Competence"
  game_concept_tv_wonder_logistics_competence_desc: "A [tv_wonder_survey|e] reading for roads, carts, ports, bridges, and handover points that determine whether [tv_wonder_materials|e] reach the site when the masons need them."
+
+ # ── Europedia Tab UI ─────────────────────────────────────────────────────────────────────────
+ TV_ENCYCLOPEDIA_TAB_TITLE: "Engineering Department"
+ TV_ENCYCLOPEDIA_FILTER_ALL: "All"
+ TV_ENCYCLOPEDIA_FILTER_MECHANICS: "Mechanics"
+ TV_ENCYCLOPEDIA_FILTER_GENERIC: "Generic Wonders"
+ TV_ENCYCLOPEDIA_FILTER_UNIQUE: "Unique Wonders"

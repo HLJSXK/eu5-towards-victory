@@ -1,9 +1,7 @@
 ﻿# Self-contained: only reads this IO's own member/leader-character state, so
-# it works standalone. The shared cross-IO "vacant chief" alert badge/GUI
-# bridge referencing this trigger by name lives in the main "Towards Victory"
-# mod (src/in_game/common/scripted_triggers/tv_io_chief_alert_triggers.txt,
-# scripted_effects/tv_io_chief_alert_effects.txt, gui/tv_io_chief_alert_bridge.gui)
-# and only shows this specific alert when that mod is also loaded.
+# it works standalone. This mod also owns the matching CMF alert effects and
+# GUI bridge, so the missing-Great-Engineer alert does not depend on the main
+# "Towards Victory" mod.
 
 tv_missing_engineering_department_chief_alert_trigger = {
 	has_variable = tv_engineering_department_member

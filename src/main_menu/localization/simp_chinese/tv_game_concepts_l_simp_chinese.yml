@@ -1,8 +1,6 @@
 ﻿l_simp_chinese:
  # ── Generic trigger tooltips ──────────────────────────────────────────────
  TV_HAS_VARIABLE_SET_TT: "所需状态已就绪。"
- TV_HAS_VARIABLE_NOT_SET_TT: "所需状态未激活。"
- TV_CHARACTER_NOT_ALREADY_TV_IO_CHIEF_TT: "该角色尚未担任任何胜利之路IO的首席。"
  PENTARCHY_CITY_BONUSES_TITLE: "此席位带来的收益"
 
  # CMF alerts
@@ -26,11 +24,6 @@
  tv_missing_academy_chief_alert_icon: "@characters!"
  tv_missing_academy_chief_alert_name: "科学院缺少首席科学家"
  tv_missing_academy_chief_alert_tooltip: "你的[tv_academy_of_sciences|E]缺少[tv_chief_scientist|E]。请打开科学院面板并任命一位首席。"
- tv_missing_engineering_department_chief_alert: "tv_missing_engineering_department_chief_alert"
- tv_missing_engineering_department_chief_alert_color: "orange"
- tv_missing_engineering_department_chief_alert_icon: "@characters!"
- tv_missing_engineering_department_chief_alert_name: "工程部缺少大工程师"
- tv_missing_engineering_department_chief_alert_tooltip: "你的[tv_engineering_department|E]缺少[tv_great_engineer|E]。请打开工程部面板并任命一位大工程师。"
  tv_missing_trade_league_chief_alert: "tv_missing_trade_league_chief_alert"
  tv_missing_trade_league_chief_alert_color: "orange"
  tv_missing_trade_league_chief_alert_icon: "@characters!"
@@ -41,7 +34,6 @@
  tv_missing_govhouse_chief_alert_icon: "@characters!"
  tv_missing_govhouse_chief_alert_name: "总督府缺少大将军"
  tv_missing_govhouse_chief_alert_tooltip: "你的[tv_govhouse|E]缺少[tv_grand_general|E]。请打开总督府面板并任命一位大将军。"
- TV_IO_HEADER_APPOINT_CHIEF_PROMPT: "任命一位首席"
 
  # Specific has_variable trigger tooltips
  TV_HAS_ACADEMY_IO_MEMBER_TT: "该国家是[tv_academy_of_sciences|E]成员。"
@@ -249,12 +241,3 @@
  game_concept_tv_govhouse_power_balance_desc: "[tv_govhouse|e]中表示实际权力有多少归属于[tv_grand_general|e]而非王室的数值。它每月向均衡值移动，而均衡值受统治者能力、[tv_grand_general|e]能力和[tv_govhouse_power_consolidation|e]影响。[tv_grand_general|e]权力越高，越会解锁严厉的反弹事件。"
  game_concept_tv_govhouse_power_consolidation: "巩固权力"
  game_concept_tv_govhouse_power_consolidation_desc: "[tv_grand_general|e]在任期间逐渐积累的个人权势。它会随时间上升，将[tv_govhouse_power_balance|e]推向[tv_grand_general|e]一侧，并决定罢免或更换[tv_grand_general|e]所需的政府权力花费。[tv_grand_general|e]离任时归零。"
-
- # ── Europedia Tab UI ───────────────────────────────────────────────────────
- TV_ENCYCLOPEDIA_TAB_TITLE: "胜利之路"
- TV_ENCYCLOPEDIA_FILTER_ALL: "全部"
- TV_ENCYCLOPEDIA_FILTER_MECHANICS: "工程部"
- TV_ENCYCLOPEDIA_FILTER_GENERIC: "通用奇观"
- TV_ENCYCLOPEDIA_FILTER_UNIQUE: "唯一奇观"
-
- # Additional Engineering Department wonder concepts

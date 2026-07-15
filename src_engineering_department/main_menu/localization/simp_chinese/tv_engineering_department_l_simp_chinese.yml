@@ -1,14 +1,21 @@
 ﻿l_simp_chinese:
  # Engineering Department IO
  tv_engineering_department: "工程部"
- tv_engineering_department_desc: "由繁荣国家建立的国家工程机构。它可任命[tv_great_engineer|e]，并管理[tv_wonder_construction|e]机制。"
+ tv_engineering_department_desc: "为每个国家自动建立的国家工程机构。它可任命[tv_great_engineer|e]，并管理[tv_wonder_construction|e]机制。"
  diplomatic_status_tv_engineering_department_name: "[tv_engineering_department|E]成员"
- diplomatic_status_tv_engineering_department_tooltip: "该国家已通过[tv_prosperity_victory|e]建立[tv_engineering_department|e]。"
+ diplomatic_status_tv_engineering_department_tooltip: "战役初始化时，该国家已自动建立[tv_engineering_department|e]。"
  tv_engineering_department_list_who_tt: "[tv_engineering_department|E]成员"
  io_opinion_tv_engineering_department: "同为[tv_engineering_department|E]成员"
  TV_ENGINEERING_DEPARTMENT_LEADER: "大工程师"
  TV_ENGINEERING_DEPARTMENT_LEADER_MALE: "大工程师"
  TV_ENGINEERING_DEPARTMENT_LEADER_FEMALE: "大工程师"
+
+ # CMF alert
+ tv_missing_engineering_department_chief_alert: "tv_missing_engineering_department_chief_alert"
+ tv_missing_engineering_department_chief_alert_color: "orange"
+ tv_missing_engineering_department_chief_alert_icon: "@characters!"
+ tv_missing_engineering_department_chief_alert_name: "工程部缺少大工程师"
+ tv_missing_engineering_department_chief_alert_tooltip: "你的[tv_engineering_department|E]缺少[tv_great_engineer|E]。请打开工程部面板并任命一位大工程师。"
 
  # IO variables
  tv_wonder_domestic_support: "国内支持度"

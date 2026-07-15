@@ -1,8 +1,6 @@
 ﻿l_english:
  # ── Generic trigger tooltips ──────────────────────────────────────────────
  TV_HAS_VARIABLE_SET_TT: "Required state is available."
- TV_HAS_VARIABLE_NOT_SET_TT: "Required state is not active."
- TV_CHARACTER_NOT_ALREADY_TV_IO_CHIEF_TT: "This character is not already serving as a TV IO chief."
  PENTARCHY_CITY_BONUSES_TITLE: "Benefits Gained from this Seat"
 
  # CMF alerts
@@ -26,11 +24,6 @@
  tv_missing_academy_chief_alert_icon: "@characters!"
  tv_missing_academy_chief_alert_name: "Academy of Sciences Lacks a Chief Scientist"
  tv_missing_academy_chief_alert_tooltip: "Your [tv_academy_of_sciences|E] lacks a [tv_chief_scientist|E]. Open the Academy of Sciences panel and appoint one."
- tv_missing_engineering_department_chief_alert: "tv_missing_engineering_department_chief_alert"
- tv_missing_engineering_department_chief_alert_color: "orange"
- tv_missing_engineering_department_chief_alert_icon: "@characters!"
- tv_missing_engineering_department_chief_alert_name: "Engineering Department Lacks a Great Engineer"
- tv_missing_engineering_department_chief_alert_tooltip: "Your [tv_engineering_department|E] lacks a [tv_great_engineer|E]. Open the Engineering Department panel and appoint one."
  tv_missing_trade_league_chief_alert: "tv_missing_trade_league_chief_alert"
  tv_missing_trade_league_chief_alert_color: "orange"
  tv_missing_trade_league_chief_alert_icon: "@characters!"
@@ -41,7 +34,6 @@
  tv_missing_govhouse_chief_alert_icon: "@characters!"
  tv_missing_govhouse_chief_alert_name: "Governor's House Lacks a Grand General"
  tv_missing_govhouse_chief_alert_tooltip: "Your [tv_govhouse|E] lacks a [tv_grand_general|E]. Open the Governor's House panel and appoint one."
- TV_IO_HEADER_APPOINT_CHIEF_PROMPT: "Appoint a Chief"
 
  # Specific has_variable trigger tooltips
  TV_HAS_ACADEMY_IO_MEMBER_TT: "This country is a member of the [tv_academy_of_sciences|E]."
@@ -249,10 +241,3 @@
  game_concept_tv_govhouse_power_balance_desc: "A [tv_govhouse|e] value showing how much effective power belongs to the [tv_grand_general|e] rather than the Crown. It moves monthly toward an equilibrium shaped by ruler ability, [tv_grand_general|e] ability, and [tv_govhouse_power_consolidation|e]. Higher [tv_grand_general|e] power unlocks harsher backlash events."
  game_concept_tv_govhouse_power_consolidation: "Power Consolidation"
  game_concept_tv_govhouse_power_consolidation_desc: "Personal power accumulated by the [tv_grand_general|e] while in office. It rises over time, pushes [tv_govhouse_power_balance|e] toward the [tv_grand_general|e], and determines the Government Power cost to dismiss or replace a [tv_grand_general|e]. It resets when the [tv_grand_general|e] leaves office."
-
- # ── Europedia Tab UI ───────────────────────────────────────────────────────
- TV_ENCYCLOPEDIA_TAB_TITLE: "Towards Victory"
- TV_ENCYCLOPEDIA_FILTER_ALL: "All"
- TV_ENCYCLOPEDIA_FILTER_MECHANICS: "Engineering Department"
- TV_ENCYCLOPEDIA_FILTER_GENERIC: "Generic Wonders"
- TV_ENCYCLOPEDIA_FILTER_UNIQUE: "Unique Wonders"

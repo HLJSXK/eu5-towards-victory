@@ -4,12 +4,20 @@
   "version": "0.1.0",
   "game_id": "eu5",
   "supported_game_version": "1.*.*",
-  "short_description": "Standalone Engineering Department international organization and Wonder Construction mechanic: propose, survey, and build 54 generic and 123 historical unique wonders. Works on its own or alongside Towards Victory.",
+  "short_description": "Standalone Engineering Department international organization and Wonder Construction mechanic: propose, survey, and build 54 generic and 123 historical unique wonders. Requires Community Mod Framework; works with or without Towards Victory.",
   "tags": [
     "Buildings",
     "Historical"
   ],
-  "relationships": [],
+  "relationships": [
+    {
+      "rel_type": "dependency",
+      "id": "community_mod_framework",
+      "display_name": "Community Mod Framework",
+      "resource_type": "mod",
+      "version": "2.*"
+    }
+  ],
   "game_custom_data": {
     "multiplayer_synchronized": true
   }

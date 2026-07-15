@@ -16,7 +16,7 @@ import yaml
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
-from scripts.wonder_localization_lib import (
+from scripts_engineering_department.wonder_localization_lib import (
     REPO_ROOT,
     WONDER_LOCALIZATION_FILE,
     engineering_department_wonder_mechanics_localization_map,
@@ -26,7 +26,7 @@ from scripts.wonder_localization_lib import (
     normalize_editor_text,
     save_wonder_localization_data,
 )
-from scripts.wonder_mechanics.io import (
+from scripts_engineering_department.wonder_mechanics.io import (
     UNIQUE_WONDERS_FILE,
     WONDER_BASE_MODIFIERS_FILE,
     WONDER_FINAL_BUILDINGS_FILE,
@@ -42,15 +42,15 @@ from scripts.wonder_mechanics.io import (
     save_mechanics_source_data,
     save_yaml_document,
 )
-from scripts.wonder_mechanics.modifiers import authored_final_building_local_modifiers
-from scripts.wonder_mechanics.naming import (
+from scripts_engineering_department.wonder_mechanics.modifiers import authored_final_building_local_modifiers
+from scripts_engineering_department.wonder_mechanics.naming import (
     final_building_for_style,
     mechanic_key,
     wonder_static_display_modifier_name,
     wonder_static_local_display_modifier_name,
 )
-from scripts.wonder_mechanics.render import loc_line, render_header
-from scripts.wonder_mechanics.rituals import (
+from scripts_engineering_department.wonder_mechanics.render import loc_line, render_header
+from scripts_engineering_department.wonder_mechanics.rituals import (
     CEREMONY_COST_CATALOGS,
     CEREMONY_STAGE_COUNT,
     SUPPORTED_RITUAL_COST_TYPES,
@@ -67,10 +67,11 @@ from scripts.wonder_mechanics.rituals import (
     unique_ceremony_modifier_name,
 )
 from .common import RollingLog
-from scripts.wonder_mechanics.schema import (
+from scripts_engineering_department.wonder_mechanics.schema import (
     site_preference_script_for_key,
     site_trigger_script_for_key,
 )
+from scripts_engineering_department.wonder_mechanics.suitability_conditions import ID_TO_NUMBERED_LOC_KEY
 
 LANGUAGES = ("english", "simp_chinese")
 LANGUAGE_LABELS = {
@@ -107,49 +108,52 @@ MODIFIER_LOCALIZATION_INDEX_FILE = REPO_ROOT / "data" / "index" / "modifier_loca
 GENERATED_WONDER_IMAGES_DIR = REPO_ROOT / "data" / "generated_wonders"
 WONDER_IMAGE_URL_PREFIX = "/wonder-images"
 GENERATED_LOC_FILES = {
-    "english": REPO_ROOT / "src" / "main_menu" / "localization" / "english" / "tv_engineering_department_wonder_mechanics_l_english.yml",
-    "simp_chinese": REPO_ROOT / "src" / "main_menu" / "localization" / "simp_chinese" / "tv_engineering_department_wonder_mechanics_l_simp_chinese.yml",
+    "english": REPO_ROOT / "src_engineering_department" / "main_menu" / "localization" / "english" / "tv_engineering_department_wonder_mechanics_l_english.yml",
+    "simp_chinese": REPO_ROOT / "src_engineering_department" / "main_menu" / "localization" / "simp_chinese" / "tv_engineering_department_wonder_mechanics_l_simp_chinese.yml",
 }
 GENERATED_LOC_SCRIPT_REL = {
-    "english": "scripts/main_menu/localization/english/gen_tv_engineering_department_wonder_mechanics_l_english.py",
-    "simp_chinese": "scripts/main_menu/localization/simp_chinese/gen_tv_engineering_department_wonder_mechanics_l_simp_chinese.py",
+    "english": "scripts_engineering_department/main_menu/localization/english/gen_tv_engineering_department_wonder_mechanics_l_english.py",
+    "simp_chinese": "scripts_engineering_department/main_menu/localization/simp_chinese/gen_tv_engineering_department_wonder_mechanics_l_simp_chinese.py",
 }
 MANUAL_CONCEPT_FILES = {
-    "english": REPO_ROOT / "src" / "main_menu" / "localization" / "english" / "tv_game_concepts_l_english.yml",
-    "simp_chinese": REPO_ROOT / "src" / "main_menu" / "localization" / "simp_chinese" / "tv_game_concepts_l_simp_chinese.yml",
+    "english": REPO_ROOT / "src_engineering_department" / "main_menu" / "localization" / "english" / "tv_engineering_department_game_concepts_l_english.yml",
+    "simp_chinese": REPO_ROOT / "src_engineering_department" / "main_menu" / "localization" / "simp_chinese" / "tv_engineering_department_game_concepts_l_simp_chinese.yml",
 }
 MANUAL_ENGINEERING_FILES = {
-    "english": REPO_ROOT / "src" / "main_menu" / "localization" / "english" / "tv_engineering_department_l_english.yml",
-    "simp_chinese": REPO_ROOT / "src" / "main_menu" / "localization" / "simp_chinese" / "tv_engineering_department_l_simp_chinese.yml",
+    "english": REPO_ROOT / "src_engineering_department" / "main_menu" / "localization" / "english" / "tv_engineering_department_l_english.yml",
+    "simp_chinese": REPO_ROOT / "src_engineering_department" / "main_menu" / "localization" / "simp_chinese" / "tv_engineering_department_l_simp_chinese.yml",
 }
 REGEN_SCRIPTS = (
     GENERATED_LOC_SCRIPT_REL["english"],
     GENERATED_LOC_SCRIPT_REL["simp_chinese"],
 )
 WONDER_DATA_REGEN_SCRIPTS = (
-    "scripts/in_game/common/building_types/gen_tv_wonder_module_buildings.py",
-    "scripts/in_game/common/building_types/gen_tv_engineering_department_wonder_mechanics_buildings.py",
-    "scripts/in_game/common/static_modifiers/gen_tv_engineering_department_wonder_mechanics_modifiers.py",
-    "scripts/in_game/common/generic_actions/gen_tv_engineering_department_wonder_mechanics_actions.py",
-    "scripts/in_game/common/scripted_triggers/gen_tv_engineering_department_wonder_mechanics_triggers.py",
-    "scripts/in_game/common/scripted_effects/gen_tv_wonder_module_effects.py",
-    "scripts/in_game/common/scripted_effects/gen_tv_engineering_department_wonder_mechanics_effects.py",
-    "scripts/in_game/common/scripted_effects/gen_tv_wonder_ritual_effects.py",
-    "scripts/main_menu/common/game_concepts/gen_tv_engineering_department_wonder_mechanics_concepts.py",
+    "scripts_engineering_department/in_game/common/building_types/gen_tv_wonder_module_buildings.py",
+    "scripts_engineering_department/in_game/common/building_types/gen_tv_engineering_department_wonder_mechanics_buildings.py",
+    "scripts_engineering_department/in_game/common/static_modifiers/gen_tv_engineering_department_wonder_mechanics_modifiers.py",
+    "scripts_engineering_department/in_game/common/generic_actions/gen_tv_engineering_department_wonder_mechanics_actions.py",
+    "scripts_engineering_department/in_game/common/scripted_triggers/gen_tv_engineering_department_wonder_mechanics_triggers.py",
+    "scripts_engineering_department/in_game/common/scripted_effects/gen_tv_wonder_module_effects.py",
+    "scripts_engineering_department/in_game/common/scripted_effects/gen_tv_engineering_department_wonder_mechanics_effects.py",
+    "scripts_engineering_department/in_game/common/scripted_effects/gen_tv_wonder_ritual_effects.py",
+    "scripts_engineering_department/main_menu/common/game_concepts/gen_tv_engineering_department_wonder_mechanics_concepts.py",
     GENERATED_LOC_SCRIPT_REL["english"],
     GENERATED_LOC_SCRIPT_REL["simp_chinese"],
-    "scripts/in_game/gui/panels/organization/gen_tv_engineering_department_wonder_mechanics_gui.py",
-    "scripts/in_game/gui/panels/organization/merge_tv_engineering_department_wonder_mechanics_gui.py",
-    "scripts/in_game/common/scripted_effects/gen_tv_wonder_ceremony_effects.py",
-    "scripts/in_game/events/gen_tv_wonder_ceremony_events.py",
-    "scripts/main_menu/localization/english/gen_tv_wonder_ceremony_l_english.py",
-    "scripts/main_menu/localization/simp_chinese/gen_tv_wonder_ceremony_l_simp_chinese.py",
-    "scripts/in_game/gui/panels/organization/gen_tv_wonder_ceremony_cards_gui.py",
-    "scripts/in_game/gui/panels/organization/merge_tv_wonder_ceremony_cards_gui.py",
-    "scripts/in_game/gui/gen_location_window.py",
+    "scripts_engineering_department/in_game/gui/panels/organization/gen_tv_engineering_department_wonder_mechanics_gui.py",
+    "scripts_engineering_department/in_game/gui/panels/organization/merge_tv_engineering_department_wonder_mechanics_gui.py",
+    "scripts_engineering_department/in_game/common/customizable_localization/gen_tv_wonder_ceremony_options.py",
+    "scripts_engineering_department/main_menu/common/static_modifiers/gen_tv_wonder_ceremony_cost_country_modifiers.py",
+    "scripts_engineering_department/main_menu/common/static_modifiers/gen_tv_wonder_ceremony_cost_local_modifiers.py",
+    "scripts_engineering_department/in_game/common/scripted_effects/gen_tv_wonder_ceremony_effects.py",
+    "scripts_engineering_department/in_game/events/gen_tv_wonder_ceremony_events.py",
+    "scripts_engineering_department/main_menu/localization/english/gen_tv_wonder_ceremony_l_english.py",
+    "scripts_engineering_department/main_menu/localization/simp_chinese/gen_tv_wonder_ceremony_l_simp_chinese.py",
+    "scripts_engineering_department/in_game/gui/panels/organization/gen_tv_wonder_ceremony_cards_gui.py",
+    "scripts_engineering_department/in_game/gui/panels/organization/merge_tv_wonder_ceremony_cards_gui.py",
+    "scripts_engineering_department/in_game/gui/gen_location_window.py",
 )
-CONCEPT_FILE = REPO_ROOT / "src" / "main_menu" / "common" / "game_concepts" / "tv_engineering_department_wonder_mechanics_concepts.txt"
-CONCEPT_SCRIPT_REL = "scripts/main_menu/common/game_concepts/gen_tv_engineering_department_wonder_mechanics_concepts.py"
+CONCEPT_FILE = REPO_ROOT / "src_engineering_department" / "main_menu" / "common" / "game_concepts" / "tv_engineering_department_wonder_mechanics_concepts.txt"
+CONCEPT_SCRIPT_REL = "scripts_engineering_department/main_menu/common/game_concepts/gen_tv_engineering_department_wonder_mechanics_concepts.py"
 CONCEPT_ICONS = {
     "infrastructure_category": "gfx/interface/icons/location_icons/new/prosperity.dds",
     "military_category": "gfx/interface/icons/flat_icons/tabicons/military.dds",
@@ -271,33 +275,6 @@ COMMON_LOCALIZATION_KEYS = (
     "TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE",
     "TV_ENGINEERING_SUITABILITY_CONDITIONS_TITLE",
     "TV_ENGINEERING_SUITABILITY_ROW_HIDDEN",
-    "TV_ENGINEERING_SUITABILITY_CONDITION_TOPOGRAPHY_MOUNTAINS",
-    "TV_ENGINEERING_SUITABILITY_CONDITION_TOPOGRAPHY_PLATEAU",
-    "TV_ENGINEERING_SUITABILITY_CONDITION_TOPOGRAPHY_HILLS",
-    "TV_ENGINEERING_SUITABILITY_CONDITION_VEGETATION_FOREST",
-    "TV_ENGINEERING_SUITABILITY_CONDITION_VEGETATION_WOODS",
-    "TV_ENGINEERING_SUITABILITY_CONDITION_RANK_RURAL",
-    "TV_ENGINEERING_SUITABILITY_CONDITION_RANK_CITY",
-    "TV_ENGINEERING_SUITABILITY_CONDITION_RANK_MEGALOPOLIS",
-    "TV_ENGINEERING_SUITABILITY_CONDITION_NEIGHBOR_CITY",
-    "TV_ENGINEERING_SUITABILITY_CONDITION_NEIGHBOR_TOWN",
-    "TV_ENGINEERING_SUITABILITY_CONDITION_HAS_MONASTERY",
-    "TV_ENGINEERING_SUITABILITY_CONDITION_HAS_CATHEDRAL",
-    "TV_ENGINEERING_SUITABILITY_CONDITION_DOMINANT_RELIGION_OWNER",
-    "TV_ENGINEERING_SUITABILITY_CONDITION_HAS_BRIDGE_INFRASTRUCTURE",
-    "TV_ENGINEERING_SUITABILITY_CONDITION_NEIGHBOR_BRIDGE_OPENING",
-    "TV_ENGINEERING_SUITABILITY_CONDITION_WATERWAY_OR_PORT",
-    "TV_ENGINEERING_SUITABILITY_CONDITION_IS_PORT",
-    "TV_ENGINEERING_SUITABILITY_CONDITION_FORT_LEVEL",
-    "TV_ENGINEERING_SUITABILITY_CONDITION_URBAN_RANK",
-    "TV_ENGINEERING_SUITABILITY_CONDITION_IS_CAPITAL",
-    "TV_ENGINEERING_SUITABILITY_CONDITION_RAW_COIN_METAL",
-    "TV_ENGINEERING_SUITABILITY_CONDITION_HAS_ARMORY",
-    "TV_ENGINEERING_SUITABILITY_SOURCE_DEVELOPMENT",
-    "TV_ENGINEERING_SUITABILITY_SOURCE_TOTAL_BUILDING_LEVELS",
-    "TV_ENGINEERING_SUITABILITY_SOURCE_HARBOR_SUITABILITY",
-    "TV_ENGINEERING_SUITABILITY_SOURCE_FREE_BUILDING_LEVELS",
-    "TV_ENGINEERING_SUITABILITY_SOURCE_AVERAGE_LOCATION_LITERACY",
 )
 
 
@@ -2197,6 +2174,7 @@ def required_canonical_localization_keys(
     suffixes: dict[int, str],
 ) -> set[str]:
     keys = set(COMMON_LOCALIZATION_KEYS)
+    keys.update(ID_TO_NUMBERED_LOC_KEY.values())
     for wonder in wonders:
         keys.update(required_localization_keys_for_wonder(wonder, mechanics, suffixes))
     return keys
@@ -2244,7 +2222,7 @@ def generated_localization_map(language: str, localization_data: dict[str, dict[
 
 
 def render_expected_concepts_output(wonders: list[dict[str, Any]]) -> str:
-    from scripts.main_menu.common.game_concepts.gen_tv_engineering_department_wonder_mechanics_concepts import (
+    from scripts_engineering_department.main_menu.common.game_concepts.gen_tv_engineering_department_wonder_mechanics_concepts import (
         generate,
     )
 

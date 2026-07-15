@@ -234,6 +234,18 @@ generated:
     data:   data/io_leaders.yaml
     output: src/in_game/common/customizable_localization/character_title.txt
 
+  - script: scripts/in_game/common/customizable_localization/gen_character_title.py
+    data:   data/io_leaders.yaml
+    output: src_engineering_department/in_game/common/customizable_localization/character_title.txt
+
+  - script: scripts/gen_messagetypes.py
+    data:   reference_game_files/game/main_menu/gui/messagetypes.txt + data/victory_paths.yaml + data/victory_path_tree_variant.yaml + data/io_establishment.yaml + src/in_game/common/generic_actions + src_engineering_department/in_game/common/generic_actions
+    output: src/main_menu/gui/messagetypes.txt
+
+  - script: scripts/gen_messagetypes.py
+    data:   reference_game_files/game/main_menu/gui/messagetypes.txt + data/victory_paths.yaml + data/victory_path_tree_variant.yaml + data/io_establishment.yaml + src/in_game/common/generic_actions + src_engineering_department/in_game/common/generic_actions
+    output: src_engineering_department/main_menu/gui/messagetypes.txt
+
   - script: scripts/in_game/common/customizable_localization/gen_tv_academy_debate_groups.py
     data:   data/philosophy_debates.yaml
     output: src/in_game/common/customizable_localization/tv_academy_debate_groups.txt

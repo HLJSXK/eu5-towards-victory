@@ -103,6 +103,7 @@ from wonder_mechanics.modifiers import (
 )
 from wonder_mechanics.rituals import (
     SUPPORTED_CEREMONY_STAGE_ICONS,
+    ceremony_cost_computed_value,
     ceremony_styles,
     normalize_unique_ceremony,
     ritual_plan_for_style,
@@ -239,7 +240,7 @@ def validate_generated_trigger_scope_layers(wonders: list[dict]) -> None:
             )
 
 
-def validate_existing_unique_initialization_does_not_seed_survey_maps(wonders: list[dict]) -> None:
+def validate_existing_unique_initialization_seeds_survey_maps(wonders: list[dict]) -> None:
     location_display_script = load_effect_generator().generate_location_display_effects()
     init_block = extract_trigger_block(
         location_display_script,
@@ -251,17 +252,18 @@ def validate_existing_unique_initialization_does_not_seed_survey_maps(wonders: l
         if wonder.get("is_unique") and int(wonder.get("initial_level") or 0) > 0
     ]
     require(existing_unique_ids, "Expected at least one game-start unique wonder.")
+    expected_survey_seed = {
+        "tv_wonder_surveyed": 1,
+        "tv_wonder_survey_scale_competence": 100,
+        "tv_wonder_survey_logistics_competence": 85,
+        "tv_wonder_survey_organization_competence": 85,
+        "tv_wonder_survey_scale_tier": 6,
+    }
     for wonder_id in existing_unique_ids:
-        for map_name in (
-            "tv_wonder_surveyed",
-            "tv_wonder_survey_scale_competence",
-            "tv_wonder_survey_logistics_competence",
-            "tv_wonder_survey_organization_competence",
-            "tv_wonder_survey_scale_tier",
-        ):
+        for map_name, value in expected_survey_seed.items():
             require(
-                f"name = {map_name} key = {wonder_id}" not in init_block,
-                f"Game-start unique wonder {wonder_id} must not seed {map_name}.",
+                f"add_to_variable_map = {{ name = {map_name} key = {wonder_id} value = {value} }}" in init_block,
+                f"Game-start unique wonder {wonder_id} must seed {map_name} with {value}.",
             )
 
 
@@ -553,7 +555,7 @@ def validate_unique_ceremony_editor_support(wonders: list[dict]) -> None:
     dome_of_the_rock = next(wonder for wonder in ceremony_wonders if wonder["id"] == 103)
     editor_state = build_unique_ceremony_editor_state(
         dome_of_the_rock["ceremony"],
-        cost_type_options=ceremony_stage_cost_options([]),
+        cost_type_options=ceremony_stage_cost_options(),
     )
     require(len(editor_state["stages"]) == 8, "The ceremony editor must render all eight fixed stages.")
     require(
@@ -612,24 +614,39 @@ def validate_unique_ceremony_editor_support(wonders: list[dict]) -> None:
     else:
         raise AssertionError("The ceremony editor must reject fewer than eight stages.")
 
-    invalid_state = deepcopy(editor_state)
-    cost_type = next(
-        option["value"]
-        for option in invalid_state["stages"][0]["cost"]["options"]
-        if option["value"] != "artwork"
+    recomputed_cost_state = deepcopy(editor_state)
+    cost_type = recomputed_cost_state["stages"][0]["cost"]["options"][0]["value"]
+    catalog, _, entry_id = cost_type.partition(":")
+    recomputed_cost_state["stages"][0]["cost"]["rows"] = [{"type": cost_type, "value": "999999"}]
+    recomputed_ceremony = unique_ceremony_from_editor_state(
+        recomputed_cost_state,
+        context="recomputed ceremony cost",
     )
-    invalid_state["stages"][0]["cost"]["rows"] = [{"type": cost_type, "value": "1"}]
+    require(
+        recomputed_ceremony["stages"][0]["cost"]
+        == [
+            {
+                "catalog": catalog,
+                "type": entry_id,
+                "value": ceremony_cost_computed_value(catalog, entry_id, 1),
+            }
+        ],
+        "The ceremony editor must recompute costs from catalog, type, and stage instead of trusting the value cell.",
+    )
+
+    invalid_ceremony = deepcopy(recomputed_ceremony)
+    invalid_ceremony["stages"][0]["cost"][0]["value"] += 1
     try:
         normalize_unique_ceremony(
             {
-                **ceremony_wonders[0],
-                "ceremony": unique_ceremony_from_editor_state(invalid_state, context="invalid ceremony"),
+                **dome_of_the_rock,
+                "ceremony": invalid_ceremony,
             }
         )
     except ValueError:
         pass
     else:
-        raise AssertionError("The ceremony editor must reject positive non-artwork costs.")
+        raise AssertionError("Ceremony normalization must reject a cost value that drifts from its computed magnitude.")
 
     invalid_state = deepcopy(editor_state)
     invalid_state["stages"][0]["icon"] = "not_a_real_font_icon"
@@ -648,6 +665,9 @@ def validate_unique_ceremony_editor_support(wonders: list[dict]) -> None:
     ceremony_regen_scripts = (
         "scripts_engineering_department/in_game/common/static_modifiers/gen_tv_engineering_department_wonder_mechanics_modifiers.py",
         "scripts_engineering_department/in_game/common/scripted_effects/gen_tv_wonder_ritual_effects.py",
+        "scripts_engineering_department/in_game/common/customizable_localization/gen_tv_wonder_ceremony_options.py",
+        "scripts_engineering_department/main_menu/common/static_modifiers/gen_tv_wonder_ceremony_cost_country_modifiers.py",
+        "scripts_engineering_department/main_menu/common/static_modifiers/gen_tv_wonder_ceremony_cost_local_modifiers.py",
         "scripts_engineering_department/in_game/common/scripted_effects/gen_tv_wonder_ceremony_effects.py",
         "scripts_engineering_department/in_game/events/gen_tv_wonder_ceremony_events.py",
         "scripts_engineering_department/main_menu/localization/english/gen_tv_wonder_ceremony_l_english.py",
@@ -698,7 +718,7 @@ def main() -> None:
 
     validate_wonder_size_base_country_modifier_rules(wonders, mechanics)
     validate_generated_trigger_scope_layers(wonders)
-    validate_existing_unique_initialization_does_not_seed_survey_maps(wonders)
+    validate_existing_unique_initialization_seeds_survey_maps(wonders)
     validate_generated_ceremony_flow(wonders, mechanics)
     validate_generated_ceremony_autostart(wonders)
     validate_generated_ceremony_gui(wonders)

@@ -4,8 +4,9 @@ Since 2026-07, the entire Engineering Department / Wonder Construction subsystem
 lives in its own standalone, deployable mod root, `src_engineering_department/`
 (mirroring `src/`'s `in_game/`/`main_menu/` layout), with its own generator tree
 `scripts_engineering_department/` (mirroring `scripts/`). This mod works fully
-standalone (no dependency on the main "Towards Victory" mod); the main mod
-declares a hard dependency on it instead, since Prosperity Victory's
+without the main "Towards Victory" mod, but requires Community Mod Framework
+(CMF) 2.x because CMF supplies the custom `on_game_load` callback; the main mod
+declares a hard dependency on the Engineering Department mod instead, since Prosperity Victory's
 establishment effect calls `tv_engineering_department_create_effect`, which now
 lives only there. Load this card before editing any file with `wonder` or
 `engineering_department` in its filename, under **either** mod root: generated
@@ -23,15 +24,31 @@ emitting a second file into the new mod root, filtered by the same
 `wonder`/`engineering_department` substring convention applied to IO type names
 and on_action ids; `tv_io_role_modifiers.txt`, `tv_game_concepts.txt` (+ loc),
 and `tv_io_chief_alert_triggers.txt` had their Engineering-Department-specific
-entries hand-moved out. `character_title.txt` and `messagetypes.txt` were
-deliberately **not** split — both are "full vanilla copy with insertions"
-files where the engine keeps only the most recently loaded definition, so
-splitting would silently drop either mod's entries when both are loaded
-together (see each generator's own docstring). Running the standalone mod
-alone therefore has two small, accepted cosmetic gaps: the Great Engineer's
-title prefix and the cross-IO "vacant chief" alert badge (and a proposal/reward
-message-type label) don't appear without the main mod also loaded — core
-gameplay is unaffected either way.
+entries hand-moved out. `character_title.txt` and `messagetypes.txt` are
+winner-takes-all singleton databases, so each mod root receives a **full
+vanilla copy**, not an additive fragment. The Engineering Department copies
+contain its own subset; the main-mod copies are strict supersets. The declared
+main-mod -> Engineering Department dependency makes the main copy load later
+and win when both are enabled. Never reverse that subset relation or remove the
+dependency/load-order guarantee; `scripts/validate.py` checks vanilla-copy
+integrity, the exact Great Engineer title subset, every root's generic-action
+message types, and both superset relations.
+
+The missing-Great-Engineer CMF alert is fully owned by the standalone mod:
+`tv_engineering_department_chief_alert_on_action.txt` provides the monthly sync
+and `cmf_on_callback` handler, the dedicated trigger/effects maintain the CMF
+alert and click request, a scripted GUI plus hidden GUI bridge opens the
+Engineering Department panel and clears the request, and the existing EN/ZH
+Engineering Department localization owns the alert labels. Do not move any
+part of this chain back into the main mod or describe a standalone cosmetic
+gap.
+
+The standalone bootstrap is registered on `on_game_start` and CMF's custom
+`on_game_load`. It schedules the visible intro country event for every country
+with `days = 1`; it does not wait for `monthly_country_pulse`. On load, the
+intro is scheduled only when the save-wide initialization marker is absent,
+while the idempotent Engineering Department creation effect silently runs for
+every country regardless so missing or damaged IOs are repaired.
 
 ## Required Checks
 
@@ -129,14 +146,14 @@ gameplay is unaffected either way.
 
 12. Do not let a wonder ritual's implementation reuse another wonder's mechanic template.
     The Unique Wonder Ritual Harness's old "no-write source compiler" ceremony
-    (`scripts/wonder_unique_ritual_harness.py`'s repeated-entity-row/Alhambra evidence-chain
+    (`scripts_engineering_department/wonder_unique_ritual_harness.py`'s repeated-entity-row/Alhambra evidence-chain
     layers, ~22,700 lines) was retired after 40+ commits never produced loadable source and
     its one real generation attempt produced broken output. Read
     `docs/guides/Unique_Wonder_Ritual_Harness.md` before authoring a new unique-ritual
     implementation: `data/unique_wonder_ritual_specs.yaml`'s `design_ir`/`mechanic_signature`
     remains the design source of truth, implementation is hand-written per wonder under
-    `scripts/unique_wonder_ritual_content/<key>.py`, and
-    `scripts/audit_unique_wonder_ritual_mechanic_similarity.py` is a **mandatory** post-batch
+    `scripts_engineering_department/unique_wonder_ritual_content/<key>.py`, and
+    `scripts_engineering_department/audit_unique_wonder_ritual_mechanic_similarity.py` is a **mandatory** post-batch
     gate — run it and confirm no new wonder pair crosses `combined_ratio >= 0.15` or shares
     `random_list` weight tuples with another wonder. Do not flatten a spec's high-fidelity
     `design_ir` / `tracked_entity_sets` into a shared generic engine merely to ship faster.
@@ -190,7 +207,7 @@ gameplay is unaffected either way.
 15. Re-run `gen_tv_wonder_ritual_effects.py` after renaming any bespoke ritual variable.
     `tv_wonder_ritual_effects.txt`'s `tv_wonder_mechanics_clear_selected_ritual_runtime_effect`
     is generated straight from each unique wonder's live `ritual.runtime_variables` list in
-    `data/unique_wonders.yaml`. When a content module under `scripts/unique_wonder_ritual_content/`
+    `data/unique_wonders.yaml`. When a content module under `scripts_engineering_department/unique_wonder_ritual_content/`
     changes its row-set/variable-naming helpers (as Dome of the Rock, Bank of Saint George, and
     St. Peter's Basilica did in their 2026-07 bespoke rewrite), the data list gets updated but a
     stale, unregenerated `tv_wonder_ritual_effects.txt` keeps `remove_variable`-ing the *old*
@@ -244,17 +261,17 @@ gameplay is unaffected either way.
 
 19. Reassigning a unique wonder's `base_key` requires updating `mechanic_key` to match, and
     checking generic-wonder structural compatibility first.
-    `scripts/wonder_mechanics/_core.py`'s `load_unique_wonders()` hard-requires
+    `scripts_engineering_department/wonder_mechanics/_core.py`'s `load_unique_wonders()` hard-requires
     `mechanic_key == base_key` for every entry in `data/unique_wonders.yaml` and raises before
     any generator runs otherwise. Before changing `base_key` (e.g. to fix a site-rule mismatch
-    found by `scripts/audit_unique_wonder_site_requirements.py`), diff the old and new
+    found by `scripts_engineering_department/audit_unique_wonder_site_requirements.py`), diff the old and new
     `base_key`'s entries in `data/wonders.yaml` for compatible `size`/`category`/`pop_type`/
     `final_buildings` level count, then update both `base_key` and `mechanic_key` together. See
     `docs/knowledge/anti_patterns.yaml` rule
     `unique_wonder_base_key_reassignment_requires_mechanic_key_match`.
 
 20. The Unique Wonder Ceremony framework (`ceremony` block in
-    `data/unique_wonders.yaml`, built by `scripts/wonder_ceremony_lib.py` and
+    `data/unique_wonders.yaml`, built by `scripts_engineering_department/wonder_ceremony_lib.py` and
     its per-file generators) is a deliberately uniform mechanic for the 121
     unique wonders *without* a bespoke ritual, and is explicitly out of scope
     for `audit_unique_wonder_ritual_mechanic_similarity.py` (confirmed by the
@@ -262,7 +279,7 @@ gameplay is unaffected either way.
     violation, and do not "fix" it by bespoke-ifying each wonder's ceremony.
     Since 2026-07, each stage carries its own authored `cost` (a list of 1-2
     `{type, value}` entries, validated by `_validate_ceremony_stage_cost` /
-    `SUPPORTED_CEREMONY_STAGE_COST_TYPES` in `scripts/wonder_mechanics/_core.py`)
+    `SUPPORTED_CEREMONY_STAGE_COST_TYPES` in `scripts_engineering_department/wonder_mechanics/_core.py`)
     instead of the wonder's single `ritual.cost_type` being repeated
     identically at every stage. The framework has no manual confirmation
     entry: `tv_wonder_finish_construction_effect` calls
@@ -302,10 +319,10 @@ gameplay is unaffected either way.
     `validate.py`'s `event_id` rule) — the ceremony's 8 shared events use ids
     9300-9307, not the more readable 10000-10007 originally chosen.
     The GUI card fragment (`data/generated_fragments/tv_wonder_ceremony_cards.gui`,
-    from `scripts/in_game/gui/panels/organization/gen_tv_wonder_ceremony_cards_gui.py`)
-    is merged into `src/in_game/gui/panels/organization/tv_engineering_department.gui`'s
+    from `scripts_engineering_department/in_game/gui/panels/organization/gen_tv_wonder_ceremony_cards_gui.py`)
+    is merged into `src_engineering_department/in_game/gui/panels/organization/tv_engineering_department.gui`'s
     Construction-and-ceremony tab by a **dedicated** merge script,
-    `scripts/in_game/gui/panels/organization/merge_tv_wonder_ceremony_cards_gui.py`
+    `scripts_engineering_department/in_game/gui/panels/organization/merge_tv_wonder_ceremony_cards_gui.py`
     — it is intentionally separate from
     `merge_tv_engineering_department_wonder_mechanics_gui.py` (whose marker
     list and legacy-pruning logic all belong to the old per-style ceremony
@@ -341,7 +358,7 @@ gameplay is unaffected either way.
     `And(a, b, c)` (3 operands) — GUI `And`/`Or` are binary-only; use `And3(...)`
     for exactly three operands (see the GUI risk card / `gui_boolean_helper_arity`).
     Separately, the generic style-3 reward vocabulary
-    (`STYLE_3_REWARD_EFFECTS` in `scripts/wonder_mechanics/_core.py`) must only
+    (`STYLE_3_REWARD_EFFECTS` in `scripts_engineering_department/wonder_mechanics/_core.py`) must only
     list reward types whose mapped effect is a genuine scalar per
     `reference_official_defines/docs/effects.log`'s "Supported Targets" line —
     `bureaucracy` was removed after `add_bureaucracy = 12` turned out to require
@@ -590,7 +607,7 @@ gameplay is unaffected either way.
     `value` is **always computed**, never hand-authored: `-1 × base_value × stage_multiplier`
     (stage 1/3/5/7 → ×1, stage 2/4/6/8 → ×2), except `country_reward.inflation` which is
     inverted (`+1 × ...`, since a cost there *increases* inflation). `_validate_ceremony_stage_cost_item`
-    (`scripts/wonder_mechanics/_core.py`) cross-checks the authored `value` against this
+    (`scripts_engineering_department/wonder_mechanics/_core.py`) cross-checks the authored `value` against this
     formula and rejects any drift. Three `country_modifier` ids and one `local_reward` id are
     excluded from the usable pool and must never be picked: `allow_open_sea_exploration`/
     `gender_equality` (the catalog's only two boolean unlock switches — a flat unlock has no
@@ -656,14 +673,14 @@ gameplay is unaffected either way.
 Run `validate.py --changed --fix --ai-report`: it lints rule 2 and rule 16 automatically, and when a
 `data/unique_wonder_ritual_*.yaml` or harness script changes, runs
 `wonder_unique_ritual_harness.validate_unique_ritual_specs_for_repo()`. Also run
-`scripts/test_wonder_mechanics_rules.py` after changing scale-based wonder trigger/effect
-generators, and `scripts/audit_unique_wonder_ritual_mechanic_similarity.py` after implementing
+`scripts_engineering_department/test_wonder_mechanics_rules.py` after changing scale-based wonder trigger/effect
+generators, and `scripts_engineering_department/audit_unique_wonder_ritual_mechanic_similarity.py` after implementing
 or reworking any unique-wonder ritual. Rules 6–11 have no automated check; inspect the
 affected tooltip, hover state, or GUI layout in game after any change in those areas. Rule 15
 has no automated staleness check either — after editing a content module's naming helpers,
 always re-run `gen_tv_wonder_ritual_effects.py` even if no runtime error has been observed yet.
 
-Run `scripts/audit_unique_wonder_site_requirements.py` after adding a new unique wonder or
+Run `scripts_engineering_department/audit_unique_wonder_site_requirements.py` after adding a new unique wonder or
 changing its `location`/`base_key` in `data/unique_wonders.yaml`, or after editing a
 `trigger_script` in `data/wonder_site_rules.yaml`. It statically evaluates every unique
 wonder's fixed `location` against its `base_key`'s site-rule `trigger_script` using real

@@ -1,0 +1,21 @@
+﻿widget = {
+	name = "tv_engineering_department_chief_alert_bridge"
+	size = { 0 0 }
+	datacontext = "[GetPlayer]"
+	visible_at_creation = no
+	visible = "[And(Country.IsValid, GetPlayer.MakeScope.GetVariable('tv_engineering_department_chief_alert_open_requested').IsSet)]"
+	datamodel = "[GetPlayer.GetDiplomacy.GetInternationalOrganizations]"
+
+	item = {
+		widget = {
+			size = { 0 0 }
+			visible = "[And3(EqualTo_CFixedPoint(GetPlayer.MakeScope.GetVariable('tv_engineering_department_chief_alert_open_requested').GetValue, '(CFixedPoint)1.0'), EqualTo_string(InternationalOrganization.GetType.GetNameKey, 'tv_engineering_department'), InternationalOrganization.IsIOLeaderCountry(GetPlayer))]"
+
+			state = {
+				name = _show
+				on_start = "[OpenInternationalOrganizationView(InternationalOrganization.Self)]"
+				on_start = "[GetScriptedGui('tv_clear_engineering_department_chief_alert_open_request').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+			}
+		}
+	}
+}

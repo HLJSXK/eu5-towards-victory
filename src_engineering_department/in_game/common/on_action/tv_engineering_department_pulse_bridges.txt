@@ -8,6 +8,7 @@
 monthly_country_pulse = {
 	on_actions = {
 		# Towards Victory additions
+		tv_engineering_department_chief_alert_monthly_pulse
 		tv_engineering_department_concept_monthly_pulse
 		tv_engineering_department_debate_monthly_pulse
 		tv_engineering_department_support_resolution_monthly_pulse
@@ -16,7 +17,6 @@ monthly_country_pulse = {
 		tv_engineering_department_construction_random_events_monthly_pulse
 		tv_engineering_department_ritual_monthly_pulse
 		tv_engineering_department_wonder_auto_cache_monthly_pulse
-		tv_engineering_department_standalone_monthly_pulse
 	}
 }
 
@@ -78,5 +78,12 @@ on_location_changed_owner = {
 	on_actions = {
 		# Towards Victory additions
 		tv_wonder_ownership_location_changed_owner
+	}
+}
+
+cmf_on_callback = {
+	on_actions = {
+		# Towards Victory additions
+		tv_engineering_department_chief_alert_on_cmf_callback
 	}
 }

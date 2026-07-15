@@ -1,0 +1,16 @@
+﻿tv_engineering_department_chief_alert_monthly_pulse = {
+	trigger = {
+		is_ai = no
+	}
+	effect = {
+		hidden_effect = {
+			tv_engineering_department_sync_missing_chief_alert_effect = yes
+		}
+	}
+}
+
+tv_engineering_department_chief_alert_on_cmf_callback = {
+	effect = {
+		tv_engineering_department_handle_chief_alert_callback_effect = yes
+	}
+}

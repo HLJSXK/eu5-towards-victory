@@ -31,7 +31,9 @@ SOURCE_FILES: dict[str, Path | None] = {
     "on_character_death":    REPO_ROOT / "reference_game_files" / "game" / "in_game" / "common" / "on_action" / "character_death_pulses.txt",
     "on_ruler_death":        HARDCODED_ON_ACTIONS,
     "on_game_start":         HARDCODED_ON_ACTIONS,
-    # on_game_load is fired by the CMF scripted GUI layer, not vanilla _hardcoded.txt.
+    # on_game_load is fired by the CMF scripted GUI layer, not vanilla
+    # _hardcoded.txt. Both deployable TV mods therefore declare CMF as a hard
+    # metadata dependency.
     "on_game_load":          None,
     "on_work_of_art_created": HARDCODED_ON_ACTIONS,
     "on_work_of_art_destroyed": HARDCODED_ON_ACTIONS,

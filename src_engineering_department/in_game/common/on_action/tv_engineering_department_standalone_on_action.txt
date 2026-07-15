@@ -1,29 +1,31 @@
 ﻿# Towards Victory Engineering Department — standalone bootstrap
 # Guarantees every country has an Engineering Department from game start,
-# whether this mod runs alongside "Towards Victory" or entirely on its own.
-# Registration onto on_game_start/on_game_load/monthly_country_pulse lives in
+# whether this mod runs alongside "Towards Victory" or only with its required
+# Community Mod Framework dependency.
+# Registration onto on_game_start/on_game_load lives in
 # data/pulse_registry.yaml -> tv_engineering_department_pulse_bridges.txt.
 
-# Queue the intro event for every country; the event itself is fired one
-# month later by tv_engineering_department_standalone_monthly_pulse below
-# (firing trigger_event directly from on_game_start/on_game_load is not a
-# safe pattern in this engine — see reference_mods/3613232232's own
-# pp_mod_welcome_situation_game_start, which defers the same way).
+# Schedule the intro event for every country one day after game start. The
+# country marker prevents a save loaded during that delay from scheduling a
+# duplicate; the event option clears it. The explicit delay keeps the visible
+# event outside the on_game_start callback without waiting for a monthly pulse.
 tv_engineering_department_standalone_game_start_bridge = {
 	effect = {
 		hidden_effect = {
 			every_country = {
 				set_variable = { name = tv_engineering_department_standalone_pending value = 1 }
+				trigger_event_non_silently = { id = tv_engineering_department_standalone.1 days = 1 }
 			}
 		}
 	}
 }
 
 # A save with no global marker predates this mod (or was played without it)
-# — queue the intro event for every country exactly as at game start. Then,
+# — schedule the intro event for every country one day after load unless that
+# country already has one pending from game start. Then,
 # independently of that check, silently repair any country still missing an
-# Engineering Department (a corrupted save) using the same idempotent
-# creation effect used everywhere else in this mod.
+# Engineering Department (or carrying one with a damaged leader) using the
+# same idempotent creation effect used everywhere else in this mod.
 tv_engineering_department_standalone_game_load_bridge = {
 	effect = {
 		hidden_effect = {
@@ -32,23 +34,17 @@ tv_engineering_department_standalone_game_load_bridge = {
 					NOT = { has_global_variable = tv_engineering_department_standalone_initialized }
 				}
 				every_country = {
-					set_variable = { name = tv_engineering_department_standalone_pending value = 1 }
+					if = {
+						limit = {
+							NOT = { has_variable = tv_engineering_department_standalone_pending }
+						}
+						set_variable = { name = tv_engineering_department_standalone_pending value = 1 }
+						trigger_event_non_silently = { id = tv_engineering_department_standalone.1 days = 1 }
+					}
 				}
 			}
 			every_country = {
 				tv_engineering_department_create_effect = yes
-			}
-		}
-	}
-}
-
-tv_engineering_department_standalone_monthly_pulse = {
-	effect = {
-		hidden_effect = {
-			if = {
-				limit = { has_variable = tv_engineering_department_standalone_pending }
-				remove_variable = tv_engineering_department_standalone_pending
-				trigger_event_non_silently = { id = tv_engineering_department_standalone.1 days = 1 }
 			}
 		}
 	}

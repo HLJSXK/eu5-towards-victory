@@ -1,14 +1,21 @@
 ﻿l_english:
  # Engineering Department IO
  tv_engineering_department: "Engineering Department"
- tv_engineering_department_desc: "A founder-only engineering office established by a prosperous realm. It appoints a [tv_great_engineer|e] and manages the [tv_wonder_construction|e] mechanism."
+ tv_engineering_department_desc: "A national engineering institution established automatically for every country. It appoints a [tv_great_engineer|e] and manages the [tv_wonder_construction|e] mechanism."
  diplomatic_status_tv_engineering_department_name: "[tv_engineering_department|E] Member"
- diplomatic_status_tv_engineering_department_tooltip: "This country has founded an [tv_engineering_department|E] through [tv_prosperity_victory|e]."
+ diplomatic_status_tv_engineering_department_tooltip: "This country has an [tv_engineering_department|E], established automatically during campaign initialization."
  tv_engineering_department_list_who_tt: "[tv_engineering_department|E] members"
  io_opinion_tv_engineering_department: "Fellow [tv_engineering_department|E] Member"
  TV_ENGINEERING_DEPARTMENT_LEADER: "Great Engineer"
  TV_ENGINEERING_DEPARTMENT_LEADER_MALE: "Great Engineer"
  TV_ENGINEERING_DEPARTMENT_LEADER_FEMALE: "Great Engineer"
+
+ # CMF alert
+ tv_missing_engineering_department_chief_alert: "tv_missing_engineering_department_chief_alert"
+ tv_missing_engineering_department_chief_alert_color: "orange"
+ tv_missing_engineering_department_chief_alert_icon: "@characters!"
+ tv_missing_engineering_department_chief_alert_name: "Engineering Department Lacks a Great Engineer"
+ tv_missing_engineering_department_chief_alert_tooltip: "Your [tv_engineering_department|E] lacks a [tv_great_engineer|E]. Open the Engineering Department panel and appoint one."
 
  # IO variables
  tv_wonder_domestic_support: "Domestic Support"
