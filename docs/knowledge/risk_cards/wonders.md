@@ -775,6 +775,23 @@ every country regardless so missing or damaged IOs are repaired.
     refactoring 926 call sites without a reported symptom. See
     `[[destroy_building_target_via_custom_saved_scope_breaks_tooltip_preview]]`.
 
+32. `tv_wonder_active_part` being set is not proof that real monthly progress is accumulating.
+    `tv_wonder_monthly_construction_effect`'s auto-advance branch assigns
+    `tv_wonder_active_part` from `tv_wonder_organization_logistics_unlocked_trigger` (debate/
+    lock/site-selected/not-complete) plus "some part still below max" alone — it never checks
+    `tv_wonder_has_organized_labor_trigger`
+    (`total_effective_building_levels:tv_wonder_labor_camp > 0`), the same check the four manual
+    `tv_wonder_begin_foundation/body/function/decoration` actions already require. So a wonder
+    with an unstaffed Labor Camp can have `tv_wonder_active_part` set while
+    `tv_wonder_monthly_construction_progress` sits at 0 all month. The construction card's "no
+    active work site" vs. "remaining time" toggle (added 2026-07-13) was gated purely on
+    `tv_wonder_active_part.IsSet`, so it showed a nonsensical remaining-time estimate instead of
+    the intended "no available work site" message during a 0-progress stall. Fixed by AND-ing
+    `GreaterThan_CFixedPoint(GetVariable('tv_wonder_monthly_construction_progress').GetValue,
+    '(CFixedPoint)0.0')` into both visibility conditions — the script-side construction math
+    itself needed no change (0 progress simply never crosses a completion threshold). See
+    `[[gui_visibility_gate_on_proxy_variable_not_the_real_condition]]`.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`: it lints rule 2 and rule 16 automatically, and when a
