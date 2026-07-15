@@ -535,7 +535,7 @@ def group_tt_key(group: dict) -> str:
 
 def tooltip_change_text(change: str, negative: bool, loc_lang: str, cl_block: str) -> str:
     """Wrap a customizable_localization group-name pick in the seated/left phrasing."""
-    custom_expr = f"[ROOT.Custom('{cl_block}')]"
+    custom_expr = f"[ROOT.GetCountry.Custom('{cl_block}')]"
     if loc_lang == "simp_chinese":
         phrase = {"seated": "未入席" if negative else "已入席", "left": "未离席" if negative else "已离席"}[change]
         return f"{custom_expr}{phrase}"

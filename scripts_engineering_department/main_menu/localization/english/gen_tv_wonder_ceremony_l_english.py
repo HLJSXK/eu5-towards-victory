@@ -78,8 +78,8 @@ def generate() -> str:
         else:
             lines.append("")
     for stage in range(1, STAGE_COUNT + 1):
-        lines.append(f' {pay_option_key(stage)}:0 "[ROOT.Custom(\'{option_pay_cl_block(stage)}\')]"')
-        lines.append(f' {decline_option_key(stage)}:0 "[ROOT.Custom(\'{option_decline_cl_block(stage)}\')]"')
+        lines.append(f' {pay_option_key(stage)}:0 "[ROOT.GetCountry.Custom(\'{option_pay_cl_block(stage)}\')]"')
+        lines.append(f' {decline_option_key(stage)}:0 "[ROOT.GetCountry.Custom(\'{option_decline_cl_block(stage)}\')]"')
         lines.append(f' {option_pay_fallback_key(stage)}:0 "Pay the price."')
         lines.append(f' {option_decline_fallback_key(stage)}:0 "Not yet."')
     for wonder in wonders:

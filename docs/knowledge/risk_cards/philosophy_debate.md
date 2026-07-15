@@ -84,6 +84,19 @@ Load this card before editing any file with `philosophy_debate`, `world_debate`,
    never applies. See `docs/technical/EU5_Modding_Knowledge_Base.md` section 5.3
    "Function-Call-Style Event Target Links Must Be Quoted".
 
+8. A Customizable Localization block needs a typed scope link before `.Custom(...)`, even in
+   already-country-scoped loc text. `philosophy_debate_codegen.py`'s `tooltip_change_text`
+   (feeding `tv_academy_debate_group_seated_text`/`_left_text` and their `_2`/`royal_option_*`
+   siblings' `custom_description` text) generated `[ROOT.Custom('tv_academy_debate_group_by_
+   event_group')]`; the correct form is `[ROOT.GetCountry.Custom(...)]`, matching
+   `docs/technical/EU5_Modding_Knowledge_Base.md`'s own worked Customizable Localization
+   example. The bare form throws `Could not find data system function 'Custom' in
+   'ROOT.Custom(...)'` whenever a seat is filled/vacated. This bug was latent (not yet
+   triggered in the reporting playthrough) — found by grepping the whole repo for the same
+   pattern after it was confirmed broken in the Wonders domain's ceremony option text.
+   `validate.py` now lints the bare `[ROOT.Custom(` pattern directly. See
+   `[[custom_localization_call_needs_typed_scope_link_not_bare_root]]`.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report` after any codegen or data change. It lints
