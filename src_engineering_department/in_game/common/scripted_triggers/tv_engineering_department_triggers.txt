@@ -404,6 +404,7 @@ tv_wonder_can_finish_construction_trigger = {
 		OR = {
 			AND = {
 				var:tv_wonder_project_mode ?= 2
+				has_variable = tv_wonder_project_base_level
 				var:tv_wonder_level > var:tv_wonder_project_base_level
 			}
 			AND = {

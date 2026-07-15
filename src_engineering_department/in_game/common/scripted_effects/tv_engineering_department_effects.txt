@@ -1793,6 +1793,7 @@ tv_wonder_select_construction_site_effect = {
 		tv_wonder_initialize_construction_parts_effect = yes
 		tv_wonder_restore_locked_wonder_final_building_state_effect = yes
 		tv_wonder_sync_units_from_buildings_effect = yes
+		tv_wonder_update_wonder_level_effect = yes
 		if = {
 			limit = { var:tv_wonder_project_mode ?= 2 }
 			set_variable = { name = tv_wonder_project_base_level value = var:tv_wonder_level }
@@ -2275,6 +2276,13 @@ tv_wonder_reinitialize_building_state_core_effect = {
 		tv_wonder_sync_existing_final_building_level_effect = yes
 		tv_wonder_sync_units_from_buildings_effect = yes
 		tv_wonder_update_wonder_level_effect = yes
+		if = {
+			limit = {
+				var:tv_wonder_project_mode ?= 2
+				NOT = { has_variable = tv_wonder_project_base_level }
+			}
+			set_variable = { name = tv_wonder_project_base_level value = var:tv_wonder_level }
+		}
 		tv_wonder_apply_helper_building_to_final_site_effect = yes
 		tv_wonder_materialize_module_buildings_from_unit_vars_effect = yes
 		var:tv_wonder_site ?= {

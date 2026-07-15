@@ -698,6 +698,46 @@ every country regardless so missing or damaged IOs are repaired.
     effect files) — deleted from the generator and the suppression list rather than kept. See
     `[[cmf_suppress_status_is_not_proof_a_variable_reference_is_real]]`.
 
+28. Every raw variable comparison inside a `custom_tooltip` must have a `has_variable` guard if
+    the compared variable is only conditionally set — per the Milestone Trigger Tooltip Pattern —
+    and this matters even more when the same trigger doubles as an effect's own `if.limit` (not
+    just a generic_action's `allow`). `tv_wonder_can_finish_construction_trigger`'s "must have
+    gained a level" gate compared `var:tv_wonder_level > var:tv_wonder_project_base_level`
+    unguarded, even though `tv_wonder_project_base_level` only exists when
+    `var:tv_wonder_project_mode ?= 2` at site-selection time; its sibling branch one line below
+    already used the safe `var:tv_wonder_level ?= { this >= 1 }` form. Because this trigger also
+    gates `tv_wonder_finish_construction_effect`'s body, the bug did not just show a wrong
+    checkmark — the button's effect-tooltip preview pass corrupted an unrelated *later* line in
+    the same body (`tv_wonder_destroy_labor_camp_effect`'s `destroy_building_forcefully` building
+    name came back garbled). When a "why is this unrelated tooltip broken" report traces back to a
+    `custom_tooltip` earlier in the same effect body, check that trigger's own comparisons first.
+    See `[[custom_tooltip_unguarded_comparison_corrupts_later_effect_tooltip_in_same_pass]]`.
+
+29. `tv_wonder_project_base_level` (the "level when this resume/expansion project started"
+    snapshot) is captured in `tv_wonder_select_construction_site_effect` as
+    `set_variable = { name = tv_wonder_project_base_level value = var:tv_wonder_level }`, guarded
+    only by `var:tv_wonder_project_mode ?= 2`. This silently produced no variable at all for a
+    wonder resuming construction on a site with pre-existing progress — e.g. an existing-at-game-
+    start unique wonder (`initial_level > 0`, like Jerusalem's Dome of the Rock) — because
+    `tv_wonder_initialize_existing_unique_wonders_effect` only seeds the survey/final-building-
+    level global maps at game start, not the country's own `tv_wonder_level`/`_units` variables;
+    the restore effects called earlier in `tv_wonder_select_construction_site_effect`
+    (`tv_wonder_restore_locked_wonder_final_building_state_effect`,
+    `tv_wonder_sync_units_from_buildings_effect`) correctly rebuild the `_units` counters from the
+    site's actual building levels, but nothing recomputed the *derived* `tv_wonder_level` from
+    those counters before the snapshot line ran two calls later, so `tv_wonder_level` was still
+    unset at that exact moment. Fixed by inserting `tv_wonder_update_wonder_level_effect = yes`
+    between the restore calls and the snapshot — mirroring `tv_wonder_reinitialize_building_state_
+    core_effect`'s already-correct restore-then-recompute order, which is the reference for this
+    ordering requirement generally: any time a wonder effect restores/backfills `_units` (or any
+    other counters a derived cache variable is computed from) from location building state, always
+    re-run the matching recompute effect before anything reads the derived variable, even inside
+    the same effect body. Also added the equivalent missing-base-level repair to
+    `tv_wonder_reinitialize_building_state_core_effect` itself, since a player already mid-
+    playthrough with a silently-missing `tv_wonder_project_base_level` has no other way to recover
+    it besides the `tv_reinitialize_mod` debug action. See
+    `[[derived_cache_variable_not_recomputed_after_restoring_its_source_counters]]`.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`: it lints rule 2 and rule 16 automatically, and when a
