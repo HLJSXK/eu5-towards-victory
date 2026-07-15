@@ -203,7 +203,6 @@ CEREMONY_COST_TEMPORARY_MODIFIER_YEARS = 5
 # country_reward ids that reuse an existing STYLE_3_REWARD_EFFECTS scalar effect verbatim
 # (same effect name, new magnitude sourced from data/cost_reward_units.yaml).
 CEREMONY_COST_COUNTRY_REWARD_EFFECTS = {
-    "gold": "add_gold",
     "government_power": "add_government_power",
     "stability": "add_stability",
     "prestige": "add_prestige",
@@ -242,7 +241,9 @@ def ceremony_cost_effect_lines(cost: list[dict], indent: int, stage_index: int) 
         entry_id = entry["type"]
         value = entry["value"]
         if catalog == "country_reward":
-            if entry_id in CEREMONY_COST_COUNTRY_REWARD_EFFECTS:
+            if entry_id == "scaled_gold":
+                lines.append(f"{prefix}change_gold_effect = {{ scale = {value} }}")
+            elif entry_id in CEREMONY_COST_COUNTRY_REWARD_EFFECTS:
                 lines.append(f"{prefix}{CEREMONY_COST_COUNTRY_REWARD_EFFECTS[entry_id]} = {value}")
             elif entry_id == "inflation":
                 lines.append(f"{prefix}add_inflation = {value}")

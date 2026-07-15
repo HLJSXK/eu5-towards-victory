@@ -285,7 +285,13 @@ every country regardless so missing or damaged IOs are repaired.
     identically at every stage. (Prior to 2026-07-15, the schema mistakenly
     allowed 1-2 entries, which let 120/121 wonders drift to 2 costs per stage
     during authoring — see `anti_patterns.yaml` rule
-    `unique_wonder_ceremony_stage_cost_must_have_exactly_one_entry`.) The framework has no manual confirmation
+    `unique_wonder_ceremony_stage_cost_must_have_exactly_one_entry`.) A
+    `country_reward` gold cost renders as `change_gold_effect = { scale = <N> }`
+    (catalog id `scaled_gold` in `data/cost_reward_units.yaml`), never bare
+    `add_gold = <N>` — the cost is meant to scale with the country's economy
+    like every other gold cost in the Wonder Ritual system, not be a flat
+    literal; see `anti_patterns.yaml` rule
+    `ceremony_cost_gold_must_use_scaled_gold_not_flat_add_gold`. The framework has no manual confirmation
     entry: `tv_wonder_finish_construction_effect` calls
     `tv_wonder_initialize_ceremony_runtime_state_effect`, which selects style
     1, refreshes the selected-ritual cache, and calls

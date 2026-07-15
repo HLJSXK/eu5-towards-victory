@@ -126,7 +126,7 @@ tv_wonder_ceremony_pay_stage_1_cost_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 117 }
-		add_gold = -1
+		change_gold_effect = { scale = -1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 118 }
@@ -154,7 +154,7 @@ tv_wonder_ceremony_pay_stage_1_cost_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 124 }
-		add_gold = -1
+		change_gold_effect = { scale = -1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 125 }
@@ -262,7 +262,7 @@ tv_wonder_ceremony_pay_stage_1_cost_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 151 }
-		add_gold = -1
+		change_gold_effect = { scale = -1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 152 }
@@ -270,7 +270,7 @@ tv_wonder_ceremony_pay_stage_1_cost_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 153 }
-		add_gold = -1
+		change_gold_effect = { scale = -1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 154 }
@@ -302,7 +302,7 @@ tv_wonder_ceremony_pay_stage_1_cost_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 161 }
-		add_gold = -1
+		change_gold_effect = { scale = -1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 162 }
@@ -526,7 +526,7 @@ tv_wonder_ceremony_pay_stage_1_cost_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 216 }
-		add_gold = -1
+		change_gold_effect = { scale = -1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 217 }
@@ -546,7 +546,7 @@ tv_wonder_ceremony_pay_stage_1_cost_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 221 }
-		add_gold = -1
+		change_gold_effect = { scale = -1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 222 }
@@ -585,7 +585,7 @@ tv_wonder_ceremony_pay_stage_2_cost_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 109 }
-		add_gold = -2
+		change_gold_effect = { scale = -2 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 110 }
@@ -605,7 +605,7 @@ tv_wonder_ceremony_pay_stage_2_cost_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 114 }
-		add_gold = -2
+		change_gold_effect = { scale = -2 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 115 }
@@ -661,7 +661,7 @@ tv_wonder_ceremony_pay_stage_2_cost_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 125 }
-		add_gold = -2
+		change_gold_effect = { scale = -2 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 126 }
@@ -765,11 +765,11 @@ tv_wonder_ceremony_pay_stage_2_cost_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 146 }
-		add_gold = -2
+		change_gold_effect = { scale = -2 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 147 }
-		add_gold = -2
+		change_gold_effect = { scale = -2 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 148 }
@@ -871,7 +871,7 @@ tv_wonder_ceremony_pay_stage_2_cost_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 168 }
-		add_gold = -2
+		change_gold_effect = { scale = -2 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 169 }
@@ -887,7 +887,7 @@ tv_wonder_ceremony_pay_stage_2_cost_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 172 }
-		add_gold = -2
+		change_gold_effect = { scale = -2 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 173 }
@@ -939,15 +939,15 @@ tv_wonder_ceremony_pay_stage_2_cost_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 183 }
-		add_gold = -2
+		change_gold_effect = { scale = -2 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 184 }
-		add_gold = -2
+		change_gold_effect = { scale = -2 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 185 }
-		add_gold = -2
+		change_gold_effect = { scale = -2 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 186 }
@@ -973,7 +973,7 @@ tv_wonder_ceremony_pay_stage_2_cost_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 190 }
-		add_gold = -2
+		change_gold_effect = { scale = -2 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 191 }
@@ -983,7 +983,7 @@ tv_wonder_ceremony_pay_stage_2_cost_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 192 }
-		add_gold = -2
+		change_gold_effect = { scale = -2 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 193 }
@@ -1029,11 +1029,11 @@ tv_wonder_ceremony_pay_stage_2_cost_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 202 }
-		add_gold = -2
+		change_gold_effect = { scale = -2 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 203 }
-		add_gold = -2
+		change_gold_effect = { scale = -2 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 204 }
@@ -1041,7 +1041,7 @@ tv_wonder_ceremony_pay_stage_2_cost_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 205 }
-		add_gold = -2
+		change_gold_effect = { scale = -2 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 206 }
@@ -1099,7 +1099,7 @@ tv_wonder_ceremony_pay_stage_2_cost_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 217 }
-		add_gold = -2
+		change_gold_effect = { scale = -2 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 218 }
@@ -1132,7 +1132,7 @@ tv_wonder_ceremony_pay_stage_2_cost_effect = {
 tv_wonder_ceremony_pay_stage_3_cost_effect = {
 	if = {
 		limit = { var:tv_wonder_locked ?= 103 }
-		add_gold = -1
+		change_gold_effect = { scale = -1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 104 }
@@ -1336,7 +1336,7 @@ tv_wonder_ceremony_pay_stage_3_cost_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 148 }
-		add_gold = -1
+		change_gold_effect = { scale = -1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 149 }
@@ -1352,7 +1352,7 @@ tv_wonder_ceremony_pay_stage_3_cost_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 151 }
-		add_gold = -1
+		change_gold_effect = { scale = -1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 152 }
@@ -1416,7 +1416,7 @@ tv_wonder_ceremony_pay_stage_3_cost_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 164 }
-		add_gold = -1
+		change_gold_effect = { scale = -1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 165 }
@@ -1500,11 +1500,11 @@ tv_wonder_ceremony_pay_stage_3_cost_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 180 }
-		add_gold = -1
+		change_gold_effect = { scale = -1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 181 }
-		add_gold = -1
+		change_gold_effect = { scale = -1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 182 }
@@ -1574,7 +1574,7 @@ tv_wonder_ceremony_pay_stage_3_cost_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 196 }
-		add_gold = -1
+		change_gold_effect = { scale = -1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 197 }
@@ -1632,7 +1632,7 @@ tv_wonder_ceremony_pay_stage_3_cost_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 209 }
-		add_gold = -1
+		change_gold_effect = { scale = -1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 210 }
@@ -1709,7 +1709,7 @@ tv_wonder_ceremony_pay_stage_4_cost_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 104 }
-		add_gold = -2
+		change_gold_effect = { scale = -2 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 105 }
@@ -1975,7 +1975,7 @@ tv_wonder_ceremony_pay_stage_4_cost_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 157 }
-		add_gold = -2
+		change_gold_effect = { scale = -2 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 158 }
@@ -2055,7 +2055,7 @@ tv_wonder_ceremony_pay_stage_4_cost_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 172 }
-		add_gold = -2
+		change_gold_effect = { scale = -2 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 173 }
@@ -2087,7 +2087,7 @@ tv_wonder_ceremony_pay_stage_4_cost_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 179 }
-		add_gold = -2
+		change_gold_effect = { scale = -2 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 180 }
@@ -2582,7 +2582,7 @@ tv_wonder_ceremony_pay_stage_5_cost_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 154 }
-		add_gold = -1
+		change_gold_effect = { scale = -1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 155 }
@@ -3183,7 +3183,7 @@ tv_wonder_ceremony_pay_stage_6_cost_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 146 }
-		add_gold = -2
+		change_gold_effect = { scale = -2 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 147 }
@@ -3738,7 +3738,7 @@ tv_wonder_ceremony_pay_stage_7_cost_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 139 }
-		add_gold = -1
+		change_gold_effect = { scale = -1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 140 }
@@ -3932,7 +3932,7 @@ tv_wonder_ceremony_pay_stage_7_cost_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 182 }
-		add_gold = -1
+		change_gold_effect = { scale = -1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 183 }
@@ -4229,7 +4229,7 @@ tv_wonder_ceremony_pay_stage_8_cost_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 129 }
-		add_gold = -2
+		change_gold_effect = { scale = -2 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 130 }
@@ -4257,7 +4257,7 @@ tv_wonder_ceremony_pay_stage_8_cost_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 136 }
-		add_gold = -2
+		change_gold_effect = { scale = -2 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 137 }
@@ -4429,7 +4429,7 @@ tv_wonder_ceremony_pay_stage_8_cost_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 178 }
-		add_gold = -2
+		change_gold_effect = { scale = -2 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 179 }
@@ -4599,7 +4599,7 @@ tv_wonder_ceremony_pay_stage_8_cost_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 220 }
-		add_gold = -2
+		change_gold_effect = { scale = -2 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 221 }

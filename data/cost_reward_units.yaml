@@ -51,11 +51,11 @@
 # Edit through the merged towards_victory_editor_web tool (scripts/towards_victory_editor.py).
 
 country_reward:
-  - id: gold
+  - id: scaled_gold
     value: 1
     loc:
-      en: "treasury funds"
-      zh: "国库资金"
+      en: "treasury funds (scaled to economy)"
+      zh: "国库资金（按经济规模缩放）"
   - id: government_power
     value: 5
     loc:
