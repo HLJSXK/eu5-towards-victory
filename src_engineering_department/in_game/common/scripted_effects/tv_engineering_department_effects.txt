@@ -1962,11 +1962,10 @@ tv_wonder_monthly_construction_effect = {
 tv_wonder_destroy_labor_camp_effect = {
 	if = {
 		limit = { tv_wonder_construction_site_selected_trigger = yes }
-		save_scope_as = tv_wonder_labor_camp_owner
-			var:tv_wonder_site ?= {
+		var:tv_wonder_site ?= {
 			if = {
 				limit = { has_building = building_type:tv_wonder_labor_camp }
-				destroy_building_forcefully = "building(building_type:tv_wonder_labor_camp|scope:tv_wonder_labor_camp_owner)"
+				destroy_building_forcefully = "building(building_type:tv_wonder_labor_camp|owner)"
 			}
 		}
 	}

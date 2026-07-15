@@ -753,6 +753,28 @@ every country regardless so missing or damaged IOs are repaired.
     `tooltip_change_text`. `validate.py` now lints the bare `[ROOT.Custom(` pattern directly. See
     `[[custom_localization_call_needs_typed_scope_link_not_bare_root]]`.
 
+31. `destroy_building`/`destroy_building_forcefully` targeting `building(building_type:X|scope:Y)`
+    must resolve `scope:Y` through an implicit link (`owner`, `root`, `prev`, `scope:actor`) —
+    never a custom name captured earlier in the same effect via `save_scope_as`. Every vanilla
+    usage (e.g. `catholic.txt`'s `destroy_building_forcefully = "building(building_type:
+    seat_of_cardinal|owner)"`, called from inside `scope:target_location`) uses only implicit
+    links. `tv_wonder_destroy_labor_camp_effect` did `save_scope_as = tv_wonder_labor_camp_owner`
+    at country scope, then referenced `scope:tv_wonder_labor_camp_owner` after entering the
+    location (`var:tv_wonder_site ?= { ... }`). The runtime executor resolves this fine and
+    correctly destroys the Labor Camp on click — but the button's effect-tooltip preview pass
+    does not replay `save_scope_as` before resolving the destroy target for display, so it fails
+    to promote the engine's internal `TARGET_BUILDING` placeholder
+    (`Promote 'TARGET_BUILDING' returned nullptr`) and shows garbled text instead of "Labor Camp
+    will be destroyed" even though the click-through behavior is completely correct. Fixed by
+    using the location's own `owner` link directly and deleting the now-unnecessary
+    `save_scope_as`. The same `save_scope_as`-then-`scope:X_owner` pattern is used ~926 times
+    across `tv_wonder_module_effects.txt` (`tv_wonder_module_owner`) for the generic/module
+    wonder building-consolidation system, reachable only via `tv_wonder_reinitialize_building_
+    state_core_effect` (the `tv_reinitialize_mod` debug action) — not yet confirmed broken there
+    (no player-facing construction button walks that chain), left alone rather than blindly
+    refactoring 926 call sites without a reported symptom. See
+    `[[destroy_building_target_via_custom_saved_scope_breaks_tooltip_preview]]`.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`: it lints rule 2 and rule 16 automatically, and when a
