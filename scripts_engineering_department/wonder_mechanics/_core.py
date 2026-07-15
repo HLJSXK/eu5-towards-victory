@@ -640,8 +640,8 @@ def _validate_ceremony_stage_cost_item(value: object, context: str, *, stage_ind
 
 def _validate_ceremony_stage_cost(value: object, context: str, *, stage_index: int) -> list[dict[str, object]]:
     items = _require_list(value, context)
-    if not items or len(items) > 2:
-        raise ValueError(f"{context} must have 1-2 entries, got {len(items)}")
+    if len(items) != 1:
+        raise ValueError(f"{context} must have exactly 1 entry, got {len(items)}")
     return [
         _validate_ceremony_stage_cost_item(item, f"{context}[{index}]", stage_index=stage_index)
         for index, item in enumerate(items, start=1)

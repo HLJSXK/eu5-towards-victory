@@ -277,11 +277,15 @@ every country regardless so missing or damaged IOs are repaired.
     for `audit_unique_wonder_ritual_mechanic_similarity.py` (confirmed by the
     user, 2026-07) — do not treat its shared 8-stage shape as a rule 12/13
     violation, and do not "fix" it by bespoke-ifying each wonder's ceremony.
-    Since 2026-07, each stage carries its own authored `cost` (a list of 1-2
-    `{type, value}` entries, validated by `_validate_ceremony_stage_cost` /
-    `SUPPORTED_CEREMONY_STAGE_COST_TYPES` in `scripts_engineering_department/wonder_mechanics/_core.py`)
+    Since 2026-07, each stage carries its own authored `cost` (a list of
+    **exactly 1** `{type, value}` entry, validated by `_validate_ceremony_stage_cost` /
+    `SUPPORTED_CEREMONY_STAGE_COST_TYPES` in `scripts_engineering_department/wonder_mechanics/_core.py`,
+    which hard-rejects 0, 2, or more entries)
     instead of the wonder's single `ritual.cost_type` being repeated
-    identically at every stage. The framework has no manual confirmation
+    identically at every stage. (Prior to 2026-07-15, the schema mistakenly
+    allowed 1-2 entries, which let 120/121 wonders drift to 2 costs per stage
+    during authoring — see `anti_patterns.yaml` rule
+    `unique_wonder_ceremony_stage_cost_must_have_exactly_one_entry`.) The framework has no manual confirmation
     entry: `tv_wonder_finish_construction_effect` calls
     `tv_wonder_initialize_ceremony_runtime_state_effect`, which selects style
     1, refreshes the selected-ritual cache, and calls
