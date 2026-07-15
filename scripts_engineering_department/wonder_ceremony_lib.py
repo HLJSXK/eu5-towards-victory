@@ -20,9 +20,8 @@ sys.path.insert(0, str(REPO_ROOT / "scripts_engineering_department"))
 from wonder_mechanics.io import load_all_wonder_mechanics  # noqa: E402
 from wonder_mechanics.rituals import (  # noqa: E402
     STYLE_3_REWARD_EFFECTS,
-    ceremony_cost_country_modifier_name,
-    ceremony_cost_local_modifier_name,
-    ceremony_cost_stage_multiplier,
+    ceremony_stage_cost_country_modifier_name,
+    ceremony_stage_cost_local_modifier_name,
 )
 
 T = "\t"
@@ -108,19 +107,19 @@ def option_decline_fallback_key(stage: int) -> str:
     return f"TV_WONDER_CEREMONY_S{stage}_OPTION_DECLINE_FALLBACK"
 
 
-def used_ceremony_cost_tiers(wonders: list[dict], catalog: str) -> list[tuple[str, int]]:
-    """Every distinct (id, tier) pair actually referenced by an authored ceremony stage cost
-    for the given catalog ("country_modifier" or "local_modifier") — shared by the static
-    modifier generators and the loc generators' STATIC_MODIFIER_NAME_ entries, so both stay
-    in sync with exactly what's used (not the full catalog x tier cross product)."""
-    used: set[tuple[str, int]] = set()
+def ceremony_stage_cost_entries(wonders: list[dict], catalog: str) -> list[tuple[dict, int, str]]:
+    """Every (wonder, stage_index, entry_id) triple where a ceremony stage's single cost item
+    belongs to the given catalog ("country_modifier" or "local_modifier"). One entry per
+    wonder/stage (never deduped) so the resulting static modifier's display name can match
+    that stage's own flavor text — shared by the static modifier generators and the loc
+    generators' STATIC_MODIFIER_NAME_ entries, so both stay in sync with exactly what's used."""
+    entries: list[tuple[dict, int, str]] = []
     for wonder in wonders:
         for stage_index, stage in enumerate(wonder["ceremony"]["stages"], start=1):
-            tier = ceremony_cost_stage_multiplier(stage_index)
             for item in stage["cost"]:
                 if item["catalog"] == catalog:
-                    used.add((item["type"], tier))
-    return sorted(used)
+                    entries.append((wonder, stage_index, item["type"]))
+    return entries
 
 
 def option_pay_cl_block(stage: int) -> str:
@@ -229,11 +228,14 @@ CEREMONY_COST_CHARACTER_RULER_EFFECTS = {
 }
 
 
-def ceremony_cost_effect_lines(cost: list[dict], indent: int, stage_index: int) -> list[str]:
+def ceremony_cost_effect_lines(cost: list[dict], indent: int, stage_index: int, wonder: dict) -> list[str]:
     """Renders a Unique Wonder Ceremony stage's cost — data/cost_reward_units.yaml-backed,
     {catalog, type, value} shape — into EU5 effect lines. New, separate from
     reward_effect_lines() above, which remains the STYLE_3_REWARD_EFFECTS renderer for the
-    unrelated stage-2/4/8 reward channels (see docs/knowledge/risk_cards/wonders.md rule 20)."""
+    unrelated stage-2/4/8 reward channels (see docs/knowledge/risk_cards/wonders.md rule 20).
+    `wonder` is only used by the country_modifier/local_modifier branches, whose static
+    modifier is scoped per (wonder, stage) so its display name can match that stage's own
+    flavor text."""
     prefix = T * indent
     lines: list[str] = []
     for entry in cost:
@@ -273,15 +275,13 @@ def ceremony_cost_effect_lines(cost: list[dict], indent: int, stage_index: int) 
             else:
                 raise ValueError(f"Unsupported character_reward cost id: {entry_id}")
         elif catalog == "country_modifier":
-            tier = ceremony_cost_stage_multiplier(stage_index)
-            modifier_name = ceremony_cost_country_modifier_name(entry_id, tier)
+            modifier_name = ceremony_stage_cost_country_modifier_name(wonder["key"], stage_index)
             lines.append(
                 f"{prefix}add_country_modifier = {{ modifier = {modifier_name} "
                 f"years = {CEREMONY_COST_TEMPORARY_MODIFIER_YEARS} mode = add_and_extend }}"
             )
         elif catalog == "local_modifier":
-            tier = ceremony_cost_stage_multiplier(stage_index)
-            modifier_name = ceremony_cost_local_modifier_name(entry_id, tier)
+            modifier_name = ceremony_stage_cost_local_modifier_name(wonder["key"], stage_index)
             lines.append(f"{prefix}var:tv_wonder_site ?= {{")
             lines.append(
                 f"{prefix}{T}add_location_modifier = {{ modifier = {modifier_name} "

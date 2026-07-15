@@ -209,7 +209,6 @@ CEREMONY_COST_EXCLUDED_IDS = {
     ("local_reward", "laborers"),
 }
 _COST_REWARD_UNITS_CACHE: dict[str, dict[str, float]] | None = None
-_COST_REWARD_UNIT_LABELS_CACHE: dict[str, dict[str, dict[str, str]]] | None = None
 
 
 def load_cost_reward_units() -> dict[str, dict[str, float]]:
@@ -234,28 +233,6 @@ def load_cost_reward_units() -> dict[str, dict[str, float]]:
     return _COST_REWARD_UNITS_CACHE
 
 
-def load_cost_reward_unit_labels() -> dict[str, dict[str, dict[str, str]]]:
-    """Load data/cost_reward_units.yaml's {en, zh} loc text per id, filtered the same way as
-    load_cost_reward_units(). Used to name the generated static modifiers' required
-    STATIC_MODIFIER_NAME_<id> localization key (see validate.py check_static_modifier_name_loc_coverage)."""
-    global _COST_REWARD_UNIT_LABELS_CACHE
-    if _COST_REWARD_UNIT_LABELS_CACHE is None:
-        data = load_yaml(COST_REWARD_UNITS_FILE)
-        catalogs: dict[str, dict[str, dict[str, str]]] = {}
-        for catalog in CEREMONY_COST_CATALOGS:
-            labels: dict[str, dict[str, str]] = {}
-            for entry in data[catalog]:
-                entry_id = entry["id"]
-                if (catalog, entry_id) in CEREMONY_COST_EXCLUDED_IDS:
-                    continue
-                if isinstance(entry["value"], bool):
-                    continue
-                labels[entry_id] = {"en": entry["loc"]["en"], "zh": entry["loc"]["zh"]}
-            catalogs[catalog] = labels
-        _COST_REWARD_UNIT_LABELS_CACHE = catalogs
-    return _COST_REWARD_UNIT_LABELS_CACHE
-
-
 def ceremony_cost_stage_multiplier(stage_index: int) -> int:
     if not (1 <= stage_index <= CEREMONY_STAGE_COUNT):
         raise ValueError(f"stage_index must be 1-{CEREMONY_STAGE_COUNT}, got {stage_index}")
@@ -276,12 +253,12 @@ def ceremony_cost_computed_value(catalog: str, entry_id: str, stage_index: int) 
     return round(-base_value * multiplier, 10)
 
 
-def ceremony_cost_country_modifier_name(entry_id: str, tier: int) -> str:
-    return f"tv_wonder_ceremony_cost_country_modifier_{entry_id}_tier{tier}"
+def ceremony_stage_cost_country_modifier_name(wonder_key: str, stage_index: int) -> str:
+    return f"tv_wonder_ceremony_cost_country_modifier_{wonder_key}_s{stage_index}"
 
 
-def ceremony_cost_local_modifier_name(entry_id: str, tier: int) -> str:
-    return f"tv_wonder_ceremony_cost_local_modifier_{entry_id}_tier{tier}"
+def ceremony_stage_cost_local_modifier_name(wonder_key: str, stage_index: int) -> str:
+    return f"tv_wonder_ceremony_cost_local_modifier_{wonder_key}_s{stage_index}"
 
 
 SITE_RULES_SECTION = "site_rules"

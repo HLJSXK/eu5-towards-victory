@@ -1,10 +1,11 @@
 """Generate the Unique Wonder Ceremony's location-scope temporary cost static modifiers.
 
-One tiny static modifier per (local_modifier catalog id, tier) pair actually referenced by
-an authored ceremony stage cost in data/unique_wonders.yaml -- not the full catalog x tier
-cross product. Applied at the wonder's own site via `var:tv_wonder_site ?= {
-add_location_modifier = { modifier = <name> years = 5 mode = add_and_extend } }`
-(see scripts/wonder_ceremony_lib.py's ceremony_cost_effect_lines()).
+One static modifier per (wonder, stage) that authors a local_modifier catalog cost in
+data/unique_wonders.yaml, named after that stage's own flavor title so the debuff reads as
+part of that ceremony step's story rather than a generic effect label. Applied at the
+wonder's own site via `var:tv_wonder_site ?= { add_location_modifier = { modifier = <name>
+years = 5 mode = add_and_extend } }` (see
+scripts_engineering_department/wonder_ceremony_lib.py's ceremony_cost_effect_lines()).
 """
 
 import sys
@@ -18,13 +19,14 @@ sys.path.insert(0, str(REPO_ROOT / "scripts_engineering_department"))
 
 from wonder_ceremony_lib import (  # noqa: E402
     T,
+    ceremony_stage_cost_entries,
     ceremony_wonders,
     render_header,
     script_rel,
-    used_ceremony_cost_tiers,
 )
 from wonder_mechanics.rituals import (  # noqa: E402
-    ceremony_cost_local_modifier_name,
+    ceremony_cost_stage_multiplier,
+    ceremony_stage_cost_local_modifier_name,
     load_cost_reward_units,
 )
 
@@ -49,9 +51,10 @@ def generate() -> str:
     wonders = ceremony_wonders()
     local_modifiers = load_cost_reward_units()["local_modifier"]
     lines = render_header(SCRIPT_REL, DATA_REL, script_rel(OUT_FILE))
-    for entry_id, tier in used_ceremony_cost_tiers(wonders, "local_modifier"):
+    for wonder, stage_index, entry_id in ceremony_stage_cost_entries(wonders, "local_modifier"):
+        tier = ceremony_cost_stage_multiplier(stage_index)
         value = -1 * local_modifiers[entry_id] * tier
-        lines.append(f"{ceremony_cost_local_modifier_name(entry_id, tier)} = {{")
+        lines.append(f"{ceremony_stage_cost_local_modifier_name(wonder['key'], stage_index)} = {{")
         lines.append(f"{T}{entry_id} = {fmt_value(value)}")
         lines.append(f"{T}game_data = {{")
         lines.append(f"{T}{T}category = location")

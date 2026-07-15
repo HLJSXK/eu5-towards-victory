@@ -99,7 +99,7 @@ def append_stage_cost_dispatch(lines: list[str], wonders: list[dict]) -> None:
             first = False
             lines.append(f"{T}{head} = {{")
             lines.append(f"{T}{T}limit = {{ var:tv_wonder_locked ?= {wonder['id']} }}")
-            lines.extend(ceremony_cost_effect_lines(cost, 2, stage_index=stage))
+            lines.extend(ceremony_cost_effect_lines(cost, 2, stage_index=stage, wonder=wonder))
             lines.append(f"{T}}}")
         lines.append("}")
         lines.append("")

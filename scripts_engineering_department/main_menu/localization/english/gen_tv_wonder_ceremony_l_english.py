@@ -13,6 +13,7 @@ sys.path.insert(0, str(REPO_ROOT / "scripts_engineering_department"))
 from wonder_ceremony_lib import (  # noqa: E402
     STAGE_COUNT,
     card_icon_key,
+    ceremony_stage_cost_entries,
     ceremony_wonders,
     decline_option_key,
     desc_key,
@@ -25,12 +26,10 @@ from wonder_ceremony_lib import (  # noqa: E402
     pay_option_key,
     render_header,
     title_key,
-    used_ceremony_cost_tiers,
 )
 from wonder_mechanics.rituals import (  # noqa: E402
-    ceremony_cost_country_modifier_name,
-    ceremony_cost_local_modifier_name,
-    load_cost_reward_unit_labels,
+    ceremony_stage_cost_country_modifier_name,
+    ceremony_stage_cost_local_modifier_name,
 )
 
 OUT_FILE = REPO_ROOT / "src_engineering_department" / "main_menu" / "localization" / "english" / "tv_wonder_ceremony_l_english.yml"
@@ -40,10 +39,6 @@ DATA_REL = "data/unique_wonders.yaml + data/cost_reward_units.yaml"
 
 def q(text: str) -> str:
     return text.replace('"', '\\"')
-
-
-def capitalize_first(text: str) -> str:
-    return text[:1].upper() + text[1:] if text else text
 
 
 def first_sentence(text: str) -> str:
@@ -104,13 +99,14 @@ def generate() -> str:
             lines.append(
                 f' {option_decline_text_key(stage_index, wonder["id"])}:0 "{q(stage_data["option_decline_en"])}"'
             )
-    labels = load_cost_reward_unit_labels()
-    for entry_id, tier in used_ceremony_cost_tiers(wonders, "country_modifier"):
-        name = ceremony_cost_country_modifier_name(entry_id, tier)
-        lines.append(f' STATIC_MODIFIER_NAME_{name}:0 "{q(capitalize_first(labels["country_modifier"][entry_id]["en"]))}"')
-    for entry_id, tier in used_ceremony_cost_tiers(wonders, "local_modifier"):
-        name = ceremony_cost_local_modifier_name(entry_id, tier)
-        lines.append(f' STATIC_MODIFIER_NAME_{name}:0 "{q(capitalize_first(labels["local_modifier"][entry_id]["en"]))}"')
+    for wonder, stage_index, _entry_id in ceremony_stage_cost_entries(wonders, "country_modifier"):
+        name = ceremony_stage_cost_country_modifier_name(wonder["key"], stage_index)
+        title = q(wonder["ceremony"]["stages"][stage_index - 1]["title_en"])
+        lines.append(f' STATIC_MODIFIER_NAME_{name}:0 "{title}"')
+    for wonder, stage_index, _entry_id in ceremony_stage_cost_entries(wonders, "local_modifier"):
+        name = ceremony_stage_cost_local_modifier_name(wonder["key"], stage_index)
+        title = q(wonder["ceremony"]["stages"][stage_index - 1]["title_en"])
+        lines.append(f' STATIC_MODIFIER_NAME_{name}:0 "{title}"')
     return "\n".join(lines).rstrip() + "\n"
 
 
