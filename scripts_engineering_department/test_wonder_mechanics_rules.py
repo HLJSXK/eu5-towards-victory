@@ -513,16 +513,22 @@ def validate_generated_ceremony_gui(wonders: list[dict]) -> None:
 
     hold_buttons = load_mechanics_gui_generator().generate()
     require(
-        "TV_ENGINEERING_HOLD_CEREMONY_BUTTON" not in hold_buttons,
-        "The shared confirmation button must not be emitted for automatic ceremonies.",
+        "TV_ENGINEERING_HOLD_CEREMONY_BUTTON" in hold_buttons,
+        "Generic (non-unique) wonders must still get the shared manual confirm button "
+        "for their player-chosen ceremony style.",
     )
+    for action_name in (
+        "tv_wonder_confirm_ceremony_scaled_gold",
+        "tv_wonder_confirm_ceremony_prestige",
+    ):
+        require(
+            f'action_name = "{action_name}"' in hold_buttons,
+            f"The shared {action_name} confirmation button must be emitted for generic wonders.",
+        )
     require(
-        'action_name = "tv_wonder_confirm_ceremony_scaled_gold"' not in hold_buttons,
-        "The shared scaled-gold confirmation button must not be emitted.",
-    )
-    require(
-        'action_name = "tv_wonder_confirm_ceremony_prestige"' not in hold_buttons,
-        "The shared prestige confirmation button must not be emitted.",
+        hold_buttons.count("tv_wonder_locked_is_unique") >= 3,
+        "The three shared generic confirm buttons must each gate on tv_wonder_locked_is_unique "
+        "so they never overlap with Pharos/Hagia's bespoke buttons.",
     )
     for label, wonder_id in (
         ("TV_ENGINEERING_PHAROS_BUILD_BUTTON", 101),

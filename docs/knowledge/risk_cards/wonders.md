@@ -871,6 +871,29 @@ every country regardless so missing or damaged IOs are repaired.
     all, rather than trying a third RHS variant. See
     `[[preceding_has_variable_does_not_guard_a_later_raw_two_variable_comparison]]`.
 
+34. When a GUI generator rewrite adds a bespoke special-case button path, verify the generic
+    case it's carved out of still has its own working path — do not assume the special case's
+    deletion leaves the generic case unaffected. Every player-facing generic_action in the
+    Engineering Department panel (`tv_wonder_confirm_ceremony`/`_scaled_gold`/`_prestige`
+    included) is reachable ONLY through an explicitly hand-authored widget in
+    `gen_tv_engineering_department_wonder_mechanics_gui.py` — there is no vanilla-surfaced
+    fallback UI. Commit 5a56683e ("add unique ceremony framework and update UI elements",
+    2026-07-12) added the two bespoke Pharos/Hagia `hold_button()` calls (wonder id 101/102) and,
+    in the same edit, deleted the pre-existing generic-wonder hold-button block (three
+    `hold_button()` calls gated to "any locked wonder that is not Pharos/Hagia") without adding a
+    replacement. The generic_actions' `allow=` chains and cache-effect pipeline stayed fully
+    correct throughout — this was a pure GUI-wiring regression that silently removed every
+    generic wonder's manual ceremony-confirm button while Pharos/Hagia (the only wonders the
+    accompanying test exercised) kept working, masking it from
+    `test_wonder_mechanics_rules.py::validate_generated_ceremony_gui`, which asserted only that
+    the bespoke buttons exist and (over-broadly) that the shared button must never appear at all.
+    Fixed by restoring the generic hold-button block, reusing `generic_wonder_locked_expr()`
+    (added later for the ceremony-style-choice buttons, a cleaner equivalent of the deleted
+    `not_special_unique_locked_expr()`) instead of re-adding a redundant helper, and narrowing the
+    test assertions to "must appear, gated on `tv_wonder_locked_is_unique`" so generic wonders and
+    Pharos/Hagia can't double-render buttons. See
+    `[[gui_generator_rewrite_silently_dropped_generic_wonder_confirm_buttons]]`.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`: it lints rule 2 and rule 16 automatically, and when a
