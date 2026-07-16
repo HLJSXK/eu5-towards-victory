@@ -19,14 +19,17 @@
     {
       "name": "trade_good_icon",
       "label": "trade goods Icon",
-      "path": "src/main_menu/gfx/interface/icons/trade_goods/icon_goods_tv_wonder_materials.dds",
+      "path": "src_engineering_department/main_menu/gfx/interface/icons/trade_goods/icon_goods_tv_wonder_materials.dds",
       "width": 128,
       "height": 128,
       "resize": "cover",
       "dds_format": "DXT5",
       "dds_levels": 1,
+      "circle_crop": true,
+      "circle_crop_feather_px": 8,
       "file_size_bytes": 16512,
-      "max_file_size_bytes": 100000
+      "max_file_size_bytes": 100000,
+      "output_format": "dds"
     }
   ]
 }
