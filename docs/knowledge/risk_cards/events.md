@@ -93,6 +93,15 @@ called directly from event options.
    small event-local branches are acceptable only for dimensions that are already within a
    single typed event, such as ceremony style inside one wonder's finalization event.
 
+11. Create IOs in `immediate`, not in a visible option.
+   If an event's option calls an effect that runs `create_international_organization`
+   (with `add_country_to_international_organization` / `set_leader_country` nested inside
+   that same block), the option's tooltip preview evaluates those nested effects before the
+   IO actually exists, and the engine logs `Promote 'INTERNATIONAL_ORGANIZATION' returned
+   nullptr` for `GetName`/`GetLeaderTitle`. Put the IO-creation call in the event's
+   `immediate` block instead, so the IO is committed, real state before any option renders.
+   See `docs/knowledge/anti_patterns.yaml` rule `io_creation_in_visible_option_effect_breaks_tooltip_preview`.
+
 ## Validation
 
 Run:

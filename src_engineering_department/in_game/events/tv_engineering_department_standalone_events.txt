@@ -11,7 +11,10 @@ tv_engineering_department_standalone.1 = {
 
 	option = {
 		name = tv_engineering_department_standalone.1.a
-		tv_engineering_department_create_effect = yes
+		custom_tooltip = {
+			text = tv_engineering_department_standalone.1.a.tt
+			tv_engineering_department_create_effect = yes
+		}
 		hidden_effect = {
 			remove_variable = tv_engineering_department_standalone_pending
 			set_global_variable = tv_engineering_department_standalone_initialized

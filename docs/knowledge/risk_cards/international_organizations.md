@@ -173,6 +173,17 @@ that create, find, or mutate TV IOs.
     `common/scripted_effects/tv_govhouse_effects.txt` and
     `docs/knowledge/anti_patterns.yaml` rule `variable_map_reread_as_confirmation_gate`.
 
+24. Create IOs from a start-of-game event's `immediate`, not a visible option.
+    An onboarding/game-start event whose option calls a "create or join this founder IO"
+    scripted effect must have that call in the event's `immediate` block, not the option's
+    effect chain. The nested `add_country_to_international_organization` / `set_leader_country`
+    inside `create_international_organization = { ... }` render their own tooltip text
+    (`THIRD_ADD_TO_INTERNATIONAL_ORGANIZATION_EFFECT`, `SET_LEADER_EFFECT`), and option-effect
+    tooltip preview evaluates them before the IO is actually created, causing
+    `Promote 'INTERNATIONAL_ORGANIZATION' returned nullptr`. See
+    `docs/knowledge/anti_patterns.yaml` rule `io_creation_in_visible_option_effect_breaks_tooltip_preview`
+    and `docs/knowledge/risk_cards/events.md` rule 11.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`; it fails any TV IO `monthly_effect` block. Then
