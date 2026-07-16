@@ -5,23 +5,22 @@
 # Registration onto on_game_start/on_game_load lives in
 # data/pulse_registry.yaml -> tv_engineering_department_pulse_bridges.txt.
 
-# Schedule the intro event for every country one day after game start. The
-# country marker prevents a save loaded during that delay from scheduling a
-# duplicate; the event option clears it. The explicit delay keeps the visible
-# event outside the on_game_start callback without waiting for a monthly pulse.
+# Schedule the intro event for every country immediately at game start. The
+# country marker prevents a save loaded afterward from scheduling a
+# duplicate; the event option clears it.
 tv_engineering_department_standalone_game_start_bridge = {
 	effect = {
 		hidden_effect = {
 			every_country = {
 				set_variable = { name = tv_engineering_department_standalone_pending value = 1 }
-				trigger_event_non_silently = { id = tv_engineering_department_standalone.1 days = 1 }
+				trigger_event_non_silently = { id = tv_engineering_department_standalone.1 }
 			}
 		}
 	}
 }
 
 # A save with no global marker predates this mod (or was played without it)
-# — schedule the intro event for every country one day after load unless that
+# — schedule the intro event for every country immediately on load unless that
 # country already has one pending from game start. Then,
 # independently of that check, silently repair any country still missing an
 # Engineering Department (or carrying one with a damaged leader) using the
@@ -39,7 +38,7 @@ tv_engineering_department_standalone_game_load_bridge = {
 							NOT = { has_variable = tv_engineering_department_standalone_pending }
 						}
 						set_variable = { name = tv_engineering_department_standalone_pending value = 1 }
-						trigger_event_non_silently = { id = tv_engineering_department_standalone.1 days = 1 }
+						trigger_event_non_silently = { id = tv_engineering_department_standalone.1 }
 					}
 				}
 			}
