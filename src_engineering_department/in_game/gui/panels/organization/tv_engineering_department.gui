@@ -3874,6 +3874,16 @@ widget = {
 									spacing = 6
 									margin = { 4 6 }
 
+									text_multi = {
+										visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_locked').IsSet)]"
+										layoutpolicy_horizontal = expanding
+										minimumsize = { 462 -1 }
+										max_width = 462
+										autoresize = yes
+										text = "TV_ENGINEERING_CEREMONY_CHOOSE_STYLE_PROMPT"
+										align = nobaseline|left
+									}
+
 									hbox = {
 										visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_locked').IsSet)]"
 										layoutpolicy_horizontal = expanding
@@ -3937,12 +3947,22 @@ widget = {
 									}
 
 									text_multi = {
-										visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_locked').IsSet, Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').GetValue, '(CFixedPoint)1.0'))))]"
+										visible = "[And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_locked').IsSet, Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').GetValue, '(CFixedPoint)1.0'))), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_project_mode').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_project_mode').GetValue, '(CFixedPoint)2.0')))]"
 										layoutpolicy_horizontal = expanding
 										minimumsize = { 462 -1 }
 										max_width = 462
 										autoresize = yes
 										text = "TV_ENGINEERING_CEREMONY_LOCKED_BY_EXPANSION_TEXT"
+										align = nobaseline|left
+									}
+
+									text_multi = {
+										visible = "[And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_locked').IsSet, Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').GetValue, '(CFixedPoint)1.0'))), Not(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_project_mode').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_project_mode').GetValue, '(CFixedPoint)2.0'))))]"
+										layoutpolicy_horizontal = expanding
+										minimumsize = { 462 -1 }
+										max_width = 462
+										autoresize = yes
+										text = "TV_ENGINEERING_CEREMONY_STYLE_CONFIRMED_TEXT"
 										align = nobaseline|left
 									}
 
