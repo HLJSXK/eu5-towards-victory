@@ -77,7 +77,7 @@
         ]
       },
       "building_icon": {
-        "asset_name": "tv_wonder_labor_camp",
+        "asset_name": "tv_wonder_material_dispatch_point",
         "path": "src_engineering_department/main_menu/gfx/interface/icons/buildings/{name}.dds",
         "width": 128,
         "height": 128,
@@ -89,17 +89,16 @@
         "circle_crop_feather_px": 8,
         "max_file_size_bytes": 100000,
         "image_size": "1024x1024",
-        "prompt_requirements": "This is a compact building icon for the Wonder Worksite. Treat the uploaded Construction Center reference as the style authority: same simple painterly brushwork, compact crop, low object count, and readable 128px silhouette. Depict a wonder construction worksite using exactly 2-3 simple shapes: one small worksite shed, one crane or hoist wheel, and one pale stone foundation block. The result should feel premium through restrained marble and bronze accents while staying as simple as the reference. Do not add extra props, workers, crowds, complex scaffolding, full scenery, a finished monument, a palace, or a narrative construction scene.",
+        "prompt_requirements": "This is a compact building icon for the Wonder Material Workshop (建材工坊), the sibling structure of the Wonder Worksite that processes raw goods into wonder building materials. Treat the uploaded Construction Center and Wonder Worksite references as the style authority: same simple painterly brushwork, compact crop, low object count, and readable 128px silhouette. Depict the workshop using exactly 2-3 simple shapes: one small workshop shed or lean-to, one stack of cut stone/timber material blocks, and one small workbench or anvil. The result should feel premium through restrained marble and bronze accents while staying as simple as the reference. Do not add extra props, workers, crowds, complex scaffolding, full scenery, a finished monument, a palace, or a narrative construction scene.",
         "style_reference_paths": [
-          "data/generated_icons/_style_refs/construction_center.dds"
+          "data/generated_icons/_style_refs/construction_center.dds",
+          "src_engineering_department/main_menu/gfx/interface/icons/buildings/tv_wonder_labor_camp.dds"
         ],
         "local_template": {
-          "enabled": true,
-          "mode": "wonder_worksite",
-          "source_path": "data/generated_icons/_style_refs/construction_center.dds"
+          "enabled": false
         },
         "image": {
-          "natural_prompt": "A simple Europa Universalis V building icon in the uploaded vanilla Construction Center style. Match the reference's painterly icon language, compact crop, simple silhouette, and low element count. Show a wonder construction worksite with only three clear elements: a small worksite shed, one crane or hoist wheel, and one pale stone foundation block with restrained bronze accents. Sparse, centered, readable at 128px, premium but not ornate, no text.",
+          "natural_prompt": "A simple Europa Universalis V building icon in the uploaded vanilla Construction Center style, matching the companion Wonder Worksite icon's painterly language, compact crop, and low element count. Show a wonder material workshop with only three clear elements: a small workshop shed or lean-to, one stack of cut stone or timber material blocks, and one small workbench or anvil with restrained bronze accents. Sparse, centered, readable at 128px, premium but not ornate, no text.",
           "negative_prompt": "busy construction scene, many objects, extra props, many tools, crowds, workers, multiple buildings, complex scaffolding, ornate palace, completed monument, giant statue, landscape background, detailed narrative scene, realistic photo, text, letters, logo, UI frame"
         }
       },
