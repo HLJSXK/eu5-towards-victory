@@ -816,6 +816,25 @@ every country regardless so missing or damaged IOs are repaired.
     itself needed no change (0 progress simply never crosses a completion threshold). See
     `[[gui_visibility_gate_on_proxy_variable_not_the_real_condition]]`.
 
+33. A `has_variable` guard earlier in the same `AND` block does NOT stop the engine's tooltip/
+    effect-preview pre-evaluation pass from independently erroring on a later raw two-variable
+    hard comparison (`var:X <= var:Y`). `tv_wonder_has_selected_ceremony_trigger` already had
+    `has_variable = tv_wonder_ceremony_style` and `has_variable = tv_wonder_locked_style_count`
+    directly above `var:tv_wonder_ceremony_style <= var:tv_wonder_locked_style_count` — matching
+    rule 27/28's documented fix pattern — yet the generic action `tv_wonder_confirm_ceremony*`'s
+    `allow` block still logged `Event target link 'var' returned an unset scope` / `Invalid left
+    side during comparison 'var'` / `Failed to fetch variable ... due to not being set` every time
+    the action's tooltip/allow state was pre-evaluated before a ceremony style had been chosen.
+    The preview pass evaluates each condition line on its own to render an independent pass/fail
+    indicator, so a preceding guard in the same block never actually short-circuits it. Fixed by
+    converting the comparison itself to the self-contained safe form:
+    `var:tv_wonder_ceremony_style ?= { this <= var:tv_wonder_locked_style_count }`, mirroring the
+    sibling line immediately above it and the two-variable-safe precedent already in use at
+    `tv_diplomatic_alliance_actions.txt:149` (`var:tv_alliance_cohesion ?= { this >=
+    local_var:tv_alliance_subjugation_cost }`). Every raw two-variable comparison must be
+    self-contained this way — a preceding `has_variable` line is not sufficient on its own. See
+    `[[preceding_has_variable_does_not_guard_a_later_raw_two_variable_comparison]]`.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`: it lints rule 2 and rule 16 automatically, and when a
