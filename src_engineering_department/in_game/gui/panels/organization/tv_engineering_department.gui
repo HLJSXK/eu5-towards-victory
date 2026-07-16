@@ -504,6 +504,7 @@ organization_panel = {
 	}
 
 	blockoverride "organization_overview_list_custom_top_extra" {
+		margin_top = 0
 		vbox = {
 			margin = { 10 10 }
 			layoutpolicy_horizontal = expanding
@@ -3064,6 +3065,7 @@ widget = {
 	}
 
 	blockoverride "organization_custom_content" {
+		margin_top = 0
 		spacing = 0
 		layoutpolicy_vertical = expanding
 
