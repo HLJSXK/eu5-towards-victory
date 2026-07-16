@@ -424,10 +424,8 @@ tv_wonder_ceremony_ready_trigger = {
 
 tv_wonder_has_selected_ceremony_trigger = {
 	tv_wonder_ceremony_ready_trigger = yes
-	has_variable = tv_wonder_ceremony_style
-	has_variable = tv_wonder_locked_style_count
 	var:tv_wonder_ceremony_style ?= { this >= 1 }
-	var:tv_wonder_ceremony_style ?= { this <= var:tv_wonder_locked_style_count }
+	var:tv_wonder_ceremony_style ?= { this <= 3 }
 }
 
 tv_wonder_can_choose_ceremony_style_trigger = {

@@ -849,6 +849,27 @@ every country regardless so missing or damaged IOs are repaired.
     local_var:tv_alliance_subjugation_cost }`). Every raw two-variable comparison must be
     self-contained this way — a preceding `has_variable` line is not sufficient on its own. See
     `[[preceding_has_variable_does_not_guard_a_later_raw_two_variable_comparison]]`.
+    Follow-up (2026-07-16): the `?=`-wrap fix above did not actually clear the error — two more
+    syntax variants were tried afterward (`var:X ?= { this <= root.var:Y }`, matching the safe
+    pattern at `reference_game_files/game/in_game/events/disaster/castilian_civil_war.txt:2446`)
+    and both still failed. The real cause was structural per rule 10: `tv_wonder_locked_style_count`
+    is a derived cache variable written by `tv_wonder_index_cache_locked_wonder_attributes_effect`
+    and read back by this same trigger later in the same pre-evaluated chain
+    (`tv_wonder_choose_ceremony_style_effect`'s non-hidden `effect=` -> `tv_wonder_index_refresh_
+    country_cache_effect` -> writes the cache -> calls this trigger to read it), so the write
+    hadn't committed yet during tooltip/allow preview — no RHS syntax fixes that. But the deeper
+    finding was that the comparison never needed to be dynamic at all: this trigger (gated by
+    `tv_wonder_can_choose_ceremony_style_trigger`'s `NOT = { tv_wonder_unique_locked_trigger = yes
+    }`) is reachable only for generic wonders, which always have exactly 3 fixed ceremony styles;
+    unique wonders use an entirely separate ritual system and never reach it. Commit 66b5edf5
+    ("implement wonder global variable map", 2026-06-04) had mistakenly swapped the trigger's
+    original literal `var:tv_wonder_ceremony_style ?= { this <= 3 }` (from its introducing commit
+    d394ac0a, never broken) for the two-variable form while wiring up the *unique*-wonder-only
+    dynamic style count. Restored the literal `<= 3` and dropped the now-unneeded `has_variable`
+    guards. Lesson: two consecutive failed syntax-only fixes on the same two-variable comparison is
+    a signal to check git history / design intent for whether the dynamism belongs on that path at
+    all, rather than trying a third RHS variant. See
+    `[[preceding_has_variable_does_not_guard_a_later_raw_two_variable_comparison]]`.
 
 ## Validation
 
