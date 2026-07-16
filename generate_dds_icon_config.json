@@ -157,6 +157,25 @@
           "negative_prompt": "busy scene, landscape, many objects, detailed narrative, ornate frame, UI frame, text, letters, numbers, logo, watermark, realistic photo"
         }
       },
+      "ed_module_cover": {
+        "path": "src_engineering_department/thumbnail.png",
+        "width": 512,
+        "height": 512,
+        "resize": "cover",
+        "output_format": "png",
+        "circle_crop": false,
+        "circle_crop_feather_px": 0,
+        "max_file_size_bytes": 1000000,
+        "image_size": "1024x1024",
+        "style_reference_paths": [
+          "data/generated_icons/_style_refs/construction_center.dds",
+          "src/main_menu/gfx/interface/icons/towards_victory/victory_trees/tv_victory_prosperity_tree.dds"
+        ],
+        "image": {
+          "natural_prompt": "Create a square Steam Workshop cover illustration for the standalone Engineering Department sub-mod of Towards Victory, in the epic historical key-art style of a AAA grand strategy game box cover, not a flat clean icon. Show a monumental wonder rising from a grand construction site at golden-hour dusk: scaffolding, a crane or hoist, pale marble blocks, and restrained bronze and gold accents, wrapped in atmospheric haze, dust, and dramatic warm light so it feels like a real moment of history being built. Use the two uploaded references only for guidance: take the construction-site motifs from the building icon reference, and take the painterly atmosphere, dramatic lighting, and epic mood from the tree-background reference. Compose off-center on a rule-of-thirds grid, with the wonder and its scaffolding positioned toward the lower third or one side of the frame. Leave the center of the composition calm, uncluttered, and free of important detail (open sky, drifting haze, or a soft receding backdrop) because a game title will later be overlaid there.",
+          "negative_prompt": "text, letters, numbers, logo, watermark, UI frame, flat clean vector icon, simple centered icon composition, subject or main detail placed in the exact center, symmetrical center-locked framing, realistic photo, crowd of tiny unreadable details, finished/completed monument with no construction elements, blank empty background, flat lighting, low contrast"
+        }
+      },
       "victory_tree_background": {
         "path": "src/main_menu/gfx/interface/icons/towards_victory/victory_trees/{name}.dds",
         "width": 2048,

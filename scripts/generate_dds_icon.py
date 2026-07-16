@@ -190,6 +190,33 @@ TARGET_PRESETS: dict[str, dict[str, Any]] = {
             "texture, no text, no letters, no logo, no UI frame, and no complex scene."
         ),
     },
+    "ed_module_cover": {
+        "label": "Engineering Department module cover",
+        "path": "src_engineering_department/thumbnail.png",
+        "width": 512,
+        "height": 512,
+        "resize": "cover",
+        "output_format": "png",
+        "dds_format": "PNG",
+        "mipmaps": False,
+        "circle_crop": False,
+        "circle_crop_feather_px": 0,
+        "max_file_size_bytes": 1_000_000,
+        "image_size": "1024x1024",
+        "prompt_requirements": (
+            "This is a square Steam Workshop/launcher cover image for the standalone Engineering "
+            "Department sub-mod, not a small in-game icon. Aim for the epic, historical box-art "
+            "quality of a AAA grand strategy game cover (Paradox-style key art): dramatic cinematic "
+            "lighting such as a golden-hour sky or torch-lit dusk, atmospheric haze/dust, rich "
+            "painterly detail, and a genuine sense of monumental scale and history in the making, "
+            "not a flat clean icon render. Compose off-center using a rule-of-thirds layout: place "
+            "the monumental wonder and its construction scene toward one side or the lower third of "
+            "the frame, and keep the center of the image visually calm and uncluttered (sky, haze, "
+            "or receding background) because a game title will be overlaid there later — do not put "
+            "the main subject, the crane, or any important detail in the dead center. No text, no "
+            "letters, no logo, no UI frame, no watermark."
+        ),
+    },
     "victory_tree_background": {
         "label": "victory reward tree background",
         "path": "src/main_menu/gfx/interface/icons/towards_victory/victory_trees/{name}.dds",
@@ -249,6 +276,11 @@ TARGET_ALIASES = {
     "wonder_final_building_icons": WONDER_BUILDING_BATCH,
     "wonder_final_buildings": WONDER_BUILDING_BATCH,
     "wonder_icons": WONDER_BUILDING_BATCH,
+    "ed_cover": "ed_module_cover",
+    "ed_thumbnail": "ed_module_cover",
+    "engineering_department_cover": "ed_module_cover",
+    "engineering_department_thumbnail": "ed_module_cover",
+    "ed_module_thumbnail": "ed_module_cover",
 }
 
 BATCH_TARGETS = {VICTORY_REWARD_BATCH, VICTORY_PATH_BATCH, VICTORY_TREE_BATCH, WONDER_BUILDING_BATCH}
@@ -291,6 +323,7 @@ class TargetSpec:
     local_template: dict[str, Any]
     circle_crop: bool
     circle_crop_feather_px: int
+    output_format: str
 
 
 @dataclass(frozen=True)
@@ -608,9 +641,15 @@ def build_target_spec(
             f"config requested {format_bytes(max_file_size_bytes)}"
         )
 
-    dds_format = str(target_config.get("dds_format") or preset["dds_format"]).upper()
-    if dds_format not in {"DXT1", "DXT5"}:
-        raise ValueError("dds_format must be DXT1 or DXT5")
+    output_format = str(target_config.get("output_format") or preset.get("output_format") or "dds").lower()
+    if output_format not in {"dds", "png"}:
+        raise ValueError("output_format must be dds or png")
+    if output_format == "png":
+        dds_format = "PNG"
+    else:
+        dds_format = str(target_config.get("dds_format") or preset["dds_format"]).upper()
+        if dds_format not in {"DXT1", "DXT5"}:
+            raise ValueError("dds_format must be DXT1 or DXT5")
     resize = str(target_config.get("resize") or preset["resize"]).lower().strip()
     if resize not in {"cover", "contain", "stretch"}:
         raise ValueError("resize mode must be cover, contain, or stretch")
@@ -655,6 +694,7 @@ def build_target_spec(
         local_template=local_template,
         circle_crop=bool(target_config.get("circle_crop", False)),
         circle_crop_feather_px=int(target_config.get("circle_crop_feather_px", 0)),
+        output_format=output_format,
     )
 
 
@@ -1775,13 +1815,14 @@ def refine_prompt(
         "silhouette, ornament placement, or any text."
     )
 
+    asset_kind = "PNG" if target.output_format == "png" else "DDS"
     parts = [
-        f"Create a Europa Universalis V {target.label} DDS asset.",
+        f"Create a Europa Universalis V {target.label} {asset_kind} asset.",
         f"Subject: {prompt}",
         reference_instruction,
         "Distinctiveness: keep the result in the same visual family as the reference, but make it visibly different at a glance through changed shape language, object arrangement, cropping, or decorative accents.",
         composition_instruction,
-        f"Target format: final DDS target is exactly {target.width}x{target.height} and must stay under {format_bytes(target.max_file_size_bytes)}.",
+        f"Target format: final {asset_kind} target is exactly {target.width}x{target.height} and must stay under {format_bytes(target.max_file_size_bytes)}.",
         f"Target-specific requirement: {target.prompt_requirements}",
     ]
     if style_rules:
@@ -2197,6 +2238,7 @@ def write_target(
             "circle_crop_feather_px": target.circle_crop_feather_px,
             "file_size_bytes": file_size,
             "max_file_size_bytes": target.max_file_size_bytes,
+            "output_format": target.output_format,
             "skipped": True,
         }
     source_image = read_image_rgba(source_png_path)
@@ -2204,15 +2246,24 @@ def write_target(
         target_image = source_image
     else:
         target_image = prepare_target_image(source_image, target)
-    dds_levels = write_dds(
-        target_image,
-        target.path,
-        dds_format=target.dds_format,
-        overwrite=overwrite,
-        opaque_background=target.opaque_background,
-        mipmaps=target.mipmaps,
-        mipmap_min_dimension=target.mipmap_min_dimension,
-    )
+
+    if target.output_format == "png":
+        target.path.parent.mkdir(parents=True, exist_ok=True)
+        target.path.write_bytes(encode_png_rgba(target_image))
+        dds_levels = None
+        format_label = "png"
+    else:
+        dds_levels = write_dds(
+            target_image,
+            target.path,
+            dds_format=target.dds_format,
+            overwrite=overwrite,
+            opaque_background=target.opaque_background,
+            mipmaps=target.mipmaps,
+            mipmap_min_dimension=target.mipmap_min_dimension,
+        )
+        format_label = "dds"
+
     file_size = target.path.stat().st_size
     if file_size > target.max_file_size_bytes:
         raise RuntimeError(
@@ -2220,7 +2271,7 @@ def write_target(
             f"{format_bytes(target.max_file_size_bytes)} limit: {target.path}"
         )
     print(
-        f"[dds] {display_path(target.path)} "
+        f"[{format_label}] {display_path(target.path)} "
         f"({target.width}x{target.height} {target.dds_format}, resize={target.resize}, "
         f"levels={dds_levels}, {format_bytes(file_size)} <= {format_bytes(target.max_file_size_bytes)})"
     )
@@ -2237,6 +2288,7 @@ def write_target(
         "circle_crop_feather_px": target.circle_crop_feather_px,
         "file_size_bytes": file_size,
         "max_file_size_bytes": target.max_file_size_bytes,
+        "output_format": target.output_format,
     }
 
 
