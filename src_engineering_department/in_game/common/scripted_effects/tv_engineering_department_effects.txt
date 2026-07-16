@@ -1977,7 +1977,6 @@ tv_wonder_finish_construction_effect = {
 		set_variable = { name = tv_wonder_construction_complete value = 1 }
 		set_variable = { name = tv_wonder_stage value = 4 }
 		remove_variable = tv_wonder_active_part
-		tv_wonder_destroy_labor_camp_effect = yes
 		tv_change_wonder_domestic_support_effect = { value = 20 }
 		tv_wonder_initialize_ceremony_runtime_state_effect = yes
 		trigger_event_non_silently = { id = tv_engineering_department.202 days = 1 }

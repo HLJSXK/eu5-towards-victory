@@ -798,6 +798,21 @@ every country regardless so missing or damaged IOs are repaired.
     (no player-facing construction button walks that chain), left alone rather than blindly
     refactoring 926 call sites without a reported symptom. See
     `[[destroy_building_target_via_custom_saved_scope_breaks_tooltip_preview]]`.
+    Follow-up (2026-07-16): the owner-link fix alone did not clear the error — it kept logging
+    because `tv_wonder_destroy_labor_camp_effect` was still called directly from
+    `tv_wonder_finish_construction_effect`, which is itself the `tv_wonder_finish_construction`
+    generic_action's own `effect =` body, i.e. the exact chain the button's hover/tooltip preview
+    pre-evaluates. Rule 9's guidance (keep `hidden_effect` light, defer heavy chains to a
+    triggered event) generalizes here too: any generic_action's non-hidden `effect =` body is
+    also pre-evaluated for the button tooltip, so a `destroy_building`/`destroy_building_forcefully`
+    call anywhere in that chain — even with a correct implicit link — must be deferred to a
+    separately-triggered event rather than run inline. Fixed by removing
+    `tv_wonder_destroy_labor_camp_effect = yes` from `tv_wonder_finish_construction_effect` and
+    adding it to event `tv_engineering_department.202`'s `option` effect instead; the event
+    already fires asynchronously via the existing `trigger_event_non_silently ... days = 1` call
+    made earlier in the same effect, so every completion path (player button, on_action
+    auto-completion, direct events.txt call) still schedules the demolition identically. See
+    `[[destroy_building_forcefully_in_button_effect_chain_fails_tooltip_preview_even_with_owner_link]]`.
 
 32. `tv_wonder_active_part` being set is not proof that real monthly progress is accumulating.
     `tv_wonder_monthly_construction_effect`'s auto-advance branch assigns
