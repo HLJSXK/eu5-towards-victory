@@ -6245,5 +6245,5 @@ tv_wonder_ceremony_advance_to_stage_8_effect = {
 	tv_wonder_ceremony_pay_stage_8_cost_effect = yes
 	set_variable = { name = tv_wonder_ceremony_stage value = 8 }
 	set_variable = { name = tv_wonder_ceremony_quarter_month value = 0 }
-	trigger_event_silently = { id = tv_engineering_department.9308 days = 1 }
+	tv_wonder_complete_active_ritual_effect = yes
 }

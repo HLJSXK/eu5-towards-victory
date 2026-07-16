@@ -28,7 +28,6 @@ T = "\t"
 NAMESPACE = "tv_engineering_department"
 EVENT_ID_START = 9300
 STAGE_COUNT = 8
-COMPLETION_EVENT_ID = EVENT_ID_START + STAGE_COUNT
 CEREMONY_IMAGE = "gfx/interface/icons/towards_victory/wonders/tv_wonder_construction_cropped.dds"
 
 def script_rel(path: Path) -> str:

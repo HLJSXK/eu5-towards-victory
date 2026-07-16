@@ -18,7 +18,6 @@ REPO_ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(REPO_ROOT / "scripts_engineering_department"))
 
 from wonder_ceremony_lib import (  # noqa: E402
-    COMPLETION_EVENT_ID,
     STAGE_COUNT,
     T,
     ceremony_cost_effect_lines,
@@ -156,9 +155,7 @@ def append_advance_stage_effects(lines: list[str]) -> None:
         if stage == 4:
             lines.append(f"{T}tv_wonder_ceremony_start_stage_4_construction_effect = yes")
         if stage == STAGE_COUNT:
-            lines.append(
-                f"{T}trigger_event_silently = {{ id = tv_engineering_department.{COMPLETION_EVENT_ID} days = 1 }}"
-            )
+            lines.append(f"{T}tv_wonder_complete_active_ritual_effect = yes")
         lines.append("}")
         lines.append("")
 

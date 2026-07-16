@@ -317,17 +317,42 @@ every country regardless so missing or damaged IOs are repaired.
     canonical completion chain while retaining a unique modifier identity per
     wonder. Do not restore a hand-authored `ceremony.stage_2_reward` field or
     construct the unique final building at stage 4: both duplicate or replace
-    the wrong reward channel. The shared stage-8 effect schedules the hidden
-    `tv_engineering_department.9308` event one day later; its `immediate`
-    calls `tv_wonder_complete_active_ritual_effect`, which reaches
-    `tv_wonder_finalize_effect` only after the generated custom-completion
-    trigger verifies stage 8. This keeps the heavy finalization chain out of
-    the visible event option while retaining the normal inauguration/world-news
-    path. Pharos Lighthouse and Hagia Sophia are excluded (`ceremony: null`)
-    and keep their existing bespoke `auxiliary_building`-mode rituals untouched.
-    EU5 event numeric IDs must be `< 10000` (already enforced by
-    `validate.py`'s `event_id` rule) — the ceremony's 8 shared events use ids
-    9300-9307, not the more readable 10000-10007 originally chosen.
+    the wrong reward channel. Since 2026-07-16, the shared stage-8 effect calls
+    `tv_wonder_complete_active_ritual_effect` **inline**, in the same
+    `tv_wonder_ceremony_advance_to_stage_8_effect` body the option's own
+    `effect =` invokes — matching stages 2/4, which already call their reward
+    dispatch effects inline. This was previously deferred one day later through
+    a dedicated hidden event (`tv_engineering_department.9308`,
+    `trigger_event_silently`), which made the completion reward execute
+    correctly but never render in the stage-8 option's tooltip preview (the
+    preview only walks the option's own effect body, never follows
+    `trigger_event_silently` into another event's `immediate` block) — steps
+    2/4 showed both cost and reward, step 8 showed only cost. Investigation
+    confirmed the completion chain
+    (`tv_wonder_mechanics_apply_selected_ritual_completion_effect` +
+    `_apply_selected_ritual_static_modifier_effect` + `tv_wonder_finalize_effect`)
+    is `add_country_modifier` plus variable bookkeeping and one
+    `every_international_organizations_member_of` read-only loop for all 121
+    generic-ceremony wonder ids — no `construct_building`,
+    location/building iteration, or world-news calls — and is demonstrably
+    lighter than stage 4's own inline 66-branch `construct_building` switch, and
+    the identical chain (`tv_wonder_complete_active_ritual_effect`) already runs
+    inline from several `on_action` hidden_effects (monthly ritual pulse, ruler
+    death) for every ritual in progress. So unlike rule 9/31's `destroy_building`/
+    character-promotion cases, there was no measured tooltip-preview error or
+    performance cost specific to this chain — the deferral had been "match the
+    async pattern used for stage-4 construction's finalization and for
+    Pharos/Hagia" rather than a proven necessity, and removing it fixed the
+    tooltip gap with no new pre-evaluation errors observed. The now-unused
+    `tv_engineering_department.9308` event and `COMPLETION_EVENT_ID` constant
+    were deleted rather than kept dormant. Pharos Lighthouse and Hagia Sophia
+    are excluded (`ceremony: null`) and keep their existing bespoke
+    `auxiliary_building`-mode rituals untouched, including their own use of
+    `trigger_event_silently`/non-silently-scheduled completion paths, which are
+    unaffected by this change. EU5 event numeric IDs must be `< 10000` (already
+    enforced by `validate.py`'s `event_id` rule) — the ceremony's 8 shared
+    events use ids 9300-9307, not the more readable 10000-10007 originally
+    chosen.
     The GUI card fragment (`data/generated_fragments/tv_wonder_ceremony_cards.gui`,
     from `scripts_engineering_department/in_game/gui/panels/organization/gen_tv_wonder_ceremony_cards_gui.py`)
     is merged into `src_engineering_department/in_game/gui/panels/organization/tv_engineering_department.gui`'s

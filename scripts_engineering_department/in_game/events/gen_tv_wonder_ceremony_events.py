@@ -19,7 +19,6 @@ sys.path.insert(0, str(REPO_ROOT / "scripts_engineering_department"))
 
 from wonder_ceremony_lib import (  # noqa: E402
     CEREMONY_IMAGE,
-    COMPLETION_EVENT_ID,
     NAMESPACE,
     STAGE_COUNT,
     T,
@@ -77,30 +76,6 @@ def append_event(lines: list[str], stage: int, wonders: list[dict]) -> None:
     lines.append("")
 
 
-def append_completion_event(lines: list[str]) -> None:
-    lines.append(f"# -- {NAMESPACE}.{COMPLETION_EVENT_ID} (ceremony completion) -----------------------------------------")
-    lines.append(f"{NAMESPACE}.{COMPLETION_EVENT_ID} = {{")
-    lines.append(f"{T}type = country_event")
-    lines.append(f"{T}outcome = neutral")
-    lines.append(f"{T}title = empty_text")
-    lines.append(f"{T}desc = empty_text")
-    lines.append(f"{T}hidden = yes")
-    lines.append("")
-    lines.append(f"{T}trigger = {{")
-    lines.append(f"{T}{T}has_variable = tv_engineering_department_member")
-    lines.append(f"{T}{T}has_variable = tv_wonder_locked")
-    lines.append(f"{T}{T}has_variable = tv_wonder_ritual_in_progress")
-    lines.append(f"{T}{T}has_variable = tv_wonder_ceremony_stage")
-    lines.append(f"{T}{T}var:tv_wonder_ceremony_stage ?= {STAGE_COUNT}")
-    lines.append(f"{T}}}")
-    lines.append("")
-    lines.append(f"{T}immediate = {{")
-    lines.append(f"{T}{T}tv_wonder_complete_active_ritual_effect = yes")
-    lines.append(f"{T}}}")
-    lines.append("}")
-    lines.append("")
-
-
 def generate() -> str:
     wonders = ceremony_wonders()
     lines = render_header(SCRIPT_REL, DATA_REL, str(OUT_FILE.relative_to(REPO_ROOT)).replace("\\", "/"))
@@ -108,7 +83,6 @@ def generate() -> str:
     lines.append("")
     for stage in range(1, STAGE_COUNT + 1):
         append_event(lines, stage, wonders)
-    append_completion_event(lines)
     return "\n".join(lines).rstrip() + "\n"
 
 

@@ -37,12 +37,6 @@ CEREMONY_EFFECT_GENERATOR = (
     / "scripted_effects"
     / "gen_tv_wonder_ceremony_effects.py"
 )
-CEREMONY_EVENT_GENERATOR = (
-    REPO_ROOT
-    / "scripts_engineering_department" / "in_game"
-    / "events"
-    / "gen_tv_wonder_ceremony_events.py"
-)
 CEREMONY_GUI_GENERATOR = (
     REPO_ROOT
     / "scripts_engineering_department" / "in_game"
@@ -110,7 +104,6 @@ from wonder_mechanics.rituals import (
 )
 from wonder_mechanics.schema import validate_unique_wonder_single_site_shape
 from wonder_ceremony_lib import (
-    COMPLETION_EVENT_ID,
     card_icon_key,
     reward_effect_lines,
     stage_2_reward_for_wonder,
@@ -150,14 +143,6 @@ def load_effect_generator():
 def load_ceremony_effect_generator():
     spec = importlib.util.spec_from_file_location("wonder_ceremony_effect_generator", CEREMONY_EFFECT_GENERATOR)
     require(spec is not None and spec.loader is not None, "Could not load wonder ceremony effect generator.")
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
-
-
-def load_ceremony_event_generator():
-    spec = importlib.util.spec_from_file_location("wonder_ceremony_event_generator", CEREMONY_EVENT_GENERATOR)
-    require(spec is not None and spec.loader is not None, "Could not load wonder ceremony event generator.")
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
@@ -320,7 +305,6 @@ def validate_generated_ceremony_flow(wonders: list[dict], mechanics: dict) -> No
             f"{wonder['key']} completion trigger must wait for ceremony stage eight.",
         )
 
-    scheduler = f"trigger_event_silently = {{ id = tv_engineering_department.{COMPLETION_EVENT_ID} days = 1 }}"
     require(
         "tv_wonder_ceremony_grant_stage_2_reward_effect = yes" not in stage_1_advance,
         "Stage one must not grant the one-time reward.",
@@ -329,16 +313,10 @@ def validate_generated_ceremony_flow(wonders: list[dict], mechanics: dict) -> No
         "tv_wonder_ceremony_grant_stage_2_reward_effect = yes" in stage_2_advance,
         "Stage two must grant the one-time reward.",
     )
-    require(scheduler in stage_8_advance, "Stage eight must schedule the hidden ceremony completion event.")
-
-    completion_event = extract_trigger_block(
-        load_ceremony_event_generator().generate(),
-        f"tv_engineering_department.{COMPLETION_EVENT_ID}",
-    )
-    require("hidden = yes" in completion_event, "Ceremony completion event must remain hidden.")
     require(
-        "tv_wonder_complete_active_ritual_effect = yes" in completion_event,
-        "Ceremony completion event must use the canonical ritual finalization chain.",
+        "tv_wonder_complete_active_ritual_effect = yes" in stage_8_advance,
+        "Stage eight must call the canonical ritual finalization chain inline so its "
+        "completion reward renders in the option's own tooltip preview.",
     )
 
 
