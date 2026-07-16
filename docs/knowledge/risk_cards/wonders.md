@@ -838,6 +838,16 @@ every country regardless so missing or damaged IOs are repaired.
     made earlier in the same effect, so every completion path (player button, on_action
     auto-completion, direct events.txt call) still schedules the demolition identically. See
     `[[destroy_building_forcefully_in_button_effect_chain_fails_tooltip_preview_even_with_owner_link]]`.
+    Second follow-up (2026-07-16): moving the call into the event was still not enough — event
+    *options* get the same hover/tooltip pre-evaluation pass as generic_action buttons, so
+    `tv_engineering_department.202`'s `option` block calling `tv_wonder_destroy_labor_camp_effect`
+    directly (not inside `hidden_effect`) kept erroring identically. There is no scope depth or
+    async distance that exempts a visible option's own effect body — only `hidden_effect` is
+    skipped by the pre-evaluation walk. Fixed by wrapping the call in `hidden_effect = { ... }`
+    and adding a sibling `custom_tooltip = tv_engineering_department.202.a.tt` line (matching
+    vanilla's own pattern in `earthquake_events.txt`'s `earthquake_events_minor` options) so the
+    option still shows static, correct tooltip text instead of the real effect chain. See
+    `[[destroy_building_forcefully_needs_hidden_effect_even_inside_deferred_event_option]]`.
 
 32. `tv_wonder_active_part` being set is not proof that real monthly progress is accumulating.
     `tv_wonder_monthly_construction_effect`'s auto-advance branch assigns
