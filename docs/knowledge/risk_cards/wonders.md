@@ -1025,6 +1025,44 @@ every country regardless so missing or damaged IOs are repaired.
     automatically next regen; it only needs to already exist as a vanilla `texticon` name (enforced
     by the existing `SUPPORTED_CEREMONY_STAGE_ICONS` validator in `wonder_mechanics/_core.py`).
 
+37. **A fixed-width `TooltipStringPairList`/`ShowModifierEffect` column needs its own
+    `field_text_format` width cap — the container's `maximumsize` does not bound the text.**
+    The Engineering Department construction card (`preview_modifier_column` in
+    `gen_tv_engineering_department_wonder_mechanics_gui.py`) and the location-page wonder
+    tooltip (`render_modifier_column` in `gen_location_window.py`) both show a two-column
+    `ShowModifierEffect(...)` breakdown inside a `TooltipStringPairList` wrapped in a
+    `layoutpolicy_horizontal = fixed` column with `maximumsize = { W -1 }`. Vanilla's
+    `TooltipStringPairList` -> `TooltipStringPairListContent` -> `TooltipTableColumn`
+    (`main_menu_cooltip_types.gui` ~L1665-1722/1771) renders each row's label through a
+    `text_single` with `autoresize = yes` and no `max_width`, spliced through a
+    `field_text_format` block that has zero constraint by default. The parent's `maximumsize`
+    only bounds the StringPairList's own declared box, not this child text's natural single-line
+    width, so long English modifier-effect text (short enough in Chinese to fit) renders past the
+    column's right edge with no error in the log. Fix: extend the existing
+    `blockoverride "field_text_format" { fontsize = ... }` (already present at every call site for
+    font sizing) with `autoresize = yes`, `max_width = ...`, and `elide = right` — verified valid
+    vanilla `text_single` combination at
+    `reference_game_files/game/in_game/gui/shared/io_tooltips.gui:459-466`. No vanilla `.gui` file
+    needs touching. **Compute the width budget for BOTH columns, not just the label's own
+    margin.** The label and value are two side-by-side `TooltipTableColumn`/`TooltipTableField`
+    instances sharing the ONE declared `column_width`, and a single caller-level
+    `blockoverride "field_text_format"` reaches both columns' identically-named nested block at
+    once (confirmed by the pre-existing shared `fontsize` override already applying to both). Each
+    column's own `TooltipTableField` chrome is `margin = {10 0}` (20px) + `spacing = 5` across 3
+    slots (10px) = ~30px; with two columns that is ~60px, plus reserve ~45px for the value
+    column's own (short but nonzero) rendered text — so the safe label `max_width` is
+    `column_width - 105`, not `column_width - 25`. A first pass used `- 25` (accounting only for
+    the label's own chrome) and the overflow persisted because it left almost no room for the
+    value column sharing the same row. The final in-game-confirmed value is a flat
+    `max_width = 140` (`PREVIEW_MODIFIER_TEXT_MAX_WIDTH` / the location-window generator's literal),
+    wider than the derived ~118/113 chrome estimate — treat the estimate as a starting point for a
+    visual check, not a value to trust blindly; the user's in-game screenshot is the authority.
+    After regenerating either generator, also re-run
+    `merge_tv_engineering_department_wonder_mechanics_gui.py` (fragment -> src merge) and
+    `scripts/compat/gen_tv_meiou_and_taxes_location_window.py` (M&T submod mirror), or
+    `validate.py`'s `generated_freshness` check fails. See `docs/knowledge/anti_patterns.yaml`
+    rule `tooltip_table_column_field_text_no_width_cap_overflows_fixed_width_stringpairlist`.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`: it lints rule 2 and rule 16 automatically, and when a

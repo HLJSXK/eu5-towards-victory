@@ -402,6 +402,14 @@ def render_modifier_column(
         f'{indent}{T}{T}blockoverride "tooltip_minimumsize" {{ minimumsize = {{ {column_width} -1 }} }}',
         f'{indent}{T}{T}blockoverride "field_text_format" {{',
         f"{indent}{T}{T}{T}fontsize = {font_size}",
+        f"{indent}{T}{T}{T}autoresize = yes",
+        # Label (left) and value (right) columns share this one column_width budget as two
+        # side-by-side TooltipTableColumn/TooltipTableField instances (~30px margin+spacing
+        # chrome each, ~60px combined), leaving the value column's own short text its remaining
+        # share. 140 confirmed in-game by the user as the widest the label can go without the
+        # row overflowing again.
+        f"{indent}{T}{T}{T}max_width = 140",
+        f"{indent}{T}{T}{T}elide = right",
         f"{indent}{T}{T}}}",
         f'{indent}{T}{T}blockoverride "row_size" {{',
         f"{indent}{T}{T}{T}maximumsize = {{ -1 {row_height} }}",

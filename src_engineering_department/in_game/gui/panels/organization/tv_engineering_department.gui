@@ -1042,6 +1042,9 @@ widget = {
 								blockoverride "tooltip_minimumsize" { minimumsize = { 223 -1 } }
 								blockoverride "field_text_format" {
 									fontsize = 13
+									autoresize = yes
+									max_width = 140
+									elide = right
 								}
 								blockoverride "row_size" {
 									maximumsize = { -1 22 }
@@ -1068,6 +1071,9 @@ widget = {
 								blockoverride "tooltip_minimumsize" { minimumsize = { 223 -1 } }
 								blockoverride "field_text_format" {
 									fontsize = 13
+									autoresize = yes
+									max_width = 140
+									elide = right
 								}
 								blockoverride "row_size" {
 									maximumsize = { -1 22 }
@@ -1244,6 +1250,9 @@ widget = {
 								blockoverride "tooltip_minimumsize" { minimumsize = { 223 -1 } }
 								blockoverride "field_text_format" {
 									fontsize = 13
+									autoresize = yes
+									max_width = 140
+									elide = right
 								}
 								blockoverride "row_size" {
 									maximumsize = { -1 22 }
@@ -1270,6 +1279,9 @@ widget = {
 								blockoverride "tooltip_minimumsize" { minimumsize = { 223 -1 } }
 								blockoverride "field_text_format" {
 									fontsize = 13
+									autoresize = yes
+									max_width = 140
+									elide = right
 								}
 								blockoverride "row_size" {
 									maximumsize = { -1 22 }

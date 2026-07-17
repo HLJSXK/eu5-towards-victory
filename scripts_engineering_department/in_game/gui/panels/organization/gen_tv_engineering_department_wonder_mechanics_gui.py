@@ -37,6 +37,15 @@ PREVIEW_CONTENT_WIDTH = 454
 PREVIEW_MODIFIER_COLUMNS_WIDTH = 454
 PREVIEW_MODIFIER_COLUMN_WIDTH = 223
 PREVIEW_MODIFIER_COLUMN_SPACING = 8
+# TooltipTableColumn's field_text (main_menu_cooltip_types.gui) has no built-in width cap;
+# long English modifier effect text overflows past the fixed-width StringPairList column
+# unless field_text_format bounds it explicitly. The label (left) and value (right) columns
+# share this one column_width budget as two side-by-side TooltipTableColumn/TooltipTableField
+# instances, each with its own margin={10,0} + spacing=5 (2 gaps) chrome = ~30px per column,
+# ~60px for both, leaving the value column's own short text (e.g. "+15.0%") its remaining
+# share. 140 confirmed in-game by the user as the widest the label can go without the row
+# overflowing again.
+PREVIEW_MODIFIER_TEXT_MAX_WIDTH = 140
 RITUAL_PROGRESS_MONTHS_VAR = "tv_wonder_ritual_months_completed"
 RITUAL_PROGRESS_PCT_VAR = "tv_wonder_ritual_progress_pct"
 RITUAL_PROGRESS_MAX_MONTHS = 12
@@ -736,6 +745,9 @@ def preview_modifier_column(indent: int, *, title_key: str, modifier_key: str) -
         f'{prefix}{T}{T}blockoverride "tooltip_minimumsize" {{ minimumsize = {{ {PREVIEW_MODIFIER_COLUMN_WIDTH} -1 }} }}',
         f'{prefix}{T}{T}blockoverride "field_text_format" {{',
         f"{prefix}{T}{T}{T}fontsize = 13",
+        f"{prefix}{T}{T}{T}autoresize = yes",
+        f"{prefix}{T}{T}{T}max_width = {PREVIEW_MODIFIER_TEXT_MAX_WIDTH}",
+        f"{prefix}{T}{T}{T}elide = right",
         f"{prefix}{T}{T}}}",
         f'{prefix}{T}{T}blockoverride "row_size" {{',
         f"{prefix}{T}{T}{T}maximumsize = {{ -1 22 }}",
