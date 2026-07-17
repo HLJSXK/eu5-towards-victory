@@ -11967,7 +11967,7 @@ tv_wonder_country_has_unique_ottoman_hajj_road_project_or_final_trigger = {
 }
 
 tv_wonder_location_meets_unique_persian_qanat_base_site_rules_trigger = {
-	this = location:isfahan
+	this = location:qom
 	OR = {
 		has_river = yes
 		is_adjacent_to_lake = yes
@@ -12067,7 +12067,7 @@ tv_wonder_country_has_unique_persian_qanat_project_or_final_trigger = {
 }
 
 tv_wonder_location_meets_unique_longjiang_shipyard_base_site_rules_trigger = {
-	this = location:shangyuan
+	this = location:jiangyin
 	is_port = yes
 }
 
@@ -26875,8 +26875,8 @@ tv_wonder_location_can_host_unique_persian_qanat_trigger = {
 
 tv_wonder_can_build_unique_persian_qanat_trigger = {
 	NOT = { tv_wonder_country_has_unique_persian_qanat_project_or_final_trigger = yes }
-	owns = location:isfahan
-	location:isfahan = {
+	owns = location:qom
+	location:qom = {
 		AND = {
 			tv_wonder_location_meets_unique_persian_qanat_base_site_rules_trigger = yes
 			NOT = { tv_wonder_location_has_unique_persian_qanat_intermediate_building_trigger = yes }
@@ -26887,7 +26887,7 @@ tv_wonder_can_build_unique_persian_qanat_trigger = {
 }
 
 tv_wonder_player_visible_site_rules_unique_persian_qanat_trigger = {
-	owns = location:isfahan
+	owns = location:qom
 }
 
 tv_wonder_location_can_host_unique_longjiang_shipyard_trigger = {
@@ -26906,8 +26906,8 @@ tv_wonder_location_can_host_unique_longjiang_shipyard_trigger = {
 
 tv_wonder_can_build_unique_longjiang_shipyard_trigger = {
 	NOT = { tv_wonder_country_has_unique_longjiang_shipyard_project_or_final_trigger = yes }
-	owns = location:shangyuan
-	location:shangyuan = {
+	owns = location:jiangyin
+	location:jiangyin = {
 		AND = {
 			tv_wonder_location_meets_unique_longjiang_shipyard_base_site_rules_trigger = yes
 			NOT = { tv_wonder_location_has_unique_longjiang_shipyard_intermediate_building_trigger = yes }
@@ -26918,7 +26918,7 @@ tv_wonder_can_build_unique_longjiang_shipyard_trigger = {
 }
 
 tv_wonder_player_visible_site_rules_unique_longjiang_shipyard_trigger = {
-	owns = location:shangyuan
+	owns = location:jiangyin
 }
 
 tv_wonder_location_can_host_unique_jerusalem_holy_city_trigger = {

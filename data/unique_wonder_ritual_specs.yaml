@@ -6,7 +6,7 @@
 metadata:
   purpose: Executable planning source for unique wonder ritual implementation.
   source_data: data/unique_wonders.yaml
-  generated_by: scripts/gen_unique_wonder_ritual_specs.py
+  generated_by: scripts_engineering_department/gen_unique_wonder_ritual_specs.py
   generated_game_code: false
   status_policy:
     stub: Coverage placeholder only; cannot be generated into game code.
@@ -26359,7 +26359,7 @@ unique_wonders:
     id: 138
     key: unique_persian_qanat
     base_key: hydraulic_workshop
-    location: isfahan
+    location: qom
     runtime_prefix: tv_wonder_persian_qanat
     status: compiler_mapped
   event_ids:
@@ -27088,7 +27088,7 @@ unique_wonders:
     id: 139
     key: unique_longjiang_shipyard
     base_key: national_shipyard
-    location: shangyuan
+    location: jiangyin
     runtime_prefix: tv_wonder_longjiang_shipyard
     status: compiler_mapped
   event_ids:

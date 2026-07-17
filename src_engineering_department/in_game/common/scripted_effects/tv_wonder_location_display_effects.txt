@@ -2968,7 +2968,7 @@ tv_wonder_initialize_existing_unique_wonders_effect = {
 			add_to_variable_map = { name = tv_wonder_survey_scale_tier key = 133 value = 6 }
 		}
 	}
-	location:isfahan = {
+	location:qom = {
 		if = {
 			limit = { NOT = { has_building = building_type:tv_wonder_unique_persian_qanat_inaugurated } }
 			construct_building = { building_type = building_type:tv_wonder_unique_persian_qanat_inaugurated cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
