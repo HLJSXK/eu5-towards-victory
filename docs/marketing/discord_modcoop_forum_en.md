@@ -1,0 +1,20 @@
+# Discord — Mod Coop server forum post (English, concise)
+
+**Title:** Towards Victory - Great Project
+
+**Tags:** `new-mod` `standalone` `buildings`
+
+---
+
+**Great Project** — vanilla EU5 wonders are just flavor text. This mod gives them an actual build process and payoff.
+
+- New IO, the **Engineering Department**, runs the whole thing
+- **54 generic wonders** + **123 unique historical wonders** (site-locked, e.g. Persian Qanat @ Qom, Longjiang Shipyard @ Jiangyin)
+- 6-stage build: **Concept → Debate → Survey → Construction → Ceremony → Finalization**
+- Ceremony choice at the end actually decides the wonder's bonuses
+- Companion **Wonders Atlas** site to browse all unique wonders on a map
+
+**Requires:** CMF 2.x only — fully standalone, works with or without our main mod *Towards Victory*.
+
+Workshop link: [add on publish]
+Feedback/bugs welcome in this thread 🙂

@@ -1,0 +1,22 @@
+# Discord — our server's #announcements release post (English)
+
+@everyone
+
+## 🏛️ Great Project is out now!
+
+Vanilla EU5 wonders have always been a dead end — a flavor tooltip and nothing else. Not anymore.
+
+**Towards Victory - Great Project** is a new **standalone** mod that turns wonder-building into a real national project:
+
+🏗️ A new international organization, the **Engineering Department**, runs the whole process
+🗿 **54 generic wonders** + **123 historical unique wonders**, each tied to its real-world site
+📜 A full **6-stage build**: Concept → Debate → Survey → Construction → Ceremony → Finalization
+🎭 The Ceremony you choose at the end actually shapes the wonder's final bonuses
+🗺️ A companion **Wonders Atlas** website to browse every unique wonder on a world map
+
+**Requires only Community Mod Framework 2.x** — no dependency on our main *Towards Victory* mod. Works completely on its own, or alongside it.
+
+🔗 Steam Workshop: [add on publish]
+📖 Full wiki / details: [add GitHub wiki link]
+
+Go build something that actually matters. Let us know what you build in #screenshots 👷
