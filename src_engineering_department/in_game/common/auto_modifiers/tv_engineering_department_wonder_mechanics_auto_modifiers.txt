@@ -291,7 +291,7 @@ tv_wonder_auto_imperial_post_road_network = {
 	scales_with = {
 		value = "variable_map(tv_wonder_auto_level_by_wonder_id|23)"
 	}
-	monthly_towards_centralization = 0.05
+	monthly_towards_land = 0.05
 }
 
 tv_wonder_auto_canal_hub_city = {
@@ -327,7 +327,7 @@ tv_wonder_auto_coastal_beacon_network = {
 	scales_with = {
 		value = "variable_map(tv_wonder_auto_level_by_wonder_id|26)"
 	}
-	monthly_towards_naval = 0.05
+	monthly_towards_communalism = 0.05
 }
 
 tv_wonder_auto_knightly_fortress_order = {
@@ -339,7 +339,7 @@ tv_wonder_auto_knightly_fortress_order = {
 	scales_with = {
 		value = "variable_map(tv_wonder_auto_level_by_wonder_id|27)"
 	}
-	monthly_towards_defensive = 0.05
+	monthly_towards_land = 0.05
 }
 
 tv_wonder_auto_war_college_system = {
@@ -378,7 +378,7 @@ tv_wonder_auto_royal_art_district = {
 	}
 	num_possible_artists = 1
 	artist_salary_modifier = -0.1
-	monthly_towards_innovative = 0.05
+	monthly_towards_aristocracy = 0.05
 }
 
 tv_wonder_auto_grand_theater_festival_district = {
@@ -496,6 +496,18 @@ tv_wonder_auto_world_monument_group = {
 	monthly_towards_humanist = 0.05
 }
 
+tv_wonder_auto_city_expansion_project = {
+	category = country
+	potential_trigger = {
+		has_variable_map = tv_wonder_auto_level_by_wonder_id
+		is_key_in_variable_map = { name = tv_wonder_auto_level_by_wonder_id target = 40 }
+	}
+	scales_with = {
+		value = "variable_map(tv_wonder_auto_level_by_wonder_id|40)"
+	}
+	monthly_towards_inward = 0.05
+}
+
 tv_wonder_auto_megalithic_circle = {
 	category = country
 	potential_trigger = {
@@ -532,7 +544,7 @@ tv_wonder_auto_great_monastery = {
 	scales_with = {
 		value = "variable_map(tv_wonder_auto_level_by_wonder_id|43)"
 	}
-	monthly_towards_spiritualist = 0.05
+	monthly_towards_communalism = 0.05
 }
 
 tv_wonder_auto_city_great_tower = {
@@ -570,7 +582,7 @@ tv_wonder_auto_coastal_defense_cannon = {
 	scales_with = {
 		value = "variable_map(tv_wonder_auto_level_by_wonder_id|46)"
 	}
-	monthly_towards_defensive = 0.05
+	monthly_towards_offensive = 0.05
 }
 
 tv_wonder_auto_naval_school = {
@@ -583,7 +595,7 @@ tv_wonder_auto_naval_school = {
 		value = "variable_map(tv_wonder_auto_level_by_wonder_id|47)"
 	}
 	monthly_navy_tradition = 0.05
-	monthly_towards_naval = 0.05
+	monthly_towards_quality = 0.05
 }
 
 tv_wonder_auto_colonial_trade_company = {
@@ -677,7 +689,7 @@ tv_wonder_auto_pirate_port = {
 	hire_privateer_cost_modifier = -0.05
 	privateer_maintenance_cost_modifier = -0.03
 	privateer_durability = 0.05
-	monthly_towards_naval = 0.05
+	monthly_towards_individualism = 0.05
 }
 
 tv_wonder_auto_pirate_port_unscaled = {
@@ -1037,7 +1049,7 @@ tv_wonder_auto_unique_inca_royal_road = {
 	scales_with = {
 		value = "variable_map(tv_wonder_auto_level_by_wonder_id|127)"
 	}
-	monthly_towards_centralization = 0.1
+	monthly_towards_land = 0.1
 }
 
 tv_wonder_auto_unique_roman_aqueducts = {
@@ -1160,7 +1172,7 @@ tv_wonder_auto_unique_ottoman_hajj_road = {
 	scales_with = {
 		value = "variable_map(tv_wonder_auto_level_by_wonder_id|137)"
 	}
-	monthly_towards_centralization = 0.1
+	monthly_towards_land = 0.1
 }
 
 tv_wonder_auto_unique_persian_qanat = {
@@ -1262,7 +1274,7 @@ tv_wonder_auto_unique_trinity_lavra = {
 	scales_with = {
 		value = "variable_map(tv_wonder_auto_level_by_wonder_id|145)"
 	}
-	monthly_towards_spiritualist = 0.1
+	monthly_towards_communalism = 0.1
 }
 
 tv_wonder_auto_unique_winter_palace = {
@@ -1326,7 +1338,7 @@ tv_wonder_auto_unique_meteora_monasteries = {
 	scales_with = {
 		value = "variable_map(tv_wonder_auto_level_by_wonder_id|150)"
 	}
-	monthly_towards_spiritualist = 0.1
+	monthly_towards_communalism = 0.1
 }
 
 tv_wonder_auto_unique_belem_tower = {
@@ -1350,7 +1362,7 @@ tv_wonder_auto_unique_iberian_inquisition = {
 	scales_with = {
 		value = "variable_map(tv_wonder_auto_level_by_wonder_id|152)"
 	}
-	monthly_towards_spiritualist = 0.1
+	monthly_towards_communalism = 0.1
 }
 
 tv_wonder_auto_unique_santa_maria_del_fiore = {
@@ -1488,7 +1500,7 @@ tv_wonder_auto_unique_dardanelles_fortress = {
 	scales_with = {
 		value = "variable_map(tv_wonder_auto_level_by_wonder_id|163)"
 	}
-	monthly_towards_defensive = 0.1
+	monthly_towards_offensive = 0.1
 }
 
 tv_wonder_auto_unique_escorial_monastery = {
@@ -1500,7 +1512,7 @@ tv_wonder_auto_unique_escorial_monastery = {
 	scales_with = {
 		value = "variable_map(tv_wonder_auto_level_by_wonder_id|164)"
 	}
-	monthly_towards_spiritualist = 0.1
+	monthly_towards_communalism = 0.1
 }
 
 tv_wonder_auto_unique_toledo_armory = {
@@ -1524,7 +1536,7 @@ tv_wonder_auto_unique_camino_de_santiago = {
 	scales_with = {
 		value = "variable_map(tv_wonder_auto_level_by_wonder_id|166)"
 	}
-	monthly_towards_centralization = 0.1
+	monthly_towards_land = 0.1
 }
 
 tv_wonder_auto_unique_sagres_navigation_school = {
@@ -1537,7 +1549,7 @@ tv_wonder_auto_unique_sagres_navigation_school = {
 		value = "variable_map(tv_wonder_auto_level_by_wonder_id|167)"
 	}
 	monthly_navy_tradition = 0.1
-	monthly_towards_naval = 0.1
+	monthly_towards_quality = 0.1
 }
 
 tv_wonder_auto_unique_milan_arsenal = {
@@ -1691,6 +1703,18 @@ tv_wonder_auto_unique_wawel_castle = {
 	monthly_towards_defensive = 0.1
 }
 
+tv_wonder_auto_unique_zamosc_ideal_city = {
+	category = country
+	potential_trigger = {
+		has_variable_map = tv_wonder_auto_level_by_wonder_id
+		is_key_in_variable_map = { name = tv_wonder_auto_level_by_wonder_id target = 180 }
+	}
+	scales_with = {
+		value = "variable_map(tv_wonder_auto_level_by_wonder_id|180)"
+	}
+	monthly_towards_inward = 0.1
+}
+
 tv_wonder_auto_unique_gdansk_port = {
 	category = country
 	potential_trigger = {
@@ -1712,7 +1736,7 @@ tv_wonder_auto_unique_malbork_castle = {
 	scales_with = {
 		value = "variable_map(tv_wonder_auto_level_by_wonder_id|182)"
 	}
-	monthly_towards_defensive = 0.1
+	monthly_towards_land = 0.1
 }
 
 tv_wonder_auto_unique_brest_synagogue_quarter = {
@@ -1750,7 +1774,7 @@ tv_wonder_auto_unique_cave_monastery = {
 	scales_with = {
 		value = "variable_map(tv_wonder_auto_level_by_wonder_id|185)"
 	}
-	monthly_towards_spiritualist = 0.1
+	monthly_towards_communalism = 0.1
 }
 
 tv_wonder_auto_unique_zaporizhian_sich = {
@@ -2134,7 +2158,7 @@ tv_wonder_auto_unique_dresden_art_gallery = {
 	}
 	num_possible_artists = 2
 	artist_salary_modifier = -0.2
-	monthly_towards_innovative = 0.1
+	monthly_towards_aristocracy = 0.1
 }
 
 tv_wonder_auto_unique_munich_royal_brewery = {
@@ -2199,7 +2223,7 @@ tv_wonder_auto_unique_algiers_pirate_port = {
 	hire_privateer_cost_modifier = -0.1
 	privateer_maintenance_cost_modifier = -0.06
 	privateer_durability = 0.1
-	monthly_towards_naval = 0.1
+	monthly_towards_individualism = 0.1
 }
 
 tv_wonder_auto_unique_algiers_pirate_port_unscaled = {

@@ -78,15 +78,15 @@ base_modifiers:
     global_food_capacity_modifier: 0.2
     monthly_towards_traditional_economy: 0.05
   imperial_post_road_network:
-    monthly_towards_centralization: 0.05
+    monthly_towards_land: 0.05
   canal_hub_city:
     monthly_towards_mercantilism: 0.05
   frontier_colonization_belt:
     monthly_towards_outward: 0.05
   coastal_beacon_network:
-    monthly_towards_naval: 0.05
+    monthly_towards_communalism: 0.05
   knightly_fortress_order:
-    monthly_towards_defensive: 0.05
+    monthly_towards_land: 0.05
   war_college_system:
     monthly_army_tradition: 0.05
     monthly_towards_belligerent: 0.05
@@ -95,7 +95,7 @@ base_modifiers:
   royal_art_district:
     num_possible_artists: 1
     artist_salary_modifier: -0.1
-    monthly_towards_innovative: 0.05
+    monthly_towards_aristocracy: 0.05
   grand_theater_festival_district:
     cultural_influence_modifier: 0.1
     skill_of_new_artists: 0.05
@@ -121,7 +121,8 @@ base_modifiers:
   world_monument_group:
     cultures_capacity: 0.5
     monthly_towards_humanist: 0.05
-  city_expansion_project: {}
+  city_expansion_project:
+    monthly_towards_inward: 0.05
   megalithic_circle:
     tolerance_heretic: 0.5
     tolerance_heathen: 0.5
@@ -130,7 +131,7 @@ base_modifiers:
     tolerance_own: 0.5
     monthly_towards_spiritualist: 0.05
   great_monastery:
-    monthly_towards_spiritualist: 0.05
+    monthly_towards_communalism: 0.05
   city_great_tower:
     monthly_towards_inward: 0.05
   great_sculpture_group:
@@ -138,13 +139,13 @@ base_modifiers:
     pop_leave_rebels_threshold: -0.025
     monthly_towards_humanist: 0.05
   coastal_defense_cannon:
-    monthly_towards_defensive: 0.05
+    monthly_towards_offensive: 0.05
   naval_school:
     monthly_navy_tradition: 0.05
-    monthly_towards_naval: 0.05
+    monthly_towards_quality: 0.05
   pirate_port:
     can_hire_privateers: true
     hire_privateer_cost_modifier: -0.05
     privateer_maintenance_cost_modifier: -0.03
     privateer_durability: 0.05
-    monthly_towards_naval: 0.05
+    monthly_towards_individualism: 0.05

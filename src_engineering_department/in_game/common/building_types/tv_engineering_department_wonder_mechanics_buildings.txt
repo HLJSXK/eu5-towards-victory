@@ -4537,7 +4537,7 @@ tv_wonder_military_post_roads = {
 		local_cultural_influence = 0.5
 		local_distance_from_capital_speed_propagation = 0.1
 		movement_cost = -0.1
-		monthly_towards_centralization = 0.05
+		monthly_towards_land = 0.05
 	}
 
 	possible_production_methods = {
@@ -4584,7 +4584,7 @@ tv_wonder_trade_post_roads = {
 		local_cultural_influence = 0.5
 		local_distance_from_capital_speed_propagation = 0.1
 		movement_cost = -0.1
-		monthly_towards_centralization = 0.05
+		monthly_towards_land = 0.05
 	}
 
 	possible_production_methods = {
@@ -4631,7 +4631,7 @@ tv_wonder_royal_tour_avenue = {
 		local_cultural_influence = 0.5
 		local_distance_from_capital_speed_propagation = 0.1
 		movement_cost = -0.1
-		monthly_towards_centralization = 0.05
+		monthly_towards_land = 0.05
 	}
 
 	possible_production_methods = {
@@ -5152,7 +5152,7 @@ tv_wonder_beacon_communication_network = {
 		local_cultural_influence = 0.5
 		movement_cost = -0.1
 		local_port_cost_distance_impact = -0.5
-		monthly_towards_naval = 0.05
+		monthly_towards_communalism = 0.05
 	}
 
 	possible_production_methods = {
@@ -5199,7 +5199,7 @@ tv_wonder_coastal_battery_network = {
 		local_cultural_influence = 0.5
 		movement_cost = -0.1
 		local_port_cost_distance_impact = -0.5
-		monthly_towards_naval = 0.05
+		monthly_towards_communalism = 0.05
 	}
 
 	possible_production_methods = {
@@ -5246,7 +5246,7 @@ tv_wonder_customs_patrol_network = {
 		local_cultural_influence = 0.5
 		movement_cost = -0.1
 		local_port_cost_distance_impact = -0.5
-		monthly_towards_naval = 0.05
+		monthly_towards_communalism = 0.05
 	}
 
 	possible_production_methods = {
@@ -5357,7 +5357,7 @@ tv_wonder_crusader_knightly_order = {
 		local_fort_maintenance_efficiency = 0.1
 		local_defensive = 0.25
 		local_hostile_attrition = 0.05
-		monthly_towards_defensive = 0.05
+		monthly_towards_land = 0.05
 	}
 
 	possible_production_methods = {
@@ -5405,7 +5405,7 @@ tv_wonder_frontier_lord_order = {
 		local_fort_maintenance_efficiency = 0.1
 		local_defensive = 0.25
 		local_hostile_attrition = 0.05
-		monthly_towards_defensive = 0.05
+		monthly_towards_land = 0.05
 	}
 
 	possible_production_methods = {
@@ -5453,7 +5453,7 @@ tv_wonder_mercenary_fortress_system = {
 		local_fort_maintenance_efficiency = 0.1
 		local_defensive = 0.25
 		local_hostile_attrition = 0.05
-		monthly_towards_defensive = 0.05
+		monthly_towards_land = 0.05
 	}
 
 	possible_production_methods = {
@@ -5968,7 +5968,7 @@ tv_wonder_court_art_district = {
 		local_unrest = -0.1
 		num_possible_artists = 1
 		artist_salary_modifier = -0.1
-		monthly_towards_innovative = 0.05
+		monthly_towards_aristocracy = 0.05
 	}
 
 	possible_production_methods = {
@@ -6016,7 +6016,7 @@ tv_wonder_folk_art_district = {
 		local_unrest = -0.1
 		num_possible_artists = 1
 		artist_salary_modifier = -0.1
-		monthly_towards_innovative = 0.05
+		monthly_towards_aristocracy = 0.05
 	}
 
 	possible_production_methods = {
@@ -6064,7 +6064,7 @@ tv_wonder_foreign_style_district = {
 		local_unrest = -0.1
 		num_possible_artists = 1
 		artist_salary_modifier = -0.1
-		monthly_towards_innovative = 0.05
+		monthly_towards_aristocracy = 0.05
 	}
 
 	possible_production_methods = {
@@ -8009,6 +8009,7 @@ tv_wonder_city_charter = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		free_building_levels = 25
+		monthly_towards_inward = 0.05
 	}
 
 	possible_production_methods = {
@@ -8054,6 +8055,7 @@ tv_wonder_civic_grid = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		free_building_levels = 25
+		monthly_towards_inward = 0.05
 	}
 
 	possible_production_methods = {
@@ -8099,6 +8101,7 @@ tv_wonder_urban_renewal = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		free_building_levels = 25
+		monthly_towards_inward = 0.05
 	}
 
 	possible_production_methods = {
@@ -8615,7 +8618,7 @@ tv_wonder_scriptorium_monastery = {
 		local_clergy_max_literacy = 10
 		local_pop_conversion_speed = 0.005
 		local_pop_conversion_speed_modifier = 0.2
-		monthly_towards_spiritualist = 0.05
+		monthly_towards_communalism = 0.05
 	}
 
 	possible_production_methods = {
@@ -8663,7 +8666,7 @@ tv_wonder_pilgrim_refectory_monastery = {
 		local_clergy_max_literacy = 10
 		local_pop_conversion_speed = 0.005
 		local_pop_conversion_speed_modifier = 0.2
-		monthly_towards_spiritualist = 0.05
+		monthly_towards_communalism = 0.05
 	}
 
 	possible_production_methods = {
@@ -8711,7 +8714,7 @@ tv_wonder_fortified_cloister_monastery = {
 		local_clergy_max_literacy = 10
 		local_pop_conversion_speed = 0.005
 		local_pop_conversion_speed_modifier = 0.2
-		monthly_towards_spiritualist = 0.05
+		monthly_towards_communalism = 0.05
 	}
 
 	possible_production_methods = {
@@ -9232,7 +9235,7 @@ tv_wonder_strait_battery_cannon = {
 		local_cultural_influence = 0.5
 		local_maritime_presence = 0.1
 		local_navy_attrition = 0.05
-		monthly_towards_defensive = 0.05
+		monthly_towards_offensive = 0.05
 	}
 
 	possible_production_methods = {
@@ -9279,7 +9282,7 @@ tv_wonder_harbor_chain_cannon = {
 		local_cultural_influence = 0.5
 		local_maritime_presence = 0.1
 		local_navy_attrition = 0.05
-		monthly_towards_defensive = 0.05
+		monthly_towards_offensive = 0.05
 	}
 
 	possible_production_methods = {
@@ -9326,7 +9329,7 @@ tv_wonder_admiralty_gun_foundry = {
 		local_cultural_influence = 0.5
 		local_maritime_presence = 0.1
 		local_navy_attrition = 0.05
-		monthly_towards_defensive = 0.05
+		monthly_towards_offensive = 0.05
 	}
 
 	possible_production_methods = {
@@ -9435,7 +9438,7 @@ tv_wonder_admiralty_navigation_school = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		monthly_navy_tradition = 0.05
-		monthly_towards_naval = 0.05
+		monthly_towards_quality = 0.05
 	}
 
 	possible_production_methods = {
@@ -9481,7 +9484,7 @@ tv_wonder_pilotage_chart_house = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		monthly_navy_tradition = 0.05
-		monthly_towards_naval = 0.05
+		monthly_towards_quality = 0.05
 	}
 
 	possible_production_methods = {
@@ -9527,7 +9530,7 @@ tv_wonder_oceanic_command_academy = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		monthly_navy_tradition = 0.05
-		monthly_towards_naval = 0.05
+		monthly_towards_quality = 0.05
 	}
 
 	possible_production_methods = {
@@ -10885,7 +10888,7 @@ tv_wonder_privateer_haven = {
 		hire_privateer_cost_modifier = -0.05
 		privateer_maintenance_cost_modifier = -0.03
 		privateer_durability = 0.05
-		monthly_towards_naval = 0.05
+		monthly_towards_individualism = 0.05
 	}
 
 	possible_production_methods = {
@@ -10937,7 +10940,7 @@ tv_wonder_harbor_redoubt = {
 		hire_privateer_cost_modifier = -0.05
 		privateer_maintenance_cost_modifier = -0.03
 		privateer_durability = 0.05
-		monthly_towards_naval = 0.05
+		monthly_towards_individualism = 0.05
 	}
 
 	possible_production_methods = {
@@ -10989,7 +10992,7 @@ tv_wonder_corsair_admiralty = {
 		hire_privateer_cost_modifier = -0.05
 		privateer_maintenance_cost_modifier = -0.03
 		privateer_durability = 0.05
-		monthly_towards_naval = 0.05
+		monthly_towards_individualism = 0.05
 	}
 
 	possible_production_methods = {
@@ -12394,7 +12397,7 @@ tv_wonder_unique_inca_royal_road_inaugurated = {
 		local_cultural_influence = 0.5
 		local_distance_from_capital_speed_propagation = 0.2
 		movement_cost = -0.2
-		monthly_towards_centralization = 0.1
+		monthly_towards_land = 0.1
 	}
 
 	possible_production_methods = {
@@ -12866,7 +12869,7 @@ tv_wonder_unique_ottoman_hajj_road_inaugurated = {
 		local_cultural_influence = 0.5
 		local_distance_from_capital_speed_propagation = 0.2
 		movement_cost = -0.2
-		monthly_towards_centralization = 0.1
+		monthly_towards_land = 0.1
 	}
 
 	possible_production_methods = {
@@ -13242,7 +13245,7 @@ tv_wonder_unique_trinity_lavra_inaugurated = {
 		local_clergy_max_literacy = 20
 		local_pop_conversion_speed = 0.01
 		local_pop_conversion_speed_modifier = 0.4
-		monthly_towards_spiritualist = 0.1
+		monthly_towards_communalism = 0.1
 	}
 
 	possible_production_methods = {
@@ -13479,7 +13482,7 @@ tv_wonder_unique_meteora_monasteries_inaugurated = {
 		local_clergy_max_literacy = 20
 		local_pop_conversion_speed = 0.01
 		local_pop_conversion_speed_modifier = 0.4
-		monthly_towards_spiritualist = 0.1
+		monthly_towards_communalism = 0.1
 	}
 
 	possible_production_methods = {
@@ -13575,7 +13578,7 @@ tv_wonder_unique_iberian_inquisition_inaugurated = {
 		local_clergy_max_literacy = 20
 		local_pop_conversion_speed = 0.01
 		local_pop_conversion_speed_modifier = 0.4
-		monthly_towards_spiritualist = 0.1
+		monthly_towards_communalism = 0.1
 	}
 
 	possible_production_methods = {
@@ -14089,7 +14092,7 @@ tv_wonder_unique_dardanelles_fortress_inaugurated = {
 		local_cultural_influence = 0.5
 		local_maritime_presence = 0.2
 		local_navy_attrition = 0.1
-		monthly_towards_defensive = 0.1
+		monthly_towards_offensive = 0.1
 	}
 
 	possible_production_methods = {
@@ -14137,7 +14140,7 @@ tv_wonder_unique_escorial_monastery_inaugurated = {
 		local_clergy_max_literacy = 20
 		local_pop_conversion_speed = 0.01
 		local_pop_conversion_speed_modifier = 0.4
-		monthly_towards_spiritualist = 0.1
+		monthly_towards_communalism = 0.1
 	}
 
 	possible_production_methods = {
@@ -14232,7 +14235,7 @@ tv_wonder_unique_camino_de_santiago_inaugurated = {
 		local_cultural_influence = 0.5
 		local_distance_from_capital_speed_propagation = 0.2
 		movement_cost = -0.2
-		monthly_towards_centralization = 0.1
+		monthly_towards_land = 0.1
 	}
 
 	possible_production_methods = {
@@ -14278,7 +14281,7 @@ tv_wonder_unique_sagres_navigation_school_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		monthly_navy_tradition = 0.1
-		monthly_towards_naval = 0.1
+		monthly_towards_quality = 0.1
 	}
 
 	possible_production_methods = {
@@ -14888,6 +14891,7 @@ tv_wonder_unique_zamosc_ideal_city_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		free_building_levels = 50
+		monthly_towards_inward = 0.1
 	}
 
 	possible_production_methods = {
@@ -14982,7 +14986,7 @@ tv_wonder_unique_malbork_castle_inaugurated = {
 		local_fort_maintenance_efficiency = 0.2
 		local_defensive = 0.5
 		local_hostile_attrition = 0.1
-		monthly_towards_defensive = 0.1
+		monthly_towards_land = 0.1
 	}
 
 	possible_production_methods = {
@@ -15124,7 +15128,7 @@ tv_wonder_unique_cave_monastery_inaugurated = {
 		local_clergy_max_literacy = 20
 		local_pop_conversion_speed = 0.01
 		local_pop_conversion_speed_modifier = 0.4
-		monthly_towards_spiritualist = 0.1
+		monthly_towards_communalism = 0.1
 	}
 
 	possible_production_methods = {
@@ -16543,7 +16547,7 @@ tv_wonder_unique_dresden_art_gallery_inaugurated = {
 		local_unrest = -0.2
 		num_possible_artists = 2
 		artist_salary_modifier = -0.2
-		monthly_towards_innovative = 0.1
+		monthly_towards_aristocracy = 0.1
 	}
 
 	possible_production_methods = {
@@ -16781,7 +16785,7 @@ tv_wonder_unique_algiers_pirate_port_inaugurated = {
 		hire_privateer_cost_modifier = -0.1
 		privateer_maintenance_cost_modifier = -0.06
 		privateer_durability = 0.1
-		monthly_towards_naval = 0.1
+		monthly_towards_individualism = 0.1
 	}
 
 	possible_production_methods = {
