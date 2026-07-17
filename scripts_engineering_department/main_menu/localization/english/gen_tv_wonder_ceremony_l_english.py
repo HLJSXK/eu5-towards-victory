@@ -13,6 +13,7 @@ sys.path.insert(0, str(REPO_ROOT / "scripts_engineering_department"))
 from wonder_ceremony_lib import (  # noqa: E402
     STAGE_COUNT,
     card_icon_key,
+    ceremony_icon_alias,
     ceremony_stage_cost_entries,
     ceremony_wonders,
     decline_option_key,
@@ -80,7 +81,7 @@ def generate() -> str:
     for wonder in wonders:
         stages = wonder["ceremony"]["stages"]
         for stage_index, stage_data in enumerate(stages, start=1):
-            lines.append(f' {card_icon_key(stage_index, wonder["id"])}:0 "@{stage_data["icon"]}!"')
+            lines.append(f' {card_icon_key(stage_index, wonder["id"])}:0 "@{ceremony_icon_alias(stage_data["icon"])}!"')
             lines.append(
                 f' TV_WONDER_CEREMONY_CARD_ACTIVE_S{stage_index}_{wonder["id"]}:0 '
                 f'"{card_flavor_text(stage_data, "#Y In progress#!")}"'

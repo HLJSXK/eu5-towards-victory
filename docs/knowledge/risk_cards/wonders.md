@@ -954,6 +954,29 @@ every country regardless so missing or damaged IOs are repaired.
     `gen_tv_wonder_ceremony_l_english.py`/`_simp_chinese.py`), leaving `card_flavor_text()` and the
     modifier-name lines reading the raw untouched field.
 
+36. **Ceremony card icons use a normalized `texticon` alias, never the raw vanilla icon name.**
+    The 8 ceremony status cards render each wonder's per-stage icon (`data/unique_wonders.yaml`
+    `ceremony.stages[i].icon`) as inline text-icon markup at a shared `fontsize = 17`. Vanilla's
+    `font_icons.gui` defines each icon's `size`/`offset`/`fontsize` independently and
+    inconsistently (`construction` 14x14@14, `wealth` 20x20@18, `topography`/`prestige`
+    24-26px@16), so calling different icons at one shared fontsize renders them at very different
+    pixel sizes. Fixed by `scripts_engineering_department/main_menu/gui/shared/gen_tv_ceremony_font_icons_gui.py`,
+    which emits one `tv_ceremony_<name>` texticon alias per distinct icon name actually used
+    (derived from the ceremony data, not hardcoded), reusing the same vanilla texture (looked up
+    via `FONT_ICON_TEXTURES` in `wonder_mechanics/_core.py`) but with a uniform
+    `size = { 32 32 } offset = { 0 0 } fontsize = 17` — the fontsize matches the card call site so
+    the render-time scale factor is exactly 1 for every icon. The two ceremony localization
+    generators emit `@tv_ceremony_<name>!` via `ceremony_icon_alias()` in `wonder_ceremony_lib.py`,
+    never the raw `@<name>!`. **Do not** try to fix this by giving the `icon` GUI widget a
+    dynamically-resolved `texture` (no engine precedent for `Localize()`/`Custom()` feeding a
+    `texture` field — verified against `reference_game_files`), and do not build a
+    grouped-conditional-icon-widget dispatch keyed on the wonder id (with 121 wonders and 35-57
+    distinct icons per stage this produces ~650 widgets with long `Or`-chained `visible`
+    expressions — real GUI bloat and per-frame eval cost). When adding a new ceremony stage icon
+    name to the data, no manual step is needed on the GUI side — the alias generator picks it up
+    automatically next regen; it only needs to already exist as a vanilla `texticon` name (enforced
+    by the existing `SUPPORTED_CEREMONY_STAGE_ICONS` validator in `wonder_mechanics/_core.py`).
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`: it lints rule 2 and rule 16 automatically, and when a

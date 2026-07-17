@@ -345,6 +345,14 @@ generated:
     data:   scripts_engineering_department/wonder_ceremony_lib.py + data/unique_wonders.yaml
     output: data/generated_fragments/tv_wonder_ceremony_cards.gui
 
+  # Normalized texticon aliases (tv_ceremony_<name>) reused by the two ceremony
+  # loc generators above so every wonder's per-stage icon renders at the same
+  # pixel size regardless of which vanilla font_icons.gui icon it aliases (see
+  # docs/knowledge/risk_cards/wonders.md).
+  - script: scripts_engineering_department/main_menu/gui/shared/gen_tv_ceremony_font_icons_gui.py
+    data:   scripts_engineering_department/wonder_ceremony_lib.py + data/unique_wonders.yaml + reference_game_files/game/main_menu/gui/shared/font_icons.gui
+    output: src_engineering_department/main_menu/gui/shared/tv_ceremony_font_icons.gui
+
   - script: scripts_engineering_department/in_game/events/gen_tv_wonder_finalization_events.py
     data:   data/wonders.yaml + data/wonder_final_buildings.yaml + data/wonder_generic_rituals.yaml + data/wonder_base_modifiers.yaml + data/wonder_site_rules.yaml + data/unique_wonders.yaml
     output: src_engineering_department/in_game/events/tv_wonder_finalization_events.txt

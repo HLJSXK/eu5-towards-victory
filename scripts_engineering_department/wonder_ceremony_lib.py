@@ -82,6 +82,13 @@ def card_icon_key(stage: int, wonder_id: int) -> str:
     return f"TV_WONDER_CEREMONY_CARD_ICON_S{stage}_{wonder_id}"
 
 
+def ceremony_icon_alias(icon_name: str) -> str:
+    """Maps a vanilla font-icon name to this mod's own normalized texticon alias
+    (gen_tv_ceremony_font_icons_gui.py), which reuses the same texture at a uniform
+    size/offset/fontsize so every ceremony card icon renders at the same pixel size."""
+    return f"tv_ceremony_{icon_name}"
+
+
 def pay_option_key(stage: int) -> str:
     return f"{NAMESPACE}.{stage_event_id(stage)}.a"
 

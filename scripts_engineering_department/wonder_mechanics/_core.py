@@ -43,6 +43,9 @@ FIXED_WONDER_STAGE_IMAGE_TASKS = [
 ]
 GAME_CONCEPT_DECL_RE = re.compile(r"^([A-Za-z0-9_]+)\s*=\s*\{$")
 FONT_ICON_DECL_RE = re.compile(r"^\s*icon\s*=\s*([A-Za-z0-9_]+)\s*$", re.MULTILINE)
+FONT_ICON_TEXTURE_RE = re.compile(
+    r"icon\s*=\s*([A-Za-z0-9_]+)\s*\n\s*iconsize\s*=\s*\{\s*\n\s*texture\s*=\s*\"([^\"]+)\""
+)
 ROMAN_NUMERALS = {
     1: "I",
     2: "II",
@@ -66,7 +69,20 @@ def _load_font_icon_names() -> frozenset[str]:
     return names
 
 
+def _load_font_icon_textures() -> dict[str, str]:
+    """Maps each vanilla texticon `icon` name to its `iconsize.texture` path, so callers
+    can define their own texticon aliases that reuse the same texture with different
+    size/offset/fontsize (see docs/knowledge/risk_cards/wonders.md ceremony icon sizing)."""
+    if not FONT_ICONS_FILE.exists():
+        raise FileNotFoundError(f"Missing vanilla font icon source: {FONT_ICONS_FILE}")
+    textures = dict(FONT_ICON_TEXTURE_RE.findall(FONT_ICONS_FILE.read_text(encoding="utf-8")))
+    if not textures:
+        raise ValueError(f"No font icon textures found in {FONT_ICONS_FILE}")
+    return textures
+
+
 SUPPORTED_CEREMONY_STAGE_ICONS = _load_font_icon_names()
+FONT_ICON_TEXTURES = _load_font_icon_textures()
 SUPPORTED_SUITABILITY_KNOWLEDGE_ROW_TYPES = {"condition_bonus", "scaled_bonus"}
 ENGINE_SCALED_FIXED_MODIFIER_MAX = 0.5
 VALUE_MOVEMENT_MODIFIER_PREFIX = "monthly_towards_"

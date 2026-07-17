@@ -105,6 +105,7 @@ from wonder_mechanics.rituals import (
 from wonder_mechanics.schema import validate_unique_wonder_single_site_shape
 from wonder_ceremony_lib import (
     card_icon_key,
+    ceremony_icon_alias,
     reward_effect_lines,
     stage_2_reward_for_wonder,
 )
@@ -481,7 +482,10 @@ def validate_generated_ceremony_gui(wonders: list[dict]) -> None:
         )
         for wonder in ceremony_wonders:
             for stage_index, stage_data in enumerate(wonder["ceremony"]["stages"], start=1):
-                expected_icon_line = f' {card_icon_key(stage_index, wonder["id"])}:0 "@{stage_data["icon"]}!"'
+                expected_icon_line = (
+                    f' {card_icon_key(stage_index, wonder["id"])}:0 '
+                    f'"@{ceremony_icon_alias(stage_data["icon"])}!"'
+                )
                 require(
                     expected_icon_line in localization,
                     f"{name} must render {wonder['key']} stage {stage_index}'s selected icon.",
