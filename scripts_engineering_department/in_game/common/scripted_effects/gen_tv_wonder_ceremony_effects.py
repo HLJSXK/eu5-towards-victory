@@ -155,7 +155,11 @@ def append_advance_stage_effects(lines: list[str]) -> None:
         if stage == 4:
             lines.append(f"{T}tv_wonder_ceremony_start_stage_4_construction_effect = yes")
         if stage == STAGE_COUNT:
-            lines.append(f"{T}tv_wonder_complete_active_ritual_effect = yes")
+            # Bypass tv_wonder_complete_active_ritual_effect's completion_requirements_met_trigger:
+            # that trigger re-reads var:tv_wonder_ceremony_stage, which this same block just wrote
+            # two lines above, and tooltip pre-evaluation does not see a set_variable committed
+            # earlier in this chain when a nested scripted_trigger call reads it back.
+            lines.append(f"{T}tv_wonder_mechanics_force_complete_active_ritual_effect = yes")
         lines.append("}")
         lines.append("")
 

@@ -315,8 +315,10 @@ def validate_generated_ceremony_flow(wonders: list[dict], mechanics: dict) -> No
         "Stage two must grant the one-time reward.",
     )
     require(
-        "tv_wonder_complete_active_ritual_effect = yes" in stage_8_advance,
-        "Stage eight must call the canonical ritual finalization chain inline so its "
+        "tv_wonder_mechanics_force_complete_active_ritual_effect = yes" in stage_8_advance,
+        "Stage eight must call the force-complete finalization chain inline (bypassing "
+        "tv_wonder_selected_ritual_completion_requirements_met_trigger's re-read of "
+        "var:tv_wonder_ceremony_stage, which this same effect just wrote) so its "
         "completion reward renders in the option's own tooltip preview.",
     )
 
@@ -752,7 +754,7 @@ def main() -> None:
             "hire_privateer_cost_modifier",
             "privateer_maintenance_cost_modifier",
             "privateer_durability",
-            "monthly_towards_naval",
+            "monthly_towards_individualism",
         }.issubset(pirate_base),
         "Pirate Port privateer country effects should live in base_modifiers as a medium wonder.",
     )

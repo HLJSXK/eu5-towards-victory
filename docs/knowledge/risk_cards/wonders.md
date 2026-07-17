@@ -342,8 +342,7 @@ every country regardless so missing or damaged IOs are repaired.
     character-promotion cases, there was no measured tooltip-preview error or
     performance cost specific to this chain — the deferral had been "match the
     async pattern used for stage-4 construction's finalization and for
-    Pharos/Hagia" rather than a proven necessity, and removing it fixed the
-    tooltip gap with no new pre-evaluation errors observed. The now-unused
+    Pharos/Hagia" rather than a proven necessity. The now-unused
     `tv_engineering_department.9308` event and `COMPLETION_EVENT_ID` constant
     were deleted rather than kept dormant. Pharos Lighthouse and Hagia Sophia
     are excluded (`ceremony: null`) and keep their existing bespoke
@@ -353,6 +352,55 @@ every country regardless so missing or damaged IOs are repaired.
     enforced by `validate.py`'s `event_id` rule) — the ceremony's 8 shared
     events use ids 9300-9307, not the more readable 10000-10007 originally
     chosen.
+
+    That inline-call fix alone was not sufficient: the user re-tested in game
+    and the stage-8 tooltip still showed only the cost, with a clean
+    `error.log` (no thrown errors — the tooltip preview was silently taking a
+    false branch, not failing loudly). Root cause: `tv_wonder_complete_active_
+    ritual_effect` routes through `tv_wonder_mechanics_maybe_complete_active_
+    ritual_effect`, whose gate is `tv_wonder_selected_ritual_completion_
+    requirements_met_trigger`, which for the ceremony framework routes to
+    `tv_wonder_selected_ritual_custom_completion_requirements_met_trigger`'s
+    per-ritual-id branch — literally `var:tv_wonder_ceremony_stage ?= 8`. That
+    is the SAME variable `tv_wonder_ceremony_advance_to_stage_8_effect` had
+    just written via `set_variable` two lines earlier, in the same option
+    effect chain. At real execution this is fine (the write has committed by
+    the time the nested trigger reads it), but the tooltip pre-evaluator does
+    not reliably thread a `set_variable` write across this many nested
+    scripted_effect/scripted_trigger call layers — it read back the
+    still-7 pre-write value, the branch was false, and the whole `if` block
+    containing `add_country_modifier` was treated as unreachable and omitted
+    from the tooltip, with no error (a false `limit`, not a script fault).
+    Stage 2/4's rewards never hit this because they don't gate on a variable
+    the same chain just wrote. Fixed by adding a new
+    `tv_wonder_mechanics_force_complete_active_ritual_effect` (in
+    `append_ritual_effects`,
+    `scripts_engineering_department/in_game/common/scripted_effects/gen_tv_engineering_department_wonder_mechanics_effects.py`,
+    generated into `tv_wonder_ritual_effects.txt` via `generate_ritual_effects`/
+    `gen_tv_wonder_ritual_effects.py` — note this is a DIFFERENT output file/entry
+    point than this same source module's own `generate()`/`main()`, which writes
+    `tv_engineering_department_wonder_mechanics_effects.txt`; regenerating the
+    wrong one silently leaves the fix unapplied) that duplicates
+    `tv_wonder_mechanics_maybe_complete_active_ritual_effect`'s body but WITHOUT
+    re-deriving completion through the stage-dependent trigger — stage 8's
+    button already knows completion is certain (it just paid the cost and set
+    the stage itself), so it has no need to re-check
+    `completion_requirements_met_trigger` at all.
+    `tv_wonder_ceremony_advance_to_stage_8_effect` now calls this new effect
+    directly instead of `tv_wonder_complete_active_ritual_effect`. This does not
+    weaken the existing "maybe complete" gate used by monthly-pulse/ruler-death
+    on_actions for OTHER ritual modes (timed/auxiliary_building/deferred_immediate)
+    or for Pharos/Hagia — those still go through the original trigger-gated path,
+    which remains correct for callers that don't already know completion is
+    certain. General lesson: a `set_variable` written earlier in the same effect
+    chain is not safely readable by a *nested* `scripted_trigger` call during
+    tooltip/option pre-evaluation, even when the write and the read are both
+    inside the single call being previewed — if a caller already knows a
+    condition is true (it just established that state itself), prefer a
+    dedicated "certain" effect variant over routing back through a shared
+    "maybe" gate that re-derives the same condition via a trigger. See
+    `docs/knowledge/anti_patterns.yaml` rule
+    `same_chain_set_variable_not_visible_to_nested_trigger_during_tooltip_preview`.
     The GUI card fragment (`data/generated_fragments/tv_wonder_ceremony_cards.gui`,
     from `scripts_engineering_department/in_game/gui/panels/organization/gen_tv_wonder_ceremony_cards_gui.py`)
     is merged into `src_engineering_department/in_game/gui/panels/organization/tv_engineering_department.gui`'s
