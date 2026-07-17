@@ -44,14 +44,6 @@ accepted:
       city/megalopolis or port) at the 1337 bookmark. Historically accurate starting state;
       expected to grow into the site requirement over the course of the game.
 
-  - key: unique_longjiang_shipyard
-    status: FAIL
-    rationale: >-
-      The historical Longjiang Shipyard built the Ming treasure fleet on the Yangtze at Nanjing
-      (shangyuan) -- a riverine shipyard, not an open-sea harbor. The vanilla map records this
-      location's ocean-harbor suitability as 0 even though it is the correct historical
-      shipbuilding site.
-
   - key: unique_winter_palace
     status: FAIL
     rationale: >-
@@ -177,7 +169,7 @@ accepted:
   - key: unique_persian_qanat
     status: UNKNOWN
     rationale: >-
-      Same has_river/is_adjacent_to_lake data gap. Isfahan's qanat network draws on
+      Same has_river/is_adjacent_to_lake data gap. Qom's qanat network draws on
       groundwater/river sources per real history; accepted without a static verification path.
 
   - key: unique_dujiangyan
