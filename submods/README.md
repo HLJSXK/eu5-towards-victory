@@ -25,6 +25,6 @@ Current submods:
   override, `in_game/gui/location_window.gui`, generated from the M&T file with
   the wonder location overlay injected. Since the wonder overlay is owned by
   the standalone `src_engineering_department/` mod (see repo root), this
-  submod declares a dependency on `hades.towards_victory.engineering_department`,
+  submod declares a dependency on `hades.towards_victory.great_project`,
   not on the main `hades.towards_victory` mod — main `src/` no longer touches
   `location_window.gui` at all.
