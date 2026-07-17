@@ -83,7 +83,7 @@ def generate() -> str:
                 f' TV_WONDER_CEREMONY_CARD_COMPLETED_S{stage_index}_{wonder["id"]}:0 '
                 f'"{card_flavor_text(stage_data, "#G 已完成#!")}"'
             )
-            lines.append(f' {title_key(stage_index, wonder["id"])}:0 "{q(stage_data["title_zh"])}"')
+            lines.append(f' {title_key(stage_index, wonder["id"])}:0 "[tv_wonder_ceremony|E]：{q(stage_data["title_zh"])}"')
             lines.append(
                 f' {desc_key(stage_index, wonder["id"])}:0 "{q(stage_data["desc_zh"] + ceremony_hint(stage_index))}"'
             )

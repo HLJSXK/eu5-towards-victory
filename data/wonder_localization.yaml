@@ -362,10 +362,10 @@ wonder_localization:
     TV_ENGINEERING_RITUAL_EFFECT_STYLE_3_SUBTITLE: You will immediately receive a return offering.
     TV_ENGINEERING_RITUAL_REQUIREMENT_UNIQUE_NONE: None
     TV_ENGINEERING_RITUAL_EFFECT_UNIQUE_SUBTITLE: The wonder will provide a permanent country modifier.
-    tv_wonder_ownership.800.t: World Wonder Secured
+    tv_wonder_ownership.800.t: '[tv_wonder_construction|E]：World Wonder Secured'
     tv_wonder_ownership.800.d: The newly acquired province of [SCOPE.sLocation('tv_wonder_ownership_site').GetName] contains a completed [tv_wonder_construction|E]. Its base effects now answer to our rule, and our engineers have recorded it as a possible expansion site if its preserved scale allows further work.
     tv_wonder_ownership.800.a: Put it to work.
-    tv_wonder_ownership.900.t: A World Wonder Lost
+    tv_wonder_ownership.900.t: '[tv_wonder_construction|E]：A World Wonder Lost'
     tv_wonder_ownership.900.d: With [SCOPE.sLocation('tv_wonder_ownership_site').GetName] lost, the completed [tv_wonder_construction|E] there no longer supports our realm. Any permanent national ceremony benefit tied only to that wonder has been withdrawn from our ledgers.
     tv_wonder_ownership.900.a: Record the loss.
     TV_ENGINEERING_WONDER_PREVIEW_EFFECT_TITLE: Base effects per level of this [tv_wonder_construction|E]
@@ -1786,34 +1786,34 @@ wonder_localization:
     TV_ENGINEERING_PHAROS_STATUS_BASING: Basing
     TV_ENGINEERING_PHAROS_STATUS_UNCONTROLLED: Unheld
     TV_ENGINEERING_PHAROS_NO_OWNER: No harbor flag
-    tv_engineering_department.7300.t: The Lamp-Keepers Take the Stair
+    tv_engineering_department.7300.t: '[tv_wonder_ceremony|E]：The Lamp-Keepers Take the Stair'
     tv_engineering_department.7300.d: The annex at Alexandria is finished. Oil jars, signal screens, bronze mirrors, and pilot ledgers have climbed into the tower's shadow; the last workmen leave with mortar on their sleeves while harbor men wait for the first order.
     tv_engineering_department.7300.a: Let the harbor learn its new watch.
-    tv_engineering_department.7301.t: Silver for the Watch Boats
+    tv_engineering_department.7301.t: '[tv_wonder_ceremony|E]：Silver for the Watch Boats'
     tv_engineering_department.7301.d: "Privateer sails haunt the water beyond Alexandria. The pilots ask for coin before nightfall: wages for oarsmen, pitch for lanterns, and quiet purses for informants who know which coves shelter hungry crews.\n\n#weak Paying in silver clears the privateers and advances the lighthouse ritual — declining leaves it for now.#!"
     tv_engineering_department.7301.a: Pay the oars and dim those sails.
     tv_engineering_department.7301.b: Let the sea keep its rumors.
-    tv_engineering_department.7302.t: Names Read from the Quay
+    tv_engineering_department.7302.t: '[tv_wonder_ceremony|E]：Names Read from the Quay'
     tv_engineering_department.7302.d: "The harbor captains gather under the unfinished glare of the Pharos. They ask leave to shame the raiders by name, calling on noble houses and merchant crews to lend their banners to a public hunt.\n\n#weak Spending prestige rallies the houses and crews against the privateers and advances the ritual — declining leaves it for now.#!"
     tv_engineering_department.7302.a: Spend our name like fire.
     tv_engineering_department.7302.b: No proclamation will leave the quay.
-    tv_engineering_department.7303.t: The Merchants' Night Watch
+    tv_engineering_department.7303.t: '[tv_wonder_ceremony|E]：The Merchants'' Night Watch'
     tv_engineering_department.7303.d: "Alexandria's countinghouses offer ships and lanterns, but not without complaint. They want their clerks kept from the oars and their cargoes spared inspection while the hunt sweeps the bay.\n\n#weak Accepting the burghers' terms clears the privateers and advances the ritual — declining leaves it for now.#!"
     tv_engineering_department.7303.a: Borrow their boats before dawn.
     tv_engineering_department.7303.b: Leave their ledgers closed.
-    tv_engineering_department.7304.t: Clean Water Beneath the Tower
+    tv_engineering_department.7304.t: '[tv_wonder_ceremony|E]：Clean Water Beneath the Tower'
     tv_engineering_department.7304.d: "The pilots return with empty hooks and quiet faces. No hostile privateer dares sit in Alexandria's sea-lanes; the lamps can now look beyond the harbor mouth and speak to farther ports.\n\n#weak Confirming this moves the ritual into its second stage: certifying trade routes across the Mediterranean.#!"
     tv_engineering_department.7304.a: Turn the glass toward the middle sea.
-    tv_engineering_department.7305.t: A Harbor Already Under Our Lantern
+    tv_engineering_department.7305.t: '[tv_wonder_ceremony|E]：A Harbor Already Under Our Lantern'
     tv_engineering_department.7305.d: "At [SCOPE.sLocation('tv_wonder_pharos_event_route_location').GetName], our own harbor officers answer the Pharos oath. The quay needs no bargain; its ropes already run through our hands.\n\n#weak Confirming this records the harbor already under our control into the route ledger and advances the ritual.#!"
     tv_engineering_department.7305.a: Mark the route in lampblack.
-    tv_engineering_department.7306.t: A Friendly Quay Answers
+    tv_engineering_department.7306.t: '[tv_wonder_ceremony|E]：A Friendly Quay Answers'
     tv_engineering_department.7306.d: "[SCOPE.sLocation('tv_wonder_pharos_event_route_location').GetName] sends back its harbor seal. Our ships may already rest under its walls, and its pilots know the shape of our flags by dusk.\n\n#weak Confirming this records the friendly harbor into the route ledger and advances the ritual.#!"
     tv_engineering_department.7306.a: Add their fire to the chain.
-    tv_engineering_department.7307.t: Opening a Foreign Harbor
+    tv_engineering_department.7307.t: '[tv_wonder_ceremony|E]：Opening a Foreign Harbor'
     tv_engineering_department.7307.d: "The route through [SCOPE.sLocation('tv_wonder_pharos_event_route_location').GetName] waits behind another ruler's harbor chain. Gifts must pass before ships do; lamp oil, chart copies, and gold enough to make a strange quay hospitable.\n\n#weak Paying the required gold opens this foreign harbor chain and records the route — the ritual advances only once it is paid.#!"
     tv_engineering_department.7307.a: Buy the night mooring.
-    tv_engineering_department.7308.t: The Eighth Light
+    tv_engineering_department.7308.t: '[tv_wonder_ceremony|E]：The Eighth Light'
     tv_engineering_department.7308.d: "The route tablets lie complete. From Gibraltar's teeth to Constantinople's walls, from island harbors to republic quays, the Mediterranean has answered the Pharos. The tower waits only for the final word.\n\n#weak Confirming this completes the Pharos Lighthouse's dedication ritual.#!"
     tv_engineering_department.7308.a: Let Alexandria hold the sea's horizon.
     game_concept_tv_wonder_unique_hagia_sophia_desc: 'A vast dome rises over Constantinople as if weightless, ringed by golden mosaics, marble hauled from every province of empire, and windows that dissolve the wall into light. Justinian rebuilt it to silence doubt after fire and riot, and clergy and courtiers alike gathered beneath it to feel earthly rule brush against heaven. Ever after, to stand under that dome was to believe the empire itself could not fall.'
@@ -1884,33 +1884,33 @@ wonder_localization:
     TV_ENGINEERING_HAGIA_STEP_8_WAITING: The doors wait to spill prayer into the streets of Constantinople.
     TV_ENGINEERING_HAGIA_STEP_8_ACTIVE: The procession moves through the city, gathering windows, courtyards, and market cries into one answer.
     TV_ENGINEERING_HAGIA_STEP_8_DONE: The city has returned to the dome in full voice.
-    tv_engineering_department.6301.t: The Locked Sacristy
+    tv_engineering_department.6301.t: '[tv_wonder_ceremony|E]：The Locked Sacristy'
     tv_engineering_department.6301.d: "The keeper returns with wax on the fingers and dust from the relic chest. Silver has been counted, veils unfolded, and the small offering doors marked with fresh thread. A final purse must pass before the sacristy will surrender its keys.\n\n#weak Paying the purse settles the sacristy's accounts and advances the ritual to its next step — waiting leaves it for a later season.#!"
     tv_engineering_department.6301.a: Place the purse beside the lamp.
     tv_engineering_department.6301.b: Let the keys sleep another season.
-    tv_engineering_department.6302.t: Smoke Beneath the Dome
+    tv_engineering_department.6302.t: '[tv_wonder_ceremony|E]：Smoke Beneath the Dome'
     tv_engineering_department.6302.d: "The lamp has climbed under the ribs of the dome. Chains answer with a low note, marble gives back cold light, and the darkened mosaics keep the memory of old candles. The keepers ask that honor be spent where stone cannot speak.\n\n#weak Spending honor here advances the ritual to its next step — leaving it unread simply delays that step.#!"
     tv_engineering_department.6302.a: Lay honor under the vault.
     tv_engineering_department.6302.b: Leave the smoke unread.
-    tv_engineering_department.6303.t: The Register of Bread
+    tv_engineering_department.6303.t: '[tv_wonder_ceremony|E]：The Register of Bread'
     tv_engineering_department.6303.d: "Clerks stand over the church register while priests name their endowments and the poor bread waits in careful tallies. The page will hold only if the clergy receive a privilege fit for the Great Church.\n\n#weak Granting the clergy's privilege seals the register and advances the ritual — closing it for now just postpones the step.#!"
     tv_engineering_department.6303.a: Seal the church book.
     tv_engineering_department.6303.b: Close the register for now.
-    tv_engineering_department.6304.t: The Imperial Threshold
+    tv_engineering_department.6304.t: '[tv_wonder_ceremony|E]：The Imperial Threshold'
     tv_engineering_department.6304.d: "The guarded road has been walked from palace shadow to bronze door. Officials learned their stations, spears learned their angle, and the ruler learned the pause before entering holy light.\n\n#weak Confirming this automatically advances the ritual to its next step.#!"
     tv_engineering_department.6304.a: Let the road remember.
-    tv_engineering_department.6305.t: The Chapels Answer
+    tv_engineering_department.6305.t: '[tv_wonder_ceremony|E]：The Chapels Answer'
     tv_engineering_department.6305.d: "From side chapel to sanctuary screen, the feast duties have been spoken aloud. Lamps have names, cupboards have stewards, and the small altars stand ready to keep time with the nave.\n\n#weak Confirming this automatically advances the ritual to its next step.#!"
     tv_engineering_department.6305.a: Bind the chapels to the dome.
-    tv_engineering_department.6306.t: The Notaries' Table
+    tv_engineering_department.6306.t: '[tv_wonder_ceremony|E]：The Notaries'' Table'
     tv_engineering_department.6306.d: "Wax tablets crowd the notaries' table. Donated coin, treasury metal, clerical promises, and noble witness marks all demand their place before the public prayer can leave the church.\n\n#weak Settling the tablets' accounts finalizes the notarization and advances the ritual — returning them to their bags simply waits.#!"
     tv_engineering_department.6306.a: Let the tablets agree.
     tv_engineering_department.6306.b: Return the tablets to their bags.
-    tv_engineering_department.6307.t: The Gallery of Witnesses
+    tv_engineering_department.6307.t: '[tv_wonder_ceremony|E]：The Gallery of Witnesses'
     tv_engineering_department.6307.d: "Envoys and nobles take their places in the gallery while an icon panel waits for color. Gold leaf breathes against the brush, and the city asks that its rank be remembered as holiness, not merely order.\n\n#weak Paying the painters finishes the gallery and advances the ritual — leaving the panel unlit sets it aside for now.#!"
     tv_engineering_department.6307.a: Pay the painters of the gallery.
     tv_engineering_department.6307.b: Leave the panel unlit.
-    tv_engineering_department.6308.t: Voice Beneath the Dome
+    tv_engineering_department.6308.t: '[tv_wonder_ceremony|E]：Voice Beneath the Dome'
     tv_engineering_department.6308.d: "The streets have carried the public prayer back to the Great Church. Courtyards, markets, sea walls, and palace gates answer beneath the same dome, and the bronze doors no longer seem to divide city from sanctuary.\n\n#weak Confirming this completes Hagia Sophia's dedication ritual.#!"
     tv_engineering_department.6308.a: Let the Great Church open.
     tv_hagia_great_church_endowment_privilege: Endowment of the Great Church
@@ -6551,10 +6551,10 @@ wonder_localization:
     tv_engineering_department.500.d_unique_sanaa_old_city: 塔楼民居、白色石膏纹样、拥挤市集、商队商人、乳香、咖啡、金属工匠与宣礼塔让萨那古城成为一座垂直市场。大工程师提出一座商业逐层升出市集之上的城市。如今萨那市集开市礼完成了这座固定历史地点上的奇观。开市礼提升贸易收入与外交声誉。
     tv_engineering_department.600.d_unique_sanaa_old_city: 商人传来消息：[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_unique_sanaa_old_city|E]。塔楼民居、白色石膏纹样、拥挤市集、商队商人、乳香、咖啡、金属工匠与宣礼塔让萨那古城成为一座垂直市场。远方商人会把这则消息译成价格、航路与新的野心。
     STATIC_MODIFIER_NAME_tv_wonder_unique_sanaa_old_city_ceremony_modifier: 萨那市集开市礼
-    tv_wonder_ownership.800.t: 已掌控世界奇观
+    tv_wonder_ownership.800.t: '[tv_wonder_construction|E]：已掌控世界奇观'
     tv_wonder_ownership.800.d: 新获得的省份[SCOPE.sLocation('tv_wonder_ownership_site').GetName]存在一座已经落成的[tv_wonder_construction|E]。它的基础加成现在归我方统治受益；若该地点保留的规模仍允许扩建，工程师也会将其记录为可扩建候选。
     tv_wonder_ownership.800.a: 让它为我们效力。
-    tv_wonder_ownership.900.t: 失去一座世界奇观
+    tv_wonder_ownership.900.t: '[tv_wonder_construction|E]：失去一座世界奇观'
     tv_wonder_ownership.900.d: 随着[SCOPE.sLocation('tv_wonder_ownership_site').GetName]失守，当地已经落成的[tv_wonder_construction|E]不再支撑我国。若该奇观曾提供只属于我国的永久国家仪式收益，相关效果已从账册中静默移除。
     tv_wonder_ownership.900.a: 记下这笔损失。
     game_concept_tv_wonder_colonial_trade_company_desc: '由特许交易大厅、设防商馆与账簿厅组成的滨海庞大建筑群，一枚王室印玺便能把遥远的海岸线换算成一列列利润数字。公司代理人在同一屋檐下称量胡椒、蔗糖与白银，武装仓库则守卫着货物，抵御他国旗帜下的对手。王国由此学会以合约与船货，一步步统治海上贸易本身。'
@@ -8902,34 +8902,34 @@ wonder_localization:
     TV_ENGINEERING_PHAROS_STATUS_BASING: 驻港
     TV_ENGINEERING_PHAROS_STATUS_UNCONTROLLED: 未控
     TV_ENGINEERING_PHAROS_NO_OWNER: 无港旗
-    tv_engineering_department.7300.t: 守灯人登上阶梯
+    tv_engineering_department.7300.t: '[tv_wonder_ceremony|E]：守灯人登上阶梯'
     tv_engineering_department.7300.d: 亚历山大的附楼已经完工。油瓮、信号屏、青铜镜与引航簿被一层层抬进塔影；最后的工匠带着袖上的灰浆退下，港口的人们等候第一道命令。
     tv_engineering_department.7300.a: 让港口学会新的守望。
-    tv_engineering_department.7301.t: 巡船之银
+    tv_engineering_department.7301.t: '[tv_wonder_ceremony|E]：巡船之银'
     tv_engineering_department.7301.d: "私掠帆影仍在亚历山大外海徘徊。引航人请求日落前拨出银钱：给桨手的工钱、给灯笼的沥青，还有给那些熟悉隐秘海湾之人的沉默钱袋。\n\n#weak 支付白银即可清剿私掠船只，推进灯塔仪式；拒绝则暂缓此步骤。#!"
     tv_engineering_department.7301.a: 支付桨声，压暗那些黑帆。
     tv_engineering_department.7301.b: 让海面继续保守流言。
-    tv_engineering_department.7302.t: 码头上宣读的名字
+    tv_engineering_department.7302.t: '[tv_wonder_ceremony|E]：码头上宣读的名字'
     tv_engineering_department.7302.d: "港口船长们聚在法罗斯尚未完全点亮的辉光下。他们请求以名誉召集追猎，当众念出劫掠者的名字，让贵族旗帜与商船水手一同出海。\n\n#weak 以声望召集贵族与商船清剿私掠船只，即可推进仪式；拒绝则暂缓此步骤。#!"
     tv_engineering_department.7302.a: 把我们的名声当作火光撒出去。
     tv_engineering_department.7302.b: 今日没有檄文离开码头。
-    tv_engineering_department.7303.t: 商人的夜巡
+    tv_engineering_department.7303.t: '[tv_wonder_ceremony|E]：商人的夜巡'
     tv_engineering_department.7303.d: "亚历山大的账房愿意交出船只与灯笼，却并非毫无怨言。他们要文书免于划桨，要货仓在搜湾之夜免遭盘查。\n\n#weak 接受市民阶层的条件即可清剿私掠船只，推进仪式；拒绝则暂缓此步骤。#!"
     tv_engineering_department.7303.a: 黎明前借走他们的船。
     tv_engineering_department.7303.b: 让账簿继续合上。
-    tv_engineering_department.7304.t: 塔下清水
+    tv_engineering_department.7304.t: '[tv_wonder_ceremony|E]：塔下清水'
     tv_engineering_department.7304.d: "引航人带着空钩与安静的面容归来。再没有敌对私掠者敢停泊在亚历山大的航道上；灯火终于可以越过港口，向更远的码头说话。\n\n#weak 确认后，法罗斯灯塔仪式将进入第二阶段：认证地中海各处的贸易航线。#!"
     tv_engineering_department.7304.a: 将镜面转向中海。
-    tv_engineering_department.7305.t: 已在灯下的港口
+    tv_engineering_department.7305.t: '[tv_wonder_ceremony|E]：已在灯下的港口'
     tv_engineering_department.7305.d: "在[SCOPE.sLocation('tv_wonder_pharos_event_route_location').GetName]，我们自己的港务官回应了法罗斯的誓言。那座码头无需讨价还价；缆绳本就穿过我们的手。\n\n#weak 确认后，这处已受我方控制的港口将被记入航路名录，推进仪式。#!"
     tv_engineering_department.7305.a: 用灯烟记下这条航路。
-    tv_engineering_department.7306.t: 友港回灯
+    tv_engineering_department.7306.t: '[tv_wonder_ceremony|E]：友港回灯'
     tv_engineering_department.7306.d: "[SCOPE.sLocation('tv_wonder_pharos_event_route_location').GetName]送回了港印。我们的船只早已可在其城墙下歇泊，那里的引航人也能在黄昏前认出我们的旗形。\n\n#weak 确认后，这处友港将被记入航路名录，推进仪式。#!"
     tv_engineering_department.7306.a: 将他们的火加入灯链。
-    tv_engineering_department.7307.t: 开启异邦港链
+    tv_engineering_department.7307.t: '[tv_wonder_ceremony|E]：开启异邦港链'
     tv_engineering_department.7307.d: "通往[SCOPE.sLocation('tv_wonder_pharos_event_route_location').GetName]的航路仍被他国港链拦住。礼物必须先于船只抵达：灯油、海图副本，还有足以使陌生码头变得好客的金银。\n\n#weak 支付所需金银即可打通该处异邦港链，将其记入航路名录，推进仪式。#!"
     tv_engineering_department.7307.a: 买下今夜的泊位。
-    tv_engineering_department.7308.t: 第八盏灯
+    tv_engineering_department.7308.t: '[tv_wonder_ceremony|E]：第八盏灯'
     tv_engineering_department.7308.d: "航路泥板已经齐备。从直布罗陀的齿岩到君士坦丁堡的城墙，从岛港到共和国码头，地中海已经回应法罗斯。灯塔只等最后一句话。\n\n#weak 确认后，法罗斯灯塔的落成仪式将随之完成。#!"
     tv_engineering_department.7308.a: 让亚历山大托住海的地平线。
     game_concept_tv_wonder_unique_hagia_sophia_desc: '一座穹顶悬浮于君士坦丁堡上空，四壁化作金色镶嵌画与天光，大理石取自帝国四方行省。查士丁尼在战火与暴乱之后重建此殿，只为让怀疑归于沉默；教士与朝臣齐聚顶下，仿佛尘世的权柄触到了天国的边缘。此后凡踏入此地者，皆愿相信这座帝国不会陨落。'
@@ -9000,33 +9000,33 @@ wonder_localization:
     TV_ENGINEERING_HAGIA_STEP_8_WAITING: 铜门等待把祈祷倾入君士坦丁堡的街巷。
     TV_ENGINEERING_HAGIA_STEP_8_ACTIVE: 游行穿过城市，将窗户、院落与市场呼声汇成同一声回答。
     TV_ENGINEERING_HAGIA_STEP_8_DONE: 城市已经以完整之声回到穹顶之下。
-    tv_engineering_department.6301.t: 上锁的圣器室
+    tv_engineering_department.6301.t: '[tv_wonder_ceremony|E]：上锁的圣器室'
     tv_engineering_department.6301.d: "执事带着手指上的封蜡与圣物箱的尘土归来。银器已清点，帷幕已展开，小奉献门也用新线标定。只差最后一只钱袋，圣器室才肯交出钥匙。\n\n#weak 支付这只钱袋即可结清圣器室的账目，推进仪式的下一步；暂缓则会将此步骤留待日后。#!"
     tv_engineering_department.6301.a: 将钱袋放在灯旁。
     tv_engineering_department.6301.b: 让钥匙再沉睡一季。
-    tv_engineering_department.6302.t: 穹顶下的烟痕
+    tv_engineering_department.6302.t: '[tv_wonder_ceremony|E]：穹顶下的烟痕'
     tv_engineering_department.6302.d: "灯光已经攀至穹顶肋拱之下。灯链发出低沉回声，大理石返还冷光，黯淡马赛克保存着旧烛的记忆。守护者请求将荣誉花在石头无法开口之处。\n\n#weak 在此花费荣誉即可推进仪式的下一步；置之不理则只是延后这一步。#!"
     tv_engineering_department.6302.a: 将荣誉铺在拱顶之下。
     tv_engineering_department.6302.b: 让烟痕暂且沉默。
-    tv_engineering_department.6303.t: 面包登记簿
+    tv_engineering_department.6303.t: '[tv_wonder_ceremony|E]：面包登记簿'
     tv_engineering_department.6303.d: "书记立在教堂登记簿旁，教士逐一报出赠产，济贫面包也被谨慎计数。唯有给予教士配得上大教堂的特权，书页才肯长久承载这些名字。\n\n#weak 授予教士这项特权即可封存登记簿，推进仪式；暂不批准则只是搁置这一步。#!"
     tv_engineering_department.6303.a: 封存教堂簿册。
     tv_engineering_department.6303.b: 暂且合上登记簿。
-    tv_engineering_department.6304.t: 帝国圣阈
+    tv_engineering_department.6304.t: '[tv_wonder_ceremony|E]：帝国圣阈'
     tv_engineering_department.6304.d: "护卫路线已从宫殿阴影走到铜门之前。官员学会自己的位置，长矛学会自己的角度，统治者也学会进入圣光前的停顿。\n\n#weak 确认后，仪式将自动推进至下一步。#!"
     tv_engineering_department.6304.a: 让道路记住。
-    tv_engineering_department.6305.t: 礼拜堂回应
+    tv_engineering_department.6305.t: '[tv_wonder_ceremony|E]：礼拜堂回应'
     tv_engineering_department.6305.d: "从侧堂到圣障，节日义务已经被逐一宣读。灯有了名字，柜有了管事，小祭坛也准备随中殿一同守时。\n\n#weak 确认后，仪式将自动推进至下一步。#!"
     tv_engineering_department.6305.a: 将众堂系于穹顶。
-    tv_engineering_department.6306.t: 公证人的桌案
+    tv_engineering_department.6306.t: '[tv_wonder_ceremony|E]：公证人的桌案'
     tv_engineering_department.6306.d: "蜡板堆满公证人的桌案。捐币、国库金属、教士承诺与贵族见证都要求拥有自己的位置，然后公共祈祷才能离开教堂。\n\n#weak 结清这些蜡板的账目即可完成公证，推进仪式；放回口袋则只是等待。#!"
     tv_engineering_department.6306.a: 让蜡板彼此同意。
     tv_engineering_department.6306.b: 把蜡板装回袋中。
-    tv_engineering_department.6307.t: 见证人的画廊
+    tv_engineering_department.6307.t: '[tv_wonder_ceremony|E]：见证人的画廊'
     tv_engineering_department.6307.d: "使节与贵族在画廊中就座，一块圣像板等待色彩。金箔在画笔前轻颤，城市要求自己的等级被记作神圣，而不仅是秩序。\n\n#weak 支付画师的酬劳即可完成画廊的准备，推进仪式；让圣像板保持无光则是暂缓此步骤。#!"
     tv_engineering_department.6307.a: 支付画廊的画师。
     tv_engineering_department.6307.b: 让画板暂不点亮。
-    tv_engineering_department.6308.t: 穹顶下的众声
+    tv_engineering_department.6308.t: '[tv_wonder_ceremony|E]：穹顶下的众声'
     tv_engineering_department.6308.d: "街巷已经把公开祈祷带回大教堂。院落、市场、海墙与宫门在同一穹顶下回应，铜门也不再像是在分开城市与圣所。\n\n#weak 确认后，圣索菲亚大教堂的落成仪式将随之完成。#!"
     tv_engineering_department.6308.a: 让大教堂开启。
     tv_hagia_great_church_endowment_privilege: 大教堂捐赠特权

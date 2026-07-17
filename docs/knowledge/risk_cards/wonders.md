@@ -929,6 +929,31 @@ every country regardless so missing or damaged IOs are repaired.
     Pharos/Hagia can't double-render buttons. See
     `[[gui_generator_rewrite_silently_dropped_generic_wonder_confirm_buttons]]`.
 
+35. **ED event title phase-prefix convention.** Every Engineering Department event title must carry
+    a phase indicator: a `[concept_key|E]` bracket where a fitting concept already exists, or bare
+    text where it does not. Random-pool events use their own phase's concept: debate pool
+    (`tv_engineering_department.100`-`.105`) → `[tv_wonder_debate|E]` (辩论); survey pool
+    (`.310`-`.322` minus notification `.300`) → `[tv_wonder_survey|E]` (测绘, already correct
+    pre-existing). The construction random pool (`tv_wonder_construction_events.txt`/
+    `wonder_construction_event_lib.py` TITLE_EN/TITLE_ZH, ids 7000-7211) has no dedicated concept —
+    `[tv_wonder_construction|E]` itself renders as the generic "Great Project"/伟大工程, not
+    "Construction"/建设 — so those titles use bare `Construction：`/`建设：` text instead, replacing
+    (not stacking in front of) the old generic bracket. Ceremony content — the 121 unique wonders'
+    8-step ceremony template (`TV_WONDER_CEREMONY_S{n}_TITLE_{id}`) plus the bespoke Hagia
+    Sophia/Pharos Lighthouse ritual titles — uses `[tv_wonder_ceremony|E]` even though these are
+    fixed/triggered sequences, not random pools (an explicit carve-out). Everything else (milestone
+    notifications, finalization/ownership titles, the standalone intro event) defaults to
+    `[tv_wonder_construction|E]` (伟大工程/Great Project). Titles that already carry any concept
+    bracket are otherwise left untouched — only bare titles get one added.
+    **Critical gotcha:** the ceremony stage title (`title_en`/`title_zh` in
+    `data/unique_wonders.yaml`) is a single shared field reused by the generator for the actual
+    event title AND for `CARD_ACTIVE`/`CARD_COMPLETED` card flavor text and
+    `STATIC_MODIFIER_NAME_*` entries. Do NOT edit the data-source title field to add a prefix — that
+    prefixes the card/modifier text too, which is not "the event title." Instead patch the
+    generator's title-emission line only (`title_key(...)` call in
+    `gen_tv_wonder_ceremony_l_english.py`/`_simp_chinese.py`), leaving `card_flavor_text()` and the
+    modifier-name lines reading the raw untouched field.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`: it lints rule 2 and rule 16 automatically, and when a
