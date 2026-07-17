@@ -374,6 +374,7 @@ lateralview_full = {
                                     name = "tv_filter_all"
                                     layoutpolicy_horizontal = expanding
                                     text = "TV_ENCYCLOPEDIA_FILTER_ALL"
+                                    tooltip = "TV_ENCYCLOPEDIA_FILTER_ALL_TOOLTIP"
                                     onclick = "[GetVariableSystem.Set('tv_encyclopedia_filter', 'all')]"
                                     down = "[GetVariableSystem.HasValue('tv_encyclopedia_filter', 'all')]"
                                 }
@@ -381,6 +382,7 @@ lateralview_full = {
                                     name = "tv_filter_mechanics"
                                     layoutpolicy_horizontal = expanding
                                     text = "TV_ENCYCLOPEDIA_FILTER_MECHANICS"
+                                    tooltip = "TV_ENCYCLOPEDIA_FILTER_MECHANICS_TOOLTIP"
                                     onclick = "[GetVariableSystem.Set('tv_encyclopedia_filter', 'mechanics')]"
                                     down = "[GetVariableSystem.HasValue('tv_encyclopedia_filter', 'mechanics')]"
                                 }
@@ -388,6 +390,7 @@ lateralview_full = {
                                     name = "tv_filter_generic"
                                     layoutpolicy_horizontal = expanding
                                     text = "TV_ENCYCLOPEDIA_FILTER_GENERIC"
+                                    tooltip = "TV_ENCYCLOPEDIA_FILTER_GENERIC_TOOLTIP"
                                     onclick = "[GetVariableSystem.Set('tv_encyclopedia_filter', 'generic')]"
                                     down = "[GetVariableSystem.HasValue('tv_encyclopedia_filter', 'generic')]"
                                 }
@@ -395,6 +398,7 @@ lateralview_full = {
                                     name = "tv_filter_unique"
                                     layoutpolicy_horizontal = expanding
                                     text = "TV_ENCYCLOPEDIA_FILTER_UNIQUE"
+                                    tooltip = "TV_ENCYCLOPEDIA_FILTER_UNIQUE_TOOLTIP"
                                     onclick = "[GetVariableSystem.Set('tv_encyclopedia_filter', 'unique')]"
                                     down = "[GetVariableSystem.HasValue('tv_encyclopedia_filter', 'unique')]"
                                 }
