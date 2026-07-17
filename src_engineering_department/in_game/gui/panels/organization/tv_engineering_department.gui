@@ -3346,7 +3346,7 @@ widget = {
 												ignoreinvisible = no
 												spacing = 5
 												action_button_diamond = { size = { 48 28 } text = "TV_ENGINEERING_BUILD_SHORT_BUTTON" title = "tv_wonder_begin_foundation" description = "tv_wonder_begin_foundation_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_begin_foundation" } }
-											text_single = { size = { 112 28 } text = "TV_ENGINEERING_CONSTRUCTION_PART_FOUNDATION" align = nobaseline|left }
+											text_single = { minimumsize = { 80 28 } text = "TV_ENGINEERING_CONSTRUCTION_PART_FOUNDATION" align = nobaseline|left }
 											hbox = {
 											ignoreinvisible = no
 											spacing = 0
@@ -3400,7 +3400,7 @@ widget = {
 										ignoreinvisible = no
 										spacing = 5
 										action_button_diamond = { size = { 48 28 } text = "TV_ENGINEERING_BUILD_SHORT_BUTTON" title = "tv_wonder_begin_body" description = "tv_wonder_begin_body_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_begin_body" } }
-										text_single = { size = { 112 28 } text = "TV_ENGINEERING_CONSTRUCTION_PART_BODY" align = nobaseline|left }
+										text_single = { minimumsize = { 80 28 } text = "TV_ENGINEERING_CONSTRUCTION_PART_BODY" align = nobaseline|left }
 										hbox = {
 											ignoreinvisible = no
 											spacing = 0
@@ -3454,7 +3454,7 @@ widget = {
 										ignoreinvisible = no
 										spacing = 5
 										action_button_diamond = { size = { 48 28 } text = "TV_ENGINEERING_BUILD_SHORT_BUTTON" title = "tv_wonder_begin_function" description = "tv_wonder_begin_function_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_begin_function" } }
-										text_single = { size = { 112 28 } text = "TV_ENGINEERING_CONSTRUCTION_PART_FUNCTION" align = nobaseline|left }
+										text_single = { minimumsize = { 80 28 } text = "TV_ENGINEERING_CONSTRUCTION_PART_FUNCTION" align = nobaseline|left }
 										hbox = {
 											ignoreinvisible = no
 											spacing = 0
@@ -3508,7 +3508,7 @@ widget = {
 										ignoreinvisible = no
 										spacing = 5
 										action_button_diamond = { size = { 48 28 } text = "TV_ENGINEERING_BUILD_SHORT_BUTTON" title = "tv_wonder_begin_decoration" description = "tv_wonder_begin_decoration_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_begin_decoration" } }
-										text_single = { size = { 112 28 } text = "TV_ENGINEERING_CONSTRUCTION_PART_DECORATION" align = nobaseline|left }
+										text_single = { minimumsize = { 80 28 } text = "TV_ENGINEERING_CONSTRUCTION_PART_DECORATION" align = nobaseline|left }
 										hbox = {
 											ignoreinvisible = no
 											spacing = 0
