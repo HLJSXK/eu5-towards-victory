@@ -522,6 +522,20 @@ generated:
     data:   src_engineering_department/in_game/gui/encyclopedia_lateralview.gui + reference_mods/3613232232/in_game/gui/encyclopedia_lateralview.gui
     output: submods/tv_prosper_or_perish_compat/in_game/gui/encyclopedia_lateralview.gui
 
+  # gen_compat_thumbnails.py (multi-output exception): diagonal top-left/bottom-right splice
+  # of src_engineering_department/.metadata/thumbnail.png with each external mod's own thumbnail.
+  - script: scripts/compat/gen_compat_thumbnails.py
+    data:   src_engineering_department/.metadata/thumbnail.png + reference_mods/3735059838/.metadata/thumbnail.png
+    output: submods/tv_meiou_and_taxes_compat/.metadata/thumbnail.png
+
+  - script: scripts/compat/gen_compat_thumbnails.py
+    data:   src_engineering_department/.metadata/thumbnail.png + reference_mods/3698931463/.metadata/thumbnail.png
+    output: submods/tv_standard_of_living_compat/.metadata/thumbnail.png
+
+  - script: scripts/compat/gen_compat_thumbnails.py
+    data:   src_engineering_department/.metadata/thumbnail.png + reference_mods/3613232232/.metadata/thumbnail.png
+    output: submods/tv_prosper_or_perish_compat/.metadata/thumbnail.png
+
   - script: scripts_engineering_department/gen_wonder_editor_catalog.py
     data:   reference_game_files/game/in_game/events + reference_game_files/game/main_menu/common/static_modifiers + reference_game_files/game/main_menu/common/modifier_type_definitions
     output: data/wonder_editor_catalog.yaml
