@@ -518,6 +518,10 @@ generated:
     data:   reference_mods/3698931463/in_game/gui/location_window.gui + data/wonders.yaml + data/wonder_final_buildings.yaml + data/wonder_generic_rituals.yaml + data/wonder_base_modifiers.yaml + data/wonder_site_rules.yaml + data/unique_wonders.yaml
     output: submods/tv_standard_of_living_compat/in_game/gui/location_window.gui
 
+  - script: scripts/compat/gen_tv_prosper_or_perish_encyclopedia_lateralview.py
+    data:   src_engineering_department/in_game/gui/encyclopedia_lateralview.gui + reference_mods/3613232232/in_game/gui/encyclopedia_lateralview.gui
+    output: submods/tv_prosper_or_perish_compat/in_game/gui/encyclopedia_lateralview.gui
+
   - script: scripts_engineering_department/gen_wonder_editor_catalog.py
     data:   reference_game_files/game/in_game/events + reference_game_files/game/main_menu/common/static_modifiers + reference_game_files/game/main_menu/common/modifier_type_definitions
     output: data/wonder_editor_catalog.yaml

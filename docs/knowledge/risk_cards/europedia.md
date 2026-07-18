@@ -67,6 +67,33 @@ content, or wiring any `game_concept` into a curated (as opposed to search/link-
    upper-left corner. This follows the same expanding-content shape used by vanilla
    `ui_library.gui`.
 
+8. **`encyclopedia_lateralview.gui` full-file-override conflicts with other Workshop mods.**
+   EU5's Jomini GUI loader replaces a `.gui` file wholesale per relative path — it does not
+   merge — so any other mod that also ships its own `in_game/gui/encyclopedia_lateralview.gui`
+   will silently drop either its own or our custom tab, whichever mod loads last, with no error
+   logged (the same failure mode documented for `location_window.gui` in
+   `docs/knowledge/risk_cards/wonders.md`). Prosper or Perish (Workshop `3613232232` — the same
+   mod cited as the tab-toggle precedent in rule 2 above) also fully overrides this file with its
+   own `pp_encyclopedia_active`/`pp_filter` tab. `submods/tv_prosper_or_perish_compat/` resolves
+   this via `scripts/compat/gen_tv_prosper_or_perish_encyclopedia_lateralview.py`, which merges
+   both tabs onto a single shared toggle variable (`tveu_compat_encyclopedia_active`) using
+   distinct string values (`'tv'` / `'pp'`) instead of two independent per-mod booleans. This
+   avoids needing to chain multiple `GetVariableSystem` effect calls in one vanilla nav button's
+   `onclick` (no verified precedent for that exists anywhere in `reference_game_files`) — since
+   both tabs share one variable, the vanilla "all pages" button and each per-page nav button only
+   ever need a single `Clear('tveu_compat_encyclopedia_active')`, and the mutual-exclusion check
+   for "is any custom tab active" uses the single-arg `GetVariableSystem.Exists(...)` accessor
+   (verified at `reference_game_files/game/main_menu/gui/...`: `GetVariableSystem.Exists('gamerules_page')`)
+   instead of `Or`-ing two `HasValue(...)` checks. The compat submod depends on
+   `hades.towards_victory.great_project` (which owns `encyclopedia_lateralview.gui`); Prosper or
+   Perish has no declared internal mod id (`"id": ""` in its own metadata) so it cannot be
+   declared as a formal dependency relationship — the submod's description names it instead.
+   After changing either TV's or Prosper or Perish's tab content, re-run
+   `scripts/compat/gen_tv_prosper_or_perish_encyclopedia_lateralview.py`; it asserts exact
+   occurrence counts of the known toggle-variable patterns and the exact 6-line closing tail of
+   TV's file, and raises rather than silently mis-merging if either upstream file's structure has
+   drifted.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`, then manually open the Europedia panel in-game,
