@@ -8,7 +8,9 @@ from PIL import Image
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 ED_THUMBNAIL = REPO_ROOT / "src_engineering_department" / ".metadata" / "thumbnail.png"
-OUTPUT_SIZE = (800, 800)
+OUTPUT_SIZE = (640, 640)
+# Steam Workshop rejects preview images over 1 MiB; keep real margin below that.
+MAX_BYTES = 900_000
 
 # (external mod thumbnail, output submod thumbnail)
 TARGETS = [
@@ -49,8 +51,14 @@ def generate(external_thumbnail: Path, out_path: Path, mask: Image.Image) -> Non
     ext_img = load_square(external_thumbnail)
     composited = Image.composite(ed_img, ext_img, mask)
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    composited.save(out_path)
-    print(f"Wrote {out_path.relative_to(REPO_ROOT)}")
+    composited.save(out_path, format="PNG", optimize=True, compress_level=9)
+    size = out_path.stat().st_size
+    if size > MAX_BYTES:
+        raise RuntimeError(
+            f"{out_path.relative_to(REPO_ROOT)} is {size} bytes, over the {MAX_BYTES}-byte "
+            "budget -- shrink OUTPUT_SIZE before shipping (Steam Workshop rejects >1 MiB previews)."
+        )
+    print(f"Wrote {out_path.relative_to(REPO_ROOT)} ({size} bytes)")
 
 
 def main() -> None:
