@@ -439,9 +439,12 @@ src/
                                            tv_game_concepts_l_simp_chinese.yml  [MANUAL — custom game concept localization]
 
 submods/
-└── tv_meiou_and_taxes_compat/
-    ├── .metadata/metadata.json            depends on Towards Victory and MEIOU and Taxes
-    └── in_game/gui/location_window.gui    [GENERATED - M&T location window copy with TV wonder badge overlay and tooltip]
+├── tv_meiou_and_taxes_compat/
+│   ├── .metadata/metadata.json            depends on Towards Victory - Great Project and MEIOU and Taxes
+│   └── in_game/gui/location_window.gui    [GENERATED - M&T location window copy with TV wonder badge overlay and tooltip]
+└── tv_standard_of_living_compat/
+    ├── .metadata/metadata.json            depends on Towards Victory - Great Project and Standard of Living
+    └── in_game/gui/location_window.gui    [GENERATED - Standard of Living location window copy with TV wonder badge overlay and tooltip]
 ```
 
 ```
@@ -566,6 +569,7 @@ Wonder Construction random events are data-driven from `data/wonder_construction
 | `scripts_engineering_department/in_game/gui/panels/organization/gen_tv_engineering_department_wonder_mechanics_gui.py` | data/wonders.yaml + data/wonder_final_buildings.yaml + data/wonder_generic_rituals.yaml + data/wonder_base_modifiers.yaml + data/wonder_site_rules.yaml + data/unique_wonders.yaml | data/generated_fragments/tv_engineering_department_wonder_mechanics.gui | After changing generic/unique wonder GUI action blocks, survey-card suitability knowledge, ceremony cost dispatch, or ceremony requirement/effect detail cards |
 | `scripts_engineering_department/in_game/gui/gen_location_window.py` | data/wonders.yaml + data/wonder_final_buildings.yaml + data/wonder_generic_rituals.yaml + data/wonder_base_modifiers.yaml + data/wonder_site_rules.yaml + data/unique_wonders.yaml + vanilla location_window.gui | src_engineering_department/in_game/gui/location_window.gui | After changing the location-scene fixed-slot wonder badge, tooltip layout, or dynamic id/name/image/effect route expressions |
 | `scripts/compat/gen_tv_meiou_and_taxes_location_window.py` | reference_mods/3735059838/in_game/gui/location_window.gui + data/wonders.yaml + data/wonder_final_buildings.yaml + data/wonder_generic_rituals.yaml + data/wonder_base_modifiers.yaml + data/wonder_site_rules.yaml + data/unique_wonders.yaml | submods/tv_meiou_and_taxes_compat/in_game/gui/location_window.gui | After M&T or TV changes `location_window.gui`, or after changing the TV location-scene wonder overlay |
+| `scripts/compat/gen_tv_standard_of_living_location_window.py` | reference_mods/3698931463/in_game/gui/location_window.gui + data/wonders.yaml + data/wonder_final_buildings.yaml + data/wonder_generic_rituals.yaml + data/wonder_base_modifiers.yaml + data/wonder_site_rules.yaml + data/unique_wonders.yaml | submods/tv_standard_of_living_compat/in_game/gui/location_window.gui | After Standard of Living or TV changes `location_window.gui`, or after changing the TV location-scene wonder overlay |
 | `scripts_engineering_department/in_game/gui/gen_tv_encyclopedia_wonders_cards_gui.py` | data/wonders.yaml + data/wonder_final_buildings.yaml + data/wonder_generic_rituals.yaml + data/wonder_base_modifiers.yaml + data/wonder_site_rules.yaml + data/unique_wonders.yaml | data/generated_fragments/tv_encyclopedia_wonders_cards.gui | After changing the fixed Engineering Department mechanics card list or after any change to generic/unique wonder data that should reach the "Towards Victory" Europedia tab card list |
 | `scripts_engineering_department/in_game/gui/merge_tv_encyclopedia_wonders_cards_gui.py` | data/generated_fragments/tv_encyclopedia_wonders_cards.gui | src_engineering_department/in_game/gui/encyclopedia_lateralview.gui | After regenerating the Europedia wonder card fragment |
 | `scripts_engineering_department/in_game/gui/panels/organization/merge_tv_engineering_department_wonder_mechanics_gui.py` | data/generated_fragments/tv_engineering_department_wonder_mechanics.gui | src_engineering_department/in_game/gui/panels/organization/tv_engineering_department.gui | After regenerating the wonder mechanics GUI fragment |

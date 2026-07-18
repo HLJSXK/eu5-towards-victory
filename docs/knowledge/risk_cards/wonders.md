@@ -17,6 +17,28 @@ and `encyclopedia_lateralview.gui`, and the `data/wonder*.yaml` /
 `data/unique_wonder*.yaml` sources (data stays in the repo-root `data/` for both
 mods) plus their `scripts_engineering_department/*wonder*.py` generators.
 
+**`location_window.gui` full-file-override conflicts with other Workshop mods.**
+EU5's Jomini GUI loader replaces a `.gui` file wholesale per relative path — it
+does not merge — so any other mod that also ships its own
+`in_game/gui/location_window.gui` will silently drop either its own or our
+wonder tooltip overlay (`tv_location_wonder_tooltip` template + compact-slot
+scene overlay from `gen_location_window.py`), whichever mod loads last, with no
+error logged. Known conflicting mods get their own standalone compat submod
+under `submods/` that copies the third-party mod's `location_window.gui` and
+splices the same overlay into it via a small `scripts/compat/gen_tv_<mod>_
+location_window.py` script (mirrors `gen_location_window.py`'s
+`render_scene_overlay()`/`render_tooltip_template()` output at the same
+`vbox = { expand = {} }` insertion marker vanilla and both known third-party
+files still carry): `submods/tv_meiou_and_taxes_compat/` for MEIOU and Taxes
+(Workshop 3735059838) and `submods/tv_standard_of_living_compat/` for Standard
+of Living (Workshop 3698931463). Both compat submods depend on
+`hades.towards_victory.great_project` (the Engineering Department mod, which
+owns the overlay code) plus the third-party mod itself, and `build.bat`
+deploys each as its own step. Glorp UI (Workshop 3601047146) also fully
+overrides `location_window.gui` and has no compat submod yet — if a user
+reports needing it, mirror the same pattern against
+`reference_mods/3601047146/in_game/gui/location_window.gui`.
+
 A handful of small shared files serving all 6 Towards Victory IOs generically
 were split so the standalone mod is self-contained: `tv_io_leader_actions.txt`
 and `tv_pulse_bridges.txt` are now multi-output generators (like `gen_victory.py`)
@@ -1058,8 +1080,10 @@ every country regardless so missing or damaged IOs are repaired.
     wider than the derived ~118/113 chrome estimate — treat the estimate as a starting point for a
     visual check, not a value to trust blindly; the user's in-game screenshot is the authority.
     After regenerating either generator, also re-run
-    `merge_tv_engineering_department_wonder_mechanics_gui.py` (fragment -> src merge) and
-    `scripts/compat/gen_tv_meiou_and_taxes_location_window.py` (M&T submod mirror), or
+    `merge_tv_engineering_department_wonder_mechanics_gui.py` (fragment -> src merge),
+    `scripts/compat/gen_tv_meiou_and_taxes_location_window.py` (M&T submod mirror),
+    `scripts/compat/gen_tv_standard_of_living_location_window.py` (Standard of Living submod
+    mirror), or
     `validate.py`'s `generated_freshness` check fails. See `docs/knowledge/anti_patterns.yaml`
     rule `tooltip_table_column_field_text_no_width_cap_overflows_fixed_width_stringpairlist`.
 

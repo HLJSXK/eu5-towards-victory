@@ -1,0 +1,31 @@
+{
+  "name": "Towards Victory - Standard of Living Compatibility",
+  "id": "hades.towards_victory.compat.standard_of_living",
+  "version": "0.1.0",
+  "game_id": "eu5",
+  "supported_game_version": "1.*.*",
+  "short_description": "Compatibility patch for running Towards Victory with Standard of Living.",
+  "tags": [
+    "User Interface",
+    "Compatibility"
+  ],
+  "relationships": [
+    {
+      "rel_type": "dependency",
+      "id": "hades.towards_victory.great_project",
+      "display_name": "Towards Victory - Great Project",
+      "resource_type": "mod",
+      "version": "0.1.*"
+    },
+    {
+      "rel_type": "dependency",
+      "id": "hades.sol",
+      "display_name": "Standard of Living",
+      "resource_type": "mod",
+      "version": "1.3.*"
+    }
+  ],
+  "game_custom_data": {
+    "multiplayer_synchronized": true
+  }
+}
