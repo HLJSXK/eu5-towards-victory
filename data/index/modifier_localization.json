@@ -336,8 +336,8 @@
       },
       "value_kind": "number",
       "zh": {
-        "description": "同时在线人数有硬性限制。[colonial_charters|e]这个人工智能[country|e]将会继续。一旦该国达到这个数量，人工智能就会停止启动新的项目，直到一个项目完成或被放弃为止。",
-        "name": "AI 最大并行殖民宪章"
+        "description": "这是限制AI同时进行殖民的[colonial_charters|e]硬性数量上限。当该[country|e]达到该数量，AI将停止发起新的殖民，直到现有殖民地完成或放弃。",
+        "name": "AI并行特许殖民地上限"
       }
     },
     "ai_conquer_desire_religion_mult": {
@@ -350,8 +350,8 @@
       },
       "value_kind": "percent",
       "zh": {
-        "description": "衡量人工智能的强度[country|e]在征服欲望中，该参数会权衡异端和异教目标。默认值 0 表示基础加成不变；正值会增强加成（十字军国家、军事修会）；负值会减弱加成（宽容国家）。",
-        "name": "人工智能征服欲望宗教对抗"
+        "description": "衡量该[country|e]的AI对异端和异教目标的征服倾向权重。默认值0保留基础加成不变，正值提高权重（十字军国家、军事修会），负值降低权重（宽容国家）。",
+        "name": "来自宗教敌意的AI征服倾向"
       }
     },
     "ai_force_annexation_modifier": {
@@ -12208,8 +12208,8 @@
       },
       "value_kind": "boolean",
       "zh": {
-        "description": "该臣民要么从其宗主国那里获得了特殊特权，要么对宗主国不忠，因此不能被其宗主国征召参战。",
-        "name": "禁止参与战争"
+        "description": "该附属国拥有特权或不忠，无法被宗主国召唤参战。",
+        "name": "禁止召唤附属国参战"
       }
     },
     "friendly_disembark_time_modifier": {
@@ -15092,7 +15092,7 @@
       },
       "value_kind": "percent",
       "zh": {
-        "description": "这会影响我们建造磨机的效率。[buildings|e]在所有[locations|e]在[country|e]减少他们的[gold|e]成本。",
+        "description": "影响在[country|e]内所有[locations|e]建造磨坊[buildings|e]的效率，降低其[gold|e]花费。",
         "name": "磨坊建造效率"
       }
     },
@@ -17696,8 +17696,8 @@
       },
       "value_kind": "boolean",
       "zh": {
-        "description": "这轻轻地……[harmony|e]每月逐渐恢复平衡，有助于……[country|e]保持最优平衡。",
-        "name": "和谐稳定性"
+        "description": "这会每月推动[harmony|e]回归平衡，帮助[country|e]维持最佳均衡状态。",
+        "name": "调和稳定度"
       }
     },
     "has_a_parliamentary_system": {
@@ -22190,7 +22190,7 @@
       },
       "value_kind": "percent",
       "zh": {
-        "description": "这会影响我们建造磨机的效率。[buildings|e]在这方面[location|e]减少他们的[gold|e]成本。",
+        "description": "影响在该[location|e]建造磨坊[buildings|e]的效率，降低其[gold|e]花费。",
         "name": "本地磨坊建造效率"
       }
     },
@@ -29764,8 +29764,8 @@
       },
       "value_kind": "percent",
       "zh": {
-        "description": "这会改变[religious_influence|e]和[prestige|e]询问费用[pope|e]授予[divorce|e]。",
-        "name": "离婚申请费用调整"
+        "description": "影响请求[pope|e]准许[divorce|e]的[religious_influence|e]和[prestige|e]花费。",
+        "name": "请求离婚花费修正"
       }
     },
     "request_work_of_art_purchase_cost_modifier": {
@@ -30856,7 +30856,7 @@
       },
       "value_kind": "percent",
       "zh": {
-        "description": "这会影响到它的大小。[costs|e]设置一个[province_capital|e]。",
+        "description": "这影响设置[province_capital|e]的[costs|e]。",
         "name": "设置省会花费"
       }
     },
@@ -31164,7 +31164,7 @@
       },
       "value_kind": "percent",
       "zh": {
-        "description": "影响建造小型[estate|e]建筑所需的[costs|e]。",
+        "description": "影响建造小型[estate_buildings|e]所需的[costs|e]。",
         "name": "小型阶层建筑花费"
       }
     },
@@ -33334,7 +33334,7 @@
       },
       "value_kind": "boolean",
       "zh": {
-        "description": "这允许[ShowSpecialStatusName('senior_partner')]对[ShowSpecialStatusNamePlural('junior_partner')]使用[ShowCountryInteractionName('union_enforce_peace')][diplomatic_action|e]。",
+        "description": "这允许一个[ShowSpecialStatusName('senior_partner')]对邦联内其他[ShowSpecialStatusNamePlural('junior_partner')]的战争采取[ShowCountryInteractionName('union_enforce_peace')][diplomatic_action|e]。",
         "name": "允许邦联内强制联统国和平"
       }
     },

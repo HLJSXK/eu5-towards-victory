@@ -2,10 +2,11 @@
 """
 Sync reference_game_files/game/ from an installed EU5 game folder.
 
-Mirrors only <source>/game/in_game/ and <source>/game/main_menu/ (loading_screen,
-dlc, and mod under <source>/game/ are never read), applying a filter policy that
-keeps modding-relevant script/localization text and drops engine assets and other
-locales:
+Mirrors every top-level directory found directly under <source>/game/ (in_game,
+main_menu, loading_screen, dlc, and any other directory the installed game ships)
+except "mod" (installed Steam Workshop mods, not vanilla content — see
+EXCLUDED_TOP_LEVEL_DIRS), applying a filter policy that keeps modding-relevant
+script/localization text and drops engine assets and other locales:
 
   - any directory named "gfx" is pruned
   - inside a "localization" directory, only "english"/"simp_chinese" subdirs are
@@ -45,7 +46,12 @@ LOG_FILE = REPO_ROOT / "data" / "sync_reference.log"
 
 DEFAULT_SOURCE = Path(r"C:\Program Files (x86)\Steam\steamapps\common\Europa Universalis V")
 
-TOP_LEVEL_DIRS = ["in_game", "main_menu"]
+# Top-level directories under <source>/game/ that are never mirrored, regardless of
+# their contents' size/binary-ness: "mod" holds installed Steam Workshop mods (other
+# authors' mods plus this project's own deployed build output), not vanilla/official
+# game content, so it is excluded by name rather than by the generic file filters.
+EXCLUDED_TOP_LEVEL_DIRS = {"mod"}
+
 # Known-binary/media extensions, dropped without opening the file. Everything else is
 # sniffed for binary content (see is_binary_content) rather than gated by an extension
 # whitelist, so unrecognized small text-format files are kept, not silently dropped.
@@ -170,13 +176,21 @@ def plan_top_level(source_game_dir, top_name, max_file_bytes, max_dir_bytes, sta
             stats.kept_files.append((rel, size))
 
 
+def discover_top_level_dirs(source_game_dir):
+    """Every directory directly under <source>/game/, in sorted order, minus EXCLUDED_TOP_LEVEL_DIRS."""
+    return sorted(
+        p.name for p in source_game_dir.iterdir()
+        if p.is_dir() and p.name not in EXCLUDED_TOP_LEVEL_DIRS
+    )
+
+
 def build_plan(source_root, max_file_mb, max_dir_mb, verbose):
     source_game_dir = source_root / "game"
     stats = SyncStats()
     max_file_bytes = max_file_mb * MB
     max_dir_bytes = max_dir_mb * MB
 
-    for top_name in TOP_LEVEL_DIRS:
+    for top_name in discover_top_level_dirs(source_game_dir):
         plan_top_level(source_game_dir, top_name, max_file_bytes, max_dir_bytes, stats, verbose)
 
     return stats
