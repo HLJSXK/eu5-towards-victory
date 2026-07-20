@@ -83,6 +83,7 @@ bridges:
     - tv_wonder_initialize_existing_unique_wonders_on_game_load
     - tv_wonder_initialize_country_auto_cache_on_game_load
     - tv_wonder_initialize_location_display_state_on_game_load
+    - tv_wonder_repair_stuck_expansion_ceremony_finalized_on_game_load # one-time save repair for the pre-2026-07-20 tv_wonder_finalized-never-cleared-on-expansion bug
     - tv_engineering_department_standalone_game_load_bridge # standalone mod: repair IOs and schedule missing-save intro events one day later
 
   on_work_of_art_created:

@@ -116,6 +116,25 @@ tv_wonder_initialize_location_display_state_on_game_load = {
 	}
 }
 
+# One-time save repair for saves created before 2026-07-20: the expansion
+# branch of tv_wonder_select_construction_site_effect never cleared
+# tv_wonder_finalized, so a generic wonder that completed one ceremony and
+# then began expanding stayed permanently stuck at
+# "tv_wonder_ceremony_ready_trigger always false" once it reached stage 4
+# again. Idempotent and safe to run on every load: only touches countries
+# whose live state currently matches that exact stuck condition (mirrors
+# tv_wonder_ceremony_ready_trigger's project_mode==2 negation), so a country
+# that never hit the bug, or one already repaired, sees no change.
+tv_wonder_repair_stuck_expansion_ceremony_finalized_on_game_load = {
+	effect = {
+		hidden_effect = {
+			every_country = {
+				tv_wonder_repair_stuck_expansion_ceremony_finalized_effect = yes
+			}
+		}
+	}
+}
+
 # Death cleanup: if the Great Engineer dies, clear country variable and notify.
 # root = country the character belonged to, scope:target = dead character.
 tv_engineering_department_char_death = {

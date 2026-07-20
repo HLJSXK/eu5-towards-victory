@@ -1804,6 +1804,28 @@ tv_wonder_select_construction_site_effect = {
 	}
 }
 
+# Save repair for the tv_wonder_finalized-never-cleared-on-expansion bug
+# (see tv_wonder_select_construction_site_effect's project_mode==2 branch
+# above and docs/knowledge/risk_cards/wonders.md rule 38). Condition mirrors
+# tv_wonder_ceremony_ready_trigger's project_mode==2 negation exactly: a
+# country stuck here has an already-selected construction site, has already
+# finished building the current expansion level, is back at ceremony stage 4,
+# and still carries a stale completion flag from a PRIOR ceremony that the
+# now-fixed effect above never cleared when this expansion began. Idempotent:
+# a country that never hit the bug, or one already repaired, never matches.
+tv_wonder_repair_stuck_expansion_ceremony_finalized_effect = {
+	if = {
+		limit = {
+			tv_wonder_construction_site_selected_trigger = yes
+			has_variable = tv_wonder_construction_complete
+			var:tv_wonder_stage ?= 4
+			has_variable = tv_wonder_finalized
+			var:tv_wonder_project_mode ?= 2
+		}
+		remove_variable = tv_wonder_finalized
+	}
+}
+
 tv_wonder_begin_construction_part_effect = {
 	set_variable = { name = tv_wonder_active_part value = $part$ }
 	tv_wonder_set_io_construction_progress_effect = { value = 0 }

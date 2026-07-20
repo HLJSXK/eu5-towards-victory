@@ -1119,6 +1119,24 @@ every country regardless so missing or damaged IOs are repaired.
     re-pick a style on expansion, only re-confirm/hold the previously-chosen one. See
     `docs/knowledge/anti_patterns.yaml` rule `one_shot_completion_gate_never_reset_on_multi_cycle_resume`.
 
+    Existing saves created before the fix are already stuck with the stale flag and cannot self-
+    heal from the forward fix alone (the fix only prevents the bug on a NEW expansion start, it
+    does not touch a country already sitting at stage 4 with a stale `tv_wonder_finalized`). A
+    dedicated one-time repair effect, `tv_wonder_repair_stuck_expansion_ceremony_finalized_effect`
+    (`tv_engineering_department_effects.txt`), runs from every_country on `on_game_load`
+    (`tv_wonder_repair_stuck_expansion_ceremony_finalized_on_game_load` in
+    `tv_engineering_department_on_action.txt`, registered via `data/pulse_registry.yaml` +
+    `gen_tv_pulse_registry.py`) and clears `tv_wonder_finalized` ONLY when a country's live state
+    exactly matches the stuck condition (site selected, current level's construction complete,
+    stage 4, `tv_wonder_finalized` set, `project_mode ?= 2`) — the same predicate as
+    `tv_wonder_ceremony_ready_trigger`'s negation under expansion mode, so it can never fire for a
+    country that never hit the bug or one already repaired. This is a deliberate, explicit
+    exception to this project's "Unreleased Project: No Compatibility Policy" (no old-save
+    repair paths by default) — requested directly by the user because live playthroughs were
+    already stuck before the forward fix could reach them; it targets ONLY this exact
+    pre-2026-07-20 stuck state, not a general-purpose legacy-schema repair mechanism, and should
+    be removed once it is no longer needed for existing saves in the wild.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`: it lints rule 2 and rule 16 automatically, and when a
