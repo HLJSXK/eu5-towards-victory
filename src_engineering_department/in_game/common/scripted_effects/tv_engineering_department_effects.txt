@@ -1823,6 +1823,7 @@ tv_wonder_repair_stuck_expansion_ceremony_finalized_effect = {
 			var:tv_wonder_project_mode ?= 2
 		}
 		remove_variable = tv_wonder_finalized
+		tv_wonder_index_refresh_country_cache_effect = yes
 	}
 }
 
