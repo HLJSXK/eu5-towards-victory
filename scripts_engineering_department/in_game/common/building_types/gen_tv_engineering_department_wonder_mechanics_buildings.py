@@ -98,6 +98,7 @@ def building_block(
     price: str | None = None,
     on_built_lines: list[str] | None = None,
     on_construction_ended_lines: list[str] | None = None,
+    can_destroy: str = "no",
 ) -> list[str]:
     attrs = attributes or {}
     normal_modifier, raw_modifier = split_modifiers(modifiers)
@@ -124,7 +125,7 @@ def building_block(
         f"{T}{T}{T}always = no",
         f"{T}{T}}}",
         f"{T}}}",
-        f"{T}can_destroy = {{ always = no }}",
+        f"{T}can_destroy = {{ always = {can_destroy} }}",
         "",
     ]
     if price is not None:
@@ -247,6 +248,7 @@ def generate() -> str:
                     attributes=auxiliary.get("attributes", {}),
                     on_built_lines=auxiliary_on_built_lines(wonder, style),
                     on_construction_ended_lines=auxiliary_on_construction_ended_lines(),
+                    can_destroy="yes",
                 )
             )
     return "\n".join(lines).rstrip() + "\n"
