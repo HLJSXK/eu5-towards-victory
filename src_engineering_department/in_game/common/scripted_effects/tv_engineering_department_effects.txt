@@ -2003,6 +2003,17 @@ tv_wonder_finish_construction_effect = {
 		remove_variable = tv_wonder_active_part
 		tv_change_wonder_domestic_support_effect = { value = 20 }
 		tv_wonder_initialize_ceremony_runtime_state_effect = yes
+		# tv_wonder_initialize_ceremony_runtime_state_effect only refreshes the
+		# ritual cache for unique wonders (its whole body is gated on
+		# tv_wonder_unique_locked_trigger). A generic wonder whose ceremony style
+		# is already locked (expansion reuse; style re-pick is disallowed by
+		# design) has no player click equivalent to
+		# tv_wonder_choose_ceremony_style_effect to trigger a refresh here, so
+		# without this call its conditions/rewards/hold-button would stay stale
+		# until the next tv_engineering_department_wonder_auto_cache_monthly_pulse.
+		# A fresh, not-yet-locked generic wonder self-heals via that player click
+		# and does not need this, but the call is a harmless no-op for it too.
+		tv_wonder_index_refresh_country_cache_effect = yes
 		trigger_event_non_silently = { id = tv_engineering_department.202 days = 1 }
 	}
 }

@@ -1137,6 +1137,35 @@ every country regardless so missing or damaged IOs are repaired.
     pre-2026-07-20 stuck state, not a general-purpose legacy-schema repair mechanism, and should
     be removed once it is no longer needed for existing saves in the wild.
 
+    A third, related gap was found and fixed in the same session: `tv_wonder_ceremony_ready_trigger`
+    becoming true is necessary but not sufficient for the GUI to actually show conditions/rewards/
+    hold-button. The GUI reads a SEPARATE cached layer (`tv_wonder_selected_ritual_id` etc.),
+    populated only when something explicitly calls `tv_wonder_index_refresh_country_cache_effect`
+    (`tv_wonder_index_effects.txt:17107-17123`) — that effect is not reactive; nothing recomputes it
+    just because a raw variable changed. `tv_wonder_finish_construction_effect`
+    (`tv_engineering_department_effects.txt:1998-2016`) transitions a wonder to `stage = 4` and calls
+    `tv_wonder_initialize_ceremony_runtime_state_effect`, but that callee's entire body — including
+    its own cache-refresh call — is gated on `tv_wonder_unique_locked_trigger = yes`, a no-op for
+    generic wonders. A FRESH (not-yet-locked) generic wonder self-heals anyway: its "choose a style"
+    GUI buttons (`.gui:3901-3961`) are gated on a live `NOT tv_wonder_ceremony_locked.IsSet` check, no
+    cache needed, and the player's click itself calls `tv_wonder_choose_ceremony_style_effect`
+    (`:2010-2018`), which does refresh the cache. But an EXPANSION whose style is already locked
+    (design intent: no re-pick allowed) never shows those buttons and has no equivalent player click,
+    so nothing would refresh the cache until the next
+    `tv_engineering_department_wonder_auto_cache_monthly_pulse` — up to ~1 month of the ceremony UI
+    looking stuck after finishing construction, self-resolving rather than permanent like the primary
+    bug above, but still a real player-visible gap specific to locked-style expansions. Fixed by
+    adding an unconditional `tv_wonder_index_refresh_country_cache_effect = yes` to
+    `tv_wonder_finish_construction_effect` itself, right after
+    `tv_wonder_initialize_ceremony_runtime_state_effect = yes` — a harmless no-op for unique wonders
+    and for fresh generic wonders (which already self-heal via the click path), closing the gap
+    specifically for locked-style expansions. General lesson: when a cache/derived-display layer is
+    populated only by specific named call sites rather than recomputed reactively, enumerate every
+    state-transition point that could make the underlying gating condition true and verify each one
+    calls the refresh — a transition that happens to also be reachable via a player click that
+    already refreshes elsewhere can mask a sibling transition that has no such click. See
+    `docs/knowledge/anti_patterns.yaml` rule `one_shot_completion_gate_never_reset_on_multi_cycle_resume`.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`: it lints rule 2 and rule 16 automatically, and when a
