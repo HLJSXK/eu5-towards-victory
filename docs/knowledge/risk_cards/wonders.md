@@ -1087,6 +1087,38 @@ every country regardless so missing or damaged IOs are repaired.
     `validate.py`'s `generated_freshness` check fails. See `docs/knowledge/anti_patterns.yaml`
     rule `tooltip_table_column_field_text_no_width_cap_overflows_fixed_width_stringpairlist`.
 
+38. A one-shot completion gate must be explicitly cleared on every new resume/expansion cycle,
+    not just on full abandonment — the object's other "sticky" state variables that are
+    correctly meant to persist across cycles are not a signal that the completion gate should too.
+    `tv_wonder_ceremony_ready_trigger` (`tv_engineering_department_triggers.txt:418-423`) gates
+    the generic-wonder ceremony's conditions/rewards/hold-button display on
+    `stage==4 AND NOT has_variable = tv_wonder_finalized`. `tv_wonder_finalized` is set once by
+    `tv_wonder_finalize_effect` and was, until fixed 2026-07-20, cleared ONLY by the full-project-
+    abandonment cleanup (`tv_wonder_clear_project_state_core_effect`). The pre-existing expansion-
+    mode branch of `tv_wonder_select_construction_site_effect` (`var:tv_wonder_project_mode ?= 2`,
+    added by commit afd14d65, 2026-06-11 — well before the 2026-07 Engineering Department mod
+    split, c371a9af) resets `tv_wonder_stage = 3` and construction counters to let a completed
+    generic wonder build past its previous level and re-reach stage 4 for a new ceremony, but
+    never cleared `tv_wonder_finalized`. So after a wonder's first ceremony completion, every
+    later expansion reached stage 4 again with the stale flag still set, permanently failing
+    `tv_wonder_ceremony_ready_trigger`; the GUI cache-populate effect then always took its
+    else-branch (`tv_wonder_index_clear_selected_ritual_cache_effect`), wiping the cached ritual
+    id/cost-type the conditions/rewards/hold-button widgets key off. Meanwhile a separate static
+    "ceremony style N locked" text (`TV_ENGINEERING_CEREMONY_STYLE_CONFIRMED_TEXT`/
+    `_LOCKED_BY_EXPANSION_TEXT`, `tv_engineering_department.gui:3963-3981`), gated only on
+    `tv_wonder_ceremony_locked.IsSet`, kept rendering — correctly, since design intent is that an
+    expansion reuses the previously-chosen style and must never let the player re-pick — making the
+    wonder look identically "locked" whether or not the player could actually still hold the
+    ceremony again. This is NOT a regression from a single later change that broke previously-
+    working behavior; `git log -S` on the pre-split file path confirms the completion-gate variable
+    and the expansion-resume branch were never wired together correctly from the moment the latter
+    was added, well before the Engineering Department mod split. Fixed by adding
+    `remove_variable = tv_wonder_finalized` inside the existing `project_mode ?= 2` branch of
+    `tv_wonder_select_construction_site_effect` only — `tv_wonder_ceremony_locked`/
+    `tv_wonder_ceremony_style` must NOT be cleared there, since the player must not be allowed to
+    re-pick a style on expansion, only re-confirm/hold the previously-chosen one. See
+    `docs/knowledge/anti_patterns.yaml` rule `one_shot_completion_gate_never_reset_on_multi_cycle_resume`.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`: it lints rule 2 and rule 16 automatically, and when a
