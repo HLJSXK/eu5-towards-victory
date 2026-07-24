@@ -7,6 +7,10 @@
 # hides the vanilla IO parliament tab, but the laws keep requires_vote = yes by
 # design.
 #
+# Policies marked `default: true` are seeded in the Academy IO type's `laws`
+# block when the IO is established. Laws without a marked policy start
+# unenacted.
+#
 # DO NOT hand-edit generated output files. Run:
 #   conda run --no-capture-output -n eu5 python scripts/in_game/common/laws/gen_tv_academy_laws.py
 
@@ -18,8 +22,7 @@ laws:
     display_comment: "LAW 1: Research Priority"
     policies:
       - id: tv_academy_research_priority_balanced_policy
-        display_comment: "Balanced (default)"
-        default: true
+        display_comment: "Balanced"
       - id: tv_academy_research_priority_theory_policy
         display_comment: "Theory First"
         country_modifier: |
@@ -41,8 +44,7 @@ laws:
     display_comment: "LAW 2: Research Openness"
     policies:
       - id: tv_academy_research_openness_closed_policy
-        display_comment: "State Seclusion (default)"
-        default: true
+        display_comment: "State Seclusion"
         country_modifier: |
           stability_cost_efficiency = 0.05
       - id: tv_academy_research_openness_school_control_policy
@@ -66,8 +68,7 @@ laws:
     display_comment: "LAW 3: Research Risk Management"
     policies:
       - id: tv_academy_research_risk_mandatory_review_policy
-        display_comment: "Mandatory Review (default)"
-        default: true
+        display_comment: "Mandatory Review"
         country_modifier: |
           clergy_estate_target_satisfaction = 0.025
       - id: tv_academy_research_risk_conservative_policy
@@ -84,8 +85,7 @@ laws:
     display_comment: "LAW 4: Research Resource Allocation"
     policies:
       - id: tv_academy_research_funding_private_policy
-        display_comment: "Private Patronage (default)"
-        default: true
+        display_comment: "Private Patronage"
         country_modifier: |
           nobles_estate_target_satisfaction = 0.025
           global_nobles_estate_power = 0.25
@@ -111,8 +111,7 @@ laws:
     display_comment: "LAW 5: Technology Diffusion Regulations"
     policies:
       - id: tv_academy_technology_spread_laissez_faire_policy
-        display_comment: "Laissez-Faire Diffusion (default)"
-        default: true
+        display_comment: "Laissez-Faire Diffusion"
         country_modifier: |
           global_institution_growth_modifier = 0.20
       - id: tv_academy_technology_spread_private_policy
@@ -130,8 +129,7 @@ laws:
     display_comment: "LAW 6: Academic Prestige"
     policies:
       - id: tv_academy_academic_prestige_none_policy
-        display_comment: "No Rewards (default)"
-        default: true
+        display_comment: "No Rewards"
       - id: tv_academy_academic_prestige_titles_policy
         display_comment: "Titles and Nobility"
         country_modifier: |

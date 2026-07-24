@@ -11,7 +11,9 @@ import yaml
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DATA_FILE = REPO_ROOT / "data" / "philosophy_debates.yaml"
 RANDOM_EVENTS_DIR = REPO_ROOT / "data" / "philosophy_debate_random_events"
+ACADEMY_LAWS_DATA_FILE = REPO_ROOT / "data" / "academy_laws.yaml"
 PHILOSOPHY_DEBATE_DATA_SOURCES = "data/philosophy_debates.yaml + data/philosophy_debate_random_events/*.yaml"
+ACADEMY_IO_DATA_SOURCES = PHILOSOPHY_DEBATE_DATA_SOURCES + " + data/academy_laws.yaml"
 RANDOM_EVENT_ID_BASE = 2000
 
 EVENT_NS = "tv_academy_debate"
@@ -117,6 +119,22 @@ def load_data() -> dict:
     load_random_event_data(data)
     validate_data(data)
     return data
+
+
+def load_academy_initial_laws() -> list[tuple[str, str]]:
+    with ACADEMY_LAWS_DATA_FILE.open(encoding="utf-8") as file:
+        law_data = yaml.safe_load(file)
+
+    initial_laws: list[tuple[str, str]] = []
+    for law in law_data["laws"]:
+        default_policies = [
+            policy["id"] for policy in law["policies"] if policy.get("default", False)
+        ]
+        if len(default_policies) > 1:
+            raise ValueError(f"Academy law {law['id']} has multiple default policies")
+        if default_policies:
+            initial_laws.append((law["id"], default_policies[0]))
+    return initial_laws
 
 
 def load_random_event_data(data: dict) -> None:
@@ -523,6 +541,12 @@ def price_loc_key(price: dict) -> str:
 
 def price_option_loc_key(event_num: int, opt: str, price: dict) -> str:
     return f"{EVENT_NS}.{event_num}.{opt}_{price['key']}"
+
+
+def event_desc_loc_key(event_num: int, template: dict) -> str:
+    """Keep an option named ``d`` from overwriting the event description."""
+    suffix = "desc" if "d" in template["options"] else "d"
+    return f"{EVENT_NS}.{event_num}.{suffix}"
 
 
 def group_loc_key(group: dict) -> str:
@@ -1050,7 +1074,8 @@ def emit_debate_position_monthly_change(lines: list[str], data: dict) -> None:
 
 def generate_academy_io(data: dict) -> str:
     script = "scripts/in_game/common/international_organizations/gen_tv_academy_of_sciences.py"
-    lines: list[str] = [header(script, PHILOSOPHY_DEBATE_DATA_SOURCES).rstrip(), ""]
+    lines: list[str] = [header(script, ACADEMY_IO_DATA_SOURCES).rstrip(), ""]
+    initial_laws = load_academy_initial_laws()
 
     emit(lines, 0, "# Towards Victory — Academy of Sciences International Organization type definition")
     emit(lines, 0, "# Non-unique IO; each country pursuing Scientific Victory creates their own instance")
@@ -1088,6 +1113,13 @@ def generate_academy_io(data: dict) -> str:
     emit(lines, 1, "# The shared IO parliament tab is tied to HasParliament in vanilla common.gui.")
     emit(lines, 1, "has_parliament = no")
     emit(lines)
+    if initial_laws:
+        emit(lines, 1, "# Only policies marked default in data/academy_laws.yaml are enacted at establishment.")
+        emit(lines, 1, "laws = {")
+        for law_id, policy_id in initial_laws:
+            emit(lines, 2, f"{law_id} = {policy_id}")
+        emit(lines, 1, "}")
+        emit(lines)
     emit(lines, 1, "leader = {")
     emit(lines, 2, "leader_country ?= {")
     emit(lines, 3, "var:tv_academy_leader_char ?= {")
@@ -2947,6 +2979,12 @@ def generate_events(data: dict) -> str:
 
 
 def emit_desc(lines: list[str], level: int, data: dict, event_num: int, key: str) -> None:
+    template = event_loc_templates(False)[event_num]
+    desc_loc_key = event_desc_loc_key(event_num, template)
+    if key == "royal_appointment":
+        emit(lines, level, f"desc = {desc_loc_key}")
+        return
+
     emit(lines, level, "desc = {")
     emit(lines, level + 1, "first_valid = {")
     for group in groups(data):
@@ -2956,7 +2994,7 @@ def emit_desc(lines: list[str], level: int, data: dict, event_num: int, key: str
         emit(lines, level + 2, "}")
     emit(lines, level + 2, "triggered_desc = {")
     emit(lines, level + 3, "trigger = { always = yes }")
-    emit(lines, level + 3, f"desc = {EVENT_NS}.{event_num}.d")
+    emit(lines, level + 3, f"desc = {desc_loc_key}")
     emit(lines, level + 2, "}")
     emit(lines, level + 1, "}")
     emit(lines, level, "}")
@@ -3245,12 +3283,14 @@ def generic_loc_entries(data: dict, lang: str) -> dict[str, str]:
     for group in groups(data):
         name = group["loc"][lang]
         for num, template in templates.items():
+            if num == 109:
+                continue
             entries[f"{EVENT_NS}.{num}.d_{group['key']}"] = template["desc"].format(group=name)
     price_option_events = {102: "a", 103: "a", 107: "a", 111: "a", 112: "a", 115: "a"}
     for num, template in templates.items():
         entries[f"{EVENT_NS}.{num}.t"] = template["title"]
         group_label = "某个[tv_debate_group|E]" if zh else "a [tv_debate_group|E]"
-        entries[f"{EVENT_NS}.{num}.d"] = template["desc"].format(group=group_label)
+        entries[event_desc_loc_key(num, template)] = template["desc"].format(group=group_label)
         for opt, text in template["options"].items():
             entries[f"{EVENT_NS}.{num}.{opt}"] = text
         if num in price_option_events:
@@ -3278,7 +3318,7 @@ def event_loc_templates(zh: bool) -> dict[int, dict]:
             106: {"title": "大科学家说错了话", "desc": "#R 大科学家外交能力不高于30#!，一句话没说对，私下惹恼了#R {group}#!。", "options": {"a": "他们要公开唱反调了"}},
             107: {"title": "一笔私下的交易", "desc": "#Y 大科学家外交能力介于30与80之间#!，跟#G {group}#!谈出了一份有条件的支持。", "options": {"a": "接受这笔交易", "b": "拒绝"}},
             108: {"title": "大科学家想亲自上场", "desc": "#Y 大科学家#!想放下手头的研究，亲自上桌辩论几句。一旦同意，他就要一直忙到这场辩论收场为止。", "options": {"a": "准他入席", "b": "婉言谢绝"}},
-            109: {"title": "王室金口一开", "desc": "#G 王室#!有意从支持当前议题的阶层或其变体里挑一位代表入席，还会给对方的基础阶层加五年的影响力。", "options": {"a": "钦点第一候选", "b": "钦点第二候选", "c": "钦点第三候选", "d": "这次不点了"}},
+            109: {"title": "王室金口一开", "desc": "#G 王室#!有意从支持当前议题的阶层或其变体里挑一位代表入席，还会给对方的基础阶层加五年的影响力。", "options": {"a": "钦点[ROOT.GetCountry.Custom('tv_academy_debate_group_by_royal_option_1')]入席", "b": "钦点[ROOT.GetCountry.Custom('tv_academy_debate_group_by_royal_option_2')]入席", "c": "钦点[ROOT.GetCountry.Custom('tv_academy_debate_group_by_royal_option_3')]入席", "d": "这次不点了"}},
             110: {"title": "墙头草也得站队", "desc": "#Y {group}#!发现自己再骑墙下去也不是办法，只好在支持和反对之间挑一个。", "options": {"a": "站过来支持我们", "b": "转身站到对面"}},
             111: {"title": "中立方也想讨点好处", "desc": "#Y {group}#!表示，只要给点甜头，公开支持这事不是不能谈。", "options": {"a": "答应这个价", "b": "拒绝"}},
             112: {"title": "不表态,也是一种威胁", "desc": "#Y {group}#!话里有话：要是什么好处都不给，他们保不齐会转去反对。", "options": {"a": "给出让步", "b": "什么都不给"}},
@@ -3296,7 +3336,7 @@ def event_loc_templates(zh: bool) -> dict[int, dict]:
         106: {"title": "The Great Scientist Puts a Foot Wrong", "desc": "#R Great Scientist Diplomacy is no more than 30#!, and one careless remark has left #R {group}#! quietly furious.", "options": {"a": "They'll speak against us now"}},
         107: {"title": "A Quiet Arrangement", "desc": "#Y Great Scientist Diplomacy is between 30 and 80#!, enough to talk #G {group}#! into a conditional support.", "options": {"a": "Take the deal", "b": "Refuse"}},
         108: {"title": "The Great Scientist Wants a Seat", "desc": "#Y The Great Scientist#! wants to set the research aside and argue this one in person. Say yes, and they'll be tied up here until the debate ends.", "options": {"a": "Grant the seat", "b": "Politely decline"}},
-        109: {"title": "The Crown Makes Its Choice", "desc": "#G The Crown#! may name one supportive estate or variant group to a seat, and grant its base estate five years of added influence.", "options": {"a": "Name the first nominee", "b": "Name the second nominee", "c": "Name the third nominee", "d": "Make no appointment"}},
+        109: {"title": "The Crown Makes Its Choice", "desc": "#G The Crown#! may name one supportive estate or variant group to a seat, and grant its base estate five years of added influence.", "options": {"a": "Appoint [ROOT.GetCountry.Custom('tv_academy_debate_group_by_royal_option_1')] to the debate seat", "b": "Appoint [ROOT.GetCountry.Custom('tv_academy_debate_group_by_royal_option_2')] to the debate seat", "c": "Appoint [ROOT.GetCountry.Custom('tv_academy_debate_group_by_royal_option_3')] to the debate seat", "d": "Make no appointment"}},
         110: {"title": "The Fence-Sitters Pick a Side", "desc": "#Y {group}#! has decided that sitting on the fence forever isn't an option, and must choose a side.", "options": {"a": "They side with us", "b": "They side against us"}},
         111: {"title": "Neutral, for the Right Price", "desc": "#Y {group}#! hints that public support isn't out of reach, given a small sweetener.", "options": {"a": "Pay the price", "b": "Refuse"}},
         112: {"title": "Silence Has Its Own Threat", "desc": "#Y {group}#! makes it plain: without some concession, they might not stay neutral for long.", "options": {"a": "Offer a concession", "b": "Offer nothing"}},

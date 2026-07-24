@@ -179,7 +179,7 @@ generated:
     output: src/in_game/common/international_organizations/tv_trade_league.txt
 
   - script: scripts/in_game/common/international_organizations/gen_tv_academy_of_sciences.py
-    data:   data/philosophy_debates.yaml
+    data:   data/philosophy_debates.yaml + data/philosophy_debate_random_events/*.yaml + data/academy_laws.yaml
     output: src/in_game/common/international_organizations/tv_academy_of_sciences.txt
 
   - script: scripts/in_game/common/scripted_effects/gen_tv_trade_league_effects.py
