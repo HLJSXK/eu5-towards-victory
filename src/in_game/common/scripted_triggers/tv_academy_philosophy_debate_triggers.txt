@@ -2329,11 +2329,11 @@ tv_academy_debate_group_minorities_negative_defection_condition_trigger = {
 }
 
 tv_academy_debate_group_artists_positive_defection_condition_trigger = {
-	any_international_organizations_member_of = { international_organization_type = international_organization_type:tv_arts_exhibition international_organization_has_policy = policy:tv_arts_free_creation_policy }
+	has_policy = no_censorship
 }
 
 tv_academy_debate_group_artists_negative_defection_condition_trigger = {
-	any_international_organizations_member_of = { international_organization_type = international_organization_type:tv_arts_exhibition international_organization_has_policy = policy:tv_arts_strict_censorship_policy }
+	has_policy = strict_censorship
 }
 
 tv_academy_debate_group_foreign_power_positive_defection_condition_trigger = {
