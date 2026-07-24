@@ -22,38 +22,29 @@ laws:
         default: true
         ai_base_bias: 40
         country_modifier: |
-          global_foreign_build_buildings_efficiency = 0.10
-          trade_sea_efficiency = 0.10
-          global_trade_center_power = 0.10
-          naval_range_modifier = 0.10
-          global_burghers_estate_power = 0.10
+          global_foreign_build_buildings_efficiency = 0.20
           global_max_control = -0.025
+          monthly_towards_free_trade = 0.05
       - id: tv_govhouse_conquest_colony_policy
         display_comment: "Conquest Colony"
         ai_base_bias: -20
         country_modifier: |
           tax_income_efficiency = 0.03
-          global_garrison_size_modifier = 0.10
-          monthly_rebel_growth = 0.0005
           global_bureaucracy_maintenance_efficiency = -0.10
+          monthly_towards_serfdom = 0.05
       - id: tv_govhouse_frontier_settlement_policy
         display_comment: "Frontier Settlement"
         ai_base_bias: 20
         country_modifier: |
-          colonial_migration_size_modifier = 0.15
-          global_population_growth = 0.00025
-          global_pop_assimilation_speed_modifier = 0.10
-          global_monthly_prosperity = 0.0005
-          tax_income_efficiency = -0.05
+          colonial_migration_size_modifier = 0.20
+          monthly_towards_outward = 0.05
       - id: tv_govhouse_tributary_system_policy
         display_comment: "Tributary System"
         ai_base_bias: 20
         country_modifier: |
           subject_income_modifier = 0.10
-          diplomatic_reputation = 1
-          global_bureaucracy_maintenance_efficiency = 0.10
           subject_loyalty = -5
-          global_monthly_control = -0.001
+          monthly_towards_decentralization = 0.05
 
   - id: tv_govhouse_governor_appointment_law
     display_comment: "LAW 2: Governor Appointment"
@@ -63,28 +54,30 @@ laws:
         default: true
         ai_base_bias: 0
         country_modifier: |
-          monthly_legitimacy = 0.10
-          global_monthly_control = 0.001
+          global_crown_estate_power = 0.20
           global_estate_target_satisfaction = -0.025
+          monthly_towards_centralization = 0.05
       - id: tv_govhouse_hereditary_nobility_policy
         display_comment: "Hereditary Nobility"
         ai_base_bias: 60
         country_modifier: |
           global_nobles_estate_power = 0.50
           nobles_estate_target_satisfaction = 0.05
+          monthly_towards_aristocracy = 0.05
       - id: tv_govhouse_merchant_tax_farming_policy
         display_comment: "Merchant Tax Farming"
         ai_base_bias: 40
         country_modifier: |
           global_burghers_estate_power = 0.50
           trade_income = 0.10
+          monthly_towards_plutocracy = 0.05
       - id: tv_govhouse_military_land_grants_policy
         display_comment: "Military Land Grants"
         ai_base_bias: 20
         country_modifier: |
           siege_ability = 0.10
           monthly_army_tradition = 0.05
-          monthly_legitimacy = -0.05
+          monthly_towards_offensive = 0.05
 
   - id: tv_govhouse_local_autonomy_law
     display_comment: "LAW 3: Local Autonomy"
@@ -94,33 +87,27 @@ laws:
         default: true
         ai_base_bias: -60
         country_modifier: |
-          tax_income_efficiency = 0.03
-          global_monthly_control = 0.002
-          global_estate_target_satisfaction = -0.025
-          monthly_rebel_growth = 0.0005
+          global_monthly_control = 0.01
+          monthly_towards_centralization = 0.05
       - id: tv_govhouse_limited_autonomy_policy
         display_comment: "Limited Autonomy"
         ai_base_bias: 40
         country_modifier: |
-          global_estate_target_satisfaction = 0.025
           global_production_efficiency = 0.05
-          global_monthly_prosperity = 0.0005
-          tax_income_efficiency = -0.05
-          global_monthly_control = -0.001
+          tax_income_efficiency = -0.03
+          monthly_towards_free_subjects = 0.05
       - id: tv_govhouse_chartered_colonies_policy
         display_comment: "Chartered Colonies"
         ai_base_bias: 60
         country_modifier: |
-          colonial_migration_size_modifier = 0.25
-          global_foreign_build_buildings_efficiency = 0.10
-          global_burghers_estate_power = 0.50
+          colonial_migration_size_modifier = 0.20
+          monthly_towards_outward = 0.05
       - id: tv_govhouse_vassal_autonomy_policy
         display_comment: "Vassal Autonomy"
         ai_base_bias: 60
         country_modifier: |
           monthly_rebel_growth = -0.0005
-          global_pop_assimilation_speed_modifier = -0.40
-          global_pop_conversion_speed_modifier = -0.40
+          monthly_towards_decentralization = 0.05
 
   - id: tv_govhouse_religious_mission_law
     display_comment: "LAW 4: Religious Mission"
@@ -133,28 +120,29 @@ laws:
           tolerance_heathen = 1
           tolerance_heretic = 1
           global_pop_conversion_speed_modifier = -0.20
+          monthly_towards_conciliatory = 0.05
       - id: tv_govhouse_official_mission_policy
         display_comment: "Official Mission"
         ai_base_bias: -20
         country_modifier: |
-          global_pop_conversion_speed_modifier = 0.20
-          global_clergy_estate_power = 0.10
-          diplomatic_reputation = -1
+          global_pop_conversion_speed_modifier = 0.40
+          global_clergy_estate_power = 0.50
+          monthly_towards_spiritualist = 0.05
       - id: tv_govhouse_religious_orders_policy
         display_comment: "Religious Orders"
         ai_base_bias: 20
         country_modifier: |
-          global_pop_conversion_speed_modifier = 0.40
-          land_morale_modifier = 0.05
+          war_score_vs_other_religion_efficiency = 0.10
           clergy_estate_target_satisfaction = 0.025
-          global_clergy_estate_power = 0.50
+          monthly_towards_belligerent = 0.05
       - id: tv_govhouse_religious_tolerance_policy
         display_comment: "Religious Tolerance"
         ai_base_bias: 60
         country_modifier: |
           tolerance_heathen = 2
           tolerance_heretic = 2
-          global_pop_conversion_speed_modifier = -0.40
+          tolerance_own = -1
+          monthly_towards_humanist = 0.05
 
   - id: tv_govhouse_frontier_military_law
     display_comment: "LAW 5: Frontier Military"
@@ -164,35 +152,29 @@ laws:
         default: true
         ai_base_bias: 0
         country_modifier: |
-          discipline = 0.025
-          global_garrison_size_modifier = 0.10
-          global_defensive = 0.05
-          army_maintenance_efficiency = -0.10
+          global_garrison_size_modifier = 0.20
+          global_defensive = 0.20
+          monthly_towards_defensive = 0.05
       - id: tv_govhouse_local_militia_policy
         display_comment: "Local Militia"
         ai_base_bias: 40
         country_modifier: |
-          levy_maintenance_modifier = -0.10
           global_army_levy_size_modifier = 0.10
-          global_monthly_control = -0.001
-          global_soldiers_pop_growth = 0.25
-          monthly_rebel_growth = 0.0005
+          monthly_towards_quantity = 0.05
       - id: tv_govhouse_military_colonies_policy
         display_comment: "Frontier Military Colonies"
         ai_base_bias: 20
         country_modifier: |
-          global_monthly_control = 0.002
-          global_monthly_prosperity = 0.0005
+          global_monthly_control = 0.01
           global_soldiers_pop_growth = 0.25
-          global_estate_target_satisfaction = -0.025
+          monthly_towards_decentralization = 0.05
       - id: tv_govhouse_mercenary_system_policy
         display_comment: "Mercenary System"
         ai_base_bias: 20
         country_modifier: |
           mercenary_maintenance_efficiency = 0.10
           mercenary_range_modifier = 0.25
-          army_movement_speed = 0.05
-          monthly_war_exhaustion = 0.025
+          monthly_towards_plutocracy = 0.05
 
   - id: tv_govhouse_imperial_integration_law
     display_comment: "LAW 6: Imperial Integration"
@@ -203,33 +185,30 @@ laws:
         ai_base_bias: -20
         country_modifier: |
           subject_income_modifier = 0.10
-          global_bureaucracy_maintenance_efficiency = -0.05
           subject_loyalty = -5
+          monthly_towards_inward = 0.05
       - id: tv_govhouse_dominion_status_policy
         display_comment: "Dominion Status"
         ai_base_bias: 60
         country_modifier: |
-          subject_loyalty = 10
-          global_estate_target_satisfaction = 0.025
-          global_monthly_prosperity = 0.0005
           subject_income_modifier = -0.10
-          tax_income_efficiency = -0.05
+          subject_loyalty = 5
+          monthly_towards_decentralization = 0.05
       - id: tv_govhouse_imperial_province_policy
         display_comment: "Imperial Provinces"
         ai_base_bias: -40
         country_modifier: |
-          global_pop_assimilation_speed_modifier = 0.15
-          global_integration_speed_modifier = 0.15
-          global_monthly_development = 0.001
-          global_bureaucracy_maintenance_efficiency = -0.20
+          tax_income_efficiency = -0.03
+          global_pop_assimilation_speed_modifier = 0.10
+          global_integration_speed_modifier = 0.10
+          monthly_towards_centralization = 0.05
       - id: tv_govhouse_plunder_evacuate_policy
         display_comment: "Plunder and Evacuate"
         ai_base_bias: 0
         country_modifier: |
-          global_production_efficiency = 0.10
-          global_monthly_prosperity = -0.001
-          global_monthly_control = -0.002
           global_integration_speed_modifier = -0.20
+          amount_looted_modifier = 0.50
+          monthly_towards_belligerent = 0.05
 
   - id: tv_govhouse_grand_general_power_law
     law_category: tv_govhouse_grand_general
