@@ -117,3 +117,28 @@ tv_meditation_monthly_pulse = {
 		1 = tv_medicine.15
 	}
 }
+
+# ── Autonomous meditation yearly pulse ──────────────────────────────────────
+# If meditation is vacant and an eligible character exists, there is a 50%
+# yearly chance that one such character goes to the Academy on their own.
+tv_meditation_yearly_pulse = {
+	trigger = {
+		has_variable = tv_academy_io_member
+		NOT = { has_variable = tv_meditation_target_char }
+		has_variable = tv_academy_leader_char
+		var:tv_academy_leader_char ?= { is_alive = yes }
+		tv_chief_scientist_available_for_meditation_trigger = yes
+		any_character = {
+			is_alive = yes
+			tv_has_meditation_negative_trait_trigger = yes
+		}
+	}
+	random_events = {
+		chance_to_happen = 50
+		chance_of_no_event = {
+			value = 0
+		}
+		delay = { days = 1 }
+		1 = tv_medicine.22
+	}
+}
