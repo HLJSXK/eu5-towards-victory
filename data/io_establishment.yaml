@@ -282,11 +282,11 @@ paths:
     # WORKAROUND (2026-07-10): num_of_advances_researched appears broken/stuck under
     # EU5 1.3 (confirmed in-game via the live tooltip added for this requirement).
     # No engine on_action fires when an advance is researched (confirmed against
-    # on_actions.log and reference_mods/3668193813's has_advance-polling pattern), so a
-    # reliable self-tracked replacement would need a monthly has_advance scan over a
-    # candidate advance list — a real perf cost the user chose to defer. Gate is waived
-    # (always = yes) until Paradox fixes the underlying value; revert to a real
-    # requirement once confirmed fixed. See anti_patterns.yaml
+    # on_actions.log and reference_mods/3668193813's has_advance-polling pattern).
+    # Scientific Victory score now uses a complete yearly player-country has_advance scan,
+    # maintained in its own generated scripted-effect file, but this
+    # separate establishment gate remains waived until its gameplay requirement is
+    # explicitly restored. See anti_patterns.yaml
     # num_of_advances_researched_broken_eu5_1_3.
     basic_requirement_body: |
       custom_tooltip = {

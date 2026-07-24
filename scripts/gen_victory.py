@@ -737,8 +737,9 @@ tv_victory_situation = {{
 \ton_start = {{
 \t\t# Initialise the AI yearly pulse counter on the situation scope
 \t\tset_variable = {{ name = tv_ai_pulse_counter value = 0 }}
-\t\t# Full initial scan of every country -- seeds per-path progress variables for leaderboard
+\t\t# Initialise every country; the expensive science scan is player-only.
 \t\tevery_country = {{
+{initial_score_updaters}
 \t\t\tif = {{
 \t\t\t\tlimit = {{ NOT = {{ has_variable = tv_victory_selected_path }} }}
 \t\t\t\tset_variable = {{ name = tv_victory_selected_path value = 0 }}
@@ -817,7 +818,24 @@ tv_academy_world_debate_situation = {{
 """
 
 def gen_situation(data: dict) -> str:
-    return SITUATIONS_TEMPLATE.format(header=HEADER.rstrip())
+    initial_score_updater_lines: list[str] = []
+    for path in data["paths"]:
+        mode = path.get("call_updater_on_situation_start")
+        if mode is True:
+            initial_score_updater_lines.append(f"\t\t\ttv_update_{path['id']}_score_effect = yes")
+        elif mode == "player_only":
+            initial_score_updater_lines.extend([
+                "\t\t\tif = {",
+                "\t\t\t\tlimit = { is_ai = no }",
+                f"\t\t\t\ttv_update_{path['id']}_score_effect = yes",
+                "\t\t\t}",
+            ])
+        elif mode:
+            raise ValueError(f"Unknown call_updater_on_situation_start mode for {path['id']}: {mode}")
+    return SITUATIONS_TEMPLATE.format(
+        header=HEADER.rstrip(),
+        initial_score_updaters="\n".join(initial_score_updater_lines),
+    )
 
 
 # ─────────────────────────────────────────────────────────────────────────────

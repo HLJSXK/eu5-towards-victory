@@ -30,6 +30,18 @@ tv_io_establishment_save_load_validation = {
 	}
 }
 
+# Registered under yearly_country_pulse by tv_pulse_bridges.txt.
+tv_science_victory_yearly_pulse = {
+	effect = {
+		if = {
+		  limit = { is_ai = no }
+		  tv_update_science_score_effect = yes
+		  tv_check_science_milestones_effect = yes
+		  tv_update_all_progress_pct_effect = yes
+		}
+	}
+}
+
 # Registered under on_work_of_art_created by tv_pulse_bridges.txt.
 tv_on_work_of_art_created_callback = {
 	effect = {

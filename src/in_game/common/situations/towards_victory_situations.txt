@@ -21,8 +21,12 @@ tv_victory_situation = {
 	on_start = {
 		# Initialise the AI yearly pulse counter on the situation scope
 		set_variable = { name = tv_ai_pulse_counter value = 0 }
-		# Full initial scan of every country -- seeds per-path progress variables for leaderboard
+		# Initialise every country; the expensive science scan is player-only.
 		every_country = {
+			if = {
+				limit = { is_ai = no }
+				tv_update_science_score_effect = yes
+			}
 			if = {
 				limit = { NOT = { has_variable = tv_victory_selected_path } }
 				set_variable = { name = tv_victory_selected_path value = 0 }
