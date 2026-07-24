@@ -120,21 +120,6 @@ tv_arts_exhibition.6 = {
 	}
 }
 
-# ── Touring Event: Exhibition Unremarkable ────────────────────────────────────
-# Fired on the home country. Grants +0.1 International Influence.
-# scope:touring_artist = the touring artist character.
-tv_arts_exhibition.101 = {
-	type = country_event
-	title = tv_arts_exhibition.101.t
-	desc = tv_arts_exhibition.101.d
-	outcome = neutral
-
-	option = {
-		name = tv_arts_exhibition.101.a
-		tv_change_arts_intl_influence_effect = { value = 0.1 }
-	}
-}
-
 # ── Touring Event: Exhibition Great Success ───────────────────────────────────
 # Fired on the home country. Grants +0.5 International Influence.
 # scope:touring_artist = the touring artist character.
@@ -188,8 +173,8 @@ tv_arts_exhibition.104 = {
 }
 
 # ── Touring Event: Artistic Inspiration ──────────────────────────────────────
-# Fired on the home country. Grants artist_skill_level_gain +10% to the touring
-# artist for 10 years.
+# Fired on the home country. Immediately grants +5 artistic skill to the
+# touring artist.
 # scope:touring_artist = the inspired artist character.
 tv_arts_exhibition.105 = {
 	type = country_event
@@ -200,11 +185,7 @@ tv_arts_exhibition.105 = {
 	option = {
 		name = tv_arts_exhibition.105.a
 		scope:touring_artist = {
-			add_character_modifier = {
-				modifier = tv_artistic_inspiration_modifier
-				years = 10
-				mode = add_and_extend
-			}
+			add_artist_skill = 0.05
 		}
 	}
 }
