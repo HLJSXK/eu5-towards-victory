@@ -97,6 +97,15 @@ Load this card before editing any file with `philosophy_debate`, `world_debate`,
    `validate.py` now lints the bare `[ROOT.Custom(` pattern directly. See
    `[[custom_localization_call_needs_typed_scope_link_not_bare_root]]`.
 
+9. Emit support and opposition as separate signed monthly contributions.
+   `emit_group_contribution` must generate two mutually exclusive outer `if` branches for every
+   non-Crown group. Stance 1 wraps the group's positive magnitude in a desc-bearing `add`; stance 2
+   wraps the same positive magnitude in a desc-bearing `subtract`; neutral/unseated groups enter
+   neither branch. Do not restore the old single `add = { desc = ... value = 0 if = { ...
+   multiply = -1 } }` shape. The nested anonymous sign flip appears in the IO variable breakdown
+   as inactive negative rows and `missing tooltip`, even though the arithmetic result is otherwise
+   correct. Crown remains its existing positive `add` contribution.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report` after any codegen or data change. It lints
@@ -106,4 +115,6 @@ also inspect the generated `src/in_game/common/effect_localization/*.txt` diff s
 positive and negative perspective mappings remain readable. For a new variant, also grep the
 generated `tv_academy_philosophy_debate_triggers.txt` for its `_available_trigger` and its
 base estate's `_available_trigger` to confirm the `NOT` exclusion chain from rule 5 above is
-present.
+present. For monthly scoring changes, confirm each non-Crown group has exactly one stance-1
+`add` and one stance-2 `subtract`, and that the debate-position `monthly_change` contains no
+`multiply = -1` sign flip.

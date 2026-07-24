@@ -1041,34 +1041,29 @@ def emit_group_static_formula(lines: list[str], level: int, group: dict, setting
         emit(lines, level, "}")
 
 
-def emit_group_contribution_add(lines: list[str], data: dict, group: dict) -> None:
+def emit_group_contribution(lines: list[str], data: dict, group: dict) -> None:
     stance_var = group_active_stance_var(group["key"])
-    emit(lines, 4, "add = {")
-    emit(lines, 5, f"desc = \"{group_loc_key(group)}\"")
-    emit(lines, 5, "value = 0")
-    emit(lines, 5, "if = {")
-    emit(lines, 6, "limit = {")
-    emit(lines, 7, "leader_country ?= {")
-    for line in debate_monthly_gate_lines():
-        emit(lines, 8, line)
-    emit(lines, 8, f"has_variable = {stance_var}")
-    emit(lines, 8, f"NOT = {{ var:{stance_var} ?= {STANCE_NEUTRAL} }}")
-    emit(lines, 7, "}")
-    emit(lines, 6, "}")
-    emit_group_static_formula(lines, 6, group, data["settings"])
-    emit(lines, 6, "if = {")
-    emit(lines, 7, f"limit = {{ leader_country ?= {{ var:{stance_var} ?= {STANCE_OPPOSE} }} }}")
-    emit(lines, 7, "multiply = -1")
-    emit(lines, 6, "}")
-    emit(lines, 5, "}")
-    emit(lines, 4, "}")
+    for stance, operation in ((STANCE_SUPPORT, "add"), (STANCE_OPPOSE, "subtract")):
+        emit(lines, 4, "if = {")
+        emit(lines, 5, "limit = {")
+        emit(lines, 6, "leader_country ?= {")
+        for line in debate_monthly_gate_lines():
+            emit(lines, 7, line)
+        emit(lines, 7, f"var:{stance_var} ?= {stance}")
+        emit(lines, 6, "}")
+        emit(lines, 5, "}")
+        emit(lines, 5, f"{operation} = {{")
+        emit(lines, 6, f"desc = \"{group_loc_key(group)}\"")
+        emit_group_static_formula(lines, 6, group, data["settings"])
+        emit(lines, 5, "}")
+        emit(lines, 4, "}")
 
 
 def emit_debate_position_monthly_change(lines: list[str], data: dict) -> None:
     emit(lines, 3, "monthly_change = {")
     emit_crown_contribution_add(lines, data)
     for group in groups(data):
-        emit_group_contribution_add(lines, data, group)
+        emit_group_contribution(lines, data, group)
     emit(lines, 3, "}")
 
 

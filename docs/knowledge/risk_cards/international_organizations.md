@@ -194,6 +194,16 @@ that create, find, or mutate TV IOs.
     `docs/knowledge/anti_patterns.yaml` rule `io_creation_in_visible_option_effect_breaks_tooltip_preview`
     and `docs/knowledge/risk_cards/events.md` rule 11.
 
+26. Give each signed `monthly_change` contribution its own named operation.
+    Do not wrap positive and negative cases in one `add = { desc = KEY ... }` and flip the
+    negative case with an inner conditional `multiply = -1`. The IO variable tooltip can expose
+    that anonymous sign operation as a phantom negative row with `missing tooltip`, including
+    when the branch does not actually affect the monthly total. Put mutually exclusive conditions
+    outside the arithmetic node: emit `add = { desc = KEY <positive magnitude> }` for the positive
+    case and `subtract = { desc = KEY <positive magnitude> }` for the negative case. Conditions
+    that produce zero should enter neither operation. This matches the signed contribution pattern
+    in vanilla `catholic_church.txt`.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`; it fails any TV IO `monthly_effect` block. Then

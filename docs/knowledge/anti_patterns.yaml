@@ -1227,6 +1227,16 @@
   source: "reference_game_files/game/in_game/events/situations/red_turban_rebellions.txt:3371 (value = root.var:X); reference_game_files/game/in_game/common/laws/christian_tenets.txt:359 (value = scope:recipient.leader_country.modifier:X); src/in_game/common/international_organizations/tv_diplomatic_alliance.txt (leader_country.modifier: in monthly_change)"
   notes: "IO typed variables (in the variables = {} block of the IO type) have a monthly_change scripted value that drives the tooltip and automatic monthly breakdown. Contributions applied externally via on_action or country pulse change_variable are invisible to that breakdown and can make the UI lie even when the number changes. The leader_country.var:X chain is valid in scripted value context (same family as root.var:X); it is NOT valid in change_variable { add = } effect context (see change_variable_add_prev_var anti-pattern). Set leader_type = country and call set_leader_country in on_creation or the creation block."
 
+- id: io_monthly_change_signed_contribution_inside_named_add
+  pattern: ''
+  detectability: needs_parser
+  bad: "A named positive monthly_change contribution wraps both signs in add = { desc = KEY ... } and conditionally flips opponents with an inner multiply = -1"
+  correction: "Put the stance condition outside the signed operation and emit mutually exclusive branches: supporters use if = { limit = { ... stance = support } add = { desc = KEY <positive magnitude> } }, while opponents use if = { limit = { ... stance = oppose } subtract = { desc = KEY <positive magnitude> } }. Neutral or inactive contributors should match neither branch."
+  category: script
+  scope: international_organization
+  source: "reference_game_files/game/in_game/common/international_organizations/catholic_church.txt:63-78; Academy of Sciences monthly debate tooltip report, 2026-07-24"
+  notes: "IO monthly_change is also a scripted-value breakdown. Tooltip evaluation can expose a nested anonymous sign-flip operation even when its condition contributes nothing, producing phantom negative rows beside the named positive row and a 'missing tooltip' label. Keep each displayed signed contribution as its own desc-bearing add or subtract node; do not encode the sign with an unnamed nested multiply."
+
 - id: io_non_unique_scope_link
   pattern: ''
   bad: "international_organization:type_name or is_member_of_international_organization = type_name for an IO type without unique = yes"
