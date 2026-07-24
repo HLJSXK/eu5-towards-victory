@@ -90,10 +90,12 @@ that create, find, or mutate TV IOs.
     refresh effect.
 
 14. Seed IO laws only when the design requires a baseline state.
-    Trade League, Arts Exhibition, Academy of Sciences, and Governor's House start without
-    initial policies unless a later design explicitly changes them. Diplomatic Alliance is the
-    current exception: its IO definition must seed all five law groups to their baseline
-    no-effect policies so creation starts at the baseline tier-0 state rather than no law.
+    Trade League, Arts Exhibition, and Governor's House start without initial policies unless a
+    later design explicitly changes them. Academy of Sciences is a narrow exception: it seeds
+    only `tv_academy_leader_gender_law` to
+    `tv_academy_leader_gender_male_only_policy`; its other six law groups remain unenacted.
+    Diplomatic Alliance separately seeds all eight law groups to their baseline no-effect
+    policies so creation starts at the baseline tier-0 state rather than no law.
 
 15. Match IO membership iterators to trigger/effect context.
     `any_international_organizations_member_of` is trigger syntax. In effect bodies,

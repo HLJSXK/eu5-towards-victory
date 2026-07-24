@@ -11,7 +11,9 @@ import yaml
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DATA_FILE = REPO_ROOT / "data" / "philosophy_debates.yaml"
 RANDOM_EVENTS_DIR = REPO_ROOT / "data" / "philosophy_debate_random_events"
+ACADEMY_LAWS_DATA_FILE = REPO_ROOT / "data" / "academy_laws.yaml"
 PHILOSOPHY_DEBATE_DATA_SOURCES = "data/philosophy_debates.yaml + data/philosophy_debate_random_events/*.yaml"
+ACADEMY_IO_DATA_SOURCES = PHILOSOPHY_DEBATE_DATA_SOURCES + " + data/academy_laws.yaml"
 RANDOM_EVENT_ID_BASE = 2000
 
 EVENT_NS = "tv_academy_debate"
@@ -117,6 +119,22 @@ def load_data() -> dict:
     load_random_event_data(data)
     validate_data(data)
     return data
+
+
+def load_academy_initial_laws() -> list[tuple[str, str]]:
+    with ACADEMY_LAWS_DATA_FILE.open(encoding="utf-8") as file:
+        law_data = yaml.safe_load(file)
+
+    initial_laws: list[tuple[str, str]] = []
+    for law in law_data["laws"]:
+        default_policies = [
+            policy["id"] for policy in law["policies"] if policy.get("default", False)
+        ]
+        if len(default_policies) > 1:
+            raise ValueError(f"Academy law {law['id']} has multiple default policies")
+        if default_policies:
+            initial_laws.append((law["id"], default_policies[0]))
+    return initial_laws
 
 
 def load_random_event_data(data: dict) -> None:
@@ -1050,7 +1068,8 @@ def emit_debate_position_monthly_change(lines: list[str], data: dict) -> None:
 
 def generate_academy_io(data: dict) -> str:
     script = "scripts/in_game/common/international_organizations/gen_tv_academy_of_sciences.py"
-    lines: list[str] = [header(script, PHILOSOPHY_DEBATE_DATA_SOURCES).rstrip(), ""]
+    lines: list[str] = [header(script, ACADEMY_IO_DATA_SOURCES).rstrip(), ""]
+    initial_laws = load_academy_initial_laws()
 
     emit(lines, 0, "# Towards Victory — Academy of Sciences International Organization type definition")
     emit(lines, 0, "# Non-unique IO; each country pursuing Scientific Victory creates their own instance")
@@ -1088,6 +1107,13 @@ def generate_academy_io(data: dict) -> str:
     emit(lines, 1, "# The shared IO parliament tab is tied to HasParliament in vanilla common.gui.")
     emit(lines, 1, "has_parliament = no")
     emit(lines)
+    if initial_laws:
+        emit(lines, 1, "# Only policies marked default in data/academy_laws.yaml are enacted at establishment.")
+        emit(lines, 1, "laws = {")
+        for law_id, policy_id in initial_laws:
+            emit(lines, 2, f"{law_id} = {policy_id}")
+        emit(lines, 1, "}")
+        emit(lines)
     emit(lines, 1, "leader = {")
     emit(lines, 2, "leader_country ?= {")
     emit(lines, 3, "var:tv_academy_leader_char ?= {")
