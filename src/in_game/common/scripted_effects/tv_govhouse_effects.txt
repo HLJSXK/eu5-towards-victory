@@ -2928,7 +2928,7 @@ tv_governor_apply_modifiers_effect = {
 				}
 			}
 			set_variable = { name = tv_gov_admin_bonus_type value = 1 }
-			set_variable = { name = tv_gov_admin_bonus_value value = { value = this.adm multiply = 0.001 } }
+			set_variable = { name = tv_gov_admin_bonus_value value = { value = this.adm multiply = 0.0005 } }
 		}
 
 		if = {
@@ -2982,7 +2982,7 @@ tv_governor_apply_modifiers_effect = {
 				}
 			}
 			set_variable = { name = tv_gov_mil_bonus_type value = 2 }
-			set_variable = { name = tv_gov_mil_bonus_value value = { value = this.mil multiply = 0.002 } }
+			set_variable = { name = tv_gov_mil_bonus_value value = { value = this.mil multiply = 0.001 } }
 		}
 		else_if = {
 			limit = {
@@ -3008,7 +3008,7 @@ tv_governor_apply_modifiers_effect = {
 				}
 			}
 			set_variable = { name = tv_gov_mil_bonus_type value = 1 }
-			set_variable = { name = tv_gov_mil_bonus_value value = { value = this.mil multiply = 0.002 } }
+			set_variable = { name = tv_gov_mil_bonus_value value = { value = this.mil multiply = 0.001 } }
 		}
 		if = {
 			limit = {
