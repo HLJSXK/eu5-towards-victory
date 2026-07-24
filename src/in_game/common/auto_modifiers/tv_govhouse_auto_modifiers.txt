@@ -1,0 +1,9 @@
+﻿# Towards Victory - Governor's House country auto modifiers
+
+tv_govhouse_assist_annexation_modifier = {
+	category = country
+	potential_trigger = {
+		has_variable = tv_govhouse_annexing_subject_active
+	}
+	annexation_speed_modifier = 0.10
+}

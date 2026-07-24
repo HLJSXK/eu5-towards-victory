@@ -1786,6 +1786,11 @@ tv_govhouse_update_general_action_display_effect = {
 	if = {
 		limit = {
 			NOT = { at_war = yes }
+			has_variable = tv_conquest_general_char
+			var:tv_conquest_general_char ?= {
+				is_alive = yes
+				has_unit = no
+			}
 			any_subject = {
 				is_being_annexed = yes
 			}
