@@ -1,7 +1,11 @@
 {
   "permissions": {
     "allow": [
-      "Bash(C:\\Users\\Hades\\anaconda3\\envs\\eu5\\python.exe *)"
+      "Bash(C:\\Users\\Hades\\anaconda3\\envs\\eu5\\python.exe *)",
+      "Bash(grep -rn \"alhambra\" src/in_game/gui/)",
+      "Bash(grep -rln \"alhambra\" src/in_game/common/on_action/)",
+      "Bash(echo \"EXIT: $?\")",
+      "Bash(\"C:/Users/Hades/anaconda3/envs/eu5/python.exe\" scripts/audit_unique_wonder_rituals.py)"
     ],
     "deny": [
       "Bash(conda run *)"

@@ -78,6 +78,18 @@ def reward_modifier_id(pid: str, n: int, choice: int) -> str:
     return f"tv_{pid}_m{n}_reward_{choice}_bonus"
 
 
+def milestone_achievement_line(route_name: str, n: int, lang: str) -> str:
+    if lang == "en":
+        return f"You have reached milestone {n} of the {route_name} route"
+    return f"你已达成{route_name}路线的第{n}里程碑"
+
+
+def milestone_reward_panel_tooltip(lang: str) -> str:
+    if lang == "en":
+        return "Open the Towards Victory situation panel and choose a reward."
+    return "请打开胜利之路局势面板，选择一项奖励。"
+
+
 COMMON_IO_CHIEF_ROLE_VAR = "tv_io_chief_role"
 
 
@@ -369,7 +381,7 @@ def gen_establishment_effects(data: dict) -> str:
         "\t\tset_variable = { name = tv_med_disp_mil value = 0 }",
         "\t\tset_variable = { name = tv_academy_philosophy_current value = 1 }",
         "\t\tset_variable = { name = tv_academy_philosophy_phase value = 0 }",
-        "\t\tset_variable = { name = tv_academy_philosophy_debate_position value = 50 }",
+        "\t\tset_variable = { name = tv_academy_debate_initial_progress_pending value = 1 }",
         "\t\ttv_academy_philosophy_initialize_timeline_effect = yes",
         "\t}",
         "\tif = {",
@@ -388,6 +400,11 @@ def gen_establishment_effects(data: dict) -> str:
         "\t\t\t\tset_leader_country = prev",
         "\t\t\t}",
         "\t\t}",
+        "\t}",
+        "\tif = {",
+        "\t\tlimit = { has_variable = tv_academy_debate_initial_progress_pending }",
+        "\t\ttv_academy_debate_set_local_progress_effect = { value = 50 }",
+        "\t\tremove_variable = tv_academy_debate_initial_progress_pending",
         "\t}",
         "}",
         "",
@@ -413,7 +430,14 @@ def gen_establishment_effects(data: dict) -> str:
         lines.append(f"\t\t\tNOT = {{ has_variable = tv_{pid}_victory_enabled }}")
         lines.append("\t\t}")
         if pid == "conquest":
-            lines.append("\t\ttv_update_conquest_score_effect = yes")
+            # tv_update_conquest_score_effect scans every_subject_or_below; AI
+            # countries recompute it yearly instead (tv_io_establishment_yearly_pulse)
+            # since monthly_country_pulse fires for every AI country every month and
+            # AI does not need the immediate notification event gated below anyway.
+            lines.append("\t\tif = {")
+            lines.append("\t\t\tlimit = { is_ai = no }")
+            lines.append("\t\t\ttv_update_conquest_score_effect = yes")
+            lines.append("\t\t}")
         lines.append("\t\tif = {")
         lines.append(f"\t\t\tlimit = {{ tv_{pid}_establishment_basic_requirement = yes }}")
         lines.append(f"\t\t\tset_variable = {{ name = tv_{pid}_establishment_basic_done value = 1 }}")
@@ -423,6 +447,21 @@ def gen_establishment_effects(data: dict) -> str:
         lines.append("\t\t\t}")
         lines.append("\t\t}")
         lines.append("\t}")
+    lines.append("}")
+    lines.append("")
+
+    lines.append("# Registered under yearly_country_pulse by tv_pulse_bridges.txt.")
+    lines.append("# AI counterpart to the is_ai = no conquest score update above: keeps the")
+    lines.append("# every_subject_or_below scan off the monthly path for AI countries.")
+    lines.append("tv_io_establishment_conquest_score_yearly_pulse_effect = {")
+    lines.append("\tif = {")
+    lines.append("\t\tlimit = {")
+    lines.append("\t\t\tis_ai = yes")
+    lines.append("\t\t\tNOT = { has_variable = tv_conquest_establishment_basic_done }")
+    lines.append("\t\t\tNOT = { has_variable = tv_conquest_victory_enabled }")
+    lines.append("\t\t}")
+    lines.append("\t\ttv_update_conquest_score_effect = yes")
+    lines.append("\t}")
     lines.append("}")
     lines.append("")
 
@@ -485,6 +524,10 @@ def gen_establishment_effects(data: dict) -> str:
         lines.extend(_set_new_leader_role_lines(leader, 2))
         lines.append(f"\t\tset_variable = {{ name = tv_{pid}_victory_enabled value = 1 }}")
         lines.append(f"\t\tset_variable = {{ name = tv_{pid}_establishment_headquarters_done value = 1 }}")
+        # Victory Path Tree points have no real accrual backend yet (see
+        # scripts/victory_tree_node_codegen.py TREE_POINTS_TRICKLE note) — grant a
+        # flat placeholder stake so the tree is usable as soon as the path unlocks.
+        lines.append(f"\t\tset_variable = {{ name = tv_{pid}_tree_points value = 1000 }}")
         event_id = "tv_io_establishment." + str(int(est["event_id"]))
         lines.append(f"\t\t{monthly_country_pulse_event(data, event_id)}")
         lines.append(f"\t\ttv_check_{pid}_milestones_effect = yes")
@@ -742,6 +785,35 @@ tv_victory_situation = {{
 \t\t# Should never fire — tv_victory_situation is permanent
 \t}}
 }}
+
+tv_academy_world_debate_situation = {{
+\tmonthly_spawn_chance = monthly_spawn_chance_unique
+
+\tcan_start = {{
+\t\talways = yes
+\t}}
+
+\tcan_end = {{
+\t\talways = no
+\t}}
+
+\tvisible = {{
+\t\thas_variable = tv_academy_world_debate_participant
+\t}}
+
+\ton_start = {{
+\t\ttv_academy_world_debate_initialize_effect = yes
+\t}}
+
+\ton_monthly = {{
+\t\thidden_effect = {{
+\t\t\ttv_academy_world_debate_monthly_effect = yes
+\t\t}}
+\t}}
+
+\ton_ended = {{
+\t}}
+}}
 """
 
 def gen_situation(data: dict) -> str:
@@ -762,6 +834,13 @@ def gen_on_actions(data: dict) -> str:
         lines.append("tv_io_establishment_monthly_pulse = {")
         lines.append("\teffect = {")
         lines.append("\t\ttv_io_establishment_monthly_pulse_effect = yes")
+        lines.append("\t}")
+        lines.append("}")
+        lines.append("")
+        lines.append("# Registered under yearly_country_pulse by tv_pulse_bridges.txt.")
+        lines.append("tv_io_establishment_yearly_pulse = {")
+        lines.append("\teffect = {")
+        lines.append("\t\ttv_io_establishment_conquest_score_yearly_pulse_effect = yes")
         lines.append("\t}")
         lines.append("}")
         lines.append("")
@@ -809,6 +888,7 @@ def gen_events(path: dict) -> str:
         lines.append(f"\toutcome = neutral")
         lines.append(f"\toption = {{")
         lines.append(f"\t\tname = tv_{pid}.{n}.a")
+        lines.append(f"\t\tcustom_tooltip = tv_{pid}.{n}.a.tt")
         lines.append(f"\t\ttv_unlock_{pid}_milestone_{n} = yes")
         lines.append(f"\t}}")
         lines.append(f"}}")
@@ -954,6 +1034,8 @@ def gen_localization(data: dict, lang: str) -> str:
                 "TV_ESTABLISHMENT_APPOINT_CHIEF_BUTTON": "Appoint Chief",
                 "TV_ESTABLISHMENT_APPOINT_CHIEF_UNAVAILABLE": "No eligible chief candidate is available.",
                 "tv_io_headquarters_price": "Organization Headquarters",
+                "MODIFIER_TYPE_NAME_tv_io_headquarters_price_cost_modifier": "$tv_io_headquarters_price$ Cost",
+                "MODIFIER_TYPE_DESC_tv_io_headquarters_price_cost_modifier": "Modifies the gold construction cost of $tv_io_headquarters_price$ buildings.",
                 "TV_IO_HEADQUARTERS_EVENT_OPTION": "Excellent.",
                 "TV_IO_ESTABLISHMENT_GUIDE_PANEL_OPTION": "Open the situation panel.",
                 "TV_IO_ESTABLISHMENT_GUIDE_BUILD_OPTION": "Begin construction in the capital.",
@@ -967,6 +1049,8 @@ def gen_localization(data: dict, lang: str) -> str:
                 "TV_ESTABLISHMENT_APPOINT_CHIEF_BUTTON": "任命首席",
                 "TV_ESTABLISHMENT_APPOINT_CHIEF_UNAVAILABLE": "没有符合条件的首席候选人。",
                 "tv_io_headquarters_price": "组织首府",
+                "MODIFIER_TYPE_NAME_tv_io_headquarters_price_cost_modifier": "$tv_io_headquarters_price$花费",
+                "MODIFIER_TYPE_DESC_tv_io_headquarters_price_cost_modifier": "修正$tv_io_headquarters_price$的金币建设花费。",
                 "TV_IO_HEADQUARTERS_EVENT_OPTION": "很好。",
                 "TV_IO_ESTABLISHMENT_GUIDE_PANEL_OPTION": "打开局势面板。",
                 "TV_IO_ESTABLISHMENT_GUIDE_BUILD_OPTION": "在首都开始建造。",
@@ -1130,12 +1214,15 @@ def gen_localization(data: dict, lang: str) -> str:
         lines.append("")
         # Events
         lines.append(f" # ── {pid.capitalize()} Victory Events ───────────────────────────────────────────────")
+        route_name = path["gui"]["tab_label"][lang]
         for m in path["milestones"]:
             n = m["n"]
             mloc = m["loc"]
+            event_desc = f"{mloc['event_desc'][lang]}\\n#P {milestone_achievement_line(route_name, n, lang)}#!"
             lines.append(kv(f"tv_{pid}.{n}.t", mloc["event_title"][lang]))
-            lines.append(kv(f"tv_{pid}.{n}.d", mloc["event_desc"][lang]))
+            lines.append(kv(f"tv_{pid}.{n}.d", event_desc))
             lines.append(kv(f"tv_{pid}.{n}.a", mloc["event_option"][lang]))
+            lines.append(kv(f"tv_{pid}.{n}.a.tt", milestone_reward_panel_tooltip(lang)))
         lines.append("")
         # Extra loc keys
         for ekl in path.get("extra_loc_keys", []):

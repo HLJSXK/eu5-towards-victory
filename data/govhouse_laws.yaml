@@ -1,9 +1,9 @@
 # Governor's House law categories for tv_govhouse_laws.txt.
 # Structure: Governor's House policy laws plus Local Governor Function laws.
-# All laws use IO policy votes, following the Academy of Sciences pattern.
-# country_modifier blocks are generated with a recipient-guarded leader-country
-# potential trigger; attached subject-chain members vote on the law but do not
-# receive these overlord administration modifiers directly.
+# All laws use the vanilla IO parliament law-vote path, following the
+# Diplomatic Alliance pattern.
+# country_modifier blocks are generated without member filters so Governor's
+# House laws apply to every member country.
 # Each policy's ai_base_bias must be one of -60, -40, -20, 0, 20, 40, 60.
 # Positive values favor subject-friendly, conservative/traditional, or profit-seeking policies.
 #
@@ -22,7 +22,7 @@ laws:
         default: true
         ai_base_bias: 40
         country_modifier: |
-          global_foreign_build_buildings_cost = -0.10
+          global_foreign_build_buildings_efficiency = 0.10
           trade_sea_efficiency = 0.10
           global_trade_center_power = 0.10
           naval_range_modifier = 0.10
@@ -35,7 +35,7 @@ laws:
           tax_income_efficiency = 0.03
           global_garrison_size_modifier = 0.10
           monthly_rebel_growth = 0.0005
-          global_bureaucracy_maintenance_cost_modifier = 0.10
+          global_bureaucracy_maintenance_efficiency = -0.10
       - id: tv_govhouse_frontier_settlement_policy
         display_comment: "Frontier Settlement"
         ai_base_bias: 20
@@ -51,7 +51,7 @@ laws:
         country_modifier: |
           subject_income_modifier = 0.10
           diplomatic_reputation = 1
-          global_bureaucracy_maintenance_cost_modifier = -0.10
+          global_bureaucracy_maintenance_efficiency = 0.10
           subject_loyalty = -5
           global_monthly_control = -0.001
 
@@ -112,7 +112,7 @@ laws:
         ai_base_bias: 60
         country_modifier: |
           colonial_migration_size_modifier = 0.25
-          global_foreign_build_buildings_cost = -0.10
+          global_foreign_build_buildings_efficiency = 0.10
           global_burghers_estate_power = 0.50
       - id: tv_govhouse_vassal_autonomy_policy
         display_comment: "Vassal Autonomy"
@@ -203,7 +203,7 @@ laws:
         ai_base_bias: -20
         country_modifier: |
           subject_income_modifier = 0.10
-          global_bureaucracy_maintenance_cost_modifier = 0.05
+          global_bureaucracy_maintenance_efficiency = -0.05
           subject_loyalty = -5
       - id: tv_govhouse_dominion_status_policy
         display_comment: "Dominion Status"
@@ -221,7 +221,7 @@ laws:
           global_pop_assimilation_speed_modifier = 0.15
           global_integration_speed_modifier = 0.15
           global_monthly_development = 0.001
-          global_bureaucracy_maintenance_cost_modifier = 0.20
+          global_bureaucracy_maintenance_efficiency = -0.20
       - id: tv_govhouse_plunder_evacuate_policy
         display_comment: "Plunder and Evacuate"
         ai_base_bias: 0
@@ -243,7 +243,7 @@ laws:
           custom_tooltip = { text = tv_govhouse_general_marching_orders_policy_effect_tt }
           hidden_effect = {
             leader_country ?= {
-              tv_apply_governor_bonuses_effect = yes
+              tv_govhouse_refresh_all_governor_modifiers_effect = yes
               tv_govhouse_apply_active_tactic_modifier_effect = yes
               tv_govhouse_update_plan_modifiers_effect = yes
             }
@@ -255,7 +255,7 @@ laws:
           custom_tooltip = { text = tv_govhouse_general_garrison_orders_policy_effect_tt }
           hidden_effect = {
             leader_country ?= {
-              tv_apply_governor_bonuses_effect = yes
+              tv_govhouse_refresh_all_governor_modifiers_effect = yes
               tv_govhouse_apply_active_tactic_modifier_effect = yes
               tv_govhouse_update_plan_modifiers_effect = yes
             }
@@ -267,7 +267,7 @@ laws:
           custom_tooltip = { text = tv_govhouse_general_supreme_command_policy_effect_tt }
           hidden_effect = {
             leader_country ?= {
-              tv_apply_governor_bonuses_effect = yes
+              tv_govhouse_refresh_all_governor_modifiers_effect = yes
               tv_govhouse_apply_active_tactic_modifier_effect = yes
               tv_govhouse_update_plan_modifiers_effect = yes
             }
@@ -285,7 +285,7 @@ laws:
           custom_tooltip = { text = tv_govhouse_admin_control_registers_policy_effect_tt }
           hidden_effect = {
             leader_country ?= {
-              tv_apply_governor_bonuses_effect = yes
+              tv_govhouse_refresh_all_governor_modifiers_effect = yes
             }
           }
       - id: tv_govhouse_admin_development_surveys_policy
@@ -295,7 +295,7 @@ laws:
           custom_tooltip = { text = tv_govhouse_admin_development_surveys_policy_effect_tt }
           hidden_effect = {
             leader_country ?= {
-              tv_apply_governor_bonuses_effect = yes
+              tv_govhouse_refresh_all_governor_modifiers_effect = yes
             }
           }
       - id: tv_govhouse_admin_production_offices_policy
@@ -305,7 +305,7 @@ laws:
           custom_tooltip = { text = tv_govhouse_admin_production_offices_policy_effect_tt }
           hidden_effect = {
             leader_country ?= {
-              tv_apply_governor_bonuses_effect = yes
+              tv_govhouse_refresh_all_governor_modifiers_effect = yes
             }
           }
 
@@ -321,7 +321,7 @@ laws:
           custom_tooltip = { text = tv_govhouse_dip_construction_charters_policy_effect_tt }
           hidden_effect = {
             leader_country ?= {
-              tv_apply_governor_bonuses_effect = yes
+              tv_govhouse_refresh_all_governor_modifiers_effect = yes
             }
           }
       - id: tv_govhouse_dip_pop_advancement_policy
@@ -331,7 +331,7 @@ laws:
           custom_tooltip = { text = tv_govhouse_dip_pop_advancement_policy_effect_tt }
           hidden_effect = {
             leader_country ?= {
-              tv_apply_governor_bonuses_effect = yes
+              tv_govhouse_refresh_all_governor_modifiers_effect = yes
             }
           }
       - id: tv_govhouse_dip_settlement_patronage_policy
@@ -341,7 +341,7 @@ laws:
           custom_tooltip = { text = tv_govhouse_dip_settlement_patronage_policy_effect_tt }
           hidden_effect = {
             leader_country ?= {
-              tv_apply_governor_bonuses_effect = yes
+              tv_govhouse_refresh_all_governor_modifiers_effect = yes
             }
           }
 
@@ -357,7 +357,7 @@ laws:
           custom_tooltip = { text = tv_govhouse_mil_order_patrols_policy_effect_tt }
           hidden_effect = {
             leader_country ?= {
-              tv_apply_governor_bonuses_effect = yes
+              tv_govhouse_refresh_all_governor_modifiers_effect = yes
             }
           }
       - id: tv_govhouse_mil_frontier_levies_policy
@@ -367,7 +367,7 @@ laws:
           custom_tooltip = { text = tv_govhouse_mil_frontier_levies_policy_effect_tt }
           hidden_effect = {
             leader_country ?= {
-              tv_apply_governor_bonuses_effect = yes
+              tv_govhouse_refresh_all_governor_modifiers_effect = yes
             }
           }
       - id: tv_govhouse_mil_fortress_engineers_policy
@@ -377,7 +377,7 @@ laws:
           custom_tooltip = { text = tv_govhouse_mil_fortress_engineers_policy_effect_tt }
           hidden_effect = {
             leader_country ?= {
-              tv_apply_governor_bonuses_effect = yes
+              tv_govhouse_refresh_all_governor_modifiers_effect = yes
             }
           }
 

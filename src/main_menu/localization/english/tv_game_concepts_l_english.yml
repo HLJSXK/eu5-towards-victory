@@ -1,8 +1,6 @@
 ﻿l_english:
  # ── Generic trigger tooltips ──────────────────────────────────────────────
  TV_HAS_VARIABLE_SET_TT: "Required state is available."
- TV_HAS_VARIABLE_NOT_SET_TT: "Required state is not active."
- TV_CHARACTER_NOT_ALREADY_TV_IO_CHIEF_TT: "This character is not already serving as a TV IO chief."
  PENTARCHY_CITY_BONUSES_TITLE: "Benefits Gained from this Seat"
 
  # CMF alerts
@@ -26,11 +24,6 @@
  tv_missing_academy_chief_alert_icon: "@characters!"
  tv_missing_academy_chief_alert_name: "Academy of Sciences Lacks a Chief Scientist"
  tv_missing_academy_chief_alert_tooltip: "Your [tv_academy_of_sciences|E] lacks a [tv_chief_scientist|E]. Open the Academy of Sciences panel and appoint one."
- tv_missing_engineering_department_chief_alert: "tv_missing_engineering_department_chief_alert"
- tv_missing_engineering_department_chief_alert_color: "orange"
- tv_missing_engineering_department_chief_alert_icon: "@characters!"
- tv_missing_engineering_department_chief_alert_name: "Engineering Department Lacks a Great Engineer"
- tv_missing_engineering_department_chief_alert_tooltip: "Your [tv_engineering_department|E] lacks a [tv_great_engineer|E]. Open the Engineering Department panel and appoint one."
  tv_missing_trade_league_chief_alert: "tv_missing_trade_league_chief_alert"
  tv_missing_trade_league_chief_alert_color: "orange"
  tv_missing_trade_league_chief_alert_icon: "@characters!"
@@ -59,12 +52,11 @@
  TV_HAS_DIPLOMATIC_MILESTONE_TT: "[tv_diplomatic_victory|E] milestone state has been initialized."
  TV_HAS_DIPLOMATIC_PROGRESS_PCT_TT: "[tv_diplomatic_victory|E] progress has been calculated."
  TV_HAS_DIPLOMATIC_VICTORY_POINTS_TT: "[tv_dvp|E] have been initialized."
- TV_HAS_ENGINEERING_DEPARTMENT_MEMBER_TT: "This country is a member of the [tv_engineering_department|E]."
  TV_HAS_DISPATCHED_ARTISTS_COUNT_TT: "The dispatched artist count has been initialized."
+ TV_HAS_DISPATCHED_ARTISTS_TT: "This country has an artist currently on [tv_artist_tour|E]."
  TV_HAS_EXHIBITION_TARGET_COUNTRY_TT: "The touring artist's host country is recorded."
  TV_HAS_GG_TRAINING_ACTIVE_TT: "[tv_grand_general|E] training is currently active."
  TV_HAS_GRAND_MERCHANT_CHAR_TT: "A [tv_grand_merchant|E] has been appointed."
- TV_HAS_GREAT_ENGINEER_CHAR_TT: "A [tv_great_engineer|E] has been appointed."
  TV_HAS_GOVERNED_AREA_TT: "This governor has an assigned region."
  TV_HAS_GOVERNOR_LIST_TT: "The governor roster has been initialized."
  TV_HAS_GOVHOUSE_MEMBER_TT: "This country owns a [tv_govhouse|E]."
@@ -134,64 +126,6 @@
 
  game_concept_tv_science_victory: "Scientific Victory"
  game_concept_tv_science_victory_desc: "Lead humanity into the age of reason. Your [tv_science_score|e] tracks total advances researched. Each milestone also requires the corresponding phase of the [tv_academy_of_sciences|e] to be constructed in your capital. Rewards accelerate research, institution spread, and production."
-
- # ── Prosperity Victory Unique Mechanics ───────────────────────────────────
- game_concept_tv_engineering_department: "Engineering Department"
- game_concept_tv_engineering_department_desc: "A non-unique international organization founded through the [tv_prosperity_victory|e] IO establishment flow. It holds the [tv_great_engineer|e] office and manages wonder proposals, debate, site selection, organization, logistics, and [tv_wonder_construction|e]."
-
- game_concept_tv_great_engineer: "Great Engineer"
- game_concept_tv_great_engineer_desc: "The appointed character who leads the [tv_engineering_department|e]. The [tv_great_engineer|e] is stored as a country variable and can be appointed, replaced, or dismissed from the [tv_engineering_department|e] panel."
-
- game_concept_tv_wonder_survey: "Wonder Survey"
- game_concept_tv_wonder_survey_desc: "The site-assessment stage of [tv_wonder_construction|e]. Survey progress rises monthly from the [tv_great_engineer|e]'s Military skill, reveals Scale, Logistics, and Organization competence, and lets the country confirm a construction site once the readings are complete."
-
- game_concept_tv_wonder_materials: "Wonder Materials"
- game_concept_tv_wonder_materials_desc: "A produced market good used to maintain $tv_wonder_labor_camp$ during active [tv_wonder_construction|e]. Wonder Material Workshops convert basic construction goods into [tv_wonder_materials|e], so supply and price are handled through the normal market."
-
- game_concept_tv_wonder_ceremony: "Wonder Ceremony"
- game_concept_tv_wonder_ceremony_desc: "The final dedication of a completed [tv_wonder_construction|e] project. The chosen ceremony branch determines the monument's final building, permanent country modifier, and last burst of prestige, stability, and legitimacy from remaining [tv_wonder_domestic_support|e]."
-
- game_concept_tv_wonder_construction: "Wonder Construction"
- game_concept_tv_wonder_construction_desc: "A [tv_prosperity_victory|e] mechanism managed through the [tv_engineering_department|e]. A [tv_great_engineer|e] proposes a feasible [tv_wonder_small|e], [tv_wonder_medium|e], or [tv_wonder_large|e] wonder, the country resolves domestic debate, then selects a site, organizes labor, gathers materials, and builds four construction parts into a wonder level."
-
- game_concept_tv_wonder_small: "Small Wonder"
- game_concept_tv_wonder_small_desc: "A [tv_wonder_construction|e] size class. Small wonders may be built more than once. Their base country effect is limited to value movement, while local effects and ceremony effects are unrestricted."
-
- game_concept_tv_wonder_medium: "Medium Wonder"
- game_concept_tv_wonder_medium_desc: "A [tv_wonder_construction|e] size class between small and large wonders. A country may not start a second medium wonder of the same type, but its base country effects, local effects, and ceremony effects are unrestricted."
-
- game_concept_tv_wonder_large: "Large Wonder"
- game_concept_tv_wonder_large_desc: "A [tv_wonder_construction|e] size class. A country may not start a second large wonder of the same type, but its base country effects, local effects, and ceremony effects are unrestricted."
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- game_concept_tv_wonder_domestic_support: "Domestic Support"
- game_concept_tv_wonder_domestic_support_desc: "A [tv_wonder_construction|e] resource representing elite and public willingness to sustain a major wonder project. Reach 100 to end the initial debate; support can be stored up to 200 and decays after the debate ends."
-
- game_concept_tv_wonder_scale_competence: "Scale Competence"
- game_concept_tv_wonder_scale_competence_desc: "A [tv_wonder_survey|e] reading for how well the chosen site can carry the wonder's intended size, axes, foundations, and public approach without forcing the design into an awkward shape. It sets maximum wonder level at 20%, 40%, 60%, 80%, and 100%, with level 6 requiring 100%."
-
- game_concept_tv_wonder_organization_competence: "Organization Competence"
- game_concept_tv_wonder_organization_competence_desc: "A [tv_wonder_survey|e] reading for how cleanly labor rosters, foremen, workshops, and construction stages can be made to answer one plan instead of many competing orders. It linearly sets the maximum Wonder Worksite level from 0 to 20."
-
- game_concept_tv_wonder_logistics_competence: "Logistics Competence"
- game_concept_tv_wonder_logistics_competence_desc: "A [tv_wonder_survey|e] reading for roads, carts, ports, bridges, and handover points that determine whether [tv_wonder_materials|e] reach the site when the masons need them."
 
  # -- Trade Victory Unique Mechanics ----------------------------------------
  game_concept_tv_trade_league: "Trade League"
@@ -288,7 +222,9 @@
 
  # ── Conquest Victory Unique Mechanics ──────────────────────────────────────
  game_concept_tv_govhouse: "Governor's House"
- game_concept_tv_govhouse_desc: "An international organization established through the [tv_conquest_victory|e] IO establishment flow. The founding country appoints a [tv_grand_general|e] and can assign [tv_local_governor|e]s to regions within their realm. Each governor reduces construction costs and unrest while increasing maximum control in their governed region, scaled to their military attributes."
+ game_concept_tv_govhouse_desc: "An international organization established through the [tv_conquest_victory|e] IO establishment flow. The founding country appoints a [tv_grand_general|e], can assign [tv_local_governor|e]s to regions within their realm, and uses the [tv_govhouse_assembly|e] for Governor's House law votes."
+ game_concept_tv_govhouse_assembly: "Governor's Assembly"
+ game_concept_tv_govhouse_assembly_desc: "The parliamentary forum of the [tv_govhouse|e]. Only the [tv_govhouse_supreme_overlord_status|e] can propose law changes; the Supreme Overlord has 100 votes, while attached members vote according to their relative strength against the Supreme Overlord."
  game_concept_tv_grand_general: "Grand General"
  game_concept_tv_grand_general_desc: "The supreme commander appointed through the [tv_govhouse|e]. The [tv_grand_general|e] can be trained, can propose tactics and [tv_war_plan|e]s, and accumulates [tv_govhouse_power_consolidation|e] while in office."
  game_concept_tv_local_governor: "Local Governor"

@@ -215,6 +215,10 @@ years_in_international_organization = {
 
 Prefer this built-in tenure value for mechanics such as "member must have belonged to this alliance for at least 5 years" instead of adding monthly countdown variables or custom join-date state.
 
+#### Scripted Trigger and Effect File Boundaries
+
+`common/scripted_triggers` and `common/scripted_effects` are separate top-level databases. EU5 parses every top-level block in a `common/scripted_effects` file as a scripted effect. Do not emit `_trigger = { ... }` definitions into scripted-effect files, even if those blocks are only called from effect `limit` clauses. Move those blocks to `common/scripted_triggers`; otherwise trigger-only clauses such as `has_variable`, `religious_unity`, `always`, or trigger iterators are parsed as effect commands and log `Unknown effect ...` during startup.
+
 #### Random List Branch Filtering
 
 Use `trigger = { ... }` inside weighted `random_list` branches when a branch should only be eligible under some condition:
@@ -340,6 +344,12 @@ construct_building = {
 
 Omitting `cost_multiplier_reason` logs: `No reason given for the cost multiplier in construct_building effect`. Vanilla event-funded construction commonly uses `game_concept_event`, which is already localized.
 
+When a player-facing event option starts normal building construction, prefer a visible
+`construct_building` / `change_building_level_in_location` effect in that option. The engine
+renders the building name, price, and cost modifiers from the effect tooltip. Do not duplicate
+that with option text like "Spend 400 ducats" plus hidden `pay_price` and free construction
+unless the flow is intentionally event-funded, nonstandard, or hidden.
+
 #### Scripted Trigger Parameters That Add Type Prefixes
 
 When a scripted trigger template adds a type prefix around a parameter, pass the bare database id to that parameter. For example, vanilla `location_and_owner_can_build` expands its argument as `building_type:$building_type$`, so the call must be:
@@ -385,6 +395,26 @@ my_action_price_cost_modifier = {
 ```
 
 Define the modifier type in `main_menu/common/modifier_type_definitions/`, and localize all three keys in every supported language: `my_action_price`, `MODIFIER_TYPE_NAME_my_action_price_cost_modifier`, and `MODIFIER_TYPE_DESC_my_action_price_cost_modifier`. If the modifier type is missing, the engine logs `Missing modifier type for price. <price_key>_cost_modifier`.
+
+#### v1.3 Built-in Modifier Rename: `_cost` -> `_efficiency`
+
+Separate from the mod-defined `<price_key>_cost_modifier` convention above, EU5 v1.3 renamed
+roughly 29 pre-existing built-in static modifiers from a `_cost`/`_cost_modifier` suffix to an
+`_efficiency` suffix (e.g. `global_build_buildings_cost` -> `global_build_buildings_efficiency`,
+`fort_maintenance_cost` -> `fort_maintenance_efficiency`, `army_reinforce_cost` ->
+`army_reinforce_efficiency`, `global_bureaucracy_maintenance_cost_modifier` ->
+`global_bureaucracy_maintenance_efficiency`). Two names don't just gain the suffix:
+`stability_cost` -> `stability_cost_efficiency` and `court_spending_cost_modifier` ->
+`court_spending_efficiency`.
+
+The rename also flips `color = bad` to `color = good`, so every occurrence's value must be
+negated, not just renamed. Confirm via `git diff` on
+`main_menu/common/static_modifiers/00_modifier_types.txt` between reference commits before and
+after a version bump — do not assume a fixed multiplier applies uniformly; Paradox sometimes
+rebalances a field's magnitude at the same time as the rename (verify via a same-named
+`country_modifier`/`static_modifier` block that exists in both versions where possible). See
+`docs/knowledge/anti_patterns.yaml` rule `v1_3_cost_modifier_renamed_to_efficiency` and
+`docs/knowledge/risk_cards/wonders.md` rule 16 for the concrete list this project hit.
 
 #### Modifier Type Icons
 
@@ -615,6 +645,12 @@ country-scoped map checks such as `target = this`. Save the map owner before the
 copy `this` into a local variable inside the callback, then perform the sibling map checks under
 `scope:<saved_owner>` with `target = local_var:<key>`.
 
+The same owner-scope rule applies to ordinary item iterators over country-owned variable lists.
+`every_in_list`, `random_in_list`, and `any_in_list` switch the current scope to the list item,
+so a list of regions, locations, or characters is not the country scope that owns the map. Copy
+the region/location/character key into a local variable, then enter the saved country scope for
+both `is_key_in_variable_map` and the quoted `variable_map(...)` scope link.
+
 When a variable-map key callback is reached from a generic action effect or selector tooltip,
 do not assume `root` is a valid country event target. Save the current country before entering
 the callback, then write through the named scope:
@@ -702,6 +738,20 @@ Script values always execute in the scope they are *called from*, not from the s
   ```
   Engine error: `Event target link 'location' did not get a matching scope type. Expected 'character, pop, …', but got 'location'`
 
+#### Function-Call-Style Event Target Links Must Be Quoted
+
+Some event target links take a parenthesized argument instead of a colon suffix, e.g. `estate_power(estate_type:crown_estate)` or `estate(estate_type:nobles_estate)`. When one of these is chained after a scope and used as the RHS of `value =`, a trigger comparison, `add =`, `subtract =`, etc., the **entire scope + call expression must be wrapped in double quotes**:
+
+```pdx
+value = "leader_country.estate_power(estate_type:crown_estate)"
+```
+
+```pdx
+limit = { "root.estate_power(estate_type:crown_estate)" >= 0.5 }
+```
+
+Without quotes, the parser splits on the bare `(` and fails with a cluster of three errors: `jomini_eventtarget.cpp: No data specified for an event target link that requires data`, `jomini_scriptvalue.h: Cannot read [...] as a script value`, and `pdx_persistent_reader.cpp: Unexpected token: (` (immediately followed by `Unexpected token: )` and `Unexpected token: =` on the next lines). This differs from plain colon-suffixed links (`var:X`, `estate:crown_estate`), which never need quoting. See `reference_game_files/game/in_game/common/disasters/coup_attempt.txt:13` and `reference_game_files/game/in_game/common/attribute_columns/57_parliament_issues.txt:40` for verified vanilla precedent.
+
 ### 5.4. Generic Action `select_trigger` Pre-evaluation
 
 When a generic action has multiple `select_trigger` steps, EU5 **pre-evaluates the `effect` block at each step** before the user finishes all selections:
@@ -713,6 +763,19 @@ Wrapping the action effect in `hidden_effect` does not stop this selector pre-ev
 hides effect text, but the pre-evaluator can still walk into nested `scripted_effect` calls.
 Any helper reached from a generic action must not assume variables written earlier in that same
 effect chain exist during hover.
+
+For display-refresh helpers that derive a row, timeline, or progress state, do not write a
+persistent variable and then immediately compare `var:X` later in the same chain. Compute the
+derived values with `set_local_variable` / `change_local_variable`, compare `local_var:X`, and
+only then mirror the final values into persistent variables for GUI display. This avoids
+`Failed to fetch variable` / `Invalid left side during comparison 'var'` errors when a generic
+action's selector or tooltip pre-evaluator walks the effect before same-chain `set_variable`
+writes have been committed.
+
+Reusable helpers reached from generic actions should also avoid assuming `root` is the current
+country after they enter nested IO/member iterators. If the helper needs to compare nested state
+to the action actor or current country, save that owner at helper entry with `save_scope_as =
+<owner_scope>` and compare against `scope:<owner_scope>` instead of `root`.
 
 Cleanup-only helpers are still different from player-facing effects: if the button is only
 clearing variables, removing list entries, stripping stale modifiers, or rebuilding display
@@ -740,6 +803,25 @@ such as `tv_governor_remove_effect`.
    ```
 
 The `exists = scope:<name>` trigger is the vanilla pattern for this (confirmed in `assign_governor.txt` and `assume_fort_command.txt`). The errors appear in `error.log` as "Undefined event target" or "Failed to fetch variable" but the effect still fires correctly once all selections are complete.
+
+`save_scope_as` is an effect only; it is not registered as a trigger type at all. Any scope save
+performed inside a `select_trigger` `visible`/`enabled` block, an `allow`/`potential` block, or an
+`if = { limit = { ... } }` trigger body must use `save_temporary_scope_as` instead. Using
+`save_scope_as` in a trigger context logs `Unknown trigger type: save_scope_as` at load time, once
+per occurrence — a single reused generator helper can produce hundreds of duplicate errors. Confirmed
+against vanilla `coa_def_BOH_ensign_trigger` (`c:BOH = { save_temporary_scope_as = custom_overlord }`
+inside a trigger-only `scripted_trigger` block). Reserve `save_scope_as` for saves written directly
+inside an effect body (a sibling of `limit`, not inside it).
+
+Temporary and permanent scope target names share one namespace: do not reuse the same name for a
+`limit`-context `save_temporary_scope_as` and a later real `save_scope_as` in the same effect chain
+(e.g. an `every_in_list = { limit = { save_temporary_scope_as = tv_display_region ... } save_scope_as
+= tv_display_region ... } }` loop). The engine logs `Trying to add the temporary target '<name>'
+which has the same name as a permanent target` and the effect silently fails at runtime — this
+reproduced as a broken "appoint regional governor" action in
+`tv_govhouse_refresh_governor_display_effect` (`tv_govhouse_effects.txt`). Give the trigger-context
+temporary save a distinct name (this project's convention is `<name>_check`), keeping the real
+`save_scope_as = <name>` for the effect body outside `limit`.
 
 Do not mirror target availability in the action `allow` block just to avoid an empty chooser.
 The `select_trigger` definition already supports `none_available_msg_key`, documented by
@@ -931,6 +1013,24 @@ For direct cabinet-action/province eligibility, do not treat `dominant_religion 
 
 For broader regional priority heuristics, follow the mechanic's design intent rather than blindly copying the vanilla OR. Governor's House autonomous religion conversion intentionally uses only the share of owned locations whose dominant religion is not the governing country's religion, ignoring minority cleanup once the state religion is dominant.
 
+### 5.11. Subject Type Availability (`vassal` vs `samanta`)
+
+Never hardcode `make_subject_of = { type = subject_type:vassal ... }` as the only outcome of a subjugation-style effect. `subject_type:vassal`'s `visible`/`creation_visible` blocks require `NOT = { has_advance = samanta_advance }` on the overlord (`reference_game_files/game/in_game/common/subject_types/vassal.txt:17,38`), so any country that has researched `samanta_advance` (the Indian-subcontinent feudalism advance) cannot create vassals at all — the action's `make_subject_of` call fails/no-ops for that overlord.
+
+`subject_type:samanta` (`reference_game_files/game/in_game/common/subject_types/samanta.txt`) is the vanilla substitute: its `creation_visible` is simply `has_advance = samanta_advance`. The two are mutually exclusive by design (one requires the advance, the other forbids it), so a script that creates subjects on behalf of a player-chosen overlord must branch on the overlord's `has_advance = samanta_advance` and pick `subject_type:vassal` or `subject_type:samanta` accordingly, e.g.:
+
+```pdx
+if = {
+    limit = { NOT = { scope:actor = { has_advance = samanta_advance } } }
+    scope:target = { make_subject_of = { target = scope:actor type = subject_type:vassal } }
+}
+else = {
+    scope:target = { make_subject_of = { target = scope:actor type = subject_type:samanta } }
+}
+```
+
+Vanilla peace-treaty code exposes a native `can_make_subject_of = { target = <overlord> type = subject_type:<x> }` trigger (`reference_game_files/game/in_game/common/peace_treaties/subjugate_neighbor_native.txt:24`) that encapsulates a subject type's full `visible`/`creation_visible` eligibility; every confirmed vanilla usage is inside a peace-treaty `potential`/`create_enabled` block evaluated during an active war (`scope:war` in scope). Prefer the direct `has_advance = samanta_advance` branch above for subjugation logic that runs outside a war/peace-treaty context, since that condition is verified to work in any scope.
+
 ## 6. Game Content Modding
 
 This section covers the modding of specific game content types.
@@ -968,6 +1068,8 @@ my_event.1.a.tt: "Tooltip description shown on hover."
 ```
 
 Event options may also pre-evaluate their `effect` stack while building tooltips. Do not assume a `set_variable` earlier in the option or in a called helper is committed before a later visible helper reads that variable. If an option sets `X` and then calls code that compares `var:X`, wrap the state-changing/application sequence in `hidden_effect = { ... }`, or guard the reusable helper with `has_variable = X` before direct `var:X` comparisons. For option triggers that read optional variables, prefer `var:X ?= N`.
+
+Event options are already effect lists. Do not put `effect = { ... }` directly inside `option = { ... }`; the engine treats it as an effect command named `effect` and logs `Unknown effect effect`. Put visible effect calls directly in the option block, and use `hidden_effect = { ... }` only when the effect chain should be hidden from the option tooltip.
 
 For event options, `hidden_effect` hides output but is still part of the option stack that hover rendering can evaluate. It is therefore not a performance boundary. Keep event-option hidden blocks to cheap guards or a scheduler such as a silent trigger, and move heavy hidden work into a `hidden = yes` event's `immediate` block or another path that is not rendered on every tooltip hover. The Engineering Department wonder finalization chain was refactored this way: inauguration options now call a light hidden scheduler, while `tv_engineering_department.6202` runs the expensive per-wonder/per-style construction, cleanup, broadcast, cache, and project-clear logic from its hidden event `immediate`.
 
@@ -1057,6 +1159,12 @@ random_events = {
 
 `on_actions.info` documents `delay = { days = ... }` for event/on_action firing entries, and vanilla/reference scripted effects use `days = 1` inside `trigger_event_*` object forms. In Towards Victory, the configured value is `settings.monthly_country_pulse_event_delay_days` in `data/pulse_registry.yaml`, and `scripts/validate.py` walks registered monthly pulse callbacks plus TV helper calls to enforce the rule.
 
+#### Scripted Effect `custom_description` Localization
+
+Any `custom_description = { text = KEY ... }` inside `common/scripted_effects` needs a matching `KEY = { ... }` entry under `in_game/common/effect_localization/`. A YAML localization entry by itself is only the player-facing string; it is not the effect-localization registry entry the engine validates at load. Missing entries produce `No effect loc KEY` and `PostValidate of effect 'custom_description' returned false`.
+
+For simple static tooltip lines, positive perspectives can map back to the same YAML key, but negative perspectives still need distinct loc ids. Reusing the positive loc id for `global_neg`, `first_neg`, `third_neg`, `global_past_neg`, `first_past_neg`, or `third_past_neg` logs `Negative and positive version share loc for effect loc KEY` at startup. For generated static lines, emit paired `*_negative_text` YAML keys even when the text is only a short negated narration.
+
 #### Scripted Effects That Change IO Variables
 
 If a reusable `scripted_effect` changes an International Organization type variable and callers need to show the gain/loss in their option or action tooltip, do not leave the IO-scope `change_variable` bare inside the helper. Wrap the real effect in `custom_description` and register that `text` key under `in_game/common/effect_localization/`.
@@ -1092,6 +1200,48 @@ All text displayed to the player is handled through the localization system. Loc
 
 Keep each localization key/value on one physical line. When a value needs an intentional line break, emit `\n` inside the quoted string; a real newline inside the value makes the next physical line parse as a new key and can produce `Invalid character` / `Missing colon` startup errors.
 
+When using color formatting, put a separator after the color tag before player-facing text or generated placeholders. Use `#Y Text#!`, `#G {group}#!`, or `#R 30#!`, not `#YText#!`, `#G{group}#!`, or `#R30#!`. The localization formatter can otherwise read the adjacent content as part of the formatting tag and drop or mangle the highlighted span.
+
+#### Text Format Tag Catalog
+
+EU5 localization text formatting is `#tag content#!` — every tag must be closed with `#!`, and (per the rule above) needs a separating space before the content. This is not markdown; the available tags below were confirmed empirically by grepping `reference_game_files/game/main_menu/localization/english/*.yml` (2026-07-10), since there is no single reference file for the full tag list (`textformatting.gui` is a `gfx`-adjacent asset pruned from `reference_game_files/` by `sync_reference.py`).
+
+Color tags (single letter):
+- `#R` red (negative/warning, e.g. `#R lose#!`)
+- `#G` green (positive, e.g. `#G 100#!`)
+- `#Y` yellow (neutral highlighted value, most common)
+- `#W` white/strong emphasis (e.g. difficulty labels)
+- `#V` alternate highlight color
+- `#L` light gray (secondary/de-emphasized value)
+- `#P` / `#N` gray "enabled/positive" vs "disabled/negative" labels (e.g. `Enabled`/`Disabled`)
+- `#X` bright red/danger (e.g. invalid-savegame warnings)
+- `#D` debug-only gray (`_debug_l_english.yml`)
+- `#F` flavor-text gray italic (explanatory asides)
+- Lowercase variants `#r #g #y` exist for the same colors at a different inline weight/size
+
+Style tags:
+- `#bold` / `#italic` — matches its name
+- `#weak` — grayed-out/de-emphasized text
+- `#high` — highlighted/emphasized text
+- `#T` — tooltip section header style (e.g. `#T Current Offer#!`)
+- `#subtle_name` — low-emphasis style for proper-noun-style values (religion/climate names, etc.)
+
+Tabular tooltip tags (used together to lay out tooltip columns, see `general_tooltips_l_english.yml`):
+- `#col_t` — column header cell
+- `#col_m` — column "middle"/secondary cell
+- `#col` — regular column cell
+
+Special-behavior tags:
+- `#TOOLTIP:$BREAKDOWN_TAG$ content#!` — makes the wrapped value hoverable to show a scripted value breakdown (used for computed numeric values throughout tooltips)
+- `#indent_newline:N content#!` — indents wrapped content by N levels after a line break
+- `#trigger_pass` / `#trigger_fail` — colors/icons text to match a trigger's pass/fail state
+
+Before inventing a bespoke solution for a localization display need (e.g. a custom color, a manual tooltip breakdown, hand-rolled tabular alignment), check this catalog first — it covers most needs already used throughout vanilla localization.
+
+For TV's own six-way semantic mapping (positive/negative effect, neutral value, important emphasis,
+beginner tip, flavor text) onto this tag catalog, see `CLAUDE.md` section "Localization Text
+Formatting Convention" — that table is canonical; do not re-derive it ad hoc per file.
+
 Event localization scope variables can be read directly from script scopes such as `ROOT` and `THIS`:
 
 ```yaml
@@ -1109,6 +1259,65 @@ context-independent global binding such as `Player.MakeScope.GetVariable(...)`; 
 scoped GUI widget/tooltip only when the text needs non-player scopes. Do not replace requested
 dynamic action text with static fallback merely to silence the log.
 
+#### Customizable Localization Syntax and Usage
+
+Unlike other Paradox games, EU5 custom localization is not called with a bare loc key — it is called with the data function `Custom('custom_localization_name')`, where the name refers to a scripted block defined in `in_game/common/customizable_localization/`. This is a conditional-text system: the engine picks one of several localization keys at read time based on triggers evaluated in a fixed scope, rather than the caller choosing a key directly.
+
+Each customizable localization block has:
+- a **top-level block name** — this is the database key passed to `Custom('...')`, and is itself a non-additive database entry (see below)
+- `type` — the scope the block's triggers evaluate in (e.g. `country`, `character`, `building`)
+- `random_valid` — optional, defaults to `no`. If `no`, the engine uses the *first* `text` entry whose trigger passes. If `yes`, the engine picks *randomly* among all `text` entries whose trigger passes.
+- one or more `text = { trigger = { ... } localization_key = ... }` entries, evaluated top-to-bottom in the block's `type` scope
+- an optional `fallback = yes` entry — its `trigger` is ignored, and it is used only when no other `text` entry validates. Do not rely on `always = no` inside a `fallback` entry to mean "never used"; `fallback = yes` is what makes it the catch-all.
+
+Example block (`in_game/common/customizable_localization/`):
+
+```
+ruler_residence = {
+    type = country
+    random_valid = yes
+
+    text = {
+        trigger = {
+            government_type = government_type:monarchy
+        }
+        localization_key = custom_royal_palace
+    }
+
+    text = {
+        trigger = {
+            government_type = government_type:republic
+        }
+        localization_key = custom_presidential_palace
+    }
+
+    text = {
+        trigger = {
+            any_owned_location = { is_coastal = yes }
+        }
+        localization_key = custom_seaside_palace
+    }
+
+    text = {
+        trigger = { always = no }
+        fallback = yes
+        localization_key = custom_palace
+    }
+}
+```
+
+Every `localization_key` referenced above (`custom_royal_palace`, `custom_presidential_palace`, `custom_seaside_palace`, `custom_palace`) must still be defined as an ordinary key in a `.yml` localization file — the customizable localization block only selects *which* key resolves, it does not itself hold the display string.
+
+**Calling it from localization text:** use `Custom('block_name')` chained off a scope promote, the same way any other data function is chained. For example, inside an event description:
+
+```yaml
+ruler_killed_event.1.d: "Our ruler was killed yesterday, while at the [ROOT.GetCountry.Custom('ruler_residence')]."
+```
+
+The engine evaluates `ruler_residence`'s triggers against `ROOT.GetCountry` (matching the block's `type = country`) and substitutes whichever key's text resolves for that scope — so the same loc line can render as "royal palace", "presidential palace", "seaside palace", or the "palace" fallback depending on live game state, without scripting a triggered_desc or separate loc keys per case in the calling text itself.
+
+This is the mechanism to prefer over hand-rolled `triggered_desc`-in-loc chains when the *only* thing that varies per-scope is a noun/phrase substitution driven by simple triggers — it keeps the conditional logic in one script block instead of duplicating trigger conditions across every calling loc string.
+
 #### Customizable Localization Database Keys
 
 Customizable localization files under `in_game/common/customizable_localization/` are parsed as database entries keyed by the top-level block name. These keys are not additive merge blocks. For example, adding a second file with `character_title_prefix = { ... }` causes the engine to ignore the duplicate and log `Duplicated key character_title_prefix will not be created`.
@@ -1123,11 +1332,48 @@ The user interface is highly moddable through `.gui` files. The system is modula
 
 GUI `text = "KEY"` properties are localization lookups. If the key is missing from `main_menu/localization`, the engine logs `Unlocalized text 'KEY'` from `pdx_gui_localize.cpp`. Correct the key to one defined by the current data/localization set, add the key for all supported languages, or use `raw_text` only when the intended display is a literal string.
 
+For non-clickable dynamic text, GUI can resolve a generated key directly with
+`text = "[Localize(Concatenate('PREFIX_', ToString_int32(FixedPointToInt(value))))]"`.
+The Engineering Department proposal text at
+`src/in_game/gui/panels/organization/tv_engineering_department.gui:556` is the
+working local precedent. This is appropriate for ordinary localized prose such
+as a ceremony stage's active/completed flavor sentence; it does not create or
+link a game concept. Continue to use a registered raw concept id with
+`SelectGameConcept` only when a clickable concept link is required.
+
+The same `text = "[Localize(Concatenate(...))]"` route can render a dynamically
+chosen inline font icon: make each generated localization value exactly
+`@icon_name!`, where `icon_name` is validated against
+`main_menu/gui/shared/font_icons.gui`. This is the right pattern for compact,
+data-owned state badges such as unique-wonder ceremony steps. Keep the icon
+selection with the per-entity/per-step data and emit a key containing both
+identifiers; do not replace it with a global position-to-icon map, a
+`GetConceptTexture` illustration, or an unbounded set of static GUI branches.
+
 GUI `raw_text` does not expand `$LOCALIZATION_KEY$` substitutions. A value such as `raw_text = "@trade! $TV_TRADE_LEAGUE_IO_COLUMN$"` renders the `$TV_TRADE_LEAGUE_IO_COLUMN$` text literally. For static localized labels with icons, use `text = "TV_TRADE_LEAGUE_IO_COLUMN"` and put `@trade! ...` inside the localization value. For dynamic values that must use `raw_text`, split the localized label into a separate `text` widget if needed.
 
 GUI image `fittype` values are EU5-specific, not CSS object-fit names. Vanilla examples use values such as `centercrop`, `fill`, `start`, and `end`; `fittype = contain` logs `Unknown fit type 'contain'` during GUI loading.
 
+`modify_texture` belongs to a rendered image layer such as `background` or `icon`, not to a layout container. A named block can hide this boundary: if a reusable card type defines `block "card_bg"` at its `vbox` level, a `blockoverride "card_bg"` also writes into that `vbox`; placing `modify_texture` beside `using = bg_paper_card_situations` therefore logs `Property 'modify_texture' not handled` and can fail the widget's property setup. Put conditional texture modifiers inside a real background layer instead, as vanilla does in `attribute_columns/cabinet_action.gui`:
+
+```gui
+blockoverride "card_bg" {
+    background = {
+        using = paper_card_texture
+        modify_texture = {
+            visible = "[MyCondition]"
+            using = color_light_green_texture
+            blend_mode = overlay
+        }
+    }
+}
+```
+
+When replacing a template-backed card background, retain its original background layers, texture density, frame/stretch settings, and base overlays before appending the conditional modifier. Do not remove a dynamic state color merely to avoid the property error.
+
 Custom game concepts require both localization and a definition in `main_menu/common/game_concepts/`. A localization pair such as `game_concept_tv_foo` / `game_concept_tv_foo_desc` does not create the concept by itself. If `[tv_foo|e]` is used before `tv_foo = { texture = "..." }` is registered, the localization parser treats `tv_foo` as a data-system function and logs `Could not find data system function 'tv_foo'`.
+
+The in-game Europedia (Encyclopedia) has no native, data-driven way to register a new sidebar page/category — the `Encyclopedia.AccessPages`/`EncyclopediaPage` collection is engine-populated and read-only (getters only: `GetTitle`, `Self`, `AccessSelf`), and a `game_concept`'s `family` field is a thematic tag with no page/category effect in vanilla's own `encyclopedia_lateralview.gui`. A dedicated browsable tab requires fully overriding `in_game/gui/encyclopedia_lateralview.gui` and toggling two mutually-exclusive content trees with a `GetVariableSystem` variable (one button sets it, every vanilla page button clears it, both sides gate their `visible=` on `HasValue`/`Not(HasValue)`) — the only working precedent found, confirmed against released community mod `3613232232`. See `docs/knowledge/risk_cards/europedia.md` and `src/in_game/gui/encyclopedia_lateralview.gui` (the `tv_encyclopedia_active` tab toggle + `tv_encyclopedia_filter` category filter, with a generated card list reusing existing `game_concept_<id>`/`_desc` pairs rather than authoring new prose).
 
 Dynamic game-concept links are safe only when the dynamic value is a registered raw concept id. In a location-window test, a flag-derived value localized before link parsing, so `SelectGameConcept(dynamic_key, ...)` effectively tried to resolve a localized display name as a concept id and logged `Could not find data system function`. Do not feed concept-link helpers `GetFlagName` or other localization-prone values. For generated dynamic routes, store a numeric id and build registered ids such as `tv_wonder_display_<id>` for `SelectGameConcept(...)` / `[...|E]`; use `Localize(Concatenate('game_concept_', key))` only for intentionally plain, non-clickable text.
 
@@ -1150,6 +1396,11 @@ tv_reference_display_modifiers_effect = {
 ```
 
 The `always = no` guard prevents runtime state changes while leaving static modifier references in a loaded script file.
+
+Every generated static display modifier also needs matching `STATIC_MODIFIER_NAME_<id>`
+localization in each supported `main_menu/localization` language. The modifier database
+requests the name key even when the modifier is display-only; missing keys can fall back to
+generated text such as `STATIC MODIFIER NAME tv trade chain strength display 18980`.
 
 `add_country_modifier` validates against static country modifiers, not `common/auto_modifiers`.
 Country Auto modifiers can drive real automatic country effects through their own
@@ -1183,6 +1434,12 @@ When a widget is a direct child of `hbox` or `vbox`, the box layout owns placeme
 
 Keep `ignoreinvisible` on layout containers, not on plain `widget` wrappers. A generic image wrapper `widget` with `ignoreinvisible = yes` logs `Property 'ignoreinvisible' not handled` and fails property setup for the `uberwidget`. For conditional illustration areas, set `visible = ...` on the wrapper and put the actual images in child widgets with their own `visible` expressions.
 
+Zeroing a reusable card type's header height does not hide its header content, and stacked cards need an explicit height. A card template built like this project's `tv_engineering_department_card_common` (`type ... = hbox { widget = { block "header_size" {...} ... block "common_header" { block "common_header_icon" {...} block "common_header_text_full" {...} } } ... }`) still creates and renders the default `common_header` icon+text even when the caller does `blockoverride "header_size" { size = { -1 0 } }` — that size override only constrains the header widget's own declared bounds, not its child content, so the default placeholder icon+title overflows the collapsed parent and appears as a leaked duplicate above the card. To make a card genuinely untitled, also `blockoverride "common_header" {}` (empties the icon+text block itself). Separately, a plain `widget` wrapper in this codebase's GUI convention does not auto-size vertically from its child content the way `hbox`/`vbox` do — every working stacked-card usage sets `layoutpolicy_vertical = fixed` plus an explicit numeric `minimumsize`/`maximumsize` height directly on the card instantiation. Omitting it collapses every card to zero height, so a `vbox` of such cards renders them all piled on the same position instead of listed in sequence. See `docs/knowledge/risk_cards/wonders.md` rule 22.
+
+The "expanding child blows out a bounded parent" failure above recurs even when the numbers look safe on paper. The ceremony cards' text column sat in an extra `widget = { layoutpolicy_horizontal = expanding text_multi = { max_width = 380 ... } } }`, and even though 380 fit the arithmetic budget (card width minus margin minus icon column minus spacing), the rendered text column still measured ~375px and pulled the fixed-500-wide card wider than its declared bound — because the expanding wrapper widget doesn't respect an ancestor's size clamp at all, regardless of whether the inner content numerically fits. Do not wrap `text_multi` in an extra expanding `widget`; place it directly as the `hbox` child with `layoutpolicy_horizontal = expanding`, `max_width`, and `autoresize = yes` set on the `text_multi` itself (verified precedent: `tv_engineering_department.gui:8422-8428`), and keep `max_width` with a comfortable safety margin below the arithmetic budget rather than flush against it.
+
+An auto-height ("shrinking") chain must be unbroken from the outermost flexible card down to the actual variable-height content — one hardcoded-height wrapper anywhere in the middle caps the whole chain. The pattern is: `layoutpolicy_vertical = shrinking` + `size = { W -1 }` on each nested wrapper `widget`, and `set_parent_size_to_minimum = yes` + `layoutpolicy_vertical = shrinking` on each nested `vbox`, repeated at every level between the card and its content — not just the first level. A card whose outer instantiation and first-level wrapper both correctly use this pattern can still fail to grow if a second- or third-level wrapper further in reverts to an old fixed `size = { W N }` with no shrinking policy (e.g. a leftover from when that area only ever held much shorter content); that single link caps the measured content at its hardcoded number regardless of how much actually renders inside it, so new variable-count content silently overflows past the card instead of stretching it taller.
+
 When a conditional illustration is a fixed preview column with mutually exclusive background images, give the wrapper explicit bounds and size the visible preview child to fill them. `layoutpolicy_expanding` alone does not guarantee a button or background texture will paint at the intended size; if the preview sits inside a plain `widget`, the child `button` can shrink to the natural width of its content unless it also fills the card. In wonder-location panels, keep the existing card/hbox/vbox structure, make the clickable wrapper fill the card, give the image column its own fixed width, and size the preview widget with fixed pixels that match the content area.
 
 Do not put paragraph-style localized text in an unconstrained `hbox` elastic column. A pattern like `hbox = { ... widget = { layoutpolicy_horizontal = expanding size = { -1 92 } text_single = { multiline = yes ... } } }` can let the text's natural width flow back into the row. In the Engineering Department IO, this made a child `vbox` expand to 548.3px while its parent card content was correctly bounded at 470px. Use a fixed-width text area, preferably a small card/container with `text_multi`, `max_width`, and `autoresize`:
@@ -1204,6 +1461,8 @@ widget = {
 ```
 
 Vanilla IO header help text uses the same bounded `text_multi` pattern with `max_width` and `autoresize`.
+
+The above guards against a row growing too wide; the opposite failure — a row collapsing too narrow — has a different, easy-to-miss cause. An `hbox`/`vbox` that declares an explicit `size = { W H }` alongside a mix of fixed and expanding children (e.g. a fixed-width icon column plus an expanding `text_multi`) must also set `layoutpolicy_horizontal = expanding` on the container itself. Without it, the container does not honor its own declared `size` at all: it falls back to sizing off the sum of its children's intrinsic minimums, and a `text_multi` with no `minimumsize` has an intrinsic width of ~0 until layout stretch is applied. The net effect is the whole row silently collapsing to roughly the fixed column's width, with the expanding text column rendering at effectively 0 width (and consequently unselectable/unhoverable). `max_width`/`autoresize` on the `text_multi` itself does not substitute for this container-level property — both are required together. See `docs/knowledge/risk_cards/wonders.md` rule 11 and `docs/knowledge/anti_patterns.yaml` rule `hbox_explicit_size_without_layoutpolicy_horizontal_collapses_to_content_width` for the verified instance (`tv_engineering_department.gui`'s ceremony stage cards) and working precedent citations.
 
 Standalone `io_character_card` widgets inherit `character_entry` name sort highlights. Those highlights call `FilteredSortedList.IsKeyHoveredByWidgetName`, which only works when a `FilteredSortedList` datacontext exists. For cards shown in custom IO panels, situation panels, or other non-sortable contexts, override both inherited highlight blocks:
 
@@ -1240,6 +1499,8 @@ blockoverride "block_title" {
 Likewise, do not use `TooltipTextBlock` as a normal always-visible panel widget. `TooltipTextBlock` inherits `tooltip_text_block_template`, and that template's text color block reads `ExtraTooltipInfo.GetTintColor`. In a real tooltip (`ContextualTooltipType`, `AlertTooltipType`, etc.) that context exists; in a normal panel it does not. For ordinary UI text, use `text_single` or `text_multi` instead.
 
 When a tooltip row combines `TooltipStringPairList` / `TooltipTextBlock` with a preview image, avoid hard-coding the row to `size = { W H }` or wrapping the modifier block in an `expanding` child. That can keep the frame visually short while the visible text spills below the border. Prefer width-fixed, height-auto rows instead: constrain the row with `size = { W -1 }` or `minimumsize`, let the visible content contribute its own height through `set_parent_size_to_minimum`, and keep the parent container `ignoreinvisible = yes` so hidden rows do not reserve space.
+
+That last point undersells a sharp edge: `set_parent_size_to_minimum = yes` computes the vbox's own size from the MINIMUM size each child reports — not from any `layoutpolicy_horizontal`/`size` set on the vbox itself or on its parent `widget`. Giving the *row/container* a `minimumsize` is not enough if the actual visible leaf inside it is a bare `text_multi` with only `max_width`/`autoresize`/`layoutpolicy_horizontal = expanding` and no `minimumsize` of its own — that leaf reports 0 intrinsic width, which zeroes out the whole chain: the vbox (and any ancestor `widget` that in turn auto-fits to it) collapses to margin-only width, and the text renders unselectable at effectively 0 width, with no error in the log. Two plausible-looking fixes do NOT work here and were confirmed not to by live measurement: adding `ignoreinvisible = yes` to an unrelated sibling container, and adding/removing `layoutpolicy_horizontal`/`layoutpolicy_vertical`/explicit `size` on the ancestor `widget`/`vbox` — the vbox stayed stuck at exactly its own doubled horizontal margin regardless. The actual fix is to give the LEAF `text_multi` its own `minimumsize = { W -1 }` matching its `max_width`, matching the vanilla `minimumsize = { W -1 }` + `autoresize` idiom (e.g. `reference_game_files/game/in_game/gui/advances_lateralview.gui:331-332`). See `docs/knowledge/risk_cards/wonders.md` rule 22's sixth follow-up and `docs/knowledge/anti_patterns.yaml` rule `set_parent_size_to_minimum_vbox_needs_leaf_minimumsize_for_width` for the verified instance.
 
 For GUI scripted-effect tooltips, match the effect's scope links to the object passed by the GUI. `ShowScriptedEffectForScope('my_effect', LocationView.GetLocation.MakeScope.Self)` makes the current effect root the location itself. From that effect, country-owned reward lines should use:
 
@@ -1336,7 +1597,7 @@ allow = {
 
 Multiple `custom_tooltip` blocks in `allow` are AND-combined. Each evaluates independently and shows its own green/red state. Source: `estate_buildings.txt`, `capital_buildings.txt`.
 
-Do not use `has_variable = X` as a guard for `var:X = ...` inside generic action `allow` or tooltip logic. The UI evaluator may still fetch direct `var:` links from sibling trigger blocks while building tooltips. For nullable variables, use optional variable links (`var:X ?= ...`) so an absent variable returns false without logging an unset-scope error.
+Do not use `has_variable = X` as a guard for `var:X = ...` or `var:X < N` inside generic action `allow`, `potential`, selector, or tooltip logic. The UI evaluator may still fetch direct `var:` links from sibling trigger blocks while building tooltips or rendering the action card. For nullable variables, use optional variable links (`var:X ?= ...`) so an absent variable returns false without logging an unset-scope error. For bounded less-than checks where no optional threshold syntax is verified, generate literal optional branches (`var:X ?= 0`, `var:X ?= 1`, etc.) plus an explicit unset branch if missing state should pass.
 
 For custom generic-action buttons that call `construct_building`, do not rely on the building type's `max_levels` or a lone `can_build_building` check. Repeat the cap logic in a reusable trigger and call it from the action `allow`, any target picker `visible`/`enabled`, and the final effect guard. Country-wide caps should count queued construction with:
 

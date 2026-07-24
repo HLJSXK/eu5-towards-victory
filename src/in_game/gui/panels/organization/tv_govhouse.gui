@@ -300,13 +300,126 @@ organization_panel = {
 		visible = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'members' )]"
 	}
 
+	# -- Law parliament tab labels and vote cards -----------------------------
+	blockoverride "organization_laws_tab_text" {
+		text = "TV_GOVHOUSE_LAWS_TAB"
+	}
+
+	blockoverride "organization_parliament_tab_text" {
+		text = "TV_GOVHOUSE_ASSEMBLY_TAB"
+	}
+
+	blockoverride "organization_parliament_tab_tooltip" {
+		tooltipwidget = {
+			using = SubTabIOParliamentTooltip
+		}
+	}
+
+	blockoverride "organization_parliament_vote_cards_hbox" {
+		hbox = {
+			spacing = 2
+			layoutpolicy_horizontal = expanding
+
+			# Support
+			io_parliament_vote_card = {
+				blockoverride "parliament_card_header" {
+					text_single = {
+						text = "[InternationalOrganizationsView.GetInternationalOrganization.GetParliament.GetVotedCountriesCount]"
+						default_format = "#color_green"
+						fontsize = 14
+					}
+					text_single = {
+						fontsize = 14
+						raw_text = "[Localize('IO_PARLIAMENT_VOTED')] [Localize('YES')]:"
+					}
+					expand = {}
+					text_single = {
+						text = "[InternationalOrganizationsView.GetVotedCountriesVoteStrength|0]"
+						default_format = "#color_green"
+						fontsize = 14
+						tagtooltip_enabled = yes
+						tooltip = "[special_status_power|e]"
+					}
+				}
+				blockoverride "parliament_card_list_datamodel" {
+					datamodel = "[InternationalOrganizationsView.GetParliamentVotedCountriesWithPlayerFirst]"
+				}
+				blockoverride "io_parliament_vote_card_row_extra" {
+					using = io_parliament_vote_card_row
+					blockoverride "bribe_right_action" {}
+				}
+			}
+
+			# Not yet voted
+			io_parliament_vote_card = {
+				visible = "[InternationalOrganizationsView.GetInternationalOrganization.GetParliament.IsLawDebate]"
+				blockoverride "parliament_card_header_icon" {}
+				blockoverride "parliament_card_header" {
+					expand = {}
+					text_single = {
+						align = left
+						text = "[InternationalOrganizationsView.GetInternationalOrganization.GetParliament.GetNonVotedCountriesCount]"
+						default_format = "#yellow_titles"
+					}
+					text_single = {
+						align = left
+						text = "IO_PARLIAMENT_VOTES_LEFT"
+					}
+					expand = {}
+					text_single = {
+						text = "[InternationalOrganizationsView.GetNonVotedCountriesVoteStrength|0]"
+						default_format = "#yellow_titles"
+						tagtooltip_enabled = yes
+						tooltip = "[special_status_power|e]"
+					}
+				}
+				blockoverride "parliament_card_list_datamodel" {
+					datamodel = "[InternationalOrganizationsView.GetParliamentNonVotedCountriesWithPlayerFirst]"
+				}
+			}
+
+			# Opposition
+			io_parliament_vote_card = {
+				blockoverride "parliament_card_header_icon" {
+					header_action_button_left = {
+						size = { 30 30}
+						blockoverride "header_button_icon_size" { size = { 30 30 } }
+						blockoverride "header_button_frame_inner" { visible = no }
+						blockoverride "icon_overlay" {}
+						blockoverride "icon_texture" {
+							texture = "gfx/interface/icons/international_organizations/law_voting_no.dds"
+						}
+						blockoverride "header_button_text_layout" {}
+						title = "VOTE_IO_PARLIAMENT"
+						description = "vote_in_organization_parliament_desc"
+						actor = "[InternationalOrganizationsView.GetPlayer]"
+						parameter = {
+							parameter_name = "recipient"
+							parameter_value = "[InternationalOrganizationsView.GetInternationalOrganization]"
+						}
+						parameter = {
+							parameter_name = "vote"
+							parameter_value_bool = no
+						}
+						left_action = { action_name = "vote_in_organization_parliament" }
+						tooltipwidget = {
+							using = io_parliament_vote_button_tooltip
+						}
+					}
+				}
+				blockoverride "io_parliament_vote_card_row_extra" {
+					using = io_parliament_vote_card_row
+					blockoverride "bribe_left_action" {}
+				}
+			}
+		}
+	}
+
 	# -- Header: Grand General character portrait -----------------------------
 	blockoverride "country_header_character_visible" {
-		visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_conquest_general_char').IsSet]"
+		visible = yes
 	}
-	blockoverride "country_header_character_context" {
-		datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_conquest_general_char').GetCharacter]"
-	}
+	blockoverride "country_header_character_context" {}
 	blockoverride "country_header_religion" {}
 	blockoverride "extra_titles" {}
 	blockoverride "country_header_names_visible" {
@@ -320,6 +433,72 @@ organization_panel = {
 			margin_right = 10
 			blockoverride "character_name_text" {
 				raw_text = "[Character.GetNameToFit('(int32)40', '(bool)yes')]"
+			}
+		}
+	}
+	blockoverride "character_widget" {
+		widget = {
+			position = { 0 -30 }
+			allow_outside = yes
+			block "portrait_io_widget" {
+				size = { 250 200 }
+			}
+
+			block "character_portrait_anchor" {
+				parentanchor = bottom
+			}
+
+			portrait_standard_full_body_center_button = {
+				visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_conquest_general_char').IsSet]"
+				block "character_right_visible" {
+					visible = yes
+				}
+				parentanchor = bottom
+
+				size = { 250 200 }
+				datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_conquest_general_char').GetCharacter]"
+			}
+
+			vbox = {
+				visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_conquest_general_char').IsSet)]"
+				size = { 250 200 }
+				parentanchor = center
+				widgetanchor = center
+				position = { 0 0 }
+				spacing = 2
+
+				expand = {}
+				spacer = { size = { 250 50 } }
+				text_single = {
+					size = { 250 30 }
+					raw_text = "+"
+					fontsize = 34
+					align = center|nobaseline
+					default_format = "#yellow_titles"
+				}
+				text_single = {
+					size = { 250 20 }
+					text = "TV_IO_HEADER_APPOINT_CHIEF_PROMPT"
+					fontsize = 14
+					align = center|nobaseline
+					default_format = "#high"
+				}
+				expand = {}
+			}
+
+			action_button = {
+				visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_conquest_general_char').IsSet)]"
+				size = { 250 200 }
+				parentanchor = center
+				widgetanchor = center
+				position = { 0 0 }
+				alpha = 0
+				alwaystransparent = no
+				using = action_button_common_template
+				title = "tv_appoint_conquest_general_leader"
+				description = "tv_appoint_conquest_general_leader_desc"
+				actor = "[InternationalOrganizationsView.GetPlayer]"
+				left_action = { action_name = "tv_appoint_conquest_general_leader" }
 			}
 		}
 	}

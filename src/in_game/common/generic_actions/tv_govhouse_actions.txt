@@ -84,8 +84,11 @@ tv_appoint_governor = {
 			scope:target_1 = {
 				custom_tooltip = {
 					text = TV_GOVHOUSE_REGION_OWNED_TT
-					any_location_in_region = {
-						owner ?= scope:actor
+					scope:actor = {
+						is_target_in_variable_list = {
+							name = tv_govhouse_region_list
+							target = scope:target_1
+						}
 					}
 				}
 			}
@@ -132,14 +135,22 @@ tv_appoint_governor = {
 			custom_tooltip = {
 				text = TV_HAS_VARIABLE_NOT_SET_TT
 				NOT = { has_variable = tv_is_governor }
+				NOT = { has_variable = tv_govhouse_pending_governor_assignment }
 			}
 		}
 	}
 
 	effect = {
-		scope:actor = {
-			hidden_effect = {
-				tv_governor_request_appointment_effect = yes
+		if = {
+			limit = {
+				exists = scope:target
+				exists = scope:target_1
+			}
+			custom_tooltip = {
+				text = TV_GOVHOUSE_APPOINT_GOVERNOR_EFFECT_TT
+				scope:actor = {
+					trigger_event_silently = { id = tv_govhouse.8 }
+				}
 			}
 		}
 	}
@@ -185,22 +196,6 @@ tv_auto_assign_governors = {
 			scope:actor = {
 				any_in_list = { variable = tv_govhouse_region_list
 					save_temporary_scope_as = tv_govhouse_auto_candidate_region
-					any_location_in_region = {
-						owner ?= scope:actor
-					}
-					OR = {
-						scope:actor = {
-							capital ?= {
-								region = scope:tv_govhouse_auto_candidate_region
-							}
-						}
-						AND = {
-							any_location_in_region = {
-								owner ?= scope:actor
-								has_building_with_at_least_one_level = tv_govhouse_local_administration
-							}
-						}
-					}
 					NOT = {
 						scope:actor = {
 							any_in_list = { variable = tv_governor_list
@@ -231,6 +226,7 @@ tv_auto_assign_governors = {
 					custom_tooltip = {
 						text = TV_HAS_VARIABLE_NOT_SET_TT
 						NOT = { has_variable = tv_is_governor }
+						NOT = { has_variable = tv_govhouse_pending_governor_assignment }
 					}
 				}
 			}
@@ -380,8 +376,11 @@ tv_remove_governor = {
 			scope:target_1 = {
 				custom_tooltip = {
 					text = TV_GOVHOUSE_REGION_OWNED_TT
-					any_location_in_region = {
-						owner ?= scope:actor
+					scope:actor = {
+						is_target_in_variable_list = {
+							name = tv_govhouse_region_list
+							target = scope:target_1
+						}
 					}
 				}
 			}
@@ -455,8 +454,11 @@ tv_change_governor = {
 			scope:target_1 = {
 				custom_tooltip = {
 					text = TV_GOVHOUSE_REGION_OWNED_TT
-					any_location_in_region = {
-						owner ?= scope:actor
+					scope:actor = {
+						is_target_in_variable_list = {
+							name = tv_govhouse_region_list
+							target = scope:target_1
+						}
 					}
 				}
 			}
@@ -501,14 +503,22 @@ tv_change_governor = {
 			custom_tooltip = {
 				text = TV_HAS_VARIABLE_NOT_SET_TT
 				NOT = { has_variable = tv_is_governor }
+				NOT = { has_variable = tv_govhouse_pending_governor_assignment }
 			}
 		}
 	}
 
 	effect = {
-		scope:actor = {
-			hidden_effect = {
-				tv_governor_request_appointment_effect = yes
+		if = {
+			limit = {
+				exists = scope:target
+				exists = scope:target_1
+			}
+			custom_tooltip = {
+				text = TV_GOVHOUSE_APPOINT_GOVERNOR_EFFECT_TT
+				scope:actor = {
+					trigger_event_silently = { id = tv_govhouse.8 }
+				}
 			}
 		}
 	}

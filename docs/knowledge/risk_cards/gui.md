@@ -19,10 +19,45 @@ Load this card before editing `.gui` files or GUI-bound localization expressions
 4. Keep text layout bounded.
    Multiline text inside elastic `hbox`/`vbox` columns needs explicit width or `text_multi`
    with `max_width`; otherwise natural text width can resize the parent.
+   The opposite failure is just as common and easier to miss: an `hbox`/`vbox` that sets an
+   explicit `size = { W H }` alongside a fixed column (icon, portrait) plus an expanding
+   `text_multi` must also declare `layoutpolicy_horizontal = expanding` on the container
+   itself. Without it, the container ignores its own declared `size` and instead sizes off
+   the sum of children's intrinsic minimums — a `text_multi` with no `minimumsize` has ~0
+   intrinsic width — so the whole row silently collapses toward the fixed column's width and
+   the text column renders at effectively 0 width (unselectable/unhoverable), with no error
+   in the log. `max_width`/`autoresize` on the `text_multi` does not substitute for this
+   container-level property; both are required together. See
+   `docs/knowledge/anti_patterns.yaml` rule
+   `hbox_explicit_size_without_layoutpolicy_horizontal_collapses_to_content_width`.
 
 5. Verify blockoverride shape from vanilla.
    Some blockoverrides replace scalar properties, not widget containers. Read the template
    source before adding child widgets inside a blockoverride.
+   This also governs `parentanchor`/percentage-`size` legality: a `blockoverride "X"` body is
+   NOT automatically a plain container just because it looks like a sibling of other widgets
+   in your own `.gui` file — find where the base type declares `block "X" {}` in
+   `reference_game_files` and check what actually encloses it. `situation_panel_main_content`
+   is declared inside `scrollwidget = { vbox = { ... block "situation_panel_main_content" {}
+   ... } }`, so every direct child emitted inside that blockoverride is really a vbox child at
+   runtime and cannot use `parentanchor` or a percentage `size` directly. Do NOT wrap the
+   ENTIRE blockoverride body (including the real scrollable tabs/pages content) in one outer
+   `widget` to fix this — a plain `widget` does not propagate its children's natural height to
+   its parent the way `vbox` does, so that hides the scrollable content's true height from the
+   enclosing `scrollarea` and disables scrolling. Instead, wrap only the OFFENDING widget: give
+   it its own `vbox = { ignoreinvisible = yes ... }` (a plain `widget` cannot set
+   `ignoreinvisible` on itself — see point 8 below) as a sibling of the real content vbox, then
+   nest a plain `widget` inside that, and put `parentanchor`/percentage `size` on a THIRD widget
+   nested one level deeper still. See `docs/knowledge/anti_patterns.yaml` rule
+   `blockoverride_content_indirectly_inside_vbox_via_base_template`.
+
+6. Don't chain `.Custom(...)` off `.MakeScope`.
+   `MakeScope` converts a typed scope (Country/Character/Location) into the generic `Scope`
+   object used for `GetVariable`/`var:` access, which does not expose the customizable-
+   localization `Custom` data function. Call `.Custom('key')` directly on the typed scope
+   (e.g. `InternationalOrganizationsView.GetPlayer.Custom('key')`), matching the scope `type`
+   declared in the `.txt` customizable_localization block. See
+   `docs/knowledge/anti_patterns.yaml` rule `makescope_loses_type_needed_for_custom_data_function`.
 
 6. Distinguish game concept links from plain localization keys.
    In GUI-bound localized text, `[key|E]` requires `key` to be registered in
@@ -78,6 +113,20 @@ Load this card before editing `.gui` files or GUI-bound localization expressions
     with `size = { W -1 }` or `minimumsize`, set the containing layout to size
     itself from its children, and keep `ignoreinvisible = yes` on the container
     so hidden wonder levels do not reserve space.
+    This "size itself from its children" behavior (`set_parent_size_to_minimum = yes`
+    on a `vbox`) has a sharp edge that bites specifically on WIDTH: it computes the
+    vbox's size from the MINIMUM size each child reports, not from any
+    `layoutpolicy_horizontal`/`size` set on the vbox or its own parent `widget`. A bare
+    `text_multi` with only `max_width`/`autoresize`/`layoutpolicy_horizontal = expanding`
+    (no `minimumsize` of its own) reports a 0 intrinsic width, so it silently zeroes out
+    the whole chain — the vbox (and anything wrapping it) collapses to margin-only width,
+    and the text renders unselectable at effectively 0 width, with no error in the log.
+    Give every bare `text_multi`/leaf that sits inside a `set_parent_size_to_minimum`
+    vbox its own `minimumsize = { W -1 }` matching its `max_width`, even though the row/
+    container above it already looks correctly constrained — a correctly-sized ancestor
+    does not help if the one leaf actually rendering content reports zero width. See
+    `docs/knowledge/anti_patterns.yaml` rule
+    `set_parent_size_to_minimum_vbox_needs_leaf_minimumsize_for_width`.
 
 15. Match scripted-effect tooltip scopes to the GUI object passed in.
     `ShowScriptedEffectForScope(..., LocationView.GetLocation.MakeScope.Self)`
@@ -121,7 +170,8 @@ Load this card before editing `.gui` files or GUI-bound localization expressions
     If GUI builds modifier ids with `Concatenate(...)`, such as
     `tv_wonder_display_<id>_level_<level>` or
     `tv_wonder_display_<id>_local_level_<level>`, generate matching static
-    display modifiers and an unreachable script block with
+    display modifiers, matching `STATIC_MODIFIER_NAME_<id>` localization in
+    every supported language, and an unreachable script block with
     `if = { limit = { always = no } ... }` that applies every possible country
     or location display modifier through the correct `add_*_modifier` effect.
     Scripted-effect tooltip previews have the same database boundary:
@@ -167,7 +217,54 @@ Load this card before editing `.gui` files or GUI-bound localization expressions
     not a reliable script scope for action effects. If `scope:target` is absent,
     guarded effects can no-op silently with no cost and no error.
 
+27. Preserve existing panel structure.
+    Do not collapse staged rows, per-target display branches, target-specific labels,
+    or generated per-id GUI entries into generic fallback UI merely to make a data-list
+    change smaller. Preserve the established player-facing shape, or extend the
+    generator/data source and regenerate.
+
+28. Cache scripted-trigger results for list/row filtering.
+    GUI expressions cannot evaluate scripted triggers at all (rule 2 covers `has_variable`
+    specifically; this generalizes to any scripted_trigger, such as an age-gate or
+    `has_advance` eligibility check). If a widget needs to filter or show/hide rows based on
+    trigger logic, mirror that trigger's result into a country variable via a scripted_effect,
+    and refresh it from a real lifecycle point (join/founding effect plus the feature's existing
+    monthly_country_pulse hook) — never from a GUI/tooltip read path. Bind the GUI `visible=`
+    expression to the mirrored variable.
+
+29. `TooltipTextBlock` does not shrink to match a row-sized `TooltipRequirementsList`/`text_single`.
+    `TooltipTextBlock` (vanilla `main_menu_cooltip_types.gui`) wraps its text in a fixed
+    `vbox { margin = { @tooltip_inner_margin @tooltip_inner_margin } }` (10px each side) around a
+    `text_multi_template` textbox, with no exposed blockoverride for font size or row height.
+    Setting `blockoverride "row_size"` / `blockoverride "field_text_format"` on a sibling
+    `TooltipRequirementsList` (or a plain `text_single`) does not affect `TooltipTextBlock`, so a
+    mutually-exclusive-visibility swap between the two (e.g. "has effect" vs "no effect" rows in
+    the same slot) shows a visible height jump. When a fallback/empty-state line must match a
+    sized row's height, use a plain `text_single` with the same `fontsize`/fixed `size` instead of
+    `TooltipTextBlock`.
+
+30. Pre-bake connector lines for fixed-position node-graph overlays.
+    `.gui` has no rotation/line-drawing primitive outside coat-of-arms rendering (verified: only
+    `coat_of_arms` files use `rotation = ...` in `reference_game_files`). If a panel needs
+    prerequisite-to-node connector lines between fixed authored positions (a skill-tree/node-graph
+    layout), do not try to fake it with stretched/rotated sprites. Pre-render all connectors as one
+    transparent full-canvas PNG/DDS overlay in Python (see
+    `scripts/gen_tv_victory_tree_connectors.py`, which ports the Catmull-Rom curve math from
+    `towards_victory_editor_web/static/victory_tree.js` via `scripts/dds_image_lib.py`), then place it as a
+    plain `background` widget layered under the node buttons.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`, then check the in-game error log after hover
 testing the panel. GUI failures often appear only when the widget is rendered or hovered.
+
+## Relevant Anti-Patterns
+
+- `gui_list_filter_needs_cached_variable` [advisory]: GUI row/list visibility cannot bind to a
+  scripted_trigger directly; mirror it into a country variable refreshed from a lifecycle hook.
+- `hbox_explicit_size_without_layoutpolicy_horizontal_collapses_to_content_width` [advisory]: an
+  hbox/vbox with an explicit `size` and mixed fixed/expanding children also needs
+  `layoutpolicy_horizontal = expanding` on itself, or it collapses to children's intrinsic width.
+- `gui_node_graph_connectors_need_prebaked_overlay` [advisory]: fixed-position node-graph
+  connector lines cannot be drawn with engine GUI widgets; pre-render them as a transparent
+  overlay DDS in Python instead.

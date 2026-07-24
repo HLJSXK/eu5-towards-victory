@@ -1,0 +1,226 @@
+﻿# Towards Victory - Engineering Department International Organization
+# Non-unique, founder-only IO. The standalone bootstrap guarantees one instance
+# per country; tv_engineering_department_create_effect also repairs a damaged
+# existing instance instead of creating a duplicate. Country membership flag:
+# tv_engineering_department_member.
+#
+# Leader: Great Engineer character. Selected manually by leader_country via
+# tv_appoint_engineering_leader / tv_remove_engineering_leader /
+# tv_change_engineering_leader, generated from data/io_leaders.yaml. The
+# country variable tv_great_engineer_char holds the appointed character.
+#
+# This file defines the dependency IO and persistent variables used by
+# Wonder Construction. Domestic Support, survey progress, and active
+# construction progress are stored on the IO so the custom panel can show their
+# monthly changes.
+
+tv_engineering_department = {
+	has_target = no
+	unique = no
+	has_leader_country = yes
+	leader_title_key = "TV_ENGINEERING_DEPARTMENT_LEADER"
+	use_regnal_number = no
+	leader_type = character
+	leader = {
+		leader_country ?= {
+			var:tv_great_engineer_char ?= {
+				if = {
+					limit = { is_artist = no }
+					add_to_list = leaders
+				}
+			}
+		}
+	}
+	leader_change_trigger_type = none
+	leader_change_method = none
+	disband_if_no_leader = no
+	show_on_diplomatic_map = no
+
+	# Founder-only IO. Keep the default parliament tab hidden while the wonder
+	# mechanic is being built out in custom tabs.
+	has_parliament = no
+
+	variables = {
+		tv_wonder_concept_progress = {
+			format = "TV_WONDER_CONCEPT_PROGRESS_FORMAT"
+			change_format = "VARIABLE_CHANGE_FORMAT"
+			min = 0
+			max = 100
+			start = 0
+			monthly_change = {
+				if = {
+					limit = {
+						international_organization_has_leader = yes
+						leader_country ?= {
+							has_variable = tv_engineering_department_member
+							has_variable = tv_wonder_concept_in_progress
+							tv_wonder_in_conception_trigger = yes
+							custom_tooltip = {
+								text = TV_HAS_GREAT_ENGINEER_CHAR_TT
+								has_variable = tv_great_engineer_char
+							}
+							var:tv_great_engineer_char ?= { is_alive = yes }
+							NOT = { has_variable = tv_wonder_concept_completion_pending }
+						}
+					}
+					add = {
+						desc = "TV_WONDER_CONCEPT_ENGINEER_PROGRESS"
+						value = leader_country.var:tv_great_engineer_char.adm
+						multiply = 0.2
+					}
+				}
+			}
+		}
+		tv_wonder_domestic_support = {
+			format = "TV_WONDER_DOMESTIC_SUPPORT_FORMAT"
+			change_format = "VARIABLE_CHANGE_FORMAT"
+			min = 0
+			max = 200
+			start = 0
+			monthly_change = {
+				if = {
+					limit = {
+						leader_country ?= {
+							has_variable = tv_engineering_department_member
+							tv_wonder_debate_complete_trigger = yes
+							tv_wonder_has_locked_wonder_trigger = yes
+							NOT = { has_variable = tv_wonder_finalized }
+						}
+					}
+					subtract = {
+						desc = "TV_WONDER_DOMESTIC_SUPPORT_DECAY"
+						value = 1
+					}
+				}
+			}
+		}
+		tv_wonder_survey_progress = {
+			format = "TV_WONDER_SURVEY_PROGRESS_FORMAT"
+			change_format = "VARIABLE_CHANGE_FORMAT"
+			min = 0
+			max = 100
+			start = 0
+			monthly_change = {
+				if = {
+					limit = {
+						international_organization_has_leader = yes
+						leader_country ?= {
+							has_variable = tv_engineering_department_member
+							var:tv_wonder_stage ?= { this >= 2 }
+							var:tv_wonder_locked ?= { this >= 1 }
+							custom_tooltip = {
+								text = TV_HAS_GREAT_ENGINEER_CHAR_TT
+								has_variable = tv_great_engineer_char
+							}
+							var:tv_great_engineer_char ?= { is_alive = yes }
+							NOT = { has_variable = tv_wonder_site }
+							NOT = { has_variable = tv_wonder_construction_complete }
+							has_variable = tv_wonder_survey_site
+							var:tv_wonder_survey_site ?= {
+								has_owner = yes
+								owner ?= prev
+							}
+							has_variable = tv_wonder_survey_active
+							NOT = { has_variable = tv_wonder_survey_complete }
+						}
+					}
+					add = {
+						desc = "TV_WONDER_SURVEY_ENGINEER_PROGRESS"
+						value = leader_country.var:tv_great_engineer_char.mil
+						multiply = 0.1
+					}
+				}
+			}
+		}
+		tv_wonder_construction_progress = {
+			format = "TV_WONDER_CONSTRUCTION_PROGRESS_FORMAT"
+			change_format = "VARIABLE_CHANGE_FORMAT"
+			min = 0
+			max = 300000
+			start = 0
+			monthly_change = {
+				add = {
+					desc = "TV_WONDER_ACTIVE_CONSTRUCTION_PROGRESS"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								has_variable = tv_engineering_department_member
+								tv_wonder_active_part_can_gain_progress_trigger = yes
+								NOT = { has_variable = tv_wonder_construction_complete }
+								var:tv_wonder_base_monthly_construction_progress ?= { this > 0 }
+							}
+						}
+						value = leader_country.var:tv_wonder_base_monthly_construction_progress
+					}
+				}
+				add = {
+					desc = "TV_WONDER_LOGISTICS_CONSTRUCTION_PROGRESS_MULTIPLIER"
+					value = 0
+					if = {
+						limit = {
+							leader_country ?= {
+								has_variable = tv_engineering_department_member
+								tv_wonder_active_part_can_gain_progress_trigger = yes
+								NOT = { has_variable = tv_wonder_construction_complete }
+								var:tv_wonder_base_monthly_construction_progress ?= { this > 0 }
+								has_variable = tv_wonder_monthly_construction_progress
+							}
+						}
+						value = leader_country.var:tv_wonder_monthly_construction_progress
+						subtract = leader_country.var:tv_wonder_base_monthly_construction_progress
+					}
+				}
+			}
+		}
+	}
+
+	modifier = {
+	}
+
+	can_initiate_policy_votes = {
+		is_leader_of_international_organization = scope:recipient
+	}
+
+	on_creation = {
+		if = {
+			limit = { exists = scope:actor }
+			set_leader_country = scope:actor
+			scope:actor = {
+				set_variable = { name = tv_wonder_stage value = 0 }
+			}
+		}
+	}
+
+	create_visible_trigger = {
+		always = no
+	}
+
+	invite_visible_trigger = {
+		always = no
+	}
+
+	can_join_trigger = {
+		always = no
+	}
+
+	can_leave_trigger = {
+		always = no
+	}
+
+	auto_leave_trigger = {
+		always = no
+	}
+
+	auto_disband_trigger = {
+		total_members < 1
+	}
+
+	join_defensive_wars_always = {
+		always = no
+	}
+
+	join_offensive_wars_always = {
+		always = no
+	}
+}

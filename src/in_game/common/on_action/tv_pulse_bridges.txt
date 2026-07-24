@@ -24,20 +24,12 @@ monthly_country_pulse = {
 		tv_govhouse_training_monthly_pulse
 		tv_govhouse_loyalty_monthly_pulse
 		tv_govhouse_negative_monthly_pulse
-		tv_govhouse_governor_bonuses_monthly_pulse
 		tv_govhouse_governor_events_monthly_pulse
 		tv_govhouse_war_tent_monthly_pulse
 		tv_arts_exchange_monthly_pulse
-		tv_engineering_department_concept_monthly_pulse
-		tv_engineering_department_debate_monthly_pulse
-		tv_engineering_department_support_resolution_monthly_pulse
-		tv_engineering_department_survey_monthly_pulse
-		tv_engineering_department_construction_monthly_pulse
-		tv_engineering_department_construction_random_events_monthly_pulse
-		tv_engineering_department_ritual_monthly_pulse
-		tv_engineering_department_wonder_auto_cache_monthly_pulse
 		tv_diplomatic_alliance_monthly_pulse
 		tv_trade_league_monthly_pulse
+		tv_victory_tree_points_monthly_pulse
 	}
 }
 
@@ -47,6 +39,7 @@ yearly_country_pulse = {
 		tv_arts_exhibition_yearly_pulse
 		tv_govhouse_governor_tasks_yearly_pulse
 		tv_trade_league_yearly_pulse
+		tv_io_establishment_yearly_pulse
 	}
 }
 
@@ -57,14 +50,6 @@ on_character_death = {
 		tv_govhouse_governor_death
 		tv_arts_exhibition_char_death
 		tv_academy_char_death
-		tv_engineering_department_char_death
-	}
-}
-
-on_ruler_death = {
-	on_actions = {
-		# Towards Victory additions
-		tv_engineering_department_ritual_on_ruler_death
 	}
 }
 
@@ -73,25 +58,17 @@ on_ruler_death = {
 on_game_start = {
 	on_actions = {
 		# Towards Victory additions
+		tv_govhouse_initialize_on_game_start
 		tv_academy_debate_initialize_global_maps_on_game_start
-		tv_wonder_initialize_index_on_game_start
-		tv_wonder_sync_final_building_level_maps_on_game_start
-		tv_wonder_initialize_existing_unique_wonders_on_game_start
-		tv_wonder_initialize_country_auto_cache_on_game_start
-		tv_wonder_initialize_location_display_state_on_game_start
 	}
 }
 
 on_game_load = {
 	on_actions = {
 		# Towards Victory additions
+		tv_govhouse_initialize_on_game_load
 		tv_io_establishment_save_load_validation
 		tv_academy_debate_initialize_global_maps_on_game_load
-		tv_wonder_initialize_index_on_game_load
-		tv_wonder_sync_final_building_level_maps_on_game_load
-		tv_wonder_initialize_existing_unique_wonders_on_game_load
-		tv_wonder_initialize_country_auto_cache_on_game_load
-		tv_wonder_initialize_location_display_state_on_game_load
 	}
 }
 
@@ -99,6 +76,133 @@ on_work_of_art_created = {
 	on_actions = {
 		# Towards Victory additions
 		tv_on_work_of_art_created_callback
+		tv_academy_debate_on_work_of_art_created
+	}
+}
+
+on_work_of_art_destroyed = {
+	on_actions = {
+		# Towards Victory additions
+		tv_academy_debate_on_work_of_art_destroyed
+	}
+}
+
+on_work_of_art_looted = {
+	on_actions = {
+		# Towards Victory additions
+		tv_academy_debate_on_work_of_art_looted
+	}
+}
+
+on_location_occupied = {
+	on_actions = {
+		# Towards Victory additions
+		tv_academy_debate_on_location_occupied
+	}
+}
+
+on_siege_won = {
+	on_actions = {
+		# Towards Victory additions
+		tv_academy_debate_on_siege_won
+	}
+}
+
+on_loan_repaid = {
+	on_actions = {
+		# Towards Victory additions
+		tv_academy_debate_on_loan_repaid
+	}
+}
+
+on_loan_renewed = {
+	on_actions = {
+		# Towards Victory additions
+		tv_academy_debate_on_loan_renewed
+	}
+}
+
+on_bankruptcy = {
+	on_actions = {
+		# Towards Victory additions
+		tv_academy_debate_on_bankruptcy
+	}
+}
+
+on_exploration_success = {
+	on_actions = {
+		# Towards Victory additions
+		tv_academy_debate_on_exploration_success
+	}
+}
+
+on_colonial_charter_finished = {
+	on_actions = {
+		# Towards Victory additions
+		tv_academy_debate_on_colonial_charter_finished
+	}
+}
+
+on_colonial_charter_failed = {
+	on_actions = {
+		# Towards Victory additions
+		tv_academy_debate_on_colonial_charter_failed
+	}
+}
+
+on_took_location_in_peace_treaty = {
+	on_actions = {
+		# Towards Victory additions
+		tv_academy_debate_on_took_location_in_peace_treaty
+	}
+}
+
+on_reform_change = {
+	on_actions = {
+		# Towards Victory additions
+		tv_academy_debate_on_reform_change
+	}
+}
+
+on_bureaucracy_added = {
+	on_actions = {
+		# Towards Victory additions
+		tv_academy_debate_on_bureaucracy_added
+	}
+}
+
+on_religion_changed = {
+	on_actions = {
+		# Towards Victory additions
+		tv_academy_debate_on_religion_changed
+	}
+}
+
+on_cabinet_assigned = {
+	on_actions = {
+		# Towards Victory additions
+		tv_academy_debate_on_cabinet_assigned
+	}
+}
+
+on_cabinet_removed = {
+	on_actions = {
+		# Towards Victory additions
+		tv_academy_debate_on_cabinet_removed
+	}
+}
+
+on_parliament_passed = {
+	on_actions = {
+		# Towards Victory additions
+		tv_academy_debate_on_parliament_passed
+	}
+}
+
+on_policy_changed = {
+	on_actions = {
+		# Towards Victory additions
+		tv_academy_debate_on_policy_changed
 	}
 }
 
@@ -166,6 +270,7 @@ on_war_declared = {
 	on_actions = {
 		# Towards Victory additions
 		tv_govhouse_war_tent_on_war_declared
+		tv_academy_debate_on_war_declared
 	}
 }
 
@@ -180,14 +285,6 @@ on_ending_war = {
 	on_actions = {
 		# Towards Victory additions
 		tv_govhouse_war_tent_on_ending_war
-		tv_engineering_department_ritual_on_ending_war
-	}
-}
-
-on_pre_winning_war = {
-	on_actions = {
-		# Towards Victory additions
-		tv_engineering_department_ritual_on_pre_winning_war
 	}
 }
 
@@ -209,7 +306,6 @@ on_location_changed_owner = {
 	on_actions = {
 		# Towards Victory additions
 		tv_govhouse_location_changed_owner
-		tv_wonder_ownership_location_changed_owner
 	}
 }
 
@@ -223,6 +319,7 @@ on_institution_embraced = {
 on_capital_moved = {
 	on_actions = {
 		# Towards Victory additions
+		tv_govhouse_capital_moved
 		tv_trade_league_capital_moved
 	}
 }

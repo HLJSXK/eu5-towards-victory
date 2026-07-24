@@ -18,7 +18,8 @@ pulses:
     - tv_io_establishment_monthly_pulse # six IO establishment basic checks, HQ cache, and AI auto-progress
     - tv_leaderboard_monthly_pulse    # leaderboard + touring artist roll + research/medicine/diplo inline
     - tv_cmf_warning_suppressions_monthly_pulse # CMF suppressions for intentional static warning noise
-    - tv_io_chief_alert_monthly_pulse # CMF alert for missing TV IO chief great people
+    - tv_io_chief_alert_monthly_pulse # CMF alerts for missing chiefs in the five main-mod IOs
+    - tv_engineering_department_chief_alert_monthly_pulse # standalone mod: CMF alert for a missing Great Engineer
     - tv_local_exhibition_monthly_pulse # Domestic Exhibition timer and monthly events
     - tv_research_target_completed_pulse # cancel focused research when target is unlocked normally
     - tv_research_a_pulse             # sub-process A random events
@@ -31,7 +32,6 @@ pulses:
     - tv_govhouse_training_monthly_pulse # Grand General training timer
     - tv_govhouse_loyalty_monthly_pulse # Grand General loyalty random events
     - tv_govhouse_negative_monthly_pulse # Governor's House balance-of-power backlash events
-    - tv_govhouse_governor_bonuses_monthly_pulse # Regional governor modifier/display refresh
     - tv_govhouse_governor_events_monthly_pulse # Regional governor random events
     - tv_govhouse_war_tent_monthly_pulse # War Tent plans and tactic refresh
     - tv_arts_exchange_monthly_pulse     # Arts Exchange timer, auto-invites, and monthly events
@@ -45,11 +45,13 @@ pulses:
     - tv_engineering_department_wonder_auto_cache_monthly_pulse # Wonder owned-level country auto modifier cache
     - tv_diplomatic_alliance_monthly_pulse # Diplomatic Alliance victory-point maintenance
     - tv_trade_league_monthly_pulse # Trade League leader-country slot monopoly maintenance
+    - tv_victory_tree_points_monthly_pulse # Victory Path Tree placeholder points trickle
 
   yearly_country_pulse:
     - tv_arts_exhibition_yearly_pulse # touring artist elapsed counter + return-home
     - tv_govhouse_governor_tasks_yearly_pulse # autonomous regional governor task reassessment
     - tv_trade_league_yearly_pulse # Trade League global market cache and full monopoly rebuild
+    - tv_io_establishment_yearly_pulse # AI-only yearly conquest score recompute (every_subject_or_below off the monthly path)
 
   on_character_death:
     - tv_govhouse_char_death           # Grand General death cleanup
@@ -63,14 +65,17 @@ pulses:
 
 bridges:
   on_game_start:
+    - tv_govhouse_initialize_on_game_start
     - tv_academy_debate_initialize_global_maps_on_game_start
     - tv_wonder_initialize_index_on_game_start
     - tv_wonder_sync_final_building_level_maps_on_game_start
     - tv_wonder_initialize_existing_unique_wonders_on_game_start
     - tv_wonder_initialize_country_auto_cache_on_game_start
     - tv_wonder_initialize_location_display_state_on_game_start
+    - tv_engineering_department_standalone_game_start_bridge # standalone mod: schedule the intro event for every country one day later
 
   on_game_load:
+    - tv_govhouse_initialize_on_game_load
     - tv_io_establishment_save_load_validation # remove stale route enable flags when the matching TV IO is absent
     - tv_academy_debate_initialize_global_maps_on_game_load
     - tv_wonder_initialize_index_on_game_load
@@ -78,9 +83,66 @@ bridges:
     - tv_wonder_initialize_existing_unique_wonders_on_game_load
     - tv_wonder_initialize_country_auto_cache_on_game_load
     - tv_wonder_initialize_location_display_state_on_game_load
+    - tv_wonder_repair_stuck_expansion_ceremony_finalized_on_game_load # one-time save repair for the pre-2026-07-20 tv_wonder_finalized-never-cleared-on-expansion bug
+    - tv_engineering_department_standalone_game_load_bridge # standalone mod: repair IOs and schedule missing-save intro events one day later
 
   on_work_of_art_created:
     - tv_on_work_of_art_created_callback # Cultural Influence Points from newly created art
+    - tv_academy_debate_on_work_of_art_created
+
+  on_work_of_art_destroyed:
+    - tv_academy_debate_on_work_of_art_destroyed
+
+  on_work_of_art_looted:
+    - tv_academy_debate_on_work_of_art_looted
+
+  on_location_occupied:
+    - tv_academy_debate_on_location_occupied
+
+  on_siege_won:
+    - tv_academy_debate_on_siege_won
+
+  on_loan_repaid:
+    - tv_academy_debate_on_loan_repaid
+
+  on_loan_renewed:
+    - tv_academy_debate_on_loan_renewed
+
+  on_bankruptcy:
+    - tv_academy_debate_on_bankruptcy
+
+  on_exploration_success:
+    - tv_academy_debate_on_exploration_success
+
+  on_colonial_charter_finished:
+    - tv_academy_debate_on_colonial_charter_finished
+
+  on_colonial_charter_failed:
+    - tv_academy_debate_on_colonial_charter_failed
+
+  on_took_location_in_peace_treaty:
+    - tv_academy_debate_on_took_location_in_peace_treaty
+
+  on_reform_change:
+    - tv_academy_debate_on_reform_change
+
+  on_bureaucracy_added:
+    - tv_academy_debate_on_bureaucracy_added
+
+  on_religion_changed:
+    - tv_academy_debate_on_religion_changed
+
+  on_cabinet_assigned:
+    - tv_academy_debate_on_cabinet_assigned
+
+  on_cabinet_removed:
+    - tv_academy_debate_on_cabinet_removed
+
+  on_parliament_passed:
+    - tv_academy_debate_on_parliament_passed
+
+  on_policy_changed:
+    - tv_academy_debate_on_policy_changed
 
   on_character_moved_country:
     - tv_govhouse_governor_moved_country
@@ -112,6 +174,7 @@ bridges:
 
   on_war_declared:
     - tv_govhouse_war_tent_on_war_declared
+    - tv_academy_debate_on_war_declared
 
   on_join_war:
     - tv_govhouse_war_tent_on_join_war
@@ -137,7 +200,9 @@ bridges:
     - tv_academy_philosophy_on_institution_embraced
 
   on_capital_moved:
+    - tv_govhouse_capital_moved
     - tv_trade_league_capital_moved # reset Trade Chain if the capital market changes
 
   cmf_on_callback:
     - tv_io_chief_alert_on_cmf_callback
+    - tv_engineering_department_chief_alert_on_cmf_callback

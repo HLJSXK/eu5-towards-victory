@@ -1,0 +1,6 @@
+tv_example_effect = {
+	if = {
+		limit = { NOT = { has_global_flag = tv_example_initialized } }
+		set_global_flag = tv_example_initialized
+	}
+}

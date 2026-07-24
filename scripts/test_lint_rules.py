@@ -23,6 +23,8 @@ except ImportError:
 REPO_ROOT = Path(__file__).parent.parent
 ANTI_PATTERNS = REPO_ROOT / "docs" / "knowledge" / "anti_patterns.yaml"
 FIXTURE_ROOT = REPO_ROOT / "tests" / "fixtures" / "anti_patterns"
+sys.path.insert(0, str(REPO_ROOT / "scripts"))
+import validate  # noqa: E402
 
 
 def load_rules() -> dict[str, dict]:
@@ -42,6 +44,32 @@ def fixture_files(rule_dir: Path, prefix: str) -> list[Path]:
     return sorted(p for p in rule_dir.iterdir() if p.is_file() and p.name.startswith(prefix))
 
 
+def has_fixture_files(rule_dir: Path) -> bool:
+    return any(p.is_file() for p in rule_dir.iterdir())
+
+
+VALIDATOR_BY_RULE = {
+    "effect_localization_positive_negative_share_loc_key": validate.check_effect_loc_positive_negative_pairs,
+    "parentanchor_under_hbox_vbox": validate.check_gui_parentanchor_under_hbox_vbox,
+}
+
+
+def validator_matches(entry: dict, fixture: Path) -> bool:
+    validator_name = entry.get("validator")
+    validator = VALIDATOR_BY_RULE.get(fixture.parent.name)
+    if validator is None:
+        raise ValueError(f"validator {validator_name} is not registered in test_lint_rules.py")
+
+    before_issues = len(validate.issues)
+    before_warnings = len(validate.warnings)
+    try:
+        validator(fixture, fixture.read_text(encoding="utf-8-sig"))
+        return len(validate.issues) > before_issues or len(validate.warnings) > before_warnings
+    finally:
+        del validate.issues[before_issues:]
+        del validate.warnings[before_warnings:]
+
+
 def main() -> None:
     rules = load_rules()
     if not FIXTURE_ROOT.exists():
@@ -51,6 +79,8 @@ def main() -> None:
     failures: list[str] = []
     tested = 0
     for rule_dir in sorted(p for p in FIXTURE_ROOT.iterdir() if p.is_dir()):
+        if not has_fixture_files(rule_dir):
+            continue
         rule_id = rule_dir.name
         entry = rules.get(rule_id)
         if not entry:
@@ -60,10 +90,20 @@ def main() -> None:
             failures.append(f"{rule_id}: fixtures exist but rule is not detectability: lint")
             continue
         pattern = entry.get("pattern") or ""
-        try:
-            regex = re.compile(pattern, re.MULTILINE | re.IGNORECASE)
-        except re.error as exc:
-            failures.append(f"{rule_id}: invalid regex: {exc}")
+        validator_name = entry.get("validator")
+        regex = None
+        if pattern:
+            try:
+                regex = re.compile(pattern, re.MULTILINE | re.IGNORECASE)
+            except re.error as exc:
+                failures.append(f"{rule_id}: invalid regex: {exc}")
+                continue
+        elif validator_name:
+            if rule_id not in VALIDATOR_BY_RULE:
+                failures.append(f"{rule_id}: validator {validator_name} is not registered in test_lint_rules.py")
+                continue
+        else:
+            failures.append(f"{rule_id}: lint rule has neither pattern nor registered validator")
             continue
 
         bad_files = fixture_files(rule_dir, "bad")
@@ -75,12 +115,14 @@ def main() -> None:
 
         for fixture in bad_files:
             text = fixture.read_text(encoding="utf-8-sig")
-            if not regex.search(text):
+            matched = bool(regex.search(text)) if regex is not None else validator_matches(entry, fixture)
+            if not matched:
                 failures.append(f"{rule_id}/{fixture.name}: expected a match")
             tested += 1
         for fixture in good_files:
             text = fixture.read_text(encoding="utf-8-sig")
-            if regex.search(text):
+            matched = bool(regex.search(text)) if regex is not None else validator_matches(entry, fixture)
+            if matched:
                 failures.append(f"{rule_id}/{fixture.name}: expected no match")
             tested += 1
 

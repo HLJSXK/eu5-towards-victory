@@ -35,8 +35,146 @@ tv_academy_char_death = {
 	}
 }
 
+tv_academy_debate_on_cabinet_assigned = {
+	effect = {
+		tv_academy_debate_action_triggers_on_cabinet_assigned_effect = yes
+	}
+}
+
+tv_academy_debate_on_cabinet_removed = {
+	effect = {
+		tv_academy_debate_action_triggers_on_cabinet_removed_effect = yes
+	}
+}
+
+tv_academy_debate_on_bureaucracy_added = {
+	effect = {
+		tv_academy_debate_action_triggers_on_bureaucracy_added_effect = yes
+	}
+}
+
+tv_academy_debate_on_reform_change = {
+	effect = {
+		tv_academy_debate_action_triggers_on_reform_change_effect = yes
+	}
+}
+
+tv_academy_debate_on_work_of_art_created = {
+	effect = {
+		root.owner ?= {
+			tv_academy_debate_action_triggers_on_work_of_art_created_owner_effect = yes
+		}
+	}
+}
+
+tv_academy_debate_on_work_of_art_destroyed = {
+	effect = {
+		root.owner ?= {
+			tv_academy_debate_action_triggers_on_work_of_art_destroyed_owner_effect = yes
+		}
+	}
+}
+
+tv_academy_debate_on_work_of_art_looted = {
+	effect = {
+		scope:location.owner ?= {
+			tv_academy_debate_action_triggers_on_work_of_art_looted_old_owner_effect = yes
+		}
+	}
+}
+
+tv_academy_debate_on_location_occupied = {
+	effect = {
+		scope:target.owner ?= {
+			tv_academy_debate_action_triggers_on_location_occupied_owner_effect = yes
+		}
+	}
+}
+
+tv_academy_debate_on_siege_won = {
+	effect = {
+		scope:target.owner ?= {
+			tv_academy_debate_action_triggers_on_siege_won_owner_effect = yes
+		}
+	}
+}
+
+tv_academy_debate_on_loan_repaid = {
+	effect = {
+		tv_academy_debate_action_triggers_on_loan_repaid_effect = yes
+	}
+}
+
+tv_academy_debate_on_loan_renewed = {
+	effect = {
+		tv_academy_debate_action_triggers_on_loan_renewed_effect = yes
+	}
+}
+
+tv_academy_debate_on_bankruptcy = {
+	effect = {
+		tv_academy_debate_action_triggers_on_bankruptcy_effect = yes
+	}
+}
+
+tv_academy_debate_on_exploration_success = {
+	effect = {
+		tv_academy_debate_action_triggers_on_exploration_success_effect = yes
+	}
+}
+
+tv_academy_debate_on_colonial_charter_finished = {
+	effect = {
+		tv_academy_debate_action_triggers_on_colonial_charter_finished_effect = yes
+	}
+}
+
+tv_academy_debate_on_colonial_charter_failed = {
+	effect = {
+		tv_academy_debate_action_triggers_on_colonial_charter_failed_effect = yes
+	}
+}
+
+tv_academy_debate_on_took_location_in_peace_treaty = {
+	effect = {
+		scope:winner ?= {
+			tv_academy_debate_action_triggers_on_took_location_in_peace_treaty_winner_effect = yes
+		}
+		scope:loser ?= {
+			tv_academy_debate_action_triggers_on_took_location_in_peace_treaty_loser_effect = yes
+		}
+	}
+}
+
+tv_academy_debate_on_religion_changed = {
+	effect = {
+		tv_academy_debate_action_triggers_on_religion_changed_effect = yes
+	}
+}
+
+tv_academy_debate_on_parliament_passed = {
+	effect = {
+		tv_academy_debate_action_triggers_on_parliament_passed_effect = yes
+	}
+}
+
+tv_academy_debate_on_policy_changed = {
+	effect = {
+		tv_academy_debate_action_triggers_on_policy_changed_effect = yes
+	}
+}
+
+tv_academy_debate_on_war_declared = {
+	effect = {
+		scope:actor ?= {
+			tv_academy_debate_action_triggers_on_war_declared_actor_effect = yes
+		}
+	}
+}
+
 tv_academy_debate_on_winning_war = {
 	effect = {
+		tv_academy_debate_action_triggers_on_winning_war_effect = yes
 		if = {
 			limit = {
 				var:tv_academy_philosophy_phase ?= 1
@@ -49,6 +187,7 @@ tv_academy_debate_on_winning_war = {
 
 tv_academy_debate_on_losing_war = {
 	effect = {
+		tv_academy_debate_action_triggers_on_losing_war_effect = yes
 		if = {
 			limit = {
 				var:tv_academy_philosophy_phase ?= 1

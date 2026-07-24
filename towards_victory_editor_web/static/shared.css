@@ -1,0 +1,77 @@
+:root {
+  color-scheme: light dark;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+#tool-hub-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+#tool-hub-header {
+  flex: 0 0 auto;
+  padding: 10px 16px 0 16px;
+  background: #1c1f24;
+  border-bottom: 1px solid #2a2e35;
+}
+
+#tool-hub-header h1 {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #f0f0f0;
+}
+
+.tool-hub-tab-bar {
+  display: flex;
+  gap: 4px;
+}
+
+.tool-hub-tab-btn {
+  appearance: none;
+  border: 1px solid #2a2e35;
+  border-bottom: none;
+  background: #22262d;
+  color: #b8bcc4;
+  padding: 8px 18px;
+  font-size: 13px;
+  border-radius: 6px 6px 0 0;
+  cursor: pointer;
+}
+
+.tool-hub-tab-btn:hover {
+  background: #2a2e35;
+  color: #f0f0f0;
+}
+
+.tool-hub-tab-btn.active {
+  background: #14161a;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+#tool-hub-panels {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+}
+
+.tool-panel {
+  display: none;
+}
+
+.tool-panel.active {
+  display: block;
+}

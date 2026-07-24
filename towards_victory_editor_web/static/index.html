@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Towards Victory 编辑器</title>
+<link rel="stylesheet" href="static/shared.css">
+<link rel="stylesheet" href="static/cost_reward.css">
+<link rel="stylesheet" href="static/victory_tree.css">
+<link rel="stylesheet" href="static/wonder_localization.css">
+</head>
+<body>
+<div id="tool-hub-shell">
+  <header id="tool-hub-header">
+    <h1>Towards Victory 编辑器</h1>
+    <nav class="tool-hub-tab-bar">
+      <button class="tool-hub-tab-btn" data-tool="cost-reward">花费/奖励编辑器</button>
+      <button class="tool-hub-tab-btn" data-tool="victory-tree">胜利树规划器</button>
+      <button class="tool-hub-tab-btn" data-tool="wonder-localization">奇观本地化编辑器</button>
+    </nav>
+  </header>
+  <main id="tool-hub-panels">
+
+    <section class="tool-panel tool-cost-reward" data-tool="cost-reward">
+      <header>
+        <h1>奖励/Modifier/任务池 基础单位编辑器</h1>
+        <p class="subtitle">编辑 data/cost_reward_units.yaml —— 一套独立于任何具体机制的底层数值目录，
+        按国家级/本地级/角色级一次性奖励 + 国家级/本地级持续 modifier 五个类别分页展示；国家级条目也可记录非缩放的布尔解锁，
+        供项目中未来的多个系统查表使用。不单独存代价（cost）：需要代价时，取对应奖励（reward）行
+        value 的相反数即可（country_reward.inflation 方向相反）。
+        同时编辑 data/task_pool.yaml —— 与之并列的独立任务池目录（见 Cost_Reward_Unit_Concepts.md 第 6 节），
+        按 on_action 型任务 / Trigger 型任务两个类别分页展示，同样不存奖励，只记录"需要发生什么"/
+        "需要达到什么状态"以及引擎侧的检测方式。
+        奇观建设随机事件与奇观自身的 modifier 数据分别维护在自己独立的文件中
+        （data/wonder_construction_events.yaml、data/wonder_base_modifiers.yaml 等），不引用此处；
+        奇观本身请继续使用"奇观本地化编辑器"标签页。</p>
+      </header>
+      <main>
+        <div id="cr-tabs" class="tabs"></div>
+        <div id="panels"></div>
+        <div class="actions">
+          <button id="cr-save-btn">保存并重新生成</button>
+          <button id="cr-reload-btn">重新加载</button>
+        </div>
+        <pre id="cr-log"></pre>
+      </main>
+    </section>
+
+    <section class="tool-panel tool-victory-tree" data-tool="victory-tree">
+      <header>
+        <h1>胜利之路节点位置规划器</h1>
+        <p class="subtitle">在 6 张胜利之路树形背景图（<code>src/main_menu/gfx/interface/icons/towards_victory/victory_trees/</code>）
+        上摆放 <code>docs/design/Victory_Path_Tree_Variant_Design.md</code> 设计的树状奖励节点
+        （尚未实现的重构方案，取代现行线性五里程碑模型）：每条路径一条 5 节点主干，外加 5 条支线，每条支线
+        从主干某个节点分叉后再延伸自己的一串节点。节点与主干/支线数据读取自
+        <code>data/victory_path_tree_variant.yaml</code>；连接线按节点的前置关系（主干链 + 各支线从其分叉点起的链）绘制，
+        体现真实的树状结构而非简单顺序排列。坐标以背景图 2048×1152 的归一化比例（0–1）保存到
+        <code>data/victory_tree_node_positions.yaml</code>，与最终 GUI 渲染尺寸无关。</p>
+      </header>
+      <main>
+        <div id="vt-tabs" class="tabs"></div>
+        <div class="planner-layout">
+          <div class="canvas-wrap">
+            <div class="stage" id="stage">
+              <img id="bgImage" src="" alt="tree background">
+              <svg class="links" id="links" viewBox="0 0 100 100" preserveAspectRatio="none"></svg>
+              <div id="nodesLayer"></div>
+            </div>
+          </div>
+          <aside>
+            <div class="zoom-row">
+              <span>缩放</span>
+              <input type="range" id="zoom" min="0.25" max="1" step="0.05" value="0.5">
+              <span id="zoomLabel">50%</span>
+            </div>
+            <div class="toggle-row">
+              <label class="toggle"><input type="checkbox" id="toggleLinks" checked> 连接线</label>
+              <label class="toggle"><input type="checkbox" id="toggleLabels" checked> 标签</label>
+            </div>
+            <p class="hint">圆点颜色：金=主干节点，其余 5 色分别对应 5 条支线。点击图片移动已选节点，或直接拖拽。</p>
+            <div id="nodeList"></div>
+          </aside>
+        </div>
+        <div class="actions">
+          <button id="vt-save-btn">保存并重新生成</button>
+          <button id="vt-reload-btn">重新加载</button>
+          <button id="reset-btn">重置当前路径</button>
+        </div>
+        <pre id="vt-log"></pre>
+      </main>
+    </section>
+
+    <section class="tool-panel tool-wonder-localization" data-tool="wonder-localization">
+      <div class="shell">
+        <aside class="sidebar">
+          <div class="sidebar-header">
+            <p class="eyebrow">Wonder Editor</p>
+            <h1>奇观列表</h1>
+            <p class="sidebar-copy">在通用奇观与独特奇观之间切换，统一编辑本地化与机制数据。</p>
+          </div>
+          <label class="search-card" for="search-input">
+            <span>搜索奇观</span>
+            <input id="search-input" type="search" placeholder="ID / key / 名称 / concept">
+          </label>
+          <div class="kind-switch" id="wonder-kind-tabs"></div>
+          <p class="count-line" id="wonder-count">加载中...</p>
+          <div class="wonder-list" id="wonder-list"></div>
+        </aside>
+
+        <main class="workspace">
+          <header class="hero panel">
+            <div class="hero-copy">
+              <p class="eyebrow">FastAPI + Uvicorn</p>
+              <h2 id="app-title">Towards Victory 奇观编辑器</h2>
+              <p class="hero-description">
+                当前界面会同时展示奇观本地化、通用奇观 base 与三种仪式、独特奇观仪式、建造地点限制与适性条件。
+              </p>
+              <div class="name-editor-grid hidden" id="wonder-name-editors"></div>
+              <div class="meta-grid" id="wonder-meta"></div>
+            </div>
+            <figure class="wonder-image-frame" id="wonder-image-frame"></figure>
+            <div class="hero-actions">
+              <button id="save-button" class="primary-button">保存并重新生成</button>
+              <button id="reload-button" class="secondary-button">重新加载文件</button>
+              <div class="status-stack">
+                <span id="status-badge" class="status-badge">就绪</span>
+                <span id="dirty-badge" class="dirty-badge hidden">未保存更改</span>
+              </div>
+            </div>
+          </header>
+
+          <section class="panel editor-panel">
+            <div class="editor-toolbar">
+              <div class="tab-bar" id="language-tabs"></div>
+            </div>
+            <div class="language-panels" id="language-panels"></div>
+          </section>
+
+          <section class="panel log-panel">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">Operations</p>
+                <h3>日志</h3>
+              </div>
+              <button id="copy-log-button" class="ghost-button">复制日志</button>
+            </div>
+            <pre id="log-output" class="log-output"></pre>
+          </section>
+        </main>
+      </div>
+
+      <div id="toast" class="toast hidden" aria-live="polite"></div>
+    </section>
+
+  </main>
+</div>
+<script type="module" src="static/shared.js"></script>
+<script type="module" src="static/cost_reward.js"></script>
+<script type="module" src="static/victory_tree.js"></script>
+<script type="module" src="static/wonder_localization.js"></script>
+</body>
+</html>

@@ -49,66 +49,79 @@ engineering_tokens:
 non_engineering_tokens:
   - id: gold
     weight: 2
+    value: 1
     loc:
       en: "treasury funds"
       zh: "国库资金"
   - id: legitimacy
     weight: 1
+    value: 5
     loc:
       en: "legitimacy"
       zh: "正统性"
   - id: stability
     weight: 1
+    value: 7
     loc:
       en: "stability"
       zh: "稳定度"
   - id: prestige
     weight: 1
+    value: 10
     loc:
       en: "prestige"
       zh: "威望"
   - id: nobles_satisfaction
     weight: 1
+    value: 0.10
     loc:
       en: "noble satisfaction"
       zh: "贵族阶层满意度"
   - id: clergy_satisfaction
     weight: 1
+    value: 0.10
     loc:
       en: "clergy satisfaction"
       zh: "教士阶层满意度"
   - id: burghers_satisfaction
     weight: 1
+    value: 0.10
     loc:
       en: "burgher satisfaction"
       zh: "市民阶层满意度"
   - id: peasants_satisfaction
     weight: 1
+    value: 0.20
     loc:
       en: "peasant satisfaction"
       zh: "平民阶层满意度"
   - id: site_development
     weight: 1
+    value: 0.25
     loc:
       en: "site development"
       zh: "建设地点发展度"
   - id: site_prosperity
     weight: 1
+    value: 0.2
     loc:
       en: "site prosperity"
       zh: "建设地点繁荣度"
   - id: capital_development
     weight: 1
+    value: 0.25
     loc:
       en: "capital development"
       zh: "首都发展度"
   - id: capital_prosperity
     weight: 1
+    value: 0.2
     loc:
       en: "capital prosperity"
       zh: "首都繁荣度"
   - id: site_laborers
     weight: 1
+    value: 10
     loc:
       en: "site laborers"
       zh: "建设地点劳工"

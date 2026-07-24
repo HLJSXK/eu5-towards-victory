@@ -15,7 +15,10 @@ execution time can still spam runtime errors while the mouse is merely hovering 
 1. Keep nullable variable reads optional in player-facing trigger paths.
    Use `var:X ?= ...` inside `allow`, `visible`, `enabled`, `custom_tooltip`, and selector
    filters whenever `X` may be absent. Do not rely on a sibling `has_variable = X` line to
-   protect a later direct `var:X = { ... }` read.
+   protect a later direct `var:X = { ... }` read or `var:X < N` comparison. If no optional
+   threshold operator has been verified, express bounded numeric checks as literal optional
+   branches such as `var:X ?= 0` through `var:X ?= 19`, plus an explicit unset branch when
+   unset should pass.
 
 2. Guard every multi-step selection effect.
    If an action uses `select_trigger` with `target_flag = target`, `target_1`, or `target_2`,
@@ -28,7 +31,9 @@ execution time can still spam runtime errors while the mouse is merely hovering 
    make the helper use `has_variable` / `var:X ?= ...` before direct comparisons, or guard the
    helper so it runs only after persistent prerequisite state exists. This applies even when the
    helper itself sets the display variable to 0 before comparing it; the pre-evaluator may not
-   commit that write before reading the later `var:X` line.
+   commit that write before reading the later `var:X` line. For derived display refreshes,
+   calculate and compare with `set_local_variable` / `change_local_variable` and `local_var:X`
+   first, then mirror the final values into persistent variables for GUI display.
 
 4. Hide cleanup-only helper calls.
    If a generic action effect only clears variables, removes list entries, strips stale modifiers,
@@ -75,10 +80,12 @@ execution time can still spam runtime errors while the mouse is merely hovering 
    map key iteration or `random_key_in_variable_map` with generated per-id branches. Save the
    current owner scope before the map callback and write back through that named scope.
 
-12. Run sibling map reads from the saved owner scope inside key iterators.
+12. Run sibling map reads from the saved owner scope inside iterators.
    In `every_key_in_variable_map` / `ordered_key_in_variable_map`, the callback scope may be
-   the numeric key itself. Copy `this` into a `local_var`, then run `is_key_in_variable_map`
-   and country-variable reads inside `scope:<saved_owner>` with `target = local_var:<key>`.
+   the numeric key itself. In `every_in_list` / `random_in_list` / `any_in_list`, the current
+   scope is the list item, such as a region, location, or character. Copy the key into a
+   `local_var`, then run `is_key_in_variable_map` and the quoted `variable_map(...)` scope link
+   inside `scope:<saved_owner>` with `target = local_var:<key>`.
 
 13. Do not use inflated `ordered_key_in_variable_map` max values.
    The engine logs an error when `max` is larger than the current key list. Use
@@ -103,6 +110,36 @@ execution time can still spam runtime errors while the mouse is merely hovering 
    duplicate the action/select/building flow in monthly or yearly effects to make AI "auto"
    progress; those bypasses can evaluate action or building checks without the literal
    `scope:actor` event target.
+
+17. Use `save_temporary_scope_as` inside trigger contexts, never `save_scope_as`.
+   `save_scope_as` is effect-only. Any scope save inside a `select_trigger` `visible`/`enabled`
+   block, an `allow`/`potential` block, or an `if = { limit = { ... } }` trigger body must use
+   `save_temporary_scope_as`. The engine's trigger parser does not recognize `save_scope_as` as a
+   trigger type at all and logs "Unknown trigger type: save_scope_as" for every occurrence,
+   which can spam hundreds of load errors from one generator helper reused across many action
+   variants. Reserve `save_scope_as` for saves written directly inside an effect body (a sibling
+   of `limit`, not inside it).
+
+18. Save the owner before reusable helpers compare against IO state.
+   A helper reached from a generic action effect should not assume `root` is still the action
+   actor/current country. Save the current country or actor with `save_scope_as` at effect entry,
+   before entering IO/member iterators, and compare nested state to `scope:<saved_owner>`.
+
+19. Use `force_click_and_confirm_or_hold = yes` for "confirm before commit" — do NOT build a
+   custom pending-variable + overlay GUI for it.
+   Set `force_click_and_confirm_or_hold = yes` directly on the `generic_action` (see
+   `reference_game_files/game/in_game/common/generic_actions/readme.txt:76`, and
+   `tatar_yoke.txt`/`italian_wars.txt` for vanilla usage). The engine shows its own native
+   confirmation dialog before running `effect`, reusing the SAME `title`/`description` loc
+   keys the action's `action_button` already sets for its tooltip — no pending variable, no
+   shared overlay widget, no `if`/`else_if` dispatch chain needed. `main_menu/gui/
+   confirm_window.gui`'s `ConfirmWindow` is a separate, unrelated hardcoded C++ singleton for
+   engine prompts (multiplayer/load/save) that a mod genuinely cannot parametrize — do not
+   confuse the two. See `generic_action_confirmation_needs_pending_variable_overlay_not_engine_
+   window` in `anti_patterns.yaml` (RETRACTED and corrected 2026-07-13: an earlier version of
+   this rule wrongly concluded no native mechanism existed and prescribed the workaround this
+   point now warns against) and `scripts/victory_tree_node_codegen.py` `generate_actions` for
+   the corrected implementation.
 
 ## Safe Skeleton
 
@@ -148,6 +185,10 @@ Warnings tagged `generic_action_pre_eval` are not always hard failures, but new 
 validation unless they are fixed or explicitly added to `data/validation_baseline.yaml` with a
 rationale.
 
+- `save_scope_as_used_in_trigger_context` [needs_parser]: `save_scope_as` is not a valid trigger
+  type at all; any scope save inside select_trigger `visible`/`enabled`, `allow`/`potential`, or a
+  trigger `limit` body must use `save_temporary_scope_as` instead.
+
 ## Relevant Anti-Patterns
 - `dynamic_scope_value_must_use_script_value_block` [advisory]: Dynamic selector values and
   scoped variables used in numeric effect parameters should be wrapped in explicit script-value
@@ -173,9 +214,15 @@ rationale.
 - `variable_map_callback_root_in_generic_action` [needs_parser]: A variable-map key callback
   called from a generic-action effect should not rely on `root` to write back to the action actor;
   save the actor/current country as a named scope before the callback.
+- `generic_action_helper_assumes_root_owner` [needs_parser]: A reusable helper reached from a
+  generic action should not compare nested IO state to `root` unless that root was verified; save
+  the current owner as a named scope and compare against `scope:<saved_owner>`.
 - `variable_map_key_iterator_scope_used_for_map_read` [needs_parser]: A key-iterator callback
   should not run `is_key_in_variable_map` on the current numeric key scope; save the map owner,
   copy `this` into a local variable, and check sibling maps from the owner scope.
+- `variable_map_owner_read_from_item_iterator_scope` [needs_parser]: A variable-list item iterator
+  should not run country-scoped map reads from the current region/location/character scope; save
+  the map owner, copy the key into a local variable, and perform map checks from the owner scope.
 - `generic_action_loc_uses_gui_country_binding` [advisory]: Action title/description localization
   can be fetched without any data container; avoid `Country`/`SCOPE` reads and preserve dynamic
   player-country features through `Player.MakeScope`, or use an explicitly scoped GUI route for
@@ -183,3 +230,8 @@ rationale.
 - `on_action_simulates_generic_action_actor_context` [advisory]: Do not duplicate generic-action
   AI flows in monthly/yearly pulses when the copied chain can evaluate helpers or building
   `allow` blocks that expect literal `scope:actor`.
+- `subjugation_effect_hardcodes_vassal_subject_type` [advisory]: A subjugation effect must not
+  unconditionally call `make_subject_of` with `subject_type:vassal`; branch on the overlord's
+  `has_advance = samanta_advance` and fall back to `subject_type:samanta`, since vassal is
+  uncreatable for any overlord with that advance. See
+  `docs/technical/EU5_Modding_Knowledge_Base.md` section 5.11.

@@ -57,7 +57,42 @@ sandboxes, translate any later `conda run` example to the direct interpreter for
 before executing it.
 
 Read every risk card listed by the script. This is mandatory for high-risk domains such as `generic_actions`, where tooltip and selection pre-evaluation can execute unsafe reads before the player confirms an action. The Events risk card is routed for event files because option tooltips can pre-evaluate option effect chains, including `hidden_effect`, before the player confirms a choice. The IO risk card is also routed for IO definitions, IO laws, and country interactions that find or mutate TV international organizations.
-`src/in_game/common/laws/` is routed to the `international_organizations` risk card because IO policy scopes and AI math pre-evaluation have recurring runtime traps.
+`src/in_game/common/laws/` is routed to the `international_organizations` risk card because IO policy scopes and AI math pre-evaluation have recurring runtime traps. Any file under `src/main_menu/localization/` is routed to the `localization` risk card, which carries the canonical positive/negative/neutral/important/tip/flavor text-tag mapping described in "Localization Text Formatting Convention" below — read it before writing or editing player-facing loc text so tags are chosen by meaning rather than by copying whatever tag happens to be nearby.
+
+**Two deployable mod roots.** Since 2026-07, the Engineering Department /
+Wonder Construction subsystem lives in its own standalone mod at repo-root
+`src_engineering_department/` (mirroring `src/`'s `in_game/`/`main_menu/`
+layout), with its own generator tree `scripts_engineering_department/`
+(mirroring `scripts/`). It requires Community Mod Framework (CMF) 2.x for the
+custom `on_game_load` callback, but has no dependency on the main mod and is
+fully playable without it; the main mod declares a hard dependency on it
+instead (Prosperity
+Victory's establishment effect calls `tv_engineering_department_create_effect`,
+which now lives only there). `scripts/validate.py`, `scripts/ai_context.py`,
+and `scripts/gen_index.py` all iterate both mod roots. `build.bat` deploys it
+as a fourth step. See `docs/knowledge/risk_cards/wonders.md` for the full
+split rationale, including the small set of shared multi-IO files (e.g.
+`tv_io_leader_actions.txt`, `tv_pulse_bridges.txt`) that were split into
+multi-output generators so the new mod stays self-contained. The singleton
+"vanilla-copy" files `character_title.txt` and `messagetypes.txt` are also
+generated into both mod roots: the Engineering Department copy is the
+standalone subset, while the main-mod copy is a strict superset. Because the
+main mod depends on the Engineering Department mod, the superset loads later
+and wins; `scripts/validate.py` guards the full-copy and superset invariants.
+The missing-Great-Engineer CMF alert likewise lives entirely in the Engineering
+Department root, including its pulse, callback, effects, GUI bridge, and loc.
+
+The `wonders`, `philosophy_debate`, and `trade_league` domains are not isolated in their own
+directory — their files are interspersed by filename across `common/scripted_effects`,
+`static_modifiers`, `building_types`, `generic_actions`, `gui`, and localization — so
+`scripts/ai_context.py` routes them by filename substring (`FILENAME_DOMAIN_RULES`) instead
+of path prefix, under either mod root. Any file with `wonder` or `engineering_department` in its name routes to
+`docs/knowledge/risk_cards/wonders.md`; `philosophy_debate`, `world_debate`, or
+`academy_debate` routes to `docs/knowledge/risk_cards/philosophy_debate.md`; `trade_league` or
+`trade_chain` routes to `docs/knowledge/risk_cards/trade_league.md`; `encyclopedia_lateralview`
+routes to `docs/knowledge/risk_cards/europedia.md` (Europedia has no native page/category
+registration point — a custom browsable tab requires a full panel override with a
+`GetVariableSystem`-toggle, not a data-driven registration).
 
 ## Resume / Handoff Discipline
 
@@ -223,6 +258,32 @@ When displaying an icon in the UI, follow this exact priority order and stop at 
 
 Before using tier 2 or 3, you MUST output a verification line confirming the icon is absent from `font_icons.gui`.
 
+## Localization Text Formatting Convention
+
+TV localization uses a fixed semantic mapping for the `#tag content#!` color/style tags (see
+`docs/technical/EU5_Modding_Knowledge_Base.md` section 6.3 "Text Format Tag Catalog" for the full
+tag syntax and the mandatory space-before-content rule). When writing player-facing loc text that
+needs emphasis, pick the tag by **meaning**, not by "what looks close enough":
+
+| Semantic need | Tag | Notes |
+|---|---|---|
+| Positive effect (a gain/bonus) | `#G` | Established usage, e.g. `tv_govhouse_l_english.yml` |
+| Negative effect (a loss/malus) | `#R` | Established usage, e.g. `tv_wonder_construction_events_l_english.yml` |
+| Neutral highlighted value/keyword (cost, threshold, non-judged number) | `#Y` | Do NOT use `#G`/`#R` for numbers that aren't inherently good/bad (e.g. a cost or a requirement) — reserve `#G`/`#R` for actual effect gains/losses |
+| Important content (pure emphasis, no positive/negative valence) | `#high` | Do not use `#W` for this — `#W` is reserved for its narrower vanilla role (difficulty labels) |
+| Beginner tip / guidance text | `#weak` | Matches vanilla's own usage for tutorial-style hint/explanatory asides (e.g. `interfaces_l_english.yml`) — despite the name, this is not "de-emphasis for unimportant text," it is the vanilla convention for supplementary guidance |
+| Pure flavor text (wonder descriptions, etc.) | `#F` | Gray italic, matches vanilla flavor-text usage |
+
+Do not invent a new tag or repurpose an unrelated one (e.g. `#X`, `#P`/`#N`, `#L`, `#V`) for these six
+needs — the mapping above is canonical for this mod. Trigger/requirement text (e.g. inside
+`custom_tooltip` conditions) must NOT be manually color-tagged with this table — the engine already
+colors it automatically via `#trigger_pass`/`#trigger_fail`, and manual tags will conflict with that
+automatic coloring.
+
+If a genuinely new semantic need arises that doesn't fit the six rows above (e.g. an irreversible-action
+risk warning, distinct from a stat-based negative effect), ask before assigning it a tag — do not
+silently reuse an existing row for a different meaning.
+
 ## Declarative Verification Requirement
 
 Before writing code that falls under the above categories, output this line first:
@@ -251,6 +312,19 @@ numeric id flow, generated index maps, or branch removal, do not fix runtime err
 reintroducing the old branch structure or generated per-key enumerations. Preserve the target
 architecture and fix the failing scope/syntax. If a rollback or fallback would materially undo
 the stated refactor goal, stop and report that tradeoff before editing.
+
+## Structural Fidelity Rule
+
+Do not downgrade an existing event, GUI, localization, or scripted-effect structure merely to
+make a data change easier. If a file currently uses per-target `triggered_desc` branches,
+target-specific event options, per-id effect dispatch, staged GUI rows, or other explicit
+structure, preserve that structure when changing the data set. Removing those branches,
+collapsing them into generic text/options, replacing target-specific UX with a fallback, or
+leaving stale branches unreachable is a design change, not an implementation shortcut.
+
+If preserving the existing structure would require many repetitive edits, either extend the
+appropriate generator/data source first or stop and ask before changing the structure. Never
+quietly trade away target-specific event/GUI behavior in the name of smaller patches.
 
 ## Early Development: Ask-First Policy
 
@@ -316,11 +390,20 @@ For `.gui` files place these `#` comment lines at the very top, before the first
 ### Script Directory Layout
 
 Infrastructure scripts stay at `scripts/` root:
-`validate.py`, `ai_context.py`, `gen_brief.py`, `gen_index.py`, `gen_scaffold.py`, `gen_victory.py`, `gen_messagetypes.py`, `gen_locked_advances.py`, `check_overview.py`
+`validate.py`, `ai_context.py`, `gen_brief.py`, `gen_index.py`, `gen_scaffold.py`, `gen_victory.py`, `gen_messagetypes.py`, `gen_locked_advances.py`, `check_overview.py`, `sync_reference.py`
 
-One-off asset helpers also stay at repository/script root. `scripts/generate_dds_icon.py` reads `generate_dds_icon_config.json` plus optional `generate_dds_icon.local.json`, selects one target (`trade_good_icon`, `trade_good_illustration`, `building_icon`, `victory_situation_icon`, `victory_path_icon`, or `victory_reward_icon`) or a batch mode (`victory_path_icons` or `victory_reward_icons`), can refine a short prompt, supports target-specific asset-name/prompt overrides, uploads that target's same-type style-reference DDS/PNG files for API generation, can use an explicitly configured local template renderer for deterministic source-DDS transformations, and writes configured DDS targets with enforced dimensions/file-size limits plus optional mipmaps. The icon targets now apply a circular inner-crop pass with transparent outside pixels and a soft alpha falloff near the edge before DDS writing. By default it skips generation when the final DDS target already exists and `output.overwrite` is false; the victory path batch creates `tv_victory_situation.dds` under `src/main_menu/gfx/interface/icons/situations/` plus six route icons under `src/main_menu/gfx/interface/icons/towards_victory/victory_paths/`, while the victory reward batch creates six route template icons plus ninety route/milestone/reward-option icons under `src/main_menu/gfx/interface/icons/towards_victory/victory_rewards/`. Run it through the Python Runner Policy; in managed sandboxes use `C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\generate_dds_icon.py`.
+`sync_reference.py` rebuilds `reference_game_files/game/` from an installed EU5 game
+folder (mirrors only `in_game/`+`main_menu/`, prunes `gfx/` and non-English/Chinese
+localization — including flat locale-suffixed files like `foo_l_russian.yml` —
+drops known-binary/media extensions plus anything that sniffs as binary content, and
+keeps every other file regardless of extension, under size caps). See
+`reference_game_files/README.md` for the full policy and usage.
 
-**1:1 feature scripts** live under `scripts/` mirroring `src/`, named `gen_<target_filename_without_extension>.py`:
+One-off asset helpers also stay at repository/script root. `scripts/generate_dds_icon.py` reads `generate_dds_icon_config.json` plus optional `generate_dds_icon.local.json`, selects one target (`trade_good_icon`, `trade_good_illustration`, `building_icon`, `victory_situation_icon`, `victory_path_icon`, or `victory_reward_icon`) or a batch mode (`victory_path_icons`, `victory_reward_icons`, or `wonder_building_icons`), can refine a short prompt, supports target-specific asset-name/prompt overrides, uploads that target's same-type style-reference DDS/PNG files for API generation, can use an explicitly configured local template renderer for deterministic source-DDS transformations, and writes configured DDS targets with enforced dimensions/file-size limits plus optional mipmaps. The icon targets now apply a circular inner-crop pass with transparent outside pixels and a soft alpha falloff near the edge before DDS writing. By default it skips generation when the final DDS target already exists and `output.overwrite` is false; the victory path batch creates `tv_victory_situation.dds` under `src/main_menu/gfx/interface/icons/situations/` plus six route icons under `src/main_menu/gfx/interface/icons/towards_victory/victory_paths/`, the victory reward batch creates six route template icons plus ninety route/milestone/reward-option icons under `src/main_menu/gfx/interface/icons/towards_victory/victory_rewards/`, and the wonder building batch reads the generated Engineering Department wonder data to create one 128x128 building icon task for each generic and unique final wonder building under `src_engineering_department/main_menu/gfx/interface/icons/buildings/`. Run it through the Python Runner Policy; in managed sandboxes use `C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\generate_dds_icon.py`.
+
+**1:1 feature scripts** live under `scripts/` for the main mod and
+`scripts_engineering_department/` for the Engineering Department mod, mirroring
+their respective source roots and named `gen_<target_filename_without_extension>.py`:
 ```
 scripts/
 ├── in_game/
@@ -332,7 +415,8 @@ scripts/
 └── ...
 ```
 
-To find whether a src file has a generator: look for `scripts/<same-relative-path>/gen_<filename>.py`.
+To find whether a source file has a generator, use the matching script root and
+look for `<script-root>/<same-relative-path>/gen_<filename>.py`.
 
 ### gen_victory.py Exception (multi-output)
 
@@ -340,7 +424,7 @@ To find whether a src file has a generator: look for `scripts/<same-relative-pat
 
 ### Current Generated Files
 
-| Generated file (in src/) | Data source | Script |
+| Generated file | Data source | Script |
 |---|---|---|
 | `scripted_triggers/towards_victory_triggers.txt` | `data/victory_paths.yaml` | `scripts/gen_victory.py` |
 | `scripted_effects/towards_victory_effects.txt` | `data/victory_paths.yaml` | `scripts/gen_victory.py` |
@@ -352,8 +436,13 @@ To find whether a src file has a generator: look for `scripts/<same-relative-pat
 | `scripted_effects/tv_advance_unlock_effects.txt` | `data/locked_advances.yaml` | `scripts/gen_locked_advances.py` |
 | `building_types/towards_victory_buildings.txt` | `data/academy_buildings.yaml` | `scripts/in_game/common/building_types/gen_towards_victory_buildings.py` |
 | `generic_actions/tv_io_leader_actions.txt` | `data/io_leaders.yaml` | `scripts/in_game/common/generic_actions/gen_tv_io_leader_actions.py` |
+| `src/in_game/common/customizable_localization/character_title.txt` | vanilla `character_title.txt` + all TV IO leader titles | `scripts/in_game/common/customizable_localization/gen_character_title.py` |
+| `src_engineering_department/in_game/common/customizable_localization/character_title.txt` | vanilla `character_title.txt` + Great Engineer title | `scripts/in_game/common/customizable_localization/gen_character_title.py` |
+| `src/main_menu/gui/messagetypes.txt` | vanilla `messagetypes.txt` + all TV generic actions | `scripts/gen_messagetypes.py` |
+| `src_engineering_department/main_menu/gui/messagetypes.txt` | vanilla `messagetypes.txt` + Engineering Department generic actions | `scripts/gen_messagetypes.py` |
 | `laws/tv_alliance_laws.txt` | `data/alliance_laws.yaml` | `scripts/in_game/common/laws/gen_tv_alliance_laws.py` |
 | `gui/panels/organization/tv_academy_of_sciences.gui` | `data/locked_advances.yaml` | `scripts/in_game/gui/panels/organization/gen_tv_academy_of_sciences_gui.py` |
+| `international_organizations/tv_academy_of_sciences.txt` | `data/philosophy_debates.yaml` | `scripts/in_game/common/international_organizations/gen_tv_academy_of_sciences.py` |
 
 ### Before Editing Any src File
 
@@ -428,18 +517,26 @@ C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\gen_brief.py
 
 ## Path Mapping
 
-- `src/` — mod source (Towards Victory)
+- `src/` — main mod source (Towards Victory)
   - `src/in_game/common/` — victory triggers, effects, situations, modifiers, on_action
   - `src/in_game/events/` — milestone notification events (`towards_victory_events.txt`)
   - `src/in_game/gui/` — situation panel GUI (manually maintained)
   - `src/main_menu/localization/` — hand-written strings (`towards_victory_l_*.yml`)
+- `src_engineering_department/` — standalone Engineering Department / Wonder Construction
+  mod source, mirroring `src/`'s `in_game/`/`main_menu/` layout. It depends on CMF 2.x,
+  not on `src/`; `src/` declares a hard dependency on it instead. See
+  `docs/knowledge/risk_cards/wonders.md`.
 - `docs/knowledge/` — `BRIEF.md` (auto-generated), `PROJECT_OVERVIEW.md`, `anti_patterns.yaml`, `valid_enums.yaml`, `risk_cards/`
 - `docs/guides/AI_Tool_Workflow_Prompt.md` — full 3-step rule and violation history
 - `docs/design/Towards_Victory_Design.md` — victory conditions design philosophy
 - `docs/technical/` — EU5 modding reference
 - `scripts/` — infrastructure: `ai_context.py`, `gen_brief.py`, `gen_index.py`, `gen_scaffold.py`, `validate.py`, `check_overview.py`, `gen_victory.py`, `gen_locked_advances.py`, `gen_messagetypes.py`
 - `scripts/in_game/` — 1:1 feature generators mirroring `src/in_game/` (see Script System section)
-- `data/` — YAML sources for generated files; `data/generated_files.yaml` is the authoritative registry
+- `scripts_engineering_department/` — 1:1 feature generators mirroring `src_engineering_department/`
+  (see Script System section). A few generators under `scripts/` are shared multi-output
+  exceptions (e.g. `gen_tv_io_leader_actions.py`, `gen_tv_pulse_registry.py`) that produce
+  one output in each mod root, filtered by IO-type/on_action-id substring.
+- `data/` — YAML sources for generated files (shared by both mod roots); `data/generated_files.yaml` is the authoritative registry
 - `data/index/` — symbol lookup tables (auto-generated by gen_index.py)
 - `reference_official_defines/` — official EU5 define/type reference files
 - `reference_game_files/` — vanilla EU5 script sources (Step 3 verification)
@@ -477,7 +574,7 @@ The project assumes humans do not maintain code or AI workflow files manually. A
 - If `docs/knowledge/risk_cards/` changes, ensure the card is listed by `scripts/ai_context.py` when its domain is touched.
 - If `scripts/ai_context.py` domain coverage or output changes, update `CLAUDE.md`, `docs/guides/AI_Tool_Workflow_Prompt.md`, and the script table in `docs/knowledge/PROJECT_OVERVIEW.md`.
 - If `scripts/validate.py` gains a reliable checker for a previous `needs_parser` rule, update the corresponding `anti_patterns.yaml` entry to `detectability: lint`.
-- If a `detectability: lint` regex is added or changed, add/update fixtures under `tests/fixtures/anti_patterns/<rule_id>/` and run `C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\test_lint_rules.py` in managed sandboxes.
+- If a `detectability: lint` regex or validator is added or changed, add/update fixtures under `tests/fixtures/anti_patterns/<rule_id>/` and run `C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\test_lint_rules.py` in managed sandboxes.
 - If `scripts/validate.py` reports a new warning, fix it unless the warning is intentionally accepted. Accepted warnings must be added to `data/validation_baseline.yaml` with a rationale; never baseline a warning just to make validation pass.
 - If a new warning domain appears repeatedly in runtime logs, prefer a risk card plus `ai_context.py` domain routing over adding more long-form prose to `BRIEF.md`.
 - After any change to `anti_patterns.yaml`, `valid_enums.yaml`, `PROJECT_OVERVIEW.md`, or `risk_cards/`, regenerate `BRIEF.md`.

@@ -27,4 +27,15 @@ tv_govhouse_local_administration = {
 	possible_production_methods = {
 		tv_govhouse_local_administration_maintenance
 	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				save_scope_as = tv_govhouse_completed_local_admin_scope
+			}
+			owner = {
+				tv_govhouse_handle_local_administration_construction_ended_effect = yes
+			}
+		}
+	}
 }

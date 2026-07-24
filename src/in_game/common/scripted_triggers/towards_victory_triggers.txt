@@ -704,6 +704,15 @@ tv_diplomatic_establishment_ready_to_appoint = {
 	  text = TV_CONQUEST_M1_EXTRA_TRIGGER_DESC
 	  is_subject = no
 	}
+	OR = {
+		is_ai = no
+		NOT = {
+		  any_international_organization = {
+		    international_organization_type = international_organization_type:tv_diplomatic_alliance
+		    count >= 10
+		  }
+		}
+	}
 }
 
 tv_cultural_establishment_basic_requirement = {
@@ -769,7 +778,7 @@ tv_cultural_establishment_ready_to_appoint = {
 tv_science_establishment_basic_requirement = {
 	custom_tooltip = {
 		text = TV_SCIENCE_ESTABLISHMENT_STEP1_REQUIREMENT
-		num_of_advances_researched >= 50
+		always = yes
 	}
 }
 

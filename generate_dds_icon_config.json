@@ -1,21 +1,21 @@
 {
   "api": {
-    "endpoint": "https://www.right.codes/draw/v1/images/edits",
-    "generations_endpoint": "https://www.right.codes/draw/v1/images/generations",
-    "edits_endpoint": "https://www.right.codes/draw/v1/images/edits",
+    "endpoint": "https://www.packyapi.com/v1/images/edits",
+    "generations_endpoint": "https://www.packyapi.com/v1/images/generations",
+    "edits_endpoint": "https://www.packyapi.com/v1/images/edits",
     "api_key_env": [
       "PACKY_API_KEY",
       "PACKY_SORA_TOKEN"
     ],
     "api_key": "",
-    "proxy_url": "",
+    "proxy_url": "http://127.0.0.1:7897",
     "timeout_seconds": 180,
     "max_attempts": 4,
     "retry_initial_delay_seconds": 3,
     "retry_max_delay_seconds": 30,
     "retry_backoff_multiplier": 2
   },
-  "generation_target": "victory_path_icons",
+  "generation_target": "wonder_building_icons",
   "prompt_refinement": {
     "enabled": true,
     "style_rules": "Match the palette, brush feel, lighting, icon density, and framing discipline of the selected target's reference image. Keep the final subject and asset meaning driven by the selected batch entry, not the reference subject.",
@@ -49,7 +49,7 @@
     "metadata_dir": "data/generated_icons",
     "targets": {
       "trade_good_icon": {
-        "path": "src/main_menu/gfx/interface/icons/trade_goods/{name}.dds",
+        "path": "src_engineering_department/main_menu/gfx/interface/icons/trade_goods/{name}.dds",
         "width": 128,
         "height": 128,
         "resize": "cover",
@@ -63,7 +63,7 @@
         ]
       },
       "trade_good_illustration": {
-        "path": "src/main_menu/gfx/interface/icons/trade_goods/illustrations/{name}.dds",
+        "path": "src_engineering_department/main_menu/gfx/interface/icons/trade_goods/illustrations/{name}.dds",
         "width": 1080,
         "height": 440,
         "resize": "cover",
@@ -77,8 +77,8 @@
         ]
       },
       "building_icon": {
-        "asset_name": "tv_wonder_labor_camp",
-        "path": "src/main_menu/gfx/interface/icons/buildings/{name}.dds",
+        "asset_name": "tv_wonder_material_dispatch_point",
+        "path": "src_engineering_department/main_menu/gfx/interface/icons/buildings/{name}.dds",
         "width": 128,
         "height": 128,
         "resize": "cover",
@@ -89,17 +89,16 @@
         "circle_crop_feather_px": 8,
         "max_file_size_bytes": 100000,
         "image_size": "1024x1024",
-        "prompt_requirements": "This is a compact building icon for the Wonder Worksite. Treat the uploaded Construction Center reference as the style authority: same simple painterly brushwork, compact crop, low object count, and readable 128px silhouette. Depict a wonder construction worksite using exactly 2-3 simple shapes: one small worksite shed, one crane or hoist wheel, and one pale stone foundation block. The result should feel premium through restrained marble and bronze accents while staying as simple as the reference. Do not add extra props, workers, crowds, complex scaffolding, full scenery, a finished monument, a palace, or a narrative construction scene.",
+        "prompt_requirements": "This is a compact building icon for the Wonder Material Workshop (建材工坊), the sibling structure of the Wonder Worksite that processes raw goods into wonder building materials. Treat the uploaded Construction Center and Wonder Worksite references as the style authority: same simple painterly brushwork, compact crop, low object count, and readable 128px silhouette. Depict the workshop using exactly 2-3 simple shapes: one small workshop shed or lean-to, one stack of cut stone/timber material blocks, and one small workbench or anvil. The result should feel premium through restrained marble and bronze accents while staying as simple as the reference. Do not add extra props, workers, crowds, complex scaffolding, full scenery, a finished monument, a palace, or a narrative construction scene.",
         "style_reference_paths": [
-          "data/generated_icons/_style_refs/construction_center.dds"
+          "data/generated_icons/_style_refs/construction_center.dds",
+          "src_engineering_department/main_menu/gfx/interface/icons/buildings/tv_wonder_labor_camp.dds"
         ],
         "local_template": {
-          "enabled": true,
-          "mode": "wonder_worksite",
-          "source_path": "data/generated_icons/_style_refs/construction_center.dds"
+          "enabled": false
         },
         "image": {
-          "natural_prompt": "A simple Europa Universalis V building icon in the uploaded vanilla Construction Center style. Match the reference's painterly icon language, compact crop, simple silhouette, and low element count. Show a wonder construction worksite with only three clear elements: a small worksite shed, one crane or hoist wheel, and one pale stone foundation block with restrained bronze accents. Sparse, centered, readable at 128px, premium but not ornate, no text.",
+          "natural_prompt": "A simple Europa Universalis V building icon in the uploaded vanilla Construction Center style, matching the companion Wonder Worksite icon's painterly language, compact crop, and low element count. Show a wonder material workshop with only three clear elements: a small workshop shed or lean-to, one stack of cut stone or timber material blocks, and one small workbench or anvil with restrained bronze accents. Sparse, centered, readable at 128px, premium but not ornate, no text.",
           "negative_prompt": "busy construction scene, many objects, extra props, many tools, crowds, workers, multiple buildings, complex scaffolding, ornate palace, completed monument, giant statue, landscape background, detailed narrative scene, realistic photo, text, letters, logo, UI frame"
         }
       },
@@ -156,8 +155,66 @@
           "natural_prompt": "Create a distinct victory path icon with a clear path-specific silhouette, one strong symbolic subject, and the route's own theme color as the dominant accent.",
           "negative_prompt": "busy scene, landscape, many objects, detailed narrative, ornate frame, UI frame, text, letters, numbers, logo, watermark, realistic photo"
         }
+      },
+      "ed_module_cover": {
+        "path": "src_engineering_department/thumbnail.png",
+        "width": 512,
+        "height": 512,
+        "resize": "cover",
+        "output_format": "png",
+        "circle_crop": false,
+        "circle_crop_feather_px": 0,
+        "max_file_size_bytes": 1000000,
+        "image_size": "1024x1024",
+        "style_reference_paths": [
+          "data/generated_icons/_style_refs/construction_center.dds",
+          "src/main_menu/gfx/interface/icons/towards_victory/victory_trees/tv_victory_prosperity_tree.dds"
+        ],
+        "image": {
+          "natural_prompt": "Create a square Steam Workshop cover illustration for the standalone Engineering Department sub-mod of Towards Victory, in the epic historical key-art style of a AAA grand strategy game box cover, not a flat clean icon. Show a monumental wonder rising from a grand construction site at golden-hour dusk: scaffolding, a crane or hoist, pale marble blocks, and restrained bronze and gold accents, wrapped in atmospheric haze, dust, and dramatic warm light so it feels like a real moment of history being built. Use the two uploaded references only for guidance: take the construction-site motifs from the building icon reference, and take the painterly atmosphere, dramatic lighting, and epic mood from the tree-background reference. Compose off-center on a rule-of-thirds grid, with the wonder and its scaffolding positioned toward the lower third or one side of the frame. Leave the center of the composition calm, uncluttered, and free of important detail (open sky, drifting haze, or a soft receding backdrop) because a game title will later be overlaid there.",
+          "negative_prompt": "text, letters, numbers, logo, watermark, UI frame, flat clean vector icon, simple centered icon composition, subject or main detail placed in the exact center, symmetrical center-locked framing, realistic photo, crowd of tiny unreadable details, finished/completed monument with no construction elements, blank empty background, flat lighting, low contrast"
+        }
+      },
+      "victory_tree_background": {
+        "path": "src/main_menu/gfx/interface/icons/towards_victory/victory_trees/{name}.dds",
+        "width": 2048,
+        "height": 1152,
+        "resize": "cover",
+        "dds_format": "DXT1",
+        "mipmaps": false,
+        "circle_crop": false,
+        "circle_crop_feather_px": 0,
+        "max_file_size_bytes": 1200000,
+        "image_size": "2048x1152"
       }
     }
+  },
+  "wonder_building_icons": {
+    "output_dir": "src_engineering_department/main_menu/gfx/interface/icons/buildings",
+    "artifact_stem": "{name}",
+    "include_generic": true,
+    "include_unique": true,
+    "style_reference_paths": [
+      "data/generated_icons/_style_refs/construction_center.dds"
+    ],
+    "target": {
+      "width": 128,
+      "height": 128,
+      "resize": "cover",
+      "dds_format": "DXT5",
+      "mipmaps": true,
+      "mipmap_min_dimension": 2,
+      "circle_crop": true,
+      "circle_crop_feather_px": 8,
+      "max_file_size_bytes": 100000,
+      "image_size": "1024x1024",
+      "local_template": {
+        "enabled": false
+      }
+    },
+    "icon_rules": "Match vanilla Europa Universalis V building icons: simple painterly brushwork, compact centered crop, clear 128px silhouette, and a restrained palette of 3-4 colors. Use one main architectural symbol plus at most 1-2 tiny supporting shapes. Keep the icon readable after circular crop and mipmap downsizing. No text, letters, numbers, logo, UI frame, full landscape, crowd, or detailed narrative scene.",
+    "prompt_prefix": "Create a compact vanilla-style Europa Universalis V wonder building icon for",
+    "overrides": {}
   },
   "victory_path_icons": {
     "output_dir": "src/main_menu/gfx/interface/icons/towards_victory/victory_paths",
@@ -311,6 +368,69 @@
         "style_reference_paths": [
           "data/generated_icons/_style_refs/construction_center.dds"
         ]
+      }
+    ]
+  },
+  "victory_tree_backgrounds": {
+    "output_dir": "src/main_menu/gfx/interface/icons/towards_victory/victory_trees",
+    "artifact_stem": "{name}",
+    "name_template": "tv_victory_{path}_tree",
+    "target": {
+      "local_template": {
+        "enabled": false
+      }
+    },
+    "prompt_prefix": "Create a wide, route-specific victory reward tree background for",
+    "tree_rules": "A beautiful, high-quality 16:9 painting or photograph of a single tree standing close to the viewer, large enough to dominate the frame and partly block a hazy, distant landscape beyond it — near and far are the same place under the same light, not a collage. Let the tree feel bigger than the picture: at the edge named below, a branch or the trunk simply runs off the frame, as though only part of a larger tree was caught in view, so no roots or ground appear there. Each route below names one exact entry point on one border and one direction the tree grows toward on the far side of the frame — anchor the trunk at that exact point (don't default to the generic 'trunk rooted in the bottom-left corner' shot unless that is the named point) and let it sweep across the frame toward the named direction, its branches spreading out along the way so the tree commands most of the picture. The six routes should read as differently angled at a glance because their entry points and directions differ, not because the tree is boxed into a smaller region. Let the trunk fork naturally into a handful of branches as it grows, each with some open, unembellished stretches of bark — a round button will be overlaid on the branches later, so avoid drawing circles, rings, or icons, but otherwise trust your own eye for where and how the branches should fall. Prioritize a gorgeous, atmospheric, painterly result over any rigid structure. No text or UI elements.",
+    "negative_prompt": "text, letters, numbers, labels, UI buttons, circular nodes or rings, badges, medallions, icons on the tree, logos, watermark, flat 2D illustration, cutout foreground pasted over a backdrop, mismatched lighting between tree and background, visible roots or ground line at the cropped edge, whole tree fully contained in frame, second tree, trunk entering from a different border than the one specified, tree cropped small into one corner instead of sweeping across most of the frame",
+    "paths": [
+      {
+        "id": "conquest",
+        "label": "Conquest Victory",
+        "style_reference_paths": [
+          "src/main_menu/gfx/interface/icons/towards_victory/victory_paths/tv_victory_conquest.dds"
+        ],
+        "tree_prompt": "A medieval mood in crimson and iron: a stark, weathered ironwood tree against a dusty frontier of far-off fortress walls. The trunk enters at the lower-left corner and sweeps diagonally across nearly the whole frame toward the upper-right, its branches spreading out along that climb to command most of the picture. Forceful, territorial, irreversible."
+      },
+      {
+        "id": "prosperity",
+        "label": "Prosperity Victory",
+        "style_reference_paths": [
+          "src/main_menu/gfx/interface/icons/towards_victory/victory_paths/tv_victory_prosperity.dds"
+        ],
+        "tree_prompt": "An Art Nouveau mood in leaf green and warm gold: a graceful cultivated tree rising from a hazy valley of orchards and terraces. It enters cropped at the bottom-center edge and climbs vertically toward the top-center, its slender stems branching generously and rhythmically to either side. Abundant, flourishing, alive."
+      },
+      {
+        "id": "trade",
+        "label": "Trade Victory",
+        "style_reference_paths": [
+          "src/main_menu/gfx/interface/icons/towards_victory/victory_paths/tv_victory_trade.dds"
+        ],
+        "tree_prompt": "A maritime trade mood in gold and ink-navy: a wind-bent tree with a strongly horizontal trunk, set against a hazy harbor of distant sails and warehouses. The trunk enters at the vertical midpoint of the left border — clearly above the bottom-left corner — and reaches horizontally across nearly the whole frame toward the right, its branches sweeping above and below along the way like shipping lanes to command most of the picture. Expansive, adventurous, far-reaching."
+      },
+      {
+        "id": "diplomatic",
+        "label": "Diplomatic Victory",
+        "style_reference_paths": [
+          "src/main_menu/gfx/interface/icons/towards_victory/victory_paths/tv_victory_diplomatic.dds"
+        ],
+        "tree_prompt": "A restrained Baroque mood in ivory and antique gold: an elegant tree with finely spaced branches, set against a hazy palace garden. The trunk enters at the upper-left corner and sweeps diagonally across nearly the whole frame toward the lower-right, its branches arcing outward in balanced pairs along the way to command most of the picture. Composed, negotiated, dignified rather than forceful."
+      },
+      {
+        "id": "cultural",
+        "label": "Cultural Victory",
+        "style_reference_paths": [
+          "src/main_menu/gfx/interface/icons/towards_victory/victory_paths/tv_victory_cultural.dds"
+        ],
+        "tree_prompt": "A Chinese ink-wash mood on rice paper, charcoal black with soft purple accents, set against a misty wash of distant academy roofs. One commanding tree rendered in confident dry-brush strokes. The trunk enters at the lower-right corner and sweeps diagonally across nearly the whole frame toward the upper-left, its brush branches flowing outward along the way to command most of the picture, with generous blank-paper space between them. Contemplative, refined. No Chinese characters."
+      },
+      {
+        "id": "science",
+        "label": "Scientific Victory",
+        "style_reference_paths": [
+          "src/main_menu/gfx/interface/icons/towards_victory/victory_paths/tv_victory_science.dds"
+        ],
+        "tree_prompt": "A clean, modern mood in azure and cool white: first and foremost a real tree, with natural bark, organic knots, and irregular branching, only subtly touched by its theme through a faint luminous glow tracing the grain of the bark and a few small crystalline accents, set against a hazy field of observatory machinery. The trunk enters at the upper-right corner and sweeps diagonally across nearly the whole frame toward the lower-left, branching naturally left and right along the way to command most of the picture. Precise, exploratory, forward-looking, but recognizably a living tree, not a machine or circuit diagram."
       }
     ]
   }

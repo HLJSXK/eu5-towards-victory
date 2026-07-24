@@ -49,6 +49,14 @@ organization_panel = {
 \t\tvisible = "[InternationalOrganizationsView.Vars.NotExistOrHasValue( 'organizations', 'overview' )]"
 \t}
 
+\tblockoverride "organization_members_tab_down" {
+\t\tdown = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'members' )]"
+\t}
+
+\tblockoverride "organization_panel_members_visible" {
+\t\tvisible = "[InternationalOrganizationsView.Vars.HasValue( 'organizations', 'members' )]"
+\t}
+
 \tblockoverride "organization_resolutions_tab_visible" {
 \t\tvisible = yes
 \t}
@@ -108,6 +116,33 @@ organization_panel = {
 
 \t\t\t\tsize = { 250 200 }
 \t\t\t\tdatacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_grand_merchant_char').GetCharacter]"
+\t\t\t}
+
+\t\t\tvbox = {
+\t\t\t\tvisible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_grand_merchant_char').IsSet)]"
+\t\t\t\tsize = { 250 200 }
+\t\t\t\tparentanchor = center
+\t\t\t\twidgetanchor = center
+\t\t\t\tposition = { 0 0 }
+\t\t\t\tspacing = 2
+
+\t\t\t\texpand = {}
+\t\t\t\tspacer = { size = { 250 16 } }
+\t\t\t\ttext_single = {
+\t\t\t\t\tsize = { 250 32 }
+\t\t\t\t\traw_text = "+"
+\t\t\t\t\tfontsize = 34
+\t\t\t\t\talign = center|nobaseline
+\t\t\t\t\tdefault_format = "#yellow_titles"
+\t\t\t\t}
+\t\t\t\ttext_single = {
+\t\t\t\t\tsize = { 250 20 }
+\t\t\t\t\ttext = "TV_IO_HEADER_APPOINT_CHIEF_PROMPT"
+\t\t\t\t\tfontsize = 14
+\t\t\t\t\talign = center|nobaseline
+\t\t\t\t\tdefault_format = "#high"
+\t\t\t\t}
+\t\t\t\texpand = {}
 \t\t\t}
 
 \t\t\taction_button = {
@@ -224,7 +259,7 @@ organization_panel = {
 \t\tvbox = {
 \t\t\tmargin = { 10 0 }
 \t\t\tlayoutpolicy_horizontal = expanding
-\t\t\tlayoutpolicy_vertical = fixed
+\t\t\tlayoutpolicy_vertical = shrinking
 \t\t\tignoreinvisible = yes
 \t\t\tspacing = 8
 
@@ -844,14 +879,19 @@ def trade_chain_strength_card(chain_data: dict) -> str:
 
 
 def trade_chain_pie_widget(indent: str) -> str:
-    return f"""{indent}piechart = {{
+    return f"""{indent}widget = {{
+{indent}\tlayoutpolicy_horizontal = fixed
+{indent}\tlayoutpolicy_vertical = fixed
 {indent}\tsize = {{ 72 72 }}
-{indent}\tusing = piechart_angles
-{indent}\ticon = {{ texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" size = {{ 97% 97% }} parentanchor = center color = {{ 0.20 0.27 0.31 1 }} alpha = 0.32 }}
-{indent}\tpieslice = {{ texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[FixedPointToFloat(Market.GetTotalMerchantCapacity(Player.Self))]" color = {{ 0.82 0.62 0.22 1 }} alpha = 0.85 }}
-{indent}\tpieslice = {{ texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[Subtract_float('(float)100.0', FixedPointToFloat(Market.GetTotalMerchantCapacity(Player.Self)))]" color = {{ 0.28 0.47 0.56 1 }} alpha = 0.75 }}
-{indent}\ticon = {{ texture = "gfx/interface/icons/flat_icons/market_wealth.dds" size = {{ 34 34 }} parentanchor = center }}
-{indent}\tusing = bg_circle_piechart
+{indent}\tpiechart = {{
+{indent}\t\tsize = {{ 72 72 }}
+{indent}\t\tusing = piechart_angles
+{indent}\t\ticon = {{ texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" size = {{ 97% 97% }} parentanchor = center color = {{ 0.20 0.27 0.31 1 }} alpha = 0.32 }}
+{indent}\t\tpieslice = {{ texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[FixedPointToFloat(Market.GetTotalMerchantCapacity(Player.Self))]" color = {{ 0.82 0.62 0.22 1 }} alpha = 0.85 }}
+{indent}\t\tpieslice = {{ texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = "[Subtract_float('(float)100.0', FixedPointToFloat(Market.GetTotalMerchantCapacity(Player.Self)))]" color = {{ 0.28 0.47 0.56 1 }} alpha = 0.75 }}
+{indent}\t\ticon = {{ texture = "gfx/interface/icons/flat_icons/market_wealth.dds" size = {{ 34 34 }} parentanchor = center }}
+{indent}\t\tusing = bg_circle_piechart
+{indent}\t}}
 {indent}}}"""
 
 
@@ -867,30 +907,35 @@ def trade_chain_market_card() -> str:
 \t\t\t\t\t\t\tdatacontext = "[Scope.GetMarket]"
 \t\t\t\t\t\t\thbox = {{
 \t\t\t\t\t\t\t\tsize = {{ 462 90 }}
-\t\t\t\t\t\t\t\tspacing = 10
-\t\t\t\t\t\t\t\tmargin = {{ 8 9 }}
+\t\t\t\t\t\t\t\tspacing = 0
+\t\t\t\t\t\t\t\tmargin = {{ 0 9 }}
+\t\t\t\t\t\t\t\twidget = {{ layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = {{ 10 72 }} }}
 {pie}
+\t\t\t\t\t\t\t\twidget = {{ layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = {{ 8 72 }} }}
 \t\t\t\t\t\t\t\tvbox = {{
+\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
+\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
 \t\t\t\t\t\t\t\t\tsize = {{ 360 72 }}
 \t\t\t\t\t\t\t\t\tspacing = 3
 \t\t\t\t\t\t\t\t\ttext_single = {{ size = {{ 360 20 }} raw_text = "@market! [Market.GetNameWithNoTooltip]" align = nobaseline|left fontsize = 14 }}
 \t\t\t\t\t\t\t\t\thbox = {{
-\t\t\t\t\t\t\t\t\t\tsize = {{ 360 48 }}
-\t\t\t\t\t\t\t\t\t\tspacing = 10
-\t\t\t\t\t\t\t\t\t\tvbox = {{
-\t\t\t\t\t\t\t\t\t\t\tsize = {{ 175 48 }}
-\t\t\t\t\t\t\t\t\t\t\tspacing = 2
-\t\t\t\t\t\t\t\t\t\t\twidget = {{ size = {{ 175 22 }} datacontext = "[Market.GetCenterLocation.GetOwner]" text_single = {{ size = {{ 175 22 }} raw_text = "[Country.GetNameWithFlag]" align = nobaseline|left fontsize = 12 }} }}
-\t\t\t\t\t\t\t\t\t\t\ttext_single = {{ size = {{ 175 22 }} raw_text = "[Market.GetTotalMerchantCapacity(Player.Self)|2]@trade_capacity!" align = nobaseline|left fontsize = 12 }}
-\t\t\t\t\t\t\t\t\t\t}}
-\t\t\t\t\t\t\t\t\t\tvbox = {{
-\t\t\t\t\t\t\t\t\t\t\tsize = {{ 175 48 }}
-\t\t\t\t\t\t\t\t\t\t\tspacing = 2
-\t\t\t\t\t\t\t\t\t\t\twidget = {{ visible = "[GreaterThan_CFixedPoint(Market.GetTotalMerchantCapacity(Player.Self),'(CFixedPoint)0')]" size = {{ 175 22 }} datacontext = "[Market.GetMerchant(Player.Self)]" text_single = {{ size = {{ 175 22 }} raw_text = "[Merchant.GetPowerWithLabel]@trade_advantage!" align = nobaseline|left fontsize = 12 }} }}
-\t\t\t\t\t\t\t\t\t\t\twidget = {{ visible = "[GreaterThan_CFixedPoint(Market.GetTotalMerchantCapacity(Player.Self),'(CFixedPoint)0')]" size = {{ 175 22 }} datacontext = "[Market.GetMerchant(Player.Self)]" text_single = {{ size = {{ 175 22 }} raw_text = "[Merchant.GetTotalTradeProfit|2+=]@gold!" align = nobaseline|left fontsize = 12 }} }}
-\t\t\t\t\t\t\t\t\t\t}}
+\t\t\t\t\t\t\t\t\tsize = {{ 360 48 }}
+\t\t\t\t\t\t\t\t\tspacing = 10
+\t\t\t\t\t\t\t\t\tvbox = {{
+\t\t\t\t\t\t\t\t\t\tsize = {{ 175 48 }}
+\t\t\t\t\t\t\t\t\t\tspacing = 2
+\t\t\t\t\t\t\t\t\t\twidget = {{ size = {{ 175 22 }} datacontext = "[Market.GetCenterLocation.GetOwner]" text_single = {{ size = {{ 175 22 }} raw_text = "[Country.GetNameWithFlag]" align = nobaseline|left fontsize = 12 }} }}
+\t\t\t\t\t\t\t\t\t\ttext_single = {{ size = {{ 175 22 }} raw_text = "[Market.GetTotalMerchantCapacity(Player.Self)|2]@trade_capacity!" align = nobaseline|left fontsize = 12 }}
+\t\t\t\t\t\t\t\t\t}}
+\t\t\t\t\t\t\t\t\tvbox = {{
+\t\t\t\t\t\t\t\t\t\tsize = {{ 175 48 }}
+\t\t\t\t\t\t\t\t\t\tspacing = 2
+\t\t\t\t\t\t\t\t\t\twidget = {{ visible = "[GreaterThan_CFixedPoint(Market.GetTotalMerchantCapacity(Player.Self),'(CFixedPoint)0')]" size = {{ 175 22 }} datacontext = "[Market.GetMerchant(Player.Self)]" text_single = {{ size = {{ 175 22 }} raw_text = "[Merchant.GetPowerWithLabel]@trade_advantage!" align = nobaseline|left fontsize = 12 }} }}
+\t\t\t\t\t\t\t\t\t\twidget = {{ visible = "[GreaterThan_CFixedPoint(Market.GetTotalMerchantCapacity(Player.Self),'(CFixedPoint)0')]" size = {{ 175 22 }} datacontext = "[Market.GetMerchant(Player.Self)]" text_single = {{ size = {{ 175 22 }} raw_text = "[Merchant.GetTotalTradeProfit|2+=]@gold!" align = nobaseline|left fontsize = 12 }} }}
 \t\t\t\t\t\t\t\t\t}}
 \t\t\t\t\t\t\t\t}}
+\t\t\t\t\t\t\t}}
+\t\t\t\t\t\t\t\twidget = {{ layoutpolicy_horizontal = expanding layoutpolicy_vertical = fixed size = {{ -1 72 }} }}
 \t\t\t\t\t\t\t}}
 \t\t\t\t\t\t}}
 """
@@ -913,9 +958,12 @@ def trade_chain_add_card(max_nodes: int) -> str:
 \t\t\t\t\t\t\tbackground = {{ using = bg_cabinet_card_frame }}
 \t\t\t\t\t\t\thbox = {{
 \t\t\t\t\t\t\t\tsize = {{ 462 90 }}
-\t\t\t\t\t\t\t\tspacing = 10
-\t\t\t\t\t\t\t\tmargin = {{ 8 9 }}
+\t\t\t\t\t\t\t\tspacing = 0
+\t\t\t\t\t\t\t\tmargin = {{ 0 9 }}
+\t\t\t\t\t\t\t\twidget = {{ layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = {{ 10 72 }} }}
 \t\t\t\t\t\t\t\twidget = {{
+\t\t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
+\t\t\t\t\t\t\t\t\tlayoutpolicy_vertical = fixed
 \t\t\t\t\t\t\t\t\tsize = {{ 72 72 }}
 \t\t\t\t\t\t\t\t\tpiechart = {{
 \t\t\t\t\t\t\t\t\t\tsize = {{ 72 72 }}
@@ -924,9 +972,11 @@ def trade_chain_add_card(max_nodes: int) -> str:
 \t\t\t\t\t\t\t\t\t\tpieslice = {{ texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds" value = 100 color = {{ 0.74 0.63 0.30 1 }} alpha = 0.75 }}
 \t\t\t\t\t\t\t\t\t\tusing = bg_circle_piechart
 \t\t\t\t\t\t\t\t\t}}
-\t\t\t\t\t\t\t\t\ttext_single = {{ size = {{ 72 72 }} raw_text = "+" align = center fontsize = 34 }}
+\t\t\t\t\t\t\t\t\ttext_single = {{ size = {{ 72 72 }} raw_text = "+" align = nobaseline|center fontsize = 34 parentanchor = center }}
 \t\t\t\t\t\t\t\t}}
-\t\t\t\t\t\t\t\ttext_multi = {{ size = {{ 360 72 }} autoresize = yes max_width = 360 text = "TV_TRADE_CHAIN_ADD_NODE_HINT" align = nobaseline|left }}
+\t\t\t\t\t\t\t\twidget = {{ layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = {{ 8 72 }} }}
+\t\t\t\t\t\t\t\ttext_multi = {{ layoutpolicy_horizontal = fixed layoutpolicy_vertical = fixed size = {{ 360 72 }} autoresize = yes max_width = 360 text = "TV_TRADE_CHAIN_ADD_NODE_HINT" align = nobaseline|left }}
+\t\t\t\t\t\t\t\twidget = {{ layoutpolicy_horizontal = expanding layoutpolicy_vertical = fixed size = {{ -1 72 }} }}
 \t\t\t\t\t\t\t}}
 \t\t\t\t\t\t\taction_button = {{
 \t\t\t\t\t\t\t\tsize = {{ 462 90 }}
@@ -977,19 +1027,24 @@ def trade_chain_overview(chain_data: dict) -> str:
 \t\t\t\t\twidget = {{
 \t\t\t\t\t\tlayoutpolicy_horizontal = fixed
 \t\t\t\t\t\tlayoutpolicy_vertical = shrinking
+\t\t\t\t\t\tset_parent_size_to_minimum = yes
 \t\t\t\t\t\tminimumsize = {{ 462 -1 }}
 \t\t\t\t\t\tmaximumsize = {{ 462 -1 }}
 {progress}\t\t\t\t\t\tvbox = {{
+\t\t\t\t\t\t\tset_parent_size_to_minimum = yes
 \t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
 \t\t\t\t\t\t\tlayoutpolicy_vertical = shrinking
 \t\t\t\t\t\t\tsize = {{ 462 -1 }}
 \t\t\t\t\t\t\tspacing = 8
 \t\t\t\t\t\t\tmargin = {{ 0 0 }}
+\t\t\t\t\t\t\tignoreinvisible = yes
 \t\t\t\t\t\t\tvbox = {{
+\t\t\t\t\t\t\t\tset_parent_size_to_minimum = yes
 \t\t\t\t\t\t\t\tlayoutpolicy_horizontal = fixed
 \t\t\t\t\t\t\t\tlayoutpolicy_vertical = shrinking
 \t\t\t\t\t\t\t\tsize = {{ 462 -1 }}
 \t\t\t\t\t\t\t\tspacing = 8
+\t\t\t\t\t\t\t\tignoreinvisible = yes
 \t\t\t\t\t\t\t\tdatamodel = "[InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.MakeScope.GetList('tv_trade_chain_markets')]"
 \t\t\t\t\t\t\t\titem = {{
 {market_card}\t\t\t\t\t\t\t\t}}

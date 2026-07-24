@@ -9,11 +9,10 @@
 	item = {
 		widget = {
 			size = { 0 0 }
-			visible = "[Or6(
+			visible = "[Or5(
 				And3(EqualTo_CFixedPoint(GetPlayer.MakeScope.GetVariable('tv_io_chief_alert_open_requested').GetValue, '(CFixedPoint)1.0'), EqualTo_string(InternationalOrganization.GetType.GetNameKey, 'tv_arts_exhibition'), InternationalOrganization.IsIOLeaderCountry(GetPlayer)),
 				And3(EqualTo_CFixedPoint(GetPlayer.MakeScope.GetVariable('tv_io_chief_alert_open_requested').GetValue, '(CFixedPoint)2.0'), EqualTo_string(InternationalOrganization.GetType.GetNameKey, 'tv_diplomatic_alliance'), InternationalOrganization.IsIOLeaderCountry(GetPlayer)),
 				And3(EqualTo_CFixedPoint(GetPlayer.MakeScope.GetVariable('tv_io_chief_alert_open_requested').GetValue, '(CFixedPoint)3.0'), EqualTo_string(InternationalOrganization.GetType.GetNameKey, 'tv_academy_of_sciences'), InternationalOrganization.IsIOLeaderCountry(GetPlayer)),
-				And3(EqualTo_CFixedPoint(GetPlayer.MakeScope.GetVariable('tv_io_chief_alert_open_requested').GetValue, '(CFixedPoint)4.0'), EqualTo_string(InternationalOrganization.GetType.GetNameKey, 'tv_engineering_department'), InternationalOrganization.IsIOLeaderCountry(GetPlayer)),
 				And3(EqualTo_CFixedPoint(GetPlayer.MakeScope.GetVariable('tv_io_chief_alert_open_requested').GetValue, '(CFixedPoint)5.0'), EqualTo_string(InternationalOrganization.GetType.GetNameKey, 'tv_trade_league'), InternationalOrganization.IsIOLeaderCountry(GetPlayer)),
 				And3(EqualTo_CFixedPoint(GetPlayer.MakeScope.GetVariable('tv_io_chief_alert_open_requested').GetValue, '(CFixedPoint)6.0'), EqualTo_string(InternationalOrganization.GetType.GetNameKey, 'tv_govhouse'), InternationalOrganization.IsIOLeaderCountry(GetPlayer))
 			)]"

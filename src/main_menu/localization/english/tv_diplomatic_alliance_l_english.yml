@@ -31,7 +31,7 @@
  tv_expel_diplomatic_alliance_member: "Expel Alliance Member"
  tv_expel_diplomatic_alliance_member_desc: "Remove a member from our [tv_diplomatic_alliance|E]."
  tv_alliance_sublime_empire_subjugate_member: "Subjugate Alliance Member"
- tv_alliance_sublime_empire_subjugate_member_desc: "Spend [tv_alliance_cohesion|E] equal to 10 plus 50 times the target's relative military strength to make a selected ordinary alliance member that has belonged to this alliance for at least 5 years a vassal of the [tv_alliance_advocator|E]."
+ tv_alliance_sublime_empire_subjugate_member_desc: "Spend [tv_alliance_cohesion|E] equal to 10 plus 50 times the target's relative military strength to make a selected ordinary alliance member that has belonged to this alliance for at least 5 years a vassal (or, if the [tv_alliance_advocator|E] cannot hold vassals, a Sāmanta) of the [tv_alliance_advocator|E]."
  tv_select_diplomatic_alliance_member: "Select Alliance Member"
  tv_no_diplomatic_alliance_member_available: "@trigger_no! No removable alliance members are available."
  TV_DIPLOMATIC_ALLIANCE_OVERVIEW_DESC: "Accumulate [tv_alliance_cohesion|E] to reform alliance laws. Legacy level 2/3/4 laws cost 25/50/75 Cohesion, while War Laws cost 25/50 for levels 2/3. Upgraded laws raise [tv_alliance_tier|E], up to 21. Each Alliance Tier grants the leader +1 Diplomatic Victory Point per month."
@@ -180,6 +180,11 @@
  tv_alliance_delegation_subsidy_modifier_desc: "Subsidized diplomatic missions make the country more prestigious and soften domestic procedural friction."
  tv_alliance_open_archives_modifier: "Open Diplomatic Archives"
  tv_alliance_open_archives_modifier_desc: "Access to allied archives improves intelligence work and internal security coordination."
+ STATIC_MODIFIER_NAME_tv_alliance_joint_embassy_charter_modifier: "Joint Embassy Charter"
+ STATIC_MODIFIER_NAME_tv_alliance_shared_intelligence_modifier: "Shared Intelligence Board"
+ STATIC_MODIFIER_NAME_tv_alliance_commercial_compromise_modifier: "Commercial Compromise"
+ STATIC_MODIFIER_NAME_tv_alliance_delegation_subsidy_modifier: "Delegation Subsidy"
+ STATIC_MODIFIER_NAME_tv_alliance_open_archives_modifier: "Open Diplomatic Archives"
 
  # ── Law Category ───────────────────────────────────────────────────────
  DIPLOMATIC_LAW_CATEGORY: "Diplomatic Laws"

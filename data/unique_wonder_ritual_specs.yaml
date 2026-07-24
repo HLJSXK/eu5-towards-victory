@@ -6,7 +6,7 @@
 metadata:
   purpose: Executable planning source for unique wonder ritual implementation.
   source_data: data/unique_wonders.yaml
-  generated_by: scripts/gen_unique_wonder_ritual_specs.py
+  generated_by: scripts_engineering_department/gen_unique_wonder_ritual_specs.py
   generated_game_code: false
   status_policy:
     stub: Coverage placeholder only; cannot be generated into game code.
@@ -900,7 +900,7 @@ unique_wonders:
     base_key: sky_dome_grand_temple
     location: jerusalem
     runtime_prefix: tv_wonder_dome_of_the_rock
-    status: source_codegen_ready
+    status: stub
   event_ids:
   - id: 1004
     key: dome_opening
@@ -3040,7 +3040,7 @@ unique_wonders:
     base_key: palace_of_nations
     location: granada
     runtime_prefix: tv_wonder_alhambra
-    status: source_codegen_ready
+    status: stub
   event_ids:
   - id: 7309
     key: alhambra_opening
@@ -7195,7 +7195,7 @@ unique_wonders:
     base_key: sky_dome_grand_temple
     location: rome
     runtime_prefix: tv_wonder_st_peters_basilica
-    status: source_codegen_ready
+    status: stub
   event_ids:
   - id: 1016
     key: st_peters_opening
@@ -13928,7 +13928,7 @@ unique_wonders:
     id: 121
     key: unique_ming_great_wall
     base_key: great_wall
-    location: dadu
+    location: fuchuan_ningxia
     runtime_prefix: tv_wonder_ming_great_wall
     status: compiler_mapped
   event_ids:
@@ -14616,7 +14616,7 @@ unique_wonders:
     base_key: national_bank
     location: genoa
     runtime_prefix: tv_wonder_bank_of_saint_george
-    status: source_codegen_ready
+    status: stub
   event_ids:
   - id: 1008
     key: bank_opening
@@ -26359,7 +26359,7 @@ unique_wonders:
     id: 138
     key: unique_persian_qanat
     base_key: hydraulic_workshop
-    location: isfahan
+    location: qom
     runtime_prefix: tv_wonder_persian_qanat
     status: compiler_mapped
   event_ids:
@@ -27088,7 +27088,7 @@ unique_wonders:
     id: 139
     key: unique_longjiang_shipyard
     base_key: national_shipyard
-    location: shangyuan
+    location: jiangyin
     runtime_prefix: tv_wonder_longjiang_shipyard
     status: compiler_mapped
   event_ids:
@@ -50026,7 +50026,7 @@ unique_wonders:
     id: 171
     key: unique_east_india_company
     base_key: colonial_trade_company
-    location: london
+    location: bombay
     runtime_prefix: tv_wonder_east_india_company
     status: compiler_mapped
   event_ids:
@@ -68204,7 +68204,7 @@ unique_wonders:
     id: 197
     key: unique_mont_saint_michel
     base_key: sacred_mountain
-    location: avranches
+    location: vire
     runtime_prefix: tv_wonder_mont_saint_michel
     status: compiler_mapped
   event_ids:
@@ -87095,7 +87095,7 @@ unique_wonders:
 - identity:
     id: 223
     key: unique_walls_of_benin
-    base_key: great_wall
+    base_key: star_fortress_city
     location: benin
     runtime_prefix: tv_wonder_walls_of_benin
     status: compiler_mapped

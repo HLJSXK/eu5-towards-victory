@@ -6,14 +6,27 @@ REM Usage: build.bat
 
 set "ROOT=%~dp0"
 set "SRC=%ROOT%src"
+set "ED_SRC=%ROOT%src_engineering_department"
 set "MNT_COMPAT=%ROOT%submods\tv_meiou_and_taxes_compat"
+set "SOL_COMPAT=%ROOT%submods\tv_standard_of_living_compat"
+set "PP_COMPAT=%ROOT%submods\tv_prosper_or_perish_compat"
 set "MOD_DIR=C:\Program Files (x86)\Steam\steamapps\common\Europa Universalis V\game\mod"
 set "DEST=%MOD_DIR%\tv"
+set "ED_DEST=%MOD_DIR%\tv_engineering_department"
 set "MNT_COMPAT_DEST=%MOD_DIR%\tv_meiou_and_taxes_compat"
+set "SOL_COMPAT_DEST=%MOD_DIR%\tv_standard_of_living_compat"
+set "PP_COMPAT_DEST=%MOD_DIR%\tv_prosper_or_perish_compat"
 
-echo === [1/3] Validating mod source ===
+echo === [1/6] Validating mod source ===
 set "VALIDATE_OUT=%TEMP%\tv_validate_out.txt"
-call conda run --no-capture-output -n eu5 python "%ROOT%scripts\validate.py" > "!VALIDATE_OUT!" 2>&1
+if not defined EU5_PYTHON set "EU5_PYTHON=C:\Users\Hades\anaconda3\envs\eu5\python.exe"
+if not exist "!EU5_PYTHON!" (
+    echo [ERROR] eu5 Python interpreter not found: !EU5_PYTHON!
+    echo Set EU5_PYTHON to the python.exe inside the eu5 environment, then retry.
+    pause
+    exit /b 1
+)
+call "!EU5_PYTHON!" "%ROOT%scripts\validate.py" > "!VALIDATE_OUT!" 2>&1
 set "VALIDATE_RC=!errorlevel!"
 type "!VALIDATE_OUT!"
 del "!VALIDATE_OUT!" 2>nul
@@ -25,7 +38,7 @@ if !VALIDATE_RC! neq 0 (
 )
 
 echo.
-echo === [2/3] Deploying src to !DEST! ===
+echo === [2/6] Deploying src to !DEST! ===
 if not exist "!MOD_DIR!" (
     echo [ERROR] EU5 mod directory not found: !MOD_DIR!
     pause
@@ -42,7 +55,24 @@ if !RC! GEQ 8 (
 )
 
 echo.
-echo === [3/3] Deploying M^&T compatibility submod to !MNT_COMPAT_DEST! ===
+echo === [3/6] Deploying Engineering Department src to !ED_DEST! ===
+if not exist "!ED_SRC!" (
+    echo [ERROR] Engineering Department source not found: !ED_SRC!
+    pause
+    exit /b 1
+)
+
+robocopy "!ED_SRC!" "!ED_DEST!" /MIR
+set "RC=!errorlevel!"
+if !RC! GEQ 8 (
+    echo.
+    echo [ERROR] robocopy failed with exit code !RC!.
+    pause
+    exit /b 1
+)
+
+echo.
+echo === [4/6] Deploying M^&T compatibility submod to !MNT_COMPAT_DEST! ===
 if not exist "!MNT_COMPAT!" (
     echo [ERROR] Compatibility submod source not found: !MNT_COMPAT!
     pause
@@ -59,6 +89,40 @@ if !RC! GEQ 8 (
 )
 
 echo.
-echo [DONE] Deployed to !DEST! and !MNT_COMPAT_DEST!
+echo === [5/6] Deploying Standard of Living compatibility submod to !SOL_COMPAT_DEST! ===
+if not exist "!SOL_COMPAT!" (
+    echo [ERROR] Compatibility submod source not found: !SOL_COMPAT!
+    pause
+    exit /b 1
+)
+
+robocopy "!SOL_COMPAT!" "!SOL_COMPAT_DEST!" /MIR
+set "RC=!errorlevel!"
+if !RC! GEQ 8 (
+    echo.
+    echo [ERROR] robocopy failed with exit code !RC!.
+    pause
+    exit /b 1
+)
+
+echo.
+echo === [6/6] Deploying Prosper or Perish compatibility submod to !PP_COMPAT_DEST! ===
+if not exist "!PP_COMPAT!" (
+    echo [ERROR] Compatibility submod source not found: !PP_COMPAT!
+    pause
+    exit /b 1
+)
+
+robocopy "!PP_COMPAT!" "!PP_COMPAT_DEST!" /MIR
+set "RC=!errorlevel!"
+if !RC! GEQ 8 (
+    echo.
+    echo [ERROR] robocopy failed with exit code !RC!.
+    pause
+    exit /b 1
+)
+
+echo.
+echo [DONE] Deployed to !DEST!, !ED_DEST!, !MNT_COMPAT_DEST!, !SOL_COMPAT_DEST!, and !PP_COMPAT_DEST!
 endlocal
 pause

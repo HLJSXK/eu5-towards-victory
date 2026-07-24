@@ -1,0 +1,11 @@
+﻿# Towards Victory Engineering Department — IO leader role marker modifier
+# Zero-stat marker. Set on a character when appointed Great Engineer; removed
+# on dismissal. Used by the vanilla character_title.txt override to show the
+# title prefix (main "Towards Victory" mod only — running this mod standalone
+# skips that cosmetic prefix but the underlying character/IO state is unaffected).
+
+tv_great_engineer_role_modifier = {
+	game_data = {
+		category = character
+	}
+}

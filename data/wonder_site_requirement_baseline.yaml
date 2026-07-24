@@ -1,0 +1,179 @@
+# Unique wonder site-requirement audit baseline.
+#
+# Entries here are FAIL/UNKNOWN results from
+# scripts/audit_unique_wonder_site_requirements.py that have been reviewed and accepted as
+# intentional -- either because the underlying vanilla 1337-start data (capital, religion,
+# location rank, port suitability) is historically accurate even though it doesn't satisfy the
+# wonder's generic site-rule template, or because the condition is only achievable later in the
+# game rather than at the fixed 1337 start date (e.g. a colonial-trade-company wonder on a port
+# not yet colonized).
+#
+# New FAIL/UNKNOWN results are NOT silently accepted by being listed here: the audit script
+# checks that the recorded `status` still matches what it currently computes, and reports any
+# mismatch (drift) separately instead of quietly treating a changed result as still accepted.
+# Each entry must record the wonder `key`, the `status` being accepted, and a `rationale`
+# grounded in real reference data (not just "accepted to pass validation").
+
+accepted:
+  - key: unique_malacca_port
+    status: FAIL
+    rationale: >-
+      Malacca's static natural_harbor_suitability is 0 in the vanilla map data despite being
+      historically the dominant Strait-of-Malacca trade port; the wonder's real-world site is
+      fixed at Malacca regardless of this map-data quirk.
+
+  - key: unique_versailles_palace
+    status: FAIL
+    rationale: >-
+      Versailles began as royal hunting grounds outside Paris -- genuinely rural, undeveloped
+      land at the 1337 bookmark. Historically accurate that the site only becomes a palace
+      complex much later in the game, well after the wonder's location_rank requirement can be
+      met through normal development.
+
+  - key: unique_mecca_haram_expansion
+    status: FAIL
+    rationale: >-
+      Mecca's local population religion is recorded as sunni while the local 1337 polity (MEC)
+      is recorded shia. Mecca's location as Islam's holiest site is historically fixed
+      regardless of the ruling dynasty's sect.
+
+  - key: unique_great_zimbabwe
+    status: FAIL
+    rationale: >-
+      Great Zimbabwe is a real inland trade-hub city-state starting as a town (not yet a
+      city/megalopolis or port) at the 1337 bookmark. Historically accurate starting state;
+      expected to grow into the site requirement over the course of the game.
+
+  - key: unique_winter_palace
+    status: FAIL
+    rationale: >-
+      The Neva river mouth (future Saint Petersburg) is genuinely undeveloped marshland at the
+      1337 start; the real city was founded in 1703. Historically accurate starting state --
+      the wonder is meant to be built once the area develops into a city.
+
+  - key: unique_vatican_archives
+    status: FAIL
+    rationale: >-
+      At the 1337 bookmark the Papacy's capital is Avignon (Avignon Papacy period), not Rome.
+      The Vatican Archives' real-world site remains fixed at Rome regardless of the Papal
+      court's temporary relocation.
+
+  - key: unique_temple_of_heaven
+    status: FAIL
+    rationale: >-
+      Beijing's (dadu) local population religion is recorded as mahayana Buddhism while Yuan
+      China's state religion is recorded as tibetan_buddhism, reflecting the historical Yuan
+      court's own religious patronage. The Temple of Heaven's real-world site remains fixed at
+      Beijing regardless of this sect distinction.
+
+  - key: unique_east_india_company
+    status: FAIL
+    rationale: >-
+      At the 1337 bookmark Bombay is held by the native Delhi Sultanate (same continent as its
+      own capital), so the colonial_trade_company condition is not yet true. The wonder is
+      intentionally only buildable once a genuine overseas colonial power later controls this
+      port -- achievable in principle, unlike the wonder's previous siting at London (which
+      could never satisfy this condition under any plausible owner).
+
+  - key: unique_peacock_throne
+    status: FAIL
+    rationale: >-
+      DLH's 1337 capital is recorded as sargadwari, not delhi -- the correct starting capital
+      for the early Delhi Sultanate. The Peacock Throne's real-world site remains fixed at
+      Delhi.
+
+  - key: unique_varanasi_ghats
+    status: FAIL
+    rationale: >-
+      Varanasi's local population religion is recorded hindu while its 1337 ruling polity (DLH)
+      has state religion sunni. Varanasi's significance as a Hindu holy city is historically
+      fixed regardless of the current ruling dynasty's religion.
+
+  - key: unique_fatehpur_sikri
+    status: FAIL
+    rationale: >-
+      Same DLH capital fact as the Peacock Throne (capital=sargadwari, not agra), and Agra is
+      genuinely a rural settlement at the 1337 bookmark -- it only becomes a Mughal capital city
+      centuries later. Both facts reflect the accurate historical starting state.
+
+  - key: unique_zamosc_ideal_city
+    status: FAIL
+    rationale: >-
+      Zamosc was founded ex nihilo as a planned Renaissance "ideal city" in the late 16th
+      century, on what was rural land in 1337. Historically accurate starting state.
+
+  - key: unique_brest_synagogue_quarter
+    status: FAIL
+    rationale: >-
+      LIT's 1337 capital is vilnius, not brest_litowsk, and Brest-Litovsk is genuinely a rural
+      settlement at the 1337 bookmark -- its historic Jewish quarter develops later. Accurate
+      starting state.
+
+  - key: unique_ferghana_palace
+    status: FAIL
+    rationale: >-
+      JLY's 1337 capital is khujand, not kokand, and the Khanate of Kokand itself did not exist
+      until the 18th century, so the 1337 predecessor state's own capital is the correct
+      starting fact here.
+
+  - key: unique_tashkent_old_bazaar
+    status: FAIL
+    rationale: >-
+      Chach (Tashkent)'s 1337 owner (CHG, the Chagatai Khanate) has its capital at almaliq, and
+      Tashkent itself starts as an inland town (not yet a city or port) in 1337. Accurate
+      starting state; the wonder's real bazaar site remains fixed.
+
+  - key: unique_sanaa_old_city
+    status: FAIL
+    rationale: >-
+      Sana'a is inland (not a port) and starts as a rural settlement at the 1337 bookmark.
+      Historically accurate starting state, expected to develop into the site requirement over
+      the game.
+
+  - key: unique_dresden_art_gallery
+    status: FAIL
+    rationale: >-
+      Dresden is a minor rural settlement in 1337 -- it only becomes a major Saxon royal art
+      capital in the 18th century under Augustus the Strong. Historically accurate starting
+      state.
+
+  - key: unique_tenochtitlan_causeways
+    status: UNKNOWN
+    rationale: >-
+      has_river/is_adjacent_to_lake has no static text data source anywhere in
+      reference_game_files (baked into the heightmap, not exposed as data). Tenochtitlan's lake
+      causeways are one of the best-documented lake-adjacent sites in real history; accepted
+      without a static verification path.
+
+  - key: unique_grand_canal
+    status: UNKNOWN
+    rationale: >-
+      Same has_river/is_adjacent_to_lake data gap. The Grand Canal terminus at Nanjing
+      (shangyuan) is a well-documented riverine/canal site historically; accepted without a
+      static verification path.
+
+  - key: unique_roman_aqueducts
+    status: UNKNOWN
+    rationale: >-
+      Same has_river/is_adjacent_to_lake data gap. Rome's aqueducts and river frontage on the
+      Tiber are extremely well-documented historically; accepted without a static verification
+      path.
+
+  - key: unique_angkor_hydraulic_system
+    status: UNKNOWN
+    rationale: >-
+      Same has_river/is_adjacent_to_lake data gap. Angkor's baray reservoirs and hydraulic
+      network next to the Tonle Sap basin are extremely well-documented historically; accepted
+      without a static verification path.
+
+  - key: unique_persian_qanat
+    status: UNKNOWN
+    rationale: >-
+      Same has_river/is_adjacent_to_lake data gap. Qom's qanat network draws on
+      groundwater/river sources per real history; accepted without a static verification path.
+
+  - key: unique_dujiangyan
+    status: UNKNOWN
+    rationale: >-
+      Same has_river/is_adjacent_to_lake data gap. Dujiangyan is a real irrigation/dam system on
+      the Min river at Chengdu; accepted without a static verification path.

@@ -163,7 +163,7 @@ tv_academy_of_sciences_create_effect = {
 		set_variable = { name = tv_med_disp_mil value = 0 }
 		set_variable = { name = tv_academy_philosophy_current value = 1 }
 		set_variable = { name = tv_academy_philosophy_phase value = 0 }
-		set_variable = { name = tv_academy_philosophy_debate_position value = 50 }
+		set_variable = { name = tv_academy_debate_initial_progress_pending value = 1 }
 		tv_academy_philosophy_initialize_timeline_effect = yes
 	}
 	if = {
@@ -183,6 +183,11 @@ tv_academy_of_sciences_create_effect = {
 			}
 		}
 	}
+	if = {
+		limit = { has_variable = tv_academy_debate_initial_progress_pending }
+		tv_academy_debate_set_local_progress_effect = { value = 50 }
+		remove_variable = tv_academy_debate_initial_progress_pending
+	}
 }
 
 # 鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?鈺?
@@ -200,7 +205,10 @@ tv_io_establishment_mark_basic_requirements_effect = {
 			NOT = { has_variable = tv_conquest_establishment_basic_done }
 			NOT = { has_variable = tv_conquest_victory_enabled }
 		}
-		tv_update_conquest_score_effect = yes
+		if = {
+			limit = { is_ai = no }
+			tv_update_conquest_score_effect = yes
+		}
 		if = {
 			limit = { tv_conquest_establishment_basic_requirement = yes }
 			set_variable = { name = tv_conquest_establishment_basic_done value = 1 }
@@ -279,6 +287,20 @@ tv_io_establishment_mark_basic_requirements_effect = {
 				trigger_event_non_silently = { id = tv_io_establishment.106 days = 1 }
 			}
 		}
+	}
+}
+
+# Registered under yearly_country_pulse by tv_pulse_bridges.txt.
+# AI counterpart to the is_ai = no conquest score update above: keeps the
+# every_subject_or_below scan off the monthly path for AI countries.
+tv_io_establishment_conquest_score_yearly_pulse_effect = {
+	if = {
+		limit = {
+			is_ai = yes
+			NOT = { has_variable = tv_conquest_establishment_basic_done }
+			NOT = { has_variable = tv_conquest_victory_enabled }
+		}
+		tv_update_conquest_score_effect = yes
 	}
 }
 
@@ -432,6 +454,7 @@ tv_establish_conquest_io_effect = {
 		}
 		set_variable = { name = tv_conquest_victory_enabled value = 1 }
 		set_variable = { name = tv_conquest_establishment_headquarters_done value = 1 }
+		set_variable = { name = tv_conquest_tree_points value = 1000 }
 		trigger_event_non_silently = { id = tv_io_establishment.1 days = 1 }
 		tv_check_conquest_milestones_effect = yes
 		tv_update_all_progress_pct_effect = yes
@@ -461,6 +484,7 @@ tv_establish_prosperity_io_effect = {
 		}
 		set_variable = { name = tv_prosperity_victory_enabled value = 1 }
 		set_variable = { name = tv_prosperity_establishment_headquarters_done value = 1 }
+		set_variable = { name = tv_prosperity_tree_points value = 1000 }
 		trigger_event_non_silently = { id = tv_io_establishment.2 days = 1 }
 		tv_check_prosperity_milestones_effect = yes
 		tv_update_all_progress_pct_effect = yes
@@ -489,6 +513,7 @@ tv_establish_trade_io_effect = {
 		}
 		set_variable = { name = tv_trade_victory_enabled value = 1 }
 		set_variable = { name = tv_trade_establishment_headquarters_done value = 1 }
+		set_variable = { name = tv_trade_tree_points value = 1000 }
 		trigger_event_non_silently = { id = tv_io_establishment.3 days = 1 }
 		tv_check_trade_milestones_effect = yes
 		tv_update_all_progress_pct_effect = yes
@@ -515,6 +540,7 @@ tv_establish_diplomatic_io_effect = {
 		}
 		set_variable = { name = tv_diplomatic_victory_enabled value = 1 }
 		set_variable = { name = tv_diplomatic_establishment_headquarters_done value = 1 }
+		set_variable = { name = tv_diplomatic_tree_points value = 1000 }
 		trigger_event_non_silently = { id = tv_io_establishment.4 days = 1 }
 		tv_check_diplomatic_milestones_effect = yes
 		tv_update_all_progress_pct_effect = yes
@@ -543,6 +569,7 @@ tv_establish_cultural_io_effect = {
 		}
 		set_variable = { name = tv_cultural_victory_enabled value = 1 }
 		set_variable = { name = tv_cultural_establishment_headquarters_done value = 1 }
+		set_variable = { name = tv_cultural_tree_points value = 1000 }
 		trigger_event_non_silently = { id = tv_io_establishment.5 days = 1 }
 		tv_check_cultural_milestones_effect = yes
 		tv_update_all_progress_pct_effect = yes
@@ -575,6 +602,7 @@ tv_establish_science_io_effect = {
 		}
 		set_variable = { name = tv_science_victory_enabled value = 1 }
 		set_variable = { name = tv_science_establishment_headquarters_done value = 1 }
+		set_variable = { name = tv_science_tree_points value = 1000 }
 		trigger_event_non_silently = { id = tv_io_establishment.6 days = 1 }
 		tv_check_science_milestones_effect = yes
 		tv_update_all_progress_pct_effect = yes

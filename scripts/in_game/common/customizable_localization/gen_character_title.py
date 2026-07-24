@@ -1,9 +1,11 @@
 """
-Generate src/in_game/common/customizable_localization/character_title.txt.
+Generate full-copy character_title.txt outputs for both deployable mods.
 
 The engine treats top-level customizable localization keys as unique database
 entries. character_title_prefix must therefore be generated as a full vanilla
-copy with TV entries inserted, not as a second additive file.
+copy in each root. The Engineering Department copy contains its own mapping;
+the dependency-loaded main copy is a strict superset and safely wins when both
+mods are enabled.
 """
 
 import sys
@@ -26,9 +28,17 @@ VANILLA_FILE = (
     / "customizable_localization"
     / "character_title.txt"
 )
-OUT_FILE = (
+MAIN_OUT_FILE = (
     REPO_ROOT
     / "src"
+    / "in_game"
+    / "common"
+    / "customizable_localization"
+    / "character_title.txt"
+)
+ENGINEERING_OUT_FILE = (
+    REPO_ROOT
+    / "src_engineering_department"
     / "in_game"
     / "common"
     / "customizable_localization"
@@ -43,9 +53,11 @@ HEADER = """\
 """
 
 
-def _tv_title_entries(data: dict) -> str:
+def _tv_title_entries(data: dict, *, io_ids: set[str] | None = None) -> str:
     entries: list[str] = []
     for io in data.get("ios", []):
+        if io_ids is not None and io.get("id") not in io_ids:
+            continue
         title_modifier = io.get("title_modifier")
         title_loc_key = io.get("title_loc_key")
         if not title_modifier:
@@ -82,9 +94,9 @@ def _find_block_end(text: str, block_name: str) -> int:
     raise ValueError(f"Could not find end of block: {block_name}")
 
 
-def generate(data: dict) -> str:
+def generate(data: dict, *, io_ids: set[str] | None = None) -> str:
     vanilla = VANILLA_FILE.read_text(encoding="utf-8-sig")
-    insertion = _tv_title_entries(data)
+    insertion = _tv_title_entries(data, io_ids=io_ids)
     if insertion:
         end = _find_block_end(vanilla, "character_title_prefix")
         vanilla = vanilla[:end].rstrip() + "\n" + insertion + vanilla[end:]
@@ -99,13 +111,19 @@ def main() -> None:
     with DATA_FILE.open(encoding="utf-8") as f:
         data = yaml.safe_load(f)
 
-    content = generate(data)
+    main_content = generate(data)
+    engineering_content = generate(data, io_ids={"engineering"})
 
     if args.dry:
-        print(content)
+        print(main_content)
     else:
-        OUT_FILE.write_text(content, encoding="utf-8-sig")
-        print(f"Written: {OUT_FILE.relative_to(REPO_ROOT)}")
+        for output, content in (
+            (MAIN_OUT_FILE, main_content),
+            (ENGINEERING_OUT_FILE, engineering_content),
+        ):
+            output.parent.mkdir(parents=True, exist_ok=True)
+            output.write_text(content, encoding="utf-8-sig")
+            print(f"Written: {output.relative_to(REPO_ROOT)}")
 
 
 if __name__ == "__main__":

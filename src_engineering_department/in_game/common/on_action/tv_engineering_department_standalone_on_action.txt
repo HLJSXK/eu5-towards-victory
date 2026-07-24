@@ -1,0 +1,50 @@
+﻿# Towards Victory Engineering Department — standalone bootstrap
+# Guarantees every country has an Engineering Department from game start,
+# whether this mod runs alongside "Towards Victory" or only with its required
+# Community Mod Framework dependency.
+# Registration onto on_game_start/on_game_load lives in
+# data/pulse_registry.yaml -> tv_engineering_department_pulse_bridges.txt.
+
+# Schedule the intro event for every country immediately at game start. The
+# country marker prevents a save loaded afterward from scheduling a
+# duplicate; the event option clears it.
+tv_engineering_department_standalone_game_start_bridge = {
+	effect = {
+		hidden_effect = {
+			every_country = {
+				set_variable = { name = tv_engineering_department_standalone_pending value = 1 }
+				trigger_event_non_silently = { id = tv_engineering_department_standalone.1 }
+			}
+		}
+	}
+}
+
+# A save with no global marker predates this mod (or was played without it)
+# — schedule the intro event for every country immediately on load unless that
+# country already has one pending from game start. Then,
+# independently of that check, silently repair any country still missing an
+# Engineering Department (or carrying one with a damaged leader) using the
+# same idempotent creation effect used everywhere else in this mod.
+tv_engineering_department_standalone_game_load_bridge = {
+	effect = {
+		hidden_effect = {
+			if = {
+				limit = {
+					NOT = { has_global_variable = tv_engineering_department_standalone_initialized }
+				}
+				every_country = {
+					if = {
+						limit = {
+							NOT = { has_variable = tv_engineering_department_standalone_pending }
+						}
+						set_variable = { name = tv_engineering_department_standalone_pending value = 1 }
+						trigger_event_non_silently = { id = tv_engineering_department_standalone.1 }
+					}
+				}
+			}
+			every_country = {
+				tv_engineering_department_create_effect = yes
+			}
+		}
+	}
+}

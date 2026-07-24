@@ -22,14 +22,6 @@ tv_missing_academy_chief_alert_trigger = {
 	}
 }
 
-tv_missing_engineering_department_chief_alert_trigger = {
-	has_variable = tv_engineering_department_member
-	OR = {
-		NOT = { has_variable = tv_great_engineer_char }
-		NOT = { var:tv_great_engineer_char ?= { is_alive = yes } }
-	}
-}
-
 tv_missing_trade_league_chief_alert_trigger = {
 	has_variable = tv_trade_league_member
 	OR = {

@@ -21,16 +21,24 @@ tv_leaderboard_monthly_pulse = {
 		# Block C: for each touring artist currently in THIS country's court, roll an
 		# ~8% monthly chance (~1 event/year) for a touring outcome event on their home
 		# country. Weights are stratified by artist_skill (low < 0.5 / mid 0.5–0.7 / high ≥ 0.7).
-		every_character = {
+		if = {
 			limit = {
-				is_alive = yes
-				is_artist = yes
 				custom_tooltip = {
-					text = TV_HAS_ON_EXHIBITION_TT
-					has_variable = tv_on_exhibition
+					text = TV_HAS_DISPATCHED_ARTISTS_TT
+					has_variable_list = tv_dispatched_artists_list
 				}
 			}
-			save_scope_as = touring_artist
+			every_in_list = {
+				variable = tv_dispatched_artists_list
+				limit = {
+					is_alive = yes
+					is_artist = yes
+					custom_tooltip = {
+						text = TV_HAS_ON_EXHIBITION_TT
+						has_variable = tv_on_exhibition
+					}
+				}
+				save_scope_as = touring_artist
 			# Pre-save home country as a named scope so inner random_list branches can
 			# navigate to it reliably. var:X ?= {} silently fails inside nested random_list.
 			var:tv_exhibition_home_country ?= {
@@ -205,6 +213,7 @@ tv_leaderboard_monthly_pulse = {
 					}
 				}
 			}
+		}
 		}
 
 		# ── Research Mechanism monthly pulse ────────────────────────────────────────

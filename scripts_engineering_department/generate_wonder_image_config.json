@@ -1,0 +1,48 @@
+{
+  "api": {
+    "endpoint": "https://www.right.codes/draw/v1/images/generations",
+    "api_key_env": [
+      "PACKY_API_KEY",
+      "PACKY_SORA_TOKEN"
+    ],
+    "api_key": "",
+    "proxy_url": "http://127.0.0.1:7897",
+    "timeout_seconds": 180,
+    "max_attempts": 4,
+    "retry_initial_delay_seconds": 3,
+    "retry_max_delay_seconds": 30,
+    "retry_backoff_multiplier": 2
+  },
+  "defaults": {
+    "model": "gpt-image-2",
+    "size": "1536x1024",
+    "quality": "high",
+    "output_format": "png",
+    "response_format": "b64_json",
+    "n": 1,
+    "background": "opaque",
+    "moderation": "auto",
+    "user": "towards_victory",
+    "keep_png": true,
+    "write_metadata": true,
+    "png_dir": "data/generated_wonders",
+    "dds_dir": "src_engineering_department/main_menu/gfx/interface/icons/towards_victory/wonders"
+  },
+  "dds": {
+    "format": "DXT1",
+    "opaque_background": [
+      0,
+      0,
+      0
+    ]
+  },
+  "selection": {
+    "include_generic": true,
+    "include_unique": true,
+    "only_keys": [],
+    "exclude_keys": [],
+    "enabled": true,
+    "overwrite": false
+  },
+  "task_overrides": {}
+}

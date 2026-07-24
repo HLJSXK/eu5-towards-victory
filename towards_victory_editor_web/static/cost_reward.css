@@ -1,0 +1,160 @@
+/* Scoped replacement for the original bare `body { ... }` page-background rule:
+   this tool now lives in a <section>, not the document body, and body is not
+   inside that section's subtree so an @scope-wrapped selector wouldn't match it. */
+.tool-cost-reward {
+  padding: 1.5rem;
+  background: #14161a;
+  color: #e6e6e6;
+}
+
+@scope (.tool-cost-reward) {
+
+header h1 {
+  margin-bottom: 0.2rem;
+}
+
+.subtitle {
+  color: #9aa0a6;
+  margin-top: 0;
+  max-width: 60rem;
+}
+
+.tabs {
+  display: flex;
+  gap: 0.4rem;
+  border-bottom: 1px solid #333;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.tab {
+  background: transparent;
+  color: #9aa0a6;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 0.5rem 0.9rem;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.tab.active {
+  color: #e6e6e6;
+  border-bottom-color: #2563eb;
+}
+
+.tab:hover {
+  color: #e6e6e6;
+}
+
+#panels h2 {
+  margin-top: 0;
+}
+
+.empty-state {
+  color: #9aa0a6;
+  font-style: italic;
+}
+
+.hint {
+  color: #9aa0a6;
+  font-size: 0.9rem;
+  margin-top: -0.5rem;
+}
+
+section {
+  margin-bottom: 1.5rem;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  border: 1px solid #333;
+  padding: 0.35rem 0.6rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: #1f232a;
+  white-space: nowrap;
+}
+
+td.readonly {
+  color: #9aa0a6;
+}
+
+td.wrap-cell {
+  max-width: 22rem;
+  white-space: pre-wrap;
+}
+
+input[type="number"] {
+  width: 6rem;
+  background: #0f1114;
+  color: #e6e6e6;
+  border: 1px solid #444;
+  padding: 0.15rem 0.3rem;
+}
+
+input[type="checkbox"] {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+select {
+  background: #0f1114;
+  color: #e6e6e6;
+  border: 1px solid #444;
+  padding: 0.15rem 0.3rem;
+}
+
+textarea {
+  width: 18rem;
+  min-height: 2.4rem;
+  background: #0f1114;
+  color: #e6e6e6;
+  border: 1px solid #444;
+  padding: 0.25rem 0.4rem;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+#cr-log {
+  background: #0f1114;
+  border: 1px solid #333;
+  padding: 0.75rem;
+  min-height: 6rem;
+  max-height: 16rem;
+  overflow: auto;
+  white-space: pre-wrap;
+}
+
+} /* end @scope (.tool-cost-reward) */

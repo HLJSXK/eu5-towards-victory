@@ -142,6 +142,12 @@ tv_trade_league_update_all_monopolies_if_new_global_markets_effect = {
 COUNTRY_MONTHLY_PULSE_EFFECT = """\
 tv_trade_league_country_monthly_pulse_effect = {
 \thidden_effect = {
+\t\t# Only league leaders drive the monthly IO update (leader_country ?= below
+\t\t# never matches for non-leader members); gate on leadership first so the
+\t\t# every_international_organizations_member_of scan below is skipped entirely
+\t\t# for the vast majority of countries that lead no trade league.
+\t\tif = {
+\t\t\tlimit = { is_leader_of_international_organization_of_type = { type = tv_trade_league } }
 \t\tsave_scope_as = tv_trade_league_pulse_country
 \t\tevery_international_organizations_member_of = {
 \t\t\tlimit = {
@@ -209,6 +215,7 @@ tv_trade_league_country_monthly_pulse_effect = {
 \t\t\t\t\ttv_trade_league_suspend_virtual_supplies_effect = yes
 \t\t\t\t}
 \t\t\t}
+\t\t}
 \t\t}
 \t}
 }
@@ -836,7 +843,7 @@ def chain_apply_demand_maps(goods: list[str], max_nodes: int, indent: str) -> st
     for slot in range(1, max_nodes + 1):
         lines.append(f"{indent}if = {{")
         lines.append(f"{indent}\tlimit = {{")
-        lines.append(f"{indent}\t\tvar:tv_trade_chain_count >= {slot}")
+        lines.append(f"{indent}\t\tvar:tv_trade_chain_count ?= {{ this >= {slot} }}")
         lines.append(f"{indent}\t\thas_variable_map = tv_trade_chain_market_by_slot")
         lines.append(f"{indent}\t\thas_variable_map = tv_trade_chain_demand_slot_{slot}")
         lines.append(f"{indent}\t\tis_key_in_variable_map = {{ name = tv_trade_chain_market_by_slot target = {slot} }}")
@@ -872,7 +879,7 @@ def chain_apply_demand_maps(goods: list[str], max_nodes: int, indent: str) -> st
 def chain_capacity_slot_block(slot: int, indent: str) -> str:
     return f"""{indent}if = {{
 {indent}\tlimit = {{
-{indent}\t\tvar:tv_trade_chain_count >= {slot}
+{indent}\t\tvar:tv_trade_chain_count ?= {{ this >= {slot} }}
 {indent}\t\thas_variable_map = tv_trade_chain_market_by_slot
 {indent}\t\tis_key_in_variable_map = {{ name = tv_trade_chain_market_by_slot target = {slot} }}
 {indent}\t}}
@@ -881,11 +888,11 @@ def chain_capacity_slot_block(slot: int, indent: str) -> str:
 {indent}\t\tscope:tv_trade_chain_leader = {{
 {indent}\t\t\tif = {{
 {indent}\t\t\t\tlimit = {{ local_var:tv_trade_chain_slot_capacity <= 0 }}
-{indent}\t\t\t\tset_variable = {{ name = tv_trade_chain_flow_zero value = 1 }}
+{indent}\t\t\t\tset_local_variable = {{ name = tv_trade_chain_flow_zero_calc value = 1 }}
 {indent}\t\t\t}}
 {indent}\t\t\telse = {{
-{indent}\t\t\t\tchange_variable = {{
-{indent}\t\t\t\t\tname = tv_trade_chain_flow_denominator
+{indent}\t\t\t\tchange_local_variable = {{
+{indent}\t\t\t\t\tname = tv_trade_chain_flow_denominator_calc
 {indent}\t\t\t\t\tadd = {{
 {indent}\t\t\t\t\t\tvalue = 1
 {indent}\t\t\t\t\t\tdivide = local_var:tv_trade_chain_slot_capacity
@@ -911,7 +918,7 @@ def chain_terminal_length_branches(max_nodes: int, indent: str) -> str:
 {indent}\t}}
 {indent}\t"variable_map(tv_trade_chain_market_by_slot|1)" = {{ location = {{ save_scope_as = tv_trade_chain_start_location }} }}
 {indent}\t"variable_map(tv_trade_chain_market_by_slot|{slot})" = {{ location = {{ save_scope_as = tv_trade_chain_end_location }} }}
-{indent}\tset_variable = {{ name = tv_trade_chain_length value = {{ value = "scope:tv_trade_chain_start_location.distance_to(scope:tv_trade_chain_end_location)" }} }}
+{indent}\tset_local_variable = {{ name = tv_trade_chain_length_calc value = {{ value = "scope:tv_trade_chain_start_location.distance_to(scope:tv_trade_chain_end_location)" }} }}
 {indent}}}""")
     return "\n".join(branches)
 
@@ -940,7 +947,7 @@ def chain_export_segment_block(segment: int, max_nodes: int, coefficient: float,
     )
     return f"""{indent}if = {{
 {indent}\tlimit = {{
-{indent}\t\tvar:tv_trade_chain_count >= {segment}
+{indent}\t\tvar:tv_trade_chain_count ?= {{ this >= {segment} }}
 {indent}\t\thas_variable_map = tv_trade_chain_market_by_slot
 {indent}\t\tis_key_in_variable_map = {{ name = tv_trade_chain_market_by_slot target = {segment} }}
 {indent}\t\tis_key_in_variable_map = {{ name = tv_trade_chain_market_by_slot target = {segment - 1} }}
@@ -953,7 +960,7 @@ def chain_export_segment_block(segment: int, max_nodes: int, coefficient: float,
 {indent}\t\t\t}}
 {indent}\t\t\ttraded_goods = {{ save_scope_as = tv_trade_chain_segment_good }}
 {indent}\t\t\tset_local_variable = {{ name = tv_trade_chain_bargaining_add value = trade_volume }}
-{indent}\t\t\tchange_local_variable = {{ name = tv_trade_chain_bargaining_add multiply = scope:tv_trade_chain_leader.var:tv_trade_chain_strength }}
+{indent}\t\t\tchange_local_variable = {{ name = tv_trade_chain_bargaining_add multiply = local_var:tv_trade_chain_strength_calc }}
 {indent}\t\t\tchange_local_variable = {{ name = tv_trade_chain_bargaining_add multiply = {coefficient} }}
 {indent}\t\t\tscope:tv_trade_chain_leader = {{
 {demand_changes}
@@ -977,8 +984,20 @@ def trade_chain_effects(goods: list[str], chain_data: dict) -> str:
     strong = int(chain_data["strong_strength_threshold"])
     cap = int(chain_data["strength_display_cap"])
     coefficient = float(chain_data["bargaining_efficiency_per_strength"])
+    display_modifier_references = "\n".join(
+        f"\t\tadd_country_modifier = {{ modifier = tv_trade_chain_strength_display_{strength} years = -1 mode = add_and_extend }}"
+        for strength in range(cap + 1)
+    )
     capacity_blocks = "\n".join(chain_capacity_slot_block(slot, "\t\t") for slot in range(1, max_nodes + 1))
     return f"""\
+tv_trade_league_reference_trade_chain_display_modifiers_effect = {{
+\tif = {{
+\t\tlimit = {{ always = no }}
+\t\t# Static references for dynamic ShowModifierEffect display keys.
+{display_modifier_references}
+\t}}
+}}
+
 tv_trade_league_clear_trade_chain_demands_effect = {{
 \thidden_effect = {{
 \t\tsave_scope_as = tv_trade_chain_leader
@@ -1067,6 +1086,12 @@ tv_trade_league_refresh_trade_chain_effect = {{
 \thidden_effect = {{
 \t\tsave_scope_as = tv_trade_chain_leader
 \t\ttv_trade_league_ensure_trade_chain_capital_effect = yes
+\t\tset_local_variable = {{ name = tv_trade_chain_length_calc value = 0 }}
+\t\tset_local_variable = {{ name = tv_trade_chain_flow_calc value = 0 }}
+\t\tset_local_variable = {{ name = tv_trade_chain_flow_denominator_calc value = 0 }}
+\t\tset_local_variable = {{ name = tv_trade_chain_flow_zero_calc value = 0 }}
+\t\tset_local_variable = {{ name = tv_trade_chain_strength_calc value = 0 }}
+\t\tset_local_variable = {{ name = tv_trade_chain_strength_display_calc value = 0 }}
 \t\tset_variable = {{ name = tv_trade_chain_length value = 0 }}
 \t\tset_variable = {{ name = tv_trade_chain_flow value = 0 }}
 \t\tset_variable = {{ name = tv_trade_chain_flow_denominator value = 0 }}
@@ -1076,37 +1101,49 @@ tv_trade_league_refresh_trade_chain_effect = {{
 \t\tremove_country_modifier = tv_trade_chain_medium_modifier
 \t\tremove_country_modifier = tv_trade_chain_strong_modifier
 \t\tif = {{
-\t\t\tlimit = {{ var:tv_trade_chain_count > 0 }}
+\t\t\tlimit = {{ var:tv_trade_chain_count ?= {{ this > 0 }} }}
 {capacity_blocks}
 \t\t\tif = {{
 \t\t\t\tlimit = {{
-\t\t\t\t\tvar:tv_trade_chain_flow_zero <= 0
-\t\t\t\t\tvar:tv_trade_chain_flow_denominator > 0
+\t\t\t\t\tlocal_var:tv_trade_chain_flow_zero_calc <= 0
+\t\t\t\t\tlocal_var:tv_trade_chain_flow_denominator_calc > 0
 \t\t\t\t}}
-\t\t\t\tset_variable = {{ name = tv_trade_chain_flow value = var:tv_trade_chain_count }}
-\t\t\t\tchange_variable = {{ name = tv_trade_chain_flow divide = var:tv_trade_chain_flow_denominator }}
+\t\t\t\tset_local_variable = {{ name = tv_trade_chain_flow_calc value = var:tv_trade_chain_count }}
+\t\t\t\tchange_local_variable = {{ name = tv_trade_chain_flow_calc divide = local_var:tv_trade_chain_flow_denominator_calc }}
 \t\t\t}}
 {chain_terminal_length_branches(max_nodes, INDENT_3)}
-\t\t\tset_variable = {{ name = tv_trade_chain_strength value = var:tv_trade_chain_length }}
-\t\t\tchange_variable = {{ name = tv_trade_chain_strength multiply = var:tv_trade_chain_flow }}
-\t\t\tchange_variable = {{ name = tv_trade_chain_strength divide = 1000 }}
-\t\t\tset_variable = {{ name = tv_trade_chain_strength_display value = var:tv_trade_chain_strength }}
+\t\t\tset_local_variable = {{ name = tv_trade_chain_strength_calc value = local_var:tv_trade_chain_length_calc }}
+\t\t\tchange_local_variable = {{ name = tv_trade_chain_strength_calc multiply = local_var:tv_trade_chain_flow_calc }}
+\t\t\tchange_local_variable = {{ name = tv_trade_chain_strength_calc divide = 1000 }}
+\t\t\tset_local_variable = {{ name = tv_trade_chain_strength_display_calc value = local_var:tv_trade_chain_strength_calc }}
 \t\t\tif = {{
-\t\t\t\tlimit = {{ var:tv_trade_chain_strength_display > {cap} }}
-\t\t\t\tset_variable = {{ name = tv_trade_chain_strength_display value = {cap} }}
+\t\t\t\tlimit = {{ local_var:tv_trade_chain_strength_display_calc > {cap} }}
+\t\t\t\tset_local_variable = {{ name = tv_trade_chain_strength_display_calc value = {cap} }}
 \t\t\t}}
+\t\t\tset_variable = {{ name = tv_trade_chain_length value = local_var:tv_trade_chain_length_calc }}
+\t\t\tset_variable = {{ name = tv_trade_chain_flow value = local_var:tv_trade_chain_flow_calc }}
+\t\t\tset_variable = {{ name = tv_trade_chain_flow_denominator value = local_var:tv_trade_chain_flow_denominator_calc }}
+\t\t\tset_variable = {{ name = tv_trade_chain_flow_zero value = local_var:tv_trade_chain_flow_zero_calc }}
+\t\t\tset_variable = {{ name = tv_trade_chain_strength value = local_var:tv_trade_chain_strength_calc }}
+\t\t\tset_variable = {{ name = tv_trade_chain_strength_display value = local_var:tv_trade_chain_strength_display_calc }}
 \t\t\tif = {{
-\t\t\t\tlimit = {{ var:tv_trade_chain_strength >= {medium} }}
+\t\t\t\tlimit = {{ local_var:tv_trade_chain_strength_calc >= {medium} }}
 \t\t\t\tadd_country_modifier = {{ modifier = tv_trade_chain_medium_modifier days = 60 mode = add_and_extend }}
 \t\t\t}}
 \t\t\tif = {{
-\t\t\t\tlimit = {{ var:tv_trade_chain_strength >= {strong} }}
+\t\t\t\tlimit = {{ local_var:tv_trade_chain_strength_calc >= {strong} }}
 \t\t\t\tadd_country_modifier = {{ modifier = tv_trade_chain_strong_modifier days = 60 mode = add_and_extend }}
 \t\t\t}}
 \t\t\ttv_trade_league_clear_trade_chain_demands_effect = yes
 {chain_export_demand_blocks(goods, max_nodes, coefficient, INDENT_3)}
 {chain_apply_demand_maps(goods, max_nodes, INDENT_3)}
 \t\t}}
+\t\tremove_local_variable = tv_trade_chain_length_calc
+\t\tremove_local_variable = tv_trade_chain_flow_calc
+\t\tremove_local_variable = tv_trade_chain_flow_denominator_calc
+\t\tremove_local_variable = tv_trade_chain_flow_zero_calc
+\t\tremove_local_variable = tv_trade_chain_strength_calc
+\t\tremove_local_variable = tv_trade_chain_strength_display_calc
 \t}}
 }}
 
@@ -1684,7 +1721,7 @@ def copy_io_rank(prefix: str, src_rank: int, dst_rank: int, good: str, indent: s
 
 def assign_candidate_to_io_rank(prefix: str, rank: int, good: str, indent: str) -> str:
     lines = [
-        f"{indent}set_variable = {{ name = {market_var(prefix, rank, good)} value = scope:tv_trade_candidate_market_location }}",
+        f"{indent}set_variable = {{ name = {market_var(prefix, rank, good)} value = scope:tv_trade_candidate_market }}",
     ]
     for field in STATIC_MARKET_FIELDS:
         lines.append(

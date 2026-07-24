@@ -11,10 +11,15 @@
  tv_govhouse_supreme_overlord_status_desc: "The leading country of a [tv_govhouse|E]. It commands the Governor's House and extends its administration over the attached subject chain."
  tv_govhouse_subject_status: "Subject"
  tv_govhouse_subject_status_desc: "A subject-chain member attached to a [tv_govhouse|E]."
+ tv_govhouse_assembly: "Governor's Assembly"
+ tv_govhouse_assembly_desc:0 "The [tv_govhouse_assembly|E] is where the [tv_govhouse_supreme_overlord_status|E] proposes [tv_govhouse|E] law changes and attached members vote by strength relative to the Supreme Overlord."
  tv_govhouse_local_administration: "Local Administration"
  tv_govhouse_local_administration_desc: "A regional administrative office that anchors the [tv_govhouse|E]'s authority outside the capital region. It cannot be built or demolished manually."
+ tv_govhouse_local_administration_price: "$tv_govhouse_local_administration$"
  tv_govhouse_local_administration_maintenance: "$tv_govhouse_local_administration$ Maintenance"
  tv_govhouse_local_administration_construction: "$tv_govhouse_local_administration$ Construction"
+ MODIFIER_TYPE_NAME_tv_govhouse_local_administration_price_cost_modifier: "$tv_govhouse_local_administration$ Cost"
+ MODIFIER_TYPE_DESC_tv_govhouse_local_administration_price_cost_modifier: "Modifies the gold construction cost of $tv_govhouse_local_administration$ buildings."
  MODIFIER_TYPE_NAME_tv_govhouse_supreme_overlord_status_can_participate_in_parliament: "$tv_govhouse_supreme_overlord_status$ in Parliament"
  MODIFIER_TYPE_DESC_tv_govhouse_supreme_overlord_status_can_participate_in_parliament: "This allows the $tv_govhouse_supreme_overlord_status$ to suggest [parliament_agendas|e] in the [parliament|e] of a [tv_govhouse|E]."
  MODIFIER_TYPE_NAME_tv_govhouse_supreme_overlord_status_agenda_impact: "Agenda Impact for $tv_govhouse_supreme_overlord_status$"
@@ -56,6 +61,8 @@
 
  # ── Governor's House laws ───────────────────────────────────────────────────
  tv_govhouse_laws: "[tv_govhouse|E] Laws"
+ TV_GOVHOUSE_LAWS_TAB: "Governor Laws"
+ TV_GOVHOUSE_ASSEMBLY_TAB: "Assembly"
  TV_GOVHOUSE_LAWS_LAW_CATEGORY: "[tv_govhouse|E] Laws"
  tv_govhouse_grand_general: "[tv_grand_general|E]"
  TV_GOVHOUSE_GRAND_GENERAL_LAW_CATEGORY: "[tv_grand_general|E]"
@@ -334,8 +341,13 @@
 
  tv_govhouse.5.t: "[tv_local_governor|E]: A Local Administration Is Required"
  tv_govhouse.5.d: "[SCOPE.sCharacter('tv_govhouse_pending_governor_scope').GetShortNameWithNoTooltip] cannot govern this region until the [tv_govhouse|E] establishes a permanent local office at [SCOPE.sLocation('tv_govhouse_pending_local_admin_scope').GetName]. The capital region already answers to the central house, but distant territories require their own clerks, seals, guards, and records before a [tv_local_governor|E] can rule in our name."
- tv_govhouse.5.a: "Build the local administration for 400 ducats."
+ tv_govhouse.5.a: "Build the local administration."
  tv_govhouse.5.b: "Cancel the appointment."
+
+ tv_govhouse.7.t: "[tv_local_governor|E]: Local Administration Lost"
+ tv_govhouse.7.d: "A region's appointed local office has passed out of our control. Its records, seals, and staff can no longer anchor our authority there, and the [tv_govhouse|E] must designate a new administrative point before a [tv_local_governor|E] can govern the region again."
+ tv_govhouse.7.a: "Rebuild the administration."
+ tv_govhouse.8.t: "[tv_govhouse|E]: Governor Appointment Request"
 
  # ── Balance-of-power backlash events ───────────────────────────────────────
  tv_govhouse.10.t: "[tv_govhouse_power_balance|E]：Murmurs in the District"
@@ -480,9 +492,9 @@
  tv_change_governor: "Change Governor"
  tv_change_governor_desc: "Replace this region's current [tv_local_governor|E] with another eligible character."
  tv_auto_assign_governors: "Auto-Assign Best Governors"
- tv_auto_assign_governors_desc: "Fill empty [tv_local_governor|E] seats with eligible characters in descending total Administrative, Diplomatic, and Military skill until every owned region has a governor or no candidate remains."
+ tv_auto_assign_governors_desc: "Fill empty [tv_local_governor|E] seats with eligible characters in descending total Administrative, Diplomatic, and Military skill. If an owned region lacks a Local Administration, an event will ask whether to build one before appointing the governor."
  tv_enable_governor_automation: "Enable Governor Automation"
- tv_enable_governor_automation_desc: "Automatically manage [tv_local_governor|E] vacancies. When a governed region becomes empty, the [tv_govhouse|E] runs $tv_auto_assign_governors$ once."
+ tv_enable_governor_automation_desc: "Automatically manage [tv_local_governor|E] vacancies. When a governed region becomes empty, the [tv_govhouse|E] runs $tv_auto_assign_governors$ once, asking before building any missing Local Administration."
  tv_disable_governor_automation: "Disable Governor Automation"
  tv_disable_governor_automation_desc: "Stop automatically filling [tv_local_governor|E] vacancies."
 
@@ -494,7 +506,8 @@
  TV_GOVHOUSE_REGION_OWNED_TT: "This region contains at least one owned location."
  TV_GOVHOUSE_REGION_HAS_GOVERNOR_TT: "This region has an assigned [tv_local_governor|E]."
  TV_GOVHOUSE_REGION_HAS_NO_GOVERNOR_TT: "This region does not already have an assigned [tv_local_governor|E]."
- TV_GOVHOUSE_HAS_EMPTY_GOVERNOR_REGION_TT: "At least one owned capital-region or prepared local-administration region does not already have an assigned [tv_local_governor|E]."
+ TV_GOVHOUSE_APPOINT_GOVERNOR_EFFECT_TT: "[SCOPE.sCharacter('target').GetShortNameWithNoTooltip] will become the [tv_local_governor|E] of [SCOPE.sRegion('target_1').GetName]."
+ TV_GOVHOUSE_HAS_EMPTY_GOVERNOR_REGION_TT: "At least one owned region does not already have an assigned [tv_local_governor|E]."
  TV_GOVHOUSE_HAS_ELIGIBLE_GOVERNOR_CHARACTER_TT: "At least one eligible character is available."
  TV_GOVHOUSE_GOVERNOR_AUTOMATION_ENABLED_TT: "[tv_local_governor|E] automation is enabled."
  TV_GOVHOUSE_GOVERNOR_AUTOMATION_DISABLED_TT: "[tv_local_governor|E] automation is disabled."

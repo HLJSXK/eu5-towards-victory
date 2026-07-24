@@ -1,0 +1,12 @@
+﻿# Self-contained: only reads this IO's own member/leader-character state, so
+# it works standalone. This mod also owns the matching CMF alert effects and
+# GUI bridge, so the missing-Great-Engineer alert does not depend on the main
+# "Towards Victory" mod.
+
+tv_missing_engineering_department_chief_alert_trigger = {
+	has_variable = tv_engineering_department_member
+	OR = {
+		NOT = { has_variable = tv_great_engineer_char }
+		NOT = { var:tv_great_engineer_char ?= { is_alive = yes } }
+	}
+}

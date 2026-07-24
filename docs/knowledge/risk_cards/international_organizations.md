@@ -163,6 +163,35 @@ that create, find, or mutate TV IOs.
     iterated IO. Do not add monthly countdown variables or date stamps just to mirror this
     built-in tenure value.
 
+24. Do not re-read a variable_map as the confirmation gate for a long-open event.
+    A `trigger_event_non_silently` confirmation event can stay open for arbitrary game
+    time before the player answers. Validate the scope captured at queue time/`immediate`
+    directly (e.g. ownership) instead of re-reading a `variable_map`/`global_variable_map`
+    entry for the event's key and identity-matching it against that captured scope;
+    ownership-change or lifecycle handling can legitimately reselect the map's candidate
+    while the popup is open. Also make any trailing unconditional cleanup effect
+    conditional on the confirmation having actually committed, so a failed confirm does
+    not silently discard the pending request. If the same option also ran an `instant`
+    construction in its visible effect just before this confirm runs, do NOT re-check
+    `has_building_with_at_least_one_level` here either -- instant construction does not
+    reliably update that read within the same effect chain (see the Critical EU5 Gotchas
+    in the repo-root CLAUDE.md); trust that the visible construct_building already ran and
+    only re-validate ownership/other non-building state.
+    See `tv_govhouse_confirm_local_administration_event_scope_effect` in
+    `common/scripted_effects/tv_govhouse_effects.txt` and
+    `docs/knowledge/anti_patterns.yaml` rule `variable_map_reread_as_confirmation_gate`.
+
+25. Create IOs from a start-of-game event's `immediate`, not a visible option.
+    An onboarding/game-start event whose option calls a "create or join this founder IO"
+    scripted effect must have that call in the event's `immediate` block, not the option's
+    effect chain. The nested `add_country_to_international_organization` / `set_leader_country`
+    inside `create_international_organization = { ... }` render their own tooltip text
+    (`THIRD_ADD_TO_INTERNATIONAL_ORGANIZATION_EFFECT`, `SET_LEADER_EFFECT`), and option-effect
+    tooltip preview evaluates them before the IO is actually created, causing
+    `Promote 'INTERNATIONAL_ORGANIZATION' returned nullptr`. See
+    `docs/knowledge/anti_patterns.yaml` rule `io_creation_in_visible_option_effect_breaks_tooltip_preview`
+    and `docs/knowledge/risk_cards/events.md` rule 11.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`; it fails any TV IO `monthly_effect` block. Then

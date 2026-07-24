@@ -22,6 +22,18 @@ DEBATE_DATA_FILE = REPO_ROOT / "data" / "philosophy_debates.yaml"
 OUT_FILE = REPO_ROOT / "src" / "in_game" / "gui" / "panels" / "organization" / "tv_academy_of_sciences.gui"
 
 T = "\t"
+LOCAL_DEBATE_SEAT_SIZE = 68
+WORLD_DEBATE_SEAT_SIZE = 36
+STANCE_COLOR_TEXTURES = {
+    1: "color_light_green_texture",
+    2: "color_red_texture",
+    3: "color_yellow_texture",
+}
+STANCE_TOOLTIP_KEYS = {
+    1: "TV_ACADEMY_DEBATE_STANCE_SUPPORT",
+    2: "TV_ACADEMY_DEBATE_STANCE_OPPOSE",
+    3: "TV_ACADEMY_DEBATE_STANCE_NEUTRAL",
+}
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Static template parts — do not move the generated block markers
@@ -78,7 +90,7 @@ organization_panel = {
 \tblockoverride "extra_titles" {}
 \tblockoverride "organization_panel_extra_item" {
 \t\twidget = {
-\t\t\tsize = { 260 150 }
+\t\t\tsize = { 260 120 }
 \t\t\tparentanchor = top|right
 \t\t\twidgetanchor = top|right
 \t\t\tposition = { -12 6 }
@@ -87,8 +99,8 @@ organization_panel = {
 \t\t\tvbox = {
 \t\t\t\tlayoutpolicy_horizontal = fixed
 \t\t\t\tlayoutpolicy_vertical = fixed
-\t\t\t\tminimumsize = { 260 150 }
-\t\t\t\tmaximumsize = { 260 150 }
+\t\t\t\tminimumsize = { 260 120 }
+\t\t\t\tmaximumsize = { 260 120 }
 \t\t\t\tusing = bg_paper_card_situations
 
 \t\t\t\twidget = {
@@ -116,10 +128,10 @@ organization_panel = {
 \t\t\t\t}
 
 \t\t\t\tvbox = {
-\t\t\t\t\tsize = { 236 94 }
+\t\t\t\t\tsize = { 236 72 }
 \t\t\t\t\tlayoutpolicy_horizontal = fixed
 \t\t\t\t\tlayoutpolicy_vertical = fixed
-\t\t\t\t\tmargin = { 10 8 }
+\t\t\t\t\tmargin = { 10 4 }
 \t\t\t\t\tignoreinvisible = yes
 \t\t\t\t\tspacing = 8
 
@@ -215,6 +227,7 @@ organization_panel = {
 \t\t\t\t\t\t}
 \t\t\t\t\t}
 \t\t\t\t}
+\t\t\t\texpand = {}
 \t\t\t}
 \t\t}
 \t}
@@ -253,6 +266,33 @@ organization_panel = {
 
 \t\t\t\tsize = { 250 200 }
 \t\t\t\tdatacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').GetCharacter]"
+\t\t\t}
+
+\t\t\tvbox = {
+\t\t\t\tvisible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_academy_leader_char').IsSet)]"
+\t\t\t\tsize = { 250 200 }
+\t\t\t\tparentanchor = center
+\t\t\t\twidgetanchor = center
+\t\t\t\tposition = { 0 0 }
+\t\t\t\tspacing = 2
+
+\t\t\t\texpand = {}
+\t\t\t\tspacer = { size = { 250 16 } }
+\t\t\t\ttext_single = {
+\t\t\t\t\tsize = { 250 32 }
+\t\t\t\t\traw_text = "+"
+\t\t\t\t\tfontsize = 34
+\t\t\t\t\talign = center|nobaseline
+\t\t\t\t\tdefault_format = "#yellow_titles"
+\t\t\t\t}
+\t\t\t\ttext_single = {
+\t\t\t\t\tsize = { 250 20 }
+\t\t\t\t\ttext = "TV_IO_HEADER_APPOINT_CHIEF_PROMPT"
+\t\t\t\t\tfontsize = 14
+\t\t\t\t\talign = center|nobaseline
+\t\t\t\t\tdefault_format = "#high"
+\t\t\t\t}
+\t\t\t\texpand = {}
 \t\t\t}
 
 \t\t\taction_button = {
@@ -321,6 +361,8 @@ organization_panel = {
 \t\t\tignoreinvisible = yes
 \t\t\tdatacontext = "[InternationalOrganizationsView.GetPlayer]"
 \t\t\tspacing = 8
+
+# @@POTENTIAL_PROJECTS_CARD@@
 
 \t\t\tcard_common = {
 \t\t\t\tmaximumsize = { 500 -1 }
@@ -960,6 +1002,84 @@ def gen_target_entry(advance: dict) -> str:
     )
 
 
+def gen_potential_project_row(lines: list[str], level: int, advance: dict) -> None:
+    age = advance["age"]
+    aid = advance["id"]
+    loc_key = f"TV_RM_TARGET_{aid.upper()}"
+    tt_key = f"{loc_key}_TT"
+    researched_var = f"tv_advance_{aid}_researched"
+    ceiling_expr = "Country.MakeScope.GetVariable('tv_research_open_age_ceiling').GetValue"
+    researched_expr = f"Country.MakeScope.GetVariable('{researched_var}')"
+
+    emit(lines, level, "widget = {")
+    emit(lines, level + 1, f"visible = \"[GreaterThanOrEqualTo_CFixedPoint({ceiling_expr}, '(CFixedPoint){age}.0')]\"")
+    emit(lines, level + 1, "size = { 470 30 }")
+    emit(lines, level + 1, "using = bg_paper_card_situations")
+    emit(lines, level + 1, "hbox = {")
+    emit(lines, level + 2, "layoutpolicy_horizontal = expanding")
+    emit(lines, level + 2, "margin = { 8 0 }")
+    emit(lines, level + 2, "spacing = 6")
+    emit(lines, level + 2, "icon = {")
+    emit(lines, level + 3, "size = { 22 22 }")
+    emit(lines, level + 3, 'texture = "gfx/interface/icons/flat_icons/ages.dds"')
+    emit(lines, level + 2, "}")
+    emit(lines, level + 2, "text_single = {")
+    emit(lines, level + 3, f'text = "TV_RM_POTENTIAL_AGE_{age}"')
+    emit(lines, level + 3, "align = nobaseline")
+    emit(lines, level + 2, "}")
+    emit(lines, level + 2, "text_single = {")
+    emit(lines, level + 3, f'text = "{loc_key}"')
+    emit(lines, level + 3, 'default_format = "#explanation_link"')
+    emit(lines, level + 3, f'tooltip = "{tt_key}"')
+    emit(lines, level + 3, "align = nobaseline")
+    emit(lines, level + 2, "}")
+    emit(lines, level + 2, "expand = {}")
+    emit(lines, level + 2, "text_single = {")
+    emit(lines, level + 3, f'visible = "[{fixed_eq(researched_expr, 1)}]"')
+    emit(lines, level + 3, 'text = "TV_RM_POTENTIAL_RESEARCHED"')
+    emit(lines, level + 3, 'default_format = "#color_green"')
+    emit(lines, level + 3, "align = nobaseline")
+    emit(lines, level + 2, "}")
+    emit(lines, level + 2, "text_single = {")
+    emit(lines, level + 3, f'visible = "[Not({fixed_eq(researched_expr, 1)})]"')
+    emit(lines, level + 3, 'text = "TV_RM_POTENTIAL_NOT_RESEARCHED"')
+    emit(lines, level + 3, 'default_format = "#color_red"')
+    emit(lines, level + 3, "align = nobaseline")
+    emit(lines, level + 2, "}")
+    emit(lines, level + 1, "}")
+    emit(lines, level, "}")
+
+
+def gen_potential_projects_card(advances: list[dict]) -> str:
+    lines: list[str] = []
+    emit(lines, 3, 'card_expandable = {')
+    emit(lines, 4, "maximumsize = { 500 -1 }")
+    emit(lines, 4, 'blockoverride "header_content" {')
+    emit(lines, 5, "icon = {")
+    emit(lines, 6, "size = { 30 30 }")
+    emit(lines, 6, 'block "header_icon" {')
+    emit(lines, 7, 'texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"')
+    emit(lines, 6, "}")
+    emit(lines, 5, "}")
+    emit(lines, 5, "text_single = {")
+    emit(lines, 6, 'block "header_text" {')
+    emit(lines, 7, 'text = "TV_RM_POTENTIAL_PROJECTS_CARD_TITLE"')
+    emit(lines, 6, "}")
+    emit(lines, 5, "}")
+    emit(lines, 5, "expand = {}")
+    emit(lines, 4, "}")
+    emit(lines, 4, 'blockoverride "bottom_content" {')
+    emit(lines, 5, "vbox = {")
+    emit(lines, 6, "ignoreinvisible = yes")
+    emit(lines, 6, "spacing = 4")
+    for advance in sorted(advances, key=lambda a: int(a["gui_value"])):
+        gen_potential_project_row(lines, 6, advance)
+    emit(lines, 5, "}")
+    emit(lines, 4, "}")
+    emit(lines, 3, "}")
+    return "\n".join(lines)
+
+
 def player_var(name: str) -> str:
     return f"InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('{name}')"
 
@@ -992,12 +1112,6 @@ PHILOSOPHY_ISSUES = [
     (9, "TV_ACADEMY_PHILOSOPHY_NAME_SCIENTIFIC_REVOLUTION"),
 ]
 
-NODE_TYPE_LABELS = [
-    (0, "TV_ACADEMY_DEBATE_NODE_TYPE_HISTORY"),
-    (1, "TV_ACADEMY_DEBATE_NODE_TYPE_LOCAL"),
-    (2, "TV_ACADEMY_DEBATE_NODE_TYPE_WORLD"),
-]
-
 NODE_TYPE_ICONS = [
     (0, "@time!", "TV_ACADEMY_DEBATE_NODE_HISTORY_TT"),
     (1, "@location!", "TV_ACADEMY_DEBATE_NODE_LOCAL_TT"),
@@ -1021,19 +1135,10 @@ def debate_active_expr() -> str:
     return player_var_eq("tv_academy_philosophy_phase", 1)
 
 
-def append_node_type_text(lines: list[str], level: int, var_name: str, font_size: int = 15) -> None:
-    for value, loc_key in NODE_TYPE_LABELS:
-        emit(lines, level, "text_single = {")
-        emit(lines, level + 1, f'visible = "[{player_var_eq(var_name, value)}]"')
-        emit(lines, level + 1, f'text = "{loc_key}"')
-        emit(lines, level + 1, f"fontsize = {font_size}")
-        emit(lines, level + 1, "align = center|nobaseline")
-        emit(lines, level, "}")
-
-
 def append_current_philosophy_name(lines: list[str], level: int, width: int, font_size: int = 16) -> None:
+    current_set = f'{player_var("tv_academy_philosophy_current")}.IsSet'
     emit(lines, level, "text_multi = {")
-    emit(lines, level + 1, f'visible = "[Not({debate_active_expr()})]"')
+    emit(lines, level + 1, f'visible = "[Not(And({debate_active_expr()}, {current_set}))]"')
     emit(lines, level + 1, f"size = {{ {width} 48 }}")
     emit(lines, level + 1, f"max_width = {width}")
     emit(lines, level + 1, 'text = "TV_ACADEMY_PHILOSOPHY_RECESS"')
@@ -1041,22 +1146,13 @@ def append_current_philosophy_name(lines: list[str], level: int, width: int, fon
     emit(lines, level + 1, "align = center|nobaseline")
     emit(lines, level, "}")
     emit(lines, level, "text_multi = {")
-    emit(lines, level + 1, f'visible = "[And({debate_active_expr()}, Not({player_var("tv_academy_philosophy_current")}.IsSet))]"')
-    emit(lines, level + 1, f"size = {{ {width} 48 }}")
+    emit(lines, level + 1, f'visible = "[And({debate_active_expr()}, {current_set})]"')
+    emit(lines, level + 1, f"size = {{ {width} 56 }}")
     emit(lines, level + 1, f"max_width = {width}")
-    emit(lines, level + 1, 'text = "TV_ACADEMY_PHILOSOPHY_RECESS"')
+    emit(lines, level + 1, 'text = "TV_ACADEMY_PHILOSOPHY_CURRENT_NAME"')
     emit(lines, level + 1, f"fontsize = {font_size}")
     emit(lines, level + 1, "align = center|nobaseline")
     emit(lines, level, "}")
-    for value, loc_key in PHILOSOPHY_ISSUES:
-        emit(lines, level, "text_multi = {")
-        emit(lines, level + 1, f'visible = "[And({debate_active_expr()}, {player_var_eq("tv_academy_philosophy_current", value)})]"')
-        emit(lines, level + 1, f"size = {{ {width} 56 }}")
-        emit(lines, level + 1, f"max_width = {width}")
-        emit(lines, level + 1, f'text = "{loc_key}"')
-        emit(lines, level + 1, f"fontsize = {font_size}")
-        emit(lines, level + 1, "align = center|nobaseline")
-        emit(lines, level, "}")
 
 
 def append_debate_node_icon(lines: list[str], level: int, slot: int) -> None:
@@ -1080,14 +1176,22 @@ def append_debate_node_icon(lines: list[str], level: int, slot: int) -> None:
 
 def append_node_year(lines: list[str], level: int, slot: int) -> None:
     emit(lines, level, "text_single = {")
-    emit(lines, level + 1, "size = { 58 22 }")
+    emit(lines, level + 1, "size = { 42 22 }")
     emit(lines, level + 1, f'raw_text = "[{player_var(f"tv_academy_debate_node_{slot}_year")}.GetValue|0]"')
     emit(lines, level + 1, "fontsize = 13")
+    emit(lines, level + 1, "autoresize = no")
     emit(lines, level + 1, "align = center|nobaseline")
     emit(lines, level, "}")
 
 
-def append_debate_progress_footer(lines: list[str], level: int, tooltip: str, value_expr: str, label_expr: str) -> None:
+def append_debate_progress_footer(
+    lines: list[str],
+    level: int,
+    tooltip: str,
+    value_expr: str,
+    label_expr: str,
+    using: str = "progress_bar_blue_alt",
+) -> None:
     emit(lines, level, "hbox = {")
     emit(lines, level + 1, "layoutpolicy_horizontal = fixed")
     emit(lines, level + 1, "size = { 462 24 }")
@@ -1098,7 +1202,7 @@ def append_debate_progress_footer(lines: list[str], level: int, tooltip: str, va
     emit(lines, level + 3, "size = { 380 16 }")
     emit(lines, level + 3, "parentanchor = vcenter")
     emit(lines, level + 3, "widgetanchor = vcenter")
-    emit(lines, level + 3, "using = progress_bar_blue_alt")
+    emit(lines, level + 3, f"using = {using}")
     emit(lines, level + 3, "min = 0")
     emit(lines, level + 3, "max = 100")
     emit(lines, level + 3, f'value = "{value_expr}"')
@@ -1119,64 +1223,81 @@ def debate_seat_var(seat: int, suffix: str) -> str:
     return f"tv_academy_debate_seat_{seat}_{suffix}"
 
 
-def append_stance_marker(lines: list[str], level: int, visible_expr: str, icon: str, tooltip_key: str) -> None:
-    emit(lines, level, "text_single = {")
+def world_debate_seat_var(seat: int, suffix: str) -> str:
+    return f"tv_academy_world_debate_seat_{seat}_{suffix}"
+
+
+def append_stance_circle(lines: list[str], level: int, visible_expr: str, texture: str, tooltip_key: str) -> None:
+    emit(lines, level, "icon = {")
     emit(lines, level + 1, f'visible = "{visible_expr}"')
-    emit(lines, level + 1, "position = { 22 22 }")
-    emit(lines, level + 1, "size = { 14 14 }")
-    emit(lines, level + 1, f'raw_text = "{icon}"')
-    emit(lines, level + 1, "fontsize = 9")
+    emit(lines, level + 1, "parentanchor = center")
+    emit(lines, level + 1, "size = { 100% 100% }")
+    emit(lines, level + 1, 'texture = "gfx/interface/component_tiles/hud_corners/circle_progress_bg.dds"')
+    emit(lines, level + 1, "modify_texture = {")
+    emit(lines, level + 2, f"using = {texture}")
+    emit(lines, level + 1, "}")
+    emit(lines, level + 1, "alpha = 0.88")
     emit(lines, level + 1, f'tooltip = "{tooltip_key}"')
-    emit(lines, level + 1, "align = center|nobaseline")
     emit(lines, level, "}")
 
 
 def append_local_debate_seat(lines: list[str], level: int, x: int, y: int, seat: int | None, crown: bool) -> None:
     emit(lines, level, "widget = {")
     emit(lines, level + 1, f"position = {{ {x} {y} }}")
-    emit(lines, level + 1, "size = { 34 34 }")
-    emit(lines, level + 1, "using = bg_circle_piechart")
+    emit(lines, level + 1, f"size = {{ {LOCAL_DEBATE_SEAT_SIZE} {LOCAL_DEBATE_SEAT_SIZE} }}")
+    emit(lines, level + 1, "using = bg_circle_piechart_big")
     emit(lines, level + 1, 'tooltip = "TV_ACADEMY_DEBATE_LOCAL_EMPTY_SEAT_TT"')
     if crown:
+        append_stance_circle(
+            lines,
+            level + 1,
+            f"[{debate_active_expr()}]",
+            STANCE_COLOR_TEXTURES[1],
+            STANCE_TOOLTIP_KEYS[1],
+        )
         emit(lines, level + 1, "text_single = {")
         emit(lines, level + 2, f'visible = "[{debate_active_expr()}]"')
         emit(lines, level + 2, "parentanchor = center")
         emit(lines, level + 2, "size = { 100% 100% }")
         emit(lines, level + 2, 'raw_text = "@crown_estate!"')
-        emit(lines, level + 2, "fontsize = 18")
+        emit(lines, level + 2, "fontsize = 32")
         emit(lines, level + 2, 'tooltip = "TV_ACADEMY_DEBATE_LOCAL_CROWN_SEAT_TT"')
         emit(lines, level + 2, "align = center|nobaseline")
         emit(lines, level + 1, "}")
-        append_stance_marker(lines, level + 1, f"[{debate_active_expr()}]", "@trigger_yes!", "TV_ACADEMY_DEBATE_STANCE_SUPPORT")
     else:
         assert seat is not None
         group_var = player_var(debate_seat_var(seat, "group"))
         stance_var = player_var(debate_seat_var(seat, "stance"))
+        seat_set = f"{group_var}.IsSet"
+        for stance, texture in STANCE_COLOR_TEXTURES.items():
+            append_stance_circle(
+                lines,
+                level + 1,
+                f"[And({seat_set}, {fixed_eq(stance_var, stance)})]",
+                texture,
+                STANCE_TOOLTIP_KEYS[stance],
+            )
         for group in DEBATE_GROUPS:
             emit(lines, level + 1, "text_single = {")
             emit(lines, level + 2, f'visible = "[{fixed_eq(group_var, int(group["id"]))}]"')
             emit(lines, level + 2, "parentanchor = center")
             emit(lines, level + 2, "size = { 100% 100% }")
             emit(lines, level + 2, f'raw_text = "{group["icon"]}"')
-            emit(lines, level + 2, "fontsize = 17")
+            emit(lines, level + 2, "fontsize = 30")
             emit(lines, level + 2, f'tooltip = "TV_ACADEMY_DEBATE_GROUP_{group["key"].upper()}_TT"')
             emit(lines, level + 2, "align = center|nobaseline")
             emit(lines, level + 1, "}")
-        seat_set = f"{group_var}.IsSet"
-        append_stance_marker(lines, level + 1, f"[And({seat_set}, {fixed_eq(stance_var, 1)})]", "@trigger_yes!", "TV_ACADEMY_DEBATE_STANCE_SUPPORT")
-        append_stance_marker(lines, level + 1, f"[And({seat_set}, {fixed_eq(stance_var, 2)})]", "@trigger_no!", "TV_ACADEMY_DEBATE_STANCE_OPPOSE")
-        append_stance_marker(lines, level + 1, f"[And({seat_set}, {fixed_eq(stance_var, 3)})]", "@warning_icon!", "TV_ACADEMY_DEBATE_STANCE_NEUTRAL")
     emit(lines, level, "}")
 
 
 def append_round_table(lines: list[str], level: int, visible_expr: str, table_text_key: str | None, history: bool = False) -> None:
     emit(lines, level, "widget = {")
     emit(lines, level + 1, f'visible = "{visible_expr}"')
-    emit(lines, level + 1, "size = { 470 328 }")
+    emit(lines, level + 1, "size = { 470 404 }")
     emit(lines, level + 1, "allow_outside = yes")
     emit(lines, level + 1, "widget = {")
     emit(lines, level + 2, "size = { 220 220 }")
-    emit(lines, level + 2, "position = { 125 18 }")
+    emit(lines, level + 2, "position = { 125 54 }")
     emit(lines, level + 2, "using = bg_circle_piechart")
     emit(lines, level + 2, "widget = {")
     emit(lines, level + 3, "parentanchor = center")
@@ -1204,18 +1325,28 @@ def append_round_table(lines: list[str], level: int, visible_expr: str, table_te
     emit(lines, level + 1, "}")
     if not history:
         for x, y, crown, seat in [
-            (218, 260, True, None),
-            (218, 6, False, 1),
-            (105, 73, False, 2),
-            (331, 73, False, 3),
-            (105, 203, False, 4),
-            (331, 203, False, 5),
+            (201, 258, True, None),
+            (201, 8, False, 1),
+            (78, 78, False, 2),
+            (324, 78, False, 3),
+            (78, 208, False, 4),
+            (324, 208, False, 5),
         ]:
             append_local_debate_seat(lines, level + 1, x, y, seat, crown)
         emit(lines, level + 1, "vbox = {")
-        emit(lines, level + 2, "position = { 4 292 }")
-        emit(lines, level + 2, "size = { 462 28 }")
-        debate_position = player_var("tv_academy_philosophy_debate_position")
+        emit(lines, level + 2, "position = { 4 342 }")
+        emit(lines, level + 2, "size = { 462 56 }")
+        emit(lines, level + 2, "spacing = 4")
+        local_balance = io_var("tv_academy_debate_local_balance")
+        debate_position = io_var("tv_academy_philosophy_debate_position")
+        append_debate_progress_footer(
+            lines,
+            level + 2,
+            "TV_ACADEMY_DEBATE_LOCAL_BALANCE_TT",
+            f"[{local_balance}.GetValue]",
+            f"[{local_balance}.GetValue|0]%",
+            "progress_bar_green_red_alt",
+        )
         append_debate_progress_footer(
             lines,
             level + 2,
@@ -1227,22 +1358,56 @@ def append_round_table(lines: list[str], level: int, visible_expr: str, table_te
     emit(lines, level, "}")
 
 
-def append_world_seat(lines: list[str], level: int) -> None:
+def append_world_seat_tint(lines: list[str], level: int, seat_set: str, stance_var: str, stance: int, texture: str) -> None:
     emit(lines, level, "widget = {")
-    emit(lines, level + 1, "size = { 24 24 }")
-    emit(lines, level + 1, "using = bg_circle_piechart")
-    emit(lines, level + 1, 'tooltip = "TV_ACADEMY_DEBATE_WORLD_PLACEHOLDER_SEAT_TT"')
+    emit(lines, level + 1, f'visible = "[And({seat_set}, {fixed_eq(stance_var, stance)})]"')
+    emit(lines, level + 1, "size = { 100% 100% }")
+    emit(lines, level + 1, "icon = {")
+    emit(lines, level + 2, "parentanchor = center")
+    emit(lines, level + 2, "size = { 100% 100% }")
+    emit(lines, level + 2, 'texture = "gfx/interface/component_tiles/hud_corners/circle_progress_bg.dds"')
+    emit(lines, level + 2, "modify_texture = {")
+    emit(lines, level + 3, f"using = {texture}")
+    emit(lines, level + 2, "}")
+    emit(lines, level + 2, "alpha = 0.88")
+    emit(lines, level + 1, "}")
+    emit(lines, level, "}")
+
+
+def append_world_seat(lines: list[str], level: int, seat: int) -> None:
+    country_var = player_var(world_debate_seat_var(seat, "country"))
+    stance_var = player_var(world_debate_seat_var(seat, "stance"))
+    seat_set = f"{country_var}.IsSet"
+    emit(lines, level, "widget = {")
+    emit(lines, level + 1, f"size = {{ {WORLD_DEBATE_SEAT_SIZE} {WORLD_DEBATE_SEAT_SIZE} }}")
+    emit(lines, level + 1, "using = bg_circle_piechart_big")
+    emit(lines, level + 1, 'tooltip = "TV_ACADEMY_WORLD_DEBATE_EMPTY_SEAT_TT"')
+    append_world_seat_tint(lines, level + 1, seat_set, stance_var, 1, "color_light_green_texture")
+    append_world_seat_tint(lines, level + 1, seat_set, stance_var, 2, "color_red_texture")
+    append_world_seat_tint(lines, level + 1, seat_set, stance_var, 3, "color_yellow_texture")
+    emit(lines, level + 1, "widget = {")
+    emit(lines, level + 2, f'visible = "[{seat_set}]"')
+    emit(lines, level + 2, "parentanchor = center")
+    emit(lines, level + 2, "widgetanchor = center")
+    emit(lines, level + 2, "size = { 32 20 }")
+    emit(lines, level + 2, f'datacontext = "[{country_var}.GetCountry]"')
+    emit(lines, level + 2, 'tooltip = "TV_ACADEMY_WORLD_DEBATE_SEAT_TT"')
+    emit(lines, level + 2, "country_flag_small_plus = { size = { 32 20 } }")
+    emit(lines, level + 1, "}")
     emit(lines, level + 1, "text_single = {")
+    emit(lines, level + 2, f'visible = "[Not({seat_set})]"')
     emit(lines, level + 2, "parentanchor = center")
     emit(lines, level + 2, "size = { 100% 100% }")
     emit(lines, level + 2, 'raw_text = "@diplomacy!"')
-    emit(lines, level + 2, "fontsize = 10")
+    emit(lines, level + 2, "fontsize = 15")
     emit(lines, level + 2, "align = center|nobaseline")
     emit(lines, level + 1, "}")
     emit(lines, level, "}")
 
 
 def append_world_table(lines: list[str], level: int) -> None:
+    strength_var = player_var("tv_academy_world_debate_strength")
+    progress_var = player_var("tv_academy_world_debate_progress")
     emit(lines, level, "widget = {")
     emit(lines, level + 1, f'visible = "[{current_node_type_eq(2)}]"')
     emit(lines, level + 1, "size = { 470 328 }")
@@ -1250,31 +1415,45 @@ def append_world_table(lines: list[str], level: int) -> None:
     emit(lines, level + 2, "layoutpolicy_horizontal = fixed")
     emit(lines, level + 2, "size = { 462 320 }")
     emit(lines, level + 2, "margin = { 4 6 }")
-    emit(lines, level + 2, "spacing = 8")
+    emit(lines, level + 2, "spacing = 4")
+    seat = 1
     for _ in range(5):
         emit(lines, level + 2, "hbox = {")
         emit(lines, level + 3, "layoutpolicy_horizontal = fixed")
-        emit(lines, level + 3, "size = { 320 24 }")
-        emit(lines, level + 3, "parentanchor = hcenter")
-        emit(lines, level + 3, "spacing = 8")
+        emit(lines, level + 3, "size = { 462 36 }")
+        emit(lines, level + 3, "spacing = 4")
+        emit(lines, level + 3, "expand = {}")
         for _ in range(10):
-            append_world_seat(lines, level + 3)
+            append_world_seat(lines, level + 3, seat)
+            seat += 1
+        emit(lines, level + 3, "expand = {}")
         emit(lines, level + 2, "}")
     emit(lines, level + 2, "expand = {}")
-    append_debate_progress_footer(lines, level + 2, "TV_ACADEMY_DEBATE_WORLD_PROGRESS_TT", "50", "50%")
+    append_debate_progress_footer(
+        lines,
+        level + 2,
+        "TV_ACADEMY_WORLD_DEBATE_STRENGTH_TT",
+        f"[{strength_var}.GetValue]",
+        f"[{strength_var}.GetValue|0]%",
+    )
+    append_debate_progress_footer(
+        lines,
+        level + 2,
+        "TV_ACADEMY_WORLD_DEBATE_PROGRESS_TT",
+        f"[{progress_var}.GetValue]",
+        f"[{progress_var}.GetValue|0]%",
+    )
     emit(lines, level + 1, "}")
     emit(lines, level, "}")
 
 
 def append_current_node_line(lines: list[str], level: int) -> None:
-    for value, loc_key in CURRENT_NODE_LINE_KEYS:
-        emit(lines, level, "text_single = {")
-        emit(lines, level + 1, f'visible = "[{current_node_type_eq(value)}]"')
-        emit(lines, level + 1, "size = { 462 28 }")
-        emit(lines, level + 1, f'text = "{loc_key}"')
-        emit(lines, level + 1, "fontsize = 16")
-        emit(lines, level + 1, "align = center|nobaseline")
-        emit(lines, level, "}")
+    emit(lines, level, "text_single = {")
+    emit(lines, level + 1, "size = { 462 28 }")
+    emit(lines, level + 1, 'text = "TV_ACADEMY_DEBATE_CURRENT_NODE_LINE"')
+    emit(lines, level + 1, "fontsize = 16")
+    emit(lines, level + 1, "align = center|nobaseline")
+    emit(lines, level, "}")
 
 
 def append_current_node_card(lines: list[str], level: int) -> None:
@@ -1292,7 +1471,7 @@ def append_current_node_card(lines: list[str], level: int) -> None:
 
 
 def append_timeline_card(lines: list[str], level: int) -> None:
-    debate_position = player_var("tv_academy_philosophy_debate_position")
+    debate_position = io_var("tv_academy_philosophy_debate_position")
     emit(lines, level, "card_common = {")
     emit(lines, level + 1, "maximumsize = { 500 -1 }")
     emit(lines, level + 1, 'blockoverride "common_header_icon_texture" {')
@@ -1302,36 +1481,58 @@ def append_timeline_card(lines: list[str], level: int) -> None:
     emit(lines, level + 2, 'text = "TV_ACADEMY_DEBATE_TIMELINE_CARD_TITLE"')
     emit(lines, level + 1, "}")
     emit(lines, level + 1, 'blockoverride "common_bottom_content" {')
-    emit(lines, level + 2, "widget = {")
-    emit(lines, level + 3, "size = { 470 96 }")
+    emit(lines, level + 2, "vbox = {")
+    emit(lines, level + 3, "layoutpolicy_horizontal = fixed")
+    emit(lines, level + 3, "layoutpolicy_vertical = fixed")
+    emit(lines, level + 3, "size = { 470 66 }")
+    emit(lines, level + 3, "spacing = 0")
     emit(lines, level + 3, "widget = {")
-    emit(lines, level + 4, "position = { 45 26 }")
-    emit(lines, level + 4, "size = { 380 18 }")
-    emit(lines, level + 4, "progressbar = {")
-    emit(lines, level + 5, "size = { 380 14 }")
-    emit(lines, level + 5, "parentanchor = vcenter")
-    emit(lines, level + 5, "widgetanchor = vcenter")
-    emit(lines, level + 5, "using = progress_bar_blue_alt")
-    emit(lines, level + 5, "min = 0")
-    emit(lines, level + 5, "max = 100")
-    emit(lines, level + 5, f'value = "[{debate_position}.GetValue]"')
+    emit(lines, level + 4, "layoutpolicy_horizontal = fixed")
+    emit(lines, level + 4, "layoutpolicy_vertical = fixed")
+    emit(lines, level + 4, "size = { 470 42 }")
+    emit(lines, level + 4, "hbox = {")
+    emit(lines, level + 5, "layoutpolicy_horizontal = fixed")
+    emit(lines, level + 5, "layoutpolicy_vertical = fixed")
+    emit(lines, level + 5, "size = { 470 42 }")
+    emit(lines, level + 5, "spacing = 0")
+    emit(lines, level + 5, "widget = { size = { 21 42 } }")
+    emit(lines, level + 5, "widget = {")
+    emit(lines, level + 6, "layoutpolicy_horizontal = fixed")
+    emit(lines, level + 6, "layoutpolicy_vertical = fixed")
+    emit(lines, level + 6, "size = { 428 42 }")
+    emit(lines, level + 6, "progressbar = {")
+    emit(lines, level + 7, "size = { 428 14 }")
+    emit(lines, level + 7, "parentanchor = vcenter")
+    emit(lines, level + 7, "widgetanchor = vcenter")
+    emit(lines, level + 7, "using = progress_bar_blue_alt")
+    emit(lines, level + 7, "min = 0")
+    emit(lines, level + 7, "max = 100")
+    emit(lines, level + 7, f'value = "[{debate_position}.GetValue]"')
+    emit(lines, level + 6, "}")
+    emit(lines, level + 5, "}")
+    emit(lines, level + 5, "widget = { size = { 21 42 } }")
+    emit(lines, level + 4, "}")
+    emit(lines, level + 4, "hbox = {")
+    emit(lines, level + 5, "layoutpolicy_horizontal = fixed")
+    emit(lines, level + 5, "layoutpolicy_vertical = fixed")
+    emit(lines, level + 5, "size = { 470 42 }")
+    emit(lines, level + 5, "spacing = 65")
+    for slot in range(1, 6):
+        append_debate_node_icon(lines, level + 5, slot)
     emit(lines, level + 4, "}")
     emit(lines, level + 3, "}")
-    emit(lines, level + 3, "hbox = {")
-    emit(lines, level + 4, "position = { 36 12 }")
-    emit(lines, level + 4, "size = { 398 42 }")
+    emit(lines, level + 3, "widget = {")
     emit(lines, level + 4, "layoutpolicy_horizontal = fixed")
-    emit(lines, level + 4, "spacing = 47")
+    emit(lines, level + 4, "layoutpolicy_vertical = fixed")
+    emit(lines, level + 4, "size = { 470 24 }")
+    emit(lines, level + 4, "hbox = {")
+    emit(lines, level + 5, "size = { 470 24 }")
+    emit(lines, level + 5, "layoutpolicy_horizontal = fixed")
+    emit(lines, level + 5, "layoutpolicy_vertical = fixed")
+    emit(lines, level + 5, "spacing = 65")
     for slot in range(1, 6):
-        append_debate_node_icon(lines, level + 4, slot)
-    emit(lines, level + 3, "}")
-    emit(lines, level + 3, "hbox = {")
-    emit(lines, level + 4, "position = { 28 60 }")
-    emit(lines, level + 4, "size = { 414 24 }")
-    emit(lines, level + 4, "layoutpolicy_horizontal = fixed")
-    emit(lines, level + 4, "spacing = 31")
-    for slot in range(1, 6):
-        append_node_year(lines, level + 4, slot)
+        append_node_year(lines, level + 5, slot)
+    emit(lines, level + 4, "}")
     emit(lines, level + 3, "}")
     emit(lines, level + 2, "}")
     emit(lines, level + 1, "}")
@@ -1349,7 +1550,7 @@ def append_current_issue_card(lines: list[str], level: int) -> None:
     emit(lines, level + 1, "}")
     emit(lines, level + 1, 'blockoverride "common_bottom_content" {')
     emit(lines, level + 2, "widget = {")
-    emit(lines, level + 3, "size = { 470 336 }")
+    emit(lines, level + 3, "size = { 470 412 }")
     append_round_table(lines, level + 3, f"[{current_node_type_eq(0)}]", "TV_ACADEMY_DEBATE_HISTORY_TABLE_TEXT", history=True)
     append_round_table(lines, level + 3, f"[{current_node_type_eq(1)}]", None, history=False)
     append_world_table(lines, level + 3)
@@ -1421,6 +1622,32 @@ def _append_actions_to_research_block(research_block: str, actions_block: str) -
     )
 
 
+def _wrap_block_in_scrollarea(block: str) -> str:
+    """Wrap a blockoverride's body in the standard scrollarea/scrollwidget pair
+    used by other IO panels (e.g. tv_trade_league.gui, tv_engineering_department.gui)."""
+    open_brace = block.index("{")
+    close_brace = block.rfind("\n\t}")
+    if close_brace == -1:
+        raise ValueError("Could not find block closing brace")
+    header = block[: open_brace + 1]
+    body = block[open_brace + 1 : close_brace]
+    footer = block[close_brace:]
+    scrollarea_open = (
+        "\n"
+        + T * 2 + "margin = { 0 0 }\n"
+        + T * 2 + "layoutpolicy_vertical = expanding\n"
+        + T * 2 + "scrollarea = {\n"
+        + T * 3 + "using = layoutpolicy_expanding\n"
+        + T * 3 + "scrollbarpolicy_horizontal = always_off\n"
+        + T * 3 + "scrollbar_vertical = {\n"
+        + T * 4 + "using = Scrollbar_Vertical\n"
+        + T * 3 + "}\n"
+        + T * 3 + "scrollwidget = {"
+    )
+    scrollarea_close = "\n" + T * 3 + "}\n" + T * 2 + "}"
+    return header + scrollarea_open + body + scrollarea_close + footer
+
+
 def swap_academy_tabs(content: str) -> str:
     """Move Philosophy to overview and Concentrated Research to resolutions."""
     overview_marker = T + 'blockoverride "organization_overview_list_custom_top_extra" {'
@@ -1444,13 +1671,15 @@ def swap_academy_tabs(content: str) -> str:
         'blockoverride "organization_overview_list_custom_top_extra"',
         1,
     )
-    concentrated_research = _append_actions_to_research_block(
-        research_block.replace(
-            'blockoverride "organization_overview_list_custom_top_extra"',
-            'blockoverride "organization_resolutions_content"',
-            1,
-        ),
-        actions_block,
+    concentrated_research = _wrap_block_in_scrollarea(
+        _append_actions_to_research_block(
+            research_block.replace(
+                'blockoverride "organization_overview_list_custom_top_extra"',
+                'blockoverride "organization_resolutions_content"',
+                1,
+            ),
+            actions_block,
+        )
     )
 
     header = content[:overview_start].replace(
@@ -1494,7 +1723,12 @@ def generate(data: dict, debate_data: dict) -> str:
     DEBATE_GROUPS = sorted(debate_data["groups"], key=lambda group: int(group["id"]))
     advances = data["locked_advances"]
     entries = "\n".join(gen_target_entry(a) for a in advances)
-    return swap_academy_tabs(GUI_PREFIX + entries + "\n" + GUI_SUFFIX)
+    prefix = GUI_PREFIX.replace(
+        "# @@POTENTIAL_PROJECTS_CARD@@",
+        gen_potential_projects_card(advances),
+        1,
+    )
+    return swap_academy_tabs(prefix + entries + "\n" + GUI_SUFFIX)
 
 
 def main() -> None:

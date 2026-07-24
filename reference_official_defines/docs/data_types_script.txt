@@ -299,6 +299,18 @@ Return type: Scope
 
 -----------------------
 
+ChivalricOrder
+Definition type: Type
+
+-----------------------
+
+ChivalricOrder.MakeScope
+Description: Jomini Script System
+Definition type: Function
+Return type: Scope
+
+-----------------------
+
 Climate
 Definition type: Type
 
@@ -671,6 +683,18 @@ Definition type: Type
 -----------------------
 
 HolySiteType.MakeScope
+Description: Jomini Script System
+Definition type: Function
+Return type: Scope
+
+-----------------------
+
+ImperialCircle
+Definition type: Type
+
+-----------------------
+
+ImperialCircle.MakeScope
 Description: Jomini Script System
 Definition type: Function
 Return type: Scope
@@ -1334,6 +1358,13 @@ Return type: ChildEducation
 
 -----------------------
 
+Scope.ChivalricOrder
+Description: Jomini Script System
+Definition type: Promote
+Return type: ChivalricOrder
+
+-----------------------
+
 Scope.Climate
 Description: Jomini Script System
 Definition type: Promote
@@ -1590,6 +1621,12 @@ Return type: ChildEducation
 
 -----------------------
 
+Scope.GetChivalricOrder
+Definition type: Promote
+Return type: ChivalricOrder
+
+-----------------------
+
 Scope.GetClimate
 Definition type: Promote
 Return type: Climate
@@ -1791,6 +1828,18 @@ Return type: HolySiteDefinition
 Scope.GetHolySiteType
 Definition type: Promote
 Return type: HolySiteType
+
+-----------------------
+
+Scope.GetImperialCircle
+Definition type: Promote
+Return type: ImperialCircle
+
+-----------------------
+
+Scope.GetInstitution
+Definition type: Promote
+Return type: Institution
 
 -----------------------
 
@@ -2268,6 +2317,13 @@ Scope.HolySiteType
 Description: Jomini Script System
 Definition type: Promote
 Return type: HolySiteType
+
+-----------------------
+
+Scope.ImperialCircle
+Description: Jomini Script System
+Definition type: Promote
+Return type: ImperialCircle
 
 -----------------------
 
@@ -2878,6 +2934,13 @@ Return type: [unregistered]
 
 -----------------------
 
+Scope.ChivalricOrder
+Description: Jomini Script System
+Definition type: Function
+Return type: [unregistered]
+
+-----------------------
+
 Scope.Climate
 Description: Jomini Script System
 Definition type: Function
@@ -3125,6 +3188,13 @@ Return type: [unregistered]
 -----------------------
 
 Scope.HolySiteType
+Description: Jomini Script System
+Definition type: Function
+Return type: [unregistered]
+
+-----------------------
+
+Scope.ImperialCircle
 Description: Jomini Script System
 Definition type: Function
 Return type: [unregistered]
@@ -4020,6 +4090,12 @@ Return type: ChildEducation
 
 -----------------------
 
+TopScope.sChivalricOrder( Arg0 )
+Definition type: Promote
+Return type: ChivalricOrder
+
+-----------------------
+
 TopScope.sClimate( Arg0 )
 Definition type: Promote
 Return type: Climate
@@ -4221,6 +4297,12 @@ Return type: HolySiteDefinition
 TopScope.sHolySiteType( Arg0 )
 Definition type: Promote
 Return type: HolySiteType
+
+-----------------------
+
+TopScope.sImperialCircle( Arg0 )
+Definition type: Promote
+Return type: ImperialCircle
 
 -----------------------
 
@@ -4806,6 +4888,12 @@ Return type: [unregistered]
 
 -----------------------
 
+TopScope.sChivalricOrder( Arg0 )
+Definition type: Function
+Return type: [unregistered]
+
+-----------------------
+
 TopScope.sClimate( Arg0 )
 Definition type: Function
 Return type: [unregistered]
@@ -5005,6 +5093,12 @@ Return type: [unregistered]
 -----------------------
 
 TopScope.sHolySiteType( Arg0 )
+Definition type: Function
+Return type: [unregistered]
+
+-----------------------
+
+TopScope.sImperialCircle( Arg0 )
 Definition type: Function
 Return type: [unregistered]
 

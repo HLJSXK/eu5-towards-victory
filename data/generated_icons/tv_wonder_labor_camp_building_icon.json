@@ -19,14 +19,17 @@
     {
       "name": "building_icon",
       "label": "building Icon",
-      "path": "src/main_menu/gfx/interface/icons/buildings/tv_wonder_labor_camp.dds",
+      "path": "src_engineering_department/main_menu/gfx/interface/icons/buildings/tv_wonder_labor_camp.dds",
       "width": 128,
       "height": 128,
       "resize": "cover",
       "dds_format": "DXT5",
       "dds_levels": 7,
+      "circle_crop": true,
+      "circle_crop_feather_px": 8,
       "file_size_bytes": 21984,
-      "max_file_size_bytes": 100000
+      "max_file_size_bytes": 100000,
+      "output_format": "dds"
     }
   ]
 }

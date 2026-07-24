@@ -1,0 +1,19 @@
+﻿tv_engineering_department_sync_missing_chief_alert_effect = {
+	if = {
+		limit = { tv_missing_engineering_department_chief_alert_trigger = yes }
+		cmf_show_alert = { alert = tv_missing_engineering_department_chief_alert }
+	}
+	else_if = {
+		limit = { cmf_is_alert_active = { alert = tv_missing_engineering_department_chief_alert } }
+		cmf_remove_alert = { alert = tv_missing_engineering_department_chief_alert }
+	}
+}
+
+tv_engineering_department_handle_chief_alert_callback_effect = {
+	remove_variable = tv_engineering_department_chief_alert_open_requested
+
+	if = {
+		limit = { var:cmf_callback = flag:tv_missing_engineering_department_chief_alert }
+		set_variable = { name = tv_engineering_department_chief_alert_open_requested value = 1 }
+	}
+}

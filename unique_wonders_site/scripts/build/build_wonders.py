@@ -17,23 +17,23 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from scripts.wonder_localization_lib import (
+from scripts_engineering_department.wonder_localization_lib import (
     concept_desc_key,
     load_wonder_localization_data,
     wonder_name_key,
 )
-from scripts.wonder_mechanics.io import load_all_wonder_mechanics_data
-from scripts.wonder_mechanics.modifiers import (
+from scripts_engineering_department.wonder_mechanics.io import load_all_wonder_mechanics_data
+from scripts_engineering_department.wonder_mechanics.modifiers import (
     authored_final_building_local_modifiers,
     scale_numeric_modifier_mapping,
 )
-from scripts.wonder_mechanics.naming import final_building_for_style, mechanic_key
-from scripts.wonder_mechanics.rituals import (
+from scripts_engineering_department.wonder_mechanics.naming import final_building_for_style, mechanic_key
+from scripts_engineering_department.wonder_mechanics.rituals import (
     ceremony_modifier_for_style,
     ceremony_styles,
     ritual_plan_for_style,
 )
-from scripts.wonder_mechanics.schema import site_trigger_script_for_key
+from scripts_engineering_department.wonder_mechanics.schema import site_trigger_script_for_key
 
 SITE_ROOT = REPO_ROOT / "unique_wonders_site"
 DEFAULT_LOCATIONS_INDEX = (
@@ -748,11 +748,16 @@ def build_record(
     ceremony_meta: dict[str, object] = {}
     if ceremony_modifier is not None:
         ceremony_meta["source"] = ceremony_modifier[0]
+    ritual_country_modifier = (
+        ceremony_modifier[1]
+        if wonder.get("is_unique") and ceremony_modifier is not None
+        else ritual.get("country_modifier", {})
+    )
     section = effect_section(
         "ritual_country_modifier",
         "Ritual country modifiers",
         "仪式国家修正",
-        rows_from_mapping(ritual.get("country_modifier", {}), modifier_index=modifier_index),
+        rows_from_mapping(ritual_country_modifier, modifier_index=modifier_index),
         scope="country",
         meta=ceremony_meta,
     )
