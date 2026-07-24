@@ -2,7 +2,7 @@
 #   Data:    data/victory_path_tree_variant.yaml
 #   Regen:   conda run --no-capture-output -n eu5 python scripts/in_game/common/scripted_effects/gen_tv_victory_tree_effects.py
 # Do not edit directly — modify the data file and re-run the generator.
-# Node unlock effects and the points monthly-trickle pulse.
+# Node unlock effects.
 
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -643,38 +643,4 @@ tv_tree_science_b5_2_unlock_effect = {
 	set_variable = { name = tv_tree_science_b5_2_unlocked value = 1 }
 	change_variable = { name = tv_science_tree_points add = -15 }
 	add_country_modifier = { modifier = tv_tree_science_b5_2_modifier days = -1 }
-}
-
-
-# ═══════════════════════════════════════════════════════════════════════
-# SECTION 2: POINTS MONTHLY TRICKLE (PLACEHOLDER ECONOMY)
-# Flat +1/month per actively-pursued path. NOT a balanced
-# economy — a stand-in until the real point economy is designed.
-# ═══════════════════════════════════════════════════════════════════════
-
-tv_victory_tree_points_monthly_pulse = {
-	if = {
-		limit = { has_variable = tv_conquest_victory_enabled }
-		change_variable = { name = tv_conquest_tree_points add = 1 }
-	}
-	if = {
-		limit = { has_variable = tv_prosperity_victory_enabled }
-		change_variable = { name = tv_prosperity_tree_points add = 1 }
-	}
-	if = {
-		limit = { has_variable = tv_trade_victory_enabled }
-		change_variable = { name = tv_trade_tree_points add = 1 }
-	}
-	if = {
-		limit = { has_variable = tv_diplomatic_victory_enabled }
-		change_variable = { name = tv_diplomatic_tree_points add = 1 }
-	}
-	if = {
-		limit = { has_variable = tv_cultural_victory_enabled }
-		change_variable = { name = tv_cultural_tree_points add = 1 }
-	}
-	if = {
-		limit = { has_variable = tv_science_victory_enabled }
-		change_variable = { name = tv_science_tree_points add = 1 }
-	}
 }

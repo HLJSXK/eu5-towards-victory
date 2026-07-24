@@ -2587,6 +2587,7 @@ def gen_endpoint_effects(lines: list[str], data: dict) -> None:
         if accepted:
             emit(lines, 2, "tv_academy_philosophy_apply_pending_acceptance_effect = yes")
         emit(lines, 2, "tv_academy_philosophy_advance_current_issue_effect = yes")
+        emit(lines, 2, "tv_victory_task_callback_academy_debate_resolved_effect = yes")
         emit(lines, 2, "tv_academy_philosophy_enter_recess_effect = yes")
         emit(lines, 2, "tv_academy_philosophy_clear_debate_result_effect = yes")
         emit(lines, 1, "}")

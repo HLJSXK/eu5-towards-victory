@@ -504,6 +504,7 @@ tv_end_local_exhibition_effect = {
 		tv_snapshot_local_exhibition_locations_effect = yes
 		set_variable = { name = tv_local_exhibition_last_duration value = var:tv_local_exhibition_duration }
 		set_variable = { name = tv_local_exhibition_last_rating value = var:tv_local_exhibition_rating }
+		tv_victory_task_callback_local_exhibition_ended_effect = yes
 		set_variable = { name = tv_local_exhibition_last_reward value = var:tv_local_exhibition_duration }
 		change_variable = { name = tv_local_exhibition_last_reward multiply = 0.5 }
 		set_variable = { name = tv_local_exhibition_last_location_count value = var:tv_local_exhibition_location_count }
@@ -677,6 +678,7 @@ tv_add_arts_exchange_foreign_participant_effect = {
 tv_start_arts_exchange_effect = {
 	tv_clear_arts_exchange_tracking_effect = yes
 	set_variable = { name = tv_arts_exchange_active value = 1 }
+	tv_victory_task_callback_arts_exchange_started_effect = yes
 	set_variable = { name = tv_arts_exchange_months_elapsed value = 0 }
 	set_variable = { name = tv_arts_exchange_months_remaining value = 12 }
 	remove_variable = tv_arts_exchange_invite_event_fired

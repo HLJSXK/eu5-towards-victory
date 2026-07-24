@@ -25,7 +25,6 @@ import yaml
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DATA_FILE = REPO_ROOT / "data" / "victory_path_tree_variant.yaml"
 
-TREE_POINTS_TRICKLE = 1  # flat placeholder points/month per active path — NOT balanced
 
 PATH_LABELS_EN = {
     "conquest": "Conquest",
@@ -139,11 +138,11 @@ def generate_modifiers(data: dict, regen_script: str) -> str:
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# 2. SCRIPTED EFFECTS (unlock effects + points monthly trickle)
+# 2. SCRIPTED EFFECTS (unlock effects)
 # ─────────────────────────────────────────────────────────────────────────────
 
 def generate_effects(data: dict, regen_script: str) -> str:
-    lines = [header(regen_script, "Node unlock effects and the points monthly-trickle pulse."), ""]
+    lines = [header(regen_script, "Node unlock effects."), ""]
     lines.append("# " + "═" * 71)
     lines.append("# SECTION 1: NODE UNLOCK EFFECTS")
     lines.append("# Called from each node's generic action after allow-block checks pass.")
@@ -160,23 +159,7 @@ def generate_effects(data: dict, regen_script: str) -> str:
             lines.append("}")
             lines.append("")
         lines.append("")
-
-    lines.append("# " + "═" * 71)
-    lines.append("# SECTION 2: POINTS MONTHLY TRICKLE (PLACEHOLDER ECONOMY)")
-    lines.append(f"# Flat +{TREE_POINTS_TRICKLE}/month per actively-pursued path. NOT a balanced")
-    lines.append("# economy — a stand-in until the real point economy is designed.")
-    lines.append("# " + "═" * 71)
-    lines.append("")
-    lines.append("tv_victory_tree_points_monthly_pulse = {")
-    for path in data["paths"]:
-        pid = path["id"]
-        lines.append("\tif = {")
-        lines.append(f"\t\tlimit = {{ has_variable = tv_{pid}_victory_enabled }}")
-        lines.append(f"\t\tchange_variable = {{ name = {points_var(pid)} add = {TREE_POINTS_TRICKLE} }}")
-        lines.append("\t}")
-    lines.append("}")
-    lines.append("")
-    return "\n".join(lines)
+    return "\n".join(lines).rstrip() + "\n"
 
 
 # ─────────────────────────────────────────────────────────────────────────────

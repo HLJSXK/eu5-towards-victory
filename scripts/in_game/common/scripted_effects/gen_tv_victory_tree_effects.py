@@ -1,4 +1,4 @@
-"""Generate Victory Path Tree unlock effects + points trickle from data/victory_path_tree_variant.yaml."""
+"""Generate Victory Path Tree unlock effects from data/victory_path_tree_variant.yaml."""
 
 import argparse
 import sys

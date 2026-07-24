@@ -230,6 +230,7 @@ tv_research_pause_d_effect = {
 tv_research_concentrated_complete_effect = {
 	# Stop D monthly completion checks while keeping tv_research_target for the event.
 	set_variable = { name = tv_research_phase value = 0 }
+	tv_victory_task_callback_concentrated_research_completed_effect = yes
 	hidden_effect = {
 		remove_country_modifier = tv_concentrated_research_penalty
 	}

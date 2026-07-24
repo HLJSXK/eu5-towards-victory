@@ -606,14 +606,15 @@ def check_effect_loc_negative_perspectives() -> None:
 
 
 def check_static_modifier_name_loc_coverage() -> None:
-    """Verify every static modifier has a STATIC_MODIFIER_NAME_<id> localization key."""
+    """Verify every static modifier has English and Simplified Chinese name localization."""
     loc_roots = _mod_root_dirs("main_menu", "localization")
     if not loc_roots:
         return
 
-    language_names: set[str] = set()
-    for loc_root in loc_roots:
-        language_names.update(path.name for path in loc_root.iterdir() if path.is_dir())
+    # Only the two currently supported mod languages are release requirements.
+    # Other language directories (for example the future German translation)
+    # must not turn this validator into a localization-completeness gate.
+    language_names = {"english", "simp_chinese"}
 
     loc_keys_by_language: dict[str, set[str]] = {}
     for language_name in language_names:

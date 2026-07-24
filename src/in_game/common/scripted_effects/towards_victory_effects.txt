@@ -446,7 +446,8 @@ tv_establish_conquest_io_effect = {
 		}
 		set_variable = { name = tv_conquest_victory_enabled value = 1 }
 		set_variable = { name = tv_conquest_establishment_headquarters_done value = 1 }
-		set_variable = { name = tv_conquest_tree_points value = 1000 }
+		set_variable = { name = tv_conquest_tree_points value = 0 }
+		tv_victory_path_tasks_initialize_conquest_effect = yes
 		trigger_event_non_silently = { id = tv_io_establishment.1 days = 1 }
 		tv_check_conquest_milestones_effect = yes
 		tv_update_all_progress_pct_effect = yes
@@ -476,7 +477,8 @@ tv_establish_prosperity_io_effect = {
 		}
 		set_variable = { name = tv_prosperity_victory_enabled value = 1 }
 		set_variable = { name = tv_prosperity_establishment_headquarters_done value = 1 }
-		set_variable = { name = tv_prosperity_tree_points value = 1000 }
+		set_variable = { name = tv_prosperity_tree_points value = 0 }
+		tv_victory_path_tasks_initialize_prosperity_effect = yes
 		trigger_event_non_silently = { id = tv_io_establishment.2 days = 1 }
 		tv_check_prosperity_milestones_effect = yes
 		tv_update_all_progress_pct_effect = yes
@@ -505,7 +507,8 @@ tv_establish_trade_io_effect = {
 		}
 		set_variable = { name = tv_trade_victory_enabled value = 1 }
 		set_variable = { name = tv_trade_establishment_headquarters_done value = 1 }
-		set_variable = { name = tv_trade_tree_points value = 1000 }
+		set_variable = { name = tv_trade_tree_points value = 0 }
+		tv_victory_path_tasks_initialize_trade_effect = yes
 		trigger_event_non_silently = { id = tv_io_establishment.3 days = 1 }
 		tv_check_trade_milestones_effect = yes
 		tv_update_all_progress_pct_effect = yes
@@ -532,7 +535,8 @@ tv_establish_diplomatic_io_effect = {
 		}
 		set_variable = { name = tv_diplomatic_victory_enabled value = 1 }
 		set_variable = { name = tv_diplomatic_establishment_headquarters_done value = 1 }
-		set_variable = { name = tv_diplomatic_tree_points value = 1000 }
+		set_variable = { name = tv_diplomatic_tree_points value = 0 }
+		tv_victory_path_tasks_initialize_diplomatic_effect = yes
 		trigger_event_non_silently = { id = tv_io_establishment.4 days = 1 }
 		tv_check_diplomatic_milestones_effect = yes
 		tv_update_all_progress_pct_effect = yes
@@ -561,7 +565,8 @@ tv_establish_cultural_io_effect = {
 		}
 		set_variable = { name = tv_cultural_victory_enabled value = 1 }
 		set_variable = { name = tv_cultural_establishment_headquarters_done value = 1 }
-		set_variable = { name = tv_cultural_tree_points value = 1000 }
+		set_variable = { name = tv_cultural_tree_points value = 0 }
+		tv_victory_path_tasks_initialize_cultural_effect = yes
 		trigger_event_non_silently = { id = tv_io_establishment.5 days = 1 }
 		tv_check_cultural_milestones_effect = yes
 		tv_update_all_progress_pct_effect = yes
@@ -594,7 +599,8 @@ tv_establish_science_io_effect = {
 		}
 		set_variable = { name = tv_science_victory_enabled value = 1 }
 		set_variable = { name = tv_science_establishment_headquarters_done value = 1 }
-		set_variable = { name = tv_science_tree_points value = 1000 }
+		set_variable = { name = tv_science_tree_points value = 0 }
+		tv_victory_path_tasks_initialize_science_effect = yes
 		trigger_event_non_silently = { id = tv_io_establishment.6 days = 1 }
 		tv_check_science_milestones_effect = yes
 		tv_update_all_progress_pct_effect = yes

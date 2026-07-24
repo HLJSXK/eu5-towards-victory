@@ -19,6 +19,9 @@ sys.path.insert(0, str(ROOT))
 from scripts.victory_tree_node_codegen import action_name as tree_action_name
 from scripts.victory_tree_node_codegen import flatten_nodes as tree_flatten_nodes
 from scripts.victory_tree_node_codegen import load_data as load_tree_variant_data
+from scripts.victory_task_codegen import PATH_IDS as VICTORY_TASK_PATH_IDS
+from scripts.victory_task_codegen import SLOTS as VICTORY_TASK_SLOTS
+from scripts.victory_task_codegen import action_name as victory_task_action_name
 
 VANILLA = ROOT / "reference_game_files/game/main_menu/gui/messagetypes.txt"
 MAIN_OUT = ROOT / "src/main_menu/gui/messagetypes.txt"
@@ -80,6 +83,14 @@ def victory_tree_node_action_ids() -> list[str]:
         for node in tree_flatten_nodes(path):
             actions.append(tree_action_name(pid, node["id"]))
     return actions
+
+
+def victory_task_action_ids() -> list[str]:
+    return [
+        victory_task_action_name(path_id, slot)
+        for path_id in VICTORY_TASK_PATH_IDS
+        for slot in VICTORY_TASK_SLOTS
+    ]
 
 
 def io_establishment_action_ids() -> list[str]:
@@ -1110,6 +1121,24 @@ def victory_tree_node_message_entries() -> str:
     return "\n".join(blocks)
 
 
+def victory_task_message_entries() -> str:
+    blocks = ["\n# ---- Generated Victory Path task claim controls ----\n"]
+    for action in victory_task_action_ids():
+        blocks.append(
+            f"""PERFORM_{action}_ACTION={{
+\tlog=no
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=no
+\tpausepopup=no
+\tmessage_category = government
+}}
+"""
+        )
+    return "\n".join(blocks)
+
+
 def io_establishment_message_entries() -> str:
     blocks = ["\n# ---- Generated IO establishment controls ----\n"]
     for action in io_establishment_action_ids():
@@ -1173,6 +1202,7 @@ combined_entries = (
     + trade_monopoly_message_entries()
     + victory_reward_message_entries()
     + victory_tree_node_message_entries()
+    + victory_task_message_entries()
     + io_establishment_message_entries()
 )
 engineering_entries = engineering_message_entries(combined_entries)

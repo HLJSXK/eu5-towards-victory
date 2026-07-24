@@ -524,10 +524,10 @@ def gen_establishment_effects(data: dict) -> str:
         lines.extend(_set_new_leader_role_lines(leader, 2))
         lines.append(f"\t\tset_variable = {{ name = tv_{pid}_victory_enabled value = 1 }}")
         lines.append(f"\t\tset_variable = {{ name = tv_{pid}_establishment_headquarters_done value = 1 }}")
-        # Victory Path Tree points have no real accrual backend yet (see
-        # scripts/victory_tree_node_codegen.py TREE_POINTS_TRICKLE note) — grant a
-        # flat placeholder stake so the tree is usable as soon as the path unlocks.
-        lines.append(f"\t\tset_variable = {{ name = tv_{pid}_tree_points value = 1000 }}")
+        # The task system is the sole source of Victory Tree points. Route
+        # activation starts from zero and assigns the three human-player slots.
+        lines.append(f"\t\tset_variable = {{ name = tv_{pid}_tree_points value = 0 }}")
+        lines.append(f"\t\ttv_victory_path_tasks_initialize_{pid}_effect = yes")
         event_id = "tv_io_establishment." + str(int(est["event_id"]))
         lines.append(f"\t\t{monthly_country_pulse_event(data, event_id)}")
         lines.append(f"\t\ttv_check_{pid}_milestones_effect = yes")

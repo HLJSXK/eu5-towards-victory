@@ -45,7 +45,7 @@ pulses:
     - tv_engineering_department_wonder_auto_cache_monthly_pulse # Wonder owned-level country auto modifier cache
     - tv_diplomatic_alliance_monthly_pulse # Diplomatic Alliance victory-point maintenance
     - tv_trade_league_monthly_pulse # Trade League leader-country slot monopoly maintenance
-    - tv_victory_tree_points_monthly_pulse # Victory Path Tree placeholder points trickle
+    - tv_victory_path_tasks_monthly_pulse # active cheap/empty Victory Path task slots only; no free points
 
   yearly_country_pulse:
     - tv_science_victory_yearly_pulse # temporary full has_advance scan for player countries; engine count is broken
@@ -53,6 +53,7 @@ pulses:
     - tv_govhouse_governor_tasks_yearly_pulse # autonomous regional governor task reassessment
     - tv_trade_league_yearly_pulse # Trade League global market cache and full monopoly rebuild
     - tv_io_establishment_yearly_pulse # AI-only yearly conquest score recompute (every_subject_or_below off the monthly path)
+    - tv_victory_path_tasks_yearly_pulse # active science-count task slots; reuses the yearly science score scan
 
   on_character_death:
     - tv_govhouse_char_death           # Grand General death cleanup
@@ -90,12 +91,15 @@ bridges:
   on_work_of_art_created:
     - tv_on_work_of_art_created_callback # Cultural Influence Points from newly created art
     - tv_academy_debate_on_work_of_art_created
+    - tv_victory_path_tasks_on_work_of_art_created
 
   on_work_of_art_destroyed:
     - tv_academy_debate_on_work_of_art_destroyed
+    - tv_victory_path_tasks_on_work_of_art_destroyed
 
   on_work_of_art_looted:
     - tv_academy_debate_on_work_of_art_looted
+    - tv_victory_path_tasks_on_work_of_art_looted
 
   on_location_occupied:
     - tv_academy_debate_on_location_occupied
@@ -168,10 +172,12 @@ bridges:
   on_subject_created:
     - tv_govhouse_on_subject_created
     - tv_diplomatic_alliance_on_subject_created
+    - tv_victory_path_tasks_on_subject_created
 
   on_transfer_subject:
     - tv_govhouse_on_transfer_subject
     - tv_diplomatic_alliance_on_transfer_subject
+    - tv_victory_path_tasks_on_transfer_subject
 
   on_war_declared:
     - tv_govhouse_war_tent_on_war_declared
@@ -179,6 +185,7 @@ bridges:
 
   on_join_war:
     - tv_govhouse_war_tent_on_join_war
+    - tv_victory_path_tasks_on_join_war
 
   on_ending_war:
     - tv_govhouse_war_tent_on_ending_war
@@ -196,9 +203,17 @@ bridges:
   on_location_changed_owner:
     - tv_govhouse_location_changed_owner
     - tv_wonder_ownership_location_changed_owner
+    - tv_victory_path_tasks_on_location_changed_owner
+
+  on_location_changed_rank:
+    - tv_victory_path_tasks_on_location_changed_rank
 
   on_institution_embraced:
     - tv_academy_philosophy_on_institution_embraced
+    - tv_victory_path_tasks_on_institution_embraced
+
+  on_international_organization_changed_leader:
+    - tv_victory_path_tasks_on_io_leader_changed
 
   on_capital_moved:
     - tv_govhouse_capital_moved
