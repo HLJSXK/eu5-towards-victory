@@ -32,6 +32,10 @@
  tv_expel_diplomatic_alliance_member_desc: "Remove a member from our [tv_diplomatic_alliance|E]."
  tv_alliance_sublime_empire_subjugate_member: "Subjugate Alliance Member"
  tv_alliance_sublime_empire_subjugate_member_desc: "Spend [tv_alliance_cohesion|E] equal to 10 plus 50 times the target's relative military strength to make a selected ordinary alliance member that has belonged to this alliance for at least 5 years a vassal (or, if the [tv_alliance_advocator|E] cannot hold vassals, a Sāmanta) of the [tv_alliance_advocator|E]."
+ tv_alliance_cultural_union_enforce_culture: "Enforce Culture"
+ tv_alliance_cultural_union_enforce_culture_desc: "Make the selected ordinary alliance member adopt the [tv_alliance_advocator|E]'s primary culture, including the same capital-population conversion and cooldown used by the subject Enforce Culture action."
+ tv_alliance_religious_congress_enforce_religion: "Enforce Religion"
+ tv_alliance_religious_congress_enforce_religion_desc: "Make the selected ordinary alliance member adopt the [tv_alliance_advocator|E]'s religion, including ruler-family conversion, capital-population conversion, and the same cooldown used by the subject Enforce Religion action."
  tv_select_diplomatic_alliance_member: "Select Alliance Member"
  tv_no_diplomatic_alliance_member_available: "@trigger_no! No removable alliance members are available."
  TV_DIPLOMATIC_ALLIANCE_OVERVIEW_DESC: "Accumulate [tv_alliance_cohesion|E] to reform alliance laws. Legacy level 2/3/4 laws cost 25/50/75 Cohesion, while War Laws cost 25/50 for levels 2/3. Upgraded laws raise [tv_alliance_tier|E], up to 21. Each Alliance Tier grants the leader +1 Diplomatic Victory Point per month."
@@ -41,6 +45,8 @@
  TV_ALLIANCE_SUBJUGATION_TARGET_MEMBER_TT: "Target is an ordinary member of our [tv_diplomatic_alliance|E]"
  TV_ALLIANCE_SUBJUGATION_MEMBER_TENURE_TT: "Target has been a member of this [tv_diplomatic_alliance|E] for at least 5 years"
  TV_ALLIANCE_SUBJUGATION_RELATIVE_STRENGTH_TOOLTIP: "This country's military strength relative to the [tv_alliance_advocator|E]. Subjugation costs 10 plus this ratio times 50 [tv_alliance_cohesion|E]."
+ TV_ALLIANCE_ENFORCE_CULTURE_TARGET_TT: "Target is an ordinary member of a Cultural Union led by us and has a different primary culture"
+ TV_ALLIANCE_ENFORCE_RELIGION_TARGET_TT: "Target is an ordinary member of a Religious Congress led by us, has a different religion, and can be converted"
  TV_NOT_IN_DIPLOMATIC_ALLIANCE_TT: "Target is not already in a [tv_diplomatic_alliance|E]."
  TV_ALLIANCE_SIZE: "Alliance Size"
  TV_ALLIANCE_COHESION: "Alliance Cohesion"
@@ -56,8 +62,23 @@
  tv_commerce_consensus: "Commercial & Navigational Consensus"
  tv_faith_harmony: "Faith & Ideological Harmony"
  tv_colonization_sphere: "Colonization & Sphere of Influence"
+ tv_alliance_pillar_laws: "Alliance Pillars"
+ TV_ALLIANCE_PILLAR_LAWS_LAW_CATEGORY: "Alliance Pillars"
  tv_alliance_war_laws: "War Laws"
  TV_ALLIANCE_WAR_LAWS_LAW_CATEGORY: "War Laws"
+
+ # ── Alliance Pillar Law ─────────────────────────────────────────────────
+ tv_alliance_pillar: "Pillar"
+ tv_alliance_pillar_desc: "Defines the alliance's organizing ideal, its leader power, and the strongest non-leader member factor that reduces monthly cohesion. This law has no default policy."
+ tv_sublime_empire_policy: "Sublime Empire"
+ tv_sublime_empire_policy_desc: "The alliance is organized as a hierarchy centered on the Advocator's imperial supremacy."
+ TV_SUBLIME_EMPIRE_POLICY_EFFECT_TT: "Unlocks Subjugate for ordinary members. Monthly [tv_alliance_cohesion|E] is reduced by 0.2 times the strongest non-leader member's military strength relative to the leader."
+ tv_cultural_union_policy: "Cultural Union"
+ tv_cultural_union_policy_desc: "The alliance pursues political unity through a common primary culture."
+ TV_CULTURAL_UNION_POLICY_EFFECT_TT: "Unlocks Enforce Culture for ordinary members. Monthly [tv_alliance_cohesion|E] is reduced by 0.2 times the highest non-leader member culture's Cultural Tradition divided by the leader culture's Cultural Influence."
+ tv_religious_congress_policy: "Religious Congress"
+ tv_religious_congress_policy_desc: "The alliance pursues political unity through a common faith and shared liturgical authority."
+ TV_RELIGIOUS_CONGRESS_POLICY_EFFECT_TT: "Unlocks Enforce Religion for ordinary members. Monthly [tv_alliance_cohesion|E] is reduced by 0.2 times the strongest non-leader member's liturgical-language power divided by the leader's liturgical-language power."
 
  # ── Law 1: Court Protocol — Policies ──────────────────────────────────
  tv_adhoc_envoys_policy: "Ad-hoc Envoys"
@@ -234,6 +255,9 @@
  TV_COHESION_MEMBER_OPINION: "Member Opinion of Leader"
  TV_COHESION_LEADER_DIPLOMACY: "Advocator Diplomacy"
  TV_COHESION_INTERNAL_PEACE: "Internal Peace"
+ TV_COHESION_SUBLIME_EMPIRE_PENALTY: "Strongest Member Relative Military Strength"
+ TV_COHESION_CULTURAL_UNION_PENALTY: "Strongest Member Culture"
+ TV_COHESION_RELIGIOUS_CONGRESS_PENALTY: "Strongest Member Liturgical Language"
 
  # ── Panel Tab Labels ───────────────────────────────────────────────────
  TV_ALLIANCE_LAWS_TAB: "Alliance Laws"
@@ -241,10 +265,15 @@
  TV_ALLIANCE_PILLARS_TAB: "Alliance Pillars"
  TV_ALLIANCE_PILLARS_TAB_TOOLTIP: "Review the active alliance pillar and its powers."
  TV_ALLIANCE_PILLARS_ACTIVE_PILLAR_HEADER: "Active Pillar"
+ TV_ALLIANCE_NO_PILLAR: "No Pillar"
  TV_ALLIANCE_PILLAR_SUBLIME_EMPIRE: "Sublime Empire"
  TV_ALLIANCE_PILLAR_COHESION_PROGRESS: "Alliance Cohesion"
  TV_ALLIANCE_SUBLIME_EMPIRE_MEMBERS_HEADER: "Ordinary Members"
+ TV_ALLIANCE_CULTURAL_UNION_MEMBERS_HEADER: "Members with a Different Culture"
+ TV_ALLIANCE_RELIGIOUS_CONGRESS_MEMBERS_HEADER: "Members with a Different Religion"
  TV_ALLIANCE_SUBJUGATE_BUTTON: "Subjugate"
+ TV_ALLIANCE_ENFORCE_CULTURE_BUTTON: "Enforce Culture"
+ TV_ALLIANCE_ENFORCE_RELIGION_BUTTON: "Enforce Religion"
  tv_alliance_assembly: "Alliance Assembly"
 
  # ── Action notification message keys ─────────────────────────────────────────
@@ -260,6 +289,12 @@
  PERFORM_tv_alliance_sublime_empire_subjugate_member_ACTION_SETUP: "When we subjugate a member through the Sublime Empire pillar."
  PERFORM_tv_alliance_sublime_empire_subjugate_member_ACTION_LOG: "We subjugated [SCOPE.sCountry('target').GetNameWithNoTooltip] through the Sublime Empire pillar."
  PERFORM_tv_alliance_sublime_empire_subjugate_member_ACTION_MAP: ""
+ PERFORM_tv_alliance_cultural_union_enforce_culture_ACTION_SETUP: "When we enforce the alliance leader's culture through the Cultural Union pillar."
+ PERFORM_tv_alliance_cultural_union_enforce_culture_ACTION_LOG: "We made [SCOPE.sCountry('target').GetNameWithNoTooltip] adopt our culture through the Cultural Union pillar."
+ PERFORM_tv_alliance_cultural_union_enforce_culture_ACTION_MAP: ""
+ PERFORM_tv_alliance_religious_congress_enforce_religion_ACTION_SETUP: "When we enforce the alliance leader's religion through the Religious Congress pillar."
+ PERFORM_tv_alliance_religious_congress_enforce_religion_ACTION_LOG: "We made [SCOPE.sCountry('target').GetNameWithNoTooltip] adopt our religion through the Religious Congress pillar."
+ PERFORM_tv_alliance_religious_congress_enforce_religion_ACTION_MAP: ""
 
  # ── IO Leader management ──────────────────────────────────────────────
  tv_appoint_alliance_leader: "Appoint Advocator"

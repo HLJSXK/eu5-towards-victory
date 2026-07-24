@@ -79,6 +79,7 @@ tv_alliance_sublime_empire_subjugate_member = {
 			any_international_organizations_member_of = {
 				international_organization_type = international_organization_type:tv_diplomatic_alliance
 				leader_country ?= scope:actor
+				international_organization_has_policy = policy:tv_sublime_empire_policy
 			}
 		}
 	}
@@ -89,6 +90,7 @@ tv_alliance_sublime_empire_subjugate_member = {
 				any_international_organizations_member_of = {
 					international_organization_type = international_organization_type:tv_diplomatic_alliance
 					leader_country ?= scope:actor
+					international_organization_has_policy = policy:tv_sublime_empire_policy
 					trigger_if = {
 						limit = { exists = scope:target }
 						var:tv_alliance_cohesion ?= {
@@ -115,6 +117,7 @@ tv_alliance_sublime_empire_subjugate_member = {
 					any_international_organizations_member_of = {
 						international_organization_type = international_organization_type:tv_diplomatic_alliance
 						leader_country ?= scope:actor
+						international_organization_has_policy = policy:tv_sublime_empire_policy
 					}
 				}
 			}
@@ -124,6 +127,7 @@ tv_alliance_sublime_empire_subjugate_member = {
 					any_international_organizations_member_of = {
 						international_organization_type = international_organization_type:tv_diplomatic_alliance
 						leader_country ?= scope:actor
+						international_organization_has_policy = policy:tv_sublime_empire_policy
 						scope:target = {
 							years_in_international_organization = {
 								international_organization = prev
@@ -143,6 +147,7 @@ tv_alliance_sublime_empire_subjugate_member = {
 					limit = {
 						international_organization_type = international_organization_type:tv_diplomatic_alliance
 						leader_country ?= scope:actor
+						international_organization_has_policy = policy:tv_sublime_empire_policy
 						scope:target = {
 							NOT = { this = scope:actor }
 							is_subject = no
@@ -191,6 +196,152 @@ tv_alliance_sublime_empire_subjugate_member = {
 						}
 					}
 				}
+			}
+		}
+	}
+	ai_will_do = { add = -100 }
+}
+
+tv_alliance_cultural_union_enforce_culture = {
+	type = owncountry
+	sound = UI_action_diplomacy_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = {
+		scope:actor = {
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_diplomatic_alliance
+				leader_country ?= scope:actor
+				international_organization_has_policy = policy:tv_cultural_union_policy
+			}
+		}
+	}
+	allow = {
+		scope:actor = {
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_diplomatic_alliance
+				leader_country ?= scope:actor
+				international_organization_has_policy = policy:tv_cultural_union_policy
+			}
+		}
+		trigger_if = {
+			limit = { exists = scope:target }
+			custom_tooltip = {
+				text = TV_ALLIANCE_ENFORCE_CULTURE_TARGET_TT
+				scope:target = {
+					NOT = { this = scope:actor }
+					is_subject = no
+					NOT = { culture = scope:actor.culture }
+					any_international_organizations_member_of = {
+						international_organization_type = international_organization_type:tv_diplomatic_alliance
+						leader_country ?= scope:actor
+						international_organization_has_policy = policy:tv_cultural_union_policy
+					}
+				}
+			}
+		}
+	}
+	effect = {
+		if = {
+			limit = {
+				exists = scope:target
+				scope:target = {
+					NOT = { this = scope:actor }
+					is_subject = no
+					NOT = { culture = scope:actor.culture }
+					any_international_organizations_member_of = {
+						international_organization_type = international_organization_type:tv_diplomatic_alliance
+						leader_country ?= scope:actor
+						international_organization_has_policy = policy:tv_cultural_union_policy
+					}
+				}
+			}
+			enforce_culture_effect = {
+				actor = scope:actor
+				target = scope:target
+			}
+		}
+	}
+	ai_will_do = { add = -100 }
+}
+
+tv_alliance_religious_congress_enforce_religion = {
+	type = owncountry
+	sound = UI_action_diplomacy_generic
+	ai_tick = monthly
+	ai_tick_frequency = 99999
+	potential = {
+		scope:actor = {
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_diplomatic_alliance
+				leader_country ?= scope:actor
+				international_organization_has_policy = policy:tv_religious_congress_policy
+			}
+		}
+	}
+	allow = {
+		scope:actor = {
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_diplomatic_alliance
+				leader_country ?= scope:actor
+				international_organization_has_policy = policy:tv_religious_congress_policy
+			}
+		}
+		trigger_if = {
+			limit = { exists = scope:target }
+			custom_tooltip = {
+				text = TV_ALLIANCE_ENFORCE_RELIGION_TARGET_TT
+				scope:target = {
+					NOT = { this = scope:actor }
+					is_subject = no
+					NOT = { religion = scope:actor.religion }
+					any_international_organizations_member_of = {
+						international_organization_type = international_organization_type:tv_diplomatic_alliance
+						leader_country ?= scope:actor
+						international_organization_has_policy = policy:tv_religious_congress_policy
+					}
+					trigger_if = {
+						limit = {
+							modifier:blocked_from_conversion = yes
+							has_reform = government_reform:military_order_reform
+						}
+						scope:actor = { has_reform = government_reform:military_order_reform }
+					}
+					trigger_else = {
+						modifier:blocked_from_conversion = no
+					}
+				}
+			}
+		}
+	}
+	effect = {
+		if = {
+			limit = {
+				exists = scope:target
+				scope:target = {
+					NOT = { this = scope:actor }
+					is_subject = no
+					NOT = { religion = scope:actor.religion }
+					any_international_organizations_member_of = {
+						international_organization_type = international_organization_type:tv_diplomatic_alliance
+						leader_country ?= scope:actor
+						international_organization_has_policy = policy:tv_religious_congress_policy
+					}
+					trigger_if = {
+						limit = {
+							modifier:blocked_from_conversion = yes
+							has_reform = government_reform:military_order_reform
+						}
+						scope:actor = { has_reform = government_reform:military_order_reform }
+					}
+					trigger_else = {
+						modifier:blocked_from_conversion = no
+					}
+				}
+			}
+			enforce_religion_effect = {
+				actor = scope:actor
+				target = scope:target
 			}
 		}
 	}

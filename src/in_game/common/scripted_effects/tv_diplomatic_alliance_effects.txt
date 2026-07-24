@@ -441,6 +441,9 @@ tv_diplomatic_alliance_update_strongest_member_effect = {
 			}
 			clear_saved_scope = tv_alliance_strongest_member_candidate
 			ordered_international_organization_member = {
+				limit = {
+					NOT = { is_leader_of_international_organization = root }
+				}
 				order_by = {
 					add = {
 						value = military_strength

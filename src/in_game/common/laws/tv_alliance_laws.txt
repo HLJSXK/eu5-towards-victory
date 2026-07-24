@@ -5,12 +5,54 @@
 #
 # ══════════════════════════════════════════════════════════════════════════════
 # TOWARDS VICTORY — DIPLOMATIC ALLIANCE LAWS
-# 5 legacy law categories plus 1 war-law category
+# 1 pillar law, 5 legacy laws, and 3 war laws
 # Law changes require Alliance Assembly parliament voting
 # Legacy cohesion thresholds: L1=0, L2=25, L3=50, L4=75
 # War-law cohesion thresholds: L1=0, L2=25, L3=50
 # tv_alliance_tier is the sum of all current policy tier contributions
 # ══════════════════════════════════════════════════════════════════════════════
+
+# ──────────────────────────────────────────────────────────────────────────────
+# ALLIANCE PILLAR: one of three mutually exclusive alliance identities
+# ──────────────────────────────────────────────────────────────────────────────
+tv_alliance_pillar = {
+	type = international_organization
+	law_category = tv_alliance_pillar_laws
+	potential = {
+		international_organization_type = international_organization_type:tv_diplomatic_alliance
+	}
+	allow = {
+		uses_parliament_for_law_votes_trigger = yes
+	}
+	locked = {
+	}
+	has_levels = yes
+	requires_vote = yes
+
+	# Sublime Empire
+	tv_sublime_empire_policy = {
+		level = 1
+		on_activate = {
+			custom_tooltip = { text = TV_SUBLIME_EMPIRE_POLICY_EFFECT_TT }
+		}
+	}
+
+	# Cultural Union
+	tv_cultural_union_policy = {
+		level = 2
+		on_activate = {
+			custom_tooltip = { text = TV_CULTURAL_UNION_POLICY_EFFECT_TT }
+		}
+	}
+
+	# Religious Congress
+	tv_religious_congress_policy = {
+		level = 3
+		on_activate = {
+			custom_tooltip = { text = TV_RELIGIOUS_CONGRESS_POLICY_EFFECT_TT }
+		}
+	}
+}
 
 # ──────────────────────────────────────────────────────────────────────────────
 # LAW 1: Court Protocol & Legitimacy (宫廷礼仪与法理认同)
