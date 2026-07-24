@@ -1,6 +1,8 @@
 ﻿tv_create_diplomatic_alliance_effect = {
+	save_scope_as = tv_diplomatic_alliance_founder
 	if = {
 		limit = {
+			is_subject = no
 			NOT = {
 				any_international_organizations_member_of = {
 					international_organization_type = international_organization_type:tv_diplomatic_alliance
@@ -21,11 +23,29 @@
 						country = prev
 					}
 				}
+				save_scope_as = tv_diplomatic_alliance_new_io
 			}
 			remove_variable = tv_diplomatic_alliance_self_establishing
-			set_variable = { name = tv_diplomatic_alliance_member_count value = 1 }
 			set_variable = { name = tv_alliance_tier value = 0 }
+			if = {
+				limit = { exists = scope:tv_diplomatic_alliance_new_io }
+				scope:tv_diplomatic_alliance_new_io = {
+					tv_diplomatic_alliance_sync_advocator_status_effect = yes
+					tv_diplomatic_alliance_update_member_count_effect = yes
+				}
+			}
+			clear_saved_scope = tv_diplomatic_alliance_new_io
 		}
+	}
+	if = {
+		limit = {
+			is_subject = no
+			any_international_organizations_member_of = {
+				international_organization_type = international_organization_type:tv_diplomatic_alliance
+				leader_country ?= scope:tv_diplomatic_alliance_founder
+			}
+		}
+		tv_diplomatic_alliance_sync_subject_chain_to_owned_alliance_effect = yes
 	}
 	if = {
 		limit = {
@@ -36,6 +56,225 @@
 		}
 		set_variable = { name = tv_diplomatic_victory_points value = 0 }
 	}
+}
+
+tv_diplomatic_alliance_sync_advocator_status_effect = {
+	if = {
+		limit = { exists = leader_country }
+		leader_country = { save_scope_as = tv_diplomatic_alliance_advocator_country }
+		international_organization_remove_special_status = {
+			type = special_status:tv_alliance_member_status
+			country = scope:tv_diplomatic_alliance_advocator_country
+		}
+		international_organization_add_special_status = {
+			type = special_status:tv_alliance_advocator
+			country = scope:tv_diplomatic_alliance_advocator_country
+		}
+	}
+	clear_saved_scope = tv_diplomatic_alliance_advocator_country
+}
+
+tv_diplomatic_alliance_update_member_count_effect = {
+	leader_country ?= {
+		set_variable = { name = tv_diplomatic_alliance_member_count value = prev.total_members }
+	}
+}
+
+tv_diplomatic_alliance_sync_subject_chain_to_owned_alliance_effect = {
+	save_scope_as = tv_diplomatic_alliance_subject_chain_owner
+	if = {
+		limit = { is_subject = no }
+		every_international_organizations_member_of = {
+			limit = {
+				international_organization_type = international_organization_type:tv_diplomatic_alliance
+				leader_country ?= scope:tv_diplomatic_alliance_subject_chain_owner
+			}
+			tv_diplomatic_alliance_sync_advocator_status_effect = yes
+			save_scope_as = tv_diplomatic_alliance_subject_chain_io
+			scope:tv_diplomatic_alliance_subject_chain_owner = {
+				every_subject_or_below = {
+					save_scope_as = tv_diplomatic_alliance_subject_chain_country
+					scope:tv_diplomatic_alliance_subject_chain_io = {
+						if = {
+							limit = {
+								scope:tv_diplomatic_alliance_subject_chain_country = {
+									NOT = { is_member_of_international_organization = scope:tv_diplomatic_alliance_subject_chain_io }
+								}
+							}
+							add_country_to_international_organization = scope:tv_diplomatic_alliance_subject_chain_country
+						}
+						international_organization_remove_special_status = {
+							type = special_status:tv_alliance_advocator
+							country = scope:tv_diplomatic_alliance_subject_chain_country
+						}
+						international_organization_add_special_status = {
+							type = special_status:tv_alliance_member_status
+							country = scope:tv_diplomatic_alliance_subject_chain_country
+						}
+					}
+				}
+			}
+			tv_diplomatic_alliance_update_member_count_effect = yes
+		}
+	}
+	clear_saved_scope = tv_diplomatic_alliance_subject_chain_io
+	clear_saved_scope = tv_diplomatic_alliance_subject_chain_country
+}
+
+tv_diplomatic_alliance_remove_subject_chain_from_alliance_effect = {
+	save_scope_as = tv_diplomatic_alliance_subject_chain_owner
+	if = {
+		limit = { exists = scope:tv_diplomatic_alliance_subject_root }
+		every_international_organizations_member_of = {
+			limit = {
+				international_organization_type = international_organization_type:tv_diplomatic_alliance
+				leader_country ?= scope:tv_diplomatic_alliance_subject_chain_owner
+			}
+			save_scope_as = tv_diplomatic_alliance_subject_chain_io
+			if = {
+				limit = {
+					scope:tv_diplomatic_alliance_subject_root = {
+						is_member_of_international_organization = scope:tv_diplomatic_alliance_subject_chain_io
+					}
+				}
+				international_organization_remove_special_status = {
+					type = special_status:tv_alliance_advocator
+					country = scope:tv_diplomatic_alliance_subject_root
+				}
+				international_organization_remove_special_status = {
+					type = special_status:tv_alliance_member_status
+					country = scope:tv_diplomatic_alliance_subject_root
+				}
+				remove_country_from_international_organization = scope:tv_diplomatic_alliance_subject_root
+			}
+			scope:tv_diplomatic_alliance_subject_root = {
+				every_subject_or_below = {
+					limit = { is_member_of_international_organization = scope:tv_diplomatic_alliance_subject_chain_io }
+					save_scope_as = tv_diplomatic_alliance_subject_chain_country
+					scope:tv_diplomatic_alliance_subject_chain_io = {
+						international_organization_remove_special_status = {
+							type = special_status:tv_alliance_advocator
+							country = scope:tv_diplomatic_alliance_subject_chain_country
+						}
+						international_organization_remove_special_status = {
+							type = special_status:tv_alliance_member_status
+							country = scope:tv_diplomatic_alliance_subject_chain_country
+						}
+						remove_country_from_international_organization = scope:tv_diplomatic_alliance_subject_chain_country
+					}
+				}
+			}
+			tv_diplomatic_alliance_update_member_count_effect = yes
+		}
+	}
+	clear_saved_scope = tv_diplomatic_alliance_subject_chain_io
+	clear_saved_scope = tv_diplomatic_alliance_subject_chain_country
+}
+
+tv_diplomatic_alliance_remove_current_country_from_all_alliances_effect = {
+	save_scope_as = tv_diplomatic_alliance_remove_country
+	clear_variable_list = tv_diplomatic_alliance_remove_ios
+	every_international_organizations_member_of = {
+		limit = {
+			international_organization_type = international_organization_type:tv_diplomatic_alliance
+		}
+		save_scope_as = tv_diplomatic_alliance_remove_io
+		scope:tv_diplomatic_alliance_remove_country = {
+			add_to_variable_list = { name = tv_diplomatic_alliance_remove_ios target = scope:tv_diplomatic_alliance_remove_io }
+		}
+	}
+	every_in_list = {
+		variable = tv_diplomatic_alliance_remove_ios
+		save_scope_as = tv_diplomatic_alliance_remove_io
+		scope:tv_diplomatic_alliance_remove_io = {
+			international_organization_remove_special_status = {
+				type = special_status:tv_alliance_advocator
+				country = scope:tv_diplomatic_alliance_remove_country
+			}
+			international_organization_remove_special_status = {
+				type = special_status:tv_alliance_member_status
+				country = scope:tv_diplomatic_alliance_remove_country
+			}
+			remove_country_from_international_organization = scope:tv_diplomatic_alliance_remove_country
+			tv_diplomatic_alliance_update_member_count_effect = yes
+		}
+	}
+	clear_variable_list = tv_diplomatic_alliance_remove_ios
+	clear_saved_scope = tv_diplomatic_alliance_remove_country
+	clear_saved_scope = tv_diplomatic_alliance_remove_io
+}
+
+tv_diplomatic_alliance_remove_subject_chain_from_all_alliances_effect = {
+	save_scope_as = tv_diplomatic_alliance_subject_root
+	tv_diplomatic_alliance_remove_current_country_from_all_alliances_effect = yes
+	every_subject_or_below = {
+		tv_diplomatic_alliance_remove_current_country_from_all_alliances_effect = yes
+	}
+}
+
+tv_diplomatic_alliance_destroy_owned_alliance_effect = {
+	save_scope_as = tv_diplomatic_alliance_destroy_owner
+	clear_variable_list = tv_diplomatic_alliance_destroy_ios
+	remove_variable = tv_diplomatic_alliance_destroy_found
+	every_international_organizations_member_of = {
+		limit = {
+			international_organization_type = international_organization_type:tv_diplomatic_alliance
+			leader_country ?= scope:tv_diplomatic_alliance_destroy_owner
+		}
+		save_scope_as = tv_diplomatic_alliance_destroy_io
+		scope:tv_diplomatic_alliance_destroy_owner = {
+			set_variable = { name = tv_diplomatic_alliance_destroy_found value = 1 }
+			set_variable = { name = tv_diplomatic_alliance_rebuild_on_freedom value = 1 }
+			add_to_variable_list = { name = tv_diplomatic_alliance_destroy_ios target = scope:tv_diplomatic_alliance_destroy_io }
+		}
+	}
+
+	if = {
+		limit = { has_variable = tv_diplomatic_alliance_destroy_found }
+		if = {
+			limit = { has_variable = tv_diplomatic_alliance_leader_char }
+			var:tv_diplomatic_alliance_leader_char ?= {
+				remove_variable = tv_io_chief_role
+			}
+		}
+		remove_variable = tv_diplomatic_alliance_leader_char
+		remove_variable = tv_diplomatic_alliance_member_count
+		remove_variable = tv_alliance_strongest_member
+		remove_variable = tv_alliance_tier
+		remove_variable = tv_diplomatic_alliance_member
+
+		every_in_list = {
+			variable = tv_diplomatic_alliance_destroy_ios
+			save_scope_as = tv_diplomatic_alliance_destroy_io
+			scope:tv_diplomatic_alliance_destroy_owner = {
+				destroy_international_organization = { target = scope:tv_diplomatic_alliance_destroy_io }
+			}
+		}
+	}
+	remove_variable = tv_diplomatic_alliance_destroy_found
+	clear_variable_list = tv_diplomatic_alliance_destroy_ios
+	clear_saved_scope = tv_diplomatic_alliance_destroy_io
+}
+
+tv_diplomatic_alliance_check_rebuild_after_freedom_effect = {
+	save_scope_as = tv_diplomatic_alliance_freed_country
+	if = {
+		limit = {
+			is_subject = no
+			has_variable = tv_diplomatic_alliance_rebuild_on_freedom
+			NOT = {
+				any_international_organizations_member_of = {
+					international_organization_type = international_organization_type:tv_diplomatic_alliance
+					leader_country ?= scope:tv_diplomatic_alliance_freed_country
+				}
+			}
+		}
+		remove_variable = tv_diplomatic_alliance_rebuild_on_freedom
+		tv_create_diplomatic_alliance_effect = yes
+	}
+	tv_check_diplomatic_milestones_effect = yes
+	tv_update_all_progress_pct_effect = yes
+	clear_saved_scope = tv_diplomatic_alliance_freed_country
 }
 
 tv_diplomatic_alliance_stamp_creation_order_effect = {
@@ -65,6 +304,10 @@ tv_diplomatic_alliance_stamp_creation_order_effect = {
 
 tv_diplomatic_alliance_reinitialize_membership_effect = {
 	save_scope_as = tv_diplomatic_alliance_reinit_country
+	if = {
+		limit = { is_subject = yes }
+		tv_diplomatic_alliance_destroy_owned_alliance_effect = yes
+	}
 
 	clear_saved_scope = tv_diplomatic_alliance_keep_io
 	clear_saved_scope = tv_diplomatic_alliance_cleanup_io
@@ -160,6 +403,9 @@ tv_diplomatic_alliance_reinitialize_membership_effect = {
 	if = {
 		limit = { exists = scope:tv_diplomatic_alliance_keep_io }
 		set_variable = { name = tv_diplomatic_alliance_member value = 1 }
+		scope:tv_diplomatic_alliance_keep_io = {
+			tv_diplomatic_alliance_update_member_count_effect = yes
+		}
 	}
 	clear_saved_scope = tv_diplomatic_alliance_keep_io
 }

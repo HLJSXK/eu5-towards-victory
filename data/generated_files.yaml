@@ -81,6 +81,10 @@ generated:
     data:   data/victory_paths.yaml
     output: src/in_game/common/scripted_effects/towards_victory_leaderboard.txt
 
+  - script: scripts/in_game/common/scripted_effects/gen_tv_science_score_effects.py
+    data:   reference_game_files/game/in_game/common/advances/*.txt
+    output: src/in_game/common/scripted_effects/tv_science_score_effects.txt
+
   - script: scripts/in_game/gui/panels/situation/gen_tv_victory_situation_gui.py
     data:   data/victory_paths.yaml + data/io_establishment.yaml
     output: src/in_game/gui/panels/situation/tv_victory_situation.gui

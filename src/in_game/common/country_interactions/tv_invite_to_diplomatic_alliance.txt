@@ -48,7 +48,17 @@
 
 	effect = {
 		if = {
-			limit = { exists = scope:recipient }
+			limit = {
+				exists = scope:recipient
+				scope:recipient = {
+					is_subject = no
+					NOT = {
+						any_international_organizations_member_of = {
+							international_organization_type = international_organization_type:tv_diplomatic_alliance
+						}
+					}
+				}
+			}
 			scope:actor = {
 				every_international_organizations_member_of = {
 					limit = {
@@ -56,17 +66,8 @@
 						leader_country ?= scope:actor
 					}
 					add_country_to_international_organization = scope:recipient
+					tv_diplomatic_alliance_update_member_count_effect = yes
 				}
-				if = {
-					limit = {
-						custom_tooltip = {
-							text = TV_HAS_VARIABLE_NOT_SET_TT
-							NOT = { has_variable = tv_diplomatic_alliance_member_count }
-						}
-					}
-					set_variable = { name = tv_diplomatic_alliance_member_count value = 1 }
-				}
-				change_variable = { name = tv_diplomatic_alliance_member_count add = 1 }
 			}
 		}
 	}
@@ -91,6 +92,20 @@
 				value = scope:actor.var:tv_diplomatic_alliance_member_count
 				multiply = -5
 			}
+		}
+		add = {
+			desc = "TV_ALLIANCE_COHESION"
+			scope:actor = {
+				value = 0
+				every_international_organizations_member_of = {
+					limit = {
+						international_organization_type = international_organization_type:tv_diplomatic_alliance
+						leader_country ?= scope:actor
+					}
+					add = var:tv_alliance_cohesion
+				}
+			}
+			multiply = 0.2
 		}
 		if = {
 			limit = { exists = scope:recipient }

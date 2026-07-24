@@ -700,6 +700,10 @@ tv_diplomatic_establishment_ready_to_appoint = {
 	tv_diplomatic_establishment_basic_done = yes
 	tv_diplomatic_establishment_headquarters_done = yes
 	NOT = { has_variable = tv_diplomatic_victory_enabled }
+	custom_tooltip = {
+	  text = TV_CONQUEST_M1_EXTRA_TRIGGER_DESC
+	  is_subject = no
+	}
 	OR = {
 		is_ai = no
 		NOT = {

@@ -55,6 +55,7 @@ tv_reinitialize_mod = {
 				}
 				if = {
 					limit = {
+						is_subject = no
 						var:tv_diplomatic_milestone >= 1
 						NOT = {
 							any_international_organizations_member_of = {

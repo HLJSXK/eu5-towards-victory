@@ -155,7 +155,15 @@ that create, find, or mutate TV IOs.
     `wants_this_parliament_issue_bias` in ordinary founding or neutral-member states.
     Otherwise the issue picker can show that no special status has issues to bring.
 
-23. Do not re-read a variable_map as the confirmation gate for a long-open event.
+23. Use native IO membership tenure checks.
+    For mechanics gated by how long a country has belonged to an IO, use the country-scoped
+    `years_in_international_organization = { international_organization = <io scope> value >= N }`
+    trigger. In an IO-root `every_international_organization_member` iterator, `root` is the
+    IO; in an IO effect iterator that enters a member country, `prev` can point back to the
+    iterated IO. Do not add monthly countdown variables or date stamps just to mirror this
+    built-in tenure value.
+
+24. Do not re-read a variable_map as the confirmation gate for a long-open event.
     A `trigger_event_non_silently` confirmation event can stay open for arbitrary game
     time before the player answers. Validate the scope captured at queue time/`immediate`
     directly (e.g. ownership) instead of re-reading a `variable_map`/`global_variable_map`
@@ -173,7 +181,7 @@ that create, find, or mutate TV IOs.
     `common/scripted_effects/tv_govhouse_effects.txt` and
     `docs/knowledge/anti_patterns.yaml` rule `variable_map_reread_as_confirmation_gate`.
 
-24. Create IOs from a start-of-game event's `immediate`, not a visible option.
+25. Create IOs from a start-of-game event's `immediate`, not a visible option.
     An onboarding/game-start event whose option calls a "create or join this founder IO"
     scripted effect must have that call in the event's `immediate` block, not the option's
     effect chain. The nested `add_country_to_international_organization` / `set_leader_country`

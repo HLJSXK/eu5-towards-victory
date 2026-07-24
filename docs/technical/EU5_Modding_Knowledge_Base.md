@@ -200,6 +200,21 @@ every_international_organizations_member_of = {
 
 Using `any_international_organizations_member_of = { limit = { ... } ... }` directly in an effect body logs `Unknown effect any_international_organizations_member_of`.
 
+#### International Organization Member Tenure
+
+EU5 tracks how long a country has belonged to each international organization instance. In a country scope, use the native trigger:
+
+```pdx
+years_in_international_organization = {
+    international_organization = prev
+    value >= 5
+}
+```
+
+`international_organization` must point at the IO instance being checked. In an IO-root `every_international_organization_member` iterator, vanilla uses `international_organization = root`; when a TV effect iterates `every_international_organizations_member_of` from a country and then enters a member-country scope, `prev` can point back to the iterated IO. For scoring, vanilla also exposes the script value form, e.g. `"scope:recipient.years_in_international_organization(scope:actor.union)"`.
+
+Prefer this built-in tenure value for mechanics such as "member must have belonged to this alliance for at least 5 years" instead of adding monthly countdown variables or custom join-date state.
+
 #### Scripted Trigger and Effect File Boundaries
 
 `common/scripted_triggers` and `common/scripted_effects` are separate top-level databases. EU5 parses every top-level block in a `common/scripted_effects` file as a scripted effect. Do not emit `_trigger = { ... }` definitions into scripted-effect files, even if those blocks are only called from effect `limit` clauses. Move those blocks to `common/scripted_triggers`; otherwise trigger-only clauses such as `has_variable`, `religious_unity`, `always`, or trigger iterators are parsed as effect commands and log `Unknown effect ...` during startup.
@@ -1143,6 +1158,21 @@ random_events = {
 ```
 
 `on_actions.info` documents `delay = { days = ... }` for event/on_action firing entries, and vanilla/reference scripted effects use `days = 1` inside `trigger_event_*` object forms. In Towards Victory, the configured value is `settings.monthly_country_pulse_event_delay_days` in `data/pulse_registry.yaml`, and `scripts/validate.py` walks registered monthly pulse callbacks plus TV helper calls to enforce the rule.
+
+#### Tracking Completed Advances When the Engine Count Is Broken
+
+The mirrored EU5 on_action definitions contain no callback for "an Advance finished research".
+In the EU5 build tested by Towards Victory, the engine `num_advance_researched` interface
+(exposed in script as `num_of_advances_researched`) also remained stuck after new research.
+Therefore a reliable complete replacement must poll known Advance ids with `has_advance`.
+
+Keep this scan off monthly country pulses. Towards Victory's dedicated
+`gen_tv_science_score_effects.py` generator writes the scanner to its own
+`tv_science_score_effects.txt` file from every top-level definition under
+`reference_game_files/game/in_game/common/advances/`. The victory situation initializes only
+player-controlled countries, and `yearly_country_pulse` rebuilds only countries passing
+`is_ai = no`. The generated effect must carry an explicit temporary-workaround comment so the
+file and callback can be removed once the upstream count works again.
 
 #### Scripted Effect `custom_description` Localization
 
