@@ -16,6 +16,7 @@ settings:
 pulses:
   monthly_country_pulse:
     - tv_io_establishment_monthly_pulse # six IO establishment basic checks, HQ cache, and AI auto-progress
+    - tv_artist_tour_quarterly_pulse # Jan/Apr/Jul/Oct: autonomous Arts Exhibition tour proposals
     - tv_leaderboard_monthly_pulse    # leaderboard + touring artist roll + research/medicine/diplo inline
     - tv_cmf_warning_suppressions_monthly_pulse # CMF suppressions for intentional static warning noise
     - tv_io_chief_alert_monthly_pulse # CMF alerts for missing chiefs in the five main-mod IOs

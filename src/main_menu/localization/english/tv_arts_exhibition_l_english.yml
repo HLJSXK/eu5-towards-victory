@@ -10,6 +10,8 @@
  tv_cultural_diplomacy_opinion: "Cultural Diplomacy"
  tv_art_theft_opinion: "Art Theft Incident"
  STATIC_MODIFIER_NAME_tv_artistic_inspiration_modifier: "Artistic Inspiration"
+ STATIC_MODIFIER_NAME_tv_funded_artist_tour_modifier: "Funded Artist Tour"
+ STATIC_MODIFIER_DESC_tv_funded_artist_tour_modifier: "Marks an artist whose current international tour was funded by the state."
  STATIC_MODIFIER_NAME_tv_exhibition_success_location_modifier: "Touring Exhibition Buzz"
  STATIC_MODIFIER_NAME_tv_local_exhibition_triumph_location_modifier: "Exhibition Triumph"
  tv_local_arts_exhibition: "[tv_arts_exhibition|E] Fair"
@@ -17,7 +19,7 @@
  tv_local_arts_exhibition_maintenance: "Exhibition Maintenance"
  tv_local_arts_exhibition_price: "[tv_arts_exhibition|E] Fair"
  tv_local_arts_exhibition_construction: "[tv_arts_exhibition|E] Fair Construction"
- tv_send_artist_abroad_price: "Send Artist Abroad"
+ tv_fund_artist_tour_price: "Fund International Exhibition"
  tv_host_domestic_exhibition_price: "Host Domestic Exhibition"
  tv_local_exhibition_expand_price: "Expand Domestic Exhibition"
  tv_local_exhibition_recruit_artist_price: "Recruit Artists"
@@ -27,8 +29,8 @@
  tv_invite_foreign_arts_exchange_artist_price: "Invite Foreign Artist"
  MODIFIER_TYPE_NAME_tv_local_arts_exhibition_price_cost_modifier: "[tv_arts_exhibition|E] Fair Cost"
  MODIFIER_TYPE_DESC_tv_local_arts_exhibition_price_cost_modifier: "Modifies the construction cost of the [tv_arts_exhibition|E] Fair."
- MODIFIER_TYPE_NAME_tv_send_artist_abroad_price_cost_modifier: "Send Artist Abroad Cost"
- MODIFIER_TYPE_DESC_tv_send_artist_abroad_price_cost_modifier: "Modifies the cost of sending an artist abroad."
+ MODIFIER_TYPE_NAME_tv_fund_artist_tour_price_cost_modifier: "Fund International Exhibition Cost"
+ MODIFIER_TYPE_DESC_tv_fund_artist_tour_price_cost_modifier: "Modifies the cost of funding an artist's international exhibition."
  MODIFIER_TYPE_NAME_tv_host_domestic_exhibition_price_cost_modifier: "Host Domestic Exhibition Cost"
  MODIFIER_TYPE_DESC_tv_host_domestic_exhibition_price_cost_modifier: "Modifies the cost of hosting a [tv_domestic_exhibition|e]."
  MODIFIER_TYPE_NAME_tv_local_exhibition_expand_price_cost_modifier: "Expand Domestic Exhibition Cost"
@@ -144,8 +146,6 @@
  tv_arts_scientific_aesthetic_unity_policy_desc: "Art and natural science develop together. Research and cultural influence rise, while traditional religious patrons lose more confidence."
 
  # Generic action names and descriptions
- tv_send_artist_abroad: "Send Artist Abroad"
- tv_send_artist_abroad_desc: "Spend scaled gold x1 to dispatch one of your court artists on a [tv_artist_tour|e] in a foreign city. The tour lasts one to ten years and may raise [tv_arts_intl_influence|e], bring stories home, or leave a name behind in another court's ledgers."
  tv_host_domestic_exhibition: "Host Domestic Exhibition"
  tv_host_domestic_exhibition_desc: "Open a [tv_domestic_exhibition|e] in a chosen location. Requires at least 5 artworks, costs scaled gold, creates an [tv_arts_exhibition|E] Fair, and begins with 80 [tv_local_exhibition_enthusiasm|e]."
  tv_local_exhibition_add_artworks: "Add More Exhibits"
@@ -174,21 +174,17 @@
  tv_invite_foreign_arts_exchange_artist_desc: "Spend scaled gold x1.5 to invite a foreign artist into the current [tv_arts_exchange|e]. Select a country first, then one available artist from that country."
 
  # Generic action tooltips
- tv_send_artist_abroad_cost_tt: "Costs scaled gold x1 (travel expenses)."
- tv_send_artist_abroad_requires_artist_tt: "Requires at least one available artist in your court."
  tv_host_domestic_exhibition_cost_tt: "Costs scaled gold x3.5 (exhibition expenses)."
  tv_host_domestic_exhibition_requires_art_tt: "Requires at least 5 owned artworks."
  tv_local_exhibition_add_artworks_allow_tt: "Requires enough uncommitted owned artworks for the next exhibit tranche."
  TV_HAS_LOCAL_EXHIBITION_EXPAND_TARGET_TT: "An owned neighboring location can be added to the exhibition."
  TV_ARTS_EXCHANGE_REQUIRES_TWO_ARTISTS_TT: "Requires at least two living artists in court."
- tv_chief_artist_busy_with_law_change_tt: "The [tv_chief_artist|E] is busy revising [tv_arts_exhibition|e] laws."
+ tv_chief_artist_busy_tt: "The [tv_chief_artist|E] is already busy with another artistic activity."
  tv_chief_artist_busy_with_arts_exchange_tt: "The [tv_chief_artist|E] is busy hosting an [tv_arts_exchange|e]."
  tv_chief_artist_busy_with_domestic_exhibition_tt: "The [tv_chief_artist|E] is busy hosting a [tv_domestic_exhibition|e]."
+ TV_ARTIST_NOT_BUSY_TT: "The artist is not busy with another activity."
 
  # Select trigger labels
- tv_select_touring_artist: "Select an Artist"
- tv_select_touring_country: "Select Destination"
- tv_select_touring_location: "Select Exhibition Venue"
  tv_select_local_exhibition_location: "Select Exhibition Location"
  tv_select_local_exhibition_secondary_location: "Select Expansion Venue"
  tv_select_local_exhibition_foreign_country: "Select Invited Country"
@@ -196,9 +192,6 @@
  tv_select_arts_exchange_domestic_artist: "Select Domestic Artist"
  tv_select_arts_exchange_foreign_country: "Select Foreign Country"
  tv_select_arts_exchange_foreign_artist: "Select Foreign Artist"
- tv_no_touring_artist_available: "@trigger_no! No artists are available for touring."
- tv_no_touring_country_available: "@trigger_no! No countries are available."
- tv_no_touring_location_available: "@trigger_no! No locations are available in that country."
  tv_no_local_exhibition_location_available: "@trigger_no! No eligible owned locations are available."
  tv_no_local_exhibition_secondary_location_available: "@trigger_no! No eligible neighboring owned locations are available."
  tv_no_local_exhibition_foreign_country_available: "@trigger_no! No eligible country has an available artist."
@@ -208,19 +201,11 @@
  tv_no_arts_exchange_foreign_artist_available: "@trigger_no! No available foreign artists are in that country."
 
  # Arts Exhibition events
- tv_arts_exhibition.10.t: "[tv_artist_tour|E]：Artist Dispatched Abroad"
- tv_arts_exhibition.10.d.1: "The court has watched one of our artists depart on a [tv_artist_tour|e]. Their crates were sealed before dawn, their letters of introduction tied with silk, and the last assistants chased the wagon as if a forgotten brush might decide the fate of the journey. The host court expects a brief season of display, argument, and careful compliments. Fate has dealt a short assignment: the tour is expected to last #bold 1 year#!. Even a single year abroad can become a rumor that outlives the traveler."
- tv_arts_exhibition.10.d.2: "The court has watched one of our artists depart on a [tv_artist_tour|e]. Their crates were sealed before dawn, their letters of introduction tied with silk, and the last assistants chased the wagon as if a forgotten brush might decide the fate of the journey. The host court has promised rooms, audiences, and enough time for taste to become habit. The tour is expected to last #bold 2 years#!. By then, foreign spectators may know our hand before they learn our tongue."
- tv_arts_exhibition.10.d.3: "The court has watched one of our artists depart on a [tv_artist_tour|e]. Their crates were sealed before dawn, their letters of introduction tied with silk, and the last assistants chased the wagon as if a forgotten brush might decide the fate of the journey. Three seasons of fashion will rise and fall while our envoy of color and form works abroad. The tour is expected to last #bold 3 years#!. That is long enough for courtesy to become expectation."
- tv_arts_exhibition.10.d.4: "The court has watched one of our artists depart on a [tv_artist_tour|e]. Their crates were sealed before dawn, their letters of introduction tied with silk, and the last assistants chased the wagon as if a forgotten brush might decide the fate of the journey. The host court has opened more than a hall; it has opened a small corner of its memory. The tour is expected to last #bold 4 years#!. Our [tv_arts_intl_influence|e] may now be measured in invitations as much as applause."
- tv_arts_exhibition.10.d.5: "The court has watched one of our artists depart on a [tv_artist_tour|e]. Their crates were sealed before dawn, their letters of introduction tied with silk, and the last assistants chased the wagon as if a forgotten brush might decide the fate of the journey. A five-year stay is no mere performance but a second apprenticeship in foreign habits. The tour is expected to last #bold 5 years#!. When the artist returns, if they return unchanged at all, they will bring more than sketches."
- tv_arts_exhibition.10.d.6: "The court has watched one of our artists depart on a [tv_artist_tour|e]. Their crates were sealed before dawn, their letters of introduction tied with silk, and the last assistants chased the wagon as if a forgotten brush might decide the fate of the journey. Six years abroad will carry them through patrons, rivals, illnesses, fashions, and triumphs. The tour is expected to last #bold 6 years#!. Our court sends a person; the world may send back a school."
- tv_arts_exhibition.10.d.7: "The court has watched one of our artists depart on a [tv_artist_tour|e]. Their crates were sealed before dawn, their letters of introduction tied with silk, and the last assistants chased the wagon as if a forgotten brush might decide the fate of the journey. Seven years is long enough for a foreign audience to claim our artist as part of its own age. The tour is expected to last #bold 7 years#!. Every compliment abroad will be sweet, and every attachment will be dangerous."
- tv_arts_exhibition.10.d.8: "The court has watched one of our artists depart on a [tv_artist_tour|e]. Their crates were sealed before dawn, their letters of introduction tied with silk, and the last assistants chased the wagon as if a forgotten brush might decide the fate of the journey. Eight years will teach our artist the slow grammar of another court: who sits near the candle, who pays late, who praises only to wound. The tour is expected to last #bold 8 years#!. The [tv_arts_exhibition|e] sends art, but politics will answer."
- tv_arts_exhibition.10.d.9: "The court has watched one of our artists depart on a [tv_artist_tour|e]. Their crates were sealed before dawn, their letters of introduction tied with silk, and the last assistants chased the wagon as if a forgotten brush might decide the fate of the journey. Nine years abroad can turn an assignment into a life with its own debts, loyalties, and silences. The tour is expected to last #bold 9 years#!. We must hope our name stays bright in their hand."
- tv_arts_exhibition.10.d.10: "The court has watched one of our artists depart on a [tv_artist_tour|e]. Their crates were sealed before dawn, their letters of introduction tied with silk, and the last assistants chased the wagon as if a forgotten brush might decide the fate of the journey. Fate has dealt a long assignment: the tour is expected to last #bold 10 years#!. A decade is a bridge wide enough for fame, envy, patronage, illness, and homesickness to cross together. If fortune holds, the artist's work will speak for us long before our envoys arrive."
- tv_arts_exhibition.10.d.default: "The court has watched one of our artists depart on a [tv_artist_tour|e]. Their crates were sealed, their letters of introduction reviewed, and their attendants counted twice. Somewhere beyond the border a hall is being swept for our colors, our techniques, and our courtly confidence. The [tv_arts_exhibition|e] now has a living messenger abroad. Whether the journey returns applause, scandal, or something stranger, the first step has already been taken."
- tv_arts_exhibition.10.a: "Let their work speak for us."
+ tv_arts_exhibition.10.t: "[tv_artist_tour|E]: A Proposal from the Studio"
+ tv_arts_exhibition.10.d: "[SCOPE.sCharacter('proposed_artist').GetShortName] wishes to carry every eligible work from our collection to [SCOPE.sLocation('proposed_tour_location').GetName] in [SCOPE.sCountry('proposed_tour_target').GetName] for an international exhibition. The journey may spread our reputation, but it will place both artist and artworks beyond our immediate protection until the tour ends."
+ tv_arts_exhibition.10.a: "Allow the tour."
+ tv_arts_exhibition.10.b: "Fund the exhibition."
+ tv_arts_exhibition.10.c: "Forbid the tour; their career ends here."
 
  tv_arts_exhibition.1.t: "[tv_domestic_exhibition|E]：Grand Domestic Exhibition"
  tv_arts_exhibition.1.d: "The doors are open. Tapestries have been lowered into torchlight, reliquaries polished, manuscripts turned to their brightest pages, and the first visitors already crowd the hall. Courtiers pretend to judge technique while counting who stands nearest the finest pieces. Merchants whisper prices under their breath, priests search for virtue, and young apprentices search for permission to dream above their station. For as long as public wonder can be kept alive, this [tv_domestic_exhibition|E] will test the realm's taste, purse, and patience. A hall full of beauty is never only a hall; it is a little country trying to decide what it wants to admire."
@@ -239,7 +224,7 @@
  tv_arts_exhibition.7.d: "Our [tv_chief_artist|E] has passed away. The workshops heard it first in the sudden silence of messengers who did not know which door to knock upon. In the [tv_arts_exhibition|e], assistants continue copying accounts, artists continue quarrelling over taste, and patrons continue asking for answers, but the chair at the center is empty. Without a guiding hand, monthly influence becomes a matter of habit rather than vision. Someone must inherit the title before the realm's art begins to sound like an orchestra tuning forever."
  tv_arts_exhibition.7.a: "Find a hand steady enough for the chair."
 
- tv_arts_exhibition.8.t: "[tv_arts_exhibition|E]：[tv_chief_artist|E] Sent Abroad"
+ tv_arts_exhibition.8.t: "[tv_arts_exhibition|E]: [tv_chief_artist|E] Leaves on Tour"
  tv_arts_exhibition.8.d: "Our [tv_chief_artist|E] has departed on a [tv_artist_tour|e]. Their decision may serve the realm abroad, but the post they leave behind cannot be governed by letters from foreign inns and borrowed studios. The [tv_arts_exhibition|e] still needs someone present to settle rivalries, select displays, greet patrons, and translate brilliance into policy. Courtiers already wonder whether this is an inspired mission or a graceful abdication. Until we appoint a successor, the office exists only as a name written above an empty desk."
  tv_arts_exhibition.8.a: "The desk must not remain empty."
 
@@ -597,10 +582,6 @@
  STATIC_MODIFIER_NAME_tv_touring_penalty_8: "Artists on Tour"
 
  # ── Action notification message keys ─────────────────────────────────────────
- PERFORM_tv_send_artist_abroad_ACTION_SETUP: "When we dispatch one of our artists to tour a foreign court."
- PERFORM_tv_send_artist_abroad_ACTION_LOG: "We dispatched [SCOPE.sCharacter('target').GetShortNameWithNoTooltip] to [SCOPE.sCountry('target_1').GetNameWithNoTooltip] as a touring artist."
- PERFORM_tv_send_artist_abroad_ACTION_MAP: ""
-
  PERFORM_tv_host_domestic_exhibition_ACTION_SETUP: "When we host a [tv_domestic_exhibition|e]."
  PERFORM_tv_host_domestic_exhibition_ACTION_LOG: "We hosted a [tv_domestic_exhibition|e]."
  PERFORM_tv_host_domestic_exhibition_ACTION_MAP: ""

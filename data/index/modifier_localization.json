@@ -32890,6 +32890,20 @@
         "name": "[tv_diplomatic_alliance|E]成员参与议会"
       }
     },
+    "tv_fund_artist_tour_price_cost_modifier": {
+      "category": "country",
+      "color": "bad",
+      "decimals": 2,
+      "en": {
+        "description": "Modifies the cost of funding an artist's international exhibition.",
+        "name": "Fund International Exhibition Cost"
+      },
+      "value_kind": "percent",
+      "zh": {
+        "description": "修正资助艺术家国际展出的花费。",
+        "name": "资助国际展出花费"
+      }
+    },
     "tv_govhouse_local_administration_price_cost_modifier": {
       "category": "country",
       "color": "bad",
@@ -33070,20 +33084,6 @@
       "zh": {
         "description": "修正为[tv_domestic_exhibition|e]招揽艺术家的威望花费。",
         "name": "招揽艺术家花费"
-      }
-    },
-    "tv_send_artist_abroad_price_cost_modifier": {
-      "category": "country",
-      "color": "bad",
-      "decimals": 2,
-      "en": {
-        "description": "Modifies the cost of sending an artist abroad.",
-        "name": "Send Artist Abroad Cost"
-      },
-      "value_kind": "percent",
-      "zh": {
-        "description": "修正派遣艺术家前往国外展出的花费。",
-        "name": "派出艺术家花费"
       }
     },
     "tv_start_arts_exchange_price_cost_modifier": {

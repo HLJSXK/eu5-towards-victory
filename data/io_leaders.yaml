@@ -17,8 +17,8 @@ ios:
       is_adult = yes
       is_artist = yes
       custom_tooltip = {
-      	text = TV_HAS_VARIABLE_NOT_SET_TT
-      	NOT = { has_variable = tv_on_exhibition }
+        text = TV_ARTIST_NOT_BUSY_TT
+        NOT = { has_character_modifier = busy_modifier }
       }
 
   - id: alliance          # generates tv_appoint_alliance_leader, tv_remove_alliance_leader, tv_change_alliance_leader

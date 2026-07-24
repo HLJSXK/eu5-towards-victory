@@ -679,8 +679,8 @@ tv_establish_cultural_io = {
 			is_adult = yes
 			is_artist = yes
 			custom_tooltip = {
-			text = TV_HAS_VARIABLE_NOT_SET_TT
-			NOT = { has_variable = tv_on_exhibition }
+			text = TV_ARTIST_NOT_BUSY_TT
+			NOT = { has_character_modifier = busy_modifier }
 			}
 			custom_tooltip = {
 				text = TV_CHARACTER_NOT_ALREADY_TV_IO_CHIEF_TT
@@ -874,8 +874,8 @@ tv_appoint_arts_leader = {
 			is_adult = yes
 			is_artist = yes
 			custom_tooltip = {
-			text = TV_HAS_VARIABLE_NOT_SET_TT
-			NOT = { has_variable = tv_on_exhibition }
+			text = TV_ARTIST_NOT_BUSY_TT
+			NOT = { has_character_modifier = busy_modifier }
 			}
 			custom_tooltip = {
 				text = TV_CHARACTER_NOT_ALREADY_TV_IO_CHIEF_TT
@@ -968,8 +968,8 @@ tv_change_arts_leader = {
 			is_adult = yes
 			is_artist = yes
 			custom_tooltip = {
-			text = TV_HAS_VARIABLE_NOT_SET_TT
-			NOT = { has_variable = tv_on_exhibition }
+			text = TV_ARTIST_NOT_BUSY_TT
+			NOT = { has_character_modifier = busy_modifier }
 			}
 			custom_tooltip = {
 				text = TV_CHARACTER_NOT_ALREADY_TV_IO_CHIEF_TT

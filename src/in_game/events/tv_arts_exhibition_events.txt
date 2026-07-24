@@ -2,66 +2,51 @@
 
 namespace = tv_arts_exhibition
 
-# ── Artist Dispatched Confirmation ───────────────────────────────────────────
-# Fired immediately after "Send Artist Abroad" completes.
-# ROOT = home country. ROOT.var:tv_dispatch_notif_duration holds the tour length.
-# The option removes the notification variable.
+# ── Artist-Initiated International Tour Proposal ─────────────────────────────
+# Fired one day after the quarterly pulse captures the artist, neighboring host,
+# destination location, and every currently eligible artwork.
 tv_arts_exhibition.10 = {
 	type = country_event
 	title = tv_arts_exhibition.10.t
-	desc = {
-		first_valid = {
-			triggered_desc = {
-				trigger = { var:tv_dispatch_notif_duration ?= 1 }
-				desc = tv_arts_exhibition.10.d.1
-			}
-			triggered_desc = {
-				trigger = { var:tv_dispatch_notif_duration ?= 2 }
-				desc = tv_arts_exhibition.10.d.2
-			}
-			triggered_desc = {
-				trigger = { var:tv_dispatch_notif_duration ?= 3 }
-				desc = tv_arts_exhibition.10.d.3
-			}
-			triggered_desc = {
-				trigger = { var:tv_dispatch_notif_duration ?= 4 }
-				desc = tv_arts_exhibition.10.d.4
-			}
-			triggered_desc = {
-				trigger = { var:tv_dispatch_notif_duration ?= 5 }
-				desc = tv_arts_exhibition.10.d.5
-			}
-			triggered_desc = {
-				trigger = { var:tv_dispatch_notif_duration ?= 6 }
-				desc = tv_arts_exhibition.10.d.6
-			}
-			triggered_desc = {
-				trigger = { var:tv_dispatch_notif_duration ?= 7 }
-				desc = tv_arts_exhibition.10.d.7
-			}
-			triggered_desc = {
-				trigger = { var:tv_dispatch_notif_duration ?= 8 }
-				desc = tv_arts_exhibition.10.d.8
-			}
-			triggered_desc = {
-				trigger = { var:tv_dispatch_notif_duration ?= 9 }
-				desc = tv_arts_exhibition.10.d.9
-			}
-			triggered_desc = {
-				trigger = { var:tv_dispatch_notif_duration ?= 10 }
-				desc = tv_arts_exhibition.10.d.10
-			}
-			triggered_desc = {
-				trigger = { always = yes }
-				desc = tv_arts_exhibition.10.d.default
-			}
-		}
-	}
+	desc = tv_arts_exhibition.10.d
 	outcome = neutral
 
 	option = {
 		name = tv_arts_exhibition.10.a
-		remove_variable = tv_dispatch_notif_duration
+		ai_chance = { factor = 100 }
+		hidden_effect = {
+			tv_start_artist_tour_effect = yes
+		}
+	}
+	option = {
+		name = tv_arts_exhibition.10.b
+		trigger = {
+			tv_artist_tour_proposal_valid_trigger = yes
+			can_pay_price = price:tv_fund_artist_tour_price
+		}
+		ai_chance = { factor = 0 }
+		pay_price = price:tv_fund_artist_tour_price
+		hidden_effect = {
+			scope:proposed_artist = {
+				add_character_modifier = {
+					modifier = tv_funded_artist_tour_modifier
+					years = -1
+					mode = add
+				}
+			}
+			tv_start_artist_tour_effect = yes
+		}
+	}
+	option = {
+		name = tv_arts_exhibition.10.c
+		trigger = { tv_artist_tour_proposal_valid_trigger = yes }
+		ai_chance = { factor = 0 }
+		hidden_effect = {
+			scope:proposed_artist = {
+				tv_clear_artist_tour_proposal_effect = yes
+				kill_character = this
+			}
+		}
 	}
 }
 
@@ -80,9 +65,9 @@ tv_arts_exhibition.7 = {
 	}
 }
 
-# ── Chief Artist Sent Abroad ─────────────────────────────────────────────────
-# Fired when the current Chief Artist is selected for a foreign tour.
-# The dispatch action has already cleared tv_arts_exhibition_leader_char.
+# ── Chief Artist Leaves on Tour ──────────────────────────────────────────────
+# Fired when the current Chief Artist begins a foreign tour. The shared start
+# effect has already cleared tv_arts_exhibition_leader_char.
 tv_arts_exhibition.8 = {
 	type = country_event
 	title = tv_arts_exhibition.8.t
@@ -182,8 +167,8 @@ tv_arts_exhibition.103 = {
 
 # ── Touring Event: Artist Hired ───────────────────────────────────────────────
 # Fired on the home country. Grants +1.0 International Influence.
-# The artist remains permanently in the foreign court (tracking variables already
-# cleared by the time this event is processed).
+# The artist and carried artworks remain permanently in the foreign country;
+# selecting the option clears the remaining tour tracking state.
 # scope:touring_artist = the hired artist character.
 tv_arts_exhibition.104 = {
 	type = country_event
@@ -196,37 +181,7 @@ tv_arts_exhibition.104 = {
 		tv_change_arts_intl_influence_effect = { value = 1.0 }
 		hidden_effect = {
 			scope:touring_artist = {
-				var:tv_exhibition_target_country ?= {
-					remove_variable = tv_has_visiting_artist
-				}
-			}
-			if = {
-				limit = {
-					custom_tooltip = {
-						text = TV_HAS_DISPATCHED_ARTISTS_COUNT_TT
-						has_variable = tv_dispatched_artists_count
-					}
-					var:tv_dispatched_artists_count >= 1
-				}
-				change_variable = { name = tv_dispatched_artists_count add = -1 }
-			}
-			tv_update_tour_capacity_effect = yes
-			remove_list_variable = {
-				name = tv_dispatched_artists_list
-				target = scope:touring_artist
-			}
-			scope:touring_artist = {
-				remove_variable = tv_on_exhibition
-				remove_variable = tv_exhibition_home_country
-				remove_variable = tv_exhibition_target_country
-				remove_variable = tv_exhibition_location
-				remove_variable = tv_exhibition_elapsed
-				remove_variable = tv_exhibition_duration
-				remove_variable = tv_tour_event_1_fired
-				remove_variable = tv_tour_event_2_fired
-				remove_variable = tv_tour_event_3_fired
-				remove_variable = tv_tour_event_4_fired
-				remove_variable = tv_tour_event_5_fired
+				tv_cleanup_artist_tour_effect = yes
 			}
 		}
 	}
@@ -394,35 +349,7 @@ tv_arts_exhibition.205 = {
 		destroy_art = scope:stolen_art
 		hidden_effect = {
 			scope:touring_artist = {
-				var:tv_exhibition_target_country ?= { remove_variable = tv_has_visiting_artist }
-			}
-			if = {
-				limit = {
-					custom_tooltip = {
-						text = TV_HAS_DISPATCHED_ARTISTS_COUNT_TT
-						has_variable = tv_dispatched_artists_count
-					}
-					var:tv_dispatched_artists_count >= 1
-				}
-				change_variable = { name = tv_dispatched_artists_count add = -1 }
-			}
-			tv_update_tour_capacity_effect = yes
-			remove_list_variable = {
-				name = tv_dispatched_artists_list
-				target = scope:touring_artist
-			}
-			scope:touring_artist = {
-				remove_variable = tv_on_exhibition
-				remove_variable = tv_exhibition_home_country
-				remove_variable = tv_exhibition_target_country
-				remove_variable = tv_exhibition_location
-				remove_variable = tv_exhibition_elapsed
-				remove_variable = tv_exhibition_duration
-				remove_variable = tv_tour_event_1_fired
-				remove_variable = tv_tour_event_2_fired
-				remove_variable = tv_tour_event_3_fired
-				remove_variable = tv_tour_event_4_fired
-				remove_variable = tv_tour_event_5_fired
+				tv_cleanup_artist_tour_effect = yes
 			}
 		}
 		scope:touring_artist = { kill_character = this }
@@ -977,6 +904,17 @@ tv_arts_exhibition.360 = {
 
 	option = {
 		name = tv_arts_exhibition.360.a
+		trigger = {
+			scope:guest_artist = {
+				is_alive = yes
+				is_artist = yes
+				NOT = { has_character_modifier = busy_modifier }
+			}
+			scope:inviting_country = {
+				has_variable = tv_local_exhibition_active
+				NOT = { has_variable = tv_local_exhibition_guest_artist }
+			}
+		}
 		ai_chance = {
 			factor = 10
 			modifier = {
@@ -1002,6 +940,11 @@ tv_arts_exhibition.360 = {
 		scope:guest_artist = {
 			set_variable = { name = tv_local_exhibition_guest_home value = root }
 			set_variable = { name = tv_local_exhibition_guest_host value = scope:inviting_country }
+			add_character_modifier = {
+				modifier = busy_modifier
+				years = -1
+				mode = add
+			}
 			move_country = scope:inviting_country
 		}
 		scope:inviting_country = {

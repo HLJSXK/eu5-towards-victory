@@ -4,6 +4,14 @@ tv_artistic_inspiration_modifier = {
 	artist_skill_level_gain = 0.10
 }
 
+# Marker only. Future funded-tour outcomes may key off this modifier; this task
+# owns only its add/remove lifecycle.
+tv_funded_artist_tour_modifier = {
+	game_data = {
+		category = character
+	}
+}
+
 # ── Touring Capacity Penalties ────────────────────────────────────────────────
 # Applied by tv_update_tour_capacity_effect based on tv_dispatched_artists_count.
 # Only one of these is active at a time; the effect removes all and re-applies

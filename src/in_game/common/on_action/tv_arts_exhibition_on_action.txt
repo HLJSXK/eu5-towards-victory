@@ -5,6 +5,11 @@
 tv_arts_exhibition_char_death = {
 	effect = {
 		scope:target = {
+			# Unanswered proposal cleanup
+			if = {
+				limit = { has_variable = tv_artist_tour_proposal_pending }
+				tv_clear_artist_tour_proposal_effect = yes
+			}
 			# Touring artist cleanup
 			if = {
 				limit = {
@@ -14,48 +19,10 @@ tv_arts_exhibition_char_death = {
 					}
 				}
 				save_scope_as = dead_touring_artist
-				# Clear marker on the target country before removing the variable
-				if = {
-					limit = {
-						custom_tooltip = {
-							text = TV_HAS_EXHIBITION_TARGET_COUNTRY_TT
-							has_variable = tv_exhibition_target_country
-						}
-					}
-					var:tv_exhibition_target_country ?= {
-						remove_variable = tv_has_visiting_artist
-					}
-				}
 				var:tv_exhibition_home_country ?= {
 					trigger_event_non_silently = { id = tv_arts_exhibition.6 }
-					# Decrement counter and update capacity penalty
-					if = {
-						limit = {
-							custom_tooltip = {
-								text = TV_HAS_DISPATCHED_ARTISTS_COUNT_TT
-								has_variable = tv_dispatched_artists_count
-							}
-							var:tv_dispatched_artists_count >= 1
-						}
-						change_variable = { name = tv_dispatched_artists_count add = -1 }
-					}
-					tv_update_tour_capacity_effect = yes
-					remove_list_variable = {
-						name = tv_dispatched_artists_list
-						target = scope:dead_touring_artist
-					}
 				}
-				remove_variable = tv_on_exhibition
-				remove_variable = tv_exhibition_home_country
-				remove_variable = tv_exhibition_target_country
-				remove_variable = tv_exhibition_location
-				remove_variable = tv_exhibition_elapsed
-				remove_variable = tv_exhibition_duration
-				remove_variable = tv_tour_event_1_fired
-				remove_variable = tv_tour_event_2_fired
-				remove_variable = tv_tour_event_3_fired
-				remove_variable = tv_tour_event_4_fired
-				remove_variable = tv_tour_event_5_fired
+				tv_cleanup_artist_tour_effect = yes
 			}
 			# Guest artist cleanup for local exhibitions
 			if = {
@@ -78,6 +45,7 @@ tv_arts_exhibition_char_death = {
 						remove_variable = tv_local_exhibition_guest_country
 					}
 				}
+				remove_character_modifier = busy_modifier
 				remove_variable = tv_local_exhibition_guest_home
 				remove_variable = tv_local_exhibition_guest_host
 			}
@@ -104,7 +72,15 @@ tv_arts_exhibition_char_death = {
 				remove_variable = tv_arts_exchange_foreign_participant
 				remove_variable = tv_arts_exchange_host_country
 				remove_variable = tv_arts_exchange_auto_invitee
+				remove_character_modifier = busy_modifier
 			}
+		}
+		if = {
+			limit = {
+			has_variable = tv_local_exhibition_host_artist
+				var:tv_local_exhibition_host_artist = scope:target
+			}
+			remove_variable = tv_local_exhibition_host_artist
 		}
 		# If the dead character was the appointed Chief Artist, notify the player.
 		# tv_arts_exhibition_leader_char is cleared in the event option.
@@ -117,6 +93,78 @@ tv_arts_exhibition_char_death = {
 				var:tv_arts_exhibition_leader_char = scope:target
 			}
 			trigger_event_non_silently = { id = tv_arts_exhibition.7 }
+		}
+	}
+}
+
+# Quarterly artist-initiated tour proposals. EU5 has no native quarterly
+# country pulse, so this callback is registered under monthly_country_pulse and
+# gated to January, April, July, and October.
+tv_artist_tour_quarterly_pulse = {
+	trigger = {
+		OR = {
+			current_month = 1
+			current_month = 4
+			current_month = 7
+			current_month = 10
+		}
+		any_international_organizations_member_of = {
+			international_organization_type = international_organization_type:tv_arts_exhibition
+		}
+		any_neighbor_country = {
+			any_owned_location = { always = yes }
+		}
+	}
+	effect = {
+		save_scope_as = artist_tour_home
+		every_character = {
+			limit = {
+				is_alive = yes
+				is_artist = yes
+				NOT = { has_character_modifier = busy_modifier }
+				NOT = { has_variable = tv_artist_tour_proposal_pending }
+				any_work_of_art_by_creator = {
+					owner = scope:artist_tour_home
+				}
+			}
+			random_list = {
+				99 = {}
+				1 = {
+					save_scope_as = proposed_artist
+					scope:artist_tour_home = {
+						random_neighbor_country = {
+							limit = { any_owned_location = { always = yes } }
+							save_scope_as = proposed_tour_target
+						}
+					}
+					scope:proposed_tour_target = {
+						random_owned_location = {
+							save_scope_as = proposed_tour_location
+						}
+					}
+					if = {
+						limit = {
+							exists = scope:proposed_tour_target
+							exists = scope:proposed_tour_location
+						}
+						set_variable = { name = tv_artist_tour_proposal_pending value = 1 }
+						clear_variable_list = tv_pending_artist_tour_artworks
+						every_work_of_art_by_creator = {
+							limit = { owner = scope:artist_tour_home }
+							save_scope_as = pending_tour_artwork
+							scope:proposed_artist = {
+								add_to_variable_list = {
+									name = tv_pending_artist_tour_artworks
+									target = scope:pending_tour_artwork
+								}
+							}
+						}
+						scope:artist_tour_home = {
+							trigger_event_non_silently = { id = tv_arts_exhibition.10 days = 1 }
+						}
+					}
+				}
+			}
 		}
 	}
 }
