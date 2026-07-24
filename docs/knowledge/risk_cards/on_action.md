@@ -50,6 +50,16 @@ Load this card before editing `common/on_action/` files or adding monthly/yearly
    Character/ruler death hooks can fire after variables or lists were already cleaned up by
    another path. Use optional scope links and list removal helpers that tolerate absent entries.
 
+9. Do not rely on an Advance-researched completion hook or the broken research count.
+   The mirrored EU5 on_action definitions expose no callback for completing an Advance. In the
+   affected EU5 build, the engine `num_advance_researched` interface (script-facing
+   `num_of_advances_researched`) is stuck. When completeness is required, register a bounded
+   yearly-country callback and rebuild the country score from an explicit/generated Advance list
+   using `has_advance`; do not put the full scan on `monthly_country_pulse`. If only players consume
+   the result, gate both startup and yearly paths with `is_ai = no` so AI countries never pay the
+   scan cost. Keep the scanner in its own generated scripted-effect file, treat it as a temporary
+   engine workaround, and mark it clearly for removal after an upstream fix.
+
 ## Validation
 
 Run the relevant generator when editing registry data, then `validate.py --changed --fix --ai-report`.

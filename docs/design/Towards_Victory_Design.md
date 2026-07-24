@@ -153,7 +153,10 @@ Six victory paths, each reflecting a historically meaningful way a 15th–18th c
 ### 3.6 Scientific Victory (科技胜利)
 
 **Representative nations:** Western European powers from mid-game onward  
-**Core metric:** `tv_science_score` — monthly snapshot of `num_of_advances_researched` (unweighted)
+**Core metric:** `tv_science_score` — unweighted researched-Advance count. As a temporary
+engine workaround, the score is rebuilt at situation start and yearly for player-controlled
+countries by checking every known Advance with `has_advance`; the engine `num_advance_researched` interface
+(script-facing `num_of_advances_researched`) is currently broken/stuck.
 
 **Rationale:** Early scientific leadership (broad research) unlocks early milestones, with later thresholds requiring sustained investment in technology across all ages.
 
@@ -206,7 +209,7 @@ To unlock a single locked Advance, the player must complete one full **Research 
 
 #### Design Intent
 
-This mechanism gives the Scientific Victory an active, multi-step engagement loop absent from other victory paths. Passive research (advancing `tv_science_score`) drives milestone progression; the Research Cycle is required only to access the small set of Frontier Technology nodes that represent the ceiling of pre-industrial science. Players pursuing this path face a genuine choice: invest time and resources in the Research Cycle to unlock powerful frontier Advances, or prioritize breadth of research to push the milestone score threshold higher.
+This mechanism gives the Scientific Victory an active, multi-step engagement loop absent from other victory paths. Passive research (reflected for player-controlled countries in the yearly `has_advance` rebuild of `tv_science_score`) drives milestone progression; the Research Cycle is required only to access the small set of Frontier Technology nodes that represent the ceiling of pre-industrial science. Players pursuing this path face a genuine choice: invest time and resources in the Research Cycle to unlock powerful frontier Advances, or prioritize breadth of research to push the milestone score threshold higher.
 
 The Academy of Sciences IO also serves as a natural UI container for any future science-related mechanics, keeping the Science path's complexity isolated from the shared Situation panel.
 

@@ -434,6 +434,7 @@ look for `<script-root>/<same-relative-path>/gen_<filename>.py`.
 | `events/towards_victory_*_events.txt` (×6) | `data/victory_paths.yaml` | `scripts/gen_victory.py` |
 | `localization/*/towards_victory_l_*.yml` (×2) | `data/victory_paths.yaml` | `scripts/gen_victory.py` |
 | `scripted_effects/tv_advance_unlock_effects.txt` | `data/locked_advances.yaml` | `scripts/gen_locked_advances.py` |
+| `scripted_effects/tv_science_score_effects.txt` | `reference_game_files/game/in_game/common/advances/*.txt` | `scripts/in_game/common/scripted_effects/gen_tv_science_score_effects.py` |
 | `building_types/towards_victory_buildings.txt` | `data/academy_buildings.yaml` | `scripts/in_game/common/building_types/gen_towards_victory_buildings.py` |
 | `generic_actions/tv_io_leader_actions.txt` | `data/io_leaders.yaml` | `scripts/in_game/common/generic_actions/gen_tv_io_leader_actions.py` |
 | `src/in_game/common/customizable_localization/character_title.txt` | vanilla `character_title.txt` + all TV IO leader titles | `scripts/in_game/common/customizable_localization/gen_character_title.py` |

@@ -1470,11 +1470,11 @@ paths:
         zh: "科技"
       icon: "gfx/interface/icons/towards_victory/victory_paths/tv_victory_science.dds"
       progress_style: progress_bar_blue_alt
-    call_updater_in_checker: true
+    # The engine count is currently broken, so the independent generated full
+    # has_advance scan runs only for player countries at situation start and yearly.
+    call_updater_in_checker: false
+    call_updater_on_situation_start: player_only
     score_var_init_in_checker: false
-
-    score_updater_body: |
-      set_variable = { name = tv_science_score value = num_of_advances_researched }
 
     progress_pct_body: |
       # ── Scientific Victory ────────────────────────────────────────────────────
@@ -1927,6 +1927,16 @@ paths:
 # Vanilla hardcoded hooks receive only on_actions = { callback } delegates.
 # ─────────────────────────────────────────────────────────────────────────────
 on_actions:
+  - hook: yearly_country_pulse
+    callback: tv_science_victory_yearly_pulse
+    effect_body: |
+      if = {
+        limit = { is_ai = no }
+        tv_update_science_score_effect = yes
+        tv_check_science_milestones_effect = yes
+        tv_update_all_progress_pct_effect = yes
+      }
+
   - hook: on_work_of_art_created
     effect_body: |
       root.owner ?= {

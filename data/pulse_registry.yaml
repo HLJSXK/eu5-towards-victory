@@ -48,6 +48,7 @@ pulses:
     - tv_victory_tree_points_monthly_pulse # Victory Path Tree placeholder points trickle
 
   yearly_country_pulse:
+    - tv_science_victory_yearly_pulse # temporary full has_advance scan for player countries; engine count is broken
     - tv_arts_exhibition_yearly_pulse # touring artist elapsed counter + return-home
     - tv_govhouse_governor_tasks_yearly_pulse # autonomous regional governor task reassessment
     - tv_trade_league_yearly_pulse # Trade League global market cache and full monopoly rebuild
