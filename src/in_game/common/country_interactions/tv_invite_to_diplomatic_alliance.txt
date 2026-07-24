@@ -110,6 +110,12 @@
 		if = {
 			limit = { exists = scope:recipient }
 			add = {
+				desc = "RELATIVE_STRENGTH_OF_ACTOR_TO_TARGET"
+				value = "scope:actor.relative_strength(scope:recipient)"
+				add = -0.5
+				multiply = 50
+			}
+			add = {
 				desc = "TV_RECIPIENT_OWNED_LOCATIONS"
 				value = scope:recipient.num_locations
 				multiply = -1
