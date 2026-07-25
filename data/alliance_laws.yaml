@@ -28,6 +28,27 @@
 #   conda run --no-capture-output -n eu5 python scripts/in_game/common/laws/gen_tv_alliance_laws.py
 
 laws:
+  - id: tv_alliance_pillar
+    law_category: tv_alliance_pillar_laws
+    display_comment: "ALLIANCE PILLAR: one of three mutually exclusive alliance identities"
+    policy_style: pillar
+    allows_no_policy: true
+    policies:
+      - level: 1
+        id: tv_sublime_empire_policy
+        display_comment: "Sublime Empire"
+        effect_tooltip: TV_SUBLIME_EMPIRE_POLICY_EFFECT_TT
+
+      - level: 2
+        id: tv_cultural_union_policy
+        display_comment: "Cultural Union"
+        effect_tooltip: TV_CULTURAL_UNION_POLICY_EFFECT_TT
+
+      - level: 3
+        id: tv_religious_congress_policy
+        display_comment: "Religious Congress"
+        effect_tooltip: TV_RELIGIOUS_CONGRESS_POLICY_EFFECT_TT
+
   - id: tv_court_protocol
     law_category: diplomatic
     display_comment: "LAW 1: Court Protocol & Legitimacy (宫廷礼仪与法理认同)"

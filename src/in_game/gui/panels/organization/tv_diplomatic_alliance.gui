@@ -436,17 +436,26 @@ organization_panel = {
 							hbox = {
 								layoutpolicy_horizontal = expanding
 								layoutpolicy_vertical = fixed
+								ignoreinvisible = yes
 								spacing = 10
 								margin = { 4 6 }
 								text_single = {
 									size = { 34 34 }
-									raw_text = "@legitimacy!"
+									raw_text = "@law!"
 									fontsize = 28
 									align = center
 								}
 								text_single = {
+									visible = "[InternationalOrganizationsView.GetInternationalOrganization.HasPolicyForLaw(GetLaw('tv_alliance_pillar').Self)]"
 									layoutpolicy_horizontal = expanding
-									text = "TV_ALLIANCE_PILLAR_SUBLIME_EMPIRE"
+									text = "[InternationalOrganizationsView.GetInternationalOrganization.GetPolicyForLaw(GetLaw('tv_alliance_pillar').Self).GetNameWithNoTooltip]"
+									fontsize = 20
+									align = nobaseline|left
+								}
+								text_single = {
+									visible = "[Not(InternationalOrganizationsView.GetInternationalOrganization.HasPolicyForLaw(GetLaw('tv_alliance_pillar').Self))]"
+									layoutpolicy_horizontal = expanding
+									text = "TV_ALLIANCE_NO_PILLAR"
 									fontsize = 20
 									align = nobaseline|left
 								}
@@ -483,69 +492,182 @@ organization_panel = {
 						}
 					}
 
-					card_common = {
-						maximumsize = { 500 -1 }
-						blockoverride "common_header_icon" {}
-						blockoverride "common_header_text" {
-							text = "TV_ALLIANCE_SUBLIME_EMPIRE_MEMBERS_HEADER"
-						}
-						blockoverride "common_bottom_content" {
-							vbox = {
-								layoutpolicy_horizontal = expanding
-								layoutpolicy_vertical = fixed
-								ignoreinvisible = yes
-								spacing = 5
-								margin = { 4 4 }
-								datamodel = "[InternationalOrganizationsView.GetMemberItems]"
-								item = {
-									vbox = {
-										layoutpolicy_horizontal = expanding
-										layoutpolicy_vertical = fixed
-										ignoreinvisible = yes
-										spacing = 5
-										visible = "[And(Not(IsDataModelEmpty(MemberTypeItem.GetCountries)), MemberTypeItem.IsAllMembers)]"
-										datamodel = "[MemberTypeItem.GetCountries]"
-										item = {
-											widget = {
-												visible = "[And(Not(ObjectsEqual(Country.Self, InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.Self)), Not(Country.GetDiplomacy.IsSubject))]"
-												size = { 470 34 }
-												paper_simple_card = {
+					vbox = {
+						visible = "[InternationalOrganizationsView.GetInternationalOrganization.HasPolicyForLaw(GetLaw('tv_alliance_pillar').Self)]"
+						layoutpolicy_horizontal = expanding
+						layoutpolicy_vertical = fixed
+						ignoreinvisible = yes
+						spacing = 10
+
+						card_common = {
+							visible = "[EqualTo_int32(InternationalOrganizationsView.GetInternationalOrganization.GetPolicyForLaw(GetLaw('tv_alliance_pillar').Self).GetPolicyLevel, '(int32)1')]"
+							maximumsize = { 500 -1 }
+							blockoverride "common_header_icon" {}
+							blockoverride "common_header_text" { text = "TV_ALLIANCE_SUBLIME_EMPIRE_MEMBERS_HEADER" }
+							blockoverride "common_bottom_content" {
+								vbox = {
+									layoutpolicy_horizontal = expanding
+									layoutpolicy_vertical = fixed
+									ignoreinvisible = yes
+									spacing = 5
+									margin = { 4 4 }
+									datamodel = "[InternationalOrganizationsView.GetMemberItems]"
+									item = {
+										vbox = {
+											layoutpolicy_horizontal = expanding
+											layoutpolicy_vertical = fixed
+											ignoreinvisible = yes
+											spacing = 5
+											visible = "[And(Not(IsDataModelEmpty(MemberTypeItem.GetCountries)), MemberTypeItem.IsAllMembers)]"
+											datamodel = "[MemberTypeItem.GetCountries]"
+											item = {
+												widget = {
+													visible = "[And(Not(ObjectsEqual(Country.Self, InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.Self)), Not(Country.GetDiplomacy.IsSubject))]"
 													size = { 470 34 }
-													hbox = {
-														layoutpolicy_horizontal = expanding
-														layoutpolicy_vertical = fixed
-														margin = { 6 4 }
-														spacing = 8
-														country_flag_small = {}
-														text_single = {
+													paper_simple_card = {
+														size = { 470 34 }
+														hbox = {
 															layoutpolicy_horizontal = expanding
-															text = "[Country.GetName]"
-															align = nobaseline|left
-														}
-														expand = {}
-														text_single = {
-															size = { 74 24 }
-															raw_text = "[Multiply_CFixedPoint(GetMilitaryStrengthRatio(Country.Self, InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.Self), '(CFixedPoint)100.0')|0]%"
-															tooltip = "TV_ALLIANCE_SUBJUGATION_RELATIVE_STRENGTH_TOOLTIP"
-															align = nobaseline|right
-														}
-														action_button = {
-															size = { 62 24 }
-															enabled = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_alliance_cohesion').GetValue, Add_CFixedPoint(Multiply_CFixedPoint(GetMilitaryStrengthRatio(Country.Self, InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.Self), '(CFixedPoint)50.0'), '(CFixedPoint)10.0'))]"
-															using = button_regular_texture_alt_red
-															using = action_button_common_template
-															using = button_common_textobj_template
-															fontsize = 13
-															text = "TV_ALLIANCE_SUBJUGATE_BUTTON"
-															title = "tv_alliance_sublime_empire_subjugate_member"
-															description = "tv_alliance_sublime_empire_subjugate_member_desc"
-															actor = "[InternationalOrganizationsView.GetPlayer]"
-															parameter = {
-																parameter_name = "target"
-																parameter_value = "[Country.MakeScope]"
+															layoutpolicy_vertical = fixed
+															margin = { 6 4 }
+															spacing = 8
+															country_flag_small = {}
+															text_single = { layoutpolicy_horizontal = expanding text = "[Country.GetName]" align = nobaseline|left }
+															text_single = {
+																size = { 74 24 }
+																raw_text = "[Multiply_CFixedPoint(GetMilitaryStrengthRatio(Country.Self, InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.Self), '(CFixedPoint)100.0')|0]%"
+																tooltip = "TV_ALLIANCE_SUBJUGATION_RELATIVE_STRENGTH_TOOLTIP"
+																align = nobaseline|right
 															}
-															left_action = {
-																action_name = "tv_alliance_sublime_empire_subjugate_member"
+															action_button = {
+																size = { 62 24 }
+																enabled = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetInternationalOrganization.MakeScope.GetVariable('tv_alliance_cohesion').GetValue, Add_CFixedPoint(Multiply_CFixedPoint(GetMilitaryStrengthRatio(Country.Self, InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.Self), '(CFixedPoint)50.0'), '(CFixedPoint)10.0'))]"
+																using = button_regular_texture_alt_red
+																using = action_button_common_template
+																using = button_common_textobj_template
+																fontsize = 13
+																text = "TV_ALLIANCE_SUBJUGATE_BUTTON"
+																title = "tv_alliance_sublime_empire_subjugate_member"
+																description = "tv_alliance_sublime_empire_subjugate_member_desc"
+																actor = "[InternationalOrganizationsView.GetPlayer]"
+																parameter = { parameter_name = "target" parameter_value = "[Country.MakeScope]" }
+																left_action = { action_name = "tv_alliance_sublime_empire_subjugate_member" }
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+
+						card_common = {
+							visible = "[EqualTo_int32(InternationalOrganizationsView.GetInternationalOrganization.GetPolicyForLaw(GetLaw('tv_alliance_pillar').Self).GetPolicyLevel, '(int32)2')]"
+							maximumsize = { 500 -1 }
+							blockoverride "common_header_icon" {}
+							blockoverride "common_header_text" { text = "TV_ALLIANCE_CULTURAL_UNION_MEMBERS_HEADER" }
+							blockoverride "common_bottom_content" {
+								vbox = {
+									layoutpolicy_horizontal = expanding
+									layoutpolicy_vertical = fixed
+									ignoreinvisible = yes
+									spacing = 5
+									margin = { 4 4 }
+									datamodel = "[InternationalOrganizationsView.GetMemberItems]"
+									item = {
+										vbox = {
+											layoutpolicy_horizontal = expanding
+											layoutpolicy_vertical = fixed
+											ignoreinvisible = yes
+											spacing = 5
+											visible = "[And(Not(IsDataModelEmpty(MemberTypeItem.GetCountries)), MemberTypeItem.IsAllMembers)]"
+											datamodel = "[MemberTypeItem.GetCountries]"
+											item = {
+												widget = {
+													visible = "[And3(Not(ObjectsEqual(Country.Self, InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.Self)), Not(Country.GetDiplomacy.IsSubject), Not(ObjectsEqual(Country.GetCulture.Self, InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.GetCulture.Self)))]"
+													size = { 470 34 }
+													paper_simple_card = {
+														size = { 470 34 }
+														hbox = {
+															layoutpolicy_horizontal = expanding
+															layoutpolicy_vertical = fixed
+															margin = { 6 4 }
+															spacing = 8
+															country_flag_small = {}
+															text_single = { layoutpolicy_horizontal = expanding text = "[Country.GetName]" align = nobaseline|left }
+															text_single = { size = { 120 24 } raw_text = "@culture! [Country.GetCulture.GetNameWithNoTooltip]" align = nobaseline|right }
+															action_button = {
+																size = { 86 24 }
+																using = button_regular_texture_alt_yellow
+																using = action_button_common_template
+																using = button_common_textobj_template
+																fontsize = 13
+																text = "TV_ALLIANCE_ENFORCE_CULTURE_BUTTON"
+																title = "tv_alliance_cultural_union_enforce_culture"
+																description = "tv_alliance_cultural_union_enforce_culture_desc"
+																actor = "[InternationalOrganizationsView.GetPlayer]"
+																parameter = { parameter_name = "target" parameter_value = "[Country.MakeScope]" }
+																left_action = { action_name = "tv_alliance_cultural_union_enforce_culture" }
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+
+						card_common = {
+							visible = "[EqualTo_int32(InternationalOrganizationsView.GetInternationalOrganization.GetPolicyForLaw(GetLaw('tv_alliance_pillar').Self).GetPolicyLevel, '(int32)3')]"
+							maximumsize = { 500 -1 }
+							blockoverride "common_header_icon" {}
+							blockoverride "common_header_text" { text = "TV_ALLIANCE_RELIGIOUS_CONGRESS_MEMBERS_HEADER" }
+							blockoverride "common_bottom_content" {
+								vbox = {
+									layoutpolicy_horizontal = expanding
+									layoutpolicy_vertical = fixed
+									ignoreinvisible = yes
+									spacing = 5
+									margin = { 4 4 }
+									datamodel = "[InternationalOrganizationsView.GetMemberItems]"
+									item = {
+										vbox = {
+											layoutpolicy_horizontal = expanding
+											layoutpolicy_vertical = fixed
+											ignoreinvisible = yes
+											spacing = 5
+											visible = "[And(Not(IsDataModelEmpty(MemberTypeItem.GetCountries)), MemberTypeItem.IsAllMembers)]"
+											datamodel = "[MemberTypeItem.GetCountries]"
+											item = {
+												widget = {
+													visible = "[And3(Not(ObjectsEqual(Country.Self, InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.Self)), Not(Country.GetDiplomacy.IsSubject), Not(ObjectsEqual(Country.GetReligion.Self, InternationalOrganizationsView.GetInternationalOrganization.GetLeaderCountry.GetReligion.Self)))]"
+													size = { 470 34 }
+													paper_simple_card = {
+														size = { 470 34 }
+														hbox = {
+															layoutpolicy_horizontal = expanding
+															layoutpolicy_vertical = fixed
+															margin = { 6 4 }
+															spacing = 8
+															country_flag_small = {}
+															text_single = { layoutpolicy_horizontal = expanding text = "[Country.GetName]" align = nobaseline|left }
+															text_single = { size = { 120 24 } raw_text = "@religion! [Country.GetReligion.GetNameWithNoTooltip]" align = nobaseline|right }
+															action_button = {
+																size = { 86 24 }
+																using = button_regular_texture_alt_yellow
+																using = action_button_common_template
+																using = button_common_textobj_template
+																fontsize = 13
+																text = "TV_ALLIANCE_ENFORCE_RELIGION_BUTTON"
+																title = "tv_alliance_religious_congress_enforce_religion"
+																description = "tv_alliance_religious_congress_enforce_religion_desc"
+																actor = "[InternationalOrganizationsView.GetPlayer]"
+																parameter = { parameter_name = "target" parameter_value = "[Country.MakeScope]" }
+																left_action = { action_name = "tv_alliance_religious_congress_enforce_religion" }
 															}
 														}
 													}

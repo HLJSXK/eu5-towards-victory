@@ -1037,6 +1037,26 @@ PERFORM_tv_alliance_sublime_empire_subjugate_member_ACTION={
 \tmessage_category = diplomacy
 }
 
+PERFORM_tv_alliance_cultural_union_enforce_culture_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = diplomacy
+}
+
+PERFORM_tv_alliance_religious_congress_enforce_religion_ACTION={
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = diplomacy
+}
+
 PERFORM_tv_expel_trade_league_member_ACTION={
 \tlog=yes
 \tonmap=no

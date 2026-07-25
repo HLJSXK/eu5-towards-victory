@@ -114,6 +114,89 @@
 						value = 0.2
 					}
 				}
+				if = {
+					limit = {
+						international_organization_has_leader = yes
+						total_members > 1
+						international_organization_has_policy = policy:tv_sublime_empire_policy
+					}
+					add = {
+						desc = "TV_COHESION_SUBLIME_EMPIRE_PENALTY"
+						value = 0
+						ordered_international_organization_member = {
+							limit = {
+								NOT = { is_leader_of_international_organization = root }
+							}
+							order_by = {
+								value = "relative_strength(root.leader_country)"
+							}
+							max = 1
+							check_range_bounds = no
+							add = {
+								value = "relative_strength(root.leader_country)"
+								multiply = -0.2
+							}
+						}
+					}
+				}
+				if = {
+					limit = {
+						international_organization_has_leader = yes
+						total_members > 1
+						international_organization_has_policy = policy:tv_cultural_union_policy
+					}
+					add = {
+						desc = "TV_COHESION_CULTURAL_UNION_PENALTY"
+						value = 0
+						ordered_international_organization_member = {
+							limit = {
+								NOT = { is_leader_of_international_organization = root }
+							}
+							order_by = culture.cultural_tradition
+							max = 1
+							check_range_bounds = no
+							add = {
+								value = culture.cultural_tradition
+								divide = {
+									value = root.leader_country.culture.cultural_influence
+									min = 0.01
+								}
+								multiply = -0.2
+							}
+						}
+					}
+				}
+				if = {
+					limit = {
+						international_organization_has_leader = yes
+						total_members > 1
+						international_organization_has_policy = policy:tv_religious_congress_policy
+						leader_country = { exists = liturgical_language }
+					}
+					add = {
+						desc = "TV_COHESION_RELIGIOUS_CONGRESS_PENALTY"
+						value = 0
+						ordered_international_organization_member = {
+							limit = {
+								NOT = { is_leader_of_international_organization = root }
+								exists = liturgical_language
+							}
+							order_by = {
+								value = liturgical_language.language_power
+							}
+							max = 1
+							check_range_bounds = no
+							add = {
+								value = liturgical_language.language_power
+								divide = {
+									value = root.leader_country.liturgical_language.language_power
+									min = 0.01
+								}
+								multiply = -0.2
+							}
+						}
+					}
+				}
 			}
 		}
 	}

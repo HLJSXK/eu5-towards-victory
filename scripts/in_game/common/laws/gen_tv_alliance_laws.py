@@ -1,7 +1,9 @@
 """
 Generate src/in_game/common/laws/tv_alliance_laws.txt from data/alliance_laws.yaml.
 
-Pattern: Diplomatic Alliance law data can mix 3-level and 4-level laws.
+Pattern: Diplomatic Alliance law data can mix pillar choices plus 3-level and 4-level laws.
+- Pillar choices have no direct scripted effect. Each policy only exposes a
+  custom tooltip describing the pillar's mechanics, and the law starts empty.
 - L1 is a minimal stub (no on_activate, no country_modifier).
 - Upgraded levels share boilerplate; data controls cohesion_cost, tier contribution,
   country modifiers, war-call blocks, and AI vote bias.
@@ -35,7 +37,7 @@ FILE_HEADER = (
     "#\n"
     "# ══════════════════════════════════════════════════════════════════════════════\n"
     "# TOWARDS VICTORY — DIPLOMATIC ALLIANCE LAWS\n"
-    "# 5 legacy law categories plus 1 war-law category\n"
+    "# 1 pillar law, 5 legacy laws, and 3 war laws\n"
     "# Law changes require Alliance Assembly parliament voting\n"
     "# Legacy cohesion thresholds: L1=0, L2=25, L3=50, L4=75\n"
     "# War-law cohesion thresholds: L1=0, L2=25, L3=50\n"
@@ -352,6 +354,24 @@ def gen_lN(policy: dict, law_id: str, policies: list[dict], index: int) -> str:
     return "\n".join(lines)
 
 
+def gen_pillar_policy(policy: dict) -> str:
+    pid = policy["id"]
+    level = policy["level"]
+    tooltip = policy["effect_tooltip"]
+    comment = policy.get("display_comment", "")
+
+    lines = []
+    if comment:
+        lines.append(T + f"# {comment}")
+    lines.append(T + f"{pid} = {{")
+    lines.append(T*2 + f"level = {level}")
+    lines.append(T*2 + "on_activate = {")
+    lines.append(T*3 + f"custom_tooltip = {{ text = {tooltip} }}")
+    lines.append(T*2 + "}")
+    lines.append(T + "}")
+    return "\n".join(lines)
+
+
 def gen_law(law: dict) -> str:
     lid = law["id"]
     category = law["law_category"]
@@ -376,12 +396,15 @@ def gen_law(law: dict) -> str:
     lines.append(T + "}")
     lines.append(T + "has_levels = yes")
     lines.append(T + "requires_vote = yes")
-    lines.append(T + "custom_tags = { forbids_no_policy }")
+    if not law.get("allows_no_policy", False):
+        lines.append(T + "custom_tags = { forbids_no_policy }")
     lines.append("")
 
     # Generate policy blocks
     for i, policy in enumerate(policies):
-        if policy["level"] == 1:
+        if law.get("policy_style") == "pillar":
+            lines.append(gen_pillar_policy(policy))
+        elif policy["level"] == 1:
             lines.append(gen_l1(policy, lid, policies, i))
         else:
             lines.append(gen_lN(policy, lid, policies, i))
