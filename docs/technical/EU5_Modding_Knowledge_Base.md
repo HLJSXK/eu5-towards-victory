@@ -173,6 +173,26 @@ High-cardinality generated maintenance can still be too expensive on an IO type 
 
 `monthly_change` is evaluated from the IO variable's international-organization context. Do not reuse country-scoped scripted triggers there if they depend on `root.var:X`; nesting the call inside `leader_country ?= { ... }` does not make `root` become the country. Instead, keep country-state checks inside `leader_country ?= { ... }` and perform IO-variable comparisons from the IO scope, for example `var:stockpile >= leader_country.var:monthly_cost`.
 
+The scripted-value tree is also the visible monthly breakdown. For a contribution that can be
+positive or negative, do not put both cases inside one named `add` and conditionally apply an
+anonymous `multiply = -1`; tooltip evaluation can expose that internal sign operation as a
+spurious negative line with `missing tooltip`. Give each sign its own desc-bearing node under an
+outer condition, using a positive magnitude in both branches:
+
+```pdx
+if = {
+    limit = { leader_country ?= { var:stance ?= 1 } }
+    add = { desc = "CONTRIBUTOR" value = 0.5 }
+}
+if = {
+    limit = { leader_country ?= { var:stance ?= 2 } }
+    subtract = { desc = "CONTRIBUTOR" value = 0.5 }
+}
+```
+
+This mirrors vanilla's signed IO contribution structure in
+`common/international_organizations/catholic_church.txt`.
+
 #### International Organization Trigger Iterators
 
 In scripted triggers, `any_international_organizations_member_of` is a trigger iterator. Put IO filters directly in the iterator block:
