@@ -1858,8 +1858,9 @@ tv_govhouse_war_tent_monthly_effect = {
 #   tv_govhouse_region_to_admin_location_map:
 #                            stable country variable map, region -> system
 #                            selected Local Administration location. Once set,
-#                            population/rank changes do not move it; only missing
-#                            or lost ownership triggers reselection.
+#                            population/rank changes do not move it. A completed
+#                            office remains valid under the owner's subject chain;
+#                            new/replacement candidates are still direct-owned only.
 #   tv_govhouse_region_display_list:
 #                            country variable list of representative owned
 #                            location scopes, one per owned region, used by the
@@ -2053,7 +2054,15 @@ tv_govhouse_ensure_admin_location_for_region_effect = {
 					limit = {
 						exists = scope:tv_govhouse_existing_admin_location
 						scope:tv_govhouse_existing_admin_location = {
-							owner ?= scope:tv_governing_country
+							OR = {
+								owner ?= scope:tv_governing_country
+								AND = {
+									has_building_with_at_least_one_level = tv_govhouse_local_administration
+									owner ?= {
+										is_subject_or_below_of = scope:tv_governing_country
+									}
+								}
+							}
 						}
 					}
 					scope:tv_govhouse_existing_admin_location = {
@@ -3603,7 +3612,17 @@ tv_govhouse_save_admin_location_for_target_region_effect = {
 			}
 			"variable_map(tv_govhouse_region_to_admin_location_map|local_var:tv_govhouse_target_region_key)" = {
 				if = {
-					limit = { owner ?= scope:tv_governing_country }
+					limit = {
+						OR = {
+							owner ?= scope:tv_governing_country
+							AND = {
+								has_building_with_at_least_one_level = tv_govhouse_local_administration
+								owner ?= {
+									is_subject_or_below_of = scope:tv_governing_country
+								}
+							}
+						}
+					}
 					save_scope_as = tv_govhouse_selected_admin_location
 					if = {
 						limit = { has_building_with_at_least_one_level = tv_govhouse_local_administration }
@@ -4087,8 +4106,13 @@ tv_governor_auto_assign_effect = {
 								target = scope:tv_govhouse_auto_candidate_region
 							}
 							"variable_map(tv_govhouse_region_to_admin_location_map|scope:tv_govhouse_auto_candidate_region)" = {
-								owner ?= scope:tv_governing_country
 								has_building_with_at_least_one_level = tv_govhouse_local_administration
+								owner ?= {
+									OR = {
+										this = scope:tv_governing_country
+										is_subject_or_below_of = scope:tv_governing_country
+									}
+								}
 							}
 						}
 					}
@@ -4145,8 +4169,13 @@ tv_governor_auto_assign_effect = {
 								target = scope:tv_govhouse_auto_candidate_region
 							}
 							"variable_map(tv_govhouse_region_to_admin_location_map|scope:tv_govhouse_auto_candidate_region)" = {
-								owner ?= scope:tv_governing_country
 								has_building_with_at_least_one_level = tv_govhouse_local_administration
+								owner ?= {
+									OR = {
+										this = scope:tv_governing_country
+										is_subject_or_below_of = scope:tv_governing_country
+									}
+								}
 							}
 						}
 					}
@@ -4231,8 +4260,13 @@ tv_governor_auto_assign_effect = {
 							target = scope:target_1
 						}
 						"variable_map(tv_govhouse_region_to_admin_location_map|scope:target_1)" = {
-							owner ?= scope:tv_governing_country
 							has_building_with_at_least_one_level = tv_govhouse_local_administration
+							owner ?= {
+								OR = {
+									this = scope:tv_governing_country
+									is_subject_or_below_of = scope:tv_governing_country
+								}
+							}
 						}
 					}
 				}
@@ -4522,6 +4556,22 @@ tv_govhouse_handle_location_changed_owner_effect = {
 		}
 		scope:loser = { save_scope_as = tv_govhouse_admin_loss_loser }
 		if = {
+			limit = {
+				has_building_with_at_least_one_level = tv_govhouse_local_administration
+				exists = scope:winner
+				scope:winner = {
+					is_subject_or_below_of = scope:tv_govhouse_admin_loss_loser
+				}
+			}
+			# The completed office remains part of the same Governor's House
+			# administration after transfer into the owner's subject chain. Refresh
+			# modifiers/display without rebuilding the direct-owned candidate cache.
+			scope:tv_govhouse_admin_loss_loser = {
+				tv_govhouse_refresh_all_governor_modifiers_effect = yes
+				tv_govhouse_auto_assign_if_enabled_effect = yes
+			}
+		}
+		else_if = {
 			limit = {
 				OR = {
 					has_building_with_at_least_one_level = tv_govhouse_local_administration
