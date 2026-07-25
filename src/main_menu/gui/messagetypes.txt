@@ -13093,16 +13093,6 @@ message_category = diplomacy
 }
 # ── Towards Victory — Generic Action Message Types ───────────────────────────
 
-PERFORM_tv_send_artist_abroad_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
-
 PERFORM_tv_host_domestic_exhibition_ACTION={
 	log=yes
 	onmap=no

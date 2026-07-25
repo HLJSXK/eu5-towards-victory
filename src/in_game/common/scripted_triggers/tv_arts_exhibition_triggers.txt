@@ -1,15 +1,8 @@
 ﻿# Towards Victory - Arts Exhibition scripted triggers
 # All triggers are country-scoped unless noted.
 
-# Chief Artist busy-state helpers. These mirror the Chief Scientist busy
-# pattern: long-running Chief Artist work and Arts Exhibition law votes block
-# one another, with explicit tooltip text naming the active task.
-tv_chief_artist_busy_with_law_change_trigger = {
-	any_international_organizations_member_of = {
-		international_organization_type = international_organization_type:tv_arts_exhibition
-		resolution_is_active = resolution:policy_vote
-	}
-}
+# Chief Artist busy-state helpers. Long-running Arts Exhibition activities use
+# the vanilla busy_modifier; IO law votes themselves never make the Chief busy.
 
 tv_chief_artist_busy_with_arts_exchange_trigger = {
 	has_variable = tv_arts_exchange_active
@@ -35,9 +28,13 @@ tv_chief_artist_available_for_law_change_trigger = {
 		}
 	}
 	trigger_else_if = {
-		limit = { tv_chief_artist_busy_with_law_change_trigger = yes }
+		limit = {
+			var:tv_arts_exhibition_leader_char ?= {
+				has_character_modifier = busy_modifier
+			}
+		}
 		custom_description = {
-			text = tv_chief_artist_busy_with_law_change_tt
+			text = tv_chief_artist_busy_tt
 			always = no
 		}
 	}
@@ -48,13 +45,6 @@ tv_chief_artist_available_for_law_change_trigger = {
 
 tv_chief_artist_available_for_arts_exchange_trigger = {
 	trigger_if = {
-		limit = { tv_chief_artist_busy_with_law_change_trigger = yes }
-		custom_description = {
-			text = tv_chief_artist_busy_with_law_change_tt
-			always = no
-		}
-	}
-	trigger_else_if = {
 		limit = { tv_chief_artist_busy_with_domestic_exhibition_trigger = yes }
 		custom_description = {
 			text = tv_chief_artist_busy_with_domestic_exhibition_tt
@@ -65,6 +55,17 @@ tv_chief_artist_available_for_arts_exchange_trigger = {
 		limit = { tv_chief_artist_busy_with_arts_exchange_trigger = yes }
 		custom_description = {
 			text = tv_chief_artist_busy_with_arts_exchange_tt
+			always = no
+		}
+	}
+	trigger_else_if = {
+		limit = {
+			var:tv_arts_exhibition_leader_char ?= {
+				has_character_modifier = busy_modifier
+			}
+		}
+		custom_description = {
+			text = tv_chief_artist_busy_tt
 			always = no
 		}
 	}
@@ -75,13 +76,6 @@ tv_chief_artist_available_for_arts_exchange_trigger = {
 
 tv_chief_artist_available_for_domestic_exhibition_trigger = {
 	trigger_if = {
-		limit = { tv_chief_artist_busy_with_law_change_trigger = yes }
-		custom_description = {
-			text = tv_chief_artist_busy_with_law_change_tt
-			always = no
-		}
-	}
-	trigger_else_if = {
 		limit = { tv_chief_artist_busy_with_arts_exchange_trigger = yes }
 		custom_description = {
 			text = tv_chief_artist_busy_with_arts_exchange_tt
@@ -95,7 +89,43 @@ tv_chief_artist_available_for_domestic_exhibition_trigger = {
 			always = no
 		}
 	}
+	trigger_else_if = {
+		limit = {
+			var:tv_arts_exhibition_leader_char ?= {
+				has_character_modifier = busy_modifier
+			}
+		}
+		custom_description = {
+			text = tv_chief_artist_busy_tt
+			always = no
+		}
+	}
 	trigger_else = {
 		always = yes
+	}
+}
+
+# Country scope. Named scopes are captured by the quarterly pulse and carried
+# into the delayed proposal event.
+tv_artist_tour_proposal_valid_trigger = {
+	exists = scope:proposed_artist
+	exists = scope:proposed_tour_target
+	exists = scope:proposed_tour_location
+	scope:proposed_artist = {
+		is_alive = yes
+		is_artist = yes
+		has_variable = tv_artist_tour_proposal_pending
+		NOT = { has_character_modifier = busy_modifier }
+		has_variable_list = tv_pending_artist_tour_artworks
+		any_in_list = {
+			variable = tv_pending_artist_tour_artworks
+			owner = root
+		}
+	}
+	any_neighbor_country = {
+		this = scope:proposed_tour_target
+	}
+	scope:proposed_tour_location = {
+		owner ?= scope:proposed_tour_target
 	}
 }

@@ -19,7 +19,7 @@ tv_leaderboard_monthly_pulse = {
 
 		# ── Arts Exhibition: touring event roll ───────────────────────────────────────
 		# Block C: for each touring artist currently in THIS country's court, roll an
-		# ~8% monthly chance (~1 event/year) for a touring outcome event on their home
+		# 3% monthly chance for a touring outcome event on their home
 		# country. Weights are stratified by artist_skill (low < 0.5 / mid 0.5–0.7 / high ≥ 0.7).
 		if = {
 			limit = {
@@ -46,64 +46,84 @@ tv_leaderboard_monthly_pulse = {
 			}
 			if = {
 				limit = { exists = scope:touring_home }
-				# ~8% monthly chance (~1 event per artist per year).
-				# Outer random_list: 92 = no event, 8 = pick an outcome from the inner list.
+				# 3% monthly chance.
+				# Outer random_list: 97 = no event, 3 = pick an outcome from the inner list.
 				random_list = {
-					92 = {}
-					8 = {
+					97 = {}
+					3 = {
 						random_list = {
-							# ── Unremarkable +0.1 ──────────────────────────────────────
-							40 = {
-								scope:touring_home = {
-									trigger_event_non_silently = { id = tv_arts_exhibition.101 days = 1 }
-								}
-							}
 							# ── Great Success +0.5 (skill-boosted) ─────────────────────
-							15 = {
+							20 = {
 								trigger = { artist_skill < 0.5 }
 								scope:touring_home = {
 									trigger_event_non_silently = { id = tv_arts_exhibition.102 days = 1 }
 								}
 							}
-							25 = {
+							40 = {
 								trigger = { artist_skill >= 0.5  artist_skill < 0.7 }
 								scope:touring_home = {
 									trigger_event_non_silently = { id = tv_arts_exhibition.102 days = 1 }
 								}
 							}
-							40 = {
+							60 = {
 								trigger = { artist_skill >= 0.7 }
 								scope:touring_home = {
 									trigger_event_non_silently = { id = tv_arts_exhibition.102 days = 1 }
 								}
 							}
 							# ── Terrible −0.1 (skill-reduced) ──────────────────────────
-							30 = {
+							60 = {
 								trigger = { artist_skill < 0.5 }
 								scope:touring_home = {
 									trigger_event_non_silently = { id = tv_arts_exhibition.103 days = 1 }
 								}
 							}
-							15 = {
+							40 = {
 								trigger = { artist_skill >= 0.5  artist_skill < 0.7 }
 								scope:touring_home = {
 									trigger_event_non_silently = { id = tv_arts_exhibition.103 days = 1 }
 								}
 							}
-							5 = {
+							20 = {
 								trigger = { artist_skill >= 0.7 }
 								scope:touring_home = {
 									trigger_event_non_silently = { id = tv_arts_exhibition.103 days = 1 }
 								}
 							}
 							# ── Artist Hired +1.0, stays permanently ───────────────────
-							5 = {
+							1 = {
+								trigger = { artist_skill < 0.5 }
 								scope:touring_home = {
 									trigger_event_non_silently = { id = tv_arts_exhibition.104 days = 1 }
 								}
 							}
-							# ── Inspiration: +10% artist_skill_level_gain for 10 years ─
-							10 = {
+							3 = {
+								trigger = { artist_skill >= 0.5  artist_skill < 0.7 }
+								scope:touring_home = {
+									trigger_event_non_silently = { id = tv_arts_exhibition.104 days = 1 }
+								}
+							}
+							5 = {
+								trigger = { artist_skill >= 0.7 }
+								scope:touring_home = {
+									trigger_event_non_silently = { id = tv_arts_exhibition.104 days = 1 }
+								}
+							}
+							# ── Inspiration: immediate +5 artistic skill ───────────────
+							19 = {
+								trigger = { artist_skill < 0.5 }
+								scope:touring_home = {
+									trigger_event_non_silently = { id = tv_arts_exhibition.105 days = 1 }
+								}
+							}
+							17 = {
+								trigger = { artist_skill >= 0.5  artist_skill < 0.7 }
+								scope:touring_home = {
+									trigger_event_non_silently = { id = tv_arts_exhibition.105 days = 1 }
+								}
+							}
+							15 = {
+								trigger = { artist_skill >= 0.7 }
 								scope:touring_home = {
 									trigger_event_non_silently = { id = tv_arts_exhibition.105 days = 1 }
 								}

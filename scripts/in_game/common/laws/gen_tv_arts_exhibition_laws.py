@@ -28,7 +28,7 @@ FILE_HEADER = (
     "# Do not edit directly - modify the data file and re-run the generator.\n"
     "#\n"
     "# TOWARDS VICTORY - ARTS EXHIBITION LAWS\n"
-    "# Eight Arts Exhibition law groups with vote-gated policies.\n"
+    "# Seven Arts Exhibition law groups with vote-gated policies.\n"
     "# requires_vote = yes: Arts Exhibition law changes use IO policy votes.\n"
 )
 

@@ -2464,7 +2464,7 @@ def emit_defection_condition(lines: list[str], level: int, group: dict, *, posit
     elif key == "minorities":
         emit(lines, level, "any_owned_location = { dominant_culture = { is_accepted_in = root } }" if positive else "NOT = { any_owned_location = { dominant_culture = { is_accepted_in = root } } }")
     elif key == "artists":
-        emit(lines, level, "any_international_organizations_member_of = { international_organization_type = international_organization_type:tv_arts_exhibition international_organization_has_policy = policy:tv_arts_free_creation_policy }" if positive else "any_international_organizations_member_of = { international_organization_type = international_organization_type:tv_arts_exhibition international_organization_has_policy = policy:tv_arts_strict_censorship_policy }")
+        emit(lines, level, "has_policy = no_censorship" if positive else "has_policy = strict_censorship")
     elif key == "foreign_power":
         emit(lines, level, "always = yes")
     else:

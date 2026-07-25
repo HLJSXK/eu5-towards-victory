@@ -125,51 +125,22 @@ tv_change_cultural_influence_points_effect = {
 	}
 }
 
-# ── Return / death cleanup (character scope) ──────────────────────────────────
-# Called when a touring artist reaches their exhibition duration limit.
-# Clears the target country marker and home country counter BEFORE removing
-# character variables, then fires the return event and moves the artist home.
-tv_end_artist_exhibition_effect = {
-	save_scope_as = finished_artist
-	# Preserve target country scope for return event option effects (before variables are cleared)
-	var:tv_exhibition_target_country ?= {
-		save_scope_as = exhibition_target
-	}
-	# Clear target-country marker before the variable is removed
-	if = {
-		limit = {
-			custom_tooltip = {
-				text = TV_HAS_EXHIBITION_TARGET_COUNTRY_TT
-				has_variable = tv_exhibition_target_country
-			}
-		}
-		var:tv_exhibition_target_country ?= {
-			remove_variable = tv_has_visiting_artist
-		}
-	}
+# ── Artist tour proposal and lifecycle helpers ────────────────────────────────
+
+# Character scope. Clears an unanswered proposal without touching owned art.
+tv_clear_artist_tour_proposal_effect = {
+	remove_variable = tv_artist_tour_proposal_pending
+	clear_variable_list = tv_pending_artist_tour_artworks
+}
+
+# Character scope. Removes tour bookkeeping and releases the home-country slot.
+# It deliberately does not move either the artist or their artworks.
+tv_cleanup_artist_tour_effect = {
+	save_scope_as = cleaning_touring_artist
 	var:tv_exhibition_home_country ?= {
-		# 90% plain return; 2% each × 5 special return outcomes
-		random_list = {
-			90 = { trigger_event_non_silently = { id = tv_arts_exhibition.5 } }
-			2 = {
-				trigger = { exists = scope:exhibition_target  scope:exhibition_target = { any_work_of_art_in_country = { always = yes } } }
-				trigger_event_non_silently = { id = tv_arts_exhibition.120 }
-			}
-			2 = { trigger_event_non_silently = { id = tv_arts_exhibition.121 } }
-			2 = { trigger_event_non_silently = { id = tv_arts_exhibition.122 } }
-			2 = { trigger_event_non_silently = { id = tv_arts_exhibition.123 } }
-			2 = { trigger_event_non_silently = { id = tv_arts_exhibition.124 } }
-		}
-		scope:finished_artist = {
-			move_country = prev
-		}
-		# Decrement counter and update capacity penalty
 		if = {
 			limit = {
-				custom_tooltip = {
-					text = TV_HAS_DISPATCHED_ARTISTS_COUNT_TT
-					has_variable = tv_dispatched_artists_count
-				}
+				has_variable = tv_dispatched_artists_count
 				var:tv_dispatched_artists_count >= 1
 			}
 			change_variable = { name = tv_dispatched_artists_count add = -1 }
@@ -177,9 +148,11 @@ tv_end_artist_exhibition_effect = {
 		tv_update_tour_capacity_effect = yes
 		remove_list_variable = {
 			name = tv_dispatched_artists_list
-			target = scope:finished_artist
+			target = scope:cleaning_touring_artist
 		}
 	}
+	remove_character_modifier = busy_modifier
+	remove_character_modifier = tv_funded_artist_tour_modifier
 	remove_variable = tv_on_exhibition
 	remove_variable = tv_exhibition_home_country
 	remove_variable = tv_exhibition_target_country
@@ -191,6 +164,152 @@ tv_end_artist_exhibition_effect = {
 	remove_variable = tv_tour_event_3_fired
 	remove_variable = tv_tour_event_4_fired
 	remove_variable = tv_tour_event_5_fired
+	clear_variable_list = tv_touring_artworks
+	tv_clear_artist_tour_proposal_effect = yes
+}
+
+# Country scope. Uses scopes captured by tv_artist_tour_quarterly_pulse:
+# proposed_artist, proposed_tour_target, and proposed_tour_location.
+tv_start_artist_tour_effect = {
+	if = {
+		limit = { tv_artist_tour_proposal_valid_trigger = yes }
+		save_scope_as = artist_tour_home
+		scope:proposed_artist = {
+			clear_variable_list = tv_touring_artworks
+			every_in_list = {
+				variable = tv_pending_artist_tour_artworks
+				limit = { owner = scope:artist_tour_home }
+				save_scope_as = touring_artwork_to_add
+				scope:proposed_artist = {
+					add_to_variable_list = {
+						name = tv_touring_artworks
+						target = scope:touring_artwork_to_add
+					}
+				}
+			}
+			set_variable = { name = tv_on_exhibition value = 1 }
+			set_variable = { name = tv_exhibition_home_country value = scope:artist_tour_home }
+			set_variable = { name = tv_exhibition_target_country value = scope:proposed_tour_target }
+			set_variable = { name = tv_exhibition_location value = scope:proposed_tour_location }
+			set_variable = { name = tv_exhibition_elapsed value = 0 }
+			random_list = {
+				1 = { set_variable = { name = tv_exhibition_duration value = 1 } }
+				1 = { set_variable = { name = tv_exhibition_duration value = 2 } }
+				1 = { set_variable = { name = tv_exhibition_duration value = 3 } }
+				1 = { set_variable = { name = tv_exhibition_duration value = 4 } }
+				1 = { set_variable = { name = tv_exhibition_duration value = 5 } }
+				1 = { set_variable = { name = tv_exhibition_duration value = 6 } }
+				1 = { set_variable = { name = tv_exhibition_duration value = 7 } }
+				1 = { set_variable = { name = tv_exhibition_duration value = 8 } }
+				1 = { set_variable = { name = tv_exhibition_duration value = 9 } }
+				1 = { set_variable = { name = tv_exhibition_duration value = 10 } }
+			}
+			add_character_modifier = {
+				modifier = busy_modifier
+				years = -1
+				mode = add
+			}
+			every_in_list = {
+				variable = tv_touring_artworks
+				move_art = scope:proposed_tour_location
+				set_art_owner = scope:proposed_tour_target
+			}
+		}
+		if = {
+			limit = {
+				var:tv_arts_exhibition_leader_char ?= {
+					this = scope:proposed_artist
+				}
+			}
+			scope:proposed_artist = {
+				remove_variable = tv_io_chief_role
+				remove_character_modifier = tv_chief_artist_role_modifier
+			}
+			remove_variable = tv_arts_exhibition_leader_char
+			trigger_event_non_silently = { id = tv_arts_exhibition.8 }
+		}
+		if = {
+			limit = { has_variable = tv_dispatched_artists_count }
+			change_variable = { name = tv_dispatched_artists_count add = 1 }
+		}
+		else = {
+			set_variable = { name = tv_dispatched_artists_count value = 1 }
+		}
+		tv_update_tour_capacity_effect = yes
+		add_to_variable_list = {
+			name = tv_dispatched_artists_list
+			target = scope:proposed_artist
+		}
+		scope:proposed_artist = {
+			tv_clear_artist_tour_proposal_effect = yes
+			move_country = scope:proposed_tour_target
+		}
+	}
+	else = {
+		if = {
+			limit = { exists = scope:proposed_artist }
+			scope:proposed_artist = {
+				remove_character_modifier = tv_funded_artist_tour_modifier
+				tv_clear_artist_tour_proposal_effect = yes
+			}
+		}
+	}
+}
+
+# Character scope. Returns every surviving artwork recorded for this tour.
+tv_return_artist_tour_artworks_effect = {
+	var:tv_exhibition_home_country ?= {
+		save_scope_as = exhibition_home
+		capital ?= { save_scope_as = exhibition_home_capital }
+	}
+	if = {
+		limit = {
+			exists = scope:exhibition_home
+			exists = scope:exhibition_home_capital
+			has_variable_list = tv_touring_artworks
+		}
+		every_in_list = {
+			variable = tv_touring_artworks
+			move_art = scope:exhibition_home_capital
+			set_art_owner = scope:exhibition_home
+		}
+	}
+}
+
+# Character scope. Natural tour completion returns the artist and all surviving
+# carried art before selecting the unchanged 90/2/2/2/2/2 result event.
+tv_end_artist_exhibition_effect = {
+	save_scope_as = finished_artist
+	var:tv_exhibition_target_country ?= {
+		save_scope_as = exhibition_target
+	}
+	var:tv_exhibition_home_country ?= {
+		save_scope_as = exhibition_home
+	}
+	tv_return_artist_tour_artworks_effect = yes
+	if = {
+		limit = { exists = scope:exhibition_home }
+		move_country = scope:exhibition_home
+		scope:exhibition_home = {
+			random_list = {
+				90 = { trigger_event_non_silently = { id = tv_arts_exhibition.5 } }
+				2 = {
+					trigger = {
+						exists = scope:exhibition_target
+						scope:exhibition_target = { any_work_of_art_in_country = { always = yes } }
+					}
+					trigger_event_non_silently = { id = tv_arts_exhibition.120 }
+				}
+				2 = { trigger_event_non_silently = { id = tv_arts_exhibition.121 } }
+				2 = { trigger_event_non_silently = { id = tv_arts_exhibition.122 } }
+				2 = { trigger_event_non_silently = { id = tv_arts_exhibition.123 } }
+				2 = { trigger_event_non_silently = { id = tv_arts_exhibition.124 } }
+			}
+		}
+	}
+	scope:finished_artist = {
+		tv_cleanup_artist_tour_effect = yes
+	}
 }
 
 # ── Local exhibition helpers (country scope unless noted) ────────────────────
@@ -365,6 +484,21 @@ tv_start_local_exhibition_effect = {
 		remove_variable = tv_local_exhibition_last_location
 		remove_variable = tv_local_exhibition_last_location_count
 		clear_variable_list = tv_local_exhibition_last_locations
+		remove_variable = tv_local_exhibition_host_artist
+		var:tv_arts_exhibition_leader_char ?= {
+			save_scope_as = local_exhibition_host_artist
+		}
+		if = {
+			limit = { exists = scope:local_exhibition_host_artist }
+			set_variable = { name = tv_local_exhibition_host_artist value = scope:local_exhibition_host_artist }
+			scope:local_exhibition_host_artist = {
+				add_character_modifier = {
+					modifier = busy_modifier
+					years = -1
+					mode = add
+				}
+			}
+		}
 		scope:target = {
 			construct_building = {
 				building_type = building_type:tv_local_arts_exhibition
@@ -482,6 +616,7 @@ tv_return_local_exhibition_guest_artist_effect = {
 			}
 			scope:local_exhibition_guest_artist = {
 				move_country = scope:local_exhibition_guest_country
+				remove_character_modifier = busy_modifier
 				remove_variable = tv_local_exhibition_guest_home
 				remove_variable = tv_local_exhibition_guest_host
 			}
@@ -537,6 +672,9 @@ tv_end_local_exhibition_effect = {
 		change_variable = { name = tv_local_exhibition_last_reward multiply = var:tv_local_exhibition_last_location_count }
 		tv_cleanup_local_exhibition_buildings_effect = yes
 		tv_return_local_exhibition_guest_artist_effect = yes
+		var:tv_local_exhibition_host_artist ?= {
+			remove_character_modifier = busy_modifier
+		}
 		tv_set_local_exhibition_enthusiasm_effect = { value = 0 }
 		if = {
 			limit = { var:tv_local_exhibition_last_rating >= 4 }
@@ -568,6 +706,7 @@ tv_end_local_exhibition_effect = {
 		remove_variable = tv_local_exhibition_treasure_done
 		remove_variable = tv_local_exhibition_guest_artist
 		remove_variable = tv_local_exhibition_guest_country
+		remove_variable = tv_local_exhibition_host_artist
 		clear_variable_list = tv_local_exhibition_locations
 	}
 }
@@ -592,6 +731,7 @@ tv_roll_local_exhibition_monthly_events_effect = {
 tv_clear_arts_exchange_tracking_effect = {
 	every_in_list = {
 		variable = tv_arts_exchange_participants
+		remove_character_modifier = busy_modifier
 		remove_variable = tv_arts_exchange_participant
 		remove_variable = tv_arts_exchange_foreign_participant
 		remove_variable = tv_arts_exchange_host_country
@@ -631,6 +771,7 @@ tv_add_arts_exchange_participant_effect = {
 			limit = {
 				exists = scope:tv_arts_exchange_participant_to_add
 				scope:tv_arts_exchange_participant_to_add = {
+					NOT = { has_character_modifier = busy_modifier }
 					NOT = { has_variable = tv_arts_exchange_participant }
 				}
 			}
@@ -641,6 +782,11 @@ tv_add_arts_exchange_participant_effect = {
 			scope:tv_arts_exchange_participant_to_add = {
 				set_variable = { name = tv_arts_exchange_participant value = 1 }
 				set_variable = { name = tv_arts_exchange_host_country value = scope:tv_arts_exchange_host }
+				add_character_modifier = {
+					modifier = busy_modifier
+					years = -1
+					mode = add
+				}
 			}
 		}
 	}
@@ -661,6 +807,7 @@ tv_add_arts_exchange_foreign_participant_effect = {
 			limit = {
 				exists = scope:tv_arts_exchange_foreign_participant_to_add
 				scope:tv_arts_exchange_foreign_participant_to_add = {
+					has_variable = tv_arts_exchange_participant
 					NOT = { has_variable = tv_arts_exchange_foreign_participant }
 				}
 			}
@@ -711,9 +858,7 @@ tv_prepare_arts_exchange_auto_invites_effect = {
 				is_ruler = no
 				is_heir = no
 				is_consort = no
-				NOT = { has_variable = tv_on_exhibition }
-				NOT = { has_variable = tv_local_exhibition_guest_home }
-				NOT = { has_variable = tv_local_exhibition_guest_host }
+				NOT = { has_character_modifier = busy_modifier }
 				NOT = { has_variable = tv_arts_exchange_participant }
 				NOT = { has_variable = tv_arts_exchange_auto_invitee }
 			}
@@ -725,9 +870,7 @@ tv_prepare_arts_exchange_auto_invites_effect = {
 				is_ruler = no
 				is_heir = no
 				is_consort = no
-				NOT = { has_variable = tv_on_exhibition }
-				NOT = { has_variable = tv_local_exhibition_guest_home }
-				NOT = { has_variable = tv_local_exhibition_guest_host }
+				NOT = { has_character_modifier = busy_modifier }
 				NOT = { has_variable = tv_arts_exchange_participant }
 				NOT = { has_variable = tv_arts_exchange_auto_invitee }
 			}
@@ -750,9 +893,7 @@ tv_prepare_arts_exchange_auto_invites_effect = {
 				is_ruler = no
 				is_heir = no
 				is_consort = no
-				NOT = { has_variable = tv_on_exhibition }
-				NOT = { has_variable = tv_local_exhibition_guest_home }
-				NOT = { has_variable = tv_local_exhibition_guest_host }
+				NOT = { has_character_modifier = busy_modifier }
 				NOT = { has_variable = tv_arts_exchange_participant }
 				NOT = { has_variable = tv_arts_exchange_auto_invitee }
 			}
@@ -764,9 +905,7 @@ tv_prepare_arts_exchange_auto_invites_effect = {
 				is_ruler = no
 				is_heir = no
 				is_consort = no
-				NOT = { has_variable = tv_on_exhibition }
-				NOT = { has_variable = tv_local_exhibition_guest_home }
-				NOT = { has_variable = tv_local_exhibition_guest_host }
+				NOT = { has_character_modifier = busy_modifier }
 				NOT = { has_variable = tv_arts_exchange_participant }
 				NOT = { has_variable = tv_arts_exchange_auto_invitee }
 			}
@@ -789,9 +928,7 @@ tv_prepare_arts_exchange_auto_invites_effect = {
 				is_ruler = no
 				is_heir = no
 				is_consort = no
-				NOT = { has_variable = tv_on_exhibition }
-				NOT = { has_variable = tv_local_exhibition_guest_home }
-				NOT = { has_variable = tv_local_exhibition_guest_host }
+				NOT = { has_character_modifier = busy_modifier }
 				NOT = { has_variable = tv_arts_exchange_participant }
 				NOT = { has_variable = tv_arts_exchange_auto_invitee }
 			}
@@ -803,9 +940,7 @@ tv_prepare_arts_exchange_auto_invites_effect = {
 				is_ruler = no
 				is_heir = no
 				is_consort = no
-				NOT = { has_variable = tv_on_exhibition }
-				NOT = { has_variable = tv_local_exhibition_guest_home }
-				NOT = { has_variable = tv_local_exhibition_guest_host }
+				NOT = { has_character_modifier = busy_modifier }
 				NOT = { has_variable = tv_arts_exchange_participant }
 				NOT = { has_variable = tv_arts_exchange_auto_invitee }
 			}
@@ -895,6 +1030,7 @@ tv_prune_arts_exchange_participants_effect = {
 		remove_variable = tv_arts_exchange_foreign_participant
 		remove_variable = tv_arts_exchange_host_country
 		remove_variable = tv_arts_exchange_auto_invitee
+		remove_character_modifier = busy_modifier
 	}
 }
 

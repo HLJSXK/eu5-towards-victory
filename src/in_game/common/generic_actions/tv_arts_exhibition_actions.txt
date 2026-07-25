@@ -1,173 +1,6 @@
 ﻿# Towards Victory — Arts Exhibition generic actions
-# Both actions are type = owncountry, gated on tv_arts_exhibition_member.
-# scope:actor = the country performing the action
-
-# ── Send Artist Abroad ────────────────────────────────────────────────────────
-# Costs scaled_gold = 1.0. 3-step: pick an artist → pick a target country → pick a
-# location in that country. The artist moves to the target court and begins an
-# exhibition of 1–10 years duration.
-tv_send_artist_abroad = {
-	type = owncountry
-
-	sound = UI_action_religion_generic
-
-	ai_tick = monthly
-	ai_tick_frequency = 12
-
-	price = price:tv_send_artist_abroad_price
-
-	potential = {
-		scope:actor = {
-			custom_tooltip = {
-				text = TV_HAS_ARTS_EXHIBITION_MEMBER_TT
-				has_variable = tv_arts_exhibition_member
-			}
-		}
-	}
-
-	# Step 1: select an artist from own court
-	select_trigger = {
-		looking_for_a = character
-		source = actor
-		target_flag = target
-		name = "tv_select_touring_artist"
-		none_available_msg_key = "tv_no_touring_artist_available"
-		column = {
-			data = character_artist
-		}
-		visible = {
-			is_alive = yes
-			is_artist = yes
-			is_ruler = no
-			is_heir = no
-			is_consort = no
-			custom_tooltip = {
-				text = TV_HAS_VARIABLE_NOT_SET_TT
-				NOT = { has_variable = tv_on_exhibition }
-			}
-			custom_tooltip = {
-				text = TV_HAS_VARIABLE_NOT_SET_TT
-				NOT = { has_variable = tv_local_exhibition_guest_home }
-			}
-			custom_tooltip = {
-				text = TV_HAS_VARIABLE_NOT_SET_TT
-				NOT = { has_variable = tv_local_exhibition_guest_host }
-			}
-			custom_tooltip = {
-				text = TV_HAS_VARIABLE_NOT_SET_TT
-				NOT = { has_variable = tv_arts_exchange_participant }
-			}
-		}
-	}
-
-	# Step 2: select a target country (exclude countries that already host one of our artists)
-	select_trigger = {
-		looking_for_a = country
-		target_flag = target_1
-		name = "tv_select_touring_country"
-		none_available_msg_key = "tv_no_touring_country_available"
-		column = {
-			data = name
-		}
-		visible = {
-			this != scope:actor
-			custom_tooltip = {
-				text = TV_HAS_VARIABLE_NOT_SET_TT
-				NOT = { has_variable = tv_has_visiting_artist }
-			}
-		}
-	}
-
-	# Step 3: select a location in the target country (source = target_1)
-	select_trigger = {
-		looking_for_a = location
-		source = target_1
-		target_flag = target_2
-		name = "tv_select_touring_location"
-		none_available_msg_key = "tv_no_touring_location_available"
-		column = {
-			data = name
-		}
-	}
-
-	effect = {
-		if = {
-			limit = {
-				exists = scope:target
-				exists = scope:target_1
-				exists = scope:target_2
-			}
-			hidden_effect = {
-				scope:target = {
-					set_variable = { name = tv_on_exhibition value = 1 }
-					set_variable = { name = tv_exhibition_home_country value = scope:actor }
-					set_variable = { name = tv_exhibition_target_country value = scope:target_1 }
-					set_variable = { name = tv_exhibition_location value = scope:target_2 }
-					set_variable = { name = tv_exhibition_elapsed value = 0 }
-					random_list = {
-						1 = { set_variable = { name = tv_exhibition_duration value = 1 } }
-						1 = { set_variable = { name = tv_exhibition_duration value = 2 } }
-						1 = { set_variable = { name = tv_exhibition_duration value = 3 } }
-						1 = { set_variable = { name = tv_exhibition_duration value = 4 } }
-						1 = { set_variable = { name = tv_exhibition_duration value = 5 } }
-						1 = { set_variable = { name = tv_exhibition_duration value = 6 } }
-						1 = { set_variable = { name = tv_exhibition_duration value = 7 } }
-						1 = { set_variable = { name = tv_exhibition_duration value = 8 } }
-						1 = { set_variable = { name = tv_exhibition_duration value = 9 } }
-						1 = { set_variable = { name = tv_exhibition_duration value = 10 } }
-					}
-				}
-				scope:target_1 = {
-					set_variable = { name = tv_has_visiting_artist value = 1 }
-				}
-				scope:actor = {
-					if = {
-						limit = {
-							var:tv_arts_exhibition_leader_char ?= {
-								this = scope:target
-							}
-						}
-						scope:target = {
-							remove_character_modifier = tv_chief_artist_role_modifier
-						}
-						remove_variable = tv_arts_exhibition_leader_char
-						trigger_event_non_silently = { id = tv_arts_exhibition.8 }
-					}
-					if = {
-						limit = {
-							custom_tooltip = {
-								text = TV_HAS_DISPATCHED_ARTISTS_COUNT_TT
-								has_variable = tv_dispatched_artists_count
-							}
-						}
-						change_variable = { name = tv_dispatched_artists_count add = 1 }
-					}
-					else = {
-						set_variable = { name = tv_dispatched_artists_count value = 1 }
-					}
-					tv_update_tour_capacity_effect = yes
-					add_to_variable_list = {
-						name = tv_dispatched_artists_list
-						target = scope:target
-					}
-				}
-				scope:actor = {
-					set_variable = { name = tv_dispatch_notif_duration value = scope:target.var:tv_exhibition_duration }
-				}
-			}
-			scope:target = {
-				move_country = scope:target_1
-			}
-			scope:actor = {
-				trigger_event_non_silently = tv_arts_exhibition.10
-			}
-		}
-	}
-
-	ai_will_do = {
-		add = -100
-	}
-}
+# Player-facing project actions. International tours are proposed autonomously
+# by artists through the quarterly country pulse.
 
 # ── Host Domestic Exhibition ──────────────────────────────────────────────────
 # Starts a persistent local exhibition. Requires at least 5 owned artworks,
@@ -569,20 +402,8 @@ tv_local_exhibition_invite_foreign_artist = {
 				is_heir = no
 				is_consort = no
 				custom_tooltip = {
-					text = TV_HAS_VARIABLE_NOT_SET_TT
-					NOT = { has_variable = tv_on_exhibition }
-				}
-				custom_tooltip = {
-					text = TV_HAS_VARIABLE_NOT_SET_TT
-					NOT = { has_variable = tv_local_exhibition_guest_home }
-				}
-				custom_tooltip = {
-					text = TV_HAS_VARIABLE_NOT_SET_TT
-					NOT = { has_variable = tv_local_exhibition_guest_host }
-				}
-				custom_tooltip = {
-					text = TV_HAS_VARIABLE_NOT_SET_TT
-					NOT = { has_variable = tv_arts_exchange_participant }
+					text = TV_ARTIST_NOT_BUSY_TT
+					NOT = { has_character_modifier = busy_modifier }
 				}
 			}
 		}
@@ -603,22 +424,10 @@ tv_local_exhibition_invite_foreign_artist = {
 						is_ruler = no
 						is_heir = no
 						is_consort = no
-						custom_tooltip = {
-							text = TV_HAS_VARIABLE_NOT_SET_TT
-							NOT = { has_variable = tv_on_exhibition }
-						}
-						custom_tooltip = {
-							text = TV_HAS_VARIABLE_NOT_SET_TT
-							NOT = { has_variable = tv_local_exhibition_guest_home }
-						}
-						custom_tooltip = {
-							text = TV_HAS_VARIABLE_NOT_SET_TT
-							NOT = { has_variable = tv_local_exhibition_guest_host }
-						}
-						custom_tooltip = {
-							text = TV_HAS_VARIABLE_NOT_SET_TT
-							NOT = { has_variable = tv_arts_exchange_participant }
-						}
+					custom_tooltip = {
+						text = TV_ARTIST_NOT_BUSY_TT
+						NOT = { has_character_modifier = busy_modifier }
+					}
 					}
 					save_scope_as = guest_artist
 				}
@@ -721,20 +530,8 @@ tv_invite_domestic_arts_exchange_artist = {
 			is_heir = no
 			is_consort = no
 			custom_tooltip = {
-				text = TV_HAS_VARIABLE_NOT_SET_TT
-				NOT = { has_variable = tv_on_exhibition }
-			}
-			custom_tooltip = {
-				text = TV_HAS_VARIABLE_NOT_SET_TT
-				NOT = { has_variable = tv_local_exhibition_guest_home }
-			}
-			custom_tooltip = {
-				text = TV_HAS_VARIABLE_NOT_SET_TT
-				NOT = { has_variable = tv_local_exhibition_guest_host }
-			}
-			custom_tooltip = {
-				text = TV_HAS_VARIABLE_NOT_SET_TT
-				NOT = { has_variable = tv_arts_exchange_participant }
+				text = TV_ARTIST_NOT_BUSY_TT
+				NOT = { has_character_modifier = busy_modifier }
 			}
 		}
 	}
@@ -798,20 +595,8 @@ tv_invite_foreign_arts_exchange_artist = {
 				is_heir = no
 				is_consort = no
 				custom_tooltip = {
-					text = TV_HAS_VARIABLE_NOT_SET_TT
-					NOT = { has_variable = tv_on_exhibition }
-				}
-				custom_tooltip = {
-					text = TV_HAS_VARIABLE_NOT_SET_TT
-					NOT = { has_variable = tv_local_exhibition_guest_home }
-				}
-				custom_tooltip = {
-					text = TV_HAS_VARIABLE_NOT_SET_TT
-					NOT = { has_variable = tv_local_exhibition_guest_host }
-				}
-				custom_tooltip = {
-					text = TV_HAS_VARIABLE_NOT_SET_TT
-					NOT = { has_variable = tv_arts_exchange_participant }
+					text = TV_ARTIST_NOT_BUSY_TT
+					NOT = { has_character_modifier = busy_modifier }
 				}
 			}
 		}
@@ -831,20 +616,8 @@ tv_invite_foreign_arts_exchange_artist = {
 			is_heir = no
 			is_consort = no
 			custom_tooltip = {
-				text = TV_HAS_VARIABLE_NOT_SET_TT
-				NOT = { has_variable = tv_on_exhibition }
-			}
-			custom_tooltip = {
-				text = TV_HAS_VARIABLE_NOT_SET_TT
-				NOT = { has_variable = tv_local_exhibition_guest_home }
-			}
-			custom_tooltip = {
-				text = TV_HAS_VARIABLE_NOT_SET_TT
-				NOT = { has_variable = tv_local_exhibition_guest_host }
-			}
-			custom_tooltip = {
-				text = TV_HAS_VARIABLE_NOT_SET_TT
-				NOT = { has_variable = tv_arts_exchange_participant }
+				text = TV_ARTIST_NOT_BUSY_TT
+				NOT = { has_character_modifier = busy_modifier }
 			}
 		}
 	}

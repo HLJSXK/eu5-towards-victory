@@ -208,14 +208,6 @@ organization_panel = {
 		}
 	}
 
-	blockoverride "io_main_actions_icon" {
-		texture = "gfx/interface/icons/flat_icons/cultural_influence.dds"
-	}
-
-	blockoverride "organization_main_actions_extra_visible" {
-		visible = yes
-	}
-
 	blockoverride "organization_overview_list_custom_top_extra" {
 		vbox = {
 			margin = { 10 0 }
@@ -304,18 +296,6 @@ organization_panel = {
 				}
 			}
 
-		}
-	}
-
-	blockoverride "organization_main_actions_extra" {
-		action_button_diamond = {
-			size = { 470 30 }
-			text = "tv_send_artist_abroad"
-			title = "tv_send_artist_abroad"
-			actor = "[InternationalOrganizationsView.GetPlayer]"
-			left_action = {
-				action_name = "tv_send_artist_abroad"
-			}
 		}
 	}
 

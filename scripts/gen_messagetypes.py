@@ -106,16 +106,6 @@ def io_establishment_action_ids() -> list[str]:
 TV_ENTRIES = """
 # ── Towards Victory — Generic Action Message Types ───────────────────────────
 
-PERFORM_tv_send_artist_abroad_ACTION={
-\tlog=yes
-\tonmap=no
-\tpopup=no
-\tidle=no
-\toption=yes
-\tpausepopup=no
-\tmessage_category = society
-}
-
 PERFORM_tv_host_domestic_exhibition_ACTION={
 \tlog=yes
 \tonmap=no
