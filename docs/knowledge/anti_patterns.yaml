@@ -27,7 +27,7 @@
   pattern: ''
   detectability: advisory
   bad: "Adding or preserving compatibility layers, legacy save migrations, alias variables, wrapper launchers, duplicate old/new paths, or defensive fallback branches for a previous internal implementation"
-  correction: "Treat this unreleased v0.1.0 project as mutable. Update all callers, generators, data, and docs to the current architecture, delete stale branches/state, and prefer direct efficient refactors over compatibility shims. Only add compatibility when the user explicitly requests it for a named external consumer."
+  correction: "Treat this unreleased project as mutable. Date-based YYMMDD versions identify builds; they do not create compatibility contracts. Update all callers, generators, data, and docs to the current architecture, delete stale branches/state, and prefer direct efficient refactors over compatibility shims. Only add compatibility when the user explicitly requests it for a named external consumer."
   category: workflow
   scope: any
   source: "Project owner directive, 2026-06-07"

@@ -1,6 +1,6 @@
 # Research Mechanism Design Specification
 
-**Mod:** Towards Victory (胜利条件) v0.1.0  
+**Mod:** Towards Victory (胜利条件), date-based `YYMMDD` versions
 **Last updated:** 2026-05-10  
 **Status:** Design locked — ready for Phase 2 implementation
 

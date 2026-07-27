@@ -284,7 +284,7 @@ Cumulative reward across all 5 milestones of one path: ~10–11 Advances equival
 
 ---
 
-## 7. Out of Scope (v0.1.0)
+## 7. Out of Current Scope
 
 - Per-nation mission trees or narrative content
 - Age 6 milestones or post-industrial content

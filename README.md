@@ -46,4 +46,4 @@ C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\gen_brief.py
 Use `conda run --no-capture-output -n eu5 python ...` only from a normal user
 terminal. Managed AI sandboxes should use the direct interpreter path above.
 
-**Mod ID:** `eu5mp.towards_victory` | **Version:** 0.1.0 | **Target:** EU5 `1.*.*`
+**Mod ID:** `eu5mp.towards_victory` | **Version:** build date (`YYMMDD`) | **Target:** EU5 `1.*.*`

@@ -109,7 +109,7 @@ When a turn includes a handoff summary, compaction summary, or explicit prior-ag
 
 - **Mod Name:** Towards Victory (胜利条件)
 - **Mod ID:** `eu5mp.towards_victory`
-- **Version:** 0.1.0 | Target: EU5 `1.*.*`
+- **Version:** Build date (`YYMMDD`) | Target: EU5 `1.*.*`
 - **Status:** In Development
 - **Mod source:** `src/` (single mod; files at `src/in_game/`, `src/main_menu/`)
 - **Namespace prefix:** `tv_` — all mod-defined identifiers (situations, triggers, effects, modifiers, variables, events) must use this prefix
@@ -328,7 +328,7 @@ quietly trade away target-specific event/GUI behavior in the name of smaller pat
 
 ## Early Development: Ask-First Policy
 
-This mod is in early development (v0.1.0). When in doubt about design intent, **ask the user before implementing**.
+This mod is in early development and uses date-based `YYMMDD` versions. When in doubt about design intent, **ask the user before implementing**.
 
 Ask before proceeding whenever:
 - A design document leaves a specific threshold, weight, or value unspecified
@@ -390,7 +390,7 @@ For `.gui` files place these `#` comment lines at the very top, before the first
 ### Script Directory Layout
 
 Infrastructure scripts stay at `scripts/` root:
-`validate.py`, `ai_context.py`, `gen_brief.py`, `gen_index.py`, `gen_scaffold.py`, `gen_victory.py`, `gen_messagetypes.py`, `gen_locked_advances.py`, `check_overview.py`, `sync_reference.py`
+`validate.py`, `ai_context.py`, `update_mod_version.py`, `gen_brief.py`, `gen_index.py`, `gen_scaffold.py`, `gen_victory.py`, `gen_messagetypes.py`, `gen_locked_advances.py`, `check_overview.py`, `sync_reference.py`
 
 `sync_reference.py` rebuilds `reference_game_files/game/` from an installed EU5 game
 folder (mirrors only `in_game/`+`main_menu/`, prunes `gfx/` and non-English/Chinese
@@ -531,7 +531,7 @@ C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\gen_brief.py
 - `docs/guides/AI_Tool_Workflow_Prompt.md` — full 3-step rule and violation history
 - `docs/design/Towards_Victory_Design.md` — victory conditions design philosophy
 - `docs/technical/` — EU5 modding reference
-- `scripts/` — infrastructure: `ai_context.py`, `gen_brief.py`, `gen_index.py`, `gen_scaffold.py`, `validate.py`, `check_overview.py`, `gen_victory.py`, `gen_locked_advances.py`, `gen_messagetypes.py`
+- `scripts/` — infrastructure: `ai_context.py`, `update_mod_version.py`, `gen_brief.py`, `gen_index.py`, `gen_scaffold.py`, `validate.py`, `check_overview.py`, `gen_victory.py`, `gen_locked_advances.py`, `gen_messagetypes.py`
 - `scripts/in_game/` — 1:1 feature generators mirroring `src/in_game/` (see Script System section)
 - `scripts_engineering_department/` — 1:1 feature generators mirroring `src_engineering_department/`
   (see Script System section). A few generators under `scripts/` are shared multi-output

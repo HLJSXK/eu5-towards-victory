@@ -90,7 +90,7 @@ refactor it. Efficiency-improving refactors are desirable.
 
 ### Early Development: Ask-First Policy
 
-This mod is in early development (v0.1.0). The design is still being refined. **When in doubt, ask the user before implementing.**
+This mod is in early development and uses date-based `YYMMDD` versions. The design is still being refined. **When in doubt, ask the user before implementing.**
 
 Ask the user before proceeding whenever:
 - A design document leaves a specific threshold, weight, or value unspecified (e.g. "composite threshold 1" with no number given)

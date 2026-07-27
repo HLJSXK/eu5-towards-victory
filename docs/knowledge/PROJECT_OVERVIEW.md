@@ -4,14 +4,14 @@
 
 - **Mod Name:** Towards Victory (胜利条件)
 - **Mod ID:** `eu5mp.towards_victory`
-- **Version:** 0.1.0
+- **Version:** Build date (`YYMMDD`)
 - **Target:** EU5 `1.*.*`
 - **Status:** In Development — All 6 Victory paths fully implemented: Conquest, Prosperity, Trade, Diplomatic, Cultural, and Scientific
 - **Language:** English + Simplified Chinese
 
 ## Development Policy
 
-Towards Victory is an unreleased v0.1.0 project. No saved-game compatibility, published
+Towards Victory is an unreleased project with date-based `YYMMDD` versions. No saved-game compatibility, published
 mod-version compatibility, or public API compatibility is required. Active code and data
 should represent one current architecture. When a refactor improves clarity, performance,
 generator ownership, or data flow, update all producers and consumers to the new shape and
@@ -508,6 +508,7 @@ Wonder Construction random events are data-driven from `data/wonder_construction
 
 | Script | Input(s) | Output(s) | When to run |
 |---|---|---|---|
+| `scripts/update_mod_version.py` | Current local date, or `--date YYYY-MM-DD` | Date-stamped `version` fields in all five first-party metadata files plus matching Great Project dependency constraints | Automatically at the start of `build.bat`; use `--check` to verify without writing |
 | `scripts/validate.py --changed` | src/ + src_engineering_department/ mod files + data/generated_files.yaml + data/validation_baseline.yaml + vanilla-copy integrity checks + IO monthly_effect ban + location_window generated-freshness checks + localization duplicate/static-modifier-name scans | Console/JSON report (exit 0/1); new unbaselined warnings fail validation | Before launching game |
 | `scripts/ai_context.py --changed/--files` | git changed files or explicit paths + data/generated_files.yaml + risk cards + anti_patterns.yaml + variable-map content markers | Compact AI task context, required risk-card list, required variable-map reads, and managed-sandbox validation commands using the direct `eu5` interpreter | At AI session start or before editing a task domain |
 | `scripts/gen_brief.py` | anti_patterns.yaml + valid_enums.yaml + PROJECT_OVERVIEW.md | docs/knowledge/BRIEF.md | After editing any knowledge YAML |
