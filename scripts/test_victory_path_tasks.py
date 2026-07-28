@@ -25,6 +25,7 @@ from scripts.victory_task_codegen import (
     slot_prefix,
     tasks_for_path,
 )
+from scripts.victory_tree_point_badge_layout import TREE_POINT_BADGE_CORNERS, badge_position
 
 
 def read(relative: str) -> str:
@@ -141,6 +142,24 @@ def main() -> None:
         task_marker = f"Country.Custom('tv_{path_id}_task_slot_1_icon')"
         overview_marker = f"TV_{path_id.upper()}_OVERVIEW_TITLE"
         assert gui.index(tree_marker) < gui.index(task_marker) < gui.index(overview_marker)
+        assert f"tv_{path_id}_tree_points').GetValue|0" in gui
+
+    assert TREE_POINT_BADGE_CORNERS == {
+        "conquest": "bottom_right",
+        "prosperity": "top_right",
+        "trade": "top_left",
+        "diplomatic": "bottom_left",
+        "cultural": "bottom_left",
+        "science": "bottom_right",
+    }
+    assert {path_id: badge_position(path_id) for path_id in PATH_IDS} == {
+        "conquest": (412, 190),
+        "prosperity": (342, 8),
+        "trade": (8, 8),
+        "diplomatic": (8, 190),
+        "cultural": (158, 190),
+        "science": (412, 190),
+    }
 
     science_update = _extract_top_level_block(effects, "tv_victory_path_tasks_update_science_slot_1_effect")
     assert science_update.index("?= 6102") < science_update.index("?= 6001")

@@ -21,6 +21,12 @@ from scripts.victory_task_codegen import (
     action_name as task_action_name,
     slot_prefix as task_slot_prefix,
 )
+from scripts.victory_tree_point_badge_layout import (
+    TREE_BACKGROUND_HEIGHT,
+    TREE_BACKGROUND_WIDTH,
+    TREE_POINT_BADGE_SIZE,
+    badge_position,
+)
 
 DATA_FILE = REPO_ROOT / "data" / "victory_paths.yaml"
 ESTABLISHMENT_FILE = REPO_ROOT / "data" / "io_establishment.yaml"
@@ -824,10 +830,6 @@ def append_establishment_card(lines: list[str], level: int, path: dict, est: dic
     emit(lines, level, "}")
 
 
-TREE_BACKGROUND_WIDTH = 508
-TREE_BACKGROUND_HEIGHT = round(TREE_BACKGROUND_WIDTH * 1152 / 2048)
-
-
 NODE_BUTTON_SIZE = 22
 TASK_CARD_HEIGHT = 96
 TASK_CARD_SPACING = 8
@@ -935,6 +937,40 @@ def append_tree_background(lines: list[str], level: int, path: dict) -> None:
     emit(lines, level + 2, "spriteType = Stretched")
     emit(lines, level + 1, "}")
     append_tree_node_overlay(lines, level + 1, path)
+    append_tree_point_badge(lines, level + 1, pid)
+    emit(lines, level, "}")
+
+
+def append_tree_point_badge(lines: list[str], level: int, pid: str) -> None:
+    """Overlay the current task-earned node-unlock points on the baked badge."""
+    x_px, y_px = badge_position(pid)
+    points = player_var(f"tv_{pid}_tree_points")
+    point_color = TASK_PIE_COLORS[pid]
+    emit(lines, level, "widget = {")
+    emit(lines, level + 1, f"position = {{ {x_px} {y_px} }}")
+    emit(lines, level + 1, f"size = {{ {TREE_POINT_BADGE_SIZE} {TREE_POINT_BADGE_SIZE} }}")
+    emit(lines, level + 1, "text_single = {")
+    emit(lines, level + 2, f'visible = "[{points}.IsSet]"')
+    emit(lines, level + 2, f"size = {{ {TREE_POINT_BADGE_SIZE} {TREE_POINT_BADGE_SIZE} }}")
+    emit(lines, level + 2, f"minimumsize = {{ {TREE_POINT_BADGE_SIZE} {TREE_POINT_BADGE_SIZE} }}")
+    emit(lines, level + 2, "align = center|nobaseline")
+    emit(lines, level + 2, "using = Font_Type_Headers")
+    emit(lines, level + 2, "fontsize = 52")
+    emit(lines, level + 2, f"fontcolor = {{ {point_color} }}")
+    emit(lines, level + 2, 'default_format = "#header_titles"')
+    emit(lines, level + 2, f'raw_text = "[{points}.GetValue|0]"')
+    emit(lines, level + 1, "}")
+    emit(lines, level + 1, "text_single = {")
+    emit(lines, level + 2, f'visible = "[Not({points}.IsSet)]"')
+    emit(lines, level + 2, f"size = {{ {TREE_POINT_BADGE_SIZE} {TREE_POINT_BADGE_SIZE} }}")
+    emit(lines, level + 2, f"minimumsize = {{ {TREE_POINT_BADGE_SIZE} {TREE_POINT_BADGE_SIZE} }}")
+    emit(lines, level + 2, "align = center|nobaseline")
+    emit(lines, level + 2, "using = Font_Type_Headers")
+    emit(lines, level + 2, "fontsize = 52")
+    emit(lines, level + 2, f"fontcolor = {{ {point_color} }}")
+    emit(lines, level + 2, 'default_format = "#header_titles"')
+    emit(lines, level + 2, 'raw_text = "0"')
+    emit(lines, level + 1, "}")
     emit(lines, level, "}")
 
 
