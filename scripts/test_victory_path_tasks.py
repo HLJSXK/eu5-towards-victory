@@ -10,12 +10,15 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
 from scripts.victory_task_codegen import (
+    CANDIDATE_METRICS_PREPARED_FLAG,
     PATH_IDS,
     SLOTS,
     _extract_top_level_block,
     action_name,
     all_tasks,
+    assign_effect,
     load_data,
+    refill_empty_effect,
     refresh_effect,
     slot_prefix,
 )
@@ -62,9 +65,11 @@ def main() -> None:
     assert "potential = { always = no }" in ai_list
 
     monthly = _extract_top_level_block(effects, "tv_victory_path_tasks_monthly_pulse_effect")
-    assert "tv_victory_path_tasks_refresh_conquest_slot_1_effect" in monthly
+    assert "tv_victory_path_tasks_refresh_conquest_slot_1_effect" not in monthly
     assert "tv_conquest_task_slot_1_id ?= 1101" not in monthly
     assert "tv_science_task_slot_1_id ?= 6001" not in monthly
+    for path_id in PATH_IDS:
+        assert monthly.count(f"{refill_empty_effect(path_id)} = yes") == 1
     yearly = _extract_top_level_block(effects, "tv_victory_path_tasks_yearly_pulse_effect")
     assert yearly.count("?= 6001") == 3
 
@@ -73,8 +78,35 @@ def main() -> None:
         init = _extract_top_level_block(effects, f"tv_victory_path_tasks_initialize_{path_id}_effect")
         assert f"set_variable = {{ name = tv_{path_id}_tree_points value = 0 }}" in init
         assert f"tv_victory_path_tasks_refresh_all_{path_id}_effect = yes" in init
+        path_tasks = [task for task in tasks if task["path"] == path_id]
+        candidate_metrics = {task["metric"] for task in path_tasks if task["type"] == "fixed"}
+        if any(task["completion"] == "three_allies" for task in path_tasks):
+            candidate_metrics.add("num_allies")
+        refill = _extract_top_level_block(effects, refill_empty_effect(path_id))
+        refresh_all = _extract_top_level_block(effects, f"tv_victory_path_tasks_refresh_all_{path_id}_effect")
+        prepared = f"set_variable = {{ name = {CANDIDATE_METRICS_PREPARED_FLAG} value = 1 }}"
+        assert refill.count(prepared) == 1
+        assert refresh_all.count(prepared) == 1
+        for metric in candidate_metrics:
+            metric_call = f"tv_victory_task_refresh_metric_{metric}_effect = yes"
+            assert refill.count(metric_call) == 1
+            assert refresh_all.count(metric_call) == 1
+        for task in path_tasks:
+            if task["type"] == "fixed":
+                exhausted_guard = (
+                    f"var:tv_victory_task_{task['id']}_claimed_index ?= "
+                    f"{{ this >= {len(task['thresholds'])} }}"
+                )
+                assert exhausted_guard in refill
+        assert f"NOT = {{ var:{slot_prefix(path_id, 1)}_id ?= 0 }}" in refill
+        assert f"NOT = {{ var:{slot_prefix(path_id, 2)}_id ?= 0 }}" in refill
         for slot in SLOTS:
             prefix = slot_prefix(path_id, slot)
+            assignment = _extract_top_level_block(effects, assign_effect(path_id, slot))
+            assert f"limit = {{ var:{prefix}_id ?= {{ this > 0 }} }}" in assignment
+            assert refill.count(f"{assign_effect(path_id, slot)} = yes") == 1
+            assert refresh_all.count(f"{assign_effect(path_id, slot)} = yes") == 1
+            assert f"{refresh_effect(path_id, slot)} = yes" not in refresh_all
             claim = _extract_top_level_block(effects, f"tv_victory_path_tasks_claim_{path_id}_slot_{slot}_effect")
             assert claim.count(f"{refresh_effect(path_id, slot)} = yes") == 1
             assert f"tv_victory_path_tasks_refresh_all_{path_id}_effect" not in claim
@@ -86,10 +118,19 @@ def main() -> None:
             assert f"ShowTriggerConditions('{prefix}_display_trigger', PlayerScope.Self)" in gui
             assert f'action_name = "{action_name(path_id, slot)}"' in gui
 
+        first_update = f"tv_victory_path_tasks_update_{path_id}_slot_1_effect = yes"
+        assert monthly.index(first_update) < monthly.index(f"{refill_empty_effect(path_id)} = yes")
+
         tree_marker = f"tv_victory_{path_id}_tree.dds"
         task_marker = f"Country.Custom('tv_{path_id}_task_slot_1_icon')"
         overview_marker = f"TV_{path_id.upper()}_OVERVIEW_TITLE"
         assert gui.index(tree_marker) < gui.index(task_marker) < gui.index(overview_marker)
+
+    science_update = _extract_top_level_block(effects, "tv_victory_path_tasks_update_science_slot_1_effect")
+    assert science_update.index("?= 6102") < science_update.index("?= 6001")
+    prosperity_refresh = _extract_top_level_block(effects, refresh_effect("prosperity", 1))
+    assert prosperity_refresh.count("tv_victory_task_refresh_metric_average_development_effect = yes") == 1
+    assert f"has_variable = {CANDIDATE_METRICS_PREPARED_FLAG}" in effects
 
     assert gui.count('texture = "gfx/interface/icons/text_icons/trigger_yes.dds"') == 18
     assert gui.count("_task_slot_") > 100

@@ -157,6 +157,14 @@ def refresh_effect(path_id: str, slot: int) -> str:
     return f"tv_victory_path_tasks_refresh_{path_id}_slot_{slot}_effect"
 
 
+def assign_effect(path_id: str, slot: int) -> str:
+    return f"tv_victory_path_tasks_assign_{path_id}_slot_{slot}_effect"
+
+
+def refill_empty_effect(path_id: str) -> str:
+    return f"tv_victory_path_tasks_refill_empty_{path_id}_slots_effect"
+
+
 def update_effect(path_id: str, slot: int) -> str:
     return f"tv_victory_path_tasks_update_{path_id}_slot_{slot}_effect"
 
@@ -171,6 +179,15 @@ def action_name(path_id: str, slot: int) -> str:
 
 def emit(lines: list[str], level: int = 0, text: str = "") -> None:
     lines.append("\t" * level + text if text else "")
+
+
+CANDIDATE_METRICS_PREPARED_FLAG = "tv_victory_task_candidate_metrics_prepared"
+
+
+def uses_monthly_pulse(task: dict) -> bool:
+    # Capital building totals have no reliable generic building-completed owner
+    # callback, so task 2105 deliberately retains its monthly fallback.
+    return task["update"] == "monthly" or task["id"] == 2105
 
 
 SCALAR_METRICS = {
@@ -487,6 +504,34 @@ def _emit_metric_effects(lines: list[str], data: dict) -> None:
         emit(lines)
 
 
+def _emit_candidate_metric_refreshes(lines: list[str], data: dict, path_id: str, level: int) -> None:
+    """Refresh candidate metrics once, skipping permanently exhausted families."""
+    requirements: dict[str, list[str]] = {}
+    for task in tasks_for_path(data, path_id):
+        if task["type"] == "fixed":
+            requirements.setdefault(task["metric"], []).append(
+                f"NOT = {{ var:{claimed_var(task)} ?= {{ this >= {len(task['thresholds'])} }} }}"
+            )
+        elif task["completion"] == "three_allies":
+            requirements.setdefault("num_allies", []).append(
+                f"NOT = {{ has_variable = {claimed_var(task)} }}"
+            )
+
+    for metric, metric_requirements in sorted(requirements.items()):
+        emit(lines, level, "if = {")
+        emit(lines, level + 1, "limit = {")
+        if len(metric_requirements) == 1:
+            emit(lines, level + 2, metric_requirements[0])
+        else:
+            emit(lines, level + 2, "OR = {")
+            for requirement in metric_requirements:
+                emit(lines, level + 3, requirement)
+            emit(lines, level + 2, "}")
+        emit(lines, level + 1, "}")
+        emit(lines, level + 1, f"tv_victory_task_refresh_metric_{metric}_effect = yes")
+        emit(lines, level, "}")
+
+
 def _emit_clear_slot(lines: list[str], level: int, prefix: str) -> None:
     for suffix in ("target", "target_index", "progress_pct", "complete", "culture_group"):
         emit(lines, level, f"remove_variable = {prefix}_{suffix}")
@@ -528,7 +573,7 @@ def _emit_assign_task(lines: list[str], level: int, task: dict, path_id: str, sl
 
 def _emit_slot_update(lines: list[str], data: dict, path_id: str, slot: int) -> None:
     prefix = slot_prefix(path_id, slot)
-    path_tasks = tasks_for_path(data, path_id)
+    path_tasks = sorted(tasks_for_path(data, path_id), key=lambda task: not uses_monthly_pulse(task))
     emit(lines, 0, f"{update_effect(path_id, slot)} = {{")
     emit(lines, 1, "if = {")
     emit(lines, 2, f"limit = {{ has_variable = {prefix}_complete }}")
@@ -539,7 +584,10 @@ def _emit_slot_update(lines: list[str], data: dict, path_id: str, slot: int) -> 
         emit(lines, 2, f"limit = {{ var:{prefix}_id ?= {task['id']} }}")
         if task["type"] == "fixed":
             metric = task["metric"]
-            emit(lines, 2, f"tv_victory_task_refresh_metric_{metric}_effect = yes")
+            emit(lines, 2, "if = {")
+            emit(lines, 3, f"limit = {{ NOT = {{ has_variable = {CANDIDATE_METRICS_PREPARED_FLAG} }} }}")
+            emit(lines, 3, f"tv_victory_task_refresh_metric_{metric}_effect = yes")
+            emit(lines, 2, "}")
             emit(lines, 2, f"set_variable = {{ name = {prefix}_progress_pct value = var:{metric_var(metric)} }}")
             emit(lines, 2, f"change_variable = {{ name = {prefix}_progress_pct divide = var:{prefix}_target }}")
             emit(lines, 2, f"change_variable = {{ name = {prefix}_progress_pct multiply = 100 }}")
@@ -557,7 +605,10 @@ def _emit_slot_update(lines: list[str], data: dict, path_id: str, slot: int) -> 
             emit(lines, 3, f"set_variable = {{ name = {prefix}_progress_pct value = 100 }}")
             emit(lines, 2, "}")
         elif task["completion"] == "three_allies":
-            emit(lines, 2, "tv_victory_task_refresh_metric_num_allies_effect = yes")
+            emit(lines, 2, "if = {")
+            emit(lines, 3, f"limit = {{ NOT = {{ has_variable = {CANDIDATE_METRICS_PREPARED_FLAG} }} }}")
+            emit(lines, 3, "tv_victory_task_refresh_metric_num_allies_effect = yes")
+            emit(lines, 2, "}")
             emit(lines, 2, f"if = {{ limit = {{ {task_condition_name(task)} = yes }} set_variable = {{ name = {prefix}_complete value = 1 }} set_variable = {{ name = {prefix}_progress_pct value = 100 }} }}")
         elif task["completion"] == "unite_culture_group":
             emit(lines, 2, f"if = {{ limit = {{ {prefix}_display_trigger = yes }} set_variable = {{ name = {prefix}_complete value = 1 }} set_variable = {{ name = {prefix}_progress_pct value = 100 }} }}")
@@ -586,35 +637,68 @@ def _emit_slot_update(lines: list[str], data: dict, path_id: str, slot: int) -> 
     emit(lines)
 
 
-def _emit_refresh_slot(lines: list[str], data: dict, path_id: str, slot: int) -> None:
+def _emit_assign_slot(lines: list[str], data: dict, path_id: str, slot: int) -> None:
     prefix = slot_prefix(path_id, slot)
     path_tasks = tasks_for_path(data, path_id)
     other_slots = [s for s in SLOTS if s != slot]
+    emit(lines, 0, f"{assign_effect(path_id, slot)} = {{")
+    _emit_clear_slot(lines, 1, prefix)
+    emit(lines, 1, "if = {")
+    emit(lines, 2, f"limit = {{ tv_{path_id}_task_slot_{slot}_has_national_special_candidate = yes }}")
+    emit(lines, 2, "# Reserved national-special priority branch; no candidates this release.")
+    emit(lines, 1, "}")
+    emit(lines, 1, "else = {")
+    emit(lines, 2, "random_list = {")
+    for task in path_tasks:
+        emit(lines, 3, "1 = {")
+        emit(lines, 4, "trigger = {")
+        emit(lines, 5, f"{candidate_name(task)} = yes")
+        for other in other_slots:
+            emit(lines, 5, f"NOT = {{ var:{slot_prefix(path_id, other)}_id ?= {task['id']} }}")
+        emit(lines, 4, "}")
+        _emit_assign_task(lines, 4, task, path_id, slot)
+        emit(lines, 3, "}")
+    emit(lines, 2, "}")
+    emit(lines, 1, "}")
+    emit(lines, 1, "if = {")
+    emit(lines, 2, f"limit = {{ var:{prefix}_id ?= {{ this > 0 }} }}")
+    emit(lines, 2, f"{update_effect(path_id, slot)} = yes")
+    emit(lines, 1, "}")
+    emit(lines, 0, "}")
+    emit(lines)
+
+
+def _emit_refresh_slot(lines: list[str], data: dict, path_id: str, slot: int) -> None:
     emit(lines, 0, f"{refresh_effect(path_id, slot)} = {{")
     emit(lines, 1, "if = {")
     emit(lines, 2, f"limit = {{ is_human = yes has_variable = tv_{path_id}_victory_enabled }}")
-    _emit_clear_slot(lines, 2, prefix)
-    for metric in sorted({t["metric"] for t in path_tasks if t["type"] == "fixed"} | ({"num_allies"} if any(t["completion"] == "three_allies" for t in path_tasks) else set())):
-        emit(lines, 2, f"tv_victory_task_refresh_metric_{metric}_effect = yes")
-    emit(lines, 2, "if = {")
-    emit(lines, 3, f"limit = {{ tv_{path_id}_task_slot_{slot}_has_national_special_candidate = yes }}")
-    emit(lines, 3, "# Reserved national-special priority branch; no candidates this release.")
-    emit(lines, 2, "}")
-    emit(lines, 2, "else = {")
-    emit(lines, 3, "random_list = {")
-    for task in path_tasks:
-        emit(lines, 4, "1 = {")
-        emit(lines, 5, "trigger = {")
-        emit(lines, 6, f"{candidate_name(task)} = yes")
-        for other in other_slots:
-            emit(lines, 6, f"NOT = {{ var:{slot_prefix(path_id, other)}_id ?= {task['id']} }}")
-        emit(lines, 5, "}")
-        _emit_assign_task(lines, 5, task, path_id, slot)
-        emit(lines, 4, "}")
-    emit(lines, 3, "}")
-    emit(lines, 2, "}")
-    emit(lines, 2, f"{update_effect(path_id, slot)} = yes")
+    _emit_candidate_metric_refreshes(lines, data, path_id, 2)
+    emit(lines, 2, f"set_variable = {{ name = {CANDIDATE_METRICS_PREPARED_FLAG} value = 1 }}")
+    emit(lines, 2, f"{assign_effect(path_id, slot)} = yes")
+    emit(lines, 2, f"remove_variable = {CANDIDATE_METRICS_PREPARED_FLAG}")
     emit(lines, 1, "}")
+    emit(lines, 0, "}")
+    emit(lines)
+
+
+def _emit_refill_empty_slots(lines: list[str], data: dict, path_id: str) -> None:
+    """Fill route slots with one metric pass and stop after the first miss."""
+    emit(lines, 0, f"{refill_empty_effect(path_id)} = {{")
+    _emit_candidate_metric_refreshes(lines, data, path_id, 1)
+    emit(lines, 1, f"set_variable = {{ name = {CANDIDATE_METRICS_PREPARED_FLAG} value = 1 }}")
+    for slot in SLOTS:
+        prefix = slot_prefix(path_id, slot)
+        emit(lines, 1, "if = {")
+        emit(lines, 2, "limit = {")
+        emit(lines, 3, f"var:{prefix}_id ?= 0")
+        for previous_slot in SLOTS:
+            if previous_slot >= slot:
+                break
+            emit(lines, 3, f"NOT = {{ var:{slot_prefix(path_id, previous_slot)}_id ?= 0 }}")
+        emit(lines, 2, "}")
+        emit(lines, 2, f"{assign_effect(path_id, slot)} = yes")
+        emit(lines, 1, "}")
+    emit(lines, 1, f"remove_variable = {CANDIDATE_METRICS_PREPARED_FLAG}")
     emit(lines, 0, "}")
     emit(lines)
 
@@ -780,10 +864,32 @@ def generate_effects(data: dict, script: str) -> str:
         for slot in SLOTS:
             _emit_slot_update(lines, data, path_id, slot)
         for slot in SLOTS:
-            _emit_refresh_slot(lines, data, path_id, slot)
-        emit(lines, 0, f"tv_victory_path_tasks_refresh_all_{path_id}_effect = {{")
+            _emit_assign_slot(lines, data, path_id, slot)
         for slot in SLOTS:
-            emit(lines, 1, f"{refresh_effect(path_id, slot)} = yes")
+            _emit_refresh_slot(lines, data, path_id, slot)
+        _emit_refill_empty_slots(lines, data, path_id)
+        emit(lines, 0, f"tv_victory_path_tasks_refresh_all_{path_id}_effect = {{")
+        emit(lines, 1, "if = {")
+        emit(lines, 2, f"limit = {{ is_human = yes has_variable = tv_{path_id}_victory_enabled }}")
+        for slot in SLOTS:
+            _emit_clear_slot(lines, 2, slot_prefix(path_id, slot))
+        _emit_candidate_metric_refreshes(lines, data, path_id, 2)
+        emit(lines, 2, f"set_variable = {{ name = {CANDIDATE_METRICS_PREPARED_FLAG} value = 1 }}")
+        for slot in SLOTS:
+            if slot == SLOTS[0]:
+                emit(lines, 2, f"{assign_effect(path_id, slot)} = yes")
+                continue
+            emit(lines, 2, "if = {")
+            emit(lines, 3, "limit = {")
+            for previous_slot in SLOTS:
+                if previous_slot >= slot:
+                    break
+                emit(lines, 4, f"NOT = {{ var:{slot_prefix(path_id, previous_slot)}_id ?= 0 }}")
+            emit(lines, 3, "}")
+            emit(lines, 3, f"{assign_effect(path_id, slot)} = yes")
+            emit(lines, 2, "}")
+        emit(lines, 2, f"remove_variable = {CANDIDATE_METRICS_PREPARED_FLAG}")
+        emit(lines, 1, "}")
         emit(lines, 0, "}")
         emit(lines)
         emit(lines, 0, f"tv_victory_path_tasks_initialize_{path_id}_effect = {{")
@@ -804,16 +910,11 @@ def generate_effects(data: dict, script: str) -> str:
     emit(lines, 2, "limit = { is_human = yes }")
     for path_id in PATH_IDS:
         emit(lines, 2, f"if = {{ limit = {{ has_variable = tv_{path_id}_victory_enabled }}")
+        monthly_ids = [task["id"] for task in tasks_for_path(data, path_id) if uses_monthly_pulse(task)]
         for slot in SLOTS:
             prefix = slot_prefix(path_id, slot)
-            emit(lines, 3, f"if = {{ limit = {{ var:{prefix}_id ?= 0 }} {refresh_effect(path_id, slot)} = yes }}")
-            monthly_ids = [
-                task["id"]
-                for task in tasks_for_path(data, path_id)
-                if task["update"] == "monthly" or task["id"] == 2105
-            ]
             if monthly_ids:
-                emit(lines, 3, "else_if = {")
+                emit(lines, 3, "if = {")
                 emit(lines, 4, "limit = {")
                 emit(lines, 5, "OR = {")
                 for task_id in monthly_ids:
@@ -822,6 +923,15 @@ def generate_effects(data: dict, script: str) -> str:
                 emit(lines, 4, "}")
                 emit(lines, 4, f"{update_effect(path_id, slot)} = yes")
                 emit(lines, 3, "}")
+        emit(lines, 3, "if = {")
+        emit(lines, 4, "limit = {")
+        emit(lines, 5, "OR = {")
+        for slot in SLOTS:
+            emit(lines, 6, f"var:{slot_prefix(path_id, slot)}_id ?= 0")
+        emit(lines, 5, "}")
+        emit(lines, 4, "}")
+        emit(lines, 4, f"{refill_empty_effect(path_id)} = yes")
+        emit(lines, 3, "}")
         emit(lines, 2, "}")
     emit(lines, 1, "}")
     emit(lines, 0, "}")
