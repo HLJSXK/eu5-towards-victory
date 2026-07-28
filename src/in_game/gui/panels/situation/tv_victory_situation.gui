@@ -3162,6 +3162,7 @@ situation_panel = {
 								description = "tv_victory_claim_conquest_task_slot_1_desc"
 								actor = "[SituationView.GetPlayer]"
 								left_action = { action_name = "tv_victory_claim_conquest_task_slot_1" }
+								right_action = { action_name = "tv_victory_refresh_conquest_task_slot_1" }
 							}
 						}
 						widget = {
@@ -3241,6 +3242,7 @@ situation_panel = {
 								description = "tv_victory_claim_conquest_task_slot_2_desc"
 								actor = "[SituationView.GetPlayer]"
 								left_action = { action_name = "tv_victory_claim_conquest_task_slot_2" }
+								right_action = { action_name = "tv_victory_refresh_conquest_task_slot_2" }
 							}
 						}
 						widget = {
@@ -3320,6 +3322,7 @@ situation_panel = {
 								description = "tv_victory_claim_conquest_task_slot_3_desc"
 								actor = "[SituationView.GetPlayer]"
 								left_action = { action_name = "tv_victory_claim_conquest_task_slot_3" }
+								right_action = { action_name = "tv_victory_refresh_conquest_task_slot_3" }
 							}
 						}
 					}
@@ -6679,6 +6682,7 @@ situation_panel = {
 								description = "tv_victory_claim_prosperity_task_slot_1_desc"
 								actor = "[SituationView.GetPlayer]"
 								left_action = { action_name = "tv_victory_claim_prosperity_task_slot_1" }
+								right_action = { action_name = "tv_victory_refresh_prosperity_task_slot_1" }
 							}
 						}
 						widget = {
@@ -6758,6 +6762,7 @@ situation_panel = {
 								description = "tv_victory_claim_prosperity_task_slot_2_desc"
 								actor = "[SituationView.GetPlayer]"
 								left_action = { action_name = "tv_victory_claim_prosperity_task_slot_2" }
+								right_action = { action_name = "tv_victory_refresh_prosperity_task_slot_2" }
 							}
 						}
 						widget = {
@@ -6837,6 +6842,7 @@ situation_panel = {
 								description = "tv_victory_claim_prosperity_task_slot_3_desc"
 								actor = "[SituationView.GetPlayer]"
 								left_action = { action_name = "tv_victory_claim_prosperity_task_slot_3" }
+								right_action = { action_name = "tv_victory_refresh_prosperity_task_slot_3" }
 							}
 						}
 					}
@@ -10074,6 +10080,7 @@ situation_panel = {
 								description = "tv_victory_claim_trade_task_slot_1_desc"
 								actor = "[SituationView.GetPlayer]"
 								left_action = { action_name = "tv_victory_claim_trade_task_slot_1" }
+								right_action = { action_name = "tv_victory_refresh_trade_task_slot_1" }
 							}
 						}
 						widget = {
@@ -10153,6 +10160,7 @@ situation_panel = {
 								description = "tv_victory_claim_trade_task_slot_2_desc"
 								actor = "[SituationView.GetPlayer]"
 								left_action = { action_name = "tv_victory_claim_trade_task_slot_2" }
+								right_action = { action_name = "tv_victory_refresh_trade_task_slot_2" }
 							}
 						}
 						widget = {
@@ -10232,6 +10240,7 @@ situation_panel = {
 								description = "tv_victory_claim_trade_task_slot_3_desc"
 								actor = "[SituationView.GetPlayer]"
 								left_action = { action_name = "tv_victory_claim_trade_task_slot_3" }
+								right_action = { action_name = "tv_victory_refresh_trade_task_slot_3" }
 							}
 						}
 					}
@@ -13469,6 +13478,7 @@ situation_panel = {
 								description = "tv_victory_claim_diplomatic_task_slot_1_desc"
 								actor = "[SituationView.GetPlayer]"
 								left_action = { action_name = "tv_victory_claim_diplomatic_task_slot_1" }
+								right_action = { action_name = "tv_victory_refresh_diplomatic_task_slot_1" }
 							}
 						}
 						widget = {
@@ -13548,6 +13558,7 @@ situation_panel = {
 								description = "tv_victory_claim_diplomatic_task_slot_2_desc"
 								actor = "[SituationView.GetPlayer]"
 								left_action = { action_name = "tv_victory_claim_diplomatic_task_slot_2" }
+								right_action = { action_name = "tv_victory_refresh_diplomatic_task_slot_2" }
 							}
 						}
 						widget = {
@@ -13627,6 +13638,7 @@ situation_panel = {
 								description = "tv_victory_claim_diplomatic_task_slot_3_desc"
 								actor = "[SituationView.GetPlayer]"
 								left_action = { action_name = "tv_victory_claim_diplomatic_task_slot_3" }
+								right_action = { action_name = "tv_victory_refresh_diplomatic_task_slot_3" }
 							}
 						}
 					}
@@ -16681,6 +16693,7 @@ situation_panel = {
 								description = "tv_victory_claim_cultural_task_slot_1_desc"
 								actor = "[SituationView.GetPlayer]"
 								left_action = { action_name = "tv_victory_claim_cultural_task_slot_1" }
+								right_action = { action_name = "tv_victory_refresh_cultural_task_slot_1" }
 							}
 						}
 						widget = {
@@ -16760,6 +16773,7 @@ situation_panel = {
 								description = "tv_victory_claim_cultural_task_slot_2_desc"
 								actor = "[SituationView.GetPlayer]"
 								left_action = { action_name = "tv_victory_claim_cultural_task_slot_2" }
+								right_action = { action_name = "tv_victory_refresh_cultural_task_slot_2" }
 							}
 						}
 						widget = {
@@ -16839,6 +16853,7 @@ situation_panel = {
 								description = "tv_victory_claim_cultural_task_slot_3_desc"
 								actor = "[SituationView.GetPlayer]"
 								left_action = { action_name = "tv_victory_claim_cultural_task_slot_3" }
+								right_action = { action_name = "tv_victory_refresh_cultural_task_slot_3" }
 							}
 						}
 					}
@@ -19954,6 +19969,7 @@ situation_panel = {
 								description = "tv_victory_claim_science_task_slot_1_desc"
 								actor = "[SituationView.GetPlayer]"
 								left_action = { action_name = "tv_victory_claim_science_task_slot_1" }
+								right_action = { action_name = "tv_victory_refresh_science_task_slot_1" }
 							}
 						}
 						widget = {
@@ -20033,6 +20049,7 @@ situation_panel = {
 								description = "tv_victory_claim_science_task_slot_2_desc"
 								actor = "[SituationView.GetPlayer]"
 								left_action = { action_name = "tv_victory_claim_science_task_slot_2" }
+								right_action = { action_name = "tv_victory_refresh_science_task_slot_2" }
 							}
 						}
 						widget = {
@@ -20112,6 +20129,7 @@ situation_panel = {
 								description = "tv_victory_claim_science_task_slot_3_desc"
 								actor = "[SituationView.GetPlayer]"
 								left_action = { action_name = "tv_victory_claim_science_task_slot_3" }
+								right_action = { action_name = "tv_victory_refresh_science_task_slot_3" }
 							}
 						}
 					}

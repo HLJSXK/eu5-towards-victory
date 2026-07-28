@@ -1408,6 +1408,16 @@
   source: "runtime error.log: common/generic_actions/tv_trade_league_actions.txt:640/652/671, 2026-07-07"
   notes: "Generic action potential, allow, visible, and enabled blocks can be evaluated while startup/lifecycle variables are still absent. The engine still fetches the direct comparison inside an OR with NOT has_variable, logging Failed to fetch variable, unset var scope, and invalid left side errors. In Trade Chain add-node, the generated count < 20 checks were replaced with optional equality branches for 0..19 plus the unset branch."
 
+- id: generic_action_single_right_click_uses_right_action
+  detectability: advisory
+  pattern: ''
+  bad: "Binding an ordinary right-click generic action with right_click_and_hold_action, or omitting a separate right_action when the interaction requires an immediate right click"
+  correction: "On the action_button, bind the separate action with right_action = { action_name = <id> }. Reserve right_click_and_hold_action for interactions that deliberately require the mouse button to be held. Give the right-click action its own potential, allow, effect, AI-list entry, message type, and localization."
+  category: gui
+  scope: any
+  source: "reference_game_files/game/in_game/common/generic_actions/readme.txt:90-91"
+  notes: "The generic-action GUI contract distinguishes a single right click from a right-click-and-hold; choosing the hold field for an ordinary right click changes the player interaction instead of merely selecting another button."
+
 - id: gui_datamodel_getlist_scope_wrapper
   pattern: ''
   bad: "item = { widget = { datacontext = \"[Scope.GetCharacter]\" ... action_button_diamond = { parameter = { parameter_value = \"[Character]\" } } } } — rebinding datacontext to Character, then using [Character] in action_button_diamond parameter_value"

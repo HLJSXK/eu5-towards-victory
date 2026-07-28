@@ -22,6 +22,7 @@ from scripts.victory_tree_node_codegen import load_data as load_tree_variant_dat
 from scripts.victory_task_codegen import PATH_IDS as VICTORY_TASK_PATH_IDS
 from scripts.victory_task_codegen import SLOTS as VICTORY_TASK_SLOTS
 from scripts.victory_task_codegen import action_name as victory_task_action_name
+from scripts.victory_task_codegen import refresh_action_name as victory_task_refresh_action_name
 
 VANILLA = ROOT / "reference_game_files/game/main_menu/gui/messagetypes.txt"
 MAIN_OUT = ROOT / "src/main_menu/gui/messagetypes.txt"
@@ -86,9 +87,13 @@ def victory_tree_node_action_ids() -> list[str]:
 
 def victory_task_action_ids() -> list[str]:
     return [
-        victory_task_action_name(path_id, slot)
+        action
         for path_id in VICTORY_TASK_PATH_IDS
         for slot in VICTORY_TASK_SLOTS
+        for action in (
+            victory_task_action_name(path_id, slot),
+            victory_task_refresh_action_name(path_id, slot),
+        )
     ]
 
 

@@ -2,7 +2,7 @@
 #   Data:    data/victory_path_tasks.yaml
 #   Regen:   conda run --no-capture-output -n eu5 python scripts/in_game/common/generic_actions/gen_tv_victory_path_task_actions.py
 # Do not edit directly - modify the data/generator and re-run it.
-# Eighteen player-only click-to-claim slot actions.
+# Player-only task claim and right-click refresh actions.
 
 
 tv_victory_claim_conquest_task_slot_1 = {
@@ -16,6 +16,32 @@ tv_victory_claim_conquest_task_slot_1 = {
 		scope:actor = {
 			hidden_effect = {
 				tv_victory_path_tasks_claim_conquest_slot_1_effect = yes
+			}
+		}
+	}
+	ai_will_do = { add = -100 }
+}
+
+tv_victory_refresh_conquest_task_slot_1 = {
+	type = owncountry
+	show_message = no
+	ai_tick = never
+	automation_tick = never
+	potential = { scope:actor = { is_human = yes has_variable = tv_conquest_victory_enabled var:tv_conquest_task_slot_1_id ?= { this > 0 } } }
+	allow = { scope:actor = { prestige >= 10 } }
+	effect = {
+		scope:actor = {
+			hidden_effect = {
+				if = {
+					limit = {
+						is_human = yes
+						has_variable = tv_conquest_victory_enabled
+						var:tv_conquest_task_slot_1_id ?= { this > 0 }
+						prestige >= 10
+					}
+					add_prestige = -10
+					tv_victory_path_tasks_refresh_conquest_slot_1_effect = yes
+				}
 			}
 		}
 	}
@@ -39,6 +65,32 @@ tv_victory_claim_conquest_task_slot_2 = {
 	ai_will_do = { add = -100 }
 }
 
+tv_victory_refresh_conquest_task_slot_2 = {
+	type = owncountry
+	show_message = no
+	ai_tick = never
+	automation_tick = never
+	potential = { scope:actor = { is_human = yes has_variable = tv_conquest_victory_enabled var:tv_conquest_task_slot_2_id ?= { this > 0 } } }
+	allow = { scope:actor = { prestige >= 10 } }
+	effect = {
+		scope:actor = {
+			hidden_effect = {
+				if = {
+					limit = {
+						is_human = yes
+						has_variable = tv_conquest_victory_enabled
+						var:tv_conquest_task_slot_2_id ?= { this > 0 }
+						prestige >= 10
+					}
+					add_prestige = -10
+					tv_victory_path_tasks_refresh_conquest_slot_2_effect = yes
+				}
+			}
+		}
+	}
+	ai_will_do = { add = -100 }
+}
+
 tv_victory_claim_conquest_task_slot_3 = {
 	type = owncountry
 	show_message = no
@@ -50,6 +102,32 @@ tv_victory_claim_conquest_task_slot_3 = {
 		scope:actor = {
 			hidden_effect = {
 				tv_victory_path_tasks_claim_conquest_slot_3_effect = yes
+			}
+		}
+	}
+	ai_will_do = { add = -100 }
+}
+
+tv_victory_refresh_conquest_task_slot_3 = {
+	type = owncountry
+	show_message = no
+	ai_tick = never
+	automation_tick = never
+	potential = { scope:actor = { is_human = yes has_variable = tv_conquest_victory_enabled var:tv_conquest_task_slot_3_id ?= { this > 0 } } }
+	allow = { scope:actor = { prestige >= 10 } }
+	effect = {
+		scope:actor = {
+			hidden_effect = {
+				if = {
+					limit = {
+						is_human = yes
+						has_variable = tv_conquest_victory_enabled
+						var:tv_conquest_task_slot_3_id ?= { this > 0 }
+						prestige >= 10
+					}
+					add_prestige = -10
+					tv_victory_path_tasks_refresh_conquest_slot_3_effect = yes
+				}
 			}
 		}
 	}
@@ -73,6 +151,32 @@ tv_victory_claim_prosperity_task_slot_1 = {
 	ai_will_do = { add = -100 }
 }
 
+tv_victory_refresh_prosperity_task_slot_1 = {
+	type = owncountry
+	show_message = no
+	ai_tick = never
+	automation_tick = never
+	potential = { scope:actor = { is_human = yes has_variable = tv_prosperity_victory_enabled var:tv_prosperity_task_slot_1_id ?= { this > 0 } } }
+	allow = { scope:actor = { prestige >= 10 } }
+	effect = {
+		scope:actor = {
+			hidden_effect = {
+				if = {
+					limit = {
+						is_human = yes
+						has_variable = tv_prosperity_victory_enabled
+						var:tv_prosperity_task_slot_1_id ?= { this > 0 }
+						prestige >= 10
+					}
+					add_prestige = -10
+					tv_victory_path_tasks_refresh_prosperity_slot_1_effect = yes
+				}
+			}
+		}
+	}
+	ai_will_do = { add = -100 }
+}
+
 tv_victory_claim_prosperity_task_slot_2 = {
 	type = owncountry
 	show_message = no
@@ -84,6 +188,32 @@ tv_victory_claim_prosperity_task_slot_2 = {
 		scope:actor = {
 			hidden_effect = {
 				tv_victory_path_tasks_claim_prosperity_slot_2_effect = yes
+			}
+		}
+	}
+	ai_will_do = { add = -100 }
+}
+
+tv_victory_refresh_prosperity_task_slot_2 = {
+	type = owncountry
+	show_message = no
+	ai_tick = never
+	automation_tick = never
+	potential = { scope:actor = { is_human = yes has_variable = tv_prosperity_victory_enabled var:tv_prosperity_task_slot_2_id ?= { this > 0 } } }
+	allow = { scope:actor = { prestige >= 10 } }
+	effect = {
+		scope:actor = {
+			hidden_effect = {
+				if = {
+					limit = {
+						is_human = yes
+						has_variable = tv_prosperity_victory_enabled
+						var:tv_prosperity_task_slot_2_id ?= { this > 0 }
+						prestige >= 10
+					}
+					add_prestige = -10
+					tv_victory_path_tasks_refresh_prosperity_slot_2_effect = yes
+				}
 			}
 		}
 	}
@@ -107,6 +237,32 @@ tv_victory_claim_prosperity_task_slot_3 = {
 	ai_will_do = { add = -100 }
 }
 
+tv_victory_refresh_prosperity_task_slot_3 = {
+	type = owncountry
+	show_message = no
+	ai_tick = never
+	automation_tick = never
+	potential = { scope:actor = { is_human = yes has_variable = tv_prosperity_victory_enabled var:tv_prosperity_task_slot_3_id ?= { this > 0 } } }
+	allow = { scope:actor = { prestige >= 10 } }
+	effect = {
+		scope:actor = {
+			hidden_effect = {
+				if = {
+					limit = {
+						is_human = yes
+						has_variable = tv_prosperity_victory_enabled
+						var:tv_prosperity_task_slot_3_id ?= { this > 0 }
+						prestige >= 10
+					}
+					add_prestige = -10
+					tv_victory_path_tasks_refresh_prosperity_slot_3_effect = yes
+				}
+			}
+		}
+	}
+	ai_will_do = { add = -100 }
+}
+
 tv_victory_claim_trade_task_slot_1 = {
 	type = owncountry
 	show_message = no
@@ -118,6 +274,32 @@ tv_victory_claim_trade_task_slot_1 = {
 		scope:actor = {
 			hidden_effect = {
 				tv_victory_path_tasks_claim_trade_slot_1_effect = yes
+			}
+		}
+	}
+	ai_will_do = { add = -100 }
+}
+
+tv_victory_refresh_trade_task_slot_1 = {
+	type = owncountry
+	show_message = no
+	ai_tick = never
+	automation_tick = never
+	potential = { scope:actor = { is_human = yes has_variable = tv_trade_victory_enabled var:tv_trade_task_slot_1_id ?= { this > 0 } } }
+	allow = { scope:actor = { prestige >= 10 } }
+	effect = {
+		scope:actor = {
+			hidden_effect = {
+				if = {
+					limit = {
+						is_human = yes
+						has_variable = tv_trade_victory_enabled
+						var:tv_trade_task_slot_1_id ?= { this > 0 }
+						prestige >= 10
+					}
+					add_prestige = -10
+					tv_victory_path_tasks_refresh_trade_slot_1_effect = yes
+				}
 			}
 		}
 	}
@@ -141,6 +323,32 @@ tv_victory_claim_trade_task_slot_2 = {
 	ai_will_do = { add = -100 }
 }
 
+tv_victory_refresh_trade_task_slot_2 = {
+	type = owncountry
+	show_message = no
+	ai_tick = never
+	automation_tick = never
+	potential = { scope:actor = { is_human = yes has_variable = tv_trade_victory_enabled var:tv_trade_task_slot_2_id ?= { this > 0 } } }
+	allow = { scope:actor = { prestige >= 10 } }
+	effect = {
+		scope:actor = {
+			hidden_effect = {
+				if = {
+					limit = {
+						is_human = yes
+						has_variable = tv_trade_victory_enabled
+						var:tv_trade_task_slot_2_id ?= { this > 0 }
+						prestige >= 10
+					}
+					add_prestige = -10
+					tv_victory_path_tasks_refresh_trade_slot_2_effect = yes
+				}
+			}
+		}
+	}
+	ai_will_do = { add = -100 }
+}
+
 tv_victory_claim_trade_task_slot_3 = {
 	type = owncountry
 	show_message = no
@@ -152,6 +360,32 @@ tv_victory_claim_trade_task_slot_3 = {
 		scope:actor = {
 			hidden_effect = {
 				tv_victory_path_tasks_claim_trade_slot_3_effect = yes
+			}
+		}
+	}
+	ai_will_do = { add = -100 }
+}
+
+tv_victory_refresh_trade_task_slot_3 = {
+	type = owncountry
+	show_message = no
+	ai_tick = never
+	automation_tick = never
+	potential = { scope:actor = { is_human = yes has_variable = tv_trade_victory_enabled var:tv_trade_task_slot_3_id ?= { this > 0 } } }
+	allow = { scope:actor = { prestige >= 10 } }
+	effect = {
+		scope:actor = {
+			hidden_effect = {
+				if = {
+					limit = {
+						is_human = yes
+						has_variable = tv_trade_victory_enabled
+						var:tv_trade_task_slot_3_id ?= { this > 0 }
+						prestige >= 10
+					}
+					add_prestige = -10
+					tv_victory_path_tasks_refresh_trade_slot_3_effect = yes
+				}
 			}
 		}
 	}
@@ -175,6 +409,32 @@ tv_victory_claim_diplomatic_task_slot_1 = {
 	ai_will_do = { add = -100 }
 }
 
+tv_victory_refresh_diplomatic_task_slot_1 = {
+	type = owncountry
+	show_message = no
+	ai_tick = never
+	automation_tick = never
+	potential = { scope:actor = { is_human = yes has_variable = tv_diplomatic_victory_enabled var:tv_diplomatic_task_slot_1_id ?= { this > 0 } } }
+	allow = { scope:actor = { prestige >= 10 } }
+	effect = {
+		scope:actor = {
+			hidden_effect = {
+				if = {
+					limit = {
+						is_human = yes
+						has_variable = tv_diplomatic_victory_enabled
+						var:tv_diplomatic_task_slot_1_id ?= { this > 0 }
+						prestige >= 10
+					}
+					add_prestige = -10
+					tv_victory_path_tasks_refresh_diplomatic_slot_1_effect = yes
+				}
+			}
+		}
+	}
+	ai_will_do = { add = -100 }
+}
+
 tv_victory_claim_diplomatic_task_slot_2 = {
 	type = owncountry
 	show_message = no
@@ -186,6 +446,32 @@ tv_victory_claim_diplomatic_task_slot_2 = {
 		scope:actor = {
 			hidden_effect = {
 				tv_victory_path_tasks_claim_diplomatic_slot_2_effect = yes
+			}
+		}
+	}
+	ai_will_do = { add = -100 }
+}
+
+tv_victory_refresh_diplomatic_task_slot_2 = {
+	type = owncountry
+	show_message = no
+	ai_tick = never
+	automation_tick = never
+	potential = { scope:actor = { is_human = yes has_variable = tv_diplomatic_victory_enabled var:tv_diplomatic_task_slot_2_id ?= { this > 0 } } }
+	allow = { scope:actor = { prestige >= 10 } }
+	effect = {
+		scope:actor = {
+			hidden_effect = {
+				if = {
+					limit = {
+						is_human = yes
+						has_variable = tv_diplomatic_victory_enabled
+						var:tv_diplomatic_task_slot_2_id ?= { this > 0 }
+						prestige >= 10
+					}
+					add_prestige = -10
+					tv_victory_path_tasks_refresh_diplomatic_slot_2_effect = yes
+				}
 			}
 		}
 	}
@@ -209,6 +495,32 @@ tv_victory_claim_diplomatic_task_slot_3 = {
 	ai_will_do = { add = -100 }
 }
 
+tv_victory_refresh_diplomatic_task_slot_3 = {
+	type = owncountry
+	show_message = no
+	ai_tick = never
+	automation_tick = never
+	potential = { scope:actor = { is_human = yes has_variable = tv_diplomatic_victory_enabled var:tv_diplomatic_task_slot_3_id ?= { this > 0 } } }
+	allow = { scope:actor = { prestige >= 10 } }
+	effect = {
+		scope:actor = {
+			hidden_effect = {
+				if = {
+					limit = {
+						is_human = yes
+						has_variable = tv_diplomatic_victory_enabled
+						var:tv_diplomatic_task_slot_3_id ?= { this > 0 }
+						prestige >= 10
+					}
+					add_prestige = -10
+					tv_victory_path_tasks_refresh_diplomatic_slot_3_effect = yes
+				}
+			}
+		}
+	}
+	ai_will_do = { add = -100 }
+}
+
 tv_victory_claim_cultural_task_slot_1 = {
 	type = owncountry
 	show_message = no
@@ -220,6 +532,32 @@ tv_victory_claim_cultural_task_slot_1 = {
 		scope:actor = {
 			hidden_effect = {
 				tv_victory_path_tasks_claim_cultural_slot_1_effect = yes
+			}
+		}
+	}
+	ai_will_do = { add = -100 }
+}
+
+tv_victory_refresh_cultural_task_slot_1 = {
+	type = owncountry
+	show_message = no
+	ai_tick = never
+	automation_tick = never
+	potential = { scope:actor = { is_human = yes has_variable = tv_cultural_victory_enabled var:tv_cultural_task_slot_1_id ?= { this > 0 } } }
+	allow = { scope:actor = { prestige >= 10 } }
+	effect = {
+		scope:actor = {
+			hidden_effect = {
+				if = {
+					limit = {
+						is_human = yes
+						has_variable = tv_cultural_victory_enabled
+						var:tv_cultural_task_slot_1_id ?= { this > 0 }
+						prestige >= 10
+					}
+					add_prestige = -10
+					tv_victory_path_tasks_refresh_cultural_slot_1_effect = yes
+				}
 			}
 		}
 	}
@@ -243,6 +581,32 @@ tv_victory_claim_cultural_task_slot_2 = {
 	ai_will_do = { add = -100 }
 }
 
+tv_victory_refresh_cultural_task_slot_2 = {
+	type = owncountry
+	show_message = no
+	ai_tick = never
+	automation_tick = never
+	potential = { scope:actor = { is_human = yes has_variable = tv_cultural_victory_enabled var:tv_cultural_task_slot_2_id ?= { this > 0 } } }
+	allow = { scope:actor = { prestige >= 10 } }
+	effect = {
+		scope:actor = {
+			hidden_effect = {
+				if = {
+					limit = {
+						is_human = yes
+						has_variable = tv_cultural_victory_enabled
+						var:tv_cultural_task_slot_2_id ?= { this > 0 }
+						prestige >= 10
+					}
+					add_prestige = -10
+					tv_victory_path_tasks_refresh_cultural_slot_2_effect = yes
+				}
+			}
+		}
+	}
+	ai_will_do = { add = -100 }
+}
+
 tv_victory_claim_cultural_task_slot_3 = {
 	type = owncountry
 	show_message = no
@@ -254,6 +618,32 @@ tv_victory_claim_cultural_task_slot_3 = {
 		scope:actor = {
 			hidden_effect = {
 				tv_victory_path_tasks_claim_cultural_slot_3_effect = yes
+			}
+		}
+	}
+	ai_will_do = { add = -100 }
+}
+
+tv_victory_refresh_cultural_task_slot_3 = {
+	type = owncountry
+	show_message = no
+	ai_tick = never
+	automation_tick = never
+	potential = { scope:actor = { is_human = yes has_variable = tv_cultural_victory_enabled var:tv_cultural_task_slot_3_id ?= { this > 0 } } }
+	allow = { scope:actor = { prestige >= 10 } }
+	effect = {
+		scope:actor = {
+			hidden_effect = {
+				if = {
+					limit = {
+						is_human = yes
+						has_variable = tv_cultural_victory_enabled
+						var:tv_cultural_task_slot_3_id ?= { this > 0 }
+						prestige >= 10
+					}
+					add_prestige = -10
+					tv_victory_path_tasks_refresh_cultural_slot_3_effect = yes
+				}
 			}
 		}
 	}
@@ -277,6 +667,32 @@ tv_victory_claim_science_task_slot_1 = {
 	ai_will_do = { add = -100 }
 }
 
+tv_victory_refresh_science_task_slot_1 = {
+	type = owncountry
+	show_message = no
+	ai_tick = never
+	automation_tick = never
+	potential = { scope:actor = { is_human = yes has_variable = tv_science_victory_enabled var:tv_science_task_slot_1_id ?= { this > 0 } } }
+	allow = { scope:actor = { prestige >= 10 } }
+	effect = {
+		scope:actor = {
+			hidden_effect = {
+				if = {
+					limit = {
+						is_human = yes
+						has_variable = tv_science_victory_enabled
+						var:tv_science_task_slot_1_id ?= { this > 0 }
+						prestige >= 10
+					}
+					add_prestige = -10
+					tv_victory_path_tasks_refresh_science_slot_1_effect = yes
+				}
+			}
+		}
+	}
+	ai_will_do = { add = -100 }
+}
+
 tv_victory_claim_science_task_slot_2 = {
 	type = owncountry
 	show_message = no
@@ -294,6 +710,32 @@ tv_victory_claim_science_task_slot_2 = {
 	ai_will_do = { add = -100 }
 }
 
+tv_victory_refresh_science_task_slot_2 = {
+	type = owncountry
+	show_message = no
+	ai_tick = never
+	automation_tick = never
+	potential = { scope:actor = { is_human = yes has_variable = tv_science_victory_enabled var:tv_science_task_slot_2_id ?= { this > 0 } } }
+	allow = { scope:actor = { prestige >= 10 } }
+	effect = {
+		scope:actor = {
+			hidden_effect = {
+				if = {
+					limit = {
+						is_human = yes
+						has_variable = tv_science_victory_enabled
+						var:tv_science_task_slot_2_id ?= { this > 0 }
+						prestige >= 10
+					}
+					add_prestige = -10
+					tv_victory_path_tasks_refresh_science_slot_2_effect = yes
+				}
+			}
+		}
+	}
+	ai_will_do = { add = -100 }
+}
+
 tv_victory_claim_science_task_slot_3 = {
 	type = owncountry
 	show_message = no
@@ -305,6 +747,32 @@ tv_victory_claim_science_task_slot_3 = {
 		scope:actor = {
 			hidden_effect = {
 				tv_victory_path_tasks_claim_science_slot_3_effect = yes
+			}
+		}
+	}
+	ai_will_do = { add = -100 }
+}
+
+tv_victory_refresh_science_task_slot_3 = {
+	type = owncountry
+	show_message = no
+	ai_tick = never
+	automation_tick = never
+	potential = { scope:actor = { is_human = yes has_variable = tv_science_victory_enabled var:tv_science_task_slot_3_id ?= { this > 0 } } }
+	allow = { scope:actor = { prestige >= 10 } }
+	effect = {
+		scope:actor = {
+			hidden_effect = {
+				if = {
+					limit = {
+						is_human = yes
+						has_variable = tv_science_victory_enabled
+						var:tv_science_task_slot_3_id ?= { this > 0 }
+						prestige >= 10
+					}
+					add_prestige = -10
+					tv_victory_path_tasks_refresh_science_slot_3_effect = yes
+				}
 			}
 		}
 	}

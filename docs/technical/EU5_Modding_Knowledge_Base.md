@@ -966,6 +966,21 @@ PERFORM_my_action_ACTION_MAP: ""
 
 If the message type block is missing, the engine logs `Failed to find message type: PERFORM_<action_id>_ACTION`.
 
+#### Generic Action Mouse Buttons
+
+An `action_button` can bind independent generic actions for each mouse button:
+
+```gui
+left_action = { action_name = "my_left_action" }
+right_action = { action_name = "my_right_action" }
+```
+
+Use `right_action` for a single right click. `right_click_and_hold_action` is a separate
+hold-to-confirm interaction and should be used only when holding the button is intentional.
+Each bound action remains a complete generic action: it needs its own `potential`, `allow`,
+guarded `effect`, AI-list entry, message type, and localization. This is confirmed by
+`reference_game_files/game/in_game/common/generic_actions/readme.txt:88-91`.
+
 #### Cross-Mod Singleton Copies
 
 `messagetypes.txt` and customizable-localization databases such as

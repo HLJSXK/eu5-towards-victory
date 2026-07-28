@@ -19,6 +19,7 @@ from scripts.victory_tree_node_codegen import (
 )
 from scripts.victory_task_codegen import (
     action_name as task_action_name,
+    refresh_action_name as task_refresh_action_name,
     slot_prefix as task_slot_prefix,
 )
 from scripts.victory_tree_point_badge_layout import (
@@ -994,6 +995,7 @@ def append_task_card(lines: list[str], level: int, path: dict, slot: int) -> Non
     progress = player_var(f"{prefix}_progress_pct")
     complete = f"{player_var(f'{prefix}_complete')}.IsSet"
     action = task_action_name(pid, slot)
+    refresh_action = task_refresh_action_name(pid, slot)
     pie_color = TASK_PIE_COLORS[pid]
 
     emit(lines, level, "widget = {")
@@ -1064,6 +1066,7 @@ def append_task_card(lines: list[str], level: int, path: dict, slot: int) -> Non
     emit(lines, level + 2, f'description = "{action}_desc"')
     emit(lines, level + 2, 'actor = "[SituationView.GetPlayer]"')
     emit(lines, level + 2, f'left_action = {{ action_name = "{action}" }}')
+    emit(lines, level + 2, f'right_action = {{ action_name = "{refresh_action}" }}')
     emit(lines, level + 1, "}")
     emit(lines, level, "}")
 

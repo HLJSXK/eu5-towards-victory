@@ -190,11 +190,16 @@ def action_name(path_id: str, slot: int) -> str:
     return f"tv_victory_claim_{path_id}_task_slot_{slot}"
 
 
+def refresh_action_name(path_id: str, slot: int) -> str:
+    return f"tv_victory_refresh_{path_id}_task_slot_{slot}"
+
+
 def emit(lines: list[str], level: int = 0, text: str = "") -> None:
     lines.append("\t" * level + text if text else "")
 
 
 CANDIDATE_METRICS_PREPARED_FLAG = "tv_victory_task_candidate_metrics_prepared"
+TASK_REFRESH_PRESTIGE_COST = 10
 
 
 def uses_monthly_pulse(task: dict) -> bool:
@@ -1044,11 +1049,12 @@ def generate_effects(data: dict, script: str) -> str:
 
 
 def generate_actions(data: dict, script: str) -> str:
-    lines = [header(script, "Eighteen player-only click-to-claim slot actions."), ""]
+    lines = [header(script, "Player-only task claim and right-click refresh actions."), ""]
     for path_id in PATH_IDS:
         for slot in SLOTS:
             prefix = slot_prefix(path_id, slot)
             name = action_name(path_id, slot)
+            refresh_name = refresh_action_name(path_id, slot)
             emit(lines, 0, f"{name} = {{")
             emit(lines, 1, "type = owncountry")
             emit(lines, 1, "show_message = no")
@@ -1066,6 +1072,32 @@ def generate_actions(data: dict, script: str) -> str:
             emit(lines, 1, "ai_will_do = { add = -100 }")
             emit(lines, 0, "}")
             emit(lines)
+            emit(lines, 0, f"{refresh_name} = {{")
+            emit(lines, 1, "type = owncountry")
+            emit(lines, 1, "show_message = no")
+            emit(lines, 1, "ai_tick = never")
+            emit(lines, 1, "automation_tick = never")
+            emit(lines, 1, "potential = { scope:actor = { is_human = yes has_variable = tv_" + path_id + "_victory_enabled var:" + prefix + "_id ?= { this > 0 } } }")
+            emit(lines, 1, f"allow = {{ scope:actor = {{ prestige >= {TASK_REFRESH_PRESTIGE_COST} }} }}")
+            emit(lines, 1, "effect = {")
+            emit(lines, 2, "scope:actor = {")
+            emit(lines, 3, "hidden_effect = {")
+            emit(lines, 4, "if = {")
+            emit(lines, 5, "limit = {")
+            emit(lines, 6, "is_human = yes")
+            emit(lines, 6, f"has_variable = tv_{path_id}_victory_enabled")
+            emit(lines, 6, f"var:{prefix}_id ?= {{ this > 0 }}")
+            emit(lines, 6, f"prestige >= {TASK_REFRESH_PRESTIGE_COST}")
+            emit(lines, 5, "}")
+            emit(lines, 5, f"add_prestige = -{TASK_REFRESH_PRESTIGE_COST}")
+            emit(lines, 5, f"{refresh_effect(path_id, slot)} = yes")
+            emit(lines, 4, "}")
+            emit(lines, 3, "}")
+            emit(lines, 2, "}")
+            emit(lines, 1, "}")
+            emit(lines, 1, "ai_will_do = { add = -100 }")
+            emit(lines, 0, "}")
+            emit(lines)
     return "\n".join(lines)
 
 
@@ -1077,6 +1109,7 @@ def generate_ai_list(data: dict, script: str) -> str:
     for path_id in PATH_IDS:
         for slot in SLOTS:
             emit(lines, 2, action_name(path_id, slot))
+            emit(lines, 2, refresh_action_name(path_id, slot))
     emit(lines, 1, "}")
     emit(lines, 0, "}")
     emit(lines)
@@ -1256,7 +1289,12 @@ def generate_localization(data: dict, script: str, *, language: str) -> str:
     lines.append(f" TV_VICTORY_TASK_NO_AVAILABLE_ICON: {_yaml_quote('@trigger_fail!')}")
     lines.append(f" TV_VICTORY_TASK_NO_AVAILABLE_NAME: {_yaml_quote('@trigger_fail! ' + no_available)}")
     lines.append(f" TV_VICTORY_TASK_NO_AVAILABLE_REQUIREMENT: {_yaml_quote(no_requirement)}")
-    lines.append(f" TV_VICTORY_TASK_CLAIM_HINT: {_yaml_quote('左键点击领取：对应路线节点进度 +1。' if zh else 'Left-click to claim: +1 node progress for this Victory Path.')}")
+    claim_hint = (
+        "左键点击领取：对应路线节点进度 +1。\\n右键点击：消耗 #Y 10 点威望#!，立即刷新此槽位。"
+        if zh
+        else "Left-click to claim: +1 node progress for this Victory Path.\\nRight-click: spend #Y 10 Prestige#! to refresh this slot immediately."
+    )
+    lines.append(f" TV_VICTORY_TASK_CLAIM_HINT: {_yaml_quote(claim_hint)}")
     for task in all_tasks(data):
         title = task["loc"]["zh" if zh else "en"]
         requirement = task["requirement"]["zh" if zh else "en"]
@@ -1274,16 +1312,36 @@ def generate_localization(data: dict, script: str, *, language: str) -> str:
     for path_id in PATH_IDS:
         for slot in SLOTS:
             name = action_name(path_id, slot)
+            refresh_name = refresh_action_name(path_id, slot)
             title = "领取胜利之路任务" if zh else "Claim Victory Path Task"
-            desc = "完成任务后获得该路线1点节点解锁进度，并刷新此槽位。" if zh else "Gain exactly 1 node-unlock point for this path, then refresh this slot."
+            desc = (
+                "左键：完成任务后获得该路线1点节点解锁进度，并刷新此槽位。右键：消耗 #Y 10 点威望#!，立即刷新此槽位。"
+                if zh
+                else "Left-click: gain exactly 1 node-unlock point for this path, then refresh this slot. Right-click: spend #Y 10 Prestige#! to refresh this slot immediately."
+            )
+            refresh_title = "刷新胜利之路任务" if zh else "Refresh Victory Path Task"
+            refresh_desc = (
+                "消耗 #Y 10 点威望#!，立即刷新此任务槽位。"
+                if zh
+                else "Spend #Y 10 Prestige#! to immediately refresh this task slot."
+            )
             lines.append(f" {name}: {_yaml_quote(title)}")
             lines.append(f" {name}_desc: {_yaml_quote(desc)}")
+            lines.append(f" {refresh_name}: {_yaml_quote(refresh_title)}")
+            lines.append(f" {refresh_name}_desc: {_yaml_quote(refresh_desc)}")
     message_setup = "当我们领取一个胜利之路任务时。" if zh else "When we claim a Victory Path task."
     message_log = "我们领取了一个胜利之路任务。" if zh else "We claimed a Victory Path task."
+    refresh_message_setup = "当我们消耗威望刷新一个胜利之路任务时。" if zh else "When we spend Prestige to refresh a Victory Path task."
+    refresh_message_log = "我们消耗威望刷新了一个胜利之路任务。" if zh else "We spent Prestige to refresh a Victory Path task."
     for path_id in PATH_IDS:
         for slot in SLOTS:
             name = action_name(path_id, slot)
-            lines.append(f" PERFORM_{name}_ACTION_SETUP: {_yaml_quote(message_setup)}")
-            lines.append(f" PERFORM_{name}_ACTION_LOG: {_yaml_quote(message_log)}")
-            lines.append(f" PERFORM_{name}_ACTION_MAP: {_yaml_quote('')}")
+            refresh_name = refresh_action_name(path_id, slot)
+            for action, setup, log in (
+                (name, message_setup, message_log),
+                (refresh_name, refresh_message_setup, refresh_message_log),
+            ):
+                lines.append(f" PERFORM_{action}_ACTION_SETUP: {_yaml_quote(setup)}")
+                lines.append(f" PERFORM_{action}_ACTION_LOG: {_yaml_quote(log)}")
+                lines.append(f" PERFORM_{action}_ACTION_MAP: {_yaml_quote('')}")
     return "\n".join(lines) + "\n"

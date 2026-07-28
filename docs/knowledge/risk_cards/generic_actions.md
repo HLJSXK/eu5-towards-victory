@@ -157,6 +157,13 @@ execution time can still spam runtime errors while the mouse is merely hovering 
    "all locations controlled" check, put `NOT = { owner ?= <country> }` inside the filtered
    iterator so an ownable ownerless location correctly remains unconquered without logging.
 
+22. Bind an ordinary right-click action with `right_action`.
+   In an `action_button`, use `right_action = { action_name = <id> }` when a single right
+   click should execute a separate generic action. `right_click_and_hold_action` is a distinct
+   hold-to-confirm interaction and must not replace an ordinary right click. The right-click
+   action still needs its own `potential`, `allow`, guarded `effect`, AI-list registration,
+   message type, and localization.
+
 ## Safe Skeleton
 
 ```txt
@@ -236,6 +243,8 @@ rationale.
 - `generic_action_scripted_trigger_assumes_root_owner` [advisory]: A scripted trigger reached
   from a generic action uses `root` after entering a nested scope; save the country with
   `save_temporary_scope_as` at trigger entry and use the saved scope in nested comparisons.
+- `generic_action_single_right_click_uses_right_action` [advisory]: A normal right-click action
+  must use `right_action`; reserve `right_click_and_hold_action` for deliberate hold interactions.
 - `variable_map_key_iterator_scope_used_for_map_read` [needs_parser]: A key-iterator callback
   should not run `is_key_in_variable_map` on the current numeric key scope; save the map owner,
   copy `this` into a local variable, and check sibling maps from the owner scope.
