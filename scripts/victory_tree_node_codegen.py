@@ -258,15 +258,6 @@ def generate_ai_list(data: dict, regen_script: str) -> str:
 # 4. LOCALIZATION
 # ─────────────────────────────────────────────────────────────────────────────
 
-def _prereq_effect_label(path: dict, node: dict) -> str | None:
-    if not node["parent_id"]:
-        return None
-    for n in flatten_nodes(path):
-        if n["id"] == node["parent_id"]:
-            return n["effect"]
-    return None
-
-
 def _node_flavor_name(data: dict, pid: str, node_id: str, lang: str) -> str:
     """Return the data-owned, localized title of a node's permanent reward."""
     return data["node_flavor_names"][pid][node_id][lang]
@@ -310,16 +301,7 @@ def generate_loc(data: dict, regen_script: str, *, lang: str) -> str:
         for node in flatten_nodes(path):
             key = action_name(pid, node["id"])
             title = _node_flavor_name(data, pid, node["id"], lang)
-            prereq = _prereq_effect_label(path, node)
-            if zh:
-                desc_parts = [f"花费：#Y {node['cost']} 点#!"]
-                if prereq:
-                    desc_parts.append(f"需求：{prereq}")
-            else:
-                desc_parts = [f"Cost: #Y {node['cost']} points#!"]
-                if prereq:
-                    desc_parts.append(f"Requires: {prereq}")
-            desc_line = " \\n".join(desc_parts)
+            desc_line = f"[ShowModifierEffect('{modifier_name(pid, node['id'])}')]"
             lines.append(f' {key}:0 "#G {title}#!"')
             lines.append(f' {key}_desc:0 "{desc_line}"')
             lines.append(
