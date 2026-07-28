@@ -7,10 +7,11 @@
 
 # Target-state triggers
 tv_victory_task_1101_current_condition = {
+	save_temporary_scope_as = tv_victory_task_trigger_owner
 	NOT = {
 		any_location_in_the_world = {
-			dominant_culture = root.culture
-			NOT = { owner = root }
+			dominant_culture = scope:tv_victory_task_trigger_owner.culture
+			NOT = { owner = scope:tv_victory_task_trigger_owner }
 		}
 	}
 }
@@ -20,19 +21,23 @@ tv_victory_task_1102_current_condition = {
 }
 
 tv_victory_task_1103_current_condition = {
-	capital.area = { NOT = { any_location_in_area = { NOT = { owner = root } } } }
+	save_temporary_scope_as = tv_victory_task_trigger_owner
+	capital.area = { NOT = { any_location_in_area = { NOT = { owner = scope:tv_victory_task_trigger_owner } } } }
 }
 
 tv_victory_task_1104_current_condition = {
-	capital.region = { NOT = { any_location_in_region = { NOT = { owner = root } } } }
+	save_temporary_scope_as = tv_victory_task_trigger_owner
+	capital.region = { NOT = { any_location_in_region = { NOT = { owner = scope:tv_victory_task_trigger_owner } } } }
 }
 
 tv_victory_task_1105_current_condition = {
-	capital.sub_continent = { NOT = { any_location_in_sub_continent = { NOT = { owner = root } } } }
+	save_temporary_scope_as = tv_victory_task_trigger_owner
+	capital.sub_continent = { NOT = { any_location_in_sub_continent = { NOT = { owner = scope:tv_victory_task_trigger_owner } } } }
 }
 
 tv_victory_task_1106_current_condition = {
-	capital.continent = { NOT = { any_location_in_continent = { NOT = { owner = root } } } }
+	save_temporary_scope_as = tv_victory_task_trigger_owner
+	capital.continent = { NOT = { any_location_in_continent = { NOT = { owner = scope:tv_victory_task_trigger_owner } } } }
 }
 
 tv_victory_task_1107_current_condition = {
@@ -43,7 +48,8 @@ tv_victory_task_1107_current_condition = {
 }
 
 tv_victory_task_2101_current_condition = {
-	capital = { market = { location = root.capital } }
+	save_temporary_scope_as = tv_victory_task_trigger_owner
+	capital = { market = { location = scope:tv_victory_task_trigger_owner.capital } }
 }
 
 tv_victory_task_2102_current_condition = {
@@ -103,9 +109,10 @@ tv_victory_task_4101_current_condition = {
 }
 
 tv_victory_task_4102_current_condition = {
+	save_temporary_scope_as = tv_victory_task_trigger_owner
 	any_known_country = {
-		is_allied_with = { target = root }
-		relative_military_strength = { target = root value > 0.5 }
+		is_allied_with = { target = scope:tv_victory_task_trigger_owner }
+		relative_military_strength = { target = scope:tv_victory_task_trigger_owner value > 0.5 }
 	}
 }
 
@@ -114,7 +121,8 @@ tv_victory_task_4103_current_condition = {
 }
 
 tv_victory_task_4104_current_condition = {
-	any_international_organizations_member_of = { international_organization_type = international_organization_type:hre leader_country = root }
+	save_temporary_scope_as = tv_victory_task_trigger_owner
+	any_international_organizations_member_of = { international_organization_type = international_organization_type:hre leader_country = scope:tv_victory_task_trigger_owner }
 }
 
 tv_victory_task_4105_current_condition = {
@@ -122,11 +130,13 @@ tv_victory_task_4105_current_condition = {
 }
 
 tv_victory_task_4106_current_condition = {
-	any_international_organizations_member_of = { international_organization_type = international_organization_type:middle_kingdom leader_country = root }
+	save_temporary_scope_as = tv_victory_task_trigger_owner
+	any_international_organizations_member_of = { international_organization_type = international_organization_type:middle_kingdom leader_country = scope:tv_victory_task_trigger_owner }
 }
 
 tv_victory_task_4107_current_condition = {
-	union ?= { country_is_senior_partner = { country = root } }
+	save_temporary_scope_as = tv_victory_task_trigger_owner
+	union ?= { country_is_senior_partner = { country = scope:tv_victory_task_trigger_owner } }
 }
 
 tv_victory_task_5101_current_condition = {
@@ -882,9 +892,10 @@ tv_victory_task_3002_candidate = {
 
 tv_victory_task_3101_candidate = {
 	is_human = yes
+	save_temporary_scope_as = tv_victory_task_candidate_owner
 	NOT = { has_variable = tv_victory_task_3101_claimed }
 	NOT = { has_global_variable = tv_victory_task_price_1_triggered }
-	capital.market ?= { location.continent = continent:europe has_merchant = root most_powerful_merchant = root }
+	capital.market ?= { location.continent = continent:europe has_merchant = scope:tv_victory_task_candidate_owner most_powerful_merchant = scope:tv_victory_task_candidate_owner }
 }
 
 tv_victory_task_3102_candidate = {
@@ -1110,8 +1121,9 @@ tv_victory_task_4102_candidate = {
 
 tv_victory_task_4103_candidate = {
 	is_human = yes
+	save_temporary_scope_as = tv_victory_task_candidate_owner
 	NOT = { has_variable = tv_victory_task_4103_claimed }
-	any_country = { is_rival_of = root }
+	any_country = { is_rival_of = scope:tv_victory_task_candidate_owner }
 }
 
 tv_victory_task_4104_candidate = {
@@ -1691,6 +1703,7 @@ tv_science_task_slot_3_has_national_special_candidate = { always = no }
 
 # Fixed GUI-facing slot triggers. Each route dispatches by the slot's stable task ID.
 tv_conquest_task_slot_1_display_trigger = {
+	save_temporary_scope_as = tv_victory_task_display_owner
 	switch = {
 		trigger = var:tv_conquest_task_slot_1_id
 		0 = {
@@ -1699,28 +1712,19 @@ tv_conquest_task_slot_1_display_trigger = {
 		1001 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_1001_CONQUEST_1_REQUIREMENT
-				OR = {
-					has_variable = tv_conquest_task_slot_1_complete
-					var:tv_victory_task_metric_total_locations ?= { this >= var:tv_conquest_task_slot_1_target }
-				}
+				has_variable = tv_conquest_task_slot_1_complete
 			}
 		}
 		1002 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_1002_CONQUEST_1_REQUIREMENT
-				OR = {
-					has_variable = tv_conquest_task_slot_1_complete
-					var:tv_victory_task_metric_owned_locations ?= { this >= var:tv_conquest_task_slot_1_target }
-				}
+				has_variable = tv_conquest_task_slot_1_complete
 			}
 		}
 		1003 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_1003_CONQUEST_1_REQUIREMENT
-				OR = {
-					has_variable = tv_conquest_task_slot_1_complete
-					var:tv_victory_task_metric_colonial_locations ?= { this >= var:tv_conquest_task_slot_1_target }
-				}
+				has_variable = tv_conquest_task_slot_1_complete
 			}
 		}
 		1101 = {
@@ -1740,8 +1744,8 @@ tv_conquest_task_slot_1_display_trigger = {
 					var:tv_conquest_task_slot_1_culture_group ?= {
 						NOT = {
 							any_location_in_the_world = {
-								dominant_culture = { any_culture_group = { this = root.var:tv_conquest_task_slot_1_culture_group } }
-								NOT = { owner = root }
+								dominant_culture = { any_culture_group = { this = scope:tv_victory_task_display_owner.var:tv_conquest_task_slot_1_culture_group } }
+								NOT = { owner = scope:tv_victory_task_display_owner }
 							}
 						}
 					}
@@ -1797,6 +1801,7 @@ tv_conquest_task_slot_1_display_trigger = {
 }
 
 tv_conquest_task_slot_2_display_trigger = {
+	save_temporary_scope_as = tv_victory_task_display_owner
 	switch = {
 		trigger = var:tv_conquest_task_slot_2_id
 		0 = {
@@ -1805,28 +1810,19 @@ tv_conquest_task_slot_2_display_trigger = {
 		1001 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_1001_CONQUEST_2_REQUIREMENT
-				OR = {
-					has_variable = tv_conquest_task_slot_2_complete
-					var:tv_victory_task_metric_total_locations ?= { this >= var:tv_conquest_task_slot_2_target }
-				}
+				has_variable = tv_conquest_task_slot_2_complete
 			}
 		}
 		1002 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_1002_CONQUEST_2_REQUIREMENT
-				OR = {
-					has_variable = tv_conquest_task_slot_2_complete
-					var:tv_victory_task_metric_owned_locations ?= { this >= var:tv_conquest_task_slot_2_target }
-				}
+				has_variable = tv_conquest_task_slot_2_complete
 			}
 		}
 		1003 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_1003_CONQUEST_2_REQUIREMENT
-				OR = {
-					has_variable = tv_conquest_task_slot_2_complete
-					var:tv_victory_task_metric_colonial_locations ?= { this >= var:tv_conquest_task_slot_2_target }
-				}
+				has_variable = tv_conquest_task_slot_2_complete
 			}
 		}
 		1101 = {
@@ -1846,8 +1842,8 @@ tv_conquest_task_slot_2_display_trigger = {
 					var:tv_conquest_task_slot_2_culture_group ?= {
 						NOT = {
 							any_location_in_the_world = {
-								dominant_culture = { any_culture_group = { this = root.var:tv_conquest_task_slot_2_culture_group } }
-								NOT = { owner = root }
+								dominant_culture = { any_culture_group = { this = scope:tv_victory_task_display_owner.var:tv_conquest_task_slot_2_culture_group } }
+								NOT = { owner = scope:tv_victory_task_display_owner }
 							}
 						}
 					}
@@ -1903,6 +1899,7 @@ tv_conquest_task_slot_2_display_trigger = {
 }
 
 tv_conquest_task_slot_3_display_trigger = {
+	save_temporary_scope_as = tv_victory_task_display_owner
 	switch = {
 		trigger = var:tv_conquest_task_slot_3_id
 		0 = {
@@ -1911,28 +1908,19 @@ tv_conquest_task_slot_3_display_trigger = {
 		1001 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_1001_CONQUEST_3_REQUIREMENT
-				OR = {
-					has_variable = tv_conquest_task_slot_3_complete
-					var:tv_victory_task_metric_total_locations ?= { this >= var:tv_conquest_task_slot_3_target }
-				}
+				has_variable = tv_conquest_task_slot_3_complete
 			}
 		}
 		1002 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_1002_CONQUEST_3_REQUIREMENT
-				OR = {
-					has_variable = tv_conquest_task_slot_3_complete
-					var:tv_victory_task_metric_owned_locations ?= { this >= var:tv_conquest_task_slot_3_target }
-				}
+				has_variable = tv_conquest_task_slot_3_complete
 			}
 		}
 		1003 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_1003_CONQUEST_3_REQUIREMENT
-				OR = {
-					has_variable = tv_conquest_task_slot_3_complete
-					var:tv_victory_task_metric_colonial_locations ?= { this >= var:tv_conquest_task_slot_3_target }
-				}
+				has_variable = tv_conquest_task_slot_3_complete
 			}
 		}
 		1101 = {
@@ -1952,8 +1940,8 @@ tv_conquest_task_slot_3_display_trigger = {
 					var:tv_conquest_task_slot_3_culture_group ?= {
 						NOT = {
 							any_location_in_the_world = {
-								dominant_culture = { any_culture_group = { this = root.var:tv_conquest_task_slot_3_culture_group } }
-								NOT = { owner = root }
+								dominant_culture = { any_culture_group = { this = scope:tv_victory_task_display_owner.var:tv_conquest_task_slot_3_culture_group } }
+								NOT = { owner = scope:tv_victory_task_display_owner }
 							}
 						}
 					}
@@ -2017,46 +2005,31 @@ tv_prosperity_task_slot_1_display_trigger = {
 		2001 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_2001_PROSPERITY_1_REQUIREMENT
-				OR = {
-					has_variable = tv_prosperity_task_slot_1_complete
-					var:tv_victory_task_metric_tax_base ?= { this >= var:tv_prosperity_task_slot_1_target }
-				}
+				has_variable = tv_prosperity_task_slot_1_complete
 			}
 		}
 		2002 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_2002_PROSPERITY_1_REQUIREMENT
-				OR = {
-					has_variable = tv_prosperity_task_slot_1_complete
-					var:tv_victory_task_metric_population ?= { this >= var:tv_prosperity_task_slot_1_target }
-				}
+				has_variable = tv_prosperity_task_slot_1_complete
 			}
 		}
 		2003 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_2003_PROSPERITY_1_REQUIREMENT
-				OR = {
-					has_variable = tv_prosperity_task_slot_1_complete
-					var:tv_victory_task_metric_average_development ?= { this >= var:tv_prosperity_task_slot_1_target }
-				}
+				has_variable = tv_prosperity_task_slot_1_complete
 			}
 		}
 		2004 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_2004_PROSPERITY_1_REQUIREMENT
-				OR = {
-					has_variable = tv_prosperity_task_slot_1_complete
-					var:tv_victory_task_metric_average_prosperity_pct ?= { this >= var:tv_prosperity_task_slot_1_target }
-				}
+				has_variable = tv_prosperity_task_slot_1_complete
 			}
 		}
 		2005 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_2005_PROSPERITY_1_REQUIREMENT
-				OR = {
-					has_variable = tv_prosperity_task_slot_1_complete
-					var:tv_victory_task_metric_average_control_pct ?= { this >= var:tv_prosperity_task_slot_1_target }
-				}
+				has_variable = tv_prosperity_task_slot_1_complete
 			}
 		}
 		2101 = {
@@ -2116,46 +2089,31 @@ tv_prosperity_task_slot_2_display_trigger = {
 		2001 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_2001_PROSPERITY_2_REQUIREMENT
-				OR = {
-					has_variable = tv_prosperity_task_slot_2_complete
-					var:tv_victory_task_metric_tax_base ?= { this >= var:tv_prosperity_task_slot_2_target }
-				}
+				has_variable = tv_prosperity_task_slot_2_complete
 			}
 		}
 		2002 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_2002_PROSPERITY_2_REQUIREMENT
-				OR = {
-					has_variable = tv_prosperity_task_slot_2_complete
-					var:tv_victory_task_metric_population ?= { this >= var:tv_prosperity_task_slot_2_target }
-				}
+				has_variable = tv_prosperity_task_slot_2_complete
 			}
 		}
 		2003 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_2003_PROSPERITY_2_REQUIREMENT
-				OR = {
-					has_variable = tv_prosperity_task_slot_2_complete
-					var:tv_victory_task_metric_average_development ?= { this >= var:tv_prosperity_task_slot_2_target }
-				}
+				has_variable = tv_prosperity_task_slot_2_complete
 			}
 		}
 		2004 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_2004_PROSPERITY_2_REQUIREMENT
-				OR = {
-					has_variable = tv_prosperity_task_slot_2_complete
-					var:tv_victory_task_metric_average_prosperity_pct ?= { this >= var:tv_prosperity_task_slot_2_target }
-				}
+				has_variable = tv_prosperity_task_slot_2_complete
 			}
 		}
 		2005 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_2005_PROSPERITY_2_REQUIREMENT
-				OR = {
-					has_variable = tv_prosperity_task_slot_2_complete
-					var:tv_victory_task_metric_average_control_pct ?= { this >= var:tv_prosperity_task_slot_2_target }
-				}
+				has_variable = tv_prosperity_task_slot_2_complete
 			}
 		}
 		2101 = {
@@ -2215,46 +2173,31 @@ tv_prosperity_task_slot_3_display_trigger = {
 		2001 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_2001_PROSPERITY_3_REQUIREMENT
-				OR = {
-					has_variable = tv_prosperity_task_slot_3_complete
-					var:tv_victory_task_metric_tax_base ?= { this >= var:tv_prosperity_task_slot_3_target }
-				}
+				has_variable = tv_prosperity_task_slot_3_complete
 			}
 		}
 		2002 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_2002_PROSPERITY_3_REQUIREMENT
-				OR = {
-					has_variable = tv_prosperity_task_slot_3_complete
-					var:tv_victory_task_metric_population ?= { this >= var:tv_prosperity_task_slot_3_target }
-				}
+				has_variable = tv_prosperity_task_slot_3_complete
 			}
 		}
 		2003 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_2003_PROSPERITY_3_REQUIREMENT
-				OR = {
-					has_variable = tv_prosperity_task_slot_3_complete
-					var:tv_victory_task_metric_average_development ?= { this >= var:tv_prosperity_task_slot_3_target }
-				}
+				has_variable = tv_prosperity_task_slot_3_complete
 			}
 		}
 		2004 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_2004_PROSPERITY_3_REQUIREMENT
-				OR = {
-					has_variable = tv_prosperity_task_slot_3_complete
-					var:tv_victory_task_metric_average_prosperity_pct ?= { this >= var:tv_prosperity_task_slot_3_target }
-				}
+				has_variable = tv_prosperity_task_slot_3_complete
 			}
 		}
 		2005 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_2005_PROSPERITY_3_REQUIREMENT
-				OR = {
-					has_variable = tv_prosperity_task_slot_3_complete
-					var:tv_victory_task_metric_average_control_pct ?= { this >= var:tv_prosperity_task_slot_3_target }
-				}
+				has_variable = tv_prosperity_task_slot_3_complete
 			}
 		}
 		2101 = {
@@ -2314,19 +2257,13 @@ tv_trade_task_slot_1_display_trigger = {
 		3001 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_3001_TRADE_1_REQUIREMENT
-				OR = {
-					has_variable = tv_trade_task_slot_1_complete
-					var:tv_victory_task_metric_trade_income ?= { this >= var:tv_trade_task_slot_1_target }
-				}
+				has_variable = tv_trade_task_slot_1_complete
 			}
 		}
 		3002 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_3002_TRADE_1_REQUIREMENT
-				OR = {
-					has_variable = tv_trade_task_slot_1_complete
-					var:tv_victory_task_metric_dominant_markets ?= { this >= var:tv_trade_task_slot_1_target }
-				}
+				has_variable = tv_trade_task_slot_1_complete
 			}
 		}
 		3101 = {
@@ -2422,19 +2359,13 @@ tv_trade_task_slot_2_display_trigger = {
 		3001 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_3001_TRADE_2_REQUIREMENT
-				OR = {
-					has_variable = tv_trade_task_slot_2_complete
-					var:tv_victory_task_metric_trade_income ?= { this >= var:tv_trade_task_slot_2_target }
-				}
+				has_variable = tv_trade_task_slot_2_complete
 			}
 		}
 		3002 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_3002_TRADE_2_REQUIREMENT
-				OR = {
-					has_variable = tv_trade_task_slot_2_complete
-					var:tv_victory_task_metric_dominant_markets ?= { this >= var:tv_trade_task_slot_2_target }
-				}
+				has_variable = tv_trade_task_slot_2_complete
 			}
 		}
 		3101 = {
@@ -2530,19 +2461,13 @@ tv_trade_task_slot_3_display_trigger = {
 		3001 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_3001_TRADE_3_REQUIREMENT
-				OR = {
-					has_variable = tv_trade_task_slot_3_complete
-					var:tv_victory_task_metric_trade_income ?= { this >= var:tv_trade_task_slot_3_target }
-				}
+				has_variable = tv_trade_task_slot_3_complete
 			}
 		}
 		3002 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_3002_TRADE_3_REQUIREMENT
-				OR = {
-					has_variable = tv_trade_task_slot_3_complete
-					var:tv_victory_task_metric_dominant_markets ?= { this >= var:tv_trade_task_slot_3_target }
-				}
+				has_variable = tv_trade_task_slot_3_complete
 			}
 		}
 		3101 = {
@@ -2638,19 +2563,13 @@ tv_diplomatic_task_slot_1_display_trigger = {
 		4001 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_4001_DIPLOMATIC_1_REQUIREMENT
-				OR = {
-					has_variable = tv_diplomatic_task_slot_1_complete
-					var:tv_victory_task_metric_diplomatic_reputation ?= { this >= var:tv_diplomatic_task_slot_1_target }
-				}
+				has_variable = tv_diplomatic_task_slot_1_complete
 			}
 		}
 		4002 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_4002_DIPLOMATIC_1_REQUIREMENT
-				OR = {
-					has_variable = tv_diplomatic_task_slot_1_complete
-					var:tv_victory_task_metric_alliance_level ?= { this >= var:tv_diplomatic_task_slot_1_target }
-				}
+				has_variable = tv_diplomatic_task_slot_1_complete
 			}
 		}
 		4101 = {
@@ -2728,19 +2647,13 @@ tv_diplomatic_task_slot_2_display_trigger = {
 		4001 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_4001_DIPLOMATIC_2_REQUIREMENT
-				OR = {
-					has_variable = tv_diplomatic_task_slot_2_complete
-					var:tv_victory_task_metric_diplomatic_reputation ?= { this >= var:tv_diplomatic_task_slot_2_target }
-				}
+				has_variable = tv_diplomatic_task_slot_2_complete
 			}
 		}
 		4002 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_4002_DIPLOMATIC_2_REQUIREMENT
-				OR = {
-					has_variable = tv_diplomatic_task_slot_2_complete
-					var:tv_victory_task_metric_alliance_level ?= { this >= var:tv_diplomatic_task_slot_2_target }
-				}
+				has_variable = tv_diplomatic_task_slot_2_complete
 			}
 		}
 		4101 = {
@@ -2818,19 +2731,13 @@ tv_diplomatic_task_slot_3_display_trigger = {
 		4001 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_4001_DIPLOMATIC_3_REQUIREMENT
-				OR = {
-					has_variable = tv_diplomatic_task_slot_3_complete
-					var:tv_victory_task_metric_diplomatic_reputation ?= { this >= var:tv_diplomatic_task_slot_3_target }
-				}
+				has_variable = tv_diplomatic_task_slot_3_complete
 			}
 		}
 		4002 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_4002_DIPLOMATIC_3_REQUIREMENT
-				OR = {
-					has_variable = tv_diplomatic_task_slot_3_complete
-					var:tv_victory_task_metric_alliance_level ?= { this >= var:tv_diplomatic_task_slot_3_target }
-				}
+				has_variable = tv_diplomatic_task_slot_3_complete
 			}
 		}
 		4101 = {
@@ -2908,55 +2815,37 @@ tv_cultural_task_slot_1_display_trigger = {
 		5001 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_5001_CULTURAL_1_REQUIREMENT
-				OR = {
-					has_variable = tv_cultural_task_slot_1_complete
-					var:tv_victory_task_metric_artworks ?= { this >= var:tv_cultural_task_slot_1_target }
-				}
+				has_variable = tv_cultural_task_slot_1_complete
 			}
 		}
 		5002 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_5002_CULTURAL_1_REQUIREMENT
-				OR = {
-					has_variable = tv_cultural_task_slot_1_complete
-					var:tv_victory_task_metric_best_art_quality_pct ?= { this >= var:tv_cultural_task_slot_1_target }
-				}
+				has_variable = tv_cultural_task_slot_1_complete
 			}
 		}
 		5003 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_5003_CULTURAL_1_REQUIREMENT
-				OR = {
-					has_variable = tv_cultural_task_slot_1_complete
-					var:tv_victory_task_metric_best_artist_skill_pct ?= { this >= var:tv_cultural_task_slot_1_target }
-				}
+				has_variable = tv_cultural_task_slot_1_complete
 			}
 		}
 		5004 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_5004_CULTURAL_1_REQUIREMENT
-				OR = {
-					has_variable = tv_cultural_task_slot_1_complete
-					var:tv_victory_task_metric_cultural_tradition ?= { this >= var:tv_cultural_task_slot_1_target }
-				}
+				has_variable = tv_cultural_task_slot_1_complete
 			}
 		}
 		5005 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_5005_CULTURAL_1_REQUIREMENT
-				OR = {
-					has_variable = tv_cultural_task_slot_1_complete
-					var:tv_victory_task_metric_cultural_influence ?= { this >= var:tv_cultural_task_slot_1_target }
-				}
+				has_variable = tv_cultural_task_slot_1_complete
 			}
 		}
 		5006 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_5006_CULTURAL_1_REQUIREMENT
-				OR = {
-					has_variable = tv_cultural_task_slot_1_complete
-					var:tv_victory_task_metric_exhibition_influence ?= { this >= var:tv_cultural_task_slot_1_target }
-				}
+				has_variable = tv_cultural_task_slot_1_complete
 			}
 		}
 		5101 = {
@@ -3034,55 +2923,37 @@ tv_cultural_task_slot_2_display_trigger = {
 		5001 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_5001_CULTURAL_2_REQUIREMENT
-				OR = {
-					has_variable = tv_cultural_task_slot_2_complete
-					var:tv_victory_task_metric_artworks ?= { this >= var:tv_cultural_task_slot_2_target }
-				}
+				has_variable = tv_cultural_task_slot_2_complete
 			}
 		}
 		5002 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_5002_CULTURAL_2_REQUIREMENT
-				OR = {
-					has_variable = tv_cultural_task_slot_2_complete
-					var:tv_victory_task_metric_best_art_quality_pct ?= { this >= var:tv_cultural_task_slot_2_target }
-				}
+				has_variable = tv_cultural_task_slot_2_complete
 			}
 		}
 		5003 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_5003_CULTURAL_2_REQUIREMENT
-				OR = {
-					has_variable = tv_cultural_task_slot_2_complete
-					var:tv_victory_task_metric_best_artist_skill_pct ?= { this >= var:tv_cultural_task_slot_2_target }
-				}
+				has_variable = tv_cultural_task_slot_2_complete
 			}
 		}
 		5004 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_5004_CULTURAL_2_REQUIREMENT
-				OR = {
-					has_variable = tv_cultural_task_slot_2_complete
-					var:tv_victory_task_metric_cultural_tradition ?= { this >= var:tv_cultural_task_slot_2_target }
-				}
+				has_variable = tv_cultural_task_slot_2_complete
 			}
 		}
 		5005 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_5005_CULTURAL_2_REQUIREMENT
-				OR = {
-					has_variable = tv_cultural_task_slot_2_complete
-					var:tv_victory_task_metric_cultural_influence ?= { this >= var:tv_cultural_task_slot_2_target }
-				}
+				has_variable = tv_cultural_task_slot_2_complete
 			}
 		}
 		5006 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_5006_CULTURAL_2_REQUIREMENT
-				OR = {
-					has_variable = tv_cultural_task_slot_2_complete
-					var:tv_victory_task_metric_exhibition_influence ?= { this >= var:tv_cultural_task_slot_2_target }
-				}
+				has_variable = tv_cultural_task_slot_2_complete
 			}
 		}
 		5101 = {
@@ -3160,55 +3031,37 @@ tv_cultural_task_slot_3_display_trigger = {
 		5001 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_5001_CULTURAL_3_REQUIREMENT
-				OR = {
-					has_variable = tv_cultural_task_slot_3_complete
-					var:tv_victory_task_metric_artworks ?= { this >= var:tv_cultural_task_slot_3_target }
-				}
+				has_variable = tv_cultural_task_slot_3_complete
 			}
 		}
 		5002 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_5002_CULTURAL_3_REQUIREMENT
-				OR = {
-					has_variable = tv_cultural_task_slot_3_complete
-					var:tv_victory_task_metric_best_art_quality_pct ?= { this >= var:tv_cultural_task_slot_3_target }
-				}
+				has_variable = tv_cultural_task_slot_3_complete
 			}
 		}
 		5003 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_5003_CULTURAL_3_REQUIREMENT
-				OR = {
-					has_variable = tv_cultural_task_slot_3_complete
-					var:tv_victory_task_metric_best_artist_skill_pct ?= { this >= var:tv_cultural_task_slot_3_target }
-				}
+				has_variable = tv_cultural_task_slot_3_complete
 			}
 		}
 		5004 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_5004_CULTURAL_3_REQUIREMENT
-				OR = {
-					has_variable = tv_cultural_task_slot_3_complete
-					var:tv_victory_task_metric_cultural_tradition ?= { this >= var:tv_cultural_task_slot_3_target }
-				}
+				has_variable = tv_cultural_task_slot_3_complete
 			}
 		}
 		5005 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_5005_CULTURAL_3_REQUIREMENT
-				OR = {
-					has_variable = tv_cultural_task_slot_3_complete
-					var:tv_victory_task_metric_cultural_influence ?= { this >= var:tv_cultural_task_slot_3_target }
-				}
+				has_variable = tv_cultural_task_slot_3_complete
 			}
 		}
 		5006 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_5006_CULTURAL_3_REQUIREMENT
-				OR = {
-					has_variable = tv_cultural_task_slot_3_complete
-					var:tv_victory_task_metric_exhibition_influence ?= { this >= var:tv_cultural_task_slot_3_target }
-				}
+				has_variable = tv_cultural_task_slot_3_complete
 			}
 		}
 		5101 = {
@@ -3286,10 +3139,7 @@ tv_science_task_slot_1_display_trigger = {
 		6001 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_6001_SCIENCE_1_REQUIREMENT
-				OR = {
-					has_variable = tv_science_task_slot_1_complete
-					var:tv_victory_task_metric_science_score ?= { this >= var:tv_science_task_slot_1_target }
-				}
+				has_variable = tv_science_task_slot_1_complete
 			}
 		}
 		6011 = {
@@ -3511,10 +3361,7 @@ tv_science_task_slot_2_display_trigger = {
 		6001 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_6001_SCIENCE_2_REQUIREMENT
-				OR = {
-					has_variable = tv_science_task_slot_2_complete
-					var:tv_victory_task_metric_science_score ?= { this >= var:tv_science_task_slot_2_target }
-				}
+				has_variable = tv_science_task_slot_2_complete
 			}
 		}
 		6011 = {
@@ -3736,10 +3583,7 @@ tv_science_task_slot_3_display_trigger = {
 		6001 = {
 			custom_tooltip = {
 				text = TV_VICTORY_TASK_6001_SCIENCE_3_REQUIREMENT
-				OR = {
-					has_variable = tv_science_task_slot_3_complete
-					var:tv_victory_task_metric_science_score ?= { this >= var:tv_science_task_slot_3_target }
-				}
+				has_variable = tv_science_task_slot_3_complete
 			}
 		}
 		6011 = {

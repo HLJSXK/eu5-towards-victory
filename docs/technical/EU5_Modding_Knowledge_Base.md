@@ -834,6 +834,14 @@ country after they enter nested IO/member iterators. If the helper needs to comp
 to the action actor or current country, save that owner at helper entry with `save_scope_as =
 <owner_scope>` and compare against `scope:<owner_scope>` instead of `root`.
 
+The same caller-sensitive-root rule applies to scripted triggers reached from a generic-action
+effect chain. A trigger such as `any_location_in_the_world = { owner = root }` can be valid from
+one caller and emit `Invalid right side during comparison 'root'` when action-tooltip
+pre-evaluation reaches it. At the country-scope entry of such a trigger, use
+`save_temporary_scope_as = <owner_scope>` and then compare nested scopes to
+`scope:<owner_scope>`; use `scope:<owner_scope>.culture` for country culture links. Do not use
+`save_scope_as` in a trigger context.
+
 Cleanup-only helpers are still different from player-facing effects: if the button is only
 clearing variables, removing list entries, stripping stale modifiers, or rebuilding display
 state, call that helper from `hidden_effect = { ... }` so the cleanup is not rendered as tooltip

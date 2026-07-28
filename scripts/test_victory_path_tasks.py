@@ -10,9 +10,11 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
 from scripts.victory_task_codegen import (
+    APPEARANCE_CONDITIONS_NEED_OWNER_SCOPE,
     CANDIDATE_METRICS_PREPARED_FLAG,
     PATH_IDS,
     SLOTS,
+    TARGET_CONDITIONS_NEED_OWNER_SCOPE,
     _extract_top_level_block,
     action_name,
     all_tasks,
@@ -21,6 +23,7 @@ from scripts.victory_task_codegen import (
     refill_empty_effect,
     refresh_effect,
     slot_prefix,
+    tasks_for_path,
 )
 
 
@@ -153,7 +156,30 @@ def main() -> None:
     assert "value = prev.art_quality" in art_quality_metric
     assert "multiply = 100" not in art_quality_metric
     assert "root.art_quality >= 80" in effects
-    assert "union ?= { country_is_senior_partner = { country = root } }" in triggers
+    assert "root" not in triggers
+    assert "this >= var:" not in triggers
+    assert "this >= var:" not in effects
+    assert triggers.count("save_temporary_scope_as = tv_victory_task_trigger_owner") == sum(
+        task["type"] == "target"
+        and task["completion"] in TARGET_CONDITIONS_NEED_OWNER_SCOPE
+        for task in tasks
+    )
+    assert triggers.count("save_temporary_scope_as = tv_victory_task_candidate_owner") == sum(
+        task["appearance"] in APPEARANCE_CONDITIONS_NEED_OWNER_SCOPE
+        for task in tasks
+    )
+    assert triggers.count("save_temporary_scope_as = tv_victory_task_display_owner") == (
+        sum(
+            any(
+                task["completion"] == "unite_culture_group"
+                for task in tasks_for_path(data, path_id)
+            )
+            for path_id in PATH_IDS
+        )
+        * len(SLOTS)
+    )
+    assert "set_local_variable = { name = tv_conquest_task_slot_1_completion_metric value = var:tv_victory_task_metric_total_locations }" in effects
+    assert "local_var:tv_conquest_task_slot_1_completion_metric < local_var:tv_conquest_task_slot_1_completion_target" in effects
     assert "every_ally = {" not in effects
     assert "any_ally = {" not in triggers
     assert "every_known_country = {" in _extract_top_level_block(
@@ -163,7 +189,8 @@ def main() -> None:
         triggers, "tv_victory_task_4102_current_condition"
     )
     assert "any_known_country = {" in strong_ally_condition
-    assert "is_allied_with = { target = root }" in strong_ally_condition
+    assert "save_temporary_scope_as = tv_victory_task_trigger_owner" in strong_ally_condition
+    assert "is_allied_with = { target = scope:tv_victory_task_trigger_owner }" in strong_ally_condition
     assert "any_location_in_the_world" in _extract_top_level_block(
         triggers, "tv_victory_task_1101_current_condition"
     )

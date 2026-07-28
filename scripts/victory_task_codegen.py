@@ -30,6 +30,22 @@ FONT_ICONS = REPO_ROOT / "reference_game_files/game/main_menu/gui/shared/font_ic
 PATH_IDS = ("conquest", "prosperity", "trade", "diplomatic", "cultural", "science")
 SLOTS = (1, 2, 3)
 PATH_ID_PREFIX = {path_id: index for index, path_id in enumerate(PATH_IDS, 1)}
+TARGET_CONDITIONS_NEED_OWNER_SCOPE = frozenset({
+    "unite_culture",
+    "unite_capital_area",
+    "unite_capital_region",
+    "unite_capital_subcontinent",
+    "unite_capital_continent",
+    "independent_market",
+    "strong_ally",
+    "hre_emperor",
+    "chinese_emperor",
+    "senior_union_partner",
+})
+APPEARANCE_CONDITIONS_NEED_OWNER_SCOPE = frozenset({
+    "triangle_trade_foothold",
+    "has_rival",
+})
 
 
 def _top_level_ids(path: Path) -> set[str]:
@@ -313,6 +329,7 @@ def _metric_effect(metric: str) -> list[str]:
 
 def _target_condition_body(task: dict) -> list[str]:
     key = task["completion"]
+    owner = "scope:tv_victory_task_trigger_owner"
     if key.startswith("callback") or key == "callback":
         return ["always = no"]
     if key == "institution_embraced":
@@ -321,24 +338,24 @@ def _target_condition_body(task: dict) -> list[str]:
         "unite_culture": [
             "NOT = {",
             "\tany_location_in_the_world = {",
-            "\t\tdominant_culture = root.culture",
-            "\t\tNOT = { owner = root }",
+            f"\t\tdominant_culture = {owner}.culture",
+            f"\t\tNOT = {{ owner = {owner} }}",
             "\t}",
             "}",
         ],
         # The culture-group scope is snapshotted into the active slot at assignment.
         "unite_culture_group": ["always = no"],
-        "unite_capital_area": ["capital.area = { NOT = { any_location_in_area = { NOT = { owner = root } } } }"],
-        "unite_capital_region": ["capital.region = { NOT = { any_location_in_region = { NOT = { owner = root } } } }"],
-        "unite_capital_subcontinent": ["capital.sub_continent = { NOT = { any_location_in_sub_continent = { NOT = { owner = root } } } }"],
-        "unite_capital_continent": ["capital.continent = { NOT = { any_location_in_continent = { NOT = { owner = root } } } }"],
+        "unite_capital_area": [f"capital.area = {{ NOT = {{ any_location_in_area = {{ NOT = {{ owner = {owner} }} }} }} }}"],
+        "unite_capital_region": [f"capital.region = {{ NOT = {{ any_location_in_region = {{ NOT = {{ owner = {owner} }} }} }} }}"],
+        "unite_capital_subcontinent": [f"capital.sub_continent = {{ NOT = {{ any_location_in_sub_continent = {{ NOT = {{ owner = {owner} }} }} }} }}"],
+        "unite_capital_continent": [f"capital.continent = {{ NOT = {{ any_location_in_continent = {{ NOT = {{ owner = {owner} }} }} }} }}"],
         "colonial_empire": [
             "any_subject_or_below = { is_colonial_subject = yes capital.sub_continent = sub_continent:north_america }",
             "any_subject_or_below = { is_colonial_subject = yes capital.sub_continent = sub_continent:south_america }",
             "any_subject_or_below = { is_colonial_subject = yes capital.continent = continent:africa }",
             "any_subject_or_below = { is_colonial_subject = yes capital.continent = continent:asia }",
         ],
-        "independent_market": ["capital = { market = { location = root.capital } }"],
+        "independent_market": [f"capital = {{ market = {{ location = {owner}.capital }} }}"],
         "capital_town": ["capital = { OR = { location_rank = location_rank:town location_rank = location_rank:city location_rank = location_rank:megalopolis } }"],
         "capital_city": ["capital = { OR = { location_rank = location_rank:city location_rank = location_rank:megalopolis } }"],
         "capital_megalopolis": ["capital = { location_rank = location_rank:megalopolis }"],
@@ -346,14 +363,14 @@ def _target_condition_body(task: dict) -> list[str]:
         "three_allies": [f"var:{metric_var('num_allies')} ?= {{ this >= 3 }}"],
         "strong_ally": [
             "any_known_country = {",
-            "\tis_allied_with = { target = root }",
-            "\trelative_military_strength = { target = root value > 0.5 }",
+            f"\tis_allied_with = {{ target = {owner} }}",
+            f"\trelative_military_strength = {{ target = {owner} value > 0.5 }}",
             "}",
         ],
-        "hre_emperor": ["any_international_organizations_member_of = { international_organization_type = international_organization_type:hre leader_country = root }"],
+        "hre_emperor": [f"any_international_organizations_member_of = {{ international_organization_type = international_organization_type:hre leader_country = {owner} }}"],
         "italian_wars_victor": ["OR = { has_italian_league_won_the_italian_wars = yes has_foreign_league_won_the_italian_wars = yes }"],
-        "chinese_emperor": ["any_international_organizations_member_of = { international_organization_type = international_organization_type:middle_kingdom leader_country = root }"],
-        "senior_union_partner": ["union ?= { country_is_senior_partner = { country = root } }"],
+        "chinese_emperor": [f"any_international_organizations_member_of = {{ international_organization_type = international_organization_type:middle_kingdom leader_country = {owner} }}"],
+        "senior_union_partner": [f"union ?= {{ country_is_senior_partner = {{ country = {owner} }} }}"],
         "survived_black_death": ["NOT = { is_situation_active = situation:black_death }", "has_variable = had_black_death"],
     }
     if key not in conditions:
@@ -363,6 +380,7 @@ def _target_condition_body(task: dict) -> list[str]:
 
 def _appearance_body(task: dict) -> list[str]:
     key = task["appearance"]
+    owner = "scope:tv_victory_task_candidate_owner"
     if key in {"default", "not_currently_complete", "next_threshold_above_current"}:
         return ["always = yes"]
     chain: dict[str, list[str]] = {
@@ -376,7 +394,7 @@ def _appearance_body(task: dict) -> list[str]:
         "has_colonial_subject_and_not_complete": ["any_subject_or_below = { is_colonial_subject = yes }"],
         "capital_is_town": ["capital = { location_rank = location_rank:town }"],
         "capital_is_city": ["capital = { location_rank = location_rank:city }"],
-        "triangle_trade_foothold": ["capital.market ?= { location.continent = continent:europe has_merchant = root most_powerful_merchant = root }"],
+        "triangle_trade_foothold": [f"capital.market ?= {{ location.continent = continent:europe has_merchant = {owner} most_powerful_merchant = {owner} }}"],
         "european_capital": ["capital.continent = continent:europe"],
         "coffee_event_basics": ["current_year >= 1500", "capital.continent = continent:europe", "religion.group = religion_group:christian"],
         "spice_trade_foothold": ["capital.continent = continent:europe", "num_of_ports >= 10"],
@@ -385,7 +403,7 @@ def _appearance_body(task: dict) -> list[str]:
         "bronze_cannon_basics": ["has_advance = artillery_institution_advance", "current_age = age_4_reformation"],
         "old_world_market": ["capital_in_old_world_trigger = yes", "has_markets = yes"],
         "tobacco_basics": ["capital_in_old_world_trigger = yes", "has_markets = yes", "OR = { religion.group = religion_group:christian religion.group = religion_group:muslim }"],
-        "has_rival": ["any_country = { is_rival_of = root }"],
+        "has_rival": [f"any_country = {{ is_rival_of = {owner} }}"],
         "hre_monarchy_not_emperor": ["government_type = government_type:monarchy", "any_international_organizations_member_of = { international_organization_type = international_organization_type:hre }"],
         "italian_wars_member": ["is_situation_active = situation:italian_wars", "is_member_of_any_italian_wars_league = yes"],
         "chinese_culture_group": ["culture = { has_culture_group = culture_group:chinese_group }"],
@@ -419,6 +437,8 @@ def generate_triggers(data: dict, script: str) -> str:
         if task["type"] != "target":
             continue
         emit(lines, 0, f"{task_condition_name(task)} = {{")
+        if task["completion"] in TARGET_CONDITIONS_NEED_OWNER_SCOPE:
+            emit(lines, 1, "save_temporary_scope_as = tv_victory_task_trigger_owner")
         for raw in _target_condition_body(task):
             emit(lines, 1, raw)
         emit(lines, 0, "}")
@@ -428,6 +448,8 @@ def generate_triggers(data: dict, script: str) -> str:
     for task in tasks:
         emit(lines, 0, f"{candidate_name(task)} = {{")
         emit(lines, 1, "is_human = yes")
+        if task["appearance"] in APPEARANCE_CONDITIONS_NEED_OWNER_SCOPE:
+            emit(lines, 1, "save_temporary_scope_as = tv_victory_task_candidate_owner")
         if task["type"] == "fixed":
             emit(lines, 1, "OR = {")
             for index, threshold in enumerate(task["thresholds"], 1):
@@ -460,9 +482,14 @@ def generate_triggers(data: dict, script: str) -> str:
     emit(lines, 0, "# Fixed GUI-facing slot triggers. Each route dispatches by the slot's stable task ID.")
     for path_id in PATH_IDS:
         path_tasks = tasks_for_path(data, path_id)
+        needs_display_owner_scope = any(
+            task["completion"] == "unite_culture_group" for task in path_tasks
+        )
         for slot in SLOTS:
             prefix = slot_prefix(path_id, slot)
             emit(lines, 0, f"{prefix}_display_trigger = {{")
+            if needs_display_owner_scope:
+                emit(lines, 1, "save_temporary_scope_as = tv_victory_task_display_owner")
             emit(lines, 1, "switch = {")
             emit(lines, 2, f"trigger = var:{prefix}_id")
             emit(lines, 2, "0 = {")
@@ -472,24 +499,25 @@ def generate_triggers(data: dict, script: str) -> str:
                 emit(lines, 2, f"{task['id']} = {{")
                 emit(lines, 3, "custom_tooltip = {")
                 emit(lines, 4, f"text = TV_VICTORY_TASK_{task['id']}_{path_id.upper()}_{slot}_REQUIREMENT")
-                emit(lines, 4, "OR = {")
-                emit(lines, 5, f"has_variable = {prefix}_complete")
                 if task["type"] == "fixed":
-                    emit(lines, 5, f"var:{metric_var(task['metric'])} ?= {{ this >= var:{prefix}_target }}")
-                elif task["completion"] == "unite_culture_group":
-                    emit(lines, 5, f"var:{prefix}_culture_group ?= {{")
-                    emit(lines, 6, "NOT = {")
-                    emit(lines, 7, "any_location_in_the_world = {")
-                    emit(lines, 8, "dominant_culture = { any_culture_group = { this = root.var:" + prefix + "_culture_group } }")
-                    emit(lines, 8, "NOT = { owner = root }")
-                    emit(lines, 7, "}")
-                    emit(lines, 6, "}")
-                    emit(lines, 5, "}")
-                elif task["completion"].startswith("callback") or task["completion"] == "callback":
-                    emit(lines, 5, "always = no")
+                    emit(lines, 4, f"has_variable = {prefix}_complete")
                 else:
-                    emit(lines, 5, f"{task_condition_name(task)} = yes")
-                emit(lines, 4, "}")
+                    emit(lines, 4, "OR = {")
+                    emit(lines, 5, f"has_variable = {prefix}_complete")
+                    if task["completion"] == "unite_culture_group":
+                        emit(lines, 5, f"var:{prefix}_culture_group ?= {{")
+                        emit(lines, 6, "NOT = {")
+                        emit(lines, 7, "any_location_in_the_world = {")
+                        emit(lines, 8, "dominant_culture = { any_culture_group = { this = scope:tv_victory_task_display_owner.var:" + prefix + "_culture_group } }")
+                        emit(lines, 8, "NOT = { owner = scope:tv_victory_task_display_owner }")
+                        emit(lines, 7, "}")
+                        emit(lines, 6, "}")
+                        emit(lines, 5, "}")
+                    elif task["completion"].startswith("callback") or task["completion"] == "callback":
+                        emit(lines, 5, "always = no")
+                    else:
+                        emit(lines, 5, f"{task_condition_name(task)} = yes")
+                    emit(lines, 4, "}")
                 emit(lines, 3, "}")
                 emit(lines, 2, "}")
             emit(lines, 1, "}")
@@ -608,8 +636,10 @@ def _emit_slot_update(lines: list[str], data: dict, path_id: str, slot: int) -> 
             emit(lines, 3, f"limit = {{ var:{prefix}_progress_pct > 100 }}")
             emit(lines, 3, f"set_variable = {{ name = {prefix}_progress_pct value = 100 }}")
             emit(lines, 2, "}")
+            emit(lines, 2, f"set_local_variable = {{ name = {prefix}_completion_metric value = var:{metric_var(metric)} }}")
+            emit(lines, 2, f"set_local_variable = {{ name = {prefix}_completion_target value = var:{prefix}_target }}")
             emit(lines, 2, "if = {")
-            emit(lines, 3, f"limit = {{ var:{metric_var(metric)} ?= {{ this >= var:{prefix}_target }} }}")
+            emit(lines, 3, f"limit = {{ NOT = {{ local_var:{prefix}_completion_metric < local_var:{prefix}_completion_target }} }}")
             emit(lines, 3, f"set_variable = {{ name = {prefix}_complete value = 1 }}")
             emit(lines, 3, f"set_variable = {{ name = {prefix}_progress_pct value = 100 }}")
             emit(lines, 2, "}")

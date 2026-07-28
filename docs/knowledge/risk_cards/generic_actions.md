@@ -143,6 +143,13 @@ execution time can still spam runtime errors while the mouse is merely hovering 
    point now warns against) and `scripts/victory_tree_node_codegen.py` `generate_actions` for
    the corrected implementation.
 
+20. Save the owner inside generic-action-reachable scripted triggers.
+   A scripted trigger can be reached from an action effect-tooltip pre-evaluation without a
+   valid `root`, even when its usual country-pulse caller has one. At a country-scoped trigger
+   entry, use `save_temporary_scope_as = <owner_scope>` and compare nested locations/countries
+   against `scope:<owner_scope>` (or `scope:<owner_scope>.culture`), never `root`. This is
+   distinct from scripted effects, which use `save_scope_as`.
+
 ## Safe Skeleton
 
 ```txt
@@ -219,6 +226,9 @@ rationale.
 - `generic_action_helper_assumes_root_owner` [needs_parser]: A reusable helper reached from a
   generic action should not compare nested IO state to `root` unless that root was verified; save
   the current owner as a named scope and compare against `scope:<saved_owner>`.
+- `generic_action_scripted_trigger_assumes_root_owner` [advisory]: A scripted trigger reached
+  from a generic action uses `root` after entering a nested scope; save the country with
+  `save_temporary_scope_as` at trigger entry and use the saved scope in nested comparisons.
 - `variable_map_key_iterator_scope_used_for_map_read` [needs_parser]: A key-iterator callback
   should not run `is_key_in_variable_map` on the current numeric key scope; save the map owner,
   copy `this` into a local variable, and check sibling maps from the owner scope.

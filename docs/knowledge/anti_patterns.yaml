@@ -1014,6 +1014,17 @@
   source: "runtime error.log: tv_establish_science_io -> tv_academy_debate_change_local_progress_effect, 2026-07-07"
   notes: "The Academy Philosophy debate progress helper used `leader_country ?= root` under `every_international_organizations_member_of`. Generic-action effect pre-evaluation reached it with no valid root RHS and logged `Invalid right side during comparison 'root'`; saving `tv_academy_debate_progress_owner` at helper start made the comparison stable."
 
+- id: generic_action_scripted_trigger_assumes_root_owner
+  detectability: advisory
+  pattern: ''
+  only_in_paths: ['generic_actions', 'scripted_triggers']
+  bad: "A scripted trigger reached from a generic-action effect uses `root`, `root.culture`, or another `root` link after entering a nested location/country scope, assuming the caller provides a valid country root."
+  correction: "At the scripted trigger's country-scope entry, use `save_temporary_scope_as = <owner_scope>` and use `scope:<owner_scope>` (or `scope:<owner_scope>.culture`) in nested trigger comparisons. Do not rely on the generic-action pre-evaluator to supply a valid `root`. In effect bodies, use `save_scope_as`; `save_temporary_scope_as` is for trigger contexts."
+  category: scope
+  scope: generic_actions
+  source: "User runtime log: tv_victory_claim_conquest_task_slot_2 -> tv_victory_path_tasks_claim_conquest_slot_2_effect -> tv_victory_path_tasks_refresh_conquest_slot_2_effect -> tv_victory_path_tasks_assign_conquest_slot_2_effect -> tv_victory_task_1101/1103/1104/1105/1106_candidate, 2026-07-28"
+  notes: "The Victory Path task generator emitted country-scoped candidate/current-condition triggers whose nested location checks compared `dominant_culture = root.culture` and `owner = root`. Generic-action effect-tooltip pre-evaluation supplied no valid root object, producing `Invalid right side during comparison 'culture'`, `Event target link 'dominant_culture' returned an invalid object`, and four `Invalid right side during comparison 'root'` errors. Each generated target trigger now saves `tv_victory_task_trigger_owner` with `save_temporary_scope_as` and uses that scope explicitly; candidate and display triggers use their own saved owners for every remaining nested country comparison."
+
 - id: trigger_loc_missing_first_perspective
   pattern: ''
   only_in_paths: ['trigger_localization']

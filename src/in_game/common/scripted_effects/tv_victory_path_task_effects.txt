@@ -169,8 +169,10 @@ tv_victory_path_tasks_update_conquest_slot_1_effect = {
 			limit = { var:tv_conquest_task_slot_1_progress_pct > 100 }
 			set_variable = { name = tv_conquest_task_slot_1_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_conquest_task_slot_1_completion_metric value = var:tv_victory_task_metric_total_locations }
+		set_local_variable = { name = tv_conquest_task_slot_1_completion_target value = var:tv_conquest_task_slot_1_target }
 		if = {
-			limit = { var:tv_victory_task_metric_total_locations ?= { this >= var:tv_conquest_task_slot_1_target } }
+			limit = { NOT = { local_var:tv_conquest_task_slot_1_completion_metric < local_var:tv_conquest_task_slot_1_completion_target } }
 			set_variable = { name = tv_conquest_task_slot_1_complete value = 1 }
 			set_variable = { name = tv_conquest_task_slot_1_progress_pct value = 100 }
 		}
@@ -192,8 +194,10 @@ tv_victory_path_tasks_update_conquest_slot_1_effect = {
 			limit = { var:tv_conquest_task_slot_1_progress_pct > 100 }
 			set_variable = { name = tv_conquest_task_slot_1_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_conquest_task_slot_1_completion_metric value = var:tv_victory_task_metric_colonial_locations }
+		set_local_variable = { name = tv_conquest_task_slot_1_completion_target value = var:tv_conquest_task_slot_1_target }
 		if = {
-			limit = { var:tv_victory_task_metric_colonial_locations ?= { this >= var:tv_conquest_task_slot_1_target } }
+			limit = { NOT = { local_var:tv_conquest_task_slot_1_completion_metric < local_var:tv_conquest_task_slot_1_completion_target } }
 			set_variable = { name = tv_conquest_task_slot_1_complete value = 1 }
 			set_variable = { name = tv_conquest_task_slot_1_progress_pct value = 100 }
 		}
@@ -215,8 +219,10 @@ tv_victory_path_tasks_update_conquest_slot_1_effect = {
 			limit = { var:tv_conquest_task_slot_1_progress_pct > 100 }
 			set_variable = { name = tv_conquest_task_slot_1_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_conquest_task_slot_1_completion_metric value = var:tv_victory_task_metric_owned_locations }
+		set_local_variable = { name = tv_conquest_task_slot_1_completion_target value = var:tv_conquest_task_slot_1_target }
 		if = {
-			limit = { var:tv_victory_task_metric_owned_locations ?= { this >= var:tv_conquest_task_slot_1_target } }
+			limit = { NOT = { local_var:tv_conquest_task_slot_1_completion_metric < local_var:tv_conquest_task_slot_1_completion_target } }
 			set_variable = { name = tv_conquest_task_slot_1_complete value = 1 }
 			set_variable = { name = tv_conquest_task_slot_1_progress_pct value = 100 }
 		}
@@ -297,8 +303,10 @@ tv_victory_path_tasks_update_conquest_slot_2_effect = {
 			limit = { var:tv_conquest_task_slot_2_progress_pct > 100 }
 			set_variable = { name = tv_conquest_task_slot_2_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_conquest_task_slot_2_completion_metric value = var:tv_victory_task_metric_total_locations }
+		set_local_variable = { name = tv_conquest_task_slot_2_completion_target value = var:tv_conquest_task_slot_2_target }
 		if = {
-			limit = { var:tv_victory_task_metric_total_locations ?= { this >= var:tv_conquest_task_slot_2_target } }
+			limit = { NOT = { local_var:tv_conquest_task_slot_2_completion_metric < local_var:tv_conquest_task_slot_2_completion_target } }
 			set_variable = { name = tv_conquest_task_slot_2_complete value = 1 }
 			set_variable = { name = tv_conquest_task_slot_2_progress_pct value = 100 }
 		}
@@ -320,8 +328,10 @@ tv_victory_path_tasks_update_conquest_slot_2_effect = {
 			limit = { var:tv_conquest_task_slot_2_progress_pct > 100 }
 			set_variable = { name = tv_conquest_task_slot_2_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_conquest_task_slot_2_completion_metric value = var:tv_victory_task_metric_colonial_locations }
+		set_local_variable = { name = tv_conquest_task_slot_2_completion_target value = var:tv_conquest_task_slot_2_target }
 		if = {
-			limit = { var:tv_victory_task_metric_colonial_locations ?= { this >= var:tv_conquest_task_slot_2_target } }
+			limit = { NOT = { local_var:tv_conquest_task_slot_2_completion_metric < local_var:tv_conquest_task_slot_2_completion_target } }
 			set_variable = { name = tv_conquest_task_slot_2_complete value = 1 }
 			set_variable = { name = tv_conquest_task_slot_2_progress_pct value = 100 }
 		}
@@ -343,8 +353,10 @@ tv_victory_path_tasks_update_conquest_slot_2_effect = {
 			limit = { var:tv_conquest_task_slot_2_progress_pct > 100 }
 			set_variable = { name = tv_conquest_task_slot_2_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_conquest_task_slot_2_completion_metric value = var:tv_victory_task_metric_owned_locations }
+		set_local_variable = { name = tv_conquest_task_slot_2_completion_target value = var:tv_conquest_task_slot_2_target }
 		if = {
-			limit = { var:tv_victory_task_metric_owned_locations ?= { this >= var:tv_conquest_task_slot_2_target } }
+			limit = { NOT = { local_var:tv_conquest_task_slot_2_completion_metric < local_var:tv_conquest_task_slot_2_completion_target } }
 			set_variable = { name = tv_conquest_task_slot_2_complete value = 1 }
 			set_variable = { name = tv_conquest_task_slot_2_progress_pct value = 100 }
 		}
@@ -425,8 +437,10 @@ tv_victory_path_tasks_update_conquest_slot_3_effect = {
 			limit = { var:tv_conquest_task_slot_3_progress_pct > 100 }
 			set_variable = { name = tv_conquest_task_slot_3_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_conquest_task_slot_3_completion_metric value = var:tv_victory_task_metric_total_locations }
+		set_local_variable = { name = tv_conquest_task_slot_3_completion_target value = var:tv_conquest_task_slot_3_target }
 		if = {
-			limit = { var:tv_victory_task_metric_total_locations ?= { this >= var:tv_conquest_task_slot_3_target } }
+			limit = { NOT = { local_var:tv_conquest_task_slot_3_completion_metric < local_var:tv_conquest_task_slot_3_completion_target } }
 			set_variable = { name = tv_conquest_task_slot_3_complete value = 1 }
 			set_variable = { name = tv_conquest_task_slot_3_progress_pct value = 100 }
 		}
@@ -448,8 +462,10 @@ tv_victory_path_tasks_update_conquest_slot_3_effect = {
 			limit = { var:tv_conquest_task_slot_3_progress_pct > 100 }
 			set_variable = { name = tv_conquest_task_slot_3_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_conquest_task_slot_3_completion_metric value = var:tv_victory_task_metric_colonial_locations }
+		set_local_variable = { name = tv_conquest_task_slot_3_completion_target value = var:tv_conquest_task_slot_3_target }
 		if = {
-			limit = { var:tv_victory_task_metric_colonial_locations ?= { this >= var:tv_conquest_task_slot_3_target } }
+			limit = { NOT = { local_var:tv_conquest_task_slot_3_completion_metric < local_var:tv_conquest_task_slot_3_completion_target } }
 			set_variable = { name = tv_conquest_task_slot_3_complete value = 1 }
 			set_variable = { name = tv_conquest_task_slot_3_progress_pct value = 100 }
 		}
@@ -471,8 +487,10 @@ tv_victory_path_tasks_update_conquest_slot_3_effect = {
 			limit = { var:tv_conquest_task_slot_3_progress_pct > 100 }
 			set_variable = { name = tv_conquest_task_slot_3_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_conquest_task_slot_3_completion_metric value = var:tv_victory_task_metric_owned_locations }
+		set_local_variable = { name = tv_conquest_task_slot_3_completion_target value = var:tv_conquest_task_slot_3_target }
 		if = {
-			limit = { var:tv_victory_task_metric_owned_locations ?= { this >= var:tv_conquest_task_slot_3_target } }
+			limit = { NOT = { local_var:tv_conquest_task_slot_3_completion_metric < local_var:tv_conquest_task_slot_3_completion_target } }
 			set_variable = { name = tv_conquest_task_slot_3_complete value = 1 }
 			set_variable = { name = tv_conquest_task_slot_3_progress_pct value = 100 }
 		}
@@ -2055,8 +2073,10 @@ tv_victory_path_tasks_update_prosperity_slot_1_effect = {
 			limit = { var:tv_prosperity_task_slot_1_progress_pct > 100 }
 			set_variable = { name = tv_prosperity_task_slot_1_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_prosperity_task_slot_1_completion_metric value = var:tv_victory_task_metric_tax_base }
+		set_local_variable = { name = tv_prosperity_task_slot_1_completion_target value = var:tv_prosperity_task_slot_1_target }
 		if = {
-			limit = { var:tv_victory_task_metric_tax_base ?= { this >= var:tv_prosperity_task_slot_1_target } }
+			limit = { NOT = { local_var:tv_prosperity_task_slot_1_completion_metric < local_var:tv_prosperity_task_slot_1_completion_target } }
 			set_variable = { name = tv_prosperity_task_slot_1_complete value = 1 }
 			set_variable = { name = tv_prosperity_task_slot_1_progress_pct value = 100 }
 		}
@@ -2078,8 +2098,10 @@ tv_victory_path_tasks_update_prosperity_slot_1_effect = {
 			limit = { var:tv_prosperity_task_slot_1_progress_pct > 100 }
 			set_variable = { name = tv_prosperity_task_slot_1_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_prosperity_task_slot_1_completion_metric value = var:tv_victory_task_metric_population }
+		set_local_variable = { name = tv_prosperity_task_slot_1_completion_target value = var:tv_prosperity_task_slot_1_target }
 		if = {
-			limit = { var:tv_victory_task_metric_population ?= { this >= var:tv_prosperity_task_slot_1_target } }
+			limit = { NOT = { local_var:tv_prosperity_task_slot_1_completion_metric < local_var:tv_prosperity_task_slot_1_completion_target } }
 			set_variable = { name = tv_prosperity_task_slot_1_complete value = 1 }
 			set_variable = { name = tv_prosperity_task_slot_1_progress_pct value = 100 }
 		}
@@ -2101,8 +2123,10 @@ tv_victory_path_tasks_update_prosperity_slot_1_effect = {
 			limit = { var:tv_prosperity_task_slot_1_progress_pct > 100 }
 			set_variable = { name = tv_prosperity_task_slot_1_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_prosperity_task_slot_1_completion_metric value = var:tv_victory_task_metric_average_development }
+		set_local_variable = { name = tv_prosperity_task_slot_1_completion_target value = var:tv_prosperity_task_slot_1_target }
 		if = {
-			limit = { var:tv_victory_task_metric_average_development ?= { this >= var:tv_prosperity_task_slot_1_target } }
+			limit = { NOT = { local_var:tv_prosperity_task_slot_1_completion_metric < local_var:tv_prosperity_task_slot_1_completion_target } }
 			set_variable = { name = tv_prosperity_task_slot_1_complete value = 1 }
 			set_variable = { name = tv_prosperity_task_slot_1_progress_pct value = 100 }
 		}
@@ -2124,8 +2148,10 @@ tv_victory_path_tasks_update_prosperity_slot_1_effect = {
 			limit = { var:tv_prosperity_task_slot_1_progress_pct > 100 }
 			set_variable = { name = tv_prosperity_task_slot_1_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_prosperity_task_slot_1_completion_metric value = var:tv_victory_task_metric_average_prosperity_pct }
+		set_local_variable = { name = tv_prosperity_task_slot_1_completion_target value = var:tv_prosperity_task_slot_1_target }
 		if = {
-			limit = { var:tv_victory_task_metric_average_prosperity_pct ?= { this >= var:tv_prosperity_task_slot_1_target } }
+			limit = { NOT = { local_var:tv_prosperity_task_slot_1_completion_metric < local_var:tv_prosperity_task_slot_1_completion_target } }
 			set_variable = { name = tv_prosperity_task_slot_1_complete value = 1 }
 			set_variable = { name = tv_prosperity_task_slot_1_progress_pct value = 100 }
 		}
@@ -2147,8 +2173,10 @@ tv_victory_path_tasks_update_prosperity_slot_1_effect = {
 			limit = { var:tv_prosperity_task_slot_1_progress_pct > 100 }
 			set_variable = { name = tv_prosperity_task_slot_1_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_prosperity_task_slot_1_completion_metric value = var:tv_victory_task_metric_average_control_pct }
+		set_local_variable = { name = tv_prosperity_task_slot_1_completion_target value = var:tv_prosperity_task_slot_1_target }
 		if = {
-			limit = { var:tv_victory_task_metric_average_control_pct ?= { this >= var:tv_prosperity_task_slot_1_target } }
+			limit = { NOT = { local_var:tv_prosperity_task_slot_1_completion_metric < local_var:tv_prosperity_task_slot_1_completion_target } }
 			set_variable = { name = tv_prosperity_task_slot_1_complete value = 1 }
 			set_variable = { name = tv_prosperity_task_slot_1_progress_pct value = 100 }
 		}
@@ -2217,8 +2245,10 @@ tv_victory_path_tasks_update_prosperity_slot_2_effect = {
 			limit = { var:tv_prosperity_task_slot_2_progress_pct > 100 }
 			set_variable = { name = tv_prosperity_task_slot_2_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_prosperity_task_slot_2_completion_metric value = var:tv_victory_task_metric_tax_base }
+		set_local_variable = { name = tv_prosperity_task_slot_2_completion_target value = var:tv_prosperity_task_slot_2_target }
 		if = {
-			limit = { var:tv_victory_task_metric_tax_base ?= { this >= var:tv_prosperity_task_slot_2_target } }
+			limit = { NOT = { local_var:tv_prosperity_task_slot_2_completion_metric < local_var:tv_prosperity_task_slot_2_completion_target } }
 			set_variable = { name = tv_prosperity_task_slot_2_complete value = 1 }
 			set_variable = { name = tv_prosperity_task_slot_2_progress_pct value = 100 }
 		}
@@ -2240,8 +2270,10 @@ tv_victory_path_tasks_update_prosperity_slot_2_effect = {
 			limit = { var:tv_prosperity_task_slot_2_progress_pct > 100 }
 			set_variable = { name = tv_prosperity_task_slot_2_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_prosperity_task_slot_2_completion_metric value = var:tv_victory_task_metric_population }
+		set_local_variable = { name = tv_prosperity_task_slot_2_completion_target value = var:tv_prosperity_task_slot_2_target }
 		if = {
-			limit = { var:tv_victory_task_metric_population ?= { this >= var:tv_prosperity_task_slot_2_target } }
+			limit = { NOT = { local_var:tv_prosperity_task_slot_2_completion_metric < local_var:tv_prosperity_task_slot_2_completion_target } }
 			set_variable = { name = tv_prosperity_task_slot_2_complete value = 1 }
 			set_variable = { name = tv_prosperity_task_slot_2_progress_pct value = 100 }
 		}
@@ -2263,8 +2295,10 @@ tv_victory_path_tasks_update_prosperity_slot_2_effect = {
 			limit = { var:tv_prosperity_task_slot_2_progress_pct > 100 }
 			set_variable = { name = tv_prosperity_task_slot_2_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_prosperity_task_slot_2_completion_metric value = var:tv_victory_task_metric_average_development }
+		set_local_variable = { name = tv_prosperity_task_slot_2_completion_target value = var:tv_prosperity_task_slot_2_target }
 		if = {
-			limit = { var:tv_victory_task_metric_average_development ?= { this >= var:tv_prosperity_task_slot_2_target } }
+			limit = { NOT = { local_var:tv_prosperity_task_slot_2_completion_metric < local_var:tv_prosperity_task_slot_2_completion_target } }
 			set_variable = { name = tv_prosperity_task_slot_2_complete value = 1 }
 			set_variable = { name = tv_prosperity_task_slot_2_progress_pct value = 100 }
 		}
@@ -2286,8 +2320,10 @@ tv_victory_path_tasks_update_prosperity_slot_2_effect = {
 			limit = { var:tv_prosperity_task_slot_2_progress_pct > 100 }
 			set_variable = { name = tv_prosperity_task_slot_2_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_prosperity_task_slot_2_completion_metric value = var:tv_victory_task_metric_average_prosperity_pct }
+		set_local_variable = { name = tv_prosperity_task_slot_2_completion_target value = var:tv_prosperity_task_slot_2_target }
 		if = {
-			limit = { var:tv_victory_task_metric_average_prosperity_pct ?= { this >= var:tv_prosperity_task_slot_2_target } }
+			limit = { NOT = { local_var:tv_prosperity_task_slot_2_completion_metric < local_var:tv_prosperity_task_slot_2_completion_target } }
 			set_variable = { name = tv_prosperity_task_slot_2_complete value = 1 }
 			set_variable = { name = tv_prosperity_task_slot_2_progress_pct value = 100 }
 		}
@@ -2309,8 +2345,10 @@ tv_victory_path_tasks_update_prosperity_slot_2_effect = {
 			limit = { var:tv_prosperity_task_slot_2_progress_pct > 100 }
 			set_variable = { name = tv_prosperity_task_slot_2_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_prosperity_task_slot_2_completion_metric value = var:tv_victory_task_metric_average_control_pct }
+		set_local_variable = { name = tv_prosperity_task_slot_2_completion_target value = var:tv_prosperity_task_slot_2_target }
 		if = {
-			limit = { var:tv_victory_task_metric_average_control_pct ?= { this >= var:tv_prosperity_task_slot_2_target } }
+			limit = { NOT = { local_var:tv_prosperity_task_slot_2_completion_metric < local_var:tv_prosperity_task_slot_2_completion_target } }
 			set_variable = { name = tv_prosperity_task_slot_2_complete value = 1 }
 			set_variable = { name = tv_prosperity_task_slot_2_progress_pct value = 100 }
 		}
@@ -2379,8 +2417,10 @@ tv_victory_path_tasks_update_prosperity_slot_3_effect = {
 			limit = { var:tv_prosperity_task_slot_3_progress_pct > 100 }
 			set_variable = { name = tv_prosperity_task_slot_3_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_prosperity_task_slot_3_completion_metric value = var:tv_victory_task_metric_tax_base }
+		set_local_variable = { name = tv_prosperity_task_slot_3_completion_target value = var:tv_prosperity_task_slot_3_target }
 		if = {
-			limit = { var:tv_victory_task_metric_tax_base ?= { this >= var:tv_prosperity_task_slot_3_target } }
+			limit = { NOT = { local_var:tv_prosperity_task_slot_3_completion_metric < local_var:tv_prosperity_task_slot_3_completion_target } }
 			set_variable = { name = tv_prosperity_task_slot_3_complete value = 1 }
 			set_variable = { name = tv_prosperity_task_slot_3_progress_pct value = 100 }
 		}
@@ -2402,8 +2442,10 @@ tv_victory_path_tasks_update_prosperity_slot_3_effect = {
 			limit = { var:tv_prosperity_task_slot_3_progress_pct > 100 }
 			set_variable = { name = tv_prosperity_task_slot_3_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_prosperity_task_slot_3_completion_metric value = var:tv_victory_task_metric_population }
+		set_local_variable = { name = tv_prosperity_task_slot_3_completion_target value = var:tv_prosperity_task_slot_3_target }
 		if = {
-			limit = { var:tv_victory_task_metric_population ?= { this >= var:tv_prosperity_task_slot_3_target } }
+			limit = { NOT = { local_var:tv_prosperity_task_slot_3_completion_metric < local_var:tv_prosperity_task_slot_3_completion_target } }
 			set_variable = { name = tv_prosperity_task_slot_3_complete value = 1 }
 			set_variable = { name = tv_prosperity_task_slot_3_progress_pct value = 100 }
 		}
@@ -2425,8 +2467,10 @@ tv_victory_path_tasks_update_prosperity_slot_3_effect = {
 			limit = { var:tv_prosperity_task_slot_3_progress_pct > 100 }
 			set_variable = { name = tv_prosperity_task_slot_3_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_prosperity_task_slot_3_completion_metric value = var:tv_victory_task_metric_average_development }
+		set_local_variable = { name = tv_prosperity_task_slot_3_completion_target value = var:tv_prosperity_task_slot_3_target }
 		if = {
-			limit = { var:tv_victory_task_metric_average_development ?= { this >= var:tv_prosperity_task_slot_3_target } }
+			limit = { NOT = { local_var:tv_prosperity_task_slot_3_completion_metric < local_var:tv_prosperity_task_slot_3_completion_target } }
 			set_variable = { name = tv_prosperity_task_slot_3_complete value = 1 }
 			set_variable = { name = tv_prosperity_task_slot_3_progress_pct value = 100 }
 		}
@@ -2448,8 +2492,10 @@ tv_victory_path_tasks_update_prosperity_slot_3_effect = {
 			limit = { var:tv_prosperity_task_slot_3_progress_pct > 100 }
 			set_variable = { name = tv_prosperity_task_slot_3_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_prosperity_task_slot_3_completion_metric value = var:tv_victory_task_metric_average_prosperity_pct }
+		set_local_variable = { name = tv_prosperity_task_slot_3_completion_target value = var:tv_prosperity_task_slot_3_target }
 		if = {
-			limit = { var:tv_victory_task_metric_average_prosperity_pct ?= { this >= var:tv_prosperity_task_slot_3_target } }
+			limit = { NOT = { local_var:tv_prosperity_task_slot_3_completion_metric < local_var:tv_prosperity_task_slot_3_completion_target } }
 			set_variable = { name = tv_prosperity_task_slot_3_complete value = 1 }
 			set_variable = { name = tv_prosperity_task_slot_3_progress_pct value = 100 }
 		}
@@ -2471,8 +2517,10 @@ tv_victory_path_tasks_update_prosperity_slot_3_effect = {
 			limit = { var:tv_prosperity_task_slot_3_progress_pct > 100 }
 			set_variable = { name = tv_prosperity_task_slot_3_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_prosperity_task_slot_3_completion_metric value = var:tv_victory_task_metric_average_control_pct }
+		set_local_variable = { name = tv_prosperity_task_slot_3_completion_target value = var:tv_prosperity_task_slot_3_target }
 		if = {
-			limit = { var:tv_victory_task_metric_average_control_pct ?= { this >= var:tv_prosperity_task_slot_3_target } }
+			limit = { NOT = { local_var:tv_prosperity_task_slot_3_completion_metric < local_var:tv_prosperity_task_slot_3_completion_target } }
 			set_variable = { name = tv_prosperity_task_slot_3_complete value = 1 }
 			set_variable = { name = tv_prosperity_task_slot_3_progress_pct value = 100 }
 		}
@@ -4976,8 +5024,10 @@ tv_victory_path_tasks_update_trade_slot_1_effect = {
 			limit = { var:tv_trade_task_slot_1_progress_pct > 100 }
 			set_variable = { name = tv_trade_task_slot_1_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_trade_task_slot_1_completion_metric value = var:tv_victory_task_metric_trade_income }
+		set_local_variable = { name = tv_trade_task_slot_1_completion_target value = var:tv_trade_task_slot_1_target }
 		if = {
-			limit = { var:tv_victory_task_metric_trade_income ?= { this >= var:tv_trade_task_slot_1_target } }
+			limit = { NOT = { local_var:tv_trade_task_slot_1_completion_metric < local_var:tv_trade_task_slot_1_completion_target } }
 			set_variable = { name = tv_trade_task_slot_1_complete value = 1 }
 			set_variable = { name = tv_trade_task_slot_1_progress_pct value = 100 }
 		}
@@ -4999,8 +5049,10 @@ tv_victory_path_tasks_update_trade_slot_1_effect = {
 			limit = { var:tv_trade_task_slot_1_progress_pct > 100 }
 			set_variable = { name = tv_trade_task_slot_1_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_trade_task_slot_1_completion_metric value = var:tv_victory_task_metric_dominant_markets }
+		set_local_variable = { name = tv_trade_task_slot_1_completion_target value = var:tv_trade_task_slot_1_target }
 		if = {
-			limit = { var:tv_victory_task_metric_dominant_markets ?= { this >= var:tv_trade_task_slot_1_target } }
+			limit = { NOT = { local_var:tv_trade_task_slot_1_completion_metric < local_var:tv_trade_task_slot_1_completion_target } }
 			set_variable = { name = tv_trade_task_slot_1_complete value = 1 }
 			set_variable = { name = tv_trade_task_slot_1_progress_pct value = 100 }
 		}
@@ -5065,8 +5117,10 @@ tv_victory_path_tasks_update_trade_slot_2_effect = {
 			limit = { var:tv_trade_task_slot_2_progress_pct > 100 }
 			set_variable = { name = tv_trade_task_slot_2_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_trade_task_slot_2_completion_metric value = var:tv_victory_task_metric_trade_income }
+		set_local_variable = { name = tv_trade_task_slot_2_completion_target value = var:tv_trade_task_slot_2_target }
 		if = {
-			limit = { var:tv_victory_task_metric_trade_income ?= { this >= var:tv_trade_task_slot_2_target } }
+			limit = { NOT = { local_var:tv_trade_task_slot_2_completion_metric < local_var:tv_trade_task_slot_2_completion_target } }
 			set_variable = { name = tv_trade_task_slot_2_complete value = 1 }
 			set_variable = { name = tv_trade_task_slot_2_progress_pct value = 100 }
 		}
@@ -5088,8 +5142,10 @@ tv_victory_path_tasks_update_trade_slot_2_effect = {
 			limit = { var:tv_trade_task_slot_2_progress_pct > 100 }
 			set_variable = { name = tv_trade_task_slot_2_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_trade_task_slot_2_completion_metric value = var:tv_victory_task_metric_dominant_markets }
+		set_local_variable = { name = tv_trade_task_slot_2_completion_target value = var:tv_trade_task_slot_2_target }
 		if = {
-			limit = { var:tv_victory_task_metric_dominant_markets ?= { this >= var:tv_trade_task_slot_2_target } }
+			limit = { NOT = { local_var:tv_trade_task_slot_2_completion_metric < local_var:tv_trade_task_slot_2_completion_target } }
 			set_variable = { name = tv_trade_task_slot_2_complete value = 1 }
 			set_variable = { name = tv_trade_task_slot_2_progress_pct value = 100 }
 		}
@@ -5154,8 +5210,10 @@ tv_victory_path_tasks_update_trade_slot_3_effect = {
 			limit = { var:tv_trade_task_slot_3_progress_pct > 100 }
 			set_variable = { name = tv_trade_task_slot_3_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_trade_task_slot_3_completion_metric value = var:tv_victory_task_metric_trade_income }
+		set_local_variable = { name = tv_trade_task_slot_3_completion_target value = var:tv_trade_task_slot_3_target }
 		if = {
-			limit = { var:tv_victory_task_metric_trade_income ?= { this >= var:tv_trade_task_slot_3_target } }
+			limit = { NOT = { local_var:tv_trade_task_slot_3_completion_metric < local_var:tv_trade_task_slot_3_completion_target } }
 			set_variable = { name = tv_trade_task_slot_3_complete value = 1 }
 			set_variable = { name = tv_trade_task_slot_3_progress_pct value = 100 }
 		}
@@ -5177,8 +5235,10 @@ tv_victory_path_tasks_update_trade_slot_3_effect = {
 			limit = { var:tv_trade_task_slot_3_progress_pct > 100 }
 			set_variable = { name = tv_trade_task_slot_3_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_trade_task_slot_3_completion_metric value = var:tv_victory_task_metric_dominant_markets }
+		set_local_variable = { name = tv_trade_task_slot_3_completion_target value = var:tv_trade_task_slot_3_target }
 		if = {
-			limit = { var:tv_victory_task_metric_dominant_markets ?= { this >= var:tv_trade_task_slot_3_target } }
+			limit = { NOT = { local_var:tv_trade_task_slot_3_completion_metric < local_var:tv_trade_task_slot_3_completion_target } }
 			set_variable = { name = tv_trade_task_slot_3_complete value = 1 }
 			set_variable = { name = tv_trade_task_slot_3_progress_pct value = 100 }
 		}
@@ -6634,8 +6694,10 @@ tv_victory_path_tasks_update_diplomatic_slot_1_effect = {
 			limit = { var:tv_diplomatic_task_slot_1_progress_pct > 100 }
 			set_variable = { name = tv_diplomatic_task_slot_1_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_diplomatic_task_slot_1_completion_metric value = var:tv_victory_task_metric_diplomatic_reputation }
+		set_local_variable = { name = tv_diplomatic_task_slot_1_completion_target value = var:tv_diplomatic_task_slot_1_target }
 		if = {
-			limit = { var:tv_victory_task_metric_diplomatic_reputation ?= { this >= var:tv_diplomatic_task_slot_1_target } }
+			limit = { NOT = { local_var:tv_diplomatic_task_slot_1_completion_metric < local_var:tv_diplomatic_task_slot_1_completion_target } }
 			set_variable = { name = tv_diplomatic_task_slot_1_complete value = 1 }
 			set_variable = { name = tv_diplomatic_task_slot_1_progress_pct value = 100 }
 		}
@@ -6657,8 +6719,10 @@ tv_victory_path_tasks_update_diplomatic_slot_1_effect = {
 			limit = { var:tv_diplomatic_task_slot_1_progress_pct > 100 }
 			set_variable = { name = tv_diplomatic_task_slot_1_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_diplomatic_task_slot_1_completion_metric value = var:tv_victory_task_metric_alliance_level }
+		set_local_variable = { name = tv_diplomatic_task_slot_1_completion_target value = var:tv_diplomatic_task_slot_1_target }
 		if = {
-			limit = { var:tv_victory_task_metric_alliance_level ?= { this >= var:tv_diplomatic_task_slot_1_target } }
+			limit = { NOT = { local_var:tv_diplomatic_task_slot_1_completion_metric < local_var:tv_diplomatic_task_slot_1_completion_target } }
 			set_variable = { name = tv_diplomatic_task_slot_1_complete value = 1 }
 			set_variable = { name = tv_diplomatic_task_slot_1_progress_pct value = 100 }
 		}
@@ -6739,8 +6803,10 @@ tv_victory_path_tasks_update_diplomatic_slot_2_effect = {
 			limit = { var:tv_diplomatic_task_slot_2_progress_pct > 100 }
 			set_variable = { name = tv_diplomatic_task_slot_2_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_diplomatic_task_slot_2_completion_metric value = var:tv_victory_task_metric_diplomatic_reputation }
+		set_local_variable = { name = tv_diplomatic_task_slot_2_completion_target value = var:tv_diplomatic_task_slot_2_target }
 		if = {
-			limit = { var:tv_victory_task_metric_diplomatic_reputation ?= { this >= var:tv_diplomatic_task_slot_2_target } }
+			limit = { NOT = { local_var:tv_diplomatic_task_slot_2_completion_metric < local_var:tv_diplomatic_task_slot_2_completion_target } }
 			set_variable = { name = tv_diplomatic_task_slot_2_complete value = 1 }
 			set_variable = { name = tv_diplomatic_task_slot_2_progress_pct value = 100 }
 		}
@@ -6762,8 +6828,10 @@ tv_victory_path_tasks_update_diplomatic_slot_2_effect = {
 			limit = { var:tv_diplomatic_task_slot_2_progress_pct > 100 }
 			set_variable = { name = tv_diplomatic_task_slot_2_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_diplomatic_task_slot_2_completion_metric value = var:tv_victory_task_metric_alliance_level }
+		set_local_variable = { name = tv_diplomatic_task_slot_2_completion_target value = var:tv_diplomatic_task_slot_2_target }
 		if = {
-			limit = { var:tv_victory_task_metric_alliance_level ?= { this >= var:tv_diplomatic_task_slot_2_target } }
+			limit = { NOT = { local_var:tv_diplomatic_task_slot_2_completion_metric < local_var:tv_diplomatic_task_slot_2_completion_target } }
 			set_variable = { name = tv_diplomatic_task_slot_2_complete value = 1 }
 			set_variable = { name = tv_diplomatic_task_slot_2_progress_pct value = 100 }
 		}
@@ -6844,8 +6912,10 @@ tv_victory_path_tasks_update_diplomatic_slot_3_effect = {
 			limit = { var:tv_diplomatic_task_slot_3_progress_pct > 100 }
 			set_variable = { name = tv_diplomatic_task_slot_3_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_diplomatic_task_slot_3_completion_metric value = var:tv_victory_task_metric_diplomatic_reputation }
+		set_local_variable = { name = tv_diplomatic_task_slot_3_completion_target value = var:tv_diplomatic_task_slot_3_target }
 		if = {
-			limit = { var:tv_victory_task_metric_diplomatic_reputation ?= { this >= var:tv_diplomatic_task_slot_3_target } }
+			limit = { NOT = { local_var:tv_diplomatic_task_slot_3_completion_metric < local_var:tv_diplomatic_task_slot_3_completion_target } }
 			set_variable = { name = tv_diplomatic_task_slot_3_complete value = 1 }
 			set_variable = { name = tv_diplomatic_task_slot_3_progress_pct value = 100 }
 		}
@@ -6867,8 +6937,10 @@ tv_victory_path_tasks_update_diplomatic_slot_3_effect = {
 			limit = { var:tv_diplomatic_task_slot_3_progress_pct > 100 }
 			set_variable = { name = tv_diplomatic_task_slot_3_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_diplomatic_task_slot_3_completion_metric value = var:tv_victory_task_metric_alliance_level }
+		set_local_variable = { name = tv_diplomatic_task_slot_3_completion_target value = var:tv_diplomatic_task_slot_3_target }
 		if = {
-			limit = { var:tv_victory_task_metric_alliance_level ?= { this >= var:tv_diplomatic_task_slot_3_target } }
+			limit = { NOT = { local_var:tv_diplomatic_task_slot_3_completion_metric < local_var:tv_diplomatic_task_slot_3_completion_target } }
 			set_variable = { name = tv_diplomatic_task_slot_3_complete value = 1 }
 			set_variable = { name = tv_diplomatic_task_slot_3_progress_pct value = 100 }
 		}
@@ -8487,8 +8559,10 @@ tv_victory_path_tasks_update_cultural_slot_1_effect = {
 			limit = { var:tv_cultural_task_slot_1_progress_pct > 100 }
 			set_variable = { name = tv_cultural_task_slot_1_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_cultural_task_slot_1_completion_metric value = var:tv_victory_task_metric_artworks }
+		set_local_variable = { name = tv_cultural_task_slot_1_completion_target value = var:tv_cultural_task_slot_1_target }
 		if = {
-			limit = { var:tv_victory_task_metric_artworks ?= { this >= var:tv_cultural_task_slot_1_target } }
+			limit = { NOT = { local_var:tv_cultural_task_slot_1_completion_metric < local_var:tv_cultural_task_slot_1_completion_target } }
 			set_variable = { name = tv_cultural_task_slot_1_complete value = 1 }
 			set_variable = { name = tv_cultural_task_slot_1_progress_pct value = 100 }
 		}
@@ -8510,8 +8584,10 @@ tv_victory_path_tasks_update_cultural_slot_1_effect = {
 			limit = { var:tv_cultural_task_slot_1_progress_pct > 100 }
 			set_variable = { name = tv_cultural_task_slot_1_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_cultural_task_slot_1_completion_metric value = var:tv_victory_task_metric_best_art_quality_pct }
+		set_local_variable = { name = tv_cultural_task_slot_1_completion_target value = var:tv_cultural_task_slot_1_target }
 		if = {
-			limit = { var:tv_victory_task_metric_best_art_quality_pct ?= { this >= var:tv_cultural_task_slot_1_target } }
+			limit = { NOT = { local_var:tv_cultural_task_slot_1_completion_metric < local_var:tv_cultural_task_slot_1_completion_target } }
 			set_variable = { name = tv_cultural_task_slot_1_complete value = 1 }
 			set_variable = { name = tv_cultural_task_slot_1_progress_pct value = 100 }
 		}
@@ -8533,8 +8609,10 @@ tv_victory_path_tasks_update_cultural_slot_1_effect = {
 			limit = { var:tv_cultural_task_slot_1_progress_pct > 100 }
 			set_variable = { name = tv_cultural_task_slot_1_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_cultural_task_slot_1_completion_metric value = var:tv_victory_task_metric_best_artist_skill_pct }
+		set_local_variable = { name = tv_cultural_task_slot_1_completion_target value = var:tv_cultural_task_slot_1_target }
 		if = {
-			limit = { var:tv_victory_task_metric_best_artist_skill_pct ?= { this >= var:tv_cultural_task_slot_1_target } }
+			limit = { NOT = { local_var:tv_cultural_task_slot_1_completion_metric < local_var:tv_cultural_task_slot_1_completion_target } }
 			set_variable = { name = tv_cultural_task_slot_1_complete value = 1 }
 			set_variable = { name = tv_cultural_task_slot_1_progress_pct value = 100 }
 		}
@@ -8556,8 +8634,10 @@ tv_victory_path_tasks_update_cultural_slot_1_effect = {
 			limit = { var:tv_cultural_task_slot_1_progress_pct > 100 }
 			set_variable = { name = tv_cultural_task_slot_1_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_cultural_task_slot_1_completion_metric value = var:tv_victory_task_metric_cultural_tradition }
+		set_local_variable = { name = tv_cultural_task_slot_1_completion_target value = var:tv_cultural_task_slot_1_target }
 		if = {
-			limit = { var:tv_victory_task_metric_cultural_tradition ?= { this >= var:tv_cultural_task_slot_1_target } }
+			limit = { NOT = { local_var:tv_cultural_task_slot_1_completion_metric < local_var:tv_cultural_task_slot_1_completion_target } }
 			set_variable = { name = tv_cultural_task_slot_1_complete value = 1 }
 			set_variable = { name = tv_cultural_task_slot_1_progress_pct value = 100 }
 		}
@@ -8579,8 +8659,10 @@ tv_victory_path_tasks_update_cultural_slot_1_effect = {
 			limit = { var:tv_cultural_task_slot_1_progress_pct > 100 }
 			set_variable = { name = tv_cultural_task_slot_1_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_cultural_task_slot_1_completion_metric value = var:tv_victory_task_metric_cultural_influence }
+		set_local_variable = { name = tv_cultural_task_slot_1_completion_target value = var:tv_cultural_task_slot_1_target }
 		if = {
-			limit = { var:tv_victory_task_metric_cultural_influence ?= { this >= var:tv_cultural_task_slot_1_target } }
+			limit = { NOT = { local_var:tv_cultural_task_slot_1_completion_metric < local_var:tv_cultural_task_slot_1_completion_target } }
 			set_variable = { name = tv_cultural_task_slot_1_complete value = 1 }
 			set_variable = { name = tv_cultural_task_slot_1_progress_pct value = 100 }
 		}
@@ -8602,8 +8684,10 @@ tv_victory_path_tasks_update_cultural_slot_1_effect = {
 			limit = { var:tv_cultural_task_slot_1_progress_pct > 100 }
 			set_variable = { name = tv_cultural_task_slot_1_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_cultural_task_slot_1_completion_metric value = var:tv_victory_task_metric_exhibition_influence }
+		set_local_variable = { name = tv_cultural_task_slot_1_completion_target value = var:tv_cultural_task_slot_1_target }
 		if = {
-			limit = { var:tv_victory_task_metric_exhibition_influence ?= { this >= var:tv_cultural_task_slot_1_target } }
+			limit = { NOT = { local_var:tv_cultural_task_slot_1_completion_metric < local_var:tv_cultural_task_slot_1_completion_target } }
 			set_variable = { name = tv_cultural_task_slot_1_complete value = 1 }
 			set_variable = { name = tv_cultural_task_slot_1_progress_pct value = 100 }
 		}
@@ -8660,8 +8744,10 @@ tv_victory_path_tasks_update_cultural_slot_2_effect = {
 			limit = { var:tv_cultural_task_slot_2_progress_pct > 100 }
 			set_variable = { name = tv_cultural_task_slot_2_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_cultural_task_slot_2_completion_metric value = var:tv_victory_task_metric_artworks }
+		set_local_variable = { name = tv_cultural_task_slot_2_completion_target value = var:tv_cultural_task_slot_2_target }
 		if = {
-			limit = { var:tv_victory_task_metric_artworks ?= { this >= var:tv_cultural_task_slot_2_target } }
+			limit = { NOT = { local_var:tv_cultural_task_slot_2_completion_metric < local_var:tv_cultural_task_slot_2_completion_target } }
 			set_variable = { name = tv_cultural_task_slot_2_complete value = 1 }
 			set_variable = { name = tv_cultural_task_slot_2_progress_pct value = 100 }
 		}
@@ -8683,8 +8769,10 @@ tv_victory_path_tasks_update_cultural_slot_2_effect = {
 			limit = { var:tv_cultural_task_slot_2_progress_pct > 100 }
 			set_variable = { name = tv_cultural_task_slot_2_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_cultural_task_slot_2_completion_metric value = var:tv_victory_task_metric_best_art_quality_pct }
+		set_local_variable = { name = tv_cultural_task_slot_2_completion_target value = var:tv_cultural_task_slot_2_target }
 		if = {
-			limit = { var:tv_victory_task_metric_best_art_quality_pct ?= { this >= var:tv_cultural_task_slot_2_target } }
+			limit = { NOT = { local_var:tv_cultural_task_slot_2_completion_metric < local_var:tv_cultural_task_slot_2_completion_target } }
 			set_variable = { name = tv_cultural_task_slot_2_complete value = 1 }
 			set_variable = { name = tv_cultural_task_slot_2_progress_pct value = 100 }
 		}
@@ -8706,8 +8794,10 @@ tv_victory_path_tasks_update_cultural_slot_2_effect = {
 			limit = { var:tv_cultural_task_slot_2_progress_pct > 100 }
 			set_variable = { name = tv_cultural_task_slot_2_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_cultural_task_slot_2_completion_metric value = var:tv_victory_task_metric_best_artist_skill_pct }
+		set_local_variable = { name = tv_cultural_task_slot_2_completion_target value = var:tv_cultural_task_slot_2_target }
 		if = {
-			limit = { var:tv_victory_task_metric_best_artist_skill_pct ?= { this >= var:tv_cultural_task_slot_2_target } }
+			limit = { NOT = { local_var:tv_cultural_task_slot_2_completion_metric < local_var:tv_cultural_task_slot_2_completion_target } }
 			set_variable = { name = tv_cultural_task_slot_2_complete value = 1 }
 			set_variable = { name = tv_cultural_task_slot_2_progress_pct value = 100 }
 		}
@@ -8729,8 +8819,10 @@ tv_victory_path_tasks_update_cultural_slot_2_effect = {
 			limit = { var:tv_cultural_task_slot_2_progress_pct > 100 }
 			set_variable = { name = tv_cultural_task_slot_2_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_cultural_task_slot_2_completion_metric value = var:tv_victory_task_metric_cultural_tradition }
+		set_local_variable = { name = tv_cultural_task_slot_2_completion_target value = var:tv_cultural_task_slot_2_target }
 		if = {
-			limit = { var:tv_victory_task_metric_cultural_tradition ?= { this >= var:tv_cultural_task_slot_2_target } }
+			limit = { NOT = { local_var:tv_cultural_task_slot_2_completion_metric < local_var:tv_cultural_task_slot_2_completion_target } }
 			set_variable = { name = tv_cultural_task_slot_2_complete value = 1 }
 			set_variable = { name = tv_cultural_task_slot_2_progress_pct value = 100 }
 		}
@@ -8752,8 +8844,10 @@ tv_victory_path_tasks_update_cultural_slot_2_effect = {
 			limit = { var:tv_cultural_task_slot_2_progress_pct > 100 }
 			set_variable = { name = tv_cultural_task_slot_2_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_cultural_task_slot_2_completion_metric value = var:tv_victory_task_metric_cultural_influence }
+		set_local_variable = { name = tv_cultural_task_slot_2_completion_target value = var:tv_cultural_task_slot_2_target }
 		if = {
-			limit = { var:tv_victory_task_metric_cultural_influence ?= { this >= var:tv_cultural_task_slot_2_target } }
+			limit = { NOT = { local_var:tv_cultural_task_slot_2_completion_metric < local_var:tv_cultural_task_slot_2_completion_target } }
 			set_variable = { name = tv_cultural_task_slot_2_complete value = 1 }
 			set_variable = { name = tv_cultural_task_slot_2_progress_pct value = 100 }
 		}
@@ -8775,8 +8869,10 @@ tv_victory_path_tasks_update_cultural_slot_2_effect = {
 			limit = { var:tv_cultural_task_slot_2_progress_pct > 100 }
 			set_variable = { name = tv_cultural_task_slot_2_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_cultural_task_slot_2_completion_metric value = var:tv_victory_task_metric_exhibition_influence }
+		set_local_variable = { name = tv_cultural_task_slot_2_completion_target value = var:tv_cultural_task_slot_2_target }
 		if = {
-			limit = { var:tv_victory_task_metric_exhibition_influence ?= { this >= var:tv_cultural_task_slot_2_target } }
+			limit = { NOT = { local_var:tv_cultural_task_slot_2_completion_metric < local_var:tv_cultural_task_slot_2_completion_target } }
 			set_variable = { name = tv_cultural_task_slot_2_complete value = 1 }
 			set_variable = { name = tv_cultural_task_slot_2_progress_pct value = 100 }
 		}
@@ -8833,8 +8929,10 @@ tv_victory_path_tasks_update_cultural_slot_3_effect = {
 			limit = { var:tv_cultural_task_slot_3_progress_pct > 100 }
 			set_variable = { name = tv_cultural_task_slot_3_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_cultural_task_slot_3_completion_metric value = var:tv_victory_task_metric_artworks }
+		set_local_variable = { name = tv_cultural_task_slot_3_completion_target value = var:tv_cultural_task_slot_3_target }
 		if = {
-			limit = { var:tv_victory_task_metric_artworks ?= { this >= var:tv_cultural_task_slot_3_target } }
+			limit = { NOT = { local_var:tv_cultural_task_slot_3_completion_metric < local_var:tv_cultural_task_slot_3_completion_target } }
 			set_variable = { name = tv_cultural_task_slot_3_complete value = 1 }
 			set_variable = { name = tv_cultural_task_slot_3_progress_pct value = 100 }
 		}
@@ -8856,8 +8954,10 @@ tv_victory_path_tasks_update_cultural_slot_3_effect = {
 			limit = { var:tv_cultural_task_slot_3_progress_pct > 100 }
 			set_variable = { name = tv_cultural_task_slot_3_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_cultural_task_slot_3_completion_metric value = var:tv_victory_task_metric_best_art_quality_pct }
+		set_local_variable = { name = tv_cultural_task_slot_3_completion_target value = var:tv_cultural_task_slot_3_target }
 		if = {
-			limit = { var:tv_victory_task_metric_best_art_quality_pct ?= { this >= var:tv_cultural_task_slot_3_target } }
+			limit = { NOT = { local_var:tv_cultural_task_slot_3_completion_metric < local_var:tv_cultural_task_slot_3_completion_target } }
 			set_variable = { name = tv_cultural_task_slot_3_complete value = 1 }
 			set_variable = { name = tv_cultural_task_slot_3_progress_pct value = 100 }
 		}
@@ -8879,8 +8979,10 @@ tv_victory_path_tasks_update_cultural_slot_3_effect = {
 			limit = { var:tv_cultural_task_slot_3_progress_pct > 100 }
 			set_variable = { name = tv_cultural_task_slot_3_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_cultural_task_slot_3_completion_metric value = var:tv_victory_task_metric_best_artist_skill_pct }
+		set_local_variable = { name = tv_cultural_task_slot_3_completion_target value = var:tv_cultural_task_slot_3_target }
 		if = {
-			limit = { var:tv_victory_task_metric_best_artist_skill_pct ?= { this >= var:tv_cultural_task_slot_3_target } }
+			limit = { NOT = { local_var:tv_cultural_task_slot_3_completion_metric < local_var:tv_cultural_task_slot_3_completion_target } }
 			set_variable = { name = tv_cultural_task_slot_3_complete value = 1 }
 			set_variable = { name = tv_cultural_task_slot_3_progress_pct value = 100 }
 		}
@@ -8902,8 +9004,10 @@ tv_victory_path_tasks_update_cultural_slot_3_effect = {
 			limit = { var:tv_cultural_task_slot_3_progress_pct > 100 }
 			set_variable = { name = tv_cultural_task_slot_3_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_cultural_task_slot_3_completion_metric value = var:tv_victory_task_metric_cultural_tradition }
+		set_local_variable = { name = tv_cultural_task_slot_3_completion_target value = var:tv_cultural_task_slot_3_target }
 		if = {
-			limit = { var:tv_victory_task_metric_cultural_tradition ?= { this >= var:tv_cultural_task_slot_3_target } }
+			limit = { NOT = { local_var:tv_cultural_task_slot_3_completion_metric < local_var:tv_cultural_task_slot_3_completion_target } }
 			set_variable = { name = tv_cultural_task_slot_3_complete value = 1 }
 			set_variable = { name = tv_cultural_task_slot_3_progress_pct value = 100 }
 		}
@@ -8925,8 +9029,10 @@ tv_victory_path_tasks_update_cultural_slot_3_effect = {
 			limit = { var:tv_cultural_task_slot_3_progress_pct > 100 }
 			set_variable = { name = tv_cultural_task_slot_3_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_cultural_task_slot_3_completion_metric value = var:tv_victory_task_metric_cultural_influence }
+		set_local_variable = { name = tv_cultural_task_slot_3_completion_target value = var:tv_cultural_task_slot_3_target }
 		if = {
-			limit = { var:tv_victory_task_metric_cultural_influence ?= { this >= var:tv_cultural_task_slot_3_target } }
+			limit = { NOT = { local_var:tv_cultural_task_slot_3_completion_metric < local_var:tv_cultural_task_slot_3_completion_target } }
 			set_variable = { name = tv_cultural_task_slot_3_complete value = 1 }
 			set_variable = { name = tv_cultural_task_slot_3_progress_pct value = 100 }
 		}
@@ -8948,8 +9054,10 @@ tv_victory_path_tasks_update_cultural_slot_3_effect = {
 			limit = { var:tv_cultural_task_slot_3_progress_pct > 100 }
 			set_variable = { name = tv_cultural_task_slot_3_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_cultural_task_slot_3_completion_metric value = var:tv_victory_task_metric_exhibition_influence }
+		set_local_variable = { name = tv_cultural_task_slot_3_completion_target value = var:tv_cultural_task_slot_3_target }
 		if = {
-			limit = { var:tv_victory_task_metric_exhibition_influence ?= { this >= var:tv_cultural_task_slot_3_target } }
+			limit = { NOT = { local_var:tv_cultural_task_slot_3_completion_metric < local_var:tv_cultural_task_slot_3_completion_target } }
 			set_variable = { name = tv_cultural_task_slot_3_complete value = 1 }
 			set_variable = { name = tv_cultural_task_slot_3_progress_pct value = 100 }
 		}
@@ -11503,8 +11611,10 @@ tv_victory_path_tasks_update_science_slot_1_effect = {
 			limit = { var:tv_science_task_slot_1_progress_pct > 100 }
 			set_variable = { name = tv_science_task_slot_1_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_science_task_slot_1_completion_metric value = var:tv_victory_task_metric_science_score }
+		set_local_variable = { name = tv_science_task_slot_1_completion_target value = var:tv_science_task_slot_1_target }
 		if = {
-			limit = { var:tv_victory_task_metric_science_score ?= { this >= var:tv_science_task_slot_1_target } }
+			limit = { NOT = { local_var:tv_science_task_slot_1_completion_metric < local_var:tv_science_task_slot_1_completion_target } }
 			set_variable = { name = tv_science_task_slot_1_complete value = 1 }
 			set_variable = { name = tv_science_task_slot_1_progress_pct value = 100 }
 		}
@@ -11701,8 +11811,10 @@ tv_victory_path_tasks_update_science_slot_2_effect = {
 			limit = { var:tv_science_task_slot_2_progress_pct > 100 }
 			set_variable = { name = tv_science_task_slot_2_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_science_task_slot_2_completion_metric value = var:tv_victory_task_metric_science_score }
+		set_local_variable = { name = tv_science_task_slot_2_completion_target value = var:tv_science_task_slot_2_target }
 		if = {
-			limit = { var:tv_victory_task_metric_science_score ?= { this >= var:tv_science_task_slot_2_target } }
+			limit = { NOT = { local_var:tv_science_task_slot_2_completion_metric < local_var:tv_science_task_slot_2_completion_target } }
 			set_variable = { name = tv_science_task_slot_2_complete value = 1 }
 			set_variable = { name = tv_science_task_slot_2_progress_pct value = 100 }
 		}
@@ -11899,8 +12011,10 @@ tv_victory_path_tasks_update_science_slot_3_effect = {
 			limit = { var:tv_science_task_slot_3_progress_pct > 100 }
 			set_variable = { name = tv_science_task_slot_3_progress_pct value = 100 }
 		}
+		set_local_variable = { name = tv_science_task_slot_3_completion_metric value = var:tv_victory_task_metric_science_score }
+		set_local_variable = { name = tv_science_task_slot_3_completion_target value = var:tv_science_task_slot_3_target }
 		if = {
-			limit = { var:tv_victory_task_metric_science_score ?= { this >= var:tv_science_task_slot_3_target } }
+			limit = { NOT = { local_var:tv_science_task_slot_3_completion_metric < local_var:tv_science_task_slot_3_completion_target } }
 			set_variable = { name = tv_science_task_slot_3_complete value = 1 }
 			set_variable = { name = tv_science_task_slot_3_progress_pct value = 100 }
 		}
