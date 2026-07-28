@@ -1250,4 +1250,12 @@ def generate_localization(data: dict, script: str, *, language: str) -> str:
             desc = "完成任务后获得该路线1点节点解锁进度，并刷新此槽位。" if zh else "Gain exactly 1 node-unlock point for this path, then refresh this slot."
             lines.append(f" {name}: {_yaml_quote(title)}")
             lines.append(f" {name}_desc: {_yaml_quote(desc)}")
+    message_setup = "当我们领取一个胜利之路任务时。" if zh else "When we claim a Victory Path task."
+    message_log = "我们领取了一个胜利之路任务。" if zh else "We claimed a Victory Path task."
+    for path_id in PATH_IDS:
+        for slot in SLOTS:
+            name = action_name(path_id, slot)
+            lines.append(f" PERFORM_{name}_ACTION_SETUP: {_yaml_quote(message_setup)}")
+            lines.append(f" PERFORM_{name}_ACTION_LOG: {_yaml_quote(message_log)}")
+            lines.append(f" PERFORM_{name}_ACTION_MAP: {_yaml_quote('')}")
     return "\n".join(lines) + "\n"

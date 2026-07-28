@@ -57,7 +57,7 @@ vanilla copies in **both** roots. Each appends the complete TV title and
 message-type union, because this winner-takes-all database did load the
 Engineering Department copy last in runtime testing despite the declared main
 mod dependency. `scripts/validate.py` verifies the vanilla-copy prefixes,
-per-root generic-action message coverage, and equality of both outputs (see anti-pattern
+per-root generic-action message-type and SETUP/LOG/MAP localization coverage, and equality of both outputs (see anti-pattern
 `eu5_vanilla_copy_singleton_file_cannot_split_across_mods`). The missing Great
 Engineer CMF alert is also fully standalone: the Engineering Department root
 owns its monthly pulse, `cmf_on_callback` handler, trigger/effects, scripted-GUI

@@ -101,8 +101,10 @@ execution time can still spam runtime errors while the mouse is merely hovering 
    Do not "fix" this class by deleting the dynamic tooltip.
 
 15. Register the action outside the action file.
-   Every new generic action also needs a `common/generic_action_ai_lists` entry and a
-   `PERFORM_<action_id>_ACTION` message type.
+   Every new generic action also needs a `common/generic_action_ai_lists` entry, a
+   `PERFORM_<action_id>_ACTION` message type, and the matching
+   `PERFORM_<action_id>_ACTION_SETUP` / `_LOG` / `_MAP` localization keys in every
+   supported language.
 
 16. Use action-native AI for simple situation actions.
    When AI should use a player-facing generic action, define its `ai_tick`,

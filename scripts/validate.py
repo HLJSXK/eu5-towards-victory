@@ -886,7 +886,49 @@ def check_tv_io_icon_assets() -> None:
                     issues.append(
                         f"[GUI] {path.relative_to(REPO_ROOT)}:{line_num} -- "
                         f"Missing GetIcon asset {icon.relative_to(REPO_ROOT)} for IO type {io_type}"
-                    )
+                )
+
+
+def check_generic_action_message_localization() -> None:
+    """Verify every generic action has all required message localization keys."""
+    action_re = re.compile(r"(?m)^([a-z][A-Za-z0-9_]*)\s*=\s*\{")
+    suffixes = ("SETUP", "LOG", "MAP")
+    languages = ("english", "simp_chinese")
+    for root in MOD_ROOTS:
+        action_dir = root / "in_game" / "common" / "generic_actions"
+        if not action_dir.exists():
+            continue
+
+        loc_keys_by_language: dict[str, set[str]] = {}
+        for language in languages:
+            loc_dir = root / "main_menu" / "localization" / language
+            if not loc_dir.exists():
+                issues.append(
+                    f"[MESSAGE_LOCALIZATION] {root.relative_to(REPO_ROOT)} -- missing "
+                    f"supported localization directory {loc_dir.relative_to(REPO_ROOT)}"
+                )
+                continue
+            loc_keys_by_language[language] = {
+                key
+                for loc_file in loc_dir.rglob("*.yml")
+                for key, _ in _iter_yaml_localization_keys(loc_file)
+            }
+
+        for action_file in sorted(action_dir.glob("*.txt")):
+            for action in action_re.findall(_read_normalized_text(action_file)):
+                prefix = f"PERFORM_{action}_ACTION"
+                for language, loc_keys in loc_keys_by_language.items():
+                    missing = [
+                        f"{prefix}_{suffix}"
+                        for suffix in suffixes
+                        if f"{prefix}_{suffix}" not in loc_keys
+                    ]
+                    if missing:
+                        issues.append(
+                            f"[MESSAGE_LOCALIZATION] {action_file.relative_to(REPO_ROOT)} -- "
+                            f"generic action {action} is missing {', '.join(missing)} in "
+                            f"{root.relative_to(REPO_ROOT)}/main_menu/localization/{language}"
+                        )
 
 
 def check_tv_io_monthly_effect_blocks() -> None:
@@ -1123,6 +1165,7 @@ def run_global_checks(files: list[Path], use_changed: bool, anti_patterns: list[
     if not use_changed or _paths_match(
         rels,
         exact=(
+            "scripts/validate.py",
             *(f"{root_name}/in_game/common/customizable_localization/character_title.txt" for root_name in MOD_ROOT_NAMES),
             *(f"{root_name}/main_menu/gui/messagetypes.txt" for root_name in MOD_ROOT_NAMES),
             "reference_game_files/game/in_game/common/customizable_localization/character_title.txt",
@@ -1130,6 +1173,18 @@ def run_global_checks(files: list[Path], use_changed: bool, anti_patterns: list[
         ),
     ):
         check_vanilla_copy_integrity()
+    if not use_changed or _paths_match(
+        rels,
+        exact=(
+            "scripts/validate.py",
+            *(f"{root_name}/main_menu/gui/messagetypes.txt" for root_name in MOD_ROOT_NAMES),
+        ),
+        prefixes=_mod_prefixes(
+            "in_game/common/generic_actions/",
+            "main_menu/localization/",
+        ),
+    ):
+        check_generic_action_message_localization()
     if not use_changed or _paths_match(
         rels,
         exact=(

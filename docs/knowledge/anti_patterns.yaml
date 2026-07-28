@@ -1815,13 +1815,14 @@
 
 - id: generic_action_missing_message_type
   pattern: ''
+  detectability: needs_parser
   only_in_paths: ['generic_actions']
-  bad: "Defining a generic action without a PERFORM_<action_id>_ACTION message type"
+  bad: "Defining a generic action without a PERFORM_<action_id>_ACTION message type or all matching SETUP/LOG/MAP localization keys"
   correction: "Add a PERFORM_<action_id>_ACTION block to scripts/gen_messagetypes.py TV_ENTRIES, rerun scripts/gen_messagetypes.py, and define SETUP/LOG/MAP localization keys for supported languages."
   category: script
   scope: country
-  source: "scripts/gen_messagetypes.py:3; scripts/gen_messagetypes.py:39; runtime error.log: message_handler.cpp:421"
-  notes: "EU5 expects a message type for generic action notifications. Missing entries log 'Failed to find message type: PERFORM_<action_id>_ACTION' at startup or action evaluation."
+  source: "scripts/gen_messagetypes.py:3; scripts/gen_messagetypes.py:39; runtime error.log: message_handler.cpp:421, localization_util.cpp:103"
+  notes: "EU5 expects a message type and its SETUP/LOG/MAP localization trio for generic action notifications. Missing message types log 'Failed to find message type: PERFORM_<action_id>_ACTION'; missing members of the localization trio log the key with 'TODO : Write a desc'. scripts/validate.py cross-checks every generic action against the English and Simplified Chinese localization key sets."
 
 - id: event_loc_root_makescope_getvariable
   pattern: '\bROOT\.MakeScope\.GetVariable\('
