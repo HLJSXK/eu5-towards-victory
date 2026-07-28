@@ -44,15 +44,25 @@
   notes: 'Managed sandboxes can have read-only access to `C:\Users\Hades\anaconda3\conda-meta\history`, causing `conda run` to hang before the agent reaches validation or context output.'
 
 - id: same_id_database_override_missing_replace_prefix
-  pattern: '^(?:TV_HAS_VARIABLE_NOT_SET_TT|destroy_all_italian_leagues|university|library|prices\.(?:1|2|5|8|18|19|20|29|30))\s*=\s*\{'
+  pattern: '^(?:TV_HAS_VARIABLE_NOT_SET_TT|destroy_all_italian_leagues|university|library)\s*=\s*\{'
   detectability: lint
-  only_in_paths: ['tv_engineering_department_triggers.txt', 'tv_victory_path_task_effects.txt', 'tv_victory_path_task_buildings.txt', 'tv_victory_path_task_price_events.txt']
-  bad: "Copying an existing trigger-localization key, scripted effect, building type, or event ID into an override file with the original bare top-level key"
-  correction: "Prefix the overriding definition with `REPLACE:`, for example `REPLACE:university = { ... }` or `REPLACE:prices.1 = { ... }`, while preserving the complete original block plus the intended modification."
+  only_in_paths: ['tv_engineering_department_triggers.txt', 'tv_victory_path_task_effects.txt', 'tv_victory_path_task_buildings.txt']
+  bad: "Copying an existing trigger-localization key, scripted effect, or building type into an override file with the original bare top-level key"
+  correction: "Prefix the overriding definition with `REPLACE:`, for example `REPLACE:university = { ... }`, while preserving the complete original block plus the intended modification."
   category: script
   scope: any
-  source: "runtime error.log gamedatabase.h:408 / jomini_eventmanager.cpp:440, 2026-07-28; reference_mods/3626895335/in_game/common/scripted_effects/mshre_international_organization_effects.txt:1; reference_mods/3649381461/in_game/common/building_types/mod_improved_trade_&_buildings_buildings.txt:7"
-  notes: "EU5 does not infer replacement merely because a mod repeats an existing database key. Without the REPLACE prefix, the later block is rejected as a duplicate, so callbacks inserted into copied vanilla effects/buildings/events never load."
+  source: "runtime error.log gamedatabase.h:408, 2026-07-28; reference_mods/3626895335/in_game/common/scripted_effects/mshre_international_organization_effects.txt:1; reference_mods/3649381461/in_game/common/building_types/mod_improved_trade_&_buildings_buildings.txt:7"
+  notes: "EU5 does not infer replacement merely because a mod repeats an existing non-event database key. Without the REPLACE prefix, the later block is rejected as a duplicate, so callbacks inserted into copied vanilla effects or buildings never load."
+
+- id: vanilla_event_override_uses_replace_or_late_file
+  pattern: ''
+  detectability: advisory
+  bad: "Using REPLACE: or INJECT: for an individual vanilla event, or copying that event into a mod event file which loads after its base-game source file"
+  correction: "Create a new event file whose filename sorts before the relevant base file (for example 0000_modded_events.txt), repeat the vanilla namespace, and copy only each modified event under its bare ID. Preserve the complete event block. If it calls a helper defined in the base event file, inline that helper's contents in the event or copy the helper under a new mod-specific name. The resulting duplicate-event-ID log entry is expected and harmless."
+  category: event
+  scope: any
+  source: "User-provided 'Modifying base game events' guide, 2026-07-28"
+  notes: "The event manager applies the earlier duplicate definition; event-specific REPLACE: and INJECT: are not a valid replacement mechanism."
 
 - id: commented_scripted_list_iterator_not_registered
   pattern: '^[ \t]*(?:any|every|random|ordered)_ally\s*='

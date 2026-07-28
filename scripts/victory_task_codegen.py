@@ -1187,8 +1187,8 @@ def generate_price_events(data: dict, script: str) -> str:
         if marker not in block:
             raise ValueError(f"prices.{event_id} has no image insertion marker")
         block = block.replace(marker, insertion + marker, 1)
-        blocks.append(_as_replace_block(block, f"prices.{event_id}"))
-    return header(script, "Minimal same-ID vanilla price event overrides with task callbacks.", "reference_game_files/.../prices.txt") + "\nnamespace = prices\n\n" + "\n\n".join(blocks) + "\n"
+        blocks.append(block)
+    return header(script, "Early-loaded vanilla price event patches with task callbacks.", "reference_game_files/.../prices.txt") + "\nnamespace = prices\n\n" + "\n\n".join(blocks) + "\n"
 
 
 def generate_building_overrides(data: dict, script: str) -> str:

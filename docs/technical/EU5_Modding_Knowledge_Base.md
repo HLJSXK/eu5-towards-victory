@@ -1401,28 +1401,48 @@ The engine evaluates `ruler_residence`'s triggers against `ROOT.GetCountry` (mat
 
 This is the mechanism to prefer over hand-rolled `triggered_desc`-in-loc chains when the *only* thing that varies per-scope is a noun/phrase substitution driven by simple triggers — it keeps the conditional logic in one script block instead of duplicating trigger conditions across every calling loc string.
 
-#### Replacing Existing Database Keys
+#### Replacing Existing Non-Event Database Keys
 
-Repeating an existing top-level database key with its bare name does not imply an override. EU5
-rejects the later definition and logs either `Duplicated key <key> will not be created` or, for
-events, `Duplicated event ID '<namespace>.<id>' found`. Use the `REPLACE:` prefix on the overriding
-definition:
+Repeating an existing non-event top-level database key with its bare name does not imply an
+override. EU5 rejects the later definition and logs `Duplicated key <key> will not be created`.
+Use the `REPLACE:` prefix on the overriding definition:
 
 ```txt
 REPLACE:university = {
     # Complete vanilla building block plus the mod's changes.
 }
 
-REPLACE:prices.1 = {
+```
+
+The same prefix applies to copied scripted effects and trigger-localization database entries.
+Keep the complete source block unless that database type explicitly supports partial merging; the
+prefix changes which definition wins, but does not reconstruct omitted properties. Generated
+non-event overrides must add `REPLACE:` in the generator so regeneration cannot restore the
+duplicate-key bug.
+
+#### Modifying Base-Game Events
+
+`REPLACE:` and `INJECT:` do not modify individual base-game events. Create a new file in the
+mod's `in_game/events/` folder whose filename sorts before the relevant base-game event file,
+such as `0000_modded_events.txt`. At its top, repeat the event's vanilla namespace and copy only
+the complete event blocks being changed with their bare IDs:
+
+```txt
+namespace = prices
+
+prices.1 = {
     # Complete vanilla event block plus the mod's changes.
 }
 ```
 
-The same prefix applies to copied scripted effects and trigger-localization database entries. Keep
-the complete source block unless that database type explicitly supports partial merging; the
-prefix changes which definition wins, but does not reconstruct omitted properties. Generated
-overrides must add `REPLACE:` in the generator so regeneration cannot restore the duplicate-key
-bug.
+One file may patch multiple namespaces, provided each group of events immediately follows its
+respective namespace declaration.
+
+The duplicate event-ID error in `error.log` is expected and harmless: the early-loaded event is
+the active definition. If the copied event invokes a scripted effect or trigger defined inside
+the original event file, either inline that helper's contents into the event or copy the helper
+under a distinct mod-specific name. Redefining the original helper name breaks later base-game
+events; omitting it leaves the early event unable to resolve the helper.
 
 #### Customizable Localization Database Keys
 

@@ -102,12 +102,15 @@ called directly from event options.
    `immediate` block instead, so the IO is committed, real state before any option renders.
    See `docs/knowledge/anti_patterns.yaml` rule `io_creation_in_visible_option_effect_breaks_tooltip_preview`.
 
-12. Prefix same-ID event overrides with `REPLACE:`.
-   Copying a vanilla event block into a mod file and keeping a bare id such as
-   `prices.1 = { ... }` does not override it. The event manager rejects the later block as a
-   duplicate, so inserted callbacks never load. Preserve the full vanilla block and emit
-   `REPLACE:prices.1 = { ... }` (and likewise for every other intentionally overridden id).
-   Fix generated event overrides in their generator, not only in the generated `.txt` file.
+12. Override a vanilla event through early duplicate loading, never `REPLACE:` or `INJECT:`.
+   Create a separate mod event file whose filename sorts before the relevant base-game event
+   file, for example `0000_modded_events.txt`. Repeat the vanilla `namespace`, copy only the
+   changed complete events under their bare IDs (for example `prices.1 = { ... }`), and edit
+   them there. The expected duplicated-event-ID error is harmless: the early definition is
+   used. If a copied event uses a scripted trigger/effect defined in the base event file,
+   inline that helper's contents in the event or copy it under a new mod-specific name; never
+   redefine the original helper name. Fix generated event patches in their generator and rename
+   the generated output as needed, not only in the generated `.txt` file.
 
 ## Validation
 

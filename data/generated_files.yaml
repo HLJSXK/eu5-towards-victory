@@ -139,7 +139,7 @@ generated:
 
   - script: scripts/in_game/events/gen_tv_victory_path_task_price_events.py
     data:   data/victory_path_tasks.yaml + reference_game_files/game/in_game/events/economy/prices.txt
-    output: src/in_game/events/tv_victory_path_task_price_events.txt
+    output: src/in_game/events/0000_tv_victory_path_task_price_events.txt
 
   - script: scripts/in_game/common/building_types/gen_tv_victory_path_task_buildings.py
     data:   data/victory_path_tasks.yaml + reference_game_files/game/in_game/common/building_types/culture_buildings.txt

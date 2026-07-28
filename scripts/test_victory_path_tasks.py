@@ -192,9 +192,10 @@ def main() -> None:
         assert f"tv_victory_path_tasks_initialize_{path_id}_effect = yes" in victory_effects
         assert f"tv_victory_path_tasks_refresh_all_{path_id}_effect = yes" not in tree_effects
 
-    price_events = read("src/in_game/events/tv_victory_path_task_price_events.txt")
+    price_events = read("src/in_game/events/0000_tv_victory_path_task_price_events.txt")
     for event_id in (1, 2, 5, 8, 18, 19, 20, 29, 30):
-        assert f"REPLACE:prices.{event_id} = {{" in price_events
+        assert f"prices.{event_id} = {{" in price_events
+        assert f"REPLACE:prices.{event_id} = {{" not in price_events
         assert price_events.count(f"tv_victory_task_prices_{event_id}_callback_effect = yes") == 1
     for event_id in (1, 2, 8):
         callback = _extract_top_level_block(effects, f"tv_victory_task_prices_{event_id}_callback_effect")

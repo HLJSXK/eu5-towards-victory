@@ -2,11 +2,11 @@
 #   Data:    data/victory_path_tasks.yaml + reference_game_files/.../prices.txt
 #   Regen:   conda run --no-capture-output -n eu5 python scripts/in_game/events/gen_tv_victory_path_task_price_events.py
 # Do not edit directly - modify the data/generator and re-run it.
-# Minimal same-ID vanilla price event overrides with task callbacks.
+# Early-loaded vanilla price event patches with task callbacks.
 
 namespace = prices
 
-REPLACE:prices.1 = {
+prices.1 = {
 	type = country_event
 	fire_only_once = yes
 	title = prices.1.title
@@ -64,7 +64,7 @@ REPLACE:prices.1 = {
 	}
 }
 
-REPLACE:prices.2 = {
+prices.2 = {
 	type = country_event
 	title = prices.2.title
 	desc = prices.2.desc
@@ -103,7 +103,7 @@ REPLACE:prices.2 = {
 	}
 }
 
-REPLACE:prices.5 = {
+prices.5 = {
 	type = country_event
 
 	title = prices.5.title
@@ -136,7 +136,7 @@ REPLACE:prices.5 = {
 	}
 }
 
-REPLACE:prices.8 = {
+prices.8 = {
 	type = country_event
 	fire_only_once = yes
 	title = prices.8.title
@@ -178,7 +178,7 @@ REPLACE:prices.8 = {
 	}
 }
 
-REPLACE:prices.18 = {
+prices.18 = {
 	type = country_event
 	title = prices.18.title
 	desc = prices.18.desc
@@ -208,7 +208,7 @@ REPLACE:prices.18 = {
 	}
 }
 
-REPLACE:prices.19 = {
+prices.19 = {
 	type = country_event
 	title = prices.19.title
 	desc = prices.19.desc
@@ -240,7 +240,7 @@ REPLACE:prices.19 = {
 	}
 }
 
-REPLACE:prices.20 = {
+prices.20 = {
 	type = country_event
 	title = prices.20.title
 	desc = prices.20.desc
@@ -272,7 +272,7 @@ REPLACE:prices.20 = {
 	}
 }
 
-REPLACE:prices.29 = {
+prices.29 = {
 	type = country_event
 	title = prices.29.title
 	desc = prices.29.desc
@@ -302,7 +302,7 @@ REPLACE:prices.29 = {
 	}
 }
 
-REPLACE:prices.30 = {
+prices.30 = {
 	type = country_event
 	title = prices.30.title
 	desc = prices.30.desc
