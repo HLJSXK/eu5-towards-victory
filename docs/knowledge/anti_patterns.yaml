@@ -48,11 +48,21 @@
   detectability: lint
   only_in_paths: ['tv_engineering_department_triggers.txt', 'tv_victory_path_task_effects.txt', 'tv_victory_path_task_buildings.txt']
   bad: "Copying an existing trigger-localization key, scripted effect, or building type into an override file with the original bare top-level key"
-  correction: "Prefix the overriding definition with `REPLACE:`, for example `REPLACE:university = { ... }`, while preserving the complete original block plus the intended modification."
+  correction: "Prefix the patch with the narrowest correct directive: use `INJECT:<id>` when only adding a field that the vanilla definition does not contain (for example `INJECT:university = { on_construction_ended = { ... } }`); use `REPLACE:<id>` only when altering or replacing existing fields, preserving the complete original block plus the intended modification."
   category: script
   scope: any
   source: "runtime error.log gamedatabase.h:408, 2026-07-28; reference_mods/3626895335/in_game/common/scripted_effects/mshre_international_organization_effects.txt:1; reference_mods/3649381461/in_game/common/building_types/mod_improved_trade_&_buildings_buildings.txt:7"
-  notes: "EU5 does not infer replacement merely because a mod repeats an existing non-event database key. Without the REPLACE prefix, the later block is rejected as a duplicate, so callbacks inserted into copied vanilla effects or buildings never load."
+  notes: "EU5 does not infer a patch merely because a mod repeats an existing non-event database key. A bare later block is rejected as a duplicate; use INJECT for a new child field and REPLACE only when an existing definition must change."
+
+- id: replaced_building_reuses_vanilla_unique_production_method_id
+  pattern: ''
+  detectability: advisory
+  bad: "Copying a vanilla building's `unique_production_methods` child ID unchanged into a `REPLACE:<building>` override"
+  correction: "Keep the complete production-method definition, but rename each copied child to a unique `tv_`-prefixed ID (for example `university_maintenance` to `tv_university_maintenance`)."
+  category: building
+  scope: any
+  source: "runtime error.log building_type.cpp:1075, 2026-07-28; reference_game_files/game/in_game/common/building_types/culture_buildings.txt:38-46"
+  notes: "REPLACE swaps the building definition but does not replace a nested unique production method's global registration; retaining the vanilla child ID logs a duplicate-production-method error and prevents the override from loading cleanly."
 
 - id: vanilla_event_override_uses_replace_or_late_file
   pattern: ''

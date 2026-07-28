@@ -20,9 +20,6 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DATA_FILE = REPO_ROOT / "data" / "victory_path_tasks.yaml"
 VANILLA_PRICES = REPO_ROOT / "reference_game_files/game/in_game/events/economy/prices.txt"
-VANILLA_CULTURE_BUILDINGS = (
-    REPO_ROOT / "reference_game_files/game/in_game/common/building_types/culture_buildings.txt"
-)
 VANILLA_IO_EFFECTS = (
     REPO_ROOT
     / "reference_game_files/game/in_game/common/scripted_effects/international_organization_effects.txt"
@@ -1191,21 +1188,20 @@ def generate_price_events(data: dict, script: str) -> str:
     return header(script, "Early-loaded vanilla price event patches with task callbacks.", "reference_game_files/.../prices.txt") + "\nnamespace = prices\n\n" + "\n\n".join(blocks) + "\n"
 
 
-def generate_building_overrides(data: dict, script: str) -> str:
-    source = VANILLA_CULTURE_BUILDINGS.read_text(encoding="utf-8-sig")
+def generate_building_overrides(_data: dict, script: str) -> str:
     blocks: list[str] = []
     for building in ("university", "library"):
-        block = _extract_top_level_block(source, building)
         callback = (
-            "\n\ton_construction_ended = {\n"
+            f"INJECT:{building} = {{\n"
+            "\ton_construction_ended = {\n"
             "\t\thidden_effect = {\n"
             f"\t\t\towner ?= {{ tv_victory_task_build_{building}_callback_effect = yes }}\n"
             "\t\t}\n"
             "\t}\n"
+            "}"
         )
-        block = block[:-1].rstrip() + callback + "}"
-        blocks.append(_as_replace_block(block, building))
-    return header(script, "Minimal same-ID Library/University overrides with construction callbacks.", "reference_game_files/.../culture_buildings.txt") + "\n" + "\n\n".join(blocks) + "\n"
+        blocks.append(callback)
+    return header(script, "Minimal Library/University construction-callback injections.") + "\n" + "\n\n".join(blocks) + "\n"
 
 
 def _yaml_quote(value: str) -> str:

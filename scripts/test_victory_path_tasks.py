@@ -206,8 +206,10 @@ def main() -> None:
     assert "OR = {\n\t\t\treligion.group = religion_group:christian\n\t\t\treligion.group = religion_group:muslim" in prices_30
 
     buildings = read("src/in_game/common/building_types/tv_victory_path_task_buildings.txt")
-    assert "REPLACE:library = {" in buildings
-    assert "REPLACE:university = {" in buildings
+    assert "INJECT:library = {" in buildings
+    assert "INJECT:university = {" in buildings
+    assert "REPLACE:" not in buildings
+    assert "unique_production_methods" not in buildings
     assert "tv_victory_task_build_library_callback_effect = yes" in buildings
     assert "tv_victory_task_build_university_callback_effect = yes" in buildings
     assert "tv_victory_task_callback_local_exhibition_ended_effect = yes" in read(
