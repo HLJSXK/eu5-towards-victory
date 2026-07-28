@@ -744,6 +744,34 @@ any_market_with_merchants = {
 
 The GUI can hide this bug: `ShowTriggerConditions('trigger_name', PlayerScope.Self)` evaluates with the player country as root, while the monthly situation checker may evaluate the same trigger with situation root. A milestone can therefore show all conditions green in the panel but never grant the node unless nested country references use `prev` or an explicit saved scope.
 
+#### Nullable links in broad location iterators
+
+`any_location_in_the_world` and geography iterators can include water, non-ownable locations,
+and ownable locations with no owner. A direct `owner = <country>` or
+`dominant_culture = <culture>` link dereferences the current location's object and can therefore
+log an invalid-object error during generic-action tooltip pre-evaluation. Saving the country
+scope protects the comparison's right-hand side, but does not make the iterated location's
+nullable link valid.
+
+Filter the iterator and use optional links. This checks that every ownable location matching a
+country's culture is directly owned, while treating an ownerless matching location as not owned:
+
+```pdx
+save_temporary_scope_as = task_owner
+NOT = {
+    any_location_in_the_world = {
+        is_ownable = yes
+        dominant_culture ?= scope:task_owner.culture
+        NOT = { owner ?= scope:task_owner }
+    }
+}
+```
+
+For a pure geographic unification check, omit the culture line but retain
+`is_ownable = yes` and `NOT = { owner ?= scope:task_owner }`. The optional
+`dominant_culture ?=` link safely excludes locations without a culture object; the optional owner
+link safely returns false for an ownerless location, making the enclosing `NOT` succeed.
+
 ### 5.3. Script Values
 
 Script values are used for mathematical calculations and creating dynamic numerical values. They can be defined as reusable named values in the `common/script_values/` folder or created inline within other scripts. They support a wide range of arithmetic and logical operators. [6]

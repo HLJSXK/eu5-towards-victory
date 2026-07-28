@@ -150,6 +150,13 @@ execution time can still spam runtime errors while the mouse is merely hovering 
    against `scope:<owner_scope>` (or `scope:<owner_scope>.culture`), never `root`. This is
    distinct from scripted effects, which use `save_scope_as`.
 
+21. Make broad location iterators safe before reading nullable links.
+   `any_location_in_the_world` and geography iterators can visit non-ownable, water, and
+   ownerless locations. Filter with `is_ownable = yes`; read culture with
+   `dominant_culture ?= <culture>` and ownership with `owner ?= <country>`. For an
+   "all locations controlled" check, put `NOT = { owner ?= <country> }` inside the filtered
+   iterator so an ownable ownerless location correctly remains unconquered without logging.
+
 ## Safe Skeleton
 
 ```txt

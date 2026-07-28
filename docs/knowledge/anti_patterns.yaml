@@ -1025,6 +1025,17 @@
   source: "User runtime log: tv_victory_claim_conquest_task_slot_2 -> tv_victory_path_tasks_claim_conquest_slot_2_effect -> tv_victory_path_tasks_refresh_conquest_slot_2_effect -> tv_victory_path_tasks_assign_conquest_slot_2_effect -> tv_victory_task_1101/1103/1104/1105/1106_candidate, 2026-07-28"
   notes: "The Victory Path task generator emitted country-scoped candidate/current-condition triggers whose nested location checks compared `dominant_culture = root.culture` and `owner = root`. Generic-action effect-tooltip pre-evaluation supplied no valid root object, producing `Invalid right side during comparison 'culture'`, `Event target link 'dominant_culture' returned an invalid object`, and four `Invalid right side during comparison 'root'` errors. Each generated target trigger now saves `tv_victory_task_trigger_owner` with `save_temporary_scope_as` and uses that scope explicitly; candidate and display triggers use their own saved owners for every remaining nested country comparison."
 
+- id: broad_location_iterator_uses_direct_nullable_links
+  detectability: advisory
+  pattern: ''
+  only_in_paths: ['scripted_triggers', 'generic_actions', 'scripted_effects']
+  bad: "Using direct `owner = <scope>` or `dominant_culture = <scope>` comparisons while iterating all locations or a geography that can include non-ownable, water, or ownerless locations"
+  correction: "Filter the iterator with `is_ownable = yes`, then use optional scope links: `dominant_culture ?= <culture>` and `NOT = { owner ?= <country> }`. Optional owner comparison safely treats an ownerless ownable location as not controlled; optional dominant-culture comparison ignores locations with no culture object."
+  category: scope
+  scope: location
+  source: "User runtime log: tv_io_leader_actions -> tv_victory_path_tasks_assign_conquest_slot_3_effect -> tv_victory_task_1101/1103/1104/1105/1106_current_condition, 2026-07-28; reference_game_files/game/in_game/common/building_types/unique_buildings.txt:22; reference_game_files/game/in_game/events/debug/qa_debug.txt:561-562"
+  notes: "Saving the country owner scope fixed the earlier invalid-root path but did not make each iterated location's nullable links valid. The task generator still scanned sea/non-ownable locations with direct `dominant_culture` and direct `owner` links, so Governor's House creation and its hover-pre-evaluation logged invalid-object errors repeatedly. The safe pattern is emitted for all culture and geography unification checks, including the culture-group display trigger."
+
 - id: trigger_loc_missing_first_perspective
   pattern: ''
   only_in_paths: ['trigger_localization']

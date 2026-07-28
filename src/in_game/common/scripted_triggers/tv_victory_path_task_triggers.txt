@@ -10,8 +10,9 @@ tv_victory_task_1101_current_condition = {
 	save_temporary_scope_as = tv_victory_task_trigger_owner
 	NOT = {
 		any_location_in_the_world = {
-			dominant_culture = scope:tv_victory_task_trigger_owner.culture
-			NOT = { owner = scope:tv_victory_task_trigger_owner }
+			is_ownable = yes
+			dominant_culture ?= scope:tv_victory_task_trigger_owner.culture
+			NOT = { owner ?= scope:tv_victory_task_trigger_owner }
 		}
 	}
 }
@@ -22,22 +23,22 @@ tv_victory_task_1102_current_condition = {
 
 tv_victory_task_1103_current_condition = {
 	save_temporary_scope_as = tv_victory_task_trigger_owner
-	capital.area = { NOT = { any_location_in_area = { NOT = { owner = scope:tv_victory_task_trigger_owner } } } }
+	capital.area = { NOT = { any_location_in_area = { is_ownable = yes NOT = { owner ?= scope:tv_victory_task_trigger_owner } } } }
 }
 
 tv_victory_task_1104_current_condition = {
 	save_temporary_scope_as = tv_victory_task_trigger_owner
-	capital.region = { NOT = { any_location_in_region = { NOT = { owner = scope:tv_victory_task_trigger_owner } } } }
+	capital.region = { NOT = { any_location_in_region = { is_ownable = yes NOT = { owner ?= scope:tv_victory_task_trigger_owner } } } }
 }
 
 tv_victory_task_1105_current_condition = {
 	save_temporary_scope_as = tv_victory_task_trigger_owner
-	capital.sub_continent = { NOT = { any_location_in_sub_continent = { NOT = { owner = scope:tv_victory_task_trigger_owner } } } }
+	capital.sub_continent = { NOT = { any_location_in_sub_continent = { is_ownable = yes NOT = { owner ?= scope:tv_victory_task_trigger_owner } } } }
 }
 
 tv_victory_task_1106_current_condition = {
 	save_temporary_scope_as = tv_victory_task_trigger_owner
-	capital.continent = { NOT = { any_location_in_continent = { NOT = { owner = scope:tv_victory_task_trigger_owner } } } }
+	capital.continent = { NOT = { any_location_in_continent = { is_ownable = yes NOT = { owner ?= scope:tv_victory_task_trigger_owner } } } }
 }
 
 tv_victory_task_1107_current_condition = {
@@ -1744,8 +1745,9 @@ tv_conquest_task_slot_1_display_trigger = {
 					var:tv_conquest_task_slot_1_culture_group ?= {
 						NOT = {
 							any_location_in_the_world = {
-								dominant_culture = { any_culture_group = { this = scope:tv_victory_task_display_owner.var:tv_conquest_task_slot_1_culture_group } }
-								NOT = { owner = scope:tv_victory_task_display_owner }
+								is_ownable = yes
+								dominant_culture ?= { any_culture_group = { this = scope:tv_victory_task_display_owner.var:tv_conquest_task_slot_1_culture_group } }
+								NOT = { owner ?= scope:tv_victory_task_display_owner }
 							}
 						}
 					}
@@ -1842,8 +1844,9 @@ tv_conquest_task_slot_2_display_trigger = {
 					var:tv_conquest_task_slot_2_culture_group ?= {
 						NOT = {
 							any_location_in_the_world = {
-								dominant_culture = { any_culture_group = { this = scope:tv_victory_task_display_owner.var:tv_conquest_task_slot_2_culture_group } }
-								NOT = { owner = scope:tv_victory_task_display_owner }
+								is_ownable = yes
+								dominant_culture ?= { any_culture_group = { this = scope:tv_victory_task_display_owner.var:tv_conquest_task_slot_2_culture_group } }
+								NOT = { owner ?= scope:tv_victory_task_display_owner }
 							}
 						}
 					}
@@ -1940,8 +1943,9 @@ tv_conquest_task_slot_3_display_trigger = {
 					var:tv_conquest_task_slot_3_culture_group ?= {
 						NOT = {
 							any_location_in_the_world = {
-								dominant_culture = { any_culture_group = { this = scope:tv_victory_task_display_owner.var:tv_conquest_task_slot_3_culture_group } }
-								NOT = { owner = scope:tv_victory_task_display_owner }
+								is_ownable = yes
+								dominant_culture ?= { any_culture_group = { this = scope:tv_victory_task_display_owner.var:tv_conquest_task_slot_3_culture_group } }
+								NOT = { owner ?= scope:tv_victory_task_display_owner }
 							}
 						}
 					}

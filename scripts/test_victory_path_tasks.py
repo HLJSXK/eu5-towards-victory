@@ -191,14 +191,28 @@ def main() -> None:
     assert "any_known_country = {" in strong_ally_condition
     assert "save_temporary_scope_as = tv_victory_task_trigger_owner" in strong_ally_condition
     assert "is_allied_with = { target = scope:tv_victory_task_trigger_owner }" in strong_ally_condition
-    assert "any_location_in_the_world" in _extract_top_level_block(
+    unite_culture_condition = _extract_top_level_block(
         triggers, "tv_victory_task_1101_current_condition"
     )
+    assert "any_location_in_the_world" in unite_culture_condition
+    assert "is_ownable = yes" in unite_culture_condition
+    assert "dominant_culture ?= scope:tv_victory_task_trigger_owner.culture" in unite_culture_condition
+    assert "NOT = { owner ?= scope:tv_victory_task_trigger_owner }" in unite_culture_condition
+    for task_id, geography in ((1103, "area"), (1104, "region"), (1105, "sub_continent"), (1106, "continent")):
+        united_geography_condition = _extract_top_level_block(
+            triggers, f"tv_victory_task_{task_id}_current_condition"
+        )
+        assert f"any_location_in_{geography}" in united_geography_condition
+        assert "is_ownable = yes" in united_geography_condition
+        assert "NOT = { owner ?= scope:tv_victory_task_trigger_owner }" in united_geography_condition
     for slot in SLOTS:
         culture_group_display = _extract_top_level_block(
             triggers, f"tv_conquest_task_slot_{slot}_display_trigger"
         )
         assert "any_location_in_the_world" in culture_group_display
+        assert "is_ownable = yes" in culture_group_display
+        assert "dominant_culture ?= { any_culture_group" in culture_group_display
+        assert "NOT = { owner ?= scope:tv_victory_task_display_owner }" in culture_group_display
     assert "tv_local_exhibition_last_rating" in effects
     assert "tv_victory_path_task_national_special_historical_tag_eligible" in triggers
     assert "has_or_had_tag = $tag$" in triggers

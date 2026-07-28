@@ -338,17 +338,18 @@ def _target_condition_body(task: dict) -> list[str]:
         "unite_culture": [
             "NOT = {",
             "\tany_location_in_the_world = {",
-            f"\t\tdominant_culture = {owner}.culture",
-            f"\t\tNOT = {{ owner = {owner} }}",
+            "\t\tis_ownable = yes",
+            f"\t\tdominant_culture ?= {owner}.culture",
+            f"\t\tNOT = {{ owner ?= {owner} }}",
             "\t}",
             "}",
         ],
         # The culture-group scope is snapshotted into the active slot at assignment.
         "unite_culture_group": ["always = no"],
-        "unite_capital_area": [f"capital.area = {{ NOT = {{ any_location_in_area = {{ NOT = {{ owner = {owner} }} }} }} }}"],
-        "unite_capital_region": [f"capital.region = {{ NOT = {{ any_location_in_region = {{ NOT = {{ owner = {owner} }} }} }} }}"],
-        "unite_capital_subcontinent": [f"capital.sub_continent = {{ NOT = {{ any_location_in_sub_continent = {{ NOT = {{ owner = {owner} }} }} }} }}"],
-        "unite_capital_continent": [f"capital.continent = {{ NOT = {{ any_location_in_continent = {{ NOT = {{ owner = {owner} }} }} }} }}"],
+        "unite_capital_area": [f"capital.area = {{ NOT = {{ any_location_in_area = {{ is_ownable = yes NOT = {{ owner ?= {owner} }} }} }} }}"],
+        "unite_capital_region": [f"capital.region = {{ NOT = {{ any_location_in_region = {{ is_ownable = yes NOT = {{ owner ?= {owner} }} }} }} }}"],
+        "unite_capital_subcontinent": [f"capital.sub_continent = {{ NOT = {{ any_location_in_sub_continent = {{ is_ownable = yes NOT = {{ owner ?= {owner} }} }} }} }}"],
+        "unite_capital_continent": [f"capital.continent = {{ NOT = {{ any_location_in_continent = {{ is_ownable = yes NOT = {{ owner ?= {owner} }} }} }} }}"],
         "colonial_empire": [
             "any_subject_or_below = { is_colonial_subject = yes capital.sub_continent = sub_continent:north_america }",
             "any_subject_or_below = { is_colonial_subject = yes capital.sub_continent = sub_continent:south_america }",
@@ -508,8 +509,9 @@ def generate_triggers(data: dict, script: str) -> str:
                         emit(lines, 5, f"var:{prefix}_culture_group ?= {{")
                         emit(lines, 6, "NOT = {")
                         emit(lines, 7, "any_location_in_the_world = {")
-                        emit(lines, 8, "dominant_culture = { any_culture_group = { this = scope:tv_victory_task_display_owner.var:" + prefix + "_culture_group } }")
-                        emit(lines, 8, "NOT = { owner = scope:tv_victory_task_display_owner }")
+                        emit(lines, 8, "is_ownable = yes")
+                        emit(lines, 8, "dominant_culture ?= { any_culture_group = { this = scope:tv_victory_task_display_owner.var:" + prefix + "_culture_group } }")
+                        emit(lines, 8, "NOT = { owner ?= scope:tv_victory_task_display_owner }")
                         emit(lines, 7, "}")
                         emit(lines, 6, "}")
                         emit(lines, 5, "}")
