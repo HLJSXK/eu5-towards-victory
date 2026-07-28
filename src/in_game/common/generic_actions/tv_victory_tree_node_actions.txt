@@ -30,8 +30,14 @@ tv_tree_select_conquest_t1 = {
 
 	allow = {
 		scope:actor = {
-			NOT = { has_variable = tv_tree_conquest_t1_unlocked }
-			var:tv_conquest_tree_points ?= { this >= 10 }
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_T1_POINTS_REQUIREMENT
+				var:tv_conquest_tree_points ?= { this >= 10 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_T1_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_conquest_t1_unlocked }
+			}
 		}
 	}
 
@@ -60,9 +66,18 @@ tv_tree_select_conquest_t2 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_conquest_t1_unlocked
-			NOT = { has_variable = tv_tree_conquest_t2_unlocked }
-			var:tv_conquest_tree_points ?= { this >= 10 }
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_T2_PREREQUISITE
+				has_variable = tv_tree_conquest_t1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_T2_POINTS_REQUIREMENT
+				var:tv_conquest_tree_points ?= { this >= 10 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_T2_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_conquest_t2_unlocked }
+			}
 		}
 	}
 
@@ -91,9 +106,18 @@ tv_tree_select_conquest_t3 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_conquest_t2_unlocked
-			NOT = { has_variable = tv_tree_conquest_t3_unlocked }
-			var:tv_conquest_tree_points ?= { this >= 10 }
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_T3_PREREQUISITE
+				has_variable = tv_tree_conquest_t2_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_T3_POINTS_REQUIREMENT
+				var:tv_conquest_tree_points ?= { this >= 10 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_T3_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_conquest_t3_unlocked }
+			}
 		}
 	}
 
@@ -122,9 +146,18 @@ tv_tree_select_conquest_t4 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_conquest_t3_unlocked
-			NOT = { has_variable = tv_tree_conquest_t4_unlocked }
-			var:tv_conquest_tree_points ?= { this >= 10 }
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_T4_PREREQUISITE
+				has_variable = tv_tree_conquest_t3_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_T4_POINTS_REQUIREMENT
+				var:tv_conquest_tree_points ?= { this >= 10 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_T4_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_conquest_t4_unlocked }
+			}
 		}
 	}
 
@@ -153,9 +186,18 @@ tv_tree_select_conquest_t5 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_conquest_t4_unlocked
-			NOT = { has_variable = tv_tree_conquest_t5_unlocked }
-			var:tv_conquest_tree_points ?= { this >= 10 }
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_T5_PREREQUISITE
+				has_variable = tv_tree_conquest_t4_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_T5_POINTS_REQUIREMENT
+				var:tv_conquest_tree_points ?= { this >= 10 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_T5_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_conquest_t5_unlocked }
+			}
 		}
 	}
 
@@ -184,9 +226,18 @@ tv_tree_select_conquest_b1_1 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_conquest_t1_unlocked
-			NOT = { has_variable = tv_tree_conquest_b1_1_unlocked }
-			var:tv_conquest_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_B1_1_PREREQUISITE
+				has_variable = tv_tree_conquest_t1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_B1_1_POINTS_REQUIREMENT
+				var:tv_conquest_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_B1_1_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_conquest_b1_1_unlocked }
+			}
 		}
 	}
 
@@ -215,9 +266,18 @@ tv_tree_select_conquest_b1_2 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_conquest_b1_1_unlocked
-			NOT = { has_variable = tv_tree_conquest_b1_2_unlocked }
-			var:tv_conquest_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_B1_2_PREREQUISITE
+				has_variable = tv_tree_conquest_b1_1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_B1_2_POINTS_REQUIREMENT
+				var:tv_conquest_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_B1_2_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_conquest_b1_2_unlocked }
+			}
 		}
 	}
 
@@ -246,9 +306,18 @@ tv_tree_select_conquest_b2_1 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_conquest_t1_unlocked
-			NOT = { has_variable = tv_tree_conquest_b2_1_unlocked }
-			var:tv_conquest_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_B2_1_PREREQUISITE
+				has_variable = tv_tree_conquest_t1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_B2_1_POINTS_REQUIREMENT
+				var:tv_conquest_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_B2_1_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_conquest_b2_1_unlocked }
+			}
 		}
 	}
 
@@ -277,9 +346,18 @@ tv_tree_select_conquest_b2_2 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_conquest_b2_1_unlocked
-			NOT = { has_variable = tv_tree_conquest_b2_2_unlocked }
-			var:tv_conquest_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_B2_2_PREREQUISITE
+				has_variable = tv_tree_conquest_b2_1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_B2_2_POINTS_REQUIREMENT
+				var:tv_conquest_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_B2_2_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_conquest_b2_2_unlocked }
+			}
 		}
 	}
 
@@ -308,9 +386,18 @@ tv_tree_select_conquest_b2_3 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_conquest_b2_2_unlocked
-			NOT = { has_variable = tv_tree_conquest_b2_3_unlocked }
-			var:tv_conquest_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_B2_3_PREREQUISITE
+				has_variable = tv_tree_conquest_b2_2_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_B2_3_POINTS_REQUIREMENT
+				var:tv_conquest_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_B2_3_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_conquest_b2_3_unlocked }
+			}
 		}
 	}
 
@@ -339,9 +426,18 @@ tv_tree_select_conquest_b3_1 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_conquest_t2_unlocked
-			NOT = { has_variable = tv_tree_conquest_b3_1_unlocked }
-			var:tv_conquest_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_B3_1_PREREQUISITE
+				has_variable = tv_tree_conquest_t2_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_B3_1_POINTS_REQUIREMENT
+				var:tv_conquest_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_B3_1_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_conquest_b3_1_unlocked }
+			}
 		}
 	}
 
@@ -370,9 +466,18 @@ tv_tree_select_conquest_b3_2 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_conquest_b3_1_unlocked
-			NOT = { has_variable = tv_tree_conquest_b3_2_unlocked }
-			var:tv_conquest_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_B3_2_PREREQUISITE
+				has_variable = tv_tree_conquest_b3_1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_B3_2_POINTS_REQUIREMENT
+				var:tv_conquest_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_B3_2_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_conquest_b3_2_unlocked }
+			}
 		}
 	}
 
@@ -401,9 +506,18 @@ tv_tree_select_conquest_b4_1 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_conquest_t2_unlocked
-			NOT = { has_variable = tv_tree_conquest_b4_1_unlocked }
-			var:tv_conquest_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_B4_1_PREREQUISITE
+				has_variable = tv_tree_conquest_t2_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_B4_1_POINTS_REQUIREMENT
+				var:tv_conquest_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_B4_1_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_conquest_b4_1_unlocked }
+			}
 		}
 	}
 
@@ -432,9 +546,18 @@ tv_tree_select_conquest_b4_2 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_conquest_b4_1_unlocked
-			NOT = { has_variable = tv_tree_conquest_b4_2_unlocked }
-			var:tv_conquest_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_B4_2_PREREQUISITE
+				has_variable = tv_tree_conquest_b4_1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_B4_2_POINTS_REQUIREMENT
+				var:tv_conquest_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_B4_2_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_conquest_b4_2_unlocked }
+			}
 		}
 	}
 
@@ -463,9 +586,18 @@ tv_tree_select_conquest_b4_3 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_conquest_b4_2_unlocked
-			NOT = { has_variable = tv_tree_conquest_b4_3_unlocked }
-			var:tv_conquest_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_B4_3_PREREQUISITE
+				has_variable = tv_tree_conquest_b4_2_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_B4_3_POINTS_REQUIREMENT
+				var:tv_conquest_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_B4_3_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_conquest_b4_3_unlocked }
+			}
 		}
 	}
 
@@ -494,9 +626,18 @@ tv_tree_select_conquest_b5_1 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_conquest_t3_unlocked
-			NOT = { has_variable = tv_tree_conquest_b5_1_unlocked }
-			var:tv_conquest_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_B5_1_PREREQUISITE
+				has_variable = tv_tree_conquest_t3_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_B5_1_POINTS_REQUIREMENT
+				var:tv_conquest_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_B5_1_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_conquest_b5_1_unlocked }
+			}
 		}
 	}
 
@@ -525,9 +666,18 @@ tv_tree_select_conquest_b5_2 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_conquest_b5_1_unlocked
-			NOT = { has_variable = tv_tree_conquest_b5_2_unlocked }
-			var:tv_conquest_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_B5_2_PREREQUISITE
+				has_variable = tv_tree_conquest_b5_1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_B5_2_POINTS_REQUIREMENT
+				var:tv_conquest_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_CONQUEST_B5_2_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_conquest_b5_2_unlocked }
+			}
 		}
 	}
 
@@ -557,8 +707,14 @@ tv_tree_select_prosperity_t1 = {
 
 	allow = {
 		scope:actor = {
-			NOT = { has_variable = tv_tree_prosperity_t1_unlocked }
-			var:tv_prosperity_tree_points ?= { this >= 10 }
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_T1_POINTS_REQUIREMENT
+				var:tv_prosperity_tree_points ?= { this >= 10 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_T1_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_prosperity_t1_unlocked }
+			}
 		}
 	}
 
@@ -587,9 +743,18 @@ tv_tree_select_prosperity_t2 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_prosperity_t1_unlocked
-			NOT = { has_variable = tv_tree_prosperity_t2_unlocked }
-			var:tv_prosperity_tree_points ?= { this >= 10 }
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_T2_PREREQUISITE
+				has_variable = tv_tree_prosperity_t1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_T2_POINTS_REQUIREMENT
+				var:tv_prosperity_tree_points ?= { this >= 10 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_T2_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_prosperity_t2_unlocked }
+			}
 		}
 	}
 
@@ -618,9 +783,18 @@ tv_tree_select_prosperity_t3 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_prosperity_t2_unlocked
-			NOT = { has_variable = tv_tree_prosperity_t3_unlocked }
-			var:tv_prosperity_tree_points ?= { this >= 10 }
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_T3_PREREQUISITE
+				has_variable = tv_tree_prosperity_t2_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_T3_POINTS_REQUIREMENT
+				var:tv_prosperity_tree_points ?= { this >= 10 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_T3_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_prosperity_t3_unlocked }
+			}
 		}
 	}
 
@@ -649,9 +823,18 @@ tv_tree_select_prosperity_t4 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_prosperity_t3_unlocked
-			NOT = { has_variable = tv_tree_prosperity_t4_unlocked }
-			var:tv_prosperity_tree_points ?= { this >= 10 }
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_T4_PREREQUISITE
+				has_variable = tv_tree_prosperity_t3_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_T4_POINTS_REQUIREMENT
+				var:tv_prosperity_tree_points ?= { this >= 10 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_T4_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_prosperity_t4_unlocked }
+			}
 		}
 	}
 
@@ -680,9 +863,18 @@ tv_tree_select_prosperity_t5 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_prosperity_t4_unlocked
-			NOT = { has_variable = tv_tree_prosperity_t5_unlocked }
-			var:tv_prosperity_tree_points ?= { this >= 10 }
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_T5_PREREQUISITE
+				has_variable = tv_tree_prosperity_t4_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_T5_POINTS_REQUIREMENT
+				var:tv_prosperity_tree_points ?= { this >= 10 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_T5_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_prosperity_t5_unlocked }
+			}
 		}
 	}
 
@@ -711,9 +903,18 @@ tv_tree_select_prosperity_b1_1 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_prosperity_t1_unlocked
-			NOT = { has_variable = tv_tree_prosperity_b1_1_unlocked }
-			var:tv_prosperity_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B1_1_PREREQUISITE
+				has_variable = tv_tree_prosperity_t1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B1_1_POINTS_REQUIREMENT
+				var:tv_prosperity_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B1_1_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_prosperity_b1_1_unlocked }
+			}
 		}
 	}
 
@@ -742,9 +943,18 @@ tv_tree_select_prosperity_b1_2 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_prosperity_b1_1_unlocked
-			NOT = { has_variable = tv_tree_prosperity_b1_2_unlocked }
-			var:tv_prosperity_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B1_2_PREREQUISITE
+				has_variable = tv_tree_prosperity_b1_1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B1_2_POINTS_REQUIREMENT
+				var:tv_prosperity_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B1_2_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_prosperity_b1_2_unlocked }
+			}
 		}
 	}
 
@@ -773,9 +983,18 @@ tv_tree_select_prosperity_b1_3 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_prosperity_b1_2_unlocked
-			NOT = { has_variable = tv_tree_prosperity_b1_3_unlocked }
-			var:tv_prosperity_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B1_3_PREREQUISITE
+				has_variable = tv_tree_prosperity_b1_2_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B1_3_POINTS_REQUIREMENT
+				var:tv_prosperity_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B1_3_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_prosperity_b1_3_unlocked }
+			}
 		}
 	}
 
@@ -804,9 +1023,18 @@ tv_tree_select_prosperity_b2_1 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_prosperity_t1_unlocked
-			NOT = { has_variable = tv_tree_prosperity_b2_1_unlocked }
-			var:tv_prosperity_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B2_1_PREREQUISITE
+				has_variable = tv_tree_prosperity_t1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B2_1_POINTS_REQUIREMENT
+				var:tv_prosperity_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B2_1_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_prosperity_b2_1_unlocked }
+			}
 		}
 	}
 
@@ -835,9 +1063,18 @@ tv_tree_select_prosperity_b2_2 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_prosperity_b2_1_unlocked
-			NOT = { has_variable = tv_tree_prosperity_b2_2_unlocked }
-			var:tv_prosperity_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B2_2_PREREQUISITE
+				has_variable = tv_tree_prosperity_b2_1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B2_2_POINTS_REQUIREMENT
+				var:tv_prosperity_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B2_2_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_prosperity_b2_2_unlocked }
+			}
 		}
 	}
 
@@ -866,9 +1103,18 @@ tv_tree_select_prosperity_b2_3 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_prosperity_b2_2_unlocked
-			NOT = { has_variable = tv_tree_prosperity_b2_3_unlocked }
-			var:tv_prosperity_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B2_3_PREREQUISITE
+				has_variable = tv_tree_prosperity_b2_2_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B2_3_POINTS_REQUIREMENT
+				var:tv_prosperity_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B2_3_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_prosperity_b2_3_unlocked }
+			}
 		}
 	}
 
@@ -897,9 +1143,18 @@ tv_tree_select_prosperity_b2_4 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_prosperity_b2_3_unlocked
-			NOT = { has_variable = tv_tree_prosperity_b2_4_unlocked }
-			var:tv_prosperity_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B2_4_PREREQUISITE
+				has_variable = tv_tree_prosperity_b2_3_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B2_4_POINTS_REQUIREMENT
+				var:tv_prosperity_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B2_4_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_prosperity_b2_4_unlocked }
+			}
 		}
 	}
 
@@ -928,9 +1183,18 @@ tv_tree_select_prosperity_b3_1 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_prosperity_t2_unlocked
-			NOT = { has_variable = tv_tree_prosperity_b3_1_unlocked }
-			var:tv_prosperity_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B3_1_PREREQUISITE
+				has_variable = tv_tree_prosperity_t2_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B3_1_POINTS_REQUIREMENT
+				var:tv_prosperity_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B3_1_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_prosperity_b3_1_unlocked }
+			}
 		}
 	}
 
@@ -959,9 +1223,18 @@ tv_tree_select_prosperity_b3_2 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_prosperity_b3_1_unlocked
-			NOT = { has_variable = tv_tree_prosperity_b3_2_unlocked }
-			var:tv_prosperity_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B3_2_PREREQUISITE
+				has_variable = tv_tree_prosperity_b3_1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B3_2_POINTS_REQUIREMENT
+				var:tv_prosperity_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B3_2_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_prosperity_b3_2_unlocked }
+			}
 		}
 	}
 
@@ -990,9 +1263,18 @@ tv_tree_select_prosperity_b4_1 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_prosperity_t2_unlocked
-			NOT = { has_variable = tv_tree_prosperity_b4_1_unlocked }
-			var:tv_prosperity_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B4_1_PREREQUISITE
+				has_variable = tv_tree_prosperity_t2_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B4_1_POINTS_REQUIREMENT
+				var:tv_prosperity_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B4_1_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_prosperity_b4_1_unlocked }
+			}
 		}
 	}
 
@@ -1021,9 +1303,18 @@ tv_tree_select_prosperity_b4_2 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_prosperity_b4_1_unlocked
-			NOT = { has_variable = tv_tree_prosperity_b4_2_unlocked }
-			var:tv_prosperity_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B4_2_PREREQUISITE
+				has_variable = tv_tree_prosperity_b4_1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B4_2_POINTS_REQUIREMENT
+				var:tv_prosperity_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B4_2_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_prosperity_b4_2_unlocked }
+			}
 		}
 	}
 
@@ -1052,9 +1343,18 @@ tv_tree_select_prosperity_b4_3 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_prosperity_b4_2_unlocked
-			NOT = { has_variable = tv_tree_prosperity_b4_3_unlocked }
-			var:tv_prosperity_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B4_3_PREREQUISITE
+				has_variable = tv_tree_prosperity_b4_2_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B4_3_POINTS_REQUIREMENT
+				var:tv_prosperity_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B4_3_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_prosperity_b4_3_unlocked }
+			}
 		}
 	}
 
@@ -1083,9 +1383,18 @@ tv_tree_select_prosperity_b5_1 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_prosperity_t3_unlocked
-			NOT = { has_variable = tv_tree_prosperity_b5_1_unlocked }
-			var:tv_prosperity_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B5_1_PREREQUISITE
+				has_variable = tv_tree_prosperity_t3_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B5_1_POINTS_REQUIREMENT
+				var:tv_prosperity_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B5_1_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_prosperity_b5_1_unlocked }
+			}
 		}
 	}
 
@@ -1114,9 +1423,18 @@ tv_tree_select_prosperity_b5_2 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_prosperity_b5_1_unlocked
-			NOT = { has_variable = tv_tree_prosperity_b5_2_unlocked }
-			var:tv_prosperity_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B5_2_PREREQUISITE
+				has_variable = tv_tree_prosperity_b5_1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B5_2_POINTS_REQUIREMENT
+				var:tv_prosperity_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B5_2_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_prosperity_b5_2_unlocked }
+			}
 		}
 	}
 
@@ -1145,9 +1463,18 @@ tv_tree_select_prosperity_b5_3 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_prosperity_b5_2_unlocked
-			NOT = { has_variable = tv_tree_prosperity_b5_3_unlocked }
-			var:tv_prosperity_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B5_3_PREREQUISITE
+				has_variable = tv_tree_prosperity_b5_2_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B5_3_POINTS_REQUIREMENT
+				var:tv_prosperity_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_PROSPERITY_B5_3_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_prosperity_b5_3_unlocked }
+			}
 		}
 	}
 
@@ -1177,8 +1504,14 @@ tv_tree_select_trade_t1 = {
 
 	allow = {
 		scope:actor = {
-			NOT = { has_variable = tv_tree_trade_t1_unlocked }
-			var:tv_trade_tree_points ?= { this >= 10 }
+			custom_tooltip = {
+				text = TV_TREE_TRADE_T1_POINTS_REQUIREMENT
+				var:tv_trade_tree_points ?= { this >= 10 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_TRADE_T1_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_trade_t1_unlocked }
+			}
 		}
 	}
 
@@ -1207,9 +1540,18 @@ tv_tree_select_trade_t2 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_trade_t1_unlocked
-			NOT = { has_variable = tv_tree_trade_t2_unlocked }
-			var:tv_trade_tree_points ?= { this >= 10 }
+			custom_tooltip = {
+				text = TV_TREE_TRADE_T2_PREREQUISITE
+				has_variable = tv_tree_trade_t1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_TRADE_T2_POINTS_REQUIREMENT
+				var:tv_trade_tree_points ?= { this >= 10 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_TRADE_T2_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_trade_t2_unlocked }
+			}
 		}
 	}
 
@@ -1238,9 +1580,18 @@ tv_tree_select_trade_t3 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_trade_t2_unlocked
-			NOT = { has_variable = tv_tree_trade_t3_unlocked }
-			var:tv_trade_tree_points ?= { this >= 10 }
+			custom_tooltip = {
+				text = TV_TREE_TRADE_T3_PREREQUISITE
+				has_variable = tv_tree_trade_t2_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_TRADE_T3_POINTS_REQUIREMENT
+				var:tv_trade_tree_points ?= { this >= 10 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_TRADE_T3_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_trade_t3_unlocked }
+			}
 		}
 	}
 
@@ -1269,9 +1620,18 @@ tv_tree_select_trade_t4 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_trade_t3_unlocked
-			NOT = { has_variable = tv_tree_trade_t4_unlocked }
-			var:tv_trade_tree_points ?= { this >= 10 }
+			custom_tooltip = {
+				text = TV_TREE_TRADE_T4_PREREQUISITE
+				has_variable = tv_tree_trade_t3_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_TRADE_T4_POINTS_REQUIREMENT
+				var:tv_trade_tree_points ?= { this >= 10 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_TRADE_T4_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_trade_t4_unlocked }
+			}
 		}
 	}
 
@@ -1300,9 +1660,18 @@ tv_tree_select_trade_t5 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_trade_t4_unlocked
-			NOT = { has_variable = tv_tree_trade_t5_unlocked }
-			var:tv_trade_tree_points ?= { this >= 10 }
+			custom_tooltip = {
+				text = TV_TREE_TRADE_T5_PREREQUISITE
+				has_variable = tv_tree_trade_t4_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_TRADE_T5_POINTS_REQUIREMENT
+				var:tv_trade_tree_points ?= { this >= 10 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_TRADE_T5_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_trade_t5_unlocked }
+			}
 		}
 	}
 
@@ -1331,9 +1700,18 @@ tv_tree_select_trade_b1_1 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_trade_t1_unlocked
-			NOT = { has_variable = tv_tree_trade_b1_1_unlocked }
-			var:tv_trade_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_TRADE_B1_1_PREREQUISITE
+				has_variable = tv_tree_trade_t1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_TRADE_B1_1_POINTS_REQUIREMENT
+				var:tv_trade_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_TRADE_B1_1_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_trade_b1_1_unlocked }
+			}
 		}
 	}
 
@@ -1362,9 +1740,18 @@ tv_tree_select_trade_b1_2 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_trade_b1_1_unlocked
-			NOT = { has_variable = tv_tree_trade_b1_2_unlocked }
-			var:tv_trade_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_TRADE_B1_2_PREREQUISITE
+				has_variable = tv_tree_trade_b1_1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_TRADE_B1_2_POINTS_REQUIREMENT
+				var:tv_trade_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_TRADE_B1_2_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_trade_b1_2_unlocked }
+			}
 		}
 	}
 
@@ -1393,9 +1780,18 @@ tv_tree_select_trade_b2_1 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_trade_t2_unlocked
-			NOT = { has_variable = tv_tree_trade_b2_1_unlocked }
-			var:tv_trade_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_TRADE_B2_1_PREREQUISITE
+				has_variable = tv_tree_trade_t2_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_TRADE_B2_1_POINTS_REQUIREMENT
+				var:tv_trade_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_TRADE_B2_1_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_trade_b2_1_unlocked }
+			}
 		}
 	}
 
@@ -1424,9 +1820,18 @@ tv_tree_select_trade_b2_2 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_trade_b2_1_unlocked
-			NOT = { has_variable = tv_tree_trade_b2_2_unlocked }
-			var:tv_trade_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_TRADE_B2_2_PREREQUISITE
+				has_variable = tv_tree_trade_b2_1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_TRADE_B2_2_POINTS_REQUIREMENT
+				var:tv_trade_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_TRADE_B2_2_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_trade_b2_2_unlocked }
+			}
 		}
 	}
 
@@ -1455,9 +1860,18 @@ tv_tree_select_trade_b2_3 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_trade_b2_2_unlocked
-			NOT = { has_variable = tv_tree_trade_b2_3_unlocked }
-			var:tv_trade_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_TRADE_B2_3_PREREQUISITE
+				has_variable = tv_tree_trade_b2_2_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_TRADE_B2_3_POINTS_REQUIREMENT
+				var:tv_trade_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_TRADE_B2_3_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_trade_b2_3_unlocked }
+			}
 		}
 	}
 
@@ -1486,9 +1900,18 @@ tv_tree_select_trade_b3_1 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_trade_t2_unlocked
-			NOT = { has_variable = tv_tree_trade_b3_1_unlocked }
-			var:tv_trade_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_TRADE_B3_1_PREREQUISITE
+				has_variable = tv_tree_trade_t2_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_TRADE_B3_1_POINTS_REQUIREMENT
+				var:tv_trade_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_TRADE_B3_1_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_trade_b3_1_unlocked }
+			}
 		}
 	}
 
@@ -1517,9 +1940,18 @@ tv_tree_select_trade_b3_2 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_trade_b3_1_unlocked
-			NOT = { has_variable = tv_tree_trade_b3_2_unlocked }
-			var:tv_trade_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_TRADE_B3_2_PREREQUISITE
+				has_variable = tv_tree_trade_b3_1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_TRADE_B3_2_POINTS_REQUIREMENT
+				var:tv_trade_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_TRADE_B3_2_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_trade_b3_2_unlocked }
+			}
 		}
 	}
 
@@ -1548,9 +1980,18 @@ tv_tree_select_trade_b3_3 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_trade_b3_2_unlocked
-			NOT = { has_variable = tv_tree_trade_b3_3_unlocked }
-			var:tv_trade_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_TRADE_B3_3_PREREQUISITE
+				has_variable = tv_tree_trade_b3_2_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_TRADE_B3_3_POINTS_REQUIREMENT
+				var:tv_trade_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_TRADE_B3_3_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_trade_b3_3_unlocked }
+			}
 		}
 	}
 
@@ -1579,9 +2020,18 @@ tv_tree_select_trade_b3_4 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_trade_b3_3_unlocked
-			NOT = { has_variable = tv_tree_trade_b3_4_unlocked }
-			var:tv_trade_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_TRADE_B3_4_PREREQUISITE
+				has_variable = tv_tree_trade_b3_3_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_TRADE_B3_4_POINTS_REQUIREMENT
+				var:tv_trade_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_TRADE_B3_4_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_trade_b3_4_unlocked }
+			}
 		}
 	}
 
@@ -1610,9 +2060,18 @@ tv_tree_select_trade_b4_1 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_trade_t3_unlocked
-			NOT = { has_variable = tv_tree_trade_b4_1_unlocked }
-			var:tv_trade_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_TRADE_B4_1_PREREQUISITE
+				has_variable = tv_tree_trade_t3_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_TRADE_B4_1_POINTS_REQUIREMENT
+				var:tv_trade_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_TRADE_B4_1_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_trade_b4_1_unlocked }
+			}
 		}
 	}
 
@@ -1641,9 +2100,18 @@ tv_tree_select_trade_b4_2 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_trade_b4_1_unlocked
-			NOT = { has_variable = tv_tree_trade_b4_2_unlocked }
-			var:tv_trade_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_TRADE_B4_2_PREREQUISITE
+				has_variable = tv_tree_trade_b4_1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_TRADE_B4_2_POINTS_REQUIREMENT
+				var:tv_trade_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_TRADE_B4_2_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_trade_b4_2_unlocked }
+			}
 		}
 	}
 
@@ -1672,9 +2140,18 @@ tv_tree_select_trade_b5_1 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_trade_t3_unlocked
-			NOT = { has_variable = tv_tree_trade_b5_1_unlocked }
-			var:tv_trade_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_TRADE_B5_1_PREREQUISITE
+				has_variable = tv_tree_trade_t3_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_TRADE_B5_1_POINTS_REQUIREMENT
+				var:tv_trade_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_TRADE_B5_1_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_trade_b5_1_unlocked }
+			}
 		}
 	}
 
@@ -1703,9 +2180,18 @@ tv_tree_select_trade_b5_2 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_trade_b5_1_unlocked
-			NOT = { has_variable = tv_tree_trade_b5_2_unlocked }
-			var:tv_trade_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_TRADE_B5_2_PREREQUISITE
+				has_variable = tv_tree_trade_b5_1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_TRADE_B5_2_POINTS_REQUIREMENT
+				var:tv_trade_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_TRADE_B5_2_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_trade_b5_2_unlocked }
+			}
 		}
 	}
 
@@ -1735,8 +2221,14 @@ tv_tree_select_diplomatic_t1 = {
 
 	allow = {
 		scope:actor = {
-			NOT = { has_variable = tv_tree_diplomatic_t1_unlocked }
-			var:tv_diplomatic_tree_points ?= { this >= 10 }
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_T1_POINTS_REQUIREMENT
+				var:tv_diplomatic_tree_points ?= { this >= 10 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_T1_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_diplomatic_t1_unlocked }
+			}
 		}
 	}
 
@@ -1765,9 +2257,18 @@ tv_tree_select_diplomatic_t2 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_diplomatic_t1_unlocked
-			NOT = { has_variable = tv_tree_diplomatic_t2_unlocked }
-			var:tv_diplomatic_tree_points ?= { this >= 10 }
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_T2_PREREQUISITE
+				has_variable = tv_tree_diplomatic_t1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_T2_POINTS_REQUIREMENT
+				var:tv_diplomatic_tree_points ?= { this >= 10 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_T2_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_diplomatic_t2_unlocked }
+			}
 		}
 	}
 
@@ -1796,9 +2297,18 @@ tv_tree_select_diplomatic_t3 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_diplomatic_t2_unlocked
-			NOT = { has_variable = tv_tree_diplomatic_t3_unlocked }
-			var:tv_diplomatic_tree_points ?= { this >= 10 }
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_T3_PREREQUISITE
+				has_variable = tv_tree_diplomatic_t2_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_T3_POINTS_REQUIREMENT
+				var:tv_diplomatic_tree_points ?= { this >= 10 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_T3_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_diplomatic_t3_unlocked }
+			}
 		}
 	}
 
@@ -1827,9 +2337,18 @@ tv_tree_select_diplomatic_t4 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_diplomatic_t3_unlocked
-			NOT = { has_variable = tv_tree_diplomatic_t4_unlocked }
-			var:tv_diplomatic_tree_points ?= { this >= 10 }
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_T4_PREREQUISITE
+				has_variable = tv_tree_diplomatic_t3_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_T4_POINTS_REQUIREMENT
+				var:tv_diplomatic_tree_points ?= { this >= 10 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_T4_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_diplomatic_t4_unlocked }
+			}
 		}
 	}
 
@@ -1858,9 +2377,18 @@ tv_tree_select_diplomatic_t5 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_diplomatic_t4_unlocked
-			NOT = { has_variable = tv_tree_diplomatic_t5_unlocked }
-			var:tv_diplomatic_tree_points ?= { this >= 10 }
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_T5_PREREQUISITE
+				has_variable = tv_tree_diplomatic_t4_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_T5_POINTS_REQUIREMENT
+				var:tv_diplomatic_tree_points ?= { this >= 10 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_T5_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_diplomatic_t5_unlocked }
+			}
 		}
 	}
 
@@ -1889,9 +2417,18 @@ tv_tree_select_diplomatic_b1_1 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_diplomatic_t1_unlocked
-			NOT = { has_variable = tv_tree_diplomatic_b1_1_unlocked }
-			var:tv_diplomatic_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_B1_1_PREREQUISITE
+				has_variable = tv_tree_diplomatic_t1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_B1_1_POINTS_REQUIREMENT
+				var:tv_diplomatic_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_B1_1_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_diplomatic_b1_1_unlocked }
+			}
 		}
 	}
 
@@ -1920,9 +2457,18 @@ tv_tree_select_diplomatic_b1_2 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_diplomatic_b1_1_unlocked
-			NOT = { has_variable = tv_tree_diplomatic_b1_2_unlocked }
-			var:tv_diplomatic_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_B1_2_PREREQUISITE
+				has_variable = tv_tree_diplomatic_b1_1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_B1_2_POINTS_REQUIREMENT
+				var:tv_diplomatic_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_B1_2_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_diplomatic_b1_2_unlocked }
+			}
 		}
 	}
 
@@ -1951,9 +2497,18 @@ tv_tree_select_diplomatic_b2_1 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_diplomatic_t1_unlocked
-			NOT = { has_variable = tv_tree_diplomatic_b2_1_unlocked }
-			var:tv_diplomatic_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_B2_1_PREREQUISITE
+				has_variable = tv_tree_diplomatic_t1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_B2_1_POINTS_REQUIREMENT
+				var:tv_diplomatic_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_B2_1_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_diplomatic_b2_1_unlocked }
+			}
 		}
 	}
 
@@ -1982,9 +2537,18 @@ tv_tree_select_diplomatic_b2_2 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_diplomatic_b2_1_unlocked
-			NOT = { has_variable = tv_tree_diplomatic_b2_2_unlocked }
-			var:tv_diplomatic_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_B2_2_PREREQUISITE
+				has_variable = tv_tree_diplomatic_b2_1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_B2_2_POINTS_REQUIREMENT
+				var:tv_diplomatic_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_B2_2_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_diplomatic_b2_2_unlocked }
+			}
 		}
 	}
 
@@ -2013,9 +2577,18 @@ tv_tree_select_diplomatic_b2_3 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_diplomatic_b2_2_unlocked
-			NOT = { has_variable = tv_tree_diplomatic_b2_3_unlocked }
-			var:tv_diplomatic_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_B2_3_PREREQUISITE
+				has_variable = tv_tree_diplomatic_b2_2_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_B2_3_POINTS_REQUIREMENT
+				var:tv_diplomatic_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_B2_3_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_diplomatic_b2_3_unlocked }
+			}
 		}
 	}
 
@@ -2044,9 +2617,18 @@ tv_tree_select_diplomatic_b3_1 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_diplomatic_t2_unlocked
-			NOT = { has_variable = tv_tree_diplomatic_b3_1_unlocked }
-			var:tv_diplomatic_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_B3_1_PREREQUISITE
+				has_variable = tv_tree_diplomatic_t2_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_B3_1_POINTS_REQUIREMENT
+				var:tv_diplomatic_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_B3_1_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_diplomatic_b3_1_unlocked }
+			}
 		}
 	}
 
@@ -2075,9 +2657,18 @@ tv_tree_select_diplomatic_b3_2 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_diplomatic_b3_1_unlocked
-			NOT = { has_variable = tv_tree_diplomatic_b3_2_unlocked }
-			var:tv_diplomatic_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_B3_2_PREREQUISITE
+				has_variable = tv_tree_diplomatic_b3_1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_B3_2_POINTS_REQUIREMENT
+				var:tv_diplomatic_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_B3_2_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_diplomatic_b3_2_unlocked }
+			}
 		}
 	}
 
@@ -2106,9 +2697,18 @@ tv_tree_select_diplomatic_b3_3 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_diplomatic_b3_2_unlocked
-			NOT = { has_variable = tv_tree_diplomatic_b3_3_unlocked }
-			var:tv_diplomatic_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_B3_3_PREREQUISITE
+				has_variable = tv_tree_diplomatic_b3_2_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_B3_3_POINTS_REQUIREMENT
+				var:tv_diplomatic_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_B3_3_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_diplomatic_b3_3_unlocked }
+			}
 		}
 	}
 
@@ -2137,9 +2737,18 @@ tv_tree_select_diplomatic_b4_1 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_diplomatic_t2_unlocked
-			NOT = { has_variable = tv_tree_diplomatic_b4_1_unlocked }
-			var:tv_diplomatic_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_B4_1_PREREQUISITE
+				has_variable = tv_tree_diplomatic_t2_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_B4_1_POINTS_REQUIREMENT
+				var:tv_diplomatic_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_B4_1_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_diplomatic_b4_1_unlocked }
+			}
 		}
 	}
 
@@ -2168,9 +2777,18 @@ tv_tree_select_diplomatic_b4_2 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_diplomatic_b4_1_unlocked
-			NOT = { has_variable = tv_tree_diplomatic_b4_2_unlocked }
-			var:tv_diplomatic_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_B4_2_PREREQUISITE
+				has_variable = tv_tree_diplomatic_b4_1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_B4_2_POINTS_REQUIREMENT
+				var:tv_diplomatic_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_B4_2_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_diplomatic_b4_2_unlocked }
+			}
 		}
 	}
 
@@ -2199,9 +2817,18 @@ tv_tree_select_diplomatic_b4_3 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_diplomatic_b4_2_unlocked
-			NOT = { has_variable = tv_tree_diplomatic_b4_3_unlocked }
-			var:tv_diplomatic_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_B4_3_PREREQUISITE
+				has_variable = tv_tree_diplomatic_b4_2_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_B4_3_POINTS_REQUIREMENT
+				var:tv_diplomatic_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_B4_3_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_diplomatic_b4_3_unlocked }
+			}
 		}
 	}
 
@@ -2230,9 +2857,18 @@ tv_tree_select_diplomatic_b5_1 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_diplomatic_t3_unlocked
-			NOT = { has_variable = tv_tree_diplomatic_b5_1_unlocked }
-			var:tv_diplomatic_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_B5_1_PREREQUISITE
+				has_variable = tv_tree_diplomatic_t3_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_B5_1_POINTS_REQUIREMENT
+				var:tv_diplomatic_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_B5_1_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_diplomatic_b5_1_unlocked }
+			}
 		}
 	}
 
@@ -2261,9 +2897,18 @@ tv_tree_select_diplomatic_b5_2 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_diplomatic_b5_1_unlocked
-			NOT = { has_variable = tv_tree_diplomatic_b5_2_unlocked }
-			var:tv_diplomatic_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_B5_2_PREREQUISITE
+				has_variable = tv_tree_diplomatic_b5_1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_B5_2_POINTS_REQUIREMENT
+				var:tv_diplomatic_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_DIPLOMATIC_B5_2_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_diplomatic_b5_2_unlocked }
+			}
 		}
 	}
 
@@ -2293,8 +2938,14 @@ tv_tree_select_cultural_t1 = {
 
 	allow = {
 		scope:actor = {
-			NOT = { has_variable = tv_tree_cultural_t1_unlocked }
-			var:tv_cultural_tree_points ?= { this >= 10 }
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_T1_POINTS_REQUIREMENT
+				var:tv_cultural_tree_points ?= { this >= 10 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_T1_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_cultural_t1_unlocked }
+			}
 		}
 	}
 
@@ -2323,9 +2974,18 @@ tv_tree_select_cultural_t2 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_cultural_t1_unlocked
-			NOT = { has_variable = tv_tree_cultural_t2_unlocked }
-			var:tv_cultural_tree_points ?= { this >= 10 }
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_T2_PREREQUISITE
+				has_variable = tv_tree_cultural_t1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_T2_POINTS_REQUIREMENT
+				var:tv_cultural_tree_points ?= { this >= 10 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_T2_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_cultural_t2_unlocked }
+			}
 		}
 	}
 
@@ -2354,9 +3014,18 @@ tv_tree_select_cultural_t3 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_cultural_t2_unlocked
-			NOT = { has_variable = tv_tree_cultural_t3_unlocked }
-			var:tv_cultural_tree_points ?= { this >= 10 }
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_T3_PREREQUISITE
+				has_variable = tv_tree_cultural_t2_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_T3_POINTS_REQUIREMENT
+				var:tv_cultural_tree_points ?= { this >= 10 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_T3_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_cultural_t3_unlocked }
+			}
 		}
 	}
 
@@ -2385,9 +3054,18 @@ tv_tree_select_cultural_t4 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_cultural_t3_unlocked
-			NOT = { has_variable = tv_tree_cultural_t4_unlocked }
-			var:tv_cultural_tree_points ?= { this >= 10 }
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_T4_PREREQUISITE
+				has_variable = tv_tree_cultural_t3_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_T4_POINTS_REQUIREMENT
+				var:tv_cultural_tree_points ?= { this >= 10 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_T4_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_cultural_t4_unlocked }
+			}
 		}
 	}
 
@@ -2416,9 +3094,18 @@ tv_tree_select_cultural_t5 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_cultural_t4_unlocked
-			NOT = { has_variable = tv_tree_cultural_t5_unlocked }
-			var:tv_cultural_tree_points ?= { this >= 10 }
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_T5_PREREQUISITE
+				has_variable = tv_tree_cultural_t4_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_T5_POINTS_REQUIREMENT
+				var:tv_cultural_tree_points ?= { this >= 10 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_T5_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_cultural_t5_unlocked }
+			}
 		}
 	}
 
@@ -2447,9 +3134,18 @@ tv_tree_select_cultural_b1_1 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_cultural_t1_unlocked
-			NOT = { has_variable = tv_tree_cultural_b1_1_unlocked }
-			var:tv_cultural_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_B1_1_PREREQUISITE
+				has_variable = tv_tree_cultural_t1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_B1_1_POINTS_REQUIREMENT
+				var:tv_cultural_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_B1_1_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_cultural_b1_1_unlocked }
+			}
 		}
 	}
 
@@ -2478,9 +3174,18 @@ tv_tree_select_cultural_b1_2 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_cultural_b1_1_unlocked
-			NOT = { has_variable = tv_tree_cultural_b1_2_unlocked }
-			var:tv_cultural_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_B1_2_PREREQUISITE
+				has_variable = tv_tree_cultural_b1_1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_B1_2_POINTS_REQUIREMENT
+				var:tv_cultural_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_B1_2_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_cultural_b1_2_unlocked }
+			}
 		}
 	}
 
@@ -2509,9 +3214,18 @@ tv_tree_select_cultural_b2_1 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_cultural_t1_unlocked
-			NOT = { has_variable = tv_tree_cultural_b2_1_unlocked }
-			var:tv_cultural_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_B2_1_PREREQUISITE
+				has_variable = tv_tree_cultural_t1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_B2_1_POINTS_REQUIREMENT
+				var:tv_cultural_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_B2_1_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_cultural_b2_1_unlocked }
+			}
 		}
 	}
 
@@ -2540,9 +3254,18 @@ tv_tree_select_cultural_b2_2 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_cultural_b2_1_unlocked
-			NOT = { has_variable = tv_tree_cultural_b2_2_unlocked }
-			var:tv_cultural_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_B2_2_PREREQUISITE
+				has_variable = tv_tree_cultural_b2_1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_B2_2_POINTS_REQUIREMENT
+				var:tv_cultural_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_B2_2_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_cultural_b2_2_unlocked }
+			}
 		}
 	}
 
@@ -2571,9 +3294,18 @@ tv_tree_select_cultural_b3_1 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_cultural_t2_unlocked
-			NOT = { has_variable = tv_tree_cultural_b3_1_unlocked }
-			var:tv_cultural_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_B3_1_PREREQUISITE
+				has_variable = tv_tree_cultural_t2_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_B3_1_POINTS_REQUIREMENT
+				var:tv_cultural_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_B3_1_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_cultural_b3_1_unlocked }
+			}
 		}
 	}
 
@@ -2602,9 +3334,18 @@ tv_tree_select_cultural_b3_2 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_cultural_b3_1_unlocked
-			NOT = { has_variable = tv_tree_cultural_b3_2_unlocked }
-			var:tv_cultural_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_B3_2_PREREQUISITE
+				has_variable = tv_tree_cultural_b3_1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_B3_2_POINTS_REQUIREMENT
+				var:tv_cultural_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_B3_2_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_cultural_b3_2_unlocked }
+			}
 		}
 	}
 
@@ -2633,9 +3374,18 @@ tv_tree_select_cultural_b4_1 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_cultural_t2_unlocked
-			NOT = { has_variable = tv_tree_cultural_b4_1_unlocked }
-			var:tv_cultural_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_B4_1_PREREQUISITE
+				has_variable = tv_tree_cultural_t2_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_B4_1_POINTS_REQUIREMENT
+				var:tv_cultural_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_B4_1_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_cultural_b4_1_unlocked }
+			}
 		}
 	}
 
@@ -2664,9 +3414,18 @@ tv_tree_select_cultural_b4_2 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_cultural_b4_1_unlocked
-			NOT = { has_variable = tv_tree_cultural_b4_2_unlocked }
-			var:tv_cultural_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_B4_2_PREREQUISITE
+				has_variable = tv_tree_cultural_b4_1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_B4_2_POINTS_REQUIREMENT
+				var:tv_cultural_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_B4_2_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_cultural_b4_2_unlocked }
+			}
 		}
 	}
 
@@ -2695,9 +3454,18 @@ tv_tree_select_cultural_b5_1 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_cultural_t3_unlocked
-			NOT = { has_variable = tv_tree_cultural_b5_1_unlocked }
-			var:tv_cultural_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_B5_1_PREREQUISITE
+				has_variable = tv_tree_cultural_t3_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_B5_1_POINTS_REQUIREMENT
+				var:tv_cultural_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_B5_1_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_cultural_b5_1_unlocked }
+			}
 		}
 	}
 
@@ -2726,9 +3494,18 @@ tv_tree_select_cultural_b5_2 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_cultural_b5_1_unlocked
-			NOT = { has_variable = tv_tree_cultural_b5_2_unlocked }
-			var:tv_cultural_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_B5_2_PREREQUISITE
+				has_variable = tv_tree_cultural_b5_1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_B5_2_POINTS_REQUIREMENT
+				var:tv_cultural_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_CULTURAL_B5_2_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_cultural_b5_2_unlocked }
+			}
 		}
 	}
 
@@ -2758,8 +3535,14 @@ tv_tree_select_science_t1 = {
 
 	allow = {
 		scope:actor = {
-			NOT = { has_variable = tv_tree_science_t1_unlocked }
-			var:tv_science_tree_points ?= { this >= 10 }
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_T1_POINTS_REQUIREMENT
+				var:tv_science_tree_points ?= { this >= 10 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_T1_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_science_t1_unlocked }
+			}
 		}
 	}
 
@@ -2788,9 +3571,18 @@ tv_tree_select_science_t2 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_science_t1_unlocked
-			NOT = { has_variable = tv_tree_science_t2_unlocked }
-			var:tv_science_tree_points ?= { this >= 10 }
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_T2_PREREQUISITE
+				has_variable = tv_tree_science_t1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_T2_POINTS_REQUIREMENT
+				var:tv_science_tree_points ?= { this >= 10 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_T2_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_science_t2_unlocked }
+			}
 		}
 	}
 
@@ -2819,9 +3611,18 @@ tv_tree_select_science_t3 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_science_t2_unlocked
-			NOT = { has_variable = tv_tree_science_t3_unlocked }
-			var:tv_science_tree_points ?= { this >= 10 }
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_T3_PREREQUISITE
+				has_variable = tv_tree_science_t2_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_T3_POINTS_REQUIREMENT
+				var:tv_science_tree_points ?= { this >= 10 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_T3_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_science_t3_unlocked }
+			}
 		}
 	}
 
@@ -2850,9 +3651,18 @@ tv_tree_select_science_t4 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_science_t3_unlocked
-			NOT = { has_variable = tv_tree_science_t4_unlocked }
-			var:tv_science_tree_points ?= { this >= 10 }
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_T4_PREREQUISITE
+				has_variable = tv_tree_science_t3_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_T4_POINTS_REQUIREMENT
+				var:tv_science_tree_points ?= { this >= 10 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_T4_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_science_t4_unlocked }
+			}
 		}
 	}
 
@@ -2881,9 +3691,18 @@ tv_tree_select_science_t5 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_science_t4_unlocked
-			NOT = { has_variable = tv_tree_science_t5_unlocked }
-			var:tv_science_tree_points ?= { this >= 10 }
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_T5_PREREQUISITE
+				has_variable = tv_tree_science_t4_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_T5_POINTS_REQUIREMENT
+				var:tv_science_tree_points ?= { this >= 10 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_T5_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_science_t5_unlocked }
+			}
 		}
 	}
 
@@ -2912,9 +3731,18 @@ tv_tree_select_science_b1_1 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_science_t1_unlocked
-			NOT = { has_variable = tv_tree_science_b1_1_unlocked }
-			var:tv_science_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_B1_1_PREREQUISITE
+				has_variable = tv_tree_science_t1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_B1_1_POINTS_REQUIREMENT
+				var:tv_science_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_B1_1_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_science_b1_1_unlocked }
+			}
 		}
 	}
 
@@ -2943,9 +3771,18 @@ tv_tree_select_science_b1_2 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_science_b1_1_unlocked
-			NOT = { has_variable = tv_tree_science_b1_2_unlocked }
-			var:tv_science_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_B1_2_PREREQUISITE
+				has_variable = tv_tree_science_b1_1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_B1_2_POINTS_REQUIREMENT
+				var:tv_science_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_B1_2_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_science_b1_2_unlocked }
+			}
 		}
 	}
 
@@ -2974,9 +3811,18 @@ tv_tree_select_science_b2_1 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_science_t1_unlocked
-			NOT = { has_variable = tv_tree_science_b2_1_unlocked }
-			var:tv_science_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_B2_1_PREREQUISITE
+				has_variable = tv_tree_science_t1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_B2_1_POINTS_REQUIREMENT
+				var:tv_science_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_B2_1_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_science_b2_1_unlocked }
+			}
 		}
 	}
 
@@ -3005,9 +3851,18 @@ tv_tree_select_science_b2_2 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_science_b2_1_unlocked
-			NOT = { has_variable = tv_tree_science_b2_2_unlocked }
-			var:tv_science_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_B2_2_PREREQUISITE
+				has_variable = tv_tree_science_b2_1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_B2_2_POINTS_REQUIREMENT
+				var:tv_science_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_B2_2_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_science_b2_2_unlocked }
+			}
 		}
 	}
 
@@ -3036,9 +3891,18 @@ tv_tree_select_science_b2_3 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_science_b2_2_unlocked
-			NOT = { has_variable = tv_tree_science_b2_3_unlocked }
-			var:tv_science_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_B2_3_PREREQUISITE
+				has_variable = tv_tree_science_b2_2_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_B2_3_POINTS_REQUIREMENT
+				var:tv_science_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_B2_3_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_science_b2_3_unlocked }
+			}
 		}
 	}
 
@@ -3067,9 +3931,18 @@ tv_tree_select_science_b3_1 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_science_t2_unlocked
-			NOT = { has_variable = tv_tree_science_b3_1_unlocked }
-			var:tv_science_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_B3_1_PREREQUISITE
+				has_variable = tv_tree_science_t2_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_B3_1_POINTS_REQUIREMENT
+				var:tv_science_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_B3_1_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_science_b3_1_unlocked }
+			}
 		}
 	}
 
@@ -3098,9 +3971,18 @@ tv_tree_select_science_b3_2 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_science_b3_1_unlocked
-			NOT = { has_variable = tv_tree_science_b3_2_unlocked }
-			var:tv_science_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_B3_2_PREREQUISITE
+				has_variable = tv_tree_science_b3_1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_B3_2_POINTS_REQUIREMENT
+				var:tv_science_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_B3_2_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_science_b3_2_unlocked }
+			}
 		}
 	}
 
@@ -3129,9 +4011,18 @@ tv_tree_select_science_b4_1 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_science_t2_unlocked
-			NOT = { has_variable = tv_tree_science_b4_1_unlocked }
-			var:tv_science_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_B4_1_PREREQUISITE
+				has_variable = tv_tree_science_t2_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_B4_1_POINTS_REQUIREMENT
+				var:tv_science_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_B4_1_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_science_b4_1_unlocked }
+			}
 		}
 	}
 
@@ -3160,9 +4051,18 @@ tv_tree_select_science_b4_2 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_science_b4_1_unlocked
-			NOT = { has_variable = tv_tree_science_b4_2_unlocked }
-			var:tv_science_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_B4_2_PREREQUISITE
+				has_variable = tv_tree_science_b4_1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_B4_2_POINTS_REQUIREMENT
+				var:tv_science_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_B4_2_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_science_b4_2_unlocked }
+			}
 		}
 	}
 
@@ -3191,9 +4091,18 @@ tv_tree_select_science_b5_1 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_science_t3_unlocked
-			NOT = { has_variable = tv_tree_science_b5_1_unlocked }
-			var:tv_science_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_B5_1_PREREQUISITE
+				has_variable = tv_tree_science_t3_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_B5_1_POINTS_REQUIREMENT
+				var:tv_science_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_B5_1_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_science_b5_1_unlocked }
+			}
 		}
 	}
 
@@ -3222,9 +4131,18 @@ tv_tree_select_science_b5_2 = {
 
 	allow = {
 		scope:actor = {
-			has_variable = tv_tree_science_b5_1_unlocked
-			NOT = { has_variable = tv_tree_science_b5_2_unlocked }
-			var:tv_science_tree_points ?= { this >= 15 }
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_B5_2_PREREQUISITE
+				has_variable = tv_tree_science_b5_1_unlocked
+			}
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_B5_2_POINTS_REQUIREMENT
+				var:tv_science_tree_points ?= { this >= 15 }
+			}
+			custom_tooltip = {
+				text = TV_TREE_SCIENCE_B5_2_NOT_UNLOCKED
+				NOT = { has_variable = tv_tree_science_b5_2_unlocked }
+			}
 		}
 	}
 

@@ -24,6 +24,118 @@
 # `cost` is a flat placeholder unlock cost only — 10 for every trunk node, 15 for
 # every branch node. Uniform placeholders, NOT balanced; this project's point
 # economy is intentionally undesigned yet (see the design doc's own open items).
+node_flavor_names:
+  conquest:
+    t1: { en: "The Unbroken Standard", zh: "不倒的军旗" }
+    t2: { en: "Ordered Realm", zh: "秩序之邦" }
+    t3: { en: "Terms of Victory", zh: "胜利的条件" }
+    t4: { en: "Governors of the Marches", zh: "边陲总督" }
+    t5: { en: "Admirals of the Realm", zh: "海疆统帅" }
+    b1_1: { en: "Master's Doctrine", zh: "名将兵法" }
+    b1_2: { en: "Hardened Ranks", zh: "百战之师" }
+    b2_1: { en: "Sea-Wolves' Courage", zh: "海狼之胆" }
+    b2_2: { en: "Hulls of Oak", zh: "橡木舰身" }
+    b2_3: { en: "Broadside Fury", zh: "齐射怒涛" }
+    b3_1: { en: "Missionary's March", zh: "传教士的远征" }
+    b3_2: { en: "A Common Tongue", zh: "同语之国" }
+    b4_1: { en: "Muster of the Realm", zh: "举国征召" }
+    b4_2: { en: "Contracts of Steel", zh: "钢铁契约" }
+    b4_3: { en: "Reservoir of Soldiers", zh: "兵源之库" }
+    b5_1: { en: "Bonds of Empire", zh: "帝国纽带" }
+    b5_2: { en: "The Final Incorporation", zh: "最后的并入" }
+  prosperity:
+    t1: { en: "Fields of Plenty", zh: "富饶田野" }
+    t2: { en: "Builder's Momentum", zh: "工匠的节奏" }
+    t3: { en: "A Well-Run Court", zh: "高效朝堂" }
+    t4: { en: "Instruments of Reform", zh: "改革之器" }
+    t5: { en: "The Full Treasury", zh: "充盈国库" }
+    b1_1: { en: "Tended Growth", zh: "精心培育" }
+    b1_2: { en: "Cradles of Plenty", zh: "富足的摇篮" }
+    b1_3: { en: "A Rising People", zh: "上升的人口" }
+    b2_1: { en: "Honest Ledgers", zh: "明晰账册" }
+    b2_2: { en: "Bounty of the Land", zh: "大地之赐" }
+    b2_3: { en: "Workshops Aflame", zh: "作坊如火" }
+    b2_4: { en: "Creditor's Favor", zh: "贷主青睐" }
+    b3_1: { en: "Deep Rural Hearths", zh: "乡野沃土" }
+    b3_2: { en: "Crowded Market Streets", zh: "繁盛市街" }
+    b4_1: { en: "Roads to the Capital", zh: "通都之路" }
+    b4_2: { en: "Caravans Unburdened", zh: "陆路畅行" }
+    b4_3: { en: "Masters of the Sea Lanes", zh: "驭海之道" }
+    b5_1: { en: "A Contented Estate", zh: "安居的阶层" }
+    b5_2: { en: "The Cabinet at Work", zh: "内阁运转" }
+    b5_3: { en: "Sound Coinage", zh: "坚实币制" }
+  trade:
+    t1: { en: "Mercantile Discipline", zh: "商帮规制" }
+    t2: { en: "Foreign Foundations", zh: "海外根基" }
+    t3: { en: "Horizons Unbound", zh: "无垠商路" }
+    t4: { en: "The Golden Current", zh: "黄金潮流" }
+    t5: { en: "A Market on the Move", zh: "市场迁徙" }
+    b1_1: { en: "Guilds of Influence", zh: "行会权势" }
+    b1_2: { en: "Warehouses Without End", zh: "无尽货仓" }
+    b2_1: { en: "A Trusted Seal", zh: "值得信赖的印信" }
+    b2_2: { en: "The Quiet Network", zh: "静默之网" }
+    b2_3: { en: "Reputation Abroad", zh: "扬名海外" }
+    b3_1: { en: "Envoys Beyond the Map", zh: "地图尽头的使者" }
+    b3_2: { en: "The Cartographer's Pace", zh: "制图师的步伐" }
+    b3_3: { en: "Distant Shores", zh: "遥远海岸" }
+    b3_4: { en: "Settlers' Tide", zh: "移民潮汐" }
+    b4_1: { en: "Safe Harbors", zh: "安全港湾" }
+    b4_2: { en: "The World Comes Here", zh: "万商来朝" }
+    b5_1: { en: "An Enduring Presence", zh: "不朽的海上存在" }
+    b5_2: { en: "Salt and Sail", zh: "海盐与风帆" }
+  diplomatic:
+    t1: { en: "The Weight of Our Word", zh: "一诺千金" }
+    t2: { en: "The Sacred Accord", zh: "神圣协约" }
+    t3: { en: "Reach of the Chancery", zh: "文书院的疆界" }
+    t4: { en: "A Seat at Every Table", zh: "席位遍布" }
+    t5: { en: "War by Reason", zh: "有理之战" }
+    b1_1: { en: "Open Doors", zh: "广开邦交" }
+    b1_2: { en: "Eyes in Every Court", zh: "宫廷耳目" }
+    b2_1: { en: "A Broader Corps", zh: "广纳使节" }
+    b2_2: { en: "The Patient Envoy", zh: "耐心使者" }
+    b2_3: { en: "Thrift in Statecraft", zh: "外交节制" }
+    b3_1: { en: "Peace Within the Faith", zh: "信仰之内的安宁" }
+    b3_2: { en: "Mercy for Dissent", zh: "宽容异端" }
+    b3_3: { en: "Understanding Across Creeds", zh: "跨信之谅解" }
+    b4_1: { en: "Tributary Ties", zh: "朝贡纽带" }
+    b4_2: { en: "Loyal Vassals", zh: "忠诚附庸" }
+    b4_3: { en: "Favored Dependents", zh: "受眷之属" }
+    b5_1: { en: "Beyond the Horizon", zh: "地平线之外" }
+    b5_2: { en: "A Name to Remember", zh: "不朽声名" }
+  cultural:
+    t1: { en: "Patronage of Genius", zh: "天才的庇护" }
+    t2: { en: "A Crown of Renown", zh: "声望之冠" }
+    t3: { en: "A Tapestry of Peoples", zh: "万民织锦" }
+    t4: { en: "The Educated Heir", zh: "受教的继承人" }
+    t5: { en: "Equal Before the Crown", zh: "王冠之下平等" }
+    b1_1: { en: "The Master's Hand", zh: "大师之手" }
+    b1_2: { en: "An Age of Creation", zh: "创作时代" }
+    b2_1: { en: "Patron's Purse", zh: "赞助人的钱囊" }
+    b2_2: { en: "Art Within Reach", zh: "艺术可及" }
+    b3_1: { en: "Ministers of Talent", zh: "贤才入阁" }
+    b3_2: { en: "A Quieter Realm", zh: "安宁之境" }
+    b4_1: { en: "Living Heritage", zh: "活着的传承" }
+    b4_2: { en: "Voice of the Nation", zh: "国度之声" }
+    b5_1: { en: "Room for Every People", zh: "容纳万民" }
+    b5_2: { en: "Shared Customs", zh: "共享习俗" }
+  science:
+    t1: { en: "Letters for All", zh: "人人识字" }
+    t2: { en: "The Age of Ideas", zh: "思潮时代" }
+    t3: { en: "The Scholar's Method", zh: "学者之法" }
+    t4: { en: "The Physician's Shield", zh: "医者之盾" }
+    t5: { en: "The Pursuit of Knowledge", zh: "求知不息" }
+    b1_1: { en: "Learned Estates", zh: "有学识的阶层" }
+    b1_2: { en: "The People's Primer", zh: "民众启蒙" }
+    b2_1: { en: "The Printed Word", zh: "印刷文字" }
+    b2_2: { en: "A Satisfied Clergy", zh: "安心教士" }
+    b2_3: { en: "Law by Reason", zh: "理性立法" }
+    b3_1: { en: "Industry Enlightened", zh: "启明工业" }
+    b3_2: { en: "Cities That Call", zh: "城市召唤" }
+    b4_1: { en: "Harvests of Inquiry", zh: "探究的收获" }
+    b4_2: { en: "A Countryside Worth Seeking", zh: "向往乡野" }
+    b5_1: { en: "Roads of Migration", zh: "迁徙之路" }
+    b5_2: { en: "Steps Toward Betterment", zh: "向上之阶" }
+
 paths:
   - id: conquest
     trunk:

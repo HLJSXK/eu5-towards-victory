@@ -101,6 +101,10 @@ generated:
     data:   data/victory_path_tree_variant.yaml
     output: src/in_game/common/generic_actions/tv_victory_tree_node_actions.txt
 
+  - script: scripts/in_game/common/trigger_localization/gen_tv_victory_tree_node_triggers.py
+    data:   data/victory_path_tree_variant.yaml
+    output: src/in_game/common/trigger_localization/tv_victory_tree_node_triggers.txt
+
   - script: scripts/in_game/common/generic_action_ai_lists/gen_tv_victory_tree_node_actions_list.py
     data:   data/victory_path_tree_variant.yaml
     output: src/in_game/common/generic_action_ai_lists/tv_victory_tree_node_actions_list.txt

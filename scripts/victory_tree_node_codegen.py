@@ -97,6 +97,18 @@ def action_name(pid: str, node_id: str) -> str:
     return f"tv_tree_select_{pid}_{node_id}"
 
 
+def points_requirement_loc_key(pid: str, node_id: str) -> str:
+    return f"TV_TREE_{pid.upper()}_{node_id.upper()}_POINTS_REQUIREMENT"
+
+
+def prerequisite_loc_key(pid: str, node_id: str) -> str:
+    return f"TV_TREE_{pid.upper()}_{node_id.upper()}_PREREQUISITE"
+
+
+def not_unlocked_loc_key(pid: str, node_id: str) -> str:
+    return f"TV_TREE_{pid.upper()}_{node_id.upper()}_NOT_UNLOCKED"
+
+
 def points_var(pid: str) -> str:
     return f"tv_{pid}_tree_points"
 
@@ -199,9 +211,18 @@ def generate_actions(data: dict, regen_script: str) -> str:
             lines.append("\tallow = {")
             lines.append("\t\tscope:actor = {")
             if node["parent_id"]:
-                lines.append(f"\t\t\thas_variable = {unlocked_var(pid, node['parent_id'])}")
-            lines.append(f"\t\t\tNOT = {{ has_variable = {unlocked_var(pid, node_id)} }}")
-            lines.append(f"\t\t\tvar:{points_var(pid)} ?= {{ this >= {node['cost']} }}")
+                lines.append("\t\t\tcustom_tooltip = {")
+                lines.append(f"\t\t\t\ttext = {prerequisite_loc_key(pid, node_id)}")
+                lines.append(f"\t\t\t\thas_variable = {unlocked_var(pid, node['parent_id'])}")
+                lines.append("\t\t\t}")
+            lines.append("\t\t\tcustom_tooltip = {")
+            lines.append(f"\t\t\t\ttext = {points_requirement_loc_key(pid, node_id)}")
+            lines.append(f"\t\t\t\tvar:{points_var(pid)} ?= {{ this >= {node['cost']} }}")
+            lines.append("\t\t\t}")
+            lines.append("\t\t\tcustom_tooltip = {")
+            lines.append(f"\t\t\t\ttext = {not_unlocked_loc_key(pid, node_id)}")
+            lines.append(f"\t\t\t\tNOT = {{ has_variable = {unlocked_var(pid, node_id)} }}")
+            lines.append("\t\t\t}")
             lines.append("\t\t}")
             lines.append("\t}")
             lines.append("")
@@ -246,6 +267,34 @@ def _prereq_effect_label(path: dict, node: dict) -> str | None:
     return None
 
 
+def _node_flavor_name(data: dict, pid: str, node_id: str, lang: str) -> str:
+    """Return the data-owned, localized title of a node's permanent reward."""
+    return data["node_flavor_names"][pid][node_id][lang]
+
+
+def generate_trigger_localization(data: dict, regen_script: str) -> str:
+    """Register every tree-node condition key for custom_tooltip rendering."""
+    lines = [
+        header(regen_script, "Trigger-localization registrations for Victory Path Tree node unlock conditions."),
+        "",
+    ]
+    for path in data["paths"]:
+        pid = path["id"]
+        for node in flatten_nodes(path):
+            keys = [
+                points_requirement_loc_key(pid, node["id"]),
+                not_unlocked_loc_key(pid, node["id"]),
+            ]
+            if node["parent_id"]:
+                keys.append(prerequisite_loc_key(pid, node["id"]))
+            for key in keys:
+                lines.append(
+                    f"{key} = {{ none = {key}  global = {key}  first = {key}  third = {key} }}"
+                )
+        lines.append("")
+    return "\n".join(lines).rstrip() + "\n"
+
+
 def generate_loc(data: dict, regen_script: str, *, lang: str) -> str:
     zh = lang == "zh"
     lines = [
@@ -260,10 +309,7 @@ def generate_loc(data: dict, regen_script: str, *, lang: str) -> str:
         pid = path["id"]
         for node in flatten_nodes(path):
             key = action_name(pid, node["id"])
-            value = fmt_value(node["value"])
-            sign = "" if (not value or node["value"].strip().startswith("-")) else "+"
-            value_disp = f"{sign}{value}" if value else ""
-            title = f'{node["effect"]}{(" " + value_disp) if value_disp else ""}'
+            title = _node_flavor_name(data, pid, node["id"], lang)
             prereq = _prereq_effect_label(path, node)
             if zh:
                 desc_parts = [f"花费：#Y {node['cost']} 点#!"]
@@ -276,7 +322,38 @@ def generate_loc(data: dict, regen_script: str, *, lang: str) -> str:
             desc_line = " \\n".join(desc_parts)
             lines.append(f' {key}:0 "#G {title}#!"')
             lines.append(f' {key}_desc:0 "{desc_line}"')
-            lines.append(f' STATIC_MODIFIER_NAME_{modifier_name(pid, node["id"])}:0 "{title}"')
+            lines.append(
+                f' STATIC_MODIFIER_NAME_{modifier_name(pid, node["id"])}:0 "'
+                f'{_node_flavor_name(data, pid, node["id"], lang)}"'
+            )
+            if zh:
+                lines.append(
+                    f' {points_requirement_loc_key(pid, node["id"])}:0 '
+                    f'"需要{node["cost"]}点{PATH_LABELS_ZH[pid]}之路点数"'
+                )
+                lines.append(
+                    f' {not_unlocked_loc_key(pid, node["id"])}:0 "'
+                    f'尚未解锁{_node_flavor_name(data, pid, node["id"], "zh")}"'
+                )
+                if node["parent_id"]:
+                    lines.append(
+                        f' {prerequisite_loc_key(pid, node["id"])}:0 "前置条件：'
+                        f'{_node_flavor_name(data, pid, node["parent_id"], "zh")}已解锁"'
+                    )
+            else:
+                lines.append(
+                    f' {points_requirement_loc_key(pid, node["id"])}:0 '
+                    f'"Requires {node["cost"]} {PATH_LABELS_EN[pid]} Path Points"'
+                )
+                lines.append(
+                    f' {not_unlocked_loc_key(pid, node["id"])}:0 "'
+                    f'{_node_flavor_name(data, pid, node["id"], "en")} has not been unlocked"'
+                )
+                if node["parent_id"]:
+                    lines.append(
+                        f' {prerequisite_loc_key(pid, node["id"])}:0 "Prerequisite: '
+                        f'{_node_flavor_name(data, pid, node["parent_id"], "en")} is unlocked"'
+                    )
             if zh:
                 lines.append(f' PERFORM_{key}_ACTION_SETUP:0 "当我们解锁一个胜利之路树状节点时。"')
                 lines.append(f' PERFORM_{key}_ACTION_LOG:0 "我们解锁了一个胜利之路树状节点。"')
