@@ -117,6 +117,11 @@ def main() -> None:
             assert f"Country.Custom('{prefix}_name')" in gui
             assert f"ShowTriggerConditions('{prefix}_display_trigger', PlayerScope.Self)" in gui
             assert f'action_name = "{action_name(path_id, slot)}"' in gui
+            display_trigger = _extract_top_level_block(triggers, f"{prefix}_display_trigger")
+            assert "switch = {" in display_trigger
+            assert f"trigger = var:{prefix}_id" in display_trigger
+            assert "if = {" not in display_trigger
+            assert "else_if = {" not in display_trigger
 
         first_update = f"tv_victory_path_tasks_update_{path_id}_slot_1_effect = yes"
         assert monthly.index(first_update) < monthly.index(f"{refill_empty_effect(path_id)} = yes")
@@ -141,6 +146,16 @@ def main() -> None:
     assert "multiply = 100" not in art_quality_metric
     assert "root.art_quality >= 80" in effects
     assert "union ?= { country_is_senior_partner = { country = root } }" in triggers
+    assert "every_ally = {" not in effects
+    assert "any_ally = {" not in triggers
+    assert "every_known_country = {" in _extract_top_level_block(
+        effects, "tv_victory_task_refresh_metric_num_allies_effect"
+    )
+    strong_ally_condition = _extract_top_level_block(
+        triggers, "tv_victory_task_4102_current_condition"
+    )
+    assert "any_known_country = {" in strong_ally_condition
+    assert "is_allied_with = { target = root }" in strong_ally_condition
     assert "any_location_in_the_world" in _extract_top_level_block(
         triggers, "tv_victory_task_1101_current_condition"
     )

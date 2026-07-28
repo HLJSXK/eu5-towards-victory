@@ -1,0 +1,10 @@
+tv_example_trigger = {
+    if = {
+        limit = { var:tv_example_id ?= 1 }
+        always = yes
+    }
+    else_if = {
+        limit = { var:tv_example_id ?= 2 }
+        always = no
+    }
+}

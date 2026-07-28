@@ -1,0 +1,7 @@
+tv_example_trigger = {
+    switch = {
+        trigger = var:tv_example_id
+        1 = { always = yes }
+        2 = { always = no }
+    }
+}

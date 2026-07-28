@@ -103,7 +103,10 @@ tv_victory_task_4101_current_condition = {
 }
 
 tv_victory_task_4102_current_condition = {
-	any_ally = { relative_military_strength = { target = root value > 0.5 } }
+	any_known_country = {
+		is_allied_with = { target = root }
+		relative_military_strength = { target = root value > 0.5 }
+	}
 }
 
 tv_victory_task_4103_current_condition = {
@@ -1688,2457 +1691,2262 @@ tv_science_task_slot_3_has_national_special_candidate = { always = no }
 
 # Fixed GUI-facing slot triggers. Each route dispatches by the slot's stable task ID.
 tv_conquest_task_slot_1_display_trigger = {
-	if = {
-		limit = { var:tv_conquest_task_slot_1_id ?= 0 }
-		custom_tooltip = { text = TV_VICTORY_TASK_NO_AVAILABLE_REQUIREMENT always = no }
-	}
-	else_if = {
-		limit = { var:tv_conquest_task_slot_1_id ?= 1001 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_1001_CONQUEST_1_REQUIREMENT
-			OR = {
-				has_variable = tv_conquest_task_slot_1_complete
-				var:tv_victory_task_metric_total_locations ?= { this >= var:tv_conquest_task_slot_1_target }
+	switch = {
+		trigger = var:tv_conquest_task_slot_1_id
+		0 = {
+			custom_tooltip = { text = TV_VICTORY_TASK_NO_AVAILABLE_REQUIREMENT always = no }
+		}
+		1001 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_1001_CONQUEST_1_REQUIREMENT
+				OR = {
+					has_variable = tv_conquest_task_slot_1_complete
+					var:tv_victory_task_metric_total_locations ?= { this >= var:tv_conquest_task_slot_1_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_conquest_task_slot_1_id ?= 1002 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_1002_CONQUEST_1_REQUIREMENT
-			OR = {
-				has_variable = tv_conquest_task_slot_1_complete
-				var:tv_victory_task_metric_owned_locations ?= { this >= var:tv_conquest_task_slot_1_target }
+		1002 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_1002_CONQUEST_1_REQUIREMENT
+				OR = {
+					has_variable = tv_conquest_task_slot_1_complete
+					var:tv_victory_task_metric_owned_locations ?= { this >= var:tv_conquest_task_slot_1_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_conquest_task_slot_1_id ?= 1003 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_1003_CONQUEST_1_REQUIREMENT
-			OR = {
-				has_variable = tv_conquest_task_slot_1_complete
-				var:tv_victory_task_metric_colonial_locations ?= { this >= var:tv_conquest_task_slot_1_target }
+		1003 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_1003_CONQUEST_1_REQUIREMENT
+				OR = {
+					has_variable = tv_conquest_task_slot_1_complete
+					var:tv_victory_task_metric_colonial_locations ?= { this >= var:tv_conquest_task_slot_1_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_conquest_task_slot_1_id ?= 1101 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_1101_CONQUEST_1_REQUIREMENT
-			OR = {
-				has_variable = tv_conquest_task_slot_1_complete
-				tv_victory_task_1101_current_condition = yes
+		1101 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_1101_CONQUEST_1_REQUIREMENT
+				OR = {
+					has_variable = tv_conquest_task_slot_1_complete
+					tv_victory_task_1101_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_conquest_task_slot_1_id ?= 1102 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_1102_CONQUEST_1_REQUIREMENT
-			OR = {
-				has_variable = tv_conquest_task_slot_1_complete
-				var:tv_conquest_task_slot_1_culture_group ?= {
-					NOT = {
-						any_location_in_the_world = {
-							dominant_culture = { any_culture_group = { this = root.var:tv_conquest_task_slot_1_culture_group } }
-							NOT = { owner = root }
+		1102 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_1102_CONQUEST_1_REQUIREMENT
+				OR = {
+					has_variable = tv_conquest_task_slot_1_complete
+					var:tv_conquest_task_slot_1_culture_group ?= {
+						NOT = {
+							any_location_in_the_world = {
+								dominant_culture = { any_culture_group = { this = root.var:tv_conquest_task_slot_1_culture_group } }
+								NOT = { owner = root }
+							}
 						}
 					}
 				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_conquest_task_slot_1_id ?= 1103 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_1103_CONQUEST_1_REQUIREMENT
-			OR = {
-				has_variable = tv_conquest_task_slot_1_complete
-				tv_victory_task_1103_current_condition = yes
+		1103 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_1103_CONQUEST_1_REQUIREMENT
+				OR = {
+					has_variable = tv_conquest_task_slot_1_complete
+					tv_victory_task_1103_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_conquest_task_slot_1_id ?= 1104 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_1104_CONQUEST_1_REQUIREMENT
-			OR = {
-				has_variable = tv_conquest_task_slot_1_complete
-				tv_victory_task_1104_current_condition = yes
+		1104 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_1104_CONQUEST_1_REQUIREMENT
+				OR = {
+					has_variable = tv_conquest_task_slot_1_complete
+					tv_victory_task_1104_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_conquest_task_slot_1_id ?= 1105 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_1105_CONQUEST_1_REQUIREMENT
-			OR = {
-				has_variable = tv_conquest_task_slot_1_complete
-				tv_victory_task_1105_current_condition = yes
+		1105 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_1105_CONQUEST_1_REQUIREMENT
+				OR = {
+					has_variable = tv_conquest_task_slot_1_complete
+					tv_victory_task_1105_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_conquest_task_slot_1_id ?= 1106 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_1106_CONQUEST_1_REQUIREMENT
-			OR = {
-				has_variable = tv_conquest_task_slot_1_complete
-				tv_victory_task_1106_current_condition = yes
+		1106 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_1106_CONQUEST_1_REQUIREMENT
+				OR = {
+					has_variable = tv_conquest_task_slot_1_complete
+					tv_victory_task_1106_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_conquest_task_slot_1_id ?= 1107 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_1107_CONQUEST_1_REQUIREMENT
-			OR = {
-				has_variable = tv_conquest_task_slot_1_complete
-				tv_victory_task_1107_current_condition = yes
+		1107 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_1107_CONQUEST_1_REQUIREMENT
+				OR = {
+					has_variable = tv_conquest_task_slot_1_complete
+					tv_victory_task_1107_current_condition = yes
+				}
 			}
 		}
 	}
 }
 
 tv_conquest_task_slot_2_display_trigger = {
-	if = {
-		limit = { var:tv_conquest_task_slot_2_id ?= 0 }
-		custom_tooltip = { text = TV_VICTORY_TASK_NO_AVAILABLE_REQUIREMENT always = no }
-	}
-	else_if = {
-		limit = { var:tv_conquest_task_slot_2_id ?= 1001 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_1001_CONQUEST_2_REQUIREMENT
-			OR = {
-				has_variable = tv_conquest_task_slot_2_complete
-				var:tv_victory_task_metric_total_locations ?= { this >= var:tv_conquest_task_slot_2_target }
+	switch = {
+		trigger = var:tv_conquest_task_slot_2_id
+		0 = {
+			custom_tooltip = { text = TV_VICTORY_TASK_NO_AVAILABLE_REQUIREMENT always = no }
+		}
+		1001 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_1001_CONQUEST_2_REQUIREMENT
+				OR = {
+					has_variable = tv_conquest_task_slot_2_complete
+					var:tv_victory_task_metric_total_locations ?= { this >= var:tv_conquest_task_slot_2_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_conquest_task_slot_2_id ?= 1002 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_1002_CONQUEST_2_REQUIREMENT
-			OR = {
-				has_variable = tv_conquest_task_slot_2_complete
-				var:tv_victory_task_metric_owned_locations ?= { this >= var:tv_conquest_task_slot_2_target }
+		1002 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_1002_CONQUEST_2_REQUIREMENT
+				OR = {
+					has_variable = tv_conquest_task_slot_2_complete
+					var:tv_victory_task_metric_owned_locations ?= { this >= var:tv_conquest_task_slot_2_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_conquest_task_slot_2_id ?= 1003 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_1003_CONQUEST_2_REQUIREMENT
-			OR = {
-				has_variable = tv_conquest_task_slot_2_complete
-				var:tv_victory_task_metric_colonial_locations ?= { this >= var:tv_conquest_task_slot_2_target }
+		1003 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_1003_CONQUEST_2_REQUIREMENT
+				OR = {
+					has_variable = tv_conquest_task_slot_2_complete
+					var:tv_victory_task_metric_colonial_locations ?= { this >= var:tv_conquest_task_slot_2_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_conquest_task_slot_2_id ?= 1101 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_1101_CONQUEST_2_REQUIREMENT
-			OR = {
-				has_variable = tv_conquest_task_slot_2_complete
-				tv_victory_task_1101_current_condition = yes
+		1101 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_1101_CONQUEST_2_REQUIREMENT
+				OR = {
+					has_variable = tv_conquest_task_slot_2_complete
+					tv_victory_task_1101_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_conquest_task_slot_2_id ?= 1102 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_1102_CONQUEST_2_REQUIREMENT
-			OR = {
-				has_variable = tv_conquest_task_slot_2_complete
-				var:tv_conquest_task_slot_2_culture_group ?= {
-					NOT = {
-						any_location_in_the_world = {
-							dominant_culture = { any_culture_group = { this = root.var:tv_conquest_task_slot_2_culture_group } }
-							NOT = { owner = root }
+		1102 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_1102_CONQUEST_2_REQUIREMENT
+				OR = {
+					has_variable = tv_conquest_task_slot_2_complete
+					var:tv_conquest_task_slot_2_culture_group ?= {
+						NOT = {
+							any_location_in_the_world = {
+								dominant_culture = { any_culture_group = { this = root.var:tv_conquest_task_slot_2_culture_group } }
+								NOT = { owner = root }
+							}
 						}
 					}
 				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_conquest_task_slot_2_id ?= 1103 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_1103_CONQUEST_2_REQUIREMENT
-			OR = {
-				has_variable = tv_conquest_task_slot_2_complete
-				tv_victory_task_1103_current_condition = yes
+		1103 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_1103_CONQUEST_2_REQUIREMENT
+				OR = {
+					has_variable = tv_conquest_task_slot_2_complete
+					tv_victory_task_1103_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_conquest_task_slot_2_id ?= 1104 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_1104_CONQUEST_2_REQUIREMENT
-			OR = {
-				has_variable = tv_conquest_task_slot_2_complete
-				tv_victory_task_1104_current_condition = yes
+		1104 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_1104_CONQUEST_2_REQUIREMENT
+				OR = {
+					has_variable = tv_conquest_task_slot_2_complete
+					tv_victory_task_1104_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_conquest_task_slot_2_id ?= 1105 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_1105_CONQUEST_2_REQUIREMENT
-			OR = {
-				has_variable = tv_conquest_task_slot_2_complete
-				tv_victory_task_1105_current_condition = yes
+		1105 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_1105_CONQUEST_2_REQUIREMENT
+				OR = {
+					has_variable = tv_conquest_task_slot_2_complete
+					tv_victory_task_1105_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_conquest_task_slot_2_id ?= 1106 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_1106_CONQUEST_2_REQUIREMENT
-			OR = {
-				has_variable = tv_conquest_task_slot_2_complete
-				tv_victory_task_1106_current_condition = yes
+		1106 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_1106_CONQUEST_2_REQUIREMENT
+				OR = {
+					has_variable = tv_conquest_task_slot_2_complete
+					tv_victory_task_1106_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_conquest_task_slot_2_id ?= 1107 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_1107_CONQUEST_2_REQUIREMENT
-			OR = {
-				has_variable = tv_conquest_task_slot_2_complete
-				tv_victory_task_1107_current_condition = yes
+		1107 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_1107_CONQUEST_2_REQUIREMENT
+				OR = {
+					has_variable = tv_conquest_task_slot_2_complete
+					tv_victory_task_1107_current_condition = yes
+				}
 			}
 		}
 	}
 }
 
 tv_conquest_task_slot_3_display_trigger = {
-	if = {
-		limit = { var:tv_conquest_task_slot_3_id ?= 0 }
-		custom_tooltip = { text = TV_VICTORY_TASK_NO_AVAILABLE_REQUIREMENT always = no }
-	}
-	else_if = {
-		limit = { var:tv_conquest_task_slot_3_id ?= 1001 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_1001_CONQUEST_3_REQUIREMENT
-			OR = {
-				has_variable = tv_conquest_task_slot_3_complete
-				var:tv_victory_task_metric_total_locations ?= { this >= var:tv_conquest_task_slot_3_target }
+	switch = {
+		trigger = var:tv_conquest_task_slot_3_id
+		0 = {
+			custom_tooltip = { text = TV_VICTORY_TASK_NO_AVAILABLE_REQUIREMENT always = no }
+		}
+		1001 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_1001_CONQUEST_3_REQUIREMENT
+				OR = {
+					has_variable = tv_conquest_task_slot_3_complete
+					var:tv_victory_task_metric_total_locations ?= { this >= var:tv_conquest_task_slot_3_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_conquest_task_slot_3_id ?= 1002 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_1002_CONQUEST_3_REQUIREMENT
-			OR = {
-				has_variable = tv_conquest_task_slot_3_complete
-				var:tv_victory_task_metric_owned_locations ?= { this >= var:tv_conquest_task_slot_3_target }
+		1002 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_1002_CONQUEST_3_REQUIREMENT
+				OR = {
+					has_variable = tv_conquest_task_slot_3_complete
+					var:tv_victory_task_metric_owned_locations ?= { this >= var:tv_conquest_task_slot_3_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_conquest_task_slot_3_id ?= 1003 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_1003_CONQUEST_3_REQUIREMENT
-			OR = {
-				has_variable = tv_conquest_task_slot_3_complete
-				var:tv_victory_task_metric_colonial_locations ?= { this >= var:tv_conquest_task_slot_3_target }
+		1003 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_1003_CONQUEST_3_REQUIREMENT
+				OR = {
+					has_variable = tv_conquest_task_slot_3_complete
+					var:tv_victory_task_metric_colonial_locations ?= { this >= var:tv_conquest_task_slot_3_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_conquest_task_slot_3_id ?= 1101 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_1101_CONQUEST_3_REQUIREMENT
-			OR = {
-				has_variable = tv_conquest_task_slot_3_complete
-				tv_victory_task_1101_current_condition = yes
+		1101 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_1101_CONQUEST_3_REQUIREMENT
+				OR = {
+					has_variable = tv_conquest_task_slot_3_complete
+					tv_victory_task_1101_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_conquest_task_slot_3_id ?= 1102 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_1102_CONQUEST_3_REQUIREMENT
-			OR = {
-				has_variable = tv_conquest_task_slot_3_complete
-				var:tv_conquest_task_slot_3_culture_group ?= {
-					NOT = {
-						any_location_in_the_world = {
-							dominant_culture = { any_culture_group = { this = root.var:tv_conquest_task_slot_3_culture_group } }
-							NOT = { owner = root }
+		1102 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_1102_CONQUEST_3_REQUIREMENT
+				OR = {
+					has_variable = tv_conquest_task_slot_3_complete
+					var:tv_conquest_task_slot_3_culture_group ?= {
+						NOT = {
+							any_location_in_the_world = {
+								dominant_culture = { any_culture_group = { this = root.var:tv_conquest_task_slot_3_culture_group } }
+								NOT = { owner = root }
+							}
 						}
 					}
 				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_conquest_task_slot_3_id ?= 1103 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_1103_CONQUEST_3_REQUIREMENT
-			OR = {
-				has_variable = tv_conquest_task_slot_3_complete
-				tv_victory_task_1103_current_condition = yes
+		1103 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_1103_CONQUEST_3_REQUIREMENT
+				OR = {
+					has_variable = tv_conquest_task_slot_3_complete
+					tv_victory_task_1103_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_conquest_task_slot_3_id ?= 1104 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_1104_CONQUEST_3_REQUIREMENT
-			OR = {
-				has_variable = tv_conquest_task_slot_3_complete
-				tv_victory_task_1104_current_condition = yes
+		1104 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_1104_CONQUEST_3_REQUIREMENT
+				OR = {
+					has_variable = tv_conquest_task_slot_3_complete
+					tv_victory_task_1104_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_conquest_task_slot_3_id ?= 1105 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_1105_CONQUEST_3_REQUIREMENT
-			OR = {
-				has_variable = tv_conquest_task_slot_3_complete
-				tv_victory_task_1105_current_condition = yes
+		1105 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_1105_CONQUEST_3_REQUIREMENT
+				OR = {
+					has_variable = tv_conquest_task_slot_3_complete
+					tv_victory_task_1105_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_conquest_task_slot_3_id ?= 1106 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_1106_CONQUEST_3_REQUIREMENT
-			OR = {
-				has_variable = tv_conquest_task_slot_3_complete
-				tv_victory_task_1106_current_condition = yes
+		1106 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_1106_CONQUEST_3_REQUIREMENT
+				OR = {
+					has_variable = tv_conquest_task_slot_3_complete
+					tv_victory_task_1106_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_conquest_task_slot_3_id ?= 1107 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_1107_CONQUEST_3_REQUIREMENT
-			OR = {
-				has_variable = tv_conquest_task_slot_3_complete
-				tv_victory_task_1107_current_condition = yes
+		1107 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_1107_CONQUEST_3_REQUIREMENT
+				OR = {
+					has_variable = tv_conquest_task_slot_3_complete
+					tv_victory_task_1107_current_condition = yes
+				}
 			}
 		}
 	}
 }
 
 tv_prosperity_task_slot_1_display_trigger = {
-	if = {
-		limit = { var:tv_prosperity_task_slot_1_id ?= 0 }
-		custom_tooltip = { text = TV_VICTORY_TASK_NO_AVAILABLE_REQUIREMENT always = no }
-	}
-	else_if = {
-		limit = { var:tv_prosperity_task_slot_1_id ?= 2001 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_2001_PROSPERITY_1_REQUIREMENT
-			OR = {
-				has_variable = tv_prosperity_task_slot_1_complete
-				var:tv_victory_task_metric_tax_base ?= { this >= var:tv_prosperity_task_slot_1_target }
+	switch = {
+		trigger = var:tv_prosperity_task_slot_1_id
+		0 = {
+			custom_tooltip = { text = TV_VICTORY_TASK_NO_AVAILABLE_REQUIREMENT always = no }
+		}
+		2001 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_2001_PROSPERITY_1_REQUIREMENT
+				OR = {
+					has_variable = tv_prosperity_task_slot_1_complete
+					var:tv_victory_task_metric_tax_base ?= { this >= var:tv_prosperity_task_slot_1_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_prosperity_task_slot_1_id ?= 2002 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_2002_PROSPERITY_1_REQUIREMENT
-			OR = {
-				has_variable = tv_prosperity_task_slot_1_complete
-				var:tv_victory_task_metric_population ?= { this >= var:tv_prosperity_task_slot_1_target }
+		2002 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_2002_PROSPERITY_1_REQUIREMENT
+				OR = {
+					has_variable = tv_prosperity_task_slot_1_complete
+					var:tv_victory_task_metric_population ?= { this >= var:tv_prosperity_task_slot_1_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_prosperity_task_slot_1_id ?= 2003 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_2003_PROSPERITY_1_REQUIREMENT
-			OR = {
-				has_variable = tv_prosperity_task_slot_1_complete
-				var:tv_victory_task_metric_average_development ?= { this >= var:tv_prosperity_task_slot_1_target }
+		2003 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_2003_PROSPERITY_1_REQUIREMENT
+				OR = {
+					has_variable = tv_prosperity_task_slot_1_complete
+					var:tv_victory_task_metric_average_development ?= { this >= var:tv_prosperity_task_slot_1_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_prosperity_task_slot_1_id ?= 2004 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_2004_PROSPERITY_1_REQUIREMENT
-			OR = {
-				has_variable = tv_prosperity_task_slot_1_complete
-				var:tv_victory_task_metric_average_prosperity_pct ?= { this >= var:tv_prosperity_task_slot_1_target }
+		2004 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_2004_PROSPERITY_1_REQUIREMENT
+				OR = {
+					has_variable = tv_prosperity_task_slot_1_complete
+					var:tv_victory_task_metric_average_prosperity_pct ?= { this >= var:tv_prosperity_task_slot_1_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_prosperity_task_slot_1_id ?= 2005 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_2005_PROSPERITY_1_REQUIREMENT
-			OR = {
-				has_variable = tv_prosperity_task_slot_1_complete
-				var:tv_victory_task_metric_average_control_pct ?= { this >= var:tv_prosperity_task_slot_1_target }
+		2005 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_2005_PROSPERITY_1_REQUIREMENT
+				OR = {
+					has_variable = tv_prosperity_task_slot_1_complete
+					var:tv_victory_task_metric_average_control_pct ?= { this >= var:tv_prosperity_task_slot_1_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_prosperity_task_slot_1_id ?= 2101 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_2101_PROSPERITY_1_REQUIREMENT
-			OR = {
-				has_variable = tv_prosperity_task_slot_1_complete
-				tv_victory_task_2101_current_condition = yes
+		2101 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_2101_PROSPERITY_1_REQUIREMENT
+				OR = {
+					has_variable = tv_prosperity_task_slot_1_complete
+					tv_victory_task_2101_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_prosperity_task_slot_1_id ?= 2102 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_2102_PROSPERITY_1_REQUIREMENT
-			OR = {
-				has_variable = tv_prosperity_task_slot_1_complete
-				tv_victory_task_2102_current_condition = yes
+		2102 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_2102_PROSPERITY_1_REQUIREMENT
+				OR = {
+					has_variable = tv_prosperity_task_slot_1_complete
+					tv_victory_task_2102_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_prosperity_task_slot_1_id ?= 2103 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_2103_PROSPERITY_1_REQUIREMENT
-			OR = {
-				has_variable = tv_prosperity_task_slot_1_complete
-				tv_victory_task_2103_current_condition = yes
+		2103 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_2103_PROSPERITY_1_REQUIREMENT
+				OR = {
+					has_variable = tv_prosperity_task_slot_1_complete
+					tv_victory_task_2103_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_prosperity_task_slot_1_id ?= 2104 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_2104_PROSPERITY_1_REQUIREMENT
-			OR = {
-				has_variable = tv_prosperity_task_slot_1_complete
-				tv_victory_task_2104_current_condition = yes
+		2104 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_2104_PROSPERITY_1_REQUIREMENT
+				OR = {
+					has_variable = tv_prosperity_task_slot_1_complete
+					tv_victory_task_2104_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_prosperity_task_slot_1_id ?= 2105 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_2105_PROSPERITY_1_REQUIREMENT
-			OR = {
-				has_variable = tv_prosperity_task_slot_1_complete
-				tv_victory_task_2105_current_condition = yes
+		2105 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_2105_PROSPERITY_1_REQUIREMENT
+				OR = {
+					has_variable = tv_prosperity_task_slot_1_complete
+					tv_victory_task_2105_current_condition = yes
+				}
 			}
 		}
 	}
 }
 
 tv_prosperity_task_slot_2_display_trigger = {
-	if = {
-		limit = { var:tv_prosperity_task_slot_2_id ?= 0 }
-		custom_tooltip = { text = TV_VICTORY_TASK_NO_AVAILABLE_REQUIREMENT always = no }
-	}
-	else_if = {
-		limit = { var:tv_prosperity_task_slot_2_id ?= 2001 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_2001_PROSPERITY_2_REQUIREMENT
-			OR = {
-				has_variable = tv_prosperity_task_slot_2_complete
-				var:tv_victory_task_metric_tax_base ?= { this >= var:tv_prosperity_task_slot_2_target }
+	switch = {
+		trigger = var:tv_prosperity_task_slot_2_id
+		0 = {
+			custom_tooltip = { text = TV_VICTORY_TASK_NO_AVAILABLE_REQUIREMENT always = no }
+		}
+		2001 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_2001_PROSPERITY_2_REQUIREMENT
+				OR = {
+					has_variable = tv_prosperity_task_slot_2_complete
+					var:tv_victory_task_metric_tax_base ?= { this >= var:tv_prosperity_task_slot_2_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_prosperity_task_slot_2_id ?= 2002 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_2002_PROSPERITY_2_REQUIREMENT
-			OR = {
-				has_variable = tv_prosperity_task_slot_2_complete
-				var:tv_victory_task_metric_population ?= { this >= var:tv_prosperity_task_slot_2_target }
+		2002 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_2002_PROSPERITY_2_REQUIREMENT
+				OR = {
+					has_variable = tv_prosperity_task_slot_2_complete
+					var:tv_victory_task_metric_population ?= { this >= var:tv_prosperity_task_slot_2_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_prosperity_task_slot_2_id ?= 2003 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_2003_PROSPERITY_2_REQUIREMENT
-			OR = {
-				has_variable = tv_prosperity_task_slot_2_complete
-				var:tv_victory_task_metric_average_development ?= { this >= var:tv_prosperity_task_slot_2_target }
+		2003 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_2003_PROSPERITY_2_REQUIREMENT
+				OR = {
+					has_variable = tv_prosperity_task_slot_2_complete
+					var:tv_victory_task_metric_average_development ?= { this >= var:tv_prosperity_task_slot_2_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_prosperity_task_slot_2_id ?= 2004 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_2004_PROSPERITY_2_REQUIREMENT
-			OR = {
-				has_variable = tv_prosperity_task_slot_2_complete
-				var:tv_victory_task_metric_average_prosperity_pct ?= { this >= var:tv_prosperity_task_slot_2_target }
+		2004 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_2004_PROSPERITY_2_REQUIREMENT
+				OR = {
+					has_variable = tv_prosperity_task_slot_2_complete
+					var:tv_victory_task_metric_average_prosperity_pct ?= { this >= var:tv_prosperity_task_slot_2_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_prosperity_task_slot_2_id ?= 2005 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_2005_PROSPERITY_2_REQUIREMENT
-			OR = {
-				has_variable = tv_prosperity_task_slot_2_complete
-				var:tv_victory_task_metric_average_control_pct ?= { this >= var:tv_prosperity_task_slot_2_target }
+		2005 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_2005_PROSPERITY_2_REQUIREMENT
+				OR = {
+					has_variable = tv_prosperity_task_slot_2_complete
+					var:tv_victory_task_metric_average_control_pct ?= { this >= var:tv_prosperity_task_slot_2_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_prosperity_task_slot_2_id ?= 2101 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_2101_PROSPERITY_2_REQUIREMENT
-			OR = {
-				has_variable = tv_prosperity_task_slot_2_complete
-				tv_victory_task_2101_current_condition = yes
+		2101 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_2101_PROSPERITY_2_REQUIREMENT
+				OR = {
+					has_variable = tv_prosperity_task_slot_2_complete
+					tv_victory_task_2101_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_prosperity_task_slot_2_id ?= 2102 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_2102_PROSPERITY_2_REQUIREMENT
-			OR = {
-				has_variable = tv_prosperity_task_slot_2_complete
-				tv_victory_task_2102_current_condition = yes
+		2102 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_2102_PROSPERITY_2_REQUIREMENT
+				OR = {
+					has_variable = tv_prosperity_task_slot_2_complete
+					tv_victory_task_2102_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_prosperity_task_slot_2_id ?= 2103 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_2103_PROSPERITY_2_REQUIREMENT
-			OR = {
-				has_variable = tv_prosperity_task_slot_2_complete
-				tv_victory_task_2103_current_condition = yes
+		2103 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_2103_PROSPERITY_2_REQUIREMENT
+				OR = {
+					has_variable = tv_prosperity_task_slot_2_complete
+					tv_victory_task_2103_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_prosperity_task_slot_2_id ?= 2104 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_2104_PROSPERITY_2_REQUIREMENT
-			OR = {
-				has_variable = tv_prosperity_task_slot_2_complete
-				tv_victory_task_2104_current_condition = yes
+		2104 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_2104_PROSPERITY_2_REQUIREMENT
+				OR = {
+					has_variable = tv_prosperity_task_slot_2_complete
+					tv_victory_task_2104_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_prosperity_task_slot_2_id ?= 2105 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_2105_PROSPERITY_2_REQUIREMENT
-			OR = {
-				has_variable = tv_prosperity_task_slot_2_complete
-				tv_victory_task_2105_current_condition = yes
+		2105 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_2105_PROSPERITY_2_REQUIREMENT
+				OR = {
+					has_variable = tv_prosperity_task_slot_2_complete
+					tv_victory_task_2105_current_condition = yes
+				}
 			}
 		}
 	}
 }
 
 tv_prosperity_task_slot_3_display_trigger = {
-	if = {
-		limit = { var:tv_prosperity_task_slot_3_id ?= 0 }
-		custom_tooltip = { text = TV_VICTORY_TASK_NO_AVAILABLE_REQUIREMENT always = no }
-	}
-	else_if = {
-		limit = { var:tv_prosperity_task_slot_3_id ?= 2001 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_2001_PROSPERITY_3_REQUIREMENT
-			OR = {
-				has_variable = tv_prosperity_task_slot_3_complete
-				var:tv_victory_task_metric_tax_base ?= { this >= var:tv_prosperity_task_slot_3_target }
+	switch = {
+		trigger = var:tv_prosperity_task_slot_3_id
+		0 = {
+			custom_tooltip = { text = TV_VICTORY_TASK_NO_AVAILABLE_REQUIREMENT always = no }
+		}
+		2001 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_2001_PROSPERITY_3_REQUIREMENT
+				OR = {
+					has_variable = tv_prosperity_task_slot_3_complete
+					var:tv_victory_task_metric_tax_base ?= { this >= var:tv_prosperity_task_slot_3_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_prosperity_task_slot_3_id ?= 2002 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_2002_PROSPERITY_3_REQUIREMENT
-			OR = {
-				has_variable = tv_prosperity_task_slot_3_complete
-				var:tv_victory_task_metric_population ?= { this >= var:tv_prosperity_task_slot_3_target }
+		2002 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_2002_PROSPERITY_3_REQUIREMENT
+				OR = {
+					has_variable = tv_prosperity_task_slot_3_complete
+					var:tv_victory_task_metric_population ?= { this >= var:tv_prosperity_task_slot_3_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_prosperity_task_slot_3_id ?= 2003 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_2003_PROSPERITY_3_REQUIREMENT
-			OR = {
-				has_variable = tv_prosperity_task_slot_3_complete
-				var:tv_victory_task_metric_average_development ?= { this >= var:tv_prosperity_task_slot_3_target }
+		2003 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_2003_PROSPERITY_3_REQUIREMENT
+				OR = {
+					has_variable = tv_prosperity_task_slot_3_complete
+					var:tv_victory_task_metric_average_development ?= { this >= var:tv_prosperity_task_slot_3_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_prosperity_task_slot_3_id ?= 2004 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_2004_PROSPERITY_3_REQUIREMENT
-			OR = {
-				has_variable = tv_prosperity_task_slot_3_complete
-				var:tv_victory_task_metric_average_prosperity_pct ?= { this >= var:tv_prosperity_task_slot_3_target }
+		2004 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_2004_PROSPERITY_3_REQUIREMENT
+				OR = {
+					has_variable = tv_prosperity_task_slot_3_complete
+					var:tv_victory_task_metric_average_prosperity_pct ?= { this >= var:tv_prosperity_task_slot_3_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_prosperity_task_slot_3_id ?= 2005 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_2005_PROSPERITY_3_REQUIREMENT
-			OR = {
-				has_variable = tv_prosperity_task_slot_3_complete
-				var:tv_victory_task_metric_average_control_pct ?= { this >= var:tv_prosperity_task_slot_3_target }
+		2005 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_2005_PROSPERITY_3_REQUIREMENT
+				OR = {
+					has_variable = tv_prosperity_task_slot_3_complete
+					var:tv_victory_task_metric_average_control_pct ?= { this >= var:tv_prosperity_task_slot_3_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_prosperity_task_slot_3_id ?= 2101 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_2101_PROSPERITY_3_REQUIREMENT
-			OR = {
-				has_variable = tv_prosperity_task_slot_3_complete
-				tv_victory_task_2101_current_condition = yes
+		2101 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_2101_PROSPERITY_3_REQUIREMENT
+				OR = {
+					has_variable = tv_prosperity_task_slot_3_complete
+					tv_victory_task_2101_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_prosperity_task_slot_3_id ?= 2102 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_2102_PROSPERITY_3_REQUIREMENT
-			OR = {
-				has_variable = tv_prosperity_task_slot_3_complete
-				tv_victory_task_2102_current_condition = yes
+		2102 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_2102_PROSPERITY_3_REQUIREMENT
+				OR = {
+					has_variable = tv_prosperity_task_slot_3_complete
+					tv_victory_task_2102_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_prosperity_task_slot_3_id ?= 2103 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_2103_PROSPERITY_3_REQUIREMENT
-			OR = {
-				has_variable = tv_prosperity_task_slot_3_complete
-				tv_victory_task_2103_current_condition = yes
+		2103 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_2103_PROSPERITY_3_REQUIREMENT
+				OR = {
+					has_variable = tv_prosperity_task_slot_3_complete
+					tv_victory_task_2103_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_prosperity_task_slot_3_id ?= 2104 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_2104_PROSPERITY_3_REQUIREMENT
-			OR = {
-				has_variable = tv_prosperity_task_slot_3_complete
-				tv_victory_task_2104_current_condition = yes
+		2104 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_2104_PROSPERITY_3_REQUIREMENT
+				OR = {
+					has_variable = tv_prosperity_task_slot_3_complete
+					tv_victory_task_2104_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_prosperity_task_slot_3_id ?= 2105 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_2105_PROSPERITY_3_REQUIREMENT
-			OR = {
-				has_variable = tv_prosperity_task_slot_3_complete
-				tv_victory_task_2105_current_condition = yes
+		2105 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_2105_PROSPERITY_3_REQUIREMENT
+				OR = {
+					has_variable = tv_prosperity_task_slot_3_complete
+					tv_victory_task_2105_current_condition = yes
+				}
 			}
 		}
 	}
 }
 
 tv_trade_task_slot_1_display_trigger = {
-	if = {
-		limit = { var:tv_trade_task_slot_1_id ?= 0 }
-		custom_tooltip = { text = TV_VICTORY_TASK_NO_AVAILABLE_REQUIREMENT always = no }
-	}
-	else_if = {
-		limit = { var:tv_trade_task_slot_1_id ?= 3001 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_3001_TRADE_1_REQUIREMENT
-			OR = {
-				has_variable = tv_trade_task_slot_1_complete
-				var:tv_victory_task_metric_trade_income ?= { this >= var:tv_trade_task_slot_1_target }
+	switch = {
+		trigger = var:tv_trade_task_slot_1_id
+		0 = {
+			custom_tooltip = { text = TV_VICTORY_TASK_NO_AVAILABLE_REQUIREMENT always = no }
+		}
+		3001 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_3001_TRADE_1_REQUIREMENT
+				OR = {
+					has_variable = tv_trade_task_slot_1_complete
+					var:tv_victory_task_metric_trade_income ?= { this >= var:tv_trade_task_slot_1_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_trade_task_slot_1_id ?= 3002 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_3002_TRADE_1_REQUIREMENT
-			OR = {
-				has_variable = tv_trade_task_slot_1_complete
-				var:tv_victory_task_metric_dominant_markets ?= { this >= var:tv_trade_task_slot_1_target }
+		3002 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_3002_TRADE_1_REQUIREMENT
+				OR = {
+					has_variable = tv_trade_task_slot_1_complete
+					var:tv_victory_task_metric_dominant_markets ?= { this >= var:tv_trade_task_slot_1_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_trade_task_slot_1_id ?= 3101 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_3101_TRADE_1_REQUIREMENT
-			OR = {
-				has_variable = tv_trade_task_slot_1_complete
-				always = no
+		3101 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_3101_TRADE_1_REQUIREMENT
+				OR = {
+					has_variable = tv_trade_task_slot_1_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_trade_task_slot_1_id ?= 3102 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_3102_TRADE_1_REQUIREMENT
-			OR = {
-				has_variable = tv_trade_task_slot_1_complete
-				always = no
+		3102 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_3102_TRADE_1_REQUIREMENT
+				OR = {
+					has_variable = tv_trade_task_slot_1_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_trade_task_slot_1_id ?= 3103 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_3103_TRADE_1_REQUIREMENT
-			OR = {
-				has_variable = tv_trade_task_slot_1_complete
-				always = no
+		3103 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_3103_TRADE_1_REQUIREMENT
+				OR = {
+					has_variable = tv_trade_task_slot_1_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_trade_task_slot_1_id ?= 3104 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_3104_TRADE_1_REQUIREMENT
-			OR = {
-				has_variable = tv_trade_task_slot_1_complete
-				always = no
+		3104 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_3104_TRADE_1_REQUIREMENT
+				OR = {
+					has_variable = tv_trade_task_slot_1_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_trade_task_slot_1_id ?= 3105 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_3105_TRADE_1_REQUIREMENT
-			OR = {
-				has_variable = tv_trade_task_slot_1_complete
-				always = no
+		3105 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_3105_TRADE_1_REQUIREMENT
+				OR = {
+					has_variable = tv_trade_task_slot_1_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_trade_task_slot_1_id ?= 3106 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_3106_TRADE_1_REQUIREMENT
-			OR = {
-				has_variable = tv_trade_task_slot_1_complete
-				always = no
+		3106 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_3106_TRADE_1_REQUIREMENT
+				OR = {
+					has_variable = tv_trade_task_slot_1_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_trade_task_slot_1_id ?= 3107 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_3107_TRADE_1_REQUIREMENT
-			OR = {
-				has_variable = tv_trade_task_slot_1_complete
-				always = no
+		3107 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_3107_TRADE_1_REQUIREMENT
+				OR = {
+					has_variable = tv_trade_task_slot_1_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_trade_task_slot_1_id ?= 3108 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_3108_TRADE_1_REQUIREMENT
-			OR = {
-				has_variable = tv_trade_task_slot_1_complete
-				always = no
+		3108 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_3108_TRADE_1_REQUIREMENT
+				OR = {
+					has_variable = tv_trade_task_slot_1_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_trade_task_slot_1_id ?= 3109 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_3109_TRADE_1_REQUIREMENT
-			OR = {
-				has_variable = tv_trade_task_slot_1_complete
-				always = no
+		3109 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_3109_TRADE_1_REQUIREMENT
+				OR = {
+					has_variable = tv_trade_task_slot_1_complete
+					always = no
+				}
 			}
 		}
 	}
 }
 
 tv_trade_task_slot_2_display_trigger = {
-	if = {
-		limit = { var:tv_trade_task_slot_2_id ?= 0 }
-		custom_tooltip = { text = TV_VICTORY_TASK_NO_AVAILABLE_REQUIREMENT always = no }
-	}
-	else_if = {
-		limit = { var:tv_trade_task_slot_2_id ?= 3001 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_3001_TRADE_2_REQUIREMENT
-			OR = {
-				has_variable = tv_trade_task_slot_2_complete
-				var:tv_victory_task_metric_trade_income ?= { this >= var:tv_trade_task_slot_2_target }
+	switch = {
+		trigger = var:tv_trade_task_slot_2_id
+		0 = {
+			custom_tooltip = { text = TV_VICTORY_TASK_NO_AVAILABLE_REQUIREMENT always = no }
+		}
+		3001 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_3001_TRADE_2_REQUIREMENT
+				OR = {
+					has_variable = tv_trade_task_slot_2_complete
+					var:tv_victory_task_metric_trade_income ?= { this >= var:tv_trade_task_slot_2_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_trade_task_slot_2_id ?= 3002 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_3002_TRADE_2_REQUIREMENT
-			OR = {
-				has_variable = tv_trade_task_slot_2_complete
-				var:tv_victory_task_metric_dominant_markets ?= { this >= var:tv_trade_task_slot_2_target }
+		3002 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_3002_TRADE_2_REQUIREMENT
+				OR = {
+					has_variable = tv_trade_task_slot_2_complete
+					var:tv_victory_task_metric_dominant_markets ?= { this >= var:tv_trade_task_slot_2_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_trade_task_slot_2_id ?= 3101 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_3101_TRADE_2_REQUIREMENT
-			OR = {
-				has_variable = tv_trade_task_slot_2_complete
-				always = no
+		3101 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_3101_TRADE_2_REQUIREMENT
+				OR = {
+					has_variable = tv_trade_task_slot_2_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_trade_task_slot_2_id ?= 3102 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_3102_TRADE_2_REQUIREMENT
-			OR = {
-				has_variable = tv_trade_task_slot_2_complete
-				always = no
+		3102 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_3102_TRADE_2_REQUIREMENT
+				OR = {
+					has_variable = tv_trade_task_slot_2_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_trade_task_slot_2_id ?= 3103 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_3103_TRADE_2_REQUIREMENT
-			OR = {
-				has_variable = tv_trade_task_slot_2_complete
-				always = no
+		3103 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_3103_TRADE_2_REQUIREMENT
+				OR = {
+					has_variable = tv_trade_task_slot_2_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_trade_task_slot_2_id ?= 3104 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_3104_TRADE_2_REQUIREMENT
-			OR = {
-				has_variable = tv_trade_task_slot_2_complete
-				always = no
+		3104 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_3104_TRADE_2_REQUIREMENT
+				OR = {
+					has_variable = tv_trade_task_slot_2_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_trade_task_slot_2_id ?= 3105 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_3105_TRADE_2_REQUIREMENT
-			OR = {
-				has_variable = tv_trade_task_slot_2_complete
-				always = no
+		3105 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_3105_TRADE_2_REQUIREMENT
+				OR = {
+					has_variable = tv_trade_task_slot_2_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_trade_task_slot_2_id ?= 3106 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_3106_TRADE_2_REQUIREMENT
-			OR = {
-				has_variable = tv_trade_task_slot_2_complete
-				always = no
+		3106 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_3106_TRADE_2_REQUIREMENT
+				OR = {
+					has_variable = tv_trade_task_slot_2_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_trade_task_slot_2_id ?= 3107 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_3107_TRADE_2_REQUIREMENT
-			OR = {
-				has_variable = tv_trade_task_slot_2_complete
-				always = no
+		3107 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_3107_TRADE_2_REQUIREMENT
+				OR = {
+					has_variable = tv_trade_task_slot_2_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_trade_task_slot_2_id ?= 3108 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_3108_TRADE_2_REQUIREMENT
-			OR = {
-				has_variable = tv_trade_task_slot_2_complete
-				always = no
+		3108 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_3108_TRADE_2_REQUIREMENT
+				OR = {
+					has_variable = tv_trade_task_slot_2_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_trade_task_slot_2_id ?= 3109 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_3109_TRADE_2_REQUIREMENT
-			OR = {
-				has_variable = tv_trade_task_slot_2_complete
-				always = no
+		3109 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_3109_TRADE_2_REQUIREMENT
+				OR = {
+					has_variable = tv_trade_task_slot_2_complete
+					always = no
+				}
 			}
 		}
 	}
 }
 
 tv_trade_task_slot_3_display_trigger = {
-	if = {
-		limit = { var:tv_trade_task_slot_3_id ?= 0 }
-		custom_tooltip = { text = TV_VICTORY_TASK_NO_AVAILABLE_REQUIREMENT always = no }
-	}
-	else_if = {
-		limit = { var:tv_trade_task_slot_3_id ?= 3001 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_3001_TRADE_3_REQUIREMENT
-			OR = {
-				has_variable = tv_trade_task_slot_3_complete
-				var:tv_victory_task_metric_trade_income ?= { this >= var:tv_trade_task_slot_3_target }
+	switch = {
+		trigger = var:tv_trade_task_slot_3_id
+		0 = {
+			custom_tooltip = { text = TV_VICTORY_TASK_NO_AVAILABLE_REQUIREMENT always = no }
+		}
+		3001 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_3001_TRADE_3_REQUIREMENT
+				OR = {
+					has_variable = tv_trade_task_slot_3_complete
+					var:tv_victory_task_metric_trade_income ?= { this >= var:tv_trade_task_slot_3_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_trade_task_slot_3_id ?= 3002 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_3002_TRADE_3_REQUIREMENT
-			OR = {
-				has_variable = tv_trade_task_slot_3_complete
-				var:tv_victory_task_metric_dominant_markets ?= { this >= var:tv_trade_task_slot_3_target }
+		3002 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_3002_TRADE_3_REQUIREMENT
+				OR = {
+					has_variable = tv_trade_task_slot_3_complete
+					var:tv_victory_task_metric_dominant_markets ?= { this >= var:tv_trade_task_slot_3_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_trade_task_slot_3_id ?= 3101 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_3101_TRADE_3_REQUIREMENT
-			OR = {
-				has_variable = tv_trade_task_slot_3_complete
-				always = no
+		3101 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_3101_TRADE_3_REQUIREMENT
+				OR = {
+					has_variable = tv_trade_task_slot_3_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_trade_task_slot_3_id ?= 3102 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_3102_TRADE_3_REQUIREMENT
-			OR = {
-				has_variable = tv_trade_task_slot_3_complete
-				always = no
+		3102 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_3102_TRADE_3_REQUIREMENT
+				OR = {
+					has_variable = tv_trade_task_slot_3_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_trade_task_slot_3_id ?= 3103 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_3103_TRADE_3_REQUIREMENT
-			OR = {
-				has_variable = tv_trade_task_slot_3_complete
-				always = no
+		3103 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_3103_TRADE_3_REQUIREMENT
+				OR = {
+					has_variable = tv_trade_task_slot_3_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_trade_task_slot_3_id ?= 3104 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_3104_TRADE_3_REQUIREMENT
-			OR = {
-				has_variable = tv_trade_task_slot_3_complete
-				always = no
+		3104 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_3104_TRADE_3_REQUIREMENT
+				OR = {
+					has_variable = tv_trade_task_slot_3_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_trade_task_slot_3_id ?= 3105 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_3105_TRADE_3_REQUIREMENT
-			OR = {
-				has_variable = tv_trade_task_slot_3_complete
-				always = no
+		3105 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_3105_TRADE_3_REQUIREMENT
+				OR = {
+					has_variable = tv_trade_task_slot_3_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_trade_task_slot_3_id ?= 3106 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_3106_TRADE_3_REQUIREMENT
-			OR = {
-				has_variable = tv_trade_task_slot_3_complete
-				always = no
+		3106 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_3106_TRADE_3_REQUIREMENT
+				OR = {
+					has_variable = tv_trade_task_slot_3_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_trade_task_slot_3_id ?= 3107 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_3107_TRADE_3_REQUIREMENT
-			OR = {
-				has_variable = tv_trade_task_slot_3_complete
-				always = no
+		3107 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_3107_TRADE_3_REQUIREMENT
+				OR = {
+					has_variable = tv_trade_task_slot_3_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_trade_task_slot_3_id ?= 3108 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_3108_TRADE_3_REQUIREMENT
-			OR = {
-				has_variable = tv_trade_task_slot_3_complete
-				always = no
+		3108 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_3108_TRADE_3_REQUIREMENT
+				OR = {
+					has_variable = tv_trade_task_slot_3_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_trade_task_slot_3_id ?= 3109 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_3109_TRADE_3_REQUIREMENT
-			OR = {
-				has_variable = tv_trade_task_slot_3_complete
-				always = no
+		3109 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_3109_TRADE_3_REQUIREMENT
+				OR = {
+					has_variable = tv_trade_task_slot_3_complete
+					always = no
+				}
 			}
 		}
 	}
 }
 
 tv_diplomatic_task_slot_1_display_trigger = {
-	if = {
-		limit = { var:tv_diplomatic_task_slot_1_id ?= 0 }
-		custom_tooltip = { text = TV_VICTORY_TASK_NO_AVAILABLE_REQUIREMENT always = no }
-	}
-	else_if = {
-		limit = { var:tv_diplomatic_task_slot_1_id ?= 4001 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_4001_DIPLOMATIC_1_REQUIREMENT
-			OR = {
-				has_variable = tv_diplomatic_task_slot_1_complete
-				var:tv_victory_task_metric_diplomatic_reputation ?= { this >= var:tv_diplomatic_task_slot_1_target }
+	switch = {
+		trigger = var:tv_diplomatic_task_slot_1_id
+		0 = {
+			custom_tooltip = { text = TV_VICTORY_TASK_NO_AVAILABLE_REQUIREMENT always = no }
+		}
+		4001 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_4001_DIPLOMATIC_1_REQUIREMENT
+				OR = {
+					has_variable = tv_diplomatic_task_slot_1_complete
+					var:tv_victory_task_metric_diplomatic_reputation ?= { this >= var:tv_diplomatic_task_slot_1_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_diplomatic_task_slot_1_id ?= 4002 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_4002_DIPLOMATIC_1_REQUIREMENT
-			OR = {
-				has_variable = tv_diplomatic_task_slot_1_complete
-				var:tv_victory_task_metric_alliance_level ?= { this >= var:tv_diplomatic_task_slot_1_target }
+		4002 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_4002_DIPLOMATIC_1_REQUIREMENT
+				OR = {
+					has_variable = tv_diplomatic_task_slot_1_complete
+					var:tv_victory_task_metric_alliance_level ?= { this >= var:tv_diplomatic_task_slot_1_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_diplomatic_task_slot_1_id ?= 4101 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_4101_DIPLOMATIC_1_REQUIREMENT
-			OR = {
-				has_variable = tv_diplomatic_task_slot_1_complete
-				tv_victory_task_4101_current_condition = yes
+		4101 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_4101_DIPLOMATIC_1_REQUIREMENT
+				OR = {
+					has_variable = tv_diplomatic_task_slot_1_complete
+					tv_victory_task_4101_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_diplomatic_task_slot_1_id ?= 4102 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_4102_DIPLOMATIC_1_REQUIREMENT
-			OR = {
-				has_variable = tv_diplomatic_task_slot_1_complete
-				tv_victory_task_4102_current_condition = yes
+		4102 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_4102_DIPLOMATIC_1_REQUIREMENT
+				OR = {
+					has_variable = tv_diplomatic_task_slot_1_complete
+					tv_victory_task_4102_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_diplomatic_task_slot_1_id ?= 4103 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_4103_DIPLOMATIC_1_REQUIREMENT
-			OR = {
-				has_variable = tv_diplomatic_task_slot_1_complete
-				always = no
+		4103 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_4103_DIPLOMATIC_1_REQUIREMENT
+				OR = {
+					has_variable = tv_diplomatic_task_slot_1_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_diplomatic_task_slot_1_id ?= 4104 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_4104_DIPLOMATIC_1_REQUIREMENT
-			OR = {
-				has_variable = tv_diplomatic_task_slot_1_complete
-				tv_victory_task_4104_current_condition = yes
+		4104 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_4104_DIPLOMATIC_1_REQUIREMENT
+				OR = {
+					has_variable = tv_diplomatic_task_slot_1_complete
+					tv_victory_task_4104_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_diplomatic_task_slot_1_id ?= 4105 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_4105_DIPLOMATIC_1_REQUIREMENT
-			OR = {
-				has_variable = tv_diplomatic_task_slot_1_complete
-				tv_victory_task_4105_current_condition = yes
+		4105 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_4105_DIPLOMATIC_1_REQUIREMENT
+				OR = {
+					has_variable = tv_diplomatic_task_slot_1_complete
+					tv_victory_task_4105_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_diplomatic_task_slot_1_id ?= 4106 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_4106_DIPLOMATIC_1_REQUIREMENT
-			OR = {
-				has_variable = tv_diplomatic_task_slot_1_complete
-				tv_victory_task_4106_current_condition = yes
+		4106 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_4106_DIPLOMATIC_1_REQUIREMENT
+				OR = {
+					has_variable = tv_diplomatic_task_slot_1_complete
+					tv_victory_task_4106_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_diplomatic_task_slot_1_id ?= 4107 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_4107_DIPLOMATIC_1_REQUIREMENT
-			OR = {
-				has_variable = tv_diplomatic_task_slot_1_complete
-				tv_victory_task_4107_current_condition = yes
+		4107 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_4107_DIPLOMATIC_1_REQUIREMENT
+				OR = {
+					has_variable = tv_diplomatic_task_slot_1_complete
+					tv_victory_task_4107_current_condition = yes
+				}
 			}
 		}
 	}
 }
 
 tv_diplomatic_task_slot_2_display_trigger = {
-	if = {
-		limit = { var:tv_diplomatic_task_slot_2_id ?= 0 }
-		custom_tooltip = { text = TV_VICTORY_TASK_NO_AVAILABLE_REQUIREMENT always = no }
-	}
-	else_if = {
-		limit = { var:tv_diplomatic_task_slot_2_id ?= 4001 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_4001_DIPLOMATIC_2_REQUIREMENT
-			OR = {
-				has_variable = tv_diplomatic_task_slot_2_complete
-				var:tv_victory_task_metric_diplomatic_reputation ?= { this >= var:tv_diplomatic_task_slot_2_target }
+	switch = {
+		trigger = var:tv_diplomatic_task_slot_2_id
+		0 = {
+			custom_tooltip = { text = TV_VICTORY_TASK_NO_AVAILABLE_REQUIREMENT always = no }
+		}
+		4001 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_4001_DIPLOMATIC_2_REQUIREMENT
+				OR = {
+					has_variable = tv_diplomatic_task_slot_2_complete
+					var:tv_victory_task_metric_diplomatic_reputation ?= { this >= var:tv_diplomatic_task_slot_2_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_diplomatic_task_slot_2_id ?= 4002 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_4002_DIPLOMATIC_2_REQUIREMENT
-			OR = {
-				has_variable = tv_diplomatic_task_slot_2_complete
-				var:tv_victory_task_metric_alliance_level ?= { this >= var:tv_diplomatic_task_slot_2_target }
+		4002 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_4002_DIPLOMATIC_2_REQUIREMENT
+				OR = {
+					has_variable = tv_diplomatic_task_slot_2_complete
+					var:tv_victory_task_metric_alliance_level ?= { this >= var:tv_diplomatic_task_slot_2_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_diplomatic_task_slot_2_id ?= 4101 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_4101_DIPLOMATIC_2_REQUIREMENT
-			OR = {
-				has_variable = tv_diplomatic_task_slot_2_complete
-				tv_victory_task_4101_current_condition = yes
+		4101 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_4101_DIPLOMATIC_2_REQUIREMENT
+				OR = {
+					has_variable = tv_diplomatic_task_slot_2_complete
+					tv_victory_task_4101_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_diplomatic_task_slot_2_id ?= 4102 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_4102_DIPLOMATIC_2_REQUIREMENT
-			OR = {
-				has_variable = tv_diplomatic_task_slot_2_complete
-				tv_victory_task_4102_current_condition = yes
+		4102 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_4102_DIPLOMATIC_2_REQUIREMENT
+				OR = {
+					has_variable = tv_diplomatic_task_slot_2_complete
+					tv_victory_task_4102_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_diplomatic_task_slot_2_id ?= 4103 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_4103_DIPLOMATIC_2_REQUIREMENT
-			OR = {
-				has_variable = tv_diplomatic_task_slot_2_complete
-				always = no
+		4103 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_4103_DIPLOMATIC_2_REQUIREMENT
+				OR = {
+					has_variable = tv_diplomatic_task_slot_2_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_diplomatic_task_slot_2_id ?= 4104 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_4104_DIPLOMATIC_2_REQUIREMENT
-			OR = {
-				has_variable = tv_diplomatic_task_slot_2_complete
-				tv_victory_task_4104_current_condition = yes
+		4104 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_4104_DIPLOMATIC_2_REQUIREMENT
+				OR = {
+					has_variable = tv_diplomatic_task_slot_2_complete
+					tv_victory_task_4104_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_diplomatic_task_slot_2_id ?= 4105 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_4105_DIPLOMATIC_2_REQUIREMENT
-			OR = {
-				has_variable = tv_diplomatic_task_slot_2_complete
-				tv_victory_task_4105_current_condition = yes
+		4105 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_4105_DIPLOMATIC_2_REQUIREMENT
+				OR = {
+					has_variable = tv_diplomatic_task_slot_2_complete
+					tv_victory_task_4105_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_diplomatic_task_slot_2_id ?= 4106 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_4106_DIPLOMATIC_2_REQUIREMENT
-			OR = {
-				has_variable = tv_diplomatic_task_slot_2_complete
-				tv_victory_task_4106_current_condition = yes
+		4106 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_4106_DIPLOMATIC_2_REQUIREMENT
+				OR = {
+					has_variable = tv_diplomatic_task_slot_2_complete
+					tv_victory_task_4106_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_diplomatic_task_slot_2_id ?= 4107 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_4107_DIPLOMATIC_2_REQUIREMENT
-			OR = {
-				has_variable = tv_diplomatic_task_slot_2_complete
-				tv_victory_task_4107_current_condition = yes
+		4107 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_4107_DIPLOMATIC_2_REQUIREMENT
+				OR = {
+					has_variable = tv_diplomatic_task_slot_2_complete
+					tv_victory_task_4107_current_condition = yes
+				}
 			}
 		}
 	}
 }
 
 tv_diplomatic_task_slot_3_display_trigger = {
-	if = {
-		limit = { var:tv_diplomatic_task_slot_3_id ?= 0 }
-		custom_tooltip = { text = TV_VICTORY_TASK_NO_AVAILABLE_REQUIREMENT always = no }
-	}
-	else_if = {
-		limit = { var:tv_diplomatic_task_slot_3_id ?= 4001 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_4001_DIPLOMATIC_3_REQUIREMENT
-			OR = {
-				has_variable = tv_diplomatic_task_slot_3_complete
-				var:tv_victory_task_metric_diplomatic_reputation ?= { this >= var:tv_diplomatic_task_slot_3_target }
+	switch = {
+		trigger = var:tv_diplomatic_task_slot_3_id
+		0 = {
+			custom_tooltip = { text = TV_VICTORY_TASK_NO_AVAILABLE_REQUIREMENT always = no }
+		}
+		4001 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_4001_DIPLOMATIC_3_REQUIREMENT
+				OR = {
+					has_variable = tv_diplomatic_task_slot_3_complete
+					var:tv_victory_task_metric_diplomatic_reputation ?= { this >= var:tv_diplomatic_task_slot_3_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_diplomatic_task_slot_3_id ?= 4002 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_4002_DIPLOMATIC_3_REQUIREMENT
-			OR = {
-				has_variable = tv_diplomatic_task_slot_3_complete
-				var:tv_victory_task_metric_alliance_level ?= { this >= var:tv_diplomatic_task_slot_3_target }
+		4002 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_4002_DIPLOMATIC_3_REQUIREMENT
+				OR = {
+					has_variable = tv_diplomatic_task_slot_3_complete
+					var:tv_victory_task_metric_alliance_level ?= { this >= var:tv_diplomatic_task_slot_3_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_diplomatic_task_slot_3_id ?= 4101 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_4101_DIPLOMATIC_3_REQUIREMENT
-			OR = {
-				has_variable = tv_diplomatic_task_slot_3_complete
-				tv_victory_task_4101_current_condition = yes
+		4101 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_4101_DIPLOMATIC_3_REQUIREMENT
+				OR = {
+					has_variable = tv_diplomatic_task_slot_3_complete
+					tv_victory_task_4101_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_diplomatic_task_slot_3_id ?= 4102 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_4102_DIPLOMATIC_3_REQUIREMENT
-			OR = {
-				has_variable = tv_diplomatic_task_slot_3_complete
-				tv_victory_task_4102_current_condition = yes
+		4102 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_4102_DIPLOMATIC_3_REQUIREMENT
+				OR = {
+					has_variable = tv_diplomatic_task_slot_3_complete
+					tv_victory_task_4102_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_diplomatic_task_slot_3_id ?= 4103 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_4103_DIPLOMATIC_3_REQUIREMENT
-			OR = {
-				has_variable = tv_diplomatic_task_slot_3_complete
-				always = no
+		4103 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_4103_DIPLOMATIC_3_REQUIREMENT
+				OR = {
+					has_variable = tv_diplomatic_task_slot_3_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_diplomatic_task_slot_3_id ?= 4104 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_4104_DIPLOMATIC_3_REQUIREMENT
-			OR = {
-				has_variable = tv_diplomatic_task_slot_3_complete
-				tv_victory_task_4104_current_condition = yes
+		4104 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_4104_DIPLOMATIC_3_REQUIREMENT
+				OR = {
+					has_variable = tv_diplomatic_task_slot_3_complete
+					tv_victory_task_4104_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_diplomatic_task_slot_3_id ?= 4105 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_4105_DIPLOMATIC_3_REQUIREMENT
-			OR = {
-				has_variable = tv_diplomatic_task_slot_3_complete
-				tv_victory_task_4105_current_condition = yes
+		4105 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_4105_DIPLOMATIC_3_REQUIREMENT
+				OR = {
+					has_variable = tv_diplomatic_task_slot_3_complete
+					tv_victory_task_4105_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_diplomatic_task_slot_3_id ?= 4106 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_4106_DIPLOMATIC_3_REQUIREMENT
-			OR = {
-				has_variable = tv_diplomatic_task_slot_3_complete
-				tv_victory_task_4106_current_condition = yes
+		4106 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_4106_DIPLOMATIC_3_REQUIREMENT
+				OR = {
+					has_variable = tv_diplomatic_task_slot_3_complete
+					tv_victory_task_4106_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_diplomatic_task_slot_3_id ?= 4107 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_4107_DIPLOMATIC_3_REQUIREMENT
-			OR = {
-				has_variable = tv_diplomatic_task_slot_3_complete
-				tv_victory_task_4107_current_condition = yes
+		4107 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_4107_DIPLOMATIC_3_REQUIREMENT
+				OR = {
+					has_variable = tv_diplomatic_task_slot_3_complete
+					tv_victory_task_4107_current_condition = yes
+				}
 			}
 		}
 	}
 }
 
 tv_cultural_task_slot_1_display_trigger = {
-	if = {
-		limit = { var:tv_cultural_task_slot_1_id ?= 0 }
-		custom_tooltip = { text = TV_VICTORY_TASK_NO_AVAILABLE_REQUIREMENT always = no }
-	}
-	else_if = {
-		limit = { var:tv_cultural_task_slot_1_id ?= 5001 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_5001_CULTURAL_1_REQUIREMENT
-			OR = {
-				has_variable = tv_cultural_task_slot_1_complete
-				var:tv_victory_task_metric_artworks ?= { this >= var:tv_cultural_task_slot_1_target }
+	switch = {
+		trigger = var:tv_cultural_task_slot_1_id
+		0 = {
+			custom_tooltip = { text = TV_VICTORY_TASK_NO_AVAILABLE_REQUIREMENT always = no }
+		}
+		5001 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_5001_CULTURAL_1_REQUIREMENT
+				OR = {
+					has_variable = tv_cultural_task_slot_1_complete
+					var:tv_victory_task_metric_artworks ?= { this >= var:tv_cultural_task_slot_1_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_cultural_task_slot_1_id ?= 5002 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_5002_CULTURAL_1_REQUIREMENT
-			OR = {
-				has_variable = tv_cultural_task_slot_1_complete
-				var:tv_victory_task_metric_best_art_quality_pct ?= { this >= var:tv_cultural_task_slot_1_target }
+		5002 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_5002_CULTURAL_1_REQUIREMENT
+				OR = {
+					has_variable = tv_cultural_task_slot_1_complete
+					var:tv_victory_task_metric_best_art_quality_pct ?= { this >= var:tv_cultural_task_slot_1_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_cultural_task_slot_1_id ?= 5003 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_5003_CULTURAL_1_REQUIREMENT
-			OR = {
-				has_variable = tv_cultural_task_slot_1_complete
-				var:tv_victory_task_metric_best_artist_skill_pct ?= { this >= var:tv_cultural_task_slot_1_target }
+		5003 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_5003_CULTURAL_1_REQUIREMENT
+				OR = {
+					has_variable = tv_cultural_task_slot_1_complete
+					var:tv_victory_task_metric_best_artist_skill_pct ?= { this >= var:tv_cultural_task_slot_1_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_cultural_task_slot_1_id ?= 5004 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_5004_CULTURAL_1_REQUIREMENT
-			OR = {
-				has_variable = tv_cultural_task_slot_1_complete
-				var:tv_victory_task_metric_cultural_tradition ?= { this >= var:tv_cultural_task_slot_1_target }
+		5004 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_5004_CULTURAL_1_REQUIREMENT
+				OR = {
+					has_variable = tv_cultural_task_slot_1_complete
+					var:tv_victory_task_metric_cultural_tradition ?= { this >= var:tv_cultural_task_slot_1_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_cultural_task_slot_1_id ?= 5005 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_5005_CULTURAL_1_REQUIREMENT
-			OR = {
-				has_variable = tv_cultural_task_slot_1_complete
-				var:tv_victory_task_metric_cultural_influence ?= { this >= var:tv_cultural_task_slot_1_target }
+		5005 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_5005_CULTURAL_1_REQUIREMENT
+				OR = {
+					has_variable = tv_cultural_task_slot_1_complete
+					var:tv_victory_task_metric_cultural_influence ?= { this >= var:tv_cultural_task_slot_1_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_cultural_task_slot_1_id ?= 5006 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_5006_CULTURAL_1_REQUIREMENT
-			OR = {
-				has_variable = tv_cultural_task_slot_1_complete
-				var:tv_victory_task_metric_exhibition_influence ?= { this >= var:tv_cultural_task_slot_1_target }
+		5006 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_5006_CULTURAL_1_REQUIREMENT
+				OR = {
+					has_variable = tv_cultural_task_slot_1_complete
+					var:tv_victory_task_metric_exhibition_influence ?= { this >= var:tv_cultural_task_slot_1_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_cultural_task_slot_1_id ?= 5101 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_5101_CULTURAL_1_REQUIREMENT
-			OR = {
-				has_variable = tv_cultural_task_slot_1_complete
-				always = no
+		5101 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_5101_CULTURAL_1_REQUIREMENT
+				OR = {
+					has_variable = tv_cultural_task_slot_1_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_cultural_task_slot_1_id ?= 5102 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_5102_CULTURAL_1_REQUIREMENT
-			OR = {
-				has_variable = tv_cultural_task_slot_1_complete
-				always = no
+		5102 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_5102_CULTURAL_1_REQUIREMENT
+				OR = {
+					has_variable = tv_cultural_task_slot_1_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_cultural_task_slot_1_id ?= 5103 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_5103_CULTURAL_1_REQUIREMENT
-			OR = {
-				has_variable = tv_cultural_task_slot_1_complete
-				always = no
+		5103 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_5103_CULTURAL_1_REQUIREMENT
+				OR = {
+					has_variable = tv_cultural_task_slot_1_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_cultural_task_slot_1_id ?= 5104 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_5104_CULTURAL_1_REQUIREMENT
-			OR = {
-				has_variable = tv_cultural_task_slot_1_complete
-				always = no
+		5104 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_5104_CULTURAL_1_REQUIREMENT
+				OR = {
+					has_variable = tv_cultural_task_slot_1_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_cultural_task_slot_1_id ?= 5105 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_5105_CULTURAL_1_REQUIREMENT
-			OR = {
-				has_variable = tv_cultural_task_slot_1_complete
-				always = no
+		5105 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_5105_CULTURAL_1_REQUIREMENT
+				OR = {
+					has_variable = tv_cultural_task_slot_1_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_cultural_task_slot_1_id ?= 5106 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_5106_CULTURAL_1_REQUIREMENT
-			OR = {
-				has_variable = tv_cultural_task_slot_1_complete
-				always = no
+		5106 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_5106_CULTURAL_1_REQUIREMENT
+				OR = {
+					has_variable = tv_cultural_task_slot_1_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_cultural_task_slot_1_id ?= 5107 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_5107_CULTURAL_1_REQUIREMENT
-			OR = {
-				has_variable = tv_cultural_task_slot_1_complete
-				always = no
+		5107 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_5107_CULTURAL_1_REQUIREMENT
+				OR = {
+					has_variable = tv_cultural_task_slot_1_complete
+					always = no
+				}
 			}
 		}
 	}
 }
 
 tv_cultural_task_slot_2_display_trigger = {
-	if = {
-		limit = { var:tv_cultural_task_slot_2_id ?= 0 }
-		custom_tooltip = { text = TV_VICTORY_TASK_NO_AVAILABLE_REQUIREMENT always = no }
-	}
-	else_if = {
-		limit = { var:tv_cultural_task_slot_2_id ?= 5001 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_5001_CULTURAL_2_REQUIREMENT
-			OR = {
-				has_variable = tv_cultural_task_slot_2_complete
-				var:tv_victory_task_metric_artworks ?= { this >= var:tv_cultural_task_slot_2_target }
+	switch = {
+		trigger = var:tv_cultural_task_slot_2_id
+		0 = {
+			custom_tooltip = { text = TV_VICTORY_TASK_NO_AVAILABLE_REQUIREMENT always = no }
+		}
+		5001 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_5001_CULTURAL_2_REQUIREMENT
+				OR = {
+					has_variable = tv_cultural_task_slot_2_complete
+					var:tv_victory_task_metric_artworks ?= { this >= var:tv_cultural_task_slot_2_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_cultural_task_slot_2_id ?= 5002 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_5002_CULTURAL_2_REQUIREMENT
-			OR = {
-				has_variable = tv_cultural_task_slot_2_complete
-				var:tv_victory_task_metric_best_art_quality_pct ?= { this >= var:tv_cultural_task_slot_2_target }
+		5002 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_5002_CULTURAL_2_REQUIREMENT
+				OR = {
+					has_variable = tv_cultural_task_slot_2_complete
+					var:tv_victory_task_metric_best_art_quality_pct ?= { this >= var:tv_cultural_task_slot_2_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_cultural_task_slot_2_id ?= 5003 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_5003_CULTURAL_2_REQUIREMENT
-			OR = {
-				has_variable = tv_cultural_task_slot_2_complete
-				var:tv_victory_task_metric_best_artist_skill_pct ?= { this >= var:tv_cultural_task_slot_2_target }
+		5003 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_5003_CULTURAL_2_REQUIREMENT
+				OR = {
+					has_variable = tv_cultural_task_slot_2_complete
+					var:tv_victory_task_metric_best_artist_skill_pct ?= { this >= var:tv_cultural_task_slot_2_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_cultural_task_slot_2_id ?= 5004 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_5004_CULTURAL_2_REQUIREMENT
-			OR = {
-				has_variable = tv_cultural_task_slot_2_complete
-				var:tv_victory_task_metric_cultural_tradition ?= { this >= var:tv_cultural_task_slot_2_target }
+		5004 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_5004_CULTURAL_2_REQUIREMENT
+				OR = {
+					has_variable = tv_cultural_task_slot_2_complete
+					var:tv_victory_task_metric_cultural_tradition ?= { this >= var:tv_cultural_task_slot_2_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_cultural_task_slot_2_id ?= 5005 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_5005_CULTURAL_2_REQUIREMENT
-			OR = {
-				has_variable = tv_cultural_task_slot_2_complete
-				var:tv_victory_task_metric_cultural_influence ?= { this >= var:tv_cultural_task_slot_2_target }
+		5005 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_5005_CULTURAL_2_REQUIREMENT
+				OR = {
+					has_variable = tv_cultural_task_slot_2_complete
+					var:tv_victory_task_metric_cultural_influence ?= { this >= var:tv_cultural_task_slot_2_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_cultural_task_slot_2_id ?= 5006 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_5006_CULTURAL_2_REQUIREMENT
-			OR = {
-				has_variable = tv_cultural_task_slot_2_complete
-				var:tv_victory_task_metric_exhibition_influence ?= { this >= var:tv_cultural_task_slot_2_target }
+		5006 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_5006_CULTURAL_2_REQUIREMENT
+				OR = {
+					has_variable = tv_cultural_task_slot_2_complete
+					var:tv_victory_task_metric_exhibition_influence ?= { this >= var:tv_cultural_task_slot_2_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_cultural_task_slot_2_id ?= 5101 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_5101_CULTURAL_2_REQUIREMENT
-			OR = {
-				has_variable = tv_cultural_task_slot_2_complete
-				always = no
+		5101 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_5101_CULTURAL_2_REQUIREMENT
+				OR = {
+					has_variable = tv_cultural_task_slot_2_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_cultural_task_slot_2_id ?= 5102 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_5102_CULTURAL_2_REQUIREMENT
-			OR = {
-				has_variable = tv_cultural_task_slot_2_complete
-				always = no
+		5102 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_5102_CULTURAL_2_REQUIREMENT
+				OR = {
+					has_variable = tv_cultural_task_slot_2_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_cultural_task_slot_2_id ?= 5103 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_5103_CULTURAL_2_REQUIREMENT
-			OR = {
-				has_variable = tv_cultural_task_slot_2_complete
-				always = no
+		5103 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_5103_CULTURAL_2_REQUIREMENT
+				OR = {
+					has_variable = tv_cultural_task_slot_2_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_cultural_task_slot_2_id ?= 5104 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_5104_CULTURAL_2_REQUIREMENT
-			OR = {
-				has_variable = tv_cultural_task_slot_2_complete
-				always = no
+		5104 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_5104_CULTURAL_2_REQUIREMENT
+				OR = {
+					has_variable = tv_cultural_task_slot_2_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_cultural_task_slot_2_id ?= 5105 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_5105_CULTURAL_2_REQUIREMENT
-			OR = {
-				has_variable = tv_cultural_task_slot_2_complete
-				always = no
+		5105 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_5105_CULTURAL_2_REQUIREMENT
+				OR = {
+					has_variable = tv_cultural_task_slot_2_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_cultural_task_slot_2_id ?= 5106 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_5106_CULTURAL_2_REQUIREMENT
-			OR = {
-				has_variable = tv_cultural_task_slot_2_complete
-				always = no
+		5106 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_5106_CULTURAL_2_REQUIREMENT
+				OR = {
+					has_variable = tv_cultural_task_slot_2_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_cultural_task_slot_2_id ?= 5107 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_5107_CULTURAL_2_REQUIREMENT
-			OR = {
-				has_variable = tv_cultural_task_slot_2_complete
-				always = no
+		5107 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_5107_CULTURAL_2_REQUIREMENT
+				OR = {
+					has_variable = tv_cultural_task_slot_2_complete
+					always = no
+				}
 			}
 		}
 	}
 }
 
 tv_cultural_task_slot_3_display_trigger = {
-	if = {
-		limit = { var:tv_cultural_task_slot_3_id ?= 0 }
-		custom_tooltip = { text = TV_VICTORY_TASK_NO_AVAILABLE_REQUIREMENT always = no }
-	}
-	else_if = {
-		limit = { var:tv_cultural_task_slot_3_id ?= 5001 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_5001_CULTURAL_3_REQUIREMENT
-			OR = {
-				has_variable = tv_cultural_task_slot_3_complete
-				var:tv_victory_task_metric_artworks ?= { this >= var:tv_cultural_task_slot_3_target }
+	switch = {
+		trigger = var:tv_cultural_task_slot_3_id
+		0 = {
+			custom_tooltip = { text = TV_VICTORY_TASK_NO_AVAILABLE_REQUIREMENT always = no }
+		}
+		5001 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_5001_CULTURAL_3_REQUIREMENT
+				OR = {
+					has_variable = tv_cultural_task_slot_3_complete
+					var:tv_victory_task_metric_artworks ?= { this >= var:tv_cultural_task_slot_3_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_cultural_task_slot_3_id ?= 5002 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_5002_CULTURAL_3_REQUIREMENT
-			OR = {
-				has_variable = tv_cultural_task_slot_3_complete
-				var:tv_victory_task_metric_best_art_quality_pct ?= { this >= var:tv_cultural_task_slot_3_target }
+		5002 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_5002_CULTURAL_3_REQUIREMENT
+				OR = {
+					has_variable = tv_cultural_task_slot_3_complete
+					var:tv_victory_task_metric_best_art_quality_pct ?= { this >= var:tv_cultural_task_slot_3_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_cultural_task_slot_3_id ?= 5003 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_5003_CULTURAL_3_REQUIREMENT
-			OR = {
-				has_variable = tv_cultural_task_slot_3_complete
-				var:tv_victory_task_metric_best_artist_skill_pct ?= { this >= var:tv_cultural_task_slot_3_target }
+		5003 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_5003_CULTURAL_3_REQUIREMENT
+				OR = {
+					has_variable = tv_cultural_task_slot_3_complete
+					var:tv_victory_task_metric_best_artist_skill_pct ?= { this >= var:tv_cultural_task_slot_3_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_cultural_task_slot_3_id ?= 5004 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_5004_CULTURAL_3_REQUIREMENT
-			OR = {
-				has_variable = tv_cultural_task_slot_3_complete
-				var:tv_victory_task_metric_cultural_tradition ?= { this >= var:tv_cultural_task_slot_3_target }
+		5004 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_5004_CULTURAL_3_REQUIREMENT
+				OR = {
+					has_variable = tv_cultural_task_slot_3_complete
+					var:tv_victory_task_metric_cultural_tradition ?= { this >= var:tv_cultural_task_slot_3_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_cultural_task_slot_3_id ?= 5005 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_5005_CULTURAL_3_REQUIREMENT
-			OR = {
-				has_variable = tv_cultural_task_slot_3_complete
-				var:tv_victory_task_metric_cultural_influence ?= { this >= var:tv_cultural_task_slot_3_target }
+		5005 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_5005_CULTURAL_3_REQUIREMENT
+				OR = {
+					has_variable = tv_cultural_task_slot_3_complete
+					var:tv_victory_task_metric_cultural_influence ?= { this >= var:tv_cultural_task_slot_3_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_cultural_task_slot_3_id ?= 5006 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_5006_CULTURAL_3_REQUIREMENT
-			OR = {
-				has_variable = tv_cultural_task_slot_3_complete
-				var:tv_victory_task_metric_exhibition_influence ?= { this >= var:tv_cultural_task_slot_3_target }
+		5006 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_5006_CULTURAL_3_REQUIREMENT
+				OR = {
+					has_variable = tv_cultural_task_slot_3_complete
+					var:tv_victory_task_metric_exhibition_influence ?= { this >= var:tv_cultural_task_slot_3_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_cultural_task_slot_3_id ?= 5101 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_5101_CULTURAL_3_REQUIREMENT
-			OR = {
-				has_variable = tv_cultural_task_slot_3_complete
-				always = no
+		5101 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_5101_CULTURAL_3_REQUIREMENT
+				OR = {
+					has_variable = tv_cultural_task_slot_3_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_cultural_task_slot_3_id ?= 5102 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_5102_CULTURAL_3_REQUIREMENT
-			OR = {
-				has_variable = tv_cultural_task_slot_3_complete
-				always = no
+		5102 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_5102_CULTURAL_3_REQUIREMENT
+				OR = {
+					has_variable = tv_cultural_task_slot_3_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_cultural_task_slot_3_id ?= 5103 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_5103_CULTURAL_3_REQUIREMENT
-			OR = {
-				has_variable = tv_cultural_task_slot_3_complete
-				always = no
+		5103 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_5103_CULTURAL_3_REQUIREMENT
+				OR = {
+					has_variable = tv_cultural_task_slot_3_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_cultural_task_slot_3_id ?= 5104 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_5104_CULTURAL_3_REQUIREMENT
-			OR = {
-				has_variable = tv_cultural_task_slot_3_complete
-				always = no
+		5104 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_5104_CULTURAL_3_REQUIREMENT
+				OR = {
+					has_variable = tv_cultural_task_slot_3_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_cultural_task_slot_3_id ?= 5105 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_5105_CULTURAL_3_REQUIREMENT
-			OR = {
-				has_variable = tv_cultural_task_slot_3_complete
-				always = no
+		5105 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_5105_CULTURAL_3_REQUIREMENT
+				OR = {
+					has_variable = tv_cultural_task_slot_3_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_cultural_task_slot_3_id ?= 5106 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_5106_CULTURAL_3_REQUIREMENT
-			OR = {
-				has_variable = tv_cultural_task_slot_3_complete
-				always = no
+		5106 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_5106_CULTURAL_3_REQUIREMENT
+				OR = {
+					has_variable = tv_cultural_task_slot_3_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_cultural_task_slot_3_id ?= 5107 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_5107_CULTURAL_3_REQUIREMENT
-			OR = {
-				has_variable = tv_cultural_task_slot_3_complete
-				always = no
+		5107 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_5107_CULTURAL_3_REQUIREMENT
+				OR = {
+					has_variable = tv_cultural_task_slot_3_complete
+					always = no
+				}
 			}
 		}
 	}
 }
 
 tv_science_task_slot_1_display_trigger = {
-	if = {
-		limit = { var:tv_science_task_slot_1_id ?= 0 }
-		custom_tooltip = { text = TV_VICTORY_TASK_NO_AVAILABLE_REQUIREMENT always = no }
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_1_id ?= 6001 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6001_SCIENCE_1_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_1_complete
-				var:tv_victory_task_metric_science_score ?= { this >= var:tv_science_task_slot_1_target }
+	switch = {
+		trigger = var:tv_science_task_slot_1_id
+		0 = {
+			custom_tooltip = { text = TV_VICTORY_TASK_NO_AVAILABLE_REQUIREMENT always = no }
+		}
+		6001 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6001_SCIENCE_1_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_1_complete
+					var:tv_victory_task_metric_science_score ?= { this >= var:tv_science_task_slot_1_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_1_id ?= 6011 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6011_SCIENCE_1_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_1_complete
-				tv_victory_task_6011_current_condition = yes
+		6011 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6011_SCIENCE_1_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_1_complete
+					tv_victory_task_6011_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_1_id ?= 6012 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6012_SCIENCE_1_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_1_complete
-				tv_victory_task_6012_current_condition = yes
+		6012 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6012_SCIENCE_1_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_1_complete
+					tv_victory_task_6012_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_1_id ?= 6013 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6013_SCIENCE_1_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_1_complete
-				tv_victory_task_6013_current_condition = yes
+		6013 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6013_SCIENCE_1_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_1_complete
+					tv_victory_task_6013_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_1_id ?= 6014 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6014_SCIENCE_1_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_1_complete
-				tv_victory_task_6014_current_condition = yes
+		6014 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6014_SCIENCE_1_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_1_complete
+					tv_victory_task_6014_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_1_id ?= 6015 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6015_SCIENCE_1_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_1_complete
-				tv_victory_task_6015_current_condition = yes
+		6015 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6015_SCIENCE_1_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_1_complete
+					tv_victory_task_6015_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_1_id ?= 6016 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6016_SCIENCE_1_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_1_complete
-				tv_victory_task_6016_current_condition = yes
+		6016 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6016_SCIENCE_1_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_1_complete
+					tv_victory_task_6016_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_1_id ?= 6017 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6017_SCIENCE_1_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_1_complete
-				tv_victory_task_6017_current_condition = yes
+		6017 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6017_SCIENCE_1_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_1_complete
+					tv_victory_task_6017_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_1_id ?= 6018 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6018_SCIENCE_1_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_1_complete
-				tv_victory_task_6018_current_condition = yes
+		6018 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6018_SCIENCE_1_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_1_complete
+					tv_victory_task_6018_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_1_id ?= 6019 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6019_SCIENCE_1_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_1_complete
-				tv_victory_task_6019_current_condition = yes
+		6019 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6019_SCIENCE_1_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_1_complete
+					tv_victory_task_6019_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_1_id ?= 6020 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6020_SCIENCE_1_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_1_complete
-				tv_victory_task_6020_current_condition = yes
+		6020 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6020_SCIENCE_1_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_1_complete
+					tv_victory_task_6020_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_1_id ?= 6021 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6021_SCIENCE_1_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_1_complete
-				tv_victory_task_6021_current_condition = yes
+		6021 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6021_SCIENCE_1_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_1_complete
+					tv_victory_task_6021_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_1_id ?= 6022 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6022_SCIENCE_1_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_1_complete
-				tv_victory_task_6022_current_condition = yes
+		6022 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6022_SCIENCE_1_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_1_complete
+					tv_victory_task_6022_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_1_id ?= 6023 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6023_SCIENCE_1_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_1_complete
-				tv_victory_task_6023_current_condition = yes
+		6023 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6023_SCIENCE_1_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_1_complete
+					tv_victory_task_6023_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_1_id ?= 6024 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6024_SCIENCE_1_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_1_complete
-				tv_victory_task_6024_current_condition = yes
+		6024 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6024_SCIENCE_1_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_1_complete
+					tv_victory_task_6024_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_1_id ?= 6025 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6025_SCIENCE_1_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_1_complete
-				tv_victory_task_6025_current_condition = yes
+		6025 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6025_SCIENCE_1_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_1_complete
+					tv_victory_task_6025_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_1_id ?= 6026 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6026_SCIENCE_1_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_1_complete
-				tv_victory_task_6026_current_condition = yes
+		6026 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6026_SCIENCE_1_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_1_complete
+					tv_victory_task_6026_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_1_id ?= 6027 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6027_SCIENCE_1_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_1_complete
-				tv_victory_task_6027_current_condition = yes
+		6027 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6027_SCIENCE_1_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_1_complete
+					tv_victory_task_6027_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_1_id ?= 6028 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6028_SCIENCE_1_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_1_complete
-				tv_victory_task_6028_current_condition = yes
+		6028 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6028_SCIENCE_1_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_1_complete
+					tv_victory_task_6028_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_1_id ?= 6101 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6101_SCIENCE_1_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_1_complete
-				always = no
+		6101 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6101_SCIENCE_1_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_1_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_1_id ?= 6102 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6102_SCIENCE_1_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_1_complete
-				tv_victory_task_6102_current_condition = yes
+		6102 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6102_SCIENCE_1_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_1_complete
+					tv_victory_task_6102_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_1_id ?= 6103 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6103_SCIENCE_1_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_1_complete
-				always = no
+		6103 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6103_SCIENCE_1_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_1_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_1_id ?= 6104 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6104_SCIENCE_1_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_1_complete
-				always = no
+		6104 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6104_SCIENCE_1_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_1_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_1_id ?= 6105 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6105_SCIENCE_1_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_1_complete
-				always = no
+		6105 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6105_SCIENCE_1_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_1_complete
+					always = no
+				}
 			}
 		}
 	}
 }
 
 tv_science_task_slot_2_display_trigger = {
-	if = {
-		limit = { var:tv_science_task_slot_2_id ?= 0 }
-		custom_tooltip = { text = TV_VICTORY_TASK_NO_AVAILABLE_REQUIREMENT always = no }
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_2_id ?= 6001 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6001_SCIENCE_2_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_2_complete
-				var:tv_victory_task_metric_science_score ?= { this >= var:tv_science_task_slot_2_target }
+	switch = {
+		trigger = var:tv_science_task_slot_2_id
+		0 = {
+			custom_tooltip = { text = TV_VICTORY_TASK_NO_AVAILABLE_REQUIREMENT always = no }
+		}
+		6001 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6001_SCIENCE_2_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_2_complete
+					var:tv_victory_task_metric_science_score ?= { this >= var:tv_science_task_slot_2_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_2_id ?= 6011 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6011_SCIENCE_2_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_2_complete
-				tv_victory_task_6011_current_condition = yes
+		6011 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6011_SCIENCE_2_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_2_complete
+					tv_victory_task_6011_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_2_id ?= 6012 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6012_SCIENCE_2_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_2_complete
-				tv_victory_task_6012_current_condition = yes
+		6012 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6012_SCIENCE_2_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_2_complete
+					tv_victory_task_6012_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_2_id ?= 6013 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6013_SCIENCE_2_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_2_complete
-				tv_victory_task_6013_current_condition = yes
+		6013 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6013_SCIENCE_2_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_2_complete
+					tv_victory_task_6013_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_2_id ?= 6014 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6014_SCIENCE_2_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_2_complete
-				tv_victory_task_6014_current_condition = yes
+		6014 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6014_SCIENCE_2_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_2_complete
+					tv_victory_task_6014_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_2_id ?= 6015 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6015_SCIENCE_2_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_2_complete
-				tv_victory_task_6015_current_condition = yes
+		6015 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6015_SCIENCE_2_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_2_complete
+					tv_victory_task_6015_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_2_id ?= 6016 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6016_SCIENCE_2_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_2_complete
-				tv_victory_task_6016_current_condition = yes
+		6016 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6016_SCIENCE_2_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_2_complete
+					tv_victory_task_6016_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_2_id ?= 6017 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6017_SCIENCE_2_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_2_complete
-				tv_victory_task_6017_current_condition = yes
+		6017 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6017_SCIENCE_2_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_2_complete
+					tv_victory_task_6017_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_2_id ?= 6018 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6018_SCIENCE_2_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_2_complete
-				tv_victory_task_6018_current_condition = yes
+		6018 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6018_SCIENCE_2_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_2_complete
+					tv_victory_task_6018_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_2_id ?= 6019 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6019_SCIENCE_2_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_2_complete
-				tv_victory_task_6019_current_condition = yes
+		6019 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6019_SCIENCE_2_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_2_complete
+					tv_victory_task_6019_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_2_id ?= 6020 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6020_SCIENCE_2_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_2_complete
-				tv_victory_task_6020_current_condition = yes
+		6020 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6020_SCIENCE_2_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_2_complete
+					tv_victory_task_6020_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_2_id ?= 6021 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6021_SCIENCE_2_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_2_complete
-				tv_victory_task_6021_current_condition = yes
+		6021 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6021_SCIENCE_2_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_2_complete
+					tv_victory_task_6021_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_2_id ?= 6022 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6022_SCIENCE_2_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_2_complete
-				tv_victory_task_6022_current_condition = yes
+		6022 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6022_SCIENCE_2_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_2_complete
+					tv_victory_task_6022_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_2_id ?= 6023 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6023_SCIENCE_2_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_2_complete
-				tv_victory_task_6023_current_condition = yes
+		6023 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6023_SCIENCE_2_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_2_complete
+					tv_victory_task_6023_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_2_id ?= 6024 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6024_SCIENCE_2_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_2_complete
-				tv_victory_task_6024_current_condition = yes
+		6024 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6024_SCIENCE_2_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_2_complete
+					tv_victory_task_6024_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_2_id ?= 6025 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6025_SCIENCE_2_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_2_complete
-				tv_victory_task_6025_current_condition = yes
+		6025 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6025_SCIENCE_2_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_2_complete
+					tv_victory_task_6025_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_2_id ?= 6026 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6026_SCIENCE_2_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_2_complete
-				tv_victory_task_6026_current_condition = yes
+		6026 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6026_SCIENCE_2_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_2_complete
+					tv_victory_task_6026_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_2_id ?= 6027 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6027_SCIENCE_2_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_2_complete
-				tv_victory_task_6027_current_condition = yes
+		6027 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6027_SCIENCE_2_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_2_complete
+					tv_victory_task_6027_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_2_id ?= 6028 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6028_SCIENCE_2_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_2_complete
-				tv_victory_task_6028_current_condition = yes
+		6028 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6028_SCIENCE_2_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_2_complete
+					tv_victory_task_6028_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_2_id ?= 6101 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6101_SCIENCE_2_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_2_complete
-				always = no
+		6101 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6101_SCIENCE_2_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_2_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_2_id ?= 6102 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6102_SCIENCE_2_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_2_complete
-				tv_victory_task_6102_current_condition = yes
+		6102 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6102_SCIENCE_2_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_2_complete
+					tv_victory_task_6102_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_2_id ?= 6103 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6103_SCIENCE_2_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_2_complete
-				always = no
+		6103 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6103_SCIENCE_2_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_2_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_2_id ?= 6104 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6104_SCIENCE_2_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_2_complete
-				always = no
+		6104 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6104_SCIENCE_2_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_2_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_2_id ?= 6105 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6105_SCIENCE_2_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_2_complete
-				always = no
+		6105 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6105_SCIENCE_2_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_2_complete
+					always = no
+				}
 			}
 		}
 	}
 }
 
 tv_science_task_slot_3_display_trigger = {
-	if = {
-		limit = { var:tv_science_task_slot_3_id ?= 0 }
-		custom_tooltip = { text = TV_VICTORY_TASK_NO_AVAILABLE_REQUIREMENT always = no }
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_3_id ?= 6001 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6001_SCIENCE_3_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_3_complete
-				var:tv_victory_task_metric_science_score ?= { this >= var:tv_science_task_slot_3_target }
+	switch = {
+		trigger = var:tv_science_task_slot_3_id
+		0 = {
+			custom_tooltip = { text = TV_VICTORY_TASK_NO_AVAILABLE_REQUIREMENT always = no }
+		}
+		6001 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6001_SCIENCE_3_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_3_complete
+					var:tv_victory_task_metric_science_score ?= { this >= var:tv_science_task_slot_3_target }
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_3_id ?= 6011 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6011_SCIENCE_3_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_3_complete
-				tv_victory_task_6011_current_condition = yes
+		6011 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6011_SCIENCE_3_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_3_complete
+					tv_victory_task_6011_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_3_id ?= 6012 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6012_SCIENCE_3_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_3_complete
-				tv_victory_task_6012_current_condition = yes
+		6012 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6012_SCIENCE_3_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_3_complete
+					tv_victory_task_6012_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_3_id ?= 6013 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6013_SCIENCE_3_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_3_complete
-				tv_victory_task_6013_current_condition = yes
+		6013 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6013_SCIENCE_3_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_3_complete
+					tv_victory_task_6013_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_3_id ?= 6014 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6014_SCIENCE_3_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_3_complete
-				tv_victory_task_6014_current_condition = yes
+		6014 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6014_SCIENCE_3_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_3_complete
+					tv_victory_task_6014_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_3_id ?= 6015 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6015_SCIENCE_3_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_3_complete
-				tv_victory_task_6015_current_condition = yes
+		6015 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6015_SCIENCE_3_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_3_complete
+					tv_victory_task_6015_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_3_id ?= 6016 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6016_SCIENCE_3_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_3_complete
-				tv_victory_task_6016_current_condition = yes
+		6016 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6016_SCIENCE_3_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_3_complete
+					tv_victory_task_6016_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_3_id ?= 6017 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6017_SCIENCE_3_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_3_complete
-				tv_victory_task_6017_current_condition = yes
+		6017 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6017_SCIENCE_3_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_3_complete
+					tv_victory_task_6017_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_3_id ?= 6018 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6018_SCIENCE_3_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_3_complete
-				tv_victory_task_6018_current_condition = yes
+		6018 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6018_SCIENCE_3_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_3_complete
+					tv_victory_task_6018_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_3_id ?= 6019 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6019_SCIENCE_3_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_3_complete
-				tv_victory_task_6019_current_condition = yes
+		6019 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6019_SCIENCE_3_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_3_complete
+					tv_victory_task_6019_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_3_id ?= 6020 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6020_SCIENCE_3_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_3_complete
-				tv_victory_task_6020_current_condition = yes
+		6020 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6020_SCIENCE_3_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_3_complete
+					tv_victory_task_6020_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_3_id ?= 6021 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6021_SCIENCE_3_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_3_complete
-				tv_victory_task_6021_current_condition = yes
+		6021 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6021_SCIENCE_3_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_3_complete
+					tv_victory_task_6021_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_3_id ?= 6022 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6022_SCIENCE_3_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_3_complete
-				tv_victory_task_6022_current_condition = yes
+		6022 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6022_SCIENCE_3_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_3_complete
+					tv_victory_task_6022_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_3_id ?= 6023 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6023_SCIENCE_3_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_3_complete
-				tv_victory_task_6023_current_condition = yes
+		6023 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6023_SCIENCE_3_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_3_complete
+					tv_victory_task_6023_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_3_id ?= 6024 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6024_SCIENCE_3_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_3_complete
-				tv_victory_task_6024_current_condition = yes
+		6024 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6024_SCIENCE_3_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_3_complete
+					tv_victory_task_6024_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_3_id ?= 6025 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6025_SCIENCE_3_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_3_complete
-				tv_victory_task_6025_current_condition = yes
+		6025 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6025_SCIENCE_3_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_3_complete
+					tv_victory_task_6025_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_3_id ?= 6026 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6026_SCIENCE_3_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_3_complete
-				tv_victory_task_6026_current_condition = yes
+		6026 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6026_SCIENCE_3_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_3_complete
+					tv_victory_task_6026_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_3_id ?= 6027 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6027_SCIENCE_3_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_3_complete
-				tv_victory_task_6027_current_condition = yes
+		6027 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6027_SCIENCE_3_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_3_complete
+					tv_victory_task_6027_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_3_id ?= 6028 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6028_SCIENCE_3_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_3_complete
-				tv_victory_task_6028_current_condition = yes
+		6028 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6028_SCIENCE_3_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_3_complete
+					tv_victory_task_6028_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_3_id ?= 6101 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6101_SCIENCE_3_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_3_complete
-				always = no
+		6101 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6101_SCIENCE_3_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_3_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_3_id ?= 6102 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6102_SCIENCE_3_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_3_complete
-				tv_victory_task_6102_current_condition = yes
+		6102 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6102_SCIENCE_3_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_3_complete
+					tv_victory_task_6102_current_condition = yes
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_3_id ?= 6103 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6103_SCIENCE_3_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_3_complete
-				always = no
+		6103 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6103_SCIENCE_3_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_3_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_3_id ?= 6104 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6104_SCIENCE_3_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_3_complete
-				always = no
+		6104 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6104_SCIENCE_3_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_3_complete
+					always = no
+				}
 			}
 		}
-	}
-	else_if = {
-		limit = { var:tv_science_task_slot_3_id ?= 6105 }
-		custom_tooltip = {
-			text = TV_VICTORY_TASK_6105_SCIENCE_3_REQUIREMENT
-			OR = {
-				has_variable = tv_science_task_slot_3_complete
-				always = no
+		6105 = {
+			custom_tooltip = {
+				text = TV_VICTORY_TASK_6105_SCIENCE_3_REQUIREMENT
+				OR = {
+					has_variable = tv_science_task_slot_3_complete
+					always = no
+				}
 			}
 		}
 	}

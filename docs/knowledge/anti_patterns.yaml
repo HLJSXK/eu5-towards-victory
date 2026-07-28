@@ -54,6 +54,28 @@
   source: "runtime error.log gamedatabase.h:408 / jomini_eventmanager.cpp:440, 2026-07-28; reference_mods/3626895335/in_game/common/scripted_effects/mshre_international_organization_effects.txt:1; reference_mods/3649381461/in_game/common/building_types/mod_improved_trade_&_buildings_buildings.txt:7"
   notes: "EU5 does not infer replacement merely because a mod repeats an existing database key. Without the REPLACE prefix, the later block is rejected as a duplicate, so callbacks inserted into copied vanilla effects/buildings/events never load."
 
+- id: commented_scripted_list_iterator_not_registered
+  pattern: '^[ \t]*(?:any|every|random|ordered)_ally\s*='
+  detectability: lint
+  only_in_paths: ['src/in_game/', 'src_engineering_department/in_game/']
+  bad: "Using any_ally/every_ally/random_ally/ordered_ally as if vanilla registered an active ally scripted list"
+  correction: "Iterate known countries and filter the alliance relation explicitly: effects use every_known_country = { limit = { is_allied_with = { target = scope:saved_owner } } ... }; triggers use any_known_country = { is_allied_with = { target = root } ... }."
+  category: scope
+  scope: country
+  source: "reference_game_files/game/in_game/common/scripted_lists/country_lists.txt:1-6 (the ally definition and generated iterator examples are commented out); reference_game_files/game/in_game/common/script_values/byz_values.txt:90-95"
+  notes: "A commented example in common/scripted_lists is documentation or disabled content, not a registered runtime iterator. Emitting every_ally logged Unknown effect; emitting any_ally logged Unknown trigger type."
+
+- id: effect_conditional_chain_inside_scripted_trigger
+  pattern: '^[ \t]*(?:if|else_if|else)\s*=\s*\{'
+  detectability: lint
+  only_in_paths: ['common/scripted_triggers/']
+  bad: "Using effect control-flow blocks if/else_if/else inside common/scripted_triggers"
+  correction: "Use trigger-native logic. For mutually exclusive value dispatch, use switch = { trigger = var:X <value> = { <trigger body> } }; otherwise express the condition with AND/OR/NOT. Keep if/else_if/else only in effect contexts."
+  category: script
+  scope: any
+  source: "reference_game_files/game/in_game/common/scripted_triggers/country_triggers.txt:1305-1327 (trigger-native switch); reference_game_files/game/in_game/events/DHE/flavor_flo.txt:2813-2823 (numeric variable switch); runtime pdx_persistent_reader.cpp Unknown trigger type: if/else_if in tv_victory_path_task_triggers.txt, 2026-07-28"
+  notes: "The trigger database parses every nested clause as a trigger. Effect-only branch commands are not registered there and fail during startup parsing."
+
 - id: philosophy_debate_variant_random_list_ambiguity
   pattern: ''
   detectability: advisory

@@ -117,7 +117,8 @@ tv_victory_task_refresh_metric_exhibition_influence_effect = {
 tv_victory_task_refresh_metric_num_allies_effect = {
 	set_variable = { name = tv_victory_task_metric_num_allies value = 0 }
 	save_scope_as = tv_victory_task_metric_owner
-	every_ally = {
+	every_known_country = {
+		limit = { is_allied_with = { target = scope:tv_victory_task_metric_owner } }
 		scope:tv_victory_task_metric_owner = { change_variable = { name = tv_victory_task_metric_num_allies add = 1 } }
 	}
 }

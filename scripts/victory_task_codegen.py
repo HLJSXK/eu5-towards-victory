@@ -268,7 +268,8 @@ def _metric_effect(metric: str) -> list[str]:
         return [
             f"set_variable = {{ name = {var} value = 0 }}",
             "save_scope_as = tv_victory_task_metric_owner",
-            "every_ally = {",
+            "every_known_country = {",
+            "\tlimit = { is_allied_with = { target = scope:tv_victory_task_metric_owner } }",
             f"\tscope:tv_victory_task_metric_owner = {{ change_variable = {{ name = {var} add = 1 }} }}",
             "}",
         ]
@@ -346,7 +347,12 @@ def _target_condition_body(task: dict) -> list[str]:
         "capital_megalopolis": ["capital = { location_rank = location_rank:megalopolis }"],
         "capital_buildings_100": ["capital = { num_buildings >= 100 }"],
         "three_allies": [f"var:{metric_var('num_allies')} ?= {{ this >= 3 }}"],
-        "strong_ally": ["any_ally = { relative_military_strength = { target = root value > 0.5 } }"],
+        "strong_ally": [
+            "any_known_country = {",
+            "\tis_allied_with = { target = root }",
+            "\trelative_military_strength = { target = root value > 0.5 }",
+            "}",
+        ],
         "hre_emperor": ["any_international_organizations_member_of = { international_organization_type = international_organization_type:hre leader_country = root }"],
         "italian_wars_victor": ["OR = { has_italian_league_won_the_italian_wars = yes has_foreign_league_won_the_italian_wars = yes }"],
         "chinese_emperor": ["any_international_organizations_member_of = { international_organization_type = international_organization_type:middle_kingdom leader_country = root }"],
@@ -460,35 +466,36 @@ def generate_triggers(data: dict, script: str) -> str:
         for slot in SLOTS:
             prefix = slot_prefix(path_id, slot)
             emit(lines, 0, f"{prefix}_display_trigger = {{")
-            emit(lines, 1, "if = {")
-            emit(lines, 2, f"limit = {{ var:{prefix}_id ?= 0 }}")
-            emit(lines, 2, "custom_tooltip = { text = TV_VICTORY_TASK_NO_AVAILABLE_REQUIREMENT always = no }")
-            emit(lines, 1, "}")
+            emit(lines, 1, "switch = {")
+            emit(lines, 2, f"trigger = var:{prefix}_id")
+            emit(lines, 2, "0 = {")
+            emit(lines, 3, "custom_tooltip = { text = TV_VICTORY_TASK_NO_AVAILABLE_REQUIREMENT always = no }")
+            emit(lines, 2, "}")
             for task in path_tasks:
-                emit(lines, 1, "else_if = {")
-                emit(lines, 2, f"limit = {{ var:{prefix}_id ?= {task['id']} }}")
-                emit(lines, 2, "custom_tooltip = {")
-                emit(lines, 3, f"text = TV_VICTORY_TASK_{task['id']}_{path_id.upper()}_{slot}_REQUIREMENT")
-                emit(lines, 3, "OR = {")
-                emit(lines, 4, f"has_variable = {prefix}_complete")
+                emit(lines, 2, f"{task['id']} = {{")
+                emit(lines, 3, "custom_tooltip = {")
+                emit(lines, 4, f"text = TV_VICTORY_TASK_{task['id']}_{path_id.upper()}_{slot}_REQUIREMENT")
+                emit(lines, 4, "OR = {")
+                emit(lines, 5, f"has_variable = {prefix}_complete")
                 if task["type"] == "fixed":
-                    emit(lines, 4, f"var:{metric_var(task['metric'])} ?= {{ this >= var:{prefix}_target }}")
+                    emit(lines, 5, f"var:{metric_var(task['metric'])} ?= {{ this >= var:{prefix}_target }}")
                 elif task["completion"] == "unite_culture_group":
-                    emit(lines, 4, f"var:{prefix}_culture_group ?= {{")
-                    emit(lines, 5, "NOT = {")
-                    emit(lines, 6, "any_location_in_the_world = {")
-                    emit(lines, 7, "dominant_culture = { any_culture_group = { this = root.var:" + prefix + "_culture_group } }")
-                    emit(lines, 7, "NOT = { owner = root }")
+                    emit(lines, 5, f"var:{prefix}_culture_group ?= {{")
+                    emit(lines, 6, "NOT = {")
+                    emit(lines, 7, "any_location_in_the_world = {")
+                    emit(lines, 8, "dominant_culture = { any_culture_group = { this = root.var:" + prefix + "_culture_group } }")
+                    emit(lines, 8, "NOT = { owner = root }")
+                    emit(lines, 7, "}")
                     emit(lines, 6, "}")
                     emit(lines, 5, "}")
-                    emit(lines, 4, "}")
                 elif task["completion"].startswith("callback") or task["completion"] == "callback":
-                    emit(lines, 4, "always = no")
+                    emit(lines, 5, "always = no")
                 else:
-                    emit(lines, 4, f"{task_condition_name(task)} = yes")
+                    emit(lines, 5, f"{task_condition_name(task)} = yes")
+                emit(lines, 4, "}")
                 emit(lines, 3, "}")
                 emit(lines, 2, "}")
-                emit(lines, 1, "}")
+            emit(lines, 1, "}")
             emit(lines, 0, "}")
             emit(lines)
     return "\n".join(lines)

@@ -239,6 +239,43 @@ Prefer this built-in tenure value for mechanics such as "member must have belong
 
 `common/scripted_triggers` and `common/scripted_effects` are separate top-level databases. EU5 parses every top-level block in a `common/scripted_effects` file as a scripted effect. Do not emit `_trigger = { ... }` definitions into scripted-effect files, even if those blocks are only called from effect `limit` clauses. Move those blocks to `common/scripted_triggers`; otherwise trigger-only clauses such as `has_variable`, `religious_unity`, `always`, or trigger iterators are parsed as effect commands and log `Unknown effect ...` during startup.
 
+The reverse context rule also applies inside a scripted trigger: `if`, `else_if`, and `else` are effect control-flow commands, not trigger clauses. For mutually exclusive trigger dispatch by a stored value, use trigger-native `switch`:
+
+```pdx
+tv_example_display_trigger = {
+    switch = {
+        trigger = var:tv_example_id
+        0 = { always = no }
+        1 = { custom_tooltip = { text = TV_EXAMPLE_REQUIREMENT has_variable = tv_example_done } }
+    }
+}
+```
+
+Vanilla confirms `switch` inside `common/scripted_triggers/country_triggers.txt` and numeric-variable switch keys in `events/DHE/flavor_flo.txt`. Putting an effect-style `if = { limit = { ... } ... }` chain in `common/scripted_triggers` logs `Unknown trigger type: if` and `Unknown trigger type: else_if` during load.
+
+#### Disabled Scripted-List Examples Are Not Iterators
+
+Do not infer a usable iterator from commented content in `common/scripted_lists`. Vanilla's `country_lists.txt` contains a fully commented `ally` example, including the comment `every_ally = {} / ... / any_ally = {}`; because the list definition itself is disabled, none of those commands is registered.
+
+Count or inspect allies through an active country iterator plus the real alliance trigger:
+
+```pdx
+# Effect context
+save_scope_as = owner
+every_known_country = {
+    limit = { is_allied_with = { target = scope:owner } }
+    scope:owner = { change_variable = { name = ally_count add = 1 } }
+}
+
+# Trigger context
+any_known_country = {
+    is_allied_with = { target = root }
+    relative_military_strength = { target = root value > 0.5 }
+}
+```
+
+Allies necessarily know one another, so `known_country` is the bounded vanilla iterator appropriate for these checks. Direct `every_ally` and `any_ally` usage logs `Unknown effect` / `Unknown trigger type` respectively.
+
 #### Random List Branch Filtering
 
 Use `trigger = { ... }` inside weighted `random_list` branches when a branch should only be eligible under some condition:

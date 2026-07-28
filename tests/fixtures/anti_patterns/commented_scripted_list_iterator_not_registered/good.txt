@@ -1,0 +1,7 @@
+tv_example_effect = {
+    save_scope_as = owner
+    every_known_country = {
+        limit = { is_allied_with = { target = scope:owner } }
+        scope:owner = { add_prestige = 1 }
+    }
+}
