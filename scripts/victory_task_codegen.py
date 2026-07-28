@@ -539,8 +539,13 @@ def _emit_candidate_metric_refreshes(lines: list[str], data: dict, path_id: str,
         emit(lines, level, "}")
 
 
-def _emit_clear_slot(lines: list[str], level: int, prefix: str) -> None:
-    for suffix in ("target", "target_index", "progress_pct", "complete", "culture_group"):
+def _emit_clear_slot(
+    lines: list[str], level: int, prefix: str, *, include_culture_group: bool
+) -> None:
+    suffixes = ("target", "target_index", "progress_pct", "complete")
+    if include_culture_group:
+        suffixes += ("culture_group",)
+    for suffix in suffixes:
         emit(lines, level, f"remove_variable = {prefix}_{suffix}")
     emit(lines, level, f"set_variable = {{ name = {prefix}_id value = 0 }}")
     emit(lines, level, f"set_variable = {{ name = {prefix}_target value = 0 }}")
@@ -647,9 +652,14 @@ def _emit_slot_update(lines: list[str], data: dict, path_id: str, slot: int) -> 
 def _emit_assign_slot(lines: list[str], data: dict, path_id: str, slot: int) -> None:
     prefix = slot_prefix(path_id, slot)
     path_tasks = tasks_for_path(data, path_id)
+    has_culture_group_task = any(
+        task["completion"] == "unite_culture_group" for task in path_tasks
+    )
     other_slots = [s for s in SLOTS if s != slot]
     emit(lines, 0, f"{assign_effect(path_id, slot)} = {{")
-    _emit_clear_slot(lines, 1, prefix)
+    _emit_clear_slot(
+        lines, 1, prefix, include_culture_group=has_culture_group_task
+    )
     emit(lines, 1, "if = {")
     emit(lines, 2, f"limit = {{ tv_{path_id}_task_slot_{slot}_has_national_special_candidate = yes }}")
     emit(lines, 2, "# Reserved national-special priority branch; no candidates this release.")
@@ -868,6 +878,10 @@ def generate_effects(data: dict, script: str) -> str:
     _emit_metric_effects(lines, data)
 
     for path_id in PATH_IDS:
+        path_tasks = tasks_for_path(data, path_id)
+        has_culture_group_task = any(
+            task["completion"] == "unite_culture_group" for task in path_tasks
+        )
         for slot in SLOTS:
             _emit_slot_update(lines, data, path_id, slot)
         for slot in SLOTS:
@@ -879,7 +893,12 @@ def generate_effects(data: dict, script: str) -> str:
         emit(lines, 1, "if = {")
         emit(lines, 2, f"limit = {{ is_human = yes has_variable = tv_{path_id}_victory_enabled }}")
         for slot in SLOTS:
-            _emit_clear_slot(lines, 2, slot_prefix(path_id, slot))
+            _emit_clear_slot(
+                lines,
+                2,
+                slot_prefix(path_id, slot),
+                include_culture_group=has_culture_group_task,
+            )
         _emit_candidate_metric_refreshes(lines, data, path_id, 2)
         emit(lines, 2, f"set_variable = {{ name = {CANDIDATE_METRICS_PREPARED_FLAG} value = 1 }}")
         for slot in SLOTS:

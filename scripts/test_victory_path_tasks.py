@@ -79,6 +79,9 @@ def main() -> None:
         assert f"set_variable = {{ name = tv_{path_id}_tree_points value = 0 }}" in init
         assert f"tv_victory_path_tasks_refresh_all_{path_id}_effect = yes" in init
         path_tasks = [task for task in tasks if task["path"] == path_id]
+        has_culture_group_task = any(
+            task["completion"] == "unite_culture_group" for task in path_tasks
+        )
         candidate_metrics = {task["metric"] for task in path_tasks if task["type"] == "fixed"}
         if any(task["completion"] == "three_allies" for task in path_tasks):
             candidate_metrics.add("num_allies")
@@ -102,6 +105,11 @@ def main() -> None:
         assert f"NOT = {{ var:{slot_prefix(path_id, 2)}_id ?= 0 }}" in refill
         for slot in SLOTS:
             prefix = slot_prefix(path_id, slot)
+            culture_group_variable = f"{prefix}_culture_group"
+            if has_culture_group_task:
+                assert culture_group_variable in effects
+            else:
+                assert culture_group_variable not in effects
             assignment = _extract_top_level_block(effects, assign_effect(path_id, slot))
             assert f"limit = {{ var:{prefix}_id ?= {{ this > 0 }} }}" in assignment
             assert refill.count(f"{assign_effect(path_id, slot)} = yes") == 1
