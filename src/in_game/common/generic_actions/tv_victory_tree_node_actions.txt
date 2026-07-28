@@ -32,7 +32,7 @@ tv_tree_select_conquest_t1 = {
 		scope:actor = {
 			custom_tooltip = {
 				text = TV_TREE_CONQUEST_T1_POINTS_REQUIREMENT
-				var:tv_conquest_tree_points ?= { this >= 10 }
+				var:tv_conquest_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_CONQUEST_T1_NOT_UNLOCKED
@@ -72,7 +72,7 @@ tv_tree_select_conquest_t2 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_CONQUEST_T2_POINTS_REQUIREMENT
-				var:tv_conquest_tree_points ?= { this >= 10 }
+				var:tv_conquest_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_CONQUEST_T2_NOT_UNLOCKED
@@ -112,7 +112,7 @@ tv_tree_select_conquest_t3 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_CONQUEST_T3_POINTS_REQUIREMENT
-				var:tv_conquest_tree_points ?= { this >= 10 }
+				var:tv_conquest_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_CONQUEST_T3_NOT_UNLOCKED
@@ -152,7 +152,7 @@ tv_tree_select_conquest_t4 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_CONQUEST_T4_POINTS_REQUIREMENT
-				var:tv_conquest_tree_points ?= { this >= 10 }
+				var:tv_conquest_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_CONQUEST_T4_NOT_UNLOCKED
@@ -192,7 +192,7 @@ tv_tree_select_conquest_t5 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_CONQUEST_T5_POINTS_REQUIREMENT
-				var:tv_conquest_tree_points ?= { this >= 10 }
+				var:tv_conquest_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_CONQUEST_T5_NOT_UNLOCKED
@@ -232,7 +232,7 @@ tv_tree_select_conquest_b1_1 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_CONQUEST_B1_1_POINTS_REQUIREMENT
-				var:tv_conquest_tree_points ?= { this >= 15 }
+				var:tv_conquest_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_CONQUEST_B1_1_NOT_UNLOCKED
@@ -272,7 +272,7 @@ tv_tree_select_conquest_b1_2 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_CONQUEST_B1_2_POINTS_REQUIREMENT
-				var:tv_conquest_tree_points ?= { this >= 15 }
+				var:tv_conquest_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_CONQUEST_B1_2_NOT_UNLOCKED
@@ -312,7 +312,7 @@ tv_tree_select_conquest_b2_1 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_CONQUEST_B2_1_POINTS_REQUIREMENT
-				var:tv_conquest_tree_points ?= { this >= 15 }
+				var:tv_conquest_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_CONQUEST_B2_1_NOT_UNLOCKED
@@ -352,7 +352,7 @@ tv_tree_select_conquest_b2_2 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_CONQUEST_B2_2_POINTS_REQUIREMENT
-				var:tv_conquest_tree_points ?= { this >= 15 }
+				var:tv_conquest_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_CONQUEST_B2_2_NOT_UNLOCKED
@@ -392,7 +392,7 @@ tv_tree_select_conquest_b2_3 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_CONQUEST_B2_3_POINTS_REQUIREMENT
-				var:tv_conquest_tree_points ?= { this >= 15 }
+				var:tv_conquest_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_CONQUEST_B2_3_NOT_UNLOCKED
@@ -432,7 +432,7 @@ tv_tree_select_conquest_b3_1 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_CONQUEST_B3_1_POINTS_REQUIREMENT
-				var:tv_conquest_tree_points ?= { this >= 15 }
+				var:tv_conquest_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_CONQUEST_B3_1_NOT_UNLOCKED
@@ -472,7 +472,7 @@ tv_tree_select_conquest_b3_2 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_CONQUEST_B3_2_POINTS_REQUIREMENT
-				var:tv_conquest_tree_points ?= { this >= 15 }
+				var:tv_conquest_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_CONQUEST_B3_2_NOT_UNLOCKED
@@ -512,7 +512,7 @@ tv_tree_select_conquest_b4_1 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_CONQUEST_B4_1_POINTS_REQUIREMENT
-				var:tv_conquest_tree_points ?= { this >= 15 }
+				var:tv_conquest_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_CONQUEST_B4_1_NOT_UNLOCKED
@@ -552,7 +552,7 @@ tv_tree_select_conquest_b4_2 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_CONQUEST_B4_2_POINTS_REQUIREMENT
-				var:tv_conquest_tree_points ?= { this >= 15 }
+				var:tv_conquest_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_CONQUEST_B4_2_NOT_UNLOCKED
@@ -592,7 +592,7 @@ tv_tree_select_conquest_b4_3 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_CONQUEST_B4_3_POINTS_REQUIREMENT
-				var:tv_conquest_tree_points ?= { this >= 15 }
+				var:tv_conquest_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_CONQUEST_B4_3_NOT_UNLOCKED
@@ -632,7 +632,7 @@ tv_tree_select_conquest_b5_1 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_CONQUEST_B5_1_POINTS_REQUIREMENT
-				var:tv_conquest_tree_points ?= { this >= 15 }
+				var:tv_conquest_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_CONQUEST_B5_1_NOT_UNLOCKED
@@ -672,7 +672,7 @@ tv_tree_select_conquest_b5_2 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_CONQUEST_B5_2_POINTS_REQUIREMENT
-				var:tv_conquest_tree_points ?= { this >= 15 }
+				var:tv_conquest_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_CONQUEST_B5_2_NOT_UNLOCKED
@@ -709,7 +709,7 @@ tv_tree_select_prosperity_t1 = {
 		scope:actor = {
 			custom_tooltip = {
 				text = TV_TREE_PROSPERITY_T1_POINTS_REQUIREMENT
-				var:tv_prosperity_tree_points ?= { this >= 10 }
+				var:tv_prosperity_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_PROSPERITY_T1_NOT_UNLOCKED
@@ -749,7 +749,7 @@ tv_tree_select_prosperity_t2 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_PROSPERITY_T2_POINTS_REQUIREMENT
-				var:tv_prosperity_tree_points ?= { this >= 10 }
+				var:tv_prosperity_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_PROSPERITY_T2_NOT_UNLOCKED
@@ -789,7 +789,7 @@ tv_tree_select_prosperity_t3 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_PROSPERITY_T3_POINTS_REQUIREMENT
-				var:tv_prosperity_tree_points ?= { this >= 10 }
+				var:tv_prosperity_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_PROSPERITY_T3_NOT_UNLOCKED
@@ -829,7 +829,7 @@ tv_tree_select_prosperity_t4 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_PROSPERITY_T4_POINTS_REQUIREMENT
-				var:tv_prosperity_tree_points ?= { this >= 10 }
+				var:tv_prosperity_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_PROSPERITY_T4_NOT_UNLOCKED
@@ -869,7 +869,7 @@ tv_tree_select_prosperity_t5 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_PROSPERITY_T5_POINTS_REQUIREMENT
-				var:tv_prosperity_tree_points ?= { this >= 10 }
+				var:tv_prosperity_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_PROSPERITY_T5_NOT_UNLOCKED
@@ -909,7 +909,7 @@ tv_tree_select_prosperity_b1_1 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_PROSPERITY_B1_1_POINTS_REQUIREMENT
-				var:tv_prosperity_tree_points ?= { this >= 15 }
+				var:tv_prosperity_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_PROSPERITY_B1_1_NOT_UNLOCKED
@@ -949,7 +949,7 @@ tv_tree_select_prosperity_b1_2 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_PROSPERITY_B1_2_POINTS_REQUIREMENT
-				var:tv_prosperity_tree_points ?= { this >= 15 }
+				var:tv_prosperity_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_PROSPERITY_B1_2_NOT_UNLOCKED
@@ -989,7 +989,7 @@ tv_tree_select_prosperity_b1_3 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_PROSPERITY_B1_3_POINTS_REQUIREMENT
-				var:tv_prosperity_tree_points ?= { this >= 15 }
+				var:tv_prosperity_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_PROSPERITY_B1_3_NOT_UNLOCKED
@@ -1029,7 +1029,7 @@ tv_tree_select_prosperity_b2_1 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_PROSPERITY_B2_1_POINTS_REQUIREMENT
-				var:tv_prosperity_tree_points ?= { this >= 15 }
+				var:tv_prosperity_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_PROSPERITY_B2_1_NOT_UNLOCKED
@@ -1069,7 +1069,7 @@ tv_tree_select_prosperity_b2_2 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_PROSPERITY_B2_2_POINTS_REQUIREMENT
-				var:tv_prosperity_tree_points ?= { this >= 15 }
+				var:tv_prosperity_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_PROSPERITY_B2_2_NOT_UNLOCKED
@@ -1109,7 +1109,7 @@ tv_tree_select_prosperity_b2_3 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_PROSPERITY_B2_3_POINTS_REQUIREMENT
-				var:tv_prosperity_tree_points ?= { this >= 15 }
+				var:tv_prosperity_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_PROSPERITY_B2_3_NOT_UNLOCKED
@@ -1149,7 +1149,7 @@ tv_tree_select_prosperity_b2_4 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_PROSPERITY_B2_4_POINTS_REQUIREMENT
-				var:tv_prosperity_tree_points ?= { this >= 15 }
+				var:tv_prosperity_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_PROSPERITY_B2_4_NOT_UNLOCKED
@@ -1189,7 +1189,7 @@ tv_tree_select_prosperity_b3_1 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_PROSPERITY_B3_1_POINTS_REQUIREMENT
-				var:tv_prosperity_tree_points ?= { this >= 15 }
+				var:tv_prosperity_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_PROSPERITY_B3_1_NOT_UNLOCKED
@@ -1229,7 +1229,7 @@ tv_tree_select_prosperity_b3_2 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_PROSPERITY_B3_2_POINTS_REQUIREMENT
-				var:tv_prosperity_tree_points ?= { this >= 15 }
+				var:tv_prosperity_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_PROSPERITY_B3_2_NOT_UNLOCKED
@@ -1269,7 +1269,7 @@ tv_tree_select_prosperity_b4_1 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_PROSPERITY_B4_1_POINTS_REQUIREMENT
-				var:tv_prosperity_tree_points ?= { this >= 15 }
+				var:tv_prosperity_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_PROSPERITY_B4_1_NOT_UNLOCKED
@@ -1309,7 +1309,7 @@ tv_tree_select_prosperity_b4_2 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_PROSPERITY_B4_2_POINTS_REQUIREMENT
-				var:tv_prosperity_tree_points ?= { this >= 15 }
+				var:tv_prosperity_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_PROSPERITY_B4_2_NOT_UNLOCKED
@@ -1349,7 +1349,7 @@ tv_tree_select_prosperity_b4_3 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_PROSPERITY_B4_3_POINTS_REQUIREMENT
-				var:tv_prosperity_tree_points ?= { this >= 15 }
+				var:tv_prosperity_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_PROSPERITY_B4_3_NOT_UNLOCKED
@@ -1389,7 +1389,7 @@ tv_tree_select_prosperity_b5_1 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_PROSPERITY_B5_1_POINTS_REQUIREMENT
-				var:tv_prosperity_tree_points ?= { this >= 15 }
+				var:tv_prosperity_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_PROSPERITY_B5_1_NOT_UNLOCKED
@@ -1429,7 +1429,7 @@ tv_tree_select_prosperity_b5_2 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_PROSPERITY_B5_2_POINTS_REQUIREMENT
-				var:tv_prosperity_tree_points ?= { this >= 15 }
+				var:tv_prosperity_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_PROSPERITY_B5_2_NOT_UNLOCKED
@@ -1469,7 +1469,7 @@ tv_tree_select_prosperity_b5_3 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_PROSPERITY_B5_3_POINTS_REQUIREMENT
-				var:tv_prosperity_tree_points ?= { this >= 15 }
+				var:tv_prosperity_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_PROSPERITY_B5_3_NOT_UNLOCKED
@@ -1506,7 +1506,7 @@ tv_tree_select_trade_t1 = {
 		scope:actor = {
 			custom_tooltip = {
 				text = TV_TREE_TRADE_T1_POINTS_REQUIREMENT
-				var:tv_trade_tree_points ?= { this >= 10 }
+				var:tv_trade_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_TRADE_T1_NOT_UNLOCKED
@@ -1546,7 +1546,7 @@ tv_tree_select_trade_t2 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_TRADE_T2_POINTS_REQUIREMENT
-				var:tv_trade_tree_points ?= { this >= 10 }
+				var:tv_trade_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_TRADE_T2_NOT_UNLOCKED
@@ -1586,7 +1586,7 @@ tv_tree_select_trade_t3 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_TRADE_T3_POINTS_REQUIREMENT
-				var:tv_trade_tree_points ?= { this >= 10 }
+				var:tv_trade_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_TRADE_T3_NOT_UNLOCKED
@@ -1626,7 +1626,7 @@ tv_tree_select_trade_t4 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_TRADE_T4_POINTS_REQUIREMENT
-				var:tv_trade_tree_points ?= { this >= 10 }
+				var:tv_trade_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_TRADE_T4_NOT_UNLOCKED
@@ -1666,7 +1666,7 @@ tv_tree_select_trade_t5 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_TRADE_T5_POINTS_REQUIREMENT
-				var:tv_trade_tree_points ?= { this >= 10 }
+				var:tv_trade_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_TRADE_T5_NOT_UNLOCKED
@@ -1706,7 +1706,7 @@ tv_tree_select_trade_b1_1 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_TRADE_B1_1_POINTS_REQUIREMENT
-				var:tv_trade_tree_points ?= { this >= 15 }
+				var:tv_trade_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_TRADE_B1_1_NOT_UNLOCKED
@@ -1746,7 +1746,7 @@ tv_tree_select_trade_b1_2 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_TRADE_B1_2_POINTS_REQUIREMENT
-				var:tv_trade_tree_points ?= { this >= 15 }
+				var:tv_trade_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_TRADE_B1_2_NOT_UNLOCKED
@@ -1786,7 +1786,7 @@ tv_tree_select_trade_b2_1 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_TRADE_B2_1_POINTS_REQUIREMENT
-				var:tv_trade_tree_points ?= { this >= 15 }
+				var:tv_trade_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_TRADE_B2_1_NOT_UNLOCKED
@@ -1826,7 +1826,7 @@ tv_tree_select_trade_b2_2 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_TRADE_B2_2_POINTS_REQUIREMENT
-				var:tv_trade_tree_points ?= { this >= 15 }
+				var:tv_trade_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_TRADE_B2_2_NOT_UNLOCKED
@@ -1866,7 +1866,7 @@ tv_tree_select_trade_b2_3 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_TRADE_B2_3_POINTS_REQUIREMENT
-				var:tv_trade_tree_points ?= { this >= 15 }
+				var:tv_trade_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_TRADE_B2_3_NOT_UNLOCKED
@@ -1906,7 +1906,7 @@ tv_tree_select_trade_b3_1 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_TRADE_B3_1_POINTS_REQUIREMENT
-				var:tv_trade_tree_points ?= { this >= 15 }
+				var:tv_trade_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_TRADE_B3_1_NOT_UNLOCKED
@@ -1946,7 +1946,7 @@ tv_tree_select_trade_b3_2 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_TRADE_B3_2_POINTS_REQUIREMENT
-				var:tv_trade_tree_points ?= { this >= 15 }
+				var:tv_trade_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_TRADE_B3_2_NOT_UNLOCKED
@@ -1986,7 +1986,7 @@ tv_tree_select_trade_b3_3 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_TRADE_B3_3_POINTS_REQUIREMENT
-				var:tv_trade_tree_points ?= { this >= 15 }
+				var:tv_trade_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_TRADE_B3_3_NOT_UNLOCKED
@@ -2026,7 +2026,7 @@ tv_tree_select_trade_b3_4 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_TRADE_B3_4_POINTS_REQUIREMENT
-				var:tv_trade_tree_points ?= { this >= 15 }
+				var:tv_trade_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_TRADE_B3_4_NOT_UNLOCKED
@@ -2066,7 +2066,7 @@ tv_tree_select_trade_b4_1 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_TRADE_B4_1_POINTS_REQUIREMENT
-				var:tv_trade_tree_points ?= { this >= 15 }
+				var:tv_trade_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_TRADE_B4_1_NOT_UNLOCKED
@@ -2106,7 +2106,7 @@ tv_tree_select_trade_b4_2 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_TRADE_B4_2_POINTS_REQUIREMENT
-				var:tv_trade_tree_points ?= { this >= 15 }
+				var:tv_trade_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_TRADE_B4_2_NOT_UNLOCKED
@@ -2146,7 +2146,7 @@ tv_tree_select_trade_b5_1 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_TRADE_B5_1_POINTS_REQUIREMENT
-				var:tv_trade_tree_points ?= { this >= 15 }
+				var:tv_trade_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_TRADE_B5_1_NOT_UNLOCKED
@@ -2186,7 +2186,7 @@ tv_tree_select_trade_b5_2 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_TRADE_B5_2_POINTS_REQUIREMENT
-				var:tv_trade_tree_points ?= { this >= 15 }
+				var:tv_trade_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_TRADE_B5_2_NOT_UNLOCKED
@@ -2223,7 +2223,7 @@ tv_tree_select_diplomatic_t1 = {
 		scope:actor = {
 			custom_tooltip = {
 				text = TV_TREE_DIPLOMATIC_T1_POINTS_REQUIREMENT
-				var:tv_diplomatic_tree_points ?= { this >= 10 }
+				var:tv_diplomatic_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_DIPLOMATIC_T1_NOT_UNLOCKED
@@ -2263,7 +2263,7 @@ tv_tree_select_diplomatic_t2 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_DIPLOMATIC_T2_POINTS_REQUIREMENT
-				var:tv_diplomatic_tree_points ?= { this >= 10 }
+				var:tv_diplomatic_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_DIPLOMATIC_T2_NOT_UNLOCKED
@@ -2303,7 +2303,7 @@ tv_tree_select_diplomatic_t3 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_DIPLOMATIC_T3_POINTS_REQUIREMENT
-				var:tv_diplomatic_tree_points ?= { this >= 10 }
+				var:tv_diplomatic_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_DIPLOMATIC_T3_NOT_UNLOCKED
@@ -2343,7 +2343,7 @@ tv_tree_select_diplomatic_t4 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_DIPLOMATIC_T4_POINTS_REQUIREMENT
-				var:tv_diplomatic_tree_points ?= { this >= 10 }
+				var:tv_diplomatic_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_DIPLOMATIC_T4_NOT_UNLOCKED
@@ -2383,7 +2383,7 @@ tv_tree_select_diplomatic_t5 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_DIPLOMATIC_T5_POINTS_REQUIREMENT
-				var:tv_diplomatic_tree_points ?= { this >= 10 }
+				var:tv_diplomatic_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_DIPLOMATIC_T5_NOT_UNLOCKED
@@ -2423,7 +2423,7 @@ tv_tree_select_diplomatic_b1_1 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_DIPLOMATIC_B1_1_POINTS_REQUIREMENT
-				var:tv_diplomatic_tree_points ?= { this >= 15 }
+				var:tv_diplomatic_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_DIPLOMATIC_B1_1_NOT_UNLOCKED
@@ -2463,7 +2463,7 @@ tv_tree_select_diplomatic_b1_2 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_DIPLOMATIC_B1_2_POINTS_REQUIREMENT
-				var:tv_diplomatic_tree_points ?= { this >= 15 }
+				var:tv_diplomatic_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_DIPLOMATIC_B1_2_NOT_UNLOCKED
@@ -2503,7 +2503,7 @@ tv_tree_select_diplomatic_b2_1 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_DIPLOMATIC_B2_1_POINTS_REQUIREMENT
-				var:tv_diplomatic_tree_points ?= { this >= 15 }
+				var:tv_diplomatic_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_DIPLOMATIC_B2_1_NOT_UNLOCKED
@@ -2543,7 +2543,7 @@ tv_tree_select_diplomatic_b2_2 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_DIPLOMATIC_B2_2_POINTS_REQUIREMENT
-				var:tv_diplomatic_tree_points ?= { this >= 15 }
+				var:tv_diplomatic_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_DIPLOMATIC_B2_2_NOT_UNLOCKED
@@ -2583,7 +2583,7 @@ tv_tree_select_diplomatic_b2_3 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_DIPLOMATIC_B2_3_POINTS_REQUIREMENT
-				var:tv_diplomatic_tree_points ?= { this >= 15 }
+				var:tv_diplomatic_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_DIPLOMATIC_B2_3_NOT_UNLOCKED
@@ -2623,7 +2623,7 @@ tv_tree_select_diplomatic_b3_1 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_DIPLOMATIC_B3_1_POINTS_REQUIREMENT
-				var:tv_diplomatic_tree_points ?= { this >= 15 }
+				var:tv_diplomatic_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_DIPLOMATIC_B3_1_NOT_UNLOCKED
@@ -2663,7 +2663,7 @@ tv_tree_select_diplomatic_b3_2 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_DIPLOMATIC_B3_2_POINTS_REQUIREMENT
-				var:tv_diplomatic_tree_points ?= { this >= 15 }
+				var:tv_diplomatic_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_DIPLOMATIC_B3_2_NOT_UNLOCKED
@@ -2703,7 +2703,7 @@ tv_tree_select_diplomatic_b3_3 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_DIPLOMATIC_B3_3_POINTS_REQUIREMENT
-				var:tv_diplomatic_tree_points ?= { this >= 15 }
+				var:tv_diplomatic_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_DIPLOMATIC_B3_3_NOT_UNLOCKED
@@ -2743,7 +2743,7 @@ tv_tree_select_diplomatic_b4_1 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_DIPLOMATIC_B4_1_POINTS_REQUIREMENT
-				var:tv_diplomatic_tree_points ?= { this >= 15 }
+				var:tv_diplomatic_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_DIPLOMATIC_B4_1_NOT_UNLOCKED
@@ -2783,7 +2783,7 @@ tv_tree_select_diplomatic_b4_2 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_DIPLOMATIC_B4_2_POINTS_REQUIREMENT
-				var:tv_diplomatic_tree_points ?= { this >= 15 }
+				var:tv_diplomatic_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_DIPLOMATIC_B4_2_NOT_UNLOCKED
@@ -2823,7 +2823,7 @@ tv_tree_select_diplomatic_b4_3 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_DIPLOMATIC_B4_3_POINTS_REQUIREMENT
-				var:tv_diplomatic_tree_points ?= { this >= 15 }
+				var:tv_diplomatic_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_DIPLOMATIC_B4_3_NOT_UNLOCKED
@@ -2863,7 +2863,7 @@ tv_tree_select_diplomatic_b5_1 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_DIPLOMATIC_B5_1_POINTS_REQUIREMENT
-				var:tv_diplomatic_tree_points ?= { this >= 15 }
+				var:tv_diplomatic_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_DIPLOMATIC_B5_1_NOT_UNLOCKED
@@ -2903,7 +2903,7 @@ tv_tree_select_diplomatic_b5_2 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_DIPLOMATIC_B5_2_POINTS_REQUIREMENT
-				var:tv_diplomatic_tree_points ?= { this >= 15 }
+				var:tv_diplomatic_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_DIPLOMATIC_B5_2_NOT_UNLOCKED
@@ -2940,7 +2940,7 @@ tv_tree_select_cultural_t1 = {
 		scope:actor = {
 			custom_tooltip = {
 				text = TV_TREE_CULTURAL_T1_POINTS_REQUIREMENT
-				var:tv_cultural_tree_points ?= { this >= 10 }
+				var:tv_cultural_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_CULTURAL_T1_NOT_UNLOCKED
@@ -2980,7 +2980,7 @@ tv_tree_select_cultural_t2 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_CULTURAL_T2_POINTS_REQUIREMENT
-				var:tv_cultural_tree_points ?= { this >= 10 }
+				var:tv_cultural_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_CULTURAL_T2_NOT_UNLOCKED
@@ -3020,7 +3020,7 @@ tv_tree_select_cultural_t3 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_CULTURAL_T3_POINTS_REQUIREMENT
-				var:tv_cultural_tree_points ?= { this >= 10 }
+				var:tv_cultural_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_CULTURAL_T3_NOT_UNLOCKED
@@ -3060,7 +3060,7 @@ tv_tree_select_cultural_t4 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_CULTURAL_T4_POINTS_REQUIREMENT
-				var:tv_cultural_tree_points ?= { this >= 10 }
+				var:tv_cultural_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_CULTURAL_T4_NOT_UNLOCKED
@@ -3100,7 +3100,7 @@ tv_tree_select_cultural_t5 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_CULTURAL_T5_POINTS_REQUIREMENT
-				var:tv_cultural_tree_points ?= { this >= 10 }
+				var:tv_cultural_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_CULTURAL_T5_NOT_UNLOCKED
@@ -3140,7 +3140,7 @@ tv_tree_select_cultural_b1_1 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_CULTURAL_B1_1_POINTS_REQUIREMENT
-				var:tv_cultural_tree_points ?= { this >= 15 }
+				var:tv_cultural_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_CULTURAL_B1_1_NOT_UNLOCKED
@@ -3180,7 +3180,7 @@ tv_tree_select_cultural_b1_2 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_CULTURAL_B1_2_POINTS_REQUIREMENT
-				var:tv_cultural_tree_points ?= { this >= 15 }
+				var:tv_cultural_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_CULTURAL_B1_2_NOT_UNLOCKED
@@ -3220,7 +3220,7 @@ tv_tree_select_cultural_b2_1 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_CULTURAL_B2_1_POINTS_REQUIREMENT
-				var:tv_cultural_tree_points ?= { this >= 15 }
+				var:tv_cultural_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_CULTURAL_B2_1_NOT_UNLOCKED
@@ -3260,7 +3260,7 @@ tv_tree_select_cultural_b2_2 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_CULTURAL_B2_2_POINTS_REQUIREMENT
-				var:tv_cultural_tree_points ?= { this >= 15 }
+				var:tv_cultural_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_CULTURAL_B2_2_NOT_UNLOCKED
@@ -3300,7 +3300,7 @@ tv_tree_select_cultural_b3_1 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_CULTURAL_B3_1_POINTS_REQUIREMENT
-				var:tv_cultural_tree_points ?= { this >= 15 }
+				var:tv_cultural_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_CULTURAL_B3_1_NOT_UNLOCKED
@@ -3340,7 +3340,7 @@ tv_tree_select_cultural_b3_2 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_CULTURAL_B3_2_POINTS_REQUIREMENT
-				var:tv_cultural_tree_points ?= { this >= 15 }
+				var:tv_cultural_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_CULTURAL_B3_2_NOT_UNLOCKED
@@ -3380,7 +3380,7 @@ tv_tree_select_cultural_b4_1 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_CULTURAL_B4_1_POINTS_REQUIREMENT
-				var:tv_cultural_tree_points ?= { this >= 15 }
+				var:tv_cultural_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_CULTURAL_B4_1_NOT_UNLOCKED
@@ -3420,7 +3420,7 @@ tv_tree_select_cultural_b4_2 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_CULTURAL_B4_2_POINTS_REQUIREMENT
-				var:tv_cultural_tree_points ?= { this >= 15 }
+				var:tv_cultural_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_CULTURAL_B4_2_NOT_UNLOCKED
@@ -3460,7 +3460,7 @@ tv_tree_select_cultural_b5_1 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_CULTURAL_B5_1_POINTS_REQUIREMENT
-				var:tv_cultural_tree_points ?= { this >= 15 }
+				var:tv_cultural_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_CULTURAL_B5_1_NOT_UNLOCKED
@@ -3500,7 +3500,7 @@ tv_tree_select_cultural_b5_2 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_CULTURAL_B5_2_POINTS_REQUIREMENT
-				var:tv_cultural_tree_points ?= { this >= 15 }
+				var:tv_cultural_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_CULTURAL_B5_2_NOT_UNLOCKED
@@ -3537,7 +3537,7 @@ tv_tree_select_science_t1 = {
 		scope:actor = {
 			custom_tooltip = {
 				text = TV_TREE_SCIENCE_T1_POINTS_REQUIREMENT
-				var:tv_science_tree_points ?= { this >= 10 }
+				var:tv_science_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_SCIENCE_T1_NOT_UNLOCKED
@@ -3577,7 +3577,7 @@ tv_tree_select_science_t2 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_SCIENCE_T2_POINTS_REQUIREMENT
-				var:tv_science_tree_points ?= { this >= 10 }
+				var:tv_science_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_SCIENCE_T2_NOT_UNLOCKED
@@ -3617,7 +3617,7 @@ tv_tree_select_science_t3 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_SCIENCE_T3_POINTS_REQUIREMENT
-				var:tv_science_tree_points ?= { this >= 10 }
+				var:tv_science_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_SCIENCE_T3_NOT_UNLOCKED
@@ -3657,7 +3657,7 @@ tv_tree_select_science_t4 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_SCIENCE_T4_POINTS_REQUIREMENT
-				var:tv_science_tree_points ?= { this >= 10 }
+				var:tv_science_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_SCIENCE_T4_NOT_UNLOCKED
@@ -3697,7 +3697,7 @@ tv_tree_select_science_t5 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_SCIENCE_T5_POINTS_REQUIREMENT
-				var:tv_science_tree_points ?= { this >= 10 }
+				var:tv_science_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_SCIENCE_T5_NOT_UNLOCKED
@@ -3737,7 +3737,7 @@ tv_tree_select_science_b1_1 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_SCIENCE_B1_1_POINTS_REQUIREMENT
-				var:tv_science_tree_points ?= { this >= 15 }
+				var:tv_science_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_SCIENCE_B1_1_NOT_UNLOCKED
@@ -3777,7 +3777,7 @@ tv_tree_select_science_b1_2 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_SCIENCE_B1_2_POINTS_REQUIREMENT
-				var:tv_science_tree_points ?= { this >= 15 }
+				var:tv_science_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_SCIENCE_B1_2_NOT_UNLOCKED
@@ -3817,7 +3817,7 @@ tv_tree_select_science_b2_1 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_SCIENCE_B2_1_POINTS_REQUIREMENT
-				var:tv_science_tree_points ?= { this >= 15 }
+				var:tv_science_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_SCIENCE_B2_1_NOT_UNLOCKED
@@ -3857,7 +3857,7 @@ tv_tree_select_science_b2_2 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_SCIENCE_B2_2_POINTS_REQUIREMENT
-				var:tv_science_tree_points ?= { this >= 15 }
+				var:tv_science_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_SCIENCE_B2_2_NOT_UNLOCKED
@@ -3897,7 +3897,7 @@ tv_tree_select_science_b2_3 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_SCIENCE_B2_3_POINTS_REQUIREMENT
-				var:tv_science_tree_points ?= { this >= 15 }
+				var:tv_science_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_SCIENCE_B2_3_NOT_UNLOCKED
@@ -3937,7 +3937,7 @@ tv_tree_select_science_b3_1 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_SCIENCE_B3_1_POINTS_REQUIREMENT
-				var:tv_science_tree_points ?= { this >= 15 }
+				var:tv_science_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_SCIENCE_B3_1_NOT_UNLOCKED
@@ -3977,7 +3977,7 @@ tv_tree_select_science_b3_2 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_SCIENCE_B3_2_POINTS_REQUIREMENT
-				var:tv_science_tree_points ?= { this >= 15 }
+				var:tv_science_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_SCIENCE_B3_2_NOT_UNLOCKED
@@ -4017,7 +4017,7 @@ tv_tree_select_science_b4_1 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_SCIENCE_B4_1_POINTS_REQUIREMENT
-				var:tv_science_tree_points ?= { this >= 15 }
+				var:tv_science_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_SCIENCE_B4_1_NOT_UNLOCKED
@@ -4057,7 +4057,7 @@ tv_tree_select_science_b4_2 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_SCIENCE_B4_2_POINTS_REQUIREMENT
-				var:tv_science_tree_points ?= { this >= 15 }
+				var:tv_science_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_SCIENCE_B4_2_NOT_UNLOCKED
@@ -4097,7 +4097,7 @@ tv_tree_select_science_b5_1 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_SCIENCE_B5_1_POINTS_REQUIREMENT
-				var:tv_science_tree_points ?= { this >= 15 }
+				var:tv_science_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_SCIENCE_B5_1_NOT_UNLOCKED
@@ -4137,7 +4137,7 @@ tv_tree_select_science_b5_2 = {
 			}
 			custom_tooltip = {
 				text = TV_TREE_SCIENCE_B5_2_POINTS_REQUIREMENT
-				var:tv_science_tree_points ?= { this >= 15 }
+				var:tv_science_tree_points ?= { this >= 5 }
 			}
 			custom_tooltip = {
 				text = TV_TREE_SCIENCE_B5_2_NOT_UNLOCKED

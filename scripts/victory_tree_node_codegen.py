@@ -9,9 +9,8 @@ Pattern: one data entry per node (trunk t1..t5, and each branch's nodes) across
 unlock effect + one generic action + one loc key pair. Structurally repetitive
 per-node boilerplate, hence scripted per the Script System rules in CLAUDE.md.
 
-NOTE: tv_{path}_tree_points and each node's `cost` are placeholders — the real
-point economy (accrual source, balanced per-node cost) is an open design item
-(see docs/design/Victory_Path_Tree_Variant_Design.md, "实现前待决事项").
+NOTE: Each node's unlock cost is defined canonically by its `cost` field in
+data/victory_path_tree_variant.yaml.
 """
 
 import sys
