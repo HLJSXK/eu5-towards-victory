@@ -75,10 +75,10 @@ split rationale, including the small set of shared multi-IO files (e.g.
 `tv_io_leader_actions.txt`, `tv_pulse_bridges.txt`) that were split into
 multi-output generators so the new mod stays self-contained. The singleton
 "vanilla-copy" files `character_title.txt` and `messagetypes.txt` are also
-generated into both mod roots: the Engineering Department copy is the
-standalone subset, while the main-mod copy is a strict superset. Because the
-main mod depends on the Engineering Department mod, the superset loads later
-and wins; `scripts/validate.py` guards the full-copy and superset invariants.
+generated into both mod roots as identical full copies containing the complete
+TV entry union. Their winner-takes-all load order is not reliable even with a
+declared dependency, so either copy must be sufficient; `scripts/validate.py`
+guards the full-copy and equality invariants.
 The missing-Great-Engineer CMF alert likewise lives entirely in the Engineering
 Department root, including its pulse, callback, effects, GUI bridge, and loc.
 

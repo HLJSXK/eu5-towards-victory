@@ -1,11 +1,10 @@
 """
-Generate full-copy character_title.txt outputs for both deployable mods.
+Generate identical full-copy character_title.txt outputs for both deployable mods.
 
 The engine treats top-level customizable localization keys as unique database
-entries. character_title_prefix must therefore be generated as a full vanilla
-copy in each root. The Engineering Department copy contains its own mapping;
-the dependency-loaded main copy is a strict superset and safely wins when both
-mods are enabled.
+entries. ``character_title_prefix`` must therefore be generated as a full
+vanilla copy in each root. Dependency order cannot be relied on to choose the
+main-mod copy, so both copies include the complete TV title mapping.
 """
 
 import sys
@@ -53,11 +52,9 @@ HEADER = """\
 """
 
 
-def _tv_title_entries(data: dict, *, io_ids: set[str] | None = None) -> str:
+def _tv_title_entries(data: dict) -> str:
     entries: list[str] = []
     for io in data.get("ios", []):
-        if io_ids is not None and io.get("id") not in io_ids:
-            continue
         title_modifier = io.get("title_modifier")
         title_loc_key = io.get("title_loc_key")
         if not title_modifier:
@@ -94,9 +91,9 @@ def _find_block_end(text: str, block_name: str) -> int:
     raise ValueError(f"Could not find end of block: {block_name}")
 
 
-def generate(data: dict, *, io_ids: set[str] | None = None) -> str:
+def generate(data: dict) -> str:
     vanilla = VANILLA_FILE.read_text(encoding="utf-8-sig")
-    insertion = _tv_title_entries(data, io_ids=io_ids)
+    insertion = _tv_title_entries(data)
     if insertion:
         end = _find_block_end(vanilla, "character_title_prefix")
         vanilla = vanilla[:end].rstrip() + "\n" + insertion + vanilla[end:]
@@ -112,7 +109,7 @@ def main() -> None:
         data = yaml.safe_load(f)
 
     main_content = generate(data)
-    engineering_content = generate(data, io_ids={"engineering"})
+    engineering_content = generate(data)
 
     if args.dry:
         print(main_content)

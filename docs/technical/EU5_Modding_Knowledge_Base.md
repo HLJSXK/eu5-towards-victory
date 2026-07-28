@@ -930,6 +930,17 @@ PERFORM_my_action_ACTION_MAP: ""
 
 If the message type block is missing, the engine logs `Failed to find message type: PERFORM_<action_id>_ACTION`.
 
+#### Cross-Mod Singleton Copies
+
+`messagetypes.txt` and customizable-localization databases such as
+`character_title.txt` are winner-takes-all full-file databases, not additive
+registries. When two enabled mods each need one, do not ship separate subsets
+and rely on dependency order to make a preferred copy win: in this project the
+Engineering Department copy loaded last despite the main mod declaring it as a
+dependency, which hid 81 main-mod message types at runtime. Generate identical
+full vanilla copies containing the complete union required by both mods, and
+validate equality of the generated outputs as well as their vanilla prefixes.
+
 ### 5.5. Variable Arithmetic (`change_variable`)
 
 EU5 does **not** have `multiply_variable` or `divide_variable` commands. All in-place variable arithmetic uses `change_variable` with a named operator:

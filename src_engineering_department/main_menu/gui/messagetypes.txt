@@ -13091,10 +13091,9 @@ option=yes
 pausepopup=no
 message_category = diplomacy
 }
-# Engineering Department - Generic Action Message Types
+# ── Towards Victory — Generic Action Message Types ───────────────────────────
 
-
-PERFORM_tv_appoint_engineering_leader_ACTION={
+PERFORM_tv_host_domestic_exhibition_ACTION={
 	log=yes
 	onmap=no
 	popup=no
@@ -13104,7 +13103,217 @@ PERFORM_tv_appoint_engineering_leader_ACTION={
 	message_category = society
 }
 
-PERFORM_tv_change_engineering_leader_ACTION={
+PERFORM_tv_local_exhibition_add_artworks_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_local_exhibition_royal_visit_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_local_exhibition_radical_art_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_local_exhibition_expand_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_local_exhibition_sell_art_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_local_exhibition_recruit_artists_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_local_exhibition_invite_foreign_artist_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_local_exhibition_designate_treasure_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_local_exhibition_live_creation_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_start_arts_exchange_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_invite_domestic_arts_exchange_artist_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_invite_foreign_arts_exchange_artist_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_appoint_arts_leader_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_remove_arts_leader_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_change_arts_leader_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_appoint_alliance_leader_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = diplomacy
+}
+
+PERFORM_tv_remove_alliance_leader_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = diplomacy
+}
+
+PERFORM_tv_change_alliance_leader_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = diplomacy
+}
+
+PERFORM_tv_appoint_academy_leader_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_remove_academy_leader_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_change_academy_leader_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_appoint_engineering_leader_ACTION={
 	log=yes
 	onmap=no
 	popup=no
@@ -13124,7 +13333,7 @@ PERFORM_tv_remove_engineering_leader_ACTION={
 	message_category = society
 }
 
-PERFORM_tv_wonder_abandon_ACTION={
+PERFORM_tv_change_engineering_leader_ACTION={
 	log=yes
 	onmap=no
 	popup=no
@@ -13134,7 +13343,37 @@ PERFORM_tv_wonder_abandon_ACTION={
 	message_category = society
 }
 
-PERFORM_tv_wonder_accept_burghers_demand_ACTION={
+PERFORM_tv_appoint_trade_leader_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = diplomacy
+}
+
+PERFORM_tv_remove_trade_leader_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = diplomacy
+}
+
+PERFORM_tv_change_trade_leader_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = diplomacy
+}
+
+PERFORM_tv_wonder_accept_proposal_ACTION={
 	log=yes
 	onmap=no
 	popup=no
@@ -13144,7 +13383,47 @@ PERFORM_tv_wonder_accept_burghers_demand_ACTION={
 	message_category = society
 }
 
-PERFORM_tv_wonder_accept_clergy_demand_ACTION={
+PERFORM_tv_wonder_select_proposal_slot_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_wonder_select_proposal_slot_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_wonder_select_proposal_slot_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_wonder_refute_proposal_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_wonder_bribe_proposal_ACTION={
 	log=yes
 	onmap=no
 	popup=no
@@ -13164,67 +13443,7 @@ PERFORM_tv_wonder_accept_nobles_demand_ACTION={
 	message_category = society
 }
 
-PERFORM_tv_wonder_accept_proposal_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
-
-PERFORM_tv_wonder_begin_body_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
-
-PERFORM_tv_wonder_begin_decoration_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
-
-PERFORM_tv_wonder_begin_foundation_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
-
-PERFORM_tv_wonder_begin_function_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
-
-PERFORM_tv_wonder_bribe_burghers_demand_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
-
-PERFORM_tv_wonder_bribe_clergy_demand_ACTION={
+PERFORM_tv_wonder_refute_nobles_demand_ACTION={
 	log=yes
 	onmap=no
 	popup=no
@@ -13244,7 +13463,157 @@ PERFORM_tv_wonder_bribe_nobles_demand_ACTION={
 	message_category = society
 }
 
-PERFORM_tv_wonder_bribe_proposal_ACTION={
+PERFORM_tv_wonder_accept_burghers_demand_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_wonder_refute_burghers_demand_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_wonder_bribe_burghers_demand_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_wonder_accept_clergy_demand_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_wonder_refute_clergy_demand_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_wonder_bribe_clergy_demand_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_wonder_end_debate_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_wonder_abandon_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_wonder_start_survey_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_wonder_rerun_survey_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_wonder_select_construction_site_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_wonder_begin_foundation_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_wonder_begin_body_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_wonder_begin_function_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_wonder_begin_decoration_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_wonder_finish_construction_ACTION={
 	log=yes
 	onmap=no
 	popup=no
@@ -13294,16 +13663,6 @@ PERFORM_tv_wonder_confirm_ceremony_ACTION={
 	message_category = society
 }
 
-PERFORM_tv_wonder_confirm_ceremony_prestige_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
-
 PERFORM_tv_wonder_confirm_ceremony_scaled_gold_ACTION={
 	log=yes
 	onmap=no
@@ -13314,7 +13673,7 @@ PERFORM_tv_wonder_confirm_ceremony_scaled_gold_ACTION={
 	message_category = society
 }
 
-PERFORM_tv_wonder_end_debate_ACTION={
+PERFORM_tv_wonder_confirm_ceremony_prestige_ACTION={
 	log=yes
 	onmap=no
 	popup=no
@@ -13324,7 +13683,58 @@ PERFORM_tv_wonder_end_debate_ACTION={
 	message_category = society
 }
 
-PERFORM_tv_wonder_finish_construction_ACTION={
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PERFORM_tv_request_research_target_ACTION={
 	log=yes
 	onmap=no
 	popup=no
@@ -13333,6 +13743,308 @@ PERFORM_tv_wonder_finish_construction_ACTION={
 	pausepopup=no
 	message_category = society
 }
+
+PERFORM_tv_abandon_research_target_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_start_concentrated_research_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_pause_concentrated_research_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_treat_character_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_start_meditation_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_stop_meditation_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_train_grand_general_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_plan_offensive_strategy_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = military
+}
+
+PERFORM_tv_plan_defensive_strategy_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = military
+}
+
+PERFORM_tv_abort_war_plan_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = military
+}
+
+PERFORM_tv_change_war_plan_target_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = military
+}
+
+PERFORM_tv_appoint_conquest_general_leader_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_remove_conquest_general_leader_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_change_conquest_general_leader_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_reinitialize_mod_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_appoint_governor_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_auto_assign_governors_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_enable_governor_automation_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_disable_governor_automation_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_remove_governor_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+PERFORM_tv_change_governor_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = society
+}
+
+WE_PERFORM_tv_invite_to_diplomatic_alliance_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = diplomacy
+}
+
+ACTION_tv_invite_to_diplomatic_alliance_PERFORMED_ON_US={
+	log=yes
+	onmap=no
+	popup=yes
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = diplomacy
+}
+
+WE_PERFORM_tv_invite_to_trade_league_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = diplomacy
+}
+
+ACTION_tv_invite_to_trade_league_PERFORMED_ON_US={
+	log=yes
+	onmap=no
+	popup=yes
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = diplomacy
+}
+
+PERFORM_tv_expel_diplomatic_alliance_member_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = diplomacy
+}
+
+PERFORM_tv_alliance_sublime_empire_subjugate_member_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = diplomacy
+}
+
+PERFORM_tv_alliance_cultural_union_enforce_culture_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = diplomacy
+}
+
+PERFORM_tv_alliance_religious_congress_enforce_religion_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = diplomacy
+}
+
+PERFORM_tv_expel_trade_league_member_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = diplomacy
+}
+
+# ---- Generated Hagia Sophia ritual assignment controls ----
 
 PERFORM_tv_wonder_hagia_assign_step_1_ACTION={
 	log=yes
@@ -13414,102 +14126,2582 @@ PERFORM_tv_wonder_hagia_assign_step_8_ACTION={
 	message_category = society
 }
 
-PERFORM_tv_wonder_refute_burghers_demand_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
+# ---- Generated Trade League monopoly controls ----
 
-PERFORM_tv_wonder_refute_clergy_demand_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
-
-PERFORM_tv_wonder_refute_nobles_demand_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
-
-PERFORM_tv_wonder_refute_proposal_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
-
-PERFORM_tv_wonder_rerun_survey_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
-
-PERFORM_tv_wonder_select_construction_site_ACTION={
-	log=yes
-	onmap=no
-	popup=no
-	idle=no
-	option=yes
-	pausepopup=no
-	message_category = society
-}
-
-PERFORM_tv_wonder_select_proposal_slot_1_ACTION={
+PERFORM_tv_trade_select_monopoly_slot_1_ACTION={
 	log=no
 	onmap=no
 	popup=no
 	idle=no
 	option=no
 	pausepopup=no
-	message_category = society
+	message_category = economy
 }
 
-PERFORM_tv_wonder_select_proposal_slot_2_ACTION={
+PERFORM_tv_trade_select_monopoly_slot_2_ACTION={
 	log=no
 	onmap=no
 	popup=no
 	idle=no
 	option=no
 	pausepopup=no
-	message_category = society
+	message_category = economy
 }
 
-PERFORM_tv_wonder_select_proposal_slot_3_ACTION={
+PERFORM_tv_trade_previous_intelligence_page_ACTION={
 	log=no
 	onmap=no
 	popup=no
 	idle=no
 	option=no
 	pausepopup=no
-	message_category = society
+	message_category = economy
 }
 
-PERFORM_tv_wonder_start_survey_ACTION={
+PERFORM_tv_trade_next_intelligence_page_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = economy
+}
+
+PERFORM_tv_trade_select_intelligence_row_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = economy
+}
+
+PERFORM_tv_trade_select_intelligence_row_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = economy
+}
+
+PERFORM_tv_trade_select_intelligence_row_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = economy
+}
+
+PERFORM_tv_trade_select_intelligence_row_4_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = economy
+}
+
+PERFORM_tv_trade_select_intelligence_row_5_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = economy
+}
+
+PERFORM_tv_trade_select_intelligence_row_6_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = economy
+}
+
+PERFORM_tv_trade_select_intelligence_row_7_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = economy
+}
+
+PERFORM_tv_trade_select_intelligence_row_8_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = economy
+}
+
+PERFORM_tv_trade_select_intelligence_row_9_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = economy
+}
+
+PERFORM_tv_trade_select_intelligence_row_10_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = economy
+}
+
+PERFORM_tv_trade_start_intelligence_network_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = economy
+}
+
+PERFORM_tv_trade_cancel_intelligence_network_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = economy
+}
+
+PERFORM_tv_trade_add_chain_node_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = economy
+}
+
+PERFORM_tv_trade_set_selected_virtual_demand_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = economy
+}
+
+PERFORM_tv_trade_increase_selected_virtual_demand_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = economy
+}
+
+PERFORM_tv_trade_decrease_selected_virtual_demand_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = economy
+}
+
+PERFORM_tv_trade_cancel_selected_virtual_demand_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = economy
+}
+
+PERFORM_tv_trade_set_selected_virtual_supply_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = economy
+}
+
+PERFORM_tv_trade_increase_selected_virtual_supply_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = economy
+}
+
+PERFORM_tv_trade_decrease_selected_virtual_supply_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = economy
+}
+
+PERFORM_tv_trade_cancel_selected_virtual_supply_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = economy
+}
+
+PERFORM_tv_trade_set_selected_embargo_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = economy
+}
+
+PERFORM_tv_trade_cancel_selected_embargo_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = economy
+}
+
+# ---- Generated victory path UI controls ----
+
+PERFORM_tv_victory_select_path_conquest_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_path_prosperity_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_path_trade_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_path_diplomatic_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_path_cultural_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_path_science_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_conquest_m1_reward_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_conquest_m1_reward_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_conquest_m1_reward_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_conquest_m2_reward_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_conquest_m2_reward_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_conquest_m2_reward_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_conquest_m3_reward_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_conquest_m3_reward_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_conquest_m3_reward_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_conquest_m4_reward_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_conquest_m4_reward_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_conquest_m4_reward_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_conquest_m5_reward_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_conquest_m5_reward_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_conquest_m5_reward_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_prosperity_m1_reward_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_prosperity_m1_reward_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_prosperity_m1_reward_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_prosperity_m2_reward_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_prosperity_m2_reward_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_prosperity_m2_reward_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_prosperity_m3_reward_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_prosperity_m3_reward_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_prosperity_m3_reward_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_prosperity_m4_reward_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_prosperity_m4_reward_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_prosperity_m4_reward_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_prosperity_m5_reward_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_prosperity_m5_reward_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_prosperity_m5_reward_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_trade_m1_reward_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_trade_m1_reward_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_trade_m1_reward_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_trade_m2_reward_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_trade_m2_reward_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_trade_m2_reward_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_trade_m3_reward_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_trade_m3_reward_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_trade_m3_reward_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_trade_m4_reward_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_trade_m4_reward_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_trade_m4_reward_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_trade_m5_reward_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_trade_m5_reward_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_trade_m5_reward_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_diplomatic_m1_reward_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_diplomatic_m1_reward_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_diplomatic_m1_reward_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_diplomatic_m2_reward_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_diplomatic_m2_reward_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_diplomatic_m2_reward_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_diplomatic_m3_reward_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_diplomatic_m3_reward_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_diplomatic_m3_reward_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_diplomatic_m4_reward_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_diplomatic_m4_reward_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_diplomatic_m4_reward_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_diplomatic_m5_reward_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_diplomatic_m5_reward_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_diplomatic_m5_reward_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_cultural_m1_reward_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_cultural_m1_reward_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_cultural_m1_reward_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_cultural_m2_reward_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_cultural_m2_reward_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_cultural_m2_reward_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_cultural_m3_reward_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_cultural_m3_reward_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_cultural_m3_reward_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_cultural_m4_reward_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_cultural_m4_reward_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_cultural_m4_reward_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_cultural_m5_reward_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_cultural_m5_reward_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_cultural_m5_reward_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_science_m1_reward_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_science_m1_reward_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_science_m1_reward_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_science_m2_reward_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_science_m2_reward_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_science_m2_reward_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_science_m3_reward_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_science_m3_reward_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_science_m3_reward_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_science_m4_reward_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_science_m4_reward_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_science_m4_reward_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_science_m5_reward_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_science_m5_reward_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_select_science_m5_reward_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+# ---- Generated Victory Path Tree node unlock controls ----
+
+PERFORM_tv_tree_select_conquest_t1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_conquest_t2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_conquest_t3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_conquest_t4_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_conquest_t5_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_conquest_b1_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_conquest_b1_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_conquest_b2_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_conquest_b2_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_conquest_b2_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_conquest_b3_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_conquest_b3_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_conquest_b4_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_conquest_b4_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_conquest_b4_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_conquest_b5_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_conquest_b5_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_prosperity_t1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_prosperity_t2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_prosperity_t3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_prosperity_t4_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_prosperity_t5_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_prosperity_b1_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_prosperity_b1_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_prosperity_b1_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_prosperity_b2_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_prosperity_b2_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_prosperity_b2_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_prosperity_b2_4_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_prosperity_b3_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_prosperity_b3_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_prosperity_b4_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_prosperity_b4_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_prosperity_b4_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_prosperity_b5_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_prosperity_b5_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_prosperity_b5_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_trade_t1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_trade_t2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_trade_t3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_trade_t4_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_trade_t5_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_trade_b1_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_trade_b1_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_trade_b2_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_trade_b2_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_trade_b2_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_trade_b3_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_trade_b3_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_trade_b3_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_trade_b3_4_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_trade_b4_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_trade_b4_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_trade_b5_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_trade_b5_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_diplomatic_t1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_diplomatic_t2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_diplomatic_t3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_diplomatic_t4_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_diplomatic_t5_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_diplomatic_b1_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_diplomatic_b1_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_diplomatic_b2_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_diplomatic_b2_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_diplomatic_b2_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_diplomatic_b3_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_diplomatic_b3_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_diplomatic_b3_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_diplomatic_b4_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_diplomatic_b4_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_diplomatic_b4_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_diplomatic_b5_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_diplomatic_b5_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_cultural_t1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_cultural_t2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_cultural_t3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_cultural_t4_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_cultural_t5_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_cultural_b1_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_cultural_b1_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_cultural_b2_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_cultural_b2_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_cultural_b3_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_cultural_b3_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_cultural_b4_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_cultural_b4_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_cultural_b5_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_cultural_b5_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_science_t1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_science_t2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_science_t3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_science_t4_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_science_t5_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_science_b1_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_science_b1_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_science_b2_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_science_b2_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_science_b2_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_science_b3_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_science_b3_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_science_b4_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_science_b4_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_science_b5_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_tree_select_science_b5_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+# ---- Generated Victory Path task claim controls ----
+
+PERFORM_tv_victory_claim_conquest_task_slot_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_claim_conquest_task_slot_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_claim_conquest_task_slot_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_claim_prosperity_task_slot_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_claim_prosperity_task_slot_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_claim_prosperity_task_slot_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_claim_trade_task_slot_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_claim_trade_task_slot_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_claim_trade_task_slot_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_claim_diplomatic_task_slot_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_claim_diplomatic_task_slot_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_claim_diplomatic_task_slot_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_claim_cultural_task_slot_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_claim_cultural_task_slot_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_claim_cultural_task_slot_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_claim_science_task_slot_1_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_claim_science_task_slot_2_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_victory_claim_science_task_slot_3_ACTION={
+	log=no
+	onmap=no
+	popup=no
+	idle=no
+	option=no
+	pausepopup=no
+	message_category = government
+}
+
+# ---- Generated IO establishment controls ----
+
+PERFORM_tv_build_conquest_headquarters_ACTION={
 	log=yes
 	onmap=no
 	popup=no
 	idle=no
 	option=yes
 	pausepopup=no
-	message_category = society
+	message_category = government
+}
+
+PERFORM_tv_establish_conquest_io_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_build_prosperity_headquarters_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_establish_prosperity_io_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_build_trade_headquarters_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_establish_trade_io_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_build_diplomatic_headquarters_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_establish_diplomatic_io_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_build_cultural_headquarters_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_establish_cultural_io_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_build_science_headquarters_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = government
+}
+
+PERFORM_tv_establish_science_io_ACTION={
+	log=yes
+	onmap=no
+	popup=no
+	idle=no
+	option=yes
+	pausepopup=no
+	message_category = government
 }

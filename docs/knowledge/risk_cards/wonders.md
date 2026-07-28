@@ -48,13 +48,13 @@ and on_action ids; `tv_io_role_modifiers.txt`, `tv_game_concepts.txt` (+ loc),
 and `tv_io_chief_alert_triggers.txt` had their Engineering-Department-specific
 entries hand-moved out. `character_title.txt` and `messagetypes.txt` are
 winner-takes-all singleton databases, so each mod root receives a **full
-vanilla copy**, not an additive fragment. The Engineering Department copies
-contain its own subset; the main-mod copies are strict supersets. The declared
-main-mod -> Engineering Department dependency makes the main copy load later
-and win when both are enabled. Never reverse that subset relation or remove the
-dependency/load-order guarantee; `scripts/validate.py` checks vanilla-copy
-integrity, the exact Great Engineer title subset, every root's generic-action
-message types, and both superset relations.
+vanilla copy**, not an additive fragment. Both copies append the same complete
+TV entry union. A declared main-mod -> Engineering Department dependency does
+not reliably make the main singleton load last; an Engineering Department copy
+that won at runtime produced `Failed to find message type` errors for main-mod
+generic actions. Never split the appended entries by mod root or rely on
+launcher order; `scripts/validate.py` checks vanilla-copy integrity, per-root
+generic-action message coverage, and equality of both singleton outputs.
 
 The missing-Great-Engineer CMF alert is fully owned by the standalone mod:
 `tv_engineering_department_chief_alert_on_action.txt` provides the monthly sync

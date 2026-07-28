@@ -788,8 +788,8 @@ def check_vanilla_copy_integrity() -> None:
     """Ensure generated vanilla-copy files preserve copied vanilla content."""
     character_vanilla = REPO_ROOT / "reference_game_files/game/in_game/common/customizable_localization/character_title.txt"
     title_modifiers_by_root: dict[str, set[str]] = {}
-    # Both roots carry a full vanilla copy. The dependency-loaded main copy is
-    # a strict superset of the standalone Engineering Department insertion.
+    # Both roots carry identical full vanilla copies. Singleton winner order is
+    # not reliable across dependent mods, so either copy must be sufficient.
     for root in MOD_ROOTS:
         character_out = root / "in_game" / "common" / "customizable_localization" / "character_title.txt"
         if not (character_out.exists() and character_vanilla.exists()):
@@ -821,15 +821,10 @@ def check_vanilla_copy_integrity() -> None:
 
     main_titles = title_modifiers_by_root.get("src", set())
     engineering_titles = title_modifiers_by_root.get("src_engineering_department", set())
-    if engineering_titles != {"tv_great_engineer_role_modifier"}:
+    if main_titles != engineering_titles:
         issues.append(
-            "[VANILLA_COPY] src_engineering_department/in_game/common/customizable_localization/character_title.txt "
-            "-- standalone copy must contain exactly the Great Engineer title mapping"
-        )
-    if not engineering_titles.issubset(main_titles):
-        issues.append(
-            "[VANILLA_COPY] character_title.txt -- the later-loaded main-mod copy must be a superset "
-            "of the Engineering Department title mappings"
+            "[VANILLA_COPY] character_title.txt -- both mod roots must contain identical TV title mappings "
+            "because either singleton copy may load last"
         )
 
     message_vanilla = REPO_ROOT / "reference_game_files/game/main_menu/gui/messagetypes.txt"
@@ -865,22 +860,12 @@ def check_vanilla_copy_integrity() -> None:
                             f"[MESSAGE_TYPE] {action_file.relative_to(REPO_ROOT)} -- generic action "
                             f"{action} is missing {expected} from {message_out.relative_to(REPO_ROOT)}"
                         )
-            if root.name == "src_engineering_department":
-                standalone_tv_messages = {
-                    key for key in message_types if key.startswith("PERFORM_tv_")
-                }
-                if standalone_tv_messages != expected_action_messages:
-                    issues.append(
-                        "[MESSAGE_TYPE] src_engineering_department/main_menu/gui/messagetypes.txt -- "
-                        "standalone TV message types must exactly match its generic actions"
-                    )
-
     main_messages = message_types_by_root.get("src", set())
     engineering_messages = message_types_by_root.get("src_engineering_department", set())
-    if not engineering_messages.issubset(main_messages):
+    if main_messages != engineering_messages:
         issues.append(
-            "[VANILLA_COPY] messagetypes.txt -- the later-loaded main-mod copy must be a superset "
-            "of the Engineering Department message types"
+            "[VANILLA_COPY] messagetypes.txt -- both mod roots must contain identical message types "
+            "because either singleton copy may load last"
         )
 
 

@@ -1,12 +1,12 @@
 ﻿"""
-gen_messagetypes.py — Generate both mods' full-copy messagetypes.txt files.
-Copies vanilla and writes two full-copy outputs: an Engineering Department
-subset and the main mod's strict superset. The declared main -> Engineering
-Department dependency guarantees the superset wins when both mods are loaded.
+gen_messagetypes.py — Generate identical full-copy messagetypes.txt files.
+
+``messagetypes.txt`` is a winner-takes-all singleton. Mod dependency order
+does not reliably make the dependent main-mod copy win, so each full vanilla
+copy must append the complete TV message-type union.
 """
 import sys
 import pathlib
-import re
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -26,7 +26,6 @@ from scripts.victory_task_codegen import action_name as victory_task_action_name
 VANILLA = ROOT / "reference_game_files/game/main_menu/gui/messagetypes.txt"
 MAIN_OUT = ROOT / "src/main_menu/gui/messagetypes.txt"
 ENGINEERING_OUT = ROOT / "src_engineering_department/main_menu/gui/messagetypes.txt"
-ENGINEERING_GENERIC_ACTIONS_DIR = ROOT / "src_engineering_department/in_game/common/generic_actions"
 VICTORY_PATHS = ROOT / "data/victory_paths.yaml"
 IO_ESTABLISHMENT = ROOT / "data/io_establishment.yaml"
 
@@ -1167,40 +1166,6 @@ def io_establishment_message_entries() -> str:
     return "\n".join(blocks)
 
 
-def engineering_action_ids() -> list[str]:
-    """Read the standalone mod's top-level generic action ids."""
-    action_re = re.compile(r"^([a-z][A-Za-z0-9_]*)\s*=\s*\{", re.MULTILINE)
-    actions: set[str] = set()
-    for path in sorted(ENGINEERING_GENERIC_ACTIONS_DIR.glob("*.txt")):
-        actions.update(action_re.findall(path.read_text(encoding="utf-8-sig")))
-    if not actions:
-        raise ValueError(f"No Engineering Department generic actions found in {ENGINEERING_GENERIC_ACTIONS_DIR}")
-    return sorted(actions)
-
-
-def extract_message_type_block(text: str, message_type: str) -> str:
-    match = re.search(rf"(?m)^{re.escape(message_type)}\s*=\s*\{{", text)
-    if match is None:
-        raise ValueError(f"Missing message type block for {message_type}")
-    brace_start = text.find("{", match.start())
-    depth = 0
-    for index in range(brace_start, len(text)):
-        if text[index] == "{":
-            depth += 1
-        elif text[index] == "}":
-            depth -= 1
-            if depth == 0:
-                return text[match.start():index + 1]
-    raise ValueError(f"Unterminated message type block for {message_type}")
-
-
-def engineering_message_entries(all_entries: str) -> str:
-    """Filter the main superset down to the standalone mod's action blocks."""
-    blocks = ["\n# Engineering Department - Generic Action Message Types\n"]
-    for action in engineering_action_ids():
-        blocks.append(extract_message_type_block(all_entries, f"PERFORM_{action}_ACTION"))
-    return "\n\n".join(blocks) + "\n"
-
 vanilla_bytes = VANILLA.read_bytes()
 # strip BOM if present
 if vanilla_bytes.startswith(b'\xef\xbb\xbf'):
@@ -1215,10 +1180,9 @@ combined_entries = (
     + victory_task_message_entries()
     + io_establishment_message_entries()
 )
-engineering_entries = engineering_message_entries(combined_entries)
 for output, entries in (
     (MAIN_OUT, combined_entries),
-    (ENGINEERING_OUT, engineering_entries),
+    (ENGINEERING_OUT, combined_entries),
 ):
     output.parent.mkdir(parents=True, exist_ok=True)
     combined = b'\xef\xbb\xbf' + vanilla_bytes + entries.encode("utf-8")
