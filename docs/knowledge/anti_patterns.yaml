@@ -43,6 +43,17 @@
   source: "Project owner report, 2026-07-04"
   notes: 'Managed sandboxes can have read-only access to `C:\Users\Hades\anaconda3\conda-meta\history`, causing `conda run` to hang before the agent reaches validation or context output.'
 
+- id: same_id_database_override_missing_replace_prefix
+  pattern: '^(?:TV_HAS_VARIABLE_NOT_SET_TT|destroy_all_italian_leagues|university|library|prices\.(?:1|2|5|8|18|19|20|29|30))\s*=\s*\{'
+  detectability: lint
+  only_in_paths: ['tv_engineering_department_triggers.txt', 'tv_victory_path_task_effects.txt', 'tv_victory_path_task_buildings.txt', 'tv_victory_path_task_price_events.txt']
+  bad: "Copying an existing trigger-localization key, scripted effect, building type, or event ID into an override file with the original bare top-level key"
+  correction: "Prefix the overriding definition with `REPLACE:`, for example `REPLACE:university = { ... }` or `REPLACE:prices.1 = { ... }`, while preserving the complete original block plus the intended modification."
+  category: script
+  scope: any
+  source: "runtime error.log gamedatabase.h:408 / jomini_eventmanager.cpp:440, 2026-07-28; reference_mods/3626895335/in_game/common/scripted_effects/mshre_international_organization_effects.txt:1; reference_mods/3649381461/in_game/common/building_types/mod_improved_trade_&_buildings_buildings.txt:7"
+  notes: "EU5 does not infer replacement merely because a mod repeats an existing database key. Without the REPLACE prefix, the later block is rejected as a duplicate, so callbacks inserted into copied vanilla effects/buildings/events never load."
+
 - id: philosophy_debate_variant_random_list_ambiguity
   pattern: ''
   detectability: advisory

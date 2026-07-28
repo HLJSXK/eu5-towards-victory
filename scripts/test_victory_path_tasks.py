@@ -171,6 +171,7 @@ def main() -> None:
 
     price_events = read("src/in_game/events/tv_victory_path_task_price_events.txt")
     for event_id in (1, 2, 5, 8, 18, 19, 20, 29, 30):
+        assert f"REPLACE:prices.{event_id} = {{" in price_events
         assert price_events.count(f"tv_victory_task_prices_{event_id}_callback_effect = yes") == 1
     for event_id in (1, 2, 8):
         callback = _extract_top_level_block(effects, f"tv_victory_task_prices_{event_id}_callback_effect")
@@ -181,6 +182,8 @@ def main() -> None:
     assert "OR = {\n\t\t\treligion.group = religion_group:christian\n\t\t\treligion.group = religion_group:muslim" in prices_30
 
     buildings = read("src/in_game/common/building_types/tv_victory_path_task_buildings.txt")
+    assert "REPLACE:library = {" in buildings
+    assert "REPLACE:university = {" in buildings
     assert "tv_victory_task_build_library_callback_effect = yes" in buildings
     assert "tv_victory_task_build_university_callback_effect = yes" in buildings
     assert "tv_victory_task_callback_local_exhibition_ended_effect = yes" in read(
@@ -200,14 +203,20 @@ def main() -> None:
     )
     assert italian_callback.count("total_locations_owned >= 200") == 7
     assert "tv_victory_task_mark_4105_complete_effect = yes" in italian_callback
+    assert "REPLACE:destroy_all_italian_leagues = {" in effects
     generated_destroy = _extract_top_level_block(effects, "destroy_all_italian_leagues")
     vanilla_destroy = _extract_top_level_block(
         read("reference_game_files/game/in_game/common/scripted_effects/international_organization_effects.txt"),
         "destroy_all_italian_leagues",
     )
-    assert generated_destroy.replace(
+    assert generated_destroy.replace("REPLACE:", "", 1).replace(
         "\n\ttv_victory_task_italian_wars_ended_callback_effect = yes", "", 1
     ) == vanilla_destroy
+
+    trigger_localization = read(
+        "src_engineering_department/in_game/common/trigger_localization/tv_engineering_department_triggers.txt"
+    )
+    assert "REPLACE:TV_HAS_VARIABLE_NOT_SET_TT = {" in trigger_localization
 
     print("[OK] Victory Path task static checks passed")
 

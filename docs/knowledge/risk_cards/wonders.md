@@ -1166,6 +1166,14 @@ every country regardless so missing or damaged IOs are repaired.
     already refreshes elsewhere can mask a sibling transition that has no such click. See
     `docs/knowledge/anti_patterns.yaml` rule `one_shot_completion_gate_never_reset_on_multi_cycle_resume`.
 
+39. Prefix copied same-key database overrides with `REPLACE:`.
+    Engineering Department files can intentionally share a database key with the main mod or
+    vanilla, but a bare repeated top-level key is rejected rather than merged. For example, the
+    standalone trigger-localization copy of `TV_HAS_VARIABLE_NOT_SET_TT` must be declared as
+    `REPLACE:TV_HAS_VARIABLE_NOT_SET_TT = { ... }`. Apply the same rule to any copied vanilla
+    building/effect/event definition: retain the complete source block, add the intended callback,
+    and prefix the top-level key with `REPLACE:` so the modified block actually loads.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`: it lints rule 2 and rule 16 automatically, and when a

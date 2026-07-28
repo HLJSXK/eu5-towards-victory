@@ -4,7 +4,7 @@
 # Do not edit directly - modify the data/generator and re-run it.
 # Minimal same-ID Library/University overrides with construction callbacks.
 
-university = {
+REPLACE:university = {
 	audio_tier = 3
 	is_foreign = no
 	pop_type = clergy
@@ -60,7 +60,7 @@ university = {
 	}
 }
 
-library = {
+REPLACE:library = {
 	audio_tier = 2
 	is_foreign = no
 	pop_type = burghers

@@ -102,6 +102,13 @@ called directly from event options.
    `immediate` block instead, so the IO is committed, real state before any option renders.
    See `docs/knowledge/anti_patterns.yaml` rule `io_creation_in_visible_option_effect_breaks_tooltip_preview`.
 
+12. Prefix same-ID event overrides with `REPLACE:`.
+   Copying a vanilla event block into a mod file and keeping a bare id such as
+   `prices.1 = { ... }` does not override it. The event manager rejects the later block as a
+   duplicate, so inserted callbacks never load. Preserve the full vanilla block and emit
+   `REPLACE:prices.1 = { ... }` (and likewise for every other intentionally overridden id).
+   Fix generated event overrides in their generator, not only in the generated `.txt` file.
+
 ## Validation
 
 Run:

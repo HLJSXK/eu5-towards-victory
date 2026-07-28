@@ -1353,6 +1353,29 @@ The engine evaluates `ruler_residence`'s triggers against `ROOT.GetCountry` (mat
 
 This is the mechanism to prefer over hand-rolled `triggered_desc`-in-loc chains when the *only* thing that varies per-scope is a noun/phrase substitution driven by simple triggers — it keeps the conditional logic in one script block instead of duplicating trigger conditions across every calling loc string.
 
+#### Replacing Existing Database Keys
+
+Repeating an existing top-level database key with its bare name does not imply an override. EU5
+rejects the later definition and logs either `Duplicated key <key> will not be created` or, for
+events, `Duplicated event ID '<namespace>.<id>' found`. Use the `REPLACE:` prefix on the overriding
+definition:
+
+```txt
+REPLACE:university = {
+    # Complete vanilla building block plus the mod's changes.
+}
+
+REPLACE:prices.1 = {
+    # Complete vanilla event block plus the mod's changes.
+}
+```
+
+The same prefix applies to copied scripted effects and trigger-localization database entries. Keep
+the complete source block unless that database type explicitly supports partial merging; the
+prefix changes which definition wins, but does not reconstruct omitted properties. Generated
+overrides must add `REPLACE:` in the generator so regeneration cannot restore the duplicate-key
+bug.
+
 #### Customizable Localization Database Keys
 
 Customizable localization files under `in_game/common/customizable_localization/` are parsed as database entries keyed by the top-level block name. These keys are not additive merge blocks. For example, adding a second file with `character_title_prefix = { ... }` causes the engine to ignore the duplicate and log `Duplicated key character_title_prefix will not be created`.

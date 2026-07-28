@@ -15307,7 +15307,7 @@ tv_victory_path_tasks_diplomatic_state_changed_effect = {
 }
 
 # Same-ID vanilla helper override: append task resolution before league destruction.
-destroy_all_italian_leagues = {
+REPLACE:destroy_all_italian_leagues = {
 	tv_victory_task_italian_wars_ended_callback_effect = yes
 	custom_tooltip = {
 		text = destroy_all_italian_leagues_tt

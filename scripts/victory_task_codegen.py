@@ -979,7 +979,7 @@ def generate_effects(data: dict, script: str) -> str:
         raise ValueError("Vanilla destroy_all_italian_leagues shape changed")
     override = vanilla_destroy.replace(
         opening,
-        opening + "\n\ttv_victory_task_italian_wars_ended_callback_effect = yes",
+        "REPLACE:" + opening + "\n\ttv_victory_task_italian_wars_ended_callback_effect = yes",
         1,
     )
     emit(lines, 0, "# Same-ID vanilla helper override: append task resolution before league destruction.")
@@ -1108,7 +1108,7 @@ def generate_on_actions(data: dict, script: str) -> str:
 
 
 def _extract_top_level_block(text: str, key: str) -> str:
-    match = re.search(rf"(?m)^\s*{re.escape(key)}\s*=\s*\{{", text)
+    match = re.search(rf"(?m)^\s*(?:REPLACE:)?{re.escape(key)}\s*=\s*\{{", text)
     if not match:
         raise ValueError(f"Top-level block not found: {key}")
     start = match.start()
@@ -1137,6 +1137,13 @@ def _extract_top_level_block(text: str, key: str) -> str:
     raise ValueError(f"Unterminated top-level block: {key}")
 
 
+def _as_replace_block(block: str, key: str) -> str:
+    opening = f"{key} = {{"
+    if not block.startswith(opening):
+        raise ValueError(f"Top-level block shape changed: {key}")
+    return block.replace(opening, f"REPLACE:{opening}", 1)
+
+
 def generate_price_events(data: dict, script: str) -> str:
     source = VANILLA_PRICES.read_text(encoding="utf-8-sig")
     event_ids = sorted(int(t["event_id"]) for t in all_tasks(data) if t.get("event_id") is not None)
@@ -1154,7 +1161,7 @@ def generate_price_events(data: dict, script: str) -> str:
         if marker not in block:
             raise ValueError(f"prices.{event_id} has no image insertion marker")
         block = block.replace(marker, insertion + marker, 1)
-        blocks.append(block)
+        blocks.append(_as_replace_block(block, f"prices.{event_id}"))
     return header(script, "Minimal same-ID vanilla price event overrides with task callbacks.", "reference_game_files/.../prices.txt") + "\nnamespace = prices\n\n" + "\n\n".join(blocks) + "\n"
 
 
@@ -1171,7 +1178,7 @@ def generate_building_overrides(data: dict, script: str) -> str:
             "\t}\n"
         )
         block = block[:-1].rstrip() + callback + "}"
-        blocks.append(block)
+        blocks.append(_as_replace_block(block, building))
     return header(script, "Minimal same-ID Library/University overrides with construction callbacks.", "reference_game_files/.../culture_buildings.txt") + "\n" + "\n\n".join(blocks) + "\n"
 
 
