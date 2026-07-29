@@ -8,7 +8,7 @@ from scripts.victory_task_codegen import generate_action_events, load_data, writ
 
 
 SCRIPT = "scripts/in_game/events/gen_tv_victory_path_task_action_events.py"
-OUT = REPO_ROOT / "src/in_game/events/0000_tv_victory_path_task_action_events.txt"
+OUT = REPO_ROOT / "src/in_game/events/tv_victory_path_task_action_events.txt"
 
 
 if __name__ == "__main__":
