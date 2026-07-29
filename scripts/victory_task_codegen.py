@@ -433,7 +433,10 @@ def _appearance_body(task: dict) -> list[str]:
         "black_death_active": ["is_situation_active = situation:black_death"],
     }
     if key == "institution_not_embraced":
-        return [f"NOT = {{ has_embraced_institution = institution:{task['institution']} }}"]
+        return [
+            f"institution:{task['institution']} = {{ has_spawned = yes }}",
+            f"NOT = {{ has_embraced_institution = institution:{task['institution']} }}",
+        ]
     if key not in chain:
         raise KeyError(f"Unsupported appearance condition: {key} ({task['id']})")
     return chain[key]

@@ -1524,6 +1524,7 @@ tv_victory_task_6001_candidate = {
 tv_victory_task_6011_candidate = {
 	is_human = yes
 	NOT = { has_variable = tv_victory_task_6011_claimed }
+	institution:feudalism = { has_spawned = yes }
 	NOT = { has_embraced_institution = institution:feudalism }
 	NOT = { tv_victory_task_6011_current_condition = yes }
 }
@@ -1531,6 +1532,7 @@ tv_victory_task_6011_candidate = {
 tv_victory_task_6012_candidate = {
 	is_human = yes
 	NOT = { has_variable = tv_victory_task_6012_claimed }
+	institution:legalism = { has_spawned = yes }
 	NOT = { has_embraced_institution = institution:legalism }
 	NOT = { tv_victory_task_6012_current_condition = yes }
 }
@@ -1538,6 +1540,7 @@ tv_victory_task_6012_candidate = {
 tv_victory_task_6013_candidate = {
 	is_human = yes
 	NOT = { has_variable = tv_victory_task_6013_claimed }
+	institution:meritocracy = { has_spawned = yes }
 	NOT = { has_embraced_institution = institution:meritocracy }
 	NOT = { tv_victory_task_6013_current_condition = yes }
 }
@@ -1545,6 +1548,7 @@ tv_victory_task_6013_candidate = {
 tv_victory_task_6014_candidate = {
 	is_human = yes
 	NOT = { has_variable = tv_victory_task_6014_claimed }
+	institution:renaissance = { has_spawned = yes }
 	NOT = { has_embraced_institution = institution:renaissance }
 	NOT = { tv_victory_task_6014_current_condition = yes }
 }
@@ -1552,6 +1556,7 @@ tv_victory_task_6014_candidate = {
 tv_victory_task_6015_candidate = {
 	is_human = yes
 	NOT = { has_variable = tv_victory_task_6015_claimed }
+	institution:banking = { has_spawned = yes }
 	NOT = { has_embraced_institution = institution:banking }
 	NOT = { tv_victory_task_6015_current_condition = yes }
 }
@@ -1559,6 +1564,7 @@ tv_victory_task_6015_candidate = {
 tv_victory_task_6016_candidate = {
 	is_human = yes
 	NOT = { has_variable = tv_victory_task_6016_claimed }
+	institution:professional_armies = { has_spawned = yes }
 	NOT = { has_embraced_institution = institution:professional_armies }
 	NOT = { tv_victory_task_6016_current_condition = yes }
 }
@@ -1566,6 +1572,7 @@ tv_victory_task_6016_candidate = {
 tv_victory_task_6017_candidate = {
 	is_human = yes
 	NOT = { has_variable = tv_victory_task_6017_claimed }
+	institution:new_world = { has_spawned = yes }
 	NOT = { has_embraced_institution = institution:new_world }
 	NOT = { tv_victory_task_6017_current_condition = yes }
 }
@@ -1573,6 +1580,7 @@ tv_victory_task_6017_candidate = {
 tv_victory_task_6018_candidate = {
 	is_human = yes
 	NOT = { has_variable = tv_victory_task_6018_claimed }
+	institution:printing_press = { has_spawned = yes }
 	NOT = { has_embraced_institution = institution:printing_press }
 	NOT = { tv_victory_task_6018_current_condition = yes }
 }
@@ -1580,6 +1588,7 @@ tv_victory_task_6018_candidate = {
 tv_victory_task_6019_candidate = {
 	is_human = yes
 	NOT = { has_variable = tv_victory_task_6019_claimed }
+	institution:pike_and_shot = { has_spawned = yes }
 	NOT = { has_embraced_institution = institution:pike_and_shot }
 	NOT = { tv_victory_task_6019_current_condition = yes }
 }
@@ -1587,6 +1596,7 @@ tv_victory_task_6019_candidate = {
 tv_victory_task_6020_candidate = {
 	is_human = yes
 	NOT = { has_variable = tv_victory_task_6020_claimed }
+	institution:confessionalism = { has_spawned = yes }
 	NOT = { has_embraced_institution = institution:confessionalism }
 	NOT = { tv_victory_task_6020_current_condition = yes }
 }
@@ -1594,6 +1604,7 @@ tv_victory_task_6020_candidate = {
 tv_victory_task_6021_candidate = {
 	is_human = yes
 	NOT = { has_variable = tv_victory_task_6021_claimed }
+	institution:global_trade = { has_spawned = yes }
 	NOT = { has_embraced_institution = institution:global_trade }
 	NOT = { tv_victory_task_6021_current_condition = yes }
 }
@@ -1601,6 +1612,7 @@ tv_victory_task_6021_candidate = {
 tv_victory_task_6022_candidate = {
 	is_human = yes
 	NOT = { has_variable = tv_victory_task_6022_claimed }
+	institution:artillery_institution = { has_spawned = yes }
 	NOT = { has_embraced_institution = institution:artillery_institution }
 	NOT = { tv_victory_task_6022_current_condition = yes }
 }
@@ -1608,6 +1620,7 @@ tv_victory_task_6022_candidate = {
 tv_victory_task_6023_candidate = {
 	is_human = yes
 	NOT = { has_variable = tv_victory_task_6023_claimed }
+	institution:manufactories = { has_spawned = yes }
 	NOT = { has_embraced_institution = institution:manufactories }
 	NOT = { tv_victory_task_6023_current_condition = yes }
 }
@@ -1615,6 +1628,7 @@ tv_victory_task_6023_candidate = {
 tv_victory_task_6024_candidate = {
 	is_human = yes
 	NOT = { has_variable = tv_victory_task_6024_claimed }
+	institution:scientific_revolution = { has_spawned = yes }
 	NOT = { has_embraced_institution = institution:scientific_revolution }
 	NOT = { tv_victory_task_6024_current_condition = yes }
 }
@@ -1622,6 +1636,7 @@ tv_victory_task_6024_candidate = {
 tv_victory_task_6025_candidate = {
 	is_human = yes
 	NOT = { has_variable = tv_victory_task_6025_claimed }
+	institution:military_revolution = { has_spawned = yes }
 	NOT = { has_embraced_institution = institution:military_revolution }
 	NOT = { tv_victory_task_6025_current_condition = yes }
 }
@@ -1629,6 +1644,7 @@ tv_victory_task_6025_candidate = {
 tv_victory_task_6026_candidate = {
 	is_human = yes
 	NOT = { has_variable = tv_victory_task_6026_claimed }
+	institution:enlightenment = { has_spawned = yes }
 	NOT = { has_embraced_institution = institution:enlightenment }
 	NOT = { tv_victory_task_6026_current_condition = yes }
 }
@@ -1636,6 +1652,7 @@ tv_victory_task_6026_candidate = {
 tv_victory_task_6027_candidate = {
 	is_human = yes
 	NOT = { has_variable = tv_victory_task_6027_claimed }
+	institution:industrialization = { has_spawned = yes }
 	NOT = { has_embraced_institution = institution:industrialization }
 	NOT = { tv_victory_task_6027_current_condition = yes }
 }
@@ -1643,6 +1660,7 @@ tv_victory_task_6027_candidate = {
 tv_victory_task_6028_candidate = {
 	is_human = yes
 	NOT = { has_variable = tv_victory_task_6028_claimed }
+	institution:levee_en_masse = { has_spawned = yes }
 	NOT = { has_embraced_institution = institution:levee_en_masse }
 	NOT = { tv_victory_task_6028_current_condition = yes }
 }

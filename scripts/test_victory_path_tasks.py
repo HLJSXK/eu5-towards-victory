@@ -62,10 +62,20 @@ def main() -> None:
     pulse_registry = read("data/pulse_registry.yaml")
     pulse_bridge = read("src/in_game/common/on_action/tv_pulse_bridges.txt")
 
+    for task in data["paths"]["science"]["tasks"]:
+        if "institution" not in task:
+            continue
+        candidate = _extract_top_level_block(
+            triggers, f"tv_victory_task_{task['id']}_candidate"
+        )
+        assert f"institution:{task['institution']} = {{ has_spawned = yes }}" in candidate
+
     action_ids = re.findall(r"(?m)^(tv_victory_claim_[a-z0-9_]+)\s*=\s*\{", actions)
-    assert len(action_ids) == 18 and len(set(action_ids)) == 18
-    assert actions.count("ai_tick = never") == 18
-    assert actions.count("automation_tick = never") == 18
+    task_slot_count = len(PATH_IDS) * len(SLOTS)
+    assert len(action_ids) == task_slot_count and len(set(action_ids)) == task_slot_count
+    # Each slot emits both a claim action and a right-click refresh action.
+    assert actions.count("ai_tick = never") == task_slot_count * 2
+    assert actions.count("automation_tick = never") == task_slot_count * 2
     assert "potential = { always = no }" in ai_list
 
     monthly = _extract_top_level_block(effects, "tv_victory_path_tasks_monthly_pulse_effect")
