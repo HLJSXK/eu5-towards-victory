@@ -194,12 +194,24 @@ def refresh_action_name(path_id: str, slot: int) -> str:
     return f"tv_victory_refresh_{path_id}_task_slot_{slot}"
 
 
+def task_action_event_id(path_id: str, slot: int, action: str) -> str:
+    """Return the deterministic hidden-event id for one task-card action."""
+    if action not in {"claim", "refresh"}:
+        raise ValueError(f"Unsupported Victory task action event type: {action}")
+    path_offset = PATH_IDS.index(path_id) * len(SLOTS) * 2
+    slot_offset = (slot - 1) * 2
+    action_offset = 0 if action == "claim" else 1
+    return f"{TASK_ACTION_EVENT_NAMESPACE}.{path_offset + slot_offset + action_offset + 1}"
+
+
 def emit(lines: list[str], level: int = 0, text: str = "") -> None:
     lines.append("\t" * level + text if text else "")
 
 
 CANDIDATE_METRICS_PREPARED_FLAG = "tv_victory_task_candidate_metrics_prepared"
 TASK_REFRESH_PRESTIGE_COST = 10
+TASK_ACTION_EVENT_NAMESPACE = "tv_victory_task_action"
+TASK_ACTION_EVENT_TITLE_KEY = "TV_VICTORY_TASK_ACTION_EVENT_TITLE"
 
 
 def uses_monthly_pulse(task: dict) -> bool:
@@ -1048,6 +1060,57 @@ def generate_effects(data: dict, script: str) -> str:
     return "\n".join(lines)
 
 
+def generate_action_events(data: dict, script: str) -> str:
+    """Generate hidden event-immediate executors for task-card actions.
+
+    Generic-action previews walk through the card effect chain, including
+    hidden_effect helper calls.  They do not descend into the immediate block
+    of a silently triggered event, so the expensive refresh/assignment chain
+    lives here instead of on the card button.
+    """
+    lines = [
+        header(script, "Hidden event-immediate executors for Victory Path task-card actions."),
+        "",
+        f"namespace = {TASK_ACTION_EVENT_NAMESPACE}",
+        "",
+    ]
+    for path_id in PATH_IDS:
+        for slot in SLOTS:
+            prefix = slot_prefix(path_id, slot)
+            claim_event = task_action_event_id(path_id, slot, "claim")
+            refresh_event = task_action_event_id(path_id, slot, "refresh")
+
+            emit(lines, 0, f"{claim_event} = {{")
+            emit(lines, 1, "type = country_event")
+            emit(lines, 1, f"title = {TASK_ACTION_EVENT_TITLE_KEY}")
+            emit(lines, 1, "hidden = yes")
+            emit(lines, 1, "immediate = {")
+            emit(lines, 2, f"{claim_effect(path_id, slot)} = yes")
+            emit(lines, 1, "}")
+            emit(lines, 0, "}")
+            emit(lines)
+
+            emit(lines, 0, f"{refresh_event} = {{")
+            emit(lines, 1, "type = country_event")
+            emit(lines, 1, f"title = {TASK_ACTION_EVENT_TITLE_KEY}")
+            emit(lines, 1, "hidden = yes")
+            emit(lines, 1, "immediate = {")
+            emit(lines, 2, "if = {")
+            emit(lines, 3, "limit = {")
+            emit(lines, 4, "is_human = yes")
+            emit(lines, 4, f"has_variable = tv_{path_id}_victory_enabled")
+            emit(lines, 4, f"var:{prefix}_id ?= {{ this > 0 }}")
+            emit(lines, 4, f"prestige >= {TASK_REFRESH_PRESTIGE_COST}")
+            emit(lines, 3, "}")
+            emit(lines, 3, f"add_prestige = -{TASK_REFRESH_PRESTIGE_COST}")
+            emit(lines, 3, f"{refresh_effect(path_id, slot)} = yes")
+            emit(lines, 2, "}")
+            emit(lines, 1, "}")
+            emit(lines, 0, "}")
+            emit(lines)
+    return "\n".join(lines)
+
+
 def generate_actions(data: dict, script: str) -> str:
     lines = [header(script, "Player-only task claim and right-click refresh actions."), ""]
     for path_id in PATH_IDS:
@@ -1055,6 +1118,8 @@ def generate_actions(data: dict, script: str) -> str:
             prefix = slot_prefix(path_id, slot)
             name = action_name(path_id, slot)
             refresh_name = refresh_action_name(path_id, slot)
+            claim_event = task_action_event_id(path_id, slot, "claim")
+            refresh_event = task_action_event_id(path_id, slot, "refresh")
             emit(lines, 0, f"{name} = {{")
             emit(lines, 1, "type = owncountry")
             emit(lines, 1, "show_message = no")
@@ -1065,7 +1130,7 @@ def generate_actions(data: dict, script: str) -> str:
             emit(lines, 1, "effect = {")
             emit(lines, 2, "scope:actor = {")
             emit(lines, 3, "hidden_effect = {")
-            emit(lines, 4, f"{claim_effect(path_id, slot)} = yes")
+            emit(lines, 4, f"trigger_event_silently = {{ id = {claim_event} }}")
             emit(lines, 3, "}")
             emit(lines, 2, "}")
             emit(lines, 1, "}")
@@ -1082,16 +1147,7 @@ def generate_actions(data: dict, script: str) -> str:
             emit(lines, 1, "effect = {")
             emit(lines, 2, "scope:actor = {")
             emit(lines, 3, "hidden_effect = {")
-            emit(lines, 4, "if = {")
-            emit(lines, 5, "limit = {")
-            emit(lines, 6, "is_human = yes")
-            emit(lines, 6, f"has_variable = tv_{path_id}_victory_enabled")
-            emit(lines, 6, f"var:{prefix}_id ?= {{ this > 0 }}")
-            emit(lines, 6, f"prestige >= {TASK_REFRESH_PRESTIGE_COST}")
-            emit(lines, 5, "}")
-            emit(lines, 5, f"add_prestige = -{TASK_REFRESH_PRESTIGE_COST}")
-            emit(lines, 5, f"{refresh_effect(path_id, slot)} = yes")
-            emit(lines, 4, "}")
+            emit(lines, 4, f"trigger_event_silently = {{ id = {refresh_event} }}")
             emit(lines, 3, "}")
             emit(lines, 2, "}")
             emit(lines, 1, "}")
@@ -1294,6 +1350,8 @@ def generate_localization(data: dict, script: str, *, language: str) -> str:
         if zh
         else "Left-click to claim: +1 node progress for this Victory Path.\\nRight-click: spend #Y 10 Prestige#! to refresh this slot immediately."
     )
+    hidden_event_title = "胜利之路任务更新" if zh else "Victory Path Task Update"
+    lines.append(f" {TASK_ACTION_EVENT_TITLE_KEY}: {_yaml_quote(hidden_event_title)}")
     lines.append(f" TV_VICTORY_TASK_CLAIM_HINT: {_yaml_quote(claim_hint)}")
     for task in all_tasks(data):
         title = task["loc"]["zh" if zh else "en"]
