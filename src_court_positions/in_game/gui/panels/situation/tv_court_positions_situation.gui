@@ -7,7 +7,12 @@ situation_panel = {
 	# The vanilla situation panel owns the header, tabs, and scroll area.
 	# Situation-specific cards must be injected into this named content block.
 	blockoverride "situation_panel_main_content" {
-		text_multi = { max_width = 610 autoresize = yes text = "TV_COURT_POSITIONS_INTRO" }
+		vbox = {
+			layoutpolicy_horizontal = fixed
+			minimumsize = { 500 -1 }
+			maximumsize = { 500 -1 }
+			text_multi = { layoutpolicy_horizontal = expanding max_width = 500 autoresize = yes text = "TV_COURT_POSITIONS_INTRO" }
+		}
 					situation_card_common = {
 						minimumsize = { -1 118 }
 						blockoverride "common_header_icon" { visible = no }
@@ -34,18 +39,20 @@ situation_panel = {
 										datacontext = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_physician_character').GetCharacter]"
 										icon = { block "character_frame_texture" { texture = "gfx/interface/component_decoration/character_frames/character_frame_1.dds" } texture_density = 2 size = { 100% 100% } }
 									}
-									text_single = { visible = "[Not(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_physician_character').IsSet)]" size = { 76 92 } raw_text = "+" fontsize = 32 align = center|nobaseline default_format = "#yellow_titles" }
+									hbox = { visible = "[Not(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_physician_character').IsSet)]" size = { 100% 100% } layoutpolicy_horizontal = expanding layoutpolicy_vertical = expanding vbox = { layoutpolicy_horizontal = expanding layoutpolicy_vertical = expanding expand = {} text_single = { layoutpolicy_horizontal = expanding raw_text = "+" fontsize = 32 align = center|nobaseline default_format = "#yellow_titles" } expand = {} } }
 									}
 									vbox = {
-									layoutpolicy_horizontal = expanding
+									layoutpolicy_horizontal = fixed
+									minimumsize = { 400 -1 }
+									maximumsize = { 400 -1 }
 									ignoreinvisible = yes
-									text_single = { visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_physician_character').IsSet]" datacontext = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_physician_character').GetCharacter]" text = "[Character.GetShortNameWithNoTooltip]" fontsize = 15 align = nobaseline }
-									text_single = { visible = "[Not(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_physician_character').IsSet)]" text = "TV_COURT_POSITION_VACANT" fontsize = 15 align = nobaseline }
-									text_single = { text = "[Localize('TV_COURT_ABILITY_LABEL')] [ToString_int32(FixedPointToInt(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_physician_ability').GetValue))] / 100   [Localize('TV_COURT_SALARY_LABEL')] [SituationView.GetPlayer.MakeScope.GetVariable('tv_court_physician_salary').GetValue|2]" fontsize = 12 align = nobaseline }
+									text_single = { visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_physician_character').IsSet]" datacontext = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_physician_character').GetCharacter]" maximumsize = { 400 -1 } autoresize = yes elide = right text = "[Character.GetShortNameWithNoTooltip]" fontsize = 15 align = nobaseline }
+									text_single = { visible = "[Not(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_physician_character').IsSet)]" maximumsize = { 400 -1 } autoresize = yes elide = right text = "TV_COURT_POSITION_VACANT" fontsize = 15 align = nobaseline }
+									text_single = { maximumsize = { 400 -1 } autoresize = yes elide = right text = "[Localize('TV_COURT_ABILITY_LABEL')] [ToString_int32(FixedPointToInt(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_physician_ability').GetValue))] / 100   [Localize('TV_COURT_SALARY_LABEL')] [SituationView.GetPlayer.MakeScope.GetVariable('tv_court_physician_salary').GetValue|2]" fontsize = 12 align = nobaseline }
 									TooltipStringPairList = {
 										layoutpolicy_horizontal = fixed
-										maximumsize = { 500 -1 }
-										blockoverride "tooltip_minimumsize" { minimumsize = { 500 -1 } }
+										maximumsize = { 400 -1 }
+										blockoverride "tooltip_minimumsize" { minimumsize = { 400 -1 } }
 										blockoverride "field_text_format" { fontsize = 12 autoresize = yes max_width = 140 elide = right }
 										textcontext = "[ShowModifierEffect(Concatenate('tv_court_physician_display_', ToString_int32(FixedPointToInt(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_physician_ability').GetValue))))]"
 									}
@@ -83,18 +90,20 @@ situation_panel = {
 										datacontext = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_tutor_character').GetCharacter]"
 										icon = { block "character_frame_texture" { texture = "gfx/interface/component_decoration/character_frames/character_frame_1.dds" } texture_density = 2 size = { 100% 100% } }
 									}
-									text_single = { visible = "[Not(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_tutor_character').IsSet)]" size = { 76 92 } raw_text = "+" fontsize = 32 align = center|nobaseline default_format = "#yellow_titles" }
+									hbox = { visible = "[Not(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_tutor_character').IsSet)]" size = { 100% 100% } layoutpolicy_horizontal = expanding layoutpolicy_vertical = expanding vbox = { layoutpolicy_horizontal = expanding layoutpolicy_vertical = expanding expand = {} text_single = { layoutpolicy_horizontal = expanding raw_text = "+" fontsize = 32 align = center|nobaseline default_format = "#yellow_titles" } expand = {} } }
 									}
 									vbox = {
-									layoutpolicy_horizontal = expanding
+									layoutpolicy_horizontal = fixed
+									minimumsize = { 400 -1 }
+									maximumsize = { 400 -1 }
 									ignoreinvisible = yes
-									text_single = { visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_tutor_character').IsSet]" datacontext = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_tutor_character').GetCharacter]" text = "[Character.GetShortNameWithNoTooltip]" fontsize = 15 align = nobaseline }
-									text_single = { visible = "[Not(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_tutor_character').IsSet)]" text = "TV_COURT_POSITION_VACANT" fontsize = 15 align = nobaseline }
-									text_single = { text = "[Localize('TV_COURT_ABILITY_LABEL')] [ToString_int32(FixedPointToInt(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_tutor_ability').GetValue))] / 100   [Localize('TV_COURT_SALARY_LABEL')] [SituationView.GetPlayer.MakeScope.GetVariable('tv_court_tutor_salary').GetValue|2]" fontsize = 12 align = nobaseline }
+									text_single = { visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_tutor_character').IsSet]" datacontext = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_tutor_character').GetCharacter]" maximumsize = { 400 -1 } autoresize = yes elide = right text = "[Character.GetShortNameWithNoTooltip]" fontsize = 15 align = nobaseline }
+									text_single = { visible = "[Not(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_tutor_character').IsSet)]" maximumsize = { 400 -1 } autoresize = yes elide = right text = "TV_COURT_POSITION_VACANT" fontsize = 15 align = nobaseline }
+									text_single = { maximumsize = { 400 -1 } autoresize = yes elide = right text = "[Localize('TV_COURT_ABILITY_LABEL')] [ToString_int32(FixedPointToInt(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_tutor_ability').GetValue))] / 100   [Localize('TV_COURT_SALARY_LABEL')] [SituationView.GetPlayer.MakeScope.GetVariable('tv_court_tutor_salary').GetValue|2]" fontsize = 12 align = nobaseline }
 									TooltipStringPairList = {
 										layoutpolicy_horizontal = fixed
-										maximumsize = { 500 -1 }
-										blockoverride "tooltip_minimumsize" { minimumsize = { 500 -1 } }
+										maximumsize = { 400 -1 }
+										blockoverride "tooltip_minimumsize" { minimumsize = { 400 -1 } }
 										blockoverride "field_text_format" { fontsize = 12 autoresize = yes max_width = 140 elide = right }
 										textcontext = "[ShowModifierEffect(Concatenate('tv_court_tutor_display_', ToString_int32(FixedPointToInt(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_tutor_ability').GetValue))))]"
 									}
@@ -132,18 +141,20 @@ situation_panel = {
 										datacontext = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_steward_character').GetCharacter]"
 										icon = { block "character_frame_texture" { texture = "gfx/interface/component_decoration/character_frames/character_frame_1.dds" } texture_density = 2 size = { 100% 100% } }
 									}
-									text_single = { visible = "[Not(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_steward_character').IsSet)]" size = { 76 92 } raw_text = "+" fontsize = 32 align = center|nobaseline default_format = "#yellow_titles" }
+									hbox = { visible = "[Not(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_steward_character').IsSet)]" size = { 100% 100% } layoutpolicy_horizontal = expanding layoutpolicy_vertical = expanding vbox = { layoutpolicy_horizontal = expanding layoutpolicy_vertical = expanding expand = {} text_single = { layoutpolicy_horizontal = expanding raw_text = "+" fontsize = 32 align = center|nobaseline default_format = "#yellow_titles" } expand = {} } }
 									}
 									vbox = {
-									layoutpolicy_horizontal = expanding
+									layoutpolicy_horizontal = fixed
+									minimumsize = { 400 -1 }
+									maximumsize = { 400 -1 }
 									ignoreinvisible = yes
-									text_single = { visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_steward_character').IsSet]" datacontext = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_steward_character').GetCharacter]" text = "[Character.GetShortNameWithNoTooltip]" fontsize = 15 align = nobaseline }
-									text_single = { visible = "[Not(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_steward_character').IsSet)]" text = "TV_COURT_POSITION_VACANT" fontsize = 15 align = nobaseline }
-									text_single = { text = "[Localize('TV_COURT_ABILITY_LABEL')] [ToString_int32(FixedPointToInt(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_steward_ability').GetValue))] / 100   [Localize('TV_COURT_SALARY_LABEL')] [SituationView.GetPlayer.MakeScope.GetVariable('tv_court_steward_salary').GetValue|2]" fontsize = 12 align = nobaseline }
+									text_single = { visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_steward_character').IsSet]" datacontext = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_steward_character').GetCharacter]" maximumsize = { 400 -1 } autoresize = yes elide = right text = "[Character.GetShortNameWithNoTooltip]" fontsize = 15 align = nobaseline }
+									text_single = { visible = "[Not(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_steward_character').IsSet)]" maximumsize = { 400 -1 } autoresize = yes elide = right text = "TV_COURT_POSITION_VACANT" fontsize = 15 align = nobaseline }
+									text_single = { maximumsize = { 400 -1 } autoresize = yes elide = right text = "[Localize('TV_COURT_ABILITY_LABEL')] [ToString_int32(FixedPointToInt(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_steward_ability').GetValue))] / 100   [Localize('TV_COURT_SALARY_LABEL')] [SituationView.GetPlayer.MakeScope.GetVariable('tv_court_steward_salary').GetValue|2]" fontsize = 12 align = nobaseline }
 									TooltipStringPairList = {
 										layoutpolicy_horizontal = fixed
-										maximumsize = { 500 -1 }
-										blockoverride "tooltip_minimumsize" { minimumsize = { 500 -1 } }
+										maximumsize = { 400 -1 }
+										blockoverride "tooltip_minimumsize" { minimumsize = { 400 -1 } }
 										blockoverride "field_text_format" { fontsize = 12 autoresize = yes max_width = 140 elide = right }
 										textcontext = "[ShowModifierEffect(Concatenate('tv_court_steward_display_', ToString_int32(FixedPointToInt(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_steward_ability').GetValue))))]"
 									}
@@ -181,18 +192,20 @@ situation_panel = {
 										datacontext = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_architect_character').GetCharacter]"
 										icon = { block "character_frame_texture" { texture = "gfx/interface/component_decoration/character_frames/character_frame_1.dds" } texture_density = 2 size = { 100% 100% } }
 									}
-									text_single = { visible = "[Not(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_architect_character').IsSet)]" size = { 76 92 } raw_text = "+" fontsize = 32 align = center|nobaseline default_format = "#yellow_titles" }
+									hbox = { visible = "[Not(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_architect_character').IsSet)]" size = { 100% 100% } layoutpolicy_horizontal = expanding layoutpolicy_vertical = expanding vbox = { layoutpolicy_horizontal = expanding layoutpolicy_vertical = expanding expand = {} text_single = { layoutpolicy_horizontal = expanding raw_text = "+" fontsize = 32 align = center|nobaseline default_format = "#yellow_titles" } expand = {} } }
 									}
 									vbox = {
-									layoutpolicy_horizontal = expanding
+									layoutpolicy_horizontal = fixed
+									minimumsize = { 400 -1 }
+									maximumsize = { 400 -1 }
 									ignoreinvisible = yes
-									text_single = { visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_architect_character').IsSet]" datacontext = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_architect_character').GetCharacter]" text = "[Character.GetShortNameWithNoTooltip]" fontsize = 15 align = nobaseline }
-									text_single = { visible = "[Not(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_architect_character').IsSet)]" text = "TV_COURT_POSITION_VACANT" fontsize = 15 align = nobaseline }
-									text_single = { text = "[Localize('TV_COURT_ABILITY_LABEL')] [ToString_int32(FixedPointToInt(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_architect_ability').GetValue))] / 100   [Localize('TV_COURT_SALARY_LABEL')] [SituationView.GetPlayer.MakeScope.GetVariable('tv_court_architect_salary').GetValue|2]" fontsize = 12 align = nobaseline }
+									text_single = { visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_architect_character').IsSet]" datacontext = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_architect_character').GetCharacter]" maximumsize = { 400 -1 } autoresize = yes elide = right text = "[Character.GetShortNameWithNoTooltip]" fontsize = 15 align = nobaseline }
+									text_single = { visible = "[Not(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_architect_character').IsSet)]" maximumsize = { 400 -1 } autoresize = yes elide = right text = "TV_COURT_POSITION_VACANT" fontsize = 15 align = nobaseline }
+									text_single = { maximumsize = { 400 -1 } autoresize = yes elide = right text = "[Localize('TV_COURT_ABILITY_LABEL')] [ToString_int32(FixedPointToInt(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_architect_ability').GetValue))] / 100   [Localize('TV_COURT_SALARY_LABEL')] [SituationView.GetPlayer.MakeScope.GetVariable('tv_court_architect_salary').GetValue|2]" fontsize = 12 align = nobaseline }
 									TooltipStringPairList = {
 										layoutpolicy_horizontal = fixed
-										maximumsize = { 500 -1 }
-										blockoverride "tooltip_minimumsize" { minimumsize = { 500 -1 } }
+										maximumsize = { 400 -1 }
+										blockoverride "tooltip_minimumsize" { minimumsize = { 400 -1 } }
 										blockoverride "field_text_format" { fontsize = 12 autoresize = yes max_width = 140 elide = right }
 										textcontext = "[ShowModifierEffect(Concatenate('tv_court_architect_display_', ToString_int32(FixedPointToInt(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_architect_ability').GetValue))))]"
 									}
@@ -230,18 +243,20 @@ situation_panel = {
 										datacontext = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_cultural_emissary_character').GetCharacter]"
 										icon = { block "character_frame_texture" { texture = "gfx/interface/component_decoration/character_frames/character_frame_1.dds" } texture_density = 2 size = { 100% 100% } }
 									}
-									text_single = { visible = "[Not(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_cultural_emissary_character').IsSet)]" size = { 76 92 } raw_text = "+" fontsize = 32 align = center|nobaseline default_format = "#yellow_titles" }
+									hbox = { visible = "[Not(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_cultural_emissary_character').IsSet)]" size = { 100% 100% } layoutpolicy_horizontal = expanding layoutpolicy_vertical = expanding vbox = { layoutpolicy_horizontal = expanding layoutpolicy_vertical = expanding expand = {} text_single = { layoutpolicy_horizontal = expanding raw_text = "+" fontsize = 32 align = center|nobaseline default_format = "#yellow_titles" } expand = {} } }
 									}
 									vbox = {
-									layoutpolicy_horizontal = expanding
+									layoutpolicy_horizontal = fixed
+									minimumsize = { 400 -1 }
+									maximumsize = { 400 -1 }
 									ignoreinvisible = yes
-									text_single = { visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_cultural_emissary_character').IsSet]" datacontext = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_cultural_emissary_character').GetCharacter]" text = "[Character.GetShortNameWithNoTooltip]" fontsize = 15 align = nobaseline }
-									text_single = { visible = "[Not(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_cultural_emissary_character').IsSet)]" text = "TV_COURT_POSITION_VACANT" fontsize = 15 align = nobaseline }
-									text_single = { text = "[Localize('TV_COURT_ABILITY_LABEL')] [ToString_int32(FixedPointToInt(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_cultural_emissary_ability').GetValue))] / 100   [Localize('TV_COURT_SALARY_LABEL')] [SituationView.GetPlayer.MakeScope.GetVariable('tv_court_cultural_emissary_salary').GetValue|2]" fontsize = 12 align = nobaseline }
+									text_single = { visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_cultural_emissary_character').IsSet]" datacontext = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_cultural_emissary_character').GetCharacter]" maximumsize = { 400 -1 } autoresize = yes elide = right text = "[Character.GetShortNameWithNoTooltip]" fontsize = 15 align = nobaseline }
+									text_single = { visible = "[Not(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_cultural_emissary_character').IsSet)]" maximumsize = { 400 -1 } autoresize = yes elide = right text = "TV_COURT_POSITION_VACANT" fontsize = 15 align = nobaseline }
+									text_single = { maximumsize = { 400 -1 } autoresize = yes elide = right text = "[Localize('TV_COURT_ABILITY_LABEL')] [ToString_int32(FixedPointToInt(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_cultural_emissary_ability').GetValue))] / 100   [Localize('TV_COURT_SALARY_LABEL')] [SituationView.GetPlayer.MakeScope.GetVariable('tv_court_cultural_emissary_salary').GetValue|2]" fontsize = 12 align = nobaseline }
 									TooltipStringPairList = {
 										layoutpolicy_horizontal = fixed
-										maximumsize = { 500 -1 }
-										blockoverride "tooltip_minimumsize" { minimumsize = { 500 -1 } }
+										maximumsize = { 400 -1 }
+										blockoverride "tooltip_minimumsize" { minimumsize = { 400 -1 } }
 										blockoverride "field_text_format" { fontsize = 12 autoresize = yes max_width = 140 elide = right }
 										textcontext = "[ShowModifierEffect(Concatenate('tv_court_cultural_emissary_display_', ToString_int32(FixedPointToInt(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_cultural_emissary_ability').GetValue))))]"
 									}
@@ -279,18 +294,20 @@ situation_panel = {
 										datacontext = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_chronicler_character').GetCharacter]"
 										icon = { block "character_frame_texture" { texture = "gfx/interface/component_decoration/character_frames/character_frame_1.dds" } texture_density = 2 size = { 100% 100% } }
 									}
-									text_single = { visible = "[Not(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_chronicler_character').IsSet)]" size = { 76 92 } raw_text = "+" fontsize = 32 align = center|nobaseline default_format = "#yellow_titles" }
+									hbox = { visible = "[Not(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_chronicler_character').IsSet)]" size = { 100% 100% } layoutpolicy_horizontal = expanding layoutpolicy_vertical = expanding vbox = { layoutpolicy_horizontal = expanding layoutpolicy_vertical = expanding expand = {} text_single = { layoutpolicy_horizontal = expanding raw_text = "+" fontsize = 32 align = center|nobaseline default_format = "#yellow_titles" } expand = {} } }
 									}
 									vbox = {
-									layoutpolicy_horizontal = expanding
+									layoutpolicy_horizontal = fixed
+									minimumsize = { 400 -1 }
+									maximumsize = { 400 -1 }
 									ignoreinvisible = yes
-									text_single = { visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_chronicler_character').IsSet]" datacontext = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_chronicler_character').GetCharacter]" text = "[Character.GetShortNameWithNoTooltip]" fontsize = 15 align = nobaseline }
-									text_single = { visible = "[Not(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_chronicler_character').IsSet)]" text = "TV_COURT_POSITION_VACANT" fontsize = 15 align = nobaseline }
-									text_single = { text = "[Localize('TV_COURT_ABILITY_LABEL')] [ToString_int32(FixedPointToInt(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_chronicler_ability').GetValue))] / 100   [Localize('TV_COURT_SALARY_LABEL')] [SituationView.GetPlayer.MakeScope.GetVariable('tv_court_chronicler_salary').GetValue|2]" fontsize = 12 align = nobaseline }
+									text_single = { visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_chronicler_character').IsSet]" datacontext = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_chronicler_character').GetCharacter]" maximumsize = { 400 -1 } autoresize = yes elide = right text = "[Character.GetShortNameWithNoTooltip]" fontsize = 15 align = nobaseline }
+									text_single = { visible = "[Not(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_chronicler_character').IsSet)]" maximumsize = { 400 -1 } autoresize = yes elide = right text = "TV_COURT_POSITION_VACANT" fontsize = 15 align = nobaseline }
+									text_single = { maximumsize = { 400 -1 } autoresize = yes elide = right text = "[Localize('TV_COURT_ABILITY_LABEL')] [ToString_int32(FixedPointToInt(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_chronicler_ability').GetValue))] / 100   [Localize('TV_COURT_SALARY_LABEL')] [SituationView.GetPlayer.MakeScope.GetVariable('tv_court_chronicler_salary').GetValue|2]" fontsize = 12 align = nobaseline }
 									TooltipStringPairList = {
 										layoutpolicy_horizontal = fixed
-										maximumsize = { 500 -1 }
-										blockoverride "tooltip_minimumsize" { minimumsize = { 500 -1 } }
+										maximumsize = { 400 -1 }
+										blockoverride "tooltip_minimumsize" { minimumsize = { 400 -1 } }
 										blockoverride "field_text_format" { fontsize = 12 autoresize = yes max_width = 140 elide = right }
 										textcontext = "[ShowModifierEffect(Concatenate('tv_court_chronicler_display_', ToString_int32(FixedPointToInt(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_chronicler_ability').GetValue))))]"
 									}
