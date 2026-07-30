@@ -1,0 +1,74 @@
+# Canonical data for the standalone Court Positions mod.
+# Ability values are normalized to 0..100 before they drive effects or salary.
+positions:
+  - id: physician
+    name_en: Court Physician
+    name_zh: 宫廷医生
+    ability: adm
+    ability_en: Administrative Skill
+    ability_zh: 行政能力
+    artist_only: false
+    modifier: global_disease_resistance
+    effect_at_100: 0.05
+    effect_en: "+5% Disease Resistance"
+    effect_zh: "疾病抗性 +5%"
+
+  - id: tutor
+    name_en: Court Tutor
+    name_zh: 宫廷教师
+    ability: dip
+    ability_en: Diplomatic Skill
+    ability_zh: 外交能力
+    artist_only: false
+    modifier: country_child_education
+    effect_at_100: 0.10
+    effect_en: "+10% Heir Education Efficiency"
+    effect_zh: "继承人教育效率 +10%"
+
+  - id: steward
+    name_en: Steward
+    name_zh: 财政官
+    ability: adm
+    ability_en: Administrative Skill
+    ability_zh: 行政能力
+    artist_only: false
+    modifier: estate_enrichment
+    effect_at_100: -0.05
+    effect_en: "-5% Estate Enrichment"
+    effect_zh: "阶层结余 -5%"
+
+  - id: architect
+    name_en: Court Architect
+    name_zh: 宫廷建筑师
+    ability: mil
+    ability_en: Military Skill
+    ability_zh: 军事能力
+    artist_only: false
+    modifier: global_build_buildings_efficiency
+    effect_at_100: 0.10
+    effect_en: "+10% Buildings Construction Efficiency"
+    effect_zh: "建筑建造花费 -10%"
+
+  - id: cultural_emissary
+    name_en: Cultural Emissary
+    name_zh: 文化使者
+    ability: artist_skill
+    ability_en: Artistic Skill
+    ability_zh: 艺术技能
+    artist_only: true
+    modifier: cultural_influence_modifier
+    effect_at_100: 0.20
+    effect_en: "+20% Cultural Influence"
+    effect_zh: "文化影响力 +20%"
+
+  - id: chronicler
+    name_en: Court Chronicler
+    name_zh: 宫廷史官
+    ability: adm
+    ability_en: Administrative Skill
+    ability_zh: 行政能力
+    artist_only: false
+    modifier: monthly_prestige
+    effect_at_100: 0.10
+    effect_en: "+0.10 Monthly Prestige"
+    effect_zh: "每月威望 +0.10"

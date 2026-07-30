@@ -27,8 +27,10 @@ from scripts.victory_task_codegen import refresh_action_name as victory_task_ref
 VANILLA = ROOT / "reference_game_files/game/main_menu/gui/messagetypes.txt"
 MAIN_OUT = ROOT / "src/main_menu/gui/messagetypes.txt"
 ENGINEERING_OUT = ROOT / "src_engineering_department/main_menu/gui/messagetypes.txt"
+COURT_OUT = ROOT / "src_court_positions/main_menu/gui/messagetypes.txt"
 VICTORY_PATHS = ROOT / "data/victory_paths.yaml"
 IO_ESTABLISHMENT = ROOT / "data/io_establishment.yaml"
+COURT_POSITIONS = ROOT / "data/court_positions.yaml"
 
 MONOPOLY_SLOT_COUNT = 2
 INTELLIGENCE_ROW_COUNT = 10
@@ -106,6 +108,20 @@ def io_establishment_action_ids() -> list[str]:
         actions.append(f"tv_build_{pid}_headquarters")
         actions.append(f"tv_establish_{pid}_io")
     return actions
+
+
+def court_position_action_ids() -> list[str]:
+    with COURT_POSITIONS.open(encoding="utf-8") as file:
+        data = yaml.safe_load(file)
+    return [
+        action
+        for position in data["positions"]
+        for action in (
+            f"tv_court_appoint_{position['id']}",
+            f"tv_court_appoint_{position['id']}_character",
+            f"tv_court_dismiss_{position['id']}",
+        )
+    ]
 
 TV_ENTRIES = """
 # ── Towards Victory — Generic Action Message Types ───────────────────────────
@@ -1171,6 +1187,24 @@ def io_establishment_message_entries() -> str:
     return "\n".join(blocks)
 
 
+def court_position_message_entries() -> str:
+    blocks = ["\n# ---- Generated Court Positions controls ----\n"]
+    for action in court_position_action_ids():
+        blocks.append(
+            f"""PERFORM_{action}_ACTION={{
+\tlog=yes
+\tonmap=no
+\tpopup=no
+\tidle=no
+\toption=yes
+\tpausepopup=no
+\tmessage_category = society
+}}
+"""
+        )
+    return "\n".join(blocks)
+
+
 vanilla_bytes = VANILLA.read_bytes()
 # strip BOM if present
 if vanilla_bytes.startswith(b'\xef\xbb\xbf'):
@@ -1184,10 +1218,12 @@ combined_entries = (
     + victory_tree_node_message_entries()
     + victory_task_message_entries()
     + io_establishment_message_entries()
+    + court_position_message_entries()
 )
 for output, entries in (
     (MAIN_OUT, combined_entries),
     (ENGINEERING_OUT, combined_entries),
+    (COURT_OUT, combined_entries),
 ):
     output.parent.mkdir(parents=True, exist_ok=True)
     combined = b'\xef\xbb\xbf' + vanilla_bytes + entries.encode("utf-8")

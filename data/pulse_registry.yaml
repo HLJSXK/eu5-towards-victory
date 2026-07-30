@@ -47,6 +47,7 @@ pulses:
     - tv_diplomatic_alliance_monthly_pulse # Diplomatic Alliance victory-point maintenance
     - tv_trade_league_monthly_pulse # Trade League leader-country slot monopoly maintenance
     - tv_victory_path_tasks_monthly_pulse # active cheap/empty Victory Path task slots only; no free points
+    - tv_court_positions_monthly_pulse # standalone Court Positions salaries and ability-scaled effect refresh
 
   yearly_country_pulse:
     - tv_science_victory_yearly_pulse # temporary full has_advance scan for player countries; engine count is broken
@@ -63,6 +64,7 @@ pulses:
     - tv_arts_exhibition_char_death    # touring artist + Chief Artist death cleanup
     - tv_academy_char_death            # Chief Scientist death cleanup
     - tv_engineering_department_char_death # Great Engineer death cleanup
+    - tv_court_positions_character_death # standalone Court Positions holder cleanup
 
   on_ruler_death:
     - tv_engineering_department_ritual_on_ruler_death # Wonder ritual ruler-death completion checks
@@ -77,6 +79,7 @@ bridges:
     - tv_wonder_initialize_country_auto_cache_on_game_start
     - tv_wonder_initialize_location_display_state_on_game_start
     - tv_engineering_department_standalone_game_start_bridge # standalone mod: schedule the intro event for every country one day later
+    - tv_court_positions_initialize_on_game_start # standalone Court Positions lifecycle initialization
 
   on_game_load:
     - tv_govhouse_initialize_on_game_load
@@ -89,6 +92,7 @@ bridges:
     - tv_wonder_initialize_location_display_state_on_game_load
     - tv_wonder_repair_stuck_expansion_ceremony_finalized_on_game_load # one-time save repair for the pre-2026-07-20 tv_wonder_finalized-never-cleared-on-expansion bug
     - tv_engineering_department_standalone_game_load_bridge # standalone mod: repair IOs and schedule missing-save intro events one day later
+    - tv_court_positions_initialize_on_game_load # reapply Court Positions busy and country modifiers
 
   on_work_of_art_created:
     - tv_on_work_of_art_created_callback # Cultural Influence Points from newly created art

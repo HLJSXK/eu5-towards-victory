@@ -7,12 +7,14 @@ REM Usage: build.bat
 set "ROOT=%~dp0"
 set "SRC=%ROOT%src"
 set "ED_SRC=%ROOT%src_engineering_department"
+set "COURT_SRC=%ROOT%src_court_positions"
 set "MNT_COMPAT=%ROOT%submods\tv_meiou_and_taxes_compat"
 set "SOL_COMPAT=%ROOT%submods\tv_standard_of_living_compat"
 set "PP_COMPAT=%ROOT%submods\tv_prosper_or_perish_compat"
 set "MOD_DIR=C:\Program Files (x86)\Steam\steamapps\common\Europa Universalis V\game\mod"
 set "DEST=%MOD_DIR%\tv"
 set "ED_DEST=%MOD_DIR%\tv_engineering_department"
+set "COURT_DEST=%MOD_DIR%\tv_court_positions"
 set "MNT_COMPAT_DEST=%MOD_DIR%\tv_meiou_and_taxes_compat"
 set "SOL_COMPAT_DEST=%MOD_DIR%\tv_standard_of_living_compat"
 set "PP_COMPAT_DEST=%MOD_DIR%\tv_prosper_or_perish_compat"
@@ -25,7 +27,7 @@ if not exist "!EU5_PYTHON!" (
     exit /b 1
 )
 
-echo === [1/7] Updating mod version ===
+echo === [1/8] Updating mod version ===
 call "!EU5_PYTHON!" "%ROOT%scripts\update_mod_version.py"
 if !errorlevel! neq 0 (
     echo.
@@ -35,7 +37,7 @@ if !errorlevel! neq 0 (
 )
 
 echo.
-echo === [2/7] Validating mod source ===
+echo === [2/8] Validating mod source ===
 set "VALIDATE_OUT=%TEMP%\tv_validate_out.txt"
 call "!EU5_PYTHON!" "%ROOT%scripts\validate.py" > "!VALIDATE_OUT!" 2>&1
 set "VALIDATE_RC=!errorlevel!"
@@ -49,7 +51,7 @@ if !VALIDATE_RC! neq 0 (
 )
 
 echo.
-echo === [3/7] Deploying src to !DEST! ===
+echo === [3/8] Deploying src to !DEST! ===
 if not exist "!MOD_DIR!" (
     echo [ERROR] EU5 mod directory not found: !MOD_DIR!
     pause
@@ -66,7 +68,7 @@ if !RC! GEQ 8 (
 )
 
 echo.
-echo === [4/7] Deploying Engineering Department src to !ED_DEST! ===
+echo === [4/8] Deploying Engineering Department src to !ED_DEST! ===
 if not exist "!ED_SRC!" (
     echo [ERROR] Engineering Department source not found: !ED_SRC!
     pause
@@ -83,7 +85,24 @@ if !RC! GEQ 8 (
 )
 
 echo.
-echo === [5/7] Deploying M^&T compatibility submod to !MNT_COMPAT_DEST! ===
+echo === [5/8] Deploying Court Positions src to !COURT_DEST! ===
+if not exist "!COURT_SRC!" (
+    echo [ERROR] Court Positions source not found: !COURT_SRC!
+    pause
+    exit /b 1
+)
+
+robocopy "!COURT_SRC!" "!COURT_DEST!" /MIR
+set "RC=!errorlevel!"
+if !RC! GEQ 8 (
+    echo.
+    echo [ERROR] robocopy failed with exit code !RC!.
+    pause
+    exit /b 1
+)
+
+echo.
+echo === [6/8] Deploying M^&T compatibility submod to !MNT_COMPAT_DEST! ===
 if not exist "!MNT_COMPAT!" (
     echo [ERROR] Compatibility submod source not found: !MNT_COMPAT!
     pause
@@ -100,7 +119,7 @@ if !RC! GEQ 8 (
 )
 
 echo.
-echo === [6/7] Deploying Standard of Living compatibility submod to !SOL_COMPAT_DEST! ===
+echo === [7/8] Deploying Standard of Living compatibility submod to !SOL_COMPAT_DEST! ===
 if not exist "!SOL_COMPAT!" (
     echo [ERROR] Compatibility submod source not found: !SOL_COMPAT!
     pause
@@ -117,7 +136,7 @@ if !RC! GEQ 8 (
 )
 
 echo.
-echo === [7/7] Deploying Prosper or Perish compatibility submod to !PP_COMPAT_DEST! ===
+echo === [8/8] Deploying Prosper or Perish compatibility submod to !PP_COMPAT_DEST! ===
 if not exist "!PP_COMPAT!" (
     echo [ERROR] Compatibility submod source not found: !PP_COMPAT!
     pause
@@ -134,6 +153,6 @@ if !RC! GEQ 8 (
 )
 
 echo.
-echo [DONE] Deployed to !DEST!, !ED_DEST!, !MNT_COMPAT_DEST!, !SOL_COMPAT_DEST!, and !PP_COMPAT_DEST!
+echo [DONE] Deployed to !DEST!, !ED_DEST!, !COURT_DEST!, !MNT_COMPAT_DEST!, !SOL_COMPAT_DEST!, and !PP_COMPAT_DEST!
 endlocal
 pause

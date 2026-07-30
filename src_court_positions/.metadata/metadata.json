@@ -1,0 +1,24 @@
+{
+  "name": "Court Positions",
+  "id": "hades.towards_victory.court_positions",
+  "version": "260730",
+  "game_id": "eu5",
+  "supported_game_version": "1.3.*",
+  "short_description": "Standalone Court Positions mechanic: appoint six ability-scaled court offices, with salaries tied to Economic Base.",
+  "tags": [
+    "Historical",
+    "Government"
+  ],
+  "relationships": [
+    {
+      "rel_type": "dependency",
+      "id": "community_mod_framework",
+      "display_name": "Community Mod Framework",
+      "resource_type": "mod",
+      "version": "2.*"
+    }
+  ],
+  "game_custom_data": {
+    "multiplayer_synchronized": true
+  }
+}

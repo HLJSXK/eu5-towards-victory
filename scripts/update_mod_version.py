@@ -15,6 +15,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 METADATA_PATHS = (
     Path("src/.metadata/metadata.json"),
     Path("src_engineering_department/.metadata/metadata.json"),
+    Path("src_court_positions/.metadata/metadata.json"),
     Path("submods/tv_meiou_and_taxes_compat/.metadata/metadata.json"),
     Path("submods/tv_prosper_or_perish_compat/.metadata/metadata.json"),
     Path("submods/tv_standard_of_living_compat/.metadata/metadata.json"),

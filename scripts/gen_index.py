@@ -30,9 +30,9 @@ if hasattr(sys.stdout, "reconfigure"):
 REPO_ROOT = Path(__file__).resolve().parent.parent
 INDEX_DIR = REPO_ROOT / "data" / "index"
 
-# Two deployable mod roots feed these indexes: the main "Towards Victory" mod
-# and the split-out, standalone "Engineering Department" mod.
-MOD_ROOTS = [REPO_ROOT / "src", REPO_ROOT / "src_engineering_department"]
+# Three deployable mod roots feed these indexes: the main "Towards Victory"
+# mod and the standalone Engineering Department and Court Positions mods.
+MOD_ROOTS = [REPO_ROOT / "src", REPO_ROOT / "src_engineering_department", REPO_ROOT / "src_court_positions"]
 
 FONT_ICONS_FILE = (
     REPO_ROOT / "reference_game_files" / "game" / "main_menu" / "gui" / "shared" / "font_icons.gui"

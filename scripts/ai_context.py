@@ -27,11 +27,11 @@ RISK_CARDS_DIR = KNOWLEDGE_DIR / "risk_cards"
 GENERATED_REGISTRY = REPO_ROOT / "data" / "generated_files.yaml"
 MANAGED_SANDBOX_PYTHON = r"C:\Users\Hades\anaconda3\envs\eu5\python.exe"
 
-# Two deployable mod roots: the main "Towards Victory" mod and the split-out,
-# standalone "Engineering Department" mod. Path-prefix domain routing below
-# is expanded across both so a moved file keeps matching its generic domain
+# Three deployable mod roots: the main "Towards Victory" mod, the split-out
+# standalone "Engineering Department" mod, and standalone Court Positions.
+# Path-prefix domain routing below is expanded across all roots so a moved file keeps matching its generic domain
 # card (e.g. "gui.md") in addition to whatever FILENAME_DOMAIN_RULES match.
-MOD_ROOT_NAMES = ("src", "src_engineering_department")
+MOD_ROOT_NAMES = ("src", "src_engineering_department", "src_court_positions")
 
 
 def _mod_prefixes(subpath: str) -> tuple[str, ...]:

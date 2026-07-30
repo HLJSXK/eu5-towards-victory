@@ -286,13 +286,21 @@ generated:
     data:   data/io_leaders.yaml
     output: src_engineering_department/in_game/common/customizable_localization/character_title.txt
 
+  - script: scripts/in_game/common/customizable_localization/gen_character_title.py
+    data:   data/io_leaders.yaml
+    output: src_court_positions/in_game/common/customizable_localization/character_title.txt
+
   - script: scripts/gen_messagetypes.py
-    data:   reference_game_files/game/main_menu/gui/messagetypes.txt + data/victory_paths.yaml + data/victory_path_tree_variant.yaml + data/victory_path_tasks.yaml + data/io_establishment.yaml + src/in_game/common/generic_actions + src_engineering_department/in_game/common/generic_actions
+    data:   reference_game_files/game/main_menu/gui/messagetypes.txt + data/victory_paths.yaml + data/victory_path_tree_variant.yaml + data/victory_path_tasks.yaml + data/io_establishment.yaml + data/court_positions.yaml + src/in_game/common/generic_actions + src_engineering_department/in_game/common/generic_actions + src_court_positions/in_game/common/generic_actions
     output: src/main_menu/gui/messagetypes.txt
 
   - script: scripts/gen_messagetypes.py
-    data:   reference_game_files/game/main_menu/gui/messagetypes.txt + data/victory_paths.yaml + data/victory_path_tree_variant.yaml + data/victory_path_tasks.yaml + data/io_establishment.yaml + src/in_game/common/generic_actions + src_engineering_department/in_game/common/generic_actions
+    data:   reference_game_files/game/main_menu/gui/messagetypes.txt + data/victory_paths.yaml + data/victory_path_tree_variant.yaml + data/victory_path_tasks.yaml + data/io_establishment.yaml + data/court_positions.yaml + src/in_game/common/generic_actions + src_engineering_department/in_game/common/generic_actions + src_court_positions/in_game/common/generic_actions
     output: src_engineering_department/main_menu/gui/messagetypes.txt
+
+  - script: scripts/gen_messagetypes.py
+    data:   reference_game_files/game/main_menu/gui/messagetypes.txt + data/victory_paths.yaml + data/victory_path_tree_variant.yaml + data/victory_path_tasks.yaml + data/io_establishment.yaml + data/court_positions.yaml + src/in_game/common/generic_actions + src_engineering_department/in_game/common/generic_actions + src_court_positions/in_game/common/generic_actions
+    output: src_court_positions/main_menu/gui/messagetypes.txt
 
   - script: scripts/in_game/common/customizable_localization/gen_tv_academy_debate_groups.py
     data:   data/philosophy_debates.yaml
@@ -314,6 +322,10 @@ generated:
   - script: scripts/in_game/common/on_action/gen_tv_pulse_registry.py
     data:   data/pulse_registry.yaml
     output: src_engineering_department/in_game/common/on_action/tv_engineering_department_pulse_bridges.txt
+
+  - script: scripts/in_game/common/on_action/gen_tv_pulse_registry.py
+    data:   data/pulse_registry.yaml
+    output: src_court_positions/in_game/common/on_action/tv_court_positions_pulse_bridges.txt
 
   - script: scripts/in_game/common/on_action/gen_tv_cmf_suppressions.py
     data:   data/cmf_warning_suppressions.yaml + data/trade_league_goods.yaml + data/trade_chain.yaml + data/victory_paths.yaml + data/locked_advances.yaml
@@ -587,3 +599,40 @@ generated:
   - script: scripts_engineering_department/gen_wonder_editor_catalog.py
     data:   reference_game_files/game/in_game/events + reference_game_files/game/main_menu/common/static_modifiers + reference_game_files/game/main_menu/common/modifier_type_definitions
     output: data/wonder_editor_catalog.yaml
+
+  # ── Standalone Court Positions mod ─────────────────────────────────────────
+  - script: scripts_court_positions/in_game/common/static_modifiers/gen_tv_court_positions_modifiers.py
+    data:   data/court_positions.yaml
+    output: src_court_positions/in_game/common/static_modifiers/tv_court_positions_modifiers.txt
+
+  - script: scripts_court_positions/in_game/common/scripted_effects/gen_tv_court_positions_effects.py
+    data:   data/court_positions.yaml
+    output: src_court_positions/in_game/common/scripted_effects/tv_court_positions_effects.txt
+
+  - script: scripts_court_positions/in_game/common/generic_actions/gen_tv_court_positions_actions.py
+    data:   data/court_positions.yaml
+    output: src_court_positions/in_game/common/generic_actions/tv_court_positions_actions.txt
+
+  - script: scripts_court_positions/in_game/common/generic_action_ai_lists/gen_tv_court_positions_actions_list.py
+    data:   data/court_positions.yaml
+    output: src_court_positions/in_game/common/generic_action_ai_lists/tv_court_positions_actions_list.txt
+
+  - script: scripts_court_positions/in_game/common/situations/gen_tv_court_positions_situations.py
+    data:   data/court_positions.yaml
+    output: src_court_positions/in_game/common/situations/tv_court_positions_situations.txt
+
+  - script: scripts_court_positions/in_game/common/on_action/gen_tv_court_positions_on_action.py
+    data:   data/court_positions.yaml
+    output: src_court_positions/in_game/common/on_action/tv_court_positions_on_action.txt
+
+  - script: scripts_court_positions/in_game/gui/panels/situation/gen_tv_court_positions_situation_gui.py
+    data:   data/court_positions.yaml
+    output: src_court_positions/in_game/gui/panels/situation/tv_court_positions_situation.gui
+
+  - script: scripts_court_positions/main_menu/localization/english/gen_tv_court_positions_l_english.py
+    data:   data/court_positions.yaml
+    output: src_court_positions/main_menu/localization/english/tv_court_positions_l_english.yml
+
+  - script: scripts_court_positions/main_menu/localization/simp_chinese/gen_tv_court_positions_l_simp_chinese.py
+    data:   data/court_positions.yaml
+    output: src_court_positions/main_menu/localization/simp_chinese/tv_court_positions_l_simp_chinese.yml

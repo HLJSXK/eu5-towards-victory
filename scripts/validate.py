@@ -3,8 +3,9 @@
 EU5 Mod Static Validator
 Catches common errors before game loading. Reads docs/knowledge/*.yaml for patterns.
 
-Validates both deployable mod roots: src/ (Towards Victory) and
-src_engineering_department/ (the standalone Engineering Department mod).
+Validates all deployable mod roots: src/ (Towards Victory),
+src_engineering_department/ (Engineering Department), and
+src_court_positions/ (Court Positions).
 
 Usage:
   python scripts/validate.py                   # validate every mod root
@@ -37,11 +38,12 @@ REPO_ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(REPO_ROOT / "scripts_engineering_department"))
 from wonder_unique_ritual_harness import validate_unique_ritual_specs_for_repo  # noqa: E402
 
-# Two deployable mod roots share this validator: the main "Towards Victory" mod
-# and the split-out, standalone "Engineering Department" mod. Every directory
+# Three deployable mod roots share this validator: the main "Towards Victory"
+# mod and the split-out standalone Engineering Department and Court Positions
+# mods. Every directory
 # constant/check below that used to assume a single `src/` root now iterates
 # MOD_ROOTS instead.
-MOD_ROOTS = (REPO_ROOT / "src", REPO_ROOT / "src_engineering_department")
+MOD_ROOTS = (REPO_ROOT / "src", REPO_ROOT / "src_engineering_department", REPO_ROOT / "src_court_positions")
 MOD_ROOT_NAMES = tuple(root.name for root in MOD_ROOTS)
 KNOWLEDGE_DIR = REPO_ROOT / "docs" / "knowledge"
 VALIDATION_BASELINE_FILE = REPO_ROOT / "data" / "validation_baseline.yaml"
@@ -819,11 +821,9 @@ def check_vanilla_copy_integrity() -> None:
                 "only the TV leader title entries may differ"
             )
 
-    main_titles = title_modifiers_by_root.get("src", set())
-    engineering_titles = title_modifiers_by_root.get("src_engineering_department", set())
-    if main_titles != engineering_titles:
+    if len({frozenset(titles) for titles in title_modifiers_by_root.values()}) > 1:
         issues.append(
-            "[VANILLA_COPY] character_title.txt -- both mod roots must contain identical TV title mappings "
+            "[VANILLA_COPY] character_title.txt -- all mod roots must contain identical TV title mappings "
             "because either singleton copy may load last"
         )
 
@@ -860,11 +860,9 @@ def check_vanilla_copy_integrity() -> None:
                             f"[MESSAGE_TYPE] {action_file.relative_to(REPO_ROOT)} -- generic action "
                             f"{action} is missing {expected} from {message_out.relative_to(REPO_ROOT)}"
                         )
-    main_messages = message_types_by_root.get("src", set())
-    engineering_messages = message_types_by_root.get("src_engineering_department", set())
-    if main_messages != engineering_messages:
+    if len({frozenset(messages) for messages in message_types_by_root.values()}) > 1:
         issues.append(
-            "[VANILLA_COPY] messagetypes.txt -- both mod roots must contain identical message types "
+            "[VANILLA_COPY] messagetypes.txt -- all mod roots must contain identical message types "
             "because either singleton copy may load last"
         )
 
