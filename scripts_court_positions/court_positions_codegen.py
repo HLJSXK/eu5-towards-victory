@@ -557,6 +557,8 @@ def render_localization(positions: Iterable[dict], script_rel: str, language: st
     header_key = "l_simp_chinese" if zh else "l_english"
     entries: list[tuple[str, str]] = [
         ("TV_COURT_POSITIONS_TITLE", "宫廷职位" if zh else "Court Positions"),
+        ("tv_court_positions_situation", "宫廷职位" if zh else "Court Positions"),
+        ("tv_court_positions_situation_desc", "任命和管理宫廷职位。职位效果与薪水均随持有者能力线性变化。" if zh else "Appoint and manage Court Positions. Their effects and salaries scale linearly with each holder's ability."),
         ("TV_COURT_POSITIONS_INTRO", "左键卡片可任命或更换职位；右键卡片可解任。职位效果与薪水均随人物能力线性变化。" if zh else "Left-click a card to appoint or replace its holder; right-click to dismiss. Effects and salaries scale linearly with the holder's ability."),
         ("TV_COURT_POSITION_VACANT", "职位空缺" if zh else "Vacant Position"),
         ("TV_COURT_ABILITY_LABEL", "能力：" if zh else "Ability:"),

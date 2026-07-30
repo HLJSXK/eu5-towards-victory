@@ -3030,6 +3030,16 @@ Correction (2026-07-13, same-day follow-up): the `has_flag` reference itself was
   source: "error.log jomini_effect.cpp:556, 2026-07-30; docs/technical/EU5_Modding_Knowledge_Base.md:503-505; src_engineering_department/in_game/common/scripted_effects/tv_engineering_department_effects.txt:347"
   notes: "A bare variable name is parsed as an effect identifier, producing `Unknown effect tv_court_*_character`; `var:` enters the stored character scope safely when the variable exists."
 
+- id: situation_missing_name_and_description_localization
+  pattern: ''
+  detectability: advisory
+  bad: "Defining a situation without localization keys matching its exact id and `<id>_desc`"
+  correction: "For every situation id `<id>`, generate `<id>: \"Display Name\"` and `<id>_desc: \"Description\"` in every supported localization. Panel-only title/intro keys do not satisfy the situation database's own localization lookup."
+  category: localization
+  scope: any
+  source: "error.log localization_util.cpp:103, 2026-07-30"
+  notes: "A situation can render its custom panel title while still logging the fallback id and `TODO : Write a desc` for its database name/description when these standard keys are absent."
+
 - id: shared_texticon_glyphs_render_at_inconsistent_pixel_size_across_icon_names
   pattern: ''
   detectability: advisory
