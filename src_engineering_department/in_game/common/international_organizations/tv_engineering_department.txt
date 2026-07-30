@@ -171,6 +171,20 @@ tv_engineering_department = {
 						subtract = leader_country.var:tv_wonder_base_monthly_construction_progress
 					}
 				}
+				if = {
+					limit = {
+						leader_country ?= {
+							has_variable = tv_engineering_department_member
+							tv_wonder_active_part_can_gain_progress_trigger = yes
+							NOT = { has_variable = tv_wonder_construction_complete }
+							tv_wonder_input_shortage_construction_progress > 0
+						}
+					}
+					subtract = {
+						desc = "TV_WONDER_INPUT_SHORTAGE_CONSTRUCTION_PROGRESS"
+						value = leader_country.tv_wonder_input_shortage_construction_progress
+					}
+				}
 			}
 		}
 	}
