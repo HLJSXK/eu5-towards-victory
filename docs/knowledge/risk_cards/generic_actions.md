@@ -167,9 +167,11 @@ execution time can still spam runtime errors while the mouse is merely hovering 
 23. Do not model a character-menu action as `type = character`.
    The runtime rejects that value for `EGenericActionType`, even though a stale comment in the
    generic-actions readme lists it. Define direct character actions in
-   `common/character_interactions/` with `on_own_nation = yes`; their selected menu character is
-   `scope:recipient`. They require character-interaction localization (`<id>`, `_concept`, `_act`,
-   `_desc`, `_desc_specific`, `_past`, `_act_past`), but no generic-action AI-list or
+   `common/character_interactions/` with `on_own_nation = yes` and a character `select_trigger`
+   whose `target_flag = recipient`. The interaction database does not auto-fill recipient from
+   the viewed character; the selector's chosen character becomes `scope:recipient`. They require
+   character-interaction localization (`<id>`, `_concept`, `_act`, `_desc`, `_desc_specific`,
+   `_past`, `_act_past`), but no generic-action AI-list or
    `PERFORM_<id>_ACTION` message-type registration.
 
 ## Safe Skeleton

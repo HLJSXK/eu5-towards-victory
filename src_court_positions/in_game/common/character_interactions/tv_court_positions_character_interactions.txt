@@ -10,8 +10,15 @@ tv_court_appoint_physician_character = {
 	ai_tick = never
 	ai_tick_frequency = 99999
 	potential = { scope:actor = { has_variable = tv_court_positions_initialized } }
-	allow = {
-		scope:recipient = {
+	allow = { scope:actor = { always = yes } }
+	select_trigger = {
+		looking_for_a = character
+		source = actor
+		target_flag = recipient
+		name = "tv_court_select_physician"
+		none_available_msg_key = "tv_court_no_physician_available"
+		column = { data = character_info }
+		visible = {
 			is_alive = yes
 			is_adult = yes
 			is_artist = no
@@ -42,8 +49,15 @@ tv_court_appoint_tutor_character = {
 	ai_tick = never
 	ai_tick_frequency = 99999
 	potential = { scope:actor = { has_variable = tv_court_positions_initialized } }
-	allow = {
-		scope:recipient = {
+	allow = { scope:actor = { always = yes } }
+	select_trigger = {
+		looking_for_a = character
+		source = actor
+		target_flag = recipient
+		name = "tv_court_select_tutor"
+		none_available_msg_key = "tv_court_no_tutor_available"
+		column = { data = character_info }
+		visible = {
 			is_alive = yes
 			is_adult = yes
 			is_artist = no
@@ -74,8 +88,15 @@ tv_court_appoint_steward_character = {
 	ai_tick = never
 	ai_tick_frequency = 99999
 	potential = { scope:actor = { has_variable = tv_court_positions_initialized } }
-	allow = {
-		scope:recipient = {
+	allow = { scope:actor = { always = yes } }
+	select_trigger = {
+		looking_for_a = character
+		source = actor
+		target_flag = recipient
+		name = "tv_court_select_steward"
+		none_available_msg_key = "tv_court_no_steward_available"
+		column = { data = character_info }
+		visible = {
 			is_alive = yes
 			is_adult = yes
 			is_artist = no
@@ -106,8 +127,15 @@ tv_court_appoint_architect_character = {
 	ai_tick = never
 	ai_tick_frequency = 99999
 	potential = { scope:actor = { has_variable = tv_court_positions_initialized } }
-	allow = {
-		scope:recipient = {
+	allow = { scope:actor = { always = yes } }
+	select_trigger = {
+		looking_for_a = character
+		source = actor
+		target_flag = recipient
+		name = "tv_court_select_architect"
+		none_available_msg_key = "tv_court_no_architect_available"
+		column = { data = character_info }
+		visible = {
 			is_alive = yes
 			is_adult = yes
 			is_artist = no
@@ -138,8 +166,15 @@ tv_court_appoint_cultural_emissary_character = {
 	ai_tick = never
 	ai_tick_frequency = 99999
 	potential = { scope:actor = { has_variable = tv_court_positions_initialized } }
-	allow = {
-		scope:recipient = {
+	allow = { scope:actor = { always = yes } }
+	select_trigger = {
+		looking_for_a = character
+		source = actor
+		target_flag = recipient
+		name = "tv_court_select_cultural_emissary"
+		none_available_msg_key = "tv_court_no_cultural_emissary_available"
+		column = { data = character_artist }
+		visible = {
 			is_alive = yes
 			is_adult = yes
 			is_artist = yes
@@ -170,8 +205,15 @@ tv_court_appoint_chronicler_character = {
 	ai_tick = never
 	ai_tick_frequency = 99999
 	potential = { scope:actor = { has_variable = tv_court_positions_initialized } }
-	allow = {
-		scope:recipient = {
+	allow = { scope:actor = { always = yes } }
+	select_trigger = {
+		looking_for_a = character
+		source = actor
+		target_flag = recipient
+		name = "tv_court_select_chronicler"
+		none_available_msg_key = "tv_court_no_chronicler_available"
+		column = { data = character_info }
+		visible = {
 			is_alive = yes
 			is_adult = yes
 			is_artist = no

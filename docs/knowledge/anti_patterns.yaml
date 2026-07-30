@@ -3002,11 +3002,33 @@ Correction (2026-07-13, same-day follow-up): the `has_flag` reference itself was
   detectability: lint
   only_in_paths: ['common/generic_actions/']
   bad: "Using `type = character` in a common/generic_actions definition"
-  correction: "Generic actions cannot use the `character` EGenericActionType in the current engine build. Keep country/situation controls as supported generic actions, and define an action that appears on a character's lateral-view or context menu under common/character_interactions instead. Reuse scope:recipient there for the selected character."
+  correction: "Generic actions cannot use the `character` EGenericActionType in the current engine build. Keep country/situation controls as supported generic actions, and define an action that appears on a character's lateral-view or context menu under common/character_interactions instead. Give that interaction a character select_trigger with target_flag = recipient, then use scope:recipient after the selector has supplied it."
   category: enum
   scope: character
   source: "error.log interaction_target.cpp:1407 and pdx_persistent_reader.cpp:289, 2026-07-30; reference_game_files/game/in_game/common/character_interactions/readme.txt; reference_game_files/game/in_game/common/character_interactions/appoint_dragoman.txt"
   notes: "The generic_actions readme still lists character in a stale type comment, but runtime rejects every `type = character` definition with `Failed to read enum! Type: EGenericActionType, Val character`."
+
+- id: character_interaction_recipient_requires_select_trigger
+  pattern: ''
+  detectability: needs_parser
+  only_in_paths: ['common/character_interactions/']
+  bad: "A targeted character interaction uses scope:recipient in allow or effect without a character select_trigger that sets target_flag = recipient"
+  correction: "Add select_trigger = { looking_for_a = character source = actor target_flag = recipient ... }. Character-interaction registration does not automatically pass the viewed/menu character as recipient; target eligibility belongs in the selector visible/enabled blocks, and recipient-dependent effects remain guarded with exists = scope:recipient."
+  category: scope
+  scope: character
+  source: "error.log interaction_target.cpp:3875, 2026-07-30; reference_game_files/game/in_game/common/character_interactions/readme.txt; reference_game_files/game/in_game/common/character_interactions/appoint_dragoman.txt"
+  notes: "Without the selector, the engine rejects the action at load with `Targetted action <id> doesn't specify a recipient for the action`, even when its allow/effect body refers to scope:recipient."
+
+- id: court_character_variable_scope_link_missing_var_prefix
+  pattern: '^[ \t]*tv_court_[A-Za-z0-9_]*_character\s*\?=\s*\{'
+  detectability: lint
+  only_in_paths: ['common/scripted_effects/']
+  bad: "Entering a saved Court Position character variable as bare `tv_court_*_character ?= { ... }`"
+  correction: "Enter the character stored in a variable with `var:tv_court_*_character ?= { ... }`. The `var:` prefix is required for a variable scope link."
+  category: scope
+  scope: character
+  source: "error.log jomini_effect.cpp:556, 2026-07-30; docs/technical/EU5_Modding_Knowledge_Base.md:503-505; src_engineering_department/in_game/common/scripted_effects/tv_engineering_department_effects.txt:347"
+  notes: "A bare variable name is parsed as an effect identifier, producing `Unknown effect tv_court_*_character`; `var:` enters the stored character scope safely when the variable exists."
 
 - id: shared_texticon_glyphs_render_at_inconsistent_pixel_size_across_icon_names
   pattern: ''

@@ -5,7 +5,7 @@
 
 tv_court_positions_remove_physician_effect = {
 	remove_country_modifier = tv_court_physician_effect
-	tv_court_physician_character ?= {
+	var:tv_court_physician_character ?= {
 		remove_character_modifier = busy_modifier
 	}
 	remove_variable = tv_court_physician_character
@@ -15,7 +15,7 @@ tv_court_positions_remove_physician_effect = {
 
 tv_court_positions_remove_tutor_effect = {
 	remove_country_modifier = tv_court_tutor_effect
-	tv_court_tutor_character ?= {
+	var:tv_court_tutor_character ?= {
 		remove_character_modifier = busy_modifier
 	}
 	remove_variable = tv_court_tutor_character
@@ -25,7 +25,7 @@ tv_court_positions_remove_tutor_effect = {
 
 tv_court_positions_remove_steward_effect = {
 	remove_country_modifier = tv_court_steward_effect
-	tv_court_steward_character ?= {
+	var:tv_court_steward_character ?= {
 		remove_character_modifier = busy_modifier
 	}
 	remove_variable = tv_court_steward_character
@@ -35,7 +35,7 @@ tv_court_positions_remove_steward_effect = {
 
 tv_court_positions_remove_architect_effect = {
 	remove_country_modifier = tv_court_architect_effect
-	tv_court_architect_character ?= {
+	var:tv_court_architect_character ?= {
 		remove_character_modifier = busy_modifier
 	}
 	remove_variable = tv_court_architect_character
@@ -45,7 +45,7 @@ tv_court_positions_remove_architect_effect = {
 
 tv_court_positions_remove_cultural_emissary_effect = {
 	remove_country_modifier = tv_court_cultural_emissary_effect
-	tv_court_cultural_emissary_character ?= {
+	var:tv_court_cultural_emissary_character ?= {
 		remove_character_modifier = busy_modifier
 	}
 	remove_variable = tv_court_cultural_emissary_character
@@ -55,7 +55,7 @@ tv_court_positions_remove_cultural_emissary_effect = {
 
 tv_court_positions_remove_chronicler_effect = {
 	remove_country_modifier = tv_court_chronicler_effect
-	tv_court_chronicler_character ?= {
+	var:tv_court_chronicler_character ?= {
 		remove_character_modifier = busy_modifier
 	}
 	remove_variable = tv_court_chronicler_character
@@ -68,7 +68,7 @@ tv_court_positions_refresh_physician_effect = {
 	remove_country_modifier = tv_court_physician_effect
 	if = {
 		limit = { has_variable = tv_court_physician_character }
-		tv_court_physician_character ?= { save_scope_as = tv_court_physician_holder }
+		var:tv_court_physician_character ?= { save_scope_as = tv_court_physician_holder }
 		if = {
 			limit = { scope:tv_court_physician_holder = { is_alive = yes } }
 			scope:tv_court_physician_holder = {
@@ -115,7 +115,7 @@ tv_court_positions_refresh_tutor_effect = {
 	remove_country_modifier = tv_court_tutor_effect
 	if = {
 		limit = { has_variable = tv_court_tutor_character }
-		tv_court_tutor_character ?= { save_scope_as = tv_court_tutor_holder }
+		var:tv_court_tutor_character ?= { save_scope_as = tv_court_tutor_holder }
 		if = {
 			limit = { scope:tv_court_tutor_holder = { is_alive = yes } }
 			scope:tv_court_tutor_holder = {
@@ -162,7 +162,7 @@ tv_court_positions_refresh_steward_effect = {
 	remove_country_modifier = tv_court_steward_effect
 	if = {
 		limit = { has_variable = tv_court_steward_character }
-		tv_court_steward_character ?= { save_scope_as = tv_court_steward_holder }
+		var:tv_court_steward_character ?= { save_scope_as = tv_court_steward_holder }
 		if = {
 			limit = { scope:tv_court_steward_holder = { is_alive = yes } }
 			scope:tv_court_steward_holder = {
@@ -209,7 +209,7 @@ tv_court_positions_refresh_architect_effect = {
 	remove_country_modifier = tv_court_architect_effect
 	if = {
 		limit = { has_variable = tv_court_architect_character }
-		tv_court_architect_character ?= { save_scope_as = tv_court_architect_holder }
+		var:tv_court_architect_character ?= { save_scope_as = tv_court_architect_holder }
 		if = {
 			limit = { scope:tv_court_architect_holder = { is_alive = yes } }
 			scope:tv_court_architect_holder = {
@@ -256,7 +256,7 @@ tv_court_positions_refresh_cultural_emissary_effect = {
 	remove_country_modifier = tv_court_cultural_emissary_effect
 	if = {
 		limit = { has_variable = tv_court_cultural_emissary_character }
-		tv_court_cultural_emissary_character ?= { save_scope_as = tv_court_cultural_emissary_holder }
+		var:tv_court_cultural_emissary_character ?= { save_scope_as = tv_court_cultural_emissary_holder }
 		if = {
 			limit = { scope:tv_court_cultural_emissary_holder = { is_alive = yes } }
 			scope:tv_court_cultural_emissary_holder = {
@@ -306,7 +306,7 @@ tv_court_positions_refresh_chronicler_effect = {
 	remove_country_modifier = tv_court_chronicler_effect
 	if = {
 		limit = { has_variable = tv_court_chronicler_character }
-		tv_court_chronicler_character ?= { save_scope_as = tv_court_chronicler_holder }
+		var:tv_court_chronicler_character ?= { save_scope_as = tv_court_chronicler_holder }
 		if = {
 			limit = { scope:tv_court_chronicler_holder = { is_alive = yes } }
 			scope:tv_court_chronicler_holder = {

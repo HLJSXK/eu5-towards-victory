@@ -1,0 +1,5 @@
+tv_court_positions_remove_physician_effect = {
+    tv_court_physician_character ?= {
+        remove_character_modifier = busy_modifier
+    }
+}

@@ -951,15 +951,23 @@ tv_example_appoint_character = {
 	message = yes
 	on_own_nation = yes
 	potential = { scope:actor = { has_variable = tv_feature_initialized } }
-	allow = { scope:recipient = { is_alive = yes } }
+	allow = { scope:actor = { always = yes } }
+	select_trigger = {
+		looking_for_a = character
+		source = actor
+		target_flag = recipient
+		visible = { is_alive = yes }
+	}
 	effect = { scope:actor = { tv_example_appoint_effect = yes } }
 }
 ```
 
-Within a character interaction, the clicked character is `scope:recipient`. Provide the standard
-character-interaction localization keys `<id>`, `<id>_concept`, `<id>_act`, `<id>_desc`,
-`<id>_desc_specific`, `<id>_past`, and `<id>_act_past`. These are not generic actions: do not add
-them to `generic_action_ai_lists` or generate `PERFORM_<id>_ACTION` message types.
+Character-interaction registration does not itself populate `scope:recipient`: the selector's
+`target_flag = recipient` does. Put target eligibility in that selector and guard its effects with
+`exists = scope:recipient`. Provide the standard character-interaction localization keys `<id>`,
+`<id>_concept`, `<id>_act`, `<id>_desc`, `<id>_desc_specific`, `<id>_past`, and `<id>_act_past`.
+These are not generic actions: do not add them to `generic_action_ai_lists` or generate
+`PERFORM_<id>_ACTION` message types.
 
 #### Generic Action AI Lists
 

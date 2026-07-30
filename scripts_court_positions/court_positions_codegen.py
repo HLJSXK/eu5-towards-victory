@@ -132,7 +132,7 @@ def _render_remove_effect(position: dict) -> str:
     return (
         f"tv_court_positions_remove_{position['id']}_effect = {{\n"
         f"\tremove_country_modifier = {effect_modifier(position)}\n"
-        f"\t{char_var(position)} ?= {{\n"
+        f"\tvar:{char_var(position)} ?= {{\n"
         "\t\tremove_character_modifier = busy_modifier\n"
         "\t}\n"
         f"\tremove_variable = {char_var(position)}\n"
@@ -154,7 +154,7 @@ def _render_refresh_effect(position: dict) -> str:
         f"\tremove_country_modifier = {effect_modifier(position)}\n"
         f"\tif = {{\n"
         f"\t\tlimit = {{ has_variable = {char_var(position)} }}\n"
-        f"\t\t{char_var(position)} ?= {{ save_scope_as = {holder_scope} }}\n"
+        f"\t\tvar:{char_var(position)} ?= {{ save_scope_as = {holder_scope} }}\n"
         f"\t\tif = {{\n"
         f"\t\t\tlimit = {{ scope:{holder_scope} = {{ is_alive = yes }} }}\n"
         f"\t\t\tscope:{holder_scope} = {{\n"
@@ -294,7 +294,7 @@ def _render_appointment_action(position: dict) -> str:
 
 
 def _render_direct_appointment_interaction(position: dict) -> str:
-    """Render the native character-menu action for an already selected character."""
+    """Render the native character-menu appointment interaction."""
     eligibility = "\n".join(character_eligibility_lines(position, "\t\t\t"))
     action = character_appointment_action(position)
     return (
@@ -305,8 +305,15 @@ def _render_direct_appointment_interaction(position: dict) -> str:
         "\tai_tick = never\n"
         "\tai_tick_frequency = 99999\n"
         "\tpotential = { scope:actor = { has_variable = tv_court_positions_initialized } }\n"
-        "\tallow = {\n"
-        "\t\tscope:recipient = {\n"
+        "\tallow = { scope:actor = { always = yes } }\n"
+        "\tselect_trigger = {\n"
+        "\t\tlooking_for_a = character\n"
+        "\t\tsource = actor\n"
+        "\t\ttarget_flag = recipient\n"
+        f"\t\tname = \"tv_court_select_{position['id']}\"\n"
+        f"\t\tnone_available_msg_key = \"tv_court_no_{position['id']}_available\"\n"
+        f"\t\tcolumn = {{ data = {'character_artist' if position['artist_only'] else 'character_info'} }}\n"
+        "\t\tvisible = {\n"
         f"{eligibility}\n"
         "\t\t}\n"
         "\t}\n"
