@@ -293,14 +293,16 @@ def _render_appointment_action(position: dict) -> str:
     )
 
 
-def _render_direct_appointment_action(position: dict) -> str:
-    eligibility = "\n".join(character_eligibility_lines(position, "\t\t"))
+def _render_direct_appointment_interaction(position: dict) -> str:
+    """Render the native character-menu action for an already selected character."""
+    eligibility = "\n".join(character_eligibility_lines(position, "\t\t\t"))
     action = character_appointment_action(position)
     return (
         f"{action} = {{\n"
-        "\ttype = character\n"
         "\tsound = UI_action_religion_generic\n"
-        "\tai_tick = monthly\n"
+        "\tmessage = yes\n"
+        "\ton_own_nation = yes\n"
+        "\tai_tick = never\n"
         "\tai_tick_frequency = 99999\n"
         "\tpotential = { scope:actor = { has_variable = tv_court_positions_initialized } }\n"
         "\tallow = {\n"
@@ -342,16 +344,22 @@ def render_generic_actions(positions: Iterable[dict], script_rel: str) -> str:
     blocks = []
     for position in positions:
         blocks.append(_render_appointment_action(position))
-        blocks.append(_render_direct_appointment_action(position))
         blocks.append(_render_dismissal_action(position))
     return header(script_rel) + "\n\n".join(blocks) + "\n"
+
+
+def render_character_interactions(positions: Iterable[dict], script_rel: str) -> str:
+    """Render direct appointment actions for the character lateral view/context menu."""
+    return header(script_rel) + "\n\n".join(
+        _render_direct_appointment_interaction(position) for position in positions
+    ) + "\n"
 
 
 def render_action_ai_list(positions: Iterable[dict], script_rel: str) -> str:
     actions = [
         action
         for position in positions
-        for action in (appointment_action(position), character_appointment_action(position), dismissal_action(position))
+        for action in (appointment_action(position), dismissal_action(position))
     ]
     lines = [
         header(script_rel).rstrip(),
@@ -515,11 +523,16 @@ def _action_localization_entries(position: dict, language: str) -> list[tuple[st
         (appoint, f"任命{name}" if zh else f"Appoint {name}"),
         (f"{appoint}_desc", f"从本国合资格人物中任命{name}{suffix}" if zh else f"Choose an eligible character in our country to become the {name}."),
         (direct, f"任命为{name}" if zh else f"Appoint as {name}"),
-        (f"{direct}_desc", f"任命此人物为{name}{suffix}" if zh else f"Appoint this character as the {name}."),
+        (f"{direct}_concept", "[character|e]"),
+        (f"{direct}_act", f"${direct}$"),
+        (f"{direct}_desc", f"该人物将担任{name}{suffix}" if zh else f"The character will serve as the {name}."),
+        (f"{direct}_desc_specific", f"[recipient.GetName]将担任{name}{suffix}" if zh else f"[recipient.GetName] will serve as the {name}."),
+        (f"{direct}_past", f"{name}已任命" if zh else f"{name} Appointed"),
+        (f"{direct}_act_past", f"[SCOPE.sCharacter('recipient').GetName]已被任命为{name}{suffix}" if zh else f"[SCOPE.sCharacter('recipient').GetName] has been appointed as the {name}."),
         (dismiss, f"解任{name}" if zh else f"Dismiss {name}"),
         (f"{dismiss}_desc", f"解除当前{name}的职务{suffix}" if zh else f"Remove the current {name} from office."),
         (f"tv_court_select_{position['id']}", f"选择{name}" if zh else f"Select {name}"),
-        (f"tv_court_no_{position['id']}_available", f"没有可担任{name}的合资格人物。" if zh else f"No eligible character is available to serve as {name}."),
+        (f"tv_court_no_{position['id']}_available", f"@trigger_no! 没有可担任{name}的合资格人物。" if zh else f"@trigger_no! No eligible character is available to serve as {name}."),
     ]
 
 
@@ -552,7 +565,7 @@ def render_localization(positions: Iterable[dict], script_rel: str, language: st
         for ability in range(101):
             entries.append((f"STATIC_MODIFIER_NAME_{display_modifier(position, ability)}", position["name_zh"] if zh else position["name_en"]))
         entries.extend(_action_localization_entries(position, language))
-        for action in (appointment_action(position), character_appointment_action(position), dismissal_action(position)):
+        for action in (appointment_action(position), dismissal_action(position)):
             entries.extend(_message_localization_entries(action, language))
     lines = [
         f"{header_key}:",

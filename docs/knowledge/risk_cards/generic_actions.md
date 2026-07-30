@@ -164,6 +164,14 @@ execution time can still spam runtime errors while the mouse is merely hovering 
    action still needs its own `potential`, `allow`, guarded `effect`, AI-list registration,
    message type, and localization.
 
+23. Do not model a character-menu action as `type = character`.
+   The runtime rejects that value for `EGenericActionType`, even though a stale comment in the
+   generic-actions readme lists it. Define direct character actions in
+   `common/character_interactions/` with `on_own_nation = yes`; their selected menu character is
+   `scope:recipient`. They require character-interaction localization (`<id>`, `_concept`, `_act`,
+   `_desc`, `_desc_specific`, `_past`, `_act_past`), but no generic-action AI-list or
+   `PERFORM_<id>_ACTION` message-type registration.
+
 ## Safe Skeleton
 
 ```txt

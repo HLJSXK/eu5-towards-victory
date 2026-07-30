@@ -41,37 +41,6 @@ tv_court_appoint_physician = {
 	ai_will_do = { add = -100 }
 }
 
-tv_court_appoint_physician_character = {
-	type = character
-	sound = UI_action_religion_generic
-	ai_tick = monthly
-	ai_tick_frequency = 99999
-	potential = { scope:actor = { has_variable = tv_court_positions_initialized } }
-	allow = {
-		scope:recipient = {
-		is_alive = yes
-		is_adult = yes
-		is_artist = no
-		is_ruler = no
-		is_heir = no
-		is_consort = no
-		in_cabinet = no
-		is_general = no
-		is_admiral = no
-		is_explorer = no
-		is_loyal = yes
-		NOT = { has_character_modifier = busy_modifier }
-		}
-	}
-	effect = {
-		if = {
-			limit = { exists = scope:recipient }
-			scope:actor = { tv_court_positions_appoint_physician_direct_effect = yes }
-		}
-	}
-	ai_will_do = { add = -100 }
-}
-
 tv_court_dismiss_physician = {
 	type = owncountry
 	sound = UI_action_religion_generic
@@ -118,37 +87,6 @@ tv_court_appoint_tutor = {
 		if = {
 			limit = { exists = scope:target }
 			scope:actor = { tv_court_positions_appoint_tutor_effect = yes }
-		}
-	}
-	ai_will_do = { add = -100 }
-}
-
-tv_court_appoint_tutor_character = {
-	type = character
-	sound = UI_action_religion_generic
-	ai_tick = monthly
-	ai_tick_frequency = 99999
-	potential = { scope:actor = { has_variable = tv_court_positions_initialized } }
-	allow = {
-		scope:recipient = {
-		is_alive = yes
-		is_adult = yes
-		is_artist = no
-		is_ruler = no
-		is_heir = no
-		is_consort = no
-		in_cabinet = no
-		is_general = no
-		is_admiral = no
-		is_explorer = no
-		is_loyal = yes
-		NOT = { has_character_modifier = busy_modifier }
-		}
-	}
-	effect = {
-		if = {
-			limit = { exists = scope:recipient }
-			scope:actor = { tv_court_positions_appoint_tutor_direct_effect = yes }
 		}
 	}
 	ai_will_do = { add = -100 }
@@ -205,37 +143,6 @@ tv_court_appoint_steward = {
 	ai_will_do = { add = -100 }
 }
 
-tv_court_appoint_steward_character = {
-	type = character
-	sound = UI_action_religion_generic
-	ai_tick = monthly
-	ai_tick_frequency = 99999
-	potential = { scope:actor = { has_variable = tv_court_positions_initialized } }
-	allow = {
-		scope:recipient = {
-		is_alive = yes
-		is_adult = yes
-		is_artist = no
-		is_ruler = no
-		is_heir = no
-		is_consort = no
-		in_cabinet = no
-		is_general = no
-		is_admiral = no
-		is_explorer = no
-		is_loyal = yes
-		NOT = { has_character_modifier = busy_modifier }
-		}
-	}
-	effect = {
-		if = {
-			limit = { exists = scope:recipient }
-			scope:actor = { tv_court_positions_appoint_steward_direct_effect = yes }
-		}
-	}
-	ai_will_do = { add = -100 }
-}
-
 tv_court_dismiss_steward = {
 	type = owncountry
 	sound = UI_action_religion_generic
@@ -282,37 +189,6 @@ tv_court_appoint_architect = {
 		if = {
 			limit = { exists = scope:target }
 			scope:actor = { tv_court_positions_appoint_architect_effect = yes }
-		}
-	}
-	ai_will_do = { add = -100 }
-}
-
-tv_court_appoint_architect_character = {
-	type = character
-	sound = UI_action_religion_generic
-	ai_tick = monthly
-	ai_tick_frequency = 99999
-	potential = { scope:actor = { has_variable = tv_court_positions_initialized } }
-	allow = {
-		scope:recipient = {
-		is_alive = yes
-		is_adult = yes
-		is_artist = no
-		is_ruler = no
-		is_heir = no
-		is_consort = no
-		in_cabinet = no
-		is_general = no
-		is_admiral = no
-		is_explorer = no
-		is_loyal = yes
-		NOT = { has_character_modifier = busy_modifier }
-		}
-	}
-	effect = {
-		if = {
-			limit = { exists = scope:recipient }
-			scope:actor = { tv_court_positions_appoint_architect_direct_effect = yes }
 		}
 	}
 	ai_will_do = { add = -100 }
@@ -369,37 +245,6 @@ tv_court_appoint_cultural_emissary = {
 	ai_will_do = { add = -100 }
 }
 
-tv_court_appoint_cultural_emissary_character = {
-	type = character
-	sound = UI_action_religion_generic
-	ai_tick = monthly
-	ai_tick_frequency = 99999
-	potential = { scope:actor = { has_variable = tv_court_positions_initialized } }
-	allow = {
-		scope:recipient = {
-		is_alive = yes
-		is_adult = yes
-		is_artist = yes
-		is_ruler = no
-		is_heir = no
-		is_consort = no
-		in_cabinet = no
-		is_general = no
-		is_admiral = no
-		is_explorer = no
-		is_loyal = yes
-		NOT = { has_character_modifier = busy_modifier }
-		}
-	}
-	effect = {
-		if = {
-			limit = { exists = scope:recipient }
-			scope:actor = { tv_court_positions_appoint_cultural_emissary_direct_effect = yes }
-		}
-	}
-	ai_will_do = { add = -100 }
-}
-
 tv_court_dismiss_cultural_emissary = {
 	type = owncountry
 	sound = UI_action_religion_generic
@@ -446,37 +291,6 @@ tv_court_appoint_chronicler = {
 		if = {
 			limit = { exists = scope:target }
 			scope:actor = { tv_court_positions_appoint_chronicler_effect = yes }
-		}
-	}
-	ai_will_do = { add = -100 }
-}
-
-tv_court_appoint_chronicler_character = {
-	type = character
-	sound = UI_action_religion_generic
-	ai_tick = monthly
-	ai_tick_frequency = 99999
-	potential = { scope:actor = { has_variable = tv_court_positions_initialized } }
-	allow = {
-		scope:recipient = {
-		is_alive = yes
-		is_adult = yes
-		is_artist = no
-		is_ruler = no
-		is_heir = no
-		is_consort = no
-		in_cabinet = no
-		is_general = no
-		is_admiral = no
-		is_explorer = no
-		is_loyal = yes
-		NOT = { has_character_modifier = busy_modifier }
-		}
-	}
-	effect = {
-		if = {
-			limit = { exists = scope:recipient }
-			scope:actor = { tv_court_positions_appoint_chronicler_direct_effect = yes }
 		}
 	}
 	ai_will_do = { add = -100 }

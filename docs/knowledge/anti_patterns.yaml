@@ -2997,6 +2997,17 @@ Correction (2026-07-13, same-day follow-up): the `has_flag` reference itself was
   source: "src_engineering_department/in_game/events/tv_engineering_department_events.txt tv_engineering_department.202 option; reference_game_files/game/in_game/events/earthquake_events.txt earthquake_events_minor.a/.b; docs/knowledge/risk_cards/wonders.md rule 31 second follow-up; 2026-07-16"
   notes: "2026-07-16: user reported the wonder-finish worksite demolition still errored even after it had already been moved into event tv_engineering_department.202's option (per the rule 31 fix). The generalization is: deferring a heavy/unsafe effect call to *any* visible effect body — button, event option, whatever — never escapes pre-evaluation by itself; only `hidden_effect` does. Wrapped the call in `hidden_effect` and added `custom_tooltip = tv_engineering_department.202.a.tt` (with matching English/Simplified Chinese loc) so the option keeps a correct static tooltip. validate.py --changed --fix --ai-report passed with 0 errors/warnings after the fix."
 
+- id: generic_action_character_type_is_unsupported
+  pattern: '^[ \t]*type\s*=\s*character\b'
+  detectability: lint
+  only_in_paths: ['common/generic_actions/']
+  bad: "Using `type = character` in a common/generic_actions definition"
+  correction: "Generic actions cannot use the `character` EGenericActionType in the current engine build. Keep country/situation controls as supported generic actions, and define an action that appears on a character's lateral-view or context menu under common/character_interactions instead. Reuse scope:recipient there for the selected character."
+  category: enum
+  scope: character
+  source: "error.log interaction_target.cpp:1407 and pdx_persistent_reader.cpp:289, 2026-07-30; reference_game_files/game/in_game/common/character_interactions/readme.txt; reference_game_files/game/in_game/common/character_interactions/appoint_dragoman.txt"
+  notes: "The generic_actions readme still lists character in a stale type comment, but runtime rejects every `type = character` definition with `Failed to read enum! Type: EGenericActionType, Val character`."
+
 - id: shared_texticon_glyphs_render_at_inconsistent_pixel_size_across_icon_names
   pattern: ''
   detectability: advisory

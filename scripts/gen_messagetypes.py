@@ -118,7 +118,6 @@ def court_position_action_ids() -> list[str]:
         for position in data["positions"]
         for action in (
             f"tv_court_appoint_{position['id']}",
-            f"tv_court_appoint_{position['id']}_character",
             f"tv_court_dismiss_{position['id']}",
         )
     ]

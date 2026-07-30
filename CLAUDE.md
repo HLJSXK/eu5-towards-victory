@@ -449,7 +449,7 @@ look for `<script-root>/<same-relative-path>/gen_<filename>.py`.
 | `src/main_menu/gui/messagetypes.txt` | vanilla `messagetypes.txt` + all TV generic actions | `scripts/gen_messagetypes.py` |
 | `src_engineering_department/main_menu/gui/messagetypes.txt` | vanilla `messagetypes.txt` + complete TV action union | `scripts/gen_messagetypes.py` |
 | `src_court_positions/main_menu/gui/messagetypes.txt` | vanilla `messagetypes.txt` + complete TV action union | `scripts/gen_messagetypes.py` |
-| `src_court_positions/in_game/common/{static_modifiers,scripted_effects,generic_actions,generic_action_ai_lists,situations,on_action}/tv_court_positions_*.txt` | `data/court_positions.yaml` | matching `scripts_court_positions/` generator |
+| `src_court_positions/in_game/common/{static_modifiers,scripted_effects,generic_actions,character_interactions,generic_action_ai_lists,situations,on_action}/tv_court_positions_*.txt` | `data/court_positions.yaml` | matching `scripts_court_positions/` generator |
 | `src_court_positions/in_game/gui/panels/situation/tv_court_positions_situation.gui` and `main_menu/localization/*/tv_court_positions_l_*.yml` | `data/court_positions.yaml` | matching `scripts_court_positions/` generator |
 | `laws/tv_alliance_laws.txt` | `data/alliance_laws.yaml` | `scripts/in_game/common/laws/gen_tv_alliance_laws.py` |
 | `gui/panels/organization/tv_academy_of_sciences.gui` | `data/locked_advances.yaml` | `scripts/in_game/gui/panels/organization/gen_tv_academy_of_sciences_gui.py` |

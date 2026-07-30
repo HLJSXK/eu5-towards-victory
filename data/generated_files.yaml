@@ -613,6 +613,10 @@ generated:
     data:   data/court_positions.yaml
     output: src_court_positions/in_game/common/generic_actions/tv_court_positions_actions.txt
 
+  - script: scripts_court_positions/in_game/common/character_interactions/gen_tv_court_positions_character_interactions.py
+    data:   data/court_positions.yaml
+    output: src_court_positions/in_game/common/character_interactions/tv_court_positions_character_interactions.txt
+
   - script: scripts_court_positions/in_game/common/generic_action_ai_lists/gen_tv_court_positions_actions_list.py
     data:   data/court_positions.yaml
     output: src_court_positions/in_game/common/generic_action_ai_lists/tv_court_positions_actions_list.txt

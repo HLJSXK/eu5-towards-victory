@@ -938,6 +938,29 @@ the selector's `none_available_msg_key` even when the target exists; reserve the
 AI override after the player selector has its own `source`, `source_flags`, or
 `interaction_source_list`.
 
+#### Character-menu actions are `character_interactions`, not Generic Action `type = character`
+
+In the current engine build, `common/generic_actions` rejects `type = character` with
+`Failed to read enum! Type: "EGenericActionType", Val "character"`. Do not rely on the stale
+generic-actions readme comment that lists that value. An action that belongs in a character's
+lateral-view or right-click menu must instead be defined under
+`common/character_interactions/`, following vanilla `appoint_dragoman.txt`:
+
+```pdx
+tv_example_appoint_character = {
+	message = yes
+	on_own_nation = yes
+	potential = { scope:actor = { has_variable = tv_feature_initialized } }
+	allow = { scope:recipient = { is_alive = yes } }
+	effect = { scope:actor = { tv_example_appoint_effect = yes } }
+}
+```
+
+Within a character interaction, the clicked character is `scope:recipient`. Provide the standard
+character-interaction localization keys `<id>`, `<id>_concept`, `<id>_act`, `<id>_desc`,
+`<id>_desc_specific`, `<id>_past`, and `<id>_act_past`. These are not generic actions: do not add
+them to `generic_action_ai_lists` or generate `PERFORM_<id>_ACTION` message types.
+
 #### Generic Action AI Lists
 
 Every generic action should be explicitly listed in `in_game/common/generic_action_ai_lists/`. Vanilla's readme says unlisted actions are put into the global list, and EU5 logs a performance warning such as `Action X is not explicitly listed in an ai list!`.
