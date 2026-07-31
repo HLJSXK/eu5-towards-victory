@@ -23,6 +23,13 @@ TRIGGER_GENERATOR = (
     / "scripted_triggers"
     / "gen_tv_engineering_department_wonder_mechanics_triggers.py"
 )
+BUILDING_GENERATOR = (
+    REPO_ROOT
+    / "scripts_engineering_department" / "in_game"
+    / "common"
+    / "building_types"
+    / "gen_tv_engineering_department_wonder_mechanics_buildings.py"
+)
 EFFECT_GENERATOR = (
     REPO_ROOT
     / "scripts_engineering_department" / "in_game"
@@ -133,6 +140,14 @@ def load_trigger_generator():
     return module
 
 
+def load_building_generator():
+    spec = importlib.util.spec_from_file_location("wonder_mechanics_building_generator", BUILDING_GENERATOR)
+    require(spec is not None and spec.loader is not None, "Could not load wonder mechanics building generator.")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
 def load_effect_generator():
     spec = importlib.util.spec_from_file_location("wonder_mechanics_effect_generator", EFFECT_GENERATOR)
     require(spec is not None and spec.loader is not None, "Could not load wonder mechanics effect generator.")
@@ -232,12 +247,36 @@ def validate_existing_unique_initialization_seeds_survey_maps(wonders: list[dict
         location_display_script,
         "tv_wonder_initialize_existing_unique_wonders_effect",
     )
+    seed_block = extract_trigger_block(
+        location_display_script,
+        "tv_wonder_seed_existing_unique_wonders_effect",
+    )
     existing_unique_ids = [
         int(wonder["id"])
         for wonder in wonders
         if wonder.get("is_unique") and int(wonder.get("initial_level") or 0) > 0
     ]
     require(existing_unique_ids, "Expected at least one game-start unique wonder.")
+    initialization_guard = "NOT = { has_global_variable = tv_wonder_existing_unique_wonders_initialized }"
+    initialization_marker = "set_global_variable = tv_wonder_existing_unique_wonders_initialized"
+    require(
+        init_block.count(initialization_guard) == 1,
+        "Existing unique wonder initialization must have exactly one save-level guard.",
+    )
+    require(
+        init_block.count(initialization_marker) == 1,
+        "Existing unique wonder initialization must set its save-level marker exactly once.",
+    )
+    require(
+        init_block.index(initialization_guard)
+        < init_block.index("tv_wonder_seed_existing_unique_wonders_effect = yes"),
+        "Existing unique wonder initialization guard must wrap the seed effect call.",
+    )
+    require(
+        init_block.index(initialization_marker)
+        > init_block.index("tv_wonder_seed_existing_unique_wonders_effect = yes"),
+        "Existing unique wonder initialization marker must be set after the seed effect completes.",
+    )
     expected_survey_seed = {
         "tv_wonder_surveyed": 1,
         "tv_wonder_survey_scale_competence": 100,
@@ -248,9 +287,26 @@ def validate_existing_unique_initialization_seeds_survey_maps(wonders: list[dict
     for wonder_id in existing_unique_ids:
         for map_name, value in expected_survey_seed.items():
             require(
-                f"add_to_variable_map = {{ name = {map_name} key = {wonder_id} value = {value} }}" in init_block,
+                f"add_to_variable_map = {{ name = {map_name} key = {wonder_id} value = {value} }}" in seed_block,
                 f"Game-start unique wonder {wonder_id} must seed {map_name} with {value}.",
             )
+
+
+def validate_final_building_destruction_sync(wonders: list[dict]) -> None:
+    building_generator = load_building_generator()
+    building_script = building_generator.generate()
+    expected_final_building_count = sum(len(ceremony_styles(wonder)) for wonder in wonders)
+    destruction_callback = "\n".join(
+        [
+            "\ton_destroyed = {",
+            *building_generator.final_building_on_destroyed_lines(),
+            "\t}",
+        ]
+    )
+    require(
+        building_script.count(destruction_callback) == expected_final_building_count,
+        "Every final wonder building must synchronize location and owner country state when destroyed.",
+    )
 
 
 def validate_generated_ceremony_flow(wonders: list[dict], mechanics: dict) -> None:
@@ -709,6 +765,7 @@ def main() -> None:
     validate_wonder_size_base_country_modifier_rules(wonders, mechanics)
     validate_generated_trigger_scope_layers(wonders)
     validate_existing_unique_initialization_seeds_survey_maps(wonders)
+    validate_final_building_destruction_sync(wonders)
     validate_generated_ceremony_flow(wonders, mechanics)
     validate_generated_ceremony_autostart(wonders)
     validate_generated_ceremony_gui(wonders)

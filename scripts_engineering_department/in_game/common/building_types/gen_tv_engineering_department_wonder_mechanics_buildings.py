@@ -97,6 +97,7 @@ def building_block(
     construction_demand: str | None = None,
     price: str | None = None,
     on_built_lines: list[str] | None = None,
+    on_destroyed_lines: list[str] | None = None,
     on_construction_ended_lines: list[str] | None = None,
     can_destroy: str = "no",
 ) -> list[str]:
@@ -157,6 +158,10 @@ def building_block(
         lines.extend(["", f"{T}on_built = {{"])
         lines.extend(on_built_lines)
         lines.append(f"{T}}}")
+    if on_destroyed_lines:
+        lines.extend(["", f"{T}on_destroyed = {{"])
+        lines.extend(on_destroyed_lines)
+        lines.append(f"{T}}}")
     if on_construction_ended_lines:
         lines.extend(["", f"{T}on_construction_ended = {{"])
         lines.extend(on_construction_ended_lines)
@@ -203,6 +208,20 @@ def final_building_on_built_lines() -> list[str]:
     ]
 
 
+def final_building_on_destroyed_lines() -> list[str]:
+    return [
+        f"{T}{T}hidden_effect = {{",
+        f"{T}{T}{T}location = {{",
+        f"{T}{T}{T}{T}tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes",
+        f"{T}{T}{T}{T}tv_wonder_mechanics_refresh_location_display_state_effect = yes",
+        f"{T}{T}{T}{T}owner ?= {{",
+        f"{T}{T}{T}{T}{T}tv_wonder_mechanics_refresh_country_auto_level_map_effect = yes",
+        f"{T}{T}{T}{T}}}",
+        f"{T}{T}{T}}}",
+        f"{T}{T}}}",
+    ]
+
+
 def generate() -> str:
     wonders, mechanics = load_all_wonder_mechanics()
     lines = render_header(SCRIPT_REL)
@@ -226,6 +245,8 @@ def generate() -> str:
                     maintenance,
                     attributes=attributes,
                     on_built_lines=final_building_on_built_lines(),
+                    on_destroyed_lines=final_building_on_destroyed_lines(),
+                    can_destroy="yes",
                 )
             )
         for style in ceremony_styles(wonder):

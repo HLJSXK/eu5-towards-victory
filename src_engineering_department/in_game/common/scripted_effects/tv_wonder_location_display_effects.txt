@@ -2188,6 +2188,16 @@ tv_wonder_mechanics_sync_world_final_building_level_maps_from_buildings_effect =
 }
 
 tv_wonder_initialize_existing_unique_wonders_effect = {
+	if = {
+		limit = {
+			NOT = { has_global_variable = tv_wonder_existing_unique_wonders_initialized }
+		}
+		tv_wonder_seed_existing_unique_wonders_effect = yes
+		set_global_variable = tv_wonder_existing_unique_wonders_initialized
+	}
+}
+
+tv_wonder_seed_existing_unique_wonders_effect = {
 	location:constantinople = {
 		if = {
 			limit = { NOT = { has_building = building_type:tv_wonder_unique_hagia_sophia_inaugurated } }

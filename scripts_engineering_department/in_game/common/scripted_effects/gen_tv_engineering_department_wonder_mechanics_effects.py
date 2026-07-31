@@ -89,6 +89,8 @@ AUTO_CACHE_BUILDING_TYPE_LOCAL = "tv_wonder_auto_cache_final_building_type"
 AUTO_CACHE_WONDER_ID_LOCAL = "tv_wonder_auto_cache_wonder_id"
 AUTO_CACHE_LEVEL_LOCAL = "tv_wonder_auto_cache_level"
 AUTO_CACHE_EXISTING_LEVEL_LOCAL = "tv_wonder_auto_cache_existing_level"
+EXISTING_UNIQUE_WONDERS_INITIALIZED_GLOBAL = "tv_wonder_existing_unique_wonders_initialized"
+EXISTING_UNIQUE_WONDERS_SEED_EFFECT = "tv_wonder_seed_existing_unique_wonders_effect"
 PRIORITY_CANDIDATE_WONDER_ID_VAR = "tv_wonder_priority_candidate_wonder_id"
 PRIORITY_CANDIDATE_CURRENT_MODE_VAR = "tv_wonder_priority_candidate_current_mode"
 LOCATION_DISPLAY_SCOPE = "tv_wonder_location_display_location"
@@ -1006,6 +1008,19 @@ def append_country_auto_level_map_effect(lines: list[str]) -> None:
 def append_existing_unique_wonders_initialization_effect(lines: list[str], unique_wonders: list[dict]) -> None:
     existing_wonders = [wonder for wonder in unique_wonders if int(wonder["initial_level"]) > 0]
     lines.append("tv_wonder_initialize_existing_unique_wonders_effect = {")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{")
+    lines.append(
+        f"{T}{T}{T}NOT = {{ has_global_variable = {EXISTING_UNIQUE_WONDERS_INITIALIZED_GLOBAL} }}"
+    )
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}{T}{EXISTING_UNIQUE_WONDERS_SEED_EFFECT} = yes")
+    lines.append(f"{T}{T}set_global_variable = {EXISTING_UNIQUE_WONDERS_INITIALIZED_GLOBAL}")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+    lines.append(f"{EXISTING_UNIQUE_WONDERS_SEED_EFFECT} = {{")
     for wonder in existing_wonders:
         initial_level = int(wonder["initial_level"])
         if initial_level > 1:
