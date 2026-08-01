@@ -15,7 +15,8 @@ tv_wonder_initialize_index_on_game_start = {
 			# tv_wonder_suitability_flag_static_reference_trigger.
 			if = {
 				limit = { tv_wonder_suitability_flag_static_reference_trigger = yes }
-				remove_variable = tv_wonder_suitability_flag_static_reference_never_set
+				set_global_variable = tv_wonder_suitability_flag_static_reference_noop
+				remove_global_variable = tv_wonder_suitability_flag_static_reference_noop
 			}
 		}
 	}
@@ -36,7 +37,8 @@ tv_wonder_initialize_index_on_game_load = {
 			# tv_wonder_suitability_flag_static_reference_trigger.
 			if = {
 				limit = { tv_wonder_suitability_flag_static_reference_trigger = yes }
-				remove_variable = tv_wonder_suitability_flag_static_reference_never_set
+				set_global_variable = tv_wonder_suitability_flag_static_reference_noop
+				remove_global_variable = tv_wonder_suitability_flag_static_reference_noop
 			}
 		}
 	}

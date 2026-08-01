@@ -616,6 +616,11 @@ set_local_variable = {
 
 Only the key can be made dynamic this way. The map name is an identifier, not a scope or value expression, so `"global_variable_map($map$|c:ENG)"` and `"global_variable_map(local_var:map_name|c:ENG)"` should be treated as invalid.
 
+Global-root on_action callbacks are not variable-owning scopes. If a reachable branch in that root
+needs a no-op effect body, use global storage effects (`set_global_variable` followed by
+`remove_global_variable` on a scratch name) or enter a variable-owning scope first; a bare
+`remove_variable` at that root logs "This scope does not have variables."
+
 TV runtime tests found an important limitation: although some references describe direct numeric extraction from `"variable_map(name|key)"`, treat direct right-hand-side use as unreliable in this project. Variable-map scope links are reliable for entering the mapped scope on the left side, but can fail or compare as the wrong type when used directly as an equality RHS, trigger RHS, or effect parameter after scope changes.
 
 Do not write:

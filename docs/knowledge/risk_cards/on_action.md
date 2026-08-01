@@ -28,6 +28,9 @@ Load this card before editing `common/on_action/` files or adding monthly/yearly
 4. Verify root/prev assumptions.
    On_action callbacks often run from global, country, character, or situation roots. Capture
    needed values with `save_scope_as` or local variables before entering iterators.
+   If a global-root callback needs a reachable no-op branch, do not use `remove_variable`
+   directly at that root: it has no normal scope variable store. Use a temporary
+   `set_global_variable` / `remove_global_variable` pair, or enter a variable-owning scope first.
 
 5. Do not simulate generic-action AI in broad pulses.
    If AI should use a player-facing situation/generic action, enable that action with
@@ -68,6 +71,9 @@ monthly-country-pulse reachable events for the required one-day delay.
 
 ## Relevant Anti-Patterns
 
+- `on_action_global_root_remove_variable_noop` [advisory]: Global-root on_action callbacks
+  cannot run scoped variable effects such as `remove_variable`; use global variable effects
+  for no-op anchors.
 - `on_action_simulates_generic_action_actor_context` [advisory]: Broad pulses should not
   manually simulate generic action/building eligibility chains that expect literal
   `scope:actor`; put AI behavior on the generic action itself.

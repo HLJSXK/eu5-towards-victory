@@ -2726,6 +2726,16 @@
 
 Correction (2026-07-13, same-day follow-up): the `has_flag` reference itself was invalid EU5 syntax -- error.log/pdx_persistent_reader.cpp:289 logged 'Unknown trigger type: has_flag' once per line (270 occurrences) on parse, before the flag-usage scanner even ran. `has_flag` does not exist in Jomini; there is no EU4-style boolean flag system. Since `flag:<key>` here is a string-typed `global_variable_map` key namespace, not a scope flag, the reference must instead be `is_key_in_global_variable_map = { name = tv_wonder_suitability_condition_type target = flag:tv_wonder_suitability_<mechanic_id>_<slot> }` (vanilla precedent: reference_game_files/game/in_game/common/country_interactions/hre.txt:897). `append_suitability_flag_static_reference_trigger` in the generator was updated to emit this instead; the OR now evaluates true for every entry (all keys are baked at init) rather than always-false, which remains harmless since this trigger is a static reference, not real gameplay logic."
 
+- id: on_action_global_root_remove_variable_noop
+  pattern: ''
+  detectability: advisory
+  bad: "Using `remove_variable = X` as a harmless no-op directly inside a global-root `on_action` callback, even when the variable is intentionally never set."
+  correction: "Global-root `on_action` callbacks do not own a normal scope variable store. For a reachable no-op branch in that root, use a scratch global variable pair (`set_global_variable = tv_example_noop` followed by `remove_global_variable = tv_example_noop`), or enter a variable-owning scope before using scoped `set_variable`/`remove_variable` effects."
+  category: on_action
+  scope: global
+  source: "runtime error.log: jomini_script_system.cpp:252 `remove_variable effect [ This scope does not have variables ]` at common/on_action/tv_engineering_department_on_action.txt:18; reference_official_defines/docs/effects.log documents `set_global_variable` and `remove_global_variable` with Supported Scopes: none"
+  notes: "Fixed 2026-08-01 in `src_engineering_department/in_game/common/on_action/tv_engineering_department_on_action.txt`: the `tv_wonder_suitability_flag_static_reference_trigger` call remains reachable from on_game_start/on_game_load, but its no-op body now sets and removes `tv_wonder_suitability_flag_static_reference_noop` as a global variable. This supersedes the older never-set `remove_variable` placeholder and its `data/cmf_warning_suppressions.yaml` entry."
+
 - id: gui_node_graph_connectors_need_prebaked_overlay
   pattern: ''
   detectability: advisory

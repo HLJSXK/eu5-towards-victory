@@ -679,10 +679,11 @@ every country regardless so missing or damaged IOs are repaired.
     trigger/effect that is never called anywhere still logs the warning (the engine's own message
     says so: "Use in unused scripted triggers and effects also does not count"). The working fix,
     `tv_wonder_suitability_flag_static_reference_trigger`
-    (`gen_tv_engineering_department_wonder_mechanics_triggers.py`), ORs `has_flag` across every baked
-    `tv_wonder_suitability_<mechanic_id>_<slot>` key and is called once, as a side-effect-free no-op,
-    from the already-reachable `tv_wonder_initialize_index_on_game_start`/`_on_game_load` hooks in
-    `tv_engineering_department_on_action.txt`.
+    (`gen_tv_engineering_department_wonder_mechanics_triggers.py`), ORs `is_key_in_global_variable_map`
+    across every baked `tv_wonder_suitability_<mechanic_id>_<slot>` key and is called once from the
+    already-reachable `tv_wonder_initialize_index_on_game_start`/`_on_game_load` hooks. Because those
+    hooks run at the global on_action root, the no-op body uses a scratch global variable
+    `set_global_variable` / `remove_global_variable` pair instead of a bare `remove_variable`.
 
 25. A wrapper `vbox`/`hbox` does not inherit its ancestor's fixed width — give it its own
     `layoutpolicy_horizontal = expanding` whenever it sits between a fixed-width column and an
@@ -811,7 +812,9 @@ every country regardless so missing or damaged IOs are repaired.
     trade-off on `tv_wonder_suitability_flag_static_reference_trigger` — one accepted variable
     warning instead of dozens of unused-flag warnings) are both cases where the code itself is
     correct; both are now suppressed for consistency with every other GUI-only-read/deliberate-
-    workaround entry in that file. `tv_wonder_final_building_type_to_display_id` (formerly
+    workaround entry in that file. Follow-up 2026-08-01: the old
+    `tv_wonder_suitability_flag_static_reference_never_set` placeholder was retired when the
+    static-reference no-op changed to a scratch global variable set/remove pair. `tv_wonder_final_building_type_to_display_id` (formerly
     `gen_tv_wonder_index_effects.py`'s `FINAL_BUILDING_DISPLAY_ID_MAP`) turned out to be a dead
     duplicate of `tv_wonder_final_building_type_to_wonder_id` (same generator loop, same
     `wonder_id` value, zero readers anywhere) rather than a genuine dynamic-reference case like its
