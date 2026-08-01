@@ -1,12 +1,14 @@
 ﻿"""
-gen_messagetypes.py — Generate identical full-copy messagetypes.txt files.
+gen_messagetypes.py — Generate per-root full-copy messagetypes.txt files.
 
-``messagetypes.txt`` is a winner-takes-all singleton. Mod dependency order
-does not reliably make the dependent main-mod copy win, so each full vanilla
-copy must append the complete TV message-type union.
+``messagetypes.txt`` is a winner-takes-all singleton. Standalone roots keep
+only their own message types so they load cleanly by themselves. The main mod
+keeps the TV+Engineering union and must be sorted after Engineering Department
+when both are enabled.
 """
 import sys
 import pathlib
+import re
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -121,6 +123,58 @@ def court_position_action_ids() -> list[str]:
             f"tv_court_dismiss_{position['id']}",
         )
     ]
+
+
+ACTION_DECL_RE = re.compile(r"(?m)^([a-z][A-Za-z0-9_]*)\s*=\s*\{")
+MESSAGE_BLOCK_RE = re.compile(r"(?ms)^([A-Z][A-Za-z0-9_]*)\s*=\s*\{\n.*?\n\}\s*")
+
+
+def action_ids_under(*dirs: pathlib.Path) -> set[str]:
+    actions: set[str] = set()
+    for directory in dirs:
+        if not directory.exists():
+            continue
+        for path in sorted(directory.glob("*.txt")):
+            actions.update(ACTION_DECL_RE.findall(path.read_text(encoding="utf-8-sig")))
+    return actions
+
+
+MAIN_ACTION_IDS = action_ids_under(
+    ROOT / "src/in_game/common/generic_actions",
+    ROOT / "src/in_game/common/country_interactions",
+)
+ENGINEERING_ACTION_IDS = action_ids_under(
+    ROOT / "src_engineering_department/in_game/common/generic_actions",
+    ROOT / "src_engineering_department/in_game/common/country_interactions",
+)
+COURT_ACTION_IDS = action_ids_under(
+    ROOT / "src_court_positions/in_game/common/generic_actions",
+    ROOT / "src_court_positions/in_game/common/country_interactions",
+)
+MAIN_WINNER_ACTION_IDS = MAIN_ACTION_IDS | ENGINEERING_ACTION_IDS
+
+
+def message_action_id(message_type: str) -> str | None:
+    if message_type.startswith("PERFORM_") and message_type.endswith("_ACTION"):
+        return message_type.removeprefix("PERFORM_").removesuffix("_ACTION")
+    if message_type.startswith("WE_PERFORM_") and message_type.endswith("_ACTION"):
+        return message_type.removeprefix("WE_PERFORM_").removesuffix("_ACTION")
+    if message_type.startswith("ACTION_") and message_type.endswith("_PERFORMED_ON_US_TARGET"):
+        return message_type.removeprefix("ACTION_").removesuffix("_PERFORMED_ON_US_TARGET")
+    if message_type.startswith("ACTION_") and message_type.endswith("_PERFORMED_ON_US"):
+        return message_type.removeprefix("ACTION_").removesuffix("_PERFORMED_ON_US")
+    return None
+
+
+def filtered_static_message_entries(action_ids: set[str]) -> str:
+    blocks: list[str] = []
+    for match in MESSAGE_BLOCK_RE.finditer(TV_ENTRIES):
+        action = message_action_id(match.group(1))
+        if action in action_ids:
+            blocks.append(match.group(0).rstrip())
+    if not blocks:
+        return ""
+    return "\n# ---- Root-filtered TV controls ----\n\n" + "\n\n".join(blocks) + "\n"
 
 TV_ENTRIES = """
 # ── Towards Victory — Generic Action Message Types ───────────────────────────
@@ -1209,20 +1263,25 @@ vanilla_bytes = VANILLA.read_bytes()
 if vanilla_bytes.startswith(b'\xef\xbb\xbf'):
     vanilla_bytes = vanilla_bytes[3:]
 
-combined_entries = (
-    TV_ENTRIES
+main_entries = (
+    filtered_static_message_entries(MAIN_WINNER_ACTION_IDS)
     + hagia_assignment_message_entries()
     + trade_monopoly_message_entries()
     + victory_reward_message_entries()
     + victory_tree_node_message_entries()
     + victory_task_message_entries()
     + io_establishment_message_entries()
-    + court_position_message_entries()
 )
+engineering_entries = (
+    filtered_static_message_entries(ENGINEERING_ACTION_IDS)
+    + hagia_assignment_message_entries()
+)
+court_entries = court_position_message_entries()
+
 for output, entries in (
-    (MAIN_OUT, combined_entries),
-    (ENGINEERING_OUT, combined_entries),
-    (COURT_OUT, combined_entries),
+    (MAIN_OUT, main_entries),
+    (ENGINEERING_OUT, engineering_entries),
+    (COURT_OUT, court_entries),
 ):
     output.parent.mkdir(parents=True, exist_ok=True)
     combined = b'\xef\xbb\xbf' + vanilla_bytes + entries.encode("utf-8")

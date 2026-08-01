@@ -80,12 +80,13 @@ and Economic Base-scaled monthly salaries. `scripts/validate.py`,
 Shared multi-output generators keep standalone roots self-contained (for
 example `tv_pulse_bridges.txt`). The singleton vanilla-copy files
 `character_title.txt` and `messagetypes.txt` are generated into all three roots
-as identical full copies containing the complete TV entry union. Their
-winner-takes-all load order is not reliable even with declared dependencies, so
-each copy must be sufficient; `scripts/validate.py` guards the full-copy and
-equality invariants. The missing-Great-Engineer CMF alert remains entirely in
-the Engineering Department root, including its pulse, callback, effects, GUI
-bridge, and localization.
+as full vanilla copies with root-specific TV insertions. Standalone roots carry
+only their own insertions, while the main TV root carries the TV+Engineering
+union and must be manually sorted after Engineering Department when both are
+enabled; `scripts/validate.py` guards the full-copy prefixes and per-root
+singleton coverage. The missing-Great-Engineer CMF alert remains entirely in the
+Engineering Department root, including its pulse, callback, effects, GUI bridge,
+and localization.
 
 The `wonders`, `philosophy_debate`, and `trade_league` domains are not isolated in their own
 directory — their files are interspersed by filename across `common/scripted_effects`,
@@ -443,12 +444,12 @@ look for `<script-root>/<same-relative-path>/gen_<filename>.py`.
 | `scripted_effects/tv_science_score_effects.txt` | `reference_game_files/game/in_game/common/advances/*.txt` | `scripts/in_game/common/scripted_effects/gen_tv_science_score_effects.py` |
 | `building_types/towards_victory_buildings.txt` | `data/academy_buildings.yaml` | `scripts/in_game/common/building_types/gen_towards_victory_buildings.py` |
 | `generic_actions/tv_io_leader_actions.txt` | `data/io_leaders.yaml` | `scripts/in_game/common/generic_actions/gen_tv_io_leader_actions.py` |
-| `src/in_game/common/customizable_localization/character_title.txt` | vanilla `character_title.txt` + all TV IO leader titles | `scripts/in_game/common/customizable_localization/gen_character_title.py` |
-| `src_engineering_department/in_game/common/customizable_localization/character_title.txt` | vanilla `character_title.txt` + complete TV title union | `scripts/in_game/common/customizable_localization/gen_character_title.py` |
-| `src_court_positions/in_game/common/customizable_localization/character_title.txt` | vanilla `character_title.txt` + complete TV title union | `scripts/in_game/common/customizable_localization/gen_character_title.py` |
-| `src/main_menu/gui/messagetypes.txt` | vanilla `messagetypes.txt` + all TV generic actions | `scripts/gen_messagetypes.py` |
-| `src_engineering_department/main_menu/gui/messagetypes.txt` | vanilla `messagetypes.txt` + complete TV action union | `scripts/gen_messagetypes.py` |
-| `src_court_positions/main_menu/gui/messagetypes.txt` | vanilla `messagetypes.txt` + complete TV action union | `scripts/gen_messagetypes.py` |
+| `src/in_game/common/customizable_localization/character_title.txt` | vanilla `character_title.txt` + TV+Engineering IO leader titles | `scripts/in_game/common/customizable_localization/gen_character_title.py` |
+| `src_engineering_department/in_game/common/customizable_localization/character_title.txt` | vanilla `character_title.txt` + Engineering Department leader title only | `scripts/in_game/common/customizable_localization/gen_character_title.py` |
+| `src_court_positions/in_game/common/customizable_localization/character_title.txt` | vanilla `character_title.txt` only | `scripts/in_game/common/customizable_localization/gen_character_title.py` |
+| `src/main_menu/gui/messagetypes.txt` | vanilla `messagetypes.txt` + TV+Engineering action message types | `scripts/gen_messagetypes.py` |
+| `src_engineering_department/main_menu/gui/messagetypes.txt` | vanilla `messagetypes.txt` + Engineering Department action message types only | `scripts/gen_messagetypes.py` |
+| `src_court_positions/main_menu/gui/messagetypes.txt` | vanilla `messagetypes.txt` + Court Positions action message types only | `scripts/gen_messagetypes.py` |
 | `src_court_positions/in_game/common/{static_modifiers,scripted_effects,generic_actions,character_interactions,generic_action_ai_lists,situations,on_action}/tv_court_positions_*.txt` | `data/court_positions.yaml` | matching `scripts_court_positions/` generator |
 | `src_court_positions/in_game/gui/panels/situation/tv_court_positions_situation.gui` and `main_menu/localization/*/tv_court_positions_l_*.yml` | `data/court_positions.yaml` | matching `scripts_court_positions/` generator |
 | `laws/tv_alliance_laws.txt` | `data/alliance_laws.yaml` | `scripts/in_game/common/laws/gen_tv_alliance_laws.py` |

@@ -1,10 +1,11 @@
 """
-Generate identical full-copy character_title.txt outputs for both deployable mods.
+Generate per-root full-copy character_title.txt outputs.
 
 The engine treats top-level customizable localization keys as unique database
 entries. ``character_title_prefix`` must therefore be generated as a full
-vanilla copy in each root. Dependency order cannot be relied on to choose the
-main-mod copy, so both copies include the complete TV title mapping.
+vanilla copy in each root. Standalone roots keep only their own titles; the main
+mod keeps the TV+Engineering union and must be sorted after Engineering
+Department when both are enabled.
 """
 
 import sys
@@ -60,9 +61,11 @@ HEADER = """\
 """
 
 
-def _tv_title_entries(data: dict) -> str:
+def _tv_title_entries(data: dict, allowed_ids: set[str] | None = None) -> str:
     entries: list[str] = []
     for io in data.get("ios", []):
+        if allowed_ids is not None and io.get("id") not in allowed_ids:
+            continue
         title_modifier = io.get("title_modifier")
         title_loc_key = io.get("title_loc_key")
         if not title_modifier:
@@ -99,9 +102,9 @@ def _find_block_end(text: str, block_name: str) -> int:
     raise ValueError(f"Could not find end of block: {block_name}")
 
 
-def generate(data: dict) -> str:
+def generate(data: dict, allowed_ids: set[str] | None = None) -> str:
     vanilla = VANILLA_FILE.read_text(encoding="utf-8-sig")
-    insertion = _tv_title_entries(data)
+    insertion = _tv_title_entries(data, allowed_ids)
     if insertion:
         end = _find_block_end(vanilla, "character_title_prefix")
         vanilla = vanilla[:end].rstrip() + "\n" + insertion + vanilla[end:]
@@ -117,8 +120,8 @@ def main() -> None:
         data = yaml.safe_load(f)
 
     main_content = generate(data)
-    engineering_content = generate(data)
-    court_content = generate(data)
+    engineering_content = generate(data, {"engineering"})
+    court_content = generate(data, set())
 
     if args.dry:
         print(main_content)

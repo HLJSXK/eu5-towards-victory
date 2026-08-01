@@ -291,15 +291,15 @@ generated:
     output: src_court_positions/in_game/common/customizable_localization/character_title.txt
 
   - script: scripts/gen_messagetypes.py
-    data:   reference_game_files/game/main_menu/gui/messagetypes.txt + data/victory_paths.yaml + data/victory_path_tree_variant.yaml + data/victory_path_tasks.yaml + data/io_establishment.yaml + data/court_positions.yaml + src/in_game/common/generic_actions + src_engineering_department/in_game/common/generic_actions + src_court_positions/in_game/common/generic_actions
+    data:   reference_game_files/game/main_menu/gui/messagetypes.txt + data/victory_paths.yaml + data/victory_path_tree_variant.yaml + data/victory_path_tasks.yaml + data/io_establishment.yaml + src/in_game/common/generic_actions + src/in_game/common/country_interactions + src_engineering_department/in_game/common/generic_actions + src_engineering_department/in_game/common/country_interactions
     output: src/main_menu/gui/messagetypes.txt
 
   - script: scripts/gen_messagetypes.py
-    data:   reference_game_files/game/main_menu/gui/messagetypes.txt + data/victory_paths.yaml + data/victory_path_tree_variant.yaml + data/victory_path_tasks.yaml + data/io_establishment.yaml + data/court_positions.yaml + src/in_game/common/generic_actions + src_engineering_department/in_game/common/generic_actions + src_court_positions/in_game/common/generic_actions
+    data:   reference_game_files/game/main_menu/gui/messagetypes.txt + src_engineering_department/in_game/common/generic_actions + src_engineering_department/in_game/common/country_interactions
     output: src_engineering_department/main_menu/gui/messagetypes.txt
 
   - script: scripts/gen_messagetypes.py
-    data:   reference_game_files/game/main_menu/gui/messagetypes.txt + data/victory_paths.yaml + data/victory_path_tree_variant.yaml + data/victory_path_tasks.yaml + data/io_establishment.yaml + data/court_positions.yaml + src/in_game/common/generic_actions + src_engineering_department/in_game/common/generic_actions + src_court_positions/in_game/common/generic_actions
+    data:   reference_game_files/game/main_menu/gui/messagetypes.txt + src_court_positions/in_game/common/generic_actions + src_court_positions/in_game/common/country_interactions
     output: src_court_positions/main_menu/gui/messagetypes.txt
 
   - script: scripts/in_game/common/customizable_localization/gen_tv_academy_debate_groups.py

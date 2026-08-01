@@ -224,28 +224,8 @@ character_title_prefix = {
 	# Towards Victory IO leader titles
 
 	text = {
-		localization_key = character_title_tv_chief_artist
-		trigger = { has_character_modifier = tv_chief_artist_role_modifier }
-	}
-
-	text = {
-		localization_key = character_title_tv_chief_scientist
-		trigger = { has_character_modifier = tv_chief_scientist_role_modifier }
-	}
-
-	text = {
 		localization_key = character_title_tv_great_engineer
 		trigger = { has_character_modifier = tv_great_engineer_role_modifier }
-	}
-
-	text = {
-		localization_key = character_title_tv_grand_merchant
-		trigger = { has_character_modifier = tv_grand_merchant_role_modifier }
-	}
-
-	text = {
-		localization_key = character_title_tv_grand_general
-		trigger = { has_character_modifier = tv_grand_general_role_modifier }
 	}
 }
 character_title_prefix_female = { parent = character_title_prefix suffix = "_female" }

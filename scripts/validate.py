@@ -729,6 +729,62 @@ def _same_ignoring_final_newline(left: str, right: str) -> bool:
     return left.rstrip("\r\n") == right.rstrip("\r\n")
 
 
+def _action_ids_under(root: Path, *subdirs: str) -> set[str]:
+    action_re = re.compile(r"(?m)^([a-z][A-Za-z0-9_]*)\s*=\s*\{")
+    actions: set[str] = set()
+    for subdir in subdirs:
+        action_dir = root / subdir
+        if not action_dir.exists():
+            continue
+        for action_file in sorted(action_dir.glob("*.txt")):
+            actions.update(action_re.findall(_read_normalized_text(action_file)))
+    return actions
+
+
+def _expected_singleton_action_ids(root: Path) -> set[str]:
+    own_actions = _action_ids_under(
+        root,
+        "in_game/common/generic_actions",
+        "in_game/common/country_interactions",
+    )
+    if root.name != "src":
+        return own_actions
+    engineering_root = REPO_ROOT / "src_engineering_department"
+    return own_actions | _action_ids_under(
+        engineering_root,
+        "in_game/common/generic_actions",
+        "in_game/common/country_interactions",
+    )
+
+
+def _tv_message_action_id(message_type: str) -> str | None:
+    if message_type.startswith("PERFORM_tv_") and message_type.endswith("_ACTION"):
+        return message_type.removeprefix("PERFORM_").removesuffix("_ACTION")
+    if message_type.startswith("WE_PERFORM_tv_") and message_type.endswith("_ACTION"):
+        return message_type.removeprefix("WE_PERFORM_").removesuffix("_ACTION")
+    if message_type.startswith("ACTION_tv_") and message_type.endswith("_PERFORMED_ON_US_TARGET"):
+        return message_type.removeprefix("ACTION_").removesuffix("_PERFORMED_ON_US_TARGET")
+    if message_type.startswith("ACTION_tv_") and message_type.endswith("_PERFORMED_ON_US"):
+        return message_type.removeprefix("ACTION_").removesuffix("_PERFORMED_ON_US")
+    return None
+
+
+def _expected_title_modifiers_by_root() -> dict[str, set[str]]:
+    data = load_yaml(REPO_ROOT / "data" / "io_leaders.yaml") or {}
+    title_modifiers_by_id = {
+        str(io.get("id")): str(io.get("title_modifier"))
+        for io in data.get("ios", [])
+        if io.get("id") and io.get("title_modifier")
+    }
+    return {
+        "src": set(title_modifiers_by_id.values()),
+        "src_engineering_department": {
+            title_modifiers_by_id["engineering"]
+        } if "engineering" in title_modifiers_by_id else set(),
+        "src_court_positions": set(),
+    }
+
+
 def _load_generator_module(module_name: str, path: Path):
     spec = importlib.util.spec_from_file_location(module_name, path)
     if spec is None or spec.loader is None:
@@ -789,9 +845,7 @@ def check_location_window_generated_freshness() -> None:
 def check_vanilla_copy_integrity() -> None:
     """Ensure generated vanilla-copy files preserve copied vanilla content."""
     character_vanilla = REPO_ROOT / "reference_game_files/game/in_game/common/customizable_localization/character_title.txt"
-    title_modifiers_by_root: dict[str, set[str]] = {}
-    # Both roots carry identical full vanilla copies. Singleton winner order is
-    # not reliable across dependent mods, so either copy must be sufficient.
+    expected_title_modifiers = _expected_title_modifiers_by_root()
     for root in MOD_ROOTS:
         character_out = root / "in_game" / "common" / "customizable_localization" / "character_title.txt"
         if not (character_out.exists() and character_vanilla.exists()):
@@ -801,11 +855,25 @@ def check_vanilla_copy_integrity() -> None:
             r"\n\t# Towards Victory IO leader titles\n\n(?P<body>[\s\S]*?)\n(?=\})",
             copied,
         )
-        title_modifiers_by_root[root.name] = set(
+        actual_title_modifiers = set(
             re.findall(r"has_character_modifier\s*=\s*([A-Za-z0-9_]+)", tv_section.group("body"))
             if tv_section
             else []
         )
+        expected = expected_title_modifiers.get(root.name, set())
+        if actual_title_modifiers != expected:
+            missing = sorted(expected - actual_title_modifiers)
+            extra = sorted(actual_title_modifiers - expected)
+            detail_parts = []
+            if missing:
+                detail_parts.append(f"missing {', '.join(missing)}")
+            if extra:
+                detail_parts.append(f"extra {', '.join(extra)}")
+            issues.append(
+                f"[VANILLA_COPY] {character_out.relative_to(REPO_ROOT)} -- "
+                f"TV title mapping set must match this root's singleton role "
+                f"coverage ({'; '.join(detail_parts)})"
+            )
         copied_without_tv = re.sub(
             r"\n\t# Towards Victory IO leader titles\n\n[\s\S]*?\n(?=\})",
             "",
@@ -821,14 +889,7 @@ def check_vanilla_copy_integrity() -> None:
                 "only the TV leader title entries may differ"
             )
 
-    if len({frozenset(titles) for titles in title_modifiers_by_root.values()}) > 1:
-        issues.append(
-            "[VANILLA_COPY] character_title.txt -- all mod roots must contain identical TV title mappings "
-            "because either singleton copy may load last"
-        )
-
     message_vanilla = REPO_ROOT / "reference_game_files/game/main_menu/gui/messagetypes.txt"
-    message_types_by_root: dict[str, set[str]] = {}
     if message_vanilla.exists():
         vanilla = _read_normalized_text(message_vanilla)
         for root in MOD_ROOTS:
@@ -847,24 +908,27 @@ def check_vanilla_copy_integrity() -> None:
                     "only appended TV message type entries may differ"
                 )
             message_types = set(re.findall(r"(?m)^([A-Z][A-Za-z0-9_]*)\s*=\s*\{", copied))
-            message_types_by_root[root.name] = message_types
+            expected_action_ids = _expected_singleton_action_ids(root)
+            for message_type in sorted(message_types):
+                action = _tv_message_action_id(message_type)
+                if action is None:
+                    continue
+                if action not in expected_action_ids:
+                    issues.append(
+                        f"[VANILLA_COPY] {message_out.relative_to(REPO_ROOT)} -- "
+                        f"extra TV message type {message_type} belongs to action {action}, "
+                        "which is not in this root's singleton coverage set"
+                    )
             action_dir = root / "in_game" / "common" / "generic_actions"
             action_re = re.compile(r"(?m)^([a-z][A-Za-z0-9_]*)\s*=\s*\{")
-            expected_action_messages: set[str] = set()
             for action_file in sorted(action_dir.glob("*.txt")):
                 for action in action_re.findall(_read_normalized_text(action_file)):
                     expected = f"PERFORM_{action}_ACTION"
-                    expected_action_messages.add(expected)
                     if expected not in message_types:
                         issues.append(
                             f"[MESSAGE_TYPE] {action_file.relative_to(REPO_ROOT)} -- generic action "
                             f"{action} is missing {expected} from {message_out.relative_to(REPO_ROOT)}"
                         )
-    if len({frozenset(messages) for messages in message_types_by_root.values()}) > 1:
-        issues.append(
-            "[VANILLA_COPY] messagetypes.txt -- all mod roots must contain identical message types "
-            "because either singleton copy may load last"
-        )
 
 
 def check_tv_io_icon_assets() -> None:
@@ -1164,6 +1228,9 @@ def run_global_checks(files: list[Path], use_changed: bool, anti_patterns: list[
         rels,
         exact=(
             "scripts/validate.py",
+            "scripts/gen_messagetypes.py",
+            "scripts/in_game/common/customizable_localization/gen_character_title.py",
+            "data/io_leaders.yaml",
             *(f"{root_name}/in_game/common/customizable_localization/character_title.txt" for root_name in MOD_ROOT_NAMES),
             *(f"{root_name}/main_menu/gui/messagetypes.txt" for root_name in MOD_ROOT_NAMES),
             "reference_game_files/game/in_game/common/customizable_localization/character_title.txt",

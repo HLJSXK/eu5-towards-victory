@@ -1016,12 +1016,14 @@ guarded `effect`, AI-list entry, message type, and localization. This is confirm
 
 `messagetypes.txt` and customizable-localization databases such as
 `character_title.txt` are winner-takes-all full-file databases, not additive
-registries. When two enabled mods each need one, do not ship separate subsets
-and rely on dependency order to make a preferred copy win: in this project the
-Engineering Department copy loaded last despite the main mod declaring it as a
-dependency, which hid 81 main-mod message types at runtime. Generate identical
-full vanilla copies containing the complete union required by both mods, and
-validate equality of the generated outputs as well as their vanilla prefixes.
+registries. A later winning copy must contain every entry needed by the enabled
+mods whose earlier copies it overrides. Dependency metadata alone is not enough:
+in this project the Engineering Department copy loaded last despite the main
+mod declaring it as a dependency, which hid 81 main-mod message types at
+runtime. If the playset manually sorts the main TV mod after Engineering
+Department, the standalone Engineering Department copy may contain only its own
+entries, while the main TV copy must contain the TV + Engineering Department
+union. Validate the vanilla prefix and each root's expected singleton coverage.
 
 ### 5.5. Variable Arithmetic (`change_variable`)
 
