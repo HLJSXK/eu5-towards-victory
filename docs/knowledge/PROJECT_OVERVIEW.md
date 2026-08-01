@@ -58,10 +58,13 @@ message-type union, because this winner-takes-all database did load the
 Engineering Department copy last in runtime testing despite the declared main
 mod dependency. `scripts/validate.py` verifies the vanilla-copy prefixes,
 per-root generic-action message-type and SETUP/LOG/MAP localization coverage, and equality of all outputs (see anti-pattern
-`eu5_vanilla_copy_singleton_file_cannot_split_across_mods`). The missing Great
-Engineer CMF alert is also fully standalone: the Engineering Department root
-owns its monthly pulse, `cmf_on_callback` handler, trigger/effects, scripted-GUI
-request clearer, hidden GUI bridge/widget registration, and EN/ZH localization.
+`eu5_vanilla_copy_singleton_file_cannot_split_across_mods`). The Engineering
+Department CMF alerts are also fully standalone: the missing-Great-Engineer
+alert owns its monthly sync, while four explicit wonder-action alerts synchronize
+directly from the relevant phase transitions for proposal choice, survey site
+choice, construction-site lock-in, and generic-ceremony style choice. The Engineering
+Department root owns the shared `cmf_on_callback` handler, trigger/effects,
+scripted-GUI request clearer, hidden GUI bridge/widget registration, and EN/ZH localization.
 There is no accepted standalone cosmetic gap. `scripts/validate.py`, `scripts/ai_context.py`, and
 `scripts/gen_index.py` all now iterate every deployable mod root. The new mod ships 3
 bootstrap behaviors, registered via `data/pulse_registry.yaml` and

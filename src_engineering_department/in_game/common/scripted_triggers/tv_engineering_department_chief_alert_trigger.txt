@@ -1,6 +1,6 @@
-﻿# Self-contained: only reads this IO's own member/leader-character state, so
-# it works standalone. This mod also owns the matching CMF alert effects and
-# GUI bridge, so the missing-Great-Engineer alert does not depend on the main
+﻿# Self-contained: only reads this IO's own Engineering Department / wonder
+# state, so it works standalone. This mod also owns the matching CMF alert
+# effects and GUI bridge, so these alerts do not depend on the main
 # "Towards Victory" mod.
 
 tv_missing_engineering_department_chief_alert_trigger = {
@@ -9,4 +9,29 @@ tv_missing_engineering_department_chief_alert_trigger = {
 		NOT = { has_variable = tv_great_engineer_char }
 		NOT = { var:tv_great_engineer_char ?= { is_alive = yes } }
 	}
+}
+
+tv_engineering_department_proposal_alert_trigger = {
+	is_ai = no
+	has_variable = tv_engineering_department_member
+	tv_wonder_has_open_proposal_trigger = yes
+}
+
+tv_engineering_department_survey_site_alert_trigger = {
+	is_ai = no
+	has_variable = tv_engineering_department_member
+	tv_wonder_can_start_survey_trigger = yes
+	NOT = { tv_wonder_survey_site_selected_trigger = yes }
+}
+
+tv_engineering_department_construction_site_alert_trigger = {
+	is_ai = no
+	has_variable = tv_engineering_department_member
+	tv_wonder_can_select_construction_site_trigger = yes
+}
+
+tv_engineering_department_ceremony_style_alert_trigger = {
+	is_ai = no
+	has_variable = tv_engineering_department_member
+	tv_wonder_can_choose_ceremony_style_trigger = yes
 }

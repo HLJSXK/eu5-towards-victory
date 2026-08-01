@@ -1986,6 +1986,7 @@ def append_ritual_effects(lines: list[str], all_wonders: list[dict], mechanics: 
     lines.append(f"{T}{T}{T}tv_wonder_finalize_effect = yes")
     lines.append(f"{T}{T}}}")
     lines.append(f"{T}}}")
+    lines.append(f"{T}hidden_effect = {{ tv_engineering_department_sync_attention_alert_effect = yes }}")
     lines.append("}")
     lines.append("")
 

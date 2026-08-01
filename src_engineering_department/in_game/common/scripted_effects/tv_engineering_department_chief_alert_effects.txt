@@ -9,11 +9,60 @@
 	}
 }
 
+tv_engineering_department_sync_attention_alert_effect = {
+	if = {
+		limit = { tv_engineering_department_proposal_alert_trigger = yes }
+		cmf_show_alert = { alert = tv_engineering_department_proposal_alert }
+	}
+	else_if = {
+		limit = { cmf_is_alert_active = { alert = tv_engineering_department_proposal_alert } }
+		cmf_remove_alert = { alert = tv_engineering_department_proposal_alert }
+	}
+
+	if = {
+		limit = { tv_engineering_department_survey_site_alert_trigger = yes }
+		cmf_show_alert = { alert = tv_engineering_department_survey_site_alert }
+	}
+	else_if = {
+		limit = { cmf_is_alert_active = { alert = tv_engineering_department_survey_site_alert } }
+		cmf_remove_alert = { alert = tv_engineering_department_survey_site_alert }
+	}
+
+	if = {
+		limit = { tv_engineering_department_construction_site_alert_trigger = yes }
+		cmf_show_alert = { alert = tv_engineering_department_construction_site_alert }
+	}
+	else_if = {
+		limit = { cmf_is_alert_active = { alert = tv_engineering_department_construction_site_alert } }
+		cmf_remove_alert = { alert = tv_engineering_department_construction_site_alert }
+	}
+
+	if = {
+		limit = { tv_engineering_department_ceremony_style_alert_trigger = yes }
+		cmf_show_alert = { alert = tv_engineering_department_ceremony_style_alert }
+	}
+	else_if = {
+		limit = { cmf_is_alert_active = { alert = tv_engineering_department_ceremony_style_alert } }
+		cmf_remove_alert = { alert = tv_engineering_department_ceremony_style_alert }
+	}
+}
+
 tv_engineering_department_handle_chief_alert_callback_effect = {
 	remove_variable = tv_engineering_department_chief_alert_open_requested
 
 	if = {
 		limit = { var:cmf_callback = flag:tv_missing_engineering_department_chief_alert }
+		set_variable = { name = tv_engineering_department_chief_alert_open_requested value = 1 }
+	}
+	else_if = {
+		limit = {
+			OR = {
+				var:cmf_callback = flag:tv_engineering_department_proposal_alert
+				var:cmf_callback = flag:tv_engineering_department_survey_site_alert
+				var:cmf_callback = flag:tv_engineering_department_construction_site_alert
+				var:cmf_callback = flag:tv_engineering_department_ceremony_style_alert
+			}
+		}
 		set_variable = { name = tv_engineering_department_chief_alert_open_requested value = 1 }
 	}
 }
