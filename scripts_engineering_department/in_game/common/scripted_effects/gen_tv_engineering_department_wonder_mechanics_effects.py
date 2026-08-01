@@ -14,7 +14,9 @@ from wonder_mechanics.naming import (
     TV_WONDER_AUTO_LEVEL_BY_WONDER_ID_MAP,
     UNIQUE_WONDER_MIN_ID,
     WONDER_MECHANICS_MAX_ID,
+    final_building_destroyed_effect_name,
     mechanic_key,
+    persistent_ritual_country_modifier_name,
     wonder_static_display_modifier_name,
     wonder_static_local_display_modifier_name,
     wonder_ritual_composite_id,
@@ -93,6 +95,8 @@ EXISTING_UNIQUE_WONDERS_INITIALIZED_GLOBAL = "tv_wonder_existing_unique_wonders_
 EXISTING_UNIQUE_WONDERS_SEED_EFFECT = "tv_wonder_seed_existing_unique_wonders_effect"
 PRIORITY_CANDIDATE_WONDER_ID_VAR = "tv_wonder_priority_candidate_wonder_id"
 PRIORITY_CANDIDATE_CURRENT_MODE_VAR = "tv_wonder_priority_candidate_current_mode"
+OWNERSHIP_EVENT_WONDER_ID_VAR = "tv_wonder_ownership_event_wonder_id"
+OWNERSHIP_LOSS_RETAINS_SAME_WONDER_VAR = "tv_wonder_ownership_loss_retains_same_wonder"
 LOCATION_DISPLAY_SCOPE = "tv_wonder_location_display_location"
 LOCATION_DISPLAY_WONDER_ID_LOCAL = "tv_wonder_location_display_wonder_id"
 LOCATION_DISPLAY_BUILDING_TYPE_LOCAL = "tv_wonder_location_display_building_type"
@@ -918,6 +922,83 @@ def append_final_building_level_map_sync_effects(lines: list[str]) -> None:
     lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
+
+
+def append_final_building_destruction_effects(
+    lines: list[str],
+    all_wonders: list[dict],
+    mechanics: dict,
+) -> None:
+    for wonder in all_wonders:
+        wonder_id = int(wonder["id"])
+        wonder_key = str(wonder["key"])
+        modifier_name = persistent_ritual_country_modifier_name(wonder, mechanics)
+
+        lines.append(f"{final_building_destroyed_effect_name(wonder)} = {{")
+        lines.append(f"{T}tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes")
+        lines.append(f"{T}save_scope_as = tv_wonder_priority_site")
+        lines.append(f"{T}save_scope_as = tv_wonder_ownership_site")
+        lines.append(f"{T}owner ?= {{")
+        lines.append(
+            f"{T}{T}set_variable = {{ name = {PRIORITY_CANDIDATE_WONDER_ID_VAR} value = {wonder_id} }}"
+        )
+        lines.append(f"{T}{T}tv_wonder_unregister_current_site_priority_candidate_effect = yes")
+        lines.append(f"{T}{T}if = {{")
+        lines.append(f"{T}{T}{T}limit = {{")
+        lines.append(f"{T}{T}{T}{T}scope:tv_wonder_priority_site = {{")
+        lines.append(
+            f"{T}{T}{T}{T}{T}tv_wonder_location_is_valid_priority_final_project_for_{wonder_key}_trigger = yes"
+        )
+        lines.append(f"{T}{T}{T}{T}}}")
+        lines.append(f"{T}{T}{T}}}")
+        lines.append(
+            f"{T}{T}{T}set_variable = {{ name = {PRIORITY_CANDIDATE_CURRENT_MODE_VAR} value = 2 }}"
+        )
+        lines.append(f"{T}{T}{T}tv_wonder_register_current_priority_candidate_effect = yes")
+        lines.append(f"{T}{T}}}")
+        lines.append(f"{T}{T}remove_variable = {PRIORITY_CANDIDATE_WONDER_ID_VAR}")
+        lines.append(f"{T}{T}remove_variable = {PRIORITY_CANDIDATE_CURRENT_MODE_VAR}")
+        lines.append(f"{T}{T}if = {{")
+        lines.append(f"{T}{T}{T}limit = {{")
+        lines.append(f"{T}{T}{T}{T}scope:tv_wonder_priority_site = {{")
+        lines.append(
+            f"{T}{T}{T}{T}{T}NOT = {{ tv_wonder_location_has_{wonder_key}_final_building_trigger = yes }}"
+        )
+        lines.append(f"{T}{T}{T}{T}}}")
+        lines.append(f"{T}{T}{T}}}")
+        lines.append(
+            f"{T}{T}{T}set_variable = {{ name = {OWNERSHIP_EVENT_WONDER_ID_VAR} value = {wonder_id} }}"
+        )
+        lines.append(f"{T}{T}{T}tv_wonder_ownership_compute_loss_retains_same_wonder_effect = yes")
+        lines.append(f"{T}{T}{T}if = {{")
+        lines.append(
+            f"{T}{T}{T}{T}limit = {{ NOT = {{ has_variable = {OWNERSHIP_LOSS_RETAINS_SAME_WONDER_VAR} }} }}"
+        )
+        if modifier_name is not None:
+            lines.append(f"{T}{T}{T}{T}remove_country_modifier = {modifier_name}")
+        if wonder.get("is_unique"):
+            lines.append(f"{T}{T}{T}{T}if = {{")
+            lines.append(f"{T}{T}{T}{T}{T}limit = {{")
+            lines.append(f"{T}{T}{T}{T}{T}{T}has_variable_map = {UNIQUE_RITUAL_COMPLETED_MAP}")
+            lines.append(
+                f"{T}{T}{T}{T}{T}{T}is_key_in_variable_map = {{ "
+                f"name = {UNIQUE_RITUAL_COMPLETED_MAP} target = {wonder_id} }}"
+            )
+            lines.append(f"{T}{T}{T}{T}{T}}}")
+            lines.append(
+                f"{T}{T}{T}{T}{T}remove_from_variable_map = {{ "
+                f"name = {UNIQUE_RITUAL_COMPLETED_MAP} key = {wonder_id} }}"
+            )
+            lines.append(f"{T}{T}{T}{T}}}")
+        lines.append(f"{T}{T}{T}}}")
+        lines.append(f"{T}{T}{T}remove_variable = {OWNERSHIP_LOSS_RETAINS_SAME_WONDER_VAR}")
+        lines.append(f"{T}{T}{T}remove_variable = {OWNERSHIP_EVENT_WONDER_ID_VAR}")
+        lines.append(f"{T}{T}}}")
+        lines.append(f"{T}{T}tv_wonder_mechanics_refresh_country_auto_level_map_effect = yes")
+        lines.append(f"{T}}}")
+        lines.append(f"{T}tv_wonder_mechanics_refresh_location_display_state_effect = yes")
+        lines.append("}")
+        lines.append("")
 
 
 def append_country_auto_level_map_effect(lines: list[str]) -> None:
@@ -1916,19 +1997,25 @@ def generate_ritual_effects(script_rel: str = RITUAL_SCRIPT_REL) -> str:
     return finish_lines(lines)
 
 
-def append_location_display_group(lines: list[str], all_wonders: list[dict], unique_wonders: list[dict]) -> None:
+def append_location_display_group(
+    lines: list[str],
+    all_wonders: list[dict],
+    unique_wonders: list[dict],
+    mechanics: dict,
+) -> None:
     append_display_modifier_reference_effect(lines, all_wonders)
     append_final_building_level_map_sync_effects(lines)
+    append_final_building_destruction_effects(lines, all_wonders, mechanics)
     append_existing_unique_wonders_initialization_effect(lines, unique_wonders)
     append_country_auto_level_map_effect(lines)
     append_location_display_effects(lines)
 
 
 def generate_location_display_effects(script_rel: str = LOCATION_DISPLAY_SCRIPT_REL) -> str:
-    all_wonders, _mechanics = load_all_wonder_mechanics()
+    all_wonders, mechanics = load_all_wonder_mechanics()
     unique_wonders = [wonder for wonder in all_wonders if wonder.get("is_unique")]
     lines = render_header(script_rel)
-    append_location_display_group(lines, all_wonders, unique_wonders)
+    append_location_display_group(lines, all_wonders, unique_wonders, mechanics)
     return finish_lines(lines)
 
 

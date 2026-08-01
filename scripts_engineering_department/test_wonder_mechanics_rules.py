@@ -97,6 +97,10 @@ ENGINEERING_DEPARTMENT_EFFECTS = (
 )
 
 from wonder_mechanics.io import load_all_wonder_mechanics
+from wonder_mechanics.naming import (
+    final_building_destroyed_effect_name,
+    persistent_ritual_country_modifier_name,
+)
 from wonder_mechanics.modifiers import (
     is_value_movement_modifier,
     validate_wonder_size_base_country_modifier_rules,
@@ -292,21 +296,84 @@ def validate_existing_unique_initialization_seeds_survey_maps(wonders: list[dict
             )
 
 
-def validate_final_building_destruction_sync(wonders: list[dict]) -> None:
+def validate_final_building_destruction_sync(wonders: list[dict], mechanics: dict) -> None:
     building_generator = load_building_generator()
     building_script = building_generator.generate()
+    destruction_effects = load_effect_generator().generate_location_display_effects()
     expected_final_building_count = sum(len(ceremony_styles(wonder)) for wonder in wonders)
-    destruction_callback = "\n".join(
-        [
-            "\ton_destroyed = {",
-            *building_generator.final_building_on_destroyed_lines(),
-            "\t}",
-        ]
-    )
     require(
-        building_script.count(destruction_callback) == expected_final_building_count,
+        building_script.count("\ton_destroyed = {") == expected_final_building_count,
         "Every final wonder building must synchronize location and owner country state when destroyed.",
     )
+    for wonder in wonders:
+        wonder_id = int(wonder["id"])
+        wonder_key = str(wonder["key"])
+        destruction_callback = "\n".join(
+            [
+                "\ton_destroyed = {",
+                *building_generator.final_building_on_destroyed_lines(wonder),
+                "\t}",
+            ]
+        )
+        require(
+            building_script.count(destruction_callback) == len(ceremony_styles(wonder)),
+            f"Every {wonder_key} final building style must call its destruction handler.",
+        )
+        destroy_gate = "\n".join(
+            [
+                "\tcan_destroy = {",
+                *building_generator.final_building_can_destroy_lines(wonder),
+                "\t}",
+            ]
+        )
+        require(
+            building_script.count(destroy_gate) == len(ceremony_styles(wonder)),
+            f"Every {wonder_key} final building style must block destruction at the active project site.",
+        )
+        require(
+            f"var:tv_wonder_locked ?= {wonder_id}" in destroy_gate
+            and "var:tv_wonder_site ?= { this = root }" in destroy_gate,
+            f"{wonder_key} destruction lock must match both the active wonder and its selected site.",
+        )
+
+        effect_name = final_building_destroyed_effect_name(wonder)
+        require(
+            destruction_effects.count(f"{effect_name} = {{") == 1,
+            f"{wonder_key} must define exactly one final-building destruction handler.",
+        )
+        handler = extract_trigger_block(destruction_effects, effect_name)
+        for expected in (
+            "tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes",
+            f"set_variable = {{ name = tv_wonder_priority_candidate_wonder_id value = {wonder_id} }}",
+            "tv_wonder_unregister_current_site_priority_candidate_effect = yes",
+            f"tv_wonder_location_is_valid_priority_final_project_for_{wonder_key}_trigger = yes",
+            "set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }",
+            "tv_wonder_register_current_priority_candidate_effect = yes",
+            f"NOT = {{ tv_wonder_location_has_{wonder_key}_final_building_trigger = yes }}",
+            f"set_variable = {{ name = tv_wonder_ownership_event_wonder_id value = {wonder_id} }}",
+            "tv_wonder_ownership_compute_loss_retains_same_wonder_effect = yes",
+            "tv_wonder_mechanics_refresh_country_auto_level_map_effect = yes",
+            "tv_wonder_mechanics_refresh_location_display_state_effect = yes",
+        ):
+            require(expected in handler, f"{wonder_key} destruction handler is missing: {expected}")
+
+        modifier_name = persistent_ritual_country_modifier_name(wonder, mechanics)
+        if modifier_name is not None:
+            require(
+                f"remove_country_modifier = {modifier_name}" in handler,
+                f"Fully demolishing {wonder_key} must remove its persistent ritual modifier.",
+            )
+        if wonder.get("is_unique"):
+            require(
+                f"is_key_in_variable_map = {{ name = tv_wonder_unique_ritual_completed target = {wonder_id} }}"
+                in handler,
+                f"Fully demolishing unique wonder {wonder_key} must check its ritual completion key.",
+            )
+            require(
+                f"remove_from_variable_map = {{ name = tv_wonder_unique_ritual_completed key = {wonder_id} }}"
+                in handler,
+                f"Fully demolishing unique wonder {wonder_key} must clear its ritual completion key.",
+            )
 
 
 def validate_generated_ceremony_flow(wonders: list[dict], mechanics: dict) -> None:
@@ -765,7 +832,7 @@ def main() -> None:
     validate_wonder_size_base_country_modifier_rules(wonders, mechanics)
     validate_generated_trigger_scope_layers(wonders)
     validate_existing_unique_initialization_seeds_survey_maps(wonders)
-    validate_final_building_destruction_sync(wonders)
+    validate_final_building_destruction_sync(wonders, mechanics)
     validate_generated_ceremony_flow(wonders, mechanics)
     validate_generated_ceremony_autostart(wonders)
     validate_generated_ceremony_gui(wonders)

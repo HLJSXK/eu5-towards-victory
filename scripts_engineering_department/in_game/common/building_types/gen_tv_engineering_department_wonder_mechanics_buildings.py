@@ -15,6 +15,7 @@ from wonder_mechanics.modifiers import (
     wonder_base_country_modifiers,
 )
 from wonder_mechanics.naming import (
+    final_building_destroyed_effect_name,
     final_building_for_style,
     mechanic_key,
 )
@@ -100,6 +101,7 @@ def building_block(
     on_destroyed_lines: list[str] | None = None,
     on_construction_ended_lines: list[str] | None = None,
     can_destroy: str = "no",
+    can_destroy_lines: list[str] | None = None,
 ) -> list[str]:
     attrs = attributes or {}
     normal_modifier, raw_modifier = split_modifiers(modifiers)
@@ -126,9 +128,14 @@ def building_block(
         f"{T}{T}{T}always = no",
         f"{T}{T}}}",
         f"{T}}}",
-        f"{T}can_destroy = {{ always = {can_destroy} }}",
-        "",
     ]
+    if can_destroy_lines:
+        lines.append(f"{T}can_destroy = {{")
+        lines.extend(can_destroy_lines)
+        lines.append(f"{T}}}")
+    else:
+        lines.append(f"{T}can_destroy = {{ always = {can_destroy} }}")
+    lines.append("")
     if price is not None:
         lines.append(f"{T}price = {price}")
         lines.append("")
@@ -208,15 +215,22 @@ def final_building_on_built_lines() -> list[str]:
     ]
 
 
-def final_building_on_destroyed_lines() -> list[str]:
+def final_building_can_destroy_lines(wonder: dict) -> list[str]:
+    return [
+        f"{T}{T}NOT = {{",
+        f"{T}{T}{T}owner ?= {{",
+        f"{T}{T}{T}{T}var:tv_wonder_locked ?= {int(wonder['id'])}",
+        f"{T}{T}{T}{T}var:tv_wonder_site ?= {{ this = root }}",
+        f"{T}{T}{T}}}",
+        f"{T}{T}}}",
+    ]
+
+
+def final_building_on_destroyed_lines(wonder: dict) -> list[str]:
     return [
         f"{T}{T}hidden_effect = {{",
         f"{T}{T}{T}location = {{",
-        f"{T}{T}{T}{T}tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes",
-        f"{T}{T}{T}{T}tv_wonder_mechanics_refresh_location_display_state_effect = yes",
-        f"{T}{T}{T}{T}owner ?= {{",
-        f"{T}{T}{T}{T}{T}tv_wonder_mechanics_refresh_country_auto_level_map_effect = yes",
-        f"{T}{T}{T}{T}}}",
+        f"{T}{T}{T}{T}{final_building_destroyed_effect_name(wonder)} = yes",
         f"{T}{T}{T}}}",
         f"{T}{T}}}",
     ]
@@ -245,8 +259,8 @@ def generate() -> str:
                     maintenance,
                     attributes=attributes,
                     on_built_lines=final_building_on_built_lines(),
-                    on_destroyed_lines=final_building_on_destroyed_lines(),
-                    can_destroy="yes",
+                    on_destroyed_lines=final_building_on_destroyed_lines(wonder),
+                    can_destroy_lines=final_building_can_destroy_lines(wonder),
                 )
             )
         for style in ceremony_styles(wonder):
