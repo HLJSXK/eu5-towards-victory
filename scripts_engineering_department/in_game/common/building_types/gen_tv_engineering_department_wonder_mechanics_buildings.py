@@ -102,6 +102,7 @@ def building_block(
     on_construction_ended_lines: list[str] | None = None,
     can_destroy: str = "no",
     can_destroy_lines: list[str] | None = None,
+    direct_build: bool = False,
 ) -> list[str]:
     attrs = attributes or {}
     normal_modifier, raw_modifier = split_modifiers(modifiers)
@@ -121,11 +122,23 @@ def building_block(
         "",
         f"{T}important_for_AI = no",
         f"{T}automation_build_allowed = no",
-        f"{T}country_potential = {{ always = no }}",
+        (
+            f"{T}country_potential = {{ has_global_variable = tv_engineering_department_direct_build }}"
+            if direct_build
+            else f"{T}country_potential = {{ always = no }}"
+        ),
         f"{T}allow = {{",
         f"{T}{T}custom_tooltip = {{",
-        f"{T}{T}{T}text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT",
-        f"{T}{T}{T}always = no",
+        (
+            f"{T}{T}{T}text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT"
+            if direct_build
+            else f"{T}{T}{T}text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT"
+        ),
+        (
+            f"{T}{T}{T}has_global_variable = tv_engineering_department_direct_build"
+            if direct_build
+            else f"{T}{T}{T}always = no"
+        ),
         f"{T}{T}}}",
         f"{T}}}",
     ]
@@ -206,9 +219,16 @@ def auxiliary_on_construction_ended_lines() -> list[str]:
 
 
 def final_building_on_built_lines() -> list[str]:
+    # Direct-build (see country_potential in building_block) completes construction
+    # through the native engine build queue, bypassing the scripted ceremony/finalize
+    # pipeline that normally writes tv_wonder_final_building_level_by_type. Re-deriving
+    # it here from the actual building level keeps the location-level cache correct
+    # regardless of which path built this building, so the existing monthly country
+    # pulse (which only reads that cache) picks up direct-built wonders on schedule.
     return [
         f"{T}{T}hidden_effect = {{",
         f"{T}{T}{T}location = {{",
+        f"{T}{T}{T}{T}tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes",
         f"{T}{T}{T}{T}tv_wonder_mechanics_refresh_location_display_state_effect = yes",
         f"{T}{T}{T}}}",
         f"{T}{T}}}",
@@ -261,6 +281,9 @@ def generate() -> str:
                     on_built_lines=final_building_on_built_lines(),
                     on_destroyed_lines=final_building_on_destroyed_lines(wonder),
                     can_destroy_lines=final_building_can_destroy_lines(wonder),
+                    build_time="huge_unique_build_time",
+                    price=f"tv_wonder_direct_build_{wonder['size']}_price",
+                    direct_build=True,
                 )
             )
         for style in ceremony_styles(wonder):

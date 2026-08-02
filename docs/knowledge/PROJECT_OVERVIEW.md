@@ -66,6 +66,17 @@ directly from the relevant phase transitions for proposal choice, survey site
 choice, construction-site lock-in, and generic-ceremony style choice. The Engineering
 Department root owns the shared `cmf_on_callback` handler, trigger/effects,
 scripted-GUI request clearer, hidden GUI bridge/widget registration, and EN/ZH localization.
+Its Community Mod Menu integration also registers a host-global Wonder Control tab
+with ten Boolean settings, three 0--50k direct-build price sliders, and three 1--500k
+module-requirement sliders. These controls
+can expose final wonder buildings in the ordinary building list, snapshot and skip
+individual lifecycle phases, suppress survey/construction random events, override the
+scale and worksite caps to 6 and 100, tune small/medium/large module progress, and give
+directly built wonders size-based gold prices plus the five-year `huge_unique_build_time`. Phase
+skips are captured when a project enters the affected phase, reuse the canonical
+completion/finalization effects, and clear their project variables through the normal
+lifecycle cleanup; absent CMM aliases retain the original 100k/200k/300k requirements
+and default lifecycle behavior.
 There is no accepted standalone cosmetic gap. `scripts/validate.py`, `scripts/ai_context.py`, and
 `scripts/gen_index.py` all now iterate every deployable mod root. The new mod ships 3
 bootstrap behaviors, registered via `data/pulse_registry.yaml` and

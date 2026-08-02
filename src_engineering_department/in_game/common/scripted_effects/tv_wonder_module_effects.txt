@@ -18,6 +18,46 @@ tv_wonder_set_required_progress_effect = {
 		set_variable = { name = tv_wonder_unit_required_progress value = local_var:tv_wonder_required_progress }
 		remove_local_variable = tv_wonder_required_progress
 	}
+	if = {
+		limit = {
+			var:tv_wonder_locked_size ?= 1
+			has_global_variable = tv_engineering_department_small_module_requirement
+		}
+		set_variable = {
+			name = tv_wonder_unit_required_progress
+			value = {
+				value = global_var:tv_engineering_department_small_module_requirement
+				multiply = 1000
+			}
+		}
+	}
+	if = {
+		limit = {
+			var:tv_wonder_locked_size ?= 2
+			has_global_variable = tv_engineering_department_medium_module_requirement
+		}
+		set_variable = {
+			name = tv_wonder_unit_required_progress
+			value = {
+				value = global_var:tv_engineering_department_medium_module_requirement
+				multiply = 1000
+			}
+		}
+	}
+	if = {
+		limit = {
+			var:tv_wonder_locked_size ?= 3
+			has_global_variable = tv_engineering_department_large_module_requirement
+		}
+		set_variable = {
+			name = tv_wonder_unit_required_progress
+			value = {
+				value = global_var:tv_engineering_department_large_module_requirement
+				multiply = 1000
+			}
+		}
+	}
+	clamp_variable = { name = tv_wonder_unit_required_progress min = 1000 max = 500000 }
 }
 
 tv_wonder_validate_priority_candidate_for_saved_wonder_effect = {

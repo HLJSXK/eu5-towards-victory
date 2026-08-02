@@ -173,6 +173,7 @@ tv_wonder_construction_site_selected_trigger = {
 
 tv_wonder_construction_random_events_active_trigger = {
 	has_variable = tv_engineering_department_member
+	NOT = { has_global_variable = tv_engineering_department_disable_construction_events }
 	tv_wonder_construction_site_selected_trigger = yes
 	var:tv_wonder_stage ?= 3
 	NOT = { has_variable = tv_wonder_construction_complete }

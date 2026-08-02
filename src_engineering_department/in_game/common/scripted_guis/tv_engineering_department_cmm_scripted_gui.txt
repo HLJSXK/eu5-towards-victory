@@ -1,0 +1,63 @@
+﻿tv_engineering_department__disable_survey_events_on_changed = {
+	scope = country
+	is_shown = {
+		NOT = { has_global_variable = tv_engineering_department_skip_survey }
+	}
+	effect = { }
+}
+
+tv_engineering_department__direct_build_small_price_on_changed = {
+	scope = country
+	is_shown = {
+		has_global_variable = tv_engineering_department_direct_build
+	}
+	effect = { }
+}
+
+tv_engineering_department__direct_build_medium_price_on_changed = {
+	scope = country
+	is_shown = {
+		has_global_variable = tv_engineering_department_direct_build
+	}
+	effect = { }
+}
+
+tv_engineering_department__direct_build_large_price_on_changed = {
+	scope = country
+	is_shown = {
+		has_global_variable = tv_engineering_department_direct_build
+	}
+	effect = { }
+}
+
+tv_engineering_department__small_module_requirement_on_changed = {
+	scope = country
+	is_shown = {
+		NOT = { has_global_variable = tv_engineering_department_skip_construction }
+	}
+	effect = { }
+}
+
+tv_engineering_department__medium_module_requirement_on_changed = {
+	scope = country
+	is_shown = {
+		NOT = { has_global_variable = tv_engineering_department_skip_construction }
+	}
+	effect = { }
+}
+
+tv_engineering_department__large_module_requirement_on_changed = {
+	scope = country
+	is_shown = {
+		NOT = { has_global_variable = tv_engineering_department_skip_construction }
+	}
+	effect = { }
+}
+
+tv_engineering_department__disable_construction_events_on_changed = {
+	scope = country
+	is_shown = {
+		NOT = { has_global_variable = tv_engineering_department_skip_construction }
+	}
+	effect = { }
+}

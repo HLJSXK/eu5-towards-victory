@@ -16,3 +16,46 @@ tv_wonder_input_shortage_construction_progress = {
 	}
 	min = 0
 }
+
+# Absolute gold prices for direct construction. CMM values are stored in thousands.
+tv_wonder_direct_build_small_price_value = {
+	value = 10000
+	if = {
+		limit = { has_global_variable = tv_engineering_department_direct_build_small_price }
+		multiply = 0
+		add = {
+			value = global_var:tv_engineering_department_direct_build_small_price
+			multiply = 1000
+		}
+	}
+	min = 0
+	max = 50000
+}
+
+tv_wonder_direct_build_medium_price_value = {
+	value = 20000
+	if = {
+		limit = { has_global_variable = tv_engineering_department_direct_build_medium_price }
+		multiply = 0
+		add = {
+			value = global_var:tv_engineering_department_direct_build_medium_price
+			multiply = 1000
+		}
+	}
+	min = 0
+	max = 50000
+}
+
+tv_wonder_direct_build_large_price_value = {
+	value = 30000
+	if = {
+		limit = { has_global_variable = tv_engineering_department_direct_build_large_price }
+		multiply = 0
+		add = {
+			value = global_var:tv_engineering_department_direct_build_large_price
+			multiply = 1000
+		}
+	}
+	min = 0
+	max = 50000
+}

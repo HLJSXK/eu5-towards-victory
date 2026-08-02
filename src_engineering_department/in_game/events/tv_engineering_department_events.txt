@@ -46,6 +46,33 @@ tv_engineering_department.30 = {
 	}
 }
 
+# One-day delayed conception skip. The phase snapshot is captured when
+# conception starts, so changing CMM afterwards cannot affect this project.
+tv_engineering_department.31 = {
+	type = country_event
+	title = empty_text
+	desc = empty_text
+	hidden = yes
+	outcome = neutral
+
+	immediate = {
+		if = {
+			limit = {
+				has_variable = tv_wonder_cmm_skip_concept
+				has_variable = tv_wonder_concept_in_progress
+				var:tv_wonder_stage ?= 0
+			}
+			every_international_organizations_member_of = {
+				limit = {
+					international_organization_type = international_organization_type:tv_engineering_department
+				}
+				set_variable = { name = tv_wonder_concept_progress value = 100 }
+			}
+			tv_wonder_complete_concept_effect = yes
+		}
+	}
+}
+
 tv_engineering_department.100 = {
 	type = country_event
 	title = tv_engineering_department.100.t
@@ -299,6 +326,10 @@ tv_engineering_department.206 = {
 
 tv_engineering_department.202 = {
 	type = country_event
+	trigger = {
+		var:tv_wonder_stage ?= 4
+		NOT = { has_variable = tv_wonder_finalized }
+	}
 	title = tv_engineering_department.202.t
 	desc = tv_engineering_department.202.d
 	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_construction_cropped.dds"

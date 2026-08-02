@@ -1051,13 +1051,23 @@ def generate() -> str:
     lines.append("### BEGIN TV_WONDER_MECHANICS_HOLD_BUTTONS")
     base_visible = hold_button_base_visible(max_wonder_id)
     generic_hold_visible = f"And({base_visible}, {generic_wonder_locked_expr()})"
-    gold_visible = f"And({generic_hold_visible}, {selected_ritual_cost_visible(WONDER_RITUAL_COST_TYPE_IDS['scaled_gold'])})"
-    prestige_visible = f"And({generic_hold_visible}, {selected_ritual_cost_visible(WONDER_RITUAL_COST_TYPE_IDS['prestige'])})"
+    skip_ceremony_visible = f"{PLAYER}.GetVariable('tv_wonder_cmm_skip_ceremony').IsSet"
+    gold_visible = (
+        f"And3({generic_hold_visible}, "
+        f"{selected_ritual_cost_visible(WONDER_RITUAL_COST_TYPE_IDS['scaled_gold'])}, "
+        f"Not({skip_ceremony_visible}))"
+    )
+    prestige_visible = (
+        f"And3({generic_hold_visible}, "
+        f"{selected_ritual_cost_visible(WONDER_RITUAL_COST_TYPE_IDS['prestige'])}, "
+        f"Not({skip_ceremony_visible}))"
+    )
     free_visible = (
+        f"Or(And({generic_hold_visible}, {skip_ceremony_visible}), "
         f"And3({generic_hold_visible}, "
         f"{PLAYER}.GetVariable('tv_wonder_selected_ritual_cost_type').IsSet, "
         f"Not(Or({selected_ritual_cost_visible(WONDER_RITUAL_COST_TYPE_IDS['scaled_gold'])}, "
-        f"{selected_ritual_cost_visible(WONDER_RITUAL_COST_TYPE_IDS['prestige'])})))"
+        f"{selected_ritual_cost_visible(WONDER_RITUAL_COST_TYPE_IDS['prestige'])}))))"
     )
     lines.append(hold_button("tv_wonder_confirm_ceremony", free_visible))
     lines.append(hold_button("tv_wonder_confirm_ceremony_scaled_gold", gold_visible))

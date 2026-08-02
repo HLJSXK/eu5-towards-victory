@@ -717,6 +717,25 @@ def main() -> None:
     lines.append(f"{T}{T}set_variable = {{ name = tv_wonder_unit_required_progress value = local_var:{REQUIRED_PROGRESS_VAR} }}")
     lines.append(f"{T}{T}remove_local_variable = {REQUIRED_PROGRESS_VAR}")
     lines.append(f"{T}}}")
+    for size_id, alias in (
+        (1, "tv_engineering_department_small_module_requirement"),
+        (2, "tv_engineering_department_medium_module_requirement"),
+        (3, "tv_engineering_department_large_module_requirement"),
+    ):
+        lines.append(f"{T}if = {{")
+        lines.append(f"{T}{T}limit = {{")
+        lines.append(f"{T}{T}{T}var:tv_wonder_locked_size ?= {size_id}")
+        lines.append(f"{T}{T}{T}has_global_variable = {alias}")
+        lines.append(f"{T}{T}}}")
+        lines.append(f"{T}{T}set_variable = {{")
+        lines.append(f"{T}{T}{T}name = tv_wonder_unit_required_progress")
+        lines.append(f"{T}{T}{T}value = {{")
+        lines.append(f"{T}{T}{T}{T}value = global_var:{alias}")
+        lines.append(f"{T}{T}{T}{T}multiply = 1000")
+        lines.append(f"{T}{T}{T}}}")
+        lines.append(f"{T}{T}}}")
+        lines.append(f"{T}}}")
+    lines.append(f"{T}clamp_variable = {{ name = tv_wonder_unit_required_progress min = 1000 max = 500000 }}")
     lines.append("}")
     lines.append("")
 

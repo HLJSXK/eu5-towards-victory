@@ -1,0 +1,24 @@
+﻿# Engineering Department integration with Community Mod Menu.
+cmf_on_mod_registration = {
+	on_actions = {
+		tv_engineering_department_on_register_cmf_mod
+	}
+}
+
+tv_engineering_department_on_register_cmf_mod = {
+	effect = {
+		tv_engineering_department_register_cmf_mod_effect = yes
+	}
+}
+
+cmf_on_callback = {
+	on_actions = {
+		tv_engineering_department_on_cmf_callback
+	}
+}
+
+tv_engineering_department_on_cmf_callback = {
+	effect = {
+		tv_engineering_department_handle_cmf_callback_effect = yes
+	}
+}

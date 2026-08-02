@@ -10189,11 +10189,260 @@ tv_wonder_mechanics_force_complete_active_ritual_effect = {
 	}
 }
 
+tv_wonder_mechanics_skip_selected_ritual_effect = {
+	if = {
+		limit = {
+			has_variable = tv_wonder_cmm_skip_ceremony
+			NOT = { tv_wonder_unique_locked_trigger = yes }
+		}
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		if = {
+			limit = { tv_wonder_selected_generic_auxiliary_building_ritual_trigger = yes }
+			if = {
+				limit = { tv_wonder_construction_site_selected_trigger = yes }
+				var:tv_wonder_site ?= {
+					if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 102 } }
+						construct_building = { building_type = building_type:tv_wonder_sacred_mountain_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 202 } }
+						construct_building = { building_type = building_type:tv_wonder_triumphal_axis_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 302 } }
+						construct_building = { building_type = building_type:tv_wonder_great_port_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 402 } }
+						construct_building = { building_type = building_type:tv_wonder_giant_necropolis_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 502 } }
+						construct_building = { building_type = building_type:tv_wonder_great_lighthouse_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 602 } }
+						construct_building = { building_type = building_type:tv_wonder_hydraulic_workshop_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 702 } }
+						construct_building = { building_type = building_type:tv_wonder_mining_city_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 802 } }
+						construct_building = { building_type = building_type:tv_wonder_giant_observatory_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 902 } }
+						construct_building = { building_type = building_type:tv_wonder_palace_of_nations_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 1002 } }
+						construct_building = { building_type = building_type:tv_wonder_university_city_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 1102 } }
+						construct_building = { building_type = building_type:tv_wonder_sky_dome_grand_temple_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 1202 } }
+						construct_building = { building_type = building_type:tv_wonder_giant_tower_temple_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 1302 } }
+						construct_building = { building_type = building_type:tv_wonder_river_extension_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 1402 } }
+						construct_building = { building_type = building_type:tv_wonder_national_shipyard_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 1502 } }
+						construct_building = { building_type = building_type:tv_wonder_star_fortress_city_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 1602 } }
+						construct_building = { building_type = building_type:tv_wonder_great_wall_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 1702 } }
+						construct_building = { building_type = building_type:tv_wonder_giant_armory_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 1802 } }
+						construct_building = { building_type = building_type:tv_wonder_library_of_nation_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 1902 } }
+						construct_building = { building_type = building_type:tv_wonder_large_canal_system_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 2002 } }
+						construct_building = { building_type = building_type:tv_wonder_mountain_terrace_network_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 2102 } }
+						construct_building = { building_type = building_type:tv_wonder_giant_dam_project_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 2202 } }
+						construct_building = { building_type = building_type:tv_wonder_royal_granary_system_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 2302 } }
+						construct_building = { building_type = building_type:tv_wonder_imperial_post_road_network_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 2402 } }
+						construct_building = { building_type = building_type:tv_wonder_canal_hub_city_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 2502 } }
+						construct_building = { building_type = building_type:tv_wonder_frontier_colonization_belt_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 2602 } }
+						construct_building = { building_type = building_type:tv_wonder_coastal_beacon_network_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 2702 } }
+						construct_building = { building_type = building_type:tv_wonder_knightly_fortress_order_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 2802 } }
+						construct_building = { building_type = building_type:tv_wonder_war_college_system_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 2902 } }
+						construct_building = { building_type = building_type:tv_wonder_great_clock_bell_system_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 3002 } }
+						construct_building = { building_type = building_type:tv_wonder_royal_art_district_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 3102 } }
+						construct_building = { building_type = building_type:tv_wonder_grand_theater_festival_district_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 3202 } }
+						construct_building = { building_type = building_type:tv_wonder_world_embassy_quarter_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 3302 } }
+						construct_building = { building_type = building_type:tv_wonder_law_code_stele_project_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 3402 } }
+						construct_building = { building_type = building_type:tv_wonder_world_market_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 3502 } }
+						construct_building = { building_type = building_type:tv_wonder_royal_mint_system_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 3602 } }
+						construct_building = { building_type = building_type:tv_wonder_guild_alliance_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 3702 } }
+						construct_building = { building_type = building_type:tv_wonder_maritime_trade_station_network_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 3802 } }
+						construct_building = { building_type = building_type:tv_wonder_giant_workshop_complex_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 3902 } }
+						construct_building = { building_type = building_type:tv_wonder_world_monument_group_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 4002 } }
+						construct_building = { building_type = building_type:tv_wonder_city_expansion_project_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 4102 } }
+						construct_building = { building_type = building_type:tv_wonder_megalithic_circle_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 4202 } }
+						construct_building = { building_type = building_type:tv_wonder_grand_cathedral_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 4302 } }
+						construct_building = { building_type = building_type:tv_wonder_great_monastery_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 4402 } }
+						construct_building = { building_type = building_type:tv_wonder_city_great_tower_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 4502 } }
+						construct_building = { building_type = building_type:tv_wonder_great_sculpture_group_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 4602 } }
+						construct_building = { building_type = building_type:tv_wonder_coastal_defense_cannon_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 4702 } }
+						construct_building = { building_type = building_type:tv_wonder_naval_school_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 4802 } }
+						construct_building = { building_type = building_type:tv_wonder_colonial_trade_company_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 4902 } }
+						construct_building = { building_type = building_type:tv_wonder_great_assembly_hall_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 5002 } }
+						construct_building = { building_type = building_type:tv_wonder_mobile_fortress_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 5102 } }
+						construct_building = { building_type = building_type:tv_wonder_ancient_city_ruins_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 5202 } }
+						construct_building = { building_type = building_type:tv_wonder_summer_palace_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 5302 } }
+						construct_building = { building_type = building_type:tv_wonder_national_bank_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+					else_if = {
+						limit = { prev = { var:tv_wonder_selected_ritual_id ?= 5402 } }
+						construct_building = { building_type = building_type:tv_wonder_pirate_port_ritual_annex cost_multiplier = 0 instant = yes }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { tv_wonder_selected_generic_immediate_ritual_trigger = yes }
+			tv_wonder_mechanics_apply_immediate_ritual_effect = yes
+		}
+		tv_wonder_mechanics_apply_selected_ritual_completion_effect = yes
+		tv_wonder_mechanics_apply_selected_ritual_static_modifier_effect = yes
+		remove_variable = tv_wonder_ritual_in_progress
+		remove_variable = tv_wonder_ritual_timer
+		tv_wonder_mechanics_clear_selected_ritual_runtime_effect = yes
+		tv_wonder_finalize_effect = yes
+	}
+}
+
 tv_wonder_confirm_ceremony_effect = {
 	tv_wonder_index_refresh_country_cache_effect = yes
 	if = {
 		limit = { tv_wonder_ceremony_ready_for_confirmation_trigger = yes }
 		if = {
+			limit = { has_variable = tv_wonder_cmm_skip_ceremony }
+			tv_wonder_mechanics_skip_selected_ritual_effect = yes
+		}
+		else_if = {
 			limit = { tv_wonder_selected_generic_timed_ritual_trigger = yes }
 			tv_wonder_mechanics_start_timed_ritual_effect = yes
 		}

@@ -9,7 +9,7 @@ tv_wonder_labor_camp = {
 			limit = { scope:owner = { has_variable = tv_wonder_organization_site_level_cap } }
 			add = scope:owner.var:tv_wonder_organization_site_level_cap
 		}
-		max = 20
+		max = 100
 	}
 	employment_size = 2
 

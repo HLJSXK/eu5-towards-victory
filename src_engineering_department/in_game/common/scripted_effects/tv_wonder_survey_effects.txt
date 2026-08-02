@@ -11156,6 +11156,15 @@ tv_wonder_mechanics_start_survey_effect = {
 		if = {
 			limit = { tv_wonder_selected_survey_already_cached_trigger = yes }
 			tv_wonder_copy_completed_survey_from_location_effect = yes
+			remove_variable = tv_wonder_cmm_skip_survey
+		}
+		else_if = {
+			limit = { has_variable = tv_wonder_cmm_skip_survey }
+			set_variable = { name = tv_wonder_survey_active value = 1 }
+			set_variable = { name = tv_wonder_scale_competence value = 100 }
+			set_variable = { name = tv_wonder_logistics_competence value = 85 }
+			set_variable = { name = tv_wonder_organization_competence value = 85 }
+			tv_wonder_mechanics_complete_survey_effect = yes
 		}
 		else = {
 			set_variable = { name = tv_wonder_survey_active value = 1 }
@@ -11175,6 +11184,7 @@ tv_wonder_mechanics_complete_survey_effect = {
 		tv_wonder_store_survey_on_location_effect = yes
 		tv_wonder_mechanics_reveal_suitability_knowledge_effect = yes
 		set_variable = { name = tv_wonder_survey_complete value = 1 }
+		remove_variable = tv_wonder_cmm_skip_survey
 		remove_variable = tv_wonder_survey_active
 		remove_variable = tv_wonder_survey_speed
 		remove_variable = tv_wonder_scale_competence_target

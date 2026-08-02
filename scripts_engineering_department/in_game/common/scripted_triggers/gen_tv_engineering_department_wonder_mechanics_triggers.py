@@ -88,18 +88,25 @@ def final_building_level_exact(building: str, level: int, indent: int) -> list[s
 def stored_tier_can_expand_branch(wonder: dict, final_building: str, indent: int) -> list[str]:
     prefix = T * indent
     wonder_id = str(int(wonder["id"]))
-    lines = [f"{prefix}AND = {{"]
-    lines.append(f"{prefix}{T}has_variable_map = {LOCATION_SURVEY_SCALE_TIER_MAP}")
-    lines.append(f"{prefix}{T}is_key_in_variable_map = {{ name = {LOCATION_SURVEY_SCALE_TIER_MAP} target = {wonder_id} }}")
-    lines.append(f"{prefix}{T}OR = {{")
+    lines = [f"{prefix}OR = {{"]
+    lines.append(f"{prefix}{T}AND = {{")
+    lines.append(f"{prefix}{T}{T}has_global_variable = tv_engineering_department_unlimited_scale")
+    lines.append(f"{prefix}{T}{T}{loc_level(final_building, '>=', 1)}")
+    lines.append(f"{prefix}{T}{T}NOT = {{ {loc_level(final_building, '>=', 6)} }}")
+    lines.append(f"{prefix}{T}}}")
+    lines.append(f"{prefix}{T}AND = {{")
+    lines.append(f"{prefix}{T}{T}has_variable_map = {LOCATION_SURVEY_SCALE_TIER_MAP}")
+    lines.append(f"{prefix}{T}{T}is_key_in_variable_map = {{ name = {LOCATION_SURVEY_SCALE_TIER_MAP} target = {wonder_id} }}")
+    lines.append(f"{prefix}{T}{T}OR = {{")
     for level in range(1, 6):
-        lines.append(f"{prefix}{T}{T}AND = {{")
-        lines.extend(final_building_level_exact(final_building, level, indent + 3))
+        lines.append(f"{prefix}{T}{T}{T}AND = {{")
+        lines.extend(final_building_level_exact(final_building, level, indent + 4))
         lines.append(
-            f"{prefix}{T}{T}{T}\"variable_map({LOCATION_SURVEY_SCALE_TIER_MAP}|{wonder_id})\" ?= "
+            f"{prefix}{T}{T}{T}{T}\"variable_map({LOCATION_SURVEY_SCALE_TIER_MAP}|{wonder_id})\" ?= "
             f"{{ this >= {level + 1} }}"
         )
-        lines.append(f"{prefix}{T}{T}}}")
+        lines.append(f"{prefix}{T}{T}{T}}}")
+    lines.append(f"{prefix}{T}{T}}}")
     lines.append(f"{prefix}{T}}}")
     lines.append(f"{prefix}}}")
     return lines
@@ -604,13 +611,17 @@ def generate() -> str:
     lines.append(f"{T}tv_wonder_has_selected_ceremony_trigger = yes")
     lines.append(f"{T}NOT = {{ has_variable = tv_wonder_ritual_in_progress }}")
     lines.append(f"{T}NOT = {{ tv_wonder_selected_unique_ceremony_framework_trigger = yes }}")
-    lines.append(f"{T}tv_wonder_selected_ritual_confirmation_requirements_met_trigger = yes")
+    lines.append(f"{T}OR = {{")
+    lines.append(f"{T}{T}has_variable = tv_wonder_cmm_skip_ceremony")
+    lines.append(f"{T}{T}tv_wonder_selected_ritual_confirmation_requirements_met_trigger = yes")
+    lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")
 
     lines.append("tv_wonder_ceremony_ready_for_free_confirmation_trigger = {")
     lines.append(f"{T}tv_wonder_ceremony_ready_for_confirmation_trigger = yes")
     lines.append(f"{T}OR = {{")
+    lines.append(f"{T}{T}has_variable = tv_wonder_cmm_skip_ceremony")
     lines.append(f"{T}{T}AND = {{")
     lines.append(f"{T}{T}{T}tv_wonder_selected_generic_immediate_ritual_trigger = yes")
     lines.append(f"{T}{T}{T}tv_wonder_selected_generic_no_decoration_cost_ritual_trigger = yes")
@@ -627,12 +638,14 @@ def generate() -> str:
 
     lines.append("tv_wonder_ceremony_ready_for_scaled_gold_confirmation_trigger = {")
     lines.append(f"{T}tv_wonder_ceremony_ready_for_confirmation_trigger = yes")
+    lines.append(f"{T}NOT = {{ has_variable = tv_wonder_cmm_skip_ceremony }}")
     lines.append(f"{T}tv_wonder_selected_generic_scaled_gold_decoration_ritual_trigger = yes")
     lines.append("}")
     lines.append("")
 
     lines.append("tv_wonder_ceremony_ready_for_prestige_confirmation_trigger = {")
     lines.append(f"{T}tv_wonder_ceremony_ready_for_confirmation_trigger = yes")
+    lines.append(f"{T}NOT = {{ has_variable = tv_wonder_cmm_skip_ceremony }}")
     lines.append(f"{T}tv_wonder_selected_generic_prestige_decoration_ritual_trigger = yes")
     lines.append("}")
     lines.append("")

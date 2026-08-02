@@ -95,10 +95,56 @@ ENGINEERING_DEPARTMENT_EFFECTS = (
     / "scripted_effects"
     / "tv_engineering_department_effects.txt"
 )
+CMM_EFFECTS = (
+    REPO_ROOT
+    / "src_engineering_department" / "in_game" / "common"
+    / "scripted_effects" / "tv_engineering_department_cmm_effects.txt"
+)
+CMM_SCRIPTED_GUI = (
+    REPO_ROOT
+    / "src_engineering_department" / "in_game" / "common"
+    / "scripted_guis" / "tv_engineering_department_cmm_scripted_gui.txt"
+)
+ENGINEERING_DEPARTMENT_EVENTS = (
+    REPO_ROOT
+    / "src_engineering_department" / "in_game" / "events"
+    / "tv_engineering_department_events.txt"
+)
+ENGINEERING_DEPARTMENT_TRIGGERS = (
+    REPO_ROOT
+    / "src_engineering_department" / "in_game" / "common"
+    / "scripted_triggers" / "tv_engineering_department_triggers.txt"
+)
+MODULE_EFFECTS = (
+    REPO_ROOT
+    / "src_engineering_department" / "in_game" / "common"
+    / "scripted_effects" / "tv_wonder_module_effects.txt"
+)
+ENGINEERING_DEPARTMENT_IO = (
+    REPO_ROOT
+    / "src_engineering_department" / "in_game" / "common"
+    / "international_organizations" / "tv_engineering_department.txt"
+)
+ENGINEERING_DEPARTMENT_SUPPORT_BUILDINGS = (
+    REPO_ROOT
+    / "src_engineering_department" / "in_game" / "common"
+    / "building_types" / "tv_engineering_department_buildings.txt"
+)
+ENGINEERING_DEPARTMENT_PRICES = (
+    REPO_ROOT
+    / "src_engineering_department" / "in_game" / "common"
+    / "prices" / "tv_engineering_department_prices.txt"
+)
+ENGINEERING_DEPARTMENT_SCRIPT_VALUES = (
+    REPO_ROOT
+    / "src_engineering_department" / "main_menu" / "common"
+    / "script_values" / "tv_engineering_department_values.txt"
+)
 
 from wonder_mechanics.io import load_all_wonder_mechanics
 from wonder_mechanics.naming import (
     final_building_destroyed_effect_name,
+    final_building_for_style,
     persistent_ritual_country_modifier_name,
 )
 from wonder_mechanics.modifiers import (
@@ -111,6 +157,7 @@ from wonder_mechanics.rituals import (
     ceremony_cost_computed_value,
     ceremony_styles,
     normalize_unique_ceremony,
+    ritual_auxiliary_building,
     ritual_plan_for_style,
 )
 from wonder_mechanics.schema import validate_unique_wonder_single_site_shape
@@ -208,6 +255,23 @@ def extract_trigger_block(script: str, name: str) -> str:
     raise AssertionError(f"Generated trigger {name} is not closed.")
 
 
+def extract_assignment_block_containing(script: str, assignment: str, marker: str) -> str:
+    marker_index = script.find(marker)
+    require(marker_index >= 0, f"Missing marker {marker} in {assignment} block.")
+    start = script.rfind(f"{assignment} = {{", 0, marker_index)
+    require(start >= 0, f"Missing containing {assignment} block for {marker}.")
+    depth = 0
+    for index in range(start, len(script)):
+        char = script[index]
+        if char == "{":
+            depth += 1
+        elif char == "}":
+            depth -= 1
+            if depth == 0:
+                return script[start : index + 1]
+    raise AssertionError(f"Containing {assignment} block for {marker} is not closed.")
+
+
 def validate_generated_trigger_scope_layers(wonders: list[dict]) -> None:
     trigger_script = load_trigger_generator().generate()
     require(
@@ -294,6 +358,210 @@ def validate_existing_unique_initialization_seeds_survey_maps(wonders: list[dict
                 f"add_to_variable_map = {{ name = {map_name} key = {wonder_id} value = {value} }}" in seed_block,
                 f"Game-start unique wonder {wonder_id} must seed {map_name} with {value}.",
             )
+
+
+def validate_cmm_wonder_controls(wonders: list[dict], mechanics: dict) -> None:
+    cmm = CMM_EFFECTS.read_text(encoding="utf-8-sig")
+    gui = CMM_SCRIPTED_GUI.read_text(encoding="utf-8-sig")
+    effects = ENGINEERING_DEPARTMENT_EFFECTS.read_text(encoding="utf-8-sig")
+    events = ENGINEERING_DEPARTMENT_EVENTS.read_text(encoding="utf-8-sig")
+    central_triggers = ENGINEERING_DEPARTMENT_TRIGGERS.read_text(encoding="utf-8-sig")
+    module_effects = MODULE_EFFECTS.read_text(encoding="utf-8-sig")
+
+    bool_ids = (
+        "direct_build",
+        "skip_concept",
+        "skip_debate",
+        "skip_survey",
+        "unlimited_scale",
+        "unlimited_organization",
+        "disable_survey_events",
+        "skip_construction",
+        "disable_construction_events",
+        "skip_ceremony",
+    )
+    slider_specs = {
+        "direct_build_small_price": (10, 0, 50),
+        "direct_build_medium_price": (20, 0, 50),
+        "direct_build_large_price": (30, 0, 50),
+        "small_module_requirement": (100, 1, 500),
+        "medium_module_requirement": (200, 1, 500),
+        "large_module_requirement": (300, 1, 500),
+    }
+    require(cmm.count("cmm_register_global_bool_setting = {") == len(bool_ids), "CMM must register ten global bool settings.")
+    require(cmm.count("cmm_register_global_slider_setting = {") == len(slider_specs), "CMM must register six global sliders.")
+    for setting_id in bool_ids:
+        require(f"setting_id = {setting_id}" in cmm, f"Missing CMM bool setting {setting_id}.")
+        require(
+            f"flag:tv_engineering_department__{setting_id}" in cmm,
+            f"Missing CMM callback synchronization for bool setting {setting_id}.",
+        )
+        require(
+            f"alias = tv_engineering_department_{setting_id}" in cmm,
+            f"Missing global alias for CMM bool setting {setting_id}.",
+        )
+    for setting_id, (default, minimum, maximum) in slider_specs.items():
+        block = extract_assignment_block_containing(
+            cmm,
+            "cmm_register_global_slider_setting",
+            f"setting_id = {setting_id}",
+        )
+        require(f"default_value = {default}" in block, f"CMM slider {setting_id} has the wrong default.")
+        require(f"min_value = {minimum}" in block, f"CMM slider {setting_id} has the wrong minimum.")
+        require(f"max_value = {maximum}" in block, f"CMM slider {setting_id} has the wrong maximum.")
+        require(
+            f"alias = tv_engineering_department_{setting_id}" in cmm,
+            f"Missing global alias for CMM slider {setting_id}.",
+        )
+        require(
+            f"flag:tv_engineering_department__{setting_id}" in cmm,
+            f"Missing CMM callback synchronization for slider {setting_id}.",
+        )
+
+    for setting_id in (
+        "direct_build_small_price",
+        "direct_build_medium_price",
+        "direct_build_large_price",
+    ):
+        block = extract_trigger_block(gui, f"tv_engineering_department__{setting_id}_on_changed")
+        require(
+            "has_global_variable = tv_engineering_department_direct_build" in block,
+            f"CMM visibility for {setting_id} must require direct construction.",
+        )
+
+    for setting_id, hidden_by in (
+        ("disable_survey_events", "tv_engineering_department_skip_survey"),
+        ("small_module_requirement", "tv_engineering_department_skip_construction"),
+        ("medium_module_requirement", "tv_engineering_department_skip_construction"),
+        ("large_module_requirement", "tv_engineering_department_skip_construction"),
+        ("disable_construction_events", "tv_engineering_department_skip_construction"),
+    ):
+        block = extract_trigger_block(gui, f"tv_engineering_department__{setting_id}_on_changed")
+        require(
+            f"NOT = {{ has_global_variable = {hidden_by} }}" in block,
+            f"CMM visibility for {setting_id} must be controlled by {hidden_by}.",
+        )
+
+    concept_event = extract_trigger_block(events, "tv_engineering_department.31")
+    require("hidden = yes" in concept_event, "Skipped conception must use a hidden event.")
+    require("tv_wonder_concept_progress value = 100" in concept_event, "Skipped conception must set progress to 100.")
+    require(
+        "trigger_event_non_silently = { id = tv_engineering_department.31 days = 1 }" in effects,
+        "Skipped conception must retain the one-day delay.",
+    )
+    accept = extract_trigger_block(effects, "tv_wonder_accept_proposal_effect")
+    require("tv_wonder_domestic_support value = 200" in accept, "Skipped debate must set domestic support to 200.")
+    for demand in ("nobles", "burghers", "clergy"):
+        require(f"remove_variable = tv_wonder_{demand}_demand" in accept, f"Skipped debate must clear {demand} demand state.")
+
+    survey = load_effect_generator().generate_survey_effects()
+    start_survey = extract_trigger_block(survey, "tv_wonder_mechanics_start_survey_effect")
+    for variable, value in (
+        ("tv_wonder_scale_competence", 100),
+        ("tv_wonder_logistics_competence", 85),
+        ("tv_wonder_organization_competence", 85),
+    ):
+        require(
+            f"set_variable = {{ name = {variable} value = {value} }}" in start_survey,
+            f"Skipped survey must set {variable} to {value}.",
+        )
+    require("tv_wonder_mechanics_complete_survey_effect = yes" in start_survey, "Skipped survey must use normal completion.")
+    require(
+        "has_global_variable = tv_engineering_department_disable_survey_events" in effects,
+        "Survey random rolls must respect their CMM disable switch.",
+    )
+
+    select_site = extract_trigger_block(effects, "tv_wonder_select_construction_site_effect")
+    for part in ("foundation", "body", "function", "decoration"):
+        require(
+            f"set_variable = {{ name = tv_wonder_{part}_units value = 6 }}" in select_site,
+            f"Skipped construction must set {part} units to six.",
+        )
+    require("tv_wonder_apply_helper_building_to_final_site_effect = yes" in select_site, "Skipped construction must materialize the level-six helper building.")
+    require("tv_wonder_finish_construction_effect = yes" in select_site, "Skipped construction must enter ceremony through normal completion.")
+
+    ritual = load_effect_generator().generate_ritual_effects()
+    skip_ritual = extract_trigger_block(ritual, "tv_wonder_mechanics_skip_selected_ritual_effect")
+    require("cost_multiplier = 0 instant = yes" in skip_ritual, "Skipped auxiliary ceremonies must build instantly and for free.")
+    require("tv_wonder_mechanics_apply_immediate_ritual_effect = yes" in skip_ritual, "Skipped immediate ceremonies must grant their reward.")
+    require("tv_wonder_finalize_effect = yes" in skip_ritual, "Skipped generic ceremonies must finalize normally.")
+    initializer = extract_trigger_block(effects, "tv_wonder_initialize_ceremony_runtime_state_effect")
+    require("tv_wonder_mechanics_force_complete_active_ritual_effect = yes" in initializer, "Skipped unique ceremonies must force-complete on entry.")
+
+    generated_buildings = load_building_generator().generate()
+    expected_final_buildings = {
+        final_building_for_style(wonder, style): wonder["size"]
+        for wonder in wonders
+        for style in ceremony_styles(wonder)
+    }
+    expected_final_building_count = len(expected_final_buildings)
+    require(
+        generated_buildings.count("country_potential = { has_global_variable = tv_engineering_department_direct_build }")
+        == expected_final_building_count,
+        "Direct construction must be present on every and only final wonder building.",
+    )
+    for building_name, size in expected_final_buildings.items():
+        block = extract_trigger_block(generated_buildings, building_name)
+        require(
+            "country_potential = { has_global_variable = tv_engineering_department_direct_build }" in block,
+            f"Final wonder building {building_name} must expose the direct-build entry.",
+        )
+        require(
+            f"price = tv_wonder_direct_build_{size}_price" in block,
+            f"Final wonder building {building_name} must use the {size} direct-build price.",
+        )
+        require(
+            "build_time = huge_unique_build_time" in block,
+            f"Final wonder building {building_name} must use the long direct-build construction time.",
+        )
+    for wonder in wonders:
+        if any(ritual_plan_for_style(wonder, mechanics, style)["mode"] == "auxiliary_building" for style in ceremony_styles(wonder)):
+            auxiliary_name = ritual_auxiliary_building(wonder)
+            block = extract_trigger_block(generated_buildings, auxiliary_name)
+            require(
+                "tv_engineering_department_direct_build" not in block,
+                f"Ritual auxiliary building {auxiliary_name} must remain unavailable to direct construction.",
+            )
+
+    generated_triggers = load_trigger_generator().generate()
+    require(
+        generated_triggers.count("has_global_variable = tv_engineering_department_unlimited_scale")
+        >= expected_final_building_count,
+        "Unlimited scale must bypass every generated final-building survey cap.",
+    )
+
+    prices = ENGINEERING_DEPARTMENT_PRICES.read_text(encoding="utf-8-sig")
+    script_values = ENGINEERING_DEPARTMENT_SCRIPT_VALUES.read_text(encoding="utf-8-sig")
+    for size, default in (("small", 10000), ("medium", 20000), ("large", 30000)):
+        price_block = extract_trigger_block(prices, f"tv_wonder_direct_build_{size}_price")
+        require(
+            f"gold = tv_wonder_direct_build_{size}_price_value" in price_block,
+            f"The {size} direct-build price must use its dynamic script value.",
+        )
+        value_block = extract_trigger_block(script_values, f"tv_wonder_direct_build_{size}_price_value")
+        require(f"value = {default}" in value_block, f"The {size} direct-build price fallback is wrong.")
+        require(
+            f"global_var:tv_engineering_department_direct_build_{size}_price" in value_block,
+            f"The {size} direct-build price must read its CMM alias.",
+        )
+        require("multiply = 1000" in value_block, f"The {size} direct-build price must convert k to gold.")
+        require("min = 0" in value_block and "max = 50000" in value_block, f"The {size} direct-build price must clamp to 0..50k.")
+    require(
+        "NOT = { has_global_variable = tv_engineering_department_disable_construction_events }" in central_triggers,
+        "Construction random events must respect their CMM disable switch.",
+    )
+    for alias in (
+        "tv_engineering_department_small_module_requirement",
+        "tv_engineering_department_medium_module_requirement",
+        "tv_engineering_department_large_module_requirement",
+    ):
+        require(f"value = global_var:{alias}" in module_effects, f"Module requirements must read {alias}.")
+    require("max = 500000" in ENGINEERING_DEPARTMENT_IO.read_text(encoding="utf-8-sig"), "The IO progress cap must support 500k modules.")
+    require("max = 100" in ENGINEERING_DEPARTMENT_SUPPORT_BUILDINGS.read_text(encoding="utf-8-sig"), "The labor camp must support 100 levels.")
+    require("max = 150000" in effects, "Monthly construction progress must support 100-level worksites.")
+    cleanup = extract_trigger_block(effects, "tv_wonder_clear_project_state_core_effect")
+    for phase in ("concept", "debate", "survey", "construction", "ceremony"):
+        require(f"remove_variable = tv_wonder_cmm_skip_{phase}" in cleanup, f"Project cleanup must remove the {phase} CMM snapshot.")
 
 
 def validate_final_building_destruction_sync(wonders: list[dict], mechanics: dict) -> None:
@@ -832,6 +1100,7 @@ def main() -> None:
     validate_wonder_size_base_country_modifier_rules(wonders, mechanics)
     validate_generated_trigger_scope_layers(wonders)
     validate_existing_unique_initialization_seeds_survey_maps(wonders)
+    validate_cmm_wonder_controls(wonders, mechanics)
     validate_final_building_destruction_sync(wonders, mechanics)
     validate_generated_ceremony_flow(wonders, mechanics)
     validate_generated_ceremony_autostart(wonders)

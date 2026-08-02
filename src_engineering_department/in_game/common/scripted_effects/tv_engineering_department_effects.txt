@@ -189,7 +189,7 @@ tv_wonder_set_io_construction_progress_effect = {
 			international_organization_type = international_organization_type:tv_engineering_department
 		}
 		set_variable = { name = tv_wonder_construction_progress value = $value$ }
-		clamp_variable = { name = tv_wonder_construction_progress min = 0 max = 300000 }
+		clamp_variable = { name = tv_wonder_construction_progress min = 0 max = 500000 }
 	}
 }
 
@@ -199,7 +199,7 @@ tv_wonder_change_io_construction_progress_effect = {
 			international_organization_type = international_organization_type:tv_engineering_department
 		}
 		change_variable = { name = tv_wonder_construction_progress add = $value$ }
-		clamp_variable = { name = tv_wonder_construction_progress min = 0 max = 300000 }
+		clamp_variable = { name = tv_wonder_construction_progress min = 0 max = 500000 }
 		if = {
 			limit = {
 				root = { has_variable = tv_wonder_unit_required_progress }
@@ -240,7 +240,7 @@ tv_wonder_update_construction_progress_display_effect = {
 		}
 		set_variable = { name = tv_wonder_current_unit_progress value = var:tv_wonder_unit_required_progress }
 	}
-	clamp_variable = { name = tv_wonder_current_unit_progress min = 0 max = 300000 }
+	clamp_variable = { name = tv_wonder_current_unit_progress min = 0 max = 500000 }
 	set_variable = { name = tv_wonder_construction_progress_pct value = 0 }
 	set_variable = { name = tv_wonder_remaining_progress value = 0 }
 	set_variable = { name = tv_wonder_remaining_months value = 0 }
@@ -257,7 +257,7 @@ tv_wonder_update_construction_progress_display_effect = {
 		clamp_variable = { name = tv_wonder_construction_progress_pct min = 0 max = 100 }
 		set_variable = { name = tv_wonder_remaining_progress value = var:tv_wonder_unit_required_progress }
 		change_variable = { name = tv_wonder_remaining_progress subtract = var:tv_wonder_current_unit_progress }
-		clamp_variable = { name = tv_wonder_remaining_progress min = 0 max = 300000 }
+		clamp_variable = { name = tv_wonder_remaining_progress min = 0 max = 500000 }
 	}
 	if = {
 		limit = {
@@ -766,6 +766,7 @@ tv_wonder_clear_concept_state_effect = {
 	remove_variable = tv_wonder_concept_in_progress
 	remove_variable = tv_wonder_concept_reason
 	remove_variable = tv_wonder_concept_completion_pending
+	remove_variable = tv_wonder_cmm_skip_concept
 	tv_wonder_reset_io_concept_progress_effect = yes
 	hidden_effect = { tv_engineering_department_sync_attention_alert_effect = yes }
 }
@@ -775,7 +776,13 @@ tv_wonder_start_concept_effect = {
 	set_variable = { name = tv_wonder_concept_in_progress value = 1 }
 	set_variable = { name = tv_wonder_concept_reason value = $reason$ }
 	remove_variable = tv_wonder_concept_completion_pending
+	remove_variable = tv_wonder_cmm_skip_concept
 	tv_wonder_reset_io_concept_progress_effect = yes
+	if = {
+		limit = { has_global_variable = tv_engineering_department_skip_concept }
+		set_variable = { name = tv_wonder_cmm_skip_concept value = 1 }
+		trigger_event_non_silently = { id = tv_engineering_department.31 days = 1 }
+	}
 	hidden_effect = { tv_engineering_department_sync_attention_alert_effect = yes }
 }
 
@@ -870,7 +877,24 @@ tv_wonder_accept_proposal_effect = {
 				limit = { tv_wonder_unique_locked_trigger = yes }
 				tv_change_wonder_domestic_support_effect = { value = 50 }
 			}
-			tv_wonder_initialize_debate_demands_effect = yes
+			remove_variable = tv_wonder_cmm_skip_debate
+			if = {
+				limit = { has_global_variable = tv_engineering_department_skip_debate }
+				set_variable = { name = tv_wonder_cmm_skip_debate value = 1 }
+				remove_variable = tv_wonder_nobles_demand
+				remove_variable = tv_wonder_burghers_demand
+				remove_variable = tv_wonder_clergy_demand
+				every_international_organizations_member_of = {
+					limit = {
+						international_organization_type = international_organization_type:tv_engineering_department
+					}
+					set_variable = { name = tv_wonder_domestic_support value = 200 }
+				}
+				tv_wonder_end_debate_effect = yes
+			}
+			else = {
+				tv_wonder_initialize_debate_demands_effect = yes
+			}
 			tv_engineering_department_sync_attention_alert_effect = yes
 		}
 	}
@@ -1355,6 +1379,7 @@ tv_wonder_bribe_clergy_demand_effect = {
 tv_wonder_end_debate_effect = {
 	set_variable = { name = tv_wonder_stage value = 2 }
 	set_variable = { name = tv_wonder_debate_ended value = 1 }
+	remove_variable = tv_wonder_cmm_skip_debate
 	trigger_event_non_silently = { id = tv_engineering_department.203 days = 1 }
 	hidden_effect = { tv_engineering_department_sync_attention_alert_effect = yes }
 }
@@ -1376,12 +1401,18 @@ tv_wonder_update_construction_tiers_from_competence_effect = {
 	clamp_variable = { name = tv_wonder_logistics_competence min = 0 max = 100 }
 	clamp_variable = { name = tv_wonder_organization_competence min = 0 max = 100 }
 
-	set_variable = { name = tv_wonder_scale_tier value = 1 }
-	if = { limit = { var:tv_wonder_scale_competence ?= { this >= 20 } } set_variable = { name = tv_wonder_scale_tier value = 2 } }
-	if = { limit = { var:tv_wonder_scale_competence ?= { this >= 40 } } set_variable = { name = tv_wonder_scale_tier value = 3 } }
-	if = { limit = { var:tv_wonder_scale_competence ?= { this >= 60 } } set_variable = { name = tv_wonder_scale_tier value = 4 } }
-	if = { limit = { var:tv_wonder_scale_competence ?= { this >= 80 } } set_variable = { name = tv_wonder_scale_tier value = 5 } }
-	if = { limit = { var:tv_wonder_scale_competence ?= { this >= 100 } } set_variable = { name = tv_wonder_scale_tier value = 6 } }
+	if = {
+		limit = { has_global_variable = tv_engineering_department_unlimited_scale }
+		set_variable = { name = tv_wonder_scale_tier value = 6 }
+	}
+	else = {
+		set_variable = { name = tv_wonder_scale_tier value = 1 }
+		if = { limit = { var:tv_wonder_scale_competence ?= { this >= 20 } } set_variable = { name = tv_wonder_scale_tier value = 2 } }
+		if = { limit = { var:tv_wonder_scale_competence ?= { this >= 40 } } set_variable = { name = tv_wonder_scale_tier value = 3 } }
+		if = { limit = { var:tv_wonder_scale_competence ?= { this >= 60 } } set_variable = { name = tv_wonder_scale_tier value = 4 } }
+		if = { limit = { var:tv_wonder_scale_competence ?= { this >= 80 } } set_variable = { name = tv_wonder_scale_tier value = 5 } }
+		if = { limit = { var:tv_wonder_scale_competence ?= { this >= 100 } } set_variable = { name = tv_wonder_scale_tier value = 6 } }
+	}
 
 	set_variable = { name = tv_wonder_logistics_tier value = 1 }
 	if = { limit = { var:tv_wonder_logistics_competence ?= { this >= 20 } } set_variable = { name = tv_wonder_logistics_tier value = 2 } }
@@ -1397,15 +1428,21 @@ tv_wonder_update_construction_tiers_from_competence_effect = {
 	if = { limit = { var:tv_wonder_organization_competence ?= { this >= 80 } } set_variable = { name = tv_wonder_organization_tier value = 5 } }
 	if = { limit = { var:tv_wonder_organization_competence ?= { this >= 100 } } set_variable = { name = tv_wonder_organization_tier value = 6 } }
 
-	set_variable = {
-		name = tv_wonder_organization_site_level_cap
-		value = {
-			value = var:tv_wonder_organization_competence
-			divide = 5
-			floor = yes
-		}
+	if = {
+		limit = { has_global_variable = tv_engineering_department_unlimited_organization }
+		set_variable = { name = tv_wonder_organization_site_level_cap value = 100 }
 	}
-	clamp_variable = { name = tv_wonder_organization_site_level_cap min = 0 max = 20 }
+	else = {
+		set_variable = {
+			name = tv_wonder_organization_site_level_cap
+			value = {
+				value = var:tv_wonder_organization_competence
+				divide = 5
+				floor = yes
+			}
+		}
+		clamp_variable = { name = tv_wonder_organization_site_level_cap min = 0 max = 20 }
+	}
 
 	set_variable = { name = tv_wonder_logistics_progress_percent value = var:tv_wonder_logistics_competence }
 	change_variable = { name = tv_wonder_logistics_progress_percent add = 50 }
@@ -1539,7 +1576,7 @@ tv_wonder_update_logistics_metrics_effect = {
 			}
 		}
 		set_variable = { name = tv_wonder_organization_site_level_cap_display value = var:tv_wonder_organization_site_level_cap }
-		clamp_variable = { name = tv_wonder_organization_site_level_cap_display min = 1 max = 20 }
+		clamp_variable = { name = tv_wonder_organization_site_level_cap_display min = 1 max = 100 }
 		if = {
 			limit = { var:tv_wonder_effective_worksite_levels > var:tv_wonder_organization_site_level_cap }
 			set_variable = { name = tv_wonder_effective_worksite_levels value = var:tv_wonder_organization_site_level_cap }
@@ -1573,7 +1610,7 @@ tv_wonder_update_logistics_metrics_effect = {
 		change_variable = { name = tv_wonder_monthly_construction_progress multiply = var:tv_wonder_logistics_progress_percent }
 		change_variable = { name = tv_wonder_monthly_construction_progress divide = 100 }
 		change_variable = { name = tv_wonder_monthly_construction_progress subtract = tv_wonder_input_shortage_construction_progress }
-		clamp_variable = { name = tv_wonder_monthly_construction_progress min = 0 max = 30000 }
+		clamp_variable = { name = tv_wonder_monthly_construction_progress min = 0 max = 150000 }
 	}
 }
 
@@ -1581,6 +1618,8 @@ tv_wonder_clear_current_survey_effect = {
 	remove_variable = tv_wonder_resume_project
 	remove_variable = tv_wonder_project_mode
 	remove_variable = tv_wonder_project_base_level
+	remove_variable = tv_wonder_cmm_skip_construction
+	remove_variable = tv_wonder_cmm_skip_ceremony
 	remove_variable = tv_wonder_survey_site
 	remove_variable = tv_wonder_survey_active
 	remove_variable = tv_wonder_survey_complete
@@ -1697,6 +1736,14 @@ tv_wonder_prepare_survey_competence_targets_effect = {
 }
 
 tv_wonder_start_survey_effect = {
+	remove_variable = tv_wonder_cmm_skip_survey
+	if = {
+		limit = {
+			has_global_variable = tv_engineering_department_skip_survey
+			NOT = { has_variable = tv_wonder_project_mode }
+		}
+		set_variable = { name = tv_wonder_cmm_skip_survey value = 1 }
+	}
 	tv_wonder_mechanics_start_survey_effect = yes
 	hidden_effect = { tv_engineering_department_sync_attention_alert_effect = yes }
 }
@@ -1726,20 +1773,23 @@ tv_wonder_complete_survey_effect = {
 
 tv_wonder_monthly_survey_event_roll_effect = {
 	if = {
-		limit = { tv_wonder_survey_site_selected_trigger = yes }
-		var:tv_wonder_survey_site ?= { save_scope_as = tv_wonder_event_location }
+		limit = { NOT = { has_global_variable = tv_engineering_department_disable_survey_events } }
+		if = {
+			limit = { tv_wonder_survey_site_selected_trigger = yes }
+			var:tv_wonder_survey_site ?= { save_scope_as = tv_wonder_event_location }
+		}
+		set_variable = { name = tv_wonder_survey_event_roll value = { integer_range = { min = 1 max = 100 } } }
+		if = { limit = { var:tv_wonder_survey_event_roll = 1 } trigger_event_non_silently = { id = tv_engineering_department.310 days = 1 } }
+		else_if = { limit = { var:tv_wonder_survey_event_roll = 2 } trigger_event_non_silently = { id = tv_engineering_department.311 days = 1 } }
+		else_if = { limit = { var:tv_wonder_survey_event_roll = 3 } trigger_event_non_silently = { id = tv_engineering_department.312 days = 1 } }
+		else_if = { limit = { var:tv_wonder_survey_event_roll = 4 } trigger_event_non_silently = { id = tv_engineering_department.313 days = 1 } }
+		else_if = { limit = { var:tv_wonder_survey_event_roll = 5 } trigger_event_non_silently = { id = tv_engineering_department.314 days = 1 } }
+		else_if = { limit = { var:tv_wonder_survey_event_roll = 6 } trigger_event_non_silently = { id = tv_engineering_department.315 days = 1 } }
+		else_if = { limit = { var:tv_wonder_survey_event_roll = 7 } trigger_event_non_silently = { id = tv_engineering_department.320 days = 1 } }
+		else_if = { limit = { var:tv_wonder_survey_event_roll = 8 } trigger_event_non_silently = { id = tv_engineering_department.321 days = 1 } }
+		else_if = { limit = { var:tv_wonder_survey_event_roll = 9 } trigger_event_non_silently = { id = tv_engineering_department.322 days = 1 } }
+		remove_variable = tv_wonder_survey_event_roll
 	}
-	set_variable = { name = tv_wonder_survey_event_roll value = { integer_range = { min = 1 max = 100 } } }
-	if = { limit = { var:tv_wonder_survey_event_roll = 1 } trigger_event_non_silently = { id = tv_engineering_department.310 days = 1 } }
-	else_if = { limit = { var:tv_wonder_survey_event_roll = 2 } trigger_event_non_silently = { id = tv_engineering_department.311 days = 1 } }
-	else_if = { limit = { var:tv_wonder_survey_event_roll = 3 } trigger_event_non_silently = { id = tv_engineering_department.312 days = 1 } }
-	else_if = { limit = { var:tv_wonder_survey_event_roll = 4 } trigger_event_non_silently = { id = tv_engineering_department.313 days = 1 } }
-	else_if = { limit = { var:tv_wonder_survey_event_roll = 5 } trigger_event_non_silently = { id = tv_engineering_department.314 days = 1 } }
-	else_if = { limit = { var:tv_wonder_survey_event_roll = 6 } trigger_event_non_silently = { id = tv_engineering_department.315 days = 1 } }
-	else_if = { limit = { var:tv_wonder_survey_event_roll = 7 } trigger_event_non_silently = { id = tv_engineering_department.320 days = 1 } }
-	else_if = { limit = { var:tv_wonder_survey_event_roll = 8 } trigger_event_non_silently = { id = tv_engineering_department.321 days = 1 } }
-	else_if = { limit = { var:tv_wonder_survey_event_roll = 9 } trigger_event_non_silently = { id = tv_engineering_department.322 days = 1 } }
-	remove_variable = tv_wonder_survey_event_roll
 }
 
 tv_wonder_monthly_survey_effect = {
@@ -1797,6 +1847,11 @@ tv_wonder_select_construction_site_effect = {
 		var:tv_wonder_survey_site ?= { save_scope_as = tv_wonder_confirmed_survey_site }
 		set_variable = { name = tv_wonder_site value = scope:tv_wonder_confirmed_survey_site }
 		set_variable = { name = tv_wonder_stage value = 3 }
+		remove_variable = tv_wonder_cmm_skip_construction
+		if = {
+			limit = { has_global_variable = tv_engineering_department_skip_construction }
+			set_variable = { name = tv_wonder_cmm_skip_construction value = 1 }
+		}
 		remove_variable = tv_wonder_construction_complete
 		remove_variable = tv_wonder_active_part
 		tv_wonder_update_construction_tiers_from_competence_effect = yes
@@ -1809,8 +1864,21 @@ tv_wonder_select_construction_site_effect = {
 			set_variable = { name = tv_wonder_project_base_level value = var:tv_wonder_level }
 			remove_variable = tv_wonder_finalized
 		}
-		tv_wonder_monthly_construction_effect = yes
 		tv_wonder_apply_survey_site_support_effect = yes
+		if = {
+			limit = { has_variable = tv_wonder_cmm_skip_construction }
+			set_variable = { name = tv_wonder_foundation_units value = 6 }
+			set_variable = { name = tv_wonder_body_units value = 6 }
+			set_variable = { name = tv_wonder_function_units value = 6 }
+			set_variable = { name = tv_wonder_decoration_units value = 6 }
+			tv_wonder_update_wonder_level_effect = yes
+			tv_wonder_apply_helper_building_to_final_site_effect = yes
+			tv_wonder_set_io_construction_progress_effect = { value = 0 }
+			tv_wonder_finish_construction_effect = yes
+		}
+		else = {
+			tv_wonder_monthly_construction_effect = yes
+		}
 		hidden_effect = { tv_engineering_department_sync_attention_alert_effect = yes }
 	}
 }
@@ -2011,6 +2079,12 @@ tv_wonder_finish_construction_effect = {
 		limit = { tv_wonder_can_finish_construction_trigger = yes }
 		set_variable = { name = tv_wonder_construction_complete value = 1 }
 		set_variable = { name = tv_wonder_stage value = 4 }
+		remove_variable = tv_wonder_cmm_skip_construction
+		remove_variable = tv_wonder_cmm_skip_ceremony
+		if = {
+			limit = { has_global_variable = tv_engineering_department_skip_ceremony }
+			set_variable = { name = tv_wonder_cmm_skip_ceremony value = 1 }
+		}
 		remove_variable = tv_wonder_active_part
 		tv_change_wonder_domestic_support_effect = { value = 20 }
 		tv_wonder_initialize_ceremony_runtime_state_effect = yes
@@ -2046,12 +2120,20 @@ tv_wonder_initialize_ceremony_runtime_state_effect = {
 		limit = {
 			tv_wonder_unique_locked_trigger = yes
 			tv_wonder_ceremony_ready_trigger = yes
+		}
+		set_variable = { name = tv_wonder_ceremony_style value = 1 }
+		set_variable = { name = tv_wonder_ceremony_locked value = 1 }
+		tv_wonder_index_refresh_country_cache_effect = yes
+		tv_wonder_ceremony_begin_effect = yes
+		if = {
+			limit = { has_variable = tv_wonder_cmm_skip_ceremony }
+			if = {
+				limit = { NOT = { has_variable = tv_wonder_ritual_in_progress } }
+				set_variable = { name = tv_wonder_ritual_in_progress value = 1 }
+			}
+			tv_wonder_mechanics_force_complete_active_ritual_effect = yes
+		}
 	}
-	set_variable = { name = tv_wonder_ceremony_style value = 1 }
-	set_variable = { name = tv_wonder_ceremony_locked value = 1 }
-	tv_wonder_index_refresh_country_cache_effect = yes
-	tv_wonder_ceremony_begin_effect = yes
-}
 }
 
 tv_wonder_prepare_final_support_rewards_effect = {
@@ -2409,6 +2491,11 @@ tv_wonder_clear_project_state_core_effect = {
 	remove_variable = tv_wonder_ritual_timer
 	remove_variable = tv_wonder_ceremony_style
 	remove_variable = tv_wonder_ceremony_locked
+	remove_variable = tv_wonder_cmm_skip_concept
+	remove_variable = tv_wonder_cmm_skip_debate
+	remove_variable = tv_wonder_cmm_skip_survey
+	remove_variable = tv_wonder_cmm_skip_construction
+	remove_variable = tv_wonder_cmm_skip_ceremony
 	if = {
 		limit = { tv_wonder_construction_site_selected_trigger = yes }
 		var:tv_wonder_site ?= {
