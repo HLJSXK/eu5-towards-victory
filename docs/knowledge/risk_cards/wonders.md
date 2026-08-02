@@ -1235,22 +1235,24 @@ every country regardless so missing or damaged IOs are repaired.
     event/host-funded free construction; `validate.py`'s `check_construct_building_cost_multiplier_reason`
     now checks this automatically too; see anti_patterns.yaml `construct_building_cost_multiplier_needs_reason`.
 
-41. **`building_efficiency` has no numeric script_value form — only a threshold trigger block.**
-    `building_efficiency = { building_type = <building_type> value >= <N> }` is the ONLY documented
-    form (`reference_official_defines/docs/triggers.log:2521-2525`, confirmed working in vanilla's
-    `000_johan_debug.txt:539`), valid in `location` scope, usable only inside a `limit =`/trigger
-    context. There is no colon-chained (`X.building_efficiency:Y`) or event-target numeric
-    accessor anywhere in `event_targets.log` — attempting one produces
-    `jomini_eventtarget.cpp: Failed to find a valid event target link '<building_type>'`, since the
-    parser can't resolve `building_efficiency` as a data function at all and falls through to
-    treating the building type name as a saved-scope lookup instead. To approximate a continuous
-    0-1 efficiency ratio for use in a script_value's `value =` (e.g. scaling monthly progress by
-    input-goods availability), step down through a threshold ladder: a cascading `if`/`else_if`
-    chain, each branch's `limit` checking `var:X ?= { building_efficiency = { building_type = Y
-    value >= N } }` for a descending `N`, assigning `value = N` on match. This is a discretized
-    approximation of the true continuous value, not an exact read — the engine exposes no exact
-    numeric accessor at all. See `docs/knowledge/anti_patterns.yaml`
-    `building_efficiency_has_no_numeric_scriptvalue_form`.
+41. **Read `building_efficiency` numerically with quoted function-call syntax, not a colon chain.**
+    `building_efficiency` is both a location-scoped threshold trigger block and a numeric
+    function-call-style event target link. For trigger checks, use the documented block form:
+    `building_efficiency = { building_type = building_type:<id> value >= <N> }` (vanilla debug
+    example: `building_type = building_type:glass_guild`). For numeric reads, use a quoted
+    parenthesized expression such as
+    `value = "var:tv_wonder_site.building_efficiency(building_type:tv_wonder_labor_camp)"`.
+    When current scope is a building, reference mod 3735059838 uses
+    `value = "location.building_efficiency(scope:epbm_bt)"` after saving the building type as
+    `scope:epbm_bt`. This quoted+parenthesized numeric-link style is vanilla syntax too (for
+    example `power > "root.estate_power(estate_type:crown_estate)"`,
+    `value = "scope:actor.estate_power(root.estate_type)"`, and
+    `"market_price(goods:wheat)" > { value = "default_price(goods:wheat)" }`). Do **not** use
+    `building_efficiency:<id>` or
+    `var:X.building_efficiency:building_type:<id>`: those go through colon-link parsing and fail
+    with either `Failed to find a valid event target link '<id>'` or `More than one colon in event
+    target link`. See `docs/knowledge/anti_patterns.yaml`
+    `building_efficiency_colon_chain_numeric_read_invalid`.
 
 ## Validation
 

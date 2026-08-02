@@ -1562,6 +1562,7 @@ tv_wonder_update_logistics_metrics_effect = {
 	set_variable = { name = tv_wonder_material_workshop_need_display value = 1 }
 	set_variable = { name = tv_wonder_base_monthly_construction_progress value = 0 }
 	set_variable = { name = tv_wonder_monthly_construction_progress value = 0 }
+	set_variable = { name = tv_wonder_labor_camp_efficiency value = 0 }
 	if = {
 		limit = { NOT = { has_variable = tv_wonder_logistics_progress_percent } }
 		tv_wonder_update_construction_tiers_from_competence_effect = yes
@@ -1598,6 +1599,10 @@ tv_wonder_update_logistics_metrics_effect = {
 		}
 		set_variable = { name = tv_wonder_material_workshop_need_display value = var:tv_wonder_material_workshop_need }
 		clamp_variable = { name = tv_wonder_material_workshop_need_display min = 1 max = 20000 }
+		set_variable = {
+			name = tv_wonder_labor_camp_efficiency
+			value = "var:tv_wonder_site.building_efficiency(building_type:tv_wonder_labor_camp)"
+		}
 		set_variable = {
 			name = tv_wonder_base_monthly_construction_progress
 			value = {

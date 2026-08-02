@@ -1,0 +1,7 @@
+tv_test_bad_script_value = {
+	value = var:tv_wonder_site.building_efficiency:tv_wonder_labor_camp
+}
+
+tv_test_bad_effect = {
+	set_variable = { name = tv_wonder_labor_camp_efficiency value = building_efficiency:tv_wonder_labor_camp }
+}

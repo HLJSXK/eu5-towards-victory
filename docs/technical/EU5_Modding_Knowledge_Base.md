@@ -840,7 +840,21 @@ value = "leader_country.estate_power(estate_type:crown_estate)"
 limit = { "root.estate_power(estate_type:crown_estate)" >= 0.5 }
 ```
 
-Without quotes, the parser splits on the bare `(` and fails with a cluster of three errors: `jomini_eventtarget.cpp: No data specified for an event target link that requires data`, `jomini_scriptvalue.h: Cannot read [...] as a script value`, and `pdx_persistent_reader.cpp: Unexpected token: (` (immediately followed by `Unexpected token: )` and `Unexpected token: =` on the next lines). This differs from plain colon-suffixed links (`var:X`, `estate:crown_estate`), which never need quoting. See `reference_game_files/game/in_game/common/disasters/coup_attempt.txt:13` and `reference_game_files/game/in_game/common/attribute_columns/57_parliament_issues.txt:40` for verified vanilla precedent.
+`building_efficiency` also has this numeric form even though it is documented in
+`triggers.log` as a location-scoped threshold trigger. Use the same quoted
+parenthesized style for numeric reads:
+
+```pdx
+value = "var:tv_wonder_site.building_efficiency(building_type:tv_wonder_labor_camp)"
+```
+
+From a building scope, reference mod 3735059838 uses:
+
+```pdx
+value = "location.building_efficiency(scope:epbm_bt)"
+```
+
+Without quotes, the parser splits on the bare `(` and fails with a cluster of three errors: `jomini_eventtarget.cpp: No data specified for an event target link that requires data`, `jomini_scriptvalue.h: Cannot read [...] as a script value`, and `pdx_persistent_reader.cpp: Unexpected token: (` (immediately followed by `Unexpected token: )` and `Unexpected token: =` on the next lines). This differs from plain colon-suffixed links (`var:X`, `estate:crown_estate`), which never need quoting. See `reference_game_files/game/in_game/common/disasters/coup_attempt.txt:13`, `reference_game_files/game/in_game/common/attribute_columns/57_parliament_issues.txt:40`, `reference_game_files/game/in_game/events/estates/burghers_estate_events.txt:144-145`, and `reference_game_files/game/in_game/events/government/D008_latinization_vs_hellenization.txt:2593` for verified vanilla precedent.
 
 ### 5.4. Generic Action `select_trigger` Pre-evaluation
 

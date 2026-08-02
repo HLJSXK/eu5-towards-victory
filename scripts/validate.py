@@ -1216,6 +1216,8 @@ def check_event_option_effect_blocks(path: Path, content: str) -> None:
 
 def check_construct_building_cost_multiplier_reason(path: Path, content: str) -> None:
     """construct_building with cost_multiplier requires a sibling cost_multiplier_reason."""
+    if path.suffix != ".txt":
+        return
     for match in re.finditer(r"construct_building\s*=\s*\{", content):
         open_pos = content.find("{", match.start())
         close_pos = _find_matching_brace(content, open_pos)

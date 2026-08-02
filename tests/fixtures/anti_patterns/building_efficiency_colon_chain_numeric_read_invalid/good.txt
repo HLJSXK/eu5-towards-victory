@@ -1,0 +1,17 @@
+tv_test_trigger_block = {
+	if = {
+		limit = {
+			var:tv_wonder_site ?= {
+				building_efficiency = { building_type = building_type:tv_wonder_labor_camp value >= 0.9 }
+			}
+		}
+		value = 0.9
+	}
+}
+
+tv_test_quoted_numeric_read = {
+	set_variable = {
+		name = tv_wonder_labor_camp_efficiency
+		value = "var:tv_wonder_site.building_efficiency(building_type:tv_wonder_labor_camp)"
+	}
+}
