@@ -1,0 +1,50 @@
+﻿# Links the CMM direct-build price sliders to the actual gold cost paid.
+# common/prices gold values must be static named values (a runtime script_value
+# referencing global_var errors as "Matching scriptvalue [...], but of wrong type"),
+# so the base price in tv_engineering_department_prices.txt stays fixed at each
+# size's slider default, and the slider's live value is applied on top through the
+# engine-recognized <price>_cost_modifier percentage tag instead.
+tv_engineering_department_direct_build_small_price_modifier = {
+	category = country
+	potential_trigger = {
+		has_global_variable = tv_engineering_department_direct_build
+		has_global_variable = tv_engineering_department_direct_build_small_price
+	}
+	scales_with = {
+		value = global_var:tv_engineering_department_direct_build_small_price
+		multiply = 1000
+		divide = 10000
+		subtract = 1
+	}
+	tv_wonder_direct_build_small_price_cost_modifier = 1
+}
+
+tv_engineering_department_direct_build_medium_price_modifier = {
+	category = country
+	potential_trigger = {
+		has_global_variable = tv_engineering_department_direct_build
+		has_global_variable = tv_engineering_department_direct_build_medium_price
+	}
+	scales_with = {
+		value = global_var:tv_engineering_department_direct_build_medium_price
+		multiply = 1000
+		divide = 20000
+		subtract = 1
+	}
+	tv_wonder_direct_build_medium_price_cost_modifier = 1
+}
+
+tv_engineering_department_direct_build_large_price_modifier = {
+	category = country
+	potential_trigger = {
+		has_global_variable = tv_engineering_department_direct_build
+		has_global_variable = tv_engineering_department_direct_build_large_price
+	}
+	scales_with = {
+		value = global_var:tv_engineering_department_direct_build_large_price
+		multiply = 1000
+		divide = 30000
+		subtract = 1
+	}
+	tv_wonder_direct_build_large_price_cost_modifier = 1
+}

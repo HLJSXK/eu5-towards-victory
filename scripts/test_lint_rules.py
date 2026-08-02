@@ -51,6 +51,7 @@ def has_fixture_files(rule_dir: Path) -> bool:
 VALIDATOR_BY_RULE = {
     "effect_localization_positive_negative_share_loc_key": validate.check_effect_loc_positive_negative_pairs,
     "parentanchor_under_hbox_vbox": validate.check_gui_parentanchor_under_hbox_vbox,
+    "construct_building_cost_multiplier_needs_reason": validate.check_construct_building_cost_multiplier_reason,
 }
 
 

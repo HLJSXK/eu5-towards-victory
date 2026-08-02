@@ -135,10 +135,10 @@ ENGINEERING_DEPARTMENT_PRICES = (
     / "src_engineering_department" / "in_game" / "common"
     / "prices" / "tv_engineering_department_prices.txt"
 )
-ENGINEERING_DEPARTMENT_SCRIPT_VALUES = (
+ENGINEERING_DEPARTMENT_CMM_AUTO_MODIFIERS = (
     REPO_ROOT
-    / "src_engineering_department" / "main_menu" / "common"
-    / "script_values" / "tv_engineering_department_values.txt"
+    / "src_engineering_department" / "in_game" / "common"
+    / "auto_modifiers" / "tv_engineering_department_cmm_auto_modifiers.txt"
 )
 
 from wonder_mechanics.io import load_all_wonder_mechanics
@@ -531,21 +531,35 @@ def validate_cmm_wonder_controls(wonders: list[dict], mechanics: dict) -> None:
     )
 
     prices = ENGINEERING_DEPARTMENT_PRICES.read_text(encoding="utf-8-sig")
-    script_values = ENGINEERING_DEPARTMENT_SCRIPT_VALUES.read_text(encoding="utf-8-sig")
+    cmm_auto_modifiers = ENGINEERING_DEPARTMENT_CMM_AUTO_MODIFIERS.read_text(encoding="utf-8-sig")
     for size, default in (("small", 10000), ("medium", 20000), ("large", 30000)):
+        # common/prices gold values are static named values (the engine rejects a
+        # runtime script_value there with "Matching scriptvalue [...], but of wrong
+        # type"), so the base price is fixed at the CMM slider default and the live
+        # slider value is applied on top via the auto-derived <price>_cost_modifier.
         price_block = extract_trigger_block(prices, f"tv_wonder_direct_build_{size}_price")
         require(
-            f"gold = tv_wonder_direct_build_{size}_price_value" in price_block,
-            f"The {size} direct-build price must use its dynamic script value.",
+            f"gold = {default}" in price_block,
+            f"The {size} direct-build price must default to its CMM slider default in gold.",
         )
-        value_block = extract_trigger_block(script_values, f"tv_wonder_direct_build_{size}_price_value")
-        require(f"value = {default}" in value_block, f"The {size} direct-build price fallback is wrong.")
+        modifier_block = extract_trigger_block(
+            cmm_auto_modifiers, f"tv_engineering_department_direct_build_{size}_price_modifier"
+        )
         require(
-            f"global_var:tv_engineering_department_direct_build_{size}_price" in value_block,
-            f"The {size} direct-build price must read its CMM alias.",
+            f"global_var:tv_engineering_department_direct_build_{size}_price" in modifier_block,
+            f"The {size} direct-build price modifier must read its CMM alias.",
         )
-        require("multiply = 1000" in value_block, f"The {size} direct-build price must convert k to gold.")
-        require("min = 0" in value_block and "max = 50000" in value_block, f"The {size} direct-build price must clamp to 0..50k.")
+        require("multiply = 1000" in modifier_block, f"The {size} direct-build price modifier must convert k to gold.")
+        require(f"divide = {default}" in modifier_block, f"The {size} direct-build price modifier must scale against its base price.")
+        require("subtract = 1" in modifier_block, f"The {size} direct-build price modifier must compute a percentage delta.")
+        require(
+            f"tv_wonder_direct_build_{size}_price_cost_modifier = 1" in modifier_block,
+            f"The {size} direct-build price modifier must drive its price's cost_modifier tag.",
+        )
+        require(
+            "has_global_variable = tv_engineering_department_direct_build" in modifier_block,
+            f"The {size} direct-build price modifier must require direct build to be enabled.",
+        )
     require(
         "NOT = { has_global_variable = tv_engineering_department_disable_construction_events }" in central_triggers,
         "Construction random events must respect their CMM disable switch.",

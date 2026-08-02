@@ -111,6 +111,28 @@ def _static_modifier_dirs() -> list[Path]:
 
 
 STATIC_MODIFIER_DIRS = _static_modifier_dirs()
+
+
+def _modifier_type_definition_dirs() -> list[Path]:
+    return [root / "main_menu" / "common" / "modifier_type_definitions" for root in MOD_ROOTS]
+
+
+def _modifier_icon_dirs() -> list[Path]:
+    return [root / "main_menu" / "common" / "modifier_icons" for root in MOD_ROOTS]
+
+
+def _auto_modifier_dirs() -> list[Path]:
+    return [root / "in_game" / "common" / "auto_modifiers" for root in MOD_ROOTS]
+
+
+def _price_dirs() -> list[Path]:
+    return [root / "in_game" / "common" / "prices" for root in MOD_ROOTS]
+
+
+MODIFIER_TYPE_DEFINITION_DIRS = _modifier_type_definition_dirs()
+MODIFIER_ICON_DIRS = _modifier_icon_dirs()
+AUTO_MODIFIER_DIRS = _auto_modifier_dirs()
+PRICE_DIRS = _price_dirs()
 UNIQUE_RITUAL_HARNESS_FILES = {
     "data/unique_wonders.yaml",
     "data/unique_wonder_ritual_designs.yaml",
@@ -387,18 +409,33 @@ def check_modifier_names(path: Path, content: str, whitelist: set[str]):
         "cap_zero_to_one", "scale_with_pop", "format", "ai", "bias_type",
         "should_show_in_modifiers_tab", "color",
     }
+    # scales_with / limit open a nested script_value or trigger sub-block whose own
+    # keys (value, add, subtract, multiply, divide, min, max, round, ...) are operator
+    # keywords, not modifier names - skip modifier-name checks while inside one.
+    nested_block_openers = {"scales_with", "limit"}
     line_pattern = re.compile(r"^\s*(\w+)\s*=\s*[-\d.]+")
+    opener_pattern = re.compile(r"^\s*(\w+)\s*=\s*\{")
+    block_stack: list[bool] = []
     for i, line in enumerate(content.splitlines(), 1):
-        if line.strip().startswith("#"):
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#"):
             continue
-        m = line_pattern.match(line)
-        if m:
-            name = m.group(1)
-            if name not in structural and name not in whitelist:
-                issues.append(
-                    f"[MODIFIER] {path.relative_to(REPO_ROOT)}:{i} -- "
-                    f"Unknown modifier name '{name}'; verify in 00_modifier_types.txt"
-                )
+        inside_nested = any(block_stack)
+        opener = opener_pattern.match(stripped)
+        if opener:
+            block_stack.append(inside_nested or opener.group(1) in nested_block_openers)
+        elif not inside_nested:
+            m = line_pattern.match(line)
+            if m:
+                name = m.group(1)
+                if name not in structural and name not in whitelist:
+                    issues.append(
+                        f"[MODIFIER] {path.relative_to(REPO_ROOT)}:{i} -- "
+                        f"Unknown modifier name '{name}'; verify in 00_modifier_types.txt"
+                    )
+        for _ in range(stripped.count("}")):
+            if block_stack:
+                block_stack.pop()
 
 
 def _iter_yaml_localization_keys(path: Path):
@@ -653,6 +690,127 @@ def check_static_modifier_name_loc_coverage() -> None:
                         f"[LOCALIZATION] {modifier_file.relative_to(REPO_ROOT)}:{_line_num(content, open_pos)} -- "
                         f"static modifier '{modifier_id}' missing {expected_key} localization in "
                         f"{', '.join(missing_languages)}"
+                    )
+
+
+def _loc_keys_by_language() -> dict[str, set[str]]:
+    """Every localization key defined per supported language, across every mod root."""
+    language_names = ("english", "simp_chinese")
+    keys_by_language: dict[str, set[str]] = {name: set() for name in language_names}
+    for loc_root in _mod_root_dirs("main_menu", "localization"):
+        for language_name in language_names:
+            language_dir = loc_root / language_name
+            if not language_dir.exists():
+                continue
+            for loc_file in sorted(language_dir.rglob("*.yml")):
+                for key, _loc_line_num in _iter_yaml_localization_keys(loc_file):
+                    keys_by_language[language_name].add(key)
+    return keys_by_language
+
+
+def check_modifier_type_definition_loc_and_icon_coverage() -> None:
+    """Verify every TV-defined modifier type has NAME/DESC localization and a modifier_icons entry."""
+    if not any(d.exists() for d in MODIFIER_TYPE_DEFINITION_DIRS):
+        return
+    loc_keys_by_language = _loc_keys_by_language()
+    if not any(loc_keys_by_language.values()):
+        return
+
+    icon_ids: set[str] = set()
+    for icon_dir in MODIFIER_ICON_DIRS:
+        if not icon_dir.exists():
+            continue
+        for icon_file in sorted(icon_dir.glob("*.txt")):
+            content = icon_file.read_text(encoding="utf-8-sig")
+            for icon_id, _open_pos, _close_pos in _iter_top_level_blocks(content):
+                if icon_id:
+                    icon_ids.add(icon_id)
+
+    for modifier_dir in MODIFIER_TYPE_DEFINITION_DIRS:
+        if not modifier_dir.exists():
+            continue
+        for modifier_file in sorted(modifier_dir.glob("*.txt")):
+            content = modifier_file.read_text(encoding="utf-8-sig")
+            for modifier_id, open_pos, _close_pos in _iter_top_level_blocks(content):
+                if not modifier_id:
+                    continue
+                line_num = _line_num(content, open_pos)
+                for prefix in ("MODIFIER_TYPE_NAME_", "MODIFIER_TYPE_DESC_"):
+                    expected_key = f"{prefix}{modifier_id}"
+                    missing_languages = [
+                        language
+                        for language, keys in loc_keys_by_language.items()
+                        if expected_key not in keys
+                    ]
+                    if missing_languages:
+                        issues.append(
+                            f"[LOCALIZATION] {modifier_file.relative_to(REPO_ROOT)}:{line_num} -- "
+                            f"modifier type '{modifier_id}' missing {expected_key} localization in "
+                            f"{', '.join(missing_languages)}"
+                        )
+                if modifier_id not in icon_ids:
+                    warnings.append(
+                        f"[MODIFIER] {modifier_file.relative_to(REPO_ROOT)}:{line_num} -- "
+                        f"modifier type '{modifier_id}' has no matching common/modifier_icons entry "
+                        f"(engine warning: 'Missing Icon for Modifier')"
+                    )
+
+
+def check_auto_modifier_name_loc_coverage() -> None:
+    """Verify every TV-defined auto_modifier has AUTO_MODIFIER_NAME localization."""
+    if not any(d.exists() for d in AUTO_MODIFIER_DIRS):
+        return
+    loc_keys_by_language = _loc_keys_by_language()
+    if not any(loc_keys_by_language.values()):
+        return
+
+    for auto_modifier_dir in AUTO_MODIFIER_DIRS:
+        if not auto_modifier_dir.exists():
+            continue
+        for auto_modifier_file in sorted(auto_modifier_dir.glob("*.txt")):
+            content = auto_modifier_file.read_text(encoding="utf-8-sig")
+            for modifier_id, open_pos, _close_pos in _iter_top_level_blocks(content):
+                if not modifier_id:
+                    continue
+                expected_key = f"AUTO_MODIFIER_NAME_{modifier_id}"
+                missing_languages = [
+                    language
+                    for language, keys in loc_keys_by_language.items()
+                    if expected_key not in keys
+                ]
+                if missing_languages:
+                    issues.append(
+                        f"[LOCALIZATION] {auto_modifier_file.relative_to(REPO_ROOT)}:{_line_num(content, open_pos)} -- "
+                        f"auto_modifier '{modifier_id}' missing {expected_key} localization in "
+                        f"{', '.join(missing_languages)}"
+                    )
+
+
+def check_price_name_loc_coverage() -> None:
+    """Verify every TV-defined price has its bare-name localization."""
+    if not any(d.exists() for d in PRICE_DIRS):
+        return
+    loc_keys_by_language = _loc_keys_by_language()
+    if not any(loc_keys_by_language.values()):
+        return
+
+    for price_dir in PRICE_DIRS:
+        if not price_dir.exists():
+            continue
+        for price_file in sorted(price_dir.glob("*.txt")):
+            content = price_file.read_text(encoding="utf-8-sig")
+            for price_id, open_pos, _close_pos in _iter_top_level_blocks(content):
+                if not price_id:
+                    continue
+                missing_languages = [
+                    language
+                    for language, keys in loc_keys_by_language.items()
+                    if price_id not in keys
+                ]
+                if missing_languages:
+                    issues.append(
+                        f"[LOCALIZATION] {price_file.relative_to(REPO_ROOT)}:{_line_num(content, open_pos)} -- "
+                        f"price '{price_id}' missing localization in {', '.join(missing_languages)}"
                     )
 
 
@@ -1056,6 +1214,23 @@ def check_event_option_effect_blocks(path: Path, content: str) -> None:
             )
 
 
+def check_construct_building_cost_multiplier_reason(path: Path, content: str) -> None:
+    """construct_building with cost_multiplier requires a sibling cost_multiplier_reason."""
+    for match in re.finditer(r"construct_building\s*=\s*\{", content):
+        open_pos = content.find("{", match.start())
+        close_pos = _find_matching_brace(content, open_pos)
+        if open_pos == -1 or close_pos is None:
+            continue
+        block = content[open_pos:close_pos + 1]
+        if re.search(r"\bcost_multiplier\s*=", block) and "cost_multiplier_reason" not in block:
+            issues.append(
+                f"[SCRIPT] {path.relative_to(REPO_ROOT)}:{_line_num(content, match.start())} -- "
+                "construct_building sets cost_multiplier without cost_multiplier_reason "
+                "(engine error: 'No reason given for the cost multiplier in construct_building effect'; "
+                'for event/host-funded free construction, vanilla commonly uses cost_multiplier_reason = "game_concept_event")'
+            )
+
+
 def check_gui_parentanchor_under_hbox_vbox(path: Path, content: str) -> None:
     """Catch direct hbox/vbox children trying to position themselves."""
     if path.suffix != ".gui":
@@ -1202,6 +1377,34 @@ def run_global_checks(files: list[Path], use_changed: bool, anti_patterns: list[
         ),
     ):
         check_static_modifier_name_loc_coverage()
+    if not use_changed or _paths_match(
+        rels,
+        exact=("scripts/validate.py",),
+        prefixes=_mod_prefixes(
+            "main_menu/common/modifier_type_definitions/",
+            "main_menu/common/modifier_icons/",
+            "main_menu/localization/",
+        ),
+    ):
+        check_modifier_type_definition_loc_and_icon_coverage()
+    if not use_changed or _paths_match(
+        rels,
+        exact=("scripts/validate.py",),
+        prefixes=_mod_prefixes(
+            "in_game/common/auto_modifiers/",
+            "main_menu/localization/",
+        ),
+    ):
+        check_auto_modifier_name_loc_coverage()
+    if not use_changed or _paths_match(
+        rels,
+        exact=("scripts/validate.py",),
+        prefixes=_mod_prefixes(
+            "in_game/common/prices/",
+            "main_menu/localization/",
+        ),
+    ):
+        check_price_name_loc_coverage()
     if not use_changed or _paths_match(
         rels,
         prefixes=_mod_prefixes(
@@ -1965,6 +2168,7 @@ def main():
 
             check_event_id_numeric_range(path, content)
             check_event_option_effect_blocks(path, content)
+            check_construct_building_cost_multiplier_reason(path, content)
 
             is_game_content = (
                 any(path.is_relative_to(root) for root in MOD_ROOTS)

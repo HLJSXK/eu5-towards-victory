@@ -1177,6 +1177,50 @@ every country regardless so missing or damaged IOs are repaired.
     building/effect/event definition: retain the complete source block, add the intended callback,
     and prefix the top-level key with `REPLACE:` so the modified block actually loads.
 
+40. **`common/prices/` amount fields (`gold =`, etc.) cannot hold a dynamic/conditional
+    script_value.** They resolve through the engine's `jomini_named_values` system, a
+    compile-time constant table — only literal numbers or simple flat named values (vanilla
+    `build_price_age_of_tradition = 50`, no braces) are accepted. Referencing a script_value
+    with `if =`/`min =`/`max =`/`global_var:` as the price amount produces
+    `pdx_persistent_reader.cpp: Malformed token` plus `jomini_named_values.h: Matching
+    scriptvalue [...], but of wrong type` in `error.log`. To make an effective price track a
+    runtime value (a CMM setting, a country variable), keep the base `gold =` static at the
+    intended default and apply the live adjustment through the price's `<price_name>_cost_modifier`
+    tag via an `auto_modifiers`/`static_modifiers` entry: `scales_with = { value = global_var:X
+    multiply = 1000 divide = <default> subtract = 1 }` computes the percentage delta, and
+    `<price_name>_cost_modifier = 1` in the same block makes the applied modifier equal that
+    delta directly. `scales_with` blocks ARE full script_value contexts (proven by vanilla
+    `auto_modifiers/country.txt`: `scales_with = { value = num_colonial_charters subtract = 1
+    min = 0 max = 1 }`) and evaluate at runtime in the owning scope, unlike `common/prices/`
+    fields — do not conflate the two contexts. **`<price_name>_cost_modifier` is NOT
+    engine-auto-derived** — every price's cost_modifier tag needs its own EXPLICIT
+    `modifier_type_definitions` entry (`color = bad  percent = yes  game_data = { category =
+    country }`; vanilla `build_gravel_road_cost_modifier` at `00_modifier_types.txt:802`, and
+    every TV price already has a sibling entry in
+    `src_engineering_department/main_menu/common/modifier_type_definitions/tv_engineering_department_modifier_types.txt`).
+    Skipping that registration produces a SEPARATE later error even once the price's `gold =`
+    field is fixed: `pdx_persistent_reader.cpp: Unknown modifier type: <name> ... a potential
+    dynamic modifier type definition missing from the database`, plus `price_database.cpp:
+    Missing modifier type for price. <name>` — this second error line looks identical to the
+    one the malformed-token bug also produces, so do not assume fixing the price's `gold =`
+    field alone resolves it; a new custom price's `<name>_cost_modifier` ALWAYS needs its own
+    explicit registration, whether or not the price is CMM-dynamic. See
+    `docs/knowledge/anti_patterns.yaml` `price_gold_field_rejects_dynamic_scriptvalue`. Also:
+    `scripts/validate.py`'s `check_modifier_names` previously false-positived on the numeric
+    operator keywords (`value`/`multiply`/`divide`/`subtract`/...) nested inside a
+    `scales_with = { ... }`/`limit = { ... }` sub-block — fixed with brace-depth tracking; see
+    anti_patterns.yaml `validator_modifier_check_ignores_nested_scales_with_operators`. A new
+    `modifier_type_definitions`/`auto_modifiers`/`prices` entry also needs its OWN companion
+    localization (`MODIFIER_TYPE_NAME_<id>`/`MODIFIER_TYPE_DESC_<id>`, `AUTO_MODIFIER_NAME_<id>`,
+    or a bare `<id>: "..."` key respectively) plus a `modifier_icons` entry for modifier types —
+    `validate.py` now checks all three automatically; see anti_patterns.yaml
+    `missing_localization_for_new_modifier_price_auto_modifier_definitions`. Any `construct_building`
+    call using `cost_multiplier` (e.g. a free/discounted host-triggered construction) also needs a
+    sibling `cost_multiplier_reason = <loc key>` — vanilla and this codebase's own
+    `tv_wonder_ceremony_effects.txt` both use `cost_multiplier_reason = "game_concept_event"` for
+    event/host-funded free construction; `validate.py`'s `check_construct_building_cost_multiplier_reason`
+    now checks this automatically too; see anti_patterns.yaml `construct_building_cost_multiplier_needs_reason`.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`: it lints rule 2 and rule 16 automatically, and when a

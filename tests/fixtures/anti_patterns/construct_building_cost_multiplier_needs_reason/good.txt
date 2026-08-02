@@ -1,0 +1,8 @@
+tv_test_free_construction_effect = {
+	construct_building = {
+		building_type = building_type:tv_test_building
+		cost_multiplier = 0
+		cost_multiplier_reason = "game_concept_event"
+		instant = yes
+	}
+}
