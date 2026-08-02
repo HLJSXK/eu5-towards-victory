@@ -1,8 +1,85 @@
 ﻿# Engineering Department - reusable construction progress values
 
 # Native shortage-adjusted work efficiency of the active Great Project worksite.
+# building_efficiency only exists as a threshold trigger (building_efficiency = {
+# building_type = X value >= Y }, reference_game_files/game/in_game/events/debug/
+# 000_johan_debug.txt:539) - there is no numeric event-target/data-function form
+# usable as a script_value's `value =` source, so this approximates the true 0-1
+# ratio by stepping down through 0.1-wide threshold bands.
 tv_wonder_labor_camp_input_goods_access = {
-	value = var:tv_wonder_site.building_efficiency:tv_wonder_labor_camp
+	value = 0
+	if = {
+		limit = {
+			var:tv_wonder_site ?= {
+				building_efficiency = { building_type = building_type:tv_wonder_labor_camp value >= 0.9 }
+			}
+		}
+		value = 0.9
+	}
+	else_if = {
+		limit = {
+			var:tv_wonder_site ?= {
+				building_efficiency = { building_type = building_type:tv_wonder_labor_camp value >= 0.8 }
+			}
+		}
+		value = 0.8
+	}
+	else_if = {
+		limit = {
+			var:tv_wonder_site ?= {
+				building_efficiency = { building_type = building_type:tv_wonder_labor_camp value >= 0.7 }
+			}
+		}
+		value = 0.7
+	}
+	else_if = {
+		limit = {
+			var:tv_wonder_site ?= {
+				building_efficiency = { building_type = building_type:tv_wonder_labor_camp value >= 0.6 }
+			}
+		}
+		value = 0.6
+	}
+	else_if = {
+		limit = {
+			var:tv_wonder_site ?= {
+				building_efficiency = { building_type = building_type:tv_wonder_labor_camp value >= 0.5 }
+			}
+		}
+		value = 0.5
+	}
+	else_if = {
+		limit = {
+			var:tv_wonder_site ?= {
+				building_efficiency = { building_type = building_type:tv_wonder_labor_camp value >= 0.4 }
+			}
+		}
+		value = 0.4
+	}
+	else_if = {
+		limit = {
+			var:tv_wonder_site ?= {
+				building_efficiency = { building_type = building_type:tv_wonder_labor_camp value >= 0.3 }
+			}
+		}
+		value = 0.3
+	}
+	else_if = {
+		limit = {
+			var:tv_wonder_site ?= {
+				building_efficiency = { building_type = building_type:tv_wonder_labor_camp value >= 0.2 }
+			}
+		}
+		value = 0.2
+	}
+	else_if = {
+		limit = {
+			var:tv_wonder_site ?= {
+				building_efficiency = { building_type = building_type:tv_wonder_labor_camp value >= 0.1 }
+			}
+		}
+		value = 0.1
+	}
 	min = 0
 	max = 1
 }

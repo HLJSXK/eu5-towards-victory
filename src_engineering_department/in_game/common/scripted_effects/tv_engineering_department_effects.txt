@@ -6,7 +6,7 @@ tv_engineering_department_create_effect = {
 	if = {
 		limit = {
 			custom_tooltip = {
-				text = TV_HAS_VARIABLE_NOT_SET_TT
+				text = TV_ENGINEERING_DEPARTMENT_HAS_VARIABLE_NOT_SET_TT
 				NOT = { has_variable = tv_engineering_department_member }
 			}
 		}
@@ -15,7 +15,7 @@ tv_engineering_department_create_effect = {
 	if = {
 		limit = {
 			custom_tooltip = {
-				text = TV_HAS_VARIABLE_NOT_SET_TT
+				text = TV_ENGINEERING_DEPARTMENT_HAS_VARIABLE_NOT_SET_TT
 				NOT = { has_variable = tv_wonder_stage }
 			}
 		}
@@ -57,7 +57,7 @@ tv_wonder_initialize_building_state_light_effect = {
 	if = {
 		limit = {
 			custom_tooltip = {
-				text = TV_HAS_VARIABLE_NOT_SET_TT
+				text = TV_ENGINEERING_DEPARTMENT_HAS_VARIABLE_NOT_SET_TT
 				NOT = { has_variable = tv_wonder_stage }
 			}
 		}

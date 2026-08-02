@@ -1169,13 +1169,27 @@ every country regardless so missing or damaged IOs are repaired.
     already refreshes elsewhere can mask a sibling transition that has no such click. See
     `docs/knowledge/anti_patterns.yaml` rule `one_shot_completion_gate_never_reset_on_multi_cycle_resume`.
 
-39. Prefix copied same-key database overrides with `REPLACE:`.
+39. Prefix copied same-key database overrides with `REPLACE:` — but ONLY when the base entry is
+    guaranteed to already exist at load time.
     Engineering Department files can intentionally share a database key with the main mod or
-    vanilla, but a bare repeated top-level key is rejected rather than merged. For example, the
-    standalone trigger-localization copy of `TV_HAS_VARIABLE_NOT_SET_TT` must be declared as
-    `REPLACE:TV_HAS_VARIABLE_NOT_SET_TT = { ... }`. Apply the same rule to any copied vanilla
-    building/effect/event definition: retain the complete source block, add the intended callback,
-    and prefix the top-level key with `REPLACE:` so the modified block actually loads.
+    vanilla, but a bare repeated top-level key is rejected rather than merged, so a genuine
+    override needs `REPLACE:<id> = { ... }` (retain the complete source block, add the intended
+    modification). **Do not use this for a key that only the main `src/` mod defines** — the
+    Engineering Department mod is a standalone, independently-loadable mod (see CLAUDE.md Project
+    Identity), so when it's loaded without `src/`, `REPLACE:` fails with `gamedatabase.h: You are
+    trying to inject/replace to a non-existing entry` because there is nothing to replace.
+    `TV_HAS_VARIABLE_NOT_SET_TT` hit exactly this: ED's own `common/trigger_localization/
+    tv_engineering_department_triggers.txt` declared `REPLACE:TV_HAS_VARIABLE_NOT_SET_TT`,
+    assuming the main mod's copy (`src/in_game/common/trigger_localization/
+    towards_victory_triggers.txt`) had already loaded — true only when both mods run together,
+    false in ED's own required standalone configuration. Fixed by renaming ED's copy to a
+    uniquely-namespaced key (`TV_ENGINEERING_DEPARTMENT_HAS_VARIABLE_NOT_SET_TT`, no `REPLACE:`
+    needed since it no longer collides with anything) rather than trying to share the main mod's
+    key — the same "narrow to your own namespace" pattern already used for Court Positions'
+    message types. When a trigger-localization/game-concept/other simple key is used by BOTH a
+    standalone-capable root and the main mod, give each root its own uniquely-prefixed key instead
+    of `REPLACE:`-sharing one; reserve `REPLACE:` for overriding a base VANILLA entry (which is
+    always present, main mod or not) or a value produced by a required hard dependency.
 
 40. **`common/prices/` amount fields (`gold =`, etc.) cannot hold a dynamic/conditional
     script_value.** They resolve through the engine's `jomini_named_values` system, a
@@ -1220,6 +1234,23 @@ every country regardless so missing or damaged IOs are repaired.
     `tv_wonder_ceremony_effects.txt` both use `cost_multiplier_reason = "game_concept_event"` for
     event/host-funded free construction; `validate.py`'s `check_construct_building_cost_multiplier_reason`
     now checks this automatically too; see anti_patterns.yaml `construct_building_cost_multiplier_needs_reason`.
+
+41. **`building_efficiency` has no numeric script_value form — only a threshold trigger block.**
+    `building_efficiency = { building_type = <building_type> value >= <N> }` is the ONLY documented
+    form (`reference_official_defines/docs/triggers.log:2521-2525`, confirmed working in vanilla's
+    `000_johan_debug.txt:539`), valid in `location` scope, usable only inside a `limit =`/trigger
+    context. There is no colon-chained (`X.building_efficiency:Y`) or event-target numeric
+    accessor anywhere in `event_targets.log` — attempting one produces
+    `jomini_eventtarget.cpp: Failed to find a valid event target link '<building_type>'`, since the
+    parser can't resolve `building_efficiency` as a data function at all and falls through to
+    treating the building type name as a saved-scope lookup instead. To approximate a continuous
+    0-1 efficiency ratio for use in a script_value's `value =` (e.g. scaling monthly progress by
+    input-goods availability), step down through a threshold ladder: a cascading `if`/`else_if`
+    chain, each branch's `limit` checking `var:X ?= { building_efficiency = { building_type = Y
+    value >= N } }` for a descending `N`, assigning `value = N` on match. This is a discretized
+    approximation of the true continuous value, not an exact read — the engine exposes no exact
+    numeric accessor at all. See `docs/knowledge/anti_patterns.yaml`
+    `building_efficiency_has_no_numeric_scriptvalue_form`.
 
 ## Validation
 
