@@ -1555,14 +1555,25 @@ tv_wonder_update_wonder_level_effect = {
 }
 
 tv_wonder_update_logistics_metrics_effect = {
+	# @validate_local_variable_cleanup
+	# Keep the IO monthly tooltip as: scale - labor shortage - materials shortage +/- logistics.
+	set_local_variable = { name = tv_wonder_worksite_levels value = 0 }
+	set_local_variable = { name = tv_wonder_uncapped_effective_worksite_levels value = 0 }
+	set_local_variable = { name = tv_wonder_worksite_input_shortage_exists value = 0 }
+	set_local_variable = { name = tv_wonder_material_input_efficiency value = 0 }
+	set_local_variable = { name = tv_wonder_tools_input_efficiency value = 0 }
+	set_local_variable = { name = tv_wonder_labor_adjusted_monthly_construction_progress value = 0 }
+	set_local_variable = { name = tv_wonder_material_adjusted_monthly_construction_progress value = 0 }
 	set_variable = { name = tv_wonder_effective_worksite_levels value = 0 }
 	set_variable = { name = tv_wonder_organization_site_level_cap_display value = 1 }
 	set_variable = { name = tv_wonder_effective_material_workshop_levels value = 0 }
 	set_variable = { name = tv_wonder_material_workshop_need value = 0 }
 	set_variable = { name = tv_wonder_material_workshop_need_display value = 1 }
-	set_variable = { name = tv_wonder_base_monthly_construction_progress value = 0 }
+	set_variable = { name = tv_wonder_worksite_scale_monthly_construction_progress value = 0 }
+	set_variable = { name = tv_wonder_labor_shortage_construction_progress value = 0 }
+	set_variable = { name = tv_wonder_material_input_shortage_construction_progress value = 0 }
+	set_variable = { name = tv_wonder_logistics_construction_progress_adjustment value = 0 }
 	set_variable = { name = tv_wonder_monthly_construction_progress value = 0 }
-	set_variable = { name = tv_wonder_labor_camp_efficiency value = 0 }
 	if = {
 		limit = { NOT = { has_variable = tv_wonder_logistics_progress_percent } }
 		tv_wonder_update_construction_tiers_from_competence_effect = yes
@@ -1570,17 +1581,34 @@ tv_wonder_update_logistics_metrics_effect = {
 
 	if = {
 		limit = { tv_wonder_construction_site_selected_trigger = yes }
-		set_variable = {
-			name = tv_wonder_effective_worksite_levels
+		set_local_variable = {
+			name = tv_wonder_worksite_levels
+			value = "var:tv_wonder_site.location_building_level(building_type:tv_wonder_labor_camp)"
+		}
+		set_local_variable = {
+			name = tv_wonder_uncapped_effective_worksite_levels
 			value = {
 				value = total_effective_building_levels:tv_wonder_labor_camp
 			}
 		}
+		if = {
+			limit = { local_var:tv_wonder_uncapped_effective_worksite_levels > local_var:tv_wonder_worksite_levels }
+			set_local_variable = { name = tv_wonder_uncapped_effective_worksite_levels value = local_var:tv_wonder_worksite_levels }
+		}
+		set_variable = { name = tv_wonder_effective_worksite_levels value = local_var:tv_wonder_uncapped_effective_worksite_levels }
 		set_variable = { name = tv_wonder_organization_site_level_cap_display value = var:tv_wonder_organization_site_level_cap }
 		clamp_variable = { name = tv_wonder_organization_site_level_cap_display min = 1 max = 100 }
 		if = {
+			limit = { local_var:tv_wonder_worksite_levels > var:tv_wonder_organization_site_level_cap }
+			set_local_variable = { name = tv_wonder_worksite_levels value = var:tv_wonder_organization_site_level_cap }
+		}
+		if = {
 			limit = { var:tv_wonder_effective_worksite_levels > var:tv_wonder_organization_site_level_cap }
 			set_variable = { name = tv_wonder_effective_worksite_levels value = var:tv_wonder_organization_site_level_cap }
+		}
+		if = {
+			limit = { var:tv_wonder_effective_worksite_levels > local_var:tv_wonder_worksite_levels }
+			set_variable = { name = tv_wonder_effective_worksite_levels value = local_var:tv_wonder_worksite_levels }
 		}
 		set_variable = {
 			name = tv_wonder_effective_material_workshop_levels
@@ -1599,24 +1627,122 @@ tv_wonder_update_logistics_metrics_effect = {
 		}
 		set_variable = { name = tv_wonder_material_workshop_need_display value = var:tv_wonder_material_workshop_need }
 		clamp_variable = { name = tv_wonder_material_workshop_need_display min = 1 max = 20000 }
-		set_variable = {
-			name = tv_wonder_labor_camp_efficiency
-			value = "var:tv_wonder_site.building_efficiency(building_type:tv_wonder_labor_camp)"
+		set_local_variable = { name = tv_wonder_material_input_efficiency value = 1 }
+		set_local_variable = { name = tv_wonder_tools_input_efficiency value = 1 }
+		var:tv_wonder_site ?= {
+			every_buildings_in_location = {
+				limit = {
+					building_type = building_type:tv_wonder_labor_camp
+					is_lacking_goods = yes
+				}
+				set_local_variable = { name = tv_wonder_worksite_input_shortage_exists value = 1 }
+			}
+		}
+		if = {
+			limit = { local_var:tv_wonder_worksite_input_shortage_exists > 0 }
+			var:tv_wonder_site ?= {
+				market ?= {
+					if = {
+						limit = { "goods_demand_in_market(goods:tv_wonder_materials)" > 0 }
+						set_local_variable = {
+							name = tv_wonder_material_input_efficiency
+							value = {
+								value = "goods_supply_in_market(goods:tv_wonder_materials)"
+								divide = "goods_demand_in_market(goods:tv_wonder_materials)"
+								min = 0
+								max = 1
+							}
+						}
+					}
+					if = {
+						limit = { "goods_demand_in_market(goods:tools)" > 0 }
+						set_local_variable = {
+							name = tv_wonder_tools_input_efficiency
+							value = {
+								value = "goods_supply_in_market(goods:tools)"
+								divide = "goods_demand_in_market(goods:tools)"
+								min = 0
+								max = 1
+							}
+						}
+					}
+				}
+			}
+			set_local_variable = {
+				name = tv_wonder_material_input_efficiency
+				value = {
+					value = local_var:tv_wonder_material_input_efficiency
+					add = local_var:tv_wonder_tools_input_efficiency
+					divide = 2
+					min = 0
+					max = 1
+				}
+			}
 		}
 		set_variable = {
-			name = tv_wonder_base_monthly_construction_progress
+			name = tv_wonder_worksite_scale_monthly_construction_progress
+			value = {
+				value = local_var:tv_wonder_worksite_levels
+				multiply = 1000
+				floor = yes
+			}
+		}
+		set_local_variable = {
+			name = tv_wonder_labor_adjusted_monthly_construction_progress
 			value = {
 				value = var:tv_wonder_effective_worksite_levels
 				multiply = 1000
 				floor = yes
 			}
 		}
-		set_variable = { name = tv_wonder_monthly_construction_progress value = var:tv_wonder_base_monthly_construction_progress }
-		change_variable = { name = tv_wonder_monthly_construction_progress multiply = var:tv_wonder_logistics_progress_percent }
-		change_variable = { name = tv_wonder_monthly_construction_progress divide = 100 }
-		change_variable = { name = tv_wonder_monthly_construction_progress subtract = tv_wonder_input_shortage_construction_progress }
+		set_local_variable = {
+			name = tv_wonder_material_adjusted_monthly_construction_progress
+			value = {
+				value = local_var:tv_wonder_labor_adjusted_monthly_construction_progress
+				multiply = local_var:tv_wonder_material_input_efficiency
+				floor = yes
+			}
+		}
+		set_variable = {
+			name = tv_wonder_labor_shortage_construction_progress
+			value = {
+				value = var:tv_wonder_worksite_scale_monthly_construction_progress
+				subtract = local_var:tv_wonder_labor_adjusted_monthly_construction_progress
+				min = 0
+			}
+		}
+		set_variable = {
+			name = tv_wonder_material_input_shortage_construction_progress
+			value = {
+				value = local_var:tv_wonder_labor_adjusted_monthly_construction_progress
+				subtract = local_var:tv_wonder_material_adjusted_monthly_construction_progress
+				min = 0
+			}
+		}
+		set_variable = {
+			name = tv_wonder_monthly_construction_progress
+			value = {
+				value = local_var:tv_wonder_material_adjusted_monthly_construction_progress
+				multiply = var:tv_wonder_logistics_progress_percent
+				divide = 100
+			}
+		}
 		clamp_variable = { name = tv_wonder_monthly_construction_progress min = 0 max = 150000 }
+		set_variable = {
+			name = tv_wonder_logistics_construction_progress_adjustment
+			value = {
+				value = var:tv_wonder_monthly_construction_progress
+				subtract = local_var:tv_wonder_material_adjusted_monthly_construction_progress
+			}
+		}
 	}
+	remove_local_variable = tv_wonder_worksite_levels
+	remove_local_variable = tv_wonder_uncapped_effective_worksite_levels
+	remove_local_variable = tv_wonder_worksite_input_shortage_exists
+	remove_local_variable = tv_wonder_material_input_efficiency
+	remove_local_variable = tv_wonder_tools_input_efficiency
+	remove_local_variable = tv_wonder_labor_adjusted_monthly_construction_progress
+	remove_local_variable = tv_wonder_material_adjusted_monthly_construction_progress
 }
 
 tv_wonder_clear_current_survey_effect = {
@@ -1657,7 +1783,10 @@ tv_wonder_clear_current_survey_effect = {
 	remove_variable = tv_wonder_effective_material_workshop_levels
 	remove_variable = tv_wonder_material_workshop_need
 	remove_variable = tv_wonder_material_workshop_need_display
-	remove_variable = tv_wonder_base_monthly_construction_progress
+	remove_variable = tv_wonder_worksite_scale_monthly_construction_progress
+	remove_variable = tv_wonder_labor_shortage_construction_progress
+	remove_variable = tv_wonder_material_input_shortage_construction_progress
+	remove_variable = tv_wonder_logistics_construction_progress_adjustment
 	remove_variable = tv_wonder_monthly_construction_progress
 	remove_variable = tv_wonder_ceremony_style
 	remove_variable = tv_wonder_ceremony_locked
@@ -2473,7 +2602,10 @@ tv_wonder_clear_project_state_core_effect = {
 	remove_variable = tv_wonder_effective_material_workshop_levels
 	remove_variable = tv_wonder_material_workshop_need
 	remove_variable = tv_wonder_material_workshop_need_display
-	remove_variable = tv_wonder_base_monthly_construction_progress
+	remove_variable = tv_wonder_worksite_scale_monthly_construction_progress
+	remove_variable = tv_wonder_labor_shortage_construction_progress
+	remove_variable = tv_wonder_material_input_shortage_construction_progress
+	remove_variable = tv_wonder_logistics_construction_progress_adjustment
 	remove_variable = tv_wonder_monthly_construction_progress
 	remove_variable = tv_wonder_active_part
 	remove_variable = tv_wonder_construction_complete

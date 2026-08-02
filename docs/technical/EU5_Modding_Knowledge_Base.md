@@ -535,6 +535,8 @@ every_trade = {
     limit = { goods = goods:horses }
     change_local_variable = { name = member_trade_total add = trade_volume }
 }
+# Read local_var:member_trade_total here, then clean the scratch value.
+remove_local_variable = member_trade_total
 ```
 
 For IO member trade totals, wrap the same trade-object loop in `every_international_organization_member`. Avoid summing `traded_in_market:<good>` from `every_market_present_in_country` when the design asks for member-owned trade; `traded_in_market:<good>` is the whole market's traded quantity and shared markets can be counted once per member.
@@ -848,6 +850,21 @@ parenthesized style for numeric reads:
 value = "var:tv_wonder_site.building_efficiency(building_type:tv_wonder_labor_camp)"
 ```
 
+In-game validation of the Engineering Department wonder worksite showed this value tracks
+labor/staffing satisfaction, matching the meaning of `total_effective_building_levels:X`
+relative to nominal completed levels. Do not use `building_efficiency` as the material/input-goods
+green bar. The green bar is GUI `Building.GetInputGoodsAccess`; no matching script numeric
+event target was found in official defines. In script, use building-scope `is_lacking_goods` as
+the boolean gate for whether the building is actually short of inputs; small market imbalances can
+leave the building's input percentage untouched. Do not treat `building_goods_input(goods:<input>)`
+as that green bar: reference mod 3735059838 uses it as a required-input value scaled by market
+access and `building_efficiency`, so it is entangled with the labor side. If a script-side numeric
+material-satisfaction approximation is needed after `is_lacking_goods` is true, compute the
+relevant market-scope supply/demand ratio for each required input, such as
+`goods_supply_in_market(goods:<input>) / goods_demand_in_market(goods:<input>)`, cap each ratio
+to 0..1, and average the ratios across the fixed input list. For a two-input recipe, if only one
+input is short by x%, the material/input penalty is x/2%.
+
 From a building scope, reference mod 3735059838 uses:
 
 ```pdx
@@ -1095,6 +1112,7 @@ set_local_variable = { name = monthly_cost value = var:monthly_cost }
 every_international_organizations_member_of = {
     change_variable = { name = stockpile subtract = local_var:monthly_cost }
 }
+remove_local_variable = monthly_cost
 ```
 
 This also applies to variable-map key iterators and local-variable comparisons. Do not write
@@ -1102,6 +1120,13 @@ This also applies to variable-map key iterators and local-variable comparisons. 
 during comparison 'var'`. Capture `var:outer_value` into another local before the iterator.
 For dynamic numeric equality, compare locals with `NOT = { local_var:current < local_var:outer }`
 and `NOT = { local_var:current > local_var:outer }`.
+
+Treat `local_variable` values as explicit scratch state, not as automatically disappearing
+temporaries. Clean every scratch value with `remove_local_variable = <name>` after its final use,
+preferably at the direct top level of the effect so the cleanup is not skipped by a conditional
+branch. For newly edited high-risk effects, add `# @validate_local_variable_cleanup` near the top
+of the effect; `scripts/validate.py` then requires every `set_local_variable` in that marked
+top-level block to have a later top-level cleanup line.
 
 ### 5.6. Ordered Global List Rebuilds
 

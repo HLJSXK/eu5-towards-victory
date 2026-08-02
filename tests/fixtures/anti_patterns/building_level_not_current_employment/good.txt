@@ -1,0 +1,12 @@
+set_variable = {
+	name = tv_wonder_worksite_levels
+	value = "var:tv_wonder_site.location_building_level(building_type:tv_wonder_labor_camp)"
+}
+
+set_variable = {
+	name = tv_wonder_worksite_scale_monthly_construction_progress
+	value = {
+		value = var:tv_wonder_worksite_levels
+		multiply = 1000
+	}
+}

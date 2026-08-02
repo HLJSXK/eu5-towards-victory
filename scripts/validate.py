@@ -202,6 +202,7 @@ GENERIC_ACTION_HIDDEN_ONLY_EFFECTS = {
         "`hidden_effect = { ... }` when reached from a generic action."
     ),
 }
+LOCAL_VARIABLE_CLEANUP_MARKER = "@validate_local_variable_cleanup"
 
 issues = []
 warnings = []
@@ -1233,6 +1234,39 @@ def check_construct_building_cost_multiplier_reason(path: Path, content: str) ->
             )
 
 
+def check_marked_local_variable_cleanup(path: Path, content: str) -> None:
+    """For opted-in blocks, every set_local_variable must have a final top-level cleanup."""
+    if path.suffix != ".txt" or LOCAL_VARIABLE_CLEANUP_MARKER not in content:
+        return
+
+    for block_name, block_open, block_close in _iter_top_level_blocks(content):
+        block_body = content[block_open + 1:block_close]
+        if LOCAL_VARIABLE_CLEANUP_MARKER not in block_body:
+            continue
+
+        set_positions: dict[str, list[int]] = {}
+        for set_open, set_close in _iter_named_blocks(content, block_open, block_close, "set_local_variable"):
+            var_name = _find_direct_property_value(content, set_open, set_close, "name")
+            if not var_name:
+                continue
+            set_positions.setdefault(var_name, []).append(set_open)
+
+        remove_positions: dict[str, list[int]] = {}
+        for var_name, pos in _iter_direct_assignments(content, block_open, block_close, "remove_local_variable"):
+            remove_positions.setdefault(var_name, []).append(pos)
+
+        for var_name, positions in sorted(set_positions.items()):
+            last_set = max(positions)
+            if any(pos > last_set for pos in remove_positions.get(var_name, [])):
+                continue
+            issues.append(
+                f"[LOCAL_VARIABLE_CLEANUP] {path.relative_to(REPO_ROOT)}:{_line_num(content, positions[0])} -- "
+                f"`{block_name}` is marked with `{LOCAL_VARIABLE_CLEANUP_MARKER}` but "
+                f"`set_local_variable` `{var_name}` has no top-level `remove_local_variable = {var_name}` "
+                "after its final assignment."
+            )
+
+
 def check_gui_parentanchor_under_hbox_vbox(path: Path, content: str) -> None:
     """Catch direct hbox/vbox children trying to position themselves."""
     if path.suffix != ".gui":
@@ -1682,6 +1716,41 @@ def _find_direct_property(content: str, start: int, end: int, name: str) -> int 
             depth = 0
         abs_line_start += len(line)
     return None
+
+
+def _find_direct_property_value(content: str, start: int, end: int, name: str) -> str | None:
+    """Return the simple identifier assigned to a direct property, if any."""
+    pos = _find_direct_property(content, start, end, name)
+    if pos is None:
+        return None
+    line_end = content.find("\n", pos, end)
+    if line_end == -1:
+        line_end = end
+    match = re.match(
+        rf"[ \t]*{re.escape(name)}[ \t]*=[ \t]*([A-Za-z_][A-Za-z0-9_]*)\b",
+        content[pos:line_end],
+    )
+    return match.group(1) if match else None
+
+
+def _iter_direct_assignments(content: str, start: int, end: int, name: str):
+    """Yield (simple identifier value, position) for direct `name = value` lines."""
+    depth = 0
+    pattern = re.compile(
+        rf"^[ \t]*{re.escape(name)}[ \t]*=[ \t]*([A-Za-z_][A-Za-z0-9_]*)\b"
+    )
+    segment = content[start + 1:end]
+    abs_line_start = start + 1
+    for line in segment.splitlines(keepends=True):
+        code = line.split("#", 1)[0]
+        if depth == 0:
+            match = pattern.match(code)
+            if match:
+                yield match.group(1), abs_line_start + match.start()
+        depth += _brace_delta(line)
+        if depth < 0:
+            depth = 0
+        abs_line_start += len(line)
 
 
 def _iter_direct_on_action_event_entries(content: str, start: int, end: int):
@@ -2180,6 +2249,7 @@ def main():
                 check_anti_patterns(path, content, lint_patterns)
                 check_gui_parentanchor_under_hbox_vbox(path, content)
                 check_wonder_engine_scaled_fixed_modifiers(path, content)
+                check_marked_local_variable_cleanup(path, content)
                 check_generic_action_pre_eval_risks(path, content)
                 check_io_policy_ai_scope_recipient_guard(path, content)
                 check_on_action_singleton_effect_delegate(path, content, hardcoded_on_actions)

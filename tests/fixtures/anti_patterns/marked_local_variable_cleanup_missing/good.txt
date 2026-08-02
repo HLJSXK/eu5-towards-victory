@@ -1,0 +1,7 @@
+tv_example_effect = {
+	# @validate_local_variable_cleanup
+	set_local_variable = { name = tv_example_tmp value = 0 }
+	change_local_variable = { name = tv_example_tmp add = 1 }
+	set_variable = { name = tv_example_output value = local_var:tv_example_tmp }
+	remove_local_variable = tv_example_tmp
+}

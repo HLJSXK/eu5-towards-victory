@@ -1254,9 +1254,37 @@ every country regardless so missing or damaged IOs are repaired.
     target link`. See `docs/knowledge/anti_patterns.yaml`
     `building_efficiency_colon_chain_numeric_read_invalid`.
 
+42. **`building_efficiency` is labor/staffing satisfaction, not the input-goods green bar.** In-game
+    validation showed the active Wonder Labor Camp's quoted numeric `building_efficiency(...)`
+    matches the labor satisfaction already represented by `total_effective_building_levels:<id>`.
+    The vanilla green input-goods indicator is GUI `Building.GetInputGoodsAccess`; official docs
+    do not expose a matching script numeric accessor. `building_goods_input(goods:X)` is not that
+    green bar either: reference mod 3735059838 treats it as required input scaled by market access
+    and building efficiency, which mixes it with the labor side. The Engineering Department cache
+    therefore first checks the active worksite building with building-scope `is_lacking_goods`.
+    Only when that boolean says the building is actually short does it approximate material/input
+    satisfaction from the selected site's market by computing
+    `goods_supply_in_market(goods:X) / goods_demand_in_market(goods:X)` for the Labor Camp's two
+    inputs, `tools` and `tv_wonder_materials`, and averaging those two satisfaction ratios. This
+    matters because small market imbalances can leave the actual building percentage untouched, and
+    with two inputs one input short by x% yields an x/2% material penalty. Keep the separate UI
+    breakdown as current worksite scale, missing labor, insufficient construction materials, and
+    logistics suitability adjustment.
+
+43. **Clean marked local scratch variables before leaving the effect.** The construction logistics
+    refresh uses several `set_local_variable` intermediates to split nominal worksite scale, labor
+    shortage, material-input shortage, and logistics. Those locals are scratch state and must be
+    explicitly removed with direct top-level `remove_local_variable = <name>` lines after their
+    final use. Mark high-risk effects with `# @validate_local_variable_cleanup`; `validate.py` then
+    checks that every `set_local_variable` in that top-level block has a later top-level cleanup.
+    This is marker-driven so newly touched Wonder code can opt in without turning older generated
+    local-variable usage into unrelated work. See anti_patterns.yaml
+    `marked_local_variable_cleanup_missing`.
+
 ## Validation
 
-Run `validate.py --changed --fix --ai-report`: it lints rule 2 and rule 16 automatically, and when a
+Run `validate.py --changed --fix --ai-report`: it lints rule 2 and rule 16 automatically, and rule
+43 for blocks marked with `# @validate_local_variable_cleanup`. When a
 `data/unique_wonder_ritual_*.yaml` or harness script changes, runs
 `wonder_unique_ritual_harness.validate_unique_ritual_specs_for_repo()`. Also run
 `scripts_engineering_department/test_wonder_mechanics_rules.py` after changing scale-based wonder trigger/effect
