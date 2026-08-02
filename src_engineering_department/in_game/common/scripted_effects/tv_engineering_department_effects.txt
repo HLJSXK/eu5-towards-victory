@@ -1448,7 +1448,6 @@ tv_wonder_update_construction_tiers_from_competence_effect = {
 	change_variable = { name = tv_wonder_logistics_progress_percent add = 50 }
 	clamp_variable = { name = tv_wonder_logistics_progress_percent min = 50 max = 150 }
 
-	set_variable = { name = tv_wonder_logistics_effect_percent value = var:tv_wonder_logistics_progress_percent }
 	set_variable = { name = tv_wonder_organization_effect_percent value = var:tv_wonder_organization_site_level_cap }
 }
 
@@ -1556,7 +1555,7 @@ tv_wonder_update_wonder_level_effect = {
 
 tv_wonder_update_logistics_metrics_effect = {
 	# @validate_local_variable_cleanup
-	# Keep the IO monthly tooltip as: scale - labor shortage - materials shortage +/- logistics.
+	# Keep the IO monthly tooltip as: scale + logistics - materials - labor.
 	set_local_variable = { name = tv_wonder_worksite_levels value = 0 }
 	set_local_variable = { name = tv_wonder_uncapped_effective_worksite_levels value = 0 }
 	set_local_variable = { name = tv_wonder_worksite_input_shortage_exists value = 0 }
@@ -1774,7 +1773,6 @@ tv_wonder_clear_current_survey_effect = {
 	remove_variable = tv_wonder_scale_tier
 	remove_variable = tv_wonder_logistics_tier
 	remove_variable = tv_wonder_organization_tier
-	remove_variable = tv_wonder_logistics_effect_percent
 	remove_variable = tv_wonder_organization_effect_percent
 	remove_variable = tv_wonder_logistics_progress_percent
 	remove_variable = tv_wonder_organization_site_level_cap
@@ -2582,7 +2580,6 @@ tv_wonder_clear_project_state_core_effect = {
 	remove_variable = tv_wonder_scale_tier
 	remove_variable = tv_wonder_logistics_tier
 	remove_variable = tv_wonder_organization_tier
-	remove_variable = tv_wonder_logistics_effect_percent
 	remove_variable = tv_wonder_organization_effect_percent
 	remove_variable = tv_wonder_logistics_progress_percent
 	remove_variable = tv_wonder_organization_site_level_cap
