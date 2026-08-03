@@ -180,7 +180,7 @@ from wonder_mechanics.rituals import (
     ritual_auxiliary_building,
     ritual_plan_for_style,
 )
-from wonder_mechanics.schema import validate_unique_wonder_single_site_shape
+from wonder_mechanics.schema import site_trigger_lines_for_wonder, validate_unique_wonder_single_site_shape
 from wonder_ceremony_lib import (
     card_icon_key,
     ceremony_icon_alias,
@@ -528,6 +528,7 @@ def validate_cmm_wonder_controls(wonders: list[dict], mechanics: dict) -> None:
     generated_buildings = building_generator.generate()
     expected_final_buildings = {
         final_building_for_style(wonder, style): (
+            wonder,
             wonder["size"],
             building_generator.build_profile(wonder)[1],
         )
@@ -540,12 +541,34 @@ def validate_cmm_wonder_controls(wonders: list[dict], mechanics: dict) -> None:
         == expected_final_building_count,
         "Direct construction must be present on every and only final wonder building.",
     )
-    for building_name, (size, construction_demand) in expected_final_buildings.items():
+    for building_name, (wonder, size, construction_demand) in expected_final_buildings.items():
+        key = wonder["key"]
         block = extract_trigger_block(generated_buildings, building_name)
         require(
             "country_potential = { has_global_variable = tv_engineering_department_direct_build }" in block,
             f"Final wonder building {building_name} must expose the direct-build entry.",
         )
+        require(
+            f"tv_wonder_location_can_host_{key}_trigger" not in block,
+            f"Final wonder building {building_name} must hardcode location rules instead of calling the survey flow trigger.",
+        )
+        require(
+            f"tv_wonder_country_has_{key}_project_or_final_trigger" not in block,
+            f"Final wonder building {building_name} must not depend on Engineering Department project uniqueness state.",
+        )
+        if wonder.get("is_unique"):
+            require(
+                f"this = location:{wonder['location']}" in block,
+                f"Unique final wonder building {building_name} must hardcode its fixed location.",
+            )
+        for line in site_trigger_lines_for_wonder(mechanics, wonder, 2):
+            stripped_line = line.strip()
+            if not stripped_line:
+                continue
+            require(
+                stripped_line in block,
+                f"Final wonder building {building_name} must hardcode this site rule line: {stripped_line}",
+            )
         require(
             f"price = tv_wonder_direct_build_{size}_price" in block,
             f"Final wonder building {building_name} must use the {size} direct-build price.",

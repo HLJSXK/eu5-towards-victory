@@ -30,6 +30,7 @@ from wonder_mechanics.rituals import (
     ritual_plan_for_style,
     ritual_auxiliary_building,
 )
+from wonder_mechanics.schema import site_trigger_lines_for_wonder
 
 OUT_FILE = REPO_ROOT / "src_engineering_department" / "in_game" / "common" / "building_types" / "tv_engineering_department_wonder_mechanics_buildings.txt"
 SCRIPT_REL = "scripts_engineering_department/in_game/common/building_types/gen_tv_engineering_department_wonder_mechanics_buildings.py"
@@ -107,6 +108,7 @@ def building_block(
     on_construction_ended_lines: list[str] | None = None,
     can_destroy: str = "no",
     can_destroy_lines: list[str] | None = None,
+    allow_lines: list[str] | None = None,
     direct_build: bool = False,
     special: bool = True,
 ) -> list[str]:
@@ -152,9 +154,11 @@ def building_block(
                 else f"{T}{T}{T}always = no"
             ),
             f"{T}{T}}}",
-            f"{T}}}",
         ]
     )
+    if allow_lines:
+        lines.extend(allow_lines)
+    lines.append(f"{T}}}")
     if can_destroy_lines:
         lines.append(f"{T}can_destroy = {{")
         lines.extend(can_destroy_lines)
@@ -253,6 +257,14 @@ def final_building_completion_schedule_lines(wonder: dict) -> list[str]:
     ]
 
 
+def final_building_direct_build_allow_lines(wonder: dict, mechanics: dict) -> list[str]:
+    lines: list[str] = []
+    if wonder.get("is_unique"):
+        lines.append(f"{T}{T}this = location:{wonder['location']}")
+    lines.extend(site_trigger_lines_for_wonder(mechanics, wonder, 2))
+    return lines
+
+
 def final_building_can_destroy_lines(wonder: dict) -> list[str]:
     return [
         f"{T}{T}NOT = {{",
@@ -317,6 +329,7 @@ def generate() -> str:
                     audio_tier=6 if wonder["size"] == "large" else 5,
                     build_time="huge_unique_build_time",
                     price=f"tv_wonder_direct_build_{wonder['size']}_price",
+                    allow_lines=final_building_direct_build_allow_lines(wonder, mechanics),
                     direct_build=True,
                 )
             )

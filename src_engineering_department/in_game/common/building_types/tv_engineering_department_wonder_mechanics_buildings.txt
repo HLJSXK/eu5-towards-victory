@@ -25,6 +25,11 @@ tv_wonder_golden_sanctuary = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		OR = {
+			topography = mountains
+			topography = plateau
+			topography = hills
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -97,6 +102,11 @@ tv_wonder_ascetic_mountain = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		OR = {
+			topography = mountains
+			topography = plateau
+			topography = hills
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -168,6 +178,11 @@ tv_wonder_theocratic_center = {
 		custom_tooltip = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
+		}
+		OR = {
+			topography = mountains
+			topography = plateau
+			topography = hills
 		}
 	}
 	can_destroy = {
@@ -304,6 +319,10 @@ tv_wonder_sun_king_axis = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		OR = {
+			location_rank ?= location_rank:city
+			location_rank ?= location_rank:megalopolis
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -376,6 +395,10 @@ tv_wonder_military_city = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		OR = {
+			location_rank ?= location_rank:city
+			location_rank ?= location_rank:megalopolis
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -447,6 +470,10 @@ tv_wonder_civic_capital = {
 		custom_tooltip = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
+		}
+		OR = {
+			location_rank ?= location_rank:city
+			location_rank ?= location_rank:megalopolis
 		}
 	}
 	can_destroy = {
@@ -583,6 +610,7 @@ tv_wonder_golden_trade_port = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		is_port = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -655,6 +683,7 @@ tv_wonder_imperial_naval_port = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		is_port = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -727,6 +756,7 @@ tv_wonder_free_trade_metropolis = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		is_port = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -862,6 +892,7 @@ tv_wonder_dynastic_necropolis = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		location_rank ?= location_rank:rural_settlement
 	}
 	can_destroy = {
 		NOT = {
@@ -935,6 +966,7 @@ tv_wonder_ancestor_shrine = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		location_rank ?= location_rank:rural_settlement
 	}
 	can_destroy = {
 		NOT = {
@@ -1008,6 +1040,7 @@ tv_wonder_quiet_land = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		location_rank ?= location_rank:rural_settlement
 	}
 	can_destroy = {
 		NOT = {
@@ -1144,6 +1177,7 @@ tv_wonder_eternal_lighthouse = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		is_port = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -1217,6 +1251,7 @@ tv_wonder_navigator_lighthouse = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		is_port = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -1290,6 +1325,7 @@ tv_wonder_long_watch_lighthouse = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		is_port = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -1426,6 +1462,11 @@ tv_wonder_water_god_workshop = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		OR = {
+			has_river = yes
+			is_adjacent_to_lake = yes
+		}
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -1497,6 +1538,11 @@ tv_wonder_hydraulic_artisan_guildhall = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		OR = {
+			has_river = yes
+			is_adjacent_to_lake = yes
+		}
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -1568,6 +1614,11 @@ tv_wonder_waterwheel_workshop = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		OR = {
+			has_river = yes
+			is_adjacent_to_lake = yes
+		}
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -1702,6 +1753,16 @@ tv_wonder_miners_oath_city = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		OR = {
+			raw_material = goods:iron
+			raw_material = goods:copper
+			raw_material = goods:tin
+			raw_material = goods:lead
+			raw_material = goods:silver
+			raw_material = goods:goods_gold
+			raw_material = goods:marble
+			raw_material = goods:salt
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -1773,6 +1834,16 @@ tv_wonder_royal_mint_city = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		OR = {
+			raw_material = goods:iron
+			raw_material = goods:copper
+			raw_material = goods:tin
+			raw_material = goods:lead
+			raw_material = goods:silver
+			raw_material = goods:goods_gold
+			raw_material = goods:marble
+			raw_material = goods:salt
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -1843,6 +1914,16 @@ tv_wonder_deep_shaft_city = {
 		custom_tooltip = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
+		}
+		OR = {
+			raw_material = goods:iron
+			raw_material = goods:copper
+			raw_material = goods:tin
+			raw_material = goods:lead
+			raw_material = goods:silver
+			raw_material = goods:goods_gold
+			raw_material = goods:marble
+			raw_material = goods:salt
 		}
 	}
 	can_destroy = {
@@ -1978,6 +2059,11 @@ tv_wonder_star_catalog_observatory = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		OR = {
+			topography = mountains
+			topography = plateau
+			topography = hills
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -2050,6 +2136,11 @@ tv_wonder_nautical_almanac_observatory = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		OR = {
+			topography = mountains
+			topography = plateau
+			topography = hills
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -2121,6 +2212,11 @@ tv_wonder_eclipse_observatory = {
 		custom_tooltip = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
+		}
+		OR = {
+			topography = mountains
+			topography = plateau
+			topography = hills
 		}
 	}
 	can_destroy = {
@@ -2257,6 +2353,7 @@ tv_wonder_congress_palace = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		is_capital = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -2329,6 +2426,7 @@ tv_wonder_tribute_gallery = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		is_capital = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -2401,6 +2499,7 @@ tv_wonder_embassy_palace = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		is_capital = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -2536,6 +2635,7 @@ tv_wonder_scholars_convocation = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -2608,6 +2708,7 @@ tv_wonder_public_lectures = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -2680,6 +2781,7 @@ tv_wonder_collegiate_charter = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -2815,6 +2917,8 @@ tv_wonder_dome_consecration = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		dominant_religion = owner.religion
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -2886,6 +2990,8 @@ tv_wonder_pilgrim_treasury = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		dominant_religion = owner.religion
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -2957,6 +3063,8 @@ tv_wonder_celestial_synod = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		dominant_religion = owner.religion
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -3091,6 +3199,7 @@ tv_wonder_beacon_rite_temple = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -3163,6 +3272,7 @@ tv_wonder_pilgrim_stair_temple = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -3235,6 +3345,7 @@ tv_wonder_temple_school_tower = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -3370,6 +3481,10 @@ tv_wonder_bridge_opening = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		OR = {
+			has_river = yes
+			is_adjacent_to_lake = yes
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -3442,6 +3557,10 @@ tv_wonder_river_fair = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		OR = {
+			has_river = yes
+			is_adjacent_to_lake = yes
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -3513,6 +3632,10 @@ tv_wonder_canal_authority = {
 		custom_tooltip = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
+		}
+		OR = {
+			has_river = yes
+			is_adjacent_to_lake = yes
 		}
 	}
 	can_destroy = {
@@ -3649,6 +3772,7 @@ tv_wonder_keel_laying_yard = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		is_port = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -3722,6 +3846,7 @@ tv_wonder_fleet_muster_yard = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		is_port = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -3795,6 +3920,7 @@ tv_wonder_admiralty_yard = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		is_port = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -3931,6 +4057,7 @@ tv_wonder_bastion_trial_fortress = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -4004,6 +4131,7 @@ tv_wonder_siege_games_fortress = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -4077,6 +4205,7 @@ tv_wonder_arsenal_quarter_fortress = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -4216,6 +4345,8 @@ tv_wonder_frontier_muster_wall = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		NOT = { location_rank ?= location_rank:city }
+		NOT = { location_rank ?= location_rank:megalopolis }
 	}
 	can_destroy = {
 		NOT = {
@@ -4289,6 +4420,8 @@ tv_wonder_signal_fires_wall = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		NOT = { location_rank ?= location_rank:city }
+		NOT = { location_rank ?= location_rank:megalopolis }
 	}
 	can_destroy = {
 		NOT = {
@@ -4362,6 +4495,8 @@ tv_wonder_wall_oath = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		NOT = { location_rank ?= location_rank:city }
+		NOT = { location_rank ?= location_rank:megalopolis }
 	}
 	can_destroy = {
 		NOT = {
@@ -4501,6 +4636,7 @@ tv_wonder_muster_of_arms = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -4574,6 +4710,7 @@ tv_wonder_foundry_contracts = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -4647,6 +4784,7 @@ tv_wonder_master_armourers = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -4783,6 +4921,7 @@ tv_wonder_national_catalog_library = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		is_capital = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -4854,6 +4993,7 @@ tv_wonder_copyists_endowment_library = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		is_capital = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -4925,6 +5065,7 @@ tv_wonder_legal_deposit_library = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		is_capital = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -5059,6 +5200,11 @@ tv_wonder_irrigation_canal_system = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		OR = {
+			has_river = yes
+			is_adjacent_to_lake = yes
+			is_port = yes
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -5132,6 +5278,11 @@ tv_wonder_grain_transport_canal_system = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		OR = {
+			has_river = yes
+			is_adjacent_to_lake = yes
+			is_port = yes
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -5204,6 +5355,11 @@ tv_wonder_flood_control_canal_system = {
 		custom_tooltip = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
+		}
+		OR = {
+			has_river = yes
+			is_adjacent_to_lake = yes
+			is_port = yes
 		}
 	}
 	can_destroy = {
@@ -5341,6 +5497,11 @@ tv_wonder_grain_terraces = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		OR = {
+			topography = mountains
+			topography = plateau
+			topography = hills
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -5413,6 +5574,11 @@ tv_wonder_cash_crop_terraces = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		OR = {
+			topography = mountains
+			topography = plateau
+			topography = hills
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -5484,6 +5650,11 @@ tv_wonder_sacred_mountain_terraces = {
 		custom_tooltip = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
+		}
+		OR = {
+			topography = mountains
+			topography = plateau
+			topography = hills
 		}
 	}
 	can_destroy = {
@@ -5620,6 +5791,11 @@ tv_wonder_estuary_flood_dam = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		OR = {
+			has_river = yes
+			is_adjacent_to_lake = yes
+			is_port = yes
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -5692,6 +5868,11 @@ tv_wonder_marsh_reclamation_dam = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		OR = {
+			has_river = yes
+			is_adjacent_to_lake = yes
+			is_port = yes
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -5763,6 +5944,11 @@ tv_wonder_water_powered_workshops = {
 		custom_tooltip = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
+		}
+		OR = {
+			has_river = yes
+			is_adjacent_to_lake = yes
+			is_port = yes
 		}
 	}
 	can_destroy = {
@@ -5899,6 +6085,7 @@ tv_wonder_grain_price_granaries = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -5971,6 +6158,7 @@ tv_wonder_wartime_granaries = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -6043,6 +6231,7 @@ tv_wonder_disaster_relief_granaries = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -6178,6 +6367,7 @@ tv_wonder_military_post_roads = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -6250,6 +6440,7 @@ tv_wonder_trade_post_roads = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -6322,6 +6513,7 @@ tv_wonder_royal_tour_avenue = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -6457,6 +6649,12 @@ tv_wonder_grain_transport_hub = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		OR = {
+			has_river = yes
+			is_adjacent_to_lake = yes
+			is_port = yes
+		}
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -6529,6 +6727,12 @@ tv_wonder_financial_warehouse_hub = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		OR = {
+			has_river = yes
+			is_adjacent_to_lake = yes
+			is_port = yes
+		}
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -6601,6 +6805,12 @@ tv_wonder_industrial_workshop_belt = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		OR = {
+			has_river = yes
+			is_adjacent_to_lake = yes
+			is_port = yes
+		}
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -6736,6 +6946,7 @@ tv_wonder_military_colony_belt = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		location_rank ?= location_rank:rural_settlement
 	}
 	can_destroy = {
 		NOT = {
@@ -6809,6 +7020,7 @@ tv_wonder_settler_reclamation_belt = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		location_rank ?= location_rank:rural_settlement
 	}
 	can_destroy = {
 		NOT = {
@@ -6882,6 +7094,7 @@ tv_wonder_religious_colonization_belt = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		location_rank ?= location_rank:rural_settlement
 	}
 	can_destroy = {
 		NOT = {
@@ -7018,6 +7231,7 @@ tv_wonder_beacon_communication_network = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		is_port = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -7090,6 +7304,7 @@ tv_wonder_coastal_battery_network = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		is_port = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -7162,6 +7377,7 @@ tv_wonder_customs_patrol_network = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		is_port = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -7297,6 +7513,7 @@ tv_wonder_crusader_knightly_order = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -7370,6 +7587,7 @@ tv_wonder_frontier_lord_order = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -7443,6 +7661,7 @@ tv_wonder_mercenary_fortress_system = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -7580,6 +7799,7 @@ tv_wonder_firearms_tactics_college = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -7651,6 +7871,7 @@ tv_wonder_cavalry_tradition_college = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -7722,6 +7943,7 @@ tv_wonder_naval_command_college = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -7857,6 +8079,7 @@ tv_wonder_worship_clock_bells = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -7928,6 +8151,7 @@ tv_wonder_curfew_clock_bells = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -7999,6 +8223,7 @@ tv_wonder_astronomical_calendar_bells = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -8133,6 +8358,10 @@ tv_wonder_court_art_district = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		OR = {
+			location_rank ?= location_rank:city
+			location_rank ?= location_rank:megalopolis
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -8206,6 +8435,10 @@ tv_wonder_folk_art_district = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		OR = {
+			location_rank ?= location_rank:city
+			location_rank ?= location_rank:megalopolis
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -8278,6 +8511,10 @@ tv_wonder_foreign_style_district = {
 		custom_tooltip = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
+		}
+		OR = {
+			location_rank ?= location_rank:city
+			location_rank ?= location_rank:megalopolis
 		}
 	}
 	can_destroy = {
@@ -8415,6 +8652,10 @@ tv_wonder_court_theater = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		OR = {
+			location_rank ?= location_rank:city
+			location_rank ?= location_rank:megalopolis
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -8488,6 +8729,10 @@ tv_wonder_religious_theater = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		OR = {
+			location_rank ?= location_rank:city
+			location_rank ?= location_rank:megalopolis
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -8560,6 +8805,10 @@ tv_wonder_popular_festival_ground = {
 		custom_tooltip = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
+		}
+		OR = {
+			location_rank ?= location_rank:city
+			location_rank ?= location_rank:megalopolis
 		}
 	}
 	can_destroy = {
@@ -8697,6 +8946,10 @@ tv_wonder_trade_diplomacy_embassies = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		OR = {
+			is_capital = yes
+			NOT = { location_rank ?= location_rank:rural_settlement }
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -8768,6 +9021,10 @@ tv_wonder_intelligence_embassies = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		OR = {
+			is_capital = yes
+			NOT = { location_rank ?= location_rank:rural_settlement }
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -8838,6 +9095,10 @@ tv_wonder_religious_diplomacy_embassies = {
 		custom_tooltip = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
+		}
+		OR = {
+			is_capital = yes
+			NOT = { location_rank ?= location_rank:rural_settlement }
 		}
 	}
 	can_destroy = {
@@ -8973,6 +9234,7 @@ tv_wonder_religious_law_steles = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -9044,6 +9306,7 @@ tv_wonder_written_law_steles = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -9115,6 +9378,7 @@ tv_wonder_imperial_edict_steles = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -9249,6 +9513,11 @@ tv_wonder_luxury_goods_market = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		OR = {
+			is_port = yes
+			location_rank ?= location_rank:city
+			location_rank ?= location_rank:megalopolis
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -9322,6 +9591,11 @@ tv_wonder_grain_market = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		OR = {
+			is_port = yes
+			location_rank ?= location_rank:city
+			location_rank ?= location_rank:megalopolis
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -9394,6 +9668,11 @@ tv_wonder_entrepot_market = {
 		custom_tooltip = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
+		}
+		OR = {
+			is_port = yes
+			location_rank ?= location_rank:city
+			location_rank ?= location_rank:megalopolis
 		}
 	}
 	can_destroy = {
@@ -9531,6 +9810,13 @@ tv_wonder_silver_gold_standard_mint = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		OR = {
+			location_rank ?= location_rank:city
+			location_rank ?= location_rank:megalopolis
+			raw_material = goods:goods_gold
+			raw_material = goods:silver
+			raw_material = goods:copper
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -9602,6 +9888,13 @@ tv_wonder_copper_coinage_mint = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		OR = {
+			location_rank ?= location_rank:city
+			location_rank ?= location_rank:megalopolis
+			raw_material = goods:goods_gold
+			raw_material = goods:silver
+			raw_material = goods:copper
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -9672,6 +9965,13 @@ tv_wonder_international_settlement_mint = {
 		custom_tooltip = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
+		}
+		OR = {
+			location_rank ?= location_rank:city
+			location_rank ?= location_rank:megalopolis
+			raw_material = goods:goods_gold
+			raw_material = goods:silver
+			raw_material = goods:copper
 		}
 	}
 	can_destroy = {
@@ -9807,6 +10107,7 @@ tv_wonder_artisan_guild_alliance = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -9880,6 +10181,7 @@ tv_wonder_overseas_merchant_guilds = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -9953,6 +10255,7 @@ tv_wonder_financial_guilds = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -10089,6 +10392,7 @@ tv_wonder_spice_trade_stations = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		is_port = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -10162,6 +10466,7 @@ tv_wonder_slave_trade_stations = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		is_port = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -10235,6 +10540,7 @@ tv_wonder_colonial_supply_stations = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		is_port = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -10371,6 +10677,7 @@ tv_wonder_textile_workshop_complex = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -10442,6 +10749,7 @@ tv_wonder_military_workshop_complex = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -10513,6 +10821,7 @@ tv_wonder_luxury_craft_workshop_complex = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -10647,6 +10956,11 @@ tv_wonder_conquest_monument_group = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		OR = {
+			is_capital = yes
+			location_rank ?= location_rank:city
+			location_rank ?= location_rank:megalopolis
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -10719,6 +11033,11 @@ tv_wonder_national_unity_monument_group = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		OR = {
+			is_capital = yes
+			location_rank ?= location_rank:city
+			location_rank ?= location_rank:megalopolis
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -10790,6 +11109,11 @@ tv_wonder_world_exposition_monument_group = {
 		custom_tooltip = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
+		}
+		OR = {
+			is_capital = yes
+			location_rank ?= location_rank:city
+			location_rank ?= location_rank:megalopolis
 		}
 	}
 	can_destroy = {
@@ -10926,6 +11250,10 @@ tv_wonder_city_charter = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		OR = {
+			location_rank ?= location_rank:city
+			location_rank ?= location_rank:megalopolis
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -10997,6 +11325,10 @@ tv_wonder_civic_grid = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		OR = {
+			location_rank ?= location_rank:city
+			location_rank ?= location_rank:megalopolis
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -11067,6 +11399,10 @@ tv_wonder_urban_renewal = {
 		custom_tooltip = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
+		}
+		OR = {
+			location_rank ?= location_rank:city
+			location_rank ?= location_rank:megalopolis
 		}
 	}
 	can_destroy = {
@@ -11203,6 +11539,7 @@ tv_wonder_solstice_gathering_circle = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -11275,6 +11612,7 @@ tv_wonder_astral_alignment_circle = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -11347,6 +11685,7 @@ tv_wonder_ancestral_moot_circle = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -11482,6 +11821,7 @@ tv_wonder_high_choir_cathedral = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -11553,6 +11893,7 @@ tv_wonder_pilgrim_nave_cathedral = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -11624,6 +11965,7 @@ tv_wonder_civic_bells_cathedral = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -11758,6 +12100,7 @@ tv_wonder_scriptorium_monastery = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -11831,6 +12174,7 @@ tv_wonder_pilgrim_refectory_monastery = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -11904,6 +12248,7 @@ tv_wonder_fortified_cloister_monastery = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -12040,6 +12385,7 @@ tv_wonder_civic_watchtower = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -12113,6 +12459,7 @@ tv_wonder_bell_campanile = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -12186,6 +12533,7 @@ tv_wonder_merchant_tower = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -12322,6 +12670,11 @@ tv_wonder_royal_sculpture_yard = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		OR = {
+			topography = mountains
+			topography = plateau
+			topography = hills
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -12394,6 +12747,11 @@ tv_wonder_pilgrim_statue_garden = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		OR = {
+			topography = mountains
+			topography = plateau
+			topography = hills
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -12465,6 +12823,11 @@ tv_wonder_civic_hero_gallery = {
 		custom_tooltip = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
+		}
+		OR = {
+			topography = mountains
+			topography = plateau
+			topography = hills
 		}
 	}
 	can_destroy = {
@@ -12601,6 +12964,7 @@ tv_wonder_strait_battery_cannon = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		is_port = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -12673,6 +13037,7 @@ tv_wonder_harbor_chain_cannon = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		is_port = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -12745,6 +13110,7 @@ tv_wonder_admiralty_gun_foundry = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		is_port = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -12880,6 +13246,7 @@ tv_wonder_admiralty_navigation_school = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		is_port = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -12951,6 +13318,7 @@ tv_wonder_pilotage_chart_house = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		is_port = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -13022,6 +13390,7 @@ tv_wonder_oceanic_command_academy = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		is_port = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -13156,6 +13525,8 @@ tv_wonder_chartered_company_exchange = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		is_port = yes
+		AND = { has_owner = yes NOT = { continent = owner.capital.continent } }
 	}
 	can_destroy = {
 		NOT = {
@@ -13230,6 +13601,8 @@ tv_wonder_overseas_factory_forts = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		is_port = yes
+		AND = { has_owner = yes NOT = { continent = owner.capital.continent } }
 	}
 	can_destroy = {
 		NOT = {
@@ -13304,6 +13677,8 @@ tv_wonder_colonial_ledger_house = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		is_port = yes
+		AND = { has_owner = yes NOT = { continent = owner.capital.continent } }
 	}
 	can_destroy = {
 		NOT = {
@@ -13441,6 +13816,10 @@ tv_wonder_estates_convocation_hall = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		OR = {
+			is_capital = yes
+			NOT = { location_rank ?= location_rank:rural_settlement }
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -13513,6 +13892,10 @@ tv_wonder_royal_audience_hall = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		OR = {
+			is_capital = yes
+			NOT = { location_rank ?= location_rank:rural_settlement }
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -13584,6 +13967,10 @@ tv_wonder_public_deliberation_hall = {
 		custom_tooltip = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
+		}
+		OR = {
+			is_capital = yes
+			NOT = { location_rank ?= location_rank:rural_settlement }
 		}
 	}
 	can_destroy = {
@@ -13720,6 +14107,7 @@ tv_wonder_wagon_camp_muster = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		location_rank ?= location_rank:rural_settlement
 	}
 	can_destroy = {
 		NOT = {
@@ -13793,6 +14181,7 @@ tv_wonder_frontier_sich_camp = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		location_rank ?= location_rank:rural_settlement
 	}
 	can_destroy = {
 		NOT = {
@@ -13866,6 +14255,7 @@ tv_wonder_steppe_field_fort = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		location_rank ?= location_rank:rural_settlement
 	}
 	can_destroy = {
 		NOT = {
@@ -14002,6 +14392,7 @@ tv_wonder_restored_citadel_ruins = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -14074,6 +14465,7 @@ tv_wonder_antiquarian_quarter_ruins = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -14146,6 +14538,7 @@ tv_wonder_pilgrim_ruins_preserve = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -14281,6 +14674,7 @@ tv_wonder_royal_retreat_palace = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -14353,6 +14747,7 @@ tv_wonder_garden_court_palace = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -14425,6 +14820,7 @@ tv_wonder_diplomatic_pavilion_palace = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -14560,6 +14956,11 @@ tv_wonder_public_credit_bank = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		OR = {
+		  is_capital = yes
+		  location_rank ?= location_rank:city
+		  location_rank ?= location_rank:megalopolis
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -14635,6 +15036,11 @@ tv_wonder_state_debt_office = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		OR = {
+		  is_capital = yes
+		  location_rank ?= location_rank:city
+		  location_rank ?= location_rank:megalopolis
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -14709,6 +15115,11 @@ tv_wonder_merchant_clearing_bank = {
 		custom_tooltip = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
+		}
+		OR = {
+		  is_capital = yes
+		  location_rank ?= location_rank:city
+		  location_rank ?= location_rank:megalopolis
 		}
 	}
 	can_destroy = {
@@ -14849,6 +15260,7 @@ tv_wonder_privateer_haven = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		is_port = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -14926,6 +15338,7 @@ tv_wonder_harbor_redoubt = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		is_port = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -15003,6 +15416,7 @@ tv_wonder_corsair_admiralty = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		is_port = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -15145,6 +15559,8 @@ tv_wonder_unique_pharos_lighthouse_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:alexandria
+		is_port = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -15282,6 +15698,9 @@ tv_wonder_unique_hagia_sophia_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:constantinople
+		dominant_religion = owner.religion
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -15353,6 +15772,9 @@ tv_wonder_unique_dome_of_the_rock_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:jerusalem
+		dominant_religion = owner.religion
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -15424,6 +15846,8 @@ tv_wonder_unique_angkor_wat_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:angkor
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -15495,6 +15919,12 @@ tv_wonder_unique_potala_palace_inaugurated = {
 		custom_tooltip = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
+		}
+		this = location:lhasa
+		OR = {
+			topography = mountains
+			topography = plateau
+			topography = hills
 		}
 	}
 	can_destroy = {
@@ -15568,6 +15998,8 @@ tv_wonder_unique_alhambra_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:granada
+		is_capital = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -15639,6 +16071,12 @@ tv_wonder_unique_machu_picchu_inaugurated = {
 		custom_tooltip = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
+		}
+		this = location:picchu
+		OR = {
+			topography = mountains
+			topography = plateau
+			topography = hills
 		}
 	}
 	can_destroy = {
@@ -15712,6 +16150,8 @@ tv_wonder_unique_himeji_castle_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:shikama
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -15785,6 +16225,8 @@ tv_wonder_unique_taj_mahal_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:agra
+		location_rank ?= location_rank:rural_settlement
 	}
 	can_destroy = {
 		NOT = {
@@ -15858,6 +16300,11 @@ tv_wonder_unique_forbidden_city_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:dadu
+		OR = {
+			location_rank ?= location_rank:city
+			location_rank ?= location_rank:megalopolis
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -15930,6 +16377,8 @@ tv_wonder_unique_topkapi_palace_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:constantinople
+		is_capital = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -16002,6 +16451,9 @@ tv_wonder_unique_st_peters_basilica_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:rome
+		dominant_religion = owner.religion
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -16072,6 +16524,12 @@ tv_wonder_unique_lalibela_churches_inaugurated = {
 		custom_tooltip = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
+		}
+		this = location:lalibela
+		OR = {
+			topography = mountains
+			topography = plateau
+			topography = hills
 		}
 	}
 	can_destroy = {
@@ -16145,6 +16603,8 @@ tv_wonder_unique_venetian_arsenal_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:venice
+		is_port = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -16218,6 +16678,8 @@ tv_wonder_unique_malacca_port_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:malacca
+		is_port = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -16290,6 +16752,8 @@ tv_wonder_unique_red_fort_delhi_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:delhi
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -16363,6 +16827,11 @@ tv_wonder_unique_versailles_palace_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:mantes
+		OR = {
+			location_rank ?= location_rank:city
+			location_rank ?= location_rank:megalopolis
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -16434,6 +16903,11 @@ tv_wonder_unique_tenochtitlan_causeways_inaugurated = {
 		custom_tooltip = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
+		}
+		this = location:tenochtitlan
+		OR = {
+			has_river = yes
+			is_adjacent_to_lake = yes
 		}
 	}
 	can_destroy = {
@@ -16507,6 +16981,13 @@ tv_wonder_unique_amsterdam_canal_ring_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:amsterdam
+		OR = {
+			has_river = yes
+			is_adjacent_to_lake = yes
+			is_port = yes
+		}
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -16579,6 +17060,9 @@ tv_wonder_unique_mecca_haram_expansion_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:mecca
+		dominant_religion = owner.religion
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -16650,6 +17134,9 @@ tv_wonder_unique_ming_great_wall_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:fuchuan_ningxia
+		NOT = { location_rank ?= location_rank:city }
+		NOT = { location_rank ?= location_rank:megalopolis }
 	}
 	can_destroy = {
 		NOT = {
@@ -16722,6 +17209,12 @@ tv_wonder_unique_bank_of_saint_george_inaugurated = {
 		custom_tooltip = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
+		}
+		this = location:genoa
+		OR = {
+		  is_capital = yes
+		  location_rank ?= location_rank:city
+		  location_rank ?= location_rank:megalopolis
 		}
 	}
 	can_destroy = {
@@ -16798,6 +17291,12 @@ tv_wonder_unique_cahokia_mounds_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:cahokia
+		OR = {
+			is_capital = yes
+			location_rank ?= location_rank:city
+			location_rank ?= location_rank:megalopolis
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -16869,6 +17368,12 @@ tv_wonder_unique_great_zimbabwe_inaugurated = {
 		custom_tooltip = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
+		}
+		this = location:great_zimbabwe
+		OR = {
+			is_port = yes
+			location_rank ?= location_rank:city
+			location_rank ?= location_rank:megalopolis
 		}
 	}
 	can_destroy = {
@@ -16943,6 +17448,11 @@ tv_wonder_unique_isfahan_square_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:isfahan
+		OR = {
+			location_rank ?= location_rank:city
+			location_rank ?= location_rank:megalopolis
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -17014,6 +17524,12 @@ tv_wonder_unique_grand_canal_inaugurated = {
 		custom_tooltip = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
+		}
+		this = location:shangyuan
+		OR = {
+			has_river = yes
+			is_adjacent_to_lake = yes
+			is_port = yes
 		}
 	}
 	can_destroy = {
@@ -17088,6 +17604,8 @@ tv_wonder_unique_inca_royal_road_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:picchu
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -17160,6 +17678,12 @@ tv_wonder_unique_roman_aqueducts_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:rome
+		OR = {
+			has_river = yes
+			is_adjacent_to_lake = yes
+		}
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -17230,6 +17754,12 @@ tv_wonder_unique_suez_ancient_canal_inaugurated = {
 		custom_tooltip = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
+		}
+		this = location:suez
+		OR = {
+			has_river = yes
+			is_adjacent_to_lake = yes
+			is_port = yes
 		}
 	}
 	can_destroy = {
@@ -17304,6 +17834,8 @@ tv_wonder_unique_kremlin_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:moscow
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -17377,6 +17909,12 @@ tv_wonder_unique_teotihuacan_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:tenochtitlan
+		OR = {
+			is_capital = yes
+			location_rank ?= location_rank:city
+			location_rank ?= location_rank:megalopolis
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -17449,6 +17987,12 @@ tv_wonder_unique_angkor_hydraulic_system_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:angkor
+		OR = {
+			has_river = yes
+			is_adjacent_to_lake = yes
+		}
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -17519,6 +18063,12 @@ tv_wonder_unique_dutch_polders_inaugurated = {
 		custom_tooltip = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
+		}
+		this = location:amsterdam
+		OR = {
+			has_river = yes
+			is_adjacent_to_lake = yes
+			is_port = yes
 		}
 	}
 	can_destroy = {
@@ -17592,6 +18142,12 @@ tv_wonder_unique_machu_picchu_terraces_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:picchu
+		OR = {
+			topography = mountains
+			topography = plateau
+			topography = hills
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -17664,6 +18220,8 @@ tv_wonder_unique_british_navy_dockyards_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:portsmouth
+		is_port = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -17737,6 +18295,8 @@ tv_wonder_unique_spanish_silver_fleet_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:sevilla
+		is_port = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -17810,6 +18370,8 @@ tv_wonder_unique_ottoman_hajj_road_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:mecca
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -17882,6 +18444,12 @@ tv_wonder_unique_persian_qanat_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:qom
+		OR = {
+			has_river = yes
+			is_adjacent_to_lake = yes
+		}
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -17953,6 +18521,8 @@ tv_wonder_unique_longjiang_shipyard_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:jiangyin
+		is_port = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -18026,6 +18596,12 @@ tv_wonder_unique_jerusalem_holy_city_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:jerusalem
+		OR = {
+			is_capital = yes
+			location_rank ?= location_rank:city
+			location_rank ?= location_rank:megalopolis
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -18098,6 +18674,8 @@ tv_wonder_unique_stonehenge_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:salisbury
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -18170,6 +18748,8 @@ tv_wonder_unique_tower_of_london_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:london
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -18243,6 +18823,8 @@ tv_wonder_unique_notre_dame_de_paris_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:paris
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -18314,6 +18896,8 @@ tv_wonder_unique_st_basils_cathedral_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:moscow
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -18385,6 +18969,8 @@ tv_wonder_unique_trinity_lavra_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:moscow
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -18458,6 +19044,11 @@ tv_wonder_unique_winter_palace_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:neva
+		OR = {
+			location_rank ?= location_rank:city
+			location_rank ?= location_rank:megalopolis
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -18529,6 +19120,11 @@ tv_wonder_unique_gyeongbokgung_inaugurated = {
 		custom_tooltip = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
+		}
+		this = location:namgyeong
+		OR = {
+			location_rank ?= location_rank:city
+			location_rank ?= location_rank:megalopolis
 		}
 	}
 	can_destroy = {
@@ -18602,6 +19198,12 @@ tv_wonder_unique_changbai_mountain_altar_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:girin_ula
+		OR = {
+			topography = mountains
+			topography = plateau
+			topography = hills
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -18674,6 +19276,8 @@ tv_wonder_unique_belgrade_fortress_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:belgrad
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -18747,6 +19351,8 @@ tv_wonder_unique_meteora_monasteries_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:trikala
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -18820,6 +19426,8 @@ tv_wonder_unique_belem_tower_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:lisbon
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -18893,6 +19501,8 @@ tv_wonder_unique_iberian_inquisition_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:toledo
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -18966,6 +19576,8 @@ tv_wonder_unique_santa_maria_del_fiore_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:florence
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -19037,6 +19649,8 @@ tv_wonder_unique_leaning_tower_of_pisa_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:pisa
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -19110,6 +19724,8 @@ tv_wonder_unique_milan_cathedral_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:milano
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -19181,6 +19797,8 @@ tv_wonder_unique_vatican_archives_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:rome
+		is_capital = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -19252,6 +19870,9 @@ tv_wonder_unique_temple_of_heaven_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:dadu
+		dominant_religion = owner.religion
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -19322,6 +19943,12 @@ tv_wonder_unique_dujiangyan_inaugurated = {
 		custom_tooltip = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
+		}
+		this = location:chengdu
+		OR = {
+			has_river = yes
+			is_adjacent_to_lake = yes
+			is_port = yes
 		}
 	}
 	can_destroy = {
@@ -19395,6 +20022,8 @@ tv_wonder_unique_porcelain_tower_of_nanjing_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:shangyuan
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -19467,6 +20096,8 @@ tv_wonder_unique_jingdezhen_imperial_kilns_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:fuliang
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -19537,6 +20168,12 @@ tv_wonder_unique_mogao_caves_inaugurated = {
 		custom_tooltip = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
+		}
+		this = location:shazhou
+		OR = {
+			topography = mountains
+			topography = plateau
+			topography = hills
 		}
 	}
 	can_destroy = {
@@ -19610,6 +20247,8 @@ tv_wonder_unique_canton_thirteen_factories_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:guangzhou
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -19683,6 +20322,8 @@ tv_wonder_unique_dardanelles_fortress_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:gallipoli
+		is_port = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -19755,6 +20396,8 @@ tv_wonder_unique_escorial_monastery_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:el_escorial
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -19828,6 +20471,8 @@ tv_wonder_unique_toledo_armory_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:toledo
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -19901,6 +20546,8 @@ tv_wonder_unique_camino_de_santiago_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:santiago_compostela
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -19973,6 +20620,8 @@ tv_wonder_unique_sagres_navigation_school_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:lagos
+		is_port = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -20044,6 +20693,8 @@ tv_wonder_unique_milan_arsenal_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:milano
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -20117,6 +20768,8 @@ tv_wonder_unique_university_of_bologna_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:bologna
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -20189,6 +20842,17 @@ tv_wonder_unique_carrara_marble_quarries_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:prato
+		OR = {
+			raw_material = goods:iron
+			raw_material = goods:copper
+			raw_material = goods:tin
+			raw_material = goods:lead
+			raw_material = goods:silver
+			raw_material = goods:goods_gold
+			raw_material = goods:marble
+			raw_material = goods:salt
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -20260,6 +20924,9 @@ tv_wonder_unique_east_india_company_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:bombay
+		is_port = yes
+		AND = { has_owner = yes NOT = { continent = owner.capital.continent } }
 	}
 	can_destroy = {
 		NOT = {
@@ -20334,6 +21001,8 @@ tv_wonder_unique_peacock_throne_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:delhi
+		is_capital = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -20406,6 +21075,9 @@ tv_wonder_unique_varanasi_ghats_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:varanasi
+		dominant_religion = owner.religion
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -20477,6 +21149,8 @@ tv_wonder_unique_brihadishvara_temple_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:thanjavur
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -20549,6 +21223,8 @@ tv_wonder_unique_konark_sun_temple_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:puri
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -20619,6 +21295,11 @@ tv_wonder_unique_fatehpur_sikri_inaugurated = {
 		custom_tooltip = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
+		}
+		this = location:agra
+		OR = {
+			is_capital = yes
+			NOT = { location_rank ?= location_rank:rural_settlement }
 		}
 	}
 	can_destroy = {
@@ -20692,6 +21373,8 @@ tv_wonder_unique_calicut_port_city_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:kozhikode
+		is_port = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -20764,6 +21447,17 @@ tv_wonder_unique_wieliczka_salt_mine_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:wieliczka
+		OR = {
+			raw_material = goods:iron
+			raw_material = goods:copper
+			raw_material = goods:tin
+			raw_material = goods:lead
+			raw_material = goods:silver
+			raw_material = goods:goods_gold
+			raw_material = goods:marble
+			raw_material = goods:salt
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -20835,6 +21529,8 @@ tv_wonder_unique_wawel_castle_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:krakow
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -20908,6 +21604,11 @@ tv_wonder_unique_zamosc_ideal_city_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:krasnystaw
+		OR = {
+			location_rank ?= location_rank:city
+			location_rank ?= location_rank:megalopolis
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -20979,6 +21680,8 @@ tv_wonder_unique_gdansk_port_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:gdansk
+		is_port = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -21051,6 +21754,8 @@ tv_wonder_unique_malbork_castle_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:malbork
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -21124,6 +21829,11 @@ tv_wonder_unique_brest_synagogue_quarter_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:brest_litowsk
+		OR = {
+			is_capital = yes
+			NOT = { location_rank ?= location_rank:rural_settlement }
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -21196,6 +21906,8 @@ tv_wonder_unique_vilnius_university_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:vilnius
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -21268,6 +21980,8 @@ tv_wonder_unique_cave_monastery_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:kyiv
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -21341,6 +22055,8 @@ tv_wonder_unique_zaporizhian_sich_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:kremenchuk
+		location_rank ?= location_rank:rural_settlement
 	}
 	can_destroy = {
 		NOT = {
@@ -21413,6 +22129,11 @@ tv_wonder_unique_registan_square_inaugurated = {
 		custom_tooltip = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
+		}
+		this = location:samarkand
+		OR = {
+			location_rank ?= location_rank:city
+			location_rank ?= location_rank:megalopolis
 		}
 	}
 	can_destroy = {
@@ -21487,6 +22208,8 @@ tv_wonder_unique_khiva_old_city_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:khiva
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -21559,6 +22282,8 @@ tv_wonder_unique_bukhara_kalyan_minaret_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:bukhara
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -21631,6 +22356,8 @@ tv_wonder_unique_ferghana_palace_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:kokand
+		is_capital = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -21702,6 +22429,12 @@ tv_wonder_unique_tashkent_old_bazaar_inaugurated = {
 		custom_tooltip = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
+		}
+		this = location:chach
+		OR = {
+			is_port = yes
+			location_rank ?= location_rank:city
+			location_rank ?= location_rank:megalopolis
 		}
 	}
 	can_destroy = {
@@ -21776,6 +22509,8 @@ tv_wonder_unique_louvre_palace_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:paris
+		is_capital = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -21848,6 +22583,8 @@ tv_wonder_unique_fontainebleau_palace_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:melun
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -21920,6 +22657,8 @@ tv_wonder_unique_bordeaux_port_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:bordeaux
+		is_port = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -21992,6 +22731,8 @@ tv_wonder_unique_marseille_old_port_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:marseille
+		is_port = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -22064,6 +22805,8 @@ tv_wonder_unique_lyon_silk_workshops_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:lyon
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -22134,6 +22877,12 @@ tv_wonder_unique_mont_saint_michel_inaugurated = {
 		custom_tooltip = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
+		}
+		this = location:vire
+		OR = {
+			topography = mountains
+			topography = plateau
+			topography = hills
 		}
 	}
 	can_destroy = {
@@ -22207,6 +22956,8 @@ tv_wonder_unique_bastille_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:paris
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -22280,6 +23031,8 @@ tv_wonder_unique_carcassonne_castle_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:carcassonne
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -22353,6 +23106,8 @@ tv_wonder_unique_brest_naval_port_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:brest
+		is_port = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -22426,6 +23181,8 @@ tv_wonder_unique_colmar_old_town_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:colmar
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -22498,6 +23255,8 @@ tv_wonder_unique_house_of_wisdom_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:baghdad
+		is_capital = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -22569,6 +23328,8 @@ tv_wonder_unique_echmiadzin_cathedral_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:armavir
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -22640,6 +23401,8 @@ tv_wonder_unique_narikala_fortress_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:tbilisi
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -22713,6 +23476,8 @@ tv_wonder_unique_baku_ateshgah_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:baku
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -22784,6 +23549,12 @@ tv_wonder_unique_sanaa_old_city_inaugurated = {
 		custom_tooltip = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
+		}
+		this = location:sana_yemen
+		OR = {
+			is_port = yes
+			location_rank ?= location_rank:city
+			location_rank ?= location_rank:megalopolis
 		}
 	}
 	can_destroy = {
@@ -22858,6 +23629,8 @@ tv_wonder_unique_schoenbrunn_palace_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:vienna
+		is_capital = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -22929,6 +23702,11 @@ tv_wonder_unique_electoral_conference_hall_inaugurated = {
 		custom_tooltip = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
+		}
+		this = location:frankfurt
+		OR = {
+			is_capital = yes
+			NOT = { location_rank ?= location_rank:rural_settlement }
 		}
 	}
 	can_destroy = {
@@ -23002,6 +23780,8 @@ tv_wonder_unique_aachen_cathedral_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:aachen
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -23073,6 +23853,8 @@ tv_wonder_unique_nuremberg_imperial_castle_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:nuremberg
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -23145,6 +23927,12 @@ tv_wonder_unique_augsburg_bank_inaugurated = {
 		custom_tooltip = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
+		}
+		this = location:augsburg
+		OR = {
+		  is_capital = yes
+		  location_rank ?= location_rank:city
+		  location_rank ?= location_rank:megalopolis
 		}
 	}
 	can_destroy = {
@@ -23221,6 +24009,8 @@ tv_wonder_unique_cologne_cathedral_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:cologne
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -23292,6 +24082,8 @@ tv_wonder_unique_hanseatic_kontor_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:hamburg
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -23365,6 +24157,11 @@ tv_wonder_unique_hanseatic_town_hall_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:lubeck
+		OR = {
+			is_capital = yes
+			NOT = { location_rank ?= location_rank:rural_settlement }
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -23436,6 +24233,11 @@ tv_wonder_unique_dresden_art_gallery_inaugurated = {
 		custom_tooltip = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
+		}
+		this = location:dresden
+		OR = {
+			location_rank ?= location_rank:city
+			location_rank ?= location_rank:megalopolis
 		}
 	}
 	can_destroy = {
@@ -23510,6 +24312,8 @@ tv_wonder_unique_munich_royal_brewery_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:munich
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -23581,6 +24385,8 @@ tv_wonder_unique_heidelberg_university_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:heidelberg
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -23653,6 +24459,8 @@ tv_wonder_unique_fez_old_city_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:fez
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -23725,6 +24533,9 @@ tv_wonder_unique_kairouan_holy_city_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:kairouan
+		dominant_religion = owner.religion
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -23796,6 +24607,8 @@ tv_wonder_unique_algiers_pirate_port_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:algiers
+		is_port = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -23873,6 +24686,8 @@ tv_wonder_unique_sankore_university_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:timbuktu
+		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
 	can_destroy = {
 		NOT = {
@@ -23945,6 +24760,8 @@ tv_wonder_unique_great_mosque_of_djenne_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:djenne
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
@@ -24017,6 +24834,8 @@ tv_wonder_unique_walls_of_benin_inaugurated = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
+		this = location:benin
+		always = yes
 	}
 	can_destroy = {
 		NOT = {
