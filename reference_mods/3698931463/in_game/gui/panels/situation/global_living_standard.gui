@@ -1,13 +1,14 @@
 situation_panel = {
-	# Re-run this each time the panel is shown; trigger_on_create only runs once.
+	# The situation-specific panel widget is created on open and destroyed on exit.
+	# A widget-owned mapmode override is automatically removed with the widget.
 	widget = {
 		name = "sol_living_standard_mapmode_autoselect"
 		size = { 0 0 }
-		visible = "[And(CanChangeMapMode, LateralView.IsShown)]"
 
 		state = {
-			name = _show
-			on_start = "[GetMapMode('sol_living_standard').SetMapMode]"
+			name = sol_living_standard_mapmode_override
+			trigger_on_create = yes
+			on_start = "[PdxGuiWidget.PushMapModeOverride('sol_living_standard')]"
 		}
 	}
 
@@ -148,16 +149,6 @@ situation_panel = {
 							layoutpolicy_horizontal = expanding
 							text_single = { size = { 230 20 } autoresize = no text = "SOL_GUI_ROW_BASE_SPENDING" }
 							text_single = { size = { 240 20 } autoresize = no align = hcenter raw_text = "[Player.MakeScope.ScriptValue('gls_country_base_spending_display')|+2]" }
-						}
-						hbox = {
-							layoutpolicy_horizontal = expanding
-							text_single = { size = { 230 20 } autoresize = no text = "SOL_GUI_ROW_DEVELOPMENT_DIVISOR" }
-							text_single = { size = { 240 20 } autoresize = no align = hcenter raw_text = "[Player.MakeScope.ScriptValue('gls_country_development_avg_divisor_display')|2]" }
-						}
-						hbox = {
-							layoutpolicy_horizontal = expanding
-							text_single = { size = { 230 20 } autoresize = no text = "SOL_GUI_ROW_ADJUSTED_BASE_SPENDING" }
-							text_single = { size = { 240 20 } autoresize = no align = hcenter raw_text = "[Player.MakeScope.ScriptValue('gls_country_development_adjusted_base_spending_display')|+2]" }
 						}
 						hbox = {
 							layoutpolicy_horizontal = expanding
