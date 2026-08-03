@@ -2673,11 +2673,12 @@ def validate_codegen_graph_entry(
     node_graph = entry.get("node_graph") or {}
     if not isinstance(node_graph, dict):
         return [_issue(entry, "node_graph must be a mapping")]
+    loc = localization if localization is not None else loc_english()
     return _validate_codegen_node_graph(
         entry,
         node_graph,
         set(event_ids_in_entry(entry)),
-        loc_key_inventory(localization),
+        loc_key_inventory(loc),
         template_registry,
         capability_registry,
         archetype_registry,
@@ -2693,7 +2694,8 @@ def validate_codegen_ui_bindings(
     errors: list[str] = []
     node_graph = entry.get("node_graph") or {}
     ui_model = entry.get("ui_model") or {}
-    loc_keys = loc_key_inventory(localization)
+    loc = localization if localization is not None else loc_english()
+    loc_keys = loc_key_inventory(loc)
     node_keys = {
         str(node.get("key"))
         for node in node_graph.get("nodes", []) or []
@@ -2880,6 +2882,10 @@ def graph_validation_errors_for_payload(
     archetype_registry: dict[str, Any] | None = None,
 ) -> list[str]:
     errors: list[str] = []
+    loc = localization if localization is not None else loc_english()
+    template_registry = template_registry if template_registry is not None else load_template_registry()
+    capability_registry = capability_registry if capability_registry is not None else load_capability_registry()
+    archetype_registry = archetype_registry if archetype_registry is not None else load_archetype_registry()
     for entry in payload.get("unique_wonders", []) or []:
         if not isinstance(entry, dict):
             continue
@@ -2888,14 +2894,14 @@ def graph_validation_errors_for_payload(
             errors.extend(
                 validate_codegen_graph_entry(
                     entry,
-                    localization=localization,
+                    localization=loc,
                     template_registry=template_registry,
                     capability_registry=capability_registry,
                     archetype_registry=archetype_registry,
                     require_generation=status in CODEGEN_ELIGIBLE_STATUSES,
                 )
             )
-            errors.extend(validate_codegen_ui_bindings(entry, localization=localization))
+            errors.extend(validate_codegen_ui_bindings(entry, localization=loc))
     return errors
 
 
@@ -3240,17 +3246,12 @@ def validate_spec_payload(
     archetype_registry: dict[str, Any] | None = None,
 ) -> list[str]:
     errors: list[str] = []
-    errors.extend(validate_template_registry(template_registry) if template_registry is not None else validate_template_registry())
-    errors.extend(
-        validate_capability_registry(capability_registry)
-        if capability_registry is not None
-        else validate_capability_registry()
-    )
-    errors.extend(
-        validate_archetype_registry(archetype_registry, capability_registry=capability_registry)
-        if archetype_registry is not None
-        else validate_archetype_registry(capability_registry=capability_registry)
-    )
+    template_registry = template_registry if template_registry is not None else load_template_registry()
+    capability_registry = capability_registry if capability_registry is not None else load_capability_registry()
+    archetype_registry = archetype_registry if archetype_registry is not None else load_archetype_registry()
+    errors.extend(validate_template_registry(template_registry))
+    errors.extend(validate_capability_registry(capability_registry))
+    errors.extend(validate_archetype_registry(archetype_registry, capability_registry=capability_registry))
     wonders = wonders if wonders is not None else load_unique_wonders()
     wonder_by_key = wonder_index(wonders)
     entries = payload.get("unique_wonders", []) or []
@@ -3260,7 +3261,7 @@ def validate_spec_payload(
     seen_keys: set[str] = set()
     seen_event_ids: dict[int, str] = {}
     loc = localization if localization is not None else loc_english()
-    loc_keys = loc_key_inventory(localization)
+    loc_keys = loc_key_inventory(loc)
 
     for entry in entries:
         if not isinstance(entry, dict):
@@ -3381,7 +3382,7 @@ def validate_spec_payload(
                     require_generation=status in CODEGEN_ELIGIBLE_STATUSES,
                 )
             )
-            errors.extend(validate_codegen_ui_bindings(entry, localization=localization))
+            errors.extend(validate_codegen_ui_bindings(entry, localization=loc))
         else:
             for node in nodes:
                 if not isinstance(node, dict) or "event_id" not in node:

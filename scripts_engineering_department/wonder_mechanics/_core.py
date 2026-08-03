@@ -291,7 +291,10 @@ class WonderYamlDumper(yaml.SafeDumper):
     pass
 
 
-class StrictWonderYamlLoader(yaml.SafeLoader):
+_StrictWonderYamlBaseLoader = getattr(yaml, "CSafeLoader", yaml.SafeLoader)
+
+
+class StrictWonderYamlLoader(_StrictWonderYamlBaseLoader):
     pass
 
 
@@ -1319,6 +1322,14 @@ def finalization_visible_effect_name(wonder: dict) -> str:
 
 def final_building_destroyed_effect_name(wonder: dict) -> str:
     return f"tv_wonder_{wonder['key']}_handle_final_building_destroyed_effect"
+
+
+def final_building_destruction_cmf_log_action_name() -> str:
+    return "tv_engineering_department_cmf_log_destroyed"
+
+
+def final_building_destruction_cmf_log_arg2_name() -> str:
+    return "tv_engineering_department_cmf_log_final_wonder_building"
 
 
 def construct_final_building_effect_name(wonder: dict, style: int) -> str:
