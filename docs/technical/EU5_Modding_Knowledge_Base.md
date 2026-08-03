@@ -1613,6 +1613,22 @@ registration blocks are otherwise correct. In Engineering Department, `tv_ed`
 is the CMM namespace, while gameplay-facing aliases stay under
 `tv_engineering_department_*`.
 
+CMF's Mod Action Log is the shared in-game audit trail for mod actions, especially
+host/global tools in multiplayer. Do not build a TV-owned parallel log. Call
+CMF's helper effects from country scope, because the current country is recorded
+as the actor. Use `cmf_log = { action = tv_key }` for action-only text, and
+`cmf_log_with_args = { action = tv_key arg1 = tv_arg1 arg2 = tv_arg2 }` when
+both arguments are localization keys. The rendered text is `[arg1] [action]
+[arg2]`. For country arguments, save scopes as `cmf_log_arg1` and
+`cmf_log_arg2`, then call `cmf_log_with_scope_args = { action = tv_key }`; for
+a single country argument, save only `cmf_log_arg2` and call
+`cmf_log_with_scope_arg = { action = tv_key }`. Define every TV action key and
+custom flag argument in both supported localization languages. `cmf_clear_log =
+yes` exists, but CMF's own clear button is hidden in multiplayer, so TV code
+must not expose a separate multiplayer clear route. Reference implementation:
+`reference_mods/3692202776/in_game/common/scripted_effects/cmf_log_effects.txt`
+and `reference_mods/3692202776/in_game/gui/cmm/panes/cmm_log_pane.gui`.
+
 GUI `raw_text` does not expand `$LOCALIZATION_KEY$` substitutions. A value such as `raw_text = "@trade! $TV_TRADE_LEAGUE_IO_COLUMN$"` renders the `$TV_TRADE_LEAGUE_IO_COLUMN$` text literally. For static localized labels with icons, use `text = "TV_TRADE_LEAGUE_IO_COLUMN"` and put `@trade! ...` inside the localization value. For dynamic values that must use `raw_text`, split the localized label into a separate `text` widget if needed.
 
 GUI image `fittype` values are EU5-specific, not CSS object-fit names. Vanilla examples use values such as `centercrop`, `fill`, `start`, and `end`; `fittype = contain` logs `Unknown fit type 'contain'` during GUI loading.

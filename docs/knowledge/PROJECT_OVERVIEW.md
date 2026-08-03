@@ -77,6 +77,11 @@ skips are captured when a project enters the affected phase, reuse the canonical
 completion/finalization effects, and clear their project variables through the normal
 lifecycle cleanup; absent CMM aliases retain the original 100k/200k/300k requirements
 and default lifecycle behavior.
+CMF's Mod Action Log is the canonical shared audit trail for multiplayer-facing
+host/global tools. TV roots should call CMF's built-in `cmf_log*` effects from
+actor country scope, localize all `tv_*` action/argument keys in EN/ZH, and leave
+storage, formatting, the clear button, and CMF's 200-entry cap to CMF instead of
+creating a TV-owned parallel log.
 There is no accepted standalone cosmetic gap. `scripts/validate.py`, `scripts/ai_context.py`, and
 `scripts/gen_index.py` all now iterate every deployable mod root. The new mod ships 3
 bootstrap behaviors, registered via `data/pulse_registry.yaml` and

@@ -81,6 +81,11 @@ skips are captured when a project enters the affected phase, reuse the canonical
 completion/finalization effects, and clear their project variables through the normal
 lifecycle cleanup; absent CMM aliases retain the original 100k/200k/300k requirements
 and default lifecycle behavior.
+CMF's Mod Action Log is the canonical shared audit trail for multiplayer-facing
+host/global tools. TV roots should call CMF's built-in `cmf_log*` effects from
+actor country scope, localize all `tv_*` action/argument keys in EN/ZH, and leave
+storage, formatting, the clear button, and CMF's 200-entry cap to CMF instead of
+creating a TV-owned parallel log.
 There is no accepted standalone cosmetic gap. `scripts/validate.py`, `scripts/ai_context.py`, and
 `scripts/gen_index.py` all now iterate every deployable mod root. The new mod ships 3
 bootstrap behaviors, registered via `data/pulse_registry.yaml` and
@@ -1039,7 +1044,7 @@ Correction (2026-07-13, same-day follow-up): the `has_flag` reference itself was
 | --- | --- | --- | --- |
 | GUI Icons (`@xxx!`) | 364 | `data/index/icons.txt` | Use `@name!` in raw_text/text fields and YAML values |
 | Scripted Triggers | 3851 | `data/index/scripted_triggers.txt` | Verify name before using in `trigger = { ... }` |
-| Scripted Effects | 4450 | `data/index/scripted_effects.txt` | Verify name before using in `effect = { ... }` |
+| Scripted Effects | 4452 | `data/index/scripted_effects.txt` | Verify name before using in `effect = { ... }` |
 | Static Modifiers | 2438 | `data/index/static_modifiers.txt` | Modifier name whitelist; validate.py checks these |
 | English Loc Keys | 43986 | `data/index/loc_keys_en.txt` | All defined EN keys; cross-check before adding duplicates |
 

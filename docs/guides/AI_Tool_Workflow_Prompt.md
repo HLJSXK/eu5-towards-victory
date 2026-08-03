@@ -121,6 +121,11 @@ Do NOT resolve ambiguity by picking the "most reasonable" interpretation and pro
   Court Positions situation with six ability-scaled offices, and pays each holder monthly
   from the native Economic Base formula. Shared singleton copies (`character_title.txt` and
   `messagetypes.txt`) must remain byte-identical across all three mod roots.
+- CMF Mod Action Log -> use CMF's built-in `cmf_log*` effects as the project
+  audit trail for host/global tools. Calls must run from actor country scope;
+  country arguments must be saved as `cmf_log_arg1`/`cmf_log_arg2`; action and
+  custom argument flags need EN/ZH localization keys. Do not create a parallel
+  TV log or a multiplayer clear-log bypass.
 
 ## AI Context Bootstrap
 
