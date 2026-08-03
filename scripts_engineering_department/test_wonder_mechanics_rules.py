@@ -1480,14 +1480,17 @@ def main() -> None:
     require(
         {
             "can_hire_privateers",
-            "hire_privateer_cost_modifier",
             "privateer_maintenance_cost_modifier",
             "privateer_durability",
             "monthly_towards_individualism",
         }.issubset(pirate_base),
-        "Pirate Port privateer country effects should live in base_modifiers as a medium wonder.",
+        "Pirate Port passive privateer country effects should live in base_modifiers as a medium wonder.",
     )
     pirate_ritual = mechanics["generic_rituals"]["pirate_port"]["style_1"]["country_modifier"]
+    require(
+        "hire_privateer_cost_modifier" in pirate_ritual,
+        "Pirate Port hire_privateer_cost_modifier should remain in style 1 ritual country_modifier.",
+    )
     require(
         {"can_hire_privateers", "privateer_durability"}.isdisjoint(pirate_ritual),
         "Pirate Port style 1 ritual should not duplicate base privateer enabling or durability.",
