@@ -17,6 +17,7 @@ from ._core import (
     final_building_completion_sync_hidden_event_execute_effect_name,
     final_building_completion_sync_hidden_event_id,
     final_building_completion_sync_hidden_event_trigger_effect_name,
+    final_building_destruction_sync_hidden_event_id,
     finalization_event_id,
     finalization_hidden_effect_name,
     finalization_hidden_event_execute_effect_name,

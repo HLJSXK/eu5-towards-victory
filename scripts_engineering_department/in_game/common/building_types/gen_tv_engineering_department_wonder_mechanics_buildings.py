@@ -15,8 +15,8 @@ from wonder_mechanics.modifiers import (
     wonder_base_country_modifiers,
 )
 from wonder_mechanics.naming import (
-    final_building_destroyed_effect_name,
     final_building_completion_sync_hidden_event_trigger_effect_name,
+    final_building_destruction_sync_hidden_event_id,
     final_building_for_style,
     mechanic_key,
 )
@@ -254,10 +254,15 @@ def final_building_can_destroy_lines(wonder: dict) -> list[str]:
 
 
 def final_building_on_destroyed_lines(wonder: dict) -> list[str]:
+    # Destruction hooks can still see the pre-destruction building level, so the
+    # real location/owner sync runs on the next day.
     return [
         f"{T}{T}hidden_effect = {{",
         f"{T}{T}{T}location = {{",
-        f"{T}{T}{T}{T}{final_building_destroyed_effect_name(wonder)} = yes",
+        (
+            f"{T}{T}{T}{T}trigger_event_silently = {{ "
+            f"id = tv_engineering_department.{final_building_destruction_sync_hidden_event_id(wonder)} days = 1 }}"
+        ),
         f"{T}{T}{T}}}",
         f"{T}{T}}}",
     ]

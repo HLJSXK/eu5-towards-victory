@@ -160,6 +160,7 @@ from wonder_mechanics.naming import (
     final_building_completion_sync_hidden_event_id,
     final_building_completion_sync_hidden_event_trigger_effect_name,
     final_building_destroyed_effect_name,
+    final_building_destruction_sync_hidden_event_id,
     final_building_for_style,
     persistent_ritual_country_modifier_name,
 )
@@ -626,6 +627,7 @@ def validate_final_building_destruction_sync(wonders: list[dict], mechanics: dic
     building_generator = load_building_generator()
     building_script = building_generator.generate()
     destruction_effects = load_effect_generator().generate_location_display_effects()
+    destruction_events = load_finalization_event_generator().generate()
     expected_final_building_count = sum(len(ceremony_styles(wonder)) for wonder in wonders)
     require(
         building_script.count("\ton_destroyed = {") == expected_final_building_count,
@@ -660,6 +662,22 @@ def validate_final_building_destruction_sync(wonders: list[dict], mechanics: dic
             f"var:tv_wonder_locked ?= {wonder_id}" in destroy_gate
             and "var:tv_wonder_site ?= { this = root }" in destroy_gate,
             f"{wonder_key} destruction lock must match both the active wonder and its selected site.",
+        )
+
+        destroyed_event_id = final_building_destruction_sync_hidden_event_id(wonder)
+        destroyed_callback = "\n".join(
+            [
+                "\ton_destroyed = {",
+                *building_generator.final_building_on_destroyed_lines(wonder),
+                "\t}",
+            ]
+        )
+        expected_trigger = (
+            f"trigger_event_silently = {{ id = tv_engineering_department.{destroyed_event_id} days = 1 }}"
+        )
+        require(
+            expected_trigger in destroyed_callback,
+            f"{wonder_key} destruction callback must defer cleanup to the next day.",
         )
 
         effect_name = final_building_destroyed_effect_name(wonder)
@@ -700,6 +718,17 @@ def validate_final_building_destruction_sync(wonders: list[dict], mechanics: dic
                 in handler,
                 f"Fully demolishing unique wonder {wonder_key} must clear its ritual completion key.",
             )
+
+        event_block = extract_trigger_block(destruction_events, f"tv_engineering_department.{destroyed_event_id}")
+        for expected in (
+            "type = location_event",
+            "outcome = neutral",
+            "title = empty_text",
+            "desc = empty_text",
+            "hidden = yes",
+            f"{effect_name} = yes",
+        ):
+            require(expected in event_block, f"{wonder_key} deferred destruction sync event is missing: {expected}")
 
 
 def validate_final_building_completion_sync_is_deferred(wonders: list[dict], mechanics: dict) -> None:

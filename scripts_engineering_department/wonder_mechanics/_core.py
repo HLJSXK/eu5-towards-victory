@@ -1301,6 +1301,10 @@ def final_building_completion_sync_hidden_event_id() -> int:
     return 6998
 
 
+def final_building_destruction_sync_hidden_event_id(wonder: dict) -> int:
+    return 9400 + int(wonder["id"])
+
+
 def ownership_gain_event_id(wonder: dict) -> int:
     return 8000 + int(wonder["id"])
 

@@ -15,6 +15,8 @@ from wonder_mechanics.naming import (
     final_building_completion_sync_hidden_event_execute_effect_name,
     final_building_completion_sync_hidden_event_id,
     construct_final_building_effect_name,
+    final_building_destroyed_effect_name,
+    final_building_destruction_sync_hidden_event_id,
     finalization_event_id,
     finalization_hidden_event_execute_effect_name,
     finalization_hidden_event_id,
@@ -193,6 +195,21 @@ def append_hidden_final_building_completion_sync_event(lines: list[str]) -> None
     lines.append("")
 
 
+def append_hidden_final_building_destruction_sync_event(lines: list[str], wonder: dict) -> None:
+    lines.append(f"tv_engineering_department.{final_building_destruction_sync_hidden_event_id(wonder)} = {{")
+    lines.append(f"{T}type = location_event")
+    lines.append(f"{T}outcome = neutral")
+    lines.append(f"{T}title = empty_text")
+    lines.append(f"{T}desc = empty_text")
+    lines.append(f"{T}hidden = yes")
+    lines.append("")
+    lines.append(f"{T}immediate = {{")
+    lines.append(f"{T}{T}{final_building_destroyed_effect_name(wonder)} = yes")
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+
 def generate() -> str:
     wonders, _mechanics = load_all_wonder_mechanics()
     loc_keys = known_loc_keys()
@@ -203,6 +220,8 @@ def generate() -> str:
         append_event(lines, wonder, loc_keys)
     append_hidden_finalization_event(lines)
     append_hidden_final_building_completion_sync_event(lines)
+    for wonder in wonders:
+        append_hidden_final_building_destruction_sync_event(lines, wonder)
     for wonder in wonders:
         append_world_news_event(lines, wonder, loc_keys)
     return "\n".join(lines).rstrip() + "\n"
