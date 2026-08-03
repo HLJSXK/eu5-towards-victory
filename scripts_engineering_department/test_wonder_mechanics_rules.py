@@ -488,9 +488,13 @@ def validate_cmm_wonder_controls(wonders: list[dict], mechanics: dict) -> None:
     initializer = extract_trigger_block(effects, "tv_wonder_initialize_ceremony_runtime_state_effect")
     require("tv_wonder_mechanics_force_complete_active_ritual_effect = yes" in initializer, "Skipped unique ceremonies must force-complete on entry.")
 
-    generated_buildings = load_building_generator().generate()
+    building_generator = load_building_generator()
+    generated_buildings = building_generator.generate()
     expected_final_buildings = {
-        final_building_for_style(wonder, style): wonder["size"]
+        final_building_for_style(wonder, style): (
+            wonder["size"],
+            building_generator.build_profile(wonder)[1],
+        )
         for wonder in wonders
         for style in ceremony_styles(wonder)
     }
@@ -500,7 +504,7 @@ def validate_cmm_wonder_controls(wonders: list[dict], mechanics: dict) -> None:
         == expected_final_building_count,
         "Direct construction must be present on every and only final wonder building.",
     )
-    for building_name, size in expected_final_buildings.items():
+    for building_name, (size, construction_demand) in expected_final_buildings.items():
         block = extract_trigger_block(generated_buildings, building_name)
         require(
             "country_potential = { has_global_variable = tv_engineering_department_direct_build }" in block,
@@ -513,6 +517,14 @@ def validate_cmm_wonder_controls(wonders: list[dict], mechanics: dict) -> None:
         require(
             "build_time = huge_unique_build_time" in block,
             f"Final wonder building {building_name} must use the long direct-build construction time.",
+        )
+        require(
+            f"construction_demand = {construction_demand}" in block,
+            f"Final wonder building {building_name} must keep the vanilla construction demand.",
+        )
+        require(
+            f"audio_tier = {6 if size == 'large' else 5}" in block,
+            f"Final wonder building {building_name} must keep a vanilla-style audio tier.",
         )
     for wonder in wonders:
         if any(ritual_plan_for_style(wonder, mechanics, style)["mode"] == "auxiliary_building" for style in ceremony_styles(wonder)):

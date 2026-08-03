@@ -97,51 +97,60 @@ def building_block(
     build_time: str = "large_cultural_building_time",
     construction_demand: str | None = None,
     price: str | None = None,
+    audio_tier: int | None = None,
     on_built_lines: list[str] | None = None,
     on_destroyed_lines: list[str] | None = None,
     on_construction_ended_lines: list[str] | None = None,
     can_destroy: str = "no",
     can_destroy_lines: list[str] | None = None,
     direct_build: bool = False,
+    special: bool = True,
 ) -> list[str]:
     attrs = attributes or {}
     normal_modifier, raw_modifier = split_modifiers(modifiers)
     lines = [
         f"{name} = {{",
-        f"{T}is_special = yes",
-        f"{T}is_foreign = no",
-        f"{T}pop_type = {attrs.get('pop_type', wonder['pop_type'])}",
-        f"{T}max_levels = {max_levels}",
-        f"{T}employment_size = 0.1",
-        f"{T}category = {attrs.get('category', wonder['category'])}",
-        "",
-        f"{T}town = {fmt_yes_no(attrs.get('town', 'yes'))}",
-        f"{T}city = {fmt_yes_no(attrs.get('city', 'yes'))}",
-        f"{T}megalopolis = {fmt_yes_no(attrs.get('megalopolis', 'yes'))}",
-        f"{T}rural_settlement = {fmt_yes_no(attrs.get('rural_settlement', 'yes'))}",
-        "",
-        f"{T}important_for_AI = no",
-        f"{T}automation_build_allowed = no",
-        (
-            f"{T}country_potential = {{ has_global_variable = tv_engineering_department_direct_build }}"
-            if direct_build
-            else f"{T}country_potential = {{ always = no }}"
-        ),
-        f"{T}allow = {{",
-        f"{T}{T}custom_tooltip = {{",
-        (
-            f"{T}{T}{T}text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT"
-            if direct_build
-            else f"{T}{T}{T}text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT"
-        ),
-        (
-            f"{T}{T}{T}has_global_variable = tv_engineering_department_direct_build"
-            if direct_build
-            else f"{T}{T}{T}always = no"
-        ),
-        f"{T}{T}}}",
-        f"{T}}}",
     ]
+    if special:
+        lines.append(f"{T}is_special = yes")
+    if audio_tier is not None:
+        lines.append(f"{T}audio_tier = {audio_tier}")
+    lines.extend(
+        [
+            f"{T}is_foreign = no",
+            f"{T}pop_type = {attrs.get('pop_type', wonder['pop_type'])}",
+            f"{T}max_levels = {max_levels}",
+            f"{T}employment_size = 0.1",
+            f"{T}category = {attrs.get('category', wonder['category'])}",
+            "",
+            f"{T}town = {fmt_yes_no(attrs.get('town', 'yes'))}",
+            f"{T}city = {fmt_yes_no(attrs.get('city', 'yes'))}",
+            f"{T}megalopolis = {fmt_yes_no(attrs.get('megalopolis', 'yes'))}",
+            f"{T}rural_settlement = {fmt_yes_no(attrs.get('rural_settlement', 'yes'))}",
+            "",
+            f"{T}important_for_AI = no",
+            f"{T}automation_build_allowed = no",
+            (
+                f"{T}country_potential = {{ has_global_variable = tv_engineering_department_direct_build }}"
+                if direct_build
+                else f"{T}country_potential = {{ always = no }}"
+            ),
+            f"{T}allow = {{",
+            f"{T}{T}custom_tooltip = {{",
+            (
+                f"{T}{T}{T}text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT"
+                if direct_build
+                else f"{T}{T}{T}text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT"
+            ),
+            (
+                f"{T}{T}{T}has_global_variable = tv_engineering_department_direct_build"
+                if direct_build
+                else f"{T}{T}{T}always = no"
+            ),
+            f"{T}{T}}}",
+            f"{T}}}",
+        ]
+    )
     if can_destroy_lines:
         lines.append(f"{T}can_destroy = {{")
         lines.extend(can_destroy_lines)
@@ -263,6 +272,7 @@ def generate() -> str:
         building_design = mechanics["buildings"][mechanic_key(wonder)]
         authored_local_modifiers = authored_final_building_local_modifiers(wonder, mechanics)
         base_country_modifiers = wonder_base_country_modifiers(wonder, mechanics)
+        _, direct_construction_demand, _ = build_profile(wonder)
         for style in ceremony_styles(wonder):
             building = final_building_for_style(wonder, style)
             modifiers = merge_modifiers(
@@ -281,6 +291,8 @@ def generate() -> str:
                     on_built_lines=final_building_on_built_lines(),
                     on_destroyed_lines=final_building_on_destroyed_lines(wonder),
                     can_destroy_lines=final_building_can_destroy_lines(wonder),
+                    construction_demand=direct_construction_demand,
+                    audio_tier=6 if wonder["size"] == "large" else 5,
                     build_time="huge_unique_build_time",
                     price=f"tv_wonder_direct_build_{wonder['size']}_price",
                     direct_build=True,
