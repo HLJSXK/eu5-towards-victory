@@ -5144,8 +5144,7 @@ tv_wonder_ceremony_grant_stage_2_reward_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 122 }
-		add_gold = 8000
-		add_inflation = -0.05
+		add_inflation = -1
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 123 }
@@ -5502,8 +5501,7 @@ tv_wonder_ceremony_grant_stage_2_reward_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 211 }
-		add_gold = 8000
-		add_inflation = -0.05
+		add_inflation = -1
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 212 }

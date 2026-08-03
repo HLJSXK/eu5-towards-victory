@@ -55,8 +55,8 @@ base_modifiers:
     ship_build_speed: 0.2
     monthly_towards_naval: 0.05
   national_bank:
-    tax_income_efficiency: 0.02
-    merchant_maintenance_efficiency: 0.03
+    tax_income_efficiency: 0.05
+    merchant_maintenance_efficiency: 0.05
     monthly_towards_capital_economy: 0.05
   star_fortress_city:
     monthly_towards_defensive: 0.05
@@ -107,7 +107,8 @@ base_modifiers:
     monthly_rebel_growth: -0.0005
     monthly_towards_inward: 0.05
   world_market:
-    global_trade_center_power: 0.1
+    global_trade_center_power: 0.05
+    burghers_estate_target_satisfaction: 0.025
     monthly_towards_free_trade: 0.05
   royal_mint_system:
     minting_income_factor: 0.1
@@ -145,8 +146,7 @@ base_modifiers:
     monthly_towards_quality: 0.05
   pirate_port:
     can_hire_privateers: true
-    hire_privateer_cost_modifier: -0.05
-    privateer_maintenance_cost_modifier: -0.03
+    privateer_maintenance_cost_modifier: -0.05
     privateer_durability: 0.05
     monthly_towards_individualism: 0.05
   grand_garden_complex:

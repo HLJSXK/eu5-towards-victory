@@ -86,7 +86,7 @@ buildings:
   great_port:
     final_local:
       harbor_suitability: 0.1
-      local_trade_center_power: 0.1
+      local_trade_center_power: 0.05
     final_maintenance:
       tv_wonder_golden_trade_port: tv_wonder_port_monument_maintenance
       tv_wonder_imperial_naval_port: tv_wonder_port_monument_maintenance
@@ -262,14 +262,14 @@ buildings:
       local_population_growth: 0.00025
   royal_granary_system:
     final_local:
-      local_food_capacity_modifier: 5000
+      local_food_capacity: 5000
   imperial_post_road_network:
     final_local:
       local_distance_from_capital_speed_propagation: 0.1
       movement_cost: -0.1
   canal_hub_city:
     final_local:
-      local_trade_center_power: 0.1
+      local_trade_center_power: 0.05
       local_monthly_prosperity: 0.001
   frontier_colonization_belt:
     final_local:
@@ -302,7 +302,7 @@ buildings:
     final_local: {}
   world_market:
     final_local:
-      local_trade_center_power: 0.2
+      local_trade_center_power: 0.05
       local_migration_attraction: 1
   royal_mint_system:
     final_local: {}
@@ -310,7 +310,6 @@ buildings:
     final_local:
       local_market_access: 0.1
       local_monthly_prosperity: 0.001
-      local_trade_center_power: 0.1
   maritime_trade_station_network:
     final_local:
       local_merchant_capacity: 1
@@ -418,15 +417,9 @@ buildings:
       tv_wonder_oceanic_command_academy:
         category: military_category
   national_bank:
-    final_local:
-      local_market_access: 0.1
-      local_trade_center_power: 0.1
-      local_merchant_capacity: 1
+    final_local: {}
   pirate_port:
-    final_local:
-      local_maritime_presence: 0.15
-      local_trade_center_power: 0.1
-      local_defensive: 0.1
+    final_local: {}
     final_maintenance:
       tv_wonder_privateer_haven: tv_wonder_port_monument_maintenance
       tv_wonder_harbor_redoubt: tv_wonder_axis_monument_maintenance

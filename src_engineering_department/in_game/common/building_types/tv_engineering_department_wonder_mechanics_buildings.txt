@@ -630,7 +630,7 @@ tv_wonder_golden_trade_port = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		harbor_suitability = 0.1
-		local_trade_center_power = 0.1
+		local_trade_center_power = 0.05
 		monthly_towards_naval = 0.05
 	}
 
@@ -703,7 +703,7 @@ tv_wonder_imperial_naval_port = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		harbor_suitability = 0.1
-		local_trade_center_power = 0.1
+		local_trade_center_power = 0.05
 		monthly_towards_naval = 0.05
 	}
 
@@ -776,7 +776,7 @@ tv_wonder_free_trade_metropolis = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		harbor_suitability = 0.1
-		local_trade_center_power = 0.1
+		local_trade_center_power = 0.05
 		monthly_towards_naval = 0.05
 	}
 
@@ -2580,7 +2580,7 @@ tv_wonder_palace_of_nations_ritual_annex = {
 	construction_demand = capital_building_construction
 
 	modifier = {
-		local_trade_center_power = 0.5
+		local_trade_center_power = 0.2
 		local_nobles_estate_power = 0.5
 	}
 
@@ -6104,7 +6104,7 @@ tv_wonder_grain_price_granaries = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_food_capacity_modifier = 5000
+		local_food_capacity = 5000
 		global_food_capacity_modifier = 0.2
 		monthly_towards_traditional_economy = 0.05
 	}
@@ -6177,7 +6177,7 @@ tv_wonder_wartime_granaries = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_food_capacity_modifier = 5000
+		local_food_capacity = 5000
 		global_food_capacity_modifier = 0.2
 		monthly_towards_traditional_economy = 0.05
 	}
@@ -6250,7 +6250,7 @@ tv_wonder_disaster_relief_granaries = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_food_capacity_modifier = 5000
+		local_food_capacity = 5000
 		global_food_capacity_modifier = 0.2
 		monthly_towards_traditional_economy = 0.05
 	}
@@ -6673,7 +6673,7 @@ tv_wonder_grain_transport_hub = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_trade_center_power = 0.1
+		local_trade_center_power = 0.05
 		local_monthly_prosperity = 0.001
 		monthly_towards_mercantilism = 0.05
 	}
@@ -6751,7 +6751,7 @@ tv_wonder_financial_warehouse_hub = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_trade_center_power = 0.1
+		local_trade_center_power = 0.05
 		local_monthly_prosperity = 0.001
 		monthly_towards_mercantilism = 0.05
 	}
@@ -6829,7 +6829,7 @@ tv_wonder_industrial_workshop_belt = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_trade_center_power = 0.1
+		local_trade_center_power = 0.05
 		local_monthly_prosperity = 0.001
 		monthly_towards_mercantilism = 0.05
 	}
@@ -9536,9 +9536,10 @@ tv_wonder_luxury_goods_market = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_trade_center_power = 0.2
+		local_trade_center_power = 0.05
 		local_migration_attraction = 1
-		global_trade_center_power = 0.1
+		global_trade_center_power = 0.05
+		burghers_estate_target_satisfaction = 0.025
 		monthly_towards_free_trade = 0.05
 	}
 
@@ -9614,9 +9615,10 @@ tv_wonder_grain_market = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_trade_center_power = 0.2
+		local_trade_center_power = 0.05
 		local_migration_attraction = 1
-		global_trade_center_power = 0.1
+		global_trade_center_power = 0.05
+		burghers_estate_target_satisfaction = 0.025
 		monthly_towards_free_trade = 0.05
 	}
 
@@ -9692,9 +9694,10 @@ tv_wonder_entrepot_market = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_trade_center_power = 0.2
+		local_trade_center_power = 0.05
 		local_migration_attraction = 1
-		global_trade_center_power = 0.1
+		global_trade_center_power = 0.05
+		burghers_estate_target_satisfaction = 0.025
 		monthly_towards_free_trade = 0.05
 	}
 
@@ -10128,7 +10131,6 @@ tv_wonder_artisan_guild_alliance = {
 		local_cultural_influence = 0.5
 		local_market_access = 0.1
 		local_monthly_prosperity = 0.001
-		local_trade_center_power = 0.1
 		monthly_towards_plutocracy = 0.05
 	}
 
@@ -10202,7 +10204,6 @@ tv_wonder_overseas_merchant_guilds = {
 		local_cultural_influence = 0.5
 		local_market_access = 0.1
 		local_monthly_prosperity = 0.001
-		local_trade_center_power = 0.1
 		monthly_towards_plutocracy = 0.05
 	}
 
@@ -10276,7 +10277,6 @@ tv_wonder_financial_guilds = {
 		local_cultural_influence = 0.5
 		local_market_access = 0.1
 		local_monthly_prosperity = 0.001
-		local_trade_center_power = 0.1
 		monthly_towards_plutocracy = 0.05
 	}
 
@@ -14979,11 +14979,8 @@ tv_wonder_public_credit_bank = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_market_access = 0.1
-		local_trade_center_power = 0.1
-		local_merchant_capacity = 1
-		tax_income_efficiency = 0.02
-		merchant_maintenance_efficiency = 0.03
+		tax_income_efficiency = 0.05
+		merchant_maintenance_efficiency = 0.05
 		monthly_towards_capital_economy = 0.05
 	}
 
@@ -15059,11 +15056,8 @@ tv_wonder_state_debt_office = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_market_access = 0.1
-		local_trade_center_power = 0.1
-		local_merchant_capacity = 1
-		tax_income_efficiency = 0.02
-		merchant_maintenance_efficiency = 0.03
+		tax_income_efficiency = 0.05
+		merchant_maintenance_efficiency = 0.05
 		monthly_towards_capital_economy = 0.05
 	}
 
@@ -15139,11 +15133,8 @@ tv_wonder_merchant_clearing_bank = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_market_access = 0.1
-		local_trade_center_power = 0.1
-		local_merchant_capacity = 1
-		tax_income_efficiency = 0.02
-		merchant_maintenance_efficiency = 0.03
+		tax_income_efficiency = 0.05
+		merchant_maintenance_efficiency = 0.05
 		monthly_towards_capital_economy = 0.05
 	}
 
@@ -15279,12 +15270,8 @@ tv_wonder_privateer_haven = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_maritime_presence = 0.15
-		local_trade_center_power = 0.1
-		local_defensive = 0.1
 		can_hire_privateers = yes
-		hire_privateer_cost_modifier = -0.05
-		privateer_maintenance_cost_modifier = -0.03
+		privateer_maintenance_cost_modifier = -0.05
 		privateer_durability = 0.05
 		monthly_towards_individualism = 0.05
 	}
@@ -15357,12 +15344,8 @@ tv_wonder_harbor_redoubt = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_maritime_presence = 0.15
-		local_trade_center_power = 0.1
-		local_defensive = 0.1
 		can_hire_privateers = yes
-		hire_privateer_cost_modifier = -0.05
-		privateer_maintenance_cost_modifier = -0.03
+		privateer_maintenance_cost_modifier = -0.05
 		privateer_durability = 0.05
 		monthly_towards_individualism = 0.05
 	}
@@ -15435,12 +15418,8 @@ tv_wonder_corsair_admiralty = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_maritime_presence = 0.15
-		local_trade_center_power = 0.1
-		local_defensive = 0.1
 		can_hire_privateers = yes
-		hire_privateer_cost_modifier = -0.05
-		privateer_maintenance_cost_modifier = -0.03
+		privateer_maintenance_cost_modifier = -0.05
 		privateer_durability = 0.05
 		monthly_towards_individualism = 0.05
 	}
@@ -15502,8 +15481,6 @@ tv_wonder_pirate_port_ritual_annex = {
 	construction_demand = fort_construction
 
 	modifier = {
-		local_defensive = 0.2
-		local_garrison_size = 0.25
 		local_maritime_presence = 0.2
 		local_burghers_estate_power = 0.5
 	}
@@ -17282,7 +17259,7 @@ tv_wonder_unique_malacca_port_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		harbor_suitability = 0.2
-		local_trade_center_power = 0.2
+		local_trade_center_power = 0.1
 		monthly_towards_naval = 0.1
 	}
 
@@ -17589,7 +17566,7 @@ tv_wonder_unique_amsterdam_canal_ring_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_trade_center_power = 0.2
+		local_trade_center_power = 0.1
 		local_monthly_prosperity = 0.002
 		monthly_towards_mercantilism = 0.1
 	}
@@ -17817,11 +17794,8 @@ tv_wonder_unique_bank_of_saint_george_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_market_access = 0.2
-		local_trade_center_power = 0.2
-		local_merchant_capacity = 2
-		tax_income_efficiency = 0.04
-		merchant_maintenance_efficiency = 0.06
+		tax_income_efficiency = 0.1
+		merchant_maintenance_efficiency = 0.1
 		monthly_towards_capital_economy = 0.1
 	}
 
@@ -17976,9 +17950,10 @@ tv_wonder_unique_great_zimbabwe_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_trade_center_power = 0.4
+		local_trade_center_power = 0.1
 		local_migration_attraction = 2
-		global_trade_center_power = 0.2
+		global_trade_center_power = 0.1
+		burghers_estate_target_satisfaction = 0.05
 		monthly_towards_free_trade = 0.1
 	}
 
@@ -20852,7 +20827,6 @@ tv_wonder_unique_canton_thirteen_factories_inaugurated = {
 		local_cultural_influence = 0.5
 		local_market_access = 0.2
 		local_monthly_prosperity = 0.002
-		local_trade_center_power = 0.2
 		monthly_towards_plutocracy = 0.1
 	}
 
@@ -21977,7 +21951,7 @@ tv_wonder_unique_calicut_port_city_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		harbor_suitability = 0.2
-		local_trade_center_power = 0.2
+		local_trade_center_power = 0.1
 		monthly_towards_naval = 0.1
 	}
 
@@ -22284,7 +22258,7 @@ tv_wonder_unique_gdansk_port_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		harbor_suitability = 0.2
-		local_trade_center_power = 0.2
+		local_trade_center_power = 0.1
 		monthly_towards_naval = 0.1
 	}
 
@@ -23037,9 +23011,10 @@ tv_wonder_unique_tashkent_old_bazaar_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_trade_center_power = 0.4
+		local_trade_center_power = 0.1
 		local_migration_attraction = 2
-		global_trade_center_power = 0.2
+		global_trade_center_power = 0.1
+		burghers_estate_target_satisfaction = 0.05
 		monthly_towards_free_trade = 0.1
 	}
 
@@ -23261,7 +23236,7 @@ tv_wonder_unique_bordeaux_port_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		harbor_suitability = 0.2
-		local_trade_center_power = 0.2
+		local_trade_center_power = 0.1
 		monthly_towards_naval = 0.1
 	}
 
@@ -23335,7 +23310,7 @@ tv_wonder_unique_marseille_old_port_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		harbor_suitability = 0.2
-		local_trade_center_power = 0.2
+		local_trade_center_power = 0.1
 		monthly_towards_naval = 0.1
 	}
 
@@ -24157,9 +24132,10 @@ tv_wonder_unique_sanaa_old_city_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_trade_center_power = 0.4
+		local_trade_center_power = 0.1
 		local_migration_attraction = 2
-		global_trade_center_power = 0.2
+		global_trade_center_power = 0.1
+		burghers_estate_target_satisfaction = 0.05
 		monthly_towards_free_trade = 0.1
 	}
 
@@ -24535,11 +24511,8 @@ tv_wonder_unique_augsburg_bank_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_market_access = 0.2
-		local_trade_center_power = 0.2
-		local_merchant_capacity = 2
-		tax_income_efficiency = 0.04
-		merchant_maintenance_efficiency = 0.06
+		tax_income_efficiency = 0.1
+		merchant_maintenance_efficiency = 0.1
 		monthly_towards_capital_economy = 0.1
 	}
 
@@ -24687,7 +24660,6 @@ tv_wonder_unique_hanseatic_kontor_inaugurated = {
 		local_cultural_influence = 0.5
 		local_market_access = 0.2
 		local_monthly_prosperity = 0.002
-		local_trade_center_power = 0.2
 		monthly_towards_plutocracy = 0.1
 	}
 
@@ -25210,12 +25182,8 @@ tv_wonder_unique_algiers_pirate_port_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_maritime_presence = 0.3
-		local_trade_center_power = 0.2
-		local_defensive = 0.2
 		can_hire_privateers = yes
-		hire_privateer_cost_modifier = -0.1
-		privateer_maintenance_cost_modifier = -0.06
+		privateer_maintenance_cost_modifier = -0.1
 		privateer_durability = 0.1
 		monthly_towards_individualism = 0.1
 	}
@@ -26044,7 +26012,7 @@ tv_wonder_unique_beijing_imperial_granaries_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_food_capacity_modifier = 10000
+		local_food_capacity = 10000
 		global_food_capacity_modifier = 0.4
 		monthly_towards_traditional_economy = 0.1
 	}

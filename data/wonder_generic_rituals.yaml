@@ -161,7 +161,7 @@ generic_rituals:
         subject_loyalty: 10
     style_2:
       local_modifier:
-        local_trade_center_power: 0.5
+        local_trade_center_power: 0.2
     style_3:
       cost_type: prestige
       reward:
@@ -632,7 +632,7 @@ generic_rituals:
   national_bank:
     style_1:
       country_modifier:
-        tax_income_efficiency: 0.08
+        tax_income_efficiency: 0.03
     style_2:
       local_modifier:
         local_market_access: 0.1
@@ -640,20 +640,14 @@ generic_rituals:
     style_3:
       cost_type: scaled_gold
       reward:
-      - type: gold
-        value: 8000
       - type: inflation
-        value: -0.05
+        value: -1
   pirate_port:
     style_1:
       country_modifier:
         hire_privateer_cost_modifier: -0.2
-        privateer_maintenance_cost_modifier: -0.1
-        shameless_privateering_modifier: true
     style_2:
       local_modifier:
-        local_defensive: 0.2
-        local_garrison_size: 0.25
         local_maritime_presence: 0.2
     style_3:
       cost_type: scaled_gold

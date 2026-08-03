@@ -91,6 +91,30 @@ site_rules:
       change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
       tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
       remove_variable = tv_wonder_site_preference_bonus
+  grand_garden_complex:
+    trigger_script: |-
+      OR = {
+        is_capital = yes
+        NOT = { location_rank ?= location_rank:rural_settlement }
+      }
+    preference_script: |-
+      if = {
+        limit = { var:tv_wonder_survey_site ?= { is_capital = yes } }
+        tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
+      }
+      if = {
+        limit = { var:tv_wonder_survey_site ?= { OR = { location_rank ?= location_rank:city location_rank ?= location_rank:megalopolis } } }
+        tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
+      }
+      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
+      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.average_location_literacy }
+      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+      remove_variable = tv_wonder_site_preference_bonus
   grand_theater_festival_district:
     trigger_script: "OR = {\n\tlocation_rank ?= location_rank:city\n\tlocation_rank ?= location_rank:megalopolis\n}"
     preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:megalopolis } }\n\ttv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.average_location_literacy }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
@@ -214,24 +238,6 @@ site_rules:
   mountain_terrace_network:
     trigger_script: "OR = {\n\ttopography = mountains\n\ttopography = plateau\n\ttopography = hills\n}"
     preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:rural_settlement } }\n\ttv_wonder_change_all_survey_competence_target_effect = { value = 10 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.15 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
-  national_shipyard:
-    trigger_script: is_port = yes
-    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { is_capital = yes } }\n\ttv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.modifier:harbor_suitability }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 1 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 20 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
-  naval_school:
-    trigger_script: is_port = yes
-    preference_script: |-
-      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.modifier:harbor_suitability }
-      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 1 }
-      change_variable = { name = tv_wonder_site_preference_bonus multiply = 15 }
-      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
-      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.average_location_literacy }
-      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
-      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
-      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
-      remove_variable = tv_wonder_site_preference_bonus
-  palace_of_nations:
-    trigger_script: is_capital = yes
-    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:city } }\n\ttv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:megalopolis } }\n\ttv_wonder_change_all_survey_competence_target_effect = { value = 10 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.15 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
   national_bank:
     trigger_script: |-
       OR = {
@@ -257,22 +263,27 @@ site_rules:
       change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
       tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
       remove_variable = tv_wonder_site_preference_bonus
-  pirate_port:
+  national_shipyard:
+    trigger_script: is_port = yes
+    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { is_capital = yes } }\n\ttv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.modifier:harbor_suitability }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 1 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 20 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
+  naval_school:
     trigger_script: is_port = yes
     preference_script: |-
       set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.modifier:harbor_suitability }
       clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 1 }
-      change_variable = { name = tv_wonder_site_preference_bonus multiply = 20 }
+      change_variable = { name = tv_wonder_site_preference_bonus multiply = 15 }
       tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
-      if = {
-        limit = { var:tv_wonder_survey_site ?= { modifier:fort_level > 0 } }
-        tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
-      }
-      if = {
-        limit = { var:tv_wonder_survey_site ?= { OR = { location_rank ?= location_rank:city location_rank ?= location_rank:megalopolis } } }
-        tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
-      }
+      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.average_location_literacy }
+      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
+      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
       remove_variable = tv_wonder_site_preference_bonus
+  palace_of_nations:
+    trigger_script: is_capital = yes
+    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:city } }\n\ttv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { location_rank ?= location_rank:megalopolis } }\n\ttv_wonder_change_all_survey_competence_target_effect = { value = 10 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.15 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
+  pirate_port:
+    trigger_script: is_port = yes
+    preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { modifier:fort_level > 0 } }\n\ttv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { OR = { location_rank ?= location_rank:city location_rank ?= location_rank:megalopolis } } }\n\ttv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.modifier:harbor_suitability }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 1 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 15 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
   river_extension:
     trigger_script: "OR = {\n\thas_river = yes\n\tis_adjacent_to_lake = yes\n}"
     preference_script: "set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { has_building = building_type:bridge_infrastructure } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { any_neighbor_location = { has_building = building_type:tv_wonder_bridge_opening } } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 10 }\n}\nremove_variable = tv_wonder_site_preference_bonus"
@@ -296,6 +307,26 @@ site_rules:
   star_fortress_city:
     trigger_script: always = yes
     preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { topography = mountains } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 15 }\n}\nelse_if = {\n\tlimit = { var:tv_wonder_survey_site ?= { topography = plateau } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 7.5 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { modifier:fort_level > 0 } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}\nif = {\n\tlimit = { var:tv_wonder_survey_site ?= { OR = { location_rank ?= location_rank:city location_rank ?= location_rank:megalopolis } } }\ntv_wonder_change_all_survey_competence_target_effect = { value = 5 }\n}"
+  state_examination_complex:
+    trigger_script: NOT = { location_rank ?= location_rank:rural_settlement }
+    preference_script: |-
+      if = {
+        limit = { var:tv_wonder_survey_site ?= { is_capital = yes } }
+        tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
+      }
+      if = {
+        limit = { var:tv_wonder_survey_site ?= { OR = { location_rank ?= location_rank:city location_rank ?= location_rank:megalopolis } } }
+        tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
+      }
+      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.average_location_literacy }
+      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.2 }
+      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
+      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
+      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.08 }
+      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
+      remove_variable = tv_wonder_site_preference_bonus
   summer_palace:
     trigger_script: always = yes
     preference_script: |-
@@ -332,47 +363,3 @@ site_rules:
   world_monument_group:
     trigger_script: "OR = {\n\tis_capital = yes\n\tlocation_rank ?= location_rank:city\n\tlocation_rank ?= location_rank:megalopolis\n}"
     preference_script: "if = {\n\tlimit = { var:tv_wonder_survey_site ?= { is_capital = yes } }\n\ttv_wonder_change_all_survey_competence_target_effect = { value = 10 }\n}\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.05 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nset_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.average_location_literacy }\nclamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }\nchange_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }\ntv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }\nremove_variable = tv_wonder_site_preference_bonus"
-  grand_garden_complex:
-    trigger_script: |-
-      OR = {
-        is_capital = yes
-        NOT = { location_rank ?= location_rank:rural_settlement }
-      }
-    preference_script: |-
-      if = {
-        limit = { var:tv_wonder_survey_site ?= { is_capital = yes } }
-        tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
-      }
-      if = {
-        limit = { var:tv_wonder_survey_site ?= { OR = { location_rank ?= location_rank:city location_rank ?= location_rank:megalopolis } } }
-        tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
-      }
-      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
-      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
-      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
-      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
-      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.average_location_literacy }
-      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
-      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.1 }
-      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
-      remove_variable = tv_wonder_site_preference_bonus
-  state_examination_complex:
-    trigger_script: NOT = { location_rank ?= location_rank:rural_settlement }
-    preference_script: |-
-      if = {
-        limit = { var:tv_wonder_survey_site ?= { is_capital = yes } }
-        tv_wonder_change_all_survey_competence_target_effect = { value = 10 }
-      }
-      if = {
-        limit = { var:tv_wonder_survey_site ?= { OR = { location_rank ?= location_rank:city location_rank ?= location_rank:megalopolis } } }
-        tv_wonder_change_all_survey_competence_target_effect = { value = 5 }
-      }
-      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.average_location_literacy }
-      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
-      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.2 }
-      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
-      set_variable = { name = tv_wonder_site_preference_bonus value = var:tv_wonder_survey_site.development }
-      clamp_variable = { name = tv_wonder_site_preference_bonus min = 0 max = 100 }
-      change_variable = { name = tv_wonder_site_preference_bonus multiply = 0.08 }
-      tv_wonder_change_all_survey_competence_target_effect = { value = var:tv_wonder_site_preference_bonus }
-      remove_variable = tv_wonder_site_preference_bonus
