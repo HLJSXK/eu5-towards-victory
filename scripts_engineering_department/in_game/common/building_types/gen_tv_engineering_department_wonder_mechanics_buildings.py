@@ -16,6 +16,7 @@ from wonder_mechanics.modifiers import (
 )
 from wonder_mechanics.naming import (
     final_building_destroyed_effect_name,
+    final_building_completion_sync_hidden_event_trigger_effect_name,
     final_building_for_style,
     mechanic_key,
 )
@@ -227,18 +228,15 @@ def auxiliary_on_construction_ended_lines() -> list[str]:
     ]
 
 
-def final_building_on_built_lines() -> list[str]:
+def final_building_completion_schedule_lines() -> list[str]:
     # Direct-build (see country_potential in building_block) completes construction
-    # through the native engine build queue, bypassing the scripted ceremony/finalize
-    # pipeline that normally writes tv_wonder_final_building_level_by_type. Re-deriving
-    # it here from the actual building level keeps the location-level cache correct
-    # regardless of which path built this building, so the existing monthly country
-    # pulse (which only reads that cache) picks up direct-built wonders on schedule.
+    # through a queued 0-day task, so location_building_level can still be stale when
+    # the completion hook fires. Schedule the real sync for the next day instead of
+    # reading the level inline.
     return [
         f"{T}{T}hidden_effect = {{",
         f"{T}{T}{T}location = {{",
-        f"{T}{T}{T}{T}tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes",
-        f"{T}{T}{T}{T}tv_wonder_mechanics_refresh_location_display_state_effect = yes",
+        f"{T}{T}{T}{T}{final_building_completion_sync_hidden_event_trigger_effect_name()} = yes",
         f"{T}{T}{T}}}",
         f"{T}{T}}}",
     ]
@@ -288,7 +286,7 @@ def generate() -> str:
                     modifiers,
                     maintenance,
                     attributes=attributes,
-                    on_built_lines=final_building_on_built_lines(),
+                    on_construction_ended_lines=final_building_completion_schedule_lines(),
                     on_destroyed_lines=final_building_on_destroyed_lines(wonder),
                     can_destroy_lines=final_building_can_destroy_lines(wonder),
                     construction_demand=direct_construction_demand,

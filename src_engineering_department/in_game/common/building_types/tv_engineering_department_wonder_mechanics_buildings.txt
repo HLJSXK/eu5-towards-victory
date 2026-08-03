@@ -52,19 +52,18 @@ tv_wonder_golden_sanctuary = {
 		tv_wonder_sacred_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_sacred_mountain_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -119,19 +118,18 @@ tv_wonder_ascetic_mountain = {
 		tv_wonder_sacred_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_sacred_mountain_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -186,19 +184,18 @@ tv_wonder_theocratic_center = {
 		tv_wonder_sacred_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_sacred_mountain_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -316,19 +313,18 @@ tv_wonder_sun_king_axis = {
 		tv_wonder_axis_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_triumphal_axis_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -383,19 +379,18 @@ tv_wonder_military_city = {
 		tv_wonder_axis_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_triumphal_axis_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -450,19 +445,18 @@ tv_wonder_civic_capital = {
 		tv_wonder_axis_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_triumphal_axis_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -580,19 +574,18 @@ tv_wonder_golden_trade_port = {
 		tv_wonder_port_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_great_port_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -647,19 +640,18 @@ tv_wonder_imperial_naval_port = {
 		tv_wonder_port_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_great_port_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -714,19 +706,18 @@ tv_wonder_free_trade_metropolis = {
 		tv_wonder_port_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_great_port_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -845,19 +836,18 @@ tv_wonder_dynastic_necropolis = {
 		tv_wonder_necropolis_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_giant_necropolis_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -913,19 +903,18 @@ tv_wonder_ancestor_shrine = {
 		tv_wonder_necropolis_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_giant_necropolis_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -981,19 +970,18 @@ tv_wonder_quiet_land = {
 		tv_wonder_necropolis_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_giant_necropolis_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -1112,19 +1100,18 @@ tv_wonder_eternal_lighthouse = {
 		tv_wonder_lighthouse_flame_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_great_lighthouse_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -1180,19 +1167,18 @@ tv_wonder_navigator_lighthouse = {
 		tv_wonder_lighthouse_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_great_lighthouse_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -1248,19 +1234,18 @@ tv_wonder_long_watch_lighthouse = {
 		tv_wonder_lighthouse_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_great_lighthouse_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -1377,19 +1362,18 @@ tv_wonder_water_god_workshop = {
 		tv_wonder_hydraulic_workshop_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_hydraulic_workshop_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -1443,19 +1427,18 @@ tv_wonder_hydraulic_artisan_guildhall = {
 		tv_wonder_hydraulic_workshop_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_hydraulic_workshop_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -1509,19 +1492,18 @@ tv_wonder_waterwheel_workshop = {
 		tv_wonder_hydraulic_workshop_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_hydraulic_workshop_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -1638,19 +1620,18 @@ tv_wonder_miners_oath_city = {
 		tv_wonder_mining_city_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_mining_city_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -1704,19 +1685,18 @@ tv_wonder_royal_mint_city = {
 		tv_wonder_mining_city_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_mining_city_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -1770,19 +1750,18 @@ tv_wonder_deep_shaft_city = {
 		tv_wonder_mining_city_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_mining_city_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -1900,19 +1879,18 @@ tv_wonder_star_catalog_observatory = {
 		tv_wonder_sacred_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_giant_observatory_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -1967,19 +1945,18 @@ tv_wonder_nautical_almanac_observatory = {
 		tv_wonder_sacred_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_giant_observatory_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -2034,19 +2011,18 @@ tv_wonder_eclipse_observatory = {
 		tv_wonder_sacred_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_giant_observatory_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -2164,19 +2140,18 @@ tv_wonder_congress_palace = {
 		tv_wonder_axis_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_palace_of_nations_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -2231,19 +2206,18 @@ tv_wonder_tribute_gallery = {
 		tv_wonder_axis_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_palace_of_nations_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -2298,19 +2272,18 @@ tv_wonder_embassy_palace = {
 		tv_wonder_axis_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_palace_of_nations_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -2428,19 +2401,18 @@ tv_wonder_scholars_convocation = {
 		tv_wonder_sacred_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_university_city_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -2495,19 +2467,18 @@ tv_wonder_public_lectures = {
 		tv_wonder_sacred_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_university_city_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -2562,19 +2533,18 @@ tv_wonder_collegiate_charter = {
 		tv_wonder_sacred_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_university_city_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -2691,19 +2661,18 @@ tv_wonder_dome_consecration = {
 		tv_wonder_sacred_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_sky_dome_grand_temple_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -2757,19 +2726,18 @@ tv_wonder_pilgrim_treasury = {
 		tv_wonder_sacred_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_sky_dome_grand_temple_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -2823,19 +2791,18 @@ tv_wonder_celestial_synod = {
 		tv_wonder_sacred_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_sky_dome_grand_temple_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -2953,19 +2920,18 @@ tv_wonder_beacon_rite_temple = {
 		tv_wonder_sacred_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_giant_tower_temple_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -3020,19 +2986,18 @@ tv_wonder_pilgrim_stair_temple = {
 		tv_wonder_sacred_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_giant_tower_temple_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -3087,19 +3052,18 @@ tv_wonder_temple_school_tower = {
 		tv_wonder_sacred_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_giant_tower_temple_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -3217,19 +3181,18 @@ tv_wonder_bridge_opening = {
 		tv_wonder_hydraulic_workshop_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_river_extension_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -3284,19 +3247,18 @@ tv_wonder_river_fair = {
 		tv_wonder_hydraulic_workshop_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_river_extension_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -3351,19 +3313,18 @@ tv_wonder_canal_authority = {
 		tv_wonder_hydraulic_workshop_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_river_extension_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -3482,19 +3443,18 @@ tv_wonder_keel_laying_yard = {
 		tv_wonder_port_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_national_shipyard_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -3550,19 +3510,18 @@ tv_wonder_fleet_muster_yard = {
 		tv_wonder_port_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_national_shipyard_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -3618,19 +3577,18 @@ tv_wonder_admiralty_yard = {
 		tv_wonder_port_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_national_shipyard_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -3749,19 +3707,18 @@ tv_wonder_bastion_trial_fortress = {
 		tv_wonder_axis_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_star_fortress_city_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -3817,19 +3774,18 @@ tv_wonder_siege_games_fortress = {
 		tv_wonder_axis_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_star_fortress_city_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -3885,19 +3841,18 @@ tv_wonder_arsenal_quarter_fortress = {
 		tv_wonder_axis_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_star_fortress_city_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -4019,19 +3974,18 @@ tv_wonder_frontier_muster_wall = {
 		tv_wonder_axis_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_great_wall_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -4087,19 +4041,18 @@ tv_wonder_signal_fires_wall = {
 		tv_wonder_axis_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_great_wall_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -4155,19 +4108,18 @@ tv_wonder_wall_oath = {
 		tv_wonder_axis_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_great_wall_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -4289,19 +4241,18 @@ tv_wonder_muster_of_arms = {
 		tv_wonder_mining_city_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_giant_armory_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -4357,19 +4308,18 @@ tv_wonder_foundry_contracts = {
 		tv_wonder_mining_city_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_giant_armory_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -4425,19 +4375,18 @@ tv_wonder_master_armourers = {
 		tv_wonder_mining_city_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_giant_armory_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -4554,19 +4503,18 @@ tv_wonder_national_catalog_library = {
 		tv_wonder_sacred_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_library_of_nation_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -4620,19 +4568,18 @@ tv_wonder_copyists_endowment_library = {
 		tv_wonder_sacred_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_library_of_nation_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -4686,19 +4633,18 @@ tv_wonder_legal_deposit_library = {
 		tv_wonder_sacred_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_library_of_nation_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -4817,19 +4763,18 @@ tv_wonder_irrigation_canal_system = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_large_canal_system_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -4885,19 +4830,18 @@ tv_wonder_grain_transport_canal_system = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_large_canal_system_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -4953,19 +4897,18 @@ tv_wonder_flood_control_canal_system = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_large_canal_system_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -5083,19 +5026,18 @@ tv_wonder_grain_terraces = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_mountain_terrace_network_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -5150,19 +5092,18 @@ tv_wonder_cash_crop_terraces = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_mountain_terrace_network_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -5217,19 +5158,18 @@ tv_wonder_sacred_mountain_terraces = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_mountain_terrace_network_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -5347,19 +5287,18 @@ tv_wonder_estuary_flood_dam = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_giant_dam_project_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -5414,19 +5353,18 @@ tv_wonder_marsh_reclamation_dam = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_giant_dam_project_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -5481,19 +5419,18 @@ tv_wonder_water_powered_workshops = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_giant_dam_project_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -5611,19 +5548,18 @@ tv_wonder_grain_price_granaries = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_royal_granary_system_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -5678,19 +5614,18 @@ tv_wonder_wartime_granaries = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_royal_granary_system_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -5745,19 +5680,18 @@ tv_wonder_disaster_relief_granaries = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_royal_granary_system_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -5875,19 +5809,18 @@ tv_wonder_military_post_roads = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_imperial_post_road_network_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -5942,19 +5875,18 @@ tv_wonder_trade_post_roads = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_imperial_post_road_network_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -6009,19 +5941,18 @@ tv_wonder_royal_tour_avenue = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_imperial_post_road_network_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -6139,19 +6070,18 @@ tv_wonder_grain_transport_hub = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_canal_hub_city_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -6206,19 +6136,18 @@ tv_wonder_financial_warehouse_hub = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_canal_hub_city_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -6273,19 +6202,18 @@ tv_wonder_industrial_workshop_belt = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_canal_hub_city_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -6404,19 +6332,18 @@ tv_wonder_military_colony_belt = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_frontier_colonization_belt_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -6472,19 +6399,18 @@ tv_wonder_settler_reclamation_belt = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_frontier_colonization_belt_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -6540,19 +6466,18 @@ tv_wonder_religious_colonization_belt = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_frontier_colonization_belt_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -6670,19 +6595,18 @@ tv_wonder_beacon_communication_network = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_coastal_beacon_network_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -6737,19 +6661,18 @@ tv_wonder_coastal_battery_network = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_coastal_beacon_network_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -6804,19 +6727,18 @@ tv_wonder_customs_patrol_network = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_coastal_beacon_network_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -6935,19 +6857,18 @@ tv_wonder_crusader_knightly_order = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_knightly_fortress_order_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -7003,19 +6924,18 @@ tv_wonder_frontier_lord_order = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_knightly_fortress_order_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -7071,19 +6991,18 @@ tv_wonder_mercenary_fortress_system = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_knightly_fortress_order_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -7201,19 +7120,18 @@ tv_wonder_firearms_tactics_college = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_war_college_system_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -7267,19 +7185,18 @@ tv_wonder_cavalry_tradition_college = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_war_college_system_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -7333,19 +7250,18 @@ tv_wonder_naval_command_college = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_war_college_system_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -7463,19 +7379,18 @@ tv_wonder_worship_clock_bells = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_great_clock_bell_system_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -7529,19 +7444,18 @@ tv_wonder_curfew_clock_bells = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_great_clock_bell_system_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -7595,19 +7509,18 @@ tv_wonder_astronomical_calendar_bells = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_great_clock_bell_system_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -7726,19 +7639,18 @@ tv_wonder_court_art_district = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_royal_art_district_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -7794,19 +7706,18 @@ tv_wonder_folk_art_district = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_royal_art_district_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -7862,19 +7773,18 @@ tv_wonder_foreign_style_district = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_royal_art_district_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -7993,19 +7903,18 @@ tv_wonder_court_theater = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_grand_theater_festival_district_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -8061,19 +7970,18 @@ tv_wonder_religious_theater = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_grand_theater_festival_district_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -8129,19 +8037,18 @@ tv_wonder_popular_festival_ground = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_grand_theater_festival_district_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -8258,19 +8165,18 @@ tv_wonder_trade_diplomacy_embassies = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_world_embassy_quarter_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -8324,19 +8230,18 @@ tv_wonder_intelligence_embassies = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_world_embassy_quarter_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -8390,19 +8295,18 @@ tv_wonder_religious_diplomacy_embassies = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_world_embassy_quarter_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -8519,19 +8423,18 @@ tv_wonder_religious_law_steles = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_law_code_stele_project_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -8585,19 +8488,18 @@ tv_wonder_written_law_steles = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_law_code_stele_project_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -8651,19 +8553,18 @@ tv_wonder_imperial_edict_steles = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_law_code_stele_project_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -8782,19 +8683,18 @@ tv_wonder_luxury_goods_market = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_world_market_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -8850,19 +8750,18 @@ tv_wonder_grain_market = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_world_market_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -8918,19 +8817,18 @@ tv_wonder_entrepot_market = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_world_market_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -9047,19 +8945,18 @@ tv_wonder_silver_gold_standard_mint = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_royal_mint_system_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -9113,19 +9010,18 @@ tv_wonder_copper_coinage_mint = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_royal_mint_system_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -9179,19 +9075,18 @@ tv_wonder_international_settlement_mint = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_royal_mint_system_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -9310,19 +9205,18 @@ tv_wonder_artisan_guild_alliance = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_guild_alliance_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -9378,19 +9272,18 @@ tv_wonder_overseas_merchant_guilds = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_guild_alliance_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -9446,19 +9339,18 @@ tv_wonder_financial_guilds = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_guild_alliance_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -9577,19 +9469,18 @@ tv_wonder_spice_trade_stations = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_maritime_trade_station_network_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -9645,19 +9536,18 @@ tv_wonder_slave_trade_stations = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_maritime_trade_station_network_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -9713,19 +9603,18 @@ tv_wonder_colonial_supply_stations = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_maritime_trade_station_network_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -9842,19 +9731,18 @@ tv_wonder_textile_workshop_complex = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_giant_workshop_complex_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -9908,19 +9796,18 @@ tv_wonder_military_workshop_complex = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_giant_workshop_complex_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -9974,19 +9861,18 @@ tv_wonder_luxury_craft_workshop_complex = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_giant_workshop_complex_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -10104,19 +9990,18 @@ tv_wonder_conquest_monument_group = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_world_monument_group_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -10171,19 +10056,18 @@ tv_wonder_national_unity_monument_group = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_world_monument_group_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -10238,19 +10122,18 @@ tv_wonder_world_exposition_monument_group = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_world_monument_group_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -10367,19 +10250,18 @@ tv_wonder_city_charter = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_city_expansion_project_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -10433,19 +10315,18 @@ tv_wonder_civic_grid = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_city_expansion_project_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -10499,19 +10380,18 @@ tv_wonder_urban_renewal = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_city_expansion_project_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -10630,19 +10510,18 @@ tv_wonder_solstice_gathering_circle = {
 		tv_wonder_sacred_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_megalithic_circle_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -10697,19 +10576,18 @@ tv_wonder_astral_alignment_circle = {
 		tv_wonder_sacred_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_megalithic_circle_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -10764,19 +10642,18 @@ tv_wonder_ancestral_moot_circle = {
 		tv_wonder_sacred_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_megalithic_circle_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -10893,19 +10770,18 @@ tv_wonder_high_choir_cathedral = {
 		tv_wonder_sacred_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_grand_cathedral_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -10959,19 +10835,18 @@ tv_wonder_pilgrim_nave_cathedral = {
 		tv_wonder_sacred_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_grand_cathedral_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -11025,19 +10900,18 @@ tv_wonder_civic_bells_cathedral = {
 		tv_wonder_sacred_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_grand_cathedral_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -11156,19 +11030,18 @@ tv_wonder_scriptorium_monastery = {
 		tv_wonder_sacred_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_great_monastery_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -11224,19 +11097,18 @@ tv_wonder_pilgrim_refectory_monastery = {
 		tv_wonder_sacred_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_great_monastery_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -11292,19 +11164,18 @@ tv_wonder_fortified_cloister_monastery = {
 		tv_wonder_axis_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_great_monastery_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -11423,19 +11294,18 @@ tv_wonder_civic_watchtower = {
 		tv_wonder_axis_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_city_great_tower_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -11491,19 +11361,18 @@ tv_wonder_bell_campanile = {
 		tv_wonder_axis_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_city_great_tower_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -11559,19 +11428,18 @@ tv_wonder_merchant_tower = {
 		tv_wonder_axis_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_city_great_tower_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -11689,19 +11557,18 @@ tv_wonder_royal_sculpture_yard = {
 		tv_wonder_sacred_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_great_sculpture_group_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -11756,19 +11623,18 @@ tv_wonder_pilgrim_statue_garden = {
 		tv_wonder_sacred_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_great_sculpture_group_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -11823,19 +11689,18 @@ tv_wonder_civic_hero_gallery = {
 		tv_wonder_sacred_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_great_sculpture_group_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -11953,19 +11818,18 @@ tv_wonder_strait_battery_cannon = {
 		tv_wonder_axis_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_coastal_defense_cannon_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -12020,19 +11884,18 @@ tv_wonder_harbor_chain_cannon = {
 		tv_wonder_axis_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_coastal_defense_cannon_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -12087,19 +11950,18 @@ tv_wonder_admiralty_gun_foundry = {
 		tv_wonder_mining_city_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_coastal_defense_cannon_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -12216,19 +12078,18 @@ tv_wonder_admiralty_navigation_school = {
 		tv_wonder_port_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_naval_school_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -12282,19 +12143,18 @@ tv_wonder_pilotage_chart_house = {
 		tv_wonder_port_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_naval_school_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -12348,19 +12208,18 @@ tv_wonder_oceanic_command_academy = {
 		tv_wonder_port_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_naval_school_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -12480,19 +12339,18 @@ tv_wonder_chartered_company_exchange = {
 		tv_wonder_port_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_colonial_trade_company_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -12549,19 +12407,18 @@ tv_wonder_overseas_factory_forts = {
 		tv_wonder_port_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_colonial_trade_company_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -12618,19 +12475,18 @@ tv_wonder_colonial_ledger_house = {
 		tv_wonder_port_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_colonial_trade_company_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -12748,19 +12604,18 @@ tv_wonder_estates_convocation_hall = {
 		tv_wonder_axis_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_great_assembly_hall_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -12815,19 +12670,18 @@ tv_wonder_royal_audience_hall = {
 		tv_wonder_axis_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_great_assembly_hall_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -12882,19 +12736,18 @@ tv_wonder_public_deliberation_hall = {
 		tv_wonder_axis_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_great_assembly_hall_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -13013,19 +12866,18 @@ tv_wonder_wagon_camp_muster = {
 		tv_wonder_axis_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_mobile_fortress_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -13081,19 +12933,18 @@ tv_wonder_frontier_sich_camp = {
 		tv_wonder_axis_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_mobile_fortress_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -13149,19 +13000,18 @@ tv_wonder_steppe_field_fort = {
 		tv_wonder_axis_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_mobile_fortress_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -13279,19 +13129,18 @@ tv_wonder_restored_citadel_ruins = {
 		tv_wonder_sacred_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_ancient_city_ruins_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -13346,19 +13195,18 @@ tv_wonder_antiquarian_quarter_ruins = {
 		tv_wonder_sacred_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_ancient_city_ruins_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -13413,19 +13261,18 @@ tv_wonder_pilgrim_ruins_preserve = {
 		tv_wonder_sacred_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_ancient_city_ruins_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -13543,19 +13390,18 @@ tv_wonder_royal_retreat_palace = {
 		tv_wonder_axis_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_summer_palace_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -13610,19 +13456,18 @@ tv_wonder_garden_court_palace = {
 		tv_wonder_sacred_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_summer_palace_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -13677,19 +13522,18 @@ tv_wonder_diplomatic_pavilion_palace = {
 		tv_wonder_axis_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_summer_palace_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -13810,19 +13654,18 @@ tv_wonder_public_credit_bank = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_national_bank_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -13880,19 +13723,18 @@ tv_wonder_state_debt_office = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_national_bank_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -13950,19 +13792,18 @@ tv_wonder_merchant_clearing_bank = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_national_bank_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -14086,19 +13927,18 @@ tv_wonder_privateer_haven = {
 		tv_wonder_port_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_pirate_port_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -14158,19 +13998,18 @@ tv_wonder_harbor_redoubt = {
 		tv_wonder_axis_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_pirate_port_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -14230,19 +14069,18 @@ tv_wonder_corsair_admiralty = {
 		tv_wonder_port_monument_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_pirate_port_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -14363,19 +14201,18 @@ tv_wonder_unique_pharos_lighthouse_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_pharos_lighthouse_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -14493,19 +14330,18 @@ tv_wonder_unique_hagia_sophia_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_hagia_sophia_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -14559,19 +14395,18 @@ tv_wonder_unique_dome_of_the_rock_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_dome_of_the_rock_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -14626,19 +14461,18 @@ tv_wonder_unique_angkor_wat_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_angkor_wat_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -14693,19 +14527,18 @@ tv_wonder_unique_potala_palace_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_potala_palace_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -14760,19 +14593,18 @@ tv_wonder_unique_alhambra_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_alhambra_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -14827,19 +14659,18 @@ tv_wonder_unique_machu_picchu_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_machu_picchu_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -14895,19 +14726,18 @@ tv_wonder_unique_himeji_castle_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_himeji_castle_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -14963,19 +14793,18 @@ tv_wonder_unique_taj_mahal_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_taj_mahal_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -15030,19 +14859,18 @@ tv_wonder_unique_forbidden_city_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_forbidden_city_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -15097,19 +14925,18 @@ tv_wonder_unique_topkapi_palace_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_topkapi_palace_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -15163,19 +14990,18 @@ tv_wonder_unique_st_peters_basilica_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_st_peters_basilica_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -15230,19 +15056,18 @@ tv_wonder_unique_lalibela_churches_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_lalibela_churches_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -15298,19 +15123,18 @@ tv_wonder_unique_venetian_arsenal_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_venetian_arsenal_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -15365,19 +15189,18 @@ tv_wonder_unique_malacca_port_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_malacca_port_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -15433,19 +15256,18 @@ tv_wonder_unique_red_fort_delhi_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_red_fort_delhi_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -15500,19 +15322,18 @@ tv_wonder_unique_versailles_palace_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_versailles_palace_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -15567,19 +15388,18 @@ tv_wonder_unique_tenochtitlan_causeways_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_tenochtitlan_causeways_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -15634,19 +15454,18 @@ tv_wonder_unique_amsterdam_canal_ring_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_amsterdam_canal_ring_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -15700,19 +15519,18 @@ tv_wonder_unique_mecca_haram_expansion_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_mecca_haram_expansion_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -15768,19 +15586,18 @@ tv_wonder_unique_ming_great_wall_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_ming_great_wall_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -15838,19 +15655,18 @@ tv_wonder_unique_bank_of_saint_george_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_bank_of_saint_george_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -15905,19 +15721,18 @@ tv_wonder_unique_cahokia_mounds_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_cahokia_mounds_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -15973,19 +15788,18 @@ tv_wonder_unique_great_zimbabwe_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_great_zimbabwe_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -16040,19 +15854,18 @@ tv_wonder_unique_isfahan_square_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_isfahan_square_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -16108,19 +15921,18 @@ tv_wonder_unique_grand_canal_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_grand_canal_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -16175,19 +15987,18 @@ tv_wonder_unique_inca_royal_road_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_inca_royal_road_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -16241,19 +16052,18 @@ tv_wonder_unique_roman_aqueducts_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_roman_aqueducts_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -16309,19 +16119,18 @@ tv_wonder_unique_suez_ancient_canal_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_suez_ancient_canal_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -16377,19 +16186,18 @@ tv_wonder_unique_kremlin_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_kremlin_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -16444,19 +16252,18 @@ tv_wonder_unique_teotihuacan_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_teotihuacan_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -16510,19 +16317,18 @@ tv_wonder_unique_angkor_hydraulic_system_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_angkor_hydraulic_system_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -16577,19 +16383,18 @@ tv_wonder_unique_dutch_polders_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_dutch_polders_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -16644,19 +16449,18 @@ tv_wonder_unique_machu_picchu_terraces_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_machu_picchu_terraces_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -16712,19 +16516,18 @@ tv_wonder_unique_british_navy_dockyards_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_british_navy_dockyards_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -16780,19 +16583,18 @@ tv_wonder_unique_spanish_silver_fleet_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_spanish_silver_fleet_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -16847,19 +16649,18 @@ tv_wonder_unique_ottoman_hajj_road_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_ottoman_hajj_road_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -16913,19 +16714,18 @@ tv_wonder_unique_persian_qanat_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_persian_qanat_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -16981,19 +16781,18 @@ tv_wonder_unique_longjiang_shipyard_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_longjiang_shipyard_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -17048,19 +16847,18 @@ tv_wonder_unique_jerusalem_holy_city_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_jerusalem_holy_city_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -17115,19 +16913,18 @@ tv_wonder_unique_stonehenge_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_stonehenge_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -17183,19 +16980,18 @@ tv_wonder_unique_tower_of_london_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_tower_of_london_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -17249,19 +17045,18 @@ tv_wonder_unique_notre_dame_de_paris_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_notre_dame_de_paris_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -17315,19 +17110,18 @@ tv_wonder_unique_st_basils_cathedral_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_st_basils_cathedral_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -17383,19 +17177,18 @@ tv_wonder_unique_trinity_lavra_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_trinity_lavra_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -17450,19 +17243,18 @@ tv_wonder_unique_winter_palace_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_winter_palace_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -17517,19 +17309,18 @@ tv_wonder_unique_gyeongbokgung_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_gyeongbokgung_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -17584,19 +17375,18 @@ tv_wonder_unique_changbai_mountain_altar_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_changbai_mountain_altar_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -17652,19 +17442,18 @@ tv_wonder_unique_belgrade_fortress_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_belgrade_fortress_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -17720,19 +17509,18 @@ tv_wonder_unique_meteora_monasteries_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_meteora_monasteries_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -17788,19 +17576,18 @@ tv_wonder_unique_belem_tower_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_belem_tower_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -17856,19 +17643,18 @@ tv_wonder_unique_iberian_inquisition_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_iberian_inquisition_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -17922,19 +17708,18 @@ tv_wonder_unique_santa_maria_del_fiore_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_santa_maria_del_fiore_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -17990,19 +17775,18 @@ tv_wonder_unique_leaning_tower_of_pisa_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_leaning_tower_of_pisa_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -18056,19 +17840,18 @@ tv_wonder_unique_milan_cathedral_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_milan_cathedral_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -18122,19 +17905,18 @@ tv_wonder_unique_vatican_archives_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_vatican_archives_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -18188,19 +17970,18 @@ tv_wonder_unique_temple_of_heaven_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_temple_of_heaven_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -18255,19 +18036,18 @@ tv_wonder_unique_dujiangyan_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_dujiangyan_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -18322,19 +18102,18 @@ tv_wonder_unique_porcelain_tower_of_nanjing_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_porcelain_tower_of_nanjing_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -18388,19 +18167,18 @@ tv_wonder_unique_jingdezhen_imperial_kilns_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_jingdezhen_imperial_kilns_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -18455,19 +18233,18 @@ tv_wonder_unique_mogao_caves_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_mogao_caves_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -18523,19 +18300,18 @@ tv_wonder_unique_canton_thirteen_factories_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_canton_thirteen_factories_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -18590,19 +18366,18 @@ tv_wonder_unique_dardanelles_fortress_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_dardanelles_fortress_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -18658,19 +18433,18 @@ tv_wonder_unique_escorial_monastery_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_escorial_monastery_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -18726,19 +18500,18 @@ tv_wonder_unique_toledo_armory_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_toledo_armory_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -18793,19 +18566,18 @@ tv_wonder_unique_camino_de_santiago_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_camino_de_santiago_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -18859,19 +18631,18 @@ tv_wonder_unique_sagres_navigation_school_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_sagres_navigation_school_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -18927,19 +18698,18 @@ tv_wonder_unique_milan_arsenal_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_milan_arsenal_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -18994,19 +18764,18 @@ tv_wonder_unique_university_of_bologna_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_university_of_bologna_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -19060,19 +18829,18 @@ tv_wonder_unique_carrara_marble_quarries_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_carrara_marble_quarries_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -19129,19 +18897,18 @@ tv_wonder_unique_east_india_company_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_east_india_company_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -19196,19 +18963,18 @@ tv_wonder_unique_peacock_throne_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_peacock_throne_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -19262,19 +19028,18 @@ tv_wonder_unique_varanasi_ghats_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_varanasi_ghats_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -19329,19 +19094,18 @@ tv_wonder_unique_brihadishvara_temple_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_brihadishvara_temple_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -19395,19 +19159,18 @@ tv_wonder_unique_konark_sun_temple_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_konark_sun_temple_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -19462,19 +19225,18 @@ tv_wonder_unique_fatehpur_sikri_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_fatehpur_sikri_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -19529,19 +19291,18 @@ tv_wonder_unique_calicut_port_city_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_calicut_port_city_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -19595,19 +19356,18 @@ tv_wonder_unique_wieliczka_salt_mine_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_wieliczka_salt_mine_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -19663,19 +19423,18 @@ tv_wonder_unique_wawel_castle_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_wawel_castle_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -19729,19 +19488,18 @@ tv_wonder_unique_zamosc_ideal_city_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_zamosc_ideal_city_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -19796,19 +19554,18 @@ tv_wonder_unique_gdansk_port_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_gdansk_port_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -19864,19 +19621,18 @@ tv_wonder_unique_malbork_castle_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_malbork_castle_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -19931,19 +19687,18 @@ tv_wonder_unique_brest_synagogue_quarter_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_brest_synagogue_quarter_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -19998,19 +19753,18 @@ tv_wonder_unique_vilnius_university_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_vilnius_university_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -20066,19 +19820,18 @@ tv_wonder_unique_cave_monastery_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_cave_monastery_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -20134,19 +19887,18 @@ tv_wonder_unique_zaporizhian_sich_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_zaporizhian_sich_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -20202,19 +19954,18 @@ tv_wonder_unique_registan_square_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_registan_square_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -20269,19 +20020,18 @@ tv_wonder_unique_khiva_old_city_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_khiva_old_city_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -20336,19 +20086,18 @@ tv_wonder_unique_bukhara_kalyan_minaret_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_bukhara_kalyan_minaret_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -20403,19 +20152,18 @@ tv_wonder_unique_ferghana_palace_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_ferghana_palace_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -20471,19 +20219,18 @@ tv_wonder_unique_tashkent_old_bazaar_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_tashkent_old_bazaar_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -20538,19 +20285,18 @@ tv_wonder_unique_louvre_palace_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_louvre_palace_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -20605,19 +20351,18 @@ tv_wonder_unique_fontainebleau_palace_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_fontainebleau_palace_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -20672,19 +20417,18 @@ tv_wonder_unique_bordeaux_port_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_bordeaux_port_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -20739,19 +20483,18 @@ tv_wonder_unique_marseille_old_port_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_marseille_old_port_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -20805,19 +20548,18 @@ tv_wonder_unique_lyon_silk_workshops_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_lyon_silk_workshops_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -20872,19 +20614,18 @@ tv_wonder_unique_mont_saint_michel_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_mont_saint_michel_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -20940,19 +20681,18 @@ tv_wonder_unique_bastille_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_bastille_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -21008,19 +20748,18 @@ tv_wonder_unique_carcassonne_castle_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_carcassonne_castle_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -21076,19 +20815,18 @@ tv_wonder_unique_brest_naval_port_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_brest_naval_port_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -21143,19 +20881,18 @@ tv_wonder_unique_colmar_old_town_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_colmar_old_town_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -21209,19 +20946,18 @@ tv_wonder_unique_house_of_wisdom_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_house_of_wisdom_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -21275,19 +21011,18 @@ tv_wonder_unique_echmiadzin_cathedral_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_echmiadzin_cathedral_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -21343,19 +21078,18 @@ tv_wonder_unique_narikala_fortress_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_narikala_fortress_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -21410,19 +21144,18 @@ tv_wonder_unique_baku_ateshgah_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_baku_ateshgah_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -21478,19 +21211,18 @@ tv_wonder_unique_sanaa_old_city_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_sanaa_old_city_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -21545,19 +21277,18 @@ tv_wonder_unique_schoenbrunn_palace_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_schoenbrunn_palace_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -21612,19 +21343,18 @@ tv_wonder_unique_electoral_conference_hall_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_electoral_conference_hall_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -21678,19 +21408,18 @@ tv_wonder_unique_aachen_cathedral_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_aachen_cathedral_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -21746,19 +21475,18 @@ tv_wonder_unique_nuremberg_imperial_castle_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_nuremberg_imperial_castle_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -21816,19 +21544,18 @@ tv_wonder_unique_augsburg_bank_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_augsburg_bank_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -21882,19 +21609,18 @@ tv_wonder_unique_cologne_cathedral_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_cologne_cathedral_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -21950,19 +21676,18 @@ tv_wonder_unique_hanseatic_kontor_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_hanseatic_kontor_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -22017,19 +21742,18 @@ tv_wonder_unique_hanseatic_town_hall_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_hanseatic_town_hall_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -22085,19 +21809,18 @@ tv_wonder_unique_dresden_art_gallery_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_dresden_art_gallery_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -22151,19 +21874,18 @@ tv_wonder_unique_munich_royal_brewery_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_munich_royal_brewery_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -22218,19 +21940,18 @@ tv_wonder_unique_heidelberg_university_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_heidelberg_university_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -22285,19 +22006,18 @@ tv_wonder_unique_fez_old_city_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_fez_old_city_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -22351,19 +22071,18 @@ tv_wonder_unique_kairouan_holy_city_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_kairouan_holy_city_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -22423,19 +22142,18 @@ tv_wonder_unique_algiers_pirate_port_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_algiers_pirate_port_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -22490,19 +22208,18 @@ tv_wonder_unique_sankore_university_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_sankore_university_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -22557,19 +22274,18 @@ tv_wonder_unique_great_mosque_of_djenne_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_great_mosque_of_djenne_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}
@@ -22625,19 +22341,18 @@ tv_wonder_unique_walls_of_benin_inaugurated = {
 		tv_wonder_module_maintenance
 	}
 
-	on_built = {
-		hidden_effect = {
-			location = {
-				tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
-				tv_wonder_mechanics_refresh_location_display_state_effect = yes
-			}
-		}
-	}
-
 	on_destroyed = {
 		hidden_effect = {
 			location = {
 				tv_wonder_unique_walls_of_benin_handle_final_building_destroyed_effect = yes
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}
 		}
 	}

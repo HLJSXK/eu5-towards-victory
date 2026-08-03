@@ -11,6 +11,9 @@ sys.path.insert(0, str(REPO_ROOT / "scripts_engineering_department"))
 
 from wonder_mechanics.io import load_all_wonder_mechanics
 from wonder_mechanics.naming import (
+    final_building_completion_sync_hidden_event_execute_effect_name,
+    final_building_completion_sync_hidden_event_id,
+    final_building_completion_sync_hidden_event_trigger_effect_name,
     FINAL_BUILDING_LEVEL_BY_TYPE_MAP,
     construct_final_building_effect_name,
     finalization_event_id,
@@ -32,6 +35,7 @@ DATA_REL = (
     "data/pulse_registry.yaml"
 )
 T = "\t"
+FINAL_BUILDING_COMPLETION_SYNC_QUEUED_VAR = "tv_wonder_final_building_completion_sync_queued"
 
 def building_type_ref(building: str) -> str:
     return building if building.startswith("building_type:") else f"building_type:{building}"
@@ -103,6 +107,28 @@ def append_hidden_event_execute_effect(lines: list[str], wonders: list[dict]) ->
                 lines.append(f"{T}{T}{T}}}")
         lines.append(f"{T}{T}}}")
     lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+
+def append_final_building_completion_sync_hidden_event_effects(lines: list[str]) -> None:
+    lines.append(f"{final_building_completion_sync_hidden_event_trigger_effect_name()} = {{")
+    lines.append(f"{T}if = {{")
+    lines.append(f"{T}{T}limit = {{ NOT = {{ has_variable = {FINAL_BUILDING_COMPLETION_SYNC_QUEUED_VAR} }} }}")
+    lines.append(
+        f"{T}{T}set_variable = {{ name = {FINAL_BUILDING_COMPLETION_SYNC_QUEUED_VAR} value = 1 }}"
+    )
+    lines.append(
+        f"{T}{T}trigger_event_silently = {{ id = tv_engineering_department.{final_building_completion_sync_hidden_event_id()} days = 1 }}"
+    )
+    lines.append(f"{T}}}")
+    lines.append("}")
+    lines.append("")
+
+    lines.append(f"{final_building_completion_sync_hidden_event_execute_effect_name()} = {{")
+    lines.append(f"{T}remove_variable = {FINAL_BUILDING_COMPLETION_SYNC_QUEUED_VAR}")
+    lines.append(f"{T}tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes")
+    lines.append(f"{T}tv_wonder_mechanics_refresh_location_display_state_effect = yes")
     lines.append("}")
     lines.append("")
 
@@ -267,6 +293,7 @@ def generate() -> str:
     lines = render_header(SCRIPT_REL, DATA_REL)
     append_hidden_event_trigger_effect(lines)
     append_hidden_event_execute_effect(lines, wonders)
+    append_final_building_completion_sync_hidden_event_effects(lines)
     append_trigger_event_dispatch_effect(lines, wonders)
     for wonder in wonders:
         for style in ceremony_styles(wonder):

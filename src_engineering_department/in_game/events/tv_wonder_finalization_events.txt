@@ -4484,6 +4484,18 @@ tv_engineering_department.6999 = {
 	}
 }
 
+tv_engineering_department.6998 = {
+	type = location_event
+	outcome = neutral
+	title = empty_text
+	desc = empty_text
+	hidden = yes
+
+	immediate = {
+		tv_wonder_execute_final_building_completion_sync_hidden_event_effect = yes
+	}
+}
+
 tv_engineering_department.6001 = {
 	type = country_event
 	title = tv_engineering_department.600.t

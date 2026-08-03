@@ -1326,6 +1326,20 @@ tv_wonder_execute_finalization_hidden_event_effect = {
 	}
 }
 
+tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = {
+	if = {
+		limit = { NOT = { has_variable = tv_wonder_final_building_completion_sync_queued } }
+		set_variable = { name = tv_wonder_final_building_completion_sync_queued value = 1 }
+		trigger_event_silently = { id = tv_engineering_department.6998 days = 1 }
+	}
+}
+
+tv_wonder_execute_final_building_completion_sync_hidden_event_effect = {
+	remove_variable = tv_wonder_final_building_completion_sync_queued
+	tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
+	tv_wonder_mechanics_refresh_location_display_state_effect = yes
+}
+
 tv_wonder_mechanics_trigger_finalization_event_effect = {
 	if = {
 		limit = { var:tv_wonder_locked ?= 1 }

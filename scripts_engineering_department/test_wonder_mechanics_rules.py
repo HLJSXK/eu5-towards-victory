@@ -30,12 +30,25 @@ BUILDING_GENERATOR = (
     / "building_types"
     / "gen_tv_engineering_department_wonder_mechanics_buildings.py"
 )
+FINALIZATION_EVENT_GENERATOR = (
+    REPO_ROOT
+    / "scripts_engineering_department" / "in_game"
+    / "events"
+    / "gen_tv_wonder_finalization_events.py"
+)
 EFFECT_GENERATOR = (
     REPO_ROOT
     / "scripts_engineering_department" / "in_game"
     / "common"
     / "scripted_effects"
     / "gen_tv_engineering_department_wonder_mechanics_effects.py"
+)
+FINALIZATION_EFFECT_GENERATOR = (
+    REPO_ROOT
+    / "scripts_engineering_department" / "in_game"
+    / "common"
+    / "scripted_effects"
+    / "gen_tv_wonder_finalization_effects.py"
 )
 CEREMONY_EFFECT_GENERATOR = (
     REPO_ROOT
@@ -143,6 +156,9 @@ ENGINEERING_DEPARTMENT_CMM_AUTO_MODIFIERS = (
 
 from wonder_mechanics.io import load_all_wonder_mechanics
 from wonder_mechanics.naming import (
+    final_building_completion_sync_hidden_event_execute_effect_name,
+    final_building_completion_sync_hidden_event_id,
+    final_building_completion_sync_hidden_event_trigger_effect_name,
     final_building_destroyed_effect_name,
     final_building_for_style,
     persistent_ritual_country_modifier_name,
@@ -202,6 +218,22 @@ def load_building_generator():
 def load_effect_generator():
     spec = importlib.util.spec_from_file_location("wonder_mechanics_effect_generator", EFFECT_GENERATOR)
     require(spec is not None and spec.loader is not None, "Could not load wonder mechanics effect generator.")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_finalization_effect_generator():
+    spec = importlib.util.spec_from_file_location("wonder_finalization_effect_generator", FINALIZATION_EFFECT_GENERATOR)
+    require(spec is not None and spec.loader is not None, "Could not load wonder finalization effect generator.")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_finalization_event_generator():
+    spec = importlib.util.spec_from_file_location("wonder_finalization_event_generator", FINALIZATION_EVENT_GENERATOR)
+    require(spec is not None and spec.loader is not None, "Could not load wonder finalization event generator.")
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
@@ -670,6 +702,63 @@ def validate_final_building_destruction_sync(wonders: list[dict], mechanics: dic
             )
 
 
+def validate_final_building_completion_sync_is_deferred(wonders: list[dict], mechanics: dict) -> None:
+    building_generator = load_building_generator()
+    building_script = building_generator.generate()
+    effects = load_finalization_effect_generator().generate()
+    events = load_finalization_event_generator().generate()
+
+    completion_lines = building_generator.final_building_completion_schedule_lines()
+    expected_final_building_count = sum(len(ceremony_styles(wonder)) for wonder in wonders)
+    expected_auxiliary_building_count = sum(
+        1
+        for wonder in wonders
+        for style in ceremony_styles(wonder)
+        if ritual_plan_for_style(wonder, mechanics, style)["mode"] == "auxiliary_building"
+    )
+    on_construction_ended_completion = "\n".join(["\ton_construction_ended = {", *completion_lines, "\t}"])
+    require(
+        building_script.count("\ton_built = {") == expected_auxiliary_building_count,
+        "Only auxiliary wonder buildings should keep on_built completion hooks.",
+    )
+    require(
+        building_script.count("\ton_construction_ended = {")
+        == expected_auxiliary_building_count + expected_final_building_count,
+        "All wonder completion hooks should live on on_construction_ended.",
+    )
+    require(
+        building_script.count(on_construction_ended_completion) == expected_final_building_count,
+        "Every final wonder building must defer completion sync from on_construction_ended.",
+    )
+
+    trigger_block = extract_trigger_block(effects, final_building_completion_sync_hidden_event_trigger_effect_name())
+    execute_block = extract_trigger_block(effects, final_building_completion_sync_hidden_event_execute_effect_name())
+    event_block = extract_trigger_block(events, f"tv_engineering_department.{final_building_completion_sync_hidden_event_id()}")
+    require(
+        "trigger_event_silently = { id = tv_engineering_department.6998 days = 1 }" in trigger_block,
+        "The deferred final-building sync trigger must queue the location event for the next day.",
+    )
+    require(
+        "set_variable = { name = tv_wonder_final_building_completion_sync_queued value = 1 }" in trigger_block,
+        "The deferred final-building sync trigger must deduplicate same-location completion hooks.",
+    )
+    for expected in (
+        "remove_variable = tv_wonder_final_building_completion_sync_queued",
+        "tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes",
+        "tv_wonder_mechanics_refresh_location_display_state_effect = yes",
+    ):
+        require(expected in execute_block, f"The deferred final-building sync execute effect is missing: {expected}")
+    for expected in (
+        "type = location_event",
+        "outcome = neutral",
+        "title = empty_text",
+        "desc = empty_text",
+        "hidden = yes",
+        f"{final_building_completion_sync_hidden_event_execute_effect_name()} = yes",
+    ):
+        require(expected in event_block, f"The deferred final-building sync event is missing: {expected}")
+
+
 def validate_generated_ceremony_flow(wonders: list[dict], mechanics: dict) -> None:
     ceremony_wonders = [wonder for wonder in wonders if wonder.get("is_unique") and wonder.get("ceremony") is not None]
     require(ceremony_wonders, "Expected ceremony-enabled unique wonders.")
@@ -1128,6 +1217,7 @@ def main() -> None:
     validate_existing_unique_initialization_seeds_survey_maps(wonders)
     validate_cmm_wonder_controls(wonders, mechanics)
     validate_final_building_destruction_sync(wonders, mechanics)
+    validate_final_building_completion_sync_is_deferred(wonders, mechanics)
     validate_generated_ceremony_flow(wonders, mechanics)
     validate_generated_ceremony_autostart(wonders)
     validate_generated_ceremony_gui(wonders)

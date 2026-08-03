@@ -1297,6 +1297,10 @@ def finalization_hidden_event_id() -> int:
     return 6999
 
 
+def final_building_completion_sync_hidden_event_id() -> int:
+    return 6998
+
+
 def ownership_gain_event_id(wonder: dict) -> int:
     return 8000 + int(wonder["id"])
 
@@ -1327,6 +1331,14 @@ def finalization_hidden_event_trigger_effect_name() -> str:
 
 def finalization_hidden_event_execute_effect_name() -> str:
     return "tv_wonder_execute_finalization_hidden_event_effect"
+
+
+def final_building_completion_sync_hidden_event_trigger_effect_name() -> str:
+    return "tv_wonder_trigger_final_building_completion_sync_hidden_event_effect"
+
+
+def final_building_completion_sync_hidden_event_execute_effect_name() -> str:
+    return "tv_wonder_execute_final_building_completion_sync_hidden_event_effect"
 
 
 def normalize_loc_map(value: object) -> dict[str, str]:
