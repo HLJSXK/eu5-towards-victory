@@ -1328,7 +1328,11 @@ def final_building_destruction_cmf_log_action_name() -> str:
     return "tv_engineering_department_cmf_log_destroyed"
 
 
-def final_building_destruction_cmf_log_arg2_name() -> str:
+def final_building_completion_cmf_log_action_name() -> str:
+    return "tv_engineering_department_cmf_log_completed"
+
+
+def final_building_cmf_log_arg2_name() -> str:
     return "tv_engineering_department_cmf_log_final_wonder_building"
 
 

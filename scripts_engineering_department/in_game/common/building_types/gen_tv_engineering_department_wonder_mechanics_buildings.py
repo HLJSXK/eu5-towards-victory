@@ -15,6 +15,9 @@ from wonder_mechanics.modifiers import (
     wonder_base_country_modifiers,
 )
 from wonder_mechanics.naming import (
+    final_building_destruction_cmf_log_action_name,
+    final_building_completion_cmf_log_action_name,
+    final_building_cmf_log_arg2_name,
     final_building_completion_sync_hidden_event_trigger_effect_name,
     final_building_destruction_sync_hidden_event_id,
     final_building_for_style,
@@ -228,7 +231,7 @@ def auxiliary_on_construction_ended_lines() -> list[str]:
     ]
 
 
-def final_building_completion_schedule_lines() -> list[str]:
+def final_building_completion_schedule_lines(wonder: dict) -> list[str]:
     # Direct-build (see country_potential in building_block) completes construction
     # through a queued 0-day task, so location_building_level can still be stale when
     # the completion hook fires. Schedule the real sync for the next day instead of
@@ -236,6 +239,14 @@ def final_building_completion_schedule_lines() -> list[str]:
     return [
         f"{T}{T}hidden_effect = {{",
         f"{T}{T}{T}location = {{",
+        f"{T}{T}{T}{T}owner = {{",
+        (
+            f"{T}{T}{T}{T}{T}cmf_log_with_args = {{ "
+            f"action = {final_building_completion_cmf_log_action_name()} "
+            f"arg1 = tv_wonder_{wonder['key']} "
+            f"arg2 = {final_building_cmf_log_arg2_name()} }}"
+        ),
+        f"{T}{T}{T}{T}}}",
         f"{T}{T}{T}{T}{final_building_completion_sync_hidden_event_trigger_effect_name()} = yes",
         f"{T}{T}{T}}}",
         f"{T}{T}}}",
@@ -259,6 +270,14 @@ def final_building_on_destroyed_lines(wonder: dict) -> list[str]:
     return [
         f"{T}{T}hidden_effect = {{",
         f"{T}{T}{T}location = {{",
+        f"{T}{T}{T}{T}owner = {{",
+        (
+            f"{T}{T}{T}{T}{T}cmf_log_with_args = {{ "
+            f"action = {final_building_destruction_cmf_log_action_name()} "
+            f"arg1 = tv_wonder_{wonder['key']} "
+            f"arg2 = {final_building_cmf_log_arg2_name()} }}"
+        ),
+        f"{T}{T}{T}{T}}}",
         (
             f"{T}{T}{T}{T}trigger_event_silently = {{ "
             f"id = tv_engineering_department.{final_building_destruction_sync_hidden_event_id(wonder)} days = 1 }}"
@@ -291,7 +310,7 @@ def generate() -> str:
                     modifiers,
                     maintenance,
                     attributes=attributes,
-                    on_construction_ended_lines=final_building_completion_schedule_lines(),
+                    on_construction_ended_lines=final_building_completion_schedule_lines(wonder),
                     on_destroyed_lines=final_building_on_destroyed_lines(wonder),
                     can_destroy_lines=final_building_can_destroy_lines(wonder),
                     construction_demand=direct_construction_demand,

@@ -156,6 +156,9 @@ ENGINEERING_DEPARTMENT_CMM_AUTO_MODIFIERS = (
 
 from wonder_mechanics.io import load_all_wonder_mechanics
 from wonder_mechanics.naming import (
+    final_building_cmf_log_arg2_name,
+    final_building_completion_cmf_log_action_name,
+    final_building_destruction_cmf_log_action_name,
     final_building_completion_sync_hidden_event_execute_effect_name,
     final_building_completion_sync_hidden_event_id,
     final_building_completion_sync_hidden_event_trigger_effect_name,
@@ -679,6 +682,14 @@ def validate_final_building_destruction_sync(wonders: list[dict], mechanics: dic
             expected_trigger in destroyed_callback,
             f"{wonder_key} destruction callback must defer cleanup to the next day.",
         )
+        expected_log = (
+            f"cmf_log_with_args = {{ action = {final_building_destruction_cmf_log_action_name()} "
+            f"arg1 = tv_wonder_{wonder_key} arg2 = {final_building_cmf_log_arg2_name()} }}"
+        )
+        require(
+            expected_log in destroyed_callback,
+            f"{wonder_key} destruction callback must record a CMF debug log entry.",
+        )
 
         effect_name = final_building_destroyed_effect_name(wonder)
         require(
@@ -737,7 +748,6 @@ def validate_final_building_completion_sync_is_deferred(wonders: list[dict], mec
     effects = load_finalization_effect_generator().generate()
     events = load_finalization_event_generator().generate()
 
-    completion_lines = building_generator.final_building_completion_schedule_lines()
     expected_final_building_count = sum(len(ceremony_styles(wonder)) for wonder in wonders)
     expected_auxiliary_building_count = sum(
         1
@@ -745,7 +755,6 @@ def validate_final_building_completion_sync_is_deferred(wonders: list[dict], mec
         for style in ceremony_styles(wonder)
         if ritual_plan_for_style(wonder, mechanics, style)["mode"] == "auxiliary_building"
     )
-    on_construction_ended_completion = "\n".join(["\ton_construction_ended = {", *completion_lines, "\t}"])
     require(
         building_script.count("\ton_built = {") == expected_auxiliary_building_count,
         "Only auxiliary wonder buildings should keep on_built completion hooks.",
@@ -755,10 +764,31 @@ def validate_final_building_completion_sync_is_deferred(wonders: list[dict], mec
         == expected_auxiliary_building_count + expected_final_building_count,
         "All wonder completion hooks should live on on_construction_ended.",
     )
-    require(
-        building_script.count(on_construction_ended_completion) == expected_final_building_count,
-        "Every final wonder building must defer completion sync from on_construction_ended.",
-    )
+    for wonder in wonders:
+        wonder_key = str(wonder["key"])
+        completion_callback = "\n".join(
+            [
+                "\ton_construction_ended = {",
+                *building_generator.final_building_completion_schedule_lines(wonder),
+                "\t}",
+            ]
+        )
+        require(
+            building_script.count(completion_callback) == len(ceremony_styles(wonder)),
+            f"Every {wonder_key} final building style must defer completion sync from on_construction_ended.",
+        )
+        expected_log = (
+            f"cmf_log_with_args = {{ action = {final_building_completion_cmf_log_action_name()} "
+            f"arg1 = tv_wonder_{wonder_key} arg2 = {final_building_cmf_log_arg2_name()} }}"
+        )
+        require(
+            expected_log in completion_callback,
+            f"{wonder_key} completion callback must record a CMF debug log entry.",
+        )
+        require(
+            f"{final_building_completion_sync_hidden_event_trigger_effect_name()} = yes" in completion_callback,
+            f"{wonder_key} completion callback must keep the deferred sync scheduler.",
+        )
 
     trigger_block = extract_trigger_block(effects, final_building_completion_sync_hidden_event_trigger_effect_name())
     execute_block = extract_trigger_block(effects, final_building_completion_sync_hidden_event_execute_effect_name())
