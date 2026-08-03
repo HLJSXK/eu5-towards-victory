@@ -9,7 +9,7 @@ Vanilla EU5 wonders have always been a dead end — a flavor tooltip and nothing
 **Towards Victory - Great Project** is a new **standalone** mod that turns wonder-building into a real national project:
 
 🏗️ A new international organization, the **Engineering Department**, runs the whole process
-🗿 **54 generic wonders** + **123 historical unique wonders**, each tied to its real-world site
+🗿 **56 generic wonders** + **136 historical unique wonders**, each tied to its real-world site
 📜 A full **6-stage build**: Concept → Debate → Survey → Construction → Ceremony → Finalization
 🎭 The Ceremony at the end shapes the wonder's final bonuses — pick a style for generic wonders; unique wonders mostly auto-run a shared 8-stage version, with 2 (Pharos Lighthouse, Hagia Sophia) getting a fully bespoke one
 🧭 A dedicated map mode shows every completed wonder worldwide — plan your own build, or scout other nations' wonders as conquest targets

@@ -5069,3 +5069,393 @@ unique_wonders:
         科尔马应该保留修复的木质外墙、行会标志、运河空地、桥梁检查、酒摊登记册、特许阅读、市场重量、大门钥匙和城镇印章的记忆。稍后的实施可以将其表达为当地声望、合法性、贸易价值、减少骚乱或更好地从火灾和洪水中恢复。
     notes: >-
       源仪式是直接的，但定时模式更好地代表恢复和遗产博览会季节。每月一次就足够了，因为这项工作是公民的、商业的和档案的，而不是战争或继承驱动的。奖励必须保持每月的声望和每月的合法性；当地贸易和文化记忆是支持机制。
+- id: 224
+  key: unique_suzhou_classical_gardens
+  base_key: grand_garden_complex
+  location: wuxian
+  source_ritual_key: literati_garden_convocation
+  status: designed
+  ritual_design_zh:
+    title: 文士园林雅集
+    historical_flavor: 苏州古典园林已在 data/unique_wonders.yaml 中实现为八阶段即时典礼。其仪式凭证绑定于园林管事、叠山匠、画师、诗人与士族赞助人和固定地点 wuxian，不是可复用的通用仪式。
+    mode: immediate_ceremony
+    duration: 使用 tv_wonder_ceremony_stage 推进的八个每月典礼阶段。
+    listeners:
+    - monthly
+    confirmation_logic: 赞助者拥有并控制固定地点，最终唯一奇观建筑存在，国家未破产，且没有重复典礼正在进行。
+    start_logic: 典礼记录赞助国、固定地点、当前阶段、最终建筑，以及玩家为该阶段选择支付的成本。
+    progress_logic: 每月监听器在玩家支付该阶段唯一的计算成本项后推进已撰写的典礼阶段。
+    completion_logic: 第八阶段完成"文士园林雅集"，并交接唯一最终建筑与基础奇观的国家修正主题。
+    failure_or_timeout_logic: 拒绝阶段会延后典礼；失去固定地点、偿付能力或最终建筑会阻止完成，直到恢复。
+    implementation_mapping:
+      confirmation_trigger_script: 由生成的唯一奇观典礼效果与固定地点锁定检查处理
+      start_effect_script: 由 unique_wonders.yaml 的典礼数据生成
+      snapshot_effect_script: 即时典礼 v1 不需要
+      progress_effect_script: tv_wonder_ceremony_monthly_tick_effect = yes
+      completion_trigger_script: 要求 tv_wonder_ceremony_stage 达到 8
+      completion_effect_script: 生成落成与世界新闻交接
+    intended_rewards:
+      permanent_country_modifier: 使用 grand_garden_complex 第一分支国家修正主题。
+      local_building_reward: 水院、奇石、亭榭、花木与题咏雅集让苏州古典园林成为精致文化赞助的学堂。
+      one_time_reward: 阶段成本与最终新闻强调该仪式如何提高新艺术家资质与文化传统。
+    notes: 亚洲区奇观扩展中新增，用于覆盖零采用原型并补强东亚、南亚与西亚锚点。
+- id: 225
+  key: unique_fin_garden
+  base_key: grand_garden_complex
+  location: kashan
+  source_ritual_key: oasis_garden_water_rite
+  status: designed
+  ritual_design_zh:
+    title: 绿洲花园引水礼
+    historical_flavor: 芬恩花园已在 data/unique_wonders.yaml 中实现为八阶段即时典礼。其仪式凭证绑定于水权裁判、石匠、园丁、浴池管事、商人与宫廷宾客和固定地点 kashan，不是可复用的通用仪式。
+    mode: immediate_ceremony
+    duration: 使用 tv_wonder_ceremony_stage 推进的八个每月典礼阶段。
+    listeners:
+    - monthly
+    confirmation_logic: 赞助者拥有并控制固定地点，最终唯一奇观建筑存在，国家未破产，且没有重复典礼正在进行。
+    start_logic: 典礼记录赞助国、固定地点、当前阶段、最终建筑，以及玩家为该阶段选择支付的成本。
+    progress_logic: 每月监听器在玩家支付该阶段唯一的计算成本项后推进已撰写的典礼阶段。
+    completion_logic: 第八阶段完成"绿洲花园引水礼"，并交接唯一最终建筑与基础奇观的国家修正主题。
+    failure_or_timeout_logic: 拒绝阶段会延后典礼；失去固定地点、偿付能力或最终建筑会阻止完成，直到恢复。
+    implementation_mapping:
+      confirmation_trigger_script: 由生成的唯一奇观典礼效果与固定地点锁定检查处理
+      start_effect_script: 由 unique_wonders.yaml 的典礼数据生成
+      snapshot_effect_script: 即时典礼 v1 不需要
+      progress_effect_script: tv_wonder_ceremony_monthly_tick_effect = yes
+      completion_trigger_script: 要求 tv_wonder_ceremony_stage 达到 8
+      completion_effect_script: 生成落成与世界新闻交接
+    intended_rewards:
+      permanent_country_modifier: 使用 grand_garden_complex 第一分支国家修正主题。
+      local_building_reward: 泉渠、墙院、荫树、浴池与迎宾亭让芬恩花园成为繁荣的宫廷绿洲。
+      one_time_reward: 阶段成本与最终新闻强调该仪式如何把绿洲水源转化为繁荣与园林声望。
+    notes: 亚洲区奇观扩展中新增，用于覆盖零采用原型并补强东亚、南亚与西亚锚点。
+- id: 226
+  key: unique_jiangnan_examination_hall
+  base_key: state_examination_complex
+  location: shangyuan
+  source_ritual_key: locked_compound_degree_roll
+  status: designed
+  ritual_design_zh:
+    title: 锁院登科名册
+    historical_flavor: 江南贡院已在 data/unique_wonders.yaml 中实现为八阶段即时典礼。其仪式凭证绑定于考官、书吏、卫兵、士子、刻印匠与省臣和固定地点 shangyuan，不是可复用的通用仪式。
+    mode: immediate_ceremony
+    duration: 使用 tv_wonder_ceremony_stage 推进的八个每月典礼阶段。
+    listeners:
+    - monthly
+    confirmation_logic: 赞助者拥有并控制固定地点，最终唯一奇观建筑存在，国家未破产，且没有重复典礼正在进行。
+    start_logic: 典礼记录赞助国、固定地点、当前阶段、最终建筑，以及玩家为该阶段选择支付的成本。
+    progress_logic: 每月监听器在玩家支付该阶段唯一的计算成本项后推进已撰写的典礼阶段。
+    completion_logic: 第八阶段完成"锁院登科名册"，并交接唯一最终建筑与基础奇观的国家修正主题。
+    failure_or_timeout_logic: 拒绝阶段会延后典礼；失去固定地点、偿付能力或最终建筑会阻止完成，直到恢复。
+    implementation_mapping:
+      confirmation_trigger_script: 由生成的唯一奇观典礼效果与固定地点锁定检查处理
+      start_effect_script: 由 unique_wonders.yaml 的典礼数据生成
+      snapshot_effect_script: 即时典礼 v1 不需要
+      progress_effect_script: tv_wonder_ceremony_monthly_tick_effect = yes
+      completion_trigger_script: 要求 tv_wonder_ceremony_stage 达到 8
+      completion_effect_script: 生成落成与世界新闻交接
+    intended_rewards:
+      permanent_country_modifier: 使用 state_examination_complex 第一分支国家修正主题。
+      local_building_reward: 成排号舍、封存试卷、考官院落与登科名榜让江南贡院成为识字行政的发动机。
+      one_time_reward: 阶段成本与最终新闻强调该仪式如何强化内阁效率与识字晋升。
+    notes: 亚洲区奇观扩展中新增，用于覆盖零采用原型并补强东亚、南亚与西亚锚点。
+- id: 227
+  key: unique_thang_long_temple_of_literature
+  base_key: state_examination_complex
+  location: thang_long
+  source_ritual_key: doctors_steles_convocation
+  status: designed
+  ritual_design_zh:
+    title: 进士碑讲学礼
+    historical_flavor: 升龙文庙国子监已在 data/unique_wonders.yaml 中实现为八阶段即时典礼。其仪式凭证绑定于礼官、国学师长、石刻匠、生员与朝廷儒臣和固定地点 thang_long，不是可复用的通用仪式。
+    mode: immediate_ceremony
+    duration: 使用 tv_wonder_ceremony_stage 推进的八个每月典礼阶段。
+    listeners:
+    - monthly
+    confirmation_logic: 赞助者拥有并控制固定地点，最终唯一奇观建筑存在，国家未破产，且没有重复典礼正在进行。
+    start_logic: 典礼记录赞助国、固定地点、当前阶段、最终建筑，以及玩家为该阶段选择支付的成本。
+    progress_logic: 每月监听器在玩家支付该阶段唯一的计算成本项后推进已撰写的典礼阶段。
+    completion_logic: 第八阶段完成"进士碑讲学礼"，并交接唯一最终建筑与基础奇观的国家修正主题。
+    failure_or_timeout_logic: 拒绝阶段会延后典礼；失去固定地点、偿付能力或最终建筑会阻止完成，直到恢复。
+    implementation_mapping:
+      confirmation_trigger_script: 由生成的唯一奇观典礼效果与固定地点锁定检查处理
+      start_effect_script: 由 unique_wonders.yaml 的典礼数据生成
+      snapshot_effect_script: 即时典礼 v1 不需要
+      progress_effect_script: tv_wonder_ceremony_monthly_tick_effect = yes
+      completion_trigger_script: 要求 tv_wonder_ceremony_stage 达到 8
+      completion_effect_script: 生成落成与世界新闻交接
+    intended_rewards:
+      permanent_country_modifier: 使用 state_examination_complex 第一分支国家修正主题。
+      local_building_reward: 祭坛、讲堂、国学庭院、试场与进士碑让升龙文庙国子监成为政府的学术臂膀。
+      one_time_reward: 阶段成本与最终新闻强调该仪式如何把儒学教化绑定到晋升与行政。
+    notes: 亚洲区奇观扩展中新增，用于覆盖零采用原型并补强东亚、南亚与西亚锚点。
+- id: 228
+  key: unique_maragheh_observatory
+  base_key: giant_observatory
+  location: maragheh
+  source_ritual_key: zij_star_table_assembly
+  status: designed
+  ritual_design_zh:
+    title: 星表校订大会
+    historical_flavor: 马拉盖天文台已在 data/unique_wonders.yaml 中实现为八阶段即时典礼。其仪式凭证绑定于天文学者、仪器匠、书记、藏书官、赞助人与历法官和固定地点 maragheh，不是可复用的通用仪式。
+    mode: immediate_ceremony
+    duration: 使用 tv_wonder_ceremony_stage 推进的八个每月典礼阶段。
+    listeners:
+    - monthly
+    confirmation_logic: 赞助者拥有并控制固定地点，最终唯一奇观建筑存在，国家未破产，且没有重复典礼正在进行。
+    start_logic: 典礼记录赞助国、固定地点、当前阶段、最终建筑，以及玩家为该阶段选择支付的成本。
+    progress_logic: 每月监听器在玩家支付该阶段唯一的计算成本项后推进已撰写的典礼阶段。
+    completion_logic: 第八阶段完成"星表校订大会"，并交接唯一最终建筑与基础奇观的国家修正主题。
+    failure_or_timeout_logic: 拒绝阶段会延后典礼；失去固定地点、偿付能力或最终建筑会阻止完成，直到恢复。
+    implementation_mapping:
+      confirmation_trigger_script: 由生成的唯一奇观典礼效果与固定地点锁定检查处理
+      start_effect_script: 由 unique_wonders.yaml 的典礼数据生成
+      snapshot_effect_script: 即时典礼 v1 不需要
+      progress_effect_script: tv_wonder_ceremony_monthly_tick_effect = yes
+      completion_trigger_script: 要求 tv_wonder_ceremony_stage 达到 8
+      completion_effect_script: 生成落成与世界新闻交接
+    intended_rewards:
+      permanent_country_modifier: 使用 giant_observatory 第一分支国家修正主题。
+      local_building_reward: 观测台、黄铜仪器、星表、书库与学者让马拉盖天文台成为天文研究中心。
+      one_time_reward: 阶段成本与最终新闻强调该仪式如何把观测转化为科研进展与学术声望。
+    notes: 亚洲区奇观扩展中新增，用于覆盖零采用原型并补强东亚、南亚与西亚锚点。
+- id: 229
+  key: unique_xian_bell_and_drum_towers
+  base_key: great_clock_bell_system
+  location: jingzhao
+  source_ritual_key: city_time_signal_ordinance
+  status: designed
+  ritual_design_zh:
+    title: 城市报时令
+    historical_flavor: 西安钟鼓楼已在 data/unique_wonders.yaml 中实现为八阶段即时典礼。其仪式凭证绑定于报时官、铸钟匠、鼓师、门卫、市集长老与城市长官和固定地点 jingzhao，不是可复用的通用仪式。
+    mode: immediate_ceremony
+    duration: 使用 tv_wonder_ceremony_stage 推进的八个每月典礼阶段。
+    listeners:
+    - monthly
+    confirmation_logic: 赞助者拥有并控制固定地点，最终唯一奇观建筑存在，国家未破产，且没有重复典礼正在进行。
+    start_logic: 典礼记录赞助国、固定地点、当前阶段、最终建筑，以及玩家为该阶段选择支付的成本。
+    progress_logic: 每月监听器在玩家支付该阶段唯一的计算成本项后推进已撰写的典礼阶段。
+    completion_logic: 第八阶段完成"城市报时令"，并交接唯一最终建筑与基础奇观的国家修正主题。
+    failure_or_timeout_logic: 拒绝阶段会延后典礼；失去固定地点、偿付能力或最终建筑会阻止完成，直到恢复。
+    implementation_mapping:
+      confirmation_trigger_script: 由生成的唯一奇观典礼效果与固定地点锁定检查处理
+      start_effect_script: 由 unique_wonders.yaml 的典礼数据生成
+      snapshot_effect_script: 即时典礼 v1 不需要
+      progress_effect_script: tv_wonder_ceremony_monthly_tick_effect = yes
+      completion_trigger_script: 要求 tv_wonder_ceremony_stage 达到 8
+      completion_effect_script: 生成落成与世界新闻交接
+    intended_rewards:
+      permanent_country_modifier: 使用 great_clock_bell_system 第一分支国家修正主题。
+      local_building_reward: 双楼、钟鼓、更点、夜禁令与城门信号让西安的城市时间响彻都城。
+      one_time_reward: 阶段成本与最终新闻强调该仪式如何把城市报时转化为发展、秩序与声望。
+    notes: 亚洲区奇观扩展中新增，用于覆盖零采用原型并补强东亚、南亚与西亚锚点。
+- id: 230
+  key: unique_behistun_inscription
+  base_key: law_code_stele_project
+  location: bisotun
+  source_ritual_key: royal_rock_text_proclamation
+  status: designed
+  ritual_design_zh:
+    title: 王权崖文宣示
+    historical_flavor: 贝希斯敦铭文已在 data/unique_wonders.yaml 中实现为八阶段即时典礼。其仪式凭证绑定于书记、卫兵、译读者、石匠、法官、王家传令人与游学者和固定地点 bisotun，不是可复用的通用仪式。
+    mode: immediate_ceremony
+    duration: 使用 tv_wonder_ceremony_stage 推进的八个每月典礼阶段。
+    listeners:
+    - monthly
+    confirmation_logic: 赞助者拥有并控制固定地点，最终唯一奇观建筑存在，国家未破产，且没有重复典礼正在进行。
+    start_logic: 典礼记录赞助国、固定地点、当前阶段、最终建筑，以及玩家为该阶段选择支付的成本。
+    progress_logic: 每月监听器在玩家支付该阶段唯一的计算成本项后推进已撰写的典礼阶段。
+    completion_logic: 第八阶段完成"王权崖文宣示"，并交接唯一最终建筑与基础奇观的国家修正主题。
+    failure_or_timeout_logic: 拒绝阶段会延后典礼；失去固定地点、偿付能力或最终建筑会阻止完成，直到恢复。
+    implementation_mapping:
+      confirmation_trigger_script: 由生成的唯一奇观典礼效果与固定地点锁定检查处理
+      start_effect_script: 由 unique_wonders.yaml 的典礼数据生成
+      snapshot_effect_script: 即时典礼 v1 不需要
+      progress_effect_script: tv_wonder_ceremony_monthly_tick_effect = yes
+      completion_trigger_script: 要求 tv_wonder_ceremony_stage 达到 8
+      completion_effect_script: 生成落成与世界新闻交接
+    intended_rewards:
+      permanent_country_modifier: 使用 law_code_stele_project 第一分支国家修正主题。
+      local_building_reward: 崖壁刻文、译读诏令、护卫道路、拓片与学者抄本让贝希斯敦铭文成为王法纪念碑。
+      one_time_reward: 阶段成本与最终新闻强调该仪式如何把古王铭文转化为权威、文化记忆与秩序。
+    notes: 亚洲区奇观扩展中新增，用于覆盖零采用原型并补强东亚、南亚与西亚锚点。
+- id: 231
+  key: unique_beijing_imperial_granaries
+  base_key: royal_granary_system
+  location: dadu
+  source_ritual_key: capital_grain_reserve_audit
+  status: designed
+  ritual_design_zh:
+    title: 京师储粮审计
+    historical_flavor: 北京皇家粮仓群已在 data/unique_wonders.yaml 中实现为八阶段即时典礼。其仪式凭证绑定于仓官、漕运官、粮船长、守卫、防火管事与赈济官和固定地点 dadu，不是可复用的通用仪式。
+    mode: immediate_ceremony
+    duration: 使用 tv_wonder_ceremony_stage 推进的八个每月典礼阶段。
+    listeners:
+    - monthly
+    confirmation_logic: 赞助者拥有并控制固定地点，最终唯一奇观建筑存在，国家未破产，且没有重复典礼正在进行。
+    start_logic: 典礼记录赞助国、固定地点、当前阶段、最终建筑，以及玩家为该阶段选择支付的成本。
+    progress_logic: 每月监听器在玩家支付该阶段唯一的计算成本项后推进已撰写的典礼阶段。
+    completion_logic: 第八阶段完成"京师储粮审计"，并交接唯一最终建筑与基础奇观的国家修正主题。
+    failure_or_timeout_logic: 拒绝阶段会延后典礼；失去固定地点、偿付能力或最终建筑会阻止完成，直到恢复。
+    implementation_mapping:
+      confirmation_trigger_script: 由生成的唯一奇观典礼效果与固定地点锁定检查处理
+      start_effect_script: 由 unique_wonders.yaml 的典礼数据生成
+      snapshot_effect_script: 即时典礼 v1 不需要
+      progress_effect_script: tv_wonder_ceremony_monthly_tick_effect = yes
+      completion_trigger_script: 要求 tv_wonder_ceremony_stage 达到 8
+      completion_effect_script: 生成落成与世界新闻交接
+    intended_rewards:
+      permanent_country_modifier: 使用 royal_granary_system 第一分支国家修正主题。
+      local_building_reward: 漕粮账册、仓廒成列、粮船、防火制度与赈济规程让北京皇家粮仓群成为首都储备体系。
+      one_time_reward: 阶段成本与最终新闻强调该仪式如何把京师储粮转化为粮食容量与赈济正当性。
+    notes: 亚洲区奇观扩展中新增，用于覆盖零采用原型并补强东亚、南亚与西亚锚点。
+- id: 232
+  key: unique_bursa_imperial_mint
+  base_key: royal_mint_system
+  location: bursa
+  source_ritual_key: sealed_coinage_assay
+  status: designed
+  ritual_design_zh:
+    title: 封样铸币验收
+    historical_flavor: 布尔萨皇家铸币所已在 data/unique_wonders.yaml 中实现为八阶段即时典礼。其仪式凭证绑定于验色师、模具匠、税吏、守卫、金银商人与国库书记和固定地点 bursa，不是可复用的通用仪式。
+    mode: immediate_ceremony
+    duration: 使用 tv_wonder_ceremony_stage 推进的八个每月典礼阶段。
+    listeners:
+    - monthly
+    confirmation_logic: 赞助者拥有并控制固定地点，最终唯一奇观建筑存在，国家未破产，且没有重复典礼正在进行。
+    start_logic: 典礼记录赞助国、固定地点、当前阶段、最终建筑，以及玩家为该阶段选择支付的成本。
+    progress_logic: 每月监听器在玩家支付该阶段唯一的计算成本项后推进已撰写的典礼阶段。
+    completion_logic: 第八阶段完成"封样铸币验收"，并交接唯一最终建筑与基础奇观的国家修正主题。
+    failure_or_timeout_logic: 拒绝阶段会延后典礼；失去固定地点、偿付能力或最终建筑会阻止完成，直到恢复。
+    implementation_mapping:
+      confirmation_trigger_script: 由生成的唯一奇观典礼效果与固定地点锁定检查处理
+      start_effect_script: 由 unique_wonders.yaml 的典礼数据生成
+      snapshot_effect_script: 即时典礼 v1 不需要
+      progress_effect_script: tv_wonder_ceremony_monthly_tick_effect = yes
+      completion_trigger_script: 要求 tv_wonder_ceremony_stage 达到 8
+      completion_effect_script: 生成落成与世界新闻交接
+    intended_rewards:
+      permanent_country_modifier: 使用 royal_mint_system 第一分支国家修正主题。
+      local_building_reward: 验色房、铸币模具、金银守卫、税册与商人兑换柜台让布尔萨铸币所成为可信的皇家国库。
+      one_time_reward: 阶段成本与最终新闻强调该仪式如何把受控铸币转化为铸币收入与商人信任。
+    notes: 亚洲区奇观扩展中新增，用于覆盖零采用原型并补强东亚、南亚与西亚锚点。
+- id: 233
+  key: unique_enderun_palace_school
+  base_key: war_college_system
+  location: constantinople
+  source_ritual_key: palace_service_examination
+  status: designed
+  ritual_design_zh:
+    title: 宫廷侍从考选
+    historical_flavor: 恩德伦宫廷学校已在 data/unique_wonders.yaml 中实现为八阶段即时典礼。其仪式凭证绑定于宫廷侍从、师傅、教练官、书记、侍卫与高级官员和固定地点 constantinople，不是可复用的通用仪式。
+    mode: immediate_ceremony
+    duration: 使用 tv_wonder_ceremony_stage 推进的八个每月典礼阶段。
+    listeners:
+    - monthly
+    confirmation_logic: 赞助者拥有并控制固定地点，最终唯一奇观建筑存在，国家未破产，且没有重复典礼正在进行。
+    start_logic: 典礼记录赞助国、固定地点、当前阶段、最终建筑，以及玩家为该阶段选择支付的成本。
+    progress_logic: 每月监听器在玩家支付该阶段唯一的计算成本项后推进已撰写的典礼阶段。
+    completion_logic: 第八阶段完成"宫廷侍从考选"，并交接唯一最终建筑与基础奇观的国家修正主题。
+    failure_or_timeout_logic: 拒绝阶段会延后典礼；失去固定地点、偿付能力或最终建筑会阻止完成，直到恢复。
+    implementation_mapping:
+      confirmation_trigger_script: 由生成的唯一奇观典礼效果与固定地点锁定检查处理
+      start_effect_script: 由 unique_wonders.yaml 的典礼数据生成
+      snapshot_effect_script: 即时典礼 v1 不需要
+      progress_effect_script: tv_wonder_ceremony_monthly_tick_effect = yes
+      completion_trigger_script: 要求 tv_wonder_ceremony_stage 达到 8
+      completion_effect_script: 生成落成与世界新闻交接
+    intended_rewards:
+      permanent_country_modifier: 使用 war_college_system 第一分支国家修正主题。
+      local_building_reward: 宫廷课堂、演武庭、师傅、考试与任命名册让恩德伦成为帝国服务学校。
+      one_time_reward: 阶段成本与最终新闻强调该仪式如何把宫廷教育转化为行政与军事人才。
+    notes: 亚洲区奇观扩展中新增，用于覆盖零采用原型并补强东亚、南亚与西亚锚点。
+- id: 234
+  key: unique_ayutthaya_foreign_quarters
+  base_key: world_embassy_quarter
+  location: ayodhya
+  source_ritual_key: river_embassy_quarter_settlement
+  status: designed
+  ritual_design_zh:
+    title: 河港使馆坊区协定
+    historical_flavor: 阿瑜陀耶外国使馆区已在 data/unique_wonders.yaml 中实现为八阶段即时典礼。其仪式凭证绑定于译员、使节、港务书记、卫兵、商人、僧侣与朝臣和固定地点 ayodhya，不是可复用的通用仪式。
+    mode: immediate_ceremony
+    duration: 使用 tv_wonder_ceremony_stage 推进的八个每月典礼阶段。
+    listeners:
+    - monthly
+    confirmation_logic: 赞助者拥有并控制固定地点，最终唯一奇观建筑存在，国家未破产，且没有重复典礼正在进行。
+    start_logic: 典礼记录赞助国、固定地点、当前阶段、最终建筑，以及玩家为该阶段选择支付的成本。
+    progress_logic: 每月监听器在玩家支付该阶段唯一的计算成本项后推进已撰写的典礼阶段。
+    completion_logic: 第八阶段完成"河港使馆坊区协定"，并交接唯一最终建筑与基础奇观的国家修正主题。
+    failure_or_timeout_logic: 拒绝阶段会延后典礼；失去固定地点、偿付能力或最终建筑会阻止完成，直到恢复。
+    implementation_mapping:
+      confirmation_trigger_script: 由生成的唯一奇观典礼效果与固定地点锁定检查处理
+      start_effect_script: 由 unique_wonders.yaml 的典礼数据生成
+      snapshot_effect_script: 即时典礼 v1 不需要
+      progress_effect_script: tv_wonder_ceremony_monthly_tick_effect = yes
+      completion_trigger_script: 要求 tv_wonder_ceremony_stage 达到 8
+      completion_effect_script: 生成落成与世界新闻交接
+    intended_rewards:
+      permanent_country_modifier: 使用 world_embassy_quarter 第一分支国家修正主题。
+      local_building_reward: 外国坊区、仓栈、译员、巡逻、使馆与河港宴会让阿瑜陀耶成为外交商市。
+      one_time_reward: 阶段成本与最终新闻强调该仪式如何把外国坊区转化为外交与商人力量。
+    notes: 亚洲区奇观扩展中新增，用于覆盖零采用原型并补强东亚、南亚与西亚锚点。
+- id: 235
+  key: unique_yunnan_weisuo_colonies
+  base_key: frontier_colonization_belt
+  location: songming
+  source_ritual_key: frontier_garrison_field_register
+  status: designed
+  ritual_design_zh:
+    title: 边地卫所田册
+    historical_flavor: 云南卫所屯田带已在 data/unique_wonders.yaml 中实现为八阶段即时典礼。其仪式凭证绑定于屯军家户、测量员、驿路官、粮册吏、土司使者与边将和固定地点 songming，不是可复用的通用仪式。
+    mode: immediate_ceremony
+    duration: 使用 tv_wonder_ceremony_stage 推进的八个每月典礼阶段。
+    listeners:
+    - monthly
+    confirmation_logic: 赞助者拥有并控制固定地点，最终唯一奇观建筑存在，国家未破产，且没有重复典礼正在进行。
+    start_logic: 典礼记录赞助国、固定地点、当前阶段、最终建筑，以及玩家为该阶段选择支付的成本。
+    progress_logic: 每月监听器在玩家支付该阶段唯一的计算成本项后推进已撰写的典礼阶段。
+    completion_logic: 第八阶段完成"边地卫所田册"，并交接唯一最终建筑与基础奇观的国家修正主题。
+    failure_or_timeout_logic: 拒绝阶段会延后典礼；失去固定地点、偿付能力或最终建筑会阻止完成，直到恢复。
+    implementation_mapping:
+      confirmation_trigger_script: 由生成的唯一奇观典礼效果与固定地点锁定检查处理
+      start_effect_script: 由 unique_wonders.yaml 的典礼数据生成
+      snapshot_effect_script: 即时典礼 v1 不需要
+      progress_effect_script: tv_wonder_ceremony_monthly_tick_effect = yes
+      completion_trigger_script: 要求 tv_wonder_ceremony_stage 达到 8
+      completion_effect_script: 生成落成与世界新闻交接
+    intended_rewards:
+      permanent_country_modifier: 使用 frontier_colonization_belt 第一分支国家修正主题。
+      local_building_reward: 屯军家户、军田、驿路、粮册与土司协定让云南卫所屯田带成为可运转的边疆。
+      one_time_reward: 阶段成本与最终新闻强调该仪式如何把边地屯田转化为人力、迁徙与边防能力。
+    notes: 亚洲区奇观扩展中新增，用于覆盖零采用原型并补强东亚、南亚与西亚锚点。
+- id: 236
+  key: unique_zhoushan_beacon_network
+  base_key: coastal_beacon_network
+  location: dinghai
+  source_ritual_key: island_beacon_watch
+  status: designed
+  ritual_design_zh:
+    title: 海岛烽火巡守
+    historical_flavor: 舟山烽火台网已在 data/unique_wonders.yaml 中实现为八阶段即时典礼。其仪式凭证绑定于海岛哨兵、筑塔匠、柴薪管事、港口信使、巡哨船长与舰队军官和固定地点 dinghai，不是可复用的通用仪式。
+    mode: immediate_ceremony
+    duration: 使用 tv_wonder_ceremony_stage 推进的八个每月典礼阶段。
+    listeners:
+    - monthly
+    confirmation_logic: 赞助者拥有并控制固定地点，最终唯一奇观建筑存在，国家未破产，且没有重复典礼正在进行。
+    start_logic: 典礼记录赞助国、固定地点、当前阶段、最终建筑，以及玩家为该阶段选择支付的成本。
+    progress_logic: 每月监听器在玩家支付该阶段唯一的计算成本项后推进已撰写的典礼阶段。
+    completion_logic: 第八阶段完成"海岛烽火巡守"，并交接唯一最终建筑与基础奇观的国家修正主题。
+    failure_or_timeout_logic: 拒绝阶段会延后典礼；失去固定地点、偿付能力或最终建筑会阻止完成，直到恢复。
+    implementation_mapping:
+      confirmation_trigger_script: 由生成的唯一奇观典礼效果与固定地点锁定检查处理
+      start_effect_script: 由 unique_wonders.yaml 的典礼数据生成
+      snapshot_effect_script: 即时典礼 v1 不需要
+      progress_effect_script: tv_wonder_ceremony_monthly_tick_effect = yes
+      completion_trigger_script: 要求 tv_wonder_ceremony_stage 达到 8
+      completion_effect_script: 生成落成与世界新闻交接
+    intended_rewards:
+      permanent_country_modifier: 使用 coastal_beacon_network 第一分支国家修正主题。
+      local_building_reward: 海岛烽台、柴薪储备、轮值名册、港口传讯、海盗警报与舰队信号让舟山烽火台网成为海上预警体系。
+      one_time_reward: 阶段成本与最终新闻强调该仪式如何把海岛烽火转化为海上存在与海军传统。
+    notes: 亚洲区奇观扩展中新增，用于覆盖零采用原型并补强东亚、南亚与西亚锚点。

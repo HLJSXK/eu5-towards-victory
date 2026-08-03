@@ -1974,7 +1974,10 @@ def append_ritual_effects(lines: list[str], all_wonders: list[dict], mechanics: 
         first = False
         lines.append(f"{T}{T}{T}{T}{T}{head} = {{")
         lines.append(f"{T}{T}{T}{T}{T}{T}limit = {{ prev = {{ {selected_ritual_limit(wonder, style)} }} }}")
-        lines.append(f"{T}{T}{T}{T}{T}{T}construct_building = {{ building_type = building_type:{ritual_auxiliary_building(wonder)} cost_multiplier = 0 instant = yes }}")
+        lines.append(
+            f"{T}{T}{T}{T}{T}{T}construct_building = {{ building_type = building_type:{ritual_auxiliary_building(wonder)} "
+            'cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }'
+        )
         lines.append(f"{T}{T}{T}{T}{T}}}")
     lines.append(f"{T}{T}{T}{T}}}")
     lines.append(f"{T}{T}{T}}}")

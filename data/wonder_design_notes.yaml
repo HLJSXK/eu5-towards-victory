@@ -1187,3 +1187,47 @@ designs:
         en: Corsair Admiralty
         completion: 支付仪式后获得海军传统。
         effect: +20 海军传统。
+  grand_garden_complex:
+    status: implemented
+    positioning: Garden patronage, literati landscapes, botanical exchange, and courtly leisure.
+    site: Capital or non-rural sites; high development and literacy improve survey preference.
+    preference: Capital +10, city/megalopolis +5, development x0.10, literacy x0.10.
+    base_effect: 'Per level: +5% cultural tradition modifier and +0.05 humanist value movement.'
+    branches:
+      1:
+        zh: 王家游赏园
+        en: Royal Pleasure Gardens
+        completion: A timed patronage ceremony establishes court gardens as a school for new artists.
+        effect: +10% skill of new artists.
+      2:
+        zh: 文士山水园
+        en: Scholars' Landscape Garden
+        completion: An auxiliary garden lodge completes the second branch.
+        effect: +1 local cultural tradition.
+      3:
+        zh: 博物交流园
+        en: Botanical Exchange Garden
+        completion: An artwork-funded exchange ceremony grants tradition and site prosperity.
+        effect: +25 cultural tradition and +0.3 site prosperity.
+  state_examination_complex:
+    status: implemented
+    positioning: Meritocratic examination yards, civil-service recruitment, and literate administration.
+    site: Non-rural sites; capitals, cities, literacy, and development improve survey preference.
+    preference: Capital +10, city/megalopolis +5, literacy x0.20, development x0.08.
+    base_effect: 'Per level: +5% cabinet efficiency, +0.5% pop promotion speed, and +0.05 jurisprudence value movement.'
+    branches:
+      1:
+        zh: 经义贡试院
+        en: Classics Examination Yard
+        completion: A timed examination ceremony reinforces cabinet discipline.
+        effect: +10% cabinet efficiency.
+      2:
+        zh: 公选取士堂
+        en: Open Merit Hall
+        completion: An auxiliary examination office completes the second branch.
+        effect: +10 local literacy cap and +25% local promotion speed modifier.
+      3:
+        zh: 经世致用书院
+        en: Practical Statecraft Academy
+        completion: A prestige-funded statecraft ceremony grants government power.
+        effect: +20 government power.

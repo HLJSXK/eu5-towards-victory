@@ -100409,3 +100409,393 @@ unique_wonders:
         - All used capabilities and archetypes are intermediate-only and may_write_src false.
         - No Harness source compiler expands this compiler_mapped ritual into loadable EU5 src.
         - unique_walls_of_benin remains compiler_mapped, not source_codegen_ready or harness_generated.
+  - id: 224
+    key: unique_suzhou_classical_gardens
+    base_key: grand_garden_complex
+    location: wuxian
+    source_ritual_key: literati_garden_convocation
+    status: designed
+    ritual_design:
+      title: Literati Garden Convocation
+      historical_flavor: Suzhou Classical Gardens is implemented as an eight-stage immediate ceremony in data/unique_wonders.yaml. Its proof belongs to garden stewards, stone masters, painters, poets, and noble patrons and the fixed wuxian site, not to a reusable generic wonder ritual.
+      mode: immediate_ceremony
+      duration: Eight monthly ceremony stages using tv_wonder_ceremony_stage.
+      listeners:
+      - monthly
+      confirmation_logic: The sponsor owns and controls the fixed site, the final unique wonder building exists, the country is solvent, and no duplicate ceremony is active.
+      start_logic: The ceremony records the sponsor, fixed site, current stage, final building, and stage cost option selected by the player.
+      progress_logic: Each monthly listener advances the authored ceremony stage after the player pays exactly one computed cost entry for that stage.
+      completion_logic: Stage eight completes Literati Garden Convocation and hands off the unique final building plus the base wonder's country modifier theme.
+      failure_or_timeout_logic: Declining a stage delays the ceremony; losing the fixed site, solvency, or final building blocks completion until recovered.
+      implementation_mapping:
+        confirmation_trigger_script: handled by generated unique wonder ceremony effects and fixed-site lock checks
+        start_effect_script: generated from unique_wonders.yaml ceremony data
+        snapshot_effect_script: not needed for immediate ceremony v1
+        progress_effect_script: tv_wonder_ceremony_monthly_tick_effect = yes
+        completion_trigger_script: requires tv_wonder_ceremony_stage to reach 8
+        completion_effect_script: generated finalization and world-news handoff
+      intended_rewards:
+        permanent_country_modifier: Use the grand_garden_complex style-1 country modifier theme.
+        local_building_reward: Water courts, scholar rocks, pavilions, plantings, and inscribed gatherings make the Suzhou Classical Gardens a school of refined cultural patronage.
+        one_time_reward: Stage costs and final news emphasize how the rite improves new artists and cultural tradition.
+      notes: Added during the Asia wonder expansion pass to cover zero-adoption prototypes and new East/South/West Asian anchors.
+  - id: 225
+    key: unique_fin_garden
+    base_key: grand_garden_complex
+    location: kashan
+    source_ritual_key: oasis_garden_water_rite
+    status: designed
+    ritual_design:
+      title: Oasis Garden Water Rite
+      historical_flavor: Fin Garden is implemented as an eight-stage immediate ceremony in data/unique_wonders.yaml. Its proof belongs to water judges, masons, gardeners, bath keepers, merchants, and court guests and the fixed kashan site, not to a reusable generic wonder ritual.
+      mode: immediate_ceremony
+      duration: Eight monthly ceremony stages using tv_wonder_ceremony_stage.
+      listeners:
+      - monthly
+      confirmation_logic: The sponsor owns and controls the fixed site, the final unique wonder building exists, the country is solvent, and no duplicate ceremony is active.
+      start_logic: The ceremony records the sponsor, fixed site, current stage, final building, and stage cost option selected by the player.
+      progress_logic: Each monthly listener advances the authored ceremony stage after the player pays exactly one computed cost entry for that stage.
+      completion_logic: Stage eight completes Oasis Garden Water Rite and hands off the unique final building plus the base wonder's country modifier theme.
+      failure_or_timeout_logic: Declining a stage delays the ceremony; losing the fixed site, solvency, or final building blocks completion until recovered.
+      implementation_mapping:
+        confirmation_trigger_script: handled by generated unique wonder ceremony effects and fixed-site lock checks
+        start_effect_script: generated from unique_wonders.yaml ceremony data
+        snapshot_effect_script: not needed for immediate ceremony v1
+        progress_effect_script: tv_wonder_ceremony_monthly_tick_effect = yes
+        completion_trigger_script: requires tv_wonder_ceremony_stage to reach 8
+        completion_effect_script: generated finalization and world-news handoff
+      intended_rewards:
+        permanent_country_modifier: Use the grand_garden_complex style-1 country modifier theme.
+        local_building_reward: Spring channels, enclosed courts, shade trees, bathing pools, and reception pavilions make Fin Garden a courtly oasis of prosperity.
+        one_time_reward: Stage costs and final news emphasize how the rite turns oasis water into prosperity and garden prestige.
+      notes: Added during the Asia wonder expansion pass to cover zero-adoption prototypes and new East/South/West Asian anchors.
+  - id: 226
+    key: unique_jiangnan_examination_hall
+    base_key: state_examination_complex
+    location: shangyuan
+    source_ritual_key: locked_compound_degree_roll
+    status: designed
+    ritual_design:
+      title: Locked Compound Degree Roll
+      historical_flavor: Jiangnan Examination Hall is implemented as an eight-stage immediate ceremony in data/unique_wonders.yaml. Its proof belongs to examiners, clerks, guards, candidates, printers, and provincial officials and the fixed shangyuan site, not to a reusable generic wonder ritual.
+      mode: immediate_ceremony
+      duration: Eight monthly ceremony stages using tv_wonder_ceremony_stage.
+      listeners:
+      - monthly
+      confirmation_logic: The sponsor owns and controls the fixed site, the final unique wonder building exists, the country is solvent, and no duplicate ceremony is active.
+      start_logic: The ceremony records the sponsor, fixed site, current stage, final building, and stage cost option selected by the player.
+      progress_logic: Each monthly listener advances the authored ceremony stage after the player pays exactly one computed cost entry for that stage.
+      completion_logic: Stage eight completes Locked Compound Degree Roll and hands off the unique final building plus the base wonder's country modifier theme.
+      failure_or_timeout_logic: Declining a stage delays the ceremony; losing the fixed site, solvency, or final building blocks completion until recovered.
+      implementation_mapping:
+        confirmation_trigger_script: handled by generated unique wonder ceremony effects and fixed-site lock checks
+        start_effect_script: generated from unique_wonders.yaml ceremony data
+        snapshot_effect_script: not needed for immediate ceremony v1
+        progress_effect_script: tv_wonder_ceremony_monthly_tick_effect = yes
+        completion_trigger_script: requires tv_wonder_ceremony_stage to reach 8
+        completion_effect_script: generated finalization and world-news handoff
+      intended_rewards:
+        permanent_country_modifier: Use the state_examination_complex style-1 country modifier theme.
+        local_building_reward: Rows of candidate cells, sealed scripts, examiners' courts, and posted degree rolls make the Jiangnan Examination Hall an engine of literate administration.
+        one_time_reward: Stage costs and final news emphasize how the rite strengthens cabinet efficiency and literate promotion.
+      notes: Added during the Asia wonder expansion pass to cover zero-adoption prototypes and new East/South/West Asian anchors.
+  - id: 227
+    key: unique_thang_long_temple_of_literature
+    base_key: state_examination_complex
+    location: thang_long
+    source_ritual_key: doctors_steles_convocation
+    status: designed
+    ritual_design:
+      title: Doctors' Steles Convocation
+      historical_flavor: Thang Long Temple of Literature is implemented as an eight-stage immediate ceremony in data/unique_wonders.yaml. Its proof belongs to ritual ministers, academy masters, stone carvers, students, and court scholars and the fixed thang_long site, not to a reusable generic wonder ritual.
+      mode: immediate_ceremony
+      duration: Eight monthly ceremony stages using tv_wonder_ceremony_stage.
+      listeners:
+      - monthly
+      confirmation_logic: The sponsor owns and controls the fixed site, the final unique wonder building exists, the country is solvent, and no duplicate ceremony is active.
+      start_logic: The ceremony records the sponsor, fixed site, current stage, final building, and stage cost option selected by the player.
+      progress_logic: Each monthly listener advances the authored ceremony stage after the player pays exactly one computed cost entry for that stage.
+      completion_logic: Stage eight completes Doctors' Steles Convocation and hands off the unique final building plus the base wonder's country modifier theme.
+      failure_or_timeout_logic: Declining a stage delays the ceremony; losing the fixed site, solvency, or final building blocks completion until recovered.
+      implementation_mapping:
+        confirmation_trigger_script: handled by generated unique wonder ceremony effects and fixed-site lock checks
+        start_effect_script: generated from unique_wonders.yaml ceremony data
+        snapshot_effect_script: not needed for immediate ceremony v1
+        progress_effect_script: tv_wonder_ceremony_monthly_tick_effect = yes
+        completion_trigger_script: requires tv_wonder_ceremony_stage to reach 8
+        completion_effect_script: generated finalization and world-news handoff
+      intended_rewards:
+        permanent_country_modifier: Use the state_examination_complex style-1 country modifier theme.
+        local_building_reward: Altars, lecture halls, academy courts, examination rows, and doctors' steles make the Thang Long Temple of Literature a learned arm of government.
+        one_time_reward: Stage costs and final news emphasize how the rite binds Confucian learning to promotion and administration.
+      notes: Added during the Asia wonder expansion pass to cover zero-adoption prototypes and new East/South/West Asian anchors.
+  - id: 228
+    key: unique_maragheh_observatory
+    base_key: giant_observatory
+    location: maragheh
+    source_ritual_key: zij_star_table_assembly
+    status: designed
+    ritual_design:
+      title: Zij Star Table Assembly
+      historical_flavor: Maragheh Observatory is implemented as an eight-stage immediate ceremony in data/unique_wonders.yaml. Its proof belongs to astronomers, instrument casters, scribes, librarians, patrons, and calendar officials and the fixed maragheh site, not to a reusable generic wonder ritual.
+      mode: immediate_ceremony
+      duration: Eight monthly ceremony stages using tv_wonder_ceremony_stage.
+      listeners:
+      - monthly
+      confirmation_logic: The sponsor owns and controls the fixed site, the final unique wonder building exists, the country is solvent, and no duplicate ceremony is active.
+      start_logic: The ceremony records the sponsor, fixed site, current stage, final building, and stage cost option selected by the player.
+      progress_logic: Each monthly listener advances the authored ceremony stage after the player pays exactly one computed cost entry for that stage.
+      completion_logic: Stage eight completes Zij Star Table Assembly and hands off the unique final building plus the base wonder's country modifier theme.
+      failure_or_timeout_logic: Declining a stage delays the ceremony; losing the fixed site, solvency, or final building blocks completion until recovered.
+      implementation_mapping:
+        confirmation_trigger_script: handled by generated unique wonder ceremony effects and fixed-site lock checks
+        start_effect_script: generated from unique_wonders.yaml ceremony data
+        snapshot_effect_script: not needed for immediate ceremony v1
+        progress_effect_script: tv_wonder_ceremony_monthly_tick_effect = yes
+        completion_trigger_script: requires tv_wonder_ceremony_stage to reach 8
+        completion_effect_script: generated finalization and world-news handoff
+      intended_rewards:
+        permanent_country_modifier: Use the giant_observatory style-1 country modifier theme.
+        local_building_reward: Observation platforms, brass instruments, star tables, libraries, and scholars make Maragheh Observatory a center of astronomical research.
+        one_time_reward: Stage costs and final news emphasize how the rite turns observation into research progress and scholarly prestige.
+      notes: Added during the Asia wonder expansion pass to cover zero-adoption prototypes and new East/South/West Asian anchors.
+  - id: 229
+    key: unique_xian_bell_and_drum_towers
+    base_key: great_clock_bell_system
+    location: jingzhao
+    source_ritual_key: city_time_signal_ordinance
+    status: designed
+    ritual_design:
+      title: City Time Signal Ordinance
+      historical_flavor: Xi'an Bell and Drum Towers is implemented as an eight-stage immediate ceremony in data/unique_wonders.yaml. Its proof belongs to timekeepers, bell founders, drum masters, gate guards, market elders, and city magistrates and the fixed jingzhao site, not to a reusable generic wonder ritual.
+      mode: immediate_ceremony
+      duration: Eight monthly ceremony stages using tv_wonder_ceremony_stage.
+      listeners:
+      - monthly
+      confirmation_logic: The sponsor owns and controls the fixed site, the final unique wonder building exists, the country is solvent, and no duplicate ceremony is active.
+      start_logic: The ceremony records the sponsor, fixed site, current stage, final building, and stage cost option selected by the player.
+      progress_logic: Each monthly listener advances the authored ceremony stage after the player pays exactly one computed cost entry for that stage.
+      completion_logic: Stage eight completes City Time Signal Ordinance and hands off the unique final building plus the base wonder's country modifier theme.
+      failure_or_timeout_logic: Declining a stage delays the ceremony; losing the fixed site, solvency, or final building blocks completion until recovered.
+      implementation_mapping:
+        confirmation_trigger_script: handled by generated unique wonder ceremony effects and fixed-site lock checks
+        start_effect_script: generated from unique_wonders.yaml ceremony data
+        snapshot_effect_script: not needed for immediate ceremony v1
+        progress_effect_script: tv_wonder_ceremony_monthly_tick_effect = yes
+        completion_trigger_script: requires tv_wonder_ceremony_stage to reach 8
+        completion_effect_script: generated finalization and world-news handoff
+      intended_rewards:
+        permanent_country_modifier: Use the great_clock_bell_system style-1 country modifier theme.
+        local_building_reward: Twin towers, bells, drums, watch schedules, curfew orders, and gate signals make Xi'an's city time audible across the capital.
+        one_time_reward: Stage costs and final news emphasize how the rite turns civic timekeeping into development, order, and prestige.
+      notes: Added during the Asia wonder expansion pass to cover zero-adoption prototypes and new East/South/West Asian anchors.
+  - id: 230
+    key: unique_behistun_inscription
+    base_key: law_code_stele_project
+    location: bisotun
+    source_ritual_key: royal_rock_text_proclamation
+    status: designed
+    ritual_design:
+      title: Royal Rock Text Proclamation
+      historical_flavor: Behistun Inscription is implemented as an eight-stage immediate ceremony in data/unique_wonders.yaml. Its proof belongs to scribes, guards, translators, stone workers, jurists, royal heralds, and traveling scholars and the fixed bisotun site, not to a reusable generic wonder ritual.
+      mode: immediate_ceremony
+      duration: Eight monthly ceremony stages using tv_wonder_ceremony_stage.
+      listeners:
+      - monthly
+      confirmation_logic: The sponsor owns and controls the fixed site, the final unique wonder building exists, the country is solvent, and no duplicate ceremony is active.
+      start_logic: The ceremony records the sponsor, fixed site, current stage, final building, and stage cost option selected by the player.
+      progress_logic: Each monthly listener advances the authored ceremony stage after the player pays exactly one computed cost entry for that stage.
+      completion_logic: Stage eight completes Royal Rock Text Proclamation and hands off the unique final building plus the base wonder's country modifier theme.
+      failure_or_timeout_logic: Declining a stage delays the ceremony; losing the fixed site, solvency, or final building blocks completion until recovered.
+      implementation_mapping:
+        confirmation_trigger_script: handled by generated unique wonder ceremony effects and fixed-site lock checks
+        start_effect_script: generated from unique_wonders.yaml ceremony data
+        snapshot_effect_script: not needed for immediate ceremony v1
+        progress_effect_script: tv_wonder_ceremony_monthly_tick_effect = yes
+        completion_trigger_script: requires tv_wonder_ceremony_stage to reach 8
+        completion_effect_script: generated finalization and world-news handoff
+      intended_rewards:
+        permanent_country_modifier: Use the law_code_stele_project style-1 country modifier theme.
+        local_building_reward: Cliff carvings, translated edicts, guarded roads, rubbings, and scholarly copies make the Behistun Inscription a monument of royal law.
+        one_time_reward: Stage costs and final news emphasize how the rite turns ancient royal text into authority, cultural memory, and order.
+      notes: Added during the Asia wonder expansion pass to cover zero-adoption prototypes and new East/South/West Asian anchors.
+  - id: 231
+    key: unique_beijing_imperial_granaries
+    base_key: royal_granary_system
+    location: dadu
+    source_ritual_key: capital_grain_reserve_audit
+    status: designed
+    ritual_design:
+      title: Capital Grain Reserve Audit
+      historical_flavor: Beijing Imperial Granaries is implemented as an eight-stage immediate ceremony in data/unique_wonders.yaml. Its proof belongs to granary clerks, canal officers, boat captains, guards, fire wardens, and relief officials and the fixed dadu site, not to a reusable generic wonder ritual.
+      mode: immediate_ceremony
+      duration: Eight monthly ceremony stages using tv_wonder_ceremony_stage.
+      listeners:
+      - monthly
+      confirmation_logic: The sponsor owns and controls the fixed site, the final unique wonder building exists, the country is solvent, and no duplicate ceremony is active.
+      start_logic: The ceremony records the sponsor, fixed site, current stage, final building, and stage cost option selected by the player.
+      progress_logic: Each monthly listener advances the authored ceremony stage after the player pays exactly one computed cost entry for that stage.
+      completion_logic: Stage eight completes Capital Grain Reserve Audit and hands off the unique final building plus the base wonder's country modifier theme.
+      failure_or_timeout_logic: Declining a stage delays the ceremony; losing the fixed site, solvency, or final building blocks completion until recovered.
+      implementation_mapping:
+        confirmation_trigger_script: handled by generated unique wonder ceremony effects and fixed-site lock checks
+        start_effect_script: generated from unique_wonders.yaml ceremony data
+        snapshot_effect_script: not needed for immediate ceremony v1
+        progress_effect_script: tv_wonder_ceremony_monthly_tick_effect = yes
+        completion_trigger_script: requires tv_wonder_ceremony_stage to reach 8
+        completion_effect_script: generated finalization and world-news handoff
+      intended_rewards:
+        permanent_country_modifier: Use the royal_granary_system style-1 country modifier theme.
+        local_building_reward: Canal ledgers, storehouse rows, grain boats, fire wards, and relief regulations make the Beijing Imperial Granaries a capital reserve system.
+        one_time_reward: Stage costs and final news emphasize how the rite turns capital grain storage into food capacity and relief legitimacy.
+      notes: Added during the Asia wonder expansion pass to cover zero-adoption prototypes and new East/South/West Asian anchors.
+  - id: 232
+    key: unique_bursa_imperial_mint
+    base_key: royal_mint_system
+    location: bursa
+    source_ritual_key: sealed_coinage_assay
+    status: designed
+    ritual_design:
+      title: Sealed Coinage Assay
+      historical_flavor: Bursa Imperial Mint is implemented as an eight-stage immediate ceremony in data/unique_wonders.yaml. Its proof belongs to assayers, die cutters, tax officers, guards, bullion merchants, and treasury scribes and the fixed bursa site, not to a reusable generic wonder ritual.
+      mode: immediate_ceremony
+      duration: Eight monthly ceremony stages using tv_wonder_ceremony_stage.
+      listeners:
+      - monthly
+      confirmation_logic: The sponsor owns and controls the fixed site, the final unique wonder building exists, the country is solvent, and no duplicate ceremony is active.
+      start_logic: The ceremony records the sponsor, fixed site, current stage, final building, and stage cost option selected by the player.
+      progress_logic: Each monthly listener advances the authored ceremony stage after the player pays exactly one computed cost entry for that stage.
+      completion_logic: Stage eight completes Sealed Coinage Assay and hands off the unique final building plus the base wonder's country modifier theme.
+      failure_or_timeout_logic: Declining a stage delays the ceremony; losing the fixed site, solvency, or final building blocks completion until recovered.
+      implementation_mapping:
+        confirmation_trigger_script: handled by generated unique wonder ceremony effects and fixed-site lock checks
+        start_effect_script: generated from unique_wonders.yaml ceremony data
+        snapshot_effect_script: not needed for immediate ceremony v1
+        progress_effect_script: tv_wonder_ceremony_monthly_tick_effect = yes
+        completion_trigger_script: requires tv_wonder_ceremony_stage to reach 8
+        completion_effect_script: generated finalization and world-news handoff
+      intended_rewards:
+        permanent_country_modifier: Use the royal_mint_system style-1 country modifier theme.
+        local_building_reward: Assay rooms, coin dies, bullion guards, tax ledgers, and merchant exchange desks make Bursa's mint a trustworthy imperial treasury.
+        one_time_reward: Stage costs and final news emphasize how the rite turns controlled coinage into mint income and merchant trust.
+      notes: Added during the Asia wonder expansion pass to cover zero-adoption prototypes and new East/South/West Asian anchors.
+  - id: 233
+    key: unique_enderun_palace_school
+    base_key: war_college_system
+    location: constantinople
+    source_ritual_key: palace_service_examination
+    status: designed
+    ritual_design:
+      title: Palace Service Examination
+      historical_flavor: Enderun Palace School is implemented as an eight-stage immediate ceremony in data/unique_wonders.yaml. Its proof belongs to palace pages, tutors, drill masters, scribes, guards, and senior officials and the fixed constantinople site, not to a reusable generic wonder ritual.
+      mode: immediate_ceremony
+      duration: Eight monthly ceremony stages using tv_wonder_ceremony_stage.
+      listeners:
+      - monthly
+      confirmation_logic: The sponsor owns and controls the fixed site, the final unique wonder building exists, the country is solvent, and no duplicate ceremony is active.
+      start_logic: The ceremony records the sponsor, fixed site, current stage, final building, and stage cost option selected by the player.
+      progress_logic: Each monthly listener advances the authored ceremony stage after the player pays exactly one computed cost entry for that stage.
+      completion_logic: Stage eight completes Palace Service Examination and hands off the unique final building plus the base wonder's country modifier theme.
+      failure_or_timeout_logic: Declining a stage delays the ceremony; losing the fixed site, solvency, or final building blocks completion until recovered.
+      implementation_mapping:
+        confirmation_trigger_script: handled by generated unique wonder ceremony effects and fixed-site lock checks
+        start_effect_script: generated from unique_wonders.yaml ceremony data
+        snapshot_effect_script: not needed for immediate ceremony v1
+        progress_effect_script: tv_wonder_ceremony_monthly_tick_effect = yes
+        completion_trigger_script: requires tv_wonder_ceremony_stage to reach 8
+        completion_effect_script: generated finalization and world-news handoff
+      intended_rewards:
+        permanent_country_modifier: Use the war_college_system style-1 country modifier theme.
+        local_building_reward: Palace classrooms, drill courts, tutors, examinations, and appointment rolls make Enderun a school for imperial service.
+        one_time_reward: Stage costs and final news emphasize how the rite turns court education into administrative and military talent.
+      notes: Added during the Asia wonder expansion pass to cover zero-adoption prototypes and new East/South/West Asian anchors.
+  - id: 234
+    key: unique_ayutthaya_foreign_quarters
+    base_key: world_embassy_quarter
+    location: ayodhya
+    source_ritual_key: river_embassy_quarter_settlement
+    status: designed
+    ritual_design:
+      title: River Embassy Quarter Settlement
+      historical_flavor: Ayutthaya Foreign Quarters is implemented as an eight-stage immediate ceremony in data/unique_wonders.yaml. Its proof belongs to interpreters, envoys, harbor clerks, guards, merchants, monks, and court officials and the fixed ayodhya site, not to a reusable generic wonder ritual.
+      mode: immediate_ceremony
+      duration: Eight monthly ceremony stages using tv_wonder_ceremony_stage.
+      listeners:
+      - monthly
+      confirmation_logic: The sponsor owns and controls the fixed site, the final unique wonder building exists, the country is solvent, and no duplicate ceremony is active.
+      start_logic: The ceremony records the sponsor, fixed site, current stage, final building, and stage cost option selected by the player.
+      progress_logic: Each monthly listener advances the authored ceremony stage after the player pays exactly one computed cost entry for that stage.
+      completion_logic: Stage eight completes River Embassy Quarter Settlement and hands off the unique final building plus the base wonder's country modifier theme.
+      failure_or_timeout_logic: Declining a stage delays the ceremony; losing the fixed site, solvency, or final building blocks completion until recovered.
+      implementation_mapping:
+        confirmation_trigger_script: handled by generated unique wonder ceremony effects and fixed-site lock checks
+        start_effect_script: generated from unique_wonders.yaml ceremony data
+        snapshot_effect_script: not needed for immediate ceremony v1
+        progress_effect_script: tv_wonder_ceremony_monthly_tick_effect = yes
+        completion_trigger_script: requires tv_wonder_ceremony_stage to reach 8
+        completion_effect_script: generated finalization and world-news handoff
+      intended_rewards:
+        permanent_country_modifier: Use the world_embassy_quarter style-1 country modifier theme.
+        local_building_reward: Foreign compounds, warehouses, interpreters, patrols, embassies, and river banquets make Ayutthaya a diplomatic market city.
+        one_time_reward: Stage costs and final news emphasize how the rite turns foreign quarters into diplomacy and merchant power.
+      notes: Added during the Asia wonder expansion pass to cover zero-adoption prototypes and new East/South/West Asian anchors.
+  - id: 235
+    key: unique_yunnan_weisuo_colonies
+    base_key: frontier_colonization_belt
+    location: songming
+    source_ritual_key: frontier_garrison_field_register
+    status: designed
+    ritual_design:
+      title: Frontier Garrison Field Register
+      historical_flavor: Yunnan Weisuo Colonies is implemented as an eight-stage immediate ceremony in data/unique_wonders.yaml. Its proof belongs to garrison households, surveyors, relay officers, grain clerks, tusi envoys, and border commanders and the fixed songming site, not to a reusable generic wonder ritual.
+      mode: immediate_ceremony
+      duration: Eight monthly ceremony stages using tv_wonder_ceremony_stage.
+      listeners:
+      - monthly
+      confirmation_logic: The sponsor owns and controls the fixed site, the final unique wonder building exists, the country is solvent, and no duplicate ceremony is active.
+      start_logic: The ceremony records the sponsor, fixed site, current stage, final building, and stage cost option selected by the player.
+      progress_logic: Each monthly listener advances the authored ceremony stage after the player pays exactly one computed cost entry for that stage.
+      completion_logic: Stage eight completes Frontier Garrison Field Register and hands off the unique final building plus the base wonder's country modifier theme.
+      failure_or_timeout_logic: Declining a stage delays the ceremony; losing the fixed site, solvency, or final building blocks completion until recovered.
+      implementation_mapping:
+        confirmation_trigger_script: handled by generated unique wonder ceremony effects and fixed-site lock checks
+        start_effect_script: generated from unique_wonders.yaml ceremony data
+        snapshot_effect_script: not needed for immediate ceremony v1
+        progress_effect_script: tv_wonder_ceremony_monthly_tick_effect = yes
+        completion_trigger_script: requires tv_wonder_ceremony_stage to reach 8
+        completion_effect_script: generated finalization and world-news handoff
+      intended_rewards:
+        permanent_country_modifier: Use the frontier_colonization_belt style-1 country modifier theme.
+        local_building_reward: Garrison households, military fields, relay roads, grain registers, and tusi settlements make the Yunnan Weisuo Colonies a working frontier.
+        one_time_reward: Stage costs and final news emphasize how the rite turns frontier farms into manpower, migration, and border capacity.
+      notes: Added during the Asia wonder expansion pass to cover zero-adoption prototypes and new East/South/West Asian anchors.
+  - id: 236
+    key: unique_zhoushan_beacon_network
+    base_key: coastal_beacon_network
+    location: dinghai
+    source_ritual_key: island_beacon_watch
+    status: designed
+    ritual_design:
+      title: Island Beacon Watch
+      historical_flavor: Zhoushan Beacon Network is implemented as an eight-stage immediate ceremony in data/unique_wonders.yaml. Its proof belongs to island watchmen, tower masons, fuel keepers, harbor messengers, patrol captains, and fleet officers and the fixed dinghai site, not to a reusable generic wonder ritual.
+      mode: immediate_ceremony
+      duration: Eight monthly ceremony stages using tv_wonder_ceremony_stage.
+      listeners:
+      - monthly
+      confirmation_logic: The sponsor owns and controls the fixed site, the final unique wonder building exists, the country is solvent, and no duplicate ceremony is active.
+      start_logic: The ceremony records the sponsor, fixed site, current stage, final building, and stage cost option selected by the player.
+      progress_logic: Each monthly listener advances the authored ceremony stage after the player pays exactly one computed cost entry for that stage.
+      completion_logic: Stage eight completes Island Beacon Watch and hands off the unique final building plus the base wonder's country modifier theme.
+      failure_or_timeout_logic: Declining a stage delays the ceremony; losing the fixed site, solvency, or final building blocks completion until recovered.
+      implementation_mapping:
+        confirmation_trigger_script: handled by generated unique wonder ceremony effects and fixed-site lock checks
+        start_effect_script: generated from unique_wonders.yaml ceremony data
+        snapshot_effect_script: not needed for immediate ceremony v1
+        progress_effect_script: tv_wonder_ceremony_monthly_tick_effect = yes
+        completion_trigger_script: requires tv_wonder_ceremony_stage to reach 8
+        completion_effect_script: generated finalization and world-news handoff
+      intended_rewards:
+        permanent_country_modifier: Use the coastal_beacon_network style-1 country modifier theme.
+        local_building_reward: Island towers, fuel stores, watch rosters, harbor relays, pirate alarms, and fleet signals make the Zhoushan Beacon Network a maritime warning system.
+        one_time_reward: Stage costs and final news emphasize how the rite turns island beacons into maritime presence and naval tradition.
+      notes: Added during the Asia wonder expansion pass to cover zero-adoption prototypes and new East/South/West Asian anchors.

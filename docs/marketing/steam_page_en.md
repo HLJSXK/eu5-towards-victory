@@ -11,7 +11,7 @@ Vanilla wonders in EU5 are decorative — a flavor tooltip, nothing more. [b]Gre
 [i]The Engineering Department panel — where the whole build is tracked.[/i]
 [list]
 [*] A standalone international organization, the [b]Engineering Department[/b], that runs the entire wonder-building process
-[*] [b]54 generic wonders[/b] any nation can pursue, plus [b]123 historical unique wonders[/b] tied to their real-world locations — Pharos at Alexandria, Hagia Sophia at Constantinople, the Persian Qanat at Qom, and more
+[*] [b]56 generic wonders[/b] any nation can pursue, plus [b]136 historical unique wonders[/b] tied to their real-world locations — Pharos at Alexandria, Hagia Sophia at Constantinople, the Persian Qanat at Qom, and more
 [*] A [b]six-stage build[/b]: Concept → Debate → Survey → Construction → Ceremony → Finalization
 [*] A dedicated [b]map mode[/b] that colors every completed wonder worldwide — plan your own build, or scout other nations' finished wonders as conquest targets
 [*] A companion [b]Wonders Atlas[/b] website to browse every unique wonder on a world map, outside the game

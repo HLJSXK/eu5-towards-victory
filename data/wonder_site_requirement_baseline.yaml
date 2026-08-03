@@ -1,9 +1,9 @@
 # Unique wonder site-requirement audit baseline.
 #
 # Entries here are FAIL/UNKNOWN results from
-# scripts/audit_unique_wonder_site_requirements.py that have been reviewed and accepted as
+# scripts_engineering_department/audit_unique_wonder_site_requirements.py that have been reviewed and accepted as
 # intentional -- either because the underlying vanilla 1337-start data (capital, religion,
-# location rank, port suitability) is historically accurate even though it doesn't satisfy the
+# location rank, port membership) is historically accurate even though it doesn't satisfy the
 # wonder's generic site-rule template, or because the condition is only achievable later in the
 # game rather than at the fixed 1337 start date (e.g. a colonial-trade-company wonder on a port
 # not yet colonized).
@@ -15,13 +15,6 @@
 # grounded in real reference data (not just "accepted to pass validation").
 
 accepted:
-  - key: unique_malacca_port
-    status: FAIL
-    rationale: >-
-      Malacca's static natural_harbor_suitability is 0 in the vanilla map data despite being
-      historically the dominant Strait-of-Malacca trade port; the wonder's real-world site is
-      fixed at Malacca regardless of this map-data quirk.
-
   - key: unique_versailles_palace
     status: FAIL
     rationale: >-

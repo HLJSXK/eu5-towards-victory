@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 """Check every unique wonder's fixed location against its base site-rule trigger_script.
 
-Uses static vanilla map/setup data (topography, raw material, starting location rank,
-ownership/capital, owner religion, continent) to evaluate whether the location assigned in
+Uses static vanilla map/setup data (port connections, topography, raw material, starting
+location rank, ownership/capital, owner religion, continent) to evaluate whether the location assigned in
 data/unique_wonders.yaml could ever satisfy data/wonder_site_rules.yaml's trigger_script for
 that wonder's base_key. Some conditions (has_river, is_adjacent_to_lake, dominant_religion)
 have no reliable static source in this repo and are reported as UNKNOWN rather than guessed.
 """
 
 import argparse
+import csv
 import json
 import re
 import sys
@@ -30,6 +31,7 @@ BASELINE_FILE = REPO_ROOT / "data" / "wonder_site_requirement_baseline.yaml"
 
 MAP_DATA_DIR = REPO_ROOT / "reference_game_files" / "game" / "in_game" / "map_data"
 LOCATION_TEMPLATES_FILE = MAP_DATA_DIR / "location_templates.txt"
+PORTS_FILE = MAP_DATA_DIR / "ports.csv"
 DEFINITIONS_FILE = MAP_DATA_DIR / "definitions.txt"
 SETUP_START_DIR = REPO_ROOT / "reference_game_files" / "game" / "main_menu" / "setup" / "start"
 CITIES_AND_BUILDINGS_FILE = SETUP_START_DIR / "07_cities_and_buildings.txt"
@@ -138,6 +140,35 @@ def load_location_templates() -> dict[str, dict[str, str | float | None]]:
             "natural_harbor_suitability": suitability,
         }
     return out
+
+
+def load_ports() -> dict[str, str]:
+    if not PORTS_FILE.exists():
+        raise FileNotFoundError(f"Missing reference file: {PORTS_FILE}")
+    with PORTS_FILE.open(encoding="utf-8-sig", newline="") as file:
+        reader = csv.DictReader(file, delimiter=";")
+        required_columns = {"LandProvince", "SeaZone"}
+        missing_columns = required_columns - set(reader.fieldnames or [])
+        if missing_columns:
+            raise ValueError(
+                f"{PORTS_FILE} is missing required columns: {', '.join(sorted(missing_columns))}"
+            )
+
+        ports: dict[str, str] = {}
+        for row_number, row in enumerate(reader, start=2):
+            location = str(row.get("LandProvince") or "").strip()
+            sea_zone = str(row.get("SeaZone") or "").strip()
+            if not location:
+                continue
+            if not sea_zone:
+                raise ValueError(f"{PORTS_FILE}:{row_number}: port '{location}' has no SeaZone")
+            previous = ports.get(location)
+            if previous is not None and previous != sea_zone:
+                raise ValueError(
+                    f"{PORTS_FILE}:{row_number}: port '{location}' maps to both '{previous}' and '{sea_zone}'"
+                )
+            ports[location] = sea_zone
+    return ports
 
 
 def load_location_ranks() -> dict[str, str]:
@@ -279,7 +310,13 @@ def evaluate_leaf(key: str, value: str, facts: dict) -> Leaf:
     if key_lower == "always":
         return Leaf(key, value, True, "always = yes")
     if key_lower == "is_port":
-        return Leaf(key, value, facts["is_port"], f"is_port={facts['is_port']} (harbor_suitability={facts['natural_harbor_suitability']})")
+        return Leaf(
+            key,
+            value,
+            facts["is_port"],
+            f"is_port={facts['is_port']} (ports.csv sea_zone={facts['port_sea_zone']}, "
+            f"harbor_suitability={facts['natural_harbor_suitability']})",
+        )
     if key_lower == "is_capital":
         return Leaf(key, value, facts["is_capital"], f"is_capital={facts['is_capital']}")
     if key_lower == "has_owner":
@@ -366,6 +403,7 @@ def evaluate_trigger_script(trigger_script: str, facts: dict) -> tuple[bool | No
 def build_facts(
     location: str,
     templates: dict,
+    ports: dict[str, str],
     ranks: dict,
     owners: dict,
     capitals: dict,
@@ -376,6 +414,7 @@ def build_facts(
     owner_tag = owners.get(location)
     owner_capital = capitals.get(owner_tag) if owner_tag else None
     suitability = template.get("natural_harbor_suitability") or 0.0
+    port_sea_zone = ports.get(location)
     return {
         "location": location,
         "topography": template.get("topography"),
@@ -383,7 +422,8 @@ def build_facts(
         "raw_material": template.get("raw_material"),
         "location_religion": template.get("religion"),
         "natural_harbor_suitability": suitability,
-        "is_port": suitability > 0,
+        "is_port": port_sea_zone is not None,
+        "port_sea_zone": port_sea_zone,
         "rank": ranks.get(location, DEFAULT_LOCATION_RANK),
         "owner_tag": owner_tag,
         "is_capital": bool(owner_tag) and capitals.get(owner_tag) == location,
@@ -395,6 +435,7 @@ def build_facts(
 
 def audit() -> dict:
     templates = load_location_templates()
+    ports = load_ports()
     ranks = load_location_ranks()
     owners, capitals = load_ownership_and_capitals()
     religions = load_country_religions()
@@ -436,7 +477,7 @@ def audit() -> dict:
             )
             continue
 
-        facts = build_facts(location, templates, ranks, owners, capitals, religions, continents)
+        facts = build_facts(location, templates, ports, ranks, owners, capitals, religions, continents)
         result, leaves = evaluate_trigger_script(rule["trigger_script"], facts)
 
         if result is False:

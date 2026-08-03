@@ -9,7 +9,7 @@
 **Great Project** — vanilla EU5 wonders are just flavor text. This mod gives them an actual build process and payoff.
 
 - New IO, the **Engineering Department**, runs the whole thing
-- **54 generic wonders** + **123 unique historical wonders** (site-locked, e.g. Persian Qanat @ Qom, Longjiang Shipyard @ Jiangyin)
+- **56 generic wonders** + **136 unique historical wonders** (site-locked, e.g. Persian Qanat @ Qom, Longjiang Shipyard @ Jiangyin)
 - 6-stage build: **Concept → Debate → Survey → Construction → Ceremony → Finalization**
 - Ceremony at the end shapes the wonder's bonuses — pick a style for generic wonders; unique wonders mostly auto-run a shared 8-stage version (2 get a fully bespoke one)
 - Dedicated map mode to spot every completed wonder worldwide, including as conquest targets

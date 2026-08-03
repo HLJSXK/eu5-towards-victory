@@ -9,7 +9,7 @@ archetype registry as a mechanism whitelist.
 
 Use it when drafting `node_graph.mechanic_signature`,
 `node_graph.cadence_signature`, event chains, listener contracts, runtime
-variables, UI models, and failure/retry branches for the 123 unique wonders.
+variables, UI models, and failure/retry branches for the 136 unique wonders.
 Do not use it as a reason to generate formal ritual specs in bulk. It is a
 design prompt library, not executable data.
 

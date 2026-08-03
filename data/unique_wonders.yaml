@@ -19085,3 +19085,2031 @@
       option_pay_zh: "奥巴巡视整条环线，每一处驻防皆感受到城垣的新生伟力。"
       option_decline_en: "I will delay the procession until the walls are truly ready to be proclaimed."
       option_decline_zh: "朕愿再候些时日，待城垣真正堪当宣告之时。"
+- id: 224
+  key: unique_suzhou_classical_gardens
+  base_key: grand_garden_complex
+  concept: tv_wonder_unique_suzhou_classical_gardens
+  location: wuxian
+  image: tv_wonder_unique_suzhou_classical_gardens
+  prompt: Suzhou Classical Gardens in their mature Jiangnan form, centered on a refined black-tiled waterside pavilion framed by white plaster walls, moon gates, carved lattice windows, Taihu scholar rocks, lotus ponds, zigzag bridges, bamboo, flowering plum, and glimpsed canals beyond. Poets, painters, gardeners, and noble visitors gather in small groups while the architecture and borrowed views remain the true subject. Historically grounded Chinese garden design with realistic late-imperial timber, stone, plaster, tile, water, and vegetation. Historical grand-strategy wonder key art, cinematic wide 3:2 landscape, the principal pavilion, pond, and scholar rocks kept within the middle 60 percent for a safe square crop, layered depth, misty soft daylight, painterly realism, ultra-detailed, no text, no labels, no border, no watermark, no modern objects.
+  is_unique: true
+  initial_level: 1
+  mechanic_key: grand_garden_complex
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_suzhou_classical_gardens_inaugurated
+  ritual:
+    key: literati_garden_convocation
+    mode: immediate
+    cost_type: artwork
+    listeners:
+    - monthly
+    runtime_variables: []
+    country_modifier: {}
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: tv_wonder_ceremony_monthly_tick_effect = yes
+    completion_trigger_script: |-
+      has_variable = tv_wonder_ceremony_stage
+      var:tv_wonder_ceremony_stage ?= 8
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+  ceremony:
+    stages:
+    - title_en: Register the Garden Estates
+      icon: nobles
+      icon_rationale: Represents register the garden estates during the Literati Garden Convocation.
+      title_zh: 登记园产
+      desc_en: Garden stewards, stone masters, painters, poets, and noble patrons gather at Suzhou Classical Gardens to register the garden estates. The stage records site labor, public witness, and the ritual proof that improves new artists and cultural tradition.
+      desc_zh: 园林管事、叠山匠、画师、诗人与士族赞助人齐聚苏州古典园林，推进"登记园产"。此阶段记录工役、见证与仪式凭证，使其能够提高新艺术家资质与文化传统。
+      cost:
+      - catalog: country_reward
+        type: nobles_satisfaction
+        value: -0.1
+      option_pay_en: Advance the register the garden estates stage.
+      option_pay_zh: 推进"登记园产"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Draw the Water Courses
+      icon: lake
+      icon_rationale: Represents draw the water courses during the Literati Garden Convocation.
+      title_zh: 疏浚水脉
+      desc_en: Garden stewards, stone masters, painters, poets, and noble patrons gather at Suzhou Classical Gardens to draw the water courses. The stage records site labor, public witness, and the ritual proof that improves new artists and cultural tradition.
+      desc_zh: 园林管事、叠山匠、画师、诗人与士族赞助人齐聚苏州古典园林，推进"疏浚水脉"。此阶段记录工役、见证与仪式凭证，使其能够提高新艺术家资质与文化传统。
+      cost:
+      - catalog: character_reward
+        type: artist_skill
+        value: -0.1
+      option_pay_en: Advance the draw the water courses stage.
+      option_pay_zh: 推进"疏浚水脉"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Raise the Scholar Rocks
+      icon: topography
+      icon_rationale: Represents raise the scholar rocks during the Literati Garden Convocation.
+      title_zh: 叠置太湖石
+      desc_en: Garden stewards, stone masters, painters, poets, and noble patrons gather at Suzhou Classical Gardens to raise the scholar rocks. The stage records site labor, public witness, and the ritual proof that improves new artists and cultural tradition.
+      desc_zh: 园林管事、叠山匠、画师、诗人与士族赞助人齐聚苏州古典园林，推进"叠置太湖石"。此阶段记录工役、见证与仪式凭证，使其能够提高新艺术家资质与文化传统。
+      cost:
+      - catalog: country_reward
+        type: scaled_gold
+        value: -1
+      option_pay_en: Advance the raise the scholar rocks stage.
+      option_pay_zh: 推进"叠置太湖石"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Frame the Pavilions
+      icon: building
+      icon_rationale: Represents frame the pavilions during the Literati Garden Convocation.
+      title_zh: 营建亭榭
+      desc_en: Garden stewards, stone masters, painters, poets, and noble patrons gather at Suzhou Classical Gardens to frame the pavilions. The stage records site labor, public witness, and the ritual proof that improves new artists and cultural tradition.
+      desc_zh: 园林管事、叠山匠、画师、诗人与士族赞助人齐聚苏州古典园林，推进"营建亭榭"。此阶段记录工役、见证与仪式凭证，使其能够提高新艺术家资质与文化传统。
+      cost:
+      - catalog: local_reward
+        type: development
+        value: -0.5
+      option_pay_en: Advance the frame the pavilions stage.
+      option_pay_zh: 推进"营建亭榭"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Plant the Borrowed Views
+      icon: vegetation
+      icon_rationale: Represents plant the borrowed views during the Literati Garden Convocation.
+      title_zh: 布置借景花木
+      desc_en: Garden stewards, stone masters, painters, poets, and noble patrons gather at Suzhou Classical Gardens to plant the borrowed views. The stage records site labor, public witness, and the ritual proof that improves new artists and cultural tradition.
+      desc_zh: 园林管事、叠山匠、画师、诗人与士族赞助人齐聚苏州古典园林，推进"布置借景花木"。此阶段记录工役、见证与仪式凭证，使其能够提高新艺术家资质与文化传统。
+      cost:
+      - catalog: local_modifier
+        type: local_monthly_prosperity
+        value: -0.001
+      option_pay_en: Advance the plant the borrowed views stage.
+      option_pay_zh: 推进"布置借景花木"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Invite Painters and Poets
+      icon: artists
+      icon_rationale: Represents invite painters and poets during the Literati Garden Convocation.
+      title_zh: 邀集画师诗人
+      desc_en: Garden stewards, stone masters, painters, poets, and noble patrons gather at Suzhou Classical Gardens to invite painters and poets. The stage records site labor, public witness, and the ritual proof that improves new artists and cultural tradition.
+      desc_zh: 园林管事、叠山匠、画师、诗人与士族赞助人齐聚苏州古典园林，推进"邀集画师诗人"。此阶段记录工役、见证与仪式凭证，使其能够提高新艺术家资质与文化传统。
+      cost:
+      - catalog: country_modifier
+        type: skill_of_new_artists
+        value: -0.1
+      option_pay_en: Advance the invite painters and poets stage.
+      option_pay_zh: 推进"邀集画师诗人"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Hold the Refined Gathering
+      icon: art_work
+      icon_rationale: Represents hold the refined gathering during the Literati Garden Convocation.
+      title_zh: 举行文士雅集
+      desc_en: Garden stewards, stone masters, painters, poets, and noble patrons gather at Suzhou Classical Gardens to hold the refined gathering. The stage records site labor, public witness, and the ritual proof that improves new artists and cultural tradition.
+      desc_zh: 园林管事、叠山匠、画师、诗人与士族赞助人齐聚苏州古典园林，推进"举行文士雅集"。此阶段记录工役、见证与仪式凭证，使其能够提高新艺术家资质与文化传统。
+      cost:
+      - catalog: country_reward
+        type: prestige
+        value: -10
+      option_pay_en: Advance the hold the refined gathering stage.
+      option_pay_zh: 推进"举行文士雅集"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Consecrate the Completed Gardens
+      icon: cultural_tradition
+      icon_rationale: Represents consecrate the completed gardens during the Literati Garden Convocation.
+      title_zh: 名园落成
+      desc_en: Garden stewards, stone masters, painters, poets, and noble patrons gather at Suzhou Classical Gardens to consecrate the completed gardens. The stage records site labor, public witness, and the ritual proof that improves new artists and cultural tradition.
+      desc_zh: 园林管事、叠山匠、画师、诗人与士族赞助人齐聚苏州古典园林，推进"名园落成"。此阶段记录工役、见证与仪式凭证，使其能够提高新艺术家资质与文化传统。
+      cost:
+      - catalog: country_modifier
+        type: cultural_tradition_modifier
+        value: -0.2
+      option_pay_en: Advance the consecrate the completed gardens stage.
+      option_pay_zh: 推进"名园落成"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+- id: 225
+  key: unique_fin_garden
+  base_key: grand_garden_complex
+  concept: tv_wonder_unique_fin_garden
+  location: kashan
+  image: tv_wonder_unique_fin_garden
+  prompt: Fin Garden at Kashan as a flourishing Persian oasis garden, centered on an elegant tiled pavilion and turquoise reflecting pool fed by clear qanat channels, with a formal chahar bagh layout, tall cypress trees, fruit orchards, shaded arcades, high mud-brick walls, painted plaster, bathhouse domes, fountains, gardeners, court guests, and caravan visitors. Dry foothills and the edge of the Iranian desert rise beyond the intensely green enclosure, making the water engineering visually unmistakable. Historically grounded Safavid Persian architecture and landscape design. Historical grand-strategy wonder key art, cinematic wide 3:2 landscape, the pavilion and main pool kept within the middle 60 percent for a safe square crop, warm desert light, painterly realism, ultra-detailed, no text, no labels, no border, no watermark, no modern objects.
+  is_unique: true
+  initial_level: 0
+  mechanic_key: grand_garden_complex
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_fin_garden_inaugurated
+  ritual:
+    key: oasis_garden_water_rite
+    mode: immediate
+    cost_type: scaled_gold
+    listeners:
+    - monthly
+    runtime_variables: []
+    country_modifier: {}
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: tv_wonder_ceremony_monthly_tick_effect = yes
+    completion_trigger_script: |-
+      has_variable = tv_wonder_ceremony_stage
+      var:tv_wonder_ceremony_stage ?= 8
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+  ceremony:
+    stages:
+    - title_en: Confirm the Spring Rights
+      icon: rural_settlement_capital
+      icon_rationale: Represents confirm the spring rights during the Oasis Garden Water Rite.
+      title_zh: 确认泉权
+      desc_en: Water judges, masons, gardeners, bath keepers, merchants, and court guests gather at Fin Garden to confirm the spring rights. The stage records site labor, public witness, and the ritual proof that turns oasis water into prosperity and garden prestige.
+      desc_zh: 水权裁判、石匠、园丁、浴池管事、商人与宫廷宾客齐聚芬恩花园，推进"确认泉权"。此阶段记录工役、见证与仪式凭证，使其能够把绿洲水源转化为繁荣与园林声望。
+      cost:
+      - catalog: country_reward
+        type: scaled_gold
+        value: -1
+      option_pay_en: Advance the confirm the spring rights stage.
+      option_pay_zh: 推进"确认泉权"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Cut the Garden Channels
+      icon: river
+      icon_rationale: Represents cut the garden channels during the Oasis Garden Water Rite.
+      title_zh: 开凿渠道
+      desc_en: Water judges, masons, gardeners, bath keepers, merchants, and court guests gather at Fin Garden to cut the garden channels. The stage records site labor, public witness, and the ritual proof that turns oasis water into prosperity and garden prestige.
+      desc_zh: 水权裁判、石匠、园丁、浴池管事、商人与宫廷宾客齐聚芬恩花园，推进"开凿渠道"。此阶段记录工役、见证与仪式凭证，使其能够把绿洲水源转化为繁荣与园林声望。
+      cost:
+      - catalog: character_reward
+        type: adm
+        value: -6
+      option_pay_en: Advance the cut the garden channels stage.
+      option_pay_zh: 推进"开凿渠道"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Raise the Enclosing Walls
+      icon: building_needs
+      icon_rationale: Represents raise the enclosing walls during the Oasis Garden Water Rite.
+      title_zh: 筑起墙院
+      desc_en: Water judges, masons, gardeners, bath keepers, merchants, and court guests gather at Fin Garden to raise the enclosing walls. The stage records site labor, public witness, and the ritual proof that turns oasis water into prosperity and garden prestige.
+      desc_zh: 水权裁判、石匠、园丁、浴池管事、商人与宫廷宾客齐聚芬恩花园，推进"筑起墙院"。此阶段记录工役、见证与仪式凭证，使其能够把绿洲水源转化为繁荣与园林声望。
+      cost:
+      - catalog: country_reward
+        type: burghers_satisfaction
+        value: -0.1
+      option_pay_en: Advance the raise the enclosing walls stage.
+      option_pay_zh: 推进"筑起墙院"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Set the Shade Trees
+      icon: vegetation
+      icon_rationale: Represents set the shade trees during the Oasis Garden Water Rite.
+      title_zh: 栽植荫树
+      desc_en: Water judges, masons, gardeners, bath keepers, merchants, and court guests gather at Fin Garden to set the shade trees. The stage records site labor, public witness, and the ritual proof that turns oasis water into prosperity and garden prestige.
+      desc_zh: 水权裁判、石匠、园丁、浴池管事、商人与宫廷宾客齐聚芬恩花园，推进"栽植荫树"。此阶段记录工役、见证与仪式凭证，使其能够把绿洲水源转化为繁荣与园林声望。
+      cost:
+      - catalog: local_reward
+        type: development
+        value: -0.5
+      option_pay_en: Advance the set the shade trees stage.
+      option_pay_zh: 推进"栽植荫树"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Tile the Bathing Pools
+      icon: lake
+      icon_rationale: Represents tile the bathing pools during the Oasis Garden Water Rite.
+      title_zh: 铺砌浴池
+      desc_en: Water judges, masons, gardeners, bath keepers, merchants, and court guests gather at Fin Garden to tile the bathing pools. The stage records site labor, public witness, and the ritual proof that turns oasis water into prosperity and garden prestige.
+      desc_zh: 水权裁判、石匠、园丁、浴池管事、商人与宫廷宾客齐聚芬恩花园，推进"铺砌浴池"。此阶段记录工役、见证与仪式凭证，使其能够把绿洲水源转化为繁荣与园林声望。
+      cost:
+      - catalog: local_modifier
+        type: local_migration_attraction
+        value: -1
+      option_pay_en: Advance the tile the bathing pools stage.
+      option_pay_zh: 推进"铺砌浴池"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Open the Cool Pavilions
+      icon: building
+      icon_rationale: Represents open the cool pavilions during the Oasis Garden Water Rite.
+      title_zh: 开放凉亭
+      desc_en: Water judges, masons, gardeners, bath keepers, merchants, and court guests gather at Fin Garden to open the cool pavilions. The stage records site labor, public witness, and the ritual proof that turns oasis water into prosperity and garden prestige.
+      desc_zh: 水权裁判、石匠、园丁、浴池管事、商人与宫廷宾客齐聚芬恩花园，推进"开放凉亭"。此阶段记录工役、见证与仪式凭证，使其能够把绿洲水源转化为繁荣与园林声望。
+      cost:
+      - catalog: country_modifier
+        type: cultural_tradition_modifier
+        value: -0.2
+      option_pay_en: Advance the open the cool pavilions stage.
+      option_pay_zh: 推进"开放凉亭"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Receive the Caravan Guests
+      icon: trade
+      icon_rationale: Represents receive the caravan guests during the Oasis Garden Water Rite.
+      title_zh: 接待商旅宾客
+      desc_en: Water judges, masons, gardeners, bath keepers, merchants, and court guests gather at Fin Garden to receive the caravan guests. The stage records site labor, public witness, and the ritual proof that turns oasis water into prosperity and garden prestige.
+      desc_zh: 水权裁判、石匠、园丁、浴池管事、商人与宫廷宾客齐聚芬恩花园，推进"接待商旅宾客"。此阶段记录工役、见证与仪式凭证，使其能够把绿洲水源转化为繁荣与园林声望。
+      cost:
+      - catalog: country_reward
+        type: prestige
+        value: -10
+      option_pay_en: Advance the receive the caravan guests stage.
+      option_pay_zh: 推进"接待商旅宾客"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Consecrate the Oasis Garden
+      icon: prosperity
+      icon_rationale: Represents consecrate the oasis garden during the Oasis Garden Water Rite.
+      title_zh: 绿洲花园落成
+      desc_en: Water judges, masons, gardeners, bath keepers, merchants, and court guests gather at Fin Garden to consecrate the oasis garden. The stage records site labor, public witness, and the ritual proof that turns oasis water into prosperity and garden prestige.
+      desc_zh: 水权裁判、石匠、园丁、浴池管事、商人与宫廷宾客齐聚芬恩花园，推进"绿洲花园落成"。此阶段记录工役、见证与仪式凭证，使其能够把绿洲水源转化为繁荣与园林声望。
+      cost:
+      - catalog: local_modifier
+        type: local_monthly_prosperity
+        value: -0.002
+      option_pay_en: Advance the consecrate the oasis garden stage.
+      option_pay_zh: 推进"绿洲花园落成"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+- id: 226
+  key: unique_jiangnan_examination_hall
+  base_key: state_examination_complex
+  concept: tv_wonder_unique_jiangnan_examination_hall
+  location: shangyuan
+  image: tv_wonder_unique_jiangnan_examination_hall
+  prompt: The Jiangnan Examination Hall at Nanjing during an imperial examination, centered on a fortified ceremonial gate and the main examiners' hall, with an immense geometric field of narrow candidate cells extending deep into the compound. Guards seal the gates, clerks carry anonymous bundled answer scripts, examiners cross raised courtyards, scholars sit in individual cells with brushes and lamps, and a distant merit board awaits the results. Historically grounded Ming Chinese civil-service architecture with grey brick walls, dark tiled roofs, timber galleries, paper, ink stones, and lanterns. Historical grand-strategy wonder key art, cinematic wide 3:2 landscape, the main gate and hall kept within the middle 60 percent for a safe square crop, strong ordered perspective, clear morning light, painterly realism, ultra-detailed, no legible writing, no labels, no border, no watermark, no modern objects.
+  is_unique: true
+  initial_level: 1
+  mechanic_key: state_examination_complex
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_jiangnan_examination_hall_inaugurated
+  ritual:
+    key: locked_compound_degree_roll
+    mode: immediate
+    cost_type: prestige
+    listeners:
+    - monthly
+    runtime_variables: []
+    country_modifier: {}
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: tv_wonder_ceremony_monthly_tick_effect = yes
+    completion_trigger_script: |-
+      has_variable = tv_wonder_ceremony_stage
+      var:tv_wonder_ceremony_stage ?= 8
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+  ceremony:
+    stages:
+    - title_en: Issue the Examination Edict
+      icon: law
+      icon_rationale: Represents issue the examination edict during the Locked Compound Degree Roll.
+      title_zh: 颁布贡院令
+      desc_en: Examiners, clerks, guards, candidates, printers, and provincial officials gather at Jiangnan Examination Hall to issue the examination edict. The stage records site labor, public witness, and the ritual proof that strengthens cabinet efficiency and literate promotion.
+      desc_zh: 考官、书吏、卫兵、士子、刻印匠与省臣齐聚江南贡院，推进"颁布贡院令"。此阶段记录工役、见证与仪式凭证，使其能够强化内阁效率与识字晋升。
+      cost:
+      - catalog: country_reward
+        type: burghers_satisfaction
+        value: -0.1
+      option_pay_en: Advance the issue the examination edict stage.
+      option_pay_zh: 推进"颁布贡院令"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Lay Out the Candidate Cells
+      icon: literacy
+      icon_rationale: Represents lay out the candidate cells during the Locked Compound Degree Roll.
+      title_zh: 排布号舍
+      desc_en: Examiners, clerks, guards, candidates, printers, and provincial officials gather at Jiangnan Examination Hall to lay out the candidate cells. The stage records site labor, public witness, and the ritual proof that strengthens cabinet efficiency and literate promotion.
+      desc_zh: 考官、书吏、卫兵、士子、刻印匠与省臣齐聚江南贡院，推进"排布号舍"。此阶段记录工役、见证与仪式凭证，使其能够强化内阁效率与识字晋升。
+      cost:
+      - catalog: character_reward
+        type: adm
+        value: -6
+      option_pay_en: Advance the lay out the candidate cells stage.
+      option_pay_zh: 推进"排布号舍"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Seal the Answer Scripts
+      icon: lock
+      icon_rationale: Represents seal the answer scripts during the Locked Compound Degree Roll.
+      title_zh: 封存试卷
+      desc_en: Examiners, clerks, guards, candidates, printers, and provincial officials gather at Jiangnan Examination Hall to seal the answer scripts. The stage records site labor, public witness, and the ritual proof that strengthens cabinet efficiency and literate promotion.
+      desc_zh: 考官、书吏、卫兵、士子、刻印匠与省臣齐聚江南贡院，推进"封存试卷"。此阶段记录工役、见证与仪式凭证，使其能够强化内阁效率与识字晋升。
+      cost:
+      - catalog: country_reward
+        type: scaled_gold
+        value: -1
+      option_pay_en: Advance the seal the answer scripts stage.
+      option_pay_zh: 推进"封存试卷"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Confine the Examiners
+      icon: writer
+      icon_rationale: Represents confine the examiners during the Locked Compound Degree Roll.
+      title_zh: 考官入闱
+      desc_en: Examiners, clerks, guards, candidates, printers, and provincial officials gather at Jiangnan Examination Hall to confine the examiners. The stage records site labor, public witness, and the ritual proof that strengthens cabinet efficiency and literate promotion.
+      desc_zh: 考官、书吏、卫兵、士子、刻印匠与省臣齐聚江南贡院，推进"考官入闱"。此阶段记录工役、见证与仪式凭证，使其能够强化内阁效率与识字晋升。
+      cost:
+      - catalog: local_reward
+        type: development
+        value: -0.5
+      option_pay_en: Advance the confine the examiners stage.
+      option_pay_zh: 推进"考官入闱"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Post the Merit Boards
+      icon: prestige
+      icon_rationale: Represents post the merit boards during the Locked Compound Degree Roll.
+      title_zh: 张榜取士
+      desc_en: Examiners, clerks, guards, candidates, printers, and provincial officials gather at Jiangnan Examination Hall to post the merit boards. The stage records site labor, public witness, and the ritual proof that strengthens cabinet efficiency and literate promotion.
+      desc_zh: 考官、书吏、卫兵、士子、刻印匠与省臣齐聚江南贡院，推进"张榜取士"。此阶段记录工役、见证与仪式凭证，使其能够强化内阁效率与识字晋升。
+      cost:
+      - catalog: local_modifier
+        type: local_max_literacy
+        value: -10
+      option_pay_en: Advance the post the merit boards stage.
+      option_pay_zh: 推进"张榜取士"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Audit the Marking Dispute
+      icon: government
+      icon_rationale: Represents audit the marking dispute during the Locked Compound Degree Roll.
+      title_zh: 复核阅卷争议
+      desc_en: Examiners, clerks, guards, candidates, printers, and provincial officials gather at Jiangnan Examination Hall to audit the marking dispute. The stage records site labor, public witness, and the ritual proof that strengthens cabinet efficiency and literate promotion.
+      desc_zh: 考官、书吏、卫兵、士子、刻印匠与省臣齐聚江南贡院，推进"复核阅卷争议"。此阶段记录工役、见证与仪式凭证，使其能够强化内阁效率与识字晋升。
+      cost:
+      - catalog: country_modifier
+        type: country_cabinet_efficiency
+        value: -0.2
+      option_pay_en: Advance the audit the marking dispute stage.
+      option_pay_zh: 推进"复核阅卷争议"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Keep the Candidate Order
+      icon: burghers
+      icon_rationale: Represents keep the candidate order during the Locked Compound Degree Roll.
+      title_zh: 维持士子秩序
+      desc_en: Examiners, clerks, guards, candidates, printers, and provincial officials gather at Jiangnan Examination Hall to keep the candidate order. The stage records site labor, public witness, and the ritual proof that strengthens cabinet efficiency and literate promotion.
+      desc_zh: 考官、书吏、卫兵、士子、刻印匠与省臣齐聚江南贡院，推进"维持士子秩序"。此阶段记录工役、见证与仪式凭证，使其能够强化内阁效率与识字晋升。
+      cost:
+      - catalog: country_reward
+        type: government_power
+        value: -5
+      option_pay_en: Advance the keep the candidate order stage.
+      option_pay_zh: 推进"维持士子秩序"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Consecrate the Examination Hall
+      icon: government_power
+      icon_rationale: Represents consecrate the examination hall during the Locked Compound Degree Roll.
+      title_zh: 贡院落成
+      desc_en: Examiners, clerks, guards, candidates, printers, and provincial officials gather at Jiangnan Examination Hall to consecrate the examination hall. The stage records site labor, public witness, and the ritual proof that strengthens cabinet efficiency and literate promotion.
+      desc_zh: 考官、书吏、卫兵、士子、刻印匠与省臣齐聚江南贡院，推进"贡院落成"。此阶段记录工役、见证与仪式凭证，使其能够强化内阁效率与识字晋升。
+      cost:
+      - catalog: country_modifier
+        type: global_pop_promotion_speed
+        value: -0.01
+      option_pay_en: Advance the consecrate the examination hall stage.
+      option_pay_zh: 推进"贡院落成"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+- id: 227
+  key: unique_thang_long_temple_of_literature
+  base_key: state_examination_complex
+  concept: tv_wonder_unique_thang_long_temple_of_literature
+  location: thang_long
+  image: tv_wonder_unique_thang_long_temple_of_literature
+  prompt: The Temple of Literature and Imperial Academy in Thang Long, centered on a dignified red-lacquered Vietnamese ceremonial gate opening toward the main sanctuary, with curved tiled roofs, timber halls, lotus ponds, shaded academy courtyards, stone doctors' steles resting on carved tortoises, incense altars, scholars in formal robes, students carrying books, calligraphers, and ritual officials. The imperial citadel of Thang Long appears softly in the distance without overpowering the academy. Historically grounded medieval and early-modern Vietnamese architecture, distinct from generic Chinese palace design. Historical grand-strategy wonder key art, cinematic wide 3:2 landscape, the main gate, sanctuary, and steles kept within the middle 60 percent for a safe square crop, humid golden daylight, painterly realism, ultra-detailed, no legible writing, no labels, no border, no watermark, no modern objects.
+  is_unique: true
+  initial_level: 1
+  mechanic_key: state_examination_complex
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_thang_long_temple_of_literature_inaugurated
+  ritual:
+    key: doctors_steles_convocation
+    mode: immediate
+    cost_type: prestige
+    listeners:
+    - monthly
+    runtime_variables: []
+    country_modifier: {}
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: tv_wonder_ceremony_monthly_tick_effect = yes
+    completion_trigger_script: |-
+      has_variable = tv_wonder_ceremony_stage
+      var:tv_wonder_ceremony_stage ?= 8
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+  ceremony:
+    stages:
+    - title_en: Offer at the Confucian Altar
+      icon: holy_site
+      icon_rationale: Represents offer at the confucian altar during the Doctors' Steles Convocation.
+      title_zh: 祭孔启礼
+      desc_en: Ritual ministers, academy masters, stone carvers, students, and court scholars gather at Thang Long Temple of Literature to offer at the confucian altar. The stage records site labor, public witness, and the ritual proof that binds Confucian learning to promotion and administration.
+      desc_zh: 礼官、国学师长、石刻匠、生员与朝廷儒臣齐聚升龙文庙国子监，推进"祭孔启礼"。此阶段记录工役、见证与仪式凭证，使其能够把儒学教化绑定到晋升与行政。
+      cost:
+      - catalog: country_reward
+        type: clergy_satisfaction
+        value: -0.1
+      option_pay_en: Advance the offer at the confucian altar stage.
+      option_pay_zh: 推进"祭孔启礼"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Expand the National Academy
+      icon: building_levels
+      icon_rationale: Represents expand the national academy during the Doctors' Steles Convocation.
+      title_zh: 扩建国子监
+      desc_en: Ritual ministers, academy masters, stone carvers, students, and court scholars gather at Thang Long Temple of Literature to expand the national academy. The stage records site labor, public witness, and the ritual proof that binds Confucian learning to promotion and administration.
+      desc_zh: 礼官、国学师长、石刻匠、生员与朝廷儒臣齐聚升龙文庙国子监，推进"扩建国子监"。此阶段记录工役、见证与仪式凭证，使其能够把儒学教化绑定到晋升与行政。
+      cost:
+      - catalog: character_reward
+        type: adm
+        value: -6
+      option_pay_en: Advance the expand the national academy stage.
+      option_pay_zh: 推进"扩建国子监"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Carve the Doctors' Steles
+      icon: cultural_tradition
+      icon_rationale: Represents carve the doctors' steles during the Doctors' Steles Convocation.
+      title_zh: 镌刻进士碑
+      desc_en: Ritual ministers, academy masters, stone carvers, students, and court scholars gather at Thang Long Temple of Literature to carve the doctors' steles. The stage records site labor, public witness, and the ritual proof that binds Confucian learning to promotion and administration.
+      desc_zh: 礼官、国学师长、石刻匠、生员与朝廷儒臣齐聚升龙文庙国子监，推进"镌刻进士碑"。此阶段记录工役、见证与仪式凭证，使其能够把儒学教化绑定到晋升与行政。
+      cost:
+      - catalog: country_reward
+        type: scaled_gold
+        value: -1
+      option_pay_en: Advance the carve the doctors' steles stage.
+      option_pay_zh: 推进"镌刻进士碑"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Seat the Lecture Masters
+      icon: literacy
+      icon_rationale: Represents seat the lecture masters during the Doctors' Steles Convocation.
+      title_zh: 安置讲席
+      desc_en: Ritual ministers, academy masters, stone carvers, students, and court scholars gather at Thang Long Temple of Literature to seat the lecture masters. The stage records site labor, public witness, and the ritual proof that binds Confucian learning to promotion and administration.
+      desc_zh: 礼官、国学师长、石刻匠、生员与朝廷儒臣齐聚升龙文庙国子监，推进"安置讲席"。此阶段记录工役、见证与仪式凭证，使其能够把儒学教化绑定到晋升与行政。
+      cost:
+      - catalog: local_reward
+        type: prosperity
+        value: -0.4
+      option_pay_en: Advance the seat the lecture masters stage.
+      option_pay_zh: 推进"安置讲席"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Open the Examination Court
+      icon: law
+      icon_rationale: Represents open the examination court during the Doctors' Steles Convocation.
+      title_zh: 开放试场
+      desc_en: Ritual ministers, academy masters, stone carvers, students, and court scholars gather at Thang Long Temple of Literature to open the examination court. The stage records site labor, public witness, and the ritual proof that binds Confucian learning to promotion and administration.
+      desc_zh: 礼官、国学师长、石刻匠、生员与朝廷儒臣齐聚升龙文庙国子监，推进"开放试场"。此阶段记录工役、见证与仪式凭证，使其能够把儒学教化绑定到晋升与行政。
+      cost:
+      - catalog: local_modifier
+        type: local_max_literacy
+        value: -10
+      option_pay_en: Advance the open the examination court stage.
+      option_pay_zh: 推进"开放试场"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Settle the Ritual Debate
+      icon: clergy
+      icon_rationale: Represents settle the ritual debate during the Doctors' Steles Convocation.
+      title_zh: 议定儒臣礼制
+      desc_en: Ritual ministers, academy masters, stone carvers, students, and court scholars gather at Thang Long Temple of Literature to settle the ritual debate. The stage records site labor, public witness, and the ritual proof that binds Confucian learning to promotion and administration.
+      desc_zh: 礼官、国学师长、石刻匠、生员与朝廷儒臣齐聚升龙文庙国子监，推进"议定儒臣礼制"。此阶段记录工役、见证与仪式凭证，使其能够把儒学教化绑定到晋升与行政。
+      cost:
+      - catalog: country_modifier
+        type: country_cabinet_efficiency
+        value: -0.2
+      option_pay_en: Advance the settle the ritual debate stage.
+      option_pay_zh: 推进"议定儒臣礼制"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Register the Students
+      icon: population
+      icon_rationale: Represents register the students during the Doctors' Steles Convocation.
+      title_zh: 登记生员
+      desc_en: Ritual ministers, academy masters, stone carvers, students, and court scholars gather at Thang Long Temple of Literature to register the students. The stage records site labor, public witness, and the ritual proof that binds Confucian learning to promotion and administration.
+      desc_zh: 礼官、国学师长、石刻匠、生员与朝廷儒臣齐聚升龙文庙国子监，推进"登记生员"。此阶段记录工役、见证与仪式凭证，使其能够把儒学教化绑定到晋升与行政。
+      cost:
+      - catalog: character_reward
+        type: dip
+        value: -3
+      option_pay_en: Advance the register the students stage.
+      option_pay_zh: 推进"登记生员"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Consecrate the Temple School
+      icon: religious_influence
+      icon_rationale: Represents consecrate the temple school during the Doctors' Steles Convocation.
+      title_zh: 文庙落成
+      desc_en: Ritual ministers, academy masters, stone carvers, students, and court scholars gather at Thang Long Temple of Literature to consecrate the temple school. The stage records site labor, public witness, and the ritual proof that binds Confucian learning to promotion and administration.
+      desc_zh: 礼官、国学师长、石刻匠、生员与朝廷儒臣齐聚升龙文庙国子监，推进"文庙落成"。此阶段记录工役、见证与仪式凭证，使其能够把儒学教化绑定到晋升与行政。
+      cost:
+      - catalog: country_modifier
+        type: global_pop_promotion_speed
+        value: -0.01
+      option_pay_en: Advance the consecrate the temple school stage.
+      option_pay_zh: 推进"文庙落成"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+- id: 228
+  key: unique_maragheh_observatory
+  base_key: giant_observatory
+  concept: tv_wonder_unique_maragheh_observatory
+  location: maragheh
+  image: tv_wonder_unique_maragheh_observatory
+  prompt: Maragheh Observatory at its thirteenth-century Ilkhanid peak, centered on a monumental circular observation platform and masonry sighting wall overlooking the Iranian plateau, surrounded by brick domes, arcaded libraries, instrument workshops, and scholars comparing celestial measurements. Large historically plausible brass armillary spheres, quadrants, astrolabes, sighting rules, manuscripts, and geometric star tables fill the terraces while assistants light oil lamps for the coming night. Snowy distant mountains stand beneath a deep twilight sky with the first visible stars. Historical grand-strategy wonder key art, cinematic wide 3:2 landscape, the main platform and instruments kept within the middle 60 percent for a safe square crop, scientifically grounded Ilkhanid architecture, painterly realism, ultra-detailed, no modern telescope, no legible writing, no labels, no border, no watermark.
+  is_unique: true
+  initial_level: 1
+  mechanic_key: giant_observatory
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_maragheh_observatory_inaugurated
+  ritual:
+    key: zij_star_table_assembly
+    mode: immediate
+    cost_type: prestige
+    listeners:
+    - monthly
+    runtime_variables: []
+    country_modifier: {}
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: tv_wonder_ceremony_monthly_tick_effect = yes
+    completion_trigger_script: |-
+      has_variable = tv_wonder_ceremony_stage
+      var:tv_wonder_ceremony_stage ?= 8
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+  ceremony:
+    stages:
+    - title_en: Recruit the Astronomers
+      icon: advances_panel
+      icon_rationale: Represents recruit the astronomers during the Zij Star Table Assembly.
+      title_zh: 招募学者
+      desc_en: Astronomers, instrument casters, scribes, librarians, patrons, and calendar officials gather at Maragheh Observatory to recruit the astronomers. The stage records site labor, public witness, and the ritual proof that turns observation into research progress and scholarly prestige.
+      desc_zh: 天文学者、仪器匠、书记、藏书官、赞助人与历法官齐聚马拉盖天文台，推进"招募学者"。此阶段记录工役、见证与仪式凭证，使其能够把观测转化为科研进展与学术声望。
+      cost:
+      - catalog: country_reward
+        type: research_progress
+        value: -5
+      option_pay_en: Advance the recruit the astronomers stage.
+      option_pay_zh: 推进"招募学者"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Cast the Instruments
+      icon: art_work
+      icon_rationale: Represents cast the instruments during the Zij Star Table Assembly.
+      title_zh: 铸造仪器
+      desc_en: Astronomers, instrument casters, scribes, librarians, patrons, and calendar officials gather at Maragheh Observatory to cast the instruments. The stage records site labor, public witness, and the ritual proof that turns observation into research progress and scholarly prestige.
+      desc_zh: 天文学者、仪器匠、书记、藏书官、赞助人与历法官齐聚马拉盖天文台，推进"铸造仪器"。此阶段记录工役、见证与仪式凭证，使其能够把观测转化为科研进展与学术声望。
+      cost:
+      - catalog: character_reward
+        type: adm
+        value: -6
+      option_pay_en: Advance the cast the instruments stage.
+      option_pay_zh: 推进"铸造仪器"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Calibrate the Star Tables
+      icon: literacy
+      icon_rationale: Represents calibrate the star tables during the Zij Star Table Assembly.
+      title_zh: 校准星表
+      desc_en: Astronomers, instrument casters, scribes, librarians, patrons, and calendar officials gather at Maragheh Observatory to calibrate the star tables. The stage records site labor, public witness, and the ritual proof that turns observation into research progress and scholarly prestige.
+      desc_zh: 天文学者、仪器匠、书记、藏书官、赞助人与历法官齐聚马拉盖天文台，推进"校准星表"。此阶段记录工役、见证与仪式凭证，使其能够把观测转化为科研进展与学术声望。
+      cost:
+      - catalog: country_reward
+        type: scaled_gold
+        value: -1
+      option_pay_en: Advance the calibrate the star tables stage.
+      option_pay_zh: 推进"校准星表"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Raise the Observation Platforms
+      icon: building
+      icon_rationale: Represents raise the observation platforms during the Zij Star Table Assembly.
+      title_zh: 修建观测台
+      desc_en: Astronomers, instrument casters, scribes, librarians, patrons, and calendar officials gather at Maragheh Observatory to raise the observation platforms. The stage records site labor, public witness, and the ritual proof that turns observation into research progress and scholarly prestige.
+      desc_zh: 天文学者、仪器匠、书记、藏书官、赞助人与历法官齐聚马拉盖天文台，推进"修建观测台"。此阶段记录工役、见证与仪式凭证，使其能够把观测转化为科研进展与学术声望。
+      cost:
+      - catalog: local_reward
+        type: development
+        value: -0.5
+      option_pay_en: Advance the raise the observation platforms stage.
+      option_pay_zh: 推进"修建观测台"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Order the Library
+      icon: novel
+      icon_rationale: Represents order the library during the Zij Star Table Assembly.
+      title_zh: 整理书库
+      desc_en: Astronomers, instrument casters, scribes, librarians, patrons, and calendar officials gather at Maragheh Observatory to order the library. The stage records site labor, public witness, and the ritual proof that turns observation into research progress and scholarly prestige.
+      desc_zh: 天文学者、仪器匠、书记、藏书官、赞助人与历法官齐聚马拉盖天文台，推进"整理书库"。此阶段记录工役、见证与仪式凭证，使其能够把观测转化为科研进展与学术声望。
+      cost:
+      - catalog: local_modifier
+        type: local_max_literacy
+        value: -10
+      option_pay_en: Advance the order the library stage.
+      option_pay_zh: 推进"整理书库"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Arbitrate the Scholars' Debate
+      icon: government
+      icon_rationale: Represents arbitrate the scholars' debate during the Zij Star Table Assembly.
+      title_zh: 调停学者争论
+      desc_en: Astronomers, instrument casters, scribes, librarians, patrons, and calendar officials gather at Maragheh Observatory to arbitrate the scholars' debate. The stage records site labor, public witness, and the ritual proof that turns observation into research progress and scholarly prestige.
+      desc_zh: 天文学者、仪器匠、书记、藏书官、赞助人与历法官齐聚马拉盖天文台，推进"调停学者争论"。此阶段记录工役、见证与仪式凭证，使其能够把观测转化为科研进展与学术声望。
+      cost:
+      - catalog: country_modifier
+        type: research_speed
+        value: -0.1
+      option_pay_en: Advance the arbitrate the scholars' debate stage.
+      option_pay_zh: 推进"调停学者争论"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Present the Calendar
+      icon: time
+      icon_rationale: Represents present the calendar during the Zij Star Table Assembly.
+      title_zh: 呈递历法
+      desc_en: Astronomers, instrument casters, scribes, librarians, patrons, and calendar officials gather at Maragheh Observatory to present the calendar. The stage records site labor, public witness, and the ritual proof that turns observation into research progress and scholarly prestige.
+      desc_zh: 天文学者、仪器匠、书记、藏书官、赞助人与历法官齐聚马拉盖天文台，推进"呈递历法"。此阶段记录工役、见证与仪式凭证，使其能够把观测转化为科研进展与学术声望。
+      cost:
+      - catalog: character_reward
+        type: artist_skill
+        value: -0.05
+      option_pay_en: Advance the present the calendar stage.
+      option_pay_zh: 推进"呈递历法"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Consecrate the Observatory
+      icon: prestige
+      icon_rationale: Represents consecrate the observatory during the Zij Star Table Assembly.
+      title_zh: 天文台落成
+      desc_en: Astronomers, instrument casters, scribes, librarians, patrons, and calendar officials gather at Maragheh Observatory to consecrate the observatory. The stage records site labor, public witness, and the ritual proof that turns observation into research progress and scholarly prestige.
+      desc_zh: 天文学者、仪器匠、书记、藏书官、赞助人与历法官齐聚马拉盖天文台，推进"天文台落成"。此阶段记录工役、见证与仪式凭证，使其能够把观测转化为科研进展与学术声望。
+      cost:
+      - catalog: country_reward
+        type: prestige
+        value: -20
+      option_pay_en: Advance the consecrate the observatory stage.
+      option_pay_zh: 推进"天文台落成"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+- id: 229
+  key: unique_xian_bell_and_drum_towers
+  base_key: great_clock_bell_system
+  concept: tv_wonder_unique_xian_bell_and_drum_towers
+  location: jingzhao
+  image: tv_wonder_unique_xian_bell_and_drum_towers
+  prompt: The Bell Tower and Drum Tower of Xi'an rising as a coordinated civic timekeeping system above a prosperous Ming walled city, with the tall timber Bell Tower as the central focal point and the Drum Tower clearly visible along the main avenue behind it. A great bronze bell hangs inside the open upper gallery, enormous painted drums line the companion tower, watchmen prepare the evening signals, city gates begin to close, and orderly market streets glow with lanterns below. Historically grounded Ming Chinese timber architecture, tiled roofs, stone bases, walls, carts, pedestrians, and mounted guards. Historical grand-strategy wonder key art, cinematic wide 3:2 landscape, both towers kept within the middle 60 percent for a safe square crop, dramatic dusk light, painterly realism, ultra-detailed, no text, no labels, no border, no watermark, no modern skyline or objects.
+  is_unique: true
+  initial_level: 0
+  mechanic_key: great_clock_bell_system
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_xian_bell_and_drum_towers_inaugurated
+  ritual:
+    key: city_time_signal_ordinance
+    mode: immediate
+    cost_type: prestige
+    listeners:
+    - monthly
+    runtime_variables: []
+    country_modifier: {}
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: tv_wonder_ceremony_monthly_tick_effect = yes
+    completion_trigger_script: |-
+      has_variable = tv_wonder_ceremony_stage
+      var:tv_wonder_ceremony_stage ?= 8
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+  ceremony:
+    stages:
+    - title_en: Proclaim the Drum Ordinance
+      icon: time
+      icon_rationale: Represents proclaim the drum ordinance during the City Time Signal Ordinance.
+      title_zh: 颁布鼓令
+      desc_en: Timekeepers, bell founders, drum masters, gate guards, market elders, and city magistrates gather at Xi'an Bell and Drum Towers to proclaim the drum ordinance. The stage records site labor, public witness, and the ritual proof that turns civic timekeeping into development, order, and prestige.
+      desc_zh: 报时官、铸钟匠、鼓师、门卫、市集长老与城市长官齐聚西安钟鼓楼，推进"颁布鼓令"。此阶段记录工役、见证与仪式凭证，使其能够把城市报时转化为发展、秩序与声望。
+      cost:
+      - catalog: country_reward
+        type: government_power
+        value: -5
+      option_pay_en: Advance the proclaim the drum ordinance stage.
+      option_pay_zh: 推进"颁布鼓令"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Cast the Great Bell
+      icon: art_work
+      icon_rationale: Represents cast the great bell during the City Time Signal Ordinance.
+      title_zh: 铸造大钟
+      desc_en: Timekeepers, bell founders, drum masters, gate guards, market elders, and city magistrates gather at Xi'an Bell and Drum Towers to cast the great bell. The stage records site labor, public witness, and the ritual proof that turns civic timekeeping into development, order, and prestige.
+      desc_zh: 报时官、铸钟匠、鼓师、门卫、市集长老与城市长官齐聚西安钟鼓楼，推进"铸造大钟"。此阶段记录工役、见证与仪式凭证，使其能够把城市报时转化为发展、秩序与声望。
+      cost:
+      - catalog: character_reward
+        type: adm
+        value: -6
+      option_pay_en: Advance the cast the great bell stage.
+      option_pay_zh: 推进"铸造大钟"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Raise the Tower Frames
+      icon: building_levels
+      icon_rationale: Represents raise the tower frames during the City Time Signal Ordinance.
+      title_zh: 营建楼架
+      desc_en: Timekeepers, bell founders, drum masters, gate guards, market elders, and city magistrates gather at Xi'an Bell and Drum Towers to raise the tower frames. The stage records site labor, public witness, and the ritual proof that turns civic timekeeping into development, order, and prestige.
+      desc_zh: 报时官、铸钟匠、鼓师、门卫、市集长老与城市长官齐聚西安钟鼓楼，推进"营建楼架"。此阶段记录工役、见证与仪式凭证，使其能够把城市报时转化为发展、秩序与声望。
+      cost:
+      - catalog: country_reward
+        type: scaled_gold
+        value: -1
+      option_pay_en: Advance the raise the tower frames stage.
+      option_pay_zh: 推进"营建楼架"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Calibrate the Watch Hours
+      icon: control
+      icon_rationale: Represents calibrate the watch hours during the City Time Signal Ordinance.
+      title_zh: 校准更点
+      desc_en: Timekeepers, bell founders, drum masters, gate guards, market elders, and city magistrates gather at Xi'an Bell and Drum Towers to calibrate the watch hours. The stage records site labor, public witness, and the ritual proof that turns civic timekeeping into development, order, and prestige.
+      desc_zh: 报时官、铸钟匠、鼓师、门卫、市集长老与城市长官齐聚西安钟鼓楼，推进"校准更点"。此阶段记录工役、见证与仪式凭证，使其能够把城市报时转化为发展、秩序与声望。
+      cost:
+      - catalog: local_reward
+        type: development
+        value: -0.5
+      option_pay_en: Advance the calibrate the watch hours stage.
+      option_pay_zh: 推进"校准更点"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Set the Night Curfew
+      icon: lock
+      icon_rationale: Represents set the night curfew during the City Time Signal Ordinance.
+      title_zh: 制定夜禁
+      desc_en: Timekeepers, bell founders, drum masters, gate guards, market elders, and city magistrates gather at Xi'an Bell and Drum Towers to set the night curfew. The stage records site labor, public witness, and the ritual proof that turns civic timekeeping into development, order, and prestige.
+      desc_zh: 报时官、铸钟匠、鼓师、门卫、市集长老与城市长官齐聚西安钟鼓楼，推进"制定夜禁"。此阶段记录工役、见证与仪式凭证，使其能够把城市报时转化为发展、秩序与声望。
+      cost:
+      - catalog: local_modifier
+        type: local_monthly_development_modifier
+        value: -0.1
+      option_pay_en: Advance the set the night curfew stage.
+      option_pay_zh: 推进"制定夜禁"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Signal the Markets
+      icon: market
+      icon_rationale: Represents signal the markets during the City Time Signal Ordinance.
+      title_zh: 市集报时
+      desc_en: Timekeepers, bell founders, drum masters, gate guards, market elders, and city magistrates gather at Xi'an Bell and Drum Towers to signal the markets. The stage records site labor, public witness, and the ritual proof that turns civic timekeeping into development, order, and prestige.
+      desc_zh: 报时官、铸钟匠、鼓师、门卫、市集长老与城市长官齐聚西安钟鼓楼，推进"市集报时"。此阶段记录工役、见证与仪式凭证，使其能够把城市报时转化为发展、秩序与声望。
+      cost:
+      - catalog: country_modifier
+        type: monthly_legitimacy
+        value: -0.1
+      option_pay_en: Advance the signal the markets stage.
+      option_pay_zh: 推进"市集报时"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Link the City Gates
+      icon: city
+      icon_rationale: Represents link the city gates during the City Time Signal Ordinance.
+      title_zh: 联动城门
+      desc_en: Timekeepers, bell founders, drum masters, gate guards, market elders, and city magistrates gather at Xi'an Bell and Drum Towers to link the city gates. The stage records site labor, public witness, and the ritual proof that turns civic timekeeping into development, order, and prestige.
+      desc_zh: 报时官、铸钟匠、鼓师、门卫、市集长老与城市长官齐聚西安钟鼓楼，推进"联动城门"。此阶段记录工役、见证与仪式凭证，使其能够把城市报时转化为发展、秩序与声望。
+      cost:
+      - catalog: country_reward
+        type: prestige
+        value: -10
+      option_pay_en: Advance the link the city gates stage.
+      option_pay_zh: 推进"联动城门"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Consecrate the Bell and Drum Towers
+      icon: legitimacy
+      icon_rationale: Represents consecrate the bell and drum towers during the City Time Signal Ordinance.
+      title_zh: 钟鼓楼落成
+      desc_en: Timekeepers, bell founders, drum masters, gate guards, market elders, and city magistrates gather at Xi'an Bell and Drum Towers to consecrate the bell and drum towers. The stage records site labor, public witness, and the ritual proof that turns civic timekeeping into development, order, and prestige.
+      desc_zh: 报时官、铸钟匠、鼓师、门卫、市集长老与城市长官齐聚西安钟鼓楼，推进"钟鼓楼落成"。此阶段记录工役、见证与仪式凭证，使其能够把城市报时转化为发展、秩序与声望。
+      cost:
+      - catalog: local_modifier
+        type: local_defensive
+        value: -0.4
+      option_pay_en: Advance the consecrate the bell and drum towers stage.
+      option_pay_zh: 推进"钟鼓楼落成"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+- id: 230
+  key: unique_behistun_inscription
+  base_key: law_code_stele_project
+  concept: tv_wonder_unique_behistun_inscription
+  location: bisotun
+  image: tv_wonder_unique_behistun_inscription
+  prompt: The Behistun Inscription dominating a sheer limestone cliff above the ancient road through the Zagros Mountains, centered on the monumental Achaemenid royal relief of Darius facing bound rebels beneath the winged symbol, surrounded by broad weathered panels of carved cuneiform wedges. Rope-supported scribes and stone workers make careful rubbings and copies below the relief while guards, scholars, merchants, pack animals, and travelers gather on the old imperial road. Emphasize the extraordinary height, danger, political authority, and multilingual preservation of the monument without inventing readable modern lettering. Historical grand-strategy wonder key art, cinematic wide 3:2 landscape, the relief and principal inscription panels kept within the middle 60 percent for a safe square crop, rugged clear daylight, painterly realism, ultra-detailed, no captions, no labels, no border, no watermark, no modern climbing equipment or objects.
+  is_unique: true
+  initial_level: 1
+  mechanic_key: law_code_stele_project
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_behistun_inscription_inaugurated
+  ritual:
+    key: royal_rock_text_proclamation
+    mode: immediate
+    cost_type: prestige
+    listeners:
+    - monthly
+    runtime_variables: []
+    country_modifier: {}
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: tv_wonder_ceremony_monthly_tick_effect = yes
+    completion_trigger_script: |-
+      has_variable = tv_wonder_ceremony_stage
+      var:tv_wonder_ceremony_stage ?= 8
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+  ceremony:
+    stages:
+    - title_en: Clear the Cliff Face
+      icon: topography
+      icon_rationale: Represents clear the cliff face during the Royal Rock Text Proclamation.
+      title_zh: 清理崖壁
+      desc_en: Scribes, guards, translators, stone workers, jurists, royal heralds, and traveling scholars gather at Behistun Inscription to clear the cliff face. The stage records site labor, public witness, and the ritual proof that turns ancient royal text into authority, cultural memory, and order.
+      desc_zh: 书记、卫兵、译读者、石匠、法官、王家传令人与游学者齐聚贝希斯敦铭文，推进"清理崖壁"。此阶段记录工役、见证与仪式凭证，使其能够把古王铭文转化为权威、文化记忆与秩序。
+      cost:
+      - catalog: country_reward
+        type: prestige
+        value: -10
+      option_pay_en: Advance the clear the cliff face stage.
+      option_pay_zh: 推进"清理崖壁"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Make the First Rubbings
+      icon: writer
+      icon_rationale: Represents make the first rubbings during the Royal Rock Text Proclamation.
+      title_zh: 拓印铭文
+      desc_en: Scribes, guards, translators, stone workers, jurists, royal heralds, and traveling scholars gather at Behistun Inscription to make the first rubbings. The stage records site labor, public witness, and the ritual proof that turns ancient royal text into authority, cultural memory, and order.
+      desc_zh: 书记、卫兵、译读者、石匠、法官、王家传令人与游学者齐聚贝希斯敦铭文，推进"拓印铭文"。此阶段记录工役、见证与仪式凭证，使其能够把古王铭文转化为权威、文化记忆与秩序。
+      cost:
+      - catalog: character_reward
+        type: dip
+        value: -6
+      option_pay_en: Advance the make the first rubbings stage.
+      option_pay_zh: 推进"拓印铭文"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Read the Old King's Edict
+      icon: law
+      icon_rationale: Represents read the old king's edict during the Royal Rock Text Proclamation.
+      title_zh: 译读旧王诏
+      desc_en: Scribes, guards, translators, stone workers, jurists, royal heralds, and traveling scholars gather at Behistun Inscription to read the old king's edict. The stage records site labor, public witness, and the ritual proof that turns ancient royal text into authority, cultural memory, and order.
+      desc_zh: 书记、卫兵、译读者、石匠、法官、王家传令人与游学者齐聚贝希斯敦铭文，推进"译读旧王诏"。此阶段记录工役、见证与仪式凭证，使其能够把古王铭文转化为权威、文化记忆与秩序。
+      cost:
+      - catalog: country_reward
+        type: government_power
+        value: -5
+      option_pay_en: Advance the read the old king's edict stage.
+      option_pay_zh: 推进"译读旧王诏"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Guard the Mountain Road
+      icon: paved_road
+      icon_rationale: Represents guard the mountain road during the Royal Rock Text Proclamation.
+      title_zh: 护卫山路
+      desc_en: Scribes, guards, translators, stone workers, jurists, royal heralds, and traveling scholars gather at Behistun Inscription to guard the mountain road. The stage records site labor, public witness, and the ritual proof that turns ancient royal text into authority, cultural memory, and order.
+      desc_zh: 书记、卫兵、译读者、石匠、法官、王家传令人与游学者齐聚贝希斯敦铭文，推进"护卫山路"。此阶段记录工役、见证与仪式凭证，使其能够把古王铭文转化为权威、文化记忆与秩序。
+      cost:
+      - catalog: local_reward
+        type: development
+        value: -0.5
+      option_pay_en: Advance the guard the mountain road stage.
+      option_pay_zh: 推进"护卫山路"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Collate the Scribes' Copies
+      icon: literacy
+      icon_rationale: Represents collate the scribes' copies during the Royal Rock Text Proclamation.
+      title_zh: 书记校订
+      desc_en: Scribes, guards, translators, stone workers, jurists, royal heralds, and traveling scholars gather at Behistun Inscription to collate the scribes' copies. The stage records site labor, public witness, and the ritual proof that turns ancient royal text into authority, cultural memory, and order.
+      desc_zh: 书记、卫兵、译读者、石匠、法官、王家传令人与游学者齐聚贝希斯敦铭文，推进"书记校订"。此阶段记录工役、见证与仪式凭证，使其能够把古王铭文转化为权威、文化记忆与秩序。
+      cost:
+      - catalog: local_modifier
+        type: local_cultural_tradition
+        value: -0.5
+      option_pay_en: Advance the collate the scribes' copies stage.
+      option_pay_zh: 推进"书记校订"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Proclaim Royal Authority
+      icon: ruler
+      icon_rationale: Represents proclaim royal authority during the Royal Rock Text Proclamation.
+      title_zh: 宣示王权
+      desc_en: Scribes, guards, translators, stone workers, jurists, royal heralds, and traveling scholars gather at Behistun Inscription to proclaim royal authority. The stage records site labor, public witness, and the ritual proof that turns ancient royal text into authority, cultural memory, and order.
+      desc_zh: 书记、卫兵、译读者、石匠、法官、王家传令人与游学者齐聚贝希斯敦铭文，推进"宣示王权"。此阶段记录工役、见证与仪式凭证，使其能够把古王铭文转化为权威、文化记忆与秩序。
+      cost:
+      - catalog: country_modifier
+        type: monthly_rebel_growth
+        value: 0.001
+      option_pay_en: Advance the proclaim royal authority stage.
+      option_pay_zh: 推进"宣示王权"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Dispatch the Learned Copies
+      icon: cultural_tradition
+      icon_rationale: Represents dispatch the learned copies during the Royal Rock Text Proclamation.
+      title_zh: 传播学者抄本
+      desc_en: Scribes, guards, translators, stone workers, jurists, royal heralds, and traveling scholars gather at Behistun Inscription to dispatch the learned copies. The stage records site labor, public witness, and the ritual proof that turns ancient royal text into authority, cultural memory, and order.
+      desc_zh: 书记、卫兵、译读者、石匠、法官、王家传令人与游学者齐聚贝希斯敦铭文，推进"传播学者抄本"。此阶段记录工役、见证与仪式凭证，使其能够把古王铭文转化为权威、文化记忆与秩序。
+      cost:
+      - catalog: country_reward
+        type: research_progress
+        value: -5
+      option_pay_en: Advance the dispatch the learned copies stage.
+      option_pay_zh: 推进"传播学者抄本"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Consecrate the Inscription
+      icon: prestige
+      icon_rationale: Represents consecrate the inscription during the Royal Rock Text Proclamation.
+      title_zh: 铭文落成
+      desc_en: Scribes, guards, translators, stone workers, jurists, royal heralds, and traveling scholars gather at Behistun Inscription to consecrate the inscription. The stage records site labor, public witness, and the ritual proof that turns ancient royal text into authority, cultural memory, and order.
+      desc_zh: 书记、卫兵、译读者、石匠、法官、王家传令人与游学者齐聚贝希斯敦铭文，推进"铭文落成"。此阶段记录工役、见证与仪式凭证，使其能够把古王铭文转化为权威、文化记忆与秩序。
+      cost:
+      - catalog: country_modifier
+        type: cultural_tradition_modifier
+        value: -0.2
+      option_pay_en: Advance the consecrate the inscription stage.
+      option_pay_zh: 推进"铭文落成"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+- id: 231
+  key: unique_beijing_imperial_granaries
+  base_key: royal_granary_system
+  concept: tv_wonder_unique_beijing_imperial_granaries
+  location: dadu
+  image: tv_wonder_unique_beijing_imperial_granaries
+  prompt: The imperial granary system of Beijing at full operation, centered on a monumental walled granary courtyard with long orderly rows of raised timber-and-brick storehouses, tiled roofs, sealed doors, grain ramps, scales, and fire-watch towers. Canal barges unload rice and millet into guarded depots while officials inspect tallies, clerks seal ledgers, laborers carry sacks, soldiers patrol, and rat-proof stone foundations and firebreaks reveal the system's careful engineering. The walls and gates of the imperial capital rise in the distance. Historically grounded Ming-era Chinese logistics and architecture. Historical grand-strategy wonder key art, cinematic wide 3:2 landscape, the main courtyard and storehouse rows kept within the middle 60 percent for a safe square crop, crisp autumn daylight, painterly realism, ultra-detailed, no legible writing, no labels, no border, no watermark, no modern machinery or objects.
+  is_unique: true
+  initial_level: 0
+  mechanic_key: royal_granary_system
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_beijing_imperial_granaries_inaugurated
+  ritual:
+    key: capital_grain_reserve_audit
+    mode: immediate
+    cost_type: scaled_gold
+    listeners:
+    - monthly
+    runtime_variables: []
+    country_modifier: {}
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: tv_wonder_ceremony_monthly_tick_effect = yes
+    completion_trigger_script: |-
+      has_variable = tv_wonder_ceremony_stage
+      var:tv_wonder_ceremony_stage ?= 8
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+  ceremony:
+    stages:
+    - title_en: Select the Granary Sites
+      icon: food
+      icon_rationale: Represents select the granary sites during the Capital Grain Reserve Audit.
+      title_zh: 择定仓址
+      desc_en: Granary clerks, canal officers, boat captains, guards, fire wardens, and relief officials gather at Beijing Imperial Granaries to select the granary sites. The stage records site labor, public witness, and the ritual proof that turns capital grain storage into food capacity and relief legitimacy.
+      desc_zh: 仓官、漕运官、粮船长、守卫、防火管事与赈济官齐聚北京皇家粮仓群，推进"择定仓址"。此阶段记录工役、见证与仪式凭证，使其能够把京师储粮转化为粮食容量与赈济正当性。
+      cost:
+      - catalog: country_reward
+        type: scaled_gold
+        value: -1
+      option_pay_en: Advance the select the granary sites stage.
+      option_pay_zh: 推进"择定仓址"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Open the Canal Grain Ledgers
+      icon: adm
+      icon_rationale: Represents open the canal grain ledgers during the Capital Grain Reserve Audit.
+      title_zh: 开启漕粮账册
+      desc_en: Granary clerks, canal officers, boat captains, guards, fire wardens, and relief officials gather at Beijing Imperial Granaries to open the canal grain ledgers. The stage records site labor, public witness, and the ritual proof that turns capital grain storage into food capacity and relief legitimacy.
+      desc_zh: 仓官、漕运官、粮船长、守卫、防火管事与赈济官齐聚北京皇家粮仓群，推进"开启漕粮账册"。此阶段记录工役、见证与仪式凭证，使其能够把京师储粮转化为粮食容量与赈济正当性。
+      cost:
+      - catalog: character_reward
+        type: adm
+        value: -6
+      option_pay_en: Advance the open the canal grain ledgers stage.
+      option_pay_zh: 推进"开启漕粮账册"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Raise the Storehouse Rows
+      icon: building_needs
+      icon_rationale: Represents raise the storehouse rows during the Capital Grain Reserve Audit.
+      title_zh: 修筑仓廒
+      desc_en: Granary clerks, canal officers, boat captains, guards, fire wardens, and relief officials gather at Beijing Imperial Granaries to raise the storehouse rows. The stage records site labor, public witness, and the ritual proof that turns capital grain storage into food capacity and relief legitimacy.
+      desc_zh: 仓官、漕运官、粮船长、守卫、防火管事与赈济官齐聚北京皇家粮仓群，推进"修筑仓廒"。此阶段记录工役、见证与仪式凭证，使其能够把京师储粮转化为粮食容量与赈济正当性。
+      cost:
+      - catalog: country_reward
+        type: manpower
+        value: -50
+      option_pay_en: Advance the raise the storehouse rows stage.
+      option_pay_zh: 推进"修筑仓廒"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Receive the Grain Boats
+      icon: ship
+      icon_rationale: Represents receive the grain boats during the Capital Grain Reserve Audit.
+      title_zh: 粮船交割
+      desc_en: Granary clerks, canal officers, boat captains, guards, fire wardens, and relief officials gather at Beijing Imperial Granaries to receive the grain boats. The stage records site labor, public witness, and the ritual proof that turns capital grain storage into food capacity and relief legitimacy.
+      desc_zh: 仓官、漕运官、粮船长、守卫、防火管事与赈济官齐聚北京皇家粮仓群，推进"粮船交割"。此阶段记录工役、见证与仪式凭证，使其能够把京师储粮转化为粮食容量与赈济正当性。
+      cost:
+      - catalog: local_reward
+        type: prosperity
+        value: -0.4
+      option_pay_en: Advance the receive the grain boats stage.
+      option_pay_zh: 推进"粮船交割"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Inspect Fire and Vermin Wards
+      icon: warning_icon
+      icon_rationale: Represents inspect fire and vermin wards during the Capital Grain Reserve Audit.
+      title_zh: 防火防鼠
+      desc_en: Granary clerks, canal officers, boat captains, guards, fire wardens, and relief officials gather at Beijing Imperial Granaries to inspect fire and vermin wards. The stage records site labor, public witness, and the ritual proof that turns capital grain storage into food capacity and relief legitimacy.
+      desc_zh: 仓官、漕运官、粮船长、守卫、防火管事与赈济官齐聚北京皇家粮仓群，推进"防火防鼠"。此阶段记录工役、见证与仪式凭证，使其能够把京师储粮转化为粮食容量与赈济正当性。
+      cost:
+      - catalog: local_modifier
+        type: local_monthly_prosperity
+        value: -0.001
+      option_pay_en: Advance the inspect fire and vermin wards stage.
+      option_pay_zh: 推进"防火防鼠"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Write the Relief Regulations
+      icon: peasants
+      icon_rationale: Represents write the relief regulations during the Capital Grain Reserve Audit.
+      title_zh: 订立赈济规程
+      desc_en: Granary clerks, canal officers, boat captains, guards, fire wardens, and relief officials gather at Beijing Imperial Granaries to write the relief regulations. The stage records site labor, public witness, and the ritual proof that turns capital grain storage into food capacity and relief legitimacy.
+      desc_zh: 仓官、漕运官、粮船长、守卫、防火管事与赈济官齐聚北京皇家粮仓群，推进"订立赈济规程"。此阶段记录工役、见证与仪式凭证，使其能够把京师储粮转化为粮食容量与赈济正当性。
+      cost:
+      - catalog: country_modifier
+        type: global_food_capacity_modifier
+        value: -0.4
+      option_pay_en: Advance the write the relief regulations stage.
+      option_pay_zh: 推进"订立赈济规程"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Seal the Capital Reserve
+      icon: city_capital
+      icon_rationale: Represents seal the capital reserve during the Capital Grain Reserve Audit.
+      title_zh: 封存京师储备
+      desc_en: Granary clerks, canal officers, boat captains, guards, fire wardens, and relief officials gather at Beijing Imperial Granaries to seal the capital reserve. The stage records site labor, public witness, and the ritual proof that turns capital grain storage into food capacity and relief legitimacy.
+      desc_zh: 仓官、漕运官、粮船长、守卫、防火管事与赈济官齐聚北京皇家粮仓群，推进"封存京师储备"。此阶段记录工役、见证与仪式凭证，使其能够把京师储粮转化为粮食容量与赈济正当性。
+      cost:
+      - catalog: country_reward
+        type: peasants_satisfaction
+        value: -0.2
+      option_pay_en: Advance the seal the capital reserve stage.
+      option_pay_zh: 推进"封存京师储备"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Consecrate the Imperial Granaries
+      icon: government_power
+      icon_rationale: Represents consecrate the imperial granaries during the Capital Grain Reserve Audit.
+      title_zh: 粮仓落成
+      desc_en: Granary clerks, canal officers, boat captains, guards, fire wardens, and relief officials gather at Beijing Imperial Granaries to consecrate the imperial granaries. The stage records site labor, public witness, and the ritual proof that turns capital grain storage into food capacity and relief legitimacy.
+      desc_zh: 仓官、漕运官、粮船长、守卫、防火管事与赈济官齐聚北京皇家粮仓群，推进"粮仓落成"。此阶段记录工役、见证与仪式凭证，使其能够把京师储粮转化为粮食容量与赈济正当性。
+      cost:
+      - catalog: country_reward
+        type: government_power
+        value: -10
+      option_pay_en: Advance the consecrate the imperial granaries stage.
+      option_pay_zh: 推进"粮仓落成"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+- id: 232
+  key: unique_bursa_imperial_mint
+  base_key: royal_mint_system
+  concept: tv_wonder_unique_bursa_imperial_mint
+  location: bursa
+  image: tv_wonder_unique_bursa_imperial_mint
+  prompt: The early Ottoman imperial mint at Bursa, centered on a secure stone-and-timber mint courtyard where craftsmen strike silver and copper coins by hand with engraved dies, hammers, anvils, charcoal furnaces, crucibles, assay scales, and carefully weighed bullion. Open workshops reveal metal casting and die cutting, while officials compare coin standards, tax clerks keep sealed ledgers, guards protect vaulted storerooms, and merchants exchange newly minted currency beneath early Ottoman arches and tiled roofs. Avoid industrial machinery and later mechanical presses. Historical grand-strategy wonder key art, cinematic wide 3:2 landscape, the main mint workshop and treasury gate kept within the middle 60 percent for a safe square crop, warm furnace light balanced with daylight, painterly realism, ultra-detailed, no legible writing, no labels, no border, no watermark, no modern objects.
+  is_unique: true
+  initial_level: 1
+  mechanic_key: royal_mint_system
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_bursa_imperial_mint_inaugurated
+  ritual:
+    key: sealed_coinage_assay
+    mode: immediate
+    cost_type: scaled_gold
+    listeners:
+    - monthly
+    runtime_variables: []
+    country_modifier: {}
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: tv_wonder_ceremony_monthly_tick_effect = yes
+    completion_trigger_script: |-
+      has_variable = tv_wonder_ceremony_stage
+      var:tv_wonder_ceremony_stage ?= 8
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+  ceremony:
+    stages:
+    - title_en: Issue the Minting Order
+      icon: government
+      icon_rationale: Represents issue the minting order during the Sealed Coinage Assay.
+      title_zh: 颁布铸币令
+      desc_en: Assayers, die cutters, tax officers, guards, bullion merchants, and treasury scribes gather at Bursa Imperial Mint to issue the minting order. The stage records site labor, public witness, and the ritual proof that turns controlled coinage into mint income and merchant trust.
+      desc_zh: 验色师、模具匠、税吏、守卫、金银商人与国库书记齐聚布尔萨皇家铸币所，推进"颁布铸币令"。此阶段记录工役、见证与仪式凭证，使其能够把受控铸币转化为铸币收入与商人信任。
+      cost:
+      - catalog: country_reward
+        type: scaled_gold
+        value: -1
+      option_pay_en: Advance the issue the minting order stage.
+      option_pay_zh: 推进"颁布铸币令"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Gather Silver and Copper
+      icon: gold
+      icon_rationale: Represents gather silver and copper during the Sealed Coinage Assay.
+      title_zh: 征集银铜
+      desc_en: Assayers, die cutters, tax officers, guards, bullion merchants, and treasury scribes gather at Bursa Imperial Mint to gather silver and copper. The stage records site labor, public witness, and the ritual proof that turns controlled coinage into mint income and merchant trust.
+      desc_zh: 验色师、模具匠、税吏、守卫、金银商人与国库书记齐聚布尔萨皇家铸币所，推进"征集银铜"。此阶段记录工役、见证与仪式凭证，使其能够把受控铸币转化为铸币收入与商人信任。
+      cost:
+      - catalog: character_reward
+        type: adm
+        value: -6
+      option_pay_en: Advance the gather silver and copper stage.
+      option_pay_zh: 推进"征集银铜"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Prepare the Coin Dies
+      icon: art_work
+      icon_rationale: Represents prepare the coin dies during the Sealed Coinage Assay.
+      title_zh: 准备模具
+      desc_en: Assayers, die cutters, tax officers, guards, bullion merchants, and treasury scribes gather at Bursa Imperial Mint to prepare the coin dies. The stage records site labor, public witness, and the ritual proof that turns controlled coinage into mint income and merchant trust.
+      desc_zh: 验色师、模具匠、税吏、守卫、金银商人与国库书记齐聚布尔萨皇家铸币所，推进"准备模具"。此阶段记录工役、见证与仪式凭证，使其能够把受控铸币转化为铸币收入与商人信任。
+      cost:
+      - catalog: country_reward
+        type: burghers_satisfaction
+        value: -0.1
+      option_pay_en: Advance the prepare the coin dies stage.
+      option_pay_zh: 推进"准备模具"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Strike the Trial Coins
+      icon: wealth
+      icon_rationale: Represents strike the trial coins during the Sealed Coinage Assay.
+      title_zh: 试铸钱样
+      desc_en: Assayers, die cutters, tax officers, guards, bullion merchants, and treasury scribes gather at Bursa Imperial Mint to strike the trial coins. The stage records site labor, public witness, and the ritual proof that turns controlled coinage into mint income and merchant trust.
+      desc_zh: 验色师、模具匠、税吏、守卫、金银商人与国库书记齐聚布尔萨皇家铸币所，推进"试铸钱样"。此阶段记录工役、见证与仪式凭证，使其能够把受控铸币转化为铸币收入与商人信任。
+      cost:
+      - catalog: local_reward
+        type: development
+        value: -0.5
+      option_pay_en: Advance the strike the trial coins stage.
+      option_pay_zh: 推进"试铸钱样"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Audit the Tax Officers
+      icon: tax_efficiency
+      icon_rationale: Represents audit the tax officers during the Sealed Coinage Assay.
+      title_zh: 审计税吏
+      desc_en: Assayers, die cutters, tax officers, guards, bullion merchants, and treasury scribes gather at Bursa Imperial Mint to audit the tax officers. The stage records site labor, public witness, and the ritual proof that turns controlled coinage into mint income and merchant trust.
+      desc_zh: 验色师、模具匠、税吏、守卫、金银商人与国库书记齐聚布尔萨皇家铸币所，推进"审计税吏"。此阶段记录工役、见证与仪式凭证，使其能够把受控铸币转化为铸币收入与商人信任。
+      cost:
+      - catalog: local_modifier
+        type: local_trade_center_power
+        value: -0.1
+      option_pay_en: Advance the audit the tax officers stage.
+      option_pay_zh: 推进"审计税吏"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Open the Merchant Exchange
+      icon: trade
+      icon_rationale: Represents open the merchant exchange during the Sealed Coinage Assay.
+      title_zh: 开放商人兑换
+      desc_en: Assayers, die cutters, tax officers, guards, bullion merchants, and treasury scribes gather at Bursa Imperial Mint to open the merchant exchange. The stage records site labor, public witness, and the ritual proof that turns controlled coinage into mint income and merchant trust.
+      desc_zh: 验色师、模具匠、税吏、守卫、金银商人与国库书记齐聚布尔萨皇家铸币所，推进"开放商人兑换"。此阶段记录工役、见证与仪式凭证，使其能够把受控铸币转化为铸币收入与商人信任。
+      cost:
+      - catalog: country_modifier
+        type: minting_income_factor
+        value: -0.2
+      option_pay_en: Advance the open the merchant exchange stage.
+      option_pay_zh: 推进"开放商人兑换"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Settle the Coinage Dispute
+      icon: balance
+      icon_rationale: Represents settle the coinage dispute during the Sealed Coinage Assay.
+      title_zh: 调解铸币争议
+      desc_en: Assayers, die cutters, tax officers, guards, bullion merchants, and treasury scribes gather at Bursa Imperial Mint to settle the coinage dispute. The stage records site labor, public witness, and the ritual proof that turns controlled coinage into mint income and merchant trust.
+      desc_zh: 验色师、模具匠、税吏、守卫、金银商人与国库书记齐聚布尔萨皇家铸币所，推进"调解铸币争议"。此阶段记录工役、见证与仪式凭证，使其能够把受控铸币转化为铸币收入与商人信任。
+      cost:
+      - catalog: country_reward
+        type: government_power
+        value: -5
+      option_pay_en: Advance the settle the coinage dispute stage.
+      option_pay_zh: 推进"调解铸币争议"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Consecrate the Imperial Mint
+      icon: creditworthiness
+      icon_rationale: Represents consecrate the imperial mint during the Sealed Coinage Assay.
+      title_zh: 铸币所落成
+      desc_en: Assayers, die cutters, tax officers, guards, bullion merchants, and treasury scribes gather at Bursa Imperial Mint to consecrate the imperial mint. The stage records site labor, public witness, and the ritual proof that turns controlled coinage into mint income and merchant trust.
+      desc_zh: 验色师、模具匠、税吏、守卫、金银商人与国库书记齐聚布尔萨皇家铸币所，推进"铸币所落成"。此阶段记录工役、见证与仪式凭证，使其能够把受控铸币转化为铸币收入与商人信任。
+      cost:
+      - catalog: country_reward
+        type: prestige
+        value: -20
+      option_pay_en: Advance the consecrate the imperial mint stage.
+      option_pay_zh: 推进"铸币所落成"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+- id: 233
+  key: unique_enderun_palace_school
+  base_key: war_college_system
+  concept: tv_wonder_unique_enderun_palace_school
+  location: constantinople
+  image: tv_wonder_unique_enderun_palace_school
+  prompt: The Enderun Palace School inside the Ottoman imperial palace at Constantinople, centered on a graceful arcaded academy courtyard with domed chambers, tiled eaves, fountains, cypress trees, and a formal audience pavilion. Selected palace pages study calligraphy, languages, law, music, administration, archery, and swordsmanship in distinct small groups under the supervision of tutors and senior officials, while scribes prepare appointment rolls and guards watch the inner gates. Emphasize disciplined education for imperial service rather than a battlefield camp. Historically grounded fifteenth- to seventeenth-century Ottoman palace architecture and clothing. Historical grand-strategy wonder key art, cinematic wide 3:2 landscape, the academy courtyard and principal pavilion kept within the middle 60 percent for a safe square crop, luminous morning light, painterly realism, ultra-detailed, no legible writing, no labels, no border, no watermark, no modern objects.
+  is_unique: true
+  initial_level: 0
+  mechanic_key: war_college_system
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_enderun_palace_school_inaugurated
+  ritual:
+    key: palace_service_examination
+    mode: immediate
+    cost_type: prestige
+    listeners:
+    - monthly
+    runtime_variables: []
+    country_modifier: {}
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: tv_wonder_ceremony_monthly_tick_effect = yes
+    completion_trigger_script: |-
+      has_variable = tv_wonder_ceremony_stage
+      var:tv_wonder_ceremony_stage ?= 8
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+  ceremony:
+    stages:
+    - title_en: Select the Palace Pages
+      icon: characters
+      icon_rationale: Represents select the palace pages during the Palace Service Examination.
+      title_zh: 选拔侍从
+      desc_en: Palace pages, tutors, drill masters, scribes, guards, and senior officials gather at Enderun Palace School to select the palace pages. The stage records site labor, public witness, and the ritual proof that turns court education into administrative and military talent.
+      desc_zh: 宫廷侍从、师傅、教练官、书记、侍卫与高级官员齐聚恩德伦宫廷学校，推进"选拔侍从"。此阶段记录工役、见证与仪式凭证，使其能够把宫廷教育转化为行政与军事人才。
+      cost:
+      - catalog: country_reward
+        type: nobles_satisfaction
+        value: -0.1
+      option_pay_en: Advance the select the palace pages stage.
+      option_pay_zh: 推进"选拔侍从"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Open the Court Curriculum
+      icon: literacy
+      icon_rationale: Represents open the court curriculum during the Palace Service Examination.
+      title_zh: 开设宫廷课程
+      desc_en: Palace pages, tutors, drill masters, scribes, guards, and senior officials gather at Enderun Palace School to open the court curriculum. The stage records site labor, public witness, and the ritual proof that turns court education into administrative and military talent.
+      desc_zh: 宫廷侍从、师傅、教练官、书记、侍卫与高级官员齐聚恩德伦宫廷学校，推进"开设宫廷课程"。此阶段记录工役、见证与仪式凭证，使其能够把宫廷教育转化为行政与军事人才。
+      cost:
+      - catalog: character_reward
+        type: adm
+        value: -6
+      option_pay_en: Advance the open the court curriculum stage.
+      option_pay_zh: 推进"开设宫廷课程"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Drill the Ceremonial Manners
+      icon: court_spending
+      icon_rationale: Represents drill the ceremonial manners during the Palace Service Examination.
+      title_zh: 训练礼仪
+      desc_en: Palace pages, tutors, drill masters, scribes, guards, and senior officials gather at Enderun Palace School to drill the ceremonial manners. The stage records site labor, public witness, and the ritual proof that turns court education into administrative and military talent.
+      desc_zh: 宫廷侍从、师傅、教练官、书记、侍卫与高级官员齐聚恩德伦宫廷学校，推进"训练礼仪"。此阶段记录工役、见证与仪式凭证，使其能够把宫廷教育转化为行政与军事人才。
+      cost:
+      - catalog: character_reward
+        type: dip
+        value: -3
+      option_pay_en: Advance the drill the ceremonial manners stage.
+      option_pay_zh: 推进"训练礼仪"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Practice War and Government
+      icon: army_strength
+      icon_rationale: Represents practice war and government during the Palace Service Examination.
+      title_zh: 演练军政
+      desc_en: Palace pages, tutors, drill masters, scribes, guards, and senior officials gather at Enderun Palace School to practice war and government. The stage records site labor, public witness, and the ritual proof that turns court education into administrative and military talent.
+      desc_zh: 宫廷侍从、师傅、教练官、书记、侍卫与高级官员齐聚恩德伦宫廷学校，推进"演练军政"。此阶段记录工役、见证与仪式凭证，使其能够把宫廷教育转化为行政与军事人才。
+      cost:
+      - catalog: character_reward
+        type: mil
+        value: -6
+      option_pay_en: Advance the practice war and government stage.
+      option_pay_zh: 推进"演练军政"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Appoint the Tutors
+      icon: government
+      icon_rationale: Represents appoint the tutors during the Palace Service Examination.
+      title_zh: 任命师傅
+      desc_en: Palace pages, tutors, drill masters, scribes, guards, and senior officials gather at Enderun Palace School to appoint the tutors. The stage records site labor, public witness, and the ritual proof that turns court education into administrative and military talent.
+      desc_zh: 宫廷侍从、师傅、教练官、书记、侍卫与高级官员齐聚恩德伦宫廷学校，推进"任命师傅"。此阶段记录工役、见证与仪式凭证，使其能够把宫廷教育转化为行政与军事人才。
+      cost:
+      - catalog: local_reward
+        type: development
+        value: -0.25
+      option_pay_en: Advance the appoint the tutors stage.
+      option_pay_zh: 推进"任命师傅"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Hold the Advancement Exams
+      icon: adm
+      icon_rationale: Represents hold the advancement exams during the Palace Service Examination.
+      title_zh: 举行晋升考试
+      desc_en: Palace pages, tutors, drill masters, scribes, guards, and senior officials gather at Enderun Palace School to hold the advancement exams. The stage records site labor, public witness, and the ritual proof that turns court education into administrative and military talent.
+      desc_zh: 宫廷侍从、师傅、教练官、书记、侍卫与高级官员齐聚恩德伦宫廷学校，推进"举行晋升考试"。此阶段记录工役、见证与仪式凭证，使其能够把宫廷教育转化为行政与军事人才。
+      cost:
+      - catalog: country_modifier
+        type: country_cabinet_efficiency
+        value: -0.2
+      option_pay_en: Advance the hold the advancement exams stage.
+      option_pay_zh: 推进"举行晋升考试"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Assign Civil and Military Posts
+      icon: mil
+      icon_rationale: Represents assign civil and military posts during the Palace Service Examination.
+      title_zh: 派任文武职位
+      desc_en: Palace pages, tutors, drill masters, scribes, guards, and senior officials gather at Enderun Palace School to assign civil and military posts. The stage records site labor, public witness, and the ritual proof that turns court education into administrative and military talent.
+      desc_zh: 宫廷侍从、师傅、教练官、书记、侍卫与高级官员齐聚恩德伦宫廷学校，推进"派任文武职位"。此阶段记录工役、见证与仪式凭证，使其能够把宫廷教育转化为行政与军事人才。
+      cost:
+      - catalog: country_reward
+        type: army_tradition
+        value: -2.5
+      option_pay_en: Advance the assign civil and military posts stage.
+      option_pay_zh: 推进"派任文武职位"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Consecrate the Palace School
+      icon: nobles
+      icon_rationale: Represents consecrate the palace school during the Palace Service Examination.
+      title_zh: 学校落成
+      desc_en: Palace pages, tutors, drill masters, scribes, guards, and senior officials gather at Enderun Palace School to consecrate the palace school. The stage records site labor, public witness, and the ritual proof that turns court education into administrative and military talent.
+      desc_zh: 宫廷侍从、师傅、教练官、书记、侍卫与高级官员齐聚恩德伦宫廷学校，推进"学校落成"。此阶段记录工役、见证与仪式凭证，使其能够把宫廷教育转化为行政与军事人才。
+      cost:
+      - catalog: country_modifier
+        type: monthly_army_tradition
+        value: -0.1
+      option_pay_en: Advance the consecrate the palace school stage.
+      option_pay_zh: 推进"学校落成"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+- id: 234
+  key: unique_ayutthaya_foreign_quarters
+  base_key: world_embassy_quarter
+  concept: tv_wonder_unique_ayutthaya_foreign_quarters
+  location: ayodhya
+  image: tv_wonder_unique_ayutthaya_foreign_quarters
+  prompt: The foreign quarters of Ayutthaya at their cosmopolitan height, centered on a busy riverfront customs hall and diplomatic landing where Siamese officials and interpreters receive Japanese, Persian, Chinese, Portuguese, and Dutch merchants and envoys. Distinct but harmonious compounds, tiled warehouses, timber residences, mosques, churches, shrines, workshops, market stalls, and riverside gardens line the waterways, while Southeast Asian boats, Chinese junks, and European sailing vessels unload cargo under the distant spires of Ayutthaya. Historically grounded sixteenth- and seventeenth-century Siamese river-city architecture and multicultural dress. Historical grand-strategy wonder key art, cinematic wide 3:2 landscape, the customs landing and main compounds kept within the middle 60 percent for a safe square crop, humid golden light, painterly realism, ultra-detailed, no national labels, no text, no border, no watermark, no steamships or modern objects.
+  is_unique: true
+  initial_level: 0
+  mechanic_key: world_embassy_quarter
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_ayutthaya_foreign_quarters_inaugurated
+  ritual:
+    key: river_embassy_quarter_settlement
+    mode: immediate
+    cost_type: prestige
+    listeners:
+    - monthly
+    runtime_variables: []
+    country_modifier: {}
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: tv_wonder_ceremony_monthly_tick_effect = yes
+    completion_trigger_script: |-
+      has_variable = tv_wonder_ceremony_stage
+      var:tv_wonder_ceremony_stage ?= 8
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+  ceremony:
+    stages:
+    - title_en: Mark the Foreign Quarters
+      icon: location
+      icon_rationale: Represents mark the foreign quarters during the River Embassy Quarter Settlement.
+      title_zh: 划定坊区
+      desc_en: Interpreters, envoys, harbor clerks, guards, merchants, monks, and court officials gather at Ayutthaya Foreign Quarters to mark the foreign quarters. The stage records site labor, public witness, and the ritual proof that turns foreign quarters into diplomacy and merchant power.
+      desc_zh: 译员、使节、港务书记、卫兵、商人、僧侣与朝臣齐聚阿瑜陀耶外国使馆区，推进"划定坊区"。此阶段记录工役、见证与仪式凭证，使其能够把外国坊区转化为外交与商人力量。
+      cost:
+      - catalog: country_reward
+        type: burghers_satisfaction
+        value: -0.1
+      option_pay_en: Advance the mark the foreign quarters stage.
+      option_pay_zh: 推进"划定坊区"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Build the Warehouses
+      icon: building_needs
+      icon_rationale: Represents build the warehouses during the River Embassy Quarter Settlement.
+      title_zh: 修建仓栈
+      desc_en: Interpreters, envoys, harbor clerks, guards, merchants, monks, and court officials gather at Ayutthaya Foreign Quarters to build the warehouses. The stage records site labor, public witness, and the ritual proof that turns foreign quarters into diplomacy and merchant power.
+      desc_zh: 译员、使节、港务书记、卫兵、商人、僧侣与朝臣齐聚阿瑜陀耶外国使馆区，推进"修建仓栈"。此阶段记录工役、见证与仪式凭证，使其能够把外国坊区转化为外交与商人力量。
+      cost:
+      - catalog: character_reward
+        type: dip
+        value: -6
+      option_pay_en: Advance the build the warehouses stage.
+      option_pay_zh: 推进"修建仓栈"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Appoint the Interpreters
+      icon: languages
+      icon_rationale: Represents appoint the interpreters during the River Embassy Quarter Settlement.
+      title_zh: 任命译员
+      desc_en: Interpreters, envoys, harbor clerks, guards, merchants, monks, and court officials gather at Ayutthaya Foreign Quarters to appoint the interpreters. The stage records site labor, public witness, and the ritual proof that turns foreign quarters into diplomacy and merchant power.
+      desc_zh: 译员、使节、港务书记、卫兵、商人、僧侣与朝臣齐聚阿瑜陀耶外国使馆区，推进"任命译员"。此阶段记录工役、见证与仪式凭证，使其能够把外国坊区转化为外交与商人力量。
+      cost:
+      - catalog: country_reward
+        type: scaled_gold
+        value: -1
+      option_pay_en: Advance the appoint the interpreters stage.
+      option_pay_zh: 推进"任命译员"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Draft the Trade Compacts
+      icon: diplomacy
+      icon_rationale: Represents draft the trade compacts during the River Embassy Quarter Settlement.
+      title_zh: 草拟商约
+      desc_en: Interpreters, envoys, harbor clerks, guards, merchants, monks, and court officials gather at Ayutthaya Foreign Quarters to draft the trade compacts. The stage records site labor, public witness, and the ritual proof that turns foreign quarters into diplomacy and merchant power.
+      desc_zh: 译员、使节、港务书记、卫兵、商人、僧侣与朝臣齐聚阿瑜陀耶外国使馆区，推进"草拟商约"。此阶段记录工役、见证与仪式凭证，使其能够把外国坊区转化为外交与商人力量。
+      cost:
+      - catalog: local_reward
+        type: prosperity
+        value: -0.4
+      option_pay_en: Advance the draft the trade compacts stage.
+      option_pay_zh: 推进"草拟商约"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Hear the Religious Dispute
+      icon: religion
+      icon_rationale: Represents hear the religious dispute during the River Embassy Quarter Settlement.
+      title_zh: 审理宗教争议
+      desc_en: Interpreters, envoys, harbor clerks, guards, merchants, monks, and court officials gather at Ayutthaya Foreign Quarters to hear the religious dispute. The stage records site labor, public witness, and the ritual proof that turns foreign quarters into diplomacy and merchant power.
+      desc_zh: 译员、使节、港务书记、卫兵、商人、僧侣与朝臣齐聚阿瑜陀耶外国使馆区，推进"审理宗教争议"。此阶段记录工役、见证与仪式凭证，使其能够把外国坊区转化为外交与商人力量。
+      cost:
+      - catalog: country_modifier
+        type: diplomatic_reputation
+        value: -1
+      option_pay_en: Advance the hear the religious dispute stage.
+      option_pay_zh: 推进"审理宗教争议"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Set the Watch Patrols
+      icon: defensive_military_stance
+      icon_rationale: Represents set the watch patrols during the River Embassy Quarter Settlement.
+      title_zh: 设置治安巡逻
+      desc_en: Interpreters, envoys, harbor clerks, guards, merchants, monks, and court officials gather at Ayutthaya Foreign Quarters to set the watch patrols. The stage records site labor, public witness, and the ritual proof that turns foreign quarters into diplomacy and merchant power.
+      desc_zh: 译员、使节、港务书记、卫兵、商人、僧侣与朝臣齐聚阿瑜陀耶外国使馆区，推进"设置治安巡逻"。此阶段记录工役、见证与仪式凭证，使其能够把外国坊区转化为外交与商人力量。
+      cost:
+      - catalog: country_modifier
+        type: global_merchant_power
+        value: -0.4
+      option_pay_en: Advance the set the watch patrols stage.
+      option_pay_zh: 推进"设置治安巡逻"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Host the Envoy Banquet
+      icon: diplomatic_reputation
+      icon_rationale: Represents host the envoy banquet during the River Embassy Quarter Settlement.
+      title_zh: 举办使节宴会
+      desc_en: Interpreters, envoys, harbor clerks, guards, merchants, monks, and court officials gather at Ayutthaya Foreign Quarters to host the envoy banquet. The stage records site labor, public witness, and the ritual proof that turns foreign quarters into diplomacy and merchant power.
+      desc_zh: 译员、使节、港务书记、卫兵、商人、僧侣与朝臣齐聚阿瑜陀耶外国使馆区，推进"举办使节宴会"。此阶段记录工役、见证与仪式凭证，使其能够把外国坊区转化为外交与商人力量。
+      cost:
+      - catalog: country_reward
+        type: prestige
+        value: -10
+      option_pay_en: Advance the host the envoy banquet stage.
+      option_pay_zh: 推进"举办使节宴会"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Consecrate the Foreign Quarters
+      icon: trade
+      icon_rationale: Represents consecrate the foreign quarters during the River Embassy Quarter Settlement.
+      title_zh: 使馆区落成
+      desc_en: Interpreters, envoys, harbor clerks, guards, merchants, monks, and court officials gather at Ayutthaya Foreign Quarters to consecrate the foreign quarters. The stage records site labor, public witness, and the ritual proof that turns foreign quarters into diplomacy and merchant power.
+      desc_zh: 译员、使节、港务书记、卫兵、商人、僧侣与朝臣齐聚阿瑜陀耶外国使馆区，推进"使馆区落成"。此阶段记录工役、见证与仪式凭证，使其能够把外国坊区转化为外交与商人力量。
+      cost:
+      - catalog: country_reward
+        type: government_power
+        value: -10
+      option_pay_en: Advance the consecrate the foreign quarters stage.
+      option_pay_zh: 推进"使馆区落成"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+- id: 235
+  key: unique_yunnan_weisuo_colonies
+  base_key: frontier_colonization_belt
+  concept: tv_wonder_unique_yunnan_weisuo_colonies
+  location: songming
+  image: tv_wonder_unique_yunnan_weisuo_colonies
+  prompt: A vast Ming weisuo military-colony belt across the Yunnan plateau, centered on a fortified garrison town connected to geometric fields, irrigation channels, granaries, relay roads, beacon posts, and newly founded farming villages. Soldier-farmers drill beside planted terraces, settler families work the fields, cavalry couriers arrive at a post station, officials inspect grain registers, and tusi envoys negotiate with commanders at the gate, with forested mountains and minority communities visible beyond the cultivated frontier. Emphasize the linked system of defense, settlement, agriculture, and administration rather than a single castle. Historical grand-strategy wonder key art, cinematic wide 3:2 landscape, the garrison gate and surrounding colony network kept within the middle 60 percent for a safe square crop, highland afternoon light, painterly realism, ultra-detailed, no legible writing, no labels, no border, no watermark, no modern weapons or objects.
+  is_unique: true
+  initial_level: 0
+  mechanic_key: frontier_colonization_belt
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_yunnan_weisuo_colonies_inaugurated
+  ritual:
+    key: frontier_garrison_field_register
+    mode: immediate
+    cost_type: scaled_gold
+    listeners:
+    - monthly
+    runtime_variables: []
+    country_modifier: {}
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: tv_wonder_ceremony_monthly_tick_effect = yes
+    completion_trigger_script: |-
+      has_variable = tv_wonder_ceremony_stage
+      var:tv_wonder_ceremony_stage ?= 8
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+  ceremony:
+    stages:
+    - title_en: Survey the Frontier Bounds
+      icon: mapmode
+      icon_rationale: Represents survey the frontier bounds during the Frontier Garrison Field Register.
+      title_zh: 勘定边界
+      desc_en: Garrison households, surveyors, relay officers, grain clerks, tusi envoys, and border commanders gather at Yunnan Weisuo Colonies to survey the frontier bounds. The stage records site labor, public witness, and the ritual proof that turns frontier farms into manpower, migration, and border capacity.
+      desc_zh: 屯军家户、测量员、驿路官、粮册吏、土司使者与边将齐聚云南卫所屯田带，推进"勘定边界"。此阶段记录工役、见证与仪式凭证，使其能够把边地屯田转化为人力、迁徙与边防能力。
+      cost:
+      - catalog: country_reward
+        type: manpower
+        value: -50
+      option_pay_en: Advance the survey the frontier bounds stage.
+      option_pay_zh: 推进"勘定边界"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Muster the Garrison Households
+      icon: manpower
+      icon_rationale: Represents muster the garrison households during the Frontier Garrison Field Register.
+      title_zh: 编组屯军
+      desc_en: Garrison households, surveyors, relay officers, grain clerks, tusi envoys, and border commanders gather at Yunnan Weisuo Colonies to muster the garrison households. The stage records site labor, public witness, and the ritual proof that turns frontier farms into manpower, migration, and border capacity.
+      desc_zh: 屯军家户、测量员、驿路官、粮册吏、土司使者与边将齐聚云南卫所屯田带，推进"编组屯军"。此阶段记录工役、见证与仪式凭证，使其能够把边地屯田转化为人力、迁徙与边防能力。
+      cost:
+      - catalog: character_reward
+        type: mil
+        value: -6
+      option_pay_en: Advance the muster the garrison households stage.
+      option_pay_zh: 推进"编组屯军"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Open the Military Fields
+      icon: food_productivity
+      icon_rationale: Represents open the military fields during the Frontier Garrison Field Register.
+      title_zh: 开垦军田
+      desc_en: Garrison households, surveyors, relay officers, grain clerks, tusi envoys, and border commanders gather at Yunnan Weisuo Colonies to open the military fields. The stage records site labor, public witness, and the ritual proof that turns frontier farms into manpower, migration, and border capacity.
+      desc_zh: 屯军家户、测量员、驿路官、粮册吏、土司使者与边将齐聚云南卫所屯田带，推进"开垦军田"。此阶段记录工役、见证与仪式凭证，使其能够把边地屯田转化为人力、迁徙与边防能力。
+      cost:
+      - catalog: country_reward
+        type: scaled_gold
+        value: -1
+      option_pay_en: Advance the open the military fields stage.
+      option_pay_zh: 推进"开垦军田"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Repair the Relay Road
+      icon: paved_road
+      icon_rationale: Represents repair the relay road during the Frontier Garrison Field Register.
+      title_zh: 修复驿路
+      desc_en: Garrison households, surveyors, relay officers, grain clerks, tusi envoys, and border commanders gather at Yunnan Weisuo Colonies to repair the relay road. The stage records site labor, public witness, and the ritual proof that turns frontier farms into manpower, migration, and border capacity.
+      desc_zh: 屯军家户、测量员、驿路官、粮册吏、土司使者与边将齐聚云南卫所屯田带，推进"修复驿路"。此阶段记录工役、见证与仪式凭证，使其能够把边地屯田转化为人力、迁徙与边防能力。
+      cost:
+      - catalog: local_reward
+        type: development
+        value: -0.5
+      option_pay_en: Advance the repair the relay road stage.
+      option_pay_zh: 推进"修复驿路"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Write the Grain Registers
+      icon: food
+      icon_rationale: Represents write the grain registers during the Frontier Garrison Field Register.
+      title_zh: 登记粮册
+      desc_en: Garrison households, surveyors, relay officers, grain clerks, tusi envoys, and border commanders gather at Yunnan Weisuo Colonies to write the grain registers. The stage records site labor, public witness, and the ritual proof that turns frontier farms into manpower, migration, and border capacity.
+      desc_zh: 屯军家户、测量员、驿路官、粮册吏、土司使者与边将齐聚云南卫所屯田带，推进"登记粮册"。此阶段记录工役、见证与仪式凭证，使其能够把边地屯田转化为人力、迁徙与边防能力。
+      cost:
+      - catalog: local_modifier
+        type: local_migration_attraction
+        value: -1
+      option_pay_en: Advance the write the grain registers stage.
+      option_pay_zh: 推进"登记粮册"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Negotiate with the Tusi
+      icon: diplomacy
+      icon_rationale: Represents negotiate with the tusi during the Frontier Garrison Field Register.
+      title_zh: 协商土司
+      desc_en: Garrison households, surveyors, relay officers, grain clerks, tusi envoys, and border commanders gather at Yunnan Weisuo Colonies to negotiate with the tusi. The stage records site labor, public witness, and the ritual proof that turns frontier farms into manpower, migration, and border capacity.
+      desc_zh: 屯军家户、测量员、驿路官、粮册吏、土司使者与边将齐聚云南卫所屯田带，推进"协商土司"。此阶段记录工役、见证与仪式凭证，使其能够把边地屯田转化为人力、迁徙与边防能力。
+      cost:
+      - catalog: country_modifier
+        type: colonial_range
+        value: -400
+      option_pay_en: Advance the negotiate with the tusi stage.
+      option_pay_zh: 推进"协商土司"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Reorganize the Border Defense
+      icon: defensive_military_stance
+      icon_rationale: Represents reorganize the border defense during the Frontier Garrison Field Register.
+      title_zh: 整编边防
+      desc_en: Garrison households, surveyors, relay officers, grain clerks, tusi envoys, and border commanders gather at Yunnan Weisuo Colonies to reorganize the border defense. The stage records site labor, public witness, and the ritual proof that turns frontier farms into manpower, migration, and border capacity.
+      desc_zh: 屯军家户、测量员、驿路官、粮册吏、土司使者与边将齐聚云南卫所屯田带，推进"整编边防"。此阶段记录工役、见证与仪式凭证，使其能够把边地屯田转化为人力、迁徙与边防能力。
+      cost:
+      - catalog: country_reward
+        type: peasants_satisfaction
+        value: -0.2
+      option_pay_en: Advance the reorganize the border defense stage.
+      option_pay_zh: 推进"整编边防"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Consecrate the Colonization Belt
+      icon: army_tradition
+      icon_rationale: Represents consecrate the colonization belt during the Frontier Garrison Field Register.
+      title_zh: 屯田带落成
+      desc_en: Garrison households, surveyors, relay officers, grain clerks, tusi envoys, and border commanders gather at Yunnan Weisuo Colonies to consecrate the colonization belt. The stage records site labor, public witness, and the ritual proof that turns frontier farms into manpower, migration, and border capacity.
+      desc_zh: 屯军家户、测量员、驿路官、粮册吏、土司使者与边将齐聚云南卫所屯田带，推进"屯田带落成"。此阶段记录工役、见证与仪式凭证，使其能够把边地屯田转化为人力、迁徙与边防能力。
+      cost:
+      - catalog: country_reward
+        type: army_tradition
+        value: -5.0
+      option_pay_en: Advance the consecrate the colonization belt stage.
+      option_pay_zh: 推进"屯田带落成"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+- id: 236
+  key: unique_zhoushan_beacon_network
+  base_key: coastal_beacon_network
+  concept: tv_wonder_unique_zhoushan_beacon_network
+  location: dinghai
+  image: tv_wonder_unique_zhoushan_beacon_network
+  prompt: The Zhoushan coastal beacon network spanning a rugged Chinese archipelago, centered on a tall stone-and-timber watchtower atop the nearest island as its signal fire ignites, with a clear chain of answering beacon towers receding across neighboring islands and headlands. Fuel sheds, lookout crews, flag and smoke signals, harbor messengers, fortified coves, fishing settlements, patrol junks, and a larger coastal fleet connect the warning system across busy sea lanes while pirate sails are spotted on the distant horizon. Historically grounded Ming Chinese coastal defense architecture, vessels, clothing, and signaling methods. Historical grand-strategy wonder key art, cinematic wide 3:2 landscape, the main tower and at least two linked beacons kept within the middle 60 percent for a safe square crop, dramatic dawn haze and firelight, painterly realism, ultra-detailed, no text, no labels, no border, no watermark, no modern lighthouse or objects.
+  is_unique: true
+  initial_level: 0
+  mechanic_key: coastal_beacon_network
+  base_effect_multiplier: 2
+  final_buildings:
+    1: tv_wonder_unique_zhoushan_beacon_network_inaugurated
+  ritual:
+    key: island_beacon_watch
+    mode: immediate
+    cost_type: scaled_gold
+    listeners:
+    - monthly
+    runtime_variables: []
+    country_modifier: {}
+    reward: []
+    confirmation_trigger_script: ''
+    start_effect_script: ''
+    snapshot_effect_script: ''
+    progress_effect_script: tv_wonder_ceremony_monthly_tick_effect = yes
+    completion_trigger_script: |-
+      has_variable = tv_wonder_ceremony_stage
+      var:tv_wonder_ceremony_stage ?= 8
+    completion_effect_script: ''
+    timed:
+      years: 1
+      burden_modifier: {}
+      blessing_modifier: {}
+    auxiliary_building:
+      local_modifier: {}
+      maintenance: null
+      build_time: null
+      construction_demand: null
+      price: null
+      attributes: {}
+      max_levels: 6
+  ceremony:
+    stages:
+    - title_en: Choose the Signal Islands
+      icon: seazone
+      icon_rationale: Represents choose the signal islands during the Island Beacon Watch.
+      title_zh: 选定岛屿
+      desc_en: Island watchmen, tower masons, fuel keepers, harbor messengers, patrol captains, and fleet officers gather at Zhoushan Beacon Network to choose the signal islands. The stage records site labor, public witness, and the ritual proof that turns island beacons into maritime presence and naval tradition.
+      desc_zh: 海岛哨兵、筑塔匠、柴薪管事、港口信使、巡哨船长与舰队军官齐聚舟山烽火台网，推进"选定岛屿"。此阶段记录工役、见证与仪式凭证，使其能够把海岛烽火转化为海上存在与海军传统。
+      cost:
+      - catalog: country_reward
+        type: sailors
+        value: -50
+      option_pay_en: Advance the choose the signal islands stage.
+      option_pay_zh: 推进"选定岛屿"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Raise the Beacon Towers
+      icon: building
+      icon_rationale: Represents raise the beacon towers during the Island Beacon Watch.
+      title_zh: 修筑烽台
+      desc_en: Island watchmen, tower masons, fuel keepers, harbor messengers, patrol captains, and fleet officers gather at Zhoushan Beacon Network to raise the beacon towers. The stage records site labor, public witness, and the ritual proof that turns island beacons into maritime presence and naval tradition.
+      desc_zh: 海岛哨兵、筑塔匠、柴薪管事、港口信使、巡哨船长与舰队军官齐聚舟山烽火台网，推进"修筑烽台"。此阶段记录工役、见证与仪式凭证，使其能够把海岛烽火转化为海上存在与海军传统。
+      cost:
+      - catalog: country_reward
+        type: manpower
+        value: -100
+      option_pay_en: Advance the raise the beacon towers stage.
+      option_pay_zh: 推进"修筑烽台"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Store the Fuel Bundles
+      icon: supply
+      icon_rationale: Represents store the fuel bundles during the Island Beacon Watch.
+      title_zh: 储备柴薪
+      desc_en: Island watchmen, tower masons, fuel keepers, harbor messengers, patrol captains, and fleet officers gather at Zhoushan Beacon Network to store the fuel bundles. The stage records site labor, public witness, and the ritual proof that turns island beacons into maritime presence and naval tradition.
+      desc_zh: 海岛哨兵、筑塔匠、柴薪管事、港口信使、巡哨船长与舰队军官齐聚舟山烽火台网，推进"储备柴薪"。此阶段记录工役、见证与仪式凭证，使其能够把海岛烽火转化为海上存在与海军传统。
+      cost:
+      - catalog: country_reward
+        type: scaled_gold
+        value: -1
+      option_pay_en: Advance the store the fuel bundles stage.
+      option_pay_zh: 推进"储备柴薪"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Assign the Watch Rotations
+      icon: manpower
+      icon_rationale: Represents assign the watch rotations during the Island Beacon Watch.
+      title_zh: 轮派哨兵
+      desc_en: Island watchmen, tower masons, fuel keepers, harbor messengers, patrol captains, and fleet officers gather at Zhoushan Beacon Network to assign the watch rotations. The stage records site labor, public witness, and the ritual proof that turns island beacons into maritime presence and naval tradition.
+      desc_zh: 海岛哨兵、筑塔匠、柴薪管事、港口信使、巡哨船长与舰队军官齐聚舟山烽火台网，推进"轮派哨兵"。此阶段记录工役、见证与仪式凭证，使其能够把海岛烽火转化为海上存在与海军传统。
+      cost:
+      - catalog: local_reward
+        type: development
+        value: -0.5
+      option_pay_en: Advance the assign the watch rotations stage.
+      option_pay_zh: 推进"轮派哨兵"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Test the Pirate Alarms
+      icon: warning_icon
+      icon_rationale: Represents test the pirate alarms during the Island Beacon Watch.
+      title_zh: 试放海盗警报
+      desc_en: Island watchmen, tower masons, fuel keepers, harbor messengers, patrol captains, and fleet officers gather at Zhoushan Beacon Network to test the pirate alarms. The stage records site labor, public witness, and the ritual proof that turns island beacons into maritime presence and naval tradition.
+      desc_zh: 海岛哨兵、筑塔匠、柴薪管事、港口信使、巡哨船长与舰队军官齐聚舟山烽火台网，推进"试放海盗警报"。此阶段记录工役、见证与仪式凭证，使其能够把海岛烽火转化为海上存在与海军传统。
+      cost:
+      - catalog: local_modifier
+        type: local_maritime_presence
+        value: -0.1
+      option_pay_en: Advance the test the pirate alarms stage.
+      option_pay_zh: 推进"试放海盗警报"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Relay the Harbor Messages
+      icon: port
+      icon_rationale: Represents relay the harbor messages during the Island Beacon Watch.
+      title_zh: 港口传讯
+      desc_en: Island watchmen, tower masons, fuel keepers, harbor messengers, patrol captains, and fleet officers gather at Zhoushan Beacon Network to relay the harbor messages. The stage records site labor, public witness, and the ritual proof that turns island beacons into maritime presence and naval tradition.
+      desc_zh: 海岛哨兵、筑塔匠、柴薪管事、港口信使、巡哨船长与舰队军官齐聚舟山烽火台网，推进"港口传讯"。此阶段记录工役、见证与仪式凭证，使其能够把海岛烽火转化为海上存在与海军传统。
+      cost:
+      - catalog: country_modifier
+        type: trade_sea_efficiency
+        value: -0.05
+      option_pay_en: Advance the relay the harbor messages stage.
+      option_pay_zh: 推进"港口传讯"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Coordinate with the Fleet
+      icon: navy_strength
+      icon_rationale: Represents coordinate with the fleet during the Island Beacon Watch.
+      title_zh: 联动舰队
+      desc_en: Island watchmen, tower masons, fuel keepers, harbor messengers, patrol captains, and fleet officers gather at Zhoushan Beacon Network to coordinate with the fleet. The stage records site labor, public witness, and the ritual proof that turns island beacons into maritime presence and naval tradition.
+      desc_zh: 海岛哨兵、筑塔匠、柴薪管事、港口信使、巡哨船长与舰队军官齐聚舟山烽火台网，推进"联动舰队"。此阶段记录工役、见证与仪式凭证，使其能够把海岛烽火转化为海上存在与海军传统。
+      cost:
+      - catalog: country_reward
+        type: navy_tradition
+        value: -2.5
+      option_pay_en: Advance the coordinate with the fleet stage.
+      option_pay_zh: 推进"联动舰队"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。
+    - title_en: Consecrate the Beacon Network
+      icon: navy_tradition
+      icon_rationale: Represents consecrate the beacon network during the Island Beacon Watch.
+      title_zh: 烽火网落成
+      desc_en: Island watchmen, tower masons, fuel keepers, harbor messengers, patrol captains, and fleet officers gather at Zhoushan Beacon Network to consecrate the beacon network. The stage records site labor, public witness, and the ritual proof that turns island beacons into maritime presence and naval tradition.
+      desc_zh: 海岛哨兵、筑塔匠、柴薪管事、港口信使、巡哨船长与舰队军官齐聚舟山烽火台网，推进"烽火网落成"。此阶段记录工役、见证与仪式凭证，使其能够把海岛烽火转化为海上存在与海军传统。
+      cost:
+      - catalog: country_modifier
+        type: monthly_navy_tradition
+        value: -0.1
+      option_pay_en: Advance the consecrate the beacon network stage.
+      option_pay_zh: 推进"烽火网落成"阶段。
+      option_decline_en: Delay this stage until the site can bear the ceremony.
+      option_decline_zh: 暂缓此阶段，待地点足以承载仪式。

@@ -809,6 +809,36 @@ wonders:
   base_key: pirate_port
   mechanic_key: pirate_port
   base_effect_multiplier: 1
+- id: 55
+  key: grand_garden_complex
+  concept: tv_wonder_grand_garden_complex
+  size: medium
+  category: cultural_category
+  pop_type: nobles
+  maintenance: tv_wonder_module_maintenance
+  final_buildings:
+    1: tv_wonder_royal_pleasure_gardens
+    2: tv_wonder_scholars_landscape_garden
+    3: tv_wonder_botanical_exchange_garden
+  is_unique: false
+  base_key: grand_garden_complex
+  mechanic_key: grand_garden_complex
+  base_effect_multiplier: 1
+- id: 56
+  key: state_examination_complex
+  concept: tv_wonder_state_examination_complex
+  size: medium
+  category: government_category
+  pop_type: burghers
+  maintenance: tv_wonder_module_maintenance
+  final_buildings:
+    1: tv_wonder_classics_examination_yard
+    2: tv_wonder_open_merit_hall
+    3: tv_wonder_practical_statecraft_academy
+  is_unique: false
+  base_key: state_examination_complex
+  mechanic_key: state_examination_complex
+  base_effect_multiplier: 1
 parts:
 - key: foundation
 - key: body

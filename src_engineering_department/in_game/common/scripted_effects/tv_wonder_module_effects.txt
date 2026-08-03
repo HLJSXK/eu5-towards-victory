@@ -1203,6 +1203,48 @@ tv_wonder_validate_priority_candidate_for_saved_wonder_effect = {
 		limit = {
 			has_owner = yes
 			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 55 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_grand_garden_complex_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_grand_garden_complex_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 56 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_state_examination_complex_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_state_examination_complex_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
 			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 101 }
 		}
 		if = {
@@ -3776,6 +3818,279 @@ tv_wonder_validate_priority_candidate_for_saved_wonder_effect = {
 		}
 		else_if = {
 			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_walls_of_benin_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 224 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_suzhou_classical_gardens_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_suzhou_classical_gardens_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 225 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_fin_garden_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_fin_garden_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 226 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_jiangnan_examination_hall_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_jiangnan_examination_hall_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 227 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_thang_long_temple_of_literature_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_thang_long_temple_of_literature_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 228 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_maragheh_observatory_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_maragheh_observatory_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 229 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_xian_bell_and_drum_towers_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_xian_bell_and_drum_towers_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 230 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_behistun_inscription_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_behistun_inscription_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 231 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_beijing_imperial_granaries_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_beijing_imperial_granaries_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 232 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_bursa_imperial_mint_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_bursa_imperial_mint_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 233 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_enderun_palace_school_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_enderun_palace_school_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 234 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_ayutthaya_foreign_quarters_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_ayutthaya_foreign_quarters_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 235 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_yunnan_weisuo_colonies_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_yunnan_weisuo_colonies_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_owner = yes
+			owner ?= scope:tv_wonder_priority_owner
+			scope:tv_wonder_priority_owner = { var:tv_wonder_priority_candidate_wonder_id ?= 236 }
+		}
+		if = {
+			limit = { tv_wonder_location_is_valid_priority_module_project_for_unique_zhoushan_beacon_network_trigger = yes }
+			scope:tv_wonder_priority_owner = {
+				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
+				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 1 }
+			}
+		}
+		else_if = {
+			limit = { tv_wonder_location_is_valid_priority_final_project_for_unique_zhoushan_beacon_network_trigger = yes }
 			scope:tv_wonder_priority_owner = {
 				set_variable = { name = tv_wonder_priority_candidate_valid value = 1 }
 				set_variable = { name = tv_wonder_priority_candidate_current_mode value = 2 }
@@ -10659,6 +10974,64 @@ tv_wonder_destroy_discovered_generic_intermediate_buildings_at_location_effect =
 			destroy_building_forcefully = "building(building_type:tv_wonder_pirate_port_decoration|scope:tv_wonder_module_owner)"
 		}
 	}
+	if = {
+		limit = {
+			OR = {
+				has_building = building_type:tv_wonder_royal_pleasure_gardens
+				has_building = building_type:tv_wonder_scholars_landscape_garden
+				has_building = building_type:tv_wonder_botanical_exchange_garden
+			}
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_grand_garden_complex }
+			destroy_building_forcefully = "building(building_type:tv_wonder_grand_garden_complex|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_grand_garden_complex_foundation }
+			destroy_building_forcefully = "building(building_type:tv_wonder_grand_garden_complex_foundation|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_grand_garden_complex_body }
+			destroy_building_forcefully = "building(building_type:tv_wonder_grand_garden_complex_body|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_grand_garden_complex_function }
+			destroy_building_forcefully = "building(building_type:tv_wonder_grand_garden_complex_function|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_grand_garden_complex_decoration }
+			destroy_building_forcefully = "building(building_type:tv_wonder_grand_garden_complex_decoration|scope:tv_wonder_module_owner)"
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_building = building_type:tv_wonder_classics_examination_yard
+				has_building = building_type:tv_wonder_open_merit_hall
+				has_building = building_type:tv_wonder_practical_statecraft_academy
+			}
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_state_examination_complex }
+			destroy_building_forcefully = "building(building_type:tv_wonder_state_examination_complex|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_state_examination_complex_foundation }
+			destroy_building_forcefully = "building(building_type:tv_wonder_state_examination_complex_foundation|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_state_examination_complex_body }
+			destroy_building_forcefully = "building(building_type:tv_wonder_state_examination_complex_body|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_state_examination_complex_function }
+			destroy_building_forcefully = "building(building_type:tv_wonder_state_examination_complex_function|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_state_examination_complex_decoration }
+			destroy_building_forcefully = "building(building_type:tv_wonder_state_examination_complex_decoration|scope:tv_wonder_module_owner)"
+		}
+	}
 }
 
 tv_wonder_destroy_discovered_unique_intermediate_buildings_at_location_effect = {
@@ -13982,6 +14355,357 @@ tv_wonder_destroy_discovered_unique_intermediate_buildings_at_location_effect = 
 		if = {
 			limit = { has_building = building_type:tv_wonder_unique_walls_of_benin_decoration }
 			destroy_building_forcefully = "building(building_type:tv_wonder_unique_walls_of_benin_decoration|scope:tv_wonder_module_owner)"
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_building = building_type:tv_wonder_unique_suzhou_classical_gardens_inaugurated
+			}
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_suzhou_classical_gardens }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_suzhou_classical_gardens|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_suzhou_classical_gardens_foundation }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_suzhou_classical_gardens_foundation|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_suzhou_classical_gardens_body }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_suzhou_classical_gardens_body|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_suzhou_classical_gardens_function }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_suzhou_classical_gardens_function|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_suzhou_classical_gardens_decoration }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_suzhou_classical_gardens_decoration|scope:tv_wonder_module_owner)"
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_building = building_type:tv_wonder_unique_fin_garden_inaugurated
+			}
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_fin_garden }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_fin_garden|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_fin_garden_foundation }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_fin_garden_foundation|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_fin_garden_body }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_fin_garden_body|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_fin_garden_function }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_fin_garden_function|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_fin_garden_decoration }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_fin_garden_decoration|scope:tv_wonder_module_owner)"
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_building = building_type:tv_wonder_unique_jiangnan_examination_hall_inaugurated
+			}
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_jiangnan_examination_hall }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_jiangnan_examination_hall|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_jiangnan_examination_hall_foundation }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_jiangnan_examination_hall_foundation|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_jiangnan_examination_hall_body }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_jiangnan_examination_hall_body|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_jiangnan_examination_hall_function }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_jiangnan_examination_hall_function|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_jiangnan_examination_hall_decoration }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_jiangnan_examination_hall_decoration|scope:tv_wonder_module_owner)"
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_building = building_type:tv_wonder_unique_thang_long_temple_of_literature_inaugurated
+			}
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_thang_long_temple_of_literature }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_thang_long_temple_of_literature|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_thang_long_temple_of_literature_foundation }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_thang_long_temple_of_literature_foundation|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_thang_long_temple_of_literature_body }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_thang_long_temple_of_literature_body|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_thang_long_temple_of_literature_function }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_thang_long_temple_of_literature_function|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_thang_long_temple_of_literature_decoration }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_thang_long_temple_of_literature_decoration|scope:tv_wonder_module_owner)"
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_building = building_type:tv_wonder_unique_maragheh_observatory_inaugurated
+			}
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_maragheh_observatory }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_maragheh_observatory|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_maragheh_observatory_foundation }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_maragheh_observatory_foundation|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_maragheh_observatory_body }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_maragheh_observatory_body|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_maragheh_observatory_function }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_maragheh_observatory_function|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_maragheh_observatory_decoration }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_maragheh_observatory_decoration|scope:tv_wonder_module_owner)"
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_building = building_type:tv_wonder_unique_xian_bell_and_drum_towers_inaugurated
+			}
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_xian_bell_and_drum_towers }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_xian_bell_and_drum_towers|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_xian_bell_and_drum_towers_foundation }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_xian_bell_and_drum_towers_foundation|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_xian_bell_and_drum_towers_body }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_xian_bell_and_drum_towers_body|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_xian_bell_and_drum_towers_function }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_xian_bell_and_drum_towers_function|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_xian_bell_and_drum_towers_decoration }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_xian_bell_and_drum_towers_decoration|scope:tv_wonder_module_owner)"
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_building = building_type:tv_wonder_unique_behistun_inscription_inaugurated
+			}
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_behistun_inscription }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_behistun_inscription|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_behistun_inscription_foundation }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_behistun_inscription_foundation|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_behistun_inscription_body }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_behistun_inscription_body|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_behistun_inscription_function }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_behistun_inscription_function|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_behistun_inscription_decoration }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_behistun_inscription_decoration|scope:tv_wonder_module_owner)"
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_building = building_type:tv_wonder_unique_beijing_imperial_granaries_inaugurated
+			}
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_beijing_imperial_granaries }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_beijing_imperial_granaries|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_beijing_imperial_granaries_foundation }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_beijing_imperial_granaries_foundation|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_beijing_imperial_granaries_body }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_beijing_imperial_granaries_body|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_beijing_imperial_granaries_function }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_beijing_imperial_granaries_function|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_beijing_imperial_granaries_decoration }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_beijing_imperial_granaries_decoration|scope:tv_wonder_module_owner)"
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_building = building_type:tv_wonder_unique_bursa_imperial_mint_inaugurated
+			}
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_bursa_imperial_mint }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_bursa_imperial_mint|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_bursa_imperial_mint_foundation }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_bursa_imperial_mint_foundation|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_bursa_imperial_mint_body }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_bursa_imperial_mint_body|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_bursa_imperial_mint_function }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_bursa_imperial_mint_function|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_bursa_imperial_mint_decoration }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_bursa_imperial_mint_decoration|scope:tv_wonder_module_owner)"
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_building = building_type:tv_wonder_unique_enderun_palace_school_inaugurated
+			}
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_enderun_palace_school }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_enderun_palace_school|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_enderun_palace_school_foundation }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_enderun_palace_school_foundation|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_enderun_palace_school_body }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_enderun_palace_school_body|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_enderun_palace_school_function }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_enderun_palace_school_function|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_enderun_palace_school_decoration }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_enderun_palace_school_decoration|scope:tv_wonder_module_owner)"
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_building = building_type:tv_wonder_unique_ayutthaya_foreign_quarters_inaugurated
+			}
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_ayutthaya_foreign_quarters }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_ayutthaya_foreign_quarters|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_ayutthaya_foreign_quarters_foundation }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_ayutthaya_foreign_quarters_foundation|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_ayutthaya_foreign_quarters_body }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_ayutthaya_foreign_quarters_body|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_ayutthaya_foreign_quarters_function }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_ayutthaya_foreign_quarters_function|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_ayutthaya_foreign_quarters_decoration }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_ayutthaya_foreign_quarters_decoration|scope:tv_wonder_module_owner)"
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_building = building_type:tv_wonder_unique_yunnan_weisuo_colonies_inaugurated
+			}
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_yunnan_weisuo_colonies }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_yunnan_weisuo_colonies|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_yunnan_weisuo_colonies_foundation }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_yunnan_weisuo_colonies_foundation|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_yunnan_weisuo_colonies_body }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_yunnan_weisuo_colonies_body|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_yunnan_weisuo_colonies_function }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_yunnan_weisuo_colonies_function|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_yunnan_weisuo_colonies_decoration }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_yunnan_weisuo_colonies_decoration|scope:tv_wonder_module_owner)"
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				has_building = building_type:tv_wonder_unique_zhoushan_beacon_network_inaugurated
+			}
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_zhoushan_beacon_network }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_zhoushan_beacon_network|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_zhoushan_beacon_network_foundation }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_zhoushan_beacon_network_foundation|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_zhoushan_beacon_network_body }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_zhoushan_beacon_network_body|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_zhoushan_beacon_network_function }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_zhoushan_beacon_network_function|scope:tv_wonder_module_owner)"
+		}
+		if = {
+			limit = { has_building = building_type:tv_wonder_unique_zhoushan_beacon_network_decoration }
+			destroy_building_forcefully = "building(building_type:tv_wonder_unique_zhoushan_beacon_network_decoration|scope:tv_wonder_module_owner)"
 		}
 	}
 }

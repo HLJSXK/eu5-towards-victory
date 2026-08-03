@@ -15537,6 +15537,589 @@ tv_wonder_pirate_port_ritual_annex = {
 	}
 }
 
+tv_wonder_royal_pleasure_gardens = {
+	is_special = yes
+	audio_tier = 5
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
+			has_global_variable = tv_engineering_department_direct_build
+		}
+		OR = {
+		  is_capital = yes
+		  NOT = { location_rank ?= location_rank:rural_settlement }
+		}
+	}
+	can_destroy = {
+		NOT = {
+			owner ?= {
+				var:tv_wonder_locked ?= 55
+				var:tv_wonder_site ?= { this = root }
+			}
+		}
+	}
+
+	price = tv_wonder_direct_build_medium_price
+
+	build_time = huge_unique_build_time
+	construction_demand = library_construction
+
+	modifier = {
+		local_cultural_tradition = 0.5
+		local_cultural_influence = 0.5
+		local_monthly_prosperity = 0.001
+		local_migration_attraction = 1
+		cultural_tradition_modifier = 0.05
+		monthly_towards_humanist = 0.05
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+
+	on_destroyed = {
+		hidden_effect = {
+			location = {
+				owner = {
+					cmf_log_with_args = { action = tv_engineering_department_cmf_log_destroyed arg1 = tv_wonder_grand_garden_complex arg2 = tv_engineering_department_cmf_log_final_wonder_building }
+				}
+				trigger_event_silently = { id = tv_engineering_department.9455 days = 1 }
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				owner = {
+					cmf_log_with_args = { action = tv_engineering_department_cmf_log_completed arg1 = tv_wonder_grand_garden_complex arg2 = tv_engineering_department_cmf_log_final_wonder_building }
+				}
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
+			}
+		}
+	}
+}
+
+tv_wonder_scholars_landscape_garden = {
+	is_special = yes
+	audio_tier = 5
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
+			has_global_variable = tv_engineering_department_direct_build
+		}
+		OR = {
+		  is_capital = yes
+		  NOT = { location_rank ?= location_rank:rural_settlement }
+		}
+	}
+	can_destroy = {
+		NOT = {
+			owner ?= {
+				var:tv_wonder_locked ?= 55
+				var:tv_wonder_site ?= { this = root }
+			}
+		}
+	}
+
+	price = tv_wonder_direct_build_medium_price
+
+	build_time = huge_unique_build_time
+	construction_demand = library_construction
+
+	modifier = {
+		local_cultural_tradition = 0.5
+		local_cultural_influence = 0.5
+		local_monthly_prosperity = 0.001
+		local_migration_attraction = 1
+		cultural_tradition_modifier = 0.05
+		monthly_towards_humanist = 0.05
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+
+	on_destroyed = {
+		hidden_effect = {
+			location = {
+				owner = {
+					cmf_log_with_args = { action = tv_engineering_department_cmf_log_destroyed arg1 = tv_wonder_grand_garden_complex arg2 = tv_engineering_department_cmf_log_final_wonder_building }
+				}
+				trigger_event_silently = { id = tv_engineering_department.9455 days = 1 }
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				owner = {
+					cmf_log_with_args = { action = tv_engineering_department_cmf_log_completed arg1 = tv_wonder_grand_garden_complex arg2 = tv_engineering_department_cmf_log_final_wonder_building }
+				}
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
+			}
+		}
+	}
+}
+
+tv_wonder_botanical_exchange_garden = {
+	is_special = yes
+	audio_tier = 5
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
+			has_global_variable = tv_engineering_department_direct_build
+		}
+		OR = {
+		  is_capital = yes
+		  NOT = { location_rank ?= location_rank:rural_settlement }
+		}
+	}
+	can_destroy = {
+		NOT = {
+			owner ?= {
+				var:tv_wonder_locked ?= 55
+				var:tv_wonder_site ?= { this = root }
+			}
+		}
+	}
+
+	price = tv_wonder_direct_build_medium_price
+
+	build_time = huge_unique_build_time
+	construction_demand = library_construction
+
+	modifier = {
+		local_cultural_tradition = 0.5
+		local_cultural_influence = 0.5
+		local_monthly_prosperity = 0.001
+		local_migration_attraction = 1
+		cultural_tradition_modifier = 0.05
+		monthly_towards_humanist = 0.05
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+
+	on_destroyed = {
+		hidden_effect = {
+			location = {
+				owner = {
+					cmf_log_with_args = { action = tv_engineering_department_cmf_log_destroyed arg1 = tv_wonder_grand_garden_complex arg2 = tv_engineering_department_cmf_log_final_wonder_building }
+				}
+				trigger_event_silently = { id = tv_engineering_department.9455 days = 1 }
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				owner = {
+					cmf_log_with_args = { action = tv_engineering_department_cmf_log_completed arg1 = tv_wonder_grand_garden_complex arg2 = tv_engineering_department_cmf_log_final_wonder_building }
+				}
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
+			}
+		}
+	}
+}
+
+tv_wonder_grand_garden_complex_ritual_annex = {
+	is_special = yes
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = yes }
+
+	price = tv_wonder_ritual_annex_medium_price
+
+	build_time = large_cultural_building_time
+	construction_demand = library_construction
+
+	modifier = {
+		local_cultural_tradition = 1
+		local_nobles_estate_power = 0.5
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+
+	on_built = {
+		hidden_effect = {
+			location.owner = {
+				if = {
+					limit = {
+						has_variable = tv_wonder_ritual_in_progress
+						var:tv_wonder_locked ?= 55
+						var:tv_wonder_ceremony_style ?= 2
+					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
+					tv_wonder_complete_active_ritual_effect = yes
+				}
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			owner = {
+				tv_wonder_mechanics_mark_completed_auxiliary_building_ritual_effect = yes
+			}
+		}
+	}
+}
+
+tv_wonder_classics_examination_yard = {
+	is_special = yes
+	audio_tier = 5
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = government_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
+			has_global_variable = tv_engineering_department_direct_build
+		}
+		NOT = { location_rank ?= location_rank:rural_settlement }
+	}
+	can_destroy = {
+		NOT = {
+			owner ?= {
+				var:tv_wonder_locked ?= 56
+				var:tv_wonder_site ?= { this = root }
+			}
+		}
+	}
+
+	price = tv_wonder_direct_build_medium_price
+
+	build_time = huge_unique_build_time
+	construction_demand = capital_building_construction
+
+	modifier = {
+		local_cultural_tradition = 0.5
+		local_cultural_influence = 0.5
+		local_max_literacy = 10
+		local_pop_promotion_speed_modifier = 0.25
+		country_cabinet_efficiency = 0.05
+		global_pop_promotion_speed = 0.005
+		monthly_towards_jurisprudence = 0.05
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+
+	on_destroyed = {
+		hidden_effect = {
+			location = {
+				owner = {
+					cmf_log_with_args = { action = tv_engineering_department_cmf_log_destroyed arg1 = tv_wonder_state_examination_complex arg2 = tv_engineering_department_cmf_log_final_wonder_building }
+				}
+				trigger_event_silently = { id = tv_engineering_department.9456 days = 1 }
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				owner = {
+					cmf_log_with_args = { action = tv_engineering_department_cmf_log_completed arg1 = tv_wonder_state_examination_complex arg2 = tv_engineering_department_cmf_log_final_wonder_building }
+				}
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
+			}
+		}
+	}
+}
+
+tv_wonder_open_merit_hall = {
+	is_special = yes
+	audio_tier = 5
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = government_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
+			has_global_variable = tv_engineering_department_direct_build
+		}
+		NOT = { location_rank ?= location_rank:rural_settlement }
+	}
+	can_destroy = {
+		NOT = {
+			owner ?= {
+				var:tv_wonder_locked ?= 56
+				var:tv_wonder_site ?= { this = root }
+			}
+		}
+	}
+
+	price = tv_wonder_direct_build_medium_price
+
+	build_time = huge_unique_build_time
+	construction_demand = capital_building_construction
+
+	modifier = {
+		local_cultural_tradition = 0.5
+		local_cultural_influence = 0.5
+		local_max_literacy = 10
+		local_pop_promotion_speed_modifier = 0.25
+		country_cabinet_efficiency = 0.05
+		global_pop_promotion_speed = 0.005
+		monthly_towards_jurisprudence = 0.05
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+
+	on_destroyed = {
+		hidden_effect = {
+			location = {
+				owner = {
+					cmf_log_with_args = { action = tv_engineering_department_cmf_log_destroyed arg1 = tv_wonder_state_examination_complex arg2 = tv_engineering_department_cmf_log_final_wonder_building }
+				}
+				trigger_event_silently = { id = tv_engineering_department.9456 days = 1 }
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				owner = {
+					cmf_log_with_args = { action = tv_engineering_department_cmf_log_completed arg1 = tv_wonder_state_examination_complex arg2 = tv_engineering_department_cmf_log_final_wonder_building }
+				}
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
+			}
+		}
+	}
+}
+
+tv_wonder_practical_statecraft_academy = {
+	is_special = yes
+	audio_tier = 5
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = government_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
+			has_global_variable = tv_engineering_department_direct_build
+		}
+		NOT = { location_rank ?= location_rank:rural_settlement }
+	}
+	can_destroy = {
+		NOT = {
+			owner ?= {
+				var:tv_wonder_locked ?= 56
+				var:tv_wonder_site ?= { this = root }
+			}
+		}
+	}
+
+	price = tv_wonder_direct_build_medium_price
+
+	build_time = huge_unique_build_time
+	construction_demand = capital_building_construction
+
+	modifier = {
+		local_cultural_tradition = 0.5
+		local_cultural_influence = 0.5
+		local_max_literacy = 10
+		local_pop_promotion_speed_modifier = 0.25
+		country_cabinet_efficiency = 0.05
+		global_pop_promotion_speed = 0.005
+		monthly_towards_jurisprudence = 0.05
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+
+	on_destroyed = {
+		hidden_effect = {
+			location = {
+				owner = {
+					cmf_log_with_args = { action = tv_engineering_department_cmf_log_destroyed arg1 = tv_wonder_state_examination_complex arg2 = tv_engineering_department_cmf_log_final_wonder_building }
+				}
+				trigger_event_silently = { id = tv_engineering_department.9456 days = 1 }
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				owner = {
+					cmf_log_with_args = { action = tv_engineering_department_cmf_log_completed arg1 = tv_wonder_state_examination_complex arg2 = tv_engineering_department_cmf_log_final_wonder_building }
+				}
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
+			}
+		}
+	}
+}
+
+tv_wonder_state_examination_complex_ritual_annex = {
+	is_special = yes
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = government_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { always = no }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
+		}
+	}
+	can_destroy = { always = yes }
+
+	price = tv_wonder_ritual_annex_medium_price
+
+	build_time = government_build_time
+	construction_demand = capital_building_construction
+
+	modifier = {
+		local_max_literacy = 10
+		local_pop_promotion_speed_modifier = 0.25
+		local_burghers_estate_power = 0.5
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+
+	on_built = {
+		hidden_effect = {
+			location.owner = {
+				if = {
+					limit = {
+						has_variable = tv_wonder_ritual_in_progress
+						var:tv_wonder_locked ?= 56
+						var:tv_wonder_ceremony_style ?= 2
+					}
+					set_variable = { name = tv_wonder_ritual_auxiliary_building_finished value = 1 }
+					tv_wonder_complete_active_ritual_effect = yes
+				}
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			owner = {
+				tv_wonder_mechanics_mark_completed_auxiliary_building_ritual_effect = yes
+			}
+		}
+	}
+}
+
 tv_wonder_unique_pharos_lighthouse_inaugurated = {
 	is_special = yes
 	audio_tier = 5
@@ -24880,6 +25463,989 @@ tv_wonder_unique_walls_of_benin_inaugurated = {
 			location = {
 				owner = {
 					cmf_log_with_args = { action = tv_engineering_department_cmf_log_completed arg1 = tv_wonder_unique_walls_of_benin arg2 = tv_engineering_department_cmf_log_final_wonder_building }
+				}
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
+			}
+		}
+	}
+}
+
+tv_wonder_unique_suzhou_classical_gardens_inaugurated = {
+	is_special = yes
+	audio_tier = 5
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
+			has_global_variable = tv_engineering_department_direct_build
+		}
+		this = location:wuxian
+		OR = {
+		  is_capital = yes
+		  NOT = { location_rank ?= location_rank:rural_settlement }
+		}
+	}
+	can_destroy = {
+		NOT = {
+			owner ?= {
+				var:tv_wonder_locked ?= 224
+				var:tv_wonder_site ?= { this = root }
+			}
+		}
+	}
+
+	price = tv_wonder_direct_build_medium_price
+
+	build_time = huge_unique_build_time
+	construction_demand = library_construction
+
+	modifier = {
+		local_cultural_tradition = 0.5
+		local_cultural_influence = 0.5
+		local_monthly_prosperity = 0.002
+		local_migration_attraction = 2
+		cultural_tradition_modifier = 0.1
+		monthly_towards_humanist = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+
+	on_destroyed = {
+		hidden_effect = {
+			location = {
+				owner = {
+					cmf_log_with_args = { action = tv_engineering_department_cmf_log_destroyed arg1 = tv_wonder_unique_suzhou_classical_gardens arg2 = tv_engineering_department_cmf_log_final_wonder_building }
+				}
+				trigger_event_silently = { id = tv_engineering_department.9624 days = 1 }
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				owner = {
+					cmf_log_with_args = { action = tv_engineering_department_cmf_log_completed arg1 = tv_wonder_unique_suzhou_classical_gardens arg2 = tv_engineering_department_cmf_log_final_wonder_building }
+				}
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
+			}
+		}
+	}
+}
+
+tv_wonder_unique_fin_garden_inaugurated = {
+	is_special = yes
+	audio_tier = 5
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
+			has_global_variable = tv_engineering_department_direct_build
+		}
+		this = location:kashan
+		OR = {
+		  is_capital = yes
+		  NOT = { location_rank ?= location_rank:rural_settlement }
+		}
+	}
+	can_destroy = {
+		NOT = {
+			owner ?= {
+				var:tv_wonder_locked ?= 225
+				var:tv_wonder_site ?= { this = root }
+			}
+		}
+	}
+
+	price = tv_wonder_direct_build_medium_price
+
+	build_time = huge_unique_build_time
+	construction_demand = library_construction
+
+	modifier = {
+		local_cultural_tradition = 0.5
+		local_cultural_influence = 0.5
+		local_monthly_prosperity = 0.002
+		local_migration_attraction = 2
+		cultural_tradition_modifier = 0.1
+		monthly_towards_humanist = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+
+	on_destroyed = {
+		hidden_effect = {
+			location = {
+				owner = {
+					cmf_log_with_args = { action = tv_engineering_department_cmf_log_destroyed arg1 = tv_wonder_unique_fin_garden arg2 = tv_engineering_department_cmf_log_final_wonder_building }
+				}
+				trigger_event_silently = { id = tv_engineering_department.9625 days = 1 }
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				owner = {
+					cmf_log_with_args = { action = tv_engineering_department_cmf_log_completed arg1 = tv_wonder_unique_fin_garden arg2 = tv_engineering_department_cmf_log_final_wonder_building }
+				}
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
+			}
+		}
+	}
+}
+
+tv_wonder_unique_jiangnan_examination_hall_inaugurated = {
+	is_special = yes
+	audio_tier = 5
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = government_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
+			has_global_variable = tv_engineering_department_direct_build
+		}
+		this = location:shangyuan
+		NOT = { location_rank ?= location_rank:rural_settlement }
+	}
+	can_destroy = {
+		NOT = {
+			owner ?= {
+				var:tv_wonder_locked ?= 226
+				var:tv_wonder_site ?= { this = root }
+			}
+		}
+	}
+
+	price = tv_wonder_direct_build_medium_price
+
+	build_time = huge_unique_build_time
+	construction_demand = capital_building_construction
+
+	modifier = {
+		local_cultural_tradition = 0.5
+		local_cultural_influence = 0.5
+		local_max_literacy = 20
+		local_pop_promotion_speed_modifier = 0.5
+		country_cabinet_efficiency = 0.1
+		global_pop_promotion_speed = 0.01
+		monthly_towards_jurisprudence = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+
+	on_destroyed = {
+		hidden_effect = {
+			location = {
+				owner = {
+					cmf_log_with_args = { action = tv_engineering_department_cmf_log_destroyed arg1 = tv_wonder_unique_jiangnan_examination_hall arg2 = tv_engineering_department_cmf_log_final_wonder_building }
+				}
+				trigger_event_silently = { id = tv_engineering_department.9626 days = 1 }
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				owner = {
+					cmf_log_with_args = { action = tv_engineering_department_cmf_log_completed arg1 = tv_wonder_unique_jiangnan_examination_hall arg2 = tv_engineering_department_cmf_log_final_wonder_building }
+				}
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
+			}
+		}
+	}
+}
+
+tv_wonder_unique_thang_long_temple_of_literature_inaugurated = {
+	is_special = yes
+	audio_tier = 5
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = government_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
+			has_global_variable = tv_engineering_department_direct_build
+		}
+		this = location:thang_long
+		NOT = { location_rank ?= location_rank:rural_settlement }
+	}
+	can_destroy = {
+		NOT = {
+			owner ?= {
+				var:tv_wonder_locked ?= 227
+				var:tv_wonder_site ?= { this = root }
+			}
+		}
+	}
+
+	price = tv_wonder_direct_build_medium_price
+
+	build_time = huge_unique_build_time
+	construction_demand = capital_building_construction
+
+	modifier = {
+		local_cultural_tradition = 0.5
+		local_cultural_influence = 0.5
+		local_max_literacy = 20
+		local_pop_promotion_speed_modifier = 0.5
+		country_cabinet_efficiency = 0.1
+		global_pop_promotion_speed = 0.01
+		monthly_towards_jurisprudence = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+
+	on_destroyed = {
+		hidden_effect = {
+			location = {
+				owner = {
+					cmf_log_with_args = { action = tv_engineering_department_cmf_log_destroyed arg1 = tv_wonder_unique_thang_long_temple_of_literature arg2 = tv_engineering_department_cmf_log_final_wonder_building }
+				}
+				trigger_event_silently = { id = tv_engineering_department.9627 days = 1 }
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				owner = {
+					cmf_log_with_args = { action = tv_engineering_department_cmf_log_completed arg1 = tv_wonder_unique_thang_long_temple_of_literature arg2 = tv_engineering_department_cmf_log_final_wonder_building }
+				}
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
+			}
+		}
+	}
+}
+
+tv_wonder_unique_maragheh_observatory_inaugurated = {
+	is_special = yes
+	audio_tier = 6
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
+			has_global_variable = tv_engineering_department_direct_build
+		}
+		this = location:maragheh
+		OR = {
+			topography = mountains
+			topography = plateau
+			topography = hills
+		}
+	}
+	can_destroy = {
+		NOT = {
+			owner ?= {
+				var:tv_wonder_locked ?= 228
+				var:tv_wonder_site ?= { this = root }
+			}
+		}
+	}
+
+	price = tv_wonder_direct_build_large_price
+
+	build_time = huge_unique_build_time
+	construction_demand = town_building_construction
+
+	modifier = {
+		local_cultural_tradition = 0.5
+		local_cultural_influence = 0.5
+		local_pop_promotion_speed_modifier = 0.5
+		research_speed = 0.1
+		monthly_towards_innovative = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+
+	on_destroyed = {
+		hidden_effect = {
+			location = {
+				owner = {
+					cmf_log_with_args = { action = tv_engineering_department_cmf_log_destroyed arg1 = tv_wonder_unique_maragheh_observatory arg2 = tv_engineering_department_cmf_log_final_wonder_building }
+				}
+				trigger_event_silently = { id = tv_engineering_department.9628 days = 1 }
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				owner = {
+					cmf_log_with_args = { action = tv_engineering_department_cmf_log_completed arg1 = tv_wonder_unique_maragheh_observatory arg2 = tv_engineering_department_cmf_log_final_wonder_building }
+				}
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
+			}
+		}
+	}
+}
+
+tv_wonder_unique_xian_bell_and_drum_towers_inaugurated = {
+	is_special = yes
+	audio_tier = 5
+	is_foreign = no
+	pop_type = clergy
+	max_levels = 6
+	employment_size = 0.1
+	category = cultural_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
+			has_global_variable = tv_engineering_department_direct_build
+		}
+		this = location:jingzhao
+		NOT = { location_rank ?= location_rank:rural_settlement }
+	}
+	can_destroy = {
+		NOT = {
+			owner ?= {
+				var:tv_wonder_locked ?= 229
+				var:tv_wonder_site ?= { this = root }
+			}
+		}
+	}
+
+	price = tv_wonder_direct_build_small_price
+
+	build_time = huge_unique_build_time
+	construction_demand = town_building_construction
+
+	modifier = {
+		local_cultural_tradition = 0.5
+		local_cultural_influence = 0.5
+		local_build_buildings_efficiency = 0.2
+		monthly_towards_inward = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+
+	on_destroyed = {
+		hidden_effect = {
+			location = {
+				owner = {
+					cmf_log_with_args = { action = tv_engineering_department_cmf_log_destroyed arg1 = tv_wonder_unique_xian_bell_and_drum_towers arg2 = tv_engineering_department_cmf_log_final_wonder_building }
+				}
+				trigger_event_silently = { id = tv_engineering_department.9629 days = 1 }
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				owner = {
+					cmf_log_with_args = { action = tv_engineering_department_cmf_log_completed arg1 = tv_wonder_unique_xian_bell_and_drum_towers arg2 = tv_engineering_department_cmf_log_final_wonder_building }
+				}
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
+			}
+		}
+	}
+}
+
+tv_wonder_unique_behistun_inscription_inaugurated = {
+	is_special = yes
+	audio_tier = 5
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = government_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
+			has_global_variable = tv_engineering_department_direct_build
+		}
+		this = location:bisotun
+		always = yes
+	}
+	can_destroy = {
+		NOT = {
+			owner ?= {
+				var:tv_wonder_locked ?= 230
+				var:tv_wonder_site ?= { this = root }
+			}
+		}
+	}
+
+	price = tv_wonder_direct_build_medium_price
+
+	build_time = huge_unique_build_time
+	construction_demand = capital_building_construction
+
+	modifier = {
+		local_cultural_tradition = 0.5
+		local_cultural_influence = 0.5
+		monthly_rebel_growth = -0.001
+		monthly_towards_inward = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+
+	on_destroyed = {
+		hidden_effect = {
+			location = {
+				owner = {
+					cmf_log_with_args = { action = tv_engineering_department_cmf_log_destroyed arg1 = tv_wonder_unique_behistun_inscription arg2 = tv_engineering_department_cmf_log_final_wonder_building }
+				}
+				trigger_event_silently = { id = tv_engineering_department.9630 days = 1 }
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				owner = {
+					cmf_log_with_args = { action = tv_engineering_department_cmf_log_completed arg1 = tv_wonder_unique_behistun_inscription arg2 = tv_engineering_department_cmf_log_final_wonder_building }
+				}
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
+			}
+		}
+	}
+}
+
+tv_wonder_unique_beijing_imperial_granaries_inaugurated = {
+	is_special = yes
+	audio_tier = 5
+	is_foreign = no
+	pop_type = laborers
+	max_levels = 6
+	employment_size = 0.1
+	category = infrastructure_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
+			has_global_variable = tv_engineering_department_direct_build
+		}
+		this = location:dadu
+		always = yes
+	}
+	can_destroy = {
+		NOT = {
+			owner ?= {
+				var:tv_wonder_locked ?= 231
+				var:tv_wonder_site ?= { this = root }
+			}
+		}
+	}
+
+	price = tv_wonder_direct_build_medium_price
+
+	build_time = huge_unique_build_time
+	construction_demand = basic_construction_needs
+
+	modifier = {
+		local_cultural_tradition = 0.5
+		local_cultural_influence = 0.5
+		local_food_capacity_modifier = 10000
+		global_food_capacity_modifier = 0.4
+		monthly_towards_traditional_economy = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+
+	on_destroyed = {
+		hidden_effect = {
+			location = {
+				owner = {
+					cmf_log_with_args = { action = tv_engineering_department_cmf_log_destroyed arg1 = tv_wonder_unique_beijing_imperial_granaries arg2 = tv_engineering_department_cmf_log_final_wonder_building }
+				}
+				trigger_event_silently = { id = tv_engineering_department.9631 days = 1 }
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				owner = {
+					cmf_log_with_args = { action = tv_engineering_department_cmf_log_completed arg1 = tv_wonder_unique_beijing_imperial_granaries arg2 = tv_engineering_department_cmf_log_final_wonder_building }
+				}
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
+			}
+		}
+	}
+}
+
+tv_wonder_unique_bursa_imperial_mint_inaugurated = {
+	is_special = yes
+	audio_tier = 5
+	is_foreign = no
+	pop_type = burghers
+	max_levels = 6
+	employment_size = 0.1
+	category = government_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
+			has_global_variable = tv_engineering_department_direct_build
+		}
+		this = location:bursa
+		OR = {
+			location_rank ?= location_rank:city
+			location_rank ?= location_rank:megalopolis
+			raw_material = goods:goods_gold
+			raw_material = goods:silver
+			raw_material = goods:copper
+		}
+	}
+	can_destroy = {
+		NOT = {
+			owner ?= {
+				var:tv_wonder_locked ?= 232
+				var:tv_wonder_site ?= { this = root }
+			}
+		}
+	}
+
+	price = tv_wonder_direct_build_medium_price
+
+	build_time = huge_unique_build_time
+	construction_demand = capital_building_construction
+
+	modifier = {
+		local_cultural_tradition = 0.5
+		local_cultural_influence = 0.5
+		minting_income_factor = 0.2
+		monthly_towards_capital_economy = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+
+	on_destroyed = {
+		hidden_effect = {
+			location = {
+				owner = {
+					cmf_log_with_args = { action = tv_engineering_department_cmf_log_destroyed arg1 = tv_wonder_unique_bursa_imperial_mint arg2 = tv_engineering_department_cmf_log_final_wonder_building }
+				}
+				trigger_event_silently = { id = tv_engineering_department.9632 days = 1 }
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				owner = {
+					cmf_log_with_args = { action = tv_engineering_department_cmf_log_completed arg1 = tv_wonder_unique_bursa_imperial_mint arg2 = tv_engineering_department_cmf_log_final_wonder_building }
+				}
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
+			}
+		}
+	}
+}
+
+tv_wonder_unique_enderun_palace_school_inaugurated = {
+	is_special = yes
+	audio_tier = 5
+	is_foreign = no
+	pop_type = soldiers
+	max_levels = 6
+	employment_size = 0.1
+	category = military_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
+			has_global_variable = tv_engineering_department_direct_build
+		}
+		this = location:constantinople
+		NOT = { location_rank ?= location_rank:rural_settlement }
+	}
+	can_destroy = {
+		NOT = {
+			owner ?= {
+				var:tv_wonder_locked ?= 233
+				var:tv_wonder_site ?= { this = root }
+			}
+		}
+	}
+
+	price = tv_wonder_direct_build_medium_price
+
+	build_time = huge_unique_build_time
+	construction_demand = fort_construction
+
+	modifier = {
+		local_cultural_tradition = 0.5
+		local_cultural_influence = 0.5
+		monthly_army_tradition = 0.1
+		monthly_towards_belligerent = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+
+	on_destroyed = {
+		hidden_effect = {
+			location = {
+				owner = {
+					cmf_log_with_args = { action = tv_engineering_department_cmf_log_destroyed arg1 = tv_wonder_unique_enderun_palace_school arg2 = tv_engineering_department_cmf_log_final_wonder_building }
+				}
+				trigger_event_silently = { id = tv_engineering_department.9633 days = 1 }
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				owner = {
+					cmf_log_with_args = { action = tv_engineering_department_cmf_log_completed arg1 = tv_wonder_unique_enderun_palace_school arg2 = tv_engineering_department_cmf_log_final_wonder_building }
+				}
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
+			}
+		}
+	}
+}
+
+tv_wonder_unique_ayutthaya_foreign_quarters_inaugurated = {
+	is_special = yes
+	audio_tier = 5
+	is_foreign = no
+	pop_type = nobles
+	max_levels = 6
+	employment_size = 0.1
+	category = government_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
+			has_global_variable = tv_engineering_department_direct_build
+		}
+		this = location:ayodhya
+		OR = {
+			is_capital = yes
+			NOT = { location_rank ?= location_rank:rural_settlement }
+		}
+	}
+	can_destroy = {
+		NOT = {
+			owner ?= {
+				var:tv_wonder_locked ?= 234
+				var:tv_wonder_site ?= { this = root }
+			}
+		}
+	}
+
+	price = tv_wonder_direct_build_medium_price
+
+	build_time = huge_unique_build_time
+	construction_demand = capital_building_construction
+
+	modifier = {
+		local_cultural_tradition = 0.5
+		local_cultural_influence = 0.5
+		diplomatic_reputation = 2
+		monthly_towards_conciliatory = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+
+	on_destroyed = {
+		hidden_effect = {
+			location = {
+				owner = {
+					cmf_log_with_args = { action = tv_engineering_department_cmf_log_destroyed arg1 = tv_wonder_unique_ayutthaya_foreign_quarters arg2 = tv_engineering_department_cmf_log_final_wonder_building }
+				}
+				trigger_event_silently = { id = tv_engineering_department.9634 days = 1 }
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				owner = {
+					cmf_log_with_args = { action = tv_engineering_department_cmf_log_completed arg1 = tv_wonder_unique_ayutthaya_foreign_quarters arg2 = tv_engineering_department_cmf_log_final_wonder_building }
+				}
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
+			}
+		}
+	}
+}
+
+tv_wonder_unique_yunnan_weisuo_colonies_inaugurated = {
+	is_special = yes
+	audio_tier = 5
+	is_foreign = no
+	pop_type = laborers
+	max_levels = 6
+	employment_size = 0.1
+	category = infrastructure_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
+			has_global_variable = tv_engineering_department_direct_build
+		}
+		this = location:songming
+		location_rank ?= location_rank:rural_settlement
+	}
+	can_destroy = {
+		NOT = {
+			owner ?= {
+				var:tv_wonder_locked ?= 235
+				var:tv_wonder_site ?= { this = root }
+			}
+		}
+	}
+
+	price = tv_wonder_direct_build_small_price
+
+	build_time = huge_unique_build_time
+	construction_demand = basic_construction_needs
+
+	modifier = {
+		local_cultural_tradition = 0.5
+		local_cultural_influence = 0.5
+		local_migration_attraction = 2
+		local_rgo_build_time = -0.2
+		local_raw_material_output = 0.2
+		monthly_towards_outward = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+
+	on_destroyed = {
+		hidden_effect = {
+			location = {
+				owner = {
+					cmf_log_with_args = { action = tv_engineering_department_cmf_log_destroyed arg1 = tv_wonder_unique_yunnan_weisuo_colonies arg2 = tv_engineering_department_cmf_log_final_wonder_building }
+				}
+				trigger_event_silently = { id = tv_engineering_department.9635 days = 1 }
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				owner = {
+					cmf_log_with_args = { action = tv_engineering_department_cmf_log_completed arg1 = tv_wonder_unique_yunnan_weisuo_colonies arg2 = tv_engineering_department_cmf_log_final_wonder_building }
+				}
+				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
+			}
+		}
+	}
+}
+
+tv_wonder_unique_zhoushan_beacon_network_inaugurated = {
+	is_special = yes
+	audio_tier = 5
+	is_foreign = no
+	pop_type = soldiers
+	max_levels = 6
+	employment_size = 0.1
+	category = military_category
+
+	town = yes
+	city = yes
+	megalopolis = yes
+	rural_settlement = yes
+
+	important_for_AI = no
+	automation_build_allowed = no
+	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	allow = {
+		custom_tooltip = {
+			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
+			has_global_variable = tv_engineering_department_direct_build
+		}
+		this = location:dinghai
+		is_port = yes
+	}
+	can_destroy = {
+		NOT = {
+			owner ?= {
+				var:tv_wonder_locked ?= 236
+				var:tv_wonder_site ?= { this = root }
+			}
+		}
+	}
+
+	price = tv_wonder_direct_build_small_price
+
+	build_time = huge_unique_build_time
+	construction_demand = fort_construction
+
+	modifier = {
+		local_cultural_tradition = 0.5
+		local_cultural_influence = 0.5
+		movement_cost = -0.2
+		local_port_cost_distance_impact = -1
+		monthly_towards_communalism = 0.1
+	}
+
+	possible_production_methods = {
+		tv_wonder_module_maintenance
+	}
+
+	on_destroyed = {
+		hidden_effect = {
+			location = {
+				owner = {
+					cmf_log_with_args = { action = tv_engineering_department_cmf_log_destroyed arg1 = tv_wonder_unique_zhoushan_beacon_network arg2 = tv_engineering_department_cmf_log_final_wonder_building }
+				}
+				trigger_event_silently = { id = tv_engineering_department.9636 days = 1 }
+			}
+		}
+	}
+
+	on_construction_ended = {
+		hidden_effect = {
+			location = {
+				owner = {
+					cmf_log_with_args = { action = tv_engineering_department_cmf_log_completed arg1 = tv_wonder_unique_zhoushan_beacon_network arg2 = tv_engineering_department_cmf_log_final_wonder_building }
 				}
 				tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = yes
 			}

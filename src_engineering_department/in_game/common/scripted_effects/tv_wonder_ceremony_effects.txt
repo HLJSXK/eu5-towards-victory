@@ -556,6 +556,58 @@ tv_wonder_ceremony_pay_stage_1_cost_effect = {
 		limit = { var:tv_wonder_locked ?= 223 }
 		add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.1 }
 	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 224 }
+		add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 225 }
+		change_gold_effect = { scale = -1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 226 }
+		add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 227 }
+		add_estate_satisfaction = { type = estate_type:clergy_estate value = -0.1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 228 }
+		add_research_progress = -5
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 229 }
+		add_government_power = -5
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 230 }
+		add_prestige = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 231 }
+		change_gold_effect = { scale = -1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 232 }
+		change_gold_effect = { scale = -1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 233 }
+		add_estate_satisfaction = { type = estate_type:nobles_estate value = -0.1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 234 }
+		add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 235 }
+		add_manpower = -50
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 236 }
+		add_sailors = -50
+	}
 }
 
 tv_wonder_ceremony_pay_stage_2_cost_effect = {
@@ -1127,6 +1179,62 @@ tv_wonder_ceremony_pay_stage_2_cost_effect = {
 		limit = { var:tv_wonder_locked ?= 223 }
 		ruler ?= { add_dip = -6 }
 	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 224 }
+		random_artist = { limit = { is_alive = yes } save_scope_as = tv_wonder_ceremony_cost_artist }
+		if = {
+			limit = { exists = scope:tv_wonder_ceremony_cost_artist }
+			scope:tv_wonder_ceremony_cost_artist = { add_artist_skill = -0.1 }
+		}
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 225 }
+		ruler ?= { add_adm = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 226 }
+		ruler ?= { add_adm = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 227 }
+		ruler ?= { add_adm = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 228 }
+		ruler ?= { add_adm = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 229 }
+		ruler ?= { add_adm = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 230 }
+		ruler ?= { add_dip = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 231 }
+		ruler ?= { add_adm = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 232 }
+		ruler ?= { add_adm = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 233 }
+		ruler ?= { add_adm = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 234 }
+		ruler ?= { add_dip = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 235 }
+		ruler ?= { add_mil = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 236 }
+		add_manpower = -100
+	}
 }
 
 tv_wonder_ceremony_pay_stage_3_cost_effect = {
@@ -1697,6 +1805,58 @@ tv_wonder_ceremony_pay_stage_3_cost_effect = {
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 223 }
 		add_manpower = -50
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 224 }
+		change_gold_effect = { scale = -1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 225 }
+		add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 226 }
+		change_gold_effect = { scale = -1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 227 }
+		change_gold_effect = { scale = -1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 228 }
+		change_gold_effect = { scale = -1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 229 }
+		change_gold_effect = { scale = -1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 230 }
+		add_government_power = -5
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 231 }
+		add_manpower = -50
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 232 }
+		add_estate_satisfaction = { type = estate_type:burghers_estate value = -0.1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 233 }
+		ruler ?= { add_dip = -3 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 234 }
+		change_gold_effect = { scale = -1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 235 }
+		change_gold_effect = { scale = -1 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 236 }
+		change_gold_effect = { scale = -1 }
 	}
 }
 
@@ -2307,6 +2467,58 @@ tv_wonder_ceremony_pay_stage_4_cost_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 223 }
+		var:tv_wonder_site ?= { change_development = -0.5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 224 }
+		var:tv_wonder_site ?= { change_development = -0.5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 225 }
+		var:tv_wonder_site ?= { change_development = -0.5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 226 }
+		var:tv_wonder_site ?= { change_development = -0.5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 227 }
+		var:tv_wonder_site ?= { change_prosperity = -0.4 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 228 }
+		var:tv_wonder_site ?= { change_development = -0.5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 229 }
+		var:tv_wonder_site ?= { change_development = -0.5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 230 }
+		var:tv_wonder_site ?= { change_development = -0.5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 231 }
+		var:tv_wonder_site ?= { change_prosperity = -0.4 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 232 }
+		var:tv_wonder_site ?= { change_development = -0.5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 233 }
+		ruler ?= { add_mil = -6 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 234 }
+		var:tv_wonder_site ?= { change_prosperity = -0.4 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 235 }
+		var:tv_wonder_site ?= { change_development = -0.5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 236 }
 		var:tv_wonder_site ?= { change_development = -0.5 }
 	}
 }
@@ -2942,6 +3154,80 @@ tv_wonder_ceremony_pay_stage_5_cost_effect = {
 			add_location_modifier = { modifier = tv_wonder_ceremony_cost_local_modifier_unique_walls_of_benin_s5 years = 5 mode = add_and_extend }
 		}
 	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 224 }
+		var:tv_wonder_site ?= {
+			add_location_modifier = { modifier = tv_wonder_ceremony_cost_local_modifier_unique_suzhou_classical_gardens_s5 years = 5 mode = add_and_extend }
+		}
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 225 }
+		var:tv_wonder_site ?= {
+			add_location_modifier = { modifier = tv_wonder_ceremony_cost_local_modifier_unique_fin_garden_s5 years = 5 mode = add_and_extend }
+		}
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 226 }
+		var:tv_wonder_site ?= {
+			add_location_modifier = { modifier = tv_wonder_ceremony_cost_local_modifier_unique_jiangnan_examination_hall_s5 years = 5 mode = add_and_extend }
+		}
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 227 }
+		var:tv_wonder_site ?= {
+			add_location_modifier = { modifier = tv_wonder_ceremony_cost_local_modifier_unique_thang_long_temple_of_literature_s5 years = 5 mode = add_and_extend }
+		}
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 228 }
+		var:tv_wonder_site ?= {
+			add_location_modifier = { modifier = tv_wonder_ceremony_cost_local_modifier_unique_maragheh_observatory_s5 years = 5 mode = add_and_extend }
+		}
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 229 }
+		var:tv_wonder_site ?= {
+			add_location_modifier = { modifier = tv_wonder_ceremony_cost_local_modifier_unique_xian_bell_and_drum_towers_s5 years = 5 mode = add_and_extend }
+		}
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 230 }
+		var:tv_wonder_site ?= {
+			add_location_modifier = { modifier = tv_wonder_ceremony_cost_local_modifier_unique_behistun_inscription_s5 years = 5 mode = add_and_extend }
+		}
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 231 }
+		var:tv_wonder_site ?= {
+			add_location_modifier = { modifier = tv_wonder_ceremony_cost_local_modifier_unique_beijing_imperial_granaries_s5 years = 5 mode = add_and_extend }
+		}
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 232 }
+		var:tv_wonder_site ?= {
+			add_location_modifier = { modifier = tv_wonder_ceremony_cost_local_modifier_unique_bursa_imperial_mint_s5 years = 5 mode = add_and_extend }
+		}
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 233 }
+		var:tv_wonder_site ?= { change_development = -0.25 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 234 }
+		add_country_modifier = { modifier = tv_wonder_ceremony_cost_country_modifier_unique_ayutthaya_foreign_quarters_s5 years = 5 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 235 }
+		var:tv_wonder_site ?= {
+			add_location_modifier = { modifier = tv_wonder_ceremony_cost_local_modifier_unique_yunnan_weisuo_colonies_s5 years = 5 mode = add_and_extend }
+		}
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 236 }
+		var:tv_wonder_site ?= {
+			add_location_modifier = { modifier = tv_wonder_ceremony_cost_local_modifier_unique_zhoushan_beacon_network_s5 years = 5 mode = add_and_extend }
+		}
+	}
 }
 
 tv_wonder_ceremony_pay_stage_6_cost_effect = {
@@ -3555,6 +3841,58 @@ tv_wonder_ceremony_pay_stage_6_cost_effect = {
 			scope:tv_wonder_ceremony_cost_artist = { add_artist_skill = -0.1 }
 		}
 	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 224 }
+		add_country_modifier = { modifier = tv_wonder_ceremony_cost_country_modifier_unique_suzhou_classical_gardens_s6 years = 5 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 225 }
+		add_country_modifier = { modifier = tv_wonder_ceremony_cost_country_modifier_unique_fin_garden_s6 years = 5 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 226 }
+		add_country_modifier = { modifier = tv_wonder_ceremony_cost_country_modifier_unique_jiangnan_examination_hall_s6 years = 5 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 227 }
+		add_country_modifier = { modifier = tv_wonder_ceremony_cost_country_modifier_unique_thang_long_temple_of_literature_s6 years = 5 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 228 }
+		add_country_modifier = { modifier = tv_wonder_ceremony_cost_country_modifier_unique_maragheh_observatory_s6 years = 5 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 229 }
+		add_country_modifier = { modifier = tv_wonder_ceremony_cost_country_modifier_unique_xian_bell_and_drum_towers_s6 years = 5 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 230 }
+		add_country_modifier = { modifier = tv_wonder_ceremony_cost_country_modifier_unique_behistun_inscription_s6 years = 5 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 231 }
+		add_country_modifier = { modifier = tv_wonder_ceremony_cost_country_modifier_unique_beijing_imperial_granaries_s6 years = 5 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 232 }
+		add_country_modifier = { modifier = tv_wonder_ceremony_cost_country_modifier_unique_bursa_imperial_mint_s6 years = 5 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 233 }
+		add_country_modifier = { modifier = tv_wonder_ceremony_cost_country_modifier_unique_enderun_palace_school_s6 years = 5 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 234 }
+		add_country_modifier = { modifier = tv_wonder_ceremony_cost_country_modifier_unique_ayutthaya_foreign_quarters_s6 years = 5 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 235 }
+		add_country_modifier = { modifier = tv_wonder_ceremony_cost_country_modifier_unique_yunnan_weisuo_colonies_s6 years = 5 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 236 }
+		add_country_modifier = { modifier = tv_wonder_ceremony_cost_country_modifier_unique_zhoushan_beacon_network_s6 years = 5 mode = add_and_extend }
+	}
 }
 
 tv_wonder_ceremony_pay_stage_7_cost_effect = {
@@ -4120,6 +4458,62 @@ tv_wonder_ceremony_pay_stage_7_cost_effect = {
 			add_location_modifier = { modifier = tv_wonder_ceremony_cost_local_modifier_unique_walls_of_benin_s7 years = 5 mode = add_and_extend }
 		}
 	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 224 }
+		add_prestige = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 225 }
+		add_prestige = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 226 }
+		add_government_power = -5
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 227 }
+		ruler ?= { add_dip = -3 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 228 }
+		random_artist = { limit = { is_alive = yes } save_scope_as = tv_wonder_ceremony_cost_artist }
+		if = {
+			limit = { exists = scope:tv_wonder_ceremony_cost_artist }
+			scope:tv_wonder_ceremony_cost_artist = { add_artist_skill = -0.05 }
+		}
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 229 }
+		add_prestige = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 230 }
+		add_research_progress = -5
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 231 }
+		add_estate_satisfaction = { type = estate_type:peasants_estate value = -0.2 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 232 }
+		add_government_power = -5
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 233 }
+		add_army_tradition = -2.5
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 234 }
+		add_prestige = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 235 }
+		add_estate_satisfaction = { type = estate_type:peasants_estate value = -0.2 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 236 }
+		add_navy_tradition = -2.5
+	}
 }
 
 tv_wonder_ceremony_pay_stage_8_cost_effect = {
@@ -4613,6 +5007,62 @@ tv_wonder_ceremony_pay_stage_8_cost_effect = {
 		limit = { var:tv_wonder_locked ?= 223 }
 		add_country_modifier = { modifier = tv_wonder_ceremony_cost_country_modifier_unique_walls_of_benin_s8 years = 5 mode = add_and_extend }
 	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 224 }
+		add_country_modifier = { modifier = tv_wonder_ceremony_cost_country_modifier_unique_suzhou_classical_gardens_s8 years = 5 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 225 }
+		var:tv_wonder_site ?= {
+			add_location_modifier = { modifier = tv_wonder_ceremony_cost_local_modifier_unique_fin_garden_s8 years = 5 mode = add_and_extend }
+		}
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 226 }
+		add_country_modifier = { modifier = tv_wonder_ceremony_cost_country_modifier_unique_jiangnan_examination_hall_s8 years = 5 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 227 }
+		add_country_modifier = { modifier = tv_wonder_ceremony_cost_country_modifier_unique_thang_long_temple_of_literature_s8 years = 5 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 228 }
+		add_prestige = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 229 }
+		var:tv_wonder_site ?= {
+			add_location_modifier = { modifier = tv_wonder_ceremony_cost_local_modifier_unique_xian_bell_and_drum_towers_s8 years = 5 mode = add_and_extend }
+		}
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 230 }
+		add_country_modifier = { modifier = tv_wonder_ceremony_cost_country_modifier_unique_behistun_inscription_s8 years = 5 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 231 }
+		add_government_power = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 232 }
+		add_prestige = -20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 233 }
+		add_country_modifier = { modifier = tv_wonder_ceremony_cost_country_modifier_unique_enderun_palace_school_s8 years = 5 mode = add_and_extend }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 234 }
+		add_government_power = -10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 235 }
+		add_army_tradition = -5.0
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 236 }
+		add_country_modifier = { modifier = tv_wonder_ceremony_cost_country_modifier_unique_zhoushan_beacon_network_s8 years = 5 mode = add_and_extend }
+	}
 }
 
 tv_wonder_ceremony_grant_stage_2_reward_effect = {
@@ -5102,6 +5552,60 @@ tv_wonder_ceremony_grant_stage_2_reward_effect = {
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 223 }
 		add_army_tradition = 10
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 224 }
+		culture = { add_cultural_tradition = 25 }
+		var:tv_wonder_site ?= { change_prosperity = 0.3 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 225 }
+		culture = { add_cultural_tradition = 25 }
+		var:tv_wonder_site ?= { change_prosperity = 0.3 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 226 }
+		add_government_power = 20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 227 }
+		add_government_power = 20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 228 }
+		add_research_progress = 15
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 229 }
+		add_prestige = 50
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 230 }
+		add_government_power = 20
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 231 }
+		add_stability = 21
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 232 }
+		add_gold = 10000
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 233 }
+		ruler ?= { add_mil = 20 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 234 }
+		ruler ?= { add_dip = 20 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 235 }
+		var:tv_wonder_site ?= { change_prosperity = 0.5 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 236 }
+		add_sailors = 50
 	}
 }
 
@@ -6192,6 +6696,123 @@ tv_wonder_ceremony_start_stage_4_construction_effect = {
 			if = {
 				limit = { NOT = { has_building = building_type:tv_wonder_star_fortress_city_ritual_annex } }
 				construct_building = { building_type = building_type:tv_wonder_star_fortress_city_ritual_annex cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+		}
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 224 }
+		var:tv_wonder_site ?= {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_grand_garden_complex_ritual_annex } }
+				construct_building = { building_type = building_type:tv_wonder_grand_garden_complex_ritual_annex cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+		}
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 225 }
+		var:tv_wonder_site ?= {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_grand_garden_complex_ritual_annex } }
+				construct_building = { building_type = building_type:tv_wonder_grand_garden_complex_ritual_annex cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+		}
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 226 }
+		var:tv_wonder_site ?= {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_state_examination_complex_ritual_annex } }
+				construct_building = { building_type = building_type:tv_wonder_state_examination_complex_ritual_annex cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+		}
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 227 }
+		var:tv_wonder_site ?= {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_state_examination_complex_ritual_annex } }
+				construct_building = { building_type = building_type:tv_wonder_state_examination_complex_ritual_annex cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+		}
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 228 }
+		var:tv_wonder_site ?= {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_giant_observatory_ritual_annex } }
+				construct_building = { building_type = building_type:tv_wonder_giant_observatory_ritual_annex cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+		}
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 229 }
+		var:tv_wonder_site ?= {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_great_clock_bell_system_ritual_annex } }
+				construct_building = { building_type = building_type:tv_wonder_great_clock_bell_system_ritual_annex cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+		}
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 230 }
+		var:tv_wonder_site ?= {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_law_code_stele_project_ritual_annex } }
+				construct_building = { building_type = building_type:tv_wonder_law_code_stele_project_ritual_annex cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+		}
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 231 }
+		var:tv_wonder_site ?= {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_royal_granary_system_ritual_annex } }
+				construct_building = { building_type = building_type:tv_wonder_royal_granary_system_ritual_annex cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+		}
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 232 }
+		var:tv_wonder_site ?= {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_royal_mint_system_ritual_annex } }
+				construct_building = { building_type = building_type:tv_wonder_royal_mint_system_ritual_annex cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+		}
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 233 }
+		var:tv_wonder_site ?= {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_war_college_system_ritual_annex } }
+				construct_building = { building_type = building_type:tv_wonder_war_college_system_ritual_annex cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+		}
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 234 }
+		var:tv_wonder_site ?= {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_world_embassy_quarter_ritual_annex } }
+				construct_building = { building_type = building_type:tv_wonder_world_embassy_quarter_ritual_annex cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+		}
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 235 }
+		var:tv_wonder_site ?= {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_frontier_colonization_belt_ritual_annex } }
+				construct_building = { building_type = building_type:tv_wonder_frontier_colonization_belt_ritual_annex cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
+			}
+		}
+	}
+	else_if = {
+		limit = { var:tv_wonder_locked ?= 236 }
+		var:tv_wonder_site ?= {
+			if = {
+				limit = { NOT = { has_building = building_type:tv_wonder_coastal_beacon_network_ritual_annex } }
+				construct_building = { building_type = building_type:tv_wonder_coastal_beacon_network_ritual_annex cost_multiplier = 0 cost_multiplier_reason = "game_concept_event" instant = yes }
 			}
 		}
 	}

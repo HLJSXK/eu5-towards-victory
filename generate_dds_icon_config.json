@@ -214,7 +214,65 @@
     },
     "icon_rules": "Match vanilla Europa Universalis V building icons: simple painterly brushwork, compact centered crop, clear 128px silhouette, and a restrained palette of 3-4 colors. Use one main architectural symbol plus at most 1-2 tiny supporting shapes. Keep the icon readable after circular crop and mipmap downsizing. No text, letters, numbers, logo, UI frame, full landscape, crowd, or detailed narrative scene.",
     "prompt_prefix": "Create a compact vanilla-style Europa Universalis V wonder building icon for",
-    "overrides": {}
+    "overrides": {
+      "tv_wonder_royal_pleasure_gardens": {
+        "icon_prompt": "an ornate premodern royal garden pavilion above a compact reflecting pool, flanked by two clipped cypress trees, ivory stone and deep garden green with restrained gold accents"
+      },
+      "tv_wonder_scholars_landscape_garden": {
+        "icon_prompt": "a white plaster moon gate framing one dramatic Taihu scholar rock and a small black-tiled Jiangnan pavilion, ink black, warm white, moss green, and muted stone gray"
+      },
+      "tv_wonder_botanical_exchange_garden": {
+        "icon_prompt": "a compact premodern garden pavilion sheltering one rare flowering tree, with two tiny terracotta specimen pots, warm timber, leaf green, blossom red, and pale stone"
+      },
+      "tv_wonder_classics_examination_yard": {
+        "icon_prompt": "a formal East Asian timber merit gate backed by one tiled examination hall and two tiny sealed manuscript bundles, vermilion, dark tile, parchment ivory, and muted gold"
+      },
+      "tv_wonder_open_merit_hall": {
+        "icon_prompt": "a broad open-fronted East Asian examination hall with a welcoming central stair and two small candidate desks, pale timber, blue-gray tile, ivory paper, and restrained red accents"
+      },
+      "tv_wonder_practical_statecraft_academy": {
+        "icon_prompt": "a compact tiled statecraft academy hall paired with one small wooden abacus and one brass surveying compass, sober red timber, slate blue, parchment ivory, and aged brass"
+      },
+      "tv_wonder_unique_suzhou_classical_gardens_inaugurated": {
+        "icon_prompt": "an iconic Suzhou waterside pavilion with upturned black-tile eaves, one pale Taihu scholar rock, and a lotus pool arc, ink black, white plaster, jade green, and soft lotus pink"
+      },
+      "tv_wonder_unique_fin_garden_inaugurated": {
+        "icon_prompt": "a Safavid Persian garden pavilion centered above a bright turquoise qanat-fed pool, framed by two slender cypress trees, turquoise, sand-colored plaster, deep green, and cobalt tile"
+      },
+      "tv_wonder_unique_jiangnan_examination_hall_inaugurated": {
+        "icon_prompt": "a monumental Jiangnan examination gate with a dark tiled roof, compressed rows of candidate cells behind it, and one sealed scroll bundle, vermilion, charcoal tile, parchment ivory, and muted gold"
+      },
+      "tv_wonder_unique_thang_long_temple_of_literature_inaugurated": {
+        "icon_prompt": "the red timber literary pavilion of Thang Long raised on four white stone piers beneath a tiled roof, with one small scholar stele on a stone tortoise, vermilion, white stone, moss green, and dark tile"
+      },
+      "tv_wonder_unique_maragheh_observatory_inaugurated": {
+        "icon_prompt": "a compact Ilkhanid brick observatory tower with a domed viewing platform, paired with one large brass astrolabe ring and a tiny open star chart without markings, warm brick, lapis blue, brass, and parchment ivory"
+      },
+      "tv_wonder_unique_xian_bell_and_drum_towers_inaugurated": {
+        "icon_prompt": "the Xi'an Bell Tower and Drum Tower as one balanced pair of tiered Ming Chinese timber silhouettes, with a single bronze bell and red drum accent, vermilion, teal tile, aged bronze, and warm gold"
+      },
+      "tv_wonder_unique_behistun_inscription_inaugurated": {
+        "icon_prompt": "a steep ochre rock face bearing one simplified Achaemenid royal relief of the standing king and attendants, with carved stone texture but no legible cuneiform, sandstone ochre, charcoal shadow, faded blue, and muted red"
+      },
+      "tv_wonder_unique_beijing_imperial_granaries_inaugurated": {
+        "icon_prompt": "a massive Ming imperial brick granary with a long gray tiled roof and high stone plinth, accompanied by one grain sack and one wooden measuring scoop, brick gray, dark tile, wheat gold, and muted red"
+      },
+      "tv_wonder_unique_bursa_imperial_mint_inaugurated": {
+        "icon_prompt": "a compact early Ottoman domed stone mint with one heavy coin die and striking hammer over two blank metal coins, pale stone, copper, silver, and deep green accents"
+      },
+      "tv_wonder_unique_enderun_palace_school_inaugurated": {
+        "icon_prompt": "an elegant Ottoman palace-school arcade with a small central dome, paired with one closed manuscript and one ceremonial training bow, cream stone, turquoise tile, burgundy, and restrained gold"
+      },
+      "tv_wonder_unique_ayutthaya_foreign_quarters_inaugurated": {
+        "icon_prompt": "an Ayutthayan riverside embassy and customs pavilion with a steep Siamese roof, one tiny foreign merchant sail, and two compact cargo bales, teak brown, gilded red, river blue, and ivory"
+      },
+      "tv_wonder_unique_yunnan_weisuo_colonies_inaugurated": {
+        "icon_prompt": "a fortified Ming frontier farmstead with one square watchtower rising above tiled barracks, a narrow terraced field, and a tiny grain cart, earth brown, muted red, rice green, and gray tile"
+      },
+      "tv_wonder_unique_zhoushan_beacon_network_inaugurated": {
+        "icon_prompt": "a rugged Ming coastal stone-and-timber beacon tower crowned by a bright signal fire, with two tiny answering beacon flames behind it, charcoal stone, weathered timber, sea blue, and ember orange"
+      }
+    }
   },
   "victory_path_icons": {
     "output_dir": "src/main_menu/gfx/interface/icons/towards_victory/victory_paths",

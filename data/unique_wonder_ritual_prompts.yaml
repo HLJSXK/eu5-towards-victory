@@ -15,9 +15,9 @@ unique_wonders:
     1.将地中海的8个标志性地点作为判定地点，硬编码
     2.仪式可以随时开始，点击开始时，付费并在当地开始建造独特附属建筑，该建筑建造完毕后，弹出事件1告知玩家进入阶段1
     3.阶段1：每3个月检查一次，伊斯坎达利亚海域是否存在敌对海盗，如果存在，弹出事件组2，要求玩家付出少量代价（从多个硬编码中随机一个，参考本mod其他随机事件），消灭当地的海盗，这将导致当地的所有海盗损失40%的力量，玩家也可以选择不付出代价，不发生任何事；如果当地不再有敌对海盗，弹出事件3，奖励一次性奖励，并告知玩家进入阶段2
-    4.阶段2：每3个月，抽取一个标志性地点进行判定：如果该地点已经由玩家拥有，则弹出事件4，告知玩家该地点通过判定；否则，判定该国是否与玩家有双向“驻港权”关系，如果已经有，则弹出事件5，告知玩家该地点通过判定；否则，弹出事件6，要求玩家付出少量代价，并与目标国家建立双向“驻港权”关系。当所有标志性地点都完成判定时，弹出事件7，奖励永久国家buff奖励，并告知玩家仪式成功，触发奇观落成事件
+    4.阶段2：每3个月，抽取一个标志性地点进行判定：如果该地点已经由玩家拥有，则弹出事件4，告知玩家该地点通过判定；否则，判定该国是否与玩家有双向"驻港权"关系，如果已经有，则弹出事件5，告知玩家该地点通过判定；否则，弹出事件6，要求玩家付出少量代价，并与目标国家建立双向"驻港权"关系。当所有标志性地点都完成判定时，弹出事件7，奖励永久国家buff奖励，并告知玩家仪式成功，触发奇观落成事件
     前端：
-    仪式面板由3个部分组成，初始只显示一个建造按钮，进入阶段1后，改为显示一个无标题Card，左侧放置一个较大的Piechart，用于展示当地海盗的平均力量，Piechart中心放置海盗Icon，右侧放置一行风味文本：消灭伊斯坎达利亚的海盗以推进仪式；进入阶段2后，改为显示另一个无标题Card，左侧放置一个较大的Piechart，用于展示当前的控制进度，即x/8，Piechart中心放置与海上航线相关的Icon；在该无标题Card下方，放置8行矮无标题Card，每行开始于location icon，随后是标准location link，中间是expander，右侧是标准country 国旗+country link，最后是status：分为“控制”、“驻港”、“未控”。status是控制、驻港时，Card使用不饱和绿色作为底色，否则使用不饱和红色。
+    仪式面板由3个部分组成，初始只显示一个建造按钮，进入阶段1后，改为显示一个无标题Card，左侧放置一个较大的Piechart，用于展示当地海盗的平均力量，Piechart中心放置海盗Icon，右侧放置一行风味文本：消灭伊斯坎达利亚的海盗以推进仪式；进入阶段2后，改为显示另一个无标题Card，左侧放置一个较大的Piechart，用于展示当前的控制进度，即x/8，Piechart中心放置与海上航线相关的Icon；在该无标题Card下方，放置8行矮无标题Card，每行开始于location icon，随后是标准location link，中间是expander，右侧是标准country 国旗+country link，最后是status：分为"控制"、"驻港"、"未控"。status是控制、驻港时，Card使用不饱和绿色作为底色，否则使用不饱和红色。
 - id: 102
   key: unique_hagia_sophia
   base_key: sky_dome_grand_temple
@@ -38,3 +38,81 @@ unique_wonders:
     1.使用8个无标题Card承载内容，每个都使用相同设计：左侧是一个方形人物肖像栏，点击时触发角色选择，角色就位，才开始3个月倒计时。右侧是一行风味文本，有3种显示状态：告知玩家需要指派一位角色、告知玩家正在进行xxx、告知玩家该项目已完成。
     2.每个Card只有在对应项目正在执行或已完成时才可见，即一开始只能看到1个Card，随着进度推进逐渐最终看到8个Card
     3.每个Card在完成后显示为不饱和绿色，在激活时显示为标准颜色，隐藏时无所谓，统一为标准颜色
+- id: 224
+  key: unique_suzhou_classical_gardens
+  base_key: grand_garden_complex
+  location: wuxian
+  ritual_title: Literati Garden Convocation
+  prompt: Implement or refine the eight-stage ceremony for Suzhou Classical Gardens (Literati Garden Convocation). Preserve the fixed site wuxian, the base mechanic grand_garden_complex, one computed cost item per stage, monthly listener progression, and stage-eight finalization.
+- id: 225
+  key: unique_fin_garden
+  base_key: grand_garden_complex
+  location: kashan
+  ritual_title: Oasis Garden Water Rite
+  prompt: Implement or refine the eight-stage ceremony for Fin Garden (Oasis Garden Water Rite). Preserve the fixed site kashan, the base mechanic grand_garden_complex, one computed cost item per stage, monthly listener progression, and stage-eight finalization.
+- id: 226
+  key: unique_jiangnan_examination_hall
+  base_key: state_examination_complex
+  location: shangyuan
+  ritual_title: Locked Compound Degree Roll
+  prompt: Implement or refine the eight-stage ceremony for Jiangnan Examination Hall (Locked Compound Degree Roll). Preserve the fixed site shangyuan, the base mechanic state_examination_complex, one computed cost item per stage, monthly listener progression, and stage-eight finalization.
+- id: 227
+  key: unique_thang_long_temple_of_literature
+  base_key: state_examination_complex
+  location: thang_long
+  ritual_title: Doctors' Steles Convocation
+  prompt: Implement or refine the eight-stage ceremony for Thang Long Temple of Literature (Doctors' Steles Convocation). Preserve the fixed site thang_long, the base mechanic state_examination_complex, one computed cost item per stage, monthly listener progression, and stage-eight finalization.
+- id: 228
+  key: unique_maragheh_observatory
+  base_key: giant_observatory
+  location: maragheh
+  ritual_title: Zij Star Table Assembly
+  prompt: Implement or refine the eight-stage ceremony for Maragheh Observatory (Zij Star Table Assembly). Preserve the fixed site maragheh, the base mechanic giant_observatory, one computed cost item per stage, monthly listener progression, and stage-eight finalization.
+- id: 229
+  key: unique_xian_bell_and_drum_towers
+  base_key: great_clock_bell_system
+  location: jingzhao
+  ritual_title: City Time Signal Ordinance
+  prompt: Implement or refine the eight-stage ceremony for Xi'an Bell and Drum Towers (City Time Signal Ordinance). Preserve the fixed site jingzhao, the base mechanic great_clock_bell_system, one computed cost item per stage, monthly listener progression, and stage-eight finalization.
+- id: 230
+  key: unique_behistun_inscription
+  base_key: law_code_stele_project
+  location: bisotun
+  ritual_title: Royal Rock Text Proclamation
+  prompt: Implement or refine the eight-stage ceremony for Behistun Inscription (Royal Rock Text Proclamation). Preserve the fixed site bisotun, the base mechanic law_code_stele_project, one computed cost item per stage, monthly listener progression, and stage-eight finalization.
+- id: 231
+  key: unique_beijing_imperial_granaries
+  base_key: royal_granary_system
+  location: dadu
+  ritual_title: Capital Grain Reserve Audit
+  prompt: Implement or refine the eight-stage ceremony for Beijing Imperial Granaries (Capital Grain Reserve Audit). Preserve the fixed site dadu, the base mechanic royal_granary_system, one computed cost item per stage, monthly listener progression, and stage-eight finalization.
+- id: 232
+  key: unique_bursa_imperial_mint
+  base_key: royal_mint_system
+  location: bursa
+  ritual_title: Sealed Coinage Assay
+  prompt: Implement or refine the eight-stage ceremony for Bursa Imperial Mint (Sealed Coinage Assay). Preserve the fixed site bursa, the base mechanic royal_mint_system, one computed cost item per stage, monthly listener progression, and stage-eight finalization.
+- id: 233
+  key: unique_enderun_palace_school
+  base_key: war_college_system
+  location: constantinople
+  ritual_title: Palace Service Examination
+  prompt: Implement or refine the eight-stage ceremony for Enderun Palace School (Palace Service Examination). Preserve the fixed site constantinople, the base mechanic war_college_system, one computed cost item per stage, monthly listener progression, and stage-eight finalization.
+- id: 234
+  key: unique_ayutthaya_foreign_quarters
+  base_key: world_embassy_quarter
+  location: ayodhya
+  ritual_title: River Embassy Quarter Settlement
+  prompt: Implement or refine the eight-stage ceremony for Ayutthaya Foreign Quarters (River Embassy Quarter Settlement). Preserve the fixed site ayodhya, the base mechanic world_embassy_quarter, one computed cost item per stage, monthly listener progression, and stage-eight finalization.
+- id: 235
+  key: unique_yunnan_weisuo_colonies
+  base_key: frontier_colonization_belt
+  location: songming
+  ritual_title: Frontier Garrison Field Register
+  prompt: Implement or refine the eight-stage ceremony for Yunnan Weisuo Colonies (Frontier Garrison Field Register). Preserve the fixed site songming, the base mechanic frontier_colonization_belt, one computed cost item per stage, monthly listener progression, and stage-eight finalization.
+- id: 236
+  key: unique_zhoushan_beacon_network
+  base_key: coastal_beacon_network
+  location: dinghai
+  ritual_title: Island Beacon Watch
+  prompt: Implement or refine the eight-stage ceremony for Zhoushan Beacon Network (Island Beacon Watch). Preserve the fixed site dinghai, the base mechanic coastal_beacon_network, one computed cost item per stage, monthly listener progression, and stage-eight finalization.

@@ -1,7 +1,7 @@
 # Unique Wonder Ritual Global Authoring Workflow
 
 This workflow is for full-corpus planning before any bulk Unique Wonder Ritual
-Harness spec authoring. It exists to prevent 123 unique wonders from collapsing
+Harness spec authoring. It exists to prevent 136 unique wonders from collapsing
 into repeated cadence shapes, repeated UI models, or the safest mature template.
 It also prevents formal specs from flattening matrix ideas merely because current
 capabilities, templates, or codegen cannot express them yet.
@@ -12,17 +12,18 @@ turns entries into `data/unique_wonder_ritual_specs.yaml` records.
 
 ## Current Phase Freeze
 
-The full-corpus Harness design-carrying phase is complete. All 123 unique-wonder ritual designs
-are represented in the Harness intermediate layer with `compiler_mapped=117`,
-`source_codegen_ready=4`, `implemented_parity=2`, `stub=0`, `harness_generated=0`, and
-registry/codegen `may_write_src=0`.
+The current Harness corpus contains 136 unique-wonder ritual specs. Their identity statuses are
+`compiler_mapped=117`, `implemented_parity=2`, `stub=17`, `source_codegen_ready=0`, and
+`harness_generated=0`; registry/codegen `may_write_src=0`. The 17 stub rows are the four
+pre-existing bespoke-design gaps plus the 13 Asia expansion entries, so the new entries are
+catalogued but are not yet source-codegen-ready rituals.
 
 `compiler_mapped` is a design-bearing semantic projection, not a source-ready state. The
 source generation stage has not started: v1 codegen remains restricted to intermediate
 Markdown fragments, and all template/capability/archetype registry contracts must keep
 `may_write_src: false`.
 
-The 17 rows marked as future Harness/EU5 gaps are the next source compiler / EU5
+The 17 stub rows marked as future Harness/EU5 gaps are the next source compiler / EU5
 verification backlog. Preserve those rows and their feasibility labels instead of removing
 or simplifying them to silence the warning.
 

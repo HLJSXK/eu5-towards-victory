@@ -8,7 +8,7 @@
 
 Like a lot of people coming from EU4, I was pretty let down that EU5's "wonders" are just a location with a flavor tooltip — no build process, no effect, nothing. So I made a mod that fixes that.
 
-**Great Project** adds a new international organization, the Engineering Department, that runs the whole thing. There's a catalog of 54 generic wonders any nation can build, plus 123 historical unique wonders that are locked to their real-world location (Pharos at Alexandria, Hagia Sophia at Constantinople, Persian Qanat at Qom, and so on).
+**Great Project** adds a new international organization, the Engineering Department, that runs the whole thing. There's a catalog of 56 generic wonders any nation can build, plus 136 historical unique wonders that are locked to their real-world location (Pharos at Alexandria, Hagia Sophia at Constantinople, Persian Qanat at Qom, and so on).
 
 Building one is a 6-stage process:
 1. **Concept** — your Great Engineer puts forward 3 proposals at once (small/medium/large) based on your country's situation (accept one, refute for prestige, or bribe for a fresh set)
@@ -18,7 +18,7 @@ Building one is a 6-stage process:
 5. **Ceremony** — pick from 3 styles for a generic wonder; most unique wonders instead auto-run a shared 8-stage ceremony, while 2 (Pharos Lighthouse, Hagia Sophia) get a fully bespoke ritual — this is what actually determines the bonuses
 6. **Finalization** — the wonder is built, you get a national celebration buff, and it's broadcast as world news
 
-There's also a dedicated in-game map mode that colors every completed wonder worldwide, so you can scout other nations' wonders as conquest targets, plus a standalone website (not in-game) where you can browse all 123 unique wonders pinned on a world map.
+There's also a dedicated in-game map mode that colors every completed wonder worldwide, so you can scout other nations' wonders as conquest targets, plus a standalone website (not in-game) where you can browse all 136 unique wonders pinned on a world map.
 
 It requires Community Mod Framework 2.x — it's not tied to my other mod (Towards Victory), so you can grab it on its own.
 

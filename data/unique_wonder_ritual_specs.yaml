@@ -87830,3 +87830,575 @@ unique_wonders:
     - All used capabilities and archetypes are intermediate-only and may_write_src false.
     - No Harness source compiler expands this compiler_mapped ritual into loadable EU5 src.
     - unique_walls_of_benin remains compiler_mapped, not source_codegen_ready or harness_generated.
+- identity:
+    id: 224
+    key: unique_suzhou_classical_gardens
+    base_key: grand_garden_complex
+    location: wuxian
+    runtime_prefix: tv_wonder_suzhou_classical_gardens
+    status: stub
+  event_ids: []
+  node_graph:
+    model: not_authored
+    historical_mechanic: ''
+    listeners: []
+    summary: unique_suzhou_classical_gardens needs a full playable unique ritual spec. The entry exists only so audit tooling can track coverage.
+    nodes: []
+  ui_model:
+    components: []
+  rewards:
+    permanent_country_modifier:
+      status: pending
+      source: needs_design
+      description: To be authored before this ritual can pass the Harness quality gates.
+    local_building_reward:
+      status: pending
+      source: needs_design
+      description: To be authored before this ritual can pass the Harness quality gates.
+    one_time_reward:
+      status: pending
+      source: needs_design
+      description: To be authored before this ritual can pass the Harness quality gates.
+  localization:
+    panel_text_keys: []
+    event_keys: []
+    world_news_keys:
+    - tv_engineering_department.600.d_unique_suzhou_classical_gardens
+  implementation_notes:
+    source_ritual_key: literati_garden_convocation
+    implementation_source: none
+    verification_status: needs_design
+    verified_interfaces: []
+    needs_verification:
+    - full_ritual_design
+    - node_graph
+    - ui_model
+    - event_ids
+- identity:
+    id: 225
+    key: unique_fin_garden
+    base_key: grand_garden_complex
+    location: kashan
+    runtime_prefix: tv_wonder_fin_garden
+    status: stub
+  event_ids: []
+  node_graph:
+    model: not_authored
+    historical_mechanic: ''
+    listeners: []
+    summary: unique_fin_garden needs a full playable unique ritual spec. The entry exists only so audit tooling can track coverage.
+    nodes: []
+  ui_model:
+    components: []
+  rewards:
+    permanent_country_modifier:
+      status: pending
+      source: needs_design
+      description: To be authored before this ritual can pass the Harness quality gates.
+    local_building_reward:
+      status: pending
+      source: needs_design
+      description: To be authored before this ritual can pass the Harness quality gates.
+    one_time_reward:
+      status: pending
+      source: needs_design
+      description: To be authored before this ritual can pass the Harness quality gates.
+  localization:
+    panel_text_keys: []
+    event_keys: []
+    world_news_keys:
+    - tv_engineering_department.600.d_unique_fin_garden
+  implementation_notes:
+    source_ritual_key: oasis_garden_water_rite
+    implementation_source: none
+    verification_status: needs_design
+    verified_interfaces: []
+    needs_verification:
+    - full_ritual_design
+    - node_graph
+    - ui_model
+    - event_ids
+- identity:
+    id: 226
+    key: unique_jiangnan_examination_hall
+    base_key: state_examination_complex
+    location: shangyuan
+    runtime_prefix: tv_wonder_jiangnan_examination_hall
+    status: stub
+  event_ids: []
+  node_graph:
+    model: not_authored
+    historical_mechanic: ''
+    listeners: []
+    summary: unique_jiangnan_examination_hall needs a full playable unique ritual spec. The entry exists only so audit tooling can track coverage.
+    nodes: []
+  ui_model:
+    components: []
+  rewards:
+    permanent_country_modifier:
+      status: pending
+      source: needs_design
+      description: To be authored before this ritual can pass the Harness quality gates.
+    local_building_reward:
+      status: pending
+      source: needs_design
+      description: To be authored before this ritual can pass the Harness quality gates.
+    one_time_reward:
+      status: pending
+      source: needs_design
+      description: To be authored before this ritual can pass the Harness quality gates.
+  localization:
+    panel_text_keys: []
+    event_keys: []
+    world_news_keys:
+    - tv_engineering_department.600.d_unique_jiangnan_examination_hall
+  implementation_notes:
+    source_ritual_key: locked_compound_degree_roll
+    implementation_source: none
+    verification_status: needs_design
+    verified_interfaces: []
+    needs_verification:
+    - full_ritual_design
+    - node_graph
+    - ui_model
+    - event_ids
+- identity:
+    id: 227
+    key: unique_thang_long_temple_of_literature
+    base_key: state_examination_complex
+    location: thang_long
+    runtime_prefix: tv_wonder_thang_long_temple_of_literature
+    status: stub
+  event_ids: []
+  node_graph:
+    model: not_authored
+    historical_mechanic: ''
+    listeners: []
+    summary: unique_thang_long_temple_of_literature needs a full playable unique ritual spec. The entry exists only so audit tooling can track coverage.
+    nodes: []
+  ui_model:
+    components: []
+  rewards:
+    permanent_country_modifier:
+      status: pending
+      source: needs_design
+      description: To be authored before this ritual can pass the Harness quality gates.
+    local_building_reward:
+      status: pending
+      source: needs_design
+      description: To be authored before this ritual can pass the Harness quality gates.
+    one_time_reward:
+      status: pending
+      source: needs_design
+      description: To be authored before this ritual can pass the Harness quality gates.
+  localization:
+    panel_text_keys: []
+    event_keys: []
+    world_news_keys:
+    - tv_engineering_department.600.d_unique_thang_long_temple_of_literature
+  implementation_notes:
+    source_ritual_key: doctors_steles_convocation
+    implementation_source: none
+    verification_status: needs_design
+    verified_interfaces: []
+    needs_verification:
+    - full_ritual_design
+    - node_graph
+    - ui_model
+    - event_ids
+- identity:
+    id: 228
+    key: unique_maragheh_observatory
+    base_key: giant_observatory
+    location: maragheh
+    runtime_prefix: tv_wonder_maragheh_observatory
+    status: stub
+  event_ids: []
+  node_graph:
+    model: not_authored
+    historical_mechanic: ''
+    listeners: []
+    summary: unique_maragheh_observatory needs a full playable unique ritual spec. The entry exists only so audit tooling can track coverage.
+    nodes: []
+  ui_model:
+    components: []
+  rewards:
+    permanent_country_modifier:
+      status: pending
+      source: needs_design
+      description: To be authored before this ritual can pass the Harness quality gates.
+    local_building_reward:
+      status: pending
+      source: needs_design
+      description: To be authored before this ritual can pass the Harness quality gates.
+    one_time_reward:
+      status: pending
+      source: needs_design
+      description: To be authored before this ritual can pass the Harness quality gates.
+  localization:
+    panel_text_keys: []
+    event_keys: []
+    world_news_keys:
+    - tv_engineering_department.600.d_unique_maragheh_observatory
+  implementation_notes:
+    source_ritual_key: zij_star_table_assembly
+    implementation_source: none
+    verification_status: needs_design
+    verified_interfaces: []
+    needs_verification:
+    - full_ritual_design
+    - node_graph
+    - ui_model
+    - event_ids
+- identity:
+    id: 229
+    key: unique_xian_bell_and_drum_towers
+    base_key: great_clock_bell_system
+    location: jingzhao
+    runtime_prefix: tv_wonder_xian_bell_and_drum_towers
+    status: stub
+  event_ids: []
+  node_graph:
+    model: not_authored
+    historical_mechanic: ''
+    listeners: []
+    summary: unique_xian_bell_and_drum_towers needs a full playable unique ritual spec. The entry exists only so audit tooling can track coverage.
+    nodes: []
+  ui_model:
+    components: []
+  rewards:
+    permanent_country_modifier:
+      status: pending
+      source: needs_design
+      description: To be authored before this ritual can pass the Harness quality gates.
+    local_building_reward:
+      status: pending
+      source: needs_design
+      description: To be authored before this ritual can pass the Harness quality gates.
+    one_time_reward:
+      status: pending
+      source: needs_design
+      description: To be authored before this ritual can pass the Harness quality gates.
+  localization:
+    panel_text_keys: []
+    event_keys: []
+    world_news_keys:
+    - tv_engineering_department.600.d_unique_xian_bell_and_drum_towers
+  implementation_notes:
+    source_ritual_key: city_time_signal_ordinance
+    implementation_source: none
+    verification_status: needs_design
+    verified_interfaces: []
+    needs_verification:
+    - full_ritual_design
+    - node_graph
+    - ui_model
+    - event_ids
+- identity:
+    id: 230
+    key: unique_behistun_inscription
+    base_key: law_code_stele_project
+    location: bisotun
+    runtime_prefix: tv_wonder_behistun_inscription
+    status: stub
+  event_ids: []
+  node_graph:
+    model: not_authored
+    historical_mechanic: ''
+    listeners: []
+    summary: unique_behistun_inscription needs a full playable unique ritual spec. The entry exists only so audit tooling can track coverage.
+    nodes: []
+  ui_model:
+    components: []
+  rewards:
+    permanent_country_modifier:
+      status: pending
+      source: needs_design
+      description: To be authored before this ritual can pass the Harness quality gates.
+    local_building_reward:
+      status: pending
+      source: needs_design
+      description: To be authored before this ritual can pass the Harness quality gates.
+    one_time_reward:
+      status: pending
+      source: needs_design
+      description: To be authored before this ritual can pass the Harness quality gates.
+  localization:
+    panel_text_keys: []
+    event_keys: []
+    world_news_keys:
+    - tv_engineering_department.600.d_unique_behistun_inscription
+  implementation_notes:
+    source_ritual_key: royal_rock_text_proclamation
+    implementation_source: none
+    verification_status: needs_design
+    verified_interfaces: []
+    needs_verification:
+    - full_ritual_design
+    - node_graph
+    - ui_model
+    - event_ids
+- identity:
+    id: 231
+    key: unique_beijing_imperial_granaries
+    base_key: royal_granary_system
+    location: dadu
+    runtime_prefix: tv_wonder_beijing_imperial_granaries
+    status: stub
+  event_ids: []
+  node_graph:
+    model: not_authored
+    historical_mechanic: ''
+    listeners: []
+    summary: unique_beijing_imperial_granaries needs a full playable unique ritual spec. The entry exists only so audit tooling can track coverage.
+    nodes: []
+  ui_model:
+    components: []
+  rewards:
+    permanent_country_modifier:
+      status: pending
+      source: needs_design
+      description: To be authored before this ritual can pass the Harness quality gates.
+    local_building_reward:
+      status: pending
+      source: needs_design
+      description: To be authored before this ritual can pass the Harness quality gates.
+    one_time_reward:
+      status: pending
+      source: needs_design
+      description: To be authored before this ritual can pass the Harness quality gates.
+  localization:
+    panel_text_keys: []
+    event_keys: []
+    world_news_keys:
+    - tv_engineering_department.600.d_unique_beijing_imperial_granaries
+  implementation_notes:
+    source_ritual_key: capital_grain_reserve_audit
+    implementation_source: none
+    verification_status: needs_design
+    verified_interfaces: []
+    needs_verification:
+    - full_ritual_design
+    - node_graph
+    - ui_model
+    - event_ids
+- identity:
+    id: 232
+    key: unique_bursa_imperial_mint
+    base_key: royal_mint_system
+    location: bursa
+    runtime_prefix: tv_wonder_bursa_imperial_mint
+    status: stub
+  event_ids: []
+  node_graph:
+    model: not_authored
+    historical_mechanic: ''
+    listeners: []
+    summary: unique_bursa_imperial_mint needs a full playable unique ritual spec. The entry exists only so audit tooling can track coverage.
+    nodes: []
+  ui_model:
+    components: []
+  rewards:
+    permanent_country_modifier:
+      status: pending
+      source: needs_design
+      description: To be authored before this ritual can pass the Harness quality gates.
+    local_building_reward:
+      status: pending
+      source: needs_design
+      description: To be authored before this ritual can pass the Harness quality gates.
+    one_time_reward:
+      status: pending
+      source: needs_design
+      description: To be authored before this ritual can pass the Harness quality gates.
+  localization:
+    panel_text_keys: []
+    event_keys: []
+    world_news_keys:
+    - tv_engineering_department.600.d_unique_bursa_imperial_mint
+  implementation_notes:
+    source_ritual_key: sealed_coinage_assay
+    implementation_source: none
+    verification_status: needs_design
+    verified_interfaces: []
+    needs_verification:
+    - full_ritual_design
+    - node_graph
+    - ui_model
+    - event_ids
+- identity:
+    id: 233
+    key: unique_enderun_palace_school
+    base_key: war_college_system
+    location: constantinople
+    runtime_prefix: tv_wonder_enderun_palace_school
+    status: stub
+  event_ids: []
+  node_graph:
+    model: not_authored
+    historical_mechanic: ''
+    listeners: []
+    summary: unique_enderun_palace_school needs a full playable unique ritual spec. The entry exists only so audit tooling can track coverage.
+    nodes: []
+  ui_model:
+    components: []
+  rewards:
+    permanent_country_modifier:
+      status: pending
+      source: needs_design
+      description: To be authored before this ritual can pass the Harness quality gates.
+    local_building_reward:
+      status: pending
+      source: needs_design
+      description: To be authored before this ritual can pass the Harness quality gates.
+    one_time_reward:
+      status: pending
+      source: needs_design
+      description: To be authored before this ritual can pass the Harness quality gates.
+  localization:
+    panel_text_keys: []
+    event_keys: []
+    world_news_keys:
+    - tv_engineering_department.600.d_unique_enderun_palace_school
+  implementation_notes:
+    source_ritual_key: palace_service_examination
+    implementation_source: none
+    verification_status: needs_design
+    verified_interfaces: []
+    needs_verification:
+    - full_ritual_design
+    - node_graph
+    - ui_model
+    - event_ids
+- identity:
+    id: 234
+    key: unique_ayutthaya_foreign_quarters
+    base_key: world_embassy_quarter
+    location: ayodhya
+    runtime_prefix: tv_wonder_ayutthaya_foreign_quarters
+    status: stub
+  event_ids: []
+  node_graph:
+    model: not_authored
+    historical_mechanic: ''
+    listeners: []
+    summary: unique_ayutthaya_foreign_quarters needs a full playable unique ritual spec. The entry exists only so audit tooling can track coverage.
+    nodes: []
+  ui_model:
+    components: []
+  rewards:
+    permanent_country_modifier:
+      status: pending
+      source: needs_design
+      description: To be authored before this ritual can pass the Harness quality gates.
+    local_building_reward:
+      status: pending
+      source: needs_design
+      description: To be authored before this ritual can pass the Harness quality gates.
+    one_time_reward:
+      status: pending
+      source: needs_design
+      description: To be authored before this ritual can pass the Harness quality gates.
+  localization:
+    panel_text_keys: []
+    event_keys: []
+    world_news_keys:
+    - tv_engineering_department.600.d_unique_ayutthaya_foreign_quarters
+  implementation_notes:
+    source_ritual_key: river_embassy_quarter_settlement
+    implementation_source: none
+    verification_status: needs_design
+    verified_interfaces: []
+    needs_verification:
+    - full_ritual_design
+    - node_graph
+    - ui_model
+    - event_ids
+- identity:
+    id: 235
+    key: unique_yunnan_weisuo_colonies
+    base_key: frontier_colonization_belt
+    location: songming
+    runtime_prefix: tv_wonder_yunnan_weisuo_colonies
+    status: stub
+  event_ids: []
+  node_graph:
+    model: not_authored
+    historical_mechanic: ''
+    listeners: []
+    summary: unique_yunnan_weisuo_colonies needs a full playable unique ritual spec. The entry exists only so audit tooling can track coverage.
+    nodes: []
+  ui_model:
+    components: []
+  rewards:
+    permanent_country_modifier:
+      status: pending
+      source: needs_design
+      description: To be authored before this ritual can pass the Harness quality gates.
+    local_building_reward:
+      status: pending
+      source: needs_design
+      description: To be authored before this ritual can pass the Harness quality gates.
+    one_time_reward:
+      status: pending
+      source: needs_design
+      description: To be authored before this ritual can pass the Harness quality gates.
+  localization:
+    panel_text_keys: []
+    event_keys: []
+    world_news_keys:
+    - tv_engineering_department.600.d_unique_yunnan_weisuo_colonies
+  implementation_notes:
+    source_ritual_key: frontier_garrison_field_register
+    implementation_source: none
+    verification_status: needs_design
+    verified_interfaces: []
+    needs_verification:
+    - full_ritual_design
+    - node_graph
+    - ui_model
+    - event_ids
+- identity:
+    id: 236
+    key: unique_zhoushan_beacon_network
+    base_key: coastal_beacon_network
+    location: dinghai
+    runtime_prefix: tv_wonder_zhoushan_beacon_network
+    status: stub
+  event_ids: []
+  node_graph:
+    model: not_authored
+    historical_mechanic: ''
+    listeners: []
+    summary: unique_zhoushan_beacon_network needs a full playable unique ritual spec. The entry exists only so audit tooling can track coverage.
+    nodes: []
+  ui_model:
+    components: []
+  rewards:
+    permanent_country_modifier:
+      status: pending
+      source: needs_design
+      description: To be authored before this ritual can pass the Harness quality gates.
+    local_building_reward:
+      status: pending
+      source: needs_design
+      description: To be authored before this ritual can pass the Harness quality gates.
+    one_time_reward:
+      status: pending
+      source: needs_design
+      description: To be authored before this ritual can pass the Harness quality gates.
+  localization:
+    panel_text_keys: []
+    event_keys: []
+    world_news_keys:
+    - tv_engineering_department.600.d_unique_zhoushan_beacon_network
+  implementation_notes:
+    source_ritual_key: island_beacon_watch
+    implementation_source: none
+    verification_status: needs_design
+    verified_interfaces: []
+    needs_verification:
+    - full_ritual_design
+    - node_graph
+    - ui_model
+    - event_ids

@@ -36,6 +36,9 @@ FINALIZATION_EVENT_GENERATOR = (
     / "events"
     / "gen_tv_wonder_finalization_events.py"
 )
+SITE_REQUIREMENT_AUDITOR = (
+    REPO_ROOT / "scripts_engineering_department" / "audit_unique_wonder_site_requirements.py"
+)
 EFFECT_GENERATOR = (
     REPO_ROOT
     / "scripts_engineering_department" / "in_game"
@@ -206,6 +209,15 @@ def require(condition: bool, message: str) -> None:
 def load_trigger_generator():
     spec = importlib.util.spec_from_file_location("wonder_mechanics_trigger_generator", TRIGGER_GENERATOR)
     require(spec is not None and spec.loader is not None, "Could not load wonder mechanics trigger generator.")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_site_requirement_auditor():
+    spec = importlib.util.spec_from_file_location("wonder_site_requirement_auditor", SITE_REQUIREMENT_AUDITOR)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Unable to load site-requirement auditor: {SITE_REQUIREMENT_AUDITOR}")
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
@@ -518,7 +530,12 @@ def validate_cmm_wonder_controls(wonders: list[dict], mechanics: dict) -> None:
 
     ritual = load_effect_generator().generate_ritual_effects()
     skip_ritual = extract_trigger_block(ritual, "tv_wonder_mechanics_skip_selected_ritual_effect")
-    require("cost_multiplier = 0 instant = yes" in skip_ritual, "Skipped auxiliary ceremonies must build instantly and for free.")
+    require("cost_multiplier = 0" in skip_ritual, "Skipped auxiliary ceremonies must build for free.")
+    require(
+        'cost_multiplier_reason = "game_concept_event"' in skip_ritual,
+        "Skipped auxiliary ceremonies must explain their free construction.",
+    )
+    require("instant = yes" in skip_ritual, "Skipped auxiliary ceremonies must build instantly.")
     require("tv_wonder_mechanics_apply_immediate_ritual_effect = yes" in skip_ritual, "Skipped immediate ceremonies must grant their reward.")
     require("tv_wonder_finalize_effect = yes" in skip_ritual, "Skipped generic ceremonies must finalize normally.")
     initializer = extract_trigger_block(effects, "tv_wonder_initialize_ceremony_runtime_state_effect")
@@ -914,7 +931,7 @@ def validate_generated_ceremony_flow(wonders: list[dict], mechanics: dict) -> No
 def validate_generated_ceremony_autostart(wonders: list[dict]) -> None:
     ceremony_wonders = [wonder for wonder in wonders if wonder.get("is_unique") and wonder.get("ceremony") is not None]
     expected_ids = {int(wonder["id"]) for wonder in ceremony_wonders}
-    require(len(expected_ids) == 121, "The shared automatic ceremony must cover exactly 121 unique wonders.")
+    require(len(expected_ids) == 134, "The shared automatic ceremony must cover exactly 134 unique wonders.")
 
     trigger_script = load_trigger_generator().generate()
     framework_trigger = extract_trigger_block(
@@ -1291,6 +1308,125 @@ def validate_editor_localization_rendering_matches_generators() -> None:
         require(actual == expected, f"Editor localization rendering must match {name}.")
 
 
+def validate_site_requirement_audit_uses_authoritative_ports() -> dict[str, dict]:
+    auditor = load_site_requirement_auditor()
+    ports = auditor.load_ports()
+    require(
+        ports.get("jiangyin") == "yantze_estuary",
+        "The site-requirement audit must load Jiangyin's authoritative ports.csv entry.",
+    )
+    require(
+        ports.get("malacca") == "inner_strait_malacca",
+        "The site-requirement audit must load Malacca's authoritative ports.csv entry.",
+    )
+
+    summary = auditor.audit()
+    rows = {row["key"]: row for row in summary["results"]}
+    require(
+        rows["unique_longjiang_shipyard"]["status"] == "PASS",
+        "Longjiang Shipyard at Jiangyin must pass is_port using ports.csv, even with zero harbor suitability.",
+    )
+    require(
+        rows["unique_malacca_port"]["status"] == "PASS",
+        "Malacca Port must pass is_port using ports.csv, even with zero harbor suitability.",
+    )
+    return rows
+
+
+def validate_asia_wonder_expansion_coverage(
+    wonders: list[dict],
+    site_audit_rows: dict[str, dict],
+) -> None:
+    generic_wonders = [wonder for wonder in wonders if not wonder.get("is_unique")]
+    unique_wonders = [wonder for wonder in wonders if wonder.get("is_unique")]
+    require(
+        len(generic_wonders) == 56,
+        f"Asia expansion must leave exactly 56 generic wonder prototypes, got {len(generic_wonders)}.",
+    )
+    require(
+        len(unique_wonders) == 136,
+        f"Asia expansion must leave exactly 136 unique wonders, got {len(unique_wonders)}.",
+    )
+
+    expected_generic_ids = {
+        55: "grand_garden_complex",
+        56: "state_examination_complex",
+    }
+    actual_generic_ids = {
+        wonder["id"]: wonder["key"]
+        for wonder in generic_wonders
+        if wonder["id"] in expected_generic_ids
+    }
+    require(
+        actual_generic_ids == expected_generic_ids,
+        f"Asia expansion generic wonder IDs drifted: expected {expected_generic_ids}, got {actual_generic_ids}.",
+    )
+
+    expected_unique_ids = {
+        224: "unique_suzhou_classical_gardens",
+        225: "unique_fin_garden",
+        226: "unique_jiangnan_examination_hall",
+        227: "unique_thang_long_temple_of_literature",
+        228: "unique_maragheh_observatory",
+        229: "unique_xian_bell_and_drum_towers",
+        230: "unique_behistun_inscription",
+        231: "unique_beijing_imperial_granaries",
+        232: "unique_bursa_imperial_mint",
+        233: "unique_enderun_palace_school",
+        234: "unique_ayutthaya_foreign_quarters",
+        235: "unique_yunnan_weisuo_colonies",
+        236: "unique_zhoushan_beacon_network",
+    }
+    actual_unique_ids = {
+        wonder["id"]: wonder["key"]
+        for wonder in unique_wonders
+        if wonder["id"] in expected_unique_ids
+    }
+    require(
+        actual_unique_ids == expected_unique_ids,
+        f"Asia expansion unique wonder IDs drifted: expected {expected_unique_ids}, got {actual_unique_ids}.",
+    )
+
+    formerly_unadopted_base_keys = {
+        "giant_observatory",
+        "royal_granary_system",
+        "frontier_colonization_belt",
+        "coastal_beacon_network",
+        "war_college_system",
+        "great_clock_bell_system",
+        "world_embassy_quarter",
+        "law_code_stele_project",
+        "royal_mint_system",
+    }
+    unique_adoption_counts = Counter(wonder["base_key"] for wonder in unique_wonders)
+    still_unadopted = sorted(
+        base_key
+        for base_key in formerly_unadopted_base_keys
+        if unique_adoption_counts[base_key] < 1
+    )
+    require(
+        not still_unadopted,
+        "Asia expansion must give every formerly zero-adoption prototype at least one unique wonder: "
+        + ", ".join(still_unadopted),
+    )
+
+    missing_audit_rows = sorted(set(expected_unique_ids.values()) - set(site_audit_rows))
+    require(
+        not missing_audit_rows,
+        "Asia expansion wonders are missing from the site-requirement audit: "
+        + ", ".join(missing_audit_rows),
+    )
+    non_passing_sites = {
+        key: site_audit_rows[key]["status"]
+        for key in expected_unique_ids.values()
+        if site_audit_rows[key]["status"] != "PASS"
+    }
+    require(
+        not non_passing_sites,
+        f"All 13 Asia expansion unique wonders must pass the site-requirement audit: {non_passing_sites}.",
+    )
+
+
 def main() -> None:
     wonders, mechanics = load_all_wonder_mechanics()
 
@@ -1306,6 +1442,8 @@ def main() -> None:
     validate_unique_ceremony_editor_support(wonders)
     validate_editor_localization_ignores_design_only_english(wonders, mechanics)
     validate_editor_localization_rendering_matches_generators()
+    site_audit_rows = validate_site_requirement_audit_uses_authoritative_ports()
+    validate_asia_wonder_expansion_coverage(wonders, site_audit_rows)
 
     small_violations: list[str] = []
     medium_large_non_value: list[str] = []

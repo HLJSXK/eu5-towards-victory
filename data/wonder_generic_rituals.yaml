@@ -660,3 +660,30 @@ generic_rituals:
       reward:
       - type: navy_tradition
         value: 20
+  grand_garden_complex:
+    style_1:
+      country_modifier:
+        skill_of_new_artists: 0.1
+    style_2:
+      local_modifier:
+        local_cultural_tradition: 1
+    style_3:
+      cost_type: artwork
+      reward:
+      - type: cultural_tradition
+        value: 25
+      - type: site_prosperity
+        value: 0.3
+  state_examination_complex:
+    style_1:
+      country_modifier:
+        country_cabinet_efficiency: 0.1
+    style_2:
+      local_modifier:
+        local_max_literacy: 10
+        local_pop_promotion_speed_modifier: 0.25
+    style_3:
+      cost_type: prestige
+      reward:
+      - type: government_power
+        value: 20

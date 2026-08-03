@@ -35,8 +35,8 @@ Great Project adds a new international organization, the **Engineering Departmen
 
 ## Wonder catalog
 
-- **54 generic wonders** — buildable by any nation that meets a wonder's requirements. Each generic wonder offers a choice of ceremony style (see Stage 5) that shapes its final bonuses.
-- **123 historical unique wonders** — stronger, bespoke variants of a generic wonder type, restricted to the nation that owns the specific historical location. Examples:
+- **56 generic wonders** — buildable by any nation that meets a wonder's requirements. Each generic wonder offers a choice of ceremony style (see Stage 5) that shapes its final bonuses.
+- **136 historical unique wonders** — stronger, bespoke variants of a generic wonder type, restricted to the nation that owns the specific historical location. Examples:
   - **Persian Qanat** — Qom
   - **Longjiang Shipyard** — Jiangyin
   - **Pharos Lighthouse** — Alexandria
@@ -87,7 +87,7 @@ The final wonder building is constructed. You receive completion rewards and a n
 
 ## Wonders Atlas companion site
 
-A standalone website (outside the game) maps every one of the 123 unique wonders as a pin on a world map, with click-through detail cards. Generic wonders are listed alongside in a sidebar. Useful for browsing the full wonder catalog without loading a save.
+A standalone website (outside the game) maps every one of the 136 unique wonders as a pin on a world map, with click-through detail cards. Generic wonders are listed alongside in a sidebar. Useful for browsing the full wonder catalog without loading a save.
 
 ## FAQ
 

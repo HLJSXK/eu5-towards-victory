@@ -13,7 +13,7 @@ wonder ritual implementations, to catch the kind of design homogenization that
 previously produced an Alhambra / Dome of the Rock / Bank of Saint George /
 St. Peter's Basilica cluster (all four were thin reskins of the same generic
 `_entity_ritual.py` 4-stage shape, since removed) before it happens again
-across the remaining 121 unplanned wonders.
+across the remaining 134 unplanned wonders.
 
 Method
 ------
