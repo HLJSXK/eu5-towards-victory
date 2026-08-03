@@ -167,6 +167,32 @@ def append_option_customizable_localization_block(
     lines.append("")
 
 
+def artist_skill_reward_effect_lines(effect: str, value: object, indent: int) -> list[str]:
+    prefix = T * indent
+    return [
+        f"{prefix}random_artist = {{ limit = {{ is_alive = yes }} save_scope_as = tv_wonder_ceremony_reward_artist }}",
+        f"{prefix}if = {{",
+        f"{prefix}{T}limit = {{ exists = scope:tv_wonder_ceremony_reward_artist }}",
+        f"{prefix}{T}scope:tv_wonder_ceremony_reward_artist = {{ {effect} = {value} }}",
+        f"{prefix}}}",
+    ]
+
+
+def location_laborer_reward_effect_lines(value: object, indent: int) -> list[str]:
+    prefix = T * indent
+    return [
+        f"{prefix}if = {{",
+        f"{prefix}{T}limit = {{ has_owner = yes }}",
+        f"{prefix}{T}add_pop = {{",
+        f"{prefix}{T}{T}culture = owner.culture",
+        f"{prefix}{T}{T}religion = owner.religion",
+        f"{prefix}{T}{T}type = pop_type:laborers",
+        f"{prefix}{T}{T}size = {value}",
+        f"{prefix}{T}}}",
+        f"{prefix}}}",
+    ]
+
+
 def reward_effect_lines(reward: list[dict], indent: int, allow_artwork: bool = False) -> list[str]:
     """Mirrors gen_tv_engineering_department_wonder_mechanics_effects.py's
     reward_effect_lines() for the same STYLE_3_REWARD_EFFECTS vocabulary. Stage-two
@@ -196,8 +222,20 @@ def reward_effect_lines(reward: list[dict], indent: int, allow_artwork: bool = F
             lines.append(f"{prefix}ruler ?= {{ {effect} = {value} }}")
         elif scope == "culture_scalar":
             lines.append(f"{prefix}culture = {{ {effect} = {value} }}")
+        elif scope == "estate_satisfaction":
+            estate = str(spec["estate"])
+            lines.append(f"{prefix}if = {{")
+            lines.append(f"{prefix}{T}limit = {{ country_has_estate = {estate} }}")
+            lines.append(f"{prefix}{T}{effect} = {{ type = {estate} value = {value} }}")
+            lines.append(f"{prefix}}}")
+        elif scope == "artist_scalar":
+            lines.extend(artist_skill_reward_effect_lines(effect, value, indent))
         elif scope == "location_scalar":
             lines.append(f"{prefix}var:tv_wonder_site ?= {{ {effect} = {value} }}")
+        elif scope == "location_laborers":
+            lines.append(f"{prefix}var:tv_wonder_site ?= {{")
+            lines.extend(location_laborer_reward_effect_lines(value, indent + 1))
+            lines.append(f"{prefix}}}")
         else:
             raise ValueError(f"Unsupported ceremony reward scope: {scope}")
     return lines

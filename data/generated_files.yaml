@@ -597,7 +597,7 @@ generated:
     output: submods/tv_prosper_or_perish_compat/.metadata/thumbnail.png
 
   - script: scripts_engineering_department/gen_wonder_editor_catalog.py
-    data:   reference_game_files/game/in_game/events + reference_game_files/game/main_menu/common/static_modifiers + reference_game_files/game/main_menu/common/modifier_type_definitions
+    data:   data/cost_reward_units.yaml + reference_game_files/game/in_game/events + reference_game_files/game/main_menu/common/static_modifiers + reference_game_files/game/main_menu/common/modifier_type_definitions
     output: data/wonder_editor_catalog.yaml
 
   # ── Standalone Court Positions mod ─────────────────────────────────────────

@@ -159,11 +159,25 @@ WONDER_RITUAL_COST_TYPE_IDS = {
     "prestige": 3,
 }
 STYLE_3_REWARD_EFFECTS = {
+    "adm": {"effect": "add_adm", "scope": "ruler_scalar"},
     "all_estate_satisfaction": {"effect": "add_all_estate_satisfaction", "scope": "country_value_block"},
     "army_tradition": {"effect": "add_army_tradition", "scope": "country_scalar"},
+    "artist_skill": {"effect": "add_artist_skill", "scope": "artist_scalar"},
+    "burghers_satisfaction": {
+        "effect": "add_estate_satisfaction",
+        "scope": "estate_satisfaction",
+        "estate": "estate_type:burghers_estate",
+    },
     "celestial_authority": {"effect": "change_celestial_authority", "scope": "country_value_block"},
+    "clergy_satisfaction": {
+        "effect": "add_estate_satisfaction",
+        "scope": "estate_satisfaction",
+        "estate": "estate_type:clergy_estate",
+    },
     "cultural_influence": {"effect": "add_cultural_influence", "scope": "culture_scalar"},
     "cultural_tradition": {"effect": "add_cultural_tradition", "scope": "culture_scalar"},
+    "development": {"effect": "change_development", "scope": "location_scalar"},
+    "dip": {"effect": "add_dip", "scope": "ruler_scalar"},
     "devotion": {"effect": "add_devotion", "scope": "country_scalar"},
     "diplomats": {"effect": "add_diplomats", "scope": "country_scalar"},
     "doom": {"effect": "add_doom", "scope": "country_scalar"},
@@ -175,12 +189,25 @@ STYLE_3_REWARD_EFFECTS = {
     "imperial_authority": {"effect": "change_imperial_authority", "scope": "country_value_block"},
     "inflation": {"effect": "add_inflation", "scope": "country_scalar"},
     "karma": {"effect": "add_karma", "scope": "country_scalar"},
+    "laborers": {"effect": "add_pop", "scope": "location_laborers"},
     "legitimacy": {"effect": "add_legitimacy", "scope": "country_scalar"},
     "manpower": {"effect": "add_manpower", "scope": "country_scalar"},
+    "mil": {"effect": "add_mil", "scope": "ruler_scalar"},
     "navy_tradition": {"effect": "add_navy_tradition", "scope": "country_scalar"},
+    "nobles_satisfaction": {
+        "effect": "add_estate_satisfaction",
+        "scope": "estate_satisfaction",
+        "estate": "estate_type:nobles_estate",
+    },
     "prestige": {"effect": "add_prestige", "scope": "country_scalar"},
+    "prosperity": {"effect": "change_prosperity", "scope": "location_scalar"},
     "purity": {"effect": "add_purity", "scope": "country_scalar"},
     "papal_authority": {"effect": "change_papal_authority", "scope": "country_value_block"},
+    "peasants_satisfaction": {
+        "effect": "add_estate_satisfaction",
+        "scope": "estate_satisfaction",
+        "estate": "estate_type:peasants_estate",
+    },
     "religious_influence": {"effect": "add_religious_influence", "scope": "country_scalar"},
     "republican_tradition": {"effect": "add_republican_tradition", "scope": "country_scalar"},
     "research_progress": {"effect": "add_research_progress", "scope": "country_raw"},
@@ -209,8 +236,9 @@ STYLE_3_REWARD_EFFECTS = {
 # number of catalog entries are excluded because they have no meaningful reading as a
 # ceremony cost: the two boolean unlock switches (a flat unlock has no "5-year malus"
 # reading), the monthly_towards_axis representative placeholder (not itself a real
-# static-modifier field name), and local_reward.laborers (no one-shot EU5 effect exists for
-# it). See docs/knowledge/risk_cards/wonders.md rule 20 for the full rationale.
+# static-modifier field name), and local_reward.laborers (additive reward semantics do not
+# translate safely into a negative site-labor cost). See docs/knowledge/risk_cards/wonders.md
+# rule 20 for the full rationale.
 CEREMONY_COST_CATALOGS = (
     "country_reward",
     "local_reward",
@@ -224,7 +252,32 @@ CEREMONY_COST_EXCLUDED_IDS = {
     ("country_modifier", "monthly_towards_axis"),
     ("local_reward", "laborers"),
 }
+_COST_REWARD_UNIT_ENTRIES_CACHE: dict[str, list[dict[str, object]]] | None = None
 _COST_REWARD_UNITS_CACHE: dict[str, dict[str, float]] | None = None
+
+
+def load_cost_reward_unit_entries() -> dict[str, list[dict[str, object]]]:
+    """Load the complete data/cost_reward_units.yaml catalog, preserving every
+    authored entry. Ceremony-cost helpers apply their own filtering on top."""
+    global _COST_REWARD_UNIT_ENTRIES_CACHE
+    if _COST_REWARD_UNIT_ENTRIES_CACHE is None:
+        data = load_yaml(COST_REWARD_UNITS_FILE)
+        catalogs: dict[str, list[dict[str, object]]] = {}
+        for catalog in CEREMONY_COST_CATALOGS:
+            raw_entries = data.get(catalog, [])
+            if not isinstance(raw_entries, list):
+                raise TypeError(f"{COST_REWARD_UNITS_FILE}.{catalog} must be a list")
+            entries: list[dict[str, object]] = []
+            for index, raw_entry in enumerate(raw_entries, start=1):
+                if not isinstance(raw_entry, dict):
+                    raise TypeError(f"{COST_REWARD_UNITS_FILE}.{catalog}[{index}] must be an object")
+                entry_id = str(raw_entry.get("id", "")).strip()
+                if not entry_id:
+                    raise ValueError(f"{COST_REWARD_UNITS_FILE}.{catalog}[{index}] is missing id")
+                entries.append(dict(raw_entry))
+            catalogs[catalog] = entries
+        _COST_REWARD_UNIT_ENTRIES_CACHE = catalogs
+    return _COST_REWARD_UNIT_ENTRIES_CACHE
 
 
 def load_cost_reward_units() -> dict[str, dict[str, float]]:
@@ -232,7 +285,7 @@ def load_cost_reward_units() -> dict[str, dict[str, float]]:
     {catalog: {id: base_value}} map. Cached after the first call."""
     global _COST_REWARD_UNITS_CACHE
     if _COST_REWARD_UNITS_CACHE is None:
-        data = load_yaml(COST_REWARD_UNITS_FILE)
+        data = load_cost_reward_unit_entries()
         catalogs: dict[str, dict[str, float]] = {}
         for catalog in CEREMONY_COST_CATALOGS:
             usable: dict[str, float] = {}

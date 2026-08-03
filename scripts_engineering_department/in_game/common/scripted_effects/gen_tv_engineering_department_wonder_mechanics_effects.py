@@ -279,6 +279,32 @@ def clear_current_suitability_display_cache_lines(max_rows: int, indent: int) ->
     ]
 
 
+def artist_skill_reward_effect_lines(effect: str, value: str, indent: int) -> list[str]:
+    prefix = T * indent
+    return [
+        f"{prefix}random_artist = {{ limit = {{ is_alive = yes }} save_scope_as = tv_wonder_ritual_reward_artist }}",
+        f"{prefix}if = {{",
+        f"{prefix}{T}limit = {{ exists = scope:tv_wonder_ritual_reward_artist }}",
+        f"{prefix}{T}scope:tv_wonder_ritual_reward_artist = {{ {effect} = {value} }}",
+        f"{prefix}}}",
+    ]
+
+
+def location_laborer_reward_effect_lines(value: str, indent: int) -> list[str]:
+    prefix = T * indent
+    return [
+        f"{prefix}if = {{",
+        f"{prefix}{T}limit = {{ has_owner = yes }}",
+        f"{prefix}{T}add_pop = {{",
+        f"{prefix}{T}{T}culture = owner.culture",
+        f"{prefix}{T}{T}religion = owner.religion",
+        f"{prefix}{T}{T}type = pop_type:laborers",
+        f"{prefix}{T}{T}size = {value}",
+        f"{prefix}{T}}}",
+        f"{prefix}}}",
+    ]
+
+
 def country_reward_effect_lines(reward: list[dict], indent: int = 1) -> list[str]:
     prefix = T * indent
     lines: list[str] = []
@@ -299,7 +325,17 @@ def country_reward_effect_lines(reward: list[dict], indent: int = 1) -> list[str
                 lines.append(f"{prefix}ruler ?= {{ {effect} = {value} }}")
             elif scope == "culture_scalar":
                 lines.append(f"{prefix}culture = {{ {effect} = {value} }}")
+            elif scope == "estate_satisfaction":
+                estate = str(spec["estate"])
+                lines.append(f"{prefix}if = {{")
+                lines.append(f"{prefix}{T}limit = {{ country_has_estate = {estate} }}")
+                lines.append(f"{prefix}{T}{effect} = {{ type = {estate} value = {value} }}")
+                lines.append(f"{prefix}}}")
+            elif scope == "artist_scalar":
+                lines.extend(artist_skill_reward_effect_lines(effect, value, indent))
             elif scope == "location_scalar":
+                raise ValueError(f"Location ritual reward effect type must be handled outside country scope: {effect_type}")
+            elif scope == "location_laborers":
                 raise ValueError(f"Location ritual reward effect type must be handled outside country scope: {effect_type}")
             else:
                 raise ValueError(f"Unsupported ritual reward scope for {effect_type}: {scope}")
@@ -322,6 +358,10 @@ def reward_effect_lines(reward: list[dict], indent: int = 1) -> list[str]:
         spec = STYLE_3_REWARD_EFFECTS.get(reward_type, {})
         if spec.get("scope") == "location_scalar":
             lines.append(f"{prefix}var:tv_wonder_site ?= {{ {spec['effect']} = {fmt_value(entry['value'])} }}")
+        elif spec.get("scope") == "location_laborers":
+            lines.append(f"{prefix}var:tv_wonder_site ?= {{")
+            lines.extend(location_laborer_reward_effect_lines(fmt_value(entry["value"]), indent + 1))
+            lines.append(f"{prefix}}}")
         else:
             lines.extend(country_reward_effect_lines([entry], indent))
     return lines
@@ -335,6 +375,8 @@ def location_tooltip_reward_effect_lines(reward: list[dict], indent: int = 1) ->
         spec = STYLE_3_REWARD_EFFECTS.get(reward_type, {})
         if spec.get("scope") == "location_scalar":
             lines.append(f"{prefix}{spec['effect']} = {fmt_value(entry['value'])}")
+        elif spec.get("scope") == "location_laborers":
+            lines.extend(location_laborer_reward_effect_lines(fmt_value(entry["value"]), indent))
         else:
             lines.append(f"{prefix}owner ?= {{")
             lines.extend(country_reward_effect_lines([entry], indent + 1))
