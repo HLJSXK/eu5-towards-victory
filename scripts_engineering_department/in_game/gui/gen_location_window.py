@@ -9,9 +9,24 @@ sys.path.insert(0, str(REPO_ROOT / "scripts_engineering_department"))
 
 from wonder_mechanics.render import render_header
 
-VANILLA_FILE = REPO_ROOT / "reference_game_files" / "game" / "in_game" / "gui" / "location_window.gui"
+GLORP_LOCATION_WINDOW_FILE = REPO_ROOT / "reference_mods" / "3601047146" / "in_game" / "gui" / "location_window.gui"
+GLORP_VANILLA_TYPES_FILE = (
+    REPO_ROOT
+    / "reference_mods"
+    / "3601047146"
+    / "in_game"
+    / "gui"
+    / "vanilla"
+    / "cmfg_location_window_vanilla_types.gui"
+)
 OUT_FILE = REPO_ROOT / "src_engineering_department" / "in_game" / "gui" / "location_window.gui"
 SCRIPT_REL = "scripts_engineering_department/in_game/gui/gen_location_window.py"
+DATA_REL = (
+    "reference_mods/3601047146/in_game/gui/location_window.gui + "
+    "reference_mods/3601047146/in_game/gui/vanilla/cmfg_location_window_vanilla_types.gui + "
+    "data/wonders.yaml + data/wonder_final_buildings.yaml + data/wonder_generic_rituals.yaml + "
+    "data/wonder_base_modifiers.yaml + data/wonder_site_rules.yaml + data/unique_wonders.yaml"
+)
 T = "\t"
 
 OVERFLOW_VAR = "LocationView.GetLocation.MakeScope.GetVariable('tv_wonder_tooltip_overflow_count')"
@@ -774,15 +789,17 @@ def inject_overlay(vanilla: str) -> str:
     marker = "\n\t\t\t\tvbox = {\n\t\t\t\t\texpand = {}\n"
     replacement = "\n" + render_scene_overlay() + marker
     if marker not in vanilla:
-        raise RuntimeError("Could not find location scene overlay insertion point in vanilla location_window.gui")
+        raise RuntimeError("Could not find location scene overlay insertion point in Glorp UI location_window.gui")
     return vanilla.replace(marker, replacement, 1)
 
 
 def generate() -> str:
-    vanilla = VANILLA_FILE.read_text(encoding="utf-8-sig")
-    lines = render_header(SCRIPT_REL)
+    glorp_vanilla_types = GLORP_VANILLA_TYPES_FILE.read_text(encoding="utf-8-sig")
+    glorp_location_window = GLORP_LOCATION_WINDOW_FILE.read_text(encoding="utf-8-sig")
+    lines = render_header(SCRIPT_REL, DATA_REL)
     lines.append(render_tooltip_template())
-    lines.append(inject_overlay(vanilla))
+    lines.append(glorp_vanilla_types)
+    lines.append(inject_overlay(glorp_location_window))
     return "\n".join(line.rstrip() for line in "\n".join(lines).splitlines()).rstrip() + "\n"
 
 
