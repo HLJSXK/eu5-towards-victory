@@ -2,7 +2,9 @@
 setlocal EnableDelayedExpansion
 
 REM Towards Victory - build and deploy to EU5 mod folder
-REM Usage: build.bat
+REM Usage:
+REM   build.bat
+REM   build.bat --skip-validation
 
 set "ROOT=%~dp0"
 set "SRC=%ROOT%src"
@@ -18,6 +20,25 @@ set "COURT_DEST=%MOD_DIR%\tv_court_positions"
 set "MNT_COMPAT_DEST=%MOD_DIR%\tv_meiou_and_taxes_compat"
 set "SOL_COMPAT_DEST=%MOD_DIR%\tv_standard_of_living_compat"
 set "PP_COMPAT_DEST=%MOD_DIR%\tv_prosper_or_perish_compat"
+set "SKIP_VALIDATION=0"
+
+:parse_args
+if "%~1"=="" goto args_done
+if /I "%~1"=="--skip-validation" (
+    set "SKIP_VALIDATION=1"
+    shift
+    goto parse_args
+)
+if /I "%~1"=="--help" (
+    echo Usage: build.bat [--skip-validation]
+    exit /b 0
+)
+echo [ERROR] Unknown argument: %~1
+echo Usage: build.bat [--skip-validation]
+pause
+exit /b 1
+
+:args_done
 
 if not defined EU5_PYTHON set "EU5_PYTHON=C:\Users\Hades\anaconda3\envs\eu5\python.exe"
 if not exist "!EU5_PYTHON!" (
@@ -37,17 +58,22 @@ if !errorlevel! neq 0 (
 )
 
 echo.
-echo === [2/8] Validating mod source ===
-set "VALIDATE_OUT=%TEMP%\tv_validate_out.txt"
-call "!EU5_PYTHON!" "%ROOT%scripts\validate.py" > "!VALIDATE_OUT!" 2>&1
-set "VALIDATE_RC=!errorlevel!"
-type "!VALIDATE_OUT!"
-del "!VALIDATE_OUT!" 2>nul
-if !VALIDATE_RC! neq 0 (
-    echo.
-    echo [ERROR] Validation failed. Deployment aborted.
-    pause
-    exit /b 1
+if "!SKIP_VALIDATION!"=="1" (
+    echo === [2/8] Skipping validation ===
+    echo [WARN] Validation bypassed because --skip-validation was supplied.
+) else (
+    echo === [2/8] Validating mod source ===
+    set "VALIDATE_OUT=%TEMP%\tv_validate_out.txt"
+    call "!EU5_PYTHON!" "%ROOT%scripts\validate.py" > "!VALIDATE_OUT!" 2>&1
+    set "VALIDATE_RC=!errorlevel!"
+    type "!VALIDATE_OUT!"
+    del "!VALIDATE_OUT!" 2>nul
+    if !VALIDATE_RC! neq 0 (
+        echo.
+        echo [ERROR] Validation failed. Deployment aborted.
+        pause
+        exit /b 1
+    )
 )
 
 echo.
