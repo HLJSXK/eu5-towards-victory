@@ -1333,32 +1333,39 @@ def check_knowledge_maintenance(anti_patterns: list[dict]) -> None:
                 "detectability is lint but both pattern and validator are empty"
             )
 
-    ai_context = REPO_ROOT / "scripts" / "ai_context.py"
-    ai_context_text = ai_context.read_text(encoding="utf-8") if ai_context.exists() else ""
+    routes_file = KNOWLEDGE_DIR / "context_routes.yaml"
+    routes = load_yaml(routes_file) or {}
+
+    def _route_card_names(value) -> set[str]:
+        found: set[str] = set()
+        if isinstance(value, dict):
+            for key, child in value.items():
+                if key == "card" and isinstance(child, str) and child.endswith(".md"):
+                    found.add(child)
+                else:
+                    found.update(_route_card_names(child))
+        elif isinstance(value, list):
+            for child in value:
+                found.update(_route_card_names(child))
+        return found
+
+    route_card_names = _route_card_names(routes)
     risk_cards_dir = KNOWLEDGE_DIR / "risk_cards"
     if risk_cards_dir.exists():
         for card in sorted(risk_cards_dir.glob("*.md")):
             if card.name.upper() in {"README.MD", "MAINTENANCE.MD"}:
                 continue
-            if card.name not in ai_context_text:
+            if card.name not in route_card_names:
                 warnings.append(
                     f"[KNOWLEDGE] docs/knowledge/risk_cards/{card.name} -- "
-                    "risk card is not registered in scripts/ai_context.py DOMAIN_RULES"
+                    "risk card is not registered in docs/knowledge/context_routes.yaml"
                 )
 
-    domain_rule_cards = re.findall(
-        r'\("[^"]+",\s*"[^"]+",\s*"([^"]+\.md)"\)',
-        ai_context_text,
-    )
-    domain_rule_cards += re.findall(
-        r'\("[^"]+",\s*\([^()]*\),\s*"([^"]+\.md)"\)',
-        ai_context_text,
-    )
-    for card_name in domain_rule_cards:
+    for card_name in sorted(route_card_names):
         card = risk_cards_dir / card_name
         if not card.exists():
             warnings.append(
-                f"[KNOWLEDGE] scripts/ai_context.py -- DOMAIN_RULES references missing risk card {card_name}"
+                f"[KNOWLEDGE] docs/knowledge/context_routes.yaml -- references missing risk card {card_name}"
             )
 
     baseline = load_yaml(VALIDATION_BASELINE_FILE) or {}

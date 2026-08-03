@@ -1,0 +1,193 @@
+# Central routing table for scripts/ai_context.py.
+# Keep this operational: match rules, reason, risk card, and short summary.
+
+mod_roots:
+  - src
+  - src_engineering_department
+  - src_court_positions
+
+core_reads:
+  - path: CLAUDE.md
+    reason: compact mandatory workflow entry point
+  - path: docs/knowledge/BRIEF.md
+    reason: compact project-wide gotchas and indexes
+
+domain_routes:
+  - id: generic_actions
+    expand_mod_roots: true
+    path_prefixes: [in_game/common/generic_actions/]
+    card: generic_actions.md
+    summary: selector and hover pre-evaluation risks
+    reason: generic actions are pre-evaluated before final click
+
+  - id: gui
+    expand_mod_roots: true
+    path_prefixes: [in_game/gui/]
+    card: gui.md
+    summary: GUI expression, datacontext, layout, and tooltip constraints
+    reason: GUI expression failures are often silent
+
+  - id: international_organizations
+    expand_mod_roots: true
+    path_prefixes:
+      - in_game/common/international_organizations/
+      - in_game/common/laws/
+      - in_game/common/country_interactions/
+    card: international_organizations.md
+    summary: non-unique TV IO scope, leader, law, and monthly-change invariants
+    reason: IO scope and AI pre-evaluation are high risk
+
+  - id: events
+    expand_mod_roots: true
+    path_prefixes: [in_game/events/]
+    card: events.md
+    summary: event option hover can pre-evaluate visible and hidden effect chains
+    reason: event option tooltips evaluate more than final-click code
+
+  - id: on_action
+    expand_mod_roots: true
+    path_prefixes: [in_game/common/on_action/]
+    card: on_action.md
+    summary: bridge-registry, root scope, and one-day monthly event delay rules
+    reason: shared hardcoded hooks can conflict or run from unexpected roots
+
+  - id: localization
+    expand_mod_roots: true
+    path_prefixes: [main_menu/localization/]
+    card: localization.md
+    summary: BOM, quote, loc key, and semantic color-tag rules
+    reason: localization parser failures cascade into UI errors
+
+  - id: wonder_buildings
+    expand_mod_roots: true
+    path_prefixes:
+      - in_game/common/building_types/
+      - in_game/common/auto_modifiers/
+      - main_menu/common/static_modifiers/
+      - main_menu/common/modifier_type_definitions/
+      - main_menu/common/modifier_icons/
+      - main_menu/common/prices/
+    filename_substrings: [wonder, engineering_department]
+    card: wonder_buildings.md
+    summary: wonder building lifecycle, price, modifier, and labor/input rules
+    reason: wonder building or modifier data touched
+
+  - id: wonder_gui
+    expand_mod_roots: true
+    path_prefixes:
+      - in_game/gui/
+      - main_menu/gui/
+      - main_menu/localization/
+    filename_substrings: [wonder, engineering_department, location_window, encyclopedia_lateralview]
+    card: wonder_gui.md
+    summary: wonder GUI override, tooltip scope, layout, and icon-routing rules
+    reason: wonder GUI or GUI-facing localization touched
+
+filename_routes:
+  - id: wonders
+    substrings: [wonder, engineering_department]
+    card: wonders.md
+    summary: Engineering Department and wonder-construction top-level invariants
+    reason: wonder files are interspersed across many directories
+
+  - id: philosophy_debate
+    substrings: [philosophy_debate, world_debate, academy_debate]
+    card: philosophy_debate.md
+    summary: generated debate seat/event/stance and world debate rules
+    reason: debate files are filename-routed instead of directory-isolated
+
+  - id: trade_league
+    substrings: [trade_league, trade_chain]
+    card: trade_league.md
+    summary: Trade League chain, monopoly, and network state rules
+    reason: Trade League files are filename-routed instead of directory-isolated
+
+  - id: europedia
+    substrings: [encyclopedia_lateralview]
+    card: europedia.md
+    summary: full-panel override and tab-toggle constraints
+    reason: Europedia has no data-driven custom-tab registration point
+
+  - id: wonder_ceremony
+    substrings:
+      - wonder_ceremony
+      - ceremony_cost
+      - wonder_ritual
+      - unique_wonders
+    card: wonder_ceremony.md
+    summary: ceremony cost schema, option text, and hidden-scheduler rules
+    reason: ceremony or ritual shared data touched
+
+  - id: wonder_unique_rituals
+    substrings:
+      - unique_wonder_ritual
+      - wonder_unique_
+      - pharos
+      - hagia
+    card: wonder_unique_rituals.md
+    summary: bespoke unique-ritual implementation and audit rules
+    reason: bespoke unique-wonder ritual source or output touched
+
+content_routes:
+  - id: variable_map
+    markers:
+      - variable_map(
+      - global_variable_map(
+      - local_variable_map(
+      - add_to_variable_map
+      - add_to_global_variable_map
+      - add_to_local_variable_map
+      - is_key_in_variable_map
+      - is_key_in_global_variable_map
+      - random_key_in_variable_map
+    excluded_prefixes:
+      - docs/
+      - tests/
+      - reference_game_files/
+      - reference_mods/
+    excluded_paths:
+      - CLAUDE.md
+      - scripts/ai_context.py
+    reads:
+      - path: docs/technical/EU5_Modding_Knowledge_Base.md section 5.2 Variable maps
+        reason: variable-map scope-link and RHS rules
+      - path: docs/knowledge/anti_patterns.yaml rule variable_map_scope_link_used_direct_rhs
+        reason: direct map RHS/effect-parameter use is unsafe
+    reason: file content uses variable-map APIs
+
+object_alerts:
+  - id: object_on_built
+    severity: high
+    markers: [on_built]
+    expand_mod_roots: true
+    path_prefixes:
+      - in_game/common/building_types/
+      - scripts/in_game/common/building_types/
+      - scripts_engineering_department/in_game/common/building_types/
+      - scripts_court_positions/in_game/common/building_types/
+      - data/
+    file_suffixes: [.txt, .py, .yaml]
+    excluded_prefixes:
+      - docs/
+      - tests/
+      - reference_game_files/
+      - reference_mods/
+    card: object_on_built.md
+    summary: on_built is not a reliable upgrade-completion signal
+    reason: building lifecycle hook touched
+    message: If a building can be upgraded or reused, do not use on_built as the only completion signal; verify on_construction_ended and do not assume location_building_level has already updated.
+
+maintenance_routes:
+  - id: ai_workflow
+    path_prefixes:
+      - docs/knowledge/
+      - docs/guides/
+      - scripts/ai_context.py
+      - scripts/gen_brief.py
+      - CLAUDE.md
+    reads:
+      - path: CLAUDE.md
+        reason: workflow maintenance protocol
+      - path: docs/guides/AI_Tool_Workflow_Prompt.md
+        reason: external AI-tool prompt must match routing behavior
+    reason: AI workflow or knowledge file touched

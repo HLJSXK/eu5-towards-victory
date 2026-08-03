@@ -1,16 +1,22 @@
 #!/usr/bin/env python3
 r"""
-Build a compact task context for AI coding tools.
+Build task-scoped AI context without dumping every long-form knowledge file.
 
 Usage:
   C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\ai_context.py --changed
   C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\ai_context.py --files src/in_game/common/generic_actions/foo.txt
+  C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\ai_context.py --full --files src_engineering_department/in_game/common/building_types/foo.txt
+  C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\ai_context.py --json --changed
 """
 
+from __future__ import annotations
+
 import argparse
+import json
 import subprocess
 import sys
 from pathlib import Path
+from typing import Any
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -24,61 +30,24 @@ except ImportError:
 REPO_ROOT = Path(__file__).parent.parent
 KNOWLEDGE_DIR = REPO_ROOT / "docs" / "knowledge"
 RISK_CARDS_DIR = KNOWLEDGE_DIR / "risk_cards"
+ROUTES_FILE = KNOWLEDGE_DIR / "context_routes.yaml"
 GENERATED_REGISTRY = REPO_ROOT / "data" / "generated_files.yaml"
 MANAGED_SANDBOX_PYTHON = r"C:\Users\Hades\anaconda3\envs\eu5\python.exe"
 
-# Three deployable mod roots: the main "Towards Victory" mod, the split-out
-# standalone "Engineering Department" mod, and standalone Court Positions.
-# Path-prefix domain routing below is expanded across all roots so a moved file keeps matching its generic domain
-# card (e.g. "gui.md") in addition to whatever FILENAME_DOMAIN_RULES match.
-MOD_ROOT_NAMES = ("src", "src_engineering_department", "src_court_positions")
+
+def _rel(path: Path) -> str:
+    return str(path.relative_to(REPO_ROOT)).replace("\\", "/")
 
 
-def _mod_prefixes(subpath: str) -> tuple[str, ...]:
-    return tuple(f"{root_name}/{subpath}" for root_name in MOD_ROOT_NAMES)
+def _norm(path: str) -> str:
+    return path.replace("\\", "/").strip()
 
 
-DOMAIN_RULES = [
-    ("generic_actions", _mod_prefixes("in_game/common/generic_actions/"), "generic_actions.md"),
-    ("gui", _mod_prefixes("in_game/gui/"), "gui.md"),
-    ("international_organizations", _mod_prefixes("in_game/common/international_organizations/"), "international_organizations.md"),
-    ("international_organizations", _mod_prefixes("in_game/common/laws/"), "international_organizations.md"),
-    ("international_organizations", _mod_prefixes("in_game/common/country_interactions/"), "international_organizations.md"),
-    ("events", _mod_prefixes("in_game/events/"), "events.md"),
-    ("on_action", _mod_prefixes("in_game/common/on_action/"), "on_action.md"),
-    ("localization", _mod_prefixes("main_menu/localization/"), "localization.md"),
-]
-
-# Some task domains are not isolated in their own directory: their files are
-# interspersed by filename across common/scripted_effects, static_modifiers,
-# building_types, generic_actions, gui, and localization. Route those by
-# filename substring instead of path prefix.
-FILENAME_DOMAIN_RULES = [
-    ("wonders", ("wonder", "engineering_department"), "wonders.md"),
-    ("philosophy_debate", ("philosophy_debate", "world_debate", "academy_debate"), "philosophy_debate.md"),
-    ("trade_league", ("trade_league", "trade_chain"), "trade_league.md"),
-    ("europedia", ("encyclopedia_lateralview",), "europedia.md"),
-]
-
-
-def domain_cards() -> list[tuple[str, str]]:
-    pairs = [(domain, card) for domain, _prefix, card in DOMAIN_RULES]
-    pairs += [(domain, card) for domain, _substrings, card in FILENAME_DOMAIN_RULES]
-    return pairs
-
-CONTENT_DOMAIN_MARKERS = {
-    "variable_map": (
-        "variable_map(",
-        "global_variable_map(",
-        "local_variable_map(",
-        "add_to_variable_map",
-        "add_to_global_variable_map",
-        "add_to_local_variable_map",
-        "is_key_in_variable_map",
-        "is_key_in_global_variable_map",
-        "random_key_in_variable_map",
-    ),
-}
+def _load_yaml(path: Path) -> Any:
+    if not path.exists():
+        return None
+    with path.open(encoding="utf-8") as f:
+        return yaml.safe_load(f)
 
 
 def _git_names(args: list[str]) -> list[str]:
@@ -106,197 +75,349 @@ def changed_files() -> list[str]:
     return sorted(names)
 
 
-def load_yaml(path: Path):
-    if not path.exists():
-        return None
-    with path.open(encoding="utf-8") as f:
-        return yaml.safe_load(f)
-
-
-def generated_map() -> dict[str, dict]:
-    registry = load_yaml(GENERATED_REGISTRY) or {}
-    mapping: dict[str, dict] = {}
+def generated_map() -> dict[str, dict[str, Any]]:
+    registry = _load_yaml(GENERATED_REGISTRY) or {}
+    mapping: dict[str, dict[str, Any]] = {}
     for entry in registry.get("generated", []):
         output = entry.get("output")
         if output:
-            mapping[output.replace("\\", "/")] = entry
+            mapping[_norm(output)] = entry
     return mapping
 
 
-def detect_domains(files: list[str]) -> set[str]:
-    domains: set[str] = set()
-    normalized = [f.replace("\\", "/") for f in files]
-    for path in normalized:
-        for domain, prefix, _card in DOMAIN_RULES:
-            if path.startswith(prefix):
-                domains.add(domain)
-        name = Path(path).name.lower()
-        for domain, substrings, _card in FILENAME_DOMAIN_RULES:
-            if any(substring in name for substring in substrings):
-                domains.add(domain)
-        if path.endswith(".gui"):
-            domains.add("gui")
-        full_path = REPO_ROOT / path
-        if full_path.exists() and full_path.is_file():
-            try:
-                with full_path.open(encoding="utf-8", errors="replace") as f:
-                    for line in f:
-                        for domain, markers in CONTENT_DOMAIN_MARKERS.items():
-                            if any(marker in line for marker in markers):
-                                domains.add(domain)
-                        if domains.issuperset(CONTENT_DOMAIN_MARKERS):
-                            break
-            except OSError:
-                pass
-    return domains
+def load_routes() -> dict[str, Any]:
+    routes = _load_yaml(ROUTES_FILE)
+    if not isinstance(routes, dict):
+        raise SystemExit(f"[ERROR] Missing or invalid route config: {_rel(ROUTES_FILE)}")
+    routes.setdefault("mod_roots", ["src", "src_engineering_department", "src_court_positions"])
+    routes.setdefault("core_reads", [])
+    routes.setdefault("domain_routes", [])
+    routes.setdefault("filename_routes", [])
+    routes.setdefault("content_routes", [])
+    routes.setdefault("object_alerts", [])
+    routes.setdefault("maintenance_routes", [])
+    return routes
 
 
-def relevant_rules(files: list[str], domains: set[str], limit: int = 12) -> list[dict]:
-    patterns = load_yaml(KNOWLEDGE_DIR / "anti_patterns.yaml") or []
-    normalized = [f.replace("\\", "/") for f in files]
-    domain_matches: list[dict] = []
-    path_matches: list[dict] = []
+def _split_generated_sources(entry: dict[str, Any] | None) -> list[str]:
+    if not entry:
+        return []
+    paths: list[str] = []
+    script = entry.get("script")
+    if script:
+        paths.append(_norm(script))
+    data = entry.get("data")
+    if data:
+        for part in str(data).split("+"):
+            candidate = _norm(part).strip()
+            if candidate and "*" not in candidate:
+                paths.append(candidate)
+    return paths
+
+
+def route_paths(files: list[str], gen: dict[str, dict[str, Any]]) -> dict[str, list[str]]:
+    result: dict[str, list[str]] = {}
+    for path in files:
+        normalized = _norm(path)
+        paths = [normalized, *_split_generated_sources(gen.get(normalized))]
+        result[normalized] = sorted(dict.fromkeys(paths))
+    return result
+
+
+def _expanded_prefixes(route: dict[str, Any], routes: dict[str, Any]) -> list[str]:
+    prefixes = [_norm(p) for p in route.get("path_prefixes", []) or []]
+    if route.get("expand_mod_roots"):
+        expanded: list[str] = list(prefixes)
+        for root_name in routes.get("mod_roots", []):
+            root = _norm(root_name).rstrip("/")
+            for prefix in prefixes:
+                expanded.append(f"{root}/{prefix.lstrip('/')}")
+        prefixes = expanded
+    return prefixes
+
+
+def _path_matches_route(path: str, route: dict[str, Any], routes: dict[str, Any]) -> bool:
+    normalized = _norm(path)
+    lower = normalized.lower()
+    prefixes = _expanded_prefixes(route, routes)
+    substrings = [str(s).lower() for s in route.get("filename_substrings", []) or []]
+    suffixes = [str(s).lower() for s in route.get("file_suffixes", []) or []]
+    path_ok = not prefixes or any(normalized.startswith(prefix) for prefix in prefixes)
+    name_ok = not substrings or any(s in Path(normalized).name.lower() for s in substrings)
+    suffix_ok = not suffixes or any(lower.endswith(s) for s in suffixes)
+    return path_ok and name_ok and suffix_ok
+
+
+def _content_excluded(path: str, route: dict[str, Any]) -> bool:
+    normalized = _norm(path)
+    excluded = [_norm(p) for p in route.get("excluded_prefixes", []) or []]
+    exact = {_norm(p) for p in route.get("excluded_paths", []) or []}
+    return normalized in exact or any(normalized.startswith(prefix) for prefix in excluded)
+
+
+def _file_contains_marker(path: str, markers: tuple[str, ...]) -> bool:
+    full_path = REPO_ROOT / path
+    if not full_path.exists() or not full_path.is_file():
+        return False
+    try:
+        with full_path.open(encoding="utf-8", errors="replace") as f:
+            for line in f:
+                if any(marker in line for marker in markers):
+                    return True
+    except OSError:
+        return False
+    return False
+
+
+def _add_unique(items: list[dict[str, str]], item: dict[str, str], key: str) -> None:
+    if item.get(key) and not any(existing.get(key) == item.get(key) for existing in items):
+        items.append(item)
+
+
+def build_context(files: list[str], routes: dict[str, Any]) -> dict[str, Any]:
+    files = sorted({_norm(f) for f in files if f})
+    gen = generated_map()
+    routed_paths = route_paths(files, gen)
+
+    domains: dict[str, dict[str, str]] = {}
+    cards: list[dict[str, str]] = []
+    reads: list[dict[str, str]] = []
+    alerts: list[dict[str, str]] = []
+
+    for entry in routes.get("core_reads", []):
+        _add_unique(reads, {"path": entry["path"], "reason": entry.get("reason", "")}, "path")
+
+    for original, paths in routed_paths.items():
+        for path in paths:
+            for route in routes.get("domain_routes", []):
+                if _path_matches_route(path, route, routes):
+                    domains[route["id"]] = {"id": route["id"], "reason": route.get("reason", "")}
+                    if route.get("card"):
+                        card = {
+                            "path": f"docs/knowledge/risk_cards/{route['card']}",
+                            "domain": route["id"],
+                            "reason": route.get("reason", ""),
+                            "summary": route.get("summary", ""),
+                        }
+                        _add_unique(cards, card, "path")
+            filename = Path(path).name.lower()
+            for route in routes.get("filename_routes", []):
+                if any(str(s).lower() in filename for s in route.get("substrings", []) or []):
+                    domains[route["id"]] = {"id": route["id"], "reason": route.get("reason", "")}
+                    if route.get("card"):
+                        card = {
+                            "path": f"docs/knowledge/risk_cards/{route['card']}",
+                            "domain": route["id"],
+                            "reason": route.get("reason", ""),
+                            "summary": route.get("summary", ""),
+                        }
+                        _add_unique(cards, card, "path")
+
+            for route in routes.get("content_routes", []):
+                if _content_excluded(path, route):
+                    continue
+                markers = tuple(str(m) for m in route.get("markers", []) or [])
+                if markers and _file_contains_marker(path, markers):
+                    domains[route["id"]] = {"id": route["id"], "reason": route.get("reason", "")}
+                    for read in route.get("reads", []) or []:
+                        _add_unique(reads, {"path": read["path"], "reason": read.get("reason", "")}, "path")
+                    if route.get("card"):
+                        card = {
+                            "path": f"docs/knowledge/risk_cards/{route['card']}",
+                            "domain": route["id"],
+                            "reason": route.get("reason", ""),
+                            "summary": route.get("summary", ""),
+                        }
+                        _add_unique(cards, card, "path")
+
+            for route in routes.get("object_alerts", []):
+                if _content_excluded(path, route):
+                    continue
+                if not _path_matches_route(path, route, routes):
+                    continue
+                markers = tuple(str(m) for m in route.get("markers", []) or [])
+                if markers and _file_contains_marker(path, markers):
+                    alert = {
+                        "id": route["id"],
+                        "severity": route.get("severity", "high"),
+                        "path": original,
+                        "source": path,
+                        "message": route.get("message", ""),
+                        "card": f"docs/knowledge/risk_cards/{route['card']}" if route.get("card") else "",
+                    }
+                    _add_unique(alerts, alert, "id")
+                    if route.get("card"):
+                        _add_unique(
+                            cards,
+                            {
+                                "path": f"docs/knowledge/risk_cards/{route['card']}",
+                                "domain": route["id"],
+                                "reason": route.get("reason", route.get("message", "")),
+                                "summary": route.get("summary", ""),
+                            },
+                            "path",
+                        )
+
+        for route in routes.get("maintenance_routes", []):
+            if any(_path_matches_route(path, route, routes) for path in paths):
+                domains[route["id"]] = {"id": route["id"], "reason": route.get("reason", "")}
+                for read in route.get("reads", []) or []:
+                    _add_unique(reads, {"path": read["path"], "reason": read.get("reason", "")}, "path")
+
+    return {
+        "files": files,
+        "generated": {path: gen[path] for path in files if path in gen},
+        "routed_paths": routed_paths,
+        "domains": sorted(domains.values(), key=lambda item: item["id"]),
+        "cards": sorted(cards, key=lambda item: item["path"]),
+        "reads": reads,
+        "alerts": alerts,
+        "anti_patterns": relevant_rules(files, {d["id"] for d in domains.values()}),
+        "maintenance": maintenance_notes(files, routes),
+    }
+
+
+def relevant_rules(files: list[str], domains: set[str], limit: int = 10) -> list[dict[str, str]]:
+    patterns = _load_yaml(KNOWLEDGE_DIR / "anti_patterns.yaml") or []
+    normalized = [_norm(f) for f in files]
+    matches: list[dict[str, str]] = []
     for entry in patterns:
-        only_in = entry.get("only_in_paths", [])
         category = entry.get("category", "")
-        matched_path = bool(only_in) and any(
-            any(part in path for part in only_in) for path in normalized
-        )
-        matched_domain = category in domains or entry.get("scope") in domains
-        if matched_domain:
-            domain_matches.append(entry)
-        elif matched_path:
-            path_matches.append(entry)
-    return [*domain_matches, *path_matches][:limit]
+        scope = entry.get("scope", "")
+        only_in = entry.get("only_in_paths", []) or []
+        matched_domain = category in domains or scope in domains
+        matched_path = bool(only_in) and any(any(part in path for part in only_in) for path in normalized)
+        if matched_domain or matched_path:
+            detectability = entry.get("detectability") or ("lint" if entry.get("pattern") else "advisory")
+            matches.append(
+                {
+                    "id": entry.get("id", ""),
+                    "detectability": detectability,
+                    "bad": entry.get("bad", ""),
+                    "correction": entry.get("correction", ""),
+                }
+            )
+    return matches[:limit]
 
 
-def maintenance_notes(files: list[str]) -> list[str]:
+def maintenance_notes(files: list[str], routes: dict[str, Any]) -> list[str]:
     notes: list[str] = []
     file_set = set(files)
-    touches_knowledge = any(
-        path.startswith("docs/knowledge/")
-        or path in {"CLAUDE.md", "docs/guides/AI_Tool_Workflow_Prompt.md"}
-        for path in files
-    )
-    if touches_knowledge:
-        notes.append(
-            f"After changing knowledge/workflow docs in a managed sandbox, run `{MANAGED_SANDBOX_PYTHON} scripts\\gen_brief.py`."
-        )
+    if any(path.startswith("docs/knowledge/") or path in {"CLAUDE.md", "docs/guides/AI_Tool_Workflow_Prompt.md"} for path in files):
+        notes.append(f"After changing knowledge/workflow docs, run `{MANAGED_SANDBOX_PYTHON} scripts\\gen_brief.py`.")
+    if "docs/knowledge/context_routes.yaml" in file_set or "scripts/ai_context.py" in file_set:
+        notes.append("Route behavior changed; run `scripts/test_ai_context.py` and update workflow docs.")
     if "docs/knowledge/anti_patterns.yaml" in file_set:
-        notes.append(
-            "For each new anti-pattern, set `detectability` to `lint`, `needs_parser`, or `advisory`; use `lint` only for narrow, tested static checks."
-        )
-        notes.append(
-            "For new or changed `detectability: lint` rules, add/update fixtures under `tests/fixtures/anti_patterns/<rule_id>/` and run `scripts/test_lint_rules.py`."
-        )
-        notes.append(
-            "If a new anti-pattern belongs to an existing task domain, update that domain risk card in `docs/knowledge/risk_cards/`."
-        )
+        notes.append("For new `detectability: lint` anti-patterns, add fixtures and run `scripts/test_lint_rules.py`.")
     if "data/validation_baseline.yaml" in file_set:
-        notes.append(
-            "Validation baseline changed; ensure every accepted warning has a rationale and that new warnings were not baselined instead of fixed."
-        )
+        notes.append("Validation baseline changed; every accepted warning needs a rationale.")
     if any(path.startswith("docs/knowledge/risk_cards/") for path in files):
-        notes.append(
-            "If a risk card covers a new task domain, register it in `DOMAIN_RULES` inside `scripts/ai_context.py`."
-        )
-        notes.append(
-            "Keep risk cards short and operational: required checks, safe skeletons, and validation commands rather than full history."
-        )
-    if "scripts/ai_context.py" in file_set:
-        notes.append(
-            "If `ai_context.py` behavior or domain coverage changes, update `CLAUDE.md`, `AI_Tool_Workflow_Prompt.md`, and the script table in `PROJECT_OVERVIEW.md`."
-        )
-    if "scripts/validate.py" in file_set:
-        notes.append(
-            "If `validate.py` implements a parser/check for a `needs_parser` anti-pattern, update that anti-pattern's `detectability` when it becomes a reliable lint."
-        )
+        notes.append("Risk cards changed; keep them operational and ensure `context_routes.yaml` routes them.")
     if "docs/knowledge/PROJECT_OVERVIEW.md" in file_set:
-        notes.append(
-            "`PROJECT_OVERVIEW.md` changed; regenerate `docs/knowledge/BRIEF.md` before finishing."
-        )
+        notes.append("Project overview changed; regenerate `docs/knowledge/BRIEF.md`.")
     return notes
 
 
-def print_card(card_name: str) -> None:
-    card = RISK_CARDS_DIR / card_name
-    if not card.exists():
-        return
-    print(f"## Risk Card: {card_name}")
-    print("")
-    print(card.read_text(encoding="utf-8").strip())
-    print("")
+def _short(text: str, limit: int = 260) -> str:
+    collapsed = " ".join(str(text).split())
+    if len(collapsed) <= limit:
+        return collapsed
+    return collapsed[: limit - 3].rstrip() + "..."
 
 
-def main() -> None:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--changed", action="store_true", help="Use git changed files")
-    parser.add_argument("--files", nargs="*", default=[], help="Explicit files")
-    args = parser.parse_args()
+def print_card(card_path: str) -> None:
+    path = REPO_ROOT / card_path
+    if path.exists():
+        print(f"## Risk Card: {card_path}")
+        print("")
+        print(path.read_text(encoding="utf-8").strip())
+        print("")
 
-    files = changed_files() if args.changed else args.files
-    files = sorted({f.replace("\\", "/") for f in files if f})
-    gen = generated_map()
-    domains = detect_domains(files)
 
+def print_markdown(context: dict[str, Any], full: bool) -> None:
     print("# AI Task Context")
     print("")
-    if not files:
+    if not context["files"]:
         print("No files detected. Pass --changed or --files.")
         return
 
+    print("## Core Bootstrap")
+    print("- Read `CLAUDE.md` for the compact mandatory workflow.")
+    print("- Read `docs/knowledge/BRIEF.md` for project-wide gotchas; use routed cards for details.")
+    print("- In managed sandboxes, run project scripts with the direct `eu5` interpreter, not `conda run`.")
+    print("")
+
     print("## Files")
-    for path in files:
+    for path in context["files"]:
         marker = ""
-        if path in gen:
-            marker = f" [generated: edit {gen[path].get('data', gen[path].get('script', 'source'))}]"
+        generated = context["generated"].get(path)
+        if generated:
+            source = generated.get("data", generated.get("script", "source"))
+            marker = f" [generated: edit {source}]"
         print(f"- `{path}`{marker}")
     print("")
 
+    if context["alerts"]:
+        print("## Immediate Risk Alerts")
+        for alert in context["alerts"]:
+            card_suffix = f" Read `{alert['card']}`." if alert.get("card") else ""
+            print(f"- `{alert['id']}` [{alert['severity']}]: {alert['message']}{card_suffix}")
+        print("")
+
     print("## Domains")
-    if domains:
-        for domain in sorted(domains):
-            print(f"- `{domain}`")
+    if context["domains"]:
+        for domain in context["domains"]:
+            reason = f" - {domain['reason']}" if domain.get("reason") else ""
+            print(f"- `{domain['id']}`{reason}")
     else:
         print("- none detected")
     print("")
 
-    print("## Required Reads")
-    printed_cards: set[str] = set()
-    for domain, card in domain_cards():
-        if domain in domains and card and card not in printed_cards:
-            print(f"- `docs/knowledge/risk_cards/{card}`")
-            printed_cards.add(card)
-    if "variable_map" in domains:
-        print("- `docs/technical/EU5_Modding_Knowledge_Base.md` section 5.2 `Variable maps`")
-        print("- `docs/knowledge/anti_patterns.yaml` rule `variable_map_scope_link_used_direct_rhs`")
-    print("- `CLAUDE.md`")
-    print("- `docs/knowledge/BRIEF.md` for broad project context")
+    print("## Context Routes")
+    if context["cards"]:
+        for card in context["cards"]:
+            summary = f" - {card['summary']}" if card.get("summary") else ""
+            print(f"- `{card['path']}` ({card['domain']}){summary}")
+    else:
+        print("- no risk card routes")
     print("")
 
-    printed_cards = set()
-    for domain, card in domain_cards():
-        if domain in domains and card and card not in printed_cards:
-            print_card(card)
-            printed_cards.add(card)
+    print("## Required Reads")
+    printed: set[str] = set()
+    for read in context["reads"]:
+        path = read["path"]
+        if path in printed:
+            continue
+        reason = f" - {read['reason']}" if read.get("reason") else ""
+        print(f"- `{path}`{reason}")
+        printed.add(path)
+    for card in context["cards"]:
+        path = card["path"]
+        if path not in printed:
+            reason = f" - {card['reason']}" if card.get("reason") else ""
+            print(f"- `{path}`{reason}")
+            printed.add(path)
+    print("")
 
-    rules = relevant_rules(files, domains)
-    if rules:
+    if full:
+        printed_cards: set[str] = set()
+        for card in context["cards"]:
+            if card["path"] not in printed_cards:
+                print_card(card["path"])
+                printed_cards.add(card["path"])
+
+    if context["anti_patterns"]:
         print("## Relevant Anti-Patterns")
-        for entry in rules:
-            detectability = entry.get("detectability") or (
-                "lint" if entry.get("pattern") else "advisory"
-            )
+        for entry in context["anti_patterns"]:
             print(
-                f"- `{entry.get('id')}` [{detectability}]: "
-                f"{entry.get('bad')} -> {entry.get('correction')}"
+                f"- `{entry['id']}` [{entry['detectability']}]: "
+                f"{_short(entry['bad'], 180)} -> {_short(entry['correction'], 220)}"
             )
         print("")
 
-    notes = maintenance_notes(files)
-    if notes:
+    if context["maintenance"]:
         print("## Knowledge Maintenance")
-        for note in notes:
+        for note in context["maintenance"]:
             print(f"- {note}")
         print("")
 
@@ -304,8 +425,25 @@ def main() -> None:
     print("```powershell")
     print("# Managed sandbox default; do not use conda run here.")
     print(f"{MANAGED_SANDBOX_PYTHON} scripts\\validate.py --changed --fix --ai-report")
-    print(f"{MANAGED_SANDBOX_PYTHON} scripts\\test_lint_rules.py")
     print("```")
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--changed", action="store_true", help="Use git changed files")
+    parser.add_argument("--files", nargs="*", default=[], help="Explicit files")
+    parser.add_argument("--full", action="store_true", help="Inline full routed risk card text")
+    parser.add_argument("--json", action="store_true", help="Emit machine-readable route data")
+    args = parser.parse_args()
+
+    files = changed_files() if args.changed else args.files
+    routes = load_routes()
+    context = build_context(files, routes)
+
+    if args.json:
+        print(json.dumps(context, ensure_ascii=False, indent=2))
+    else:
+        print_markdown(context, args.full)
 
 
 if __name__ == "__main__":
