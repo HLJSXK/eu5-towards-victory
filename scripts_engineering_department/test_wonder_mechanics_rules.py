@@ -393,7 +393,7 @@ def validate_cmm_wonder_controls(wonders: list[dict], mechanics: dict) -> None:
     for setting_id in bool_ids:
         require(f"setting_id = {setting_id}" in cmm, f"Missing CMM bool setting {setting_id}.")
         require(
-            f"flag:tv_engineering_department__{setting_id}" in cmm,
+            f"flag:tv_ed__{setting_id}" in cmm,
             f"Missing CMM callback synchronization for bool setting {setting_id}.",
         )
         require(
@@ -414,7 +414,7 @@ def validate_cmm_wonder_controls(wonders: list[dict], mechanics: dict) -> None:
             f"Missing global alias for CMM slider {setting_id}.",
         )
         require(
-            f"flag:tv_engineering_department__{setting_id}" in cmm,
+            f"flag:tv_ed__{setting_id}" in cmm,
             f"Missing CMM callback synchronization for slider {setting_id}.",
         )
 
@@ -423,7 +423,7 @@ def validate_cmm_wonder_controls(wonders: list[dict], mechanics: dict) -> None:
         "direct_build_medium_price",
         "direct_build_large_price",
     ):
-        block = extract_trigger_block(gui, f"tv_engineering_department__{setting_id}_on_changed")
+        block = extract_trigger_block(gui, f"tv_ed__{setting_id}_on_changed")
         require(
             "has_global_variable = tv_engineering_department_direct_build" in block,
             f"CMM visibility for {setting_id} must require direct construction.",
@@ -436,7 +436,7 @@ def validate_cmm_wonder_controls(wonders: list[dict], mechanics: dict) -> None:
         ("large_module_requirement", "tv_engineering_department_skip_construction"),
         ("disable_construction_events", "tv_engineering_department_skip_construction"),
     ):
-        block = extract_trigger_block(gui, f"tv_engineering_department__{setting_id}_on_changed")
+        block = extract_trigger_block(gui, f"tv_ed__{setting_id}_on_changed")
         require(
             f"NOT = {{ has_global_variable = {hidden_by} }}" in block,
             f"CMM visibility for {setting_id} must be controlled by {hidden_by}.",

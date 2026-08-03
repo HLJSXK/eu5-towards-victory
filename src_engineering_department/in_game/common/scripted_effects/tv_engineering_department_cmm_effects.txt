@@ -1,19 +1,19 @@
 ﻿# Root scope: country.
 tv_engineering_department_register_cmf_mod_effect = {
 	cmm_register_global_bool_setting = {
-		mod_id = tv_engineering_department
+		mod_id = tv_ed
 		setting_id = direct_build
 		tab_id = wonder_control
 		group_id = access
 		default_value = 0
 	}
 	cmm_sync_bool_alias = {
-		setting = tv_engineering_department__direct_build
+		setting = tv_ed__direct_build
 		alias = tv_engineering_department_direct_build
 	}
 
 	cmm_register_global_slider_setting = {
-		mod_id = tv_engineering_department
+		mod_id = tv_ed
 		setting_id = direct_build_small_price
 		tab_id = wonder_control
 		group_id = access
@@ -23,16 +23,16 @@ tv_engineering_department_register_cmf_mod_effect = {
 		step_value = 1
 	}
 	cmm_sync_setting_alias = {
-		setting = tv_engineering_department__direct_build_small_price
+		setting = tv_ed__direct_build_small_price
 		alias = tv_engineering_department_direct_build_small_price
 	}
 	cmm_add_scripted_gui = {
-		mod_id = tv_engineering_department
+		mod_id = tv_ed
 		setting_id = direct_build_small_price
 	}
 
 	cmm_register_global_slider_setting = {
-		mod_id = tv_engineering_department
+		mod_id = tv_ed
 		setting_id = direct_build_medium_price
 		tab_id = wonder_control
 		group_id = access
@@ -42,16 +42,16 @@ tv_engineering_department_register_cmf_mod_effect = {
 		step_value = 1
 	}
 	cmm_sync_setting_alias = {
-		setting = tv_engineering_department__direct_build_medium_price
+		setting = tv_ed__direct_build_medium_price
 		alias = tv_engineering_department_direct_build_medium_price
 	}
 	cmm_add_scripted_gui = {
-		mod_id = tv_engineering_department
+		mod_id = tv_ed
 		setting_id = direct_build_medium_price
 	}
 
 	cmm_register_global_slider_setting = {
-		mod_id = tv_engineering_department
+		mod_id = tv_ed
 		setting_id = direct_build_large_price
 		tab_id = wonder_control
 		group_id = access
@@ -61,104 +61,104 @@ tv_engineering_department_register_cmf_mod_effect = {
 		step_value = 1
 	}
 	cmm_sync_setting_alias = {
-		setting = tv_engineering_department__direct_build_large_price
+		setting = tv_ed__direct_build_large_price
 		alias = tv_engineering_department_direct_build_large_price
 	}
 	cmm_add_scripted_gui = {
-		mod_id = tv_engineering_department
+		mod_id = tv_ed
 		setting_id = direct_build_large_price
 	}
 
 	cmm_register_global_bool_setting = {
-		mod_id = tv_engineering_department
+		mod_id = tv_ed
 		setting_id = skip_concept
 		tab_id = wonder_control
 		group_id = phases
 		default_value = 0
 	}
 	cmm_sync_bool_alias = {
-		setting = tv_engineering_department__skip_concept
+		setting = tv_ed__skip_concept
 		alias = tv_engineering_department_skip_concept
 	}
 
 	cmm_register_global_bool_setting = {
-		mod_id = tv_engineering_department
+		mod_id = tv_ed
 		setting_id = skip_debate
 		tab_id = wonder_control
 		group_id = phases
 		default_value = 0
 	}
 	cmm_sync_bool_alias = {
-		setting = tv_engineering_department__skip_debate
+		setting = tv_ed__skip_debate
 		alias = tv_engineering_department_skip_debate
 	}
 
 	cmm_register_global_bool_setting = {
-		mod_id = tv_engineering_department
+		mod_id = tv_ed
 		setting_id = skip_survey
 		tab_id = wonder_control
 		group_id = phases
 		default_value = 0
 	}
 	cmm_sync_bool_alias = {
-		setting = tv_engineering_department__skip_survey
+		setting = tv_ed__skip_survey
 		alias = tv_engineering_department_skip_survey
 	}
 
 	cmm_register_global_bool_setting = {
-		mod_id = tv_engineering_department
+		mod_id = tv_ed
 		setting_id = unlimited_scale
 		tab_id = wonder_control
 		group_id = limits
 		default_value = 0
 	}
 	cmm_sync_bool_alias = {
-		setting = tv_engineering_department__unlimited_scale
+		setting = tv_ed__unlimited_scale
 		alias = tv_engineering_department_unlimited_scale
 	}
 
 	cmm_register_global_bool_setting = {
-		mod_id = tv_engineering_department
+		mod_id = tv_ed
 		setting_id = unlimited_organization
 		tab_id = wonder_control
 		group_id = limits
 		default_value = 0
 	}
 	cmm_sync_bool_alias = {
-		setting = tv_engineering_department__unlimited_organization
+		setting = tv_ed__unlimited_organization
 		alias = tv_engineering_department_unlimited_organization
 	}
 
 	cmm_register_global_bool_setting = {
-		mod_id = tv_engineering_department
+		mod_id = tv_ed
 		setting_id = disable_survey_events
 		tab_id = wonder_control
 		group_id = phases
 		default_value = 0
 	}
 	cmm_sync_bool_alias = {
-		setting = tv_engineering_department__disable_survey_events
+		setting = tv_ed__disable_survey_events
 		alias = tv_engineering_department_disable_survey_events
 	}
 	cmm_add_scripted_gui = {
-		mod_id = tv_engineering_department
+		mod_id = tv_ed
 		setting_id = disable_survey_events
 	}
 
 	cmm_register_global_bool_setting = {
-		mod_id = tv_engineering_department
+		mod_id = tv_ed
 		setting_id = skip_construction
 		tab_id = wonder_control
 		group_id = phases
 		default_value = 0
 	}
 	cmm_sync_bool_alias = {
-		setting = tv_engineering_department__skip_construction
+		setting = tv_ed__skip_construction
 		alias = tv_engineering_department_skip_construction
 	}
 
 	cmm_register_global_slider_setting = {
-		mod_id = tv_engineering_department
+		mod_id = tv_ed
 		setting_id = small_module_requirement
 		tab_id = wonder_control
 		group_id = construction
@@ -168,16 +168,16 @@ tv_engineering_department_register_cmf_mod_effect = {
 		step_value = 1
 	}
 	cmm_sync_setting_alias = {
-		setting = tv_engineering_department__small_module_requirement
+		setting = tv_ed__small_module_requirement
 		alias = tv_engineering_department_small_module_requirement
 	}
 	cmm_add_scripted_gui = {
-		mod_id = tv_engineering_department
+		mod_id = tv_ed
 		setting_id = small_module_requirement
 	}
 
 	cmm_register_global_slider_setting = {
-		mod_id = tv_engineering_department
+		mod_id = tv_ed
 		setting_id = medium_module_requirement
 		tab_id = wonder_control
 		group_id = construction
@@ -187,16 +187,16 @@ tv_engineering_department_register_cmf_mod_effect = {
 		step_value = 1
 	}
 	cmm_sync_setting_alias = {
-		setting = tv_engineering_department__medium_module_requirement
+		setting = tv_ed__medium_module_requirement
 		alias = tv_engineering_department_medium_module_requirement
 	}
 	cmm_add_scripted_gui = {
-		mod_id = tv_engineering_department
+		mod_id = tv_ed
 		setting_id = medium_module_requirement
 	}
 
 	cmm_register_global_slider_setting = {
-		mod_id = tv_engineering_department
+		mod_id = tv_ed
 		setting_id = large_module_requirement
 		tab_id = wonder_control
 		group_id = construction
@@ -206,39 +206,39 @@ tv_engineering_department_register_cmf_mod_effect = {
 		step_value = 1
 	}
 	cmm_sync_setting_alias = {
-		setting = tv_engineering_department__large_module_requirement
+		setting = tv_ed__large_module_requirement
 		alias = tv_engineering_department_large_module_requirement
 	}
 	cmm_add_scripted_gui = {
-		mod_id = tv_engineering_department
+		mod_id = tv_ed
 		setting_id = large_module_requirement
 	}
 
 	cmm_register_global_bool_setting = {
-		mod_id = tv_engineering_department
+		mod_id = tv_ed
 		setting_id = disable_construction_events
 		tab_id = wonder_control
 		group_id = construction
 		default_value = 0
 	}
 	cmm_sync_bool_alias = {
-		setting = tv_engineering_department__disable_construction_events
+		setting = tv_ed__disable_construction_events
 		alias = tv_engineering_department_disable_construction_events
 	}
 	cmm_add_scripted_gui = {
-		mod_id = tv_engineering_department
+		mod_id = tv_ed
 		setting_id = disable_construction_events
 	}
 
 	cmm_register_global_bool_setting = {
-		mod_id = tv_engineering_department
+		mod_id = tv_ed
 		setting_id = skip_ceremony
 		tab_id = wonder_control
 		group_id = phases
 		default_value = 0
 	}
 	cmm_sync_bool_alias = {
-		setting = tv_engineering_department__skip_ceremony
+		setting = tv_ed__skip_ceremony
 		alias = tv_engineering_department_skip_ceremony
 	}
 }
@@ -246,53 +246,53 @@ tv_engineering_department_register_cmf_mod_effect = {
 tv_engineering_department_handle_cmf_callback_effect = {
 	switch = {
 		trigger = var:cmf_callback
-		flag:tv_engineering_department__direct_build = {
-			cmm_sync_bool_alias = { setting = tv_engineering_department__direct_build alias = tv_engineering_department_direct_build }
+		flag:tv_ed__direct_build = {
+			cmm_sync_bool_alias = { setting = tv_ed__direct_build alias = tv_engineering_department_direct_build }
 		}
-		flag:tv_engineering_department__direct_build_small_price = {
-			cmm_sync_setting_alias = { setting = tv_engineering_department__direct_build_small_price alias = tv_engineering_department_direct_build_small_price }
+		flag:tv_ed__direct_build_small_price = {
+			cmm_sync_setting_alias = { setting = tv_ed__direct_build_small_price alias = tv_engineering_department_direct_build_small_price }
 		}
-		flag:tv_engineering_department__direct_build_medium_price = {
-			cmm_sync_setting_alias = { setting = tv_engineering_department__direct_build_medium_price alias = tv_engineering_department_direct_build_medium_price }
+		flag:tv_ed__direct_build_medium_price = {
+			cmm_sync_setting_alias = { setting = tv_ed__direct_build_medium_price alias = tv_engineering_department_direct_build_medium_price }
 		}
-		flag:tv_engineering_department__direct_build_large_price = {
-			cmm_sync_setting_alias = { setting = tv_engineering_department__direct_build_large_price alias = tv_engineering_department_direct_build_large_price }
+		flag:tv_ed__direct_build_large_price = {
+			cmm_sync_setting_alias = { setting = tv_ed__direct_build_large_price alias = tv_engineering_department_direct_build_large_price }
 		}
-		flag:tv_engineering_department__skip_concept = {
-			cmm_sync_bool_alias = { setting = tv_engineering_department__skip_concept alias = tv_engineering_department_skip_concept }
+		flag:tv_ed__skip_concept = {
+			cmm_sync_bool_alias = { setting = tv_ed__skip_concept alias = tv_engineering_department_skip_concept }
 		}
-		flag:tv_engineering_department__skip_debate = {
-			cmm_sync_bool_alias = { setting = tv_engineering_department__skip_debate alias = tv_engineering_department_skip_debate }
+		flag:tv_ed__skip_debate = {
+			cmm_sync_bool_alias = { setting = tv_ed__skip_debate alias = tv_engineering_department_skip_debate }
 		}
-		flag:tv_engineering_department__skip_survey = {
-			cmm_sync_bool_alias = { setting = tv_engineering_department__skip_survey alias = tv_engineering_department_skip_survey }
+		flag:tv_ed__skip_survey = {
+			cmm_sync_bool_alias = { setting = tv_ed__skip_survey alias = tv_engineering_department_skip_survey }
 		}
-		flag:tv_engineering_department__unlimited_scale = {
-			cmm_sync_bool_alias = { setting = tv_engineering_department__unlimited_scale alias = tv_engineering_department_unlimited_scale }
+		flag:tv_ed__unlimited_scale = {
+			cmm_sync_bool_alias = { setting = tv_ed__unlimited_scale alias = tv_engineering_department_unlimited_scale }
 		}
-		flag:tv_engineering_department__unlimited_organization = {
-			cmm_sync_bool_alias = { setting = tv_engineering_department__unlimited_organization alias = tv_engineering_department_unlimited_organization }
+		flag:tv_ed__unlimited_organization = {
+			cmm_sync_bool_alias = { setting = tv_ed__unlimited_organization alias = tv_engineering_department_unlimited_organization }
 		}
-		flag:tv_engineering_department__disable_survey_events = {
-			cmm_sync_bool_alias = { setting = tv_engineering_department__disable_survey_events alias = tv_engineering_department_disable_survey_events }
+		flag:tv_ed__disable_survey_events = {
+			cmm_sync_bool_alias = { setting = tv_ed__disable_survey_events alias = tv_engineering_department_disable_survey_events }
 		}
-		flag:tv_engineering_department__skip_construction = {
-			cmm_sync_bool_alias = { setting = tv_engineering_department__skip_construction alias = tv_engineering_department_skip_construction }
+		flag:tv_ed__skip_construction = {
+			cmm_sync_bool_alias = { setting = tv_ed__skip_construction alias = tv_engineering_department_skip_construction }
 		}
-		flag:tv_engineering_department__small_module_requirement = {
-			cmm_sync_setting_alias = { setting = tv_engineering_department__small_module_requirement alias = tv_engineering_department_small_module_requirement }
+		flag:tv_ed__small_module_requirement = {
+			cmm_sync_setting_alias = { setting = tv_ed__small_module_requirement alias = tv_engineering_department_small_module_requirement }
 		}
-		flag:tv_engineering_department__medium_module_requirement = {
-			cmm_sync_setting_alias = { setting = tv_engineering_department__medium_module_requirement alias = tv_engineering_department_medium_module_requirement }
+		flag:tv_ed__medium_module_requirement = {
+			cmm_sync_setting_alias = { setting = tv_ed__medium_module_requirement alias = tv_engineering_department_medium_module_requirement }
 		}
-		flag:tv_engineering_department__large_module_requirement = {
-			cmm_sync_setting_alias = { setting = tv_engineering_department__large_module_requirement alias = tv_engineering_department_large_module_requirement }
+		flag:tv_ed__large_module_requirement = {
+			cmm_sync_setting_alias = { setting = tv_ed__large_module_requirement alias = tv_engineering_department_large_module_requirement }
 		}
-		flag:tv_engineering_department__disable_construction_events = {
-			cmm_sync_bool_alias = { setting = tv_engineering_department__disable_construction_events alias = tv_engineering_department_disable_construction_events }
+		flag:tv_ed__disable_construction_events = {
+			cmm_sync_bool_alias = { setting = tv_ed__disable_construction_events alias = tv_engineering_department_disable_construction_events }
 		}
-		flag:tv_engineering_department__skip_ceremony = {
-			cmm_sync_bool_alias = { setting = tv_engineering_department__skip_ceremony alias = tv_engineering_department_skip_ceremony }
+		flag:tv_ed__skip_ceremony = {
+			cmm_sync_bool_alias = { setting = tv_ed__skip_ceremony alias = tv_engineering_department_skip_ceremony }
 		}
 	}
 }

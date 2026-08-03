@@ -3169,3 +3169,13 @@ Correction (2026-07-13, same-day follow-up): the `has_flag` reference itself was
   source: "Project owner review, 2026-08-02; scripts/validate.py `check_marked_local_variable_cleanup`"
   notes: "This validator is intentionally marker-driven rather than global: the existing codebase has historical local-variable usage that should be migrated deliberately. The marker lets newly touched high-risk effects opt in immediately without turning unrelated generated legacy files into this task's blast radius."
 
+- id: cmm_mod_id_too_long_breaks_menu_visibility
+  pattern: ''
+  detectability: advisory
+  bad: "Using an unnecessarily long Community Mod Menu `mod_id` so the same namespace is repeated inside every generated setting id, callback flag, and cache key, and the mod stops appearing in the in-game CMM list"
+  correction: "Keep the CMM namespace short and distinct from gameplay ids. Use a compact registration id such as `tv_ed` for `cmm_register_*`, and keep gameplay-facing aliases under the longer `tv_engineering_department_*` namespace. The CMM `mod_id` is just the registration prefix; it does not need to match the gameplay mod id."
+  category: gui
+  scope: any
+  source: "reference_mods/3692202776/loading_screen/data_binding/cmm_macros_view.txt:145; reference_mods/3692202776/loading_screen/data_binding/cmm_macros_settings.txt:112; src_engineering_department/in_game/common/scripted_effects/tv_engineering_department_cmm_effects.txt:4; src_engineering_department/in_game/common/scripted_guis/tv_engineering_department_cmm_scripted_gui.txt:1"
+  notes: "2026-08-03: the Engineering Department CMM integration used the gameplay id `tv_engineering_department` as the CMM namespace at first. That namespace was then repeated in every generated setting key and callback flag and the project did not show up in the in-game menu. Shortening the CMM id to `tv_ed` fixed the visibility issue without changing the gameplay aliases."
+

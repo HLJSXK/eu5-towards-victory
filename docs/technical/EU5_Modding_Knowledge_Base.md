@@ -1604,6 +1604,15 @@ selection with the per-entity/per-step data and emit a key containing both
 identifiers; do not replace it with a global position-to-icon map, a
 `GetConceptTexture` illustration, or an unbounded set of static GUI branches.
 
+Community Mod Menu registration ids are also a namespace, not just a label.
+The `mod_id` passed to `cmm_register_*` becomes part of the generated setting
+ids, callback flags, and cached metadata names that the menu uses to populate
+the mod list. Keep that namespace short and distinct from gameplay ids. A very
+long CMM id can make the project disappear from the in-game menu even when the
+registration blocks are otherwise correct. In Engineering Department, `tv_ed`
+is the CMM namespace, while gameplay-facing aliases stay under
+`tv_engineering_department_*`.
+
 GUI `raw_text` does not expand `$LOCALIZATION_KEY$` substitutions. A value such as `raw_text = "@trade! $TV_TRADE_LEAGUE_IO_COLUMN$"` renders the `$TV_TRADE_LEAGUE_IO_COLUMN$` text literally. For static localized labels with icons, use `text = "TV_TRADE_LEAGUE_IO_COLUMN"` and put `@trade! ...` inside the localization value. For dynamic values that must use `raw_text`, split the localized label into a separate `text` widget if needed.
 
 GUI image `fittype` values are EU5-specific, not CSS object-fit names. Vanilla examples use values such as `centercrop`, `fill`, `start`, and `end`; `fittype = contain` logs `Unknown fit type 'contain'` during GUI loading.

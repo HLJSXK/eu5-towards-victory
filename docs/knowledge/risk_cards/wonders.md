@@ -1281,6 +1281,13 @@ every country regardless so missing or damaged IOs are repaired.
     local-variable usage into unrelated work. See anti_patterns.yaml
     `marked_local_variable_cleanup_missing`.
 
+44. **Keep CMM mod ids short and distinct from gameplay ids.** The `mod_id` passed to
+    `cmm_register_*` is copied into generated setting keys, callback flags, and metadata names.
+    If the namespace is unnecessarily long, the project can fail to appear in the in-game CMM
+    menu even when the registration blocks are otherwise correct. Use a compact CMM id such as
+    `tv_ed` and keep gameplay-facing aliases under the longer `tv_engineering_department_*`
+    namespace. See anti_patterns.yaml `cmm_mod_id_too_long_breaks_menu_visibility`.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`: it lints rule 2 and rule 16 automatically, and rule
