@@ -24,8 +24,10 @@ from wonder_ceremony_lib import (  # noqa: E402
     T,
     ceremony_wonders,
     decline_option_key,
+    decline_option_tooltip_key,
     desc_key,
     pay_option_key,
+    pay_option_tooltip_key,
     render_header,
     stage_event_id,
     title_key,
@@ -67,10 +69,12 @@ def append_event(lines: list[str], stage: int, wonders: list[dict]) -> None:
     lines.append("")
     lines.append(f"{T}option = {{")
     lines.append(f"{T}{T}name = {pay_option_key(stage)}")
+    lines.append(f"{T}{T}custom_tooltip = {pay_option_tooltip_key(stage)}")
     lines.append(f"{T}{T}tv_wonder_ceremony_advance_to_stage_{stage}_effect = yes")
     lines.append(f"{T}}}")
     lines.append(f"{T}option = {{")
     lines.append(f"{T}{T}name = {decline_option_key(stage)}")
+    lines.append(f"{T}{T}custom_tooltip = {decline_option_tooltip_key(stage)}")
     lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")

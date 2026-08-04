@@ -36,6 +36,12 @@ FINALIZATION_EVENT_GENERATOR = (
     / "events"
     / "gen_tv_wonder_finalization_events.py"
 )
+CEREMONY_EVENT_GENERATOR = (
+    REPO_ROOT
+    / "scripts_engineering_department" / "in_game"
+    / "events"
+    / "gen_tv_wonder_ceremony_events.py"
+)
 SITE_REQUIREMENT_AUDITOR = (
     REPO_ROOT / "scripts_engineering_department" / "audit_unique_wonder_site_requirements.py"
 )
@@ -187,8 +193,11 @@ from wonder_mechanics.schema import site_trigger_lines_for_wonder, validate_uniq
 from wonder_ceremony_lib import (
     card_icon_key,
     ceremony_icon_alias,
+    decline_option_tooltip_key,
+    pay_option_tooltip_key,
     reward_effect_lines,
     stage_2_reward_for_wonder,
+    stage_event_id,
 )
 from wonder_localization_lib import load_engineering_department_suffix_map, load_wonder_localization_data
 from towards_victory_editor_web.services.wonder_localization import (
@@ -250,6 +259,14 @@ def load_finalization_effect_generator():
 def load_finalization_event_generator():
     spec = importlib.util.spec_from_file_location("wonder_finalization_event_generator", FINALIZATION_EVENT_GENERATOR)
     require(spec is not None and spec.loader is not None, "Could not load wonder finalization event generator.")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_ceremony_event_generator():
+    spec = importlib.util.spec_from_file_location("wonder_ceremony_event_generator", CEREMONY_EVENT_GENERATOR)
+    require(spec is not None and spec.loader is not None, "Could not load wonder ceremony event generator.")
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
@@ -862,6 +879,7 @@ def validate_generated_ceremony_flow(wonders: list[dict], mechanics: dict) -> No
     ceremony_wonders = [wonder for wonder in wonders if wonder.get("is_unique") and wonder.get("ceremony") is not None]
     require(ceremony_wonders, "Expected ceremony-enabled unique wonders.")
 
+    ceremony_events = load_ceremony_event_generator().generate()
     ceremony_effects = load_ceremony_effect_generator().generate()
     stage_2_rewards = extract_trigger_block(ceremony_effects, "tv_wonder_ceremony_grant_stage_2_reward_effect")
     stage_1_advance = extract_trigger_block(ceremony_effects, "tv_wonder_ceremony_advance_to_stage_1_effect")
@@ -926,6 +944,20 @@ def validate_generated_ceremony_flow(wonders: list[dict], mechanics: dict) -> No
         "var:tv_wonder_ceremony_stage, which this same effect just wrote) so its "
         "completion reward renders in the option's own tooltip preview.",
     )
+    for stage in range(1, 9):
+        event_block = extract_trigger_block(ceremony_events, f"tv_engineering_department.{stage_event_id(stage)}")
+        pay_tooltip = f"custom_tooltip = {pay_option_tooltip_key(stage)}"
+        decline_tooltip = f"custom_tooltip = {decline_option_tooltip_key(stage)}"
+        advance_effect = f"tv_wonder_ceremony_advance_to_stage_{stage}_effect = yes"
+        require(pay_tooltip in event_block, f"Stage {stage} pay option must explain that ceremony progress advances.")
+        require(
+            decline_tooltip in event_block,
+            f"Stage {stage} decline option must explain that ceremony progress is delayed.",
+        )
+        require(
+            event_block.index(pay_tooltip) < event_block.index(advance_effect),
+            f"Stage {stage} pay progress tooltip should render before the cost/effect preview.",
+        )
 
 
 def validate_generated_ceremony_autostart(wonders: list[dict]) -> None:
@@ -1097,6 +1129,15 @@ def validate_generated_ceremony_gui(wonders: list[dict]) -> None:
                     expected_icon_line in localization,
                     f"{name} must render {wonder['key']} stage {stage_index}'s selected icon.",
                 )
+        for stage in range(1, 9):
+            require(
+                f" {pay_option_tooltip_key(stage)}:0 " in localization,
+                f"{name} must localize the stage {stage} pay progress tooltip.",
+            )
+            require(
+                f" {decline_option_tooltip_key(stage)}:0 " in localization,
+                f"{name} must localize the stage {stage} decline-delay tooltip.",
+            )
         require("TV_WONDER_CEREMONY_READY_" not in localization, f"{name} must not emit ready-card localization.")
         require("TV_WONDER_CEREMONY_CARD_STAGE_" not in localization, f"{name} must not emit static stage labels.")
 

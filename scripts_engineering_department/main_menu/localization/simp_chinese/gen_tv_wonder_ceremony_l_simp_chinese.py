@@ -17,6 +17,7 @@ from wonder_ceremony_lib import (  # noqa: E402
     ceremony_stage_cost_entries,
     ceremony_wonders,
     decline_option_key,
+    decline_option_tooltip_key,
     desc_key,
     option_decline_cl_block,
     option_decline_fallback_key,
@@ -25,6 +26,7 @@ from wonder_ceremony_lib import (  # noqa: E402
     option_pay_fallback_key,
     option_pay_text_key,
     pay_option_key,
+    pay_option_tooltip_key,
     render_header,
     title_key,
 )
@@ -70,6 +72,8 @@ def generate() -> str:
     for stage in range(1, STAGE_COUNT + 1):
         lines.append(f' {pay_option_key(stage)}:0 "[ROOT.GetCountry.Custom(\'{option_pay_cl_block(stage)}\')]"')
         lines.append(f' {decline_option_key(stage)}:0 "[ROOT.GetCountry.Custom(\'{option_decline_cl_block(stage)}\')]"')
+        lines.append(f' {pay_option_tooltip_key(stage)}:0 "#G 仪式进度将推进#!"')
+        lines.append(f' {decline_option_tooltip_key(stage)}:0 "#R 仪式进度将推迟三个月#!"')
         lines.append(f' {option_pay_fallback_key(stage)}:0 "支付代价。"')
         lines.append(f' {option_decline_fallback_key(stage)}:0 "暂缓。"')
     for wonder in wonders:

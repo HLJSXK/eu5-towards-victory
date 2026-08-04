@@ -97,6 +97,14 @@ def decline_option_key(stage: int) -> str:
     return f"{NAMESPACE}.{stage_event_id(stage)}.b"
 
 
+def pay_option_tooltip_key(stage: int) -> str:
+    return f"{pay_option_key(stage)}.tt"
+
+
+def decline_option_tooltip_key(stage: int) -> str:
+    return f"{decline_option_key(stage)}.tt"
+
+
 def option_pay_text_key(stage: int, wonder_id: int) -> str:
     return f"TV_WONDER_CEREMONY_S{stage}_OPTION_PAY_{wonder_id}"
 
