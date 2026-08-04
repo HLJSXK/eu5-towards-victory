@@ -48,7 +48,17 @@ if not exist "!EU5_PYTHON!" (
     exit /b 1
 )
 
-echo === [1/8] Updating mod version ===
+echo === [1/9] Regenerating generated submod outputs ===
+call "!EU5_PYTHON!" "%ROOT%scripts\regenerate_submods.py"
+if !errorlevel! neq 0 (
+    echo.
+    echo [ERROR] Submod regeneration failed. Deployment aborted.
+    pause
+    exit /b 1
+)
+
+echo.
+echo === [2/9] Updating mod version ===
 call "!EU5_PYTHON!" "%ROOT%scripts\update_mod_version.py"
 if !errorlevel! neq 0 (
     echo.
@@ -59,10 +69,10 @@ if !errorlevel! neq 0 (
 
 echo.
 if "!SKIP_VALIDATION!"=="1" (
-    echo === [2/8] Skipping validation ===
+    echo === [3/9] Skipping validation ===
     echo [WARN] Validation bypassed because --skip-validation was supplied.
 ) else (
-    echo === [2/8] Validating mod source ===
+    echo === [3/9] Validating mod source ===
     set "VALIDATE_OUT=%TEMP%\tv_validate_out.txt"
     call "!EU5_PYTHON!" "%ROOT%scripts\validate.py" > "!VALIDATE_OUT!" 2>&1
     set "VALIDATE_RC=!errorlevel!"
@@ -77,7 +87,7 @@ if "!SKIP_VALIDATION!"=="1" (
 )
 
 echo.
-echo === [3/8] Deploying src to !DEST! ===
+echo === [4/9] Deploying src to !DEST! ===
 if not exist "!MOD_DIR!" (
     echo [ERROR] EU5 mod directory not found: !MOD_DIR!
     pause
@@ -94,7 +104,7 @@ if !RC! GEQ 8 (
 )
 
 echo.
-echo === [4/8] Deploying Engineering Department src to !ED_DEST! ===
+echo === [5/9] Deploying Engineering Department src to !ED_DEST! ===
 if not exist "!ED_SRC!" (
     echo [ERROR] Engineering Department source not found: !ED_SRC!
     pause
@@ -111,7 +121,7 @@ if !RC! GEQ 8 (
 )
 
 echo.
-echo === [5/8] Deploying Court Positions src to !COURT_DEST! ===
+echo === [6/9] Deploying Court Positions src to !COURT_DEST! ===
 if not exist "!COURT_SRC!" (
     echo [ERROR] Court Positions source not found: !COURT_SRC!
     pause
@@ -128,7 +138,7 @@ if !RC! GEQ 8 (
 )
 
 echo.
-echo === [6/8] Deploying M^&T compatibility submod to !MNT_COMPAT_DEST! ===
+echo === [7/9] Deploying M^&T compatibility submod to !MNT_COMPAT_DEST! ===
 if not exist "!MNT_COMPAT!" (
     echo [ERROR] Compatibility submod source not found: !MNT_COMPAT!
     pause
@@ -145,7 +155,7 @@ if !RC! GEQ 8 (
 )
 
 echo.
-echo === [7/8] Deploying Standard of Living compatibility submod to !SOL_COMPAT_DEST! ===
+echo === [8/9] Deploying Standard of Living compatibility submod to !SOL_COMPAT_DEST! ===
 if not exist "!SOL_COMPAT!" (
     echo [ERROR] Compatibility submod source not found: !SOL_COMPAT!
     pause
@@ -162,7 +172,7 @@ if !RC! GEQ 8 (
 )
 
 echo.
-echo === [8/8] Deploying Prosper or Perish compatibility submod to !PP_COMPAT_DEST! ===
+echo === [9/9] Deploying Prosper or Perish compatibility submod to !PP_COMPAT_DEST! ===
 if not exist "!PP_COMPAT!" (
     echo [ERROR] Compatibility submod source not found: !PP_COMPAT!
     pause
