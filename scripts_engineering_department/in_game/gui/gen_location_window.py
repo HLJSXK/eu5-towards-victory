@@ -10,6 +10,7 @@ sys.path.insert(0, str(REPO_ROOT / "scripts_engineering_department"))
 from wonder_mechanics.render import render_header
 
 GLORP_LOCATION_WINDOW_FILE = REPO_ROOT / "reference_mods" / "3601047146" / "in_game" / "gui" / "location_window.gui"
+GLORP_SHARED_TYPES_FILE = REPO_ROOT / "reference_mods" / "3601047146" / "in_game" / "gui" / "glorpUI_shared_types.gui"
 GLORP_VANILLA_TYPES_FILE = (
     REPO_ROOT
     / "reference_mods"
@@ -23,6 +24,7 @@ OUT_FILE = REPO_ROOT / "src_engineering_department" / "in_game" / "gui" / "locat
 SCRIPT_REL = "scripts_engineering_department/in_game/gui/gen_location_window.py"
 DATA_REL = (
     "reference_mods/3601047146/in_game/gui/location_window.gui + "
+    "reference_mods/3601047146/in_game/gui/glorpUI_shared_types.gui + "
     "reference_mods/3601047146/in_game/gui/vanilla/cmfg_location_window_vanilla_types.gui + "
     "data/wonders.yaml + data/wonder_final_buildings.yaml + data/wonder_generic_rituals.yaml + "
     "data/wonder_base_modifiers.yaml + data/wonder_site_rules.yaml + data/unique_wonders.yaml"
@@ -62,6 +64,27 @@ TOOLTIP_MODIFIER_COLUMN_SPACING = 8
 # Match Engineering Department suitability columns: 444 = 218 + 8 + 218.
 TOOLTIP_MODIFIER_COLUMNS_WIDTH = TOOLTIP_EFFECT_COLUMN_WIDTH - TOOLTIP_EFFECT_MARGIN_X * 2 - 2
 TOOLTIP_MODIFIER_COLUMN_WIDTH = (TOOLTIP_MODIFIER_COLUMNS_WIDTH - TOOLTIP_MODIFIER_COLUMN_SPACING) // 2
+
+
+def extract_top_level_block(text: str, start_marker: str) -> str:
+    start = text.find(start_marker)
+    if start == -1:
+        raise RuntimeError(f"Could not find {start_marker!r} in Glorp UI shared types")
+    depth = 0
+    for index, char in enumerate(text[start:], start=start):
+        if char == "{":
+            depth += 1
+        elif char == "}":
+            depth -= 1
+            if depth == 0:
+                return text[start : index + 1].rstrip()
+    raise RuntimeError(f"Could not find matching closing brace for {start_marker!r}")
+
+
+def render_glorp_shared_types() -> str:
+    glorp_shared_types = GLORP_SHARED_TYPES_FILE.read_text(encoding="utf-8-sig")
+    # Import only the shared Glorp type that location_window.gui actually uses.
+    return extract_top_level_block(glorp_shared_types, "types glorp_shared_types {")
 
 
 def location_var(name: str) -> str:
@@ -797,6 +820,7 @@ def generate() -> str:
     glorp_vanilla_types = GLORP_VANILLA_TYPES_FILE.read_text(encoding="utf-8-sig")
     glorp_location_window = GLORP_LOCATION_WINDOW_FILE.read_text(encoding="utf-8-sig")
     lines = render_header(SCRIPT_REL, DATA_REL)
+    lines.append(render_glorp_shared_types())
     lines.append(render_tooltip_template())
     lines.append(glorp_vanilla_types)
     lines.append(inject_overlay(glorp_location_window))
