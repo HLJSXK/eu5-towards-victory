@@ -36,16 +36,34 @@ def step(label: str, action) -> None:
 
 
 def copy_map_assets() -> None:
-    require_path(REFERENCE_DIST / "tiles", "reference map tiles")
-    require_path(REFERENCE_DIST / "data" / "locations_index.json", "reference locations index")
+    reference_tiles = REFERENCE_DIST / "tiles"
+    reference_locations = REFERENCE_DIST / "data" / "locations_index.json"
+    existing_tiles = DIST_ROOT / "tiles"
+    existing_locations = DATA_ROOT / "locations_index.json"
+
+    missing_reference_assets = [
+        (path, label)
+        for path, label in (
+            (reference_tiles, "reference map tiles"),
+            (reference_locations, "reference locations index"),
+        )
+        if not path.exists()
+    ]
+    if missing_reference_assets:
+        if existing_tiles.exists() and existing_locations.exists():
+            missing = ", ".join(label for _, label in missing_reference_assets)
+            print(f"[WARN] Missing {missing}; reusing existing dist map assets.", flush=True)
+            return
+        missing_path, missing_label = missing_reference_assets[0]
+        raise FileNotFoundError(f"Missing {missing_label}: {missing_path}")
 
     DATA_ROOT.mkdir(parents=True, exist_ok=True)
     shutil.copy2(
-        REFERENCE_DIST / "data" / "locations_index.json",
+        reference_locations,
         DATA_ROOT / "locations_index.json",
     )
     shutil.copytree(
-        REFERENCE_DIST / "tiles",
+        reference_tiles,
         DIST_ROOT / "tiles",
         dirs_exist_ok=True,
     )
