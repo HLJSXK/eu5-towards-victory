@@ -14980,7 +14980,6 @@ tv_wonder_public_credit_bank = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		tax_income_efficiency = 0.05
-		merchant_maintenance_efficiency = 0.05
 		monthly_towards_capital_economy = 0.05
 	}
 
@@ -15057,7 +15056,6 @@ tv_wonder_state_debt_office = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		tax_income_efficiency = 0.05
-		merchant_maintenance_efficiency = 0.05
 		monthly_towards_capital_economy = 0.05
 	}
 
@@ -15134,7 +15132,6 @@ tv_wonder_merchant_clearing_bank = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		tax_income_efficiency = 0.05
-		merchant_maintenance_efficiency = 0.05
 		monthly_towards_capital_economy = 0.05
 	}
 
@@ -15550,7 +15547,7 @@ tv_wonder_royal_pleasure_gardens = {
 		}
 	}
 
-	price = tv_wonder_direct_build_medium_price
+	price = tv_wonder_direct_build_small_price
 
 	build_time = huge_unique_build_time
 	construction_demand = library_construction
@@ -15558,9 +15555,8 @@ tv_wonder_royal_pleasure_gardens = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_monthly_prosperity = 0.001
-		local_migration_attraction = 1
-		cultural_tradition_modifier = 0.05
+		local_crown_estate_power = 0.5
+		local_migration_attraction = 0.5
 		monthly_towards_humanist = 0.05
 	}
 
@@ -15627,7 +15623,7 @@ tv_wonder_scholars_landscape_garden = {
 		}
 	}
 
-	price = tv_wonder_direct_build_medium_price
+	price = tv_wonder_direct_build_small_price
 
 	build_time = huge_unique_build_time
 	construction_demand = library_construction
@@ -15635,9 +15631,8 @@ tv_wonder_scholars_landscape_garden = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_monthly_prosperity = 0.001
-		local_migration_attraction = 1
-		cultural_tradition_modifier = 0.05
+		local_crown_estate_power = 0.5
+		local_migration_attraction = 0.5
 		monthly_towards_humanist = 0.05
 	}
 
@@ -15704,7 +15699,7 @@ tv_wonder_botanical_exchange_garden = {
 		}
 	}
 
-	price = tv_wonder_direct_build_medium_price
+	price = tv_wonder_direct_build_small_price
 
 	build_time = huge_unique_build_time
 	construction_demand = library_construction
@@ -15712,9 +15707,8 @@ tv_wonder_botanical_exchange_garden = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_monthly_prosperity = 0.001
-		local_migration_attraction = 1
-		cultural_tradition_modifier = 0.05
+		local_crown_estate_power = 0.5
+		local_migration_attraction = 0.5
 		monthly_towards_humanist = 0.05
 	}
 
@@ -15769,13 +15763,13 @@ tv_wonder_grand_garden_complex_ritual_annex = {
 	}
 	can_destroy = { always = yes }
 
-	price = tv_wonder_ritual_annex_medium_price
+	price = tv_wonder_ritual_annex_small_price
 
 	build_time = large_cultural_building_time
 	construction_demand = library_construction
 
 	modifier = {
-		local_cultural_tradition = 1
+		growth_is_primary_culture = yes
 		local_nobles_estate_power = 0.5
 	}
 
@@ -15830,7 +15824,10 @@ tv_wonder_classics_examination_yard = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
-		NOT = { location_rank ?= location_rank:rural_settlement }
+		OR = {
+			is_capital = yes
+			NOT = { location_rank ?= location_rank:rural_settlement }
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -15849,11 +15846,8 @@ tv_wonder_classics_examination_yard = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_max_literacy = 10
-		local_pop_promotion_speed_modifier = 0.25
-		country_cabinet_efficiency = 0.05
-		global_pop_promotion_speed = 0.005
-		monthly_towards_jurisprudence = 0.05
+		global_pop_promotion_speed_modifier = 0.05
+		monthly_towards_innovative = 0.05
 	}
 
 	possible_production_methods = {
@@ -15905,7 +15899,10 @@ tv_wonder_open_merit_hall = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
-		NOT = { location_rank ?= location_rank:rural_settlement }
+		OR = {
+			is_capital = yes
+			NOT = { location_rank ?= location_rank:rural_settlement }
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -15924,11 +15921,8 @@ tv_wonder_open_merit_hall = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_max_literacy = 10
-		local_pop_promotion_speed_modifier = 0.25
-		country_cabinet_efficiency = 0.05
-		global_pop_promotion_speed = 0.005
-		monthly_towards_jurisprudence = 0.05
+		global_pop_promotion_speed_modifier = 0.05
+		monthly_towards_innovative = 0.05
 	}
 
 	possible_production_methods = {
@@ -15980,7 +15974,10 @@ tv_wonder_practical_statecraft_academy = {
 			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
 			has_global_variable = tv_engineering_department_direct_build
 		}
-		NOT = { location_rank ?= location_rank:rural_settlement }
+		OR = {
+			is_capital = yes
+			NOT = { location_rank ?= location_rank:rural_settlement }
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -15999,11 +15996,8 @@ tv_wonder_practical_statecraft_academy = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_max_literacy = 10
-		local_pop_promotion_speed_modifier = 0.25
-		country_cabinet_efficiency = 0.05
-		global_pop_promotion_speed = 0.005
-		monthly_towards_jurisprudence = 0.05
+		global_pop_promotion_speed_modifier = 0.05
+		monthly_towards_innovative = 0.05
 	}
 
 	possible_production_methods = {
@@ -16063,8 +16057,7 @@ tv_wonder_state_examination_complex_ritual_annex = {
 	construction_demand = capital_building_construction
 
 	modifier = {
-		local_max_literacy = 10
-		local_pop_promotion_speed_modifier = 0.25
+		local_max_literacy = 20
 		local_burghers_estate_power = 0.5
 	}
 
@@ -17795,7 +17788,6 @@ tv_wonder_unique_bank_of_saint_george_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		tax_income_efficiency = 0.1
-		merchant_maintenance_efficiency = 0.1
 		monthly_towards_capital_economy = 0.1
 	}
 
@@ -24512,7 +24504,6 @@ tv_wonder_unique_augsburg_bank_inaugurated = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
 		tax_income_efficiency = 0.1
-		merchant_maintenance_efficiency = 0.1
 		monthly_towards_capital_economy = 0.1
 	}
 
@@ -25475,7 +25466,7 @@ tv_wonder_unique_suzhou_classical_gardens_inaugurated = {
 		}
 	}
 
-	price = tv_wonder_direct_build_medium_price
+	price = tv_wonder_direct_build_small_price
 
 	build_time = huge_unique_build_time
 	construction_demand = library_construction
@@ -25483,9 +25474,8 @@ tv_wonder_unique_suzhou_classical_gardens_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_monthly_prosperity = 0.002
-		local_migration_attraction = 2
-		cultural_tradition_modifier = 0.1
+		local_crown_estate_power = 1
+		local_migration_attraction = 1
 		monthly_towards_humanist = 0.1
 	}
 
@@ -25553,7 +25543,7 @@ tv_wonder_unique_fin_garden_inaugurated = {
 		}
 	}
 
-	price = tv_wonder_direct_build_medium_price
+	price = tv_wonder_direct_build_small_price
 
 	build_time = huge_unique_build_time
 	construction_demand = library_construction
@@ -25561,9 +25551,8 @@ tv_wonder_unique_fin_garden_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_monthly_prosperity = 0.002
-		local_migration_attraction = 2
-		cultural_tradition_modifier = 0.1
+		local_crown_estate_power = 1
+		local_migration_attraction = 1
 		monthly_towards_humanist = 0.1
 	}
 
@@ -25617,7 +25606,10 @@ tv_wonder_unique_jiangnan_examination_hall_inaugurated = {
 			has_global_variable = tv_engineering_department_direct_build
 		}
 		this = location:shangyuan
-		NOT = { location_rank ?= location_rank:rural_settlement }
+		OR = {
+			is_capital = yes
+			NOT = { location_rank ?= location_rank:rural_settlement }
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -25636,11 +25628,8 @@ tv_wonder_unique_jiangnan_examination_hall_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_max_literacy = 20
-		local_pop_promotion_speed_modifier = 0.5
-		country_cabinet_efficiency = 0.1
-		global_pop_promotion_speed = 0.01
-		monthly_towards_jurisprudence = 0.1
+		global_pop_promotion_speed_modifier = 0.1
+		monthly_towards_innovative = 0.1
 	}
 
 	possible_production_methods = {
@@ -25693,7 +25682,10 @@ tv_wonder_unique_thang_long_temple_of_literature_inaugurated = {
 			has_global_variable = tv_engineering_department_direct_build
 		}
 		this = location:thang_long
-		NOT = { location_rank ?= location_rank:rural_settlement }
+		OR = {
+			is_capital = yes
+			NOT = { location_rank ?= location_rank:rural_settlement }
+		}
 	}
 	can_destroy = {
 		NOT = {
@@ -25712,11 +25704,8 @@ tv_wonder_unique_thang_long_temple_of_literature_inaugurated = {
 	modifier = {
 		local_cultural_tradition = 0.5
 		local_cultural_influence = 0.5
-		local_max_literacy = 20
-		local_pop_promotion_speed_modifier = 0.5
-		country_cabinet_efficiency = 0.1
-		global_pop_promotion_speed = 0.01
-		monthly_towards_jurisprudence = 0.1
+		global_pop_promotion_speed_modifier = 0.1
+		monthly_towards_innovative = 0.1
 	}
 
 	possible_production_methods = {

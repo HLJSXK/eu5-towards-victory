@@ -430,7 +430,8 @@ tv_wonder_auto_world_market = {
 	scales_with = {
 		value = "variable_map(tv_wonder_auto_level_by_wonder_id|34)"
 	}
-	global_trade_center_power = 0.1
+	global_trade_center_power = 0.05
+	burghers_estate_target_satisfaction = 0.025
 	monthly_towards_free_trade = 0.05
 }
 
@@ -672,8 +673,7 @@ tv_wonder_auto_national_bank = {
 	scales_with = {
 		value = "variable_map(tv_wonder_auto_level_by_wonder_id|53)"
 	}
-	tax_income_efficiency = 0.02
-	merchant_maintenance_efficiency = 0.03
+	tax_income_efficiency = 0.05
 	monthly_towards_capital_economy = 0.05
 }
 
@@ -686,8 +686,7 @@ tv_wonder_auto_pirate_port = {
 	scales_with = {
 		value = "variable_map(tv_wonder_auto_level_by_wonder_id|54)"
 	}
-	hire_privateer_cost_modifier = -0.05
-	privateer_maintenance_cost_modifier = -0.03
+	privateer_maintenance_cost_modifier = -0.05
 	privateer_durability = 0.05
 	monthly_towards_individualism = 0.05
 }
@@ -700,6 +699,31 @@ tv_wonder_auto_pirate_port_unscaled = {
 		is_key_in_variable_map = { name = tv_wonder_auto_level_by_wonder_id target = 54 }
 	}
 	can_hire_privateers = yes
+}
+
+tv_wonder_auto_grand_garden_complex = {
+	category = country
+	potential_trigger = {
+		has_variable_map = tv_wonder_auto_level_by_wonder_id
+		is_key_in_variable_map = { name = tv_wonder_auto_level_by_wonder_id target = 55 }
+	}
+	scales_with = {
+		value = "variable_map(tv_wonder_auto_level_by_wonder_id|55)"
+	}
+	monthly_towards_humanist = 0.05
+}
+
+tv_wonder_auto_state_examination_complex = {
+	category = country
+	potential_trigger = {
+		has_variable_map = tv_wonder_auto_level_by_wonder_id
+		is_key_in_variable_map = { name = tv_wonder_auto_level_by_wonder_id target = 56 }
+	}
+	scales_with = {
+		value = "variable_map(tv_wonder_auto_level_by_wonder_id|56)"
+	}
+	global_pop_promotion_speed_modifier = 0.05
+	monthly_towards_innovative = 0.05
 }
 
 tv_wonder_auto_unique_pharos_lighthouse = {
@@ -983,8 +1007,7 @@ tv_wonder_auto_unique_bank_of_saint_george = {
 	scales_with = {
 		value = "variable_map(tv_wonder_auto_level_by_wonder_id|122)"
 	}
-	tax_income_efficiency = 0.04
-	merchant_maintenance_efficiency = 0.06
+	tax_income_efficiency = 0.1
 	monthly_towards_capital_economy = 0.1
 }
 
@@ -1010,7 +1033,8 @@ tv_wonder_auto_unique_great_zimbabwe = {
 	scales_with = {
 		value = "variable_map(tv_wonder_auto_level_by_wonder_id|124)"
 	}
-	global_trade_center_power = 0.2
+	global_trade_center_power = 0.1
+	burghers_estate_target_satisfaction = 0.05
 	monthly_towards_free_trade = 0.1
 }
 
@@ -1850,7 +1874,8 @@ tv_wonder_auto_unique_tashkent_old_bazaar = {
 	scales_with = {
 		value = "variable_map(tv_wonder_auto_level_by_wonder_id|191)"
 	}
-	global_trade_center_power = 0.2
+	global_trade_center_power = 0.1
+	burghers_estate_target_satisfaction = 0.05
 	monthly_towards_free_trade = 0.1
 }
 
@@ -2038,7 +2063,8 @@ tv_wonder_auto_unique_sanaa_old_city = {
 	scales_with = {
 		value = "variable_map(tv_wonder_auto_level_by_wonder_id|206)"
 	}
-	global_trade_center_power = 0.2
+	global_trade_center_power = 0.1
+	burghers_estate_target_satisfaction = 0.05
 	monthly_towards_free_trade = 0.1
 }
 
@@ -2103,8 +2129,7 @@ tv_wonder_auto_unique_augsburg_bank = {
 	scales_with = {
 		value = "variable_map(tv_wonder_auto_level_by_wonder_id|211)"
 	}
-	tax_income_efficiency = 0.04
-	merchant_maintenance_efficiency = 0.06
+	tax_income_efficiency = 0.1
 	monthly_towards_capital_economy = 0.1
 }
 
@@ -2220,8 +2245,7 @@ tv_wonder_auto_unique_algiers_pirate_port = {
 	scales_with = {
 		value = "variable_map(tv_wonder_auto_level_by_wonder_id|220)"
 	}
-	hire_privateer_cost_modifier = -0.1
-	privateer_maintenance_cost_modifier = -0.06
+	privateer_maintenance_cost_modifier = -0.1
 	privateer_durability = 0.1
 	monthly_towards_individualism = 0.1
 }
@@ -2270,4 +2294,168 @@ tv_wonder_auto_unique_walls_of_benin = {
 		value = "variable_map(tv_wonder_auto_level_by_wonder_id|223)"
 	}
 	monthly_towards_defensive = 0.1
+}
+
+tv_wonder_auto_unique_suzhou_classical_gardens = {
+	category = country
+	potential_trigger = {
+		has_variable_map = tv_wonder_auto_level_by_wonder_id
+		is_key_in_variable_map = { name = tv_wonder_auto_level_by_wonder_id target = 224 }
+	}
+	scales_with = {
+		value = "variable_map(tv_wonder_auto_level_by_wonder_id|224)"
+	}
+	monthly_towards_humanist = 0.1
+}
+
+tv_wonder_auto_unique_fin_garden = {
+	category = country
+	potential_trigger = {
+		has_variable_map = tv_wonder_auto_level_by_wonder_id
+		is_key_in_variable_map = { name = tv_wonder_auto_level_by_wonder_id target = 225 }
+	}
+	scales_with = {
+		value = "variable_map(tv_wonder_auto_level_by_wonder_id|225)"
+	}
+	monthly_towards_humanist = 0.1
+}
+
+tv_wonder_auto_unique_jiangnan_examination_hall = {
+	category = country
+	potential_trigger = {
+		has_variable_map = tv_wonder_auto_level_by_wonder_id
+		is_key_in_variable_map = { name = tv_wonder_auto_level_by_wonder_id target = 226 }
+	}
+	scales_with = {
+		value = "variable_map(tv_wonder_auto_level_by_wonder_id|226)"
+	}
+	global_pop_promotion_speed_modifier = 0.1
+	monthly_towards_innovative = 0.1
+}
+
+tv_wonder_auto_unique_thang_long_temple_of_literature = {
+	category = country
+	potential_trigger = {
+		has_variable_map = tv_wonder_auto_level_by_wonder_id
+		is_key_in_variable_map = { name = tv_wonder_auto_level_by_wonder_id target = 227 }
+	}
+	scales_with = {
+		value = "variable_map(tv_wonder_auto_level_by_wonder_id|227)"
+	}
+	global_pop_promotion_speed_modifier = 0.1
+	monthly_towards_innovative = 0.1
+}
+
+tv_wonder_auto_unique_maragheh_observatory = {
+	category = country
+	potential_trigger = {
+		has_variable_map = tv_wonder_auto_level_by_wonder_id
+		is_key_in_variable_map = { name = tv_wonder_auto_level_by_wonder_id target = 228 }
+	}
+	scales_with = {
+		value = "variable_map(tv_wonder_auto_level_by_wonder_id|228)"
+	}
+	research_speed = 0.1
+	monthly_towards_innovative = 0.1
+}
+
+tv_wonder_auto_unique_xian_bell_and_drum_towers = {
+	category = country
+	potential_trigger = {
+		has_variable_map = tv_wonder_auto_level_by_wonder_id
+		is_key_in_variable_map = { name = tv_wonder_auto_level_by_wonder_id target = 229 }
+	}
+	scales_with = {
+		value = "variable_map(tv_wonder_auto_level_by_wonder_id|229)"
+	}
+	monthly_towards_inward = 0.1
+}
+
+tv_wonder_auto_unique_behistun_inscription = {
+	category = country
+	potential_trigger = {
+		has_variable_map = tv_wonder_auto_level_by_wonder_id
+		is_key_in_variable_map = { name = tv_wonder_auto_level_by_wonder_id target = 230 }
+	}
+	scales_with = {
+		value = "variable_map(tv_wonder_auto_level_by_wonder_id|230)"
+	}
+	monthly_rebel_growth = -0.001
+	monthly_towards_inward = 0.1
+}
+
+tv_wonder_auto_unique_beijing_imperial_granaries = {
+	category = country
+	potential_trigger = {
+		has_variable_map = tv_wonder_auto_level_by_wonder_id
+		is_key_in_variable_map = { name = tv_wonder_auto_level_by_wonder_id target = 231 }
+	}
+	scales_with = {
+		value = "variable_map(tv_wonder_auto_level_by_wonder_id|231)"
+	}
+	global_food_capacity_modifier = 0.4
+	monthly_towards_traditional_economy = 0.1
+}
+
+tv_wonder_auto_unique_bursa_imperial_mint = {
+	category = country
+	potential_trigger = {
+		has_variable_map = tv_wonder_auto_level_by_wonder_id
+		is_key_in_variable_map = { name = tv_wonder_auto_level_by_wonder_id target = 232 }
+	}
+	scales_with = {
+		value = "variable_map(tv_wonder_auto_level_by_wonder_id|232)"
+	}
+	minting_income_factor = 0.2
+	monthly_towards_capital_economy = 0.1
+}
+
+tv_wonder_auto_unique_enderun_palace_school = {
+	category = country
+	potential_trigger = {
+		has_variable_map = tv_wonder_auto_level_by_wonder_id
+		is_key_in_variable_map = { name = tv_wonder_auto_level_by_wonder_id target = 233 }
+	}
+	scales_with = {
+		value = "variable_map(tv_wonder_auto_level_by_wonder_id|233)"
+	}
+	monthly_army_tradition = 0.1
+	monthly_towards_belligerent = 0.1
+}
+
+tv_wonder_auto_unique_ayutthaya_foreign_quarters = {
+	category = country
+	potential_trigger = {
+		has_variable_map = tv_wonder_auto_level_by_wonder_id
+		is_key_in_variable_map = { name = tv_wonder_auto_level_by_wonder_id target = 234 }
+	}
+	scales_with = {
+		value = "variable_map(tv_wonder_auto_level_by_wonder_id|234)"
+	}
+	diplomatic_reputation = 2
+	monthly_towards_conciliatory = 0.1
+}
+
+tv_wonder_auto_unique_yunnan_weisuo_colonies = {
+	category = country
+	potential_trigger = {
+		has_variable_map = tv_wonder_auto_level_by_wonder_id
+		is_key_in_variable_map = { name = tv_wonder_auto_level_by_wonder_id target = 235 }
+	}
+	scales_with = {
+		value = "variable_map(tv_wonder_auto_level_by_wonder_id|235)"
+	}
+	monthly_towards_outward = 0.1
+}
+
+tv_wonder_auto_unique_zhoushan_beacon_network = {
+	category = country
+	potential_trigger = {
+		has_variable_map = tv_wonder_auto_level_by_wonder_id
+		is_key_in_variable_map = { name = tv_wonder_auto_level_by_wonder_id target = 236 }
+	}
+	scales_with = {
+		value = "variable_map(tv_wonder_auto_level_by_wonder_id|236)"
+	}
+	monthly_towards_communalism = 0.1
 }

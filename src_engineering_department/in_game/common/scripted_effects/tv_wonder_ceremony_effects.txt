@@ -5553,13 +5553,11 @@ tv_wonder_ceremony_grant_stage_2_reward_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 224 }
-		culture = { add_cultural_tradition = 25 }
-		var:tv_wonder_site ?= { change_prosperity = 0.3 }
+		var:tv_wonder_site ?= { change_prosperity = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 225 }
-		culture = { add_cultural_tradition = 25 }
-		var:tv_wonder_site ?= { change_prosperity = 0.3 }
+		var:tv_wonder_site ?= { change_prosperity = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_locked ?= 226 }

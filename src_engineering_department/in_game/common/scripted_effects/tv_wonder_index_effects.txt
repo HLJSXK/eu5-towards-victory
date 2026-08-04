@@ -6982,6 +6982,262 @@ tv_wonder_index_rebuild_global_maps_effect = {
 	add_to_global_variable_map = { name = tv_wonder_final_building_type_to_wonder_id key = building_type:tv_wonder_corsair_admiralty value = 54 }
 	remove_from_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style key = building_type:tv_wonder_corsair_admiralty }
 	add_to_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style key = building_type:tv_wonder_corsair_admiralty value = 3 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_is_unique key = 55 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_is_unique key = 55 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_base_id key = 55 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_base_id key = 55 value = 55 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_mechanic_id key = 55 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_mechanic_id key = 55 value = 55 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_size key = 55 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_size key = 55 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_style_count key = 55 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_style_count key = 55 value = 3 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_display_id key = 55 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_display_id key = 55 value = 55 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_concept_display_id key = 55 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_concept_display_id key = 55 value = 55 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_image_display_id key = 55 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_image_display_id key = 55 value = 55 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_required_progress key = 55 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_required_progress key = 55 value = 100000 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_helper_building_type key = 55 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_helper_building_type key = 55 value = building_type:tv_wonder_grand_garden_complex }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_grand_garden_complex }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_grand_garden_complex value = 55 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_foundation_module_building_type key = 55 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_foundation_module_building_type key = 55 value = building_type:tv_wonder_grand_garden_complex_foundation }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_grand_garden_complex_foundation }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_grand_garden_complex_foundation value = 55 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_body_module_building_type key = 55 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_body_module_building_type key = 55 value = building_type:tv_wonder_grand_garden_complex_body }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_grand_garden_complex_body }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_grand_garden_complex_body value = 55 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_function_module_building_type key = 55 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_function_module_building_type key = 55 value = building_type:tv_wonder_grand_garden_complex_function }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_grand_garden_complex_function }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_grand_garden_complex_function value = 55 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_decoration_module_building_type key = 55 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_decoration_module_building_type key = 55 value = building_type:tv_wonder_grand_garden_complex_decoration }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_grand_garden_complex_decoration }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_grand_garden_complex_decoration value = 55 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_key_to_id key = 5501 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_key_to_id key = 5501 value = 5501 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_wonder_id key = 5501 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_wonder_id key = 5501 value = 55 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_style key = 5501 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_style key = 5501 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_mode key = 5501 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_mode key = 5501 value = 2 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_cost_type key = 5501 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_cost_type key = 5501 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_deferred_completion key = 5501 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_deferred_completion key = 5501 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_has_confirmation_trigger key = 5501 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_has_confirmation_trigger key = 5501 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_has_custom_completion_trigger key = 5501 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_has_custom_completion_trigger key = 5501 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_monthly key = 5501 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_monthly key = 5501 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ruler_death key = 5501 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ruler_death key = 5501 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_pre_winning_war key = 5501 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_pre_winning_war key = 5501 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ending_war key = 5501 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ending_war key = 5501 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_style_1_final_building_type key = 55 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_style_1_final_building_type key = 55 value = building_type:tv_wonder_royal_pleasure_gardens }
+	remove_from_global_variable_map = { name = tv_wonder_final_building_type_to_wonder_id key = building_type:tv_wonder_royal_pleasure_gardens }
+	add_to_global_variable_map = { name = tv_wonder_final_building_type_to_wonder_id key = building_type:tv_wonder_royal_pleasure_gardens value = 55 }
+	remove_from_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style key = building_type:tv_wonder_royal_pleasure_gardens }
+	add_to_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style key = building_type:tv_wonder_royal_pleasure_gardens value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_key_to_id key = 5502 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_key_to_id key = 5502 value = 5502 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_wonder_id key = 5502 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_wonder_id key = 5502 value = 55 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_style key = 5502 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_style key = 5502 value = 2 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_mode key = 5502 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_mode key = 5502 value = 3 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_cost_type key = 5502 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_cost_type key = 5502 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_deferred_completion key = 5502 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_deferred_completion key = 5502 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_has_confirmation_trigger key = 5502 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_has_confirmation_trigger key = 5502 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_has_custom_completion_trigger key = 5502 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_has_custom_completion_trigger key = 5502 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_monthly key = 5502 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_monthly key = 5502 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ruler_death key = 5502 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ruler_death key = 5502 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_pre_winning_war key = 5502 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_pre_winning_war key = 5502 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ending_war key = 5502 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ending_war key = 5502 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_style_2_final_building_type key = 55 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_style_2_final_building_type key = 55 value = building_type:tv_wonder_scholars_landscape_garden }
+	remove_from_global_variable_map = { name = tv_wonder_final_building_type_to_wonder_id key = building_type:tv_wonder_scholars_landscape_garden }
+	add_to_global_variable_map = { name = tv_wonder_final_building_type_to_wonder_id key = building_type:tv_wonder_scholars_landscape_garden value = 55 }
+	remove_from_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style key = building_type:tv_wonder_scholars_landscape_garden }
+	add_to_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style key = building_type:tv_wonder_scholars_landscape_garden value = 2 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_key_to_id key = 5503 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_key_to_id key = 5503 value = 5503 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_wonder_id key = 5503 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_wonder_id key = 5503 value = 55 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_style key = 5503 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_style key = 5503 value = 3 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_mode key = 5503 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_mode key = 5503 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_cost_type key = 5503 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_cost_type key = 5503 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_deferred_completion key = 5503 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_deferred_completion key = 5503 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_has_confirmation_trigger key = 5503 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_has_confirmation_trigger key = 5503 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_has_custom_completion_trigger key = 5503 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_has_custom_completion_trigger key = 5503 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_monthly key = 5503 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_monthly key = 5503 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ruler_death key = 5503 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ruler_death key = 5503 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_pre_winning_war key = 5503 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_pre_winning_war key = 5503 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ending_war key = 5503 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ending_war key = 5503 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_style_3_final_building_type key = 55 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_style_3_final_building_type key = 55 value = building_type:tv_wonder_botanical_exchange_garden }
+	remove_from_global_variable_map = { name = tv_wonder_final_building_type_to_wonder_id key = building_type:tv_wonder_botanical_exchange_garden }
+	add_to_global_variable_map = { name = tv_wonder_final_building_type_to_wonder_id key = building_type:tv_wonder_botanical_exchange_garden value = 55 }
+	remove_from_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style key = building_type:tv_wonder_botanical_exchange_garden }
+	add_to_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style key = building_type:tv_wonder_botanical_exchange_garden value = 3 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_is_unique key = 56 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_is_unique key = 56 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_base_id key = 56 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_base_id key = 56 value = 56 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_mechanic_id key = 56 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_mechanic_id key = 56 value = 56 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_size key = 56 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_size key = 56 value = 2 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_style_count key = 56 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_style_count key = 56 value = 3 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_display_id key = 56 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_display_id key = 56 value = 56 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_concept_display_id key = 56 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_concept_display_id key = 56 value = 56 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_image_display_id key = 56 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_image_display_id key = 56 value = 56 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_required_progress key = 56 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_required_progress key = 56 value = 200000 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_helper_building_type key = 56 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_helper_building_type key = 56 value = building_type:tv_wonder_state_examination_complex }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_state_examination_complex }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_state_examination_complex value = 56 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_foundation_module_building_type key = 56 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_foundation_module_building_type key = 56 value = building_type:tv_wonder_state_examination_complex_foundation }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_state_examination_complex_foundation }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_state_examination_complex_foundation value = 56 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_body_module_building_type key = 56 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_body_module_building_type key = 56 value = building_type:tv_wonder_state_examination_complex_body }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_state_examination_complex_body }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_state_examination_complex_body value = 56 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_function_module_building_type key = 56 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_function_module_building_type key = 56 value = building_type:tv_wonder_state_examination_complex_function }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_state_examination_complex_function }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_state_examination_complex_function value = 56 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_decoration_module_building_type key = 56 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_decoration_module_building_type key = 56 value = building_type:tv_wonder_state_examination_complex_decoration }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_state_examination_complex_decoration }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_state_examination_complex_decoration value = 56 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_key_to_id key = 5601 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_key_to_id key = 5601 value = 5601 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_wonder_id key = 5601 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_wonder_id key = 5601 value = 56 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_style key = 5601 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_style key = 5601 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_mode key = 5601 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_mode key = 5601 value = 2 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_cost_type key = 5601 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_cost_type key = 5601 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_deferred_completion key = 5601 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_deferred_completion key = 5601 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_has_confirmation_trigger key = 5601 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_has_confirmation_trigger key = 5601 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_has_custom_completion_trigger key = 5601 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_has_custom_completion_trigger key = 5601 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_monthly key = 5601 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_monthly key = 5601 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ruler_death key = 5601 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ruler_death key = 5601 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_pre_winning_war key = 5601 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_pre_winning_war key = 5601 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ending_war key = 5601 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ending_war key = 5601 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_style_1_final_building_type key = 56 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_style_1_final_building_type key = 56 value = building_type:tv_wonder_classics_examination_yard }
+	remove_from_global_variable_map = { name = tv_wonder_final_building_type_to_wonder_id key = building_type:tv_wonder_classics_examination_yard }
+	add_to_global_variable_map = { name = tv_wonder_final_building_type_to_wonder_id key = building_type:tv_wonder_classics_examination_yard value = 56 }
+	remove_from_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style key = building_type:tv_wonder_classics_examination_yard }
+	add_to_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style key = building_type:tv_wonder_classics_examination_yard value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_key_to_id key = 5602 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_key_to_id key = 5602 value = 5602 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_wonder_id key = 5602 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_wonder_id key = 5602 value = 56 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_style key = 5602 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_style key = 5602 value = 2 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_mode key = 5602 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_mode key = 5602 value = 3 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_cost_type key = 5602 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_cost_type key = 5602 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_deferred_completion key = 5602 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_deferred_completion key = 5602 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_has_confirmation_trigger key = 5602 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_has_confirmation_trigger key = 5602 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_has_custom_completion_trigger key = 5602 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_has_custom_completion_trigger key = 5602 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_monthly key = 5602 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_monthly key = 5602 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ruler_death key = 5602 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ruler_death key = 5602 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_pre_winning_war key = 5602 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_pre_winning_war key = 5602 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ending_war key = 5602 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ending_war key = 5602 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_style_2_final_building_type key = 56 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_style_2_final_building_type key = 56 value = building_type:tv_wonder_open_merit_hall }
+	remove_from_global_variable_map = { name = tv_wonder_final_building_type_to_wonder_id key = building_type:tv_wonder_open_merit_hall }
+	add_to_global_variable_map = { name = tv_wonder_final_building_type_to_wonder_id key = building_type:tv_wonder_open_merit_hall value = 56 }
+	remove_from_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style key = building_type:tv_wonder_open_merit_hall }
+	add_to_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style key = building_type:tv_wonder_open_merit_hall value = 2 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_key_to_id key = 5603 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_key_to_id key = 5603 value = 5603 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_wonder_id key = 5603 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_wonder_id key = 5603 value = 56 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_style key = 5603 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_style key = 5603 value = 3 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_mode key = 5603 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_mode key = 5603 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_cost_type key = 5603 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_cost_type key = 5603 value = 3 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_deferred_completion key = 5603 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_deferred_completion key = 5603 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_has_confirmation_trigger key = 5603 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_has_confirmation_trigger key = 5603 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_has_custom_completion_trigger key = 5603 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_has_custom_completion_trigger key = 5603 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_monthly key = 5603 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_monthly key = 5603 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ruler_death key = 5603 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ruler_death key = 5603 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_pre_winning_war key = 5603 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_pre_winning_war key = 5603 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ending_war key = 5603 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ending_war key = 5603 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_style_3_final_building_type key = 56 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_style_3_final_building_type key = 56 value = building_type:tv_wonder_practical_statecraft_academy }
+	remove_from_global_variable_map = { name = tv_wonder_final_building_type_to_wonder_id key = building_type:tv_wonder_practical_statecraft_academy }
+	add_to_global_variable_map = { name = tv_wonder_final_building_type_to_wonder_id key = building_type:tv_wonder_practical_statecraft_academy value = 56 }
+	remove_from_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style key = building_type:tv_wonder_practical_statecraft_academy }
+	add_to_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style key = building_type:tv_wonder_practical_statecraft_academy value = 3 }
 	remove_from_global_variable_map = { name = tv_wonder_id_to_is_unique key = 101 }
 	add_to_global_variable_map = { name = tv_wonder_id_to_is_unique key = 101 value = 1 }
 	remove_from_global_variable_map = { name = tv_wonder_id_to_base_id key = 101 }
@@ -15838,6 +16094,942 @@ tv_wonder_index_rebuild_global_maps_effect = {
 	add_to_global_variable_map = { name = tv_wonder_unique_id_to_location key = 223 value = location:benin }
 	remove_from_global_variable_map = { name = tv_wonder_unique_id_to_final_building_type key = 223 }
 	add_to_global_variable_map = { name = tv_wonder_unique_id_to_final_building_type key = 223 value = building_type:tv_wonder_unique_walls_of_benin_inaugurated }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_is_unique key = 224 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_is_unique key = 224 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_base_id key = 224 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_base_id key = 224 value = 55 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_mechanic_id key = 224 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_mechanic_id key = 224 value = 55 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_size key = 224 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_size key = 224 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_style_count key = 224 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_style_count key = 224 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_display_id key = 224 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_display_id key = 224 value = 224 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_concept_display_id key = 224 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_concept_display_id key = 224 value = 224 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_image_display_id key = 224 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_image_display_id key = 224 value = 224 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_required_progress key = 224 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_required_progress key = 224 value = 100000 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_helper_building_type key = 224 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_helper_building_type key = 224 value = building_type:tv_wonder_unique_suzhou_classical_gardens }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_suzhou_classical_gardens }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_suzhou_classical_gardens value = 224 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_foundation_module_building_type key = 224 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_foundation_module_building_type key = 224 value = building_type:tv_wonder_unique_suzhou_classical_gardens_foundation }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_suzhou_classical_gardens_foundation }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_suzhou_classical_gardens_foundation value = 224 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_body_module_building_type key = 224 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_body_module_building_type key = 224 value = building_type:tv_wonder_unique_suzhou_classical_gardens_body }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_suzhou_classical_gardens_body }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_suzhou_classical_gardens_body value = 224 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_function_module_building_type key = 224 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_function_module_building_type key = 224 value = building_type:tv_wonder_unique_suzhou_classical_gardens_function }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_suzhou_classical_gardens_function }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_suzhou_classical_gardens_function value = 224 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_decoration_module_building_type key = 224 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_decoration_module_building_type key = 224 value = building_type:tv_wonder_unique_suzhou_classical_gardens_decoration }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_suzhou_classical_gardens_decoration }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_suzhou_classical_gardens_decoration value = 224 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_key_to_id key = 22401 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_key_to_id key = 22401 value = 22401 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_wonder_id key = 22401 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_wonder_id key = 22401 value = 224 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_style key = 22401 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_style key = 22401 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_mode key = 22401 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_mode key = 22401 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_cost_type key = 22401 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_cost_type key = 22401 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_deferred_completion key = 22401 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_deferred_completion key = 22401 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_has_confirmation_trigger key = 22401 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_has_confirmation_trigger key = 22401 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_has_custom_completion_trigger key = 22401 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_has_custom_completion_trigger key = 22401 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_monthly key = 22401 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_monthly key = 22401 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ruler_death key = 22401 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ruler_death key = 22401 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_pre_winning_war key = 22401 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_pre_winning_war key = 22401 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ending_war key = 22401 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ending_war key = 22401 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_style_1_final_building_type key = 224 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_style_1_final_building_type key = 224 value = building_type:tv_wonder_unique_suzhou_classical_gardens_inaugurated }
+	remove_from_global_variable_map = { name = tv_wonder_final_building_type_to_wonder_id key = building_type:tv_wonder_unique_suzhou_classical_gardens_inaugurated }
+	add_to_global_variable_map = { name = tv_wonder_final_building_type_to_wonder_id key = building_type:tv_wonder_unique_suzhou_classical_gardens_inaugurated value = 224 }
+	remove_from_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style key = building_type:tv_wonder_unique_suzhou_classical_gardens_inaugurated }
+	add_to_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style key = building_type:tv_wonder_unique_suzhou_classical_gardens_inaugurated value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_unique_id_to_location key = 224 }
+	add_to_global_variable_map = { name = tv_wonder_unique_id_to_location key = 224 value = location:wuxian }
+	remove_from_global_variable_map = { name = tv_wonder_unique_id_to_final_building_type key = 224 }
+	add_to_global_variable_map = { name = tv_wonder_unique_id_to_final_building_type key = 224 value = building_type:tv_wonder_unique_suzhou_classical_gardens_inaugurated }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_is_unique key = 225 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_is_unique key = 225 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_base_id key = 225 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_base_id key = 225 value = 55 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_mechanic_id key = 225 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_mechanic_id key = 225 value = 55 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_size key = 225 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_size key = 225 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_style_count key = 225 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_style_count key = 225 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_display_id key = 225 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_display_id key = 225 value = 225 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_concept_display_id key = 225 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_concept_display_id key = 225 value = 225 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_image_display_id key = 225 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_image_display_id key = 225 value = 225 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_required_progress key = 225 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_required_progress key = 225 value = 100000 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_helper_building_type key = 225 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_helper_building_type key = 225 value = building_type:tv_wonder_unique_fin_garden }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_fin_garden }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_fin_garden value = 225 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_foundation_module_building_type key = 225 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_foundation_module_building_type key = 225 value = building_type:tv_wonder_unique_fin_garden_foundation }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_fin_garden_foundation }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_fin_garden_foundation value = 225 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_body_module_building_type key = 225 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_body_module_building_type key = 225 value = building_type:tv_wonder_unique_fin_garden_body }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_fin_garden_body }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_fin_garden_body value = 225 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_function_module_building_type key = 225 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_function_module_building_type key = 225 value = building_type:tv_wonder_unique_fin_garden_function }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_fin_garden_function }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_fin_garden_function value = 225 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_decoration_module_building_type key = 225 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_decoration_module_building_type key = 225 value = building_type:tv_wonder_unique_fin_garden_decoration }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_fin_garden_decoration }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_fin_garden_decoration value = 225 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_key_to_id key = 22501 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_key_to_id key = 22501 value = 22501 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_wonder_id key = 22501 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_wonder_id key = 22501 value = 225 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_style key = 22501 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_style key = 22501 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_mode key = 22501 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_mode key = 22501 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_cost_type key = 22501 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_cost_type key = 22501 value = 2 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_deferred_completion key = 22501 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_deferred_completion key = 22501 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_has_confirmation_trigger key = 22501 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_has_confirmation_trigger key = 22501 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_has_custom_completion_trigger key = 22501 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_has_custom_completion_trigger key = 22501 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_monthly key = 22501 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_monthly key = 22501 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ruler_death key = 22501 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ruler_death key = 22501 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_pre_winning_war key = 22501 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_pre_winning_war key = 22501 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ending_war key = 22501 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ending_war key = 22501 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_style_1_final_building_type key = 225 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_style_1_final_building_type key = 225 value = building_type:tv_wonder_unique_fin_garden_inaugurated }
+	remove_from_global_variable_map = { name = tv_wonder_final_building_type_to_wonder_id key = building_type:tv_wonder_unique_fin_garden_inaugurated }
+	add_to_global_variable_map = { name = tv_wonder_final_building_type_to_wonder_id key = building_type:tv_wonder_unique_fin_garden_inaugurated value = 225 }
+	remove_from_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style key = building_type:tv_wonder_unique_fin_garden_inaugurated }
+	add_to_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style key = building_type:tv_wonder_unique_fin_garden_inaugurated value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_unique_id_to_location key = 225 }
+	add_to_global_variable_map = { name = tv_wonder_unique_id_to_location key = 225 value = location:kashan }
+	remove_from_global_variable_map = { name = tv_wonder_unique_id_to_final_building_type key = 225 }
+	add_to_global_variable_map = { name = tv_wonder_unique_id_to_final_building_type key = 225 value = building_type:tv_wonder_unique_fin_garden_inaugurated }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_is_unique key = 226 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_is_unique key = 226 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_base_id key = 226 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_base_id key = 226 value = 56 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_mechanic_id key = 226 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_mechanic_id key = 226 value = 56 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_size key = 226 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_size key = 226 value = 2 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_style_count key = 226 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_style_count key = 226 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_display_id key = 226 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_display_id key = 226 value = 226 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_concept_display_id key = 226 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_concept_display_id key = 226 value = 226 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_image_display_id key = 226 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_image_display_id key = 226 value = 226 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_required_progress key = 226 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_required_progress key = 226 value = 200000 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_helper_building_type key = 226 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_helper_building_type key = 226 value = building_type:tv_wonder_unique_jiangnan_examination_hall }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_jiangnan_examination_hall }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_jiangnan_examination_hall value = 226 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_foundation_module_building_type key = 226 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_foundation_module_building_type key = 226 value = building_type:tv_wonder_unique_jiangnan_examination_hall_foundation }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_jiangnan_examination_hall_foundation }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_jiangnan_examination_hall_foundation value = 226 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_body_module_building_type key = 226 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_body_module_building_type key = 226 value = building_type:tv_wonder_unique_jiangnan_examination_hall_body }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_jiangnan_examination_hall_body }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_jiangnan_examination_hall_body value = 226 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_function_module_building_type key = 226 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_function_module_building_type key = 226 value = building_type:tv_wonder_unique_jiangnan_examination_hall_function }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_jiangnan_examination_hall_function }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_jiangnan_examination_hall_function value = 226 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_decoration_module_building_type key = 226 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_decoration_module_building_type key = 226 value = building_type:tv_wonder_unique_jiangnan_examination_hall_decoration }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_jiangnan_examination_hall_decoration }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_jiangnan_examination_hall_decoration value = 226 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_key_to_id key = 22601 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_key_to_id key = 22601 value = 22601 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_wonder_id key = 22601 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_wonder_id key = 22601 value = 226 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_style key = 22601 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_style key = 22601 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_mode key = 22601 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_mode key = 22601 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_cost_type key = 22601 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_cost_type key = 22601 value = 3 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_deferred_completion key = 22601 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_deferred_completion key = 22601 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_has_confirmation_trigger key = 22601 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_has_confirmation_trigger key = 22601 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_has_custom_completion_trigger key = 22601 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_has_custom_completion_trigger key = 22601 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_monthly key = 22601 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_monthly key = 22601 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ruler_death key = 22601 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ruler_death key = 22601 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_pre_winning_war key = 22601 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_pre_winning_war key = 22601 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ending_war key = 22601 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ending_war key = 22601 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_style_1_final_building_type key = 226 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_style_1_final_building_type key = 226 value = building_type:tv_wonder_unique_jiangnan_examination_hall_inaugurated }
+	remove_from_global_variable_map = { name = tv_wonder_final_building_type_to_wonder_id key = building_type:tv_wonder_unique_jiangnan_examination_hall_inaugurated }
+	add_to_global_variable_map = { name = tv_wonder_final_building_type_to_wonder_id key = building_type:tv_wonder_unique_jiangnan_examination_hall_inaugurated value = 226 }
+	remove_from_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style key = building_type:tv_wonder_unique_jiangnan_examination_hall_inaugurated }
+	add_to_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style key = building_type:tv_wonder_unique_jiangnan_examination_hall_inaugurated value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_unique_id_to_location key = 226 }
+	add_to_global_variable_map = { name = tv_wonder_unique_id_to_location key = 226 value = location:shangyuan }
+	remove_from_global_variable_map = { name = tv_wonder_unique_id_to_final_building_type key = 226 }
+	add_to_global_variable_map = { name = tv_wonder_unique_id_to_final_building_type key = 226 value = building_type:tv_wonder_unique_jiangnan_examination_hall_inaugurated }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_is_unique key = 227 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_is_unique key = 227 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_base_id key = 227 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_base_id key = 227 value = 56 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_mechanic_id key = 227 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_mechanic_id key = 227 value = 56 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_size key = 227 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_size key = 227 value = 2 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_style_count key = 227 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_style_count key = 227 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_display_id key = 227 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_display_id key = 227 value = 227 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_concept_display_id key = 227 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_concept_display_id key = 227 value = 227 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_image_display_id key = 227 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_image_display_id key = 227 value = 227 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_required_progress key = 227 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_required_progress key = 227 value = 200000 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_helper_building_type key = 227 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_helper_building_type key = 227 value = building_type:tv_wonder_unique_thang_long_temple_of_literature }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_thang_long_temple_of_literature }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_thang_long_temple_of_literature value = 227 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_foundation_module_building_type key = 227 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_foundation_module_building_type key = 227 value = building_type:tv_wonder_unique_thang_long_temple_of_literature_foundation }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_thang_long_temple_of_literature_foundation }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_thang_long_temple_of_literature_foundation value = 227 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_body_module_building_type key = 227 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_body_module_building_type key = 227 value = building_type:tv_wonder_unique_thang_long_temple_of_literature_body }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_thang_long_temple_of_literature_body }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_thang_long_temple_of_literature_body value = 227 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_function_module_building_type key = 227 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_function_module_building_type key = 227 value = building_type:tv_wonder_unique_thang_long_temple_of_literature_function }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_thang_long_temple_of_literature_function }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_thang_long_temple_of_literature_function value = 227 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_decoration_module_building_type key = 227 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_decoration_module_building_type key = 227 value = building_type:tv_wonder_unique_thang_long_temple_of_literature_decoration }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_thang_long_temple_of_literature_decoration }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_thang_long_temple_of_literature_decoration value = 227 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_key_to_id key = 22701 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_key_to_id key = 22701 value = 22701 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_wonder_id key = 22701 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_wonder_id key = 22701 value = 227 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_style key = 22701 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_style key = 22701 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_mode key = 22701 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_mode key = 22701 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_cost_type key = 22701 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_cost_type key = 22701 value = 3 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_deferred_completion key = 22701 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_deferred_completion key = 22701 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_has_confirmation_trigger key = 22701 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_has_confirmation_trigger key = 22701 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_has_custom_completion_trigger key = 22701 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_has_custom_completion_trigger key = 22701 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_monthly key = 22701 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_monthly key = 22701 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ruler_death key = 22701 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ruler_death key = 22701 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_pre_winning_war key = 22701 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_pre_winning_war key = 22701 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ending_war key = 22701 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ending_war key = 22701 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_style_1_final_building_type key = 227 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_style_1_final_building_type key = 227 value = building_type:tv_wonder_unique_thang_long_temple_of_literature_inaugurated }
+	remove_from_global_variable_map = { name = tv_wonder_final_building_type_to_wonder_id key = building_type:tv_wonder_unique_thang_long_temple_of_literature_inaugurated }
+	add_to_global_variable_map = { name = tv_wonder_final_building_type_to_wonder_id key = building_type:tv_wonder_unique_thang_long_temple_of_literature_inaugurated value = 227 }
+	remove_from_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style key = building_type:tv_wonder_unique_thang_long_temple_of_literature_inaugurated }
+	add_to_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style key = building_type:tv_wonder_unique_thang_long_temple_of_literature_inaugurated value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_unique_id_to_location key = 227 }
+	add_to_global_variable_map = { name = tv_wonder_unique_id_to_location key = 227 value = location:thang_long }
+	remove_from_global_variable_map = { name = tv_wonder_unique_id_to_final_building_type key = 227 }
+	add_to_global_variable_map = { name = tv_wonder_unique_id_to_final_building_type key = 227 value = building_type:tv_wonder_unique_thang_long_temple_of_literature_inaugurated }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_is_unique key = 228 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_is_unique key = 228 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_base_id key = 228 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_base_id key = 228 value = 8 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_mechanic_id key = 228 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_mechanic_id key = 228 value = 8 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_size key = 228 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_size key = 228 value = 3 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_style_count key = 228 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_style_count key = 228 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_display_id key = 228 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_display_id key = 228 value = 228 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_concept_display_id key = 228 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_concept_display_id key = 228 value = 228 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_image_display_id key = 228 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_image_display_id key = 228 value = 228 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_required_progress key = 228 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_required_progress key = 228 value = 300000 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_helper_building_type key = 228 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_helper_building_type key = 228 value = building_type:tv_wonder_unique_maragheh_observatory }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_maragheh_observatory }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_maragheh_observatory value = 228 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_foundation_module_building_type key = 228 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_foundation_module_building_type key = 228 value = building_type:tv_wonder_unique_maragheh_observatory_foundation }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_maragheh_observatory_foundation }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_maragheh_observatory_foundation value = 228 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_body_module_building_type key = 228 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_body_module_building_type key = 228 value = building_type:tv_wonder_unique_maragheh_observatory_body }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_maragheh_observatory_body }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_maragheh_observatory_body value = 228 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_function_module_building_type key = 228 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_function_module_building_type key = 228 value = building_type:tv_wonder_unique_maragheh_observatory_function }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_maragheh_observatory_function }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_maragheh_observatory_function value = 228 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_decoration_module_building_type key = 228 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_decoration_module_building_type key = 228 value = building_type:tv_wonder_unique_maragheh_observatory_decoration }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_maragheh_observatory_decoration }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_maragheh_observatory_decoration value = 228 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_key_to_id key = 22801 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_key_to_id key = 22801 value = 22801 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_wonder_id key = 22801 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_wonder_id key = 22801 value = 228 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_style key = 22801 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_style key = 22801 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_mode key = 22801 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_mode key = 22801 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_cost_type key = 22801 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_cost_type key = 22801 value = 3 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_deferred_completion key = 22801 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_deferred_completion key = 22801 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_has_confirmation_trigger key = 22801 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_has_confirmation_trigger key = 22801 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_has_custom_completion_trigger key = 22801 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_has_custom_completion_trigger key = 22801 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_monthly key = 22801 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_monthly key = 22801 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ruler_death key = 22801 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ruler_death key = 22801 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_pre_winning_war key = 22801 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_pre_winning_war key = 22801 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ending_war key = 22801 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ending_war key = 22801 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_style_1_final_building_type key = 228 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_style_1_final_building_type key = 228 value = building_type:tv_wonder_unique_maragheh_observatory_inaugurated }
+	remove_from_global_variable_map = { name = tv_wonder_final_building_type_to_wonder_id key = building_type:tv_wonder_unique_maragheh_observatory_inaugurated }
+	add_to_global_variable_map = { name = tv_wonder_final_building_type_to_wonder_id key = building_type:tv_wonder_unique_maragheh_observatory_inaugurated value = 228 }
+	remove_from_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style key = building_type:tv_wonder_unique_maragheh_observatory_inaugurated }
+	add_to_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style key = building_type:tv_wonder_unique_maragheh_observatory_inaugurated value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_unique_id_to_location key = 228 }
+	add_to_global_variable_map = { name = tv_wonder_unique_id_to_location key = 228 value = location:maragheh }
+	remove_from_global_variable_map = { name = tv_wonder_unique_id_to_final_building_type key = 228 }
+	add_to_global_variable_map = { name = tv_wonder_unique_id_to_final_building_type key = 228 value = building_type:tv_wonder_unique_maragheh_observatory_inaugurated }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_is_unique key = 229 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_is_unique key = 229 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_base_id key = 229 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_base_id key = 229 value = 29 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_mechanic_id key = 229 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_mechanic_id key = 229 value = 29 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_size key = 229 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_size key = 229 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_style_count key = 229 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_style_count key = 229 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_display_id key = 229 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_display_id key = 229 value = 229 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_concept_display_id key = 229 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_concept_display_id key = 229 value = 229 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_image_display_id key = 229 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_image_display_id key = 229 value = 229 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_required_progress key = 229 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_required_progress key = 229 value = 100000 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_helper_building_type key = 229 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_helper_building_type key = 229 value = building_type:tv_wonder_unique_xian_bell_and_drum_towers }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_xian_bell_and_drum_towers }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_xian_bell_and_drum_towers value = 229 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_foundation_module_building_type key = 229 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_foundation_module_building_type key = 229 value = building_type:tv_wonder_unique_xian_bell_and_drum_towers_foundation }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_xian_bell_and_drum_towers_foundation }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_xian_bell_and_drum_towers_foundation value = 229 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_body_module_building_type key = 229 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_body_module_building_type key = 229 value = building_type:tv_wonder_unique_xian_bell_and_drum_towers_body }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_xian_bell_and_drum_towers_body }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_xian_bell_and_drum_towers_body value = 229 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_function_module_building_type key = 229 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_function_module_building_type key = 229 value = building_type:tv_wonder_unique_xian_bell_and_drum_towers_function }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_xian_bell_and_drum_towers_function }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_xian_bell_and_drum_towers_function value = 229 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_decoration_module_building_type key = 229 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_decoration_module_building_type key = 229 value = building_type:tv_wonder_unique_xian_bell_and_drum_towers_decoration }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_xian_bell_and_drum_towers_decoration }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_xian_bell_and_drum_towers_decoration value = 229 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_key_to_id key = 22901 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_key_to_id key = 22901 value = 22901 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_wonder_id key = 22901 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_wonder_id key = 22901 value = 229 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_style key = 22901 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_style key = 22901 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_mode key = 22901 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_mode key = 22901 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_cost_type key = 22901 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_cost_type key = 22901 value = 3 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_deferred_completion key = 22901 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_deferred_completion key = 22901 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_has_confirmation_trigger key = 22901 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_has_confirmation_trigger key = 22901 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_has_custom_completion_trigger key = 22901 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_has_custom_completion_trigger key = 22901 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_monthly key = 22901 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_monthly key = 22901 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ruler_death key = 22901 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ruler_death key = 22901 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_pre_winning_war key = 22901 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_pre_winning_war key = 22901 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ending_war key = 22901 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ending_war key = 22901 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_style_1_final_building_type key = 229 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_style_1_final_building_type key = 229 value = building_type:tv_wonder_unique_xian_bell_and_drum_towers_inaugurated }
+	remove_from_global_variable_map = { name = tv_wonder_final_building_type_to_wonder_id key = building_type:tv_wonder_unique_xian_bell_and_drum_towers_inaugurated }
+	add_to_global_variable_map = { name = tv_wonder_final_building_type_to_wonder_id key = building_type:tv_wonder_unique_xian_bell_and_drum_towers_inaugurated value = 229 }
+	remove_from_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style key = building_type:tv_wonder_unique_xian_bell_and_drum_towers_inaugurated }
+	add_to_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style key = building_type:tv_wonder_unique_xian_bell_and_drum_towers_inaugurated value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_unique_id_to_location key = 229 }
+	add_to_global_variable_map = { name = tv_wonder_unique_id_to_location key = 229 value = location:jingzhao }
+	remove_from_global_variable_map = { name = tv_wonder_unique_id_to_final_building_type key = 229 }
+	add_to_global_variable_map = { name = tv_wonder_unique_id_to_final_building_type key = 229 value = building_type:tv_wonder_unique_xian_bell_and_drum_towers_inaugurated }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_is_unique key = 230 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_is_unique key = 230 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_base_id key = 230 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_base_id key = 230 value = 33 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_mechanic_id key = 230 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_mechanic_id key = 230 value = 33 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_size key = 230 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_size key = 230 value = 2 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_style_count key = 230 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_style_count key = 230 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_display_id key = 230 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_display_id key = 230 value = 230 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_concept_display_id key = 230 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_concept_display_id key = 230 value = 230 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_image_display_id key = 230 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_image_display_id key = 230 value = 230 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_required_progress key = 230 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_required_progress key = 230 value = 200000 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_helper_building_type key = 230 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_helper_building_type key = 230 value = building_type:tv_wonder_unique_behistun_inscription }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_behistun_inscription }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_behistun_inscription value = 230 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_foundation_module_building_type key = 230 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_foundation_module_building_type key = 230 value = building_type:tv_wonder_unique_behistun_inscription_foundation }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_behistun_inscription_foundation }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_behistun_inscription_foundation value = 230 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_body_module_building_type key = 230 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_body_module_building_type key = 230 value = building_type:tv_wonder_unique_behistun_inscription_body }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_behistun_inscription_body }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_behistun_inscription_body value = 230 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_function_module_building_type key = 230 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_function_module_building_type key = 230 value = building_type:tv_wonder_unique_behistun_inscription_function }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_behistun_inscription_function }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_behistun_inscription_function value = 230 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_decoration_module_building_type key = 230 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_decoration_module_building_type key = 230 value = building_type:tv_wonder_unique_behistun_inscription_decoration }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_behistun_inscription_decoration }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_behistun_inscription_decoration value = 230 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_key_to_id key = 23001 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_key_to_id key = 23001 value = 23001 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_wonder_id key = 23001 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_wonder_id key = 23001 value = 230 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_style key = 23001 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_style key = 23001 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_mode key = 23001 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_mode key = 23001 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_cost_type key = 23001 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_cost_type key = 23001 value = 3 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_deferred_completion key = 23001 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_deferred_completion key = 23001 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_has_confirmation_trigger key = 23001 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_has_confirmation_trigger key = 23001 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_has_custom_completion_trigger key = 23001 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_has_custom_completion_trigger key = 23001 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_monthly key = 23001 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_monthly key = 23001 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ruler_death key = 23001 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ruler_death key = 23001 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_pre_winning_war key = 23001 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_pre_winning_war key = 23001 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ending_war key = 23001 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ending_war key = 23001 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_style_1_final_building_type key = 230 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_style_1_final_building_type key = 230 value = building_type:tv_wonder_unique_behistun_inscription_inaugurated }
+	remove_from_global_variable_map = { name = tv_wonder_final_building_type_to_wonder_id key = building_type:tv_wonder_unique_behistun_inscription_inaugurated }
+	add_to_global_variable_map = { name = tv_wonder_final_building_type_to_wonder_id key = building_type:tv_wonder_unique_behistun_inscription_inaugurated value = 230 }
+	remove_from_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style key = building_type:tv_wonder_unique_behistun_inscription_inaugurated }
+	add_to_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style key = building_type:tv_wonder_unique_behistun_inscription_inaugurated value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_unique_id_to_location key = 230 }
+	add_to_global_variable_map = { name = tv_wonder_unique_id_to_location key = 230 value = location:bisotun }
+	remove_from_global_variable_map = { name = tv_wonder_unique_id_to_final_building_type key = 230 }
+	add_to_global_variable_map = { name = tv_wonder_unique_id_to_final_building_type key = 230 value = building_type:tv_wonder_unique_behistun_inscription_inaugurated }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_is_unique key = 231 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_is_unique key = 231 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_base_id key = 231 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_base_id key = 231 value = 22 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_mechanic_id key = 231 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_mechanic_id key = 231 value = 22 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_size key = 231 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_size key = 231 value = 2 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_style_count key = 231 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_style_count key = 231 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_display_id key = 231 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_display_id key = 231 value = 231 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_concept_display_id key = 231 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_concept_display_id key = 231 value = 231 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_image_display_id key = 231 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_image_display_id key = 231 value = 231 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_required_progress key = 231 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_required_progress key = 231 value = 200000 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_helper_building_type key = 231 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_helper_building_type key = 231 value = building_type:tv_wonder_unique_beijing_imperial_granaries }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_beijing_imperial_granaries }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_beijing_imperial_granaries value = 231 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_foundation_module_building_type key = 231 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_foundation_module_building_type key = 231 value = building_type:tv_wonder_unique_beijing_imperial_granaries_foundation }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_beijing_imperial_granaries_foundation }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_beijing_imperial_granaries_foundation value = 231 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_body_module_building_type key = 231 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_body_module_building_type key = 231 value = building_type:tv_wonder_unique_beijing_imperial_granaries_body }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_beijing_imperial_granaries_body }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_beijing_imperial_granaries_body value = 231 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_function_module_building_type key = 231 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_function_module_building_type key = 231 value = building_type:tv_wonder_unique_beijing_imperial_granaries_function }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_beijing_imperial_granaries_function }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_beijing_imperial_granaries_function value = 231 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_decoration_module_building_type key = 231 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_decoration_module_building_type key = 231 value = building_type:tv_wonder_unique_beijing_imperial_granaries_decoration }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_beijing_imperial_granaries_decoration }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_beijing_imperial_granaries_decoration value = 231 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_key_to_id key = 23101 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_key_to_id key = 23101 value = 23101 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_wonder_id key = 23101 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_wonder_id key = 23101 value = 231 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_style key = 23101 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_style key = 23101 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_mode key = 23101 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_mode key = 23101 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_cost_type key = 23101 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_cost_type key = 23101 value = 2 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_deferred_completion key = 23101 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_deferred_completion key = 23101 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_has_confirmation_trigger key = 23101 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_has_confirmation_trigger key = 23101 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_has_custom_completion_trigger key = 23101 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_has_custom_completion_trigger key = 23101 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_monthly key = 23101 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_monthly key = 23101 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ruler_death key = 23101 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ruler_death key = 23101 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_pre_winning_war key = 23101 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_pre_winning_war key = 23101 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ending_war key = 23101 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ending_war key = 23101 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_style_1_final_building_type key = 231 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_style_1_final_building_type key = 231 value = building_type:tv_wonder_unique_beijing_imperial_granaries_inaugurated }
+	remove_from_global_variable_map = { name = tv_wonder_final_building_type_to_wonder_id key = building_type:tv_wonder_unique_beijing_imperial_granaries_inaugurated }
+	add_to_global_variable_map = { name = tv_wonder_final_building_type_to_wonder_id key = building_type:tv_wonder_unique_beijing_imperial_granaries_inaugurated value = 231 }
+	remove_from_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style key = building_type:tv_wonder_unique_beijing_imperial_granaries_inaugurated }
+	add_to_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style key = building_type:tv_wonder_unique_beijing_imperial_granaries_inaugurated value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_unique_id_to_location key = 231 }
+	add_to_global_variable_map = { name = tv_wonder_unique_id_to_location key = 231 value = location:dadu }
+	remove_from_global_variable_map = { name = tv_wonder_unique_id_to_final_building_type key = 231 }
+	add_to_global_variable_map = { name = tv_wonder_unique_id_to_final_building_type key = 231 value = building_type:tv_wonder_unique_beijing_imperial_granaries_inaugurated }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_is_unique key = 232 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_is_unique key = 232 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_base_id key = 232 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_base_id key = 232 value = 35 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_mechanic_id key = 232 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_mechanic_id key = 232 value = 35 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_size key = 232 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_size key = 232 value = 2 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_style_count key = 232 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_style_count key = 232 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_display_id key = 232 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_display_id key = 232 value = 232 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_concept_display_id key = 232 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_concept_display_id key = 232 value = 232 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_image_display_id key = 232 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_image_display_id key = 232 value = 232 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_required_progress key = 232 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_required_progress key = 232 value = 200000 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_helper_building_type key = 232 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_helper_building_type key = 232 value = building_type:tv_wonder_unique_bursa_imperial_mint }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_bursa_imperial_mint }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_bursa_imperial_mint value = 232 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_foundation_module_building_type key = 232 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_foundation_module_building_type key = 232 value = building_type:tv_wonder_unique_bursa_imperial_mint_foundation }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_bursa_imperial_mint_foundation }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_bursa_imperial_mint_foundation value = 232 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_body_module_building_type key = 232 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_body_module_building_type key = 232 value = building_type:tv_wonder_unique_bursa_imperial_mint_body }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_bursa_imperial_mint_body }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_bursa_imperial_mint_body value = 232 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_function_module_building_type key = 232 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_function_module_building_type key = 232 value = building_type:tv_wonder_unique_bursa_imperial_mint_function }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_bursa_imperial_mint_function }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_bursa_imperial_mint_function value = 232 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_decoration_module_building_type key = 232 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_decoration_module_building_type key = 232 value = building_type:tv_wonder_unique_bursa_imperial_mint_decoration }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_bursa_imperial_mint_decoration }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_bursa_imperial_mint_decoration value = 232 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_key_to_id key = 23201 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_key_to_id key = 23201 value = 23201 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_wonder_id key = 23201 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_wonder_id key = 23201 value = 232 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_style key = 23201 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_style key = 23201 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_mode key = 23201 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_mode key = 23201 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_cost_type key = 23201 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_cost_type key = 23201 value = 2 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_deferred_completion key = 23201 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_deferred_completion key = 23201 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_has_confirmation_trigger key = 23201 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_has_confirmation_trigger key = 23201 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_has_custom_completion_trigger key = 23201 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_has_custom_completion_trigger key = 23201 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_monthly key = 23201 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_monthly key = 23201 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ruler_death key = 23201 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ruler_death key = 23201 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_pre_winning_war key = 23201 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_pre_winning_war key = 23201 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ending_war key = 23201 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ending_war key = 23201 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_style_1_final_building_type key = 232 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_style_1_final_building_type key = 232 value = building_type:tv_wonder_unique_bursa_imperial_mint_inaugurated }
+	remove_from_global_variable_map = { name = tv_wonder_final_building_type_to_wonder_id key = building_type:tv_wonder_unique_bursa_imperial_mint_inaugurated }
+	add_to_global_variable_map = { name = tv_wonder_final_building_type_to_wonder_id key = building_type:tv_wonder_unique_bursa_imperial_mint_inaugurated value = 232 }
+	remove_from_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style key = building_type:tv_wonder_unique_bursa_imperial_mint_inaugurated }
+	add_to_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style key = building_type:tv_wonder_unique_bursa_imperial_mint_inaugurated value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_unique_id_to_location key = 232 }
+	add_to_global_variable_map = { name = tv_wonder_unique_id_to_location key = 232 value = location:bursa }
+	remove_from_global_variable_map = { name = tv_wonder_unique_id_to_final_building_type key = 232 }
+	add_to_global_variable_map = { name = tv_wonder_unique_id_to_final_building_type key = 232 value = building_type:tv_wonder_unique_bursa_imperial_mint_inaugurated }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_is_unique key = 233 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_is_unique key = 233 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_base_id key = 233 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_base_id key = 233 value = 28 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_mechanic_id key = 233 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_mechanic_id key = 233 value = 28 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_size key = 233 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_size key = 233 value = 2 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_style_count key = 233 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_style_count key = 233 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_display_id key = 233 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_display_id key = 233 value = 233 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_concept_display_id key = 233 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_concept_display_id key = 233 value = 233 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_image_display_id key = 233 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_image_display_id key = 233 value = 233 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_required_progress key = 233 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_required_progress key = 233 value = 200000 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_helper_building_type key = 233 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_helper_building_type key = 233 value = building_type:tv_wonder_unique_enderun_palace_school }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_enderun_palace_school }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_enderun_palace_school value = 233 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_foundation_module_building_type key = 233 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_foundation_module_building_type key = 233 value = building_type:tv_wonder_unique_enderun_palace_school_foundation }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_enderun_palace_school_foundation }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_enderun_palace_school_foundation value = 233 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_body_module_building_type key = 233 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_body_module_building_type key = 233 value = building_type:tv_wonder_unique_enderun_palace_school_body }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_enderun_palace_school_body }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_enderun_palace_school_body value = 233 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_function_module_building_type key = 233 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_function_module_building_type key = 233 value = building_type:tv_wonder_unique_enderun_palace_school_function }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_enderun_palace_school_function }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_enderun_palace_school_function value = 233 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_decoration_module_building_type key = 233 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_decoration_module_building_type key = 233 value = building_type:tv_wonder_unique_enderun_palace_school_decoration }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_enderun_palace_school_decoration }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_enderun_palace_school_decoration value = 233 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_key_to_id key = 23301 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_key_to_id key = 23301 value = 23301 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_wonder_id key = 23301 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_wonder_id key = 23301 value = 233 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_style key = 23301 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_style key = 23301 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_mode key = 23301 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_mode key = 23301 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_cost_type key = 23301 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_cost_type key = 23301 value = 3 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_deferred_completion key = 23301 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_deferred_completion key = 23301 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_has_confirmation_trigger key = 23301 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_has_confirmation_trigger key = 23301 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_has_custom_completion_trigger key = 23301 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_has_custom_completion_trigger key = 23301 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_monthly key = 23301 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_monthly key = 23301 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ruler_death key = 23301 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ruler_death key = 23301 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_pre_winning_war key = 23301 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_pre_winning_war key = 23301 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ending_war key = 23301 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ending_war key = 23301 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_style_1_final_building_type key = 233 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_style_1_final_building_type key = 233 value = building_type:tv_wonder_unique_enderun_palace_school_inaugurated }
+	remove_from_global_variable_map = { name = tv_wonder_final_building_type_to_wonder_id key = building_type:tv_wonder_unique_enderun_palace_school_inaugurated }
+	add_to_global_variable_map = { name = tv_wonder_final_building_type_to_wonder_id key = building_type:tv_wonder_unique_enderun_palace_school_inaugurated value = 233 }
+	remove_from_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style key = building_type:tv_wonder_unique_enderun_palace_school_inaugurated }
+	add_to_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style key = building_type:tv_wonder_unique_enderun_palace_school_inaugurated value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_unique_id_to_location key = 233 }
+	add_to_global_variable_map = { name = tv_wonder_unique_id_to_location key = 233 value = location:constantinople }
+	remove_from_global_variable_map = { name = tv_wonder_unique_id_to_final_building_type key = 233 }
+	add_to_global_variable_map = { name = tv_wonder_unique_id_to_final_building_type key = 233 value = building_type:tv_wonder_unique_enderun_palace_school_inaugurated }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_is_unique key = 234 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_is_unique key = 234 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_base_id key = 234 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_base_id key = 234 value = 32 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_mechanic_id key = 234 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_mechanic_id key = 234 value = 32 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_size key = 234 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_size key = 234 value = 2 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_style_count key = 234 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_style_count key = 234 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_display_id key = 234 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_display_id key = 234 value = 234 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_concept_display_id key = 234 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_concept_display_id key = 234 value = 234 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_image_display_id key = 234 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_image_display_id key = 234 value = 234 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_required_progress key = 234 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_required_progress key = 234 value = 200000 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_helper_building_type key = 234 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_helper_building_type key = 234 value = building_type:tv_wonder_unique_ayutthaya_foreign_quarters }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_ayutthaya_foreign_quarters }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_ayutthaya_foreign_quarters value = 234 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_foundation_module_building_type key = 234 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_foundation_module_building_type key = 234 value = building_type:tv_wonder_unique_ayutthaya_foreign_quarters_foundation }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_ayutthaya_foreign_quarters_foundation }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_ayutthaya_foreign_quarters_foundation value = 234 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_body_module_building_type key = 234 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_body_module_building_type key = 234 value = building_type:tv_wonder_unique_ayutthaya_foreign_quarters_body }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_ayutthaya_foreign_quarters_body }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_ayutthaya_foreign_quarters_body value = 234 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_function_module_building_type key = 234 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_function_module_building_type key = 234 value = building_type:tv_wonder_unique_ayutthaya_foreign_quarters_function }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_ayutthaya_foreign_quarters_function }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_ayutthaya_foreign_quarters_function value = 234 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_decoration_module_building_type key = 234 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_decoration_module_building_type key = 234 value = building_type:tv_wonder_unique_ayutthaya_foreign_quarters_decoration }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_ayutthaya_foreign_quarters_decoration }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_ayutthaya_foreign_quarters_decoration value = 234 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_key_to_id key = 23401 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_key_to_id key = 23401 value = 23401 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_wonder_id key = 23401 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_wonder_id key = 23401 value = 234 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_style key = 23401 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_style key = 23401 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_mode key = 23401 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_mode key = 23401 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_cost_type key = 23401 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_cost_type key = 23401 value = 3 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_deferred_completion key = 23401 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_deferred_completion key = 23401 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_has_confirmation_trigger key = 23401 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_has_confirmation_trigger key = 23401 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_has_custom_completion_trigger key = 23401 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_has_custom_completion_trigger key = 23401 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_monthly key = 23401 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_monthly key = 23401 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ruler_death key = 23401 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ruler_death key = 23401 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_pre_winning_war key = 23401 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_pre_winning_war key = 23401 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ending_war key = 23401 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ending_war key = 23401 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_style_1_final_building_type key = 234 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_style_1_final_building_type key = 234 value = building_type:tv_wonder_unique_ayutthaya_foreign_quarters_inaugurated }
+	remove_from_global_variable_map = { name = tv_wonder_final_building_type_to_wonder_id key = building_type:tv_wonder_unique_ayutthaya_foreign_quarters_inaugurated }
+	add_to_global_variable_map = { name = tv_wonder_final_building_type_to_wonder_id key = building_type:tv_wonder_unique_ayutthaya_foreign_quarters_inaugurated value = 234 }
+	remove_from_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style key = building_type:tv_wonder_unique_ayutthaya_foreign_quarters_inaugurated }
+	add_to_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style key = building_type:tv_wonder_unique_ayutthaya_foreign_quarters_inaugurated value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_unique_id_to_location key = 234 }
+	add_to_global_variable_map = { name = tv_wonder_unique_id_to_location key = 234 value = location:ayodhya }
+	remove_from_global_variable_map = { name = tv_wonder_unique_id_to_final_building_type key = 234 }
+	add_to_global_variable_map = { name = tv_wonder_unique_id_to_final_building_type key = 234 value = building_type:tv_wonder_unique_ayutthaya_foreign_quarters_inaugurated }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_is_unique key = 235 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_is_unique key = 235 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_base_id key = 235 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_base_id key = 235 value = 25 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_mechanic_id key = 235 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_mechanic_id key = 235 value = 25 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_size key = 235 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_size key = 235 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_style_count key = 235 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_style_count key = 235 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_display_id key = 235 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_display_id key = 235 value = 235 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_concept_display_id key = 235 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_concept_display_id key = 235 value = 235 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_image_display_id key = 235 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_image_display_id key = 235 value = 235 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_required_progress key = 235 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_required_progress key = 235 value = 100000 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_helper_building_type key = 235 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_helper_building_type key = 235 value = building_type:tv_wonder_unique_yunnan_weisuo_colonies }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_yunnan_weisuo_colonies }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_yunnan_weisuo_colonies value = 235 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_foundation_module_building_type key = 235 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_foundation_module_building_type key = 235 value = building_type:tv_wonder_unique_yunnan_weisuo_colonies_foundation }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_yunnan_weisuo_colonies_foundation }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_yunnan_weisuo_colonies_foundation value = 235 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_body_module_building_type key = 235 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_body_module_building_type key = 235 value = building_type:tv_wonder_unique_yunnan_weisuo_colonies_body }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_yunnan_weisuo_colonies_body }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_yunnan_weisuo_colonies_body value = 235 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_function_module_building_type key = 235 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_function_module_building_type key = 235 value = building_type:tv_wonder_unique_yunnan_weisuo_colonies_function }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_yunnan_weisuo_colonies_function }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_yunnan_weisuo_colonies_function value = 235 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_decoration_module_building_type key = 235 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_decoration_module_building_type key = 235 value = building_type:tv_wonder_unique_yunnan_weisuo_colonies_decoration }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_yunnan_weisuo_colonies_decoration }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_yunnan_weisuo_colonies_decoration value = 235 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_key_to_id key = 23501 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_key_to_id key = 23501 value = 23501 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_wonder_id key = 23501 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_wonder_id key = 23501 value = 235 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_style key = 23501 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_style key = 23501 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_mode key = 23501 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_mode key = 23501 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_cost_type key = 23501 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_cost_type key = 23501 value = 2 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_deferred_completion key = 23501 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_deferred_completion key = 23501 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_has_confirmation_trigger key = 23501 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_has_confirmation_trigger key = 23501 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_has_custom_completion_trigger key = 23501 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_has_custom_completion_trigger key = 23501 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_monthly key = 23501 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_monthly key = 23501 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ruler_death key = 23501 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ruler_death key = 23501 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_pre_winning_war key = 23501 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_pre_winning_war key = 23501 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ending_war key = 23501 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ending_war key = 23501 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_style_1_final_building_type key = 235 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_style_1_final_building_type key = 235 value = building_type:tv_wonder_unique_yunnan_weisuo_colonies_inaugurated }
+	remove_from_global_variable_map = { name = tv_wonder_final_building_type_to_wonder_id key = building_type:tv_wonder_unique_yunnan_weisuo_colonies_inaugurated }
+	add_to_global_variable_map = { name = tv_wonder_final_building_type_to_wonder_id key = building_type:tv_wonder_unique_yunnan_weisuo_colonies_inaugurated value = 235 }
+	remove_from_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style key = building_type:tv_wonder_unique_yunnan_weisuo_colonies_inaugurated }
+	add_to_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style key = building_type:tv_wonder_unique_yunnan_weisuo_colonies_inaugurated value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_unique_id_to_location key = 235 }
+	add_to_global_variable_map = { name = tv_wonder_unique_id_to_location key = 235 value = location:songming }
+	remove_from_global_variable_map = { name = tv_wonder_unique_id_to_final_building_type key = 235 }
+	add_to_global_variable_map = { name = tv_wonder_unique_id_to_final_building_type key = 235 value = building_type:tv_wonder_unique_yunnan_weisuo_colonies_inaugurated }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_is_unique key = 236 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_is_unique key = 236 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_base_id key = 236 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_base_id key = 236 value = 26 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_mechanic_id key = 236 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_mechanic_id key = 236 value = 26 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_size key = 236 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_size key = 236 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_style_count key = 236 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_style_count key = 236 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_display_id key = 236 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_display_id key = 236 value = 236 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_concept_display_id key = 236 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_concept_display_id key = 236 value = 236 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_image_display_id key = 236 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_image_display_id key = 236 value = 236 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_required_progress key = 236 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_required_progress key = 236 value = 100000 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_helper_building_type key = 236 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_helper_building_type key = 236 value = building_type:tv_wonder_unique_zhoushan_beacon_network }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_zhoushan_beacon_network }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_zhoushan_beacon_network value = 236 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_foundation_module_building_type key = 236 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_foundation_module_building_type key = 236 value = building_type:tv_wonder_unique_zhoushan_beacon_network_foundation }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_zhoushan_beacon_network_foundation }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_zhoushan_beacon_network_foundation value = 236 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_body_module_building_type key = 236 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_body_module_building_type key = 236 value = building_type:tv_wonder_unique_zhoushan_beacon_network_body }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_zhoushan_beacon_network_body }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_zhoushan_beacon_network_body value = 236 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_function_module_building_type key = 236 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_function_module_building_type key = 236 value = building_type:tv_wonder_unique_zhoushan_beacon_network_function }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_zhoushan_beacon_network_function }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_zhoushan_beacon_network_function value = 236 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_decoration_module_building_type key = 236 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_decoration_module_building_type key = 236 value = building_type:tv_wonder_unique_zhoushan_beacon_network_decoration }
+	remove_from_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_zhoushan_beacon_network_decoration }
+	add_to_global_variable_map = { name = tv_wonder_intermediate_building_type_to_wonder_id key = building_type:tv_wonder_unique_zhoushan_beacon_network_decoration value = 236 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_key_to_id key = 23601 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_key_to_id key = 23601 value = 23601 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_wonder_id key = 23601 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_wonder_id key = 23601 value = 236 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_style key = 23601 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_style key = 23601 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_mode key = 23601 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_mode key = 23601 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_cost_type key = 23601 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_cost_type key = 23601 value = 2 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_deferred_completion key = 23601 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_deferred_completion key = 23601 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_has_confirmation_trigger key = 23601 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_has_confirmation_trigger key = 23601 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_has_custom_completion_trigger key = 23601 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_has_custom_completion_trigger key = 23601 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_monthly key = 23601 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_monthly key = 23601 value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ruler_death key = 23601 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ruler_death key = 23601 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_pre_winning_war key = 23601 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_pre_winning_war key = 23601 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ending_war key = 23601 }
+	add_to_global_variable_map = { name = tv_wonder_ritual_id_to_listener_ending_war key = 23601 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_id_to_style_1_final_building_type key = 236 }
+	add_to_global_variable_map = { name = tv_wonder_id_to_style_1_final_building_type key = 236 value = building_type:tv_wonder_unique_zhoushan_beacon_network_inaugurated }
+	remove_from_global_variable_map = { name = tv_wonder_final_building_type_to_wonder_id key = building_type:tv_wonder_unique_zhoushan_beacon_network_inaugurated }
+	add_to_global_variable_map = { name = tv_wonder_final_building_type_to_wonder_id key = building_type:tv_wonder_unique_zhoushan_beacon_network_inaugurated value = 236 }
+	remove_from_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style key = building_type:tv_wonder_unique_zhoushan_beacon_network_inaugurated }
+	add_to_global_variable_map = { name = tv_wonder_final_building_type_to_ritual_style key = building_type:tv_wonder_unique_zhoushan_beacon_network_inaugurated value = 1 }
+	remove_from_global_variable_map = { name = tv_wonder_unique_id_to_location key = 236 }
+	add_to_global_variable_map = { name = tv_wonder_unique_id_to_location key = 236 value = location:dinghai }
+	remove_from_global_variable_map = { name = tv_wonder_unique_id_to_final_building_type key = 236 }
+	add_to_global_variable_map = { name = tv_wonder_unique_id_to_final_building_type key = 236 value = building_type:tv_wonder_unique_zhoushan_beacon_network_inaugurated }
 	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 1 }
 	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 1 value = 5 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_condition_type key = flag:tv_wonder_suitability_1_1 }
@@ -17017,7 +18209,7 @@ tv_wonder_index_rebuild_global_maps_effect = {
 	remove_from_global_variable_map = { name = tv_wonder_suitability_condition_type key = flag:tv_wonder_suitability_54_3 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_condition_type key = flag:tv_wonder_suitability_54_3 value = 26 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_weight key = flag:tv_wonder_suitability_54_3 }
-	add_to_global_variable_map = { name = tv_wonder_suitability_weight key = flag:tv_wonder_suitability_54_3 value = 20 }
+	add_to_global_variable_map = { name = tv_wonder_suitability_weight key = flag:tv_wonder_suitability_54_3 value = 15 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_condition_type key = flag:tv_wonder_suitability_54_4 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_condition_type key = flag:tv_wonder_suitability_54_4 value = 0 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_weight key = flag:tv_wonder_suitability_54_4 }
@@ -17026,6 +18218,50 @@ tv_wonder_index_rebuild_global_maps_effect = {
 	add_to_global_variable_map = { name = tv_wonder_suitability_condition_type key = flag:tv_wonder_suitability_54_5 value = 0 }
 	remove_from_global_variable_map = { name = tv_wonder_suitability_weight key = flag:tv_wonder_suitability_54_5 }
 	add_to_global_variable_map = { name = tv_wonder_suitability_weight key = flag:tv_wonder_suitability_54_5 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 55 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 55 value = 3 }
+	remove_from_global_variable_map = { name = tv_wonder_suitability_condition_type key = flag:tv_wonder_suitability_55_1 }
+	add_to_global_variable_map = { name = tv_wonder_suitability_condition_type key = flag:tv_wonder_suitability_55_1 value = 21 }
+	remove_from_global_variable_map = { name = tv_wonder_suitability_weight key = flag:tv_wonder_suitability_55_1 }
+	add_to_global_variable_map = { name = tv_wonder_suitability_weight key = flag:tv_wonder_suitability_55_1 value = 10 }
+	remove_from_global_variable_map = { name = tv_wonder_suitability_condition_type key = flag:tv_wonder_suitability_55_2 }
+	add_to_global_variable_map = { name = tv_wonder_suitability_condition_type key = flag:tv_wonder_suitability_55_2 value = 20 }
+	remove_from_global_variable_map = { name = tv_wonder_suitability_weight key = flag:tv_wonder_suitability_55_2 }
+	add_to_global_variable_map = { name = tv_wonder_suitability_weight key = flag:tv_wonder_suitability_55_2 value = 5 }
+	remove_from_global_variable_map = { name = tv_wonder_suitability_condition_type key = flag:tv_wonder_suitability_55_3 }
+	add_to_global_variable_map = { name = tv_wonder_suitability_condition_type key = flag:tv_wonder_suitability_55_3 value = 24 }
+	remove_from_global_variable_map = { name = tv_wonder_suitability_weight key = flag:tv_wonder_suitability_55_3 }
+	add_to_global_variable_map = { name = tv_wonder_suitability_weight key = flag:tv_wonder_suitability_55_3 value = 10 }
+	remove_from_global_variable_map = { name = tv_wonder_suitability_condition_type key = flag:tv_wonder_suitability_55_4 }
+	add_to_global_variable_map = { name = tv_wonder_suitability_condition_type key = flag:tv_wonder_suitability_55_4 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_suitability_weight key = flag:tv_wonder_suitability_55_4 }
+	add_to_global_variable_map = { name = tv_wonder_suitability_weight key = flag:tv_wonder_suitability_55_4 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_suitability_condition_type key = flag:tv_wonder_suitability_55_5 }
+	add_to_global_variable_map = { name = tv_wonder_suitability_condition_type key = flag:tv_wonder_suitability_55_5 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_suitability_weight key = flag:tv_wonder_suitability_55_5 }
+	add_to_global_variable_map = { name = tv_wonder_suitability_weight key = flag:tv_wonder_suitability_55_5 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 56 }
+	add_to_global_variable_map = { name = tv_wonder_mechanic_id_to_suitability_row_count key = 56 value = 3 }
+	remove_from_global_variable_map = { name = tv_wonder_suitability_condition_type key = flag:tv_wonder_suitability_56_1 }
+	add_to_global_variable_map = { name = tv_wonder_suitability_condition_type key = flag:tv_wonder_suitability_56_1 value = 21 }
+	remove_from_global_variable_map = { name = tv_wonder_suitability_weight key = flag:tv_wonder_suitability_56_1 }
+	add_to_global_variable_map = { name = tv_wonder_suitability_weight key = flag:tv_wonder_suitability_56_1 value = 10 }
+	remove_from_global_variable_map = { name = tv_wonder_suitability_condition_type key = flag:tv_wonder_suitability_56_2 }
+	add_to_global_variable_map = { name = tv_wonder_suitability_condition_type key = flag:tv_wonder_suitability_56_2 value = 20 }
+	remove_from_global_variable_map = { name = tv_wonder_suitability_weight key = flag:tv_wonder_suitability_56_2 }
+	add_to_global_variable_map = { name = tv_wonder_suitability_weight key = flag:tv_wonder_suitability_56_2 value = 5 }
+	remove_from_global_variable_map = { name = tv_wonder_suitability_condition_type key = flag:tv_wonder_suitability_56_3 }
+	add_to_global_variable_map = { name = tv_wonder_suitability_condition_type key = flag:tv_wonder_suitability_56_3 value = 28 }
+	remove_from_global_variable_map = { name = tv_wonder_suitability_weight key = flag:tv_wonder_suitability_56_3 }
+	add_to_global_variable_map = { name = tv_wonder_suitability_weight key = flag:tv_wonder_suitability_56_3 value = 10 }
+	remove_from_global_variable_map = { name = tv_wonder_suitability_condition_type key = flag:tv_wonder_suitability_56_4 }
+	add_to_global_variable_map = { name = tv_wonder_suitability_condition_type key = flag:tv_wonder_suitability_56_4 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_suitability_weight key = flag:tv_wonder_suitability_56_4 }
+	add_to_global_variable_map = { name = tv_wonder_suitability_weight key = flag:tv_wonder_suitability_56_4 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_suitability_condition_type key = flag:tv_wonder_suitability_56_5 }
+	add_to_global_variable_map = { name = tv_wonder_suitability_condition_type key = flag:tv_wonder_suitability_56_5 value = 0 }
+	remove_from_global_variable_map = { name = tv_wonder_suitability_weight key = flag:tv_wonder_suitability_56_5 }
+	add_to_global_variable_map = { name = tv_wonder_suitability_weight key = flag:tv_wonder_suitability_56_5 value = 0 }
 }
 
 tv_wonder_index_clear_locked_wonder_cache_effect = {

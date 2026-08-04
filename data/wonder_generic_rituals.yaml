@@ -657,25 +657,22 @@ generic_rituals:
   grand_garden_complex:
     style_1:
       country_modifier:
-        skill_of_new_artists: 0.1
+        nobles_estate_target_satisfaction: 0.025
     style_2:
       local_modifier:
-        local_cultural_tradition: 1
+        growth_is_primary_culture: true
     style_3:
       cost_type: artwork
       reward:
-      - type: cultural_tradition
-        value: 25
       - type: site_prosperity
-        value: 0.3
+        value: 1
   state_examination_complex:
     style_1:
       country_modifier:
-        country_cabinet_efficiency: 0.1
+        country_cabinet_efficiency: 0.2
     style_2:
       local_modifier:
-        local_max_literacy: 10
-        local_pop_promotion_speed_modifier: 0.25
+        local_max_literacy: 20
     style_3:
       cost_type: prestige
       reward:

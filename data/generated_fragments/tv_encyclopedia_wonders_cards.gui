@@ -5923,6 +5923,168 @@ vbox = {
 	}
 
 	vbox = {
+		visible = "[Or(GetVariableSystem.HasValue('tv_encyclopedia_filter', 'all'), GetVariableSystem.HasValue('tv_encyclopedia_filter', 'generic'))]"
+		set_parent_size_to_minimum = yes
+		margin = { 0 10 }
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+			spacing = 10
+			using = bg_paper_card
+
+			blockoverride "card_color" {
+				using = color_intense_bg_blue_texture
+				blend_mode = multiply
+			}
+
+			max_width = 1450
+			min_width = 1450
+
+			icon = {
+				layoutpolicy_horizontal = expanding
+				using = button_main_tab_texture
+				frame = 4
+
+				modify_texture = {
+					using = color_intense_bg_blue_texture
+					blend_mode = multiply
+				}
+
+				modify_texture = {
+					using = overlay_leather_texture
+					blend_mode = overlay
+					alpha = 0.2
+				}
+
+				hbox = {
+					margin = { 40 0 }
+					margin_top = 8
+
+					icon = {
+						name = "image"
+						texture = "gfx/interface/icons/towards_victory/wonders/tv_wonder_grand_garden_complex_cropped.dds"
+						size = { 45 45 }
+					}
+
+					text_single = {
+						name = "title"
+						using = layoutpolicy_expanding
+						using = Font_Size_Medium
+						fontsize = 18
+						autoresize = no
+
+						default_format = "#yellow_titles"
+						text = "game_concept_tv_wonder_grand_garden_complex"
+					}
+				}
+			}
+
+			TooltipListScrollArea = {
+				blockoverride "scrollarea_content" {
+					vbox = {
+						set_parent_dimension_to_minimum = height
+						layoutpolicy_horizontal = expanding
+
+						text_multi = {
+							name = "body"
+							max_width = 1450
+							min_width = 1450
+							autoresize = yes
+
+							text = "game_concept_tv_wonder_grand_garden_complex_desc"
+							margin = { 40 10 }
+						}
+					}
+				}
+				block "block_scrollarea" {
+					maximumsize = { -1 800 }
+				}
+			}
+		}
+	}
+
+	vbox = {
+		visible = "[Or(GetVariableSystem.HasValue('tv_encyclopedia_filter', 'all'), GetVariableSystem.HasValue('tv_encyclopedia_filter', 'generic'))]"
+		set_parent_size_to_minimum = yes
+		margin = { 0 10 }
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+			spacing = 10
+			using = bg_paper_card
+
+			blockoverride "card_color" {
+				using = color_intense_bg_blue_texture
+				blend_mode = multiply
+			}
+
+			max_width = 1450
+			min_width = 1450
+
+			icon = {
+				layoutpolicy_horizontal = expanding
+				using = button_main_tab_texture
+				frame = 4
+
+				modify_texture = {
+					using = color_intense_bg_blue_texture
+					blend_mode = multiply
+				}
+
+				modify_texture = {
+					using = overlay_leather_texture
+					blend_mode = overlay
+					alpha = 0.2
+				}
+
+				hbox = {
+					margin = { 40 0 }
+					margin_top = 8
+
+					icon = {
+						name = "image"
+						texture = "gfx/interface/icons/towards_victory/wonders/tv_wonder_state_examination_complex_cropped.dds"
+						size = { 45 45 }
+					}
+
+					text_single = {
+						name = "title"
+						using = layoutpolicy_expanding
+						using = Font_Size_Medium
+						fontsize = 18
+						autoresize = no
+
+						default_format = "#yellow_titles"
+						text = "game_concept_tv_wonder_state_examination_complex"
+					}
+				}
+			}
+
+			TooltipListScrollArea = {
+				blockoverride "scrollarea_content" {
+					vbox = {
+						set_parent_dimension_to_minimum = height
+						layoutpolicy_horizontal = expanding
+
+						text_multi = {
+							name = "body"
+							max_width = 1450
+							min_width = 1450
+							autoresize = yes
+
+							text = "game_concept_tv_wonder_state_examination_complex_desc"
+							margin = { 40 10 }
+						}
+					}
+				}
+				block "block_scrollarea" {
+					maximumsize = { -1 800 }
+				}
+			}
+		}
+	}
+
+	vbox = {
 		visible = "[Or(GetVariableSystem.HasValue('tv_encyclopedia_filter', 'all'), GetVariableSystem.HasValue('tv_encyclopedia_filter', 'unique'))]"
 		set_parent_size_to_minimum = yes
 		margin = { 0 10 }
@@ -15874,6 +16036,1059 @@ vbox = {
 							autoresize = yes
 
 							text = "game_concept_tv_wonder_unique_walls_of_benin_desc"
+							margin = { 40 10 }
+						}
+					}
+				}
+				block "block_scrollarea" {
+					maximumsize = { -1 800 }
+				}
+			}
+		}
+	}
+
+	vbox = {
+		visible = "[Or(GetVariableSystem.HasValue('tv_encyclopedia_filter', 'all'), GetVariableSystem.HasValue('tv_encyclopedia_filter', 'unique'))]"
+		set_parent_size_to_minimum = yes
+		margin = { 0 10 }
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+			spacing = 10
+			using = bg_paper_card
+
+			blockoverride "card_color" {
+				using = color_intense_bg_blue_texture
+				blend_mode = multiply
+			}
+
+			max_width = 1450
+			min_width = 1450
+
+			icon = {
+				layoutpolicy_horizontal = expanding
+				using = button_main_tab_texture
+				frame = 4
+
+				modify_texture = {
+					using = color_intense_bg_blue_texture
+					blend_mode = multiply
+				}
+
+				modify_texture = {
+					using = overlay_leather_texture
+					blend_mode = overlay
+					alpha = 0.2
+				}
+
+				hbox = {
+					margin = { 40 0 }
+					margin_top = 8
+
+					icon = {
+						name = "image"
+						texture = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_suzhou_classical_gardens_cropped.dds"
+						size = { 45 45 }
+					}
+
+					text_single = {
+						name = "title"
+						using = layoutpolicy_expanding
+						using = Font_Size_Medium
+						fontsize = 18
+						autoresize = no
+
+						default_format = "#yellow_titles"
+						text = "game_concept_tv_wonder_unique_suzhou_classical_gardens"
+					}
+				}
+			}
+
+			TooltipListScrollArea = {
+				blockoverride "scrollarea_content" {
+					vbox = {
+						set_parent_dimension_to_minimum = height
+						layoutpolicy_horizontal = expanding
+
+						text_multi = {
+							name = "body"
+							max_width = 1450
+							min_width = 1450
+							autoresize = yes
+
+							text = "game_concept_tv_wonder_unique_suzhou_classical_gardens_desc"
+							margin = { 40 10 }
+						}
+					}
+				}
+				block "block_scrollarea" {
+					maximumsize = { -1 800 }
+				}
+			}
+		}
+	}
+
+	vbox = {
+		visible = "[Or(GetVariableSystem.HasValue('tv_encyclopedia_filter', 'all'), GetVariableSystem.HasValue('tv_encyclopedia_filter', 'unique'))]"
+		set_parent_size_to_minimum = yes
+		margin = { 0 10 }
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+			spacing = 10
+			using = bg_paper_card
+
+			blockoverride "card_color" {
+				using = color_intense_bg_blue_texture
+				blend_mode = multiply
+			}
+
+			max_width = 1450
+			min_width = 1450
+
+			icon = {
+				layoutpolicy_horizontal = expanding
+				using = button_main_tab_texture
+				frame = 4
+
+				modify_texture = {
+					using = color_intense_bg_blue_texture
+					blend_mode = multiply
+				}
+
+				modify_texture = {
+					using = overlay_leather_texture
+					blend_mode = overlay
+					alpha = 0.2
+				}
+
+				hbox = {
+					margin = { 40 0 }
+					margin_top = 8
+
+					icon = {
+						name = "image"
+						texture = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_fin_garden_cropped.dds"
+						size = { 45 45 }
+					}
+
+					text_single = {
+						name = "title"
+						using = layoutpolicy_expanding
+						using = Font_Size_Medium
+						fontsize = 18
+						autoresize = no
+
+						default_format = "#yellow_titles"
+						text = "game_concept_tv_wonder_unique_fin_garden"
+					}
+				}
+			}
+
+			TooltipListScrollArea = {
+				blockoverride "scrollarea_content" {
+					vbox = {
+						set_parent_dimension_to_minimum = height
+						layoutpolicy_horizontal = expanding
+
+						text_multi = {
+							name = "body"
+							max_width = 1450
+							min_width = 1450
+							autoresize = yes
+
+							text = "game_concept_tv_wonder_unique_fin_garden_desc"
+							margin = { 40 10 }
+						}
+					}
+				}
+				block "block_scrollarea" {
+					maximumsize = { -1 800 }
+				}
+			}
+		}
+	}
+
+	vbox = {
+		visible = "[Or(GetVariableSystem.HasValue('tv_encyclopedia_filter', 'all'), GetVariableSystem.HasValue('tv_encyclopedia_filter', 'unique'))]"
+		set_parent_size_to_minimum = yes
+		margin = { 0 10 }
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+			spacing = 10
+			using = bg_paper_card
+
+			blockoverride "card_color" {
+				using = color_intense_bg_blue_texture
+				blend_mode = multiply
+			}
+
+			max_width = 1450
+			min_width = 1450
+
+			icon = {
+				layoutpolicy_horizontal = expanding
+				using = button_main_tab_texture
+				frame = 4
+
+				modify_texture = {
+					using = color_intense_bg_blue_texture
+					blend_mode = multiply
+				}
+
+				modify_texture = {
+					using = overlay_leather_texture
+					blend_mode = overlay
+					alpha = 0.2
+				}
+
+				hbox = {
+					margin = { 40 0 }
+					margin_top = 8
+
+					icon = {
+						name = "image"
+						texture = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_jiangnan_examination_hall_cropped.dds"
+						size = { 45 45 }
+					}
+
+					text_single = {
+						name = "title"
+						using = layoutpolicy_expanding
+						using = Font_Size_Medium
+						fontsize = 18
+						autoresize = no
+
+						default_format = "#yellow_titles"
+						text = "game_concept_tv_wonder_unique_jiangnan_examination_hall"
+					}
+				}
+			}
+
+			TooltipListScrollArea = {
+				blockoverride "scrollarea_content" {
+					vbox = {
+						set_parent_dimension_to_minimum = height
+						layoutpolicy_horizontal = expanding
+
+						text_multi = {
+							name = "body"
+							max_width = 1450
+							min_width = 1450
+							autoresize = yes
+
+							text = "game_concept_tv_wonder_unique_jiangnan_examination_hall_desc"
+							margin = { 40 10 }
+						}
+					}
+				}
+				block "block_scrollarea" {
+					maximumsize = { -1 800 }
+				}
+			}
+		}
+	}
+
+	vbox = {
+		visible = "[Or(GetVariableSystem.HasValue('tv_encyclopedia_filter', 'all'), GetVariableSystem.HasValue('tv_encyclopedia_filter', 'unique'))]"
+		set_parent_size_to_minimum = yes
+		margin = { 0 10 }
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+			spacing = 10
+			using = bg_paper_card
+
+			blockoverride "card_color" {
+				using = color_intense_bg_blue_texture
+				blend_mode = multiply
+			}
+
+			max_width = 1450
+			min_width = 1450
+
+			icon = {
+				layoutpolicy_horizontal = expanding
+				using = button_main_tab_texture
+				frame = 4
+
+				modify_texture = {
+					using = color_intense_bg_blue_texture
+					blend_mode = multiply
+				}
+
+				modify_texture = {
+					using = overlay_leather_texture
+					blend_mode = overlay
+					alpha = 0.2
+				}
+
+				hbox = {
+					margin = { 40 0 }
+					margin_top = 8
+
+					icon = {
+						name = "image"
+						texture = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_thang_long_temple_of_literature_cropped.dds"
+						size = { 45 45 }
+					}
+
+					text_single = {
+						name = "title"
+						using = layoutpolicy_expanding
+						using = Font_Size_Medium
+						fontsize = 18
+						autoresize = no
+
+						default_format = "#yellow_titles"
+						text = "game_concept_tv_wonder_unique_thang_long_temple_of_literature"
+					}
+				}
+			}
+
+			TooltipListScrollArea = {
+				blockoverride "scrollarea_content" {
+					vbox = {
+						set_parent_dimension_to_minimum = height
+						layoutpolicy_horizontal = expanding
+
+						text_multi = {
+							name = "body"
+							max_width = 1450
+							min_width = 1450
+							autoresize = yes
+
+							text = "game_concept_tv_wonder_unique_thang_long_temple_of_literature_desc"
+							margin = { 40 10 }
+						}
+					}
+				}
+				block "block_scrollarea" {
+					maximumsize = { -1 800 }
+				}
+			}
+		}
+	}
+
+	vbox = {
+		visible = "[Or(GetVariableSystem.HasValue('tv_encyclopedia_filter', 'all'), GetVariableSystem.HasValue('tv_encyclopedia_filter', 'unique'))]"
+		set_parent_size_to_minimum = yes
+		margin = { 0 10 }
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+			spacing = 10
+			using = bg_paper_card
+
+			blockoverride "card_color" {
+				using = color_intense_bg_blue_texture
+				blend_mode = multiply
+			}
+
+			max_width = 1450
+			min_width = 1450
+
+			icon = {
+				layoutpolicy_horizontal = expanding
+				using = button_main_tab_texture
+				frame = 4
+
+				modify_texture = {
+					using = color_intense_bg_blue_texture
+					blend_mode = multiply
+				}
+
+				modify_texture = {
+					using = overlay_leather_texture
+					blend_mode = overlay
+					alpha = 0.2
+				}
+
+				hbox = {
+					margin = { 40 0 }
+					margin_top = 8
+
+					icon = {
+						name = "image"
+						texture = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_maragheh_observatory_cropped.dds"
+						size = { 45 45 }
+					}
+
+					text_single = {
+						name = "title"
+						using = layoutpolicy_expanding
+						using = Font_Size_Medium
+						fontsize = 18
+						autoresize = no
+
+						default_format = "#yellow_titles"
+						text = "game_concept_tv_wonder_unique_maragheh_observatory"
+					}
+				}
+			}
+
+			TooltipListScrollArea = {
+				blockoverride "scrollarea_content" {
+					vbox = {
+						set_parent_dimension_to_minimum = height
+						layoutpolicy_horizontal = expanding
+
+						text_multi = {
+							name = "body"
+							max_width = 1450
+							min_width = 1450
+							autoresize = yes
+
+							text = "game_concept_tv_wonder_unique_maragheh_observatory_desc"
+							margin = { 40 10 }
+						}
+					}
+				}
+				block "block_scrollarea" {
+					maximumsize = { -1 800 }
+				}
+			}
+		}
+	}
+
+	vbox = {
+		visible = "[Or(GetVariableSystem.HasValue('tv_encyclopedia_filter', 'all'), GetVariableSystem.HasValue('tv_encyclopedia_filter', 'unique'))]"
+		set_parent_size_to_minimum = yes
+		margin = { 0 10 }
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+			spacing = 10
+			using = bg_paper_card
+
+			blockoverride "card_color" {
+				using = color_intense_bg_blue_texture
+				blend_mode = multiply
+			}
+
+			max_width = 1450
+			min_width = 1450
+
+			icon = {
+				layoutpolicy_horizontal = expanding
+				using = button_main_tab_texture
+				frame = 4
+
+				modify_texture = {
+					using = color_intense_bg_blue_texture
+					blend_mode = multiply
+				}
+
+				modify_texture = {
+					using = overlay_leather_texture
+					blend_mode = overlay
+					alpha = 0.2
+				}
+
+				hbox = {
+					margin = { 40 0 }
+					margin_top = 8
+
+					icon = {
+						name = "image"
+						texture = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_xian_bell_and_drum_towers_cropped.dds"
+						size = { 45 45 }
+					}
+
+					text_single = {
+						name = "title"
+						using = layoutpolicy_expanding
+						using = Font_Size_Medium
+						fontsize = 18
+						autoresize = no
+
+						default_format = "#yellow_titles"
+						text = "game_concept_tv_wonder_unique_xian_bell_and_drum_towers"
+					}
+				}
+			}
+
+			TooltipListScrollArea = {
+				blockoverride "scrollarea_content" {
+					vbox = {
+						set_parent_dimension_to_minimum = height
+						layoutpolicy_horizontal = expanding
+
+						text_multi = {
+							name = "body"
+							max_width = 1450
+							min_width = 1450
+							autoresize = yes
+
+							text = "game_concept_tv_wonder_unique_xian_bell_and_drum_towers_desc"
+							margin = { 40 10 }
+						}
+					}
+				}
+				block "block_scrollarea" {
+					maximumsize = { -1 800 }
+				}
+			}
+		}
+	}
+
+	vbox = {
+		visible = "[Or(GetVariableSystem.HasValue('tv_encyclopedia_filter', 'all'), GetVariableSystem.HasValue('tv_encyclopedia_filter', 'unique'))]"
+		set_parent_size_to_minimum = yes
+		margin = { 0 10 }
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+			spacing = 10
+			using = bg_paper_card
+
+			blockoverride "card_color" {
+				using = color_intense_bg_blue_texture
+				blend_mode = multiply
+			}
+
+			max_width = 1450
+			min_width = 1450
+
+			icon = {
+				layoutpolicy_horizontal = expanding
+				using = button_main_tab_texture
+				frame = 4
+
+				modify_texture = {
+					using = color_intense_bg_blue_texture
+					blend_mode = multiply
+				}
+
+				modify_texture = {
+					using = overlay_leather_texture
+					blend_mode = overlay
+					alpha = 0.2
+				}
+
+				hbox = {
+					margin = { 40 0 }
+					margin_top = 8
+
+					icon = {
+						name = "image"
+						texture = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_behistun_inscription_cropped.dds"
+						size = { 45 45 }
+					}
+
+					text_single = {
+						name = "title"
+						using = layoutpolicy_expanding
+						using = Font_Size_Medium
+						fontsize = 18
+						autoresize = no
+
+						default_format = "#yellow_titles"
+						text = "game_concept_tv_wonder_unique_behistun_inscription"
+					}
+				}
+			}
+
+			TooltipListScrollArea = {
+				blockoverride "scrollarea_content" {
+					vbox = {
+						set_parent_dimension_to_minimum = height
+						layoutpolicy_horizontal = expanding
+
+						text_multi = {
+							name = "body"
+							max_width = 1450
+							min_width = 1450
+							autoresize = yes
+
+							text = "game_concept_tv_wonder_unique_behistun_inscription_desc"
+							margin = { 40 10 }
+						}
+					}
+				}
+				block "block_scrollarea" {
+					maximumsize = { -1 800 }
+				}
+			}
+		}
+	}
+
+	vbox = {
+		visible = "[Or(GetVariableSystem.HasValue('tv_encyclopedia_filter', 'all'), GetVariableSystem.HasValue('tv_encyclopedia_filter', 'unique'))]"
+		set_parent_size_to_minimum = yes
+		margin = { 0 10 }
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+			spacing = 10
+			using = bg_paper_card
+
+			blockoverride "card_color" {
+				using = color_intense_bg_blue_texture
+				blend_mode = multiply
+			}
+
+			max_width = 1450
+			min_width = 1450
+
+			icon = {
+				layoutpolicy_horizontal = expanding
+				using = button_main_tab_texture
+				frame = 4
+
+				modify_texture = {
+					using = color_intense_bg_blue_texture
+					blend_mode = multiply
+				}
+
+				modify_texture = {
+					using = overlay_leather_texture
+					blend_mode = overlay
+					alpha = 0.2
+				}
+
+				hbox = {
+					margin = { 40 0 }
+					margin_top = 8
+
+					icon = {
+						name = "image"
+						texture = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_beijing_imperial_granaries_cropped.dds"
+						size = { 45 45 }
+					}
+
+					text_single = {
+						name = "title"
+						using = layoutpolicy_expanding
+						using = Font_Size_Medium
+						fontsize = 18
+						autoresize = no
+
+						default_format = "#yellow_titles"
+						text = "game_concept_tv_wonder_unique_beijing_imperial_granaries"
+					}
+				}
+			}
+
+			TooltipListScrollArea = {
+				blockoverride "scrollarea_content" {
+					vbox = {
+						set_parent_dimension_to_minimum = height
+						layoutpolicy_horizontal = expanding
+
+						text_multi = {
+							name = "body"
+							max_width = 1450
+							min_width = 1450
+							autoresize = yes
+
+							text = "game_concept_tv_wonder_unique_beijing_imperial_granaries_desc"
+							margin = { 40 10 }
+						}
+					}
+				}
+				block "block_scrollarea" {
+					maximumsize = { -1 800 }
+				}
+			}
+		}
+	}
+
+	vbox = {
+		visible = "[Or(GetVariableSystem.HasValue('tv_encyclopedia_filter', 'all'), GetVariableSystem.HasValue('tv_encyclopedia_filter', 'unique'))]"
+		set_parent_size_to_minimum = yes
+		margin = { 0 10 }
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+			spacing = 10
+			using = bg_paper_card
+
+			blockoverride "card_color" {
+				using = color_intense_bg_blue_texture
+				blend_mode = multiply
+			}
+
+			max_width = 1450
+			min_width = 1450
+
+			icon = {
+				layoutpolicy_horizontal = expanding
+				using = button_main_tab_texture
+				frame = 4
+
+				modify_texture = {
+					using = color_intense_bg_blue_texture
+					blend_mode = multiply
+				}
+
+				modify_texture = {
+					using = overlay_leather_texture
+					blend_mode = overlay
+					alpha = 0.2
+				}
+
+				hbox = {
+					margin = { 40 0 }
+					margin_top = 8
+
+					icon = {
+						name = "image"
+						texture = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_bursa_imperial_mint_cropped.dds"
+						size = { 45 45 }
+					}
+
+					text_single = {
+						name = "title"
+						using = layoutpolicy_expanding
+						using = Font_Size_Medium
+						fontsize = 18
+						autoresize = no
+
+						default_format = "#yellow_titles"
+						text = "game_concept_tv_wonder_unique_bursa_imperial_mint"
+					}
+				}
+			}
+
+			TooltipListScrollArea = {
+				blockoverride "scrollarea_content" {
+					vbox = {
+						set_parent_dimension_to_minimum = height
+						layoutpolicy_horizontal = expanding
+
+						text_multi = {
+							name = "body"
+							max_width = 1450
+							min_width = 1450
+							autoresize = yes
+
+							text = "game_concept_tv_wonder_unique_bursa_imperial_mint_desc"
+							margin = { 40 10 }
+						}
+					}
+				}
+				block "block_scrollarea" {
+					maximumsize = { -1 800 }
+				}
+			}
+		}
+	}
+
+	vbox = {
+		visible = "[Or(GetVariableSystem.HasValue('tv_encyclopedia_filter', 'all'), GetVariableSystem.HasValue('tv_encyclopedia_filter', 'unique'))]"
+		set_parent_size_to_minimum = yes
+		margin = { 0 10 }
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+			spacing = 10
+			using = bg_paper_card
+
+			blockoverride "card_color" {
+				using = color_intense_bg_blue_texture
+				blend_mode = multiply
+			}
+
+			max_width = 1450
+			min_width = 1450
+
+			icon = {
+				layoutpolicy_horizontal = expanding
+				using = button_main_tab_texture
+				frame = 4
+
+				modify_texture = {
+					using = color_intense_bg_blue_texture
+					blend_mode = multiply
+				}
+
+				modify_texture = {
+					using = overlay_leather_texture
+					blend_mode = overlay
+					alpha = 0.2
+				}
+
+				hbox = {
+					margin = { 40 0 }
+					margin_top = 8
+
+					icon = {
+						name = "image"
+						texture = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_enderun_palace_school_cropped.dds"
+						size = { 45 45 }
+					}
+
+					text_single = {
+						name = "title"
+						using = layoutpolicy_expanding
+						using = Font_Size_Medium
+						fontsize = 18
+						autoresize = no
+
+						default_format = "#yellow_titles"
+						text = "game_concept_tv_wonder_unique_enderun_palace_school"
+					}
+				}
+			}
+
+			TooltipListScrollArea = {
+				blockoverride "scrollarea_content" {
+					vbox = {
+						set_parent_dimension_to_minimum = height
+						layoutpolicy_horizontal = expanding
+
+						text_multi = {
+							name = "body"
+							max_width = 1450
+							min_width = 1450
+							autoresize = yes
+
+							text = "game_concept_tv_wonder_unique_enderun_palace_school_desc"
+							margin = { 40 10 }
+						}
+					}
+				}
+				block "block_scrollarea" {
+					maximumsize = { -1 800 }
+				}
+			}
+		}
+	}
+
+	vbox = {
+		visible = "[Or(GetVariableSystem.HasValue('tv_encyclopedia_filter', 'all'), GetVariableSystem.HasValue('tv_encyclopedia_filter', 'unique'))]"
+		set_parent_size_to_minimum = yes
+		margin = { 0 10 }
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+			spacing = 10
+			using = bg_paper_card
+
+			blockoverride "card_color" {
+				using = color_intense_bg_blue_texture
+				blend_mode = multiply
+			}
+
+			max_width = 1450
+			min_width = 1450
+
+			icon = {
+				layoutpolicy_horizontal = expanding
+				using = button_main_tab_texture
+				frame = 4
+
+				modify_texture = {
+					using = color_intense_bg_blue_texture
+					blend_mode = multiply
+				}
+
+				modify_texture = {
+					using = overlay_leather_texture
+					blend_mode = overlay
+					alpha = 0.2
+				}
+
+				hbox = {
+					margin = { 40 0 }
+					margin_top = 8
+
+					icon = {
+						name = "image"
+						texture = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_ayutthaya_foreign_quarters_cropped.dds"
+						size = { 45 45 }
+					}
+
+					text_single = {
+						name = "title"
+						using = layoutpolicy_expanding
+						using = Font_Size_Medium
+						fontsize = 18
+						autoresize = no
+
+						default_format = "#yellow_titles"
+						text = "game_concept_tv_wonder_unique_ayutthaya_foreign_quarters"
+					}
+				}
+			}
+
+			TooltipListScrollArea = {
+				blockoverride "scrollarea_content" {
+					vbox = {
+						set_parent_dimension_to_minimum = height
+						layoutpolicy_horizontal = expanding
+
+						text_multi = {
+							name = "body"
+							max_width = 1450
+							min_width = 1450
+							autoresize = yes
+
+							text = "game_concept_tv_wonder_unique_ayutthaya_foreign_quarters_desc"
+							margin = { 40 10 }
+						}
+					}
+				}
+				block "block_scrollarea" {
+					maximumsize = { -1 800 }
+				}
+			}
+		}
+	}
+
+	vbox = {
+		visible = "[Or(GetVariableSystem.HasValue('tv_encyclopedia_filter', 'all'), GetVariableSystem.HasValue('tv_encyclopedia_filter', 'unique'))]"
+		set_parent_size_to_minimum = yes
+		margin = { 0 10 }
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+			spacing = 10
+			using = bg_paper_card
+
+			blockoverride "card_color" {
+				using = color_intense_bg_blue_texture
+				blend_mode = multiply
+			}
+
+			max_width = 1450
+			min_width = 1450
+
+			icon = {
+				layoutpolicy_horizontal = expanding
+				using = button_main_tab_texture
+				frame = 4
+
+				modify_texture = {
+					using = color_intense_bg_blue_texture
+					blend_mode = multiply
+				}
+
+				modify_texture = {
+					using = overlay_leather_texture
+					blend_mode = overlay
+					alpha = 0.2
+				}
+
+				hbox = {
+					margin = { 40 0 }
+					margin_top = 8
+
+					icon = {
+						name = "image"
+						texture = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_yunnan_weisuo_colonies_cropped.dds"
+						size = { 45 45 }
+					}
+
+					text_single = {
+						name = "title"
+						using = layoutpolicy_expanding
+						using = Font_Size_Medium
+						fontsize = 18
+						autoresize = no
+
+						default_format = "#yellow_titles"
+						text = "game_concept_tv_wonder_unique_yunnan_weisuo_colonies"
+					}
+				}
+			}
+
+			TooltipListScrollArea = {
+				blockoverride "scrollarea_content" {
+					vbox = {
+						set_parent_dimension_to_minimum = height
+						layoutpolicy_horizontal = expanding
+
+						text_multi = {
+							name = "body"
+							max_width = 1450
+							min_width = 1450
+							autoresize = yes
+
+							text = "game_concept_tv_wonder_unique_yunnan_weisuo_colonies_desc"
+							margin = { 40 10 }
+						}
+					}
+				}
+				block "block_scrollarea" {
+					maximumsize = { -1 800 }
+				}
+			}
+		}
+	}
+
+	vbox = {
+		visible = "[Or(GetVariableSystem.HasValue('tv_encyclopedia_filter', 'all'), GetVariableSystem.HasValue('tv_encyclopedia_filter', 'unique'))]"
+		set_parent_size_to_minimum = yes
+		margin = { 0 10 }
+
+		vbox = {
+			layoutpolicy_horizontal = expanding
+			spacing = 10
+			using = bg_paper_card
+
+			blockoverride "card_color" {
+				using = color_intense_bg_blue_texture
+				blend_mode = multiply
+			}
+
+			max_width = 1450
+			min_width = 1450
+
+			icon = {
+				layoutpolicy_horizontal = expanding
+				using = button_main_tab_texture
+				frame = 4
+
+				modify_texture = {
+					using = color_intense_bg_blue_texture
+					blend_mode = multiply
+				}
+
+				modify_texture = {
+					using = overlay_leather_texture
+					blend_mode = overlay
+					alpha = 0.2
+				}
+
+				hbox = {
+					margin = { 40 0 }
+					margin_top = 8
+
+					icon = {
+						name = "image"
+						texture = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_zhoushan_beacon_network_cropped.dds"
+						size = { 45 45 }
+					}
+
+					text_single = {
+						name = "title"
+						using = layoutpolicy_expanding
+						using = Font_Size_Medium
+						fontsize = 18
+						autoresize = no
+
+						default_format = "#yellow_titles"
+						text = "game_concept_tv_wonder_unique_zhoushan_beacon_network"
+					}
+				}
+			}
+
+			TooltipListScrollArea = {
+				blockoverride "scrollarea_content" {
+					vbox = {
+						set_parent_dimension_to_minimum = height
+						layoutpolicy_horizontal = expanding
+
+						text_multi = {
+							name = "body"
+							max_width = 1450
+							min_width = 1450
+							autoresize = yes
+
+							text = "game_concept_tv_wonder_unique_zhoushan_beacon_network_desc"
 							margin = { 40 10 }
 						}
 					}

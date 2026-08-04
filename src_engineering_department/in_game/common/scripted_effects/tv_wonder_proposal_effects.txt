@@ -226,6 +226,14 @@ tv_wonder_mechanics_rebuild_feasible_deck_effect = {
 		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 54 value = 1 }
 	}
 	if = {
+		limit = { tv_wonder_can_build_grand_garden_complex_trigger = yes }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 55 value = 1 }
+	}
+	if = {
+		limit = { tv_wonder_can_build_state_examination_complex_trigger = yes }
+		add_to_variable_map = { name = tv_wonder_feasible_generic_deck key = 56 value = 1 }
+	}
+	if = {
 		limit = { tv_wonder_can_build_unique_pharos_lighthouse_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 101 value = 1 }
 	}
@@ -716,6 +724,58 @@ tv_wonder_mechanics_rebuild_feasible_deck_effect = {
 	if = {
 		limit = { tv_wonder_can_build_unique_walls_of_benin_trigger = yes }
 		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 223 value = 1 }
+	}
+	if = {
+		limit = { tv_wonder_can_build_unique_suzhou_classical_gardens_trigger = yes }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 224 value = 1 }
+	}
+	if = {
+		limit = { tv_wonder_can_build_unique_fin_garden_trigger = yes }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 225 value = 1 }
+	}
+	if = {
+		limit = { tv_wonder_can_build_unique_jiangnan_examination_hall_trigger = yes }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 226 value = 1 }
+	}
+	if = {
+		limit = { tv_wonder_can_build_unique_thang_long_temple_of_literature_trigger = yes }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 227 value = 1 }
+	}
+	if = {
+		limit = { tv_wonder_can_build_unique_maragheh_observatory_trigger = yes }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 228 value = 1 }
+	}
+	if = {
+		limit = { tv_wonder_can_build_unique_xian_bell_and_drum_towers_trigger = yes }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 229 value = 1 }
+	}
+	if = {
+		limit = { tv_wonder_can_build_unique_behistun_inscription_trigger = yes }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 230 value = 1 }
+	}
+	if = {
+		limit = { tv_wonder_can_build_unique_beijing_imperial_granaries_trigger = yes }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 231 value = 1 }
+	}
+	if = {
+		limit = { tv_wonder_can_build_unique_bursa_imperial_mint_trigger = yes }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 232 value = 1 }
+	}
+	if = {
+		limit = { tv_wonder_can_build_unique_enderun_palace_school_trigger = yes }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 233 value = 1 }
+	}
+	if = {
+		limit = { tv_wonder_can_build_unique_ayutthaya_foreign_quarters_trigger = yes }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 234 value = 1 }
+	}
+	if = {
+		limit = { tv_wonder_can_build_unique_yunnan_weisuo_colonies_trigger = yes }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 235 value = 1 }
+	}
+	if = {
+		limit = { tv_wonder_can_build_unique_zhoushan_beacon_network_trigger = yes }
+		add_to_variable_map = { name = tv_wonder_feasible_unique_deck key = 236 value = 1 }
 	}
 }
 

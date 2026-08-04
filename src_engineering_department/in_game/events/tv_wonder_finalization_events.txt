@@ -2381,6 +2381,94 @@ tv_engineering_department.5054 = {
 	}
 }
 
+tv_engineering_department.5055 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { var:tv_wonder_ceremony_style ?= 1 }
+				desc = tv_engineering_department.500.d_grand_garden_complex_1
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_ceremony_style ?= 2 }
+				desc = tv_engineering_department.500.d_grand_garden_complex_2
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_ceremony_style ?= 3 }
+				desc = tv_engineering_department.500.d_grand_garden_complex_3
+			}
+			desc = tv_engineering_department.500.d_grand_garden_complex_1
+		}
+	}
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_grand_garden_complex_cropped.dds"
+	outcome = positive
+
+	option = {
+		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_grand_garden_complex_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_grand_garden_complex_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_grand_garden_complex_style_3_construct_final_building_effect = yes
+		}
+		tv_wonder_grand_garden_complex_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_trigger_finalization_hidden_event_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5056 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { var:tv_wonder_ceremony_style ?= 1 }
+				desc = tv_engineering_department.500.d_state_examination_complex_1
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_ceremony_style ?= 2 }
+				desc = tv_engineering_department.500.d_state_examination_complex_2
+			}
+			triggered_desc = {
+				trigger = { var:tv_wonder_ceremony_style ?= 3 }
+				desc = tv_engineering_department.500.d_state_examination_complex_3
+			}
+			desc = tv_engineering_department.500.d_state_examination_complex_1
+		}
+	}
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_state_examination_complex_cropped.dds"
+	outcome = positive
+
+	option = {
+		name = tv_engineering_department.500.a
+		if = {
+			limit = { var:tv_wonder_ceremony_style ?= 1 }
+			tv_wonder_state_examination_complex_style_1_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 2 }
+			tv_wonder_state_examination_complex_style_2_construct_final_building_effect = yes
+		}
+		else_if = {
+			limit = { var:tv_wonder_ceremony_style ?= 3 }
+			tv_wonder_state_examination_complex_style_3_construct_final_building_effect = yes
+		}
+		tv_wonder_state_examination_complex_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_trigger_finalization_hidden_event_effect = yes
+		}
+	}
+}
+
 tv_engineering_department.5101 = {
 	type = country_event
 	title = tv_engineering_department.500.t
@@ -4472,6 +4560,227 @@ tv_engineering_department.5223 = {
 	}
 }
 
+tv_engineering_department.5224 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_suzhou_classical_gardens
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_suzhou_classical_gardens_cropped.dds"
+	outcome = positive
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_suzhou_classical_gardens_style_1_construct_final_building_effect = yes
+		tv_wonder_unique_suzhou_classical_gardens_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_trigger_finalization_hidden_event_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5225 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_fin_garden
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_fin_garden_cropped.dds"
+	outcome = positive
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_fin_garden_style_1_construct_final_building_effect = yes
+		tv_wonder_unique_fin_garden_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_trigger_finalization_hidden_event_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5226 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_jiangnan_examination_hall
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_jiangnan_examination_hall_cropped.dds"
+	outcome = positive
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_jiangnan_examination_hall_style_1_construct_final_building_effect = yes
+		tv_wonder_unique_jiangnan_examination_hall_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_trigger_finalization_hidden_event_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5227 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_thang_long_temple_of_literature
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_thang_long_temple_of_literature_cropped.dds"
+	outcome = positive
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_thang_long_temple_of_literature_style_1_construct_final_building_effect = yes
+		tv_wonder_unique_thang_long_temple_of_literature_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_trigger_finalization_hidden_event_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5228 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_maragheh_observatory
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_maragheh_observatory_cropped.dds"
+	outcome = positive
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_maragheh_observatory_style_1_construct_final_building_effect = yes
+		tv_wonder_unique_maragheh_observatory_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_trigger_finalization_hidden_event_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5229 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_xian_bell_and_drum_towers
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_xian_bell_and_drum_towers_cropped.dds"
+	outcome = positive
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_xian_bell_and_drum_towers_style_1_construct_final_building_effect = yes
+		tv_wonder_unique_xian_bell_and_drum_towers_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_trigger_finalization_hidden_event_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5230 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_behistun_inscription
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_behistun_inscription_cropped.dds"
+	outcome = positive
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_behistun_inscription_style_1_construct_final_building_effect = yes
+		tv_wonder_unique_behistun_inscription_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_trigger_finalization_hidden_event_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5231 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_beijing_imperial_granaries
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_beijing_imperial_granaries_cropped.dds"
+	outcome = positive
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_beijing_imperial_granaries_style_1_construct_final_building_effect = yes
+		tv_wonder_unique_beijing_imperial_granaries_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_trigger_finalization_hidden_event_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5232 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_bursa_imperial_mint
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_bursa_imperial_mint_cropped.dds"
+	outcome = positive
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_bursa_imperial_mint_style_1_construct_final_building_effect = yes
+		tv_wonder_unique_bursa_imperial_mint_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_trigger_finalization_hidden_event_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5233 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_enderun_palace_school
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_enderun_palace_school_cropped.dds"
+	outcome = positive
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_enderun_palace_school_style_1_construct_final_building_effect = yes
+		tv_wonder_unique_enderun_palace_school_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_trigger_finalization_hidden_event_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5234 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_ayutthaya_foreign_quarters
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_ayutthaya_foreign_quarters_cropped.dds"
+	outcome = positive
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_ayutthaya_foreign_quarters_style_1_construct_final_building_effect = yes
+		tv_wonder_unique_ayutthaya_foreign_quarters_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_trigger_finalization_hidden_event_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5235 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_yunnan_weisuo_colonies
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_yunnan_weisuo_colonies_cropped.dds"
+	outcome = positive
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_yunnan_weisuo_colonies_style_1_construct_final_building_effect = yes
+		tv_wonder_unique_yunnan_weisuo_colonies_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_trigger_finalization_hidden_event_effect = yes
+		}
+	}
+}
+
+tv_engineering_department.5236 = {
+	type = country_event
+	title = tv_engineering_department.500.t
+	desc = tv_engineering_department.500.d_unique_zhoushan_beacon_network
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_zhoushan_beacon_network_cropped.dds"
+	outcome = positive
+
+	option = {
+		name = tv_engineering_department.500.a
+		tv_wonder_unique_zhoushan_beacon_network_style_1_construct_final_building_effect = yes
+		tv_wonder_unique_zhoushan_beacon_network_finalization_visible_effect = yes
+		hidden_effect = {
+			tv_wonder_trigger_finalization_hidden_event_effect = yes
+		}
+	}
+}
+
 tv_engineering_department.6999 = {
 	type = country_event
 	outcome = neutral
@@ -5141,6 +5450,30 @@ tv_engineering_department.9454 = {
 
 	immediate = {
 		tv_wonder_pirate_port_handle_final_building_destroyed_effect = yes
+	}
+}
+
+tv_engineering_department.9455 = {
+	type = location_event
+	outcome = neutral
+	title = empty_text
+	desc = empty_text
+	hidden = yes
+
+	immediate = {
+		tv_wonder_grand_garden_complex_handle_final_building_destroyed_effect = yes
+	}
+}
+
+tv_engineering_department.9456 = {
+	type = location_event
+	outcome = neutral
+	title = empty_text
+	desc = empty_text
+	hidden = yes
+
+	immediate = {
+		tv_wonder_state_examination_complex_handle_final_building_destroyed_effect = yes
 	}
 }
 
@@ -6620,6 +6953,162 @@ tv_engineering_department.9623 = {
 	}
 }
 
+tv_engineering_department.9624 = {
+	type = location_event
+	outcome = neutral
+	title = empty_text
+	desc = empty_text
+	hidden = yes
+
+	immediate = {
+		tv_wonder_unique_suzhou_classical_gardens_handle_final_building_destroyed_effect = yes
+	}
+}
+
+tv_engineering_department.9625 = {
+	type = location_event
+	outcome = neutral
+	title = empty_text
+	desc = empty_text
+	hidden = yes
+
+	immediate = {
+		tv_wonder_unique_fin_garden_handle_final_building_destroyed_effect = yes
+	}
+}
+
+tv_engineering_department.9626 = {
+	type = location_event
+	outcome = neutral
+	title = empty_text
+	desc = empty_text
+	hidden = yes
+
+	immediate = {
+		tv_wonder_unique_jiangnan_examination_hall_handle_final_building_destroyed_effect = yes
+	}
+}
+
+tv_engineering_department.9627 = {
+	type = location_event
+	outcome = neutral
+	title = empty_text
+	desc = empty_text
+	hidden = yes
+
+	immediate = {
+		tv_wonder_unique_thang_long_temple_of_literature_handle_final_building_destroyed_effect = yes
+	}
+}
+
+tv_engineering_department.9628 = {
+	type = location_event
+	outcome = neutral
+	title = empty_text
+	desc = empty_text
+	hidden = yes
+
+	immediate = {
+		tv_wonder_unique_maragheh_observatory_handle_final_building_destroyed_effect = yes
+	}
+}
+
+tv_engineering_department.9629 = {
+	type = location_event
+	outcome = neutral
+	title = empty_text
+	desc = empty_text
+	hidden = yes
+
+	immediate = {
+		tv_wonder_unique_xian_bell_and_drum_towers_handle_final_building_destroyed_effect = yes
+	}
+}
+
+tv_engineering_department.9630 = {
+	type = location_event
+	outcome = neutral
+	title = empty_text
+	desc = empty_text
+	hidden = yes
+
+	immediate = {
+		tv_wonder_unique_behistun_inscription_handle_final_building_destroyed_effect = yes
+	}
+}
+
+tv_engineering_department.9631 = {
+	type = location_event
+	outcome = neutral
+	title = empty_text
+	desc = empty_text
+	hidden = yes
+
+	immediate = {
+		tv_wonder_unique_beijing_imperial_granaries_handle_final_building_destroyed_effect = yes
+	}
+}
+
+tv_engineering_department.9632 = {
+	type = location_event
+	outcome = neutral
+	title = empty_text
+	desc = empty_text
+	hidden = yes
+
+	immediate = {
+		tv_wonder_unique_bursa_imperial_mint_handle_final_building_destroyed_effect = yes
+	}
+}
+
+tv_engineering_department.9633 = {
+	type = location_event
+	outcome = neutral
+	title = empty_text
+	desc = empty_text
+	hidden = yes
+
+	immediate = {
+		tv_wonder_unique_enderun_palace_school_handle_final_building_destroyed_effect = yes
+	}
+}
+
+tv_engineering_department.9634 = {
+	type = location_event
+	outcome = neutral
+	title = empty_text
+	desc = empty_text
+	hidden = yes
+
+	immediate = {
+		tv_wonder_unique_ayutthaya_foreign_quarters_handle_final_building_destroyed_effect = yes
+	}
+}
+
+tv_engineering_department.9635 = {
+	type = location_event
+	outcome = neutral
+	title = empty_text
+	desc = empty_text
+	hidden = yes
+
+	immediate = {
+		tv_wonder_unique_yunnan_weisuo_colonies_handle_final_building_destroyed_effect = yes
+	}
+}
+
+tv_engineering_department.9636 = {
+	type = location_event
+	outcome = neutral
+	title = empty_text
+	desc = empty_text
+	hidden = yes
+
+	immediate = {
+		tv_wonder_unique_zhoushan_beacon_network_handle_final_building_destroyed_effect = yes
+	}
+}
+
 tv_engineering_department.6001 = {
 	type = country_event
 	title = tv_engineering_department.600.t
@@ -7261,6 +7750,30 @@ tv_engineering_department.6054 = {
 	title = tv_engineering_department.600.t
 	desc = tv_engineering_department.600.d_pirate_port
 	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_pirate_port_cropped.dds"
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6055 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_grand_garden_complex
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_grand_garden_complex_cropped.dds"
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6056 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_state_examination_complex
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_state_examination_complex_cropped.dds"
 	outcome = neutral
 
 	option = {
@@ -8737,6 +9250,162 @@ tv_engineering_department.6223 = {
 	title = tv_engineering_department.600.t
 	desc = tv_engineering_department.600.d_unique_walls_of_benin
 	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_walls_of_benin_cropped.dds"
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6224 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_unique_suzhou_classical_gardens
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_suzhou_classical_gardens_cropped.dds"
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6225 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_unique_fin_garden
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_fin_garden_cropped.dds"
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6226 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_unique_jiangnan_examination_hall
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_jiangnan_examination_hall_cropped.dds"
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6227 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_unique_thang_long_temple_of_literature
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_thang_long_temple_of_literature_cropped.dds"
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6228 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_unique_maragheh_observatory
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_maragheh_observatory_cropped.dds"
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6229 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_unique_xian_bell_and_drum_towers
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_xian_bell_and_drum_towers_cropped.dds"
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6230 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_unique_behistun_inscription
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_behistun_inscription_cropped.dds"
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6231 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_unique_beijing_imperial_granaries
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_beijing_imperial_granaries_cropped.dds"
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6232 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_unique_bursa_imperial_mint
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_bursa_imperial_mint_cropped.dds"
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6233 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_unique_enderun_palace_school
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_enderun_palace_school_cropped.dds"
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6234 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_unique_ayutthaya_foreign_quarters
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_ayutthaya_foreign_quarters_cropped.dds"
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6235 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_unique_yunnan_weisuo_colonies
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_yunnan_weisuo_colonies_cropped.dds"
+	outcome = neutral
+
+	option = {
+		name = tv_engineering_department.600.a
+	}
+}
+
+tv_engineering_department.6236 = {
+	type = country_event
+	title = tv_engineering_department.600.t
+	desc = tv_engineering_department.600.d_unique_zhoushan_beacon_network
+	image = "gfx/interface/icons/towards_victory/wonders/tv_wonder_unique_zhoushan_beacon_network_cropped.dds"
 	outcome = neutral
 
 	option = {

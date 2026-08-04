@@ -9836,7 +9836,10 @@ tv_wonder_country_has_grand_garden_complex_project_or_final_trigger = {
 }
 
 tv_wonder_location_meets_state_examination_complex_base_site_rules_trigger = {
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	OR = {
+		is_capital = yes
+		NOT = { location_rank ?= location_rank:rural_settlement }
+	}
 }
 
 tv_wonder_location_has_state_examination_complex_intermediate_building_trigger = {
@@ -22513,7 +22516,10 @@ tv_wonder_country_has_unique_fin_garden_project_or_final_trigger = {
 
 tv_wonder_location_meets_unique_jiangnan_examination_hall_base_site_rules_trigger = {
 	this = location:shangyuan
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	OR = {
+		is_capital = yes
+		NOT = { location_rank ?= location_rank:rural_settlement }
+	}
 }
 
 tv_wonder_location_has_unique_jiangnan_examination_hall_intermediate_building_trigger = {
@@ -22616,7 +22622,10 @@ tv_wonder_country_has_unique_jiangnan_examination_hall_project_or_final_trigger 
 
 tv_wonder_location_meets_unique_thang_long_temple_of_literature_base_site_rules_trigger = {
 	this = location:thang_long
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	OR = {
+		is_capital = yes
+		NOT = { location_rank ?= location_rank:rural_settlement }
+	}
 }
 
 tv_wonder_location_has_unique_thang_long_temple_of_literature_intermediate_building_trigger = {
@@ -27202,7 +27211,10 @@ tv_wonder_display_55_base_site_rules_trigger = {
 }
 
 tv_wonder_display_56_base_site_rules_trigger = {
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	OR = {
+		is_capital = yes
+		NOT = { location_rank ?= location_rank:rural_settlement }
+	}
 }
 
 tv_wonder_display_101_base_site_rules_trigger = {
@@ -27871,11 +27883,17 @@ tv_wonder_display_225_base_site_rules_trigger = {
 }
 
 tv_wonder_display_226_base_site_rules_trigger = {
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	OR = {
+		is_capital = yes
+		NOT = { location_rank ?= location_rank:rural_settlement }
+	}
 }
 
 tv_wonder_display_227_base_site_rules_trigger = {
-	NOT = { location_rank ?= location_rank:rural_settlement }
+	OR = {
+		is_capital = yes
+		NOT = { location_rank ?= location_rank:rural_settlement }
+	}
 }
 
 tv_wonder_display_228_base_site_rules_trigger = {
@@ -29731,7 +29749,6 @@ tv_wonder_location_can_host_grand_garden_complex_trigger = {
 }
 
 tv_wonder_can_build_grand_garden_complex_trigger = {
-	NOT = { tv_wonder_country_has_grand_garden_complex_project_or_final_trigger = yes }
 	any_owned_location = {
 		AND = {
 			tv_wonder_location_meets_grand_garden_complex_base_site_rules_trigger = yes
@@ -29779,7 +29796,10 @@ tv_wonder_can_build_state_examination_complex_trigger = {
 
 tv_wonder_player_visible_site_rules_state_examination_complex_trigger = {
 	any_owned_location = {
-		NOT = { location_rank ?= location_rank:rural_settlement }
+		OR = {
+			is_capital = yes
+			NOT = { location_rank ?= location_rank:rural_settlement }
+		}
 	}
 }
 
@@ -33556,7 +33576,6 @@ tv_wonder_location_can_host_unique_suzhou_classical_gardens_trigger = {
 }
 
 tv_wonder_can_build_unique_suzhou_classical_gardens_trigger = {
-	NOT = { tv_wonder_country_has_unique_suzhou_classical_gardens_project_or_final_trigger = yes }
 	owns = location:wuxian
 	location:wuxian = {
 		AND = {
@@ -33587,7 +33606,6 @@ tv_wonder_location_can_host_unique_fin_garden_trigger = {
 }
 
 tv_wonder_can_build_unique_fin_garden_trigger = {
-	NOT = { tv_wonder_country_has_unique_fin_garden_project_or_final_trigger = yes }
 	owns = location:kashan
 	location:kashan = {
 		AND = {

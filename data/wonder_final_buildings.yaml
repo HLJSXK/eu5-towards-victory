@@ -433,9 +433,7 @@ buildings:
         category: military_category
   grand_garden_complex:
     final_local:
-      local_monthly_prosperity: 0.001
-      local_migration_attraction: 1
+      local_crown_estate_power: 0.5
+      local_migration_attraction: 0.5
   state_examination_complex:
-    final_local:
-      local_max_literacy: 10
-      local_pop_promotion_speed_modifier: 0.25
+    final_local: {}

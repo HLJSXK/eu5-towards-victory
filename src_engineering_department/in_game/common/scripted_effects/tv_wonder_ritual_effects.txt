@@ -3071,15 +3071,11 @@ tv_wonder_grand_garden_complex_ritual_3_requirement_tooltip_effect = {
 }
 
 tv_wonder_grand_garden_complex_ritual_3_effect_tooltip_effect = {
-	culture = { add_cultural_tradition = 25 }
-	var:tv_wonder_site ?= { change_prosperity = 0.3 }
+	var:tv_wonder_site ?= { change_prosperity = 1 }
 }
 
 tv_wonder_grand_garden_complex_ritual_3_location_tooltip_effect = {
-	owner ?= {
-		culture = { add_cultural_tradition = 25 }
-	}
-	change_prosperity = 0.3
+	change_prosperity = 1
 }
 
 tv_wonder_display_55_ritual_3_location_tooltip_effect = {
@@ -8983,8 +8979,7 @@ tv_wonder_mechanics_apply_immediate_ritual_effect = {
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 5503 }
-		culture = { add_cultural_tradition = 25 }
-		var:tv_wonder_site ?= { change_prosperity = 0.3 }
+		var:tv_wonder_site ?= { change_prosperity = 1 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_selected_ritual_id ?= 5603 }

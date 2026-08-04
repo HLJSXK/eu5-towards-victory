@@ -296,6 +296,14 @@ tv_wonder_ownership_trigger_gain_event_effect = {
 		trigger_event_non_silently = { id = tv_engineering_department.8054 }
 	}
 	else_if = {
+		limit = { var:tv_wonder_ownership_event_wonder_id ?= 55 }
+		trigger_event_non_silently = { id = tv_engineering_department.8055 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_ownership_event_wonder_id ?= 56 }
+		trigger_event_non_silently = { id = tv_engineering_department.8056 }
+	}
+	else_if = {
 		limit = { var:tv_wonder_ownership_event_wonder_id ?= 101 }
 		trigger_event_non_silently = { id = tv_engineering_department.8101 }
 	}
@@ -787,6 +795,58 @@ tv_wonder_ownership_trigger_gain_event_effect = {
 		limit = { var:tv_wonder_ownership_event_wonder_id ?= 223 }
 		trigger_event_non_silently = { id = tv_engineering_department.8223 }
 	}
+	else_if = {
+		limit = { var:tv_wonder_ownership_event_wonder_id ?= 224 }
+		trigger_event_non_silently = { id = tv_engineering_department.8224 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_ownership_event_wonder_id ?= 225 }
+		trigger_event_non_silently = { id = tv_engineering_department.8225 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_ownership_event_wonder_id ?= 226 }
+		trigger_event_non_silently = { id = tv_engineering_department.8226 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_ownership_event_wonder_id ?= 227 }
+		trigger_event_non_silently = { id = tv_engineering_department.8227 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_ownership_event_wonder_id ?= 228 }
+		trigger_event_non_silently = { id = tv_engineering_department.8228 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_ownership_event_wonder_id ?= 229 }
+		trigger_event_non_silently = { id = tv_engineering_department.8229 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_ownership_event_wonder_id ?= 230 }
+		trigger_event_non_silently = { id = tv_engineering_department.8230 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_ownership_event_wonder_id ?= 231 }
+		trigger_event_non_silently = { id = tv_engineering_department.8231 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_ownership_event_wonder_id ?= 232 }
+		trigger_event_non_silently = { id = tv_engineering_department.8232 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_ownership_event_wonder_id ?= 233 }
+		trigger_event_non_silently = { id = tv_engineering_department.8233 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_ownership_event_wonder_id ?= 234 }
+		trigger_event_non_silently = { id = tv_engineering_department.8234 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_ownership_event_wonder_id ?= 235 }
+		trigger_event_non_silently = { id = tv_engineering_department.8235 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_ownership_event_wonder_id ?= 236 }
+		trigger_event_non_silently = { id = tv_engineering_department.8236 }
+	}
 }
 
 # Intentional per-wonder dispatch: events need static ids and static images.
@@ -1006,6 +1066,14 @@ tv_wonder_ownership_trigger_loss_event_effect = {
 	else_if = {
 		limit = { var:tv_wonder_ownership_event_wonder_id ?= 54 }
 		trigger_event_non_silently = { id = tv_engineering_department.9054 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_ownership_event_wonder_id ?= 55 }
+		trigger_event_non_silently = { id = tv_engineering_department.9055 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_ownership_event_wonder_id ?= 56 }
+		trigger_event_non_silently = { id = tv_engineering_department.9056 }
 	}
 	else_if = {
 		limit = { var:tv_wonder_ownership_event_wonder_id ?= 101 }
@@ -1498,6 +1566,58 @@ tv_wonder_ownership_trigger_loss_event_effect = {
 	else_if = {
 		limit = { var:tv_wonder_ownership_event_wonder_id ?= 223 }
 		trigger_event_non_silently = { id = tv_engineering_department.9223 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_ownership_event_wonder_id ?= 224 }
+		trigger_event_non_silently = { id = tv_engineering_department.9224 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_ownership_event_wonder_id ?= 225 }
+		trigger_event_non_silently = { id = tv_engineering_department.9225 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_ownership_event_wonder_id ?= 226 }
+		trigger_event_non_silently = { id = tv_engineering_department.9226 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_ownership_event_wonder_id ?= 227 }
+		trigger_event_non_silently = { id = tv_engineering_department.9227 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_ownership_event_wonder_id ?= 228 }
+		trigger_event_non_silently = { id = tv_engineering_department.9228 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_ownership_event_wonder_id ?= 229 }
+		trigger_event_non_silently = { id = tv_engineering_department.9229 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_ownership_event_wonder_id ?= 230 }
+		trigger_event_non_silently = { id = tv_engineering_department.9230 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_ownership_event_wonder_id ?= 231 }
+		trigger_event_non_silently = { id = tv_engineering_department.9231 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_ownership_event_wonder_id ?= 232 }
+		trigger_event_non_silently = { id = tv_engineering_department.9232 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_ownership_event_wonder_id ?= 233 }
+		trigger_event_non_silently = { id = tv_engineering_department.9233 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_ownership_event_wonder_id ?= 234 }
+		trigger_event_non_silently = { id = tv_engineering_department.9234 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_ownership_event_wonder_id ?= 235 }
+		trigger_event_non_silently = { id = tv_engineering_department.9235 }
+	}
+	else_if = {
+		limit = { var:tv_wonder_ownership_event_wonder_id ?= 236 }
+		trigger_event_non_silently = { id = tv_engineering_department.9236 }
 	}
 }
 
