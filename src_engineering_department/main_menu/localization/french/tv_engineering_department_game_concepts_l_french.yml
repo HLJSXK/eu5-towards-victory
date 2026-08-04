@@ -1,0 +1,86 @@
+﻿l_french:
+ # ── Generic trigger tooltips ───────────────────────────────────────────────
+ TV_ENGINEERING_DEPARTMENT_HAS_VARIABLE_NOT_SET_TT: "L'état requis n'est pas actif."
+ TV_CHARACTER_NOT_ALREADY_TV_IO_CHIEF_TT: "Ce personnage n'est pas déjà chef des IO TV."
+ TV_HAS_ENGINEERING_DEPARTMENT_MEMBER_TT: "Ce pays est membre du [tv_engineering_department|E]."
+ TV_HAS_GREAT_ENGINEER_CHAR_TT: "Un [tv_great_engineer|E] a été nommé."
+ TV_IO_HEADER_APPOINT_CHIEF_PROMPT: "Nommer un chef"
+
+ # ── Engineering Department / Wonder Construction ──────────────────────────
+ game_concept_tv_engineering_department: "Département d'ingénierie"
+ game_concept_tv_engineering_department_desc: "Une organisation internationale non unique établie automatiquement pour chaque pays lors de l'initialisation de la campagne. Il détient le bureau [tv_great_engineer|e] et gère chaque étape d'un [tv_wonder_construction|e]: [tv_wonder_concept|e], site [tv_wonder_survey|e], organisation, logistique et [tv_wonder_ceremony|e] final."
+ game_concept_tv_engineering_department_europedia_desc: "Établi automatiquement pour chaque pays au début de la campagne, ou la première fois que le département d'ingénierie est ajouté à une sauvegarde existante, c'est l'institution permanente derrière chaque [tv_wonder_construction|e] tentative d'un pays. Son unique officier, le [tv_great_engineer|e], dirige personnellement le pipeline: leurs compétences administratives progressent [tv_wonder_concept|e], leurs compétences militaires progressent [tv_wonder_survey|e], et leur mandat détermine qui est retenu lors du [tv_wonder_ceremony|e] final. Un projet déjà en cours n'est pas réinitialisé par la perte ou le remplacement du Grand ingénieur, mais un bureau vacant bloque la progression de la Conception et de l'Enquête jusqu'à ce qu'un successeur soit nommé."
+
+ game_concept_tv_great_engineer: "Grand ingénieur"
+ game_concept_tv_great_engineer_desc: "Le personnage nommé qui dirige le [tv_engineering_department|e]. Le [tv_great_engineer|e] est stocké en tant que variable de pays et peut être nommé, remplacé ou licencié du panneau [tv_engineering_department|e]."
+
+ game_concept_tv_wonder_concept: "Conception"
+ game_concept_tv_wonder_concept_desc: "L'étape de proposition qui ouvre un nouveau [tv_wonder_construction|e]. Chaque mois, la compétence administrative du [tv_great_engineer|e] progresse dans la conception; une fois terminé, le [tv_great_engineer|e] propose un projet [tv_wonder_small|e], [tv_wonder_medium|e] ou [tv_wonder_large|e] réalisable que le pays pourra poursuivre."
+ game_concept_tv_wonder_concept_europedia_desc: "La conception commence au moment où un [tv_great_engineer|e] est nommé: un indicateur de progression caché commence à 0 et augmente un peu chaque mois, en fonction des compétences administratives de l'officier. Un administrateur faible peut mettre des années pour achever la Conception, tandis qu'un pays qui passe successivement par plusieurs administrateurs compétents fait avancer les progrès accumulés, quel que soit celui qui occupe actuellement le poste. Une fois terminé, l'ingénieur ne laisse pas le pays choisir librement: il propose une entreprise [tv_wonder_small|e], [tv_wonder_medium|e] ou [tv_wonder_large|e] réalisable, façonnée par ce que le pays peut actuellement soutenir, que le pays peut poursuivre."
+
+ game_concept_tv_wonder_survey: "Enquête"
+ game_concept_tv_wonder_survey_desc: "L'étape d'évaluation du site de [tv_wonder_construction|e]. La progression de l'enquête augmente mensuellement à partir de la compétence militaire de [tv_great_engineer|e], révèle [tv_wonder_scale_competence|e], [tv_wonder_logistics_competence|e] et [tv_wonder_organization_competence|e], et permet au pays de confirmer un chantier de construction une fois les lectures terminées."
+ game_concept_tv_wonder_survey_europedia_desc: "Une fois le débat résolu, les géomètres évaluent trois qualités cachées du site choisi: [tv_wonder_scale_competence|e], [tv_wonder_organization_competence|e] et [tv_wonder_logistics_competence|e]. — chacun alliant l'adéquation naturelle du site aux compétences administratives de [tv_great_engineer|e]. Ces trois lectures augmentent ensemble à mesure que les progrès de l'enquête s'accumulent grâce aux compétences militaires de l'ingénieur, et aucune d'entre elles ne peut être améliorée à nouveau une fois la construction commencée, donc un pays pesant un site marginal contre une attente plus longue pour un meilleur fait un véritable compromis."
+
+ game_concept_tv_wonder_debate: "Débat"
+ game_concept_tv_wonder_debate_desc: "L'étape de débat national de [tv_wonder_construction|e]. Satisfaire les demandes immobilières et les événements de débat construits [tv_wonder_domestic_support|e]; une fois qu'il atteint 100, le pays peut déclarer le débat terminé et passer à [tv_wonder_survey|e]."
+ game_concept_tv_wonder_debate_europedia_desc: "Avant qu'un terrain ne soit inauguré, le projet proposé doit survivre à un débat national. La noblesse, les bourgeois et le clergé formulent chacun des revendications dont la satisfaction accorde [tv_wonder_domestic_support|e], et les débats accordent encore davantage. Le soutien s'étend sur une échelle de 0 à 200, mais seuls les 100 premiers points sont nécessaires pour clôturer le débat et passer à [tv_wonder_survey|e]. Le soutien ne s'accumule pas indéfiniment: une fois le débat terminé, il diminue un peu chaque mois, de sorte qu'un pays qui peut déjà clôturer le débat ne gagne pas grand-chose à le laisser ouvert, et un projet qui laisse le soutien diminuer jusqu'à zéro avant d'avoir mérité sa cérémonie risque de s'effondrer purement et simplement."
+
+ game_concept_tv_wonder_materials: "Matériaux de construction"
+ game_concept_tv_wonder_materials_desc: "Un bien marchand produit utilisé pour maintenir $tv_wonder_labor_camp$ pendant un [tv_wonder_construction|e] actif. Chaque $tv_wonder_material_dispatch_point$ convertit les biens de construction de base en [tv_wonder_materials|e], de sorte que l'offre et le prix sont gérés via le marché normal."
+ game_concept_tv_wonder_materials_europedia_desc: "Les matériaux merveilleux ne sont pas stockés à l'avance — chaque $tv_wonder_material_dispatch_point$ les raffine à la demande à partir de biens de construction ordinaires déjà en circulation sur le marché, et le bâtiment $tv_wonder_labor_camp$ qui travaille réellement sur le site les consomme au fur et à mesure de sa construction. Parce que les deux extrémités de la chaîne se situent sur le marché normal, un grand projet est en concurrence avec le reste de l'économie du pays pour les mêmes biens de base, et une pénurie se manifeste par un ralentissement de la construction plutôt que par un arrêt brutal."
+
+ game_concept_tv_wonder_ceremony: "Cérémonie"
+ game_concept_tv_wonder_ceremony_desc: "La dédicace finale d'un projet [tv_wonder_construction|e] terminé. La branche de cérémonie choisie détermine le bâtiment final du monument, le modificateur de pays permanent et le dernier élan de prestige, de stabilité et de légitimité du [tv_wonder_domestic_support|e] restant."
+ game_concept_tv_wonder_ceremony_europedia_desc: "La manière dont un grand projet est clôturé dépend du type d'émerveillement dont il s'agit. L'inauguration d'un projet [tv_wonder_generic|e] permet au pays de choisir entre trois styles de cérémonie: un fardeau d'un an se terminant par une bénédiction permanente, un bâtiment annexe auxiliaire qui renforce le pouvoir foncier local, ou une décoration ponctuelle payée avec de l'art, de l'or et du prestige. La plupart des merveilles [tv_wonder_unique|e] avancent automatiquement à travers une cérémonie partagée en huit étapes une fois la construction terminée, atteignant environ une nouvelle étape par trimestre et aboutissant à un modificateur de pays permanent. Une poignée de sites historiquement distinctifs – parmi lesquels le phare de Pharos et Sainte-Sophie – contournent entièrement ce cadre commun pour leur propre rituel dédié, écrit à la main."
+
+ game_concept_tv_wonder_construction: "Super projet"
+ game_concept_tv_wonder_construction_desc: "Un mécanisme Grand Projet géré à travers le [tv_engineering_department|e]. Une fois le [tv_great_engineer|e] c'est [tv_wonder_concept|e] donne un réalisable [tv_wonder_small|e], [tv_wonder_medium|e], ou [tv_wonder_large|e] projet et le pays résout le débat intérieur, il achève un [tv_wonder_survey|e], organise le travail, rassemble [tv_wonder_materials|e], et avance quatre [tv_wonder_construction_part|e] s de porter le projet à son niveau final."
+ game_concept_tv_wonder_construction_europedia_desc: "Un grand projet est le fil conducteur à l'échelle nationale qui transporte une merveille de l'idée au monument. Un [tv_great_engineer|e] complète d'abord [tv_wonder_concept|e] pour proposer une entreprise [tv_wonder_small|e], [tv_wonder_medium|e] ou [tv_wonder_large|e] réalisable; le pays résout ensuite les [tv_wonder_debate|e] nationaux; un [tv_wonder_survey|e] confirme que le site choisi peut le supporter; et c'est seulement alors que la construction proprement dite commence, avec quatre [tv_wonder_construction_part|e] s'élevant ensemble sur [tv_wonder_materials|e] et un travail organisé jusqu'à ce que l'ensemble du projet atteigne son niveau final et se termine par un [tv_wonder_ceremony|e]. Un projet [tv_wonder_generic|e] terminé peut ensuite être poursuivi jusqu'à [tv_wonder_expansion|e] sans répéter aucune des étapes précédentes."
+
+ game_concept_tv_wonder_expansion: "Extension"
+ game_concept_tv_wonder_expansion_desc: "Poursuite d'un [tv_wonder_construction|e] déjà inauguré sur le même site à une plus grande échelle. Une extension réutilise le style [tv_wonder_ceremony|e] choisi lors de l'inauguration précédente de cette merveille, ne perd aucune récompense d'achèvement déjà gagnée et continue de s'appuyer sur la compétence [tv_wonder_survey|e] préservée du site."
+
+ game_concept_tv_wonder_construction_part: "Partie de construction"
+ game_concept_tv_wonder_construction_part_desc: "L'une des quatre pistes parallèles - Fondation, Structure principale, Fonction et Couronnement - qu'un [tv_wonder_construction|e] avance en même temps. Le niveau du projet est déterminé par celle des quatre parties qui est la plus en retard, de sorte que les progrès doivent être répartis uniformément plutôt que précipités sur une seule voie."
+ game_concept_tv_wonder_construction_part_europedia_desc: "Chaque grand projet est en réalité quatre bâtiments s'élevant en parallèle - Fondation, Structure principale, Fonction et Couronnement - chacun avancé indépendamment avec sa propre main-d'œuvre et ses propres matériaux. Le niveau global du projet n'est pas une moyenne des quatre; il est plafonné à la partie la plus en retard. Verser toutes les ressources dans une piste phare tout en négligeant les autres ne fait que bloquer l'ensemble du monument au niveau de sa partie la plus faible, donc une progression équilibrée sur les quatre bat une course pour terminer une seule en premier."
+
+ game_concept_tv_wonder_small: "Petit projet"
+ game_concept_tv_wonder_small_desc: "Une classe de taille [tv_wonder_construction|e]. Les petits projets peuvent être construits plus d'une fois. Leur effet sur le pays de base est limité au mouvement de valeur, tandis que les effets locaux et les effets de cérémonie ne sont pas limités.\nChaque niveau d'un petit projet coûte généralement environ #Y 10 000 @gold!#! ."
+
+ game_concept_tv_wonder_medium: "Projet moyen"
+ game_concept_tv_wonder_medium_desc: "Une classe de taille [tv_wonder_construction|e] entre les petits et les grands projets. Un pays ne peut pas lancer un deuxième projet de taille moyenne du même type, mais ses effets sur le pays de base, ses effets locaux et ses effets de cérémonie ne sont pas limités.\nChaque niveau d'un projet de taille moyenne coûte généralement environ #Y 20 000 @gold!#! ."
+
+ game_concept_tv_wonder_large: "grand projet"
+ game_concept_tv_wonder_large_desc: "Une classe de taille [tv_wonder_construction|e]. Un pays ne peut pas lancer un deuxième grand projet du même type, mais ses effets sur le pays de base, ses effets locaux et ses effets de cérémonie ne sont pas limités.\nChaque niveau d'un grand projet coûte généralement environ #Y 30 000 @gold!#! ."
+
+ game_concept_tv_wonder_generic: "Merveille générique"
+ game_concept_tv_wonder_generic_desc: "Un [tv_wonder_construction|e] proposé par le [tv_great_engineer|e] et librement implanté à l'échelle [tv_wonder_small|e], [tv_wonder_medium|e] ou [tv_wonder_large|e], par opposition à un [tv_wonder_unique|e] fixe sur la carte. Son inauguration vous permet de choisir un style [tv_wonder_ceremony|e]."
+ game_concept_tv_wonder_generic_europedia_desc: "Une merveille générique n'est liée à aucun emplacement fixe: le pays lui-même choisit où construire une fois que [tv_wonder_survey|e] confirme un site approprié, quelle que soit la classe [tv_wonder_small|e], [tv_wonder_medium|e] ou [tv_wonder_large|e] proposée par [tv_great_engineer|e]. Les petits projets génériques peuvent même être reconstruits plus d'une fois sur un nouveau site, donnant à un pays un accès reproductible aux récompenses de cérémonie de cet archétype - contrairement à un [tv_wonder_unique|e], qui existe exactement une fois, à un seul endroit, pendant tout le jeu."
+
+ game_concept_tv_wonder_unique: "Merveille unique"
+ game_concept_tv_wonder_unique_desc: "Un [tv_wonder_construction|e] historique fixé à un emplacement spécifique sur la carte, par opposition à un [tv_wonder_generic|e] librement placé. La plupart des merveilles uniques avancent automatiquement à travers un [tv_wonder_ceremony|e] en 8 étapes une fois la construction terminée; quelques-uns ont à la place leur propre cérémonie manuelle dédiée."
+ game_concept_tv_wonder_unique_europedia_desc: "Une merveille unique est liée à un seul emplacement du monde réel dès le début de la campagne, et seul le pays qui contrôle réellement cet emplacement peut la construire – il n'y a pas de choix de site libre comme avec un [tv_wonder_generic|e]. En échange de cette fixité historique, 134 des 136 merveilles uniques du mod partagent un [tv_wonder_ceremony|e] uniforme et automatique à huit étapes une fois terminées, ne nécessitant aucune intervention supplémentaire du joueur pour atteindre leur récompense permanente. Le phare de Pharos et Sainte-Sophie sont les seules exceptions, chacun exécutant son propre rituel sur mesure en plusieurs étapes."
+
+ game_concept_tv_wonder_domestic_support: "Soutien interne"
+ game_concept_tv_wonder_domestic_support_desc: "Une ressource [tv_wonder_construction|e] représentant la volonté de l'élite et du public de soutenir un grand projet majeur. Atteignez 100 pour mettre fin au débat initial; le support peut être stocké jusqu'à 200 et décroît après la fin du débat."
+
+ game_concept_tv_wonder_scale_competence: "Compétence à l'échelle"
+ game_concept_tv_wonder_scale_competence_desc: "Une lecture [tv_wonder_survey|e] indiquant dans quelle mesure le site choisi peut supporter la taille, les axes, les fondations et l'approche publique prévus du projet sans forcer la conception à prendre une forme inconfortable. Il fixe le niveau maximum du Grand Projet à 20 %, 40 %, 60 %, 80 % et 100 %, le niveau 6 exigeant 100 %."
+
+ game_concept_tv_wonder_organization_competence: "Compétence organisationnelle"
+ game_concept_tv_wonder_organization_competence_desc: "Une lecture [tv_wonder_survey|e] indiquant avec quelle propreté les listes de main-d'œuvre, les contremaîtres, les ateliers et les étapes de construction peuvent être créés pour répondre à un plan au lieu de plusieurs commandes concurrentes. Il définit linéairement le niveau maximum du chantier du grand projet de 0 à 20."
+
+ game_concept_tv_wonder_logistics_competence: "Compétence logistique"
+ game_concept_tv_wonder_logistics_competence_desc: "Une lecture [tv_wonder_survey|e] pour les routes, les charrettes, les ports, les ponts et les points de transfert qui déterminent si [tv_wonder_materials|e] atteint le site lorsque les maçons en ont besoin."
+
+ # ── Europedia Tab UI ─────────────────────────────────────────────────────────────────────────
+ TV_ENCYCLOPEDIA_TAB_TITLE: "Département d'ingénierie"
+ TV_ENCYCLOPEDIA_FILTER_ALL: "Tous"
+ TV_ENCYCLOPEDIA_FILTER_ALL_TOOLTIP: "Afficher chaque entrée du département d'ingénierie."
+ TV_ENCYCLOPEDIA_FILTER_MECHANICS: "Mécanique"
+ TV_ENCYCLOPEDIA_FILTER_MECHANICS_TOOLTIP: "Afficher uniquement les entrées de mécanique du Grand Projet."
+ TV_ENCYCLOPEDIA_FILTER_GENERIC: "Merveilles génériques"
+ TV_ENCYCLOPEDIA_FILTER_GENERIC_TOOLTIP: "Afficher uniquement les entrées Wonder génériques."
+ TV_ENCYCLOPEDIA_FILTER_UNIQUE: "Merveilles uniques"
+ TV_ENCYCLOPEDIA_FILTER_UNIQUE_TOOLTIP: "Afficher uniquement les entrées Wonder uniques."
