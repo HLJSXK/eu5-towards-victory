@@ -21,7 +21,7 @@ Vanilla wonders in EU5 are decorative — a flavor tooltip, nothing more. [b]Gre
 
 [i]Construction — pour materials into the wonder's four parts: Foundation, Main Structure, Function, and Crowning.[/i]
 [olist]
-[*] [b]Concept[/b] — your Great Engineer puts forward three proposals at once, small/medium/large, based on your country's situation; accept one, refuse it for prestige, or bribe for a fresh set
+[*] [b]Concept[/b] — your Great Engineer puts forward three proposals at once, small/medium/large, based on your country's situation; accept one, request a revision for prestige, or fund a fresh set
 [*] [b]Debate[/b] — win over nobles, burghers, and clergy to build Domestic Support (0–200) before construction can begin
 [*] [b]Survey[/b] — the site is scored on Scale, Logistics, and Organization; the result permanently locks in the wonder's max level and how fast you'll ever be able to build it
 [*] [b]Construction[/b] — build supporting infrastructure and pour materials into the wonder's four parts

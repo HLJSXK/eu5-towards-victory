@@ -11,7 +11,7 @@ Like a lot of people coming from EU4, I was pretty let down that EU5's "wonders"
 **Great Project** adds a new international organization, the Engineering Department, that runs the whole thing. There's a catalog of 56 generic wonders any nation can build, plus 136 historical unique wonders that are locked to their real-world location (Pharos at Alexandria, Hagia Sophia at Constantinople, Persian Qanat at Qom, and so on).
 
 Building one is a 6-stage process:
-1. **Concept** — your Great Engineer puts forward 3 proposals at once (small/medium/large) based on your country's situation (accept one, refute for prestige, or bribe for a fresh set)
+1. **Concept** — your Great Engineer puts forward 3 proposals at once (small/medium/large) based on your country's situation (accept one, request a revision for prestige, or fund a fresh set)
 2. **Debate** — win over nobles/burghers/clergy to build up domestic support (0-200, need 100 to move on)
 3. **Survey** — the site gets scored on Scale/Logistics/Organization, which locks in the wonder's max level and how fast you'll ever be able to build it
 4. **Construction** — build supporting infrastructure and pour materials into 4 parts of the wonder (Foundation/Main Structure/Function/Crowning)

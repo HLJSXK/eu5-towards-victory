@@ -63,8 +63,8 @@ Every wonder — generic or unique — goes through the same six stages.
 ### 1. Concept
 Your appointed Great Engineer proposes a feasible wonder based on your country's current conditions — this is not a free player choice. You can:
 - **Accept** the proposal
-- **Refute** it (costs 10 prestige) to have the Engineer propose again
-- **Bribe** for a different, more favorable proposal
+- **Request a revision** (costs 10 prestige) to have the Engineer propose again
+- **Fund a redraft** for a fresh set of candidate proposals
 
 ### 2. Debate
 Before construction can begin, you need domestic backing. Nobles, burghers, and clergy each raise demands; satisfying them raises a **Domestic Support** meter (0–200). Reaching 100+ support unlocks the survey stage.

@@ -26,7 +26,7 @@ Vanilla wonders in EU5 are decorative — a flavor tooltip, nothing more. [B]Gre
 
 [SIZE=4][B]The Six-Stage Build[/B][/SIZE]
 [LIST=1]
-[*] [B]Concept[/B] — your Great Engineer puts forward three proposals at once, small/medium/large, based on your country's situation; accept one, refuse it for prestige, or bribe for a fresh set
+[*] [B]Concept[/B] — your Great Engineer puts forward three proposals at once, small/medium/large, based on your country's situation; accept one, request a revision for prestige, or fund a fresh set
 [*] [B]Debate[/B] — win over nobles, burghers, and clergy to build Domestic Support (0–200) before construction can begin
 [*] [B]Survey[/B] — the site is scored on Scale, Logistics, and Organization; the result permanently locks in the wonder's max level and how fast you'll ever be able to build it
 [*] [B]Construction[/B] — build supporting infrastructure and pour materials into the wonder's four parts
