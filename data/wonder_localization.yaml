@@ -6219,7 +6219,7 @@ wonder_localization:
     tv_engineering_department.1225.t: Seal the Carcassonne Castle Reward
     tv_engineering_department.1225.d: The final handoff preserves garrison size, land morale, one-time garrison or manpower rewards, and local memory of wall rosters, gate keys, crossbow stores, granaries, patrols, and warning horns. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.
     tv_engineering_department.1225.a: Seal the Carcassonne Castle reward.
-    game_concept_tv_wonder_grand_garden_complex_desc: "A planned complex of pleasure gardens, scholar landscapes, water courts, pavilions, botanical beds, and elite gatherings. This [tv_wonder_construction|e] can be built in capitals or non-rural sites and turns garden patronage into local crown authority, migration attraction, and humanist value movement."
+    game_concept_tv_wonder_grand_garden_complex_desc: "A planned complex of pleasure gardens, scholar landscapes, water courts, pavilions, botanical beds, and elite gatherings. Here aristocratic leisure quietly becomes a school for artists, and a garden's upkeep becomes a measure of a court's standing."
     TV_ENGINEERING_PROPOSAL_GRAND_GARDEN_COMPLEX_TEXT: "The [tv_great_engineer|E] proposes [tv_wonder_grand_garden_complex|E]."
     TV_ENGINEERING_PROPOSAL_RESUME_GRAND_GARDEN_COMPLEX_TEXT: "The [tv_great_engineer|E] wants to complete the existing [tv_wonder_grand_garden_complex|E] and reuse the preserved construction at the site."
     TV_ENGINEERING_PROPOSAL_EXPAND_GRAND_GARDEN_COMPLEX_TEXT: "The [tv_great_engineer|E] proposes an [tv_wonder_expansion|e] of the existing [tv_wonder_grand_garden_complex|E] toward the site's preserved maximum level."
@@ -6256,7 +6256,7 @@ wonder_localization:
     TV_ENGINEERING_ACTIVE_RITUAL_GRAND_GARDEN_COMPLEX_3: "Confirm the Botanical Exchange Garden ceremony for the Grand Garden Complex. The ceremony botanical exchange and artwork patronage grant tradition and prosperity."
     tv_engineering_department.500.d_grand_garden_complex_3: "Botanical Exchange Garden gathers the site around botanical exchange and artwork patronage grant tradition and prosperity. [tv_wonder_ceremony|E] makes this branch of [tv_wonder_grand_garden_complex|E] ready for finalization."
     tv_engineering_department.600.d_grand_garden_complex: "Travelers report that [SCOPE.sCountry('tv_wonder_builder_country').GetName] has completed a [tv_wonder_grand_garden_complex|E] at [SCOPE.sLocation('tv_wonder_completed_site').GetName]. Pavilions, water courts, scholar stones, and living collections now turn leisure into cultural authority."
-    game_concept_tv_wonder_state_examination_complex_desc: "A civil-service examination complex of candidate cells, sealed script halls, classics libraries, merit gates, exam courts, and degree registers. This [tv_wonder_construction|e] requires a non-rural site and turns examinations into national promotion speed and innovative value movement."
+    game_concept_tv_wonder_state_examination_complex_desc: "A civil-service examination complex of candidate cells, sealed script halls, classics libraries, merit gates, exam courts, and degree registers. Behind its locked gates and sealed papers, a single sheet of examination paper decides who may serve the crown."
     TV_ENGINEERING_PROPOSAL_STATE_EXAMINATION_COMPLEX_TEXT: "The [tv_great_engineer|E] proposes [tv_wonder_state_examination_complex|E]."
     TV_ENGINEERING_PROPOSAL_RESUME_STATE_EXAMINATION_COMPLEX_TEXT: "The [tv_great_engineer|E] wants to complete the existing [tv_wonder_state_examination_complex|E] and reuse the preserved construction at the site."
     TV_ENGINEERING_PROPOSAL_EXPAND_STATE_EXAMINATION_COMPLEX_TEXT: "The [tv_great_engineer|E] proposes an [tv_wonder_expansion|e] of the existing [tv_wonder_state_examination_complex|E] toward the site's preserved maximum level."
@@ -12274,404 +12274,404 @@ wonder_localization:
     tv_engineering_department.1135.t: 兵工厂门接收印记
     tv_engineering_department.1135.d: 合格火炮被盖印，甲具试身，拒收金属作为废料展示，工资簿签署，交付名册离开兵工厂门。米兰把铸造合同转化为陆军士气与生产效率。
     tv_engineering_department.1135.a: 封存米兰兵工厂奖励。
-    TV_ENGINEERING_ST_BASILS_CATHEDRAL_PRIMARY_STATUS: 'ZH draft: Saint Basil''s Cathedral Red Square chapel procession status'
-    TV_ENGINEERING_ST_BASILS_CATHEDRAL_ROW_STATUS: 'ZH draft: Saint Basil''s Cathedral proof rows'
-    TV_ENGINEERING_ST_BASILS_CATHEDRAL_INCIDENT_LOG_LABEL: 'ZH draft: Saint Basil''s Cathedral incident and retry log'
-    TV_ENGINEERING_ST_BASILS_CATHEDRAL_PROGRESS_STATUS: 'ZH draft: Saint Basil''s Cathedral ritual progress'
-    tv_engineering_department.1136.t: 'ZH draft: Saint Basil''s Cathedral Opens the Red Square Chapel Procession'
-    tv_engineering_department.1136.d: 'ZH draft: Witnesses gather around Moscow, Red Square, the Kremlin gate route, clustered chapels, painted domes, alms stations, bell schedules, victory banners, merchant rows, clergy, veterans, petitioners, and guards. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.'
-    tv_engineering_department.1136.a: 'ZH draft: Open the Red Square chapel procession.'
-    tv_engineering_department.1137.t: 'ZH draft: Choose the Saint Basil''s Cathedral Proof'
-    tv_engineering_department.1137.d: 'ZH draft: The sponsor must decide whether chapel order, victory memory, or public almsgiving carries the intercession proof. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.'
-    tv_engineering_department.1137.a: 'ZH draft: Let the chapels carry the intercession order.'
-    tv_engineering_department.1137.b: 'ZH draft: Let victory banners and veterans carry the memory.'
-    tv_engineering_department.1137.c: 'ZH draft: Let alms and public petitions carry the proof.'
-    tv_engineering_department.1138.t: 'ZH draft: Certify the Saint Basil''s Cathedral Rows'
-    tv_engineering_department.1138.d: 'ZH draft: Inspectors and witnesses check chapel lamps, icon bearers, bell signals, sermon books, alms bowls, market closures, pilgrim places, guard cordons, and victory-banner stations. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.'
-    tv_engineering_department.1138.a: 'ZH draft: Certify the Saint Basil''s Cathedral rows.'
-    tv_engineering_department.1139.t: 'ZH draft: The Saint Basil''s Cathedral Proof Falters'
-    tv_engineering_department.1139.d: 'ZH draft: The ritual can fail because clergy object to the order, veterans claim the victory memory has been slighted, merchants resist the Red Square closures, or a succession prayer is challenged before the crowd. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.'
-    tv_engineering_department.1139.a: 'ZH draft: Return to the rows and retry.'
-    tv_engineering_department.1139.b: 'ZH draft: Bring the dispute to a visible settlement.'
-    tv_engineering_department.1140.t: 'ZH draft: Retry the Saint Basil''s Cathedral Settlement'
-    tv_engineering_department.1140.d: 'ZH draft: The retry branch lets the sponsor reorder the procession, compensate the offended witnesses, reopen the route, and retry the public intercession instead of flattening the rite into a generic cathedral blessing. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.'
-    tv_engineering_department.1140.a: 'ZH draft: Repair the proof and retry.'
-    tv_engineering_department.1140.b: 'ZH draft: Accept the narrower branch.'
-    tv_engineering_department.1141.t: 'ZH draft: Seal the Saint Basil''s Cathedral Reward'
-    tv_engineering_department.1141.d: 'ZH draft: The final handoff preserves monthly legitimacy, one-time legitimacy or unrest relief, and a local memory of prepared chapels, bell schedules, alms stations, guard posts, and victory petitions. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.'
-    tv_engineering_department.1141.a: 'ZH draft: Seal the Saint Basil''s Cathedral reward.'
-    TV_ENGINEERING_TRINITY_LAVRA_PRIMARY_STATUS: 'ZH draft: Trinity Lavra fortified scriptorium vigil status'
-    TV_ENGINEERING_TRINITY_LAVRA_ROW_STATUS: 'ZH draft: Trinity Lavra proof rows'
-    TV_ENGINEERING_TRINITY_LAVRA_INCIDENT_LOG_LABEL: 'ZH draft: Trinity Lavra incident and retry log'
-    TV_ENGINEERING_TRINITY_LAVRA_PROGRESS_STATUS: 'ZH draft: Trinity Lavra ritual progress'
-    tv_engineering_department.1142.t: 'ZH draft: Trinity Lavra Opens the Fortified Scriptorium Vigil'
-    tv_engineering_department.1142.d: 'ZH draft: Witnesses gather around Moscow''s Trinity Lavra, fortified walls, relic chapels, manuscript rooms, guest houses, pilgrim roads, novice schools, icon workshops, donation charters, relic guards, abbots, scribes, and patrons. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.'
-    tv_engineering_department.1142.a: 'ZH draft: Open the fortified scriptorium vigil.'
-    tv_engineering_department.1143.t: 'ZH draft: Choose the Trinity Lavra Proof'
-    tv_engineering_department.1143.d: 'ZH draft: The sponsor must decide whether the vigil privileges corrected manuscripts, relic guardianship, or pilgrim-road teaching before research can become public authority. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.'
-    tv_engineering_department.1143.a: 'ZH draft: Put corrected manuscripts first.'
-    tv_engineering_department.1143.b: 'ZH draft: Put relic custody first.'
-    tv_engineering_department.1143.c: 'ZH draft: Put pilgrim teaching roads first.'
-    tv_engineering_department.1144.t: 'ZH draft: Certify the Trinity Lavra Rows'
-    tv_engineering_department.1144.d: 'ZH draft: Inspectors and witnesses check library inventories, copied chronicles, corrected glosses, icon diagrams, novice lessons, pilgrim letters, guesthouse ledgers, donation seals, and wall watches. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.'
-    tv_engineering_department.1144.a: 'ZH draft: Certify the Trinity Lavra rows.'
-    tv_engineering_department.1145.t: 'ZH draft: The Trinity Lavra Proof Falters'
-    tv_engineering_department.1145.d: 'ZH draft: The ritual can fail because the monastery is overmilitarized, pilgrims lose trust, a manuscript chest is disputed, or relic guards refuse to let scholars turn the vigil into a state muster. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.'
-    tv_engineering_department.1145.a: 'ZH draft: Return to the rows and retry.'
-    tv_engineering_department.1145.b: 'ZH draft: Bring the dispute to a visible settlement.'
-    tv_engineering_department.1146.t: 'ZH draft: Retry the Trinity Lavra Settlement'
-    tv_engineering_department.1146.d: 'ZH draft: The retry branch lets the sponsor renew monastic vows, separate guards from scribes, restore pilgrim trust, and retry the manuscript rows rather than changing the reward into army morale. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.'
-    tv_engineering_department.1146.a: 'ZH draft: Repair the proof and retry.'
-    tv_engineering_department.1146.b: 'ZH draft: Accept the narrower branch.'
-    tv_engineering_department.1147.t: 'ZH draft: Seal the Trinity Lavra Reward'
-    tv_engineering_department.1147.d: 'ZH draft: The final handoff preserves research speed, one-time research or stability recovery, and a local memory of inventoried libraries, scriptoria, guesthouse routes, and protected records. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.'
-    tv_engineering_department.1147.a: 'ZH draft: Seal the Trinity Lavra reward.'
-    TV_ENGINEERING_TEMPLE_OF_HEAVEN_PRIMARY_STATUS: 'ZH draft: Temple of Heaven winter solstice cosmic sacrifice status'
-    TV_ENGINEERING_TEMPLE_OF_HEAVEN_ROW_STATUS: 'ZH draft: Temple of Heaven proof rows'
-    TV_ENGINEERING_TEMPLE_OF_HEAVEN_INCIDENT_LOG_LABEL: 'ZH draft: Temple of Heaven incident and retry log'
-    TV_ENGINEERING_TEMPLE_OF_HEAVEN_PROGRESS_STATUS: 'ZH draft: Temple of Heaven ritual progress'
-    tv_engineering_department.1148.t: 'ZH draft: Temple of Heaven Opens the Winter Solstice Cosmic Sacrifice'
-    tv_engineering_department.1148.d: 'ZH draft: Witnesses gather around Dadu''s Temple of Heaven precinct, circular altar stones, fasting palace, cypress roads, calendar tables, music and dance rosters, harvest reports, ritual officials, censors, animals, grain offerings, and sovereign witnesses. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.'
-    tv_engineering_department.1148.a: 'ZH draft: Open the winter solstice cosmic sacrifice.'
-    tv_engineering_department.1149.t: 'ZH draft: Choose the Temple of Heaven Proof'
-    tv_engineering_department.1149.d: 'ZH draft: The sponsor must decide whether astronomical measurement, harvest offering, or public sovereign discipline carries the Mandate proof. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.'
-    tv_engineering_department.1149.a: 'ZH draft: Let the calendar tables carry the proof.'
-    tv_engineering_department.1149.b: 'ZH draft: Let the harvest offerings carry the proof.'
-    tv_engineering_department.1149.c: 'ZH draft: Let public sovereign fasting carry the proof.'
-    tv_engineering_department.1150.t: 'ZH draft: Certify the Temple of Heaven Rows'
-    tv_engineering_department.1150.d: 'ZH draft: Inspectors and witnesses check altar measurements, tablet placements, purified vessels, calendar readings, grain and animal lists, music rosters, fasting records, censor notes, and harvest bundles. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.'
-    tv_engineering_department.1150.a: 'ZH draft: Certify the Temple of Heaven rows.'
-    tv_engineering_department.1151.t: 'ZH draft: The Temple of Heaven Proof Falters'
-    tv_engineering_department.1151.d: 'ZH draft: The ritual can fail because a calendar reading is disputed, an offering is impure, a censor challenges the ruler''s fasting discipline, or succession anxiety makes Heaven''s witness politically unsafe. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.'
-    tv_engineering_department.1151.a: 'ZH draft: Return to the rows and retry.'
-    tv_engineering_department.1151.b: 'ZH draft: Bring the dispute to a visible settlement.'
-    tv_engineering_department.1152.t: 'ZH draft: Retry the Temple of Heaven Settlement'
-    tv_engineering_department.1152.d: 'ZH draft: The retry branch lets the sponsor correct the sacrifice, name the failed official, remeasure the altar rows, and retry the public offering rather than turning the temple into a normal clergy festival. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.'
-    tv_engineering_department.1152.a: 'ZH draft: Repair the proof and retry.'
-    tv_engineering_department.1152.b: 'ZH draft: Accept the narrower branch.'
-    tv_engineering_department.1153.t: 'ZH draft: Seal the Temple of Heaven Reward'
-    tv_engineering_department.1153.d: 'ZH draft: The final handoff preserves monthly legitimacy, state-faith tolerance, one-time mandate stability, and local memory of cleaned altar stones, purified vessels, calendar tables, and harvest reports. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.'
-    tv_engineering_department.1153.a: 'ZH draft: Seal the Temple of Heaven reward.'
-    TV_ENGINEERING_ESCORIAL_MONASTERY_PRIMARY_STATUS: 'ZH draft: El Escorial royal cloister and pantheon vigil status'
-    TV_ENGINEERING_ESCORIAL_MONASTERY_ROW_STATUS: 'ZH draft: El Escorial proof rows'
-    TV_ENGINEERING_ESCORIAL_MONASTERY_INCIDENT_LOG_LABEL: 'ZH draft: El Escorial incident and retry log'
-    TV_ENGINEERING_ESCORIAL_MONASTERY_PROGRESS_STATUS: 'ZH draft: El Escorial ritual progress'
-    tv_engineering_department.1154.t: 'ZH draft: El Escorial Opens the Royal Cloister And Pantheon Vigil'
-    tv_engineering_department.1154.d: 'ZH draft: Witnesses gather around El Escorial''s austere monastery-palace, basilica, royal apartments, library, council rooms, pantheon, dynastic tomb keys, monastic schedules, court lodging lists, confessors, librarians, monks, ministers, and heirs. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.'
-    tv_engineering_department.1154.a: 'ZH draft: Open the royal cloister and pantheon vigil.'
-    tv_engineering_department.1155.t: 'ZH draft: Choose the El Escorial Proof'
-    tv_engineering_department.1155.d: 'ZH draft: The sponsor must decide whether dynastic burial, library-council order, or monastic discipline carries the royal cloister dedication. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.'
-    tv_engineering_department.1155.a: 'ZH draft: Let the pantheon carry dynastic memory.'
-    tv_engineering_department.1155.b: 'ZH draft: Let library and council order carry the proof.'
-    tv_engineering_department.1155.c: 'ZH draft: Let monastic discipline carry the dedication.'
-    tv_engineering_department.1156.t: 'ZH draft: Certify the El Escorial Rows'
-    tv_engineering_department.1156.d: 'ZH draft: Inspectors and witnesses check pantheon inspections, tomb-key custody, basilica service books, library catalogues, sealed council memorials, royal apartment rolls, dynastic masses, and court lodging lists. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.'
-    tv_engineering_department.1156.a: 'ZH draft: Certify the El Escorial rows.'
-    tv_engineering_department.1157.t: 'ZH draft: The El Escorial Proof Falters'
-    tv_engineering_department.1157.d: 'ZH draft: The ritual can fail because a burial precedence dispute, doctrinal objection, missing council memorial, or contested succession interrupts the vigil and threatens to make the monastery a factional palace. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.'
-    tv_engineering_department.1157.a: 'ZH draft: Return to the rows and retry.'
-    tv_engineering_department.1157.b: 'ZH draft: Bring the dispute to a visible settlement.'
-    tv_engineering_department.1158.t: 'ZH draft: Retry the El Escorial Settlement'
-    tv_engineering_department.1158.d: 'ZH draft: The retry branch lets the sponsor repair the cloister settlement, reseal the library rows, settle tomb custody, and retry the vigil with dynastic memory and administrative order kept distinct. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.'
-    tv_engineering_department.1158.a: 'ZH draft: Repair the proof and retry.'
-    tv_engineering_department.1158.b: 'ZH draft: Accept the narrower branch.'
-    tv_engineering_department.1159.t: 'ZH draft: Seal the El Escorial Reward'
-    tv_engineering_department.1159.d: 'ZH draft: The final handoff preserves monthly legitimacy, stability investment, one-time dynastic stability or corruption relief, and local memory of pantheon, library, cloister, and council rosters. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.'
-    tv_engineering_department.1159.a: 'ZH draft: Seal the El Escorial reward.'
-    TV_ENGINEERING_UNIVERSITY_OF_BOLOGNA_PRIMARY_STATUS: 'ZH draft: University of Bologna doctorate convocation of the nations status'
-    TV_ENGINEERING_UNIVERSITY_OF_BOLOGNA_ROW_STATUS: 'ZH draft: University of Bologna proof rows'
-    TV_ENGINEERING_UNIVERSITY_OF_BOLOGNA_INCIDENT_LOG_LABEL: 'ZH draft: University of Bologna incident and retry log'
-    TV_ENGINEERING_UNIVERSITY_OF_BOLOGNA_PROGRESS_STATUS: 'ZH draft: University of Bologna ritual progress'
-    TV_ENGINEERING_UNIVERSITY_OF_BOLOGNA_ACTOR_STATUS: 'ZH draft: University of Bologna assigned ritual actor'
-    tv_engineering_department.1160.t: 'ZH draft: University of Bologna Opens the Doctorate Convocation Of The Nations'
-    tv_engineering_department.1160.d: 'ZH draft: Witnesses gather around Bologna''s law schools, student nations, lecture halls, rented lodgings, notary benches, manuscript desks, rector officers, jurists, foreign scholars, landlords, stationers, city magistrates, and degree witnesses. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.'
-    tv_engineering_department.1160.a: 'ZH draft: Open the doctorate convocation of the nations.'
-    tv_engineering_department.1161.t: 'ZH draft: Choose the University of Bologna Proof'
-    tv_engineering_department.1161.d: 'ZH draft: The sponsor must decide which doctor or jurist can mediate student-nation precedence while turning law teaching into recognized public authority. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.'
-    tv_engineering_department.1161.a: 'ZH draft: Assign a civil-law doctor.'
-    tv_engineering_department.1161.b: 'ZH draft: Assign a canon-law mediator.'
-    tv_engineering_department.1161.c: 'ZH draft: Assign a foreign nation rector.'
-    tv_engineering_department.1162.t: 'ZH draft: Certify the University of Bologna Rows'
-    tv_engineering_department.1162.d: 'ZH draft: Inspectors and witnesses check matriculation rolls, student nation books, lecture schedules, glossed manuscripts, disputation dockets, examination records, notary seals, rent settlements, and degree charters. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.'
-    tv_engineering_department.1162.a: 'ZH draft: Certify the University of Bologna rows.'
-    tv_engineering_department.1163.t: 'ZH draft: The University of Bologna Proof Falters'
-    tv_engineering_department.1163.d: 'ZH draft: The ritual can fail because a hostile student nation rejects the doctor, rent privileges are disputed, foreign scholars refuse precedence, or jurists claim the convocation has become a city power grab. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.'
-    tv_engineering_department.1163.a: 'ZH draft: Return to the rows and retry.'
-    tv_engineering_department.1163.b: 'ZH draft: Bring the dispute to a visible settlement.'
-    tv_engineering_department.1164.t: 'ZH draft: Retry the University of Bologna Settlement'
-    tv_engineering_department.1164.d: 'ZH draft: The retry branch lets the sponsor replace the doctor, concede a privilege, reopen the disputation docket, and retry the convocation with the actor slot still visible. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.'
-    tv_engineering_department.1164.a: 'ZH draft: Repair the proof and retry.'
-    tv_engineering_department.1164.b: 'ZH draft: Accept the narrower branch.'
-    tv_engineering_department.1165.t: 'ZH draft: Seal the University of Bologna Reward'
-    tv_engineering_department.1165.d: 'ZH draft: The final handoff preserves research speed, pop promotion speed, one-time scholar or legal legitimacy rewards, and local memory of degree rolls, nation books, notary seals, and graduate placement. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.'
-    tv_engineering_department.1165.a: 'ZH draft: Seal the University of Bologna reward.'
-    TV_ENGINEERING_VARANASI_GHATS_PRIMARY_STATUS: 'ZH draft: Varanasi Ghats dawn lamps on the river steps status'
-    TV_ENGINEERING_VARANASI_GHATS_ROW_STATUS: 'ZH draft: Varanasi Ghats proof rows'
-    TV_ENGINEERING_VARANASI_GHATS_INCIDENT_LOG_LABEL: 'ZH draft: Varanasi Ghats incident and retry log'
-    TV_ENGINEERING_VARANASI_GHATS_PROGRESS_STATUS: 'ZH draft: Varanasi Ghats ritual progress'
-    tv_engineering_department.1166.t: 'ZH draft: Varanasi Ghats Opens the Dawn Lamps On The River Steps'
-    tv_engineering_department.1166.d: 'ZH draft: Witnesses gather around Varanasi''s river steps, lamp platforms, bathing places, cremation wood books, ash pits, boatmen, priests, pilgrim hostels, sanitation officers, festival routes, water marks, mourners, bathers, and crowd stewards. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.'
-    tv_engineering_department.1166.a: 'ZH draft: Open the dawn lamps on the river steps.'
-    tv_engineering_department.1167.t: 'ZH draft: Choose the Varanasi Ghats Proof'
-    tv_engineering_department.1167.d: 'ZH draft: The sponsor must decide whether lamp procession, bathing order, or cremation access defines how sacred water becomes a controlled civic routine. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.'
-    tv_engineering_department.1167.a: 'ZH draft: Order the lamp platforms first.'
-    tv_engineering_department.1167.b: 'ZH draft: Order bathing access first.'
-    tv_engineering_department.1167.c: 'ZH draft: Order cremation and mourning access first.'
-    tv_engineering_department.1168.t: 'ZH draft: Certify the Varanasi Ghats Rows'
-    tv_engineering_department.1168.d: 'ZH draft: Inspectors and witnesses check cleaned steps, water-level marks, lamp platforms, priest rosters, boatman registries, cremation wood books, ash pits, pilgrim registers, hostel ledgers, sanitation reports, and festival paths. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.'
-    tv_engineering_department.1168.a: 'ZH draft: Certify the Varanasi Ghats rows.'
-    tv_engineering_department.1169.t: 'ZH draft: The Varanasi Ghats Proof Falters'
-    tv_engineering_department.1169.d: 'ZH draft: The ritual can fail because overcrowded steps, contested cremation access, unsafe water, boatman refusal, or a festival crowd crush forces the sponsor to choose between holiness and civic order. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.'
-    tv_engineering_department.1169.a: 'ZH draft: Return to the rows and retry.'
-    tv_engineering_department.1169.b: 'ZH draft: Bring the dispute to a visible settlement.'
-    tv_engineering_department.1170.t: 'ZH draft: Retry the Varanasi Ghats Settlement'
-    tv_engineering_department.1170.d: 'ZH draft: The retry branch lets the sponsor separate the processions, subsidize pilgrims, clean the steps, reset cremation access, and retry the dawn lamp register instead of abstracting the river into a temple counter. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.'
-    tv_engineering_department.1170.a: 'ZH draft: Repair the proof and retry.'
-    tv_engineering_department.1170.b: 'ZH draft: Accept the narrower branch.'
-    tv_engineering_department.1171.t: 'ZH draft: Seal the Varanasi Ghats Reward'
-    tv_engineering_department.1171.d: 'ZH draft: The final handoff preserves stability investment, conversion speed, one-time religious unity or unrest relief, and local memory of cleaned steps, lamp platforms, cremation books, and pilgrim hostels. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.'
-    tv_engineering_department.1171.a: 'ZH draft: Seal the Varanasi Ghats reward.'
-    TV_ENGINEERING_BRIHADISHVARA_TEMPLE_PRIMARY_STATUS: 'ZH draft: Brihadishvara Temple great vimana consecration status'
-    TV_ENGINEERING_BRIHADISHVARA_TEMPLE_ROW_STATUS: 'ZH draft: Brihadishvara Temple proof rows'
-    TV_ENGINEERING_BRIHADISHVARA_TEMPLE_INCIDENT_LOG_LABEL: 'ZH draft: Brihadishvara Temple incident and retry log'
-    TV_ENGINEERING_BRIHADISHVARA_TEMPLE_PROGRESS_STATUS: 'ZH draft: Brihadishvara Temple ritual progress'
-    TV_ENGINEERING_BRIHADISHVARA_TEMPLE_ACTOR_STATUS: 'ZH draft: Brihadishvara Temple assigned ritual actor'
-    tv_engineering_department.1172.t: 'ZH draft: Brihadishvara Temple Opens the Great Vimana Consecration'
-    tv_engineering_department.1172.d: 'ZH draft: Witnesses gather around Thanjavur''s great vimana, walled courts, bronzes, inscription walls, lamp ledgers, dancer and musician rosters, temple-land seals, village service lists, royal ancestors, priests, accountants, guardians, and officials. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.'
-    tv_engineering_department.1172.a: 'ZH draft: Open the great vimana consecration.'
-    tv_engineering_department.1173.t: 'ZH draft: Choose the Brihadishvara Temple Proof'
-    tv_engineering_department.1173.d: 'ZH draft: The sponsor must decide which priest, official, guardian, or scholar can steward the consecration without letting factional service rows discredit royal devotion. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.'
-    tv_engineering_department.1173.a: 'ZH draft: Assign a senior priest.'
-    tv_engineering_department.1173.b: 'ZH draft: Assign a royal accountant.'
-    tv_engineering_department.1173.c: 'ZH draft: Assign a temple guardian-scholar.'
-    tv_engineering_department.1174.t: 'ZH draft: Certify the Brihadishvara Temple Rows'
-    tv_engineering_department.1174.d: 'ZH draft: Inspectors and witnesses check anointed vimana stones, bronze inventories, lamp ledgers, dancer and musician rosters, inscription readings, temple-land audit seals, village confirmations, procession routes, and ancestor offerings. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.'
-    tv_engineering_department.1174.a: 'ZH draft: Certify the Brihadishvara Temple rows.'
-    tv_engineering_department.1175.t: 'ZH draft: The Brihadishvara Temple Proof Falters'
-    tv_engineering_department.1175.d: 'ZH draft: The ritual can fail because a weak steward mishandles temple lands, bronzes go missing, a service village refuses obligation, or the consecration reads as factional royal theater. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.'
-    tv_engineering_department.1175.a: 'ZH draft: Return to the rows and retry.'
-    tv_engineering_department.1175.b: 'ZH draft: Bring the dispute to a visible settlement.'
-    tv_engineering_department.1176.t: 'ZH draft: Retry the Brihadishvara Temple Settlement'
-    tv_engineering_department.1176.d: 'ZH draft: The retry branch lets the sponsor replace the steward, narrow the rite, audit the village rows again, and retry the consecration with actor quality shaping the reward branch. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.'
-    tv_engineering_department.1176.a: 'ZH draft: Repair the proof and retry.'
-    tv_engineering_department.1176.b: 'ZH draft: Accept the narrower branch.'
-    tv_engineering_department.1177.t: 'ZH draft: Seal the Brihadishvara Temple Reward'
-    tv_engineering_department.1177.d: 'ZH draft: The final handoff preserves monthly legitimacy, conversion speed, one-time legitimacy or temple-economy rewards, and local memory of vimana stones, bronzes, inscriptions, service rosters, and offerings. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.'
-    tv_engineering_department.1177.a: 'ZH draft: Seal the Brihadishvara Temple reward.'
-    TV_ENGINEERING_CALICUT_PORT_CITY_PRIMARY_STATUS: 'ZH draft: Calicut Port City Zamorin''s pepper wharf covenant status'
-    TV_ENGINEERING_CALICUT_PORT_CITY_ROW_STATUS: 'ZH draft: Calicut Port City proof rows'
-    TV_ENGINEERING_CALICUT_PORT_CITY_INCIDENT_LOG_LABEL: 'ZH draft: Calicut Port City incident and retry log'
-    TV_ENGINEERING_CALICUT_PORT_CITY_PROGRESS_STATUS: 'ZH draft: Calicut Port City ritual progress'
-    tv_engineering_department.1178.t: 'ZH draft: Calicut Port City Opens the Zamorin''S Pepper Wharf Covenant'
-    tv_engineering_department.1178.d: 'ZH draft: Witnesses gather around Kozhikode''s monsoon docks, pepper warehouses, anchorage tallies, interpreter benches, broker licenses, customs receipts, pilot notes, shipyards, foreign merchant streets, weighing tables, warehouse keys, and Zamorin''s officers. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.'
-    tv_engineering_department.1178.a: 'ZH draft: Open the Zamorin''s pepper wharf covenant.'
-    tv_engineering_department.1179.t: 'ZH draft: Choose the Calicut Port City Proof'
-    tv_engineering_department.1179.d: 'ZH draft: The sponsor must decide which merchant community receives privileged pepper access and what cost the port state accepts for trusted monsoon trade. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.'
-    tv_engineering_department.1179.a: 'ZH draft: Privilege long-distance Muslim merchants.'
-    tv_engineering_department.1179.b: 'ZH draft: Privilege local pepper brokers.'
-    tv_engineering_department.1179.c: 'ZH draft: Privilege mixed foreign factory access.'
-    tv_engineering_department.1180.t: 'ZH draft: Certify the Calicut Port City Rows'
-    tv_engineering_department.1180.d: 'ZH draft: Inspectors and witnesses check monsoon schedules, pepper sample records, calibrated weights, broker licenses, interpreter registers, warehouse keys, anchorage tallies, customs receipts, pilot notes, and dispute ledgers. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.'
-    tv_engineering_department.1180.a: 'ZH draft: Certify the Calicut Port City rows.'
-    tv_engineering_department.1181.t: 'ZH draft: The Calicut Port City Proof Falters'
-    tv_engineering_department.1181.d: 'ZH draft: The ritual can fail because foreign merchants reject the privilege bargain, brokers cheat the weights, a warehouse key dispute stalls pepper sales, or the chosen compact provokes local merchant resistance. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.'
-    tv_engineering_department.1181.a: 'ZH draft: Return to the rows and retry.'
-    tv_engineering_department.1181.b: 'ZH draft: Bring the dispute to a visible settlement.'
-    tv_engineering_department.1182.t: 'ZH draft: Retry the Calicut Port City Settlement'
-    tv_engineering_department.1182.d: 'ZH draft: The retry branch lets the sponsor revise the wharf covenant, rebalance access, reseal warehouse and interpreter rows, and retry the bargain without turning Calicut into a generic market charter. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.'
-    tv_engineering_department.1182.a: 'ZH draft: Repair the proof and retry.'
-    tv_engineering_department.1182.b: 'ZH draft: Accept the narrower branch.'
-    tv_engineering_department.1183.t: 'ZH draft: Seal the Calicut Port City Reward'
-    tv_engineering_department.1183.d: 'ZH draft: The final handoff preserves trade income, trade range, one-time treasury or merchant rewards, and local memory of monsoon schedules, pepper weights, brokers, interpreters, and customs ledgers. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.'
-    tv_engineering_department.1183.a: 'ZH draft: Seal the Calicut Port City reward.'
-    TV_ENGINEERING_MALBORK_CASTLE_PRIMARY_STATUS: 'ZH draft: Malbork Castle chapter muster of the brick fortress status'
-    TV_ENGINEERING_MALBORK_CASTLE_ROW_STATUS: 'ZH draft: Malbork Castle proof rows'
-    TV_ENGINEERING_MALBORK_CASTLE_INCIDENT_LOG_LABEL: 'ZH draft: Malbork Castle incident and retry log'
-    TV_ENGINEERING_MALBORK_CASTLE_PROGRESS_STATUS: 'ZH draft: Malbork Castle ritual progress'
-    TV_ENGINEERING_MALBORK_CASTLE_LISTENER_STATUS: 'ZH draft: Malbork Castle pre_winning_war validation state'
-    tv_engineering_department.1184.t: 'ZH draft: Malbork Castle Opens the Chapter Muster Of The Brick Fortress'
-    tv_engineering_department.1184.d: 'ZH draft: Witnesses gather around Malbork''s brick High Castle, convent halls, chapel, granaries, stables, river barges, armories, banner rolls, chapter registers, commanders, brothers, garrison clerks, oath days, and Vistula supply routes. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.'
-    tv_engineering_department.1184.a: 'ZH draft: Open the chapter muster of the brick fortress.'
-    tv_engineering_department.1185.t: 'ZH draft: Choose the Malbork Castle Proof'
-    tv_engineering_department.1185.d: 'ZH draft: The sponsor must decide whether chapel oath, granary discipline, or river-wall service proves the military order before a winning war validates the fortress. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.'
-    tv_engineering_department.1185.a: 'ZH draft: Swear the chapel oath.'
-    tv_engineering_department.1185.b: 'ZH draft: Count granary and armory service.'
-    tv_engineering_department.1185.c: 'ZH draft: Prove the river walls and barges.'
-    tv_engineering_department.1186.t: 'ZH draft: Certify the Malbork Castle Rows'
-    tv_engineering_department.1186.d: 'ZH draft: Inspectors and witnesses check chapter rolls, granary seals, repaired armories, stable rosters, river barges, oath days, blessed banners, wall stores, and commandery service accounts. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.'
-    tv_engineering_department.1186.a: 'ZH draft: Certify the Malbork Castle rows.'
-    tv_engineering_department.1187.t: 'ZH draft: The Malbork Castle Proof Falters'
-    tv_engineering_department.1187.d: 'ZH draft: The ritual can fail because the order favors plunder over discipline, stores run short, commanderies contest service, or a war report shows the fortress survived without proving its oath. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.'
-    tv_engineering_department.1187.a: 'ZH draft: Return to the rows and retry.'
-    tv_engineering_department.1187.b: 'ZH draft: Bring the dispute to a visible settlement.'
-    tv_engineering_department.1188.t: 'ZH draft: Retry the Malbork Castle Settlement'
-    tv_engineering_department.1188.d: 'ZH draft: The retry branch lets the sponsor reform the oath, resupply granaries, repair the wall rows, and retry the chapter muster before the war proof can hand off morale and manpower. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.'
-    tv_engineering_department.1188.a: 'ZH draft: Repair the proof and retry.'
-    tv_engineering_department.1188.b: 'ZH draft: Accept the narrower branch.'
-    tv_engineering_department.1189.t: 'ZH draft: Seal the Malbork Castle Reward'
-    tv_engineering_department.1189.d: 'ZH draft: The final handoff preserves land morale, manpower, one-time garrison or army tradition rewards, and local memory of chapter rolls, granary seals, armories, banners, and river supply. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.'
-    tv_engineering_department.1189.a: 'ZH draft: Seal the Malbork Castle reward.'
-    TV_ENGINEERING_ZAPORIZHIAN_SICH_PRIMARY_STATUS: 'ZH draft: Zaporizhian Sich rada and river-fort oath status'
-    TV_ENGINEERING_ZAPORIZHIAN_SICH_ROW_STATUS: 'ZH draft: Zaporizhian Sich proof rows'
-    TV_ENGINEERING_ZAPORIZHIAN_SICH_INCIDENT_LOG_LABEL: 'ZH draft: Zaporizhian Sich incident and retry log'
-    TV_ENGINEERING_ZAPORIZHIAN_SICH_PROGRESS_STATUS: 'ZH draft: Zaporizhian Sich ritual progress'
-    TV_ENGINEERING_ZAPORIZHIAN_SICH_LISTENER_STATUS: 'ZH draft: Zaporizhian Sich ending_war validation state'
-    tv_engineering_department.1190.t: 'ZH draft: Zaporizhian Sich Opens the Rada And River-Fort Oath'
-    tv_engineering_department.1190.d: 'ZH draft: Witnesses gather around the Sich river fort, rada circle, palisades, kurin rolls, boats, wagon camps, powder ledgers, forges, scouts, horse lists, officer elections, blessed standards, frontier settlements, and Dnieper routes. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.'
-    tv_engineering_department.1190.a: 'ZH draft: Open the rada and river-fort oath.'
-    tv_engineering_department.1191.t: 'ZH draft: Choose the Zaporizhian Sich Proof'
-    tv_engineering_department.1191.d: 'ZH draft: The sponsor must decide whether elected oath, boat-and-wagon mobility, or frontier settlement service proves the host after war ends. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.'
-    tv_engineering_department.1191.a: 'ZH draft: Let the rada oath carry the proof.'
-    tv_engineering_department.1191.b: 'ZH draft: Let boats and wagons carry the proof.'
-    tv_engineering_department.1191.c: 'ZH draft: Let frontier settlement service carry the proof.'
-    tv_engineering_department.1192.t: 'ZH draft: Certify the Zaporizhian Sich Rows'
-    tv_engineering_department.1192.d: 'ZH draft: Inspectors and witnesses check rada rolls, blessed standards, officer elections, powder ledgers, caulked boats, repaired wagons, scout routes, horse lists, forge stores, and palisade repairs. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.'
-    tv_engineering_department.1192.a: 'ZH draft: Certify the Zaporizhian Sich rows.'
-    tv_engineering_department.1193.t: 'ZH draft: The Zaporizhian Sich Proof Falters'
-    tv_engineering_department.1193.d: 'ZH draft: The ritual can fail because the host scatters, boats are lost, a wagon camp is overrun, elected officers quarrel, or the ending-war audit shows a raid but not a disciplined frontier service framework. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.'
-    tv_engineering_department.1193.a: 'ZH draft: Return to the rows and retry.'
-    tv_engineering_department.1193.b: 'ZH draft: Bring the dispute to a visible settlement.'
-    tv_engineering_department.1194.t: 'ZH draft: Retry the Zaporizhian Sich Settlement'
-    tv_engineering_department.1194.d: 'ZH draft: The retry branch lets the sponsor remuster the host, recaulk boats, rebuild wagons and palisades, and retry the rada proof before morale and manpower can become durable. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.'
-    tv_engineering_department.1194.a: 'ZH draft: Repair the proof and retry.'
-    tv_engineering_department.1194.b: 'ZH draft: Accept the narrower branch.'
-    tv_engineering_department.1195.t: 'ZH draft: Seal the Zaporizhian Sich Reward'
-    tv_engineering_department.1195.d: 'ZH draft: The final handoff preserves land morale, manpower, one-time frontier security or tradition rewards, and local memory of rada rolls, standards, boats, wagons, scouts, and palisade repairs. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.'
-    tv_engineering_department.1195.a: 'ZH draft: Seal the Zaporizhian Sich reward.'
-    TV_ENGINEERING_REGISTAN_SQUARE_PRIMARY_STATUS: 'ZH draft: Registan Square madrasa festival lecturer appointment status'
-    TV_ENGINEERING_REGISTAN_SQUARE_ROW_STATUS: 'ZH draft: Registan Square proof rows'
-    TV_ENGINEERING_REGISTAN_SQUARE_INCIDENT_LOG_LABEL: 'ZH draft: Registan Square incident and retry log'
-    TV_ENGINEERING_REGISTAN_SQUARE_PROGRESS_STATUS: 'ZH draft: Registan Square ritual progress'
-    TV_ENGINEERING_REGISTAN_SQUARE_ACTOR_STATUS: 'ZH draft: Registan Square assigned ritual actor'
-    tv_engineering_department.1196.t: 'ZH draft: Registan Square Opens the Madrasa Festival Lecturer Appointment'
-    tv_engineering_department.1196.d: 'ZH draft: Witnesses gather around Samarkand''s Registan, madrasas, tiled facades, public square, lecture carpets, market edges, envoy seating plans, caravan lists, safe-conduct tablets, guard cordons, scholars, merchants, judges, and foreign witnesses. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.'
-    tv_engineering_department.1196.a: 'ZH draft: Open the madrasa festival lecturer appointment.'
-    tv_engineering_department.1197.t: 'ZH draft: Choose the Registan Square Proof'
-    tv_engineering_department.1197.d: 'ZH draft: The sponsor must decide which lecturer can speak between madrasas, markets, and envoys without letting one school monopolize the square. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.'
-    tv_engineering_department.1197.a: 'ZH draft: Assign a senior madrasa scholar.'
-    tv_engineering_department.1197.b: 'ZH draft: Assign a market-facing jurist.'
-    tv_engineering_department.1197.c: 'ZH draft: Assign an envoy-friendly lecturer.'
-    tv_engineering_department.1198.t: 'ZH draft: Certify the Registan Square Rows'
-    tv_engineering_department.1198.d: 'ZH draft: Inspectors and witnesses check repaired tilework, lecture carpets, envoy seating plans, safe-conduct tablets, caravan lists, gift inventories, guard cordons, and public disputation scripts. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.'
-    tv_engineering_department.1198.a: 'ZH draft: Certify the Registan Square rows.'
-    tv_engineering_department.1199.t: 'ZH draft: The Registan Square Proof Falters'
-    tv_engineering_department.1199.d: 'ZH draft: The ritual can fail because a rival madrasa rejects the lecturer, market elders object to closed ceremony, envoys dispute precedence, or the square turns scholarship into factional display. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.'
-    tv_engineering_department.1199.a: 'ZH draft: Return to the rows and retry.'
-    tv_engineering_department.1199.b: 'ZH draft: Bring the dispute to a visible settlement.'
-    tv_engineering_department.1200.t: 'ZH draft: Retry the Registan Square Settlement'
-    tv_engineering_department.1200.d: 'ZH draft: The retry branch lets the sponsor hold a public debate, change the lecturer''s mandate, reseat envoys, and retry the festival while preserving the plaza as scholarship in public theater. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.'
-    tv_engineering_department.1200.a: 'ZH draft: Repair the proof and retry.'
-    tv_engineering_department.1200.b: 'ZH draft: Accept the narrower branch.'
-    tv_engineering_department.1201.t: 'ZH draft: Seal the Registan Square Reward'
-    tv_engineering_department.1201.d: 'ZH draft: The final handoff preserves monthly prestige, diplomatic reputation, one-time scholar or diplomatic rewards, and local memory of tilework, lecture carpets, safe-conducts, caravan lists, and public debate. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.'
-    tv_engineering_department.1201.a: 'ZH draft: Seal the Registan Square reward.'
-    TV_ENGINEERING_FERGHANA_PALACE_PRIMARY_STATUS: 'ZH draft: Ferghana Palace Kokand audience of the valley gates status'
-    TV_ENGINEERING_FERGHANA_PALACE_ROW_STATUS: 'ZH draft: Ferghana Palace proof rows'
-    TV_ENGINEERING_FERGHANA_PALACE_INCIDENT_LOG_LABEL: 'ZH draft: Ferghana Palace incident and retry log'
-    TV_ENGINEERING_FERGHANA_PALACE_PROGRESS_STATUS: 'ZH draft: Ferghana Palace ritual progress'
-    TV_ENGINEERING_FERGHANA_PALACE_STOCKPILE_STATUS: 'ZH draft: Ferghana Palace tribute and gift stockpile'
-    tv_engineering_department.1202.t: 'ZH draft: Ferghana Palace Opens the Kokand Audience Of The Valley Gates'
-    tv_engineering_department.1202.d: 'ZH draft: Witnesses gather around Kokand''s painted halls, carved columns, garden banquet spaces, valley gates, robe lists, tribute trays, horse registers, silk samples, envoy letters, qadi judgments, road-gate petitions, beks, merchants, horse breeders, and palace officers. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.'
-    tv_engineering_department.1202.a: 'ZH draft: Open the Kokand audience of the valley gates.'
-    tv_engineering_department.1203.t: 'ZH draft: Choose the Ferghana Palace Proof'
-    tv_engineering_department.1203.d: 'ZH draft: The sponsor must decide which valley constituency receives audience access and what tribute, robes, horses, and road judgments must be stockpiled before oaths are credible. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.'
-    tv_engineering_department.1203.a: 'ZH draft: Privilege the beks at audience.'
-    tv_engineering_department.1203.b: 'ZH draft: Privilege merchants and road envoys.'
-    tv_engineering_department.1203.c: 'ZH draft: Privilege horse breeders and frontier guests.'
-    tv_engineering_department.1204.t: 'ZH draft: Certify the Ferghana Palace Rows'
-    tv_engineering_department.1204.d: 'ZH draft: Inspectors and witnesses check audience carpets, robe lists, tribute trays, horse registers, silk samples, road-gate judgments, envoy letters, garden banquet oaths, qadi notes, and gate-guard rosters. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.'
-    tv_engineering_department.1204.a: 'ZH draft: Certify the Ferghana Palace rows.'
-    tv_engineering_department.1205.t: 'ZH draft: The Ferghana Palace Proof Falters'
-    tv_engineering_department.1205.d: 'ZH draft: The ritual can fail because tribute trays are short, horse registers are challenged, beks dispute precedence, road-gate judgments offend merchants, or the audience bargain seems overgenerous. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.'
-    tv_engineering_department.1205.a: 'ZH draft: Return to the rows and retry.'
-    tv_engineering_department.1205.b: 'ZH draft: Bring the dispute to a visible settlement.'
-    tv_engineering_department.1206.t: 'ZH draft: Retry the Ferghana Palace Settlement'
-    tv_engineering_department.1206.d: 'ZH draft: The retry branch lets the sponsor renegotiate audience terms, restock robes and horses, rehear road-gate judgments, and retry the palace bargain without copying a generic estate privilege chain. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.'
-    tv_engineering_department.1206.a: 'ZH draft: Repair the proof and retry.'
-    tv_engineering_department.1206.b: 'ZH draft: Accept the narrower branch.'
-    tv_engineering_department.1207.t: 'ZH draft: Seal the Ferghana Palace Reward'
-    tv_engineering_department.1207.d: 'ZH draft: The final handoff preserves diplomatic reputation, monthly legitimacy, one-time legitimacy or trade rewards, and local memory of robes, horses, tribute trays, road judgments, envoy letters, and garden oaths. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.'
-    tv_engineering_department.1207.a: 'ZH draft: Seal the Ferghana Palace reward.'
-    TV_ENGINEERING_LOUVRE_PALACE_PRIMARY_STATUS: 'ZH draft: Louvre Palace court exhibition and envoy gallery status'
-    TV_ENGINEERING_LOUVRE_PALACE_ROW_STATUS: 'ZH draft: Louvre Palace proof rows'
-    TV_ENGINEERING_LOUVRE_PALACE_INCIDENT_LOG_LABEL: 'ZH draft: Louvre Palace incident and retry log'
-    TV_ENGINEERING_LOUVRE_PALACE_PROGRESS_STATUS: 'ZH draft: Louvre Palace ritual progress'
-    tv_engineering_department.1208.t: 'ZH draft: Louvre Palace Opens the Court Exhibition And Envoy Gallery'
-    tv_engineering_department.1208.d: 'ZH draft: Witnesses gather around Paris''s Louvre, Seine landing, courtyards, galleries, facades, studios, guard rooms, council chambers, royal household officers, artists, architects, ambassadors, translators, secretaries, heralds, printers, and courtiers. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.'
-    tv_engineering_department.1208.a: 'ZH draft: Open the court exhibition and envoy gallery.'
-    tv_engineering_department.1209.t: 'ZH draft: Choose the Louvre Palace Proof'
-    tv_engineering_department.1209.d: 'ZH draft: The sponsor must decide whether monarchy, artists, or diplomats control gallery access in the court exhibition before prestige and diplomatic reputation are trusted. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.'
-    tv_engineering_department.1209.a: 'ZH draft: Let the monarchy control gallery access.'
-    tv_engineering_department.1209.b: 'ZH draft: Let artists and stewards control display order.'
-    tv_engineering_department.1209.c: 'ZH draft: Let diplomats and precedence control the gallery.'
-    tv_engineering_department.1210.t: 'ZH draft: Certify the Louvre Palace Rows'
-    tv_engineering_department.1210.d: 'ZH draft: Inspectors and witnesses check gallery inventories, patronage rolls, envoy seating plans, restored facades, guarded Seine approaches, displayed gifts, dynastic portrait routes, guard orders, and printed exhibition lists. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.'
-    tv_engineering_department.1210.a: 'ZH draft: Certify the Louvre Palace rows.'
-    tv_engineering_department.1211.t: 'ZH draft: The Louvre Palace Proof Falters'
-    tv_engineering_department.1211.d: 'ZH draft: The ritual can fail because too much court control weakens artistic legitimacy, open access causes diplomatic scandal, a gift is mishandled, or artists object to being used as mere precedence furniture. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.'
-    tv_engineering_department.1211.a: 'ZH draft: Return to the rows and retry.'
-    tv_engineering_department.1211.b: 'ZH draft: Bring the dispute to a visible settlement.'
-    tv_engineering_department.1212.t: 'ZH draft: Retry the Louvre Palace Settlement'
-    tv_engineering_department.1212.d: 'ZH draft: The retry branch lets the sponsor revise exhibition access, reseat envoys, republish patronage rolls, and retry the court settlement while preserving art and diplomacy as the same palace machine. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.'
-    tv_engineering_department.1212.a: 'ZH draft: Repair the proof and retry.'
-    tv_engineering_department.1212.b: 'ZH draft: Accept the narrower branch.'
-    tv_engineering_department.1213.t: 'ZH draft: Seal the Louvre Palace Reward'
-    tv_engineering_department.1213.d: 'ZH draft: The final handoff preserves monthly prestige, diplomatic reputation, one-time prestige or favor, and local memory of gallery inventories, envoy seating, restored facades, Seine guards, gifts, and portraits. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.'
-    tv_engineering_department.1213.a: 'ZH draft: Seal the Louvre Palace reward.'
-    TV_ENGINEERING_LYON_SILK_WORKSHOPS_PRIMARY_STATUS: 'ZH draft: Lyon Silk Workshops Grande Fabrique loom charter status'
-    TV_ENGINEERING_LYON_SILK_WORKSHOPS_ROW_STATUS: 'ZH draft: Lyon Silk Workshops proof rows'
-    TV_ENGINEERING_LYON_SILK_WORKSHOPS_INCIDENT_LOG_LABEL: 'ZH draft: Lyon Silk Workshops incident and retry log'
-    TV_ENGINEERING_LYON_SILK_WORKSHOPS_PROGRESS_STATUS: 'ZH draft: Lyon Silk Workshops ritual progress'
-    tv_engineering_department.1214.t: 'ZH draft: Lyon Silk Workshops Opens the Grande Fabrique Loom Charter'
-    tv_engineering_department.1214.d: 'ZH draft: Witnesses gather around Lyon''s silk workshops, loom rooms, dye houses, pattern archives, merchant counting rooms, Saone and Rhone bridges, fair booths, master weavers, apprentices, dyers, pattern drawers, merchants, inspectors, notaries, guards, and labor mediators. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.'
-    tv_engineering_department.1214.a: 'ZH draft: Open the Grande Fabrique loom charter.'
-    tv_engineering_department.1215.t: 'ZH draft: Choose the Lyon Silk Workshops Proof'
-    tv_engineering_department.1215.d: 'ZH draft: The sponsor must decide whether canut masters, dye houses, merchants, or open workshop access receives privilege in exchange for luxury production discipline. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.'
-    tv_engineering_department.1215.a: 'ZH draft: Privilege master weavers and loom order.'
-    tv_engineering_department.1215.b: 'ZH draft: Privilege dye houses and pattern standards.'
-    tv_engineering_department.1215.c: 'ZH draft: Privilege merchants and open fair access.'
-    tv_engineering_department.1216.t: 'ZH draft: Certify the Lyon Silk Workshops Rows'
-    tv_engineering_department.1216.d: 'ZH draft: Inspectors and witnesses check sealed pattern books, dye samples, apprentice rolls, inspected looms, merchant ledgers, fair contracts, river manifests, cloth bolts, wage notes, and sample cards. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.'
-    tv_engineering_department.1216.a: 'ZH draft: Certify the Lyon Silk Workshops rows.'
-    tv_engineering_department.1217.t: 'ZH draft: The Lyon Silk Workshops Proof Falters'
-    tv_engineering_department.1217.d: 'ZH draft: The ritual can fail because a closed guild charter raises output but sparks unrest, open access weakens quality, dye contamination ruins samples, or merchant credit collapses before the fair. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.'
-    tv_engineering_department.1217.a: 'ZH draft: Return to the rows and retry.'
-    tv_engineering_department.1217.b: 'ZH draft: Bring the dispute to a visible settlement.'
-    tv_engineering_department.1218.t: 'ZH draft: Retry the Lyon Silk Workshops Settlement'
-    tv_engineering_department.1218.d: 'ZH draft: The retry branch lets the sponsor revise the guild charter, mediate labor, reseal dye and pattern rows, and retry the loom proof without turning Lyon into a generic market bargain. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.'
-    tv_engineering_department.1218.a: 'ZH draft: Repair the proof and retry.'
-    tv_engineering_department.1218.b: 'ZH draft: Accept the narrower branch.'
-    tv_engineering_department.1219.t: 'ZH draft: Seal the Lyon Silk Workshops Reward'
-    tv_engineering_department.1219.d: 'ZH draft: The final handoff preserves global production efficiency, trade income, one-time output or artisan rewards, and local memory of pattern books, dye samples, apprentice rolls, inspected looms, ledgers, and river manifests. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.'
-    tv_engineering_department.1219.a: 'ZH draft: Seal the Lyon Silk Workshops reward.'
-    TV_ENGINEERING_CARCASSONNE_CASTLE_PRIMARY_STATUS: 'ZH draft: Carcassonne Castle double-wall watch proof status'
-    TV_ENGINEERING_CARCASSONNE_CASTLE_ROW_STATUS: 'ZH draft: Carcassonne Castle proof rows'
-    TV_ENGINEERING_CARCASSONNE_CASTLE_INCIDENT_LOG_LABEL: 'ZH draft: Carcassonne Castle incident and retry log'
-    TV_ENGINEERING_CARCASSONNE_CASTLE_PROGRESS_STATUS: 'ZH draft: Carcassonne Castle ritual progress'
-    TV_ENGINEERING_CARCASSONNE_CASTLE_LISTENER_STATUS: 'ZH draft: Carcassonne Castle pre_winning_war validation state'
-    tv_engineering_department.1220.t: 'ZH draft: Carcassonne Castle Opens the Double-Wall Watch Proof'
-    tv_engineering_department.1220.d: 'ZH draft: Witnesses gather around Carcassonne''s inner castle, outer walls, towers, market gates, granaries, crossbow stores, bell rosters, vineyard roads, village warning horns, gate keys, patrol captains, wall masons, townspeople, and frontier soldiers. The opening does not complete the ritual; it records the fixed wonder site, names the visible proof rows, and asks the player to decide how this specific place will turn ceremony into state capacity.'
-    tv_engineering_department.1220.a: 'ZH draft: Open the double-wall watch proof.'
-    tv_engineering_department.1221.t: 'ZH draft: Choose the Carcassonne Castle Proof'
-    tv_engineering_department.1221.d: 'ZH draft: The sponsor must decide whether inner keep, outer towers, or market gates define the defense before a pre-winning-war audit seals the double-wall proof. Each option changes the later incident and reward branch, so the rite remains a player decision rather than a single confirmation click.'
-    tv_engineering_department.1221.a: 'ZH draft: Let the inner keep carry the doctrine.'
-    tv_engineering_department.1221.b: 'ZH draft: Let the outer towers carry the doctrine.'
-    tv_engineering_department.1221.c: 'ZH draft: Let market gates and roads carry the doctrine.'
-    tv_engineering_department.1222.t: 'ZH draft: Certify the Carcassonne Castle Rows'
-    tv_engineering_department.1222.d: 'ZH draft: Inspectors and witnesses check tower bell rosters, gate keys, crossbow stores, granary measures, repaired walls, market patrols, vineyard road watches, village warning horns, and wall-layer reports. The Harness projection preserves these as named checklist or stockpile rows even though v1 codegen can only emit intermediate summaries.'
-    tv_engineering_department.1222.a: 'ZH draft: Certify the Carcassonne Castle rows.'
-    tv_engineering_department.1223.t: 'ZH draft: The Carcassonne Castle Proof Falters'
-    tv_engineering_department.1223.d: 'ZH draft: The ritual can fail because one wall layer is breached, the market gate opens too late, granaries are short, village horns fail, or the war audit shows only the inner keep held. The player must own the cost of repair, concession, or narrower acceptance before the ceremony can continue.'
-    tv_engineering_department.1223.a: 'ZH draft: Return to the rows and retry.'
-    tv_engineering_department.1223.b: 'ZH draft: Bring the dispute to a visible settlement.'
-    tv_engineering_department.1224.t: 'ZH draft: Retry the Carcassonne Castle Settlement'
-    tv_engineering_department.1224.d: 'ZH draft: The retry branch lets the sponsor repair the breached layer, privilege the correct gate watch, restock towers, and retry the proof before garrison size and morale become durable. This keeps failure recoverable but not free, and records a weaker branch if the player refuses the full repair.'
-    tv_engineering_department.1224.a: 'ZH draft: Repair the proof and retry.'
-    tv_engineering_department.1224.b: 'ZH draft: Accept the narrower branch.'
-    tv_engineering_department.1225.t: 'ZH draft: Seal the Carcassonne Castle Reward'
-    tv_engineering_department.1225.d: 'ZH draft: The final handoff preserves garrison size, land morale, one-time garrison or manpower rewards, and local memory of wall rosters, gate keys, crossbow stores, granaries, patrols, and warning horns. Heavy source effects remain blocked until a future source compiler can write loadable events, effects, triggers, and GUI rows.'
-    tv_engineering_department.1225.a: 'ZH draft: Seal the Carcassonne Castle reward.'
-    game_concept_tv_wonder_grand_garden_complex_desc: "一组由游赏园、文士山水、水院、亭榭、博物花圃与雅集场所组成的规划园林。此[tv_wonder_construction|e]可建于首都或非乡村地点，并将园林赞助转化为本地王冠地产权力、迁徙吸引力与人文主义价值观倾向。"
+    TV_ENGINEERING_ST_BASILS_CATHEDRAL_PRIMARY_STATUS: '圣瓦西里大教堂红场礼拜巡游状态'
+    TV_ENGINEERING_ST_BASILS_CATHEDRAL_ROW_STATUS: '圣瓦西里大教堂凭证事项'
+    TV_ENGINEERING_ST_BASILS_CATHEDRAL_INCIDENT_LOG_LABEL: '圣瓦西里大教堂事件与重试记录'
+    TV_ENGINEERING_ST_BASILS_CATHEDRAL_PROGRESS_STATUS: '圣瓦西里大教堂典礼进度'
+    tv_engineering_department.1136.t: '圣瓦西里大教堂开启红场礼拜巡游'
+    tv_engineering_department.1136.d: '见证者齐聚莫斯科红场、克里姆林宫门前道路、成群的礼拜堂、彩绘穹顶、施舍点、钟点安排、凯旋旌旗、商贩摊位，还有神职人员、老兵、请愿者与守卫。仪式的开启并不代表完成——它只是记下了这处固定的奇观地点，列出可见的凭证事项，等待玩家决定这个地方将如何把典礼变成治国的实力。'
+    tv_engineering_department.1136.a: '开启红场礼拜巡游。'
+    tv_engineering_department.1137.t: '为圣瓦西里大教堂选定凭证'
+    tv_engineering_department.1137.d: '赞助者必须决定，是礼拜秩序、凯旋记忆，还是公开施舍，来承载这场代祷的凭证。选项不同，后续可能发生的事件与奖励分支也会不同，因此仪轨终究是玩家的抉择，而不是随手一点确认。'
+    tv_engineering_department.1137.a: '让礼拜秩序承载代祷凭证。'
+    tv_engineering_department.1137.b: '让凯旋旌旗与老兵承载这份记忆。'
+    tv_engineering_department.1137.c: '让施舍与公众请愿承载凭证。'
+    tv_engineering_department.1138.t: '核验圣瓦西里大教堂各项凭证'
+    tv_engineering_department.1138.d: '巡查者与见证者逐一核对礼拜堂灯烛、圣像持有者、钟声信号、讲道书册、施舍钵、市集停业安排、朝圣者驻地、警戒队形与凯旋旌旗站位。这些内容会作为具名的清单或库存事项，暂存于中间层的记录投影中——尽管当前版本的生成流程还只能产出概要性的摘要。'
+    tv_engineering_department.1138.a: '核验圣瓦西里大教堂各项凭证。'
+    tv_engineering_department.1139.t: '圣瓦西里大教堂的凭证出现波折'
+    tv_engineering_department.1139.d: '典礼可能出岔子：神职人员对礼拜秩序有异议，老兵们觉得凯旋记忆被轻慢，商贩们抵制红场停业，又或是继承祈祷在众人面前遭到质疑。玩家必须承担修补、让步或缩小规模的代价，典礼才能继续下去。'
+    tv_engineering_department.1139.a: '回到凭证事项，重新来过。'
+    tv_engineering_department.1139.b: '把争端摆到台面上公开了结。'
+    tv_engineering_department.1140.t: '重整圣瓦西里大教堂的安排'
+    tv_engineering_department.1140.d: '重试分支让赞助者重新编排巡游路线，安抚被冒犯的见证者，重开路段，再度尝试这场公开代祷，而不是把仪轨简化成一场普通的教堂祝祷。失败不会走到绝路，但也绝非没有代价——若玩家拒绝彻底修补，记录下来的将是一条更逊色的分支。'
+    tv_engineering_department.1140.a: '修补凭证，重新尝试。'
+    tv_engineering_department.1140.b: '接受这条较逊色的分支。'
+    tv_engineering_department.1141.t: '封存圣瓦西里大教堂的奖赏'
+    tv_engineering_department.1141.d: '最终的交接会保留每月的正统性收益、一次性的正统性或平乱收益，以及关于备好的礼拜堂、钟点安排、施舍点、警戒岗与凯旋请愿的地方记忆。较重的源代码效果仍暂时无法实现，要等到未来的源码编译器能够写出可加载的事件、效果、触发条件与界面行才行。'
+    tv_engineering_department.1141.a: '封存圣瓦西里大教堂的奖赏。'
+    TV_ENGINEERING_TRINITY_LAVRA_PRIMARY_STATUS: '三一修道院要塞缮写室守夜状态'
+    TV_ENGINEERING_TRINITY_LAVRA_ROW_STATUS: '三一修道院凭证事项'
+    TV_ENGINEERING_TRINITY_LAVRA_INCIDENT_LOG_LABEL: '三一修道院事件与重试记录'
+    TV_ENGINEERING_TRINITY_LAVRA_PROGRESS_STATUS: '三一修道院典礼进度'
+    tv_engineering_department.1142.t: '三一修道院开启要塞缮写室守夜'
+    tv_engineering_department.1142.d: '见证者齐聚莫斯科三一修道院，围着坚固的城墙、圣髑礼拜堂、写本室、宾客住所、朝圣道路、初学修士学校、圣像作坊、捐赠特许状，还有守护圣髑的卫士、住持、抄写员与施主。仪式的开启并不代表完成——它只是记下了这处固定的奇观地点，列出可见的凭证事项，等待玩家决定这个地方将如何把典礼变成治国的实力。'
+    tv_engineering_department.1142.a: '开启要塞缮写室守夜。'
+    tv_engineering_department.1143.t: '为三一修道院选定凭证'
+    tv_engineering_department.1143.d: '赞助者必须决定，这场守夜是优先看重校订过的写本、圣髑的守护，还是朝圣道上的讲学，学问才能因此成为公认的权威。选项不同，后续可能发生的事件与奖励分支也会不同，因此仪轨终究是玩家的抉择，而不是随手一点确认。'
+    tv_engineering_department.1143.a: '把校订写本放在首位。'
+    tv_engineering_department.1143.b: '把圣髑守护放在首位。'
+    tv_engineering_department.1143.c: '把朝圣道上的讲学放在首位。'
+    tv_engineering_department.1144.t: '核验三一修道院各项凭证'
+    tv_engineering_department.1144.d: '巡查者与见证者逐一核对藏书清册、抄录的编年史、校订过的注疏、圣像图样、初学修士的课业、朝圣者的书信、客舍账目与城墙巡查记录。这些内容会作为具名的清单或库存事项，暂存于中间层的记录投影中——尽管当前版本的生成流程还只能产出概要性的摘要。'
+    tv_engineering_department.1144.a: '核验三一修道院各项凭证。'
+    tv_engineering_department.1145.t: '三一修道院的凭证出现波折'
+    tv_engineering_department.1145.d: '典礼可能出岔子：修道院军事化过头，朝圣者失去信任，写本箱的归属起了争执，又或是圣髑卫士不肯让学者把这场守夜变成一次动员点兵。玩家必须承担修补、让步或缩小规模的代价，典礼才能继续下去。'
+    tv_engineering_department.1145.a: '回到凭证事项，重新来过。'
+    tv_engineering_department.1145.b: '把争端摆到台面上公开了结。'
+    tv_engineering_department.1146.t: '重整三一修道院的安排'
+    tv_engineering_department.1146.d: '重试分支让赞助者重新宣誓修道戒律，把卫士与抄写员的职责分开，重建朝圣者的信任，再度尝试核验写本事项，而不是把奖励改成军队士气一类的东西。失败不会走到绝路，但也绝非没有代价——若玩家拒绝彻底修补，记录下来的将是一条更逊色的分支。'
+    tv_engineering_department.1146.a: '修补凭证，重新尝试。'
+    tv_engineering_department.1146.b: '接受这条较逊色的分支。'
+    tv_engineering_department.1147.t: '封存三一修道院的奖赏'
+    tv_engineering_department.1147.d: '最终的交接会保留研究速度加成、一次性的研究或稳定度收益，以及关于清点过的藏书、缮写室、客舍路线与受保护档案的地方记忆。较重的源代码效果仍暂时无法实现，要等到未来的源码编译器能够写出可加载的事件、效果、触发条件与界面行才行。'
+    tv_engineering_department.1147.a: '封存三一修道院的奖赏。'
+    TV_ENGINEERING_TEMPLE_OF_HEAVEN_PRIMARY_STATUS: '天坛冬至祭天大典状态'
+    TV_ENGINEERING_TEMPLE_OF_HEAVEN_ROW_STATUS: '天坛凭证事项'
+    TV_ENGINEERING_TEMPLE_OF_HEAVEN_INCIDENT_LOG_LABEL: '天坛事件与重试记录'
+    TV_ENGINEERING_TEMPLE_OF_HEAVEN_PROGRESS_STATUS: '天坛典礼进度'
+    tv_engineering_department.1148.t: '天坛开启冬至祭天大典'
+    tv_engineering_department.1148.d: '见证者齐聚大都天坛一带，围着圜丘石阶、斋宫、柏树神道、历法表册、乐舞班次、收成奏报，还有礼官、监察官、牲畜、粮谷供品，以及前来见证的君主本人。仪式的开启并不代表完成——它只是记下了这处固定的奇观地点，列出可见的凭证事项，等待玩家决定这个地方将如何把典礼变成治国的实力。'
+    tv_engineering_department.1148.a: '开启冬至祭天大典。'
+    tv_engineering_department.1149.t: '为天坛选定凭证'
+    tv_engineering_department.1149.d: '赞助者必须决定，是天文测算、收成供奉，还是公开的君主斋戒，来承载这份天命的凭证。选项不同，后续可能发生的事件与奖励分支也会不同，因此仪轨终究是玩家的抉择，而不是随手一点确认。'
+    tv_engineering_department.1149.a: '让历法表册承载凭证。'
+    tv_engineering_department.1149.b: '让收成供品承载凭证。'
+    tv_engineering_department.1149.c: '让公开的君主斋戒承载凭证。'
+    tv_engineering_department.1150.t: '核验天坛各项凭证'
+    tv_engineering_department.1150.d: '巡查者与见证者逐一核对圜丘的测量数据、神牌摆放、洁净礼器、历法读数、粮谷与牲畜清单、乐班名录、斋戒记录、监察官的批注与收成成捆的数目。这些内容会作为具名的清单或库存事项，暂存于中间层的记录投影中——尽管当前版本的生成流程还只能产出概要性的摘要。'
+    tv_engineering_department.1150.a: '核验天坛各项凭证。'
+    tv_engineering_department.1151.t: '天坛的凭证出现波折'
+    tv_engineering_department.1151.d: '典礼可能出岔子：历法读数遭到质疑，供品被认为不洁，监察官质疑君主的斋戒是否恭谨，又或是继位的隐忧让上天的见证在政治上变得棘手。玩家必须承担修补、让步或缩小规模的代价，典礼才能继续下去。'
+    tv_engineering_department.1151.a: '回到凭证事项，重新来过。'
+    tv_engineering_department.1151.b: '把争端摆到台面上公开了结。'
+    tv_engineering_department.1152.t: '重整天坛的安排'
+    tv_engineering_department.1152.d: '重试分支让赞助者纠正祭礼，点名失职的官员，重新测量圜丘各处，再度尝试这场公开供奉，而不是把天坛变成一场寻常的宗教庆典。失败不会走到绝路，但也绝非没有代价——若玩家拒绝彻底修补，记录下来的将是一条更逊色的分支。'
+    tv_engineering_department.1152.a: '修补凭证，重新尝试。'
+    tv_engineering_department.1152.b: '接受这条较逊色的分支。'
+    tv_engineering_department.1153.t: '封存天坛的奖赏'
+    tv_engineering_department.1153.d: '最终的交接会保留每月的正统性收益、国教宽容度、一次性的天命稳定度收益，以及关于洁净圜丘、洁净礼器、历法表册与收成奏报的地方记忆。较重的源代码效果仍暂时无法实现，要等到未来的源码编译器能够写出可加载的事件、效果、触发条件与界面行才行。'
+    tv_engineering_department.1153.a: '封存天坛的奖赏。'
+    TV_ENGINEERING_ESCORIAL_MONASTERY_PRIMARY_STATUS: '埃斯科里亚尔王家回廊与万神殿守夜状态'
+    TV_ENGINEERING_ESCORIAL_MONASTERY_ROW_STATUS: '埃斯科里亚尔凭证事项'
+    TV_ENGINEERING_ESCORIAL_MONASTERY_INCIDENT_LOG_LABEL: '埃斯科里亚尔事件与重试记录'
+    TV_ENGINEERING_ESCORIAL_MONASTERY_PROGRESS_STATUS: '埃斯科里亚尔典礼进度'
+    tv_engineering_department.1154.t: '埃斯科里亚尔开启王家回廊与万神殿守夜'
+    tv_engineering_department.1154.d: '见证者齐聚埃斯科里亚尔这座朴素的修道宫殿，围着大教堂、王室居所、图书馆、议事厅、万神殿、王朝墓室的钥匙、修道院作息表、宫廷住宿名册，还有听告解神父、图书管理员、修士、大臣与王位继承人。仪式的开启并不代表完成——它只是记下了这处固定的奇观地点，列出可见的凭证事项，等待玩家决定这个地方将如何把典礼变成治国的实力。'
+    tv_engineering_department.1154.a: '开启王家回廊与万神殿守夜。'
+    tv_engineering_department.1155.t: '为埃斯科里亚尔选定凭证'
+    tv_engineering_department.1155.d: '赞助者必须决定，是王朝安葬、图书馆与议事厅的秩序，还是修道戒律，来承载这场王家回廊的奉献凭证。选项不同，后续可能发生的事件与奖励分支也会不同，因此仪轨终究是玩家的抉择，而不是随手一点确认。'
+    tv_engineering_department.1155.a: '让万神殿承载王朝记忆。'
+    tv_engineering_department.1155.b: '让图书馆与议事厅的秩序承载凭证。'
+    tv_engineering_department.1155.c: '让修道戒律承载这份奉献。'
+    tv_engineering_department.1156.t: '核验埃斯科里亚尔各项凭证'
+    tv_engineering_department.1156.d: '巡查者与见证者逐一核对万神殿巡查记录、墓室钥匙的保管、大教堂礼拜书册、图书馆目录、密封的议事备忘录、王室居所名册、王朝弥撒与宫廷住宿名单。这些内容会作为具名的清单或库存事项，暂存于中间层的记录投影中——尽管当前版本的生成流程还只能产出概要性的摘要。'
+    tv_engineering_department.1156.a: '核验埃斯科里亚尔各项凭证。'
+    tv_engineering_department.1157.t: '埃斯科里亚尔的凭证出现波折'
+    tv_engineering_department.1157.d: '典礼可能出岔子：安葬次序起了争执，出现教义上的异议，议事备忘录缺失，又或是有争议的继承问题打断了守夜，让这座修道院眼看要沦为派系角力的宫殿。玩家必须承担修补、让步或缩小规模的代价，典礼才能继续下去。'
+    tv_engineering_department.1157.a: '回到凭证事项，重新来过。'
+    tv_engineering_department.1157.b: '把争端摆到台面上公开了结。'
+    tv_engineering_department.1158.t: '重整埃斯科里亚尔的安排'
+    tv_engineering_department.1158.d: '重试分支让赞助者修补回廊的安排，重新密封图书馆事项，解决墓室归属的争执，再度尝试守夜，同时把王朝记忆与行政秩序分开处理。失败不会走到绝路，但也绝非没有代价——若玩家拒绝彻底修补，记录下来的将是一条更逊色的分支。'
+    tv_engineering_department.1158.a: '修补凭证，重新尝试。'
+    tv_engineering_department.1158.b: '接受这条较逊色的分支。'
+    tv_engineering_department.1159.t: '封存埃斯科里亚尔的奖赏'
+    tv_engineering_department.1159.d: '最终的交接会保留每月的正统性收益、稳定度投资、一次性的王朝稳定度或反腐收益，以及关于万神殿、图书馆、回廊与议事名录的地方记忆。较重的源代码效果仍暂时无法实现，要等到未来的源码编译器能够写出可加载的事件、效果、触发条件与界面行才行。'
+    tv_engineering_department.1159.a: '封存埃斯科里亚尔的奖赏。'
+    TV_ENGINEERING_UNIVERSITY_OF_BOLOGNA_PRIMARY_STATUS: '博洛尼亚大学万国博士授衔大会状态'
+    TV_ENGINEERING_UNIVERSITY_OF_BOLOGNA_ROW_STATUS: '博洛尼亚大学凭证事项'
+    TV_ENGINEERING_UNIVERSITY_OF_BOLOGNA_INCIDENT_LOG_LABEL: '博洛尼亚大学事件与重试记录'
+    TV_ENGINEERING_UNIVERSITY_OF_BOLOGNA_PROGRESS_STATUS: '博洛尼亚大学典礼进度'
+    TV_ENGINEERING_UNIVERSITY_OF_BOLOGNA_ACTOR_STATUS: '博洛尼亚大学指派的典礼负责人'
+    tv_engineering_department.1160.t: '博洛尼亚大学开启万国博士授衔大会'
+    tv_engineering_department.1160.d: '见证者齐聚博洛尼亚的法学院，围着各国学生会、讲堂、租来的住处、公证人的座席、写本案头，还有校长官员、法学家、外国学者、房东、文具商、市政官与见证学位授予的众人。仪式的开启并不代表完成——它只是记下了这处固定的奇观地点，列出可见的凭证事项，等待玩家决定这个地方将如何把典礼变成治国的实力。'
+    tv_engineering_department.1160.a: '开启万国博士授衔大会。'
+    tv_engineering_department.1161.t: '为博洛尼亚大学选定凭证'
+    tv_engineering_department.1161.d: '赞助者必须决定，由哪位博士或法学家来调解各国学生会之间的座次之争，同时把法学教育变成公认的公共权威。选项不同，后续可能发生的事件与奖励分支也会不同，因此仪轨终究是玩家的抉择，而不是随手一点确认。'
+    tv_engineering_department.1161.a: '指派一位民法博士。'
+    tv_engineering_department.1161.b: '指派一位教会法调解人。'
+    tv_engineering_department.1161.c: '指派一位外国学生会的会长。'
+    tv_engineering_department.1162.t: '核验博洛尼亚大学各项凭证'
+    tv_engineering_department.1162.d: '巡查者与见证者逐一核对注册名册、各国学生会的记录册、讲课时间表、带注疏的写本、辩论议程、考试记录、公证印鉴、房租结算与学位证书。这些内容会作为具名的清单或库存事项，暂存于中间层的记录投影中——尽管当前版本的生成流程还只能产出概要性的摘要。'
+    tv_engineering_department.1162.a: '核验博洛尼亚大学各项凭证。'
+    tv_engineering_department.1163.t: '博洛尼亚大学的凭证出现波折'
+    tv_engineering_department.1163.d: '典礼可能出岔子：某个敌对的学生会拒绝承认这位博士，房租特权起了争执，外国学者不肯让步座次，又或是法学家们认定这场大会已经沦为城邦争权的工具。玩家必须承担修补、让步或缩小规模的代价，典礼才能继续下去。'
+    tv_engineering_department.1163.a: '回到凭证事项，重新来过。'
+    tv_engineering_department.1163.b: '把争端摆到台面上公开了结。'
+    tv_engineering_department.1164.t: '重整博洛尼亚大学的安排'
+    tv_engineering_department.1164.d: '重试分支让赞助者更换博士人选，让出一项特权，重新开放辩论议程，再度尝试这场大会，同时保留负责人这一职位。失败不会走到绝路，但也绝非没有代价——若玩家拒绝彻底修补，记录下来的将是一条更逊色的分支。'
+    tv_engineering_department.1164.a: '修补凭证，重新尝试。'
+    tv_engineering_department.1164.b: '接受这条较逊色的分支。'
+    tv_engineering_department.1165.t: '封存博洛尼亚大学的奖赏'
+    tv_engineering_department.1165.d: '最终的交接会保留研究速度加成、人口晋升速度加成、一次性的学者或法理正统性收益，以及关于学位名册、学生会记录册、公证印鉴与毕业生任用的地方记忆。较重的源代码效果仍暂时无法实现，要等到未来的源码编译器能够写出可加载的事件、效果、触发条件与界面行才行。'
+    tv_engineering_department.1165.a: '封存博洛尼亚大学的奖赏。'
+    TV_ENGINEERING_VARANASI_GHATS_PRIMARY_STATUS: '瓦拉纳西河坛晨间河阶点灯状态'
+    TV_ENGINEERING_VARANASI_GHATS_ROW_STATUS: '瓦拉纳西河坛凭证事项'
+    TV_ENGINEERING_VARANASI_GHATS_INCIDENT_LOG_LABEL: '瓦拉纳西河坛事件与重试记录'
+    TV_ENGINEERING_VARANASI_GHATS_PROGRESS_STATUS: '瓦拉纳西河坛典礼进度'
+    tv_engineering_department.1166.t: '瓦拉纳西河坛开启晨间河阶点灯'
+    tv_engineering_department.1166.d: '见证者齐聚瓦拉纳西的河阶，围着灯台、沐浴之地、火葬用木记录册、灰烬坑，还有船夫、祭司、朝圣者的客栈、卫生管事、节庆路线、水位标记、送葬者、沐浴者与维持秩序的人。仪式的开启并不代表完成——它只是记下了这处固定的奇观地点，列出可见的凭证事项，等待玩家决定这个地方将如何把典礼变成治国的实力。'
+    tv_engineering_department.1166.a: '开启晨间河阶点灯。'
+    tv_engineering_department.1167.t: '为瓦拉纳西河坛选定凭证'
+    tv_engineering_department.1167.d: '赞助者必须决定，是点灯巡游、沐浴秩序，还是火葬场的通行，来定义这条圣水如何变成受管控的日常仪礼。选项不同，后续可能发生的事件与奖励分支也会不同，因此仪轨终究是玩家的抉择，而不是随手一点确认。'
+    tv_engineering_department.1167.a: '优先安排灯台秩序。'
+    tv_engineering_department.1167.b: '优先安排沐浴通行。'
+    tv_engineering_department.1167.c: '优先安排火葬与送葬通行。'
+    tv_engineering_department.1168.t: '核验瓦拉纳西河坛各项凭证'
+    tv_engineering_department.1168.d: '巡查者与见证者逐一核对清扫过的河阶、水位标记、灯台、祭司名录、船夫登记册、火葬用木记录册、灰烬坑、朝圣者登记簿、客栈账册、卫生报告与节庆路线。这些内容会作为具名的清单或库存事项，暂存于中间层的记录投影中——尽管当前版本的生成流程还只能产出概要性的摘要。'
+    tv_engineering_department.1168.a: '核验瓦拉纳西河坛各项凭证。'
+    tv_engineering_department.1169.t: '瓦拉纳西河坛的凭证出现波折'
+    tv_engineering_department.1169.d: '典礼可能出岔子：河阶过于拥挤，火葬场的通行权起了争执，水质变得不安全，船夫拒绝配合，又或是节庆人群拥挤到踩踏的地步，逼得赞助者必须在圣洁与秩序之间做出取舍。玩家必须承担修补、让步或缩小规模的代价，典礼才能继续下去。'
+    tv_engineering_department.1169.a: '回到凭证事项，重新来过。'
+    tv_engineering_department.1169.b: '把争端摆到台面上公开了结。'
+    tv_engineering_department.1170.t: '重整瓦拉纳西河坛的安排'
+    tv_engineering_department.1170.d: '重试分支让赞助者把各路巡游分开，补贴朝圣者，清扫河阶，重新调整火葬通行，再度尝试晨间点灯的记录，而不是把这条圣河简化成一处普通的神庙收费点。失败不会走到绝路，但也绝非没有代价——若玩家拒绝彻底修补，记录下来的将是一条更逊色的分支。'
+    tv_engineering_department.1170.a: '修补凭证，重新尝试。'
+    tv_engineering_department.1170.b: '接受这条较逊色的分支。'
+    tv_engineering_department.1171.t: '封存瓦拉纳西河坛的奖赏'
+    tv_engineering_department.1171.d: '最终的交接会保留稳定度投资、皈依速度加成、一次性的宗教团结或平乱收益，以及关于清扫过的河阶、灯台、火葬记录册与朝圣者客栈的地方记忆。较重的源代码效果仍暂时无法实现，要等到未来的源码编译器能够写出可加载的事件、效果、触发条件与界面行才行。'
+    tv_engineering_department.1171.a: '封存瓦拉纳西河坛的奖赏。'
+    TV_ENGINEERING_BRIHADISHVARA_TEMPLE_PRIMARY_STATUS: '布里哈迪希瓦拉神庙巨型维摩那开光状态'
+    TV_ENGINEERING_BRIHADISHVARA_TEMPLE_ROW_STATUS: '布里哈迪希瓦拉神庙凭证事项'
+    TV_ENGINEERING_BRIHADISHVARA_TEMPLE_INCIDENT_LOG_LABEL: '布里哈迪希瓦拉神庙事件与重试记录'
+    TV_ENGINEERING_BRIHADISHVARA_TEMPLE_PROGRESS_STATUS: '布里哈迪希瓦拉神庙典礼进度'
+    TV_ENGINEERING_BRIHADISHVARA_TEMPLE_ACTOR_STATUS: '布里哈迪希瓦拉神庙指派的典礼负责人'
+    tv_engineering_department.1172.t: '布里哈迪希瓦拉神庙开启巨型维摩那开光'
+    tv_engineering_department.1172.d: '见证者齐聚坦焦尔的巨型维摩那塔，围着圈围的庭院、青铜造像、铭文墙、灯油账册、舞者与乐师的名录、庙产地契、村落服役名单，还有历代先王、祭司、账房、守卫与官员。仪式的开启并不代表完成——它只是记下了这处固定的奇观地点，列出可见的凭证事项，等待玩家决定这个地方将如何把典礼变成治国的实力。'
+    tv_engineering_department.1172.a: '开启巨型维摩那开光。'
+    tv_engineering_department.1173.t: '为布里哈迪希瓦拉神庙选定凭证'
+    tv_engineering_department.1173.d: '赞助者必须决定，由哪位祭司、官员、守护者或学者来主持开光，才不至于让派系间的服役纠纷玷污王室的虔诚。选项不同，后续可能发生的事件与奖励分支也会不同，因此仪轨终究是玩家的抉择，而不是随手一点确认。'
+    tv_engineering_department.1173.a: '指派一位资深祭司。'
+    tv_engineering_department.1173.b: '指派一位王室账房。'
+    tv_engineering_department.1173.c: '指派一位庙产守护学者。'
+    tv_engineering_department.1174.t: '核验布里哈迪希瓦拉神庙各项凭证'
+    tv_engineering_department.1174.d: '巡查者与见证者逐一核对开光过的维摩那石座、青铜造像清点、灯油账册、舞者与乐师名录、铭文释读、庙产核查印鉴、村落确认书、巡游路线与先王供奉。这些内容会作为具名的清单或库存事项，暂存于中间层的记录投影中——尽管当前版本的生成流程还只能产出概要性的摘要。'
+    tv_engineering_department.1174.a: '核验布里哈迪希瓦拉神庙各项凭证。'
+    tv_engineering_department.1175.t: '布里哈迪希瓦拉神庙的凭证出现波折'
+    tv_engineering_department.1175.d: '典礼可能出岔子：一位不称职的负责人处置不当庙产，青铜造像失踪，某个服役村落拒不履行义务，又或是这场开光被人看作一场派系操弄的王室做秀。玩家必须承担修补、让步或缩小规模的代价，典礼才能继续下去。'
+    tv_engineering_department.1175.a: '回到凭证事项，重新来过。'
+    tv_engineering_department.1175.b: '把争端摆到台面上公开了结。'
+    tv_engineering_department.1176.t: '重整布里哈迪希瓦拉神庙的安排'
+    tv_engineering_department.1176.d: '重试分支让赞助者更换负责人，缩小仪式的规模，重新核查村落事项，再度尝试开光，负责人的能力也会左右最终的奖励分支。失败不会走到绝路，但也绝非没有代价——若玩家拒绝彻底修补，记录下来的将是一条更逊色的分支。'
+    tv_engineering_department.1176.a: '修补凭证，重新尝试。'
+    tv_engineering_department.1176.b: '接受这条较逊色的分支。'
+    tv_engineering_department.1177.t: '封存布里哈迪希瓦拉神庙的奖赏'
+    tv_engineering_department.1177.d: '最终的交接会保留每月的正统性收益、皈依速度加成、一次性的正统性或庙产经济收益，以及关于维摩那石座、青铜造像、铭文、服役名录与供奉的地方记忆。较重的源代码效果仍暂时无法实现，要等到未来的源码编译器能够写出可加载的事件、效果、触发条件与界面行才行。'
+    tv_engineering_department.1177.a: '封存布里哈迪希瓦拉神庙的奖赏。'
+    TV_ENGINEERING_CALICUT_PORT_CITY_PRIMARY_STATUS: '卡利卡特港市扎莫林胡椒码头盟约状态'
+    TV_ENGINEERING_CALICUT_PORT_CITY_ROW_STATUS: '卡利卡特港市凭证事项'
+    TV_ENGINEERING_CALICUT_PORT_CITY_INCIDENT_LOG_LABEL: '卡利卡特港市事件与重试记录'
+    TV_ENGINEERING_CALICUT_PORT_CITY_PROGRESS_STATUS: '卡利卡特港市典礼进度'
+    tv_engineering_department.1178.t: '卡利卡特港市开启扎莫林胡椒码头盟约'
+    tv_engineering_department.1178.d: '见证者齐聚科泽科德的季风码头，围着胡椒仓库、停泊记录、译员座席、经纪人执照、关税收据、领航员笔记、造船厂、外国商人聚居街区、称重台、仓库钥匙，还有扎莫林麾下的官员。仪式的开启并不代表完成——它只是记下了这处固定的奇观地点，列出可见的凭证事项，等待玩家决定这个地方将如何把典礼变成治国的实力。'
+    tv_engineering_department.1178.a: '开启扎莫林胡椒码头盟约。'
+    tv_engineering_department.1179.t: '为卡利卡特港市选定凭证'
+    tv_engineering_department.1179.d: '赞助者必须决定，哪个商人群体能获得优先的胡椒贸易权，这座港市又愿为可信赖的季风贸易付出什么代价。选项不同，后续可能发生的事件与奖励分支也会不同，因此仪轨终究是玩家的抉择，而不是随手一点确认。'
+    tv_engineering_department.1179.a: '给予远洋穆斯林商人特权。'
+    tv_engineering_department.1179.b: '给予本地胡椒经纪人特权。'
+    tv_engineering_department.1179.c: '给予各国外商馆混合特权。'
+    tv_engineering_department.1180.t: '核验卡利卡特港市各项凭证'
+    tv_engineering_department.1180.d: '巡查者与见证者逐一核对季风时刻表、胡椒样品记录、校准过的砝码、经纪人执照、译员登记册、仓库钥匙、停泊记录、关税收据、领航员笔记与纠纷账册。这些内容会作为具名的清单或库存事项，暂存于中间层的记录投影中——尽管当前版本的生成流程还只能产出概要性的摘要。'
+    tv_engineering_department.1180.a: '核验卡利卡特港市各项凭证。'
+    tv_engineering_department.1181.t: '卡利卡特港市的凭证出现波折'
+    tv_engineering_department.1181.d: '典礼可能出岔子：外国商人拒绝这份特权协议，经纪人在砝码上做手脚，仓库钥匙的归属争议拖住了胡椒交易，又或是选定的盟约激起了本地商人的抵制。玩家必须承担修补、让步或缩小规模的代价，典礼才能继续下去。'
+    tv_engineering_department.1181.a: '回到凭证事项，重新来过。'
+    tv_engineering_department.1181.b: '把争端摆到台面上公开了结。'
+    tv_engineering_department.1182.t: '重整卡利卡特港市的安排'
+    tv_engineering_department.1182.d: '重试分支让赞助者修订码头盟约，重新平衡准入权，重新密封仓库与译员相关事项，再度尝试这场交易，而不是把卡利卡特简化成一份普通的市场特许状。失败不会走到绝路，但也绝非没有代价——若玩家拒绝彻底修补，记录下来的将是一条更逊色的分支。'
+    tv_engineering_department.1182.a: '修补凭证，重新尝试。'
+    tv_engineering_department.1182.b: '接受这条较逊色的分支。'
+    tv_engineering_department.1183.t: '封存卡利卡特港市的奖赏'
+    tv_engineering_department.1183.d: '最终的交接会保留贸易收入、贸易范围、一次性的国库或商人收益，以及关于季风时刻表、胡椒砝码、经纪人、译员与关税账册的地方记忆。较重的源代码效果仍暂时无法实现，要等到未来的源码编译器能够写出可加载的事件、效果、触发条件与界面行才行。'
+    tv_engineering_department.1183.a: '封存卡利卡特港市的奖赏。'
+    TV_ENGINEERING_MALBORK_CASTLE_PRIMARY_STATUS: '马尔堡城堡砖堡骑士团点验状态'
+    TV_ENGINEERING_MALBORK_CASTLE_ROW_STATUS: '马尔堡城堡凭证事项'
+    TV_ENGINEERING_MALBORK_CASTLE_INCIDENT_LOG_LABEL: '马尔堡城堡事件与重试记录'
+    TV_ENGINEERING_MALBORK_CASTLE_PROGRESS_STATUS: '马尔堡城堡典礼进度'
+    TV_ENGINEERING_MALBORK_CASTLE_LISTENER_STATUS: '马尔堡城堡「战前」验证状态'
+    tv_engineering_department.1184.t: '马尔堡城堡开启砖堡骑士团点验'
+    tv_engineering_department.1184.d: '见证者齐聚马尔堡的砖砌高堡，围着修道会大厅、礼拜堂、粮仓、马厩、河上驳船、军械库、军旗名册、修道会登记簿，还有指挥官、骑士团弟兄、驻军文书、宣誓之日与维斯瓦河沿岸的补给线。仪式的开启并不代表完成——它只是记下了这处固定的奇观地点，列出可见的凭证事项，等待玩家决定这个地方将如何把典礼变成治国的实力。'
+    tv_engineering_department.1184.a: '开启砖堡骑士团点验。'
+    tv_engineering_department.1185.t: '为马尔堡城堡选定凭证'
+    tv_engineering_department.1185.d: '赞助者必须决定，是礼拜堂宣誓、粮仓纪律，还是沿河守备，来证明这个骑士团的实力，才能等到一场胜仗为这座堡垒盖上印证。选项不同，后续可能发生的事件与奖励分支也会不同，因此仪轨终究是玩家的抉择，而不是随手一点确认。'
+    tv_engineering_department.1185.a: '举行礼拜堂宣誓。'
+    tv_engineering_department.1185.b: '清点粮仓与军械库的服役情况。'
+    tv_engineering_department.1185.c: '证明沿河城墙与驳船的实力。'
+    tv_engineering_department.1186.t: '核验马尔堡城堡各项凭证'
+    tv_engineering_department.1186.d: '巡查者与见证者逐一核对修道会名册、粮仓印记、修缮过的军械库、马厩名录、河上驳船、宣誓之日、受祝福的军旗、城墙存粮与各分会的服役账目。这些内容会作为具名的清单或库存事项，暂存于中间层的记录投影中——尽管当前版本的生成流程还只能产出概要性的摘要。'
+    tv_engineering_department.1186.a: '核验马尔堡城堡各项凭证。'
+    tv_engineering_department.1187.t: '马尔堡城堡的凭证出现波折'
+    tv_engineering_department.1187.d: '典礼可能出岔子：骑士团重掠夺轻纪律，存粮告急，各分会为服役义务起了争执，又或是战报显示城堡虽然守住了，却没能证明骑士团的誓言。玩家必须承担修补、让步或缩小规模的代价，典礼才能继续下去。'
+    tv_engineering_department.1187.a: '回到凭证事项，重新来过。'
+    tv_engineering_department.1187.b: '把争端摆到台面上公开了结。'
+    tv_engineering_department.1188.t: '重整马尔堡城堡的安排'
+    tv_engineering_department.1188.d: '重试分支让赞助者整顿誓言，重新补给粮仓，修复城墙相关事项，再度尝试这场骑士团点验，之后战争的印证才能交接士气与兵源。失败不会走到绝路，但也绝非没有代价——若玩家拒绝彻底修补，记录下来的将是一条更逊色的分支。'
+    tv_engineering_department.1188.a: '修补凭证，重新尝试。'
+    tv_engineering_department.1188.b: '接受这条较逊色的分支。'
+    tv_engineering_department.1189.t: '封存马尔堡城堡的奖赏'
+    tv_engineering_department.1189.d: '最终的交接会保留陆军士气、兵源、一次性的驻军或军队传统收益，以及关于修道会名册、粮仓印记、军械库、军旗与沿河补给的地方记忆。较重的源代码效果仍暂时无法实现，要等到未来的源码编译器能够写出可加载的事件、效果、触发条件与界面行才行。'
+    tv_engineering_department.1189.a: '封存马尔堡城堡的奖赏。'
+    TV_ENGINEERING_ZAPORIZHIAN_SICH_PRIMARY_STATUS: '扎波罗热塞契拉达大会与河堡宣誓状态'
+    TV_ENGINEERING_ZAPORIZHIAN_SICH_ROW_STATUS: '扎波罗热塞契凭证事项'
+    TV_ENGINEERING_ZAPORIZHIAN_SICH_INCIDENT_LOG_LABEL: '扎波罗热塞契事件与重试记录'
+    TV_ENGINEERING_ZAPORIZHIAN_SICH_PROGRESS_STATUS: '扎波罗热塞契典礼进度'
+    TV_ENGINEERING_ZAPORIZHIAN_SICH_LISTENER_STATUS: '扎波罗热塞契「战争结束」验证状态'
+    tv_engineering_department.1190.t: '扎波罗热塞契开启拉达大会与河堡宣誓'
+    tv_engineering_department.1190.d: '见证者齐聚塞契的河上堡垒，围着拉达大会圈、栅栏工事、库伦名册、船只、车队营地、火药账册、锻造坊，还有侦察兵、马匹清单、军官推选、受祝福的旗帜、边境定居点与第聂伯河沿线的道路。仪式的开启并不代表完成——它只是记下了这处固定的奇观地点，列出可见的凭证事项，等待玩家决定这个地方将如何把典礼变成治国的实力。'
+    tv_engineering_department.1190.a: '开启拉达大会与河堡宣誓。'
+    tv_engineering_department.1191.t: '为扎波罗热塞契选定凭证'
+    tv_engineering_department.1191.d: '赞助者必须决定，是推选宣誓、船车机动，还是边境定居点的服役，来证明这支哥萨克军团在战事结束后的实力。选项不同，后续可能发生的事件与奖励分支也会不同，因此仪轨终究是玩家的抉择，而不是随手一点确认。'
+    tv_engineering_department.1191.a: '让拉达大会的宣誓承载凭证。'
+    tv_engineering_department.1191.b: '让船只与车队承载凭证。'
+    tv_engineering_department.1191.c: '让边境定居点的服役承载凭证。'
+    tv_engineering_department.1192.t: '核验扎波罗热塞契各项凭证'
+    tv_engineering_department.1192.d: '巡查者与见证者逐一核对拉达大会名册、受祝福的旗帜、军官推选、火药账册、修补过的船只、修复的车辆、侦察路线、马匹清单、锻造坊存货与栅栏工事的修缮情况。这些内容会作为具名的清单或库存事项，暂存于中间层的记录投影中——尽管当前版本的生成流程还只能产出概要性的摘要。'
+    tv_engineering_department.1192.a: '核验扎波罗热塞契各项凭证。'
+    tv_engineering_department.1193.t: '扎波罗热塞契的凭证出现波折'
+    tv_engineering_department.1193.d: '典礼可能出岔子：队伍散了，船只丢了，车队营地被攻破，推选出的军官起了内讧，又或是战争结束后的核查只看到一场劫掠，而非一套有纪律的边境戍卫体系。玩家必须承担修补、让步或缩小规模的代价，典礼才能继续下去。'
+    tv_engineering_department.1193.a: '回到凭证事项，重新来过。'
+    tv_engineering_department.1193.b: '把争端摆到台面上公开了结。'
+    tv_engineering_department.1194.t: '重整扎波罗热塞契的安排'
+    tv_engineering_department.1194.d: '重试分支让赞助者重新集结队伍，重新修补船只，重建车辆与栅栏工事，再度尝试拉达大会的凭证，之后士气与兵源才能真正稳固下来。失败不会走到绝路，但也绝非没有代价——若玩家拒绝彻底修补，记录下来的将是一条更逊色的分支。'
+    tv_engineering_department.1194.a: '修补凭证，重新尝试。'
+    tv_engineering_department.1194.b: '接受这条较逊色的分支。'
+    tv_engineering_department.1195.t: '封存扎波罗热塞契的奖赏'
+    tv_engineering_department.1195.d: '最终的交接会保留陆军士气、兵源、一次性的边境安全或传统收益，以及关于拉达大会名册、旗帜、船只、车辆、侦察兵与栅栏修缮的地方记忆。较重的源代码效果仍暂时无法实现，要等到未来的源码编译器能够写出可加载的事件、效果、触发条件与界面行才行。'
+    tv_engineering_department.1195.a: '封存扎波罗热塞契的奖赏。'
+    TV_ENGINEERING_REGISTAN_SQUARE_PRIMARY_STATUS: '雷吉斯坦广场经学院节庆讲席任命状态'
+    TV_ENGINEERING_REGISTAN_SQUARE_ROW_STATUS: '雷吉斯坦广场凭证事项'
+    TV_ENGINEERING_REGISTAN_SQUARE_INCIDENT_LOG_LABEL: '雷吉斯坦广场事件与重试记录'
+    TV_ENGINEERING_REGISTAN_SQUARE_PROGRESS_STATUS: '雷吉斯坦广场典礼进度'
+    TV_ENGINEERING_REGISTAN_SQUARE_ACTOR_STATUS: '雷吉斯坦广场指派的典礼负责人'
+    tv_engineering_department.1196.t: '雷吉斯坦广场开启经学院节庆讲席任命'
+    tv_engineering_department.1196.d: '见证者齐聚撒马尔罕的雷吉斯坦广场，围着经学院、彩瓷立面、公共广场、讲学地毯、市集边界、使节座次安排、商队名单、通行凭牌、警戒队形，还有学者、商人、法官与外邦见证者。仪式的开启并不代表完成——它只是记下了这处固定的奇观地点，列出可见的凭证事项，等待玩家决定这个地方将如何把典礼变成治国的实力。'
+    tv_engineering_department.1196.a: '开启经学院节庆讲席任命。'
+    tv_engineering_department.1197.t: '为雷吉斯坦广场选定凭证'
+    tv_engineering_department.1197.d: '赞助者必须决定，哪位讲席学者能在经学院、市集与使节之间游刃有余地发言，而不让某一家经学院垄断这座广场。选项不同，后续可能发生的事件与奖励分支也会不同，因此仪轨终究是玩家的抉择，而不是随手一点确认。'
+    tv_engineering_department.1197.a: '指派一位资深经学院学者。'
+    tv_engineering_department.1197.b: '指派一位面向市集的法官。'
+    tv_engineering_department.1197.c: '指派一位善待使节的讲席学者。'
+    tv_engineering_department.1198.t: '核验雷吉斯坦广场各项凭证'
+    tv_engineering_department.1198.d: '巡查者与见证者逐一核对修缮过的瓷砖装饰、讲学地毯、使节座次安排、通行凭牌、商队名单、礼品清单、警戒队形与公开辩论的讲稿。这些内容会作为具名的清单或库存事项，暂存于中间层的记录投影中——尽管当前版本的生成流程还只能产出概要性的摘要。'
+    tv_engineering_department.1198.a: '核验雷吉斯坦广场各项凭证。'
+    tv_engineering_department.1199.t: '雷吉斯坦广场的凭证出现波折'
+    tv_engineering_department.1199.d: '典礼可能出岔子：某个对立经学院拒不承认这位讲席，市集长老反对闭门举行典礼，使节们争起了座次，又或是这座广场把学问变成了派系间的表演。玩家必须承担修补、让步或缩小规模的代价，典礼才能继续下去。'
+    tv_engineering_department.1199.a: '回到凭证事项，重新来过。'
+    tv_engineering_department.1199.b: '把争端摆到台面上公开了结。'
+    tv_engineering_department.1200.t: '重整雷吉斯坦广场的安排'
+    tv_engineering_department.1200.d: '重试分支让赞助者举行一场公开辩论，改动讲席学者的职权，重新安排使节座次，再度尝试这场节庆，同时让这座广场继续是公开展示学问的舞台。失败不会走到绝路，但也绝非没有代价——若玩家拒绝彻底修补，记录下来的将是一条更逊色的分支。'
+    tv_engineering_department.1200.a: '修补凭证，重新尝试。'
+    tv_engineering_department.1200.b: '接受这条较逊色的分支。'
+    tv_engineering_department.1201.t: '封存雷吉斯坦广场的奖赏'
+    tv_engineering_department.1201.d: '最终的交接会保留每月的威望收益、外交声誉、一次性的学者或外交收益，以及关于瓷砖装饰、讲学地毯、通行凭牌、商队名单与公开辩论的地方记忆。较重的源代码效果仍暂时无法实现，要等到未来的源码编译器能够写出可加载的事件、效果、触发条件与界面行才行。'
+    tv_engineering_department.1201.a: '封存雷吉斯坦广场的奖赏。'
+    TV_ENGINEERING_FERGHANA_PALACE_PRIMARY_STATUS: '费尔干纳王宫浩罕河谷之门觐见状态'
+    TV_ENGINEERING_FERGHANA_PALACE_ROW_STATUS: '费尔干纳王宫凭证事项'
+    TV_ENGINEERING_FERGHANA_PALACE_INCIDENT_LOG_LABEL: '费尔干纳王宫事件与重试记录'
+    TV_ENGINEERING_FERGHANA_PALACE_PROGRESS_STATUS: '费尔干纳王宫典礼进度'
+    TV_ENGINEERING_FERGHANA_PALACE_STOCKPILE_STATUS: '费尔干纳王宫贡礼库存'
+    tv_engineering_department.1202.t: '费尔干纳王宫开启浩罕河谷之门觐见'
+    tv_engineering_department.1202.d: '见证者齐聚浩罕的彩绘大殿，围着雕花石柱、花园宴饮之地、河谷诸门、袍服名单、贡品托盘、马匹登记册、丝绸样品、使节书信、卡迪的裁决、路关请愿书，还有伯克、商人、马商与宫廷官员。仪式的开启并不代表完成——它只是记下了这处固定的奇观地点，列出可见的凭证事项，等待玩家决定这个地方将如何把典礼变成治国的实力。'
+    tv_engineering_department.1202.a: '开启浩罕河谷之门觐见。'
+    tv_engineering_department.1203.t: '为费尔干纳王宫选定凭证'
+    tv_engineering_department.1203.d: '赞助者必须决定，河谷中哪一方能获得觐见的权利，又该备好多少贡品、袍服、马匹与路关裁决，宣誓才能显得可信。选项不同，后续可能发生的事件与奖励分支也会不同，因此仪轨终究是玩家的抉择，而不是随手一点确认。'
+    tv_engineering_department.1203.a: '让伯克享有觐见特权。'
+    tv_engineering_department.1203.b: '让商人与路关使节享有特权。'
+    tv_engineering_department.1203.c: '让马商与边境来客享有特权。'
+    tv_engineering_department.1204.t: '核验费尔干纳王宫各项凭证'
+    tv_engineering_department.1204.d: '巡查者与见证者逐一核对觐见地毯、袍服名单、贡品托盘、马匹登记册、丝绸样品、路关裁决、使节书信、花园宴饮誓词、卡迪的批注与守门卫队名录。这些内容会作为具名的清单或库存事项，暂存于中间层的记录投影中——尽管当前版本的生成流程还只能产出概要性的摘要。'
+    tv_engineering_department.1204.a: '核验费尔干纳王宫各项凭证。'
+    tv_engineering_department.1205.t: '费尔干纳王宫的凭证出现波折'
+    tv_engineering_department.1205.d: '典礼可能出岔子：贡品托盘不够，马匹登记册遭到质疑，伯克们为座次起了争执，路关裁决得罪了商人，又或是这场觐见的条件被认为过于优厚。玩家必须承担修补、让步或缩小规模的代价，典礼才能继续下去。'
+    tv_engineering_department.1205.a: '回到凭证事项，重新来过。'
+    tv_engineering_department.1205.b: '把争端摆到台面上公开了结。'
+    tv_engineering_department.1206.t: '重整费尔干纳王宫的安排'
+    tv_engineering_department.1206.d: '重试分支让赞助者重新商定觐见条款，补足袍服与马匹，重审路关裁决，再度尝试这场王宫交易，而不是照搬一套普通的领地特权流程。失败不会走到绝路，但也绝非没有代价——若玩家拒绝彻底修补，记录下来的将是一条更逊色的分支。'
+    tv_engineering_department.1206.a: '修补凭证，重新尝试。'
+    tv_engineering_department.1206.b: '接受这条较逊色的分支。'
+    tv_engineering_department.1207.t: '封存费尔干纳王宫的奖赏'
+    tv_engineering_department.1207.d: '最终的交接会保留外交声誉、每月的正统性收益、一次性的正统性或贸易收益，以及关于袍服、马匹、贡品托盘、路关裁决、使节书信与花园誓词的地方记忆。较重的源代码效果仍暂时无法实现，要等到未来的源码编译器能够写出可加载的事件、效果、触发条件与界面行才行。'
+    tv_engineering_department.1207.a: '封存费尔干纳王宫的奖赏。'
+    TV_ENGINEERING_LOUVRE_PALACE_PRIMARY_STATUS: '卢浮宫宫廷展览与使节画廊状态'
+    TV_ENGINEERING_LOUVRE_PALACE_ROW_STATUS: '卢浮宫凭证事项'
+    TV_ENGINEERING_LOUVRE_PALACE_INCIDENT_LOG_LABEL: '卢浮宫事件与重试记录'
+    TV_ENGINEERING_LOUVRE_PALACE_PROGRESS_STATUS: '卢浮宫典礼进度'
+    tv_engineering_department.1208.t: '卢浮宫开启宫廷展览与使节画廊'
+    tv_engineering_department.1208.d: '见证者齐聚巴黎的卢浮宫，围着塞纳河码头、庭院、画廊、立面、画室、警卫室、议事厅，还有王室内务官员、艺术家、建筑师、大使、译员、秘书、传令官、印刷工与朝臣。仪式的开启并不代表完成——它只是记下了这处固定的奇观地点，列出可见的凭证事项，等待玩家决定这个地方将如何把典礼变成治国的实力。'
+    tv_engineering_department.1208.a: '开启宫廷展览与使节画廊。'
+    tv_engineering_department.1209.t: '为卢浮宫选定凭证'
+    tv_engineering_department.1209.d: '赞助者必须决定，是王室、艺术家还是外交使节来掌控画廊的准入，宫廷展览的威望与外交声誉才会因此获得信任。选项不同，后续可能发生的事件与奖励分支也会不同，因此仪轨终究是玩家的抉择，而不是随手一点确认。'
+    tv_engineering_department.1209.a: '让王室掌控画廊准入。'
+    tv_engineering_department.1209.b: '让艺术家与管事掌控陈列次序。'
+    tv_engineering_department.1209.c: '让外交官与礼宾次序掌控画廊。'
+    tv_engineering_department.1210.t: '核验卢浮宫各项凭证'
+    tv_engineering_department.1210.d: '巡查者与见证者逐一核对画廊库存、赞助名录、使节座次安排、修复过的立面、有守卫把守的塞纳河沿岸、展出的礼品、王室肖像巡展路线、警卫指令与印制的展览名单。这些内容会作为具名的清单或库存事项，暂存于中间层的记录投影中——尽管当前版本的生成流程还只能产出概要性的摘要。'
+    tv_engineering_department.1210.a: '核验卢浮宫各项凭证。'
+    tv_engineering_department.1211.t: '卢浮宫的凭证出现波折'
+    tv_engineering_department.1211.d: '典礼可能出岔子：宫廷管得太严削弱了艺术的正当性，开放过头又引发外交丑闻，某件礼品处置失当，又或是艺术家们抱怨自己不过是礼宾排场的摆设。玩家必须承担修补、让步或缩小规模的代价，典礼才能继续下去。'
+    tv_engineering_department.1211.a: '回到凭证事项，重新来过。'
+    tv_engineering_department.1211.b: '把争端摆到台面上公开了结。'
+    tv_engineering_department.1212.t: '重整卢浮宫的安排'
+    tv_engineering_department.1212.d: '重试分支让赞助者修改展览的准入规则，重新安排使节座次，重新公布赞助名录，再度尝试这场宫廷交涉，同时让艺术与外交继续共用这同一台宫廷机器。失败不会走到绝路，但也绝非没有代价——若玩家拒绝彻底修补，记录下来的将是一条更逊色的分支。'
+    tv_engineering_department.1212.a: '修补凭证，重新尝试。'
+    tv_engineering_department.1212.b: '接受这条较逊色的分支。'
+    tv_engineering_department.1213.t: '封存卢浮宫的奖赏'
+    tv_engineering_department.1213.d: '最终的交接会保留每月的威望收益、外交声誉、一次性的威望或恩宠收益，以及关于画廊库存、使节座次、修复立面、塞纳河守卫、礼品与肖像的地方记忆。较重的源代码效果仍暂时无法实现，要等到未来的源码编译器能够写出可加载的事件、效果、触发条件与界面行才行。'
+    tv_engineering_department.1213.a: '封存卢浮宫的奖赏。'
+    TV_ENGINEERING_LYON_SILK_WORKSHOPS_PRIMARY_STATUS: '里昂丝绸工坊区大织造特许状状态'
+    TV_ENGINEERING_LYON_SILK_WORKSHOPS_ROW_STATUS: '里昂丝绸工坊区凭证事项'
+    TV_ENGINEERING_LYON_SILK_WORKSHOPS_INCIDENT_LOG_LABEL: '里昂丝绸工坊区事件与重试记录'
+    TV_ENGINEERING_LYON_SILK_WORKSHOPS_PROGRESS_STATUS: '里昂丝绸工坊区典礼进度'
+    tv_engineering_department.1214.t: '里昂丝绸工坊区开启大织造特许状'
+    tv_engineering_department.1214.d: '见证者齐聚里昂的丝绸工坊，围着织机房、染坊、图样档案库、商人的账房、索恩河与罗讷河上的桥梁、集市摊位，还有织造师傅、学徒、染工、图样绘制者、商人、检验员、公证人、警卫与劳资调解人。仪式的开启并不代表完成——它只是记下了这处固定的奇观地点，列出可见的凭证事项，等待玩家决定这个地方将如何把典礼变成治国的实力。'
+    tv_engineering_department.1214.a: '开启大织造特许状。'
+    tv_engineering_department.1215.t: '为里昂丝绸工坊区选定凭证'
+    tv_engineering_department.1215.d: '赞助者必须决定，是织造师傅、染坊、商人，还是开放的工坊准入，能换来奢侈品产出的纪律作为交换条件。选项不同，后续可能发生的事件与奖励分支也会不同，因此仪轨终究是玩家的抉择，而不是随手一点确认。'
+    tv_engineering_department.1215.a: '给予织造师傅与织机秩序特权。'
+    tv_engineering_department.1215.b: '给予染坊与图样标准特权。'
+    tv_engineering_department.1215.c: '给予商人与集市开放准入特权。'
+    tv_engineering_department.1216.t: '核验里昂丝绸工坊区各项凭证'
+    tv_engineering_department.1216.d: '巡查者与见证者逐一核对密封的图样册、染料样品、学徒名册、验过的织机、商人账簿、集市契约、河运货单、成匹布料、工钱记录与样卡。这些内容会作为具名的清单或库存事项，暂存于中间层的记录投影中——尽管当前版本的生成流程还只能产出概要性的摘要。'
+    tv_engineering_department.1216.a: '核验里昂丝绸工坊区各项凭证。'
+    tv_engineering_department.1217.t: '里昂丝绸工坊区的凭证出现波折'
+    tv_engineering_department.1217.d: '典礼可能出岔子：一份封闭的行会特许状虽然提高了产量，却激起了骚乱；开放准入又削弱了品质；染料污染毁了样品；又或是集市开市前商人的信用崩塌。玩家必须承担修补、让步或缩小规模的代价，典礼才能继续下去。'
+    tv_engineering_department.1217.a: '回到凭证事项，重新来过。'
+    tv_engineering_department.1217.b: '把争端摆到台面上公开了结。'
+    tv_engineering_department.1218.t: '重整里昂丝绸工坊区的安排'
+    tv_engineering_department.1218.d: '重试分支让赞助者修订行会特许状，调解劳资纠纷，重新密封染坊与图样相关事项，再度尝试这场织机凭证，而不是把里昂简化成一场普通的市场交易。失败不会走到绝路，但也绝非没有代价——若玩家拒绝彻底修补，记录下来的将是一条更逊色的分支。'
+    tv_engineering_department.1218.a: '修补凭证，重新尝试。'
+    tv_engineering_department.1218.b: '接受这条较逊色的分支。'
+    tv_engineering_department.1219.t: '封存里昂丝绸工坊区的奖赏'
+    tv_engineering_department.1219.d: '最终的交接会保留全局生产效率、贸易收入、一次性的产量或匠人收益，以及关于图样册、染料样品、学徒名册、验过的织机、账簿与河运货单的地方记忆。较重的源代码效果仍暂时无法实现，要等到未来的源码编译器能够写出可加载的事件、效果、触发条件与界面行才行。'
+    tv_engineering_department.1219.a: '封存里昂丝绸工坊区的奖赏。'
+    TV_ENGINEERING_CARCASSONNE_CASTLE_PRIMARY_STATUS: '卡尔卡松城堡双重城墙戍卫验证状态'
+    TV_ENGINEERING_CARCASSONNE_CASTLE_ROW_STATUS: '卡尔卡松城堡凭证事项'
+    TV_ENGINEERING_CARCASSONNE_CASTLE_INCIDENT_LOG_LABEL: '卡尔卡松城堡事件与重试记录'
+    TV_ENGINEERING_CARCASSONNE_CASTLE_PROGRESS_STATUS: '卡尔卡松城堡典礼进度'
+    TV_ENGINEERING_CARCASSONNE_CASTLE_LISTENER_STATUS: '卡尔卡松城堡「战前」验证状态'
+    tv_engineering_department.1220.t: '卡尔卡松城堡开启双重城墙戍卫验证'
+    tv_engineering_department.1220.d: '见证者齐聚卡尔卡松，围着内堡、外墙、塔楼、市集城门、粮仓、弩箭库、钟点值守名录、葡萄园道路、村落警号、城门钥匙，还有巡逻队长、砌墙石匠、市民与边境戍卒。仪式的开启并不代表完成——它只是记下了这处固定的奇观地点，列出可见的凭证事项，等待玩家决定这个地方将如何把典礼变成治国的实力。'
+    tv_engineering_department.1220.a: '开启双重城墙戍卫验证。'
+    tv_engineering_department.1221.t: '为卡尔卡松城堡选定凭证'
+    tv_engineering_department.1221.d: '赞助者必须决定，是内堡、外围塔楼，还是市集城门来定义这套防御体系，才能等到一场战前核查为双重城墙盖上印证。选项不同，后续可能发生的事件与奖励分支也会不同，因此仪轨终究是玩家的抉择，而不是随手一点确认。'
+    tv_engineering_department.1221.a: '让内堡承载这套战术。'
+    tv_engineering_department.1221.b: '让外围塔楼承载这套战术。'
+    tv_engineering_department.1221.c: '让市集城门与道路承载这套战术。'
+    tv_engineering_department.1222.t: '核验卡尔卡松城堡各项凭证'
+    tv_engineering_department.1222.d: '巡查者与见证者逐一核对塔楼钟点值守名录、城门钥匙、弩箭库、粮仓存量、修缮过的城墙、市集巡逻、葡萄园道路的警戒、村落警号与各段城墙的报告。这些内容会作为具名的清单或库存事项，暂存于中间层的记录投影中——尽管当前版本的生成流程还只能产出概要性的摘要。'
+    tv_engineering_department.1222.a: '核验卡尔卡松城堡各项凭证。'
+    tv_engineering_department.1223.t: '卡尔卡松城堡的凭证出现波折'
+    tv_engineering_department.1223.d: '典礼可能出岔子：某一段城墙被攻破，市集城门开得太迟，粮仓存量告急，村落警号失灵，又或是战报显示只有内堡守住了阵地。玩家必须承担修补、让步或缩小规模的代价，典礼才能继续下去。'
+    tv_engineering_department.1223.a: '回到凭证事项，重新来过。'
+    tv_engineering_department.1223.b: '把争端摆到台面上公开了结。'
+    tv_engineering_department.1224.t: '重整卡尔卡松城堡的安排'
+    tv_engineering_department.1224.d: '重试分支让赞助者修复被攻破的城墙段，优先加强对应的城门守备，重新补给塔楼，再度尝试这场验证，之后驻军规模与士气才能真正稳固下来。失败不会走到绝路，但也绝非没有代价——若玩家拒绝彻底修补，记录下来的将是一条更逊色的分支。'
+    tv_engineering_department.1224.a: '修补凭证，重新尝试。'
+    tv_engineering_department.1224.b: '接受这条较逊色的分支。'
+    tv_engineering_department.1225.t: '封存卡尔卡松城堡的奖赏'
+    tv_engineering_department.1225.d: '最终的交接会保留驻军规模、陆军士气、一次性的驻军或兵源收益，以及关于城墙名录、城门钥匙、弩箭库、粮仓、巡逻与警号的地方记忆。较重的源代码效果仍暂时无法实现，要等到未来的源码编译器能够写出可加载的事件、效果、触发条件与界面行才行。'
+    tv_engineering_department.1225.a: '封存卡尔卡松城堡的奖赏。'
+    game_concept_tv_wonder_grand_garden_complex_desc: "这是一组统一规划的园林群：游赏园、文士山水、水院、亭榭、花圃与雅集场所错落其间。贵族的闲情逸致，在此悄然化作艺术家的学堂，而园林的兴衰，也成了衡量宫廷体面的一把尺子。"
     TV_ENGINEERING_PROPOSAL_GRAND_GARDEN_COMPLEX_TEXT: "[tv_great_engineer|E]提出[tv_wonder_grand_garden_complex|E]。"
     TV_ENGINEERING_PROPOSAL_RESUME_GRAND_GARDEN_COMPLEX_TEXT: "[tv_great_engineer|E]建议完成造了一半的[tv_wonder_grand_garden_complex|E]，并利用当地已经保留下来的工程部分。"
     TV_ENGINEERING_PROPOSAL_EXPAND_GRAND_GARDEN_COMPLEX_TEXT: "[tv_great_engineer|E]建议[tv_wonder_expansion|e][tv_wonder_grand_garden_complex|E]，继续利用该地点已经保存的最大等级适性。"
@@ -12696,19 +12696,19 @@ wonder_localization:
     tv_wonder_royal_pleasure_gardens_desc: "园林群的王家游赏园仪式分支。"
     TV_ENGINEERING_CEREMONY_ROYAL_PLEASURE_GARDENS_BUTTON: "王家游赏园"
     TV_ENGINEERING_ACTIVE_RITUAL_GRAND_GARDEN_COMPLEX_1: "确认园林群的王家游赏园仪式。此仪式会宫廷游园把贵族闲逸转化为新艺术家的学堂。"
-    tv_engineering_department.500.d_grand_garden_complex_1: "王家游赏园让当地围绕'宫廷游园把贵族闲逸转化为新艺术家的学堂'完成组织。[tv_wonder_ceremony|E]使[tv_wonder_grand_garden_complex|E]的这一分支可以落成。"
+    tv_engineering_department.500.d_grand_garden_complex_1: "王家游赏园把宫廷游园变成新艺术家的摇篮，贵族的闲暇时光也因此有了用处。举行[tv_wonder_ceremony|E]后，[tv_wonder_grand_garden_complex|E]的这一分支便可以落成。"
     tv_wonder_scholars_landscape_garden: "园林群 - 文士山水园"
     tv_wonder_scholars_landscape_garden_desc: "园林群的文士山水园仪式分支。"
     TV_ENGINEERING_CEREMONY_SCHOLARS_LANDSCAPE_GARDEN_BUTTON: "文士山水园"
     TV_ENGINEERING_ACTIVE_RITUAL_GRAND_GARDEN_COMPLEX_2: "确认园林群的文士山水园仪式。此仪式会有管事署维护的山水园保存本地文化传统。"
-    tv_engineering_department.500.d_grand_garden_complex_2: "文士山水园让当地围绕'有管事署维护的山水园保存本地文化传统'完成组织。[tv_wonder_ceremony|E]使[tv_wonder_grand_garden_complex|E]的这一分支可以落成。"
+    tv_engineering_department.500.d_grand_garden_complex_2: "文士山水园由管事署常年维护，本地的文化传统因此得以保存。举行[tv_wonder_ceremony|E]后，[tv_wonder_grand_garden_complex|E]的这一分支便可以落成。"
     tv_wonder_botanical_exchange_garden: "园林群 - 博物交流园"
     tv_wonder_botanical_exchange_garden_desc: "园林群的博物交流园仪式分支。"
     TV_ENGINEERING_CEREMONY_BOTANICAL_EXCHANGE_GARDEN_BUTTON: "博物交流园"
     TV_ENGINEERING_ACTIVE_RITUAL_GRAND_GARDEN_COMPLEX_3: "确认园林群的博物交流园仪式。此仪式会博物交流与艺术赞助带来传统与繁荣。"
-    tv_engineering_department.500.d_grand_garden_complex_3: "博物交流园让当地围绕'博物交流与艺术赞助带来传统与繁荣'完成组织。[tv_wonder_ceremony|E]使[tv_wonder_grand_garden_complex|E]的这一分支可以落成。"
-    tv_engineering_department.600.d_grand_garden_complex: "旅人传来消息：[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_grand_garden_complex|E]。亭榭、水院、奇石与活体收藏如今把闲逸转化为文化权威。"
-    game_concept_tv_wonder_state_examination_complex_desc: "一组由号舍、封卷厅、经籍书库、登科门、考场与名册组成的文官考试建筑群。此[tv_wonder_construction|e]需要非乡村地点，并将考试制度转化为全国人口晋升速度与创新价值观倾向。"
+    tv_engineering_department.500.d_grand_garden_complex_3: "博物交流园以博物往来与艺术赞助换来传统与繁荣。举行[tv_wonder_ceremony|E]后，[tv_wonder_grand_garden_complex|E]的这一分支便可以落成。"
+    tv_engineering_department.600.d_grand_garden_complex: "旅人传来消息：[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]建成[tv_wonder_grand_garden_complex|E]。亭榭、水院、奇石与珍藏如今把闲情逸致变成了文化权威。"
+    game_concept_tv_wonder_state_examination_complex_desc: "这是一整套文官考试建筑群：号舍、封卷厅、经籍书库、登科门、考场与名册一应俱全。锁院之内，一张考卷便能决定谁有资格为朝廷效力。"
     TV_ENGINEERING_PROPOSAL_STATE_EXAMINATION_COMPLEX_TEXT: "[tv_great_engineer|E]提出[tv_wonder_state_examination_complex|E]。"
     TV_ENGINEERING_PROPOSAL_RESUME_STATE_EXAMINATION_COMPLEX_TEXT: "[tv_great_engineer|E]建议完成造了一半的[tv_wonder_state_examination_complex|E]，并利用当地已经保留下来的工程部分。"
     TV_ENGINEERING_PROPOSAL_EXPAND_STATE_EXAMINATION_COMPLEX_TEXT: "[tv_great_engineer|E]建议[tv_wonder_expansion|e][tv_wonder_state_examination_complex|E]，继续利用该地点已经保存的最大等级适性。"
@@ -12733,19 +12733,19 @@ wonder_localization:
     tv_wonder_classics_examination_yard_desc: "国家考试院的经义贡试院仪式分支。"
     TV_ENGINEERING_CEREMONY_CLASSICS_EXAMINATION_YARD_BUTTON: "经义贡试院"
     TV_ENGINEERING_ACTIVE_RITUAL_STATE_EXAMINATION_COMPLEX_1: "确认国家考试院的经义贡试院仪式。此仪式会经义考试强化内阁纪律。"
-    tv_engineering_department.500.d_state_examination_complex_1: "经义贡试院让当地围绕'经义考试强化内阁纪律'完成组织。[tv_wonder_ceremony|E]使[tv_wonder_state_examination_complex|E]的这一分支可以落成。"
+    tv_engineering_department.500.d_state_examination_complex_1: "经义贡试院以经义考试整肃内阁纪律。举行[tv_wonder_ceremony|E]后，[tv_wonder_state_examination_complex|E]的这一分支便可以落成。"
     tv_wonder_open_merit_hall: "国家考试院 - 公选取士堂"
     tv_wonder_open_merit_hall_desc: "国家考试院的公选取士堂仪式分支。"
     TV_ENGINEERING_CEREMONY_OPEN_MERIT_HALL_BUTTON: "公选取士堂"
     TV_ENGINEERING_ACTIVE_RITUAL_STATE_EXAMINATION_COMPLEX_2: "确认国家考试院的公选取士堂仪式。此仪式会考试书吏房提高本地识字上限与晋升速度。"
-    tv_engineering_department.500.d_state_examination_complex_2: "公选取士堂让当地围绕'考试书吏房提高本地识字上限与晋升速度'完成组织。[tv_wonder_ceremony|E]使[tv_wonder_state_examination_complex|E]的这一分支可以落成。"
+    tv_engineering_department.500.d_state_examination_complex_2: "公选取士堂设考试书吏房，本地的识字上限与晋升速度都因此提高。举行[tv_wonder_ceremony|E]后，[tv_wonder_state_examination_complex|E]的这一分支便可以落成。"
     tv_wonder_practical_statecraft_academy: "国家考试院 - 经世致用书院"
     tv_wonder_practical_statecraft_academy_desc: "国家考试院的经世致用书院仪式分支。"
     TV_ENGINEERING_CEREMONY_PRACTICAL_STATECRAFT_ACADEMY_BUTTON: "经世致用书院"
     TV_ENGINEERING_ACTIVE_RITUAL_STATE_EXAMINATION_COMPLEX_3: "确认国家考试院的经世致用书院仪式。此仪式会经世致用之学带来政府权力。"
-    tv_engineering_department.500.d_state_examination_complex_3: "经世致用书院让当地围绕'经世致用之学带来政府权力'完成组织。[tv_wonder_ceremony|E]使[tv_wonder_state_examination_complex|E]的这一分支可以落成。"
-    tv_engineering_department.600.d_state_examination_complex: "官员传来消息：[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_state_examination_complex|E]。号舍、封卷与登科名榜如今让官职服从书面凭证。"
-    game_concept_tv_wonder_unique_suzhou_classical_gardens_desc: "精致的苏州园林把水脉、太湖石、亭榭、借景、诗画与士族赞助编织成江南风雅的活景。"
+    tv_engineering_department.500.d_state_examination_complex_3: "经世致用书院讲求实学，为政府带来实实在在的权力。举行[tv_wonder_ceremony|E]后，[tv_wonder_state_examination_complex|E]的这一分支便可以落成。"
+    tv_engineering_department.600.d_state_examination_complex: "官员传来消息：[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]建成[tv_wonder_state_examination_complex|E]。号舍、封卷与登科名榜如今成了任官的凭据。"
+    game_concept_tv_wonder_unique_suzhou_classical_gardens_desc: "精致的苏州园林把水脉、太湖石、亭榭、借景、诗画与士族赞助，编织成一片江南风雅的活景。"
     TV_ENGINEERING_PROPOSAL_UNIQUE_SUZHOU_CLASSICAL_GARDENS_TEXT: "工程师提议建设苏州古典园林，在固定历史地点[ShowLocationName('wuxian')]使其提高新艺术家资质与文化传统。"
     TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_SUZHOU_CLASSICAL_GARDENS_TEXT: "[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_suzhou_classical_gardens|E]，并利用当地已经保留下来的工程部分。"
     TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_SUZHOU_CLASSICAL_GARDENS_TEXT: "[tv_great_engineer|E]建议[tv_wonder_expansion|e][tv_wonder_unique_suzhou_classical_gardens|E]，继续利用该地点已经保存的最大等级适性。"
@@ -12763,13 +12763,13 @@ wonder_localization:
     tv_wonder_unique_suzhou_classical_gardens: "苏州古典园林"
     tv_wonder_unique_suzhou_classical_gardens_desc: "尚未落成、但已作为完整工程保留下来的苏州古典园林。"
     tv_wonder_unique_suzhou_classical_gardens_inaugurated: "苏州古典园林"
-    tv_wonder_unique_suzhou_classical_gardens_inaugurated_desc: "水院、奇石、亭榭、花木与题咏雅集让苏州古典园林成为精致文化赞助的学堂。"
+    tv_wonder_unique_suzhou_classical_gardens_inaugurated_desc: "水院、奇石、亭榭、花木与题咏雅集，让苏州古典园林成了精致文化赞助的学堂。"
     TV_ENGINEERING_CEREMONY_UNIQUE_SUZHOU_CLASSICAL_GARDENS_INAUGURATED_BUTTON: "文士园林雅集"
     TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_SUZHOU_CLASSICAL_GARDENS_1: "确认苏州古典园林的文士园林雅集。此仪式会提高新艺术家资质与文化传统。"
-    tv_engineering_department.500.d_unique_suzhou_classical_gardens: "水院、奇石、亭榭、花木与题咏雅集让苏州古典园林成为精致文化赞助的学堂。 工程师提议在固定地点举行典礼，由园林管事、叠山匠、画师、诗人与士族赞助人证明此奇观如何提高新艺术家资质与文化传统。'文士园林雅集'如今使奇观落成。"
-    tv_engineering_department.600.d_unique_suzhou_classical_gardens: "消息称，[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_unique_suzhou_classical_gardens|E]。水院、奇石、亭榭、花木与题咏雅集让苏州古典园林成为精致文化赞助的学堂。"
+    tv_engineering_department.500.d_unique_suzhou_classical_gardens: "水院、奇石、亭榭、花木与题咏雅集，让苏州古典园林成了精致文化赞助的学堂。工程师提议在此固定地点行礼，请园林管事、叠山匠、画师、诗人与士族赞助人到场见证：提高新艺术家资质与文化传统。仪式称'文士园林雅集'，礼成即奇观落成。"
+    tv_engineering_department.600.d_unique_suzhou_classical_gardens: "消息称，[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]建成[tv_wonder_unique_suzhou_classical_gardens|E]。水院、奇石、亭榭、花木与题咏雅集，让苏州古典园林成了精致文化赞助的学堂。"
     STATIC_MODIFIER_NAME_tv_wonder_unique_suzhou_classical_gardens_ceremony_modifier: "文士园林雅集"
-    game_concept_tv_wonder_unique_fin_garden_desc: "芬恩花园把卡尚绿洲水脉引入墙院、荫树、池水、浴室与亭阁，让沙漠统治显得清凉、有序且慷慨。"
+    game_concept_tv_wonder_unique_fin_garden_desc: "芬恩花园把卡尚绿洲的水脉引入墙院、荫树、池水与亭阁，沙漠中的统治因此显得清凉、有序又慷慨。"
     TV_ENGINEERING_PROPOSAL_UNIQUE_FIN_GARDEN_TEXT: "工程师提议建设芬恩花园，在固定历史地点[ShowLocationName('kashan')]使其把绿洲水源转化为繁荣与园林声望。"
     TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_FIN_GARDEN_TEXT: "[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_fin_garden|E]，并利用当地已经保留下来的工程部分。"
     TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_FIN_GARDEN_TEXT: "[tv_great_engineer|E]建议[tv_wonder_expansion|e][tv_wonder_unique_fin_garden|E]，继续利用该地点已经保存的最大等级适性。"
@@ -12787,13 +12787,13 @@ wonder_localization:
     tv_wonder_unique_fin_garden: "芬恩花园"
     tv_wonder_unique_fin_garden_desc: "尚未落成、但已作为完整工程保留下来的芬恩花园。"
     tv_wonder_unique_fin_garden_inaugurated: "芬恩花园"
-    tv_wonder_unique_fin_garden_inaugurated_desc: "泉渠、墙院、荫树、浴池与迎宾亭让芬恩花园成为繁荣的宫廷绿洲。"
+    tv_wonder_unique_fin_garden_inaugurated_desc: "泉渠、墙院、荫树、浴池与迎宾亭，让芬恩花园成了繁荣的宫廷绿洲。"
     TV_ENGINEERING_CEREMONY_UNIQUE_FIN_GARDEN_INAUGURATED_BUTTON: "绿洲花园引水礼"
     TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_FIN_GARDEN_1: "确认芬恩花园的绿洲花园引水礼。此仪式会把绿洲水源转化为繁荣与园林声望。"
-    tv_engineering_department.500.d_unique_fin_garden: "泉渠、墙院、荫树、浴池与迎宾亭让芬恩花园成为繁荣的宫廷绿洲。 工程师提议在固定地点举行典礼，由水权裁判、石匠、园丁、浴池管事、商人与宫廷宾客证明此奇观如何把绿洲水源转化为繁荣与园林声望。'绿洲花园引水礼'如今使奇观落成。"
-    tv_engineering_department.600.d_unique_fin_garden: "消息称，[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_unique_fin_garden|E]。泉渠、墙院、荫树、浴池与迎宾亭让芬恩花园成为繁荣的宫廷绿洲。"
+    tv_engineering_department.500.d_unique_fin_garden: "泉渠、墙院、荫树、浴池与迎宾亭，让芬恩花园成了繁荣的宫廷绿洲。工程师提议在此固定地点行礼，请水权裁判、石匠、园丁、浴池管事、商人与宫廷宾客到场见证：把绿洲水源转化为繁荣与园林声望。仪式称'绿洲花园引水礼'，礼成即奇观落成。"
+    tv_engineering_department.600.d_unique_fin_garden: "消息称，[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]建成[tv_wonder_unique_fin_garden|E]。泉渠、墙院、荫树、浴池与迎宾亭，让芬恩花园成了繁荣的宫廷绿洲。"
     STATIC_MODIFIER_NAME_tv_wonder_unique_fin_garden_ceremony_modifier: "绿洲花园引水礼"
-    game_concept_tv_wonder_unique_jiangnan_examination_hall_desc: "江南贡院把号舍、封存试卷、考官闱房、放榜木牌、守卫与公共取士制度压缩成一台庞大的文官机器。"
+    game_concept_tv_wonder_unique_jiangnan_examination_hall_desc: "江南贡院把号舍、封存的试卷、考官闱房、放榜木牌、守卫与取士制度，压缩进一座庞大的文官机器里。"
     TV_ENGINEERING_PROPOSAL_UNIQUE_JIANGNAN_EXAMINATION_HALL_TEXT: "工程师提议建设江南贡院，在固定历史地点[ShowLocationName('shangyuan')]使其强化内阁效率与识字晋升。"
     TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_JIANGNAN_EXAMINATION_HALL_TEXT: "[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_jiangnan_examination_hall|E]，并利用当地已经保留下来的工程部分。"
     TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_JIANGNAN_EXAMINATION_HALL_TEXT: "[tv_great_engineer|E]建议[tv_wonder_expansion|e][tv_wonder_unique_jiangnan_examination_hall|E]，继续利用该地点已经保存的最大等级适性。"
@@ -12811,13 +12811,13 @@ wonder_localization:
     tv_wonder_unique_jiangnan_examination_hall: "江南贡院"
     tv_wonder_unique_jiangnan_examination_hall_desc: "尚未落成、但已作为完整工程保留下来的江南贡院。"
     tv_wonder_unique_jiangnan_examination_hall_inaugurated: "江南贡院"
-    tv_wonder_unique_jiangnan_examination_hall_inaugurated_desc: "成排号舍、封存试卷、考官院落与登科名榜让江南贡院成为识字行政的发动机。"
+    tv_wonder_unique_jiangnan_examination_hall_inaugurated_desc: "成排号舍、封存的试卷、考官院落与登科名榜，让江南贡院成了识字行政的发动机。"
     TV_ENGINEERING_CEREMONY_UNIQUE_JIANGNAN_EXAMINATION_HALL_INAUGURATED_BUTTON: "锁院登科名册"
     TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_JIANGNAN_EXAMINATION_HALL_1: "确认江南贡院的锁院登科名册。此仪式会强化内阁效率与识字晋升。"
-    tv_engineering_department.500.d_unique_jiangnan_examination_hall: "成排号舍、封存试卷、考官院落与登科名榜让江南贡院成为识字行政的发动机。 工程师提议在固定地点举行典礼，由考官、书吏、卫兵、士子、刻印匠与省臣证明此奇观如何强化内阁效率与识字晋升。'锁院登科名册'如今使奇观落成。"
-    tv_engineering_department.600.d_unique_jiangnan_examination_hall: "消息称，[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_unique_jiangnan_examination_hall|E]。成排号舍、封存试卷、考官院落与登科名榜让江南贡院成为识字行政的发动机。"
+    tv_engineering_department.500.d_unique_jiangnan_examination_hall: "成排号舍、封存的试卷、考官院落与登科名榜，让江南贡院成了识字行政的发动机。工程师提议在此地举行典礼：考官、书吏、卫兵、士子、刻印匠与省臣共同出面，把强化内阁效率与识字晋升落到实处。典礼名为'锁院登科名册'，完成后奇观即告落成。"
+    tv_engineering_department.600.d_unique_jiangnan_examination_hall: "消息称，[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]建成[tv_wonder_unique_jiangnan_examination_hall|E]。成排号舍、封存的试卷、考官院落与登科名榜，让江南贡院成了识字行政的发动机。"
     STATIC_MODIFIER_NAME_tv_wonder_unique_jiangnan_examination_hall_ceremony_modifier: "锁院登科名册"
-    game_concept_tv_wonder_unique_thang_long_temple_of_literature_desc: "升龙文庙国子监把孔庙祭坛、国学堂、讲席、试场、生员名册与进士碑连成国家学校。"
+    game_concept_tv_wonder_unique_thang_long_temple_of_literature_desc: "升龙文庙国子监把孔庙祭坛、国学堂、讲席、试场、生员名册与进士碑，连成一座国家学校。"
     TV_ENGINEERING_PROPOSAL_UNIQUE_THANG_LONG_TEMPLE_OF_LITERATURE_TEXT: "工程师提议建设升龙文庙国子监，在固定历史地点[ShowLocationName('thang_long')]使其把儒学教化绑定到晋升与行政。"
     TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_THANG_LONG_TEMPLE_OF_LITERATURE_TEXT: "[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_thang_long_temple_of_literature|E]，并利用当地已经保留下来的工程部分。"
     TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_THANG_LONG_TEMPLE_OF_LITERATURE_TEXT: "[tv_great_engineer|E]建议[tv_wonder_expansion|e][tv_wonder_unique_thang_long_temple_of_literature|E]，继续利用该地点已经保存的最大等级适性。"
@@ -12835,13 +12835,13 @@ wonder_localization:
     tv_wonder_unique_thang_long_temple_of_literature: "升龙文庙国子监"
     tv_wonder_unique_thang_long_temple_of_literature_desc: "尚未落成、但已作为完整工程保留下来的升龙文庙国子监。"
     tv_wonder_unique_thang_long_temple_of_literature_inaugurated: "升龙文庙国子监"
-    tv_wonder_unique_thang_long_temple_of_literature_inaugurated_desc: "祭坛、讲堂、国学庭院、试场与进士碑让升龙文庙国子监成为政府的学术臂膀。"
+    tv_wonder_unique_thang_long_temple_of_literature_inaugurated_desc: "祭坛、讲堂、国学庭院、试场与进士碑，让升龙文庙国子监成了政府的学术臂膀。"
     TV_ENGINEERING_CEREMONY_UNIQUE_THANG_LONG_TEMPLE_OF_LITERATURE_INAUGURATED_BUTTON: "进士碑讲学礼"
     TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_THANG_LONG_TEMPLE_OF_LITERATURE_1: "确认升龙文庙国子监的进士碑讲学礼。此仪式会把儒学教化绑定到晋升与行政。"
-    tv_engineering_department.500.d_unique_thang_long_temple_of_literature: "祭坛、讲堂、国学庭院、试场与进士碑让升龙文庙国子监成为政府的学术臂膀。 工程师提议在固定地点举行典礼，由礼官、国学师长、石刻匠、生员与朝廷儒臣证明此奇观如何把儒学教化绑定到晋升与行政。'进士碑讲学礼'如今使奇观落成。"
-    tv_engineering_department.600.d_unique_thang_long_temple_of_literature: "消息称，[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_unique_thang_long_temple_of_literature|E]。祭坛、讲堂、国学庭院、试场与进士碑让升龙文庙国子监成为政府的学术臂膀。"
+    tv_engineering_department.500.d_unique_thang_long_temple_of_literature: "祭坛、讲堂、国学庭院、试场与进士碑，让升龙文庙国子监成了政府的学术臂膀。工程师提议在此地举行典礼：礼官、国学师长、石刻匠、生员与朝廷儒臣共同出面，把把儒学教化绑定到晋升与行政落到实处。典礼名为'进士碑讲学礼'，完成后奇观即告落成。"
+    tv_engineering_department.600.d_unique_thang_long_temple_of_literature: "消息称，[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]建成[tv_wonder_unique_thang_long_temple_of_literature|E]。祭坛、讲堂、国学庭院、试场与进士碑，让升龙文庙国子监成了政府的学术臂膀。"
     STATIC_MODIFIER_NAME_tv_wonder_unique_thang_long_temple_of_literature_ceremony_modifier: "进士碑讲学礼"
-    game_concept_tv_wonder_unique_maragheh_observatory_desc: "马拉盖天文台把天文学者、黄铜仪器、校准星表、书库与赞助争论聚集在伊儿汗世界的高原之上。"
+    game_concept_tv_wonder_unique_maragheh_observatory_desc: "马拉盖天文台建在伊儿汗国的高原之上，天文学者、黄铜仪器、校准的星表、书库与赞助争论都汇聚于此。"
     TV_ENGINEERING_PROPOSAL_UNIQUE_MARAGHEH_OBSERVATORY_TEXT: "工程师提议建设马拉盖天文台，在固定历史地点[ShowLocationName('maragheh')]使其把观测转化为科研进展与学术声望。"
     TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_MARAGHEH_OBSERVATORY_TEXT: "[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_maragheh_observatory|E]，并利用当地已经保留下来的工程部分。"
     TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_MARAGHEH_OBSERVATORY_TEXT: "[tv_great_engineer|E]建议[tv_wonder_expansion|e][tv_wonder_unique_maragheh_observatory|E]，继续利用该地点已经保存的最大等级适性。"
@@ -12859,13 +12859,13 @@ wonder_localization:
     tv_wonder_unique_maragheh_observatory: "马拉盖天文台"
     tv_wonder_unique_maragheh_observatory_desc: "尚未落成、但已作为完整工程保留下来的马拉盖天文台。"
     tv_wonder_unique_maragheh_observatory_inaugurated: "马拉盖天文台"
-    tv_wonder_unique_maragheh_observatory_inaugurated_desc: "观测台、黄铜仪器、星表、书库与学者让马拉盖天文台成为天文研究中心。"
+    tv_wonder_unique_maragheh_observatory_inaugurated_desc: "观测台、黄铜仪器、星表、书库与学者，让马拉盖天文台成了天文研究的中心。"
     TV_ENGINEERING_CEREMONY_UNIQUE_MARAGHEH_OBSERVATORY_INAUGURATED_BUTTON: "星表校订大会"
     TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_MARAGHEH_OBSERVATORY_1: "确认马拉盖天文台的星表校订大会。此仪式会把观测转化为科研进展与学术声望。"
-    tv_engineering_department.500.d_unique_maragheh_observatory: "观测台、黄铜仪器、星表、书库与学者让马拉盖天文台成为天文研究中心。 工程师提议在固定地点举行典礼，由天文学者、仪器匠、书记、藏书官、赞助人与历法官证明此奇观如何把观测转化为科研进展与学术声望。'星表校订大会'如今使奇观落成。"
-    tv_engineering_department.600.d_unique_maragheh_observatory: "消息称，[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_unique_maragheh_observatory|E]。观测台、黄铜仪器、星表、书库与学者让马拉盖天文台成为天文研究中心。"
+    tv_engineering_department.500.d_unique_maragheh_observatory: "观测台、黄铜仪器、星表、书库与学者，让马拉盖天文台成了天文研究的中心。工程师提议就地举行一场典礼，由天文学者、仪器匠、书记、藏书官、赞助人与历法官出面证明——把观测转化为科研进展与学术声望并非空谈。这场'星表校订大会'礼成之日，便是奇观落成之时。"
+    tv_engineering_department.600.d_unique_maragheh_observatory: "消息称，[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]建成[tv_wonder_unique_maragheh_observatory|E]。观测台、黄铜仪器、星表、书库与学者，让马拉盖天文台成了天文研究的中心。"
     STATIC_MODIFIER_NAME_tv_wonder_unique_maragheh_observatory_ceremony_modifier: "星表校订大会"
-    game_concept_tv_wonder_unique_xian_bell_and_drum_towers_desc: "西安钟鼓楼以钟声、鼓点、夜禁、市时、城门信号与市政仪礼组织旧都中心的城市时间。"
+    game_concept_tv_wonder_unique_xian_bell_and_drum_towers_desc: "西安钟鼓楼靠钟声、鼓点、夜禁、市时、城门信号与市政仪礼，为旧都中心报时、定序。"
     TV_ENGINEERING_PROPOSAL_UNIQUE_XIAN_BELL_AND_DRUM_TOWERS_TEXT: "工程师提议建设西安钟鼓楼，在固定历史地点[ShowLocationName('jingzhao')]使其把城市报时转化为发展、秩序与声望。"
     TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_XIAN_BELL_AND_DRUM_TOWERS_TEXT: "[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_xian_bell_and_drum_towers|E]，并利用当地已经保留下来的工程部分。"
     TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_XIAN_BELL_AND_DRUM_TOWERS_TEXT: "[tv_great_engineer|E]建议[tv_wonder_expansion|e][tv_wonder_unique_xian_bell_and_drum_towers|E]，继续利用该地点已经保存的最大等级适性。"
@@ -12883,13 +12883,13 @@ wonder_localization:
     tv_wonder_unique_xian_bell_and_drum_towers: "西安钟鼓楼"
     tv_wonder_unique_xian_bell_and_drum_towers_desc: "尚未落成、但已作为完整工程保留下来的西安钟鼓楼。"
     tv_wonder_unique_xian_bell_and_drum_towers_inaugurated: "西安钟鼓楼"
-    tv_wonder_unique_xian_bell_and_drum_towers_inaugurated_desc: "双楼、钟鼓、更点、夜禁令与城门信号让西安的城市时间响彻都城。"
+    tv_wonder_unique_xian_bell_and_drum_towers_inaugurated_desc: "双楼、钟鼓、更点、夜禁令与城门信号，让西安的城市时间响彻都城。"
     TV_ENGINEERING_CEREMONY_UNIQUE_XIAN_BELL_AND_DRUM_TOWERS_INAUGURATED_BUTTON: "城市报时令"
     TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_XIAN_BELL_AND_DRUM_TOWERS_1: "确认西安钟鼓楼的城市报时令。此仪式会把城市报时转化为发展、秩序与声望。"
-    tv_engineering_department.500.d_unique_xian_bell_and_drum_towers: "双楼、钟鼓、更点、夜禁令与城门信号让西安的城市时间响彻都城。 工程师提议在固定地点举行典礼，由报时官、铸钟匠、鼓师、门卫、市集长老与城市长官证明此奇观如何把城市报时转化为发展、秩序与声望。'城市报时令'如今使奇观落成。"
-    tv_engineering_department.600.d_unique_xian_bell_and_drum_towers: "消息称，[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_unique_xian_bell_and_drum_towers|E]。双楼、钟鼓、更点、夜禁令与城门信号让西安的城市时间响彻都城。"
+    tv_engineering_department.500.d_unique_xian_bell_and_drum_towers: "双楼、钟鼓、更点、夜禁令与城门信号，让西安的城市时间响彻都城。工程师提议就地举行一场典礼，由报时官、铸钟匠、鼓师、门卫、市集长老与城市长官出面证明——把城市报时转化为发展、秩序与声望并非空谈。这场'城市报时令'礼成之日，便是奇观落成之时。"
+    tv_engineering_department.600.d_unique_xian_bell_and_drum_towers: "消息称，[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]建成[tv_wonder_unique_xian_bell_and_drum_towers|E]。双楼、钟鼓、更点、夜禁令与城门信号，让西安的城市时间响彻都城。"
     STATIC_MODIFIER_NAME_tv_wonder_unique_xian_bell_and_drum_towers_ceremony_modifier: "城市报时令"
-    game_concept_tv_wonder_unique_behistun_inscription_desc: "贝希斯敦铭文以王家浮雕、楔形文字、拓片、卫兵、书记与合法王权宣示支配山路。"
+    game_concept_tv_wonder_unique_behistun_inscription_desc: "贝希斯敦铭文高踞山路之上，王家浮雕、楔形文字、拓片、卫兵、书记与合法王权的宣示，共同镇住这条要道。"
     TV_ENGINEERING_PROPOSAL_UNIQUE_BEHISTUN_INSCRIPTION_TEXT: "工程师提议建设贝希斯敦铭文，在固定历史地点[ShowLocationName('bisotun')]使其把古王铭文转化为权威、文化记忆与秩序。"
     TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_BEHISTUN_INSCRIPTION_TEXT: "[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_behistun_inscription|E]，并利用当地已经保留下来的工程部分。"
     TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_BEHISTUN_INSCRIPTION_TEXT: "[tv_great_engineer|E]建议[tv_wonder_expansion|e][tv_wonder_unique_behistun_inscription|E]，继续利用该地点已经保存的最大等级适性。"
@@ -12907,13 +12907,13 @@ wonder_localization:
     tv_wonder_unique_behistun_inscription: "贝希斯敦铭文"
     tv_wonder_unique_behistun_inscription_desc: "尚未落成、但已作为完整工程保留下来的贝希斯敦铭文。"
     tv_wonder_unique_behistun_inscription_inaugurated: "贝希斯敦铭文"
-    tv_wonder_unique_behistun_inscription_inaugurated_desc: "崖壁刻文、译读诏令、护卫道路、拓片与学者抄本让贝希斯敦铭文成为王法纪念碑。"
+    tv_wonder_unique_behistun_inscription_inaugurated_desc: "崖壁刻文、译读的诏令、护卫道路、拓片与学者抄本，让贝希斯敦铭文成了王法的纪念碑。"
     TV_ENGINEERING_CEREMONY_UNIQUE_BEHISTUN_INSCRIPTION_INAUGURATED_BUTTON: "王权崖文宣示"
     TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_BEHISTUN_INSCRIPTION_1: "确认贝希斯敦铭文的王权崖文宣示。此仪式会把古王铭文转化为权威、文化记忆与秩序。"
-    tv_engineering_department.500.d_unique_behistun_inscription: "崖壁刻文、译读诏令、护卫道路、拓片与学者抄本让贝希斯敦铭文成为王法纪念碑。 工程师提议在固定地点举行典礼，由书记、卫兵、译读者、石匠、法官、王家传令人与游学者证明此奇观如何把古王铭文转化为权威、文化记忆与秩序。'王权崖文宣示'如今使奇观落成。"
-    tv_engineering_department.600.d_unique_behistun_inscription: "消息称，[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_unique_behistun_inscription|E]。崖壁刻文、译读诏令、护卫道路、拓片与学者抄本让贝希斯敦铭文成为王法纪念碑。"
+    tv_engineering_department.500.d_unique_behistun_inscription: "崖壁刻文、译读的诏令、护卫道路、拓片与学者抄本，让贝希斯敦铭文成了王法的纪念碑。工程师提议就地举行一场典礼，由书记、卫兵、译读者、石匠、法官、王家传令人与游学者出面证明——把古王铭文转化为权威、文化记忆与秩序并非空谈。这场'王权崖文宣示'礼成之日，便是奇观落成之时。"
+    tv_engineering_department.600.d_unique_behistun_inscription: "消息称，[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]建成[tv_wonder_unique_behistun_inscription|E]。崖壁刻文、译读的诏令、护卫道路、拓片与学者抄本，让贝希斯敦铭文成了王法的纪念碑。"
     STATIC_MODIFIER_NAME_tv_wonder_unique_behistun_inscription_ceremony_modifier: "王权崖文宣示"
-    game_concept_tv_wonder_unique_beijing_imperial_granaries_desc: "北京皇家粮仓群把漕粮、封仓、收据账册、防火、防鼠与赈济规程绑定到首都生存之上。"
+    game_concept_tv_wonder_unique_beijing_imperial_granaries_desc: "北京皇家粮仓群把漕粮、封仓、收据账册、防火、防鼠与赈济规程，全都绑在首都的生死存亡之上。"
     TV_ENGINEERING_PROPOSAL_UNIQUE_BEIJING_IMPERIAL_GRANARIES_TEXT: "工程师提议建设北京皇家粮仓群，在固定历史地点[ShowLocationName('dadu')]使其把京师储粮转化为粮食容量与赈济正当性。"
     TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_BEIJING_IMPERIAL_GRANARIES_TEXT: "[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_beijing_imperial_granaries|E]，并利用当地已经保留下来的工程部分。"
     TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_BEIJING_IMPERIAL_GRANARIES_TEXT: "[tv_great_engineer|E]建议[tv_wonder_expansion|e][tv_wonder_unique_beijing_imperial_granaries|E]，继续利用该地点已经保存的最大等级适性。"
@@ -12931,13 +12931,13 @@ wonder_localization:
     tv_wonder_unique_beijing_imperial_granaries: "北京皇家粮仓群"
     tv_wonder_unique_beijing_imperial_granaries_desc: "尚未落成、但已作为完整工程保留下来的北京皇家粮仓群。"
     tv_wonder_unique_beijing_imperial_granaries_inaugurated: "北京皇家粮仓群"
-    tv_wonder_unique_beijing_imperial_granaries_inaugurated_desc: "漕粮账册、仓廒成列、粮船、防火制度与赈济规程让北京皇家粮仓群成为首都储备体系。"
+    tv_wonder_unique_beijing_imperial_granaries_inaugurated_desc: "漕粮账册、成排仓廒、粮船、防火制度与赈济规程，让北京皇家粮仓群成了首都的储备体系。"
     TV_ENGINEERING_CEREMONY_UNIQUE_BEIJING_IMPERIAL_GRANARIES_INAUGURATED_BUTTON: "京师储粮审计"
     TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_BEIJING_IMPERIAL_GRANARIES_1: "确认北京皇家粮仓群的京师储粮审计。此仪式会把京师储粮转化为粮食容量与赈济正当性。"
-    tv_engineering_department.500.d_unique_beijing_imperial_granaries: "漕粮账册、仓廒成列、粮船、防火制度与赈济规程让北京皇家粮仓群成为首都储备体系。 工程师提议在固定地点举行典礼，由仓官、漕运官、粮船长、守卫、防火管事与赈济官证明此奇观如何把京师储粮转化为粮食容量与赈济正当性。'京师储粮审计'如今使奇观落成。"
-    tv_engineering_department.600.d_unique_beijing_imperial_granaries: "消息称，[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_unique_beijing_imperial_granaries|E]。漕粮账册、仓廒成列、粮船、防火制度与赈济规程让北京皇家粮仓群成为首都储备体系。"
+    tv_engineering_department.500.d_unique_beijing_imperial_granaries: "漕粮账册、成排仓廒、粮船、防火制度与赈济规程，让北京皇家粮仓群成了首都的储备体系。工程师提议在此固定地点行礼，请仓官、漕运官、粮船长、守卫、防火管事与赈济官到场见证：把京师储粮转化为粮食容量与赈济正当性。仪式称'京师储粮审计'，礼成即奇观落成。"
+    tv_engineering_department.600.d_unique_beijing_imperial_granaries: "消息称，[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]建成[tv_wonder_unique_beijing_imperial_granaries|E]。漕粮账册、成排仓廒、粮船、防火制度与赈济规程，让北京皇家粮仓群成了首都的储备体系。"
     STATIC_MODIFIER_NAME_tv_wonder_unique_beijing_imperial_granaries_ceremony_modifier: "京师储粮审计"
-    game_concept_tv_wonder_unique_bursa_imperial_mint_desc: "布尔萨皇家铸币所把金银供给、模具雕刻、验色房、税务审计、商人兑换与封存钱样连成严整国库机器。"
+    game_concept_tv_wonder_unique_bursa_imperial_mint_desc: "布尔萨皇家铸币所把金银供给、模具雕刻、验色房、税务审计、商人兑换与封存钱样，串成一整套严整的国库机器。"
     TV_ENGINEERING_PROPOSAL_UNIQUE_BURSA_IMPERIAL_MINT_TEXT: "工程师提议建设布尔萨皇家铸币所，在固定历史地点[ShowLocationName('bursa')]使其把受控铸币转化为铸币收入与商人信任。"
     TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_BURSA_IMPERIAL_MINT_TEXT: "[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_bursa_imperial_mint|E]，并利用当地已经保留下来的工程部分。"
     TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_BURSA_IMPERIAL_MINT_TEXT: "[tv_great_engineer|E]建议[tv_wonder_expansion|e][tv_wonder_unique_bursa_imperial_mint|E]，继续利用该地点已经保存的最大等级适性。"
@@ -12955,13 +12955,13 @@ wonder_localization:
     tv_wonder_unique_bursa_imperial_mint: "布尔萨皇家铸币所"
     tv_wonder_unique_bursa_imperial_mint_desc: "尚未落成、但已作为完整工程保留下来的布尔萨皇家铸币所。"
     tv_wonder_unique_bursa_imperial_mint_inaugurated: "布尔萨皇家铸币所"
-    tv_wonder_unique_bursa_imperial_mint_inaugurated_desc: "验色房、铸币模具、金银守卫、税册与商人兑换柜台让布尔萨铸币所成为可信的皇家国库。"
+    tv_wonder_unique_bursa_imperial_mint_inaugurated_desc: "验色房、铸币模具、金银守卫、税册与商人兑换柜台，让布尔萨铸币所成了可信的皇家国库。"
     TV_ENGINEERING_CEREMONY_UNIQUE_BURSA_IMPERIAL_MINT_INAUGURATED_BUTTON: "封样铸币验收"
     TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_BURSA_IMPERIAL_MINT_1: "确认布尔萨皇家铸币所的封样铸币验收。此仪式会把受控铸币转化为铸币收入与商人信任。"
-    tv_engineering_department.500.d_unique_bursa_imperial_mint: "验色房、铸币模具、金银守卫、税册与商人兑换柜台让布尔萨铸币所成为可信的皇家国库。 工程师提议在固定地点举行典礼，由验色师、模具匠、税吏、守卫、金银商人与国库书记证明此奇观如何把受控铸币转化为铸币收入与商人信任。'封样铸币验收'如今使奇观落成。"
-    tv_engineering_department.600.d_unique_bursa_imperial_mint: "消息称，[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_unique_bursa_imperial_mint|E]。验色房、铸币模具、金银守卫、税册与商人兑换柜台让布尔萨铸币所成为可信的皇家国库。"
+    tv_engineering_department.500.d_unique_bursa_imperial_mint: "验色房、铸币模具、金银守卫、税册与商人兑换柜台，让布尔萨铸币所成了可信的皇家国库。工程师提议在此地举行典礼：验色师、模具匠、税吏、守卫、金银商人与国库书记共同出面，把把受控铸币转化为铸币收入与商人信任落到实处。典礼名为'封样铸币验收'，完成后奇观即告落成。"
+    tv_engineering_department.600.d_unique_bursa_imperial_mint: "消息称，[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]建成[tv_wonder_unique_bursa_imperial_mint|E]。验色房、铸币模具、金银守卫、税册与商人兑换柜台，让布尔萨铸币所成了可信的皇家国库。"
     STATIC_MODIFIER_NAME_tv_wonder_unique_bursa_imperial_mint_ceremony_modifier: "封样铸币验收"
-    game_concept_tv_wonder_unique_enderun_palace_school_desc: "恩德伦宫廷学校通过礼仪、文书、军政演练、考试与派任，把宫廷侍从训练成帝国统治家政。"
+    game_concept_tv_wonder_unique_enderun_palace_school_desc: "恩德伦宫廷学校靠礼仪、文书、军政演练、考试与派任，把宫廷侍从训练成帝国的统治家臣。"
     TV_ENGINEERING_PROPOSAL_UNIQUE_ENDERUN_PALACE_SCHOOL_TEXT: "工程师提议建设恩德伦宫廷学校，在固定历史地点[ShowLocationName('constantinople')]使其把宫廷教育转化为行政与军事人才。"
     TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_ENDERUN_PALACE_SCHOOL_TEXT: "[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_enderun_palace_school|E]，并利用当地已经保留下来的工程部分。"
     TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_ENDERUN_PALACE_SCHOOL_TEXT: "[tv_great_engineer|E]建议[tv_wonder_expansion|e][tv_wonder_unique_enderun_palace_school|E]，继续利用该地点已经保存的最大等级适性。"
@@ -12979,13 +12979,13 @@ wonder_localization:
     tv_wonder_unique_enderun_palace_school: "恩德伦宫廷学校"
     tv_wonder_unique_enderun_palace_school_desc: "尚未落成、但已作为完整工程保留下来的恩德伦宫廷学校。"
     tv_wonder_unique_enderun_palace_school_inaugurated: "恩德伦宫廷学校"
-    tv_wonder_unique_enderun_palace_school_inaugurated_desc: "宫廷课堂、演武庭、师傅、考试与任命名册让恩德伦成为帝国服务学校。"
+    tv_wonder_unique_enderun_palace_school_inaugurated_desc: "宫廷课堂、演武庭、师傅、考试与任命名册，让恩德伦成了帝国的服务学校。"
     TV_ENGINEERING_CEREMONY_UNIQUE_ENDERUN_PALACE_SCHOOL_INAUGURATED_BUTTON: "宫廷侍从考选"
     TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_ENDERUN_PALACE_SCHOOL_1: "确认恩德伦宫廷学校的宫廷侍从考选。此仪式会把宫廷教育转化为行政与军事人才。"
-    tv_engineering_department.500.d_unique_enderun_palace_school: "宫廷课堂、演武庭、师傅、考试与任命名册让恩德伦成为帝国服务学校。 工程师提议在固定地点举行典礼，由宫廷侍从、师傅、教练官、书记、侍卫与高级官员证明此奇观如何把宫廷教育转化为行政与军事人才。'宫廷侍从考选'如今使奇观落成。"
-    tv_engineering_department.600.d_unique_enderun_palace_school: "消息称，[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_unique_enderun_palace_school|E]。宫廷课堂、演武庭、师傅、考试与任命名册让恩德伦成为帝国服务学校。"
+    tv_engineering_department.500.d_unique_enderun_palace_school: "宫廷课堂、演武庭、师傅、考试与任命名册，让恩德伦成了帝国的服务学校。工程师提议就地举行一场典礼，由宫廷侍从、师傅、教练官、书记、侍卫与高级官员出面证明——把宫廷教育转化为行政与军事人才并非空谈。这场'宫廷侍从考选'礼成之日，便是奇观落成之时。"
+    tv_engineering_department.600.d_unique_enderun_palace_school: "消息称，[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]建成[tv_wonder_unique_enderun_palace_school|E]。宫廷课堂、演武庭、师傅、考试与任命名册，让恩德伦成了帝国的服务学校。"
     STATIC_MODIFIER_NAME_tv_wonder_unique_enderun_palace_school_ceremony_modifier: "宫廷侍从考选"
-    game_concept_tv_wonder_unique_ayutthaya_foreign_quarters_desc: "阿瑜陀耶外国使馆区把河港仓栈、译员、使馆、商馆、宗教争议、巡逻与宫廷宴会聚成国际港都。"
+    game_concept_tv_wonder_unique_ayutthaya_foreign_quarters_desc: "阿瑜陀耶的外国使馆区，河港仓栈、译员、使馆、商馆、宗教纠纷、巡逻队与宫廷宴会样样都有，合在一起就是一座国际港都。"
     TV_ENGINEERING_PROPOSAL_UNIQUE_AYUTTHAYA_FOREIGN_QUARTERS_TEXT: "工程师提议建设阿瑜陀耶外国使馆区，在固定历史地点[ShowLocationName('ayodhya')]使其把外国坊区转化为外交与商人力量。"
     TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_AYUTTHAYA_FOREIGN_QUARTERS_TEXT: "[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_ayutthaya_foreign_quarters|E]，并利用当地已经保留下来的工程部分。"
     TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_AYUTTHAYA_FOREIGN_QUARTERS_TEXT: "[tv_great_engineer|E]建议[tv_wonder_expansion|e][tv_wonder_unique_ayutthaya_foreign_quarters|E]，继续利用该地点已经保存的最大等级适性。"
@@ -13003,13 +13003,13 @@ wonder_localization:
     tv_wonder_unique_ayutthaya_foreign_quarters: "阿瑜陀耶外国使馆区"
     tv_wonder_unique_ayutthaya_foreign_quarters_desc: "尚未落成、但已作为完整工程保留下来的阿瑜陀耶外国使馆区。"
     tv_wonder_unique_ayutthaya_foreign_quarters_inaugurated: "阿瑜陀耶外国使馆区"
-    tv_wonder_unique_ayutthaya_foreign_quarters_inaugurated_desc: "外国坊区、仓栈、译员、巡逻、使馆与河港宴会让阿瑜陀耶成为外交商市。"
+    tv_wonder_unique_ayutthaya_foreign_quarters_inaugurated_desc: "外国坊区、仓栈、译员、巡逻队、使馆与河港宴会，让阿瑜陀耶变成了一座外交商市。"
     TV_ENGINEERING_CEREMONY_UNIQUE_AYUTTHAYA_FOREIGN_QUARTERS_INAUGURATED_BUTTON: "河港使馆坊区协定"
     TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_AYUTTHAYA_FOREIGN_QUARTERS_1: "确认阿瑜陀耶外国使馆区的河港使馆坊区协定。此仪式会把外国坊区转化为外交与商人力量。"
-    tv_engineering_department.500.d_unique_ayutthaya_foreign_quarters: "外国坊区、仓栈、译员、巡逻、使馆与河港宴会让阿瑜陀耶成为外交商市。 工程师提议在固定地点举行典礼，由译员、使节、港务书记、卫兵、商人、僧侣与朝臣证明此奇观如何把外国坊区转化为外交与商人力量。'河港使馆坊区协定'如今使奇观落成。"
-    tv_engineering_department.600.d_unique_ayutthaya_foreign_quarters: "消息称，[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_unique_ayutthaya_foreign_quarters|E]。外国坊区、仓栈、译员、巡逻、使馆与河港宴会让阿瑜陀耶成为外交商市。"
+    tv_engineering_department.500.d_unique_ayutthaya_foreign_quarters: "外国坊区、仓栈、译员、巡逻队、使馆与河港宴会，让阿瑜陀耶变成了一座外交商市。工程师提议在此地举行典礼：译员、使节、港务书记、卫兵、商人、僧侣与朝臣共同出面，把把外国坊区转化为外交与商人力量落到实处。典礼名为'河港使馆坊区协定'，完成后奇观即告落成。"
+    tv_engineering_department.600.d_unique_ayutthaya_foreign_quarters: "消息称，[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]建成[tv_wonder_unique_ayutthaya_foreign_quarters|E]。外国坊区、仓栈、译员、巡逻队、使馆与河港宴会，让阿瑜陀耶变成了一座外交商市。"
     STATIC_MODIFIER_NAME_tv_wonder_unique_ayutthaya_foreign_quarters_ceremony_modifier: "河港使馆坊区协定"
-    game_concept_tv_wonder_unique_yunnan_weisuo_colonies_desc: "云南卫所屯田带把军户、边界勘测、田册、驿路、粮册、土司协商与边防组织连成殖屯带。"
+    game_concept_tv_wonder_unique_yunnan_weisuo_colonies_desc: "云南卫所屯田带把军户、边界勘测、田册、驿路、粮册、土司协商与边防，连成一整条殖屯带。"
     TV_ENGINEERING_PROPOSAL_UNIQUE_YUNNAN_WEISUO_COLONIES_TEXT: "工程师提议建设云南卫所屯田带，在固定历史地点[ShowLocationName('songming')]使其把边地屯田转化为人力、迁徙与边防能力。"
     TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_YUNNAN_WEISUO_COLONIES_TEXT: "[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_yunnan_weisuo_colonies|E]，并利用当地已经保留下来的工程部分。"
     TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_YUNNAN_WEISUO_COLONIES_TEXT: "[tv_great_engineer|E]建议[tv_wonder_expansion|e][tv_wonder_unique_yunnan_weisuo_colonies|E]，继续利用该地点已经保存的最大等级适性。"
@@ -13027,13 +13027,13 @@ wonder_localization:
     tv_wonder_unique_yunnan_weisuo_colonies: "云南卫所屯田带"
     tv_wonder_unique_yunnan_weisuo_colonies_desc: "尚未落成、但已作为完整工程保留下来的云南卫所屯田带。"
     tv_wonder_unique_yunnan_weisuo_colonies_inaugurated: "云南卫所屯田带"
-    tv_wonder_unique_yunnan_weisuo_colonies_inaugurated_desc: "屯军家户、军田、驿路、粮册与土司协定让云南卫所屯田带成为可运转的边疆。"
+    tv_wonder_unique_yunnan_weisuo_colonies_inaugurated_desc: "屯军家户、军田、驿路、粮册与土司协定，让云南卫所屯田带成了可运转的边疆。"
     TV_ENGINEERING_CEREMONY_UNIQUE_YUNNAN_WEISUO_COLONIES_INAUGURATED_BUTTON: "边地卫所田册"
     TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_YUNNAN_WEISUO_COLONIES_1: "确认云南卫所屯田带的边地卫所田册。此仪式会把边地屯田转化为人力、迁徙与边防能力。"
-    tv_engineering_department.500.d_unique_yunnan_weisuo_colonies: "屯军家户、军田、驿路、粮册与土司协定让云南卫所屯田带成为可运转的边疆。 工程师提议在固定地点举行典礼，由屯军家户、测量员、驿路官、粮册吏、土司使者与边将证明此奇观如何把边地屯田转化为人力、迁徙与边防能力。'边地卫所田册'如今使奇观落成。"
-    tv_engineering_department.600.d_unique_yunnan_weisuo_colonies: "消息称，[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_unique_yunnan_weisuo_colonies|E]。屯军家户、军田、驿路、粮册与土司协定让云南卫所屯田带成为可运转的边疆。"
+    tv_engineering_department.500.d_unique_yunnan_weisuo_colonies: "屯军家户、军田、驿路、粮册与土司协定，让云南卫所屯田带成了可运转的边疆。工程师提议在此固定地点行礼，请屯军家户、测量员、驿路官、粮册吏、土司使者与边将到场见证：把边地屯田转化为人力、迁徙与边防能力。仪式称'边地卫所田册'，礼成即奇观落成。"
+    tv_engineering_department.600.d_unique_yunnan_weisuo_colonies: "消息称，[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]建成[tv_wonder_unique_yunnan_weisuo_colonies|E]。屯军家户、军田、驿路、粮册与土司协定，让云南卫所屯田带成了可运转的边疆。"
     STATIC_MODIFIER_NAME_tv_wonder_unique_yunnan_weisuo_colonies_ceremony_modifier: "边地卫所田册"
-    game_concept_tv_wonder_unique_zhoushan_beacon_network_desc: "舟山烽火台网把海岛烽台、烽火、柴薪、轮值、海盗警报、港口传讯与舰队联动连成群岛防线。"
+    game_concept_tv_wonder_unique_zhoushan_beacon_network_desc: "舟山烽火台网把海岛烽台、烽火、柴薪、轮值、海盗警报、港口传讯与舰队联动，连成一道群岛防线。"
     TV_ENGINEERING_PROPOSAL_UNIQUE_ZHOUSHAN_BEACON_NETWORK_TEXT: "工程师提议建设舟山烽火台网，在固定历史地点[ShowLocationName('dinghai')]使其把海岛烽火转化为海上存在与海军传统。"
     TV_ENGINEERING_PROPOSAL_RESUME_UNIQUE_ZHOUSHAN_BEACON_NETWORK_TEXT: "[tv_great_engineer|E]建议完成造了一半的[tv_wonder_unique_zhoushan_beacon_network|E]，并利用当地已经保留下来的工程部分。"
     TV_ENGINEERING_PROPOSAL_EXPAND_UNIQUE_ZHOUSHAN_BEACON_NETWORK_TEXT: "[tv_great_engineer|E]建议[tv_wonder_expansion|e][tv_wonder_unique_zhoushan_beacon_network|E]，继续利用该地点已经保存的最大等级适性。"
@@ -13051,9 +13051,9 @@ wonder_localization:
     tv_wonder_unique_zhoushan_beacon_network: "舟山烽火台网"
     tv_wonder_unique_zhoushan_beacon_network_desc: "尚未落成、但已作为完整工程保留下来的舟山烽火台网。"
     tv_wonder_unique_zhoushan_beacon_network_inaugurated: "舟山烽火台网"
-    tv_wonder_unique_zhoushan_beacon_network_inaugurated_desc: "海岛烽台、柴薪储备、轮值名册、港口传讯、海盗警报与舰队信号让舟山烽火台网成为海上预警体系。"
+    tv_wonder_unique_zhoushan_beacon_network_inaugurated_desc: "海岛烽台、柴薪储备、轮值名册、港口传讯、海盗警报与舰队信号，让舟山烽火台网成了海上预警体系。"
     TV_ENGINEERING_CEREMONY_UNIQUE_ZHOUSHAN_BEACON_NETWORK_INAUGURATED_BUTTON: "海岛烽火巡守"
     TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_ZHOUSHAN_BEACON_NETWORK_1: "确认舟山烽火台网的海岛烽火巡守。此仪式会把海岛烽火转化为海上存在与海军传统。"
-    tv_engineering_department.500.d_unique_zhoushan_beacon_network: "海岛烽台、柴薪储备、轮值名册、港口传讯、海盗警报与舰队信号让舟山烽火台网成为海上预警体系。 工程师提议在固定地点举行典礼，由海岛哨兵、筑塔匠、柴薪管事、港口信使、巡哨船长与舰队军官证明此奇观如何把海岛烽火转化为海上存在与海军传统。'海岛烽火巡守'如今使奇观落成。"
-    tv_engineering_department.600.d_unique_zhoushan_beacon_network: "消息称，[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]完成[tv_wonder_unique_zhoushan_beacon_network|E]。海岛烽台、柴薪储备、轮值名册、港口传讯、海盗警报与舰队信号让舟山烽火台网成为海上预警体系。"
+    tv_engineering_department.500.d_unique_zhoushan_beacon_network: "海岛烽台、柴薪储备、轮值名册、港口传讯、海盗警报与舰队信号，让舟山烽火台网成了海上预警体系。工程师提议在此地举行典礼：海岛哨兵、筑塔匠、柴薪管事、港口信使、巡哨船长与舰队军官共同出面，把把海岛烽火转化为海上存在与海军传统落到实处。典礼名为'海岛烽火巡守'，完成后奇观即告落成。"
+    tv_engineering_department.600.d_unique_zhoushan_beacon_network: "消息称，[SCOPE.sCountry('tv_wonder_builder_country').GetName]已在[SCOPE.sLocation('tv_wonder_completed_site').GetName]建成[tv_wonder_unique_zhoushan_beacon_network|E]。海岛烽台、柴薪储备、轮值名册、港口传讯、海盗警报与舰队信号，让舟山烽火台网成了海上预警体系。"
     STATIC_MODIFIER_NAME_tv_wonder_unique_zhoushan_beacon_network_ceremony_modifier: "海岛烽火巡守"
