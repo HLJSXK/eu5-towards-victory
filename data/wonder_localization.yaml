@@ -372,10 +372,10 @@ wonder_localization:
     tv_wonder_ownership.900.d: With [SCOPE.sLocation('tv_wonder_ownership_site').GetName] lost, the completed [tv_wonder_construction|E] there no longer supports our realm. Any permanent national ceremony benefit tied only to that wonder has been withdrawn from our ledgers.
     tv_wonder_ownership.900.a: Record the loss.
     TV_ENGINEERING_WONDER_PREVIEW_EFFECT_TITLE: Base effects per level of this [tv_wonder_construction|E]
-    TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE: '@location! Suitability Knowledge'
-    TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE: '@location! Location Conditions'
-    TV_ENGINEERING_SUITABILITY_CONDITIONS_TITLE: '@trigger_yes! Suitability Conditions'
-    TV_ENGINEERING_SUITABILITY_ROW_HIDDEN: Complete a survey to reveal a suitability condition.
+    TV_ENGINEERING_SUITABILITY_KNOWLEDGE_TITLE: '@location! Site Intel'
+    TV_ENGINEERING_SUITABILITY_LOCATION_CONDITIONS_TITLE: '@location! Site Rules'
+    TV_ENGINEERING_SUITABILITY_CONDITIONS_TITLE: '@trigger_yes! Fit Rules'
+    TV_ENGINEERING_SUITABILITY_ROW_HIDDEN: Survey required
     TV_ENGINEERING_SUITABILITY_CONDITION_ID_1: Mountain topography
     TV_ENGINEERING_SUITABILITY_CONDITION_ID_2: Plateau topography
     TV_ENGINEERING_SUITABILITY_CONDITION_ID_3: Hill topography
@@ -570,7 +570,7 @@ wonder_localization:
     tv_wonder_giant_necropolis_function_desc: A preserved functional works module for the Giant Necropolis Complex.
     tv_wonder_giant_necropolis_decoration: Giant Necropolis Complex Crowning Works
     tv_wonder_giant_necropolis_decoration_desc: A preserved crowning works module for the Giant Necropolis Complex.
-    tv_wonder_giant_necropolis: Giant Necropolis Complex
+    tv_wonder_giant_necropolis: 'Giant Necropolis'
     tv_wonder_giant_necropolis_ritual_annex: Mausoleum Wing
     tv_wonder_giant_necropolis_ritual_annex_desc: An auxiliary ritual annex used to complete the second ceremony branch of the Giant Necropolis Complex.
     tv_wonder_giant_necropolis_desc: An unconsecrated Giant Necropolis Complex preserved as completed construction.
@@ -632,7 +632,7 @@ wonder_localization:
     tv_wonder_hydraulic_workshop_function_desc: A preserved functional works module for the Hydraulic Workshop Complex.
     tv_wonder_hydraulic_workshop_decoration: Hydraulic Workshop Complex Crowning Works
     tv_wonder_hydraulic_workshop_decoration_desc: A preserved crowning works module for the Hydraulic Workshop Complex.
-    tv_wonder_hydraulic_workshop: Hydraulic Workshop Complex
+    tv_wonder_hydraulic_workshop: 'Hydraulic Workshop'
     tv_wonder_hydraulic_workshop_ritual_annex: Waterworks Shrine
     tv_wonder_hydraulic_workshop_ritual_annex_desc: An auxiliary ritual annex used to complete the second ceremony branch of the Hydraulic Workshop Complex.
     tv_wonder_hydraulic_workshop_desc: An unconsecrated Hydraulic Workshop Complex preserved as completed construction.
@@ -1068,7 +1068,7 @@ wonder_localization:
     tv_wonder_mountain_terrace_network_function_desc: A preserved functional works module for the Mountain Terrace Network.
     tv_wonder_mountain_terrace_network_decoration: Mountain Terrace Network Crowning Works
     tv_wonder_mountain_terrace_network_decoration_desc: A preserved crowning works module for the Mountain Terrace Network.
-    tv_wonder_mountain_terrace_network: Mountain Terrace Network
+    tv_wonder_mountain_terrace_network: 'Mountain Terrace Net'
     tv_wonder_mountain_terrace_network_ritual_annex: Terrace Overseer's Hut
     tv_wonder_mountain_terrace_network_ritual_annex_desc: An auxiliary ritual annex used to complete the second ceremony branch of the Mountain Terrace Network.
     tv_wonder_mountain_terrace_network_desc: An unconsecrated Mountain Terrace Network preserved as completed construction.
@@ -1164,7 +1164,7 @@ wonder_localization:
     tv_wonder_imperial_post_road_network_function_desc: A preserved functional works module for the Imperial Post Road Network.
     tv_wonder_imperial_post_road_network_decoration: Imperial Post Road Network Crowning Works
     tv_wonder_imperial_post_road_network_decoration_desc: A preserved crowning works module for the Imperial Post Road Network.
-    tv_wonder_imperial_post_road_network: Imperial Post Road Network
+    tv_wonder_imperial_post_road_network: 'Imp. Post Road Net'
     tv_wonder_imperial_post_road_network_ritual_annex: Post Station
     tv_wonder_imperial_post_road_network_ritual_annex_desc: An auxiliary ritual annex used to complete the second ceremony branch of the Imperial Post Road Network.
     tv_wonder_imperial_post_road_network_desc: An unconsecrated Imperial Post Road Network preserved as completed construction.
@@ -1228,7 +1228,7 @@ wonder_localization:
     tv_wonder_frontier_colonization_belt_function_desc: A preserved functional works module for the Frontier Colonization Belt.
     tv_wonder_frontier_colonization_belt_decoration: Frontier Colonization Belt Crowning Works
     tv_wonder_frontier_colonization_belt_decoration_desc: A preserved crowning works module for the Frontier Colonization Belt.
-    tv_wonder_frontier_colonization_belt: Frontier Colonization Belt
+    tv_wonder_frontier_colonization_belt: 'Frontier Coloniz. Belt'
     tv_wonder_frontier_colonization_belt_ritual_annex: Colony Overseer's Post
     tv_wonder_frontier_colonization_belt_ritual_annex_desc: An auxiliary ritual annex used to complete the second ceremony branch of the Frontier Colonization Belt.
     tv_wonder_frontier_colonization_belt_desc: An unconsecrated Frontier Colonization Belt preserved as completed construction.
@@ -1356,7 +1356,7 @@ wonder_localization:
     tv_wonder_great_clock_bell_system_function_desc: A preserved functional works module for the Great Clock and Bell Tower.
     tv_wonder_great_clock_bell_system_decoration: Great Clock and Bell Tower Crowning Works
     tv_wonder_great_clock_bell_system_decoration_desc: A preserved crowning works module for the Great Clock and Bell Tower.
-    tv_wonder_great_clock_bell_system: Great Clock and Bell Tower
+    tv_wonder_great_clock_bell_system: 'Gr. Clock and Bell Tower'
     tv_wonder_great_clock_bell_system_ritual_annex: Bell Ringer's Chamber
     tv_wonder_great_clock_bell_system_ritual_annex_desc: An auxiliary ritual annex used to complete the second ceremony branch of the Great Clock and Bell Tower.
     tv_wonder_great_clock_bell_system_desc: An unconsecrated Great Clock and Bell Tower preserved as completed construction.
@@ -1420,7 +1420,7 @@ wonder_localization:
     tv_wonder_grand_theater_festival_district_function_desc: A preserved functional works module for the Grand Theater and Festival District.
     tv_wonder_grand_theater_festival_district_decoration: Grand Theater and Festival District Crowning Works
     tv_wonder_grand_theater_festival_district_decoration_desc: A preserved crowning works module for the Grand Theater and Festival District.
-    tv_wonder_grand_theater_festival_district: Grand Theater and Festival District
+    tv_wonder_grand_theater_festival_district: 'Gr. Theater Fest. Qtr.'
     tv_wonder_grand_theater_festival_district_ritual_annex: Playhouse Wing
     tv_wonder_grand_theater_festival_district_ritual_annex_desc: An auxiliary ritual annex used to complete the second ceremony branch of the Grand Theater and Festival District.
     tv_wonder_grand_theater_festival_district_desc: An unconsecrated Grand Theater and Festival District preserved as completed construction.
@@ -1644,7 +1644,7 @@ wonder_localization:
     tv_wonder_maritime_trade_station_network_function_desc: A preserved functional works module for the Maritime Trade Station Network.
     tv_wonder_maritime_trade_station_network_decoration: Maritime Trade Station Network Crowning Works
     tv_wonder_maritime_trade_station_network_decoration_desc: A preserved crowning works module for the Maritime Trade Station Network.
-    tv_wonder_maritime_trade_station_network: Maritime Trade Station Network
+    tv_wonder_maritime_trade_station_network: 'Marit. Trade Station Net'
     tv_wonder_maritime_trade_station_network_ritual_annex: Spice Factors' Warehouse
     tv_wonder_maritime_trade_station_network_ritual_annex_desc: An auxiliary ritual annex used to complete the second ceremony branch of the Maritime Trade Station Network.
     tv_wonder_maritime_trade_station_network_desc: An unconsecrated Maritime Trade Station Network preserved as completed construction.
@@ -1676,7 +1676,7 @@ wonder_localization:
     tv_wonder_giant_workshop_complex_function_desc: A preserved functional works module for the Giant Workshop Complex.
     tv_wonder_giant_workshop_complex_decoration: Giant Workshop Complex Crowning Works
     tv_wonder_giant_workshop_complex_decoration_desc: A preserved crowning works module for the Giant Workshop Complex.
-    tv_wonder_giant_workshop_complex: Giant Workshop Complex
+    tv_wonder_giant_workshop_complex: 'Giant Workshop'
     tv_wonder_giant_workshop_complex_ritual_annex: Weavers' Workshop Wing
     tv_wonder_giant_workshop_complex_ritual_annex_desc: An auxiliary ritual annex used to complete the second ceremony branch of the Giant Workshop Complex.
     tv_wonder_giant_workshop_complex_desc: An unconsecrated Giant Workshop Complex preserved as completed construction.
@@ -1781,13 +1781,13 @@ wonder_localization:
     TV_ENGINEERING_CEREMONY_UNIQUE_PHAROS_LIGHTHOUSE_INAUGURATED_BUTTON: Harbor Lighting Rite
     TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_PHAROS_LIGHTHOUSE_1: Confirm the Harbor Lighting Rite ceremony for the Pharos Lighthouse. The beacon extends naval range and trade range..
     tv_engineering_department.500.d_unique_pharos_lighthouse: A tower of white stone rises from the Alexandrian harbor, turning royal ambition into a light that sailors can trust. The engineer recalls the lighthouse raised on Pharos, where Alexandria made safe navigation a public act of power. The Harbor Lighting Rite now completes the wonder at its fixed historical site. The beacon extends naval range and trade range.
-    TV_ENGINEERING_PHAROS_BUILD_BUTTON: '@port! Raise the Pilot Lamp'
+    TV_ENGINEERING_PHAROS_BUILD_BUTTON: '@port! Pilot Light'
     TV_ENGINEERING_PHAROS_BUILD_BUTTON_DESC: Fit the harbor annex with oil, mirror, rope, and pilot ledger so Alexandria can begin teaching the sea its light.
     TV_ENGINEERING_PHAROS_STAGE_1_TEXT: The tower cannot swear its light while dark sails haunt the approaches to Alexandria.
     TV_ENGINEERING_PHAROS_STAGE_2_TEXT: The lamp's oath must travel from quay to quay until every road across the middle sea knows Alexandria's fire.
-    TV_ENGINEERING_PHAROS_STATUS_CONTROLLED: Control
-    TV_ENGINEERING_PHAROS_STATUS_BASING: Basing
-    TV_ENGINEERING_PHAROS_STATUS_UNCONTROLLED: Unheld
+    TV_ENGINEERING_PHAROS_STATUS_CONTROLLED: 'Held'
+    TV_ENGINEERING_PHAROS_STATUS_BASING: 'Base'
+    TV_ENGINEERING_PHAROS_STATUS_UNCONTROLLED: 'Open'
     TV_ENGINEERING_PHAROS_NO_OWNER: No harbor flag
     tv_engineering_department.7300.t: '[tv_wonder_ceremony|E]：The Lamp-Keepers Take the Stair'
     tv_engineering_department.7300.d: The annex at Alexandria is finished. Oil jars, signal screens, bronze mirrors, and pilot ledgers have climbed into the tower's shadow; the last workmen leave with mortar on their sleeves while harbor men wait for the first order.
@@ -1841,7 +1841,7 @@ wonder_localization:
     TV_ENGINEERING_CEREMONY_UNIQUE_HAGIA_SOPHIA_INAUGURATED_BUTTON: Justinianic Synaxis
     TV_ENGINEERING_ACTIVE_RITUAL_UNIQUE_HAGIA_SOPHIA_1: Let the Great Church open its registers, polish its lamps, and gather the voices that must answer beneath the dome.
     tv_engineering_department.500.d_unique_hagia_sophia: The rebuilt dome gathers gold, marble, incense, and imperial memory beneath a vault that seems to float. The engineer invokes Justinian's church in Constantinople, where silver, marble, lamps, relics, officials, clergy, and common streets must be brought into one ordered synaxis before the doors may truly open.
-    TV_ENGINEERING_HAGIA_START_BUTTON: Convene the Great Church
+    TV_ENGINEERING_HAGIA_START_BUTTON: 'Begin Hagia'
     TV_ENGINEERING_HAGIA_START_BUTTON_DESC: The bronze doors wait for names, seals, oil, and whispered vows.
     tv_wonder_hagia_select_character: Choose a Keeper of the Synaxis
     tv_wonder_hagia_no_character_available: '@trigger_no! No suitable keeper stands ready in the narthex.'
@@ -2159,7 +2159,7 @@ wonder_localization:
     tv_wonder_unique_lalibela_churches_function_desc: A preserved functional works module for the Rock-Hewn Churches of Lalibela.
     tv_wonder_unique_lalibela_churches_decoration: Rock-Hewn Churches of Lalibela Crowning Works
     tv_wonder_unique_lalibela_churches_decoration_desc: A preserved crowning works module for the Rock-Hewn Churches of Lalibela.
-    tv_wonder_unique_lalibela_churches: Rock-Hewn Churches of Lalibela
+    tv_wonder_unique_lalibela_churches: 'Rock-H. Churc. Lalib.'
     tv_wonder_unique_lalibela_churches_desc: An unconsecrated Rock-Hewn Churches of Lalibela preserved as completed construction.
     tv_wonder_unique_lalibela_churches_inaugurated: Rock-Hewn Churches of Lalibela
     tv_wonder_unique_lalibela_churches_inaugurated_desc: Churches cut downward from living rock make a new Jerusalem in the Ethiopian highlands.
@@ -2305,7 +2305,7 @@ wonder_localization:
     tv_wonder_unique_tenochtitlan_causeways_function_desc: A preserved functional works module for the Tenochtitlan Causeways.
     tv_wonder_unique_tenochtitlan_causeways_decoration: Tenochtitlan Causeways Crowning Works
     tv_wonder_unique_tenochtitlan_causeways_decoration_desc: A preserved crowning works module for the Tenochtitlan Causeways.
-    tv_wonder_unique_tenochtitlan_causeways: Tenochtitlan Causeways
+    tv_wonder_unique_tenochtitlan_causeways: 'Tenocht. Causeways'
     tv_wonder_unique_tenochtitlan_causeways_desc: An unconsecrated Tenochtitlan Causeways preserved as completed construction.
     tv_wonder_unique_tenochtitlan_causeways_inaugurated: Tenochtitlan Causeways
     tv_wonder_unique_tenochtitlan_causeways_inaugurated_desc: Causeways, canals, aqueducts, and island districts bind the lake city to markets, temples, and war.
@@ -2349,7 +2349,7 @@ wonder_localization:
     tv_wonder_unique_mecca_haram_expansion_function_desc: A preserved functional works module for the Great Mosque of Mecca Expansion.
     tv_wonder_unique_mecca_haram_expansion_decoration: Great Mosque of Mecca Expansion Crowning Works
     tv_wonder_unique_mecca_haram_expansion_decoration_desc: A preserved crowning works module for the Great Mosque of Mecca Expansion.
-    tv_wonder_unique_mecca_haram_expansion: Great Mosque of Mecca Expansion
+    tv_wonder_unique_mecca_haram_expansion: 'Gr. Mosque Mecca Exp.'
     tv_wonder_unique_mecca_haram_expansion_desc: An unconsecrated Great Mosque of Mecca Expansion preserved as completed construction.
     tv_wonder_unique_mecca_haram_expansion_inaugurated: Great Mosque of Mecca Expansion
     tv_wonder_unique_mecca_haram_expansion_inaugurated_desc: Arcades, courtyards, and pilgrim routes expand around the Kaaba, making sacred space hold a world of believers.
@@ -2437,7 +2437,7 @@ wonder_localization:
     tv_wonder_unique_great_zimbabwe_function_desc: A preserved functional works module for the Great Zimbabwe Stone City.
     tv_wonder_unique_great_zimbabwe_decoration: Great Zimbabwe Stone City Crowning Works
     tv_wonder_unique_great_zimbabwe_decoration_desc: A preserved crowning works module for the Great Zimbabwe Stone City.
-    tv_wonder_unique_great_zimbabwe: Great Zimbabwe Stone City
+    tv_wonder_unique_great_zimbabwe: 'Gr. Zimbabwe Stone City'
     tv_wonder_unique_great_zimbabwe_desc: An unconsecrated Great Zimbabwe Stone City preserved as completed construction.
     tv_wonder_unique_great_zimbabwe_inaugurated: Great Zimbabwe Stone City
     tv_wonder_unique_great_zimbabwe_inaugurated_desc: Dry-stone walls, conical towers, cattle wealth, and gold routes anchor a highland commercial kingdom.
@@ -2503,7 +2503,7 @@ wonder_localization:
     tv_wonder_unique_inca_royal_road_function_desc: A preserved functional works module for the Inca Royal Road Network.
     tv_wonder_unique_inca_royal_road_decoration: Inca Royal Road Network Crowning Works
     tv_wonder_unique_inca_royal_road_decoration_desc: A preserved crowning works module for the Inca Royal Road Network.
-    tv_wonder_unique_inca_royal_road: Inca Royal Road Network
+    tv_wonder_unique_inca_royal_road: 'Inca Roy. Road Net'
     tv_wonder_unique_inca_royal_road_desc: An unconsecrated Inca Royal Road Network preserved as completed construction.
     tv_wonder_unique_inca_royal_road_inaugurated: Inca Royal Road Network
     tv_wonder_unique_inca_royal_road_inaugurated_desc: Stone roads, rope bridges, tambos, and runners stitch the Andes into a state that can speak across mountains.
@@ -2547,7 +2547,7 @@ wonder_localization:
     tv_wonder_unique_suez_ancient_canal_function_desc: A preserved functional works module for the Ancient Suez Canal Attempts.
     tv_wonder_unique_suez_ancient_canal_decoration: Ancient Suez Canal Attempts Crowning Works
     tv_wonder_unique_suez_ancient_canal_decoration_desc: A preserved crowning works module for the Ancient Suez Canal Attempts.
-    tv_wonder_unique_suez_ancient_canal: Ancient Suez Canal Attempts
+    tv_wonder_unique_suez_ancient_canal: 'Anci. Suez Canal Attem.'
     tv_wonder_unique_suez_ancient_canal_desc: An unconsecrated Ancient Suez Canal Attempts preserved as completed construction.
     tv_wonder_unique_suez_ancient_canal_inaugurated: Ancient Suez Canal Attempts
     tv_wonder_unique_suez_ancient_canal_inaugurated_desc: Survey lines, desert cuts, Nile branches, and Red Sea harbors preserve the old dream of joining waters.
@@ -2591,7 +2591,7 @@ wonder_localization:
     tv_wonder_unique_teotihuacan_function_desc: A preserved functional works module for the Sacred City of Teotihuacan.
     tv_wonder_unique_teotihuacan_decoration: Sacred City of Teotihuacan Crowning Works
     tv_wonder_unique_teotihuacan_decoration_desc: A preserved crowning works module for the Sacred City of Teotihuacan.
-    tv_wonder_unique_teotihuacan: Sacred City of Teotihuacan
+    tv_wonder_unique_teotihuacan: 'Sacred City Teotihu.'
     tv_wonder_unique_teotihuacan_desc: An unconsecrated Sacred City of Teotihuacan preserved as completed construction.
     tv_wonder_unique_teotihuacan_inaugurated: Sacred City of Teotihuacan
     tv_wonder_unique_teotihuacan_inaugurated_desc: Avenue, pyramids, compounds, and painted walls survive as the plan of a city built for cosmic scale.
@@ -2792,7 +2792,7 @@ wonder_localization:
     tv_wonder_unique_longjiang_shipyard_function_desc: A preserved functional works module for the Ming Longjiang Shipyard.
     tv_wonder_unique_longjiang_shipyard_decoration: Ming Longjiang Shipyard Crowning Works
     tv_wonder_unique_longjiang_shipyard_decoration_desc: A preserved crowning works module for the Ming Longjiang Shipyard.
-    tv_wonder_unique_longjiang_shipyard: Ming Longjiang Shipyard
+    tv_wonder_unique_longjiang_shipyard: 'Ming Longji. Shipyard'
     tv_wonder_unique_longjiang_shipyard_desc: An unconsecrated Ming Longjiang Shipyard preserved as completed construction.
     tv_wonder_unique_longjiang_shipyard_inaugurated: Ming Longjiang Shipyard
     tv_wonder_unique_longjiang_shipyard_inaugurated_desc: Slipways, timber basins, workshops, and treasure ships make river shipbuilding serve oceanic ambition.
@@ -3176,7 +3176,7 @@ wonder_localization:
     tv_wonder_unique_changbai_mountain_altar_function_desc: A preserved functional works module for the Changbai Mountain Altar.
     tv_wonder_unique_changbai_mountain_altar_decoration: Changbai Mountain Altar Crowning Works
     tv_wonder_unique_changbai_mountain_altar_decoration_desc: A preserved crowning works module for the Changbai Mountain Altar.
-    tv_wonder_unique_changbai_mountain_altar: Changbai Mountain Altar
+    tv_wonder_unique_changbai_mountain_altar: 'Chang. Mount. Altar'
     tv_wonder_unique_changbai_mountain_altar_desc: An unconsecrated Changbai Mountain Altar preserved as completed construction.
     tv_wonder_unique_changbai_mountain_altar_inaugurated: Changbai Mountain Altar
     tv_wonder_unique_changbai_mountain_altar_inaugurated_desc: Volcanic peak, heavenly lake, forest, altar terrace, and banners make Changbai Mountain a sacred dynastic source.
@@ -3562,7 +3562,7 @@ wonder_localization:
     tv_wonder_unique_porcelain_tower_of_nanjing_function_desc: A preserved functional works module for the Porcelain Tower of Nanjing.
     tv_wonder_unique_porcelain_tower_of_nanjing_decoration: Porcelain Tower of Nanjing Crowning Works
     tv_wonder_unique_porcelain_tower_of_nanjing_decoration_desc: A preserved crowning works module for the Porcelain Tower of Nanjing.
-    tv_wonder_unique_porcelain_tower_of_nanjing: Porcelain Tower of Nanjing
+    tv_wonder_unique_porcelain_tower_of_nanjing: 'Porcel. Tower Nanjing'
     tv_wonder_unique_porcelain_tower_of_nanjing_desc: An unconsecrated Porcelain Tower of Nanjing preserved as completed construction.
     tv_wonder_unique_porcelain_tower_of_nanjing_inaugurated: Porcelain Tower of Nanjing
     tv_wonder_unique_porcelain_tower_of_nanjing_inaugurated_desc: Glazed tiles and temple lights make the Nanjing tower shine like a vertical reliquary.
@@ -3584,7 +3584,7 @@ wonder_localization:
     tv_wonder_unique_jingdezhen_imperial_kilns_function_desc: A preserved functional works module for the Jingdezhen Imperial Kilns.
     tv_wonder_unique_jingdezhen_imperial_kilns_decoration: Jingdezhen Imperial Kilns Crowning Works
     tv_wonder_unique_jingdezhen_imperial_kilns_decoration_desc: A preserved crowning works module for the Jingdezhen Imperial Kilns.
-    tv_wonder_unique_jingdezhen_imperial_kilns: Jingdezhen Imperial Kilns
+    tv_wonder_unique_jingdezhen_imperial_kilns: 'Jingdezhen Imp. Kilns'
     tv_wonder_unique_jingdezhen_imperial_kilns_desc: An unconsecrated Jingdezhen Imperial Kilns preserved as completed construction.
     tv_wonder_unique_jingdezhen_imperial_kilns_inaugurated: Jingdezhen Imperial Kilns
     tv_wonder_unique_jingdezhen_imperial_kilns_inaugurated_desc: Kilns, clay yards, painters, and inspectors turn porcelain into imperial industry.
@@ -3628,7 +3628,7 @@ wonder_localization:
     tv_wonder_unique_canton_thirteen_factories_function_desc: A preserved functional works module for the Canton Thirteen Factories.
     tv_wonder_unique_canton_thirteen_factories_decoration: Canton Thirteen Factories Crowning Works
     tv_wonder_unique_canton_thirteen_factories_decoration_desc: A preserved crowning works module for the Canton Thirteen Factories.
-    tv_wonder_unique_canton_thirteen_factories: Canton Thirteen Factories
+    tv_wonder_unique_canton_thirteen_factories: 'Canton Thirteen Factor.'
     tv_wonder_unique_canton_thirteen_factories_desc: An unconsecrated Canton Thirteen Factories preserved as completed construction.
     tv_wonder_unique_canton_thirteen_factories_inaugurated: Canton Thirteen Factories
     tv_wonder_unique_canton_thirteen_factories_inaugurated_desc: Merchant hongs, foreign factories, warehouses, and river wharves make Canton a managed gate to overseas trade.
@@ -3738,7 +3738,7 @@ wonder_localization:
     tv_wonder_unique_sagres_navigation_school_function_desc: A preserved functional works module for the Sagres Navigation School.
     tv_wonder_unique_sagres_navigation_school_decoration: Sagres Navigation School Crowning Works
     tv_wonder_unique_sagres_navigation_school_decoration_desc: A preserved crowning works module for the Sagres Navigation School.
-    tv_wonder_unique_sagres_navigation_school: Sagres Navigation School
+    tv_wonder_unique_sagres_navigation_school: 'Sagres Navigat. School'
     tv_wonder_unique_sagres_navigation_school_desc: An unconsecrated Sagres Navigation School preserved as completed construction.
     tv_wonder_unique_sagres_navigation_school_inaugurated: Sagres Navigation School
     tv_wonder_unique_sagres_navigation_school_inaugurated_desc: Charts, astrolabes, pilots, and Atlantic winds gather near Lagos to train oceanic command.
@@ -4218,7 +4218,7 @@ wonder_localization:
     tv_wonder_unique_brest_synagogue_quarter_function_desc: A preserved functional works module for Brest Synagogue Quarter.
     tv_wonder_unique_brest_synagogue_quarter_decoration: Brest Synagogue Quarter Crowning Works
     tv_wonder_unique_brest_synagogue_quarter_decoration_desc: A preserved crowning works module for Brest Synagogue Quarter.
-    tv_wonder_unique_brest_synagogue_quarter: Brest Synagogue Quarter
+    tv_wonder_unique_brest_synagogue_quarter: 'Brest Synagogue Qtr.'
     tv_wonder_unique_brest_synagogue_quarter_desc: An unconsecrated Brest Synagogue Quarter preserved as completed construction.
     tv_wonder_unique_brest_synagogue_quarter_inaugurated: Brest Synagogue Quarter
     tv_wonder_unique_brest_synagogue_quarter_inaugurated_desc: Synagogues, study houses, market lanes, courts, and community councils make urban self-government tangible.
@@ -4804,7 +4804,7 @@ wonder_localization:
     tv_wonder_unique_electoral_conference_hall_function_desc: A preserved functional works module for the Electoral Conference Hall.
     tv_wonder_unique_electoral_conference_hall_decoration: Electoral Conference Hall Crowning Works
     tv_wonder_unique_electoral_conference_hall_decoration_desc: A preserved crowning works module for the Electoral Conference Hall.
-    tv_wonder_unique_electoral_conference_hall: Electoral Conference Hall
+    tv_wonder_unique_electoral_conference_hall: 'Electoral Confere. Hall'
     tv_wonder_unique_electoral_conference_hall_desc: An unconsecrated Electoral Conference Hall preserved as completed construction.
     tv_wonder_unique_electoral_conference_hall_inaugurated: Electoral Conference Hall
     tv_wonder_unique_electoral_conference_hall_inaugurated_desc: Frankfurt council chambers, prince-elector benches, imperial seals, and civic halls turn royal election into public architecture.
@@ -4848,7 +4848,7 @@ wonder_localization:
     tv_wonder_unique_nuremberg_imperial_castle_function_desc: A preserved functional works module for Nuremberg Imperial Castle.
     tv_wonder_unique_nuremberg_imperial_castle_decoration: Nuremberg Imperial Castle Crowning Works
     tv_wonder_unique_nuremberg_imperial_castle_decoration_desc: A preserved crowning works module for Nuremberg Imperial Castle.
-    tv_wonder_unique_nuremberg_imperial_castle: Nuremberg Imperial Castle
+    tv_wonder_unique_nuremberg_imperial_castle: 'Nuremberg Imp. Castle'
     tv_wonder_unique_nuremberg_imperial_castle_desc: An unconsecrated Nuremberg Imperial Castle preserved as completed construction.
     tv_wonder_unique_nuremberg_imperial_castle_inaugurated: Nuremberg Imperial Castle
     tv_wonder_unique_nuremberg_imperial_castle_inaugurated_desc: Sandstone towers, imperial chapel, walls, arsenal yards, and free-city roofs make Nuremberg Imperial Castle a fortress of imperial regalia and urban craft.
@@ -6271,7 +6271,7 @@ wonder_localization:
     tv_wonder_state_examination_complex_function_desc: "A preserved functional works module for the State Examination Complex."
     tv_wonder_state_examination_complex_decoration: "State Examination Complex Crowning Works"
     tv_wonder_state_examination_complex_decoration_desc: "A preserved crowning works module for the State Examination Complex."
-    tv_wonder_state_examination_complex: "State Examination Complex"
+    tv_wonder_state_examination_complex: 'State Exam'
     tv_wonder_state_examination_complex_desc: "An unconsecrated State Examination Complex preserved as completed construction."
     tv_wonder_state_examination_complex_ritual_annex: "Examination Clerk Office"
     tv_wonder_state_examination_complex_ritual_annex_desc: "An auxiliary ritual annex used to complete the second ceremony branch of the State Examination Complex."
@@ -6308,7 +6308,7 @@ wonder_localization:
     tv_wonder_unique_suzhou_classical_gardens_function_desc: "A preserved functional works module for Suzhou Classical Gardens."
     tv_wonder_unique_suzhou_classical_gardens_decoration: "Suzhou Classical Gardens Crowning Works"
     tv_wonder_unique_suzhou_classical_gardens_decoration_desc: "A preserved crowning works module for Suzhou Classical Gardens."
-    tv_wonder_unique_suzhou_classical_gardens: "Suzhou Classical Gardens"
+    tv_wonder_unique_suzhou_classical_gardens: 'Suzhou Classi. Gardens'
     tv_wonder_unique_suzhou_classical_gardens_desc: "An unconsecrated Suzhou Classical Gardens preserved as completed construction."
     tv_wonder_unique_suzhou_classical_gardens_inaugurated: "Suzhou Classical Gardens"
     tv_wonder_unique_suzhou_classical_gardens_inaugurated_desc: "Water courts, scholar rocks, pavilions, plantings, and inscribed gatherings make the Suzhou Classical Gardens a school of refined cultural patronage."
@@ -6356,7 +6356,7 @@ wonder_localization:
     tv_wonder_unique_jiangnan_examination_hall_function_desc: "A preserved functional works module for Jiangnan Examination Hall."
     tv_wonder_unique_jiangnan_examination_hall_decoration: "Jiangnan Examination Hall Crowning Works"
     tv_wonder_unique_jiangnan_examination_hall_decoration_desc: "A preserved crowning works module for Jiangnan Examination Hall."
-    tv_wonder_unique_jiangnan_examination_hall: "Jiangnan Examination Hall"
+    tv_wonder_unique_jiangnan_examination_hall: 'Jiangnan Exam Hall'
     tv_wonder_unique_jiangnan_examination_hall_desc: "An unconsecrated Jiangnan Examination Hall preserved as completed construction."
     tv_wonder_unique_jiangnan_examination_hall_inaugurated: "Jiangnan Examination Hall"
     tv_wonder_unique_jiangnan_examination_hall_inaugurated_desc: "Rows of candidate cells, sealed scripts, examiners' courts, and posted degree rolls make the Jiangnan Examination Hall an engine of literate administration."
@@ -6380,7 +6380,7 @@ wonder_localization:
     tv_wonder_unique_thang_long_temple_of_literature_function_desc: "A preserved functional works module for Thang Long Temple of Literature."
     tv_wonder_unique_thang_long_temple_of_literature_decoration: "Thang Long Temple of Literature Crowning Works"
     tv_wonder_unique_thang_long_temple_of_literature_decoration_desc: "A preserved crowning works module for Thang Long Temple of Literature."
-    tv_wonder_unique_thang_long_temple_of_literature: "Thang Long Temple of Literature"
+    tv_wonder_unique_thang_long_temple_of_literature: 'Thang Long Temple Lit.'
     tv_wonder_unique_thang_long_temple_of_literature_desc: "An unconsecrated Thang Long Temple of Literature preserved as completed construction."
     tv_wonder_unique_thang_long_temple_of_literature_inaugurated: "Thang Long Temple of Literature"
     tv_wonder_unique_thang_long_temple_of_literature_inaugurated_desc: "Altars, lecture halls, academy courts, examination rows, and doctors' steles make the Thang Long Temple of Literature a learned arm of government."
@@ -6428,7 +6428,7 @@ wonder_localization:
     tv_wonder_unique_xian_bell_and_drum_towers_function_desc: "A preserved functional works module for Xi'an Bell and Drum Towers."
     tv_wonder_unique_xian_bell_and_drum_towers_decoration: "Xi'an Bell and Drum Towers Crowning Works"
     tv_wonder_unique_xian_bell_and_drum_towers_decoration_desc: "A preserved crowning works module for Xi'an Bell and Drum Towers."
-    tv_wonder_unique_xian_bell_and_drum_towers: "Xi'an Bell and Drum Towers"
+    tv_wonder_unique_xian_bell_and_drum_towers: 'Xi''an Bell Drum Towers'
     tv_wonder_unique_xian_bell_and_drum_towers_desc: "An unconsecrated Xi'an Bell and Drum Towers preserved as completed construction."
     tv_wonder_unique_xian_bell_and_drum_towers_inaugurated: "Xi'an Bell and Drum Towers"
     tv_wonder_unique_xian_bell_and_drum_towers_inaugurated_desc: "Twin towers, bells, drums, watch schedules, curfew orders, and gate signals make Xi'an's city time audible across the capital."
@@ -6476,7 +6476,7 @@ wonder_localization:
     tv_wonder_unique_beijing_imperial_granaries_function_desc: "A preserved functional works module for Beijing Imperial Granaries."
     tv_wonder_unique_beijing_imperial_granaries_decoration: "Beijing Imperial Granaries Crowning Works"
     tv_wonder_unique_beijing_imperial_granaries_decoration_desc: "A preserved crowning works module for Beijing Imperial Granaries."
-    tv_wonder_unique_beijing_imperial_granaries: "Beijing Imperial Granaries"
+    tv_wonder_unique_beijing_imperial_granaries: 'Beijing Imp. Granaries'
     tv_wonder_unique_beijing_imperial_granaries_desc: "An unconsecrated Beijing Imperial Granaries preserved as completed construction."
     tv_wonder_unique_beijing_imperial_granaries_inaugurated: "Beijing Imperial Granaries"
     tv_wonder_unique_beijing_imperial_granaries_inaugurated_desc: "Canal ledgers, storehouse rows, grain boats, fire wards, and relief regulations make the Beijing Imperial Granaries a capital reserve system."
@@ -6548,7 +6548,7 @@ wonder_localization:
     tv_wonder_unique_ayutthaya_foreign_quarters_function_desc: "A preserved functional works module for Ayutthaya Foreign Quarters."
     tv_wonder_unique_ayutthaya_foreign_quarters_decoration: "Ayutthaya Foreign Quarters Crowning Works"
     tv_wonder_unique_ayutthaya_foreign_quarters_decoration_desc: "A preserved crowning works module for Ayutthaya Foreign Quarters."
-    tv_wonder_unique_ayutthaya_foreign_quarters: "Ayutthaya Foreign Quarters"
+    tv_wonder_unique_ayutthaya_foreign_quarters: 'Ayutthaya Foreign Qtr.'
     tv_wonder_unique_ayutthaya_foreign_quarters_desc: "An unconsecrated Ayutthaya Foreign Quarters preserved as completed construction."
     tv_wonder_unique_ayutthaya_foreign_quarters_inaugurated: "Ayutthaya Foreign Quarters"
     tv_wonder_unique_ayutthaya_foreign_quarters_inaugurated_desc: "Foreign compounds, warehouses, interpreters, patrols, embassies, and river banquets make Ayutthaya a diplomatic market city."
@@ -6572,7 +6572,7 @@ wonder_localization:
     tv_wonder_unique_yunnan_weisuo_colonies_function_desc: "A preserved functional works module for Yunnan Weisuo Colonies."
     tv_wonder_unique_yunnan_weisuo_colonies_decoration: "Yunnan Weisuo Colonies Crowning Works"
     tv_wonder_unique_yunnan_weisuo_colonies_decoration_desc: "A preserved crowning works module for Yunnan Weisuo Colonies."
-    tv_wonder_unique_yunnan_weisuo_colonies: "Yunnan Weisuo Colonies"
+    tv_wonder_unique_yunnan_weisuo_colonies: 'Yunnan Weisuo Colon.'
     tv_wonder_unique_yunnan_weisuo_colonies_desc: "An unconsecrated Yunnan Weisuo Colonies preserved as completed construction."
     tv_wonder_unique_yunnan_weisuo_colonies_inaugurated: "Yunnan Weisuo Colonies"
     tv_wonder_unique_yunnan_weisuo_colonies_inaugurated_desc: "Garrison households, military fields, relay roads, grain registers, and tusi settlements make the Yunnan Weisuo Colonies a working frontier."
@@ -6596,7 +6596,7 @@ wonder_localization:
     tv_wonder_unique_zhoushan_beacon_network_function_desc: "A preserved functional works module for Zhoushan Beacon Network."
     tv_wonder_unique_zhoushan_beacon_network_decoration: "Zhoushan Beacon Network Crowning Works"
     tv_wonder_unique_zhoushan_beacon_network_decoration_desc: "A preserved crowning works module for Zhoushan Beacon Network."
-    tv_wonder_unique_zhoushan_beacon_network: "Zhoushan Beacon Network"
+    tv_wonder_unique_zhoushan_beacon_network: 'Zhoushan Beacon Net'
     tv_wonder_unique_zhoushan_beacon_network_desc: "An unconsecrated Zhoushan Beacon Network preserved as completed construction."
     tv_wonder_unique_zhoushan_beacon_network_inaugurated: "Zhoushan Beacon Network"
     tv_wonder_unique_zhoushan_beacon_network_inaugurated_desc: "Island towers, fuel stores, watch rosters, harbor relays, pirate alarms, and fleet signals make the Zhoushan Beacon Network a maritime warning system."
