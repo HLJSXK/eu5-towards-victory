@@ -1,4 +1,15 @@
-[img]https://i.imgur.com/FFCkXjt.png[/img]
+[img]https://i.imgur.com/iU6bsM0.png[/img]
+[i]This update focuses on QoL improvements and requests raised by players.[/i]
+[list]
+[*] Added 2 new generic wonders and expanded Asia with 13 historical unique wonders
+[*] Existing wonders can now be demolished, or temporarily disabled by turning them off as a simple workaround for value-conflict issues
+[*] Worksites now slow down when they lack required inputs
+[*] When you need to open the Engineering Department and do something, a UI alert now appears in the top-right corner
+[*] Rebalanced several obviously problematic wonder bonuses, including market attraction and granary-style effects
+[*] Using the in-game menu feature from [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3692202776] Community Mod Framework (CMF) [/url], you can now control Great Project construction difficulty to some extent
+[*] The mod now includes the [b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3601047146] Glorp UI [/url][/b] version of location_window. When loaded below Glorp UI (and [b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3736668860] Construction Manager [/url][/b]), it will correctly display the integrated UI version
+[/list]
+
 [img]https://i.imgur.com/TnMdbwe.png[/img]
 [h2][i]Concept to Finalization — six stages, one national monument.[/i][/h2]
 
@@ -19,21 +30,23 @@ Vanilla wonders in EU5 are decorative — a flavor tooltip, nothing more. [b]Gre
 
 [img]https://i.imgur.com/8L5HRD1.png[/img]
 
-[i]Construction — pour materials into the wonder's four parts: Foundation, Main Structure, Function, and Crowning.[/i]
+[i]Construction — pour materials into the foundation, body, function, and decoration.[/i]
 [olist]
-[*] [b]Concept[/b] — your Great Engineer puts forward three proposals at once, small/medium/large, based on your country's situation; accept one, request a revision for prestige, or fund a fresh set
-[*] [b]Debate[/b] — win over nobles, burghers, and clergy to build Domestic Support (0–200) before construction can begin
-[*] [b]Survey[/b] — the site is scored on Scale, Logistics, and Organization; the result permanently locks in the wonder's max level and how fast you'll ever be able to build it
+[*] [b]Concept[/b] — your Great Engineer proposes a wonder based on your country's situation; accept one, request a revision for prestige, or fund a fresh set
+[*] [b]Debate[/b] — win over nobles, burghers, and clergy to build domestic support before construction can begin
+[*] [b]Survey[/b] — the site is scored on Scale, Logistics, and Organization, permanently locking in the wonder's max level, cost, and build time
 [*] [b]Construction[/b] — build supporting infrastructure and pour materials into the wonder's four parts
-[*] [b]Ceremony[/b] — pick from 3 styles for a generic wonder; most unique wonders instead advance automatically through a shared 8-stage ceremony, while two — the Pharos Lighthouse and Hagia Sophia — get a fully bespoke ritual; this is what actually determines the final bonuses
+[*] [b]Ceremony[/b] — pick from 3 styles for a generic wonder, or a bespoke history-driven ceremony for a unique one; this is what actually determines the final bonuses
 [*] [b]Finalization[/b] — the wonder is built, you get a national celebration buff, and it's broadcast as world news
 [/olist]
 
 [img]https://i.imgur.com/kGFEXBh.png[/img]
 [list]
-[*] This mod [b]requires[/b] [b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3692202776] Community Mod Framework (CMF) [/url][/b] 2.x — it supplies the callback this mod uses to repair its own state whenever you load a save.
+[*] This mod works best with [b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3692202776] Community Mod Framework (CMF) [/url][/b], but can go without it.
+[*] [b]Savegame compatible[/b]: You can play this mod with old saves.
 [*] [b]Maximum compatibility[/b]: The construction logic of this mod works on its own variables, and should be compatible with any mod.
-[*] [b]UI issue[/b]: This mod modifies location_window.gui and encyclopedia_lateralview.gui. Other mods who also do this will cause overwrites on each other. See [url=?] Great Project - Compatibility Submods [/url] for maintained patches.
+[*] [b]UI issue[/b]: This mod modifies location_window.gui and encyclopedia_lateralview.gui. Other mods who also do this will cause overwrites on each other. See [url=https://steamcommunity.com/workshop/filedetails/?id=3766879023] Great Project - Compatibility Submods [/url] for maintained patches.
+[i]Note: This only affects UI display.[/i]
 [/list]
 
 [img]https://i.imgur.com/byuuVeq.png[/img]
@@ -44,7 +57,7 @@ Vanilla wonders in EU5 are decorative — a flavor tooltip, nothing more. [b]Gre
 
 [img]https://i.imgur.com/P2o7vfY.png[/img]
 [list]
-[*] [b][url=https://github.com/HLJSXK/eu5-towards-victory/wiki]GitHub wiki: [/url][/b]See the full details of this mod.
+[*] [b][url=https://github.com/HLJSXK/eu5-towards-victory/wiki/Great-Project-%E2%80%94-GitHub-Wiki]GitHub wiki: [/url][/b]See the full details of this mod.
 [*] [b][url=https://hljsxk.github.io/eu5-towards-victory]Wonders Atlas website: [/url][/b] View wonder stats without opening the game.
 [*] [b][url=https://discord.gg/Yy87G2hBHz]Discord: [/url][/b] Please discuss and feedback on this server.
 [/list]

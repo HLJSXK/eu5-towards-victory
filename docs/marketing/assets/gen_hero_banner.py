@@ -37,6 +37,7 @@ BG_TOP = (16, 21, 30)
 BG_BOTTOM = (6, 8, 12)
 FRAME_GOLD = (176, 138, 66)
 TITLE_COLOR = (238, 228, 206)
+SUBTITLE_COLOR = (211, 174, 92)
 SHADOW_COLOR = (0, 0, 0)
 
 
@@ -164,10 +165,25 @@ def build_hero(text: str, is_zh: bool, out_name: str) -> None:
     size = 150 if is_zh else 128
     font = ImageFont.truetype(str(font_path), size)
     tracking = 0 if is_zh else 8
+    subtitle = "260805 Update"
+    subtitle_font = ImageFont.truetype(str(FONT_EN), 44)
 
     _, text_h = title_dims(draw, text, font, is_zh, tracking)
-    title_y = h / 2 - text_h / 2 - (10 if is_zh else 0)
+    subtitle_bbox = draw.textbbox((0, 0), subtitle, font=subtitle_font)
+    subtitle_h = subtitle_bbox[3] - subtitle_bbox[1]
+    subtitle_gap = 48
+    block_h = text_h + subtitle_gap + subtitle_h
+    title_y = h / 2 - block_h / 2 - (10 if is_zh else 0)
     draw_title(draw, w / 2, title_y, text, font, TITLE_COLOR, is_zh, tracking)
+    centered_text(
+        draw,
+        w / 2,
+        title_y + text_h + subtitle_gap,
+        subtitle,
+        subtitle_font,
+        SUBTITLE_COLOR,
+        shadow_offset=2,
+    )
 
     out_path = OUT_DIR / out_name
     img.convert("RGB").save(out_path, "PNG")

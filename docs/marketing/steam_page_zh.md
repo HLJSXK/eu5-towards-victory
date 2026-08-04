@@ -1,26 +1,22 @@
-# Steam 创意工坊页面 — 中文
-
-**标题：** Towards Victory - 伟大工程
-
-> 格式说明：以下内容使用 Steam 创意工坊支持的 BBCode 标签编写。`[img]` 只能插入图片本身，
-> 创意工坊描述不支持 Guide 专属的 `[previewimg]` 图注标签，所以每张图片下面都跟一行
-> 斜体图注文字来模拟说明。发布前请把 `[img]...[/img]` 里的地址换成真实的截图/美术图链接。
->
-> 本文是 `steam_page_en.md` 的逐段翻译，两个版本的结构、图片位置与条目顺序应保持一致；
-> 修改任意一版的内容后，请同步更新另一版。
-
----
-
-```bbcode
-[img]https://i.imgur.com/FFCkXjt.png[/img]
+[img]https://i.imgur.com/IUg6ek3.png[/img]
+[i]本次更新重点是一些QoL改动，实现了一些小伙伴提出的要求[/i]
+[list]
+[*] 加入了2个新的通用奇观，并扩展了13处亚洲地区的历史独特奇观
+[*] 现在可以拆除已有奇观，也可以通过关闭暂时禁用，作为价值观冲突问题的简易规避措施
+[*] 工地在缺少投入品时会放慢进度
+[*] 现在当你需要打开工程部页面做些什么时，右上方会有UI提醒
+[*] 调整了一批明显存在问题的奇观增益，包括市场吸引力、粮仓等
+[*] 使用 [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3692202776] Community Mod Framework (CMF) [/url] 的游戏内菜单功能，可以在一定程度上控制伟大工程的建造难度
+[*] 模组现在内置 [b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3601047146] Glorp UI [/url][/b] 版本的 location window，因此，在置于 GlorpUI（和[b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3736668860] 建设管理器 [/url][/b]）下方时，将正确显示融合版UI
+[/list]
 [img]https://i.imgur.com/TnMdbwe.png[/img]
 [h2][i]从构想到落成——六个阶段，一座国家级工程。[/i][/h2]
 
-[img]https://i.imgur.com/qVex6lv.png[/img]
+[img]https://i.imgur.com/GdMlBGy.png[/img]
 
 原版 EU5 的奇观只是装饰——一段风味小知识，仅此而已。[b]伟大工程[/b] 把它变成一项真正的国家工程：一个专门负责统筹整个流程的组织、一套每个阶段都有真实代价的建造流程，以及最终揭幕时对全国生效的永久回报。
 
-[img]https://i.imgur.com/haIXGbe.png[/img]
+[img]https://i.imgur.com/cFeHvhv.png[/img]
 
 [i]工程部面板——整个建造流程都在这里追踪。[/i]
 [list]
@@ -31,7 +27,7 @@
 [*] 配套的 [b]奇观图鉴网站[/b]，无需进入游戏即可在世界地图上浏览全部独特奇观
 [/list]
 
-[img]https://i.imgur.com/8L5HRD1.png[/img]
+[img]https://i.imgur.com/JKUnW0s.png[/img]
 
 [i]建设——把建材投入奇观的四个组成部分：地基、主体、功能与饰面。[/i]
 [olist]
@@ -43,23 +39,25 @@
 [*] [b]落成[/b] —— 奇观正式建成，你会获得全国性的庆典增益，落成消息也会作为世界新闻公开播报
 [/olist]
 
-[img]https://i.imgur.com/kGFEXBh.png[/img]
+[img]https://i.imgur.com/WCc5gTr.png[/img]
 [list]
 [*] 本模组[b]需要[/b][b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3692202776] Community Mod Framework (CMF) [/url][/b] 2.x——本模组依赖它提供的回调，在你每次读档时修复自身状态。
-[*] [b]最大程度的兼容性[/b]：本模组的建造逻辑运行在自己的一套变量上，理论上应该与任何模组兼容。
-[*] [b]UI 冲突[/b]：本模组修改了 location_window.gui 与 encyclopedia_lateralview.gui。同样修改这两个文件的其他模组会与本模组互相覆盖。维护中的兼容补丁见 [url=?] Great Project - Compatibility Submods [/url]。
+[*] [b]存档兼容[/b]：你可以用旧存档添加本mod继续游玩。
+[*] [b]最大兼容[/b]：本模组的建造逻辑运行在自己的一套变量上，理论上应该与任何模组兼容。
+[*] [b]UI 冲突[/b]：本模组修改了 location_window.gui 与 encyclopedia_lateralview.gui。同样修改这两个文件的其他模组会与本模组互相覆盖。维护中的兼容补丁见 [url=https://steamcommunity.com/workshop/filedetails/?id=3766879023] Great Project - Compatibility Submods [/url]。
+[i]注：只影响UI显示。[/i]
 [/list]
 
-[img]https://i.imgur.com/byuuVeq.png[/img]
+[img]https://i.imgur.com/9hS7MxD.png[/img]
 [list]
 [*] 本模组使用 AI 工作流生成海量内容。
 [*] 特别感谢 Trinedy 的 [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3668193813] National Destinies [/url]。本项目"LLM 辅助模组制作流程"与"EU5 地图网站"的最初想法都来自于它。
 [/list]
 
-[img]https://i.imgur.com/P2o7vfY.png[/img]
+[img]https://i.imgur.com/8OwqW49.png[/img]
 [list]
 [*] [b][url=https://github.com/HLJSXK/eu5-towards-victory/wiki]GitHub wiki: [/url][/b]查看本模组的完整详情。
-[*] [b][url=https://hljsxk.github.io/eu5-towards-victory]奇观图鉴网站: [/url][/b] 无需进入游戏即可查看奇观数据。
-[*] [b][url=https://discord.gg/Yy87G2hBHz]Discord: [/url][/b] 欢迎在此服务器讨论与反馈。
+[*] [b][url=https://hljsxk.github.io/eu5-towards-victory]奇观图鉴网站: [/url][/b]无需进入游戏即可查看奇观数据。
+[*] [b][url=https://discord.gg/Yy87G2hBHz]Discord: [/url][/b]欢迎在此服务器讨论与反馈。
+[*] [b][url=https://qm.qq.com/q/MY89RweZcO]QQ: [/url][/b]1070041687
 [/list]
-```
