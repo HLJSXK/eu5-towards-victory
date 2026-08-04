@@ -58,12 +58,14 @@ from scripts_engineering_department.wonder_mechanics.rituals import (
     SUPPORTED_UNIQUE_RITUAL_MODES,
     ceremony_cost_computed_value,
     ceremony_styles,
+    load_cost_reward_unit_entries,
     load_cost_reward_units,
     normalize_unique_ceremony,
     normalize_unique_ritual,
     ritual_plan_for_style,
     ritual_blessing_modifier_name,
     ritual_burden_modifier_name,
+    STYLE_3_REWARD_EFFECTS,
     unique_ceremony_modifier_name,
 )
 from .common import RollingLog
@@ -966,6 +968,34 @@ def _localized_option(
     if extra:
         option.update(extra)
     return option
+
+
+def _cost_reward_unit_labels(entry: dict[str, Any], fallback: str) -> dict[str, str]:
+    labels = entry.get("loc", {}) if isinstance(entry, dict) else {}
+    if not isinstance(labels, dict):
+        labels = {}
+    english = _scrub_option_markup(labels.get("en") or fallback)
+    simp_chinese = _scrub_option_markup(labels.get("zh") or english)
+    return {
+        "english": english or fallback,
+        "simp_chinese": simp_chinese or english or fallback,
+    }
+
+
+def _cost_reward_unit_entry_index(catalogs: dict[str, list[dict[str, Any]]], catalog: str) -> dict[str, dict[str, Any]]:
+    indexed: dict[str, dict[str, Any]] = {}
+    for entry in catalogs.get(catalog, []):
+        if not isinstance(entry, dict):
+            continue
+        entry_id = str(entry.get("id", "")).strip()
+        if not entry_id:
+            continue
+        indexed[entry_id] = {**entry, "_catalog": catalog}
+    return indexed
+
+
+def _cost_reward_unit_option_source(catalog: str, entry_id: str) -> str:
+    return f"data/cost_reward_units.yaml:{catalog}.{entry_id}"
 
 
 def _load_json_index(path: Path, root_key: str) -> dict[str, Any]:
@@ -3575,3 +3605,252 @@ def build_check_report() -> list[str]:
         f"Concept generator output matches wonder source: {CONCEPT_FILE.relative_to(REPO_ROOT)}",
         f"Checked manual localization overlap across {len(manual_loc_paths)} files",
     ]
+
+
+# The database-backed cost/reward catalog is now the primary source for wonder
+# editor dropdowns. These later definitions intentionally replace the older
+# reference-scan-only helpers above without disturbing their surrounding layout.
+def ceremony_stage_cost_options() -> list[dict[str, Any]]:
+    """Options for the ceremony cost row editor. The dropdown value remains
+    'catalog:id'; displayed/searchable labels come from data/cost_reward_units.yaml."""
+    catalogs = load_cost_reward_units()
+    entries = load_cost_reward_unit_entries()
+    options: list[dict[str, Any]] = []
+    for catalog in CEREMONY_COST_CATALOGS:
+        entry_index = _cost_reward_unit_entry_index(entries, catalog)
+        for entry_id in sorted(catalogs.get(catalog, {})):
+            entry = entry_index.get(entry_id, {})
+            fallback = entry_id.replace("_", " ").strip().title()
+            labels = _cost_reward_unit_labels(entry, fallback)
+            option_source = _cost_reward_unit_option_source(catalog, entry_id)
+            options.append(
+                {
+                    "value": f"{catalog}:{entry_id}",
+                    "label": f"[{catalog}] {labels['simp_chinese']}",
+                    "key_label": f"{catalog}:{entry_id}",
+                    "localized_label": f"[{catalog}] {labels['simp_chinese']}",
+                    "label_en": f"[{catalog}] {labels['english']}",
+                    "label_zh": f"[{catalog}] {labels['simp_chinese']}",
+                    "search_text": " ".join(
+                        part
+                        for part in (
+                            catalog,
+                            entry_id,
+                            labels["english"],
+                            labels["simp_chinese"],
+                            str(entry.get("value", "")),
+                            option_source,
+                        )
+                        if part
+                    ).lower(),
+                    "source": option_source,
+                }
+            )
+    return options
+
+
+def _modifier_options(
+    values: set[str],
+    modifier_index: dict[str, Any],
+    unit_entries: dict[str, dict[str, Any]] | None = None,
+) -> list[dict[str, Any]]:
+    unit_entries = unit_entries or {}
+    options: list[dict[str, Any]] = []
+    for value in sorted(values):
+        index_entry = modifier_index.get(value, {})
+        if not isinstance(index_entry, dict):
+            index_entry = {}
+        fallback = _prettify_option_key(value)
+        labels = _localized_pair_from_index_entry(index_entry, "name", fallback)
+        descriptions = _localized_pair_from_index_entry(index_entry, "description", "")
+        unit_entry = unit_entries.get(value)
+        source = ""
+        extra = {
+            key: index_entry[key]
+            for key in ("value_kind", "decimals", "category", "color")
+            if key in index_entry
+        }
+        if unit_entry:
+            unit_labels = _cost_reward_unit_labels(unit_entry, fallback)
+            if labels["english"] == fallback and labels["simp_chinese"] == fallback:
+                labels = unit_labels
+            else:
+                labels = {
+                    language: labels.get(language) or unit_labels[language]
+                    for language in LANGUAGES
+                }
+            catalog = str(unit_entry.get("_catalog", "")).strip()
+            if catalog:
+                source = _cost_reward_unit_option_source(catalog, value)
+                extra["catalog"] = catalog
+            if "value" in unit_entry:
+                extra["default_value"] = unit_entry["value"]
+        options.append(_localized_option(value, labels, descriptions=descriptions, source=source, extra=extra))
+    return options
+
+
+def _reward_options(
+    reward_types: set[str],
+    reward_sources: dict[str, str],
+    unit_entries: dict[str, dict[str, Any]] | None = None,
+) -> list[dict[str, Any]]:
+    unit_entries = unit_entries or {}
+    candidate_map = {
+        reward_type: _reward_label_candidates(reward_type, reward_sources.get(reward_type, ""))
+        for reward_type in reward_types
+    }
+    wanted_keys = {candidate for candidates in candidate_map.values() for candidate in candidates}
+    loc_values = {
+        language: _load_reference_localization_subset(language, wanted_keys)
+        for language in LANGUAGES
+    }
+    options: list[dict[str, Any]] = []
+    for reward_type in sorted(reward_types):
+        source = reward_sources.get(reward_type, "")
+        fallback = REWARD_FALLBACK_LABELS.get(reward_type, _prettify_option_key(reward_type))
+        unit_entry = unit_entries.get(reward_type)
+        extra: dict[str, Any] = {}
+        if unit_entry:
+            labels = _cost_reward_unit_labels(unit_entry, fallback)
+            catalog = str(unit_entry.get("_catalog", "")).strip()
+            unit_source = _cost_reward_unit_option_source(catalog, reward_type) if catalog else ""
+            if catalog:
+                extra["catalog"] = catalog
+            if "value" in unit_entry:
+                extra["default_value"] = unit_entry["value"]
+            if source and unit_source:
+                source = f"{source} ({unit_source})"
+            elif unit_source:
+                source = unit_source
+        else:
+            labels = {}
+            for language in LANGUAGES:
+                labels[language] = ""
+                for candidate in candidate_map[reward_type]:
+                    value = loc_values[language].get(candidate)
+                    if value:
+                        labels[language] = value
+                        break
+                if not labels[language]:
+                    labels[language] = fallback
+        options.append(_localized_option(reward_type, labels, source=source, extra=extra))
+    return options
+
+
+def _modifier_option_catalog(
+    mechanics_data: dict[str, Any],
+    unique_wonders_data: dict[str, Any],
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]]]:
+    country_modifiers: set[str] = set()
+    local_modifiers: set[str] = set()
+    reward_types: set[str] = set()
+    editor_catalog = _load_wonder_editor_catalog()
+    modifier_index = _load_json_index(MODIFIER_LOCALIZATION_INDEX_FILE, "modifiers")
+    reward_sources = {
+        str(key): str(value)
+        for key, value in (editor_catalog.get("style_3_reward_sources", {}) or {}).items()
+    }
+    for reward_type, spec in STYLE_3_REWARD_EFFECTS.items():
+        reward_sources.setdefault(reward_type, str(spec.get("effect", "")))
+
+    unit_catalogs = load_cost_reward_unit_entries()
+    country_modifier_units = _cost_reward_unit_entry_index(unit_catalogs, "country_modifier")
+    local_modifier_units = _cost_reward_unit_entry_index(unit_catalogs, "local_modifier")
+    reward_unit_entries: dict[str, dict[str, Any]] = {}
+    for catalog in ("country_reward", "local_reward", "character_reward"):
+        reward_unit_entries.update(_cost_reward_unit_entry_index(unit_catalogs, catalog))
+
+    country_modifiers.update(country_modifier_units)
+    local_modifiers.update(local_modifier_units)
+    reward_types.update(reward_unit_entries)
+
+    cost_reward_unit_types = editor_catalog.get("cost_reward_unit_types", {})
+    if isinstance(cost_reward_unit_types, dict):
+        country_modifiers.update(_catalog_string_values(cost_reward_unit_types.get("country_modifier", [])))
+        local_modifiers.update(_catalog_string_values(cost_reward_unit_types.get("local_modifier", [])))
+        for catalog in ("country_reward", "local_reward", "character_reward"):
+            reward_types.update(_catalog_string_values(cost_reward_unit_types.get(catalog, [])))
+
+    catalog_modifier_types = editor_catalog.get("modifier_types", {})
+    if isinstance(catalog_modifier_types, dict):
+        country_modifiers.update(_catalog_string_values(catalog_modifier_types.get("country", [])))
+        local_modifiers.update(_catalog_string_values(catalog_modifier_types.get("local", [])))
+    reward_types.update(_catalog_string_values(editor_catalog.get("style_3_reward_types", [])))
+
+    for mapping in mechanics_data.get("base_modifiers", {}).values():
+        if isinstance(mapping, dict):
+            country_modifiers.update(str(key) for key in mapping)
+
+    for building in mechanics_data.get("buildings", {}).values():
+        if not isinstance(building, dict):
+            continue
+        local_mapping = building.get("final_local", {})
+        if isinstance(local_mapping, dict):
+            local_modifiers.update(str(key) for key in local_mapping)
+
+    for ritual in mechanics_data.get("generic_rituals", {}).values():
+        if not isinstance(ritual, dict):
+            continue
+        style_1 = ritual.get("style_1", {})
+        if isinstance(style_1, dict):
+            country_modifier = style_1.get("country_modifier", {})
+            if isinstance(country_modifier, dict):
+                country_modifiers.update(str(key) for key in country_modifier)
+        style_2 = ritual.get("style_2", {})
+        if isinstance(style_2, dict):
+            local_modifier = style_2.get("local_modifier", {})
+            if isinstance(local_modifier, dict):
+                local_modifiers.update(str(key) for key in local_modifier)
+        style_3 = ritual.get("style_3", {})
+        if isinstance(style_3, dict):
+            reward_types.update(
+                str(item.get("type", "")).strip()
+                for item in style_3.get("reward", [])
+                if isinstance(item, dict) and str(item.get("type", "")).strip()
+            )
+
+    for modifier in mechanics_data.get("ceremony_modifiers", {}).values():
+        if isinstance(modifier, dict):
+            country_modifiers.update(str(key) for key in modifier)
+
+    for wonder in unique_wonders_data.get("unique_wonders", []):
+        if not isinstance(wonder, dict):
+            continue
+        entry = wonder.get("ritual", {})
+        if not isinstance(entry, dict):
+            continue
+        country_modifier = entry.get("country_modifier", {})
+        if isinstance(country_modifier, dict):
+            country_modifiers.update(str(key) for key in country_modifier)
+        reward = entry.get("reward", [])
+        if isinstance(reward, list):
+            reward_types.update(
+                str(item.get("type", "")).strip()
+                for item in reward
+                if isinstance(item, dict) and str(item.get("type", "")).strip()
+            )
+        timed = entry.get("timed", {})
+        if isinstance(timed, dict):
+            burden_modifier = timed.get("burden_modifier", {})
+            if isinstance(burden_modifier, dict):
+                country_modifiers.update(str(key) for key in burden_modifier)
+            blessing_modifier = timed.get("blessing_modifier", {})
+            if isinstance(blessing_modifier, dict):
+                country_modifiers.update(str(key) for key in blessing_modifier)
+        auxiliary = entry.get("auxiliary_building", {})
+        if isinstance(auxiliary, dict):
+            local_modifier = auxiliary.get("local_modifier", {})
+            if isinstance(local_modifier, dict):
+                local_modifiers.update(str(key) for key in local_modifier)
+
+    if not country_modifiers:
+        country_modifiers.add("monthly_prestige")
+    if not local_modifiers:
+        local_modifiers.add("local_production_efficiency")
+    if not reward_types:
+        reward_types.update({"prestige", "gold"})
+    return (
+        _modifier_options(country_modifiers, modifier_index, country_modifier_units),
+        _modifier_options(local_modifiers, modifier_index, local_modifier_units),
+        _reward_options(reward_types, reward_sources, reward_unit_entries),
+    )
