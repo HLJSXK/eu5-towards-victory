@@ -563,25 +563,43 @@ def validate_cmm_wonder_controls(wonders: list[dict], mechanics: dict) -> None:
     expected_final_buildings = {
         final_building_for_style(wonder, style): (
             wonder,
+            style,
             wonder["size"],
             building_generator.build_profile(wonder)[1],
         )
         for wonder in wonders
         for style in ceremony_styles(wonder)
     }
+    expected_direct_buildings = {
+        building_name
+        for building_name, (wonder, style, _size, _construction_demand) in expected_final_buildings.items()
+        if building_generator.final_building_uses_direct_build_entry(wonder, style)
+    }
     expected_final_building_count = len(expected_final_buildings)
     require(
         generated_buildings.count("country_potential = { has_global_variable = tv_engineering_department_direct_build }")
-        == expected_final_building_count,
-        "Direct construction must be present on every and only final wonder building.",
+        == len(expected_direct_buildings),
+        "Direct construction must be present only on the final wonder buildings exposed through CMF.",
     )
-    for building_name, (wonder, size, construction_demand) in expected_final_buildings.items():
+    for building_name, (wonder, style, size, construction_demand) in expected_final_buildings.items():
         key = wonder["key"]
         block = extract_trigger_block(generated_buildings, building_name)
-        require(
-            "country_potential = { has_global_variable = tv_engineering_department_direct_build }" in block,
-            f"Final wonder building {building_name} must expose the direct-build entry.",
-        )
+        if building_name in expected_direct_buildings:
+            require(
+                "country_potential = { has_global_variable = tv_engineering_department_direct_build }" in block,
+                f"Final wonder building {building_name} must expose the direct-build entry.",
+            )
+            if not wonder.get("is_unique"):
+                require(style == 3, f"Generic final wonder building {building_name} must expose only ritual style 3.")
+        else:
+            require(
+                "country_potential = { always = no }" in block,
+                f"Final wonder building {building_name} must remain hidden from direct construction.",
+            )
+            require(
+                "tv_engineering_department_direct_build" not in block,
+                f"Final wonder building {building_name} must not reference the direct-build toggle.",
+            )
         require(
             f"tv_wonder_location_can_host_{key}_trigger" not in block,
             f"Final wonder building {building_name} must hardcode location rules instead of calling the survey flow trigger.",

@@ -19,11 +19,11 @@ tv_wonder_golden_sanctuary = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 			topography = mountains
@@ -96,11 +96,11 @@ tv_wonder_ascetic_mountain = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 			topography = mountains
@@ -313,11 +313,11 @@ tv_wonder_sun_king_axis = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 			location_rank ?= location_rank:city
@@ -389,11 +389,11 @@ tv_wonder_military_city = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 			location_rank ?= location_rank:city
@@ -604,11 +604,11 @@ tv_wonder_golden_trade_port = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		is_port = yes
 	}
@@ -677,11 +677,11 @@ tv_wonder_imperial_naval_port = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		is_port = yes
 	}
@@ -886,11 +886,11 @@ tv_wonder_dynastic_necropolis = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		location_rank ?= location_rank:rural_settlement
 	}
@@ -960,11 +960,11 @@ tv_wonder_ancestor_shrine = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		location_rank ?= location_rank:rural_settlement
 	}
@@ -1171,11 +1171,11 @@ tv_wonder_eternal_lighthouse = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		is_port = yes
 	}
@@ -1245,11 +1245,11 @@ tv_wonder_navigator_lighthouse = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		is_port = yes
 	}
@@ -1456,11 +1456,11 @@ tv_wonder_water_god_workshop = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 			has_river = yes
@@ -1532,11 +1532,11 @@ tv_wonder_hydraulic_artisan_guildhall = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 			has_river = yes
@@ -1747,11 +1747,11 @@ tv_wonder_miners_oath_city = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 			raw_material = goods:iron
@@ -1828,11 +1828,11 @@ tv_wonder_royal_mint_city = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 			raw_material = goods:iron
@@ -2053,11 +2053,11 @@ tv_wonder_star_catalog_observatory = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 			topography = mountains
@@ -2130,11 +2130,11 @@ tv_wonder_nautical_almanac_observatory = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 			topography = mountains
@@ -2347,11 +2347,11 @@ tv_wonder_congress_palace = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		is_capital = yes
 	}
@@ -2420,11 +2420,11 @@ tv_wonder_tribute_gallery = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		is_capital = yes
 	}
@@ -2629,11 +2629,11 @@ tv_wonder_scholars_convocation = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
@@ -2702,11 +2702,11 @@ tv_wonder_public_lectures = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
@@ -2911,11 +2911,11 @@ tv_wonder_dome_consecration = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		dominant_religion = owner.religion
 		NOT = { location_rank ?= location_rank:rural_settlement }
@@ -2984,11 +2984,11 @@ tv_wonder_pilgrim_treasury = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		dominant_religion = owner.religion
 		NOT = { location_rank ?= location_rank:rural_settlement }
@@ -3193,11 +3193,11 @@ tv_wonder_beacon_rite_temple = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		always = yes
 	}
@@ -3266,11 +3266,11 @@ tv_wonder_pilgrim_stair_temple = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		always = yes
 	}
@@ -3475,11 +3475,11 @@ tv_wonder_bridge_opening = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 			has_river = yes
@@ -3551,11 +3551,11 @@ tv_wonder_river_fair = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 			has_river = yes
@@ -3766,11 +3766,11 @@ tv_wonder_keel_laying_yard = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		is_port = yes
 	}
@@ -3840,11 +3840,11 @@ tv_wonder_fleet_muster_yard = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		is_port = yes
 	}
@@ -4051,11 +4051,11 @@ tv_wonder_bastion_trial_fortress = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		always = yes
 	}
@@ -4125,11 +4125,11 @@ tv_wonder_siege_games_fortress = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		always = yes
 	}
@@ -4339,11 +4339,11 @@ tv_wonder_frontier_muster_wall = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		NOT = { location_rank ?= location_rank:city }
 		NOT = { location_rank ?= location_rank:megalopolis }
@@ -4414,11 +4414,11 @@ tv_wonder_signal_fires_wall = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		NOT = { location_rank ?= location_rank:city }
 		NOT = { location_rank ?= location_rank:megalopolis }
@@ -4630,11 +4630,11 @@ tv_wonder_muster_of_arms = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
@@ -4704,11 +4704,11 @@ tv_wonder_foundry_contracts = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
@@ -4915,11 +4915,11 @@ tv_wonder_national_catalog_library = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		is_capital = yes
 	}
@@ -4987,11 +4987,11 @@ tv_wonder_copyists_endowment_library = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		is_capital = yes
 	}
@@ -5194,11 +5194,11 @@ tv_wonder_irrigation_canal_system = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 			has_river = yes
@@ -5272,11 +5272,11 @@ tv_wonder_grain_transport_canal_system = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 			has_river = yes
@@ -5491,11 +5491,11 @@ tv_wonder_grain_terraces = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 			topography = mountains
@@ -5568,11 +5568,11 @@ tv_wonder_cash_crop_terraces = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 			topography = mountains
@@ -5785,11 +5785,11 @@ tv_wonder_estuary_flood_dam = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 			has_river = yes
@@ -5862,11 +5862,11 @@ tv_wonder_marsh_reclamation_dam = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 			has_river = yes
@@ -6079,11 +6079,11 @@ tv_wonder_grain_price_granaries = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		always = yes
 	}
@@ -6152,11 +6152,11 @@ tv_wonder_wartime_granaries = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		always = yes
 	}
@@ -6361,11 +6361,11 @@ tv_wonder_military_post_roads = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		always = yes
 	}
@@ -6434,11 +6434,11 @@ tv_wonder_trade_post_roads = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		always = yes
 	}
@@ -6643,11 +6643,11 @@ tv_wonder_grain_transport_hub = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 			has_river = yes
@@ -6721,11 +6721,11 @@ tv_wonder_financial_warehouse_hub = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 			has_river = yes
@@ -6940,11 +6940,11 @@ tv_wonder_military_colony_belt = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		location_rank ?= location_rank:rural_settlement
 	}
@@ -7014,11 +7014,11 @@ tv_wonder_settler_reclamation_belt = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		location_rank ?= location_rank:rural_settlement
 	}
@@ -7225,11 +7225,11 @@ tv_wonder_beacon_communication_network = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		is_port = yes
 	}
@@ -7298,11 +7298,11 @@ tv_wonder_coastal_battery_network = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		is_port = yes
 	}
@@ -7507,11 +7507,11 @@ tv_wonder_crusader_knightly_order = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		always = yes
 	}
@@ -7581,11 +7581,11 @@ tv_wonder_frontier_lord_order = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		always = yes
 	}
@@ -7793,11 +7793,11 @@ tv_wonder_firearms_tactics_college = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
@@ -7865,11 +7865,11 @@ tv_wonder_cavalry_tradition_college = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
@@ -8073,11 +8073,11 @@ tv_wonder_worship_clock_bells = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
@@ -8145,11 +8145,11 @@ tv_wonder_curfew_clock_bells = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
@@ -8352,11 +8352,11 @@ tv_wonder_court_art_district = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 			location_rank ?= location_rank:city
@@ -8429,11 +8429,11 @@ tv_wonder_folk_art_district = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 			location_rank ?= location_rank:city
@@ -8646,11 +8646,11 @@ tv_wonder_court_theater = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 			location_rank ?= location_rank:city
@@ -8723,11 +8723,11 @@ tv_wonder_religious_theater = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 			location_rank ?= location_rank:city
@@ -8940,11 +8940,11 @@ tv_wonder_trade_diplomacy_embassies = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 			is_capital = yes
@@ -9015,11 +9015,11 @@ tv_wonder_intelligence_embassies = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 			is_capital = yes
@@ -9228,11 +9228,11 @@ tv_wonder_religious_law_steles = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		always = yes
 	}
@@ -9300,11 +9300,11 @@ tv_wonder_written_law_steles = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		always = yes
 	}
@@ -9507,11 +9507,11 @@ tv_wonder_luxury_goods_market = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 			is_port = yes
@@ -9586,11 +9586,11 @@ tv_wonder_grain_market = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 			is_port = yes
@@ -9807,11 +9807,11 @@ tv_wonder_silver_gold_standard_mint = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 			location_rank ?= location_rank:city
@@ -9885,11 +9885,11 @@ tv_wonder_copper_coinage_mint = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 			location_rank ?= location_rank:city
@@ -10104,11 +10104,11 @@ tv_wonder_artisan_guild_alliance = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
@@ -10177,11 +10177,11 @@ tv_wonder_overseas_merchant_guilds = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
@@ -10386,11 +10386,11 @@ tv_wonder_spice_trade_stations = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		is_port = yes
 	}
@@ -10460,11 +10460,11 @@ tv_wonder_slave_trade_stations = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		is_port = yes
 	}
@@ -10671,11 +10671,11 @@ tv_wonder_textile_workshop_complex = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
@@ -10743,11 +10743,11 @@ tv_wonder_military_workshop_complex = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
@@ -10950,11 +10950,11 @@ tv_wonder_conquest_monument_group = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 			is_capital = yes
@@ -11027,11 +11027,11 @@ tv_wonder_national_unity_monument_group = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 			is_capital = yes
@@ -11244,11 +11244,11 @@ tv_wonder_city_charter = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 			location_rank ?= location_rank:city
@@ -11319,11 +11319,11 @@ tv_wonder_civic_grid = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 			location_rank ?= location_rank:city
@@ -11533,11 +11533,11 @@ tv_wonder_solstice_gathering_circle = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		always = yes
 	}
@@ -11606,11 +11606,11 @@ tv_wonder_astral_alignment_circle = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		always = yes
 	}
@@ -11815,11 +11815,11 @@ tv_wonder_high_choir_cathedral = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		always = yes
 	}
@@ -11887,11 +11887,11 @@ tv_wonder_pilgrim_nave_cathedral = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		always = yes
 	}
@@ -12094,11 +12094,11 @@ tv_wonder_scriptorium_monastery = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		always = yes
 	}
@@ -12168,11 +12168,11 @@ tv_wonder_pilgrim_refectory_monastery = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		always = yes
 	}
@@ -12379,11 +12379,11 @@ tv_wonder_civic_watchtower = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
@@ -12453,11 +12453,11 @@ tv_wonder_bell_campanile = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		NOT = { location_rank ?= location_rank:rural_settlement }
 	}
@@ -12664,11 +12664,11 @@ tv_wonder_royal_sculpture_yard = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 			topography = mountains
@@ -12741,11 +12741,11 @@ tv_wonder_pilgrim_statue_garden = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 			topography = mountains
@@ -12958,11 +12958,11 @@ tv_wonder_strait_battery_cannon = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		is_port = yes
 	}
@@ -13031,11 +13031,11 @@ tv_wonder_harbor_chain_cannon = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		is_port = yes
 	}
@@ -13240,11 +13240,11 @@ tv_wonder_admiralty_navigation_school = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		is_port = yes
 	}
@@ -13312,11 +13312,11 @@ tv_wonder_pilotage_chart_house = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		is_port = yes
 	}
@@ -13519,11 +13519,11 @@ tv_wonder_chartered_company_exchange = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		is_port = yes
 		AND = { has_owner = yes NOT = { continent = owner.capital.continent } }
@@ -13595,11 +13595,11 @@ tv_wonder_overseas_factory_forts = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		is_port = yes
 		AND = { has_owner = yes NOT = { continent = owner.capital.continent } }
@@ -13810,11 +13810,11 @@ tv_wonder_estates_convocation_hall = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 			is_capital = yes
@@ -13886,11 +13886,11 @@ tv_wonder_royal_audience_hall = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 			is_capital = yes
@@ -14101,11 +14101,11 @@ tv_wonder_wagon_camp_muster = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		location_rank ?= location_rank:rural_settlement
 	}
@@ -14175,11 +14175,11 @@ tv_wonder_frontier_sich_camp = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		location_rank ?= location_rank:rural_settlement
 	}
@@ -14386,11 +14386,11 @@ tv_wonder_restored_citadel_ruins = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		always = yes
 	}
@@ -14459,11 +14459,11 @@ tv_wonder_antiquarian_quarter_ruins = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		always = yes
 	}
@@ -14668,11 +14668,11 @@ tv_wonder_royal_retreat_palace = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		always = yes
 	}
@@ -14741,11 +14741,11 @@ tv_wonder_garden_court_palace = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		always = yes
 	}
@@ -14950,11 +14950,11 @@ tv_wonder_public_credit_bank = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 		  is_capital = yes
@@ -15026,11 +15026,11 @@ tv_wonder_state_debt_office = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 		  is_capital = yes
@@ -15242,11 +15242,11 @@ tv_wonder_privateer_haven = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		is_port = yes
 	}
@@ -15316,11 +15316,11 @@ tv_wonder_harbor_redoubt = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		is_port = yes
 	}
@@ -15527,11 +15527,11 @@ tv_wonder_royal_pleasure_gardens = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 		  is_capital = yes
@@ -15603,11 +15603,11 @@ tv_wonder_scholars_landscape_garden = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 		  is_capital = yes
@@ -15818,11 +15818,11 @@ tv_wonder_classics_examination_yard = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 			is_capital = yes
@@ -15893,11 +15893,11 @@ tv_wonder_open_merit_hall = {
 
 	important_for_AI = no
 	automation_build_allowed = no
-	country_potential = { has_global_variable = tv_engineering_department_direct_build }
+	country_potential = { always = no }
 	allow = {
 		custom_tooltip = {
-			text = TV_WONDER_DIRECT_BUILDING_ENABLED_TT
-			has_global_variable = tv_engineering_department_direct_build
+			text = TV_WONDER_ENGINEERING_ONLY_BUILDING_TT
+			always = no
 		}
 		OR = {
 			is_capital = yes

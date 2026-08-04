@@ -299,6 +299,10 @@ def final_building_on_destroyed_lines(wonder: dict) -> list[str]:
     ]
 
 
+def final_building_uses_direct_build_entry(wonder: dict, style: int) -> bool:
+    return bool(wonder.get("is_unique")) or int(style) == 3
+
+
 def generate() -> str:
     wonders, mechanics = load_all_wonder_mechanics()
     lines = render_header(SCRIPT_REL)
@@ -330,7 +334,7 @@ def generate() -> str:
                     build_time="huge_unique_build_time",
                     price=f"tv_wonder_direct_build_{wonder['size']}_price",
                     allow_lines=final_building_direct_build_allow_lines(wonder, mechanics),
-                    direct_build=True,
+                    direct_build=final_building_uses_direct_build_entry(wonder, style),
                 )
             )
         for style in ceremony_styles(wonder):
