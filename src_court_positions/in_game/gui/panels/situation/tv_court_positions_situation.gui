@@ -73,6 +73,103 @@ situation_panel = {
 								texture = "gfx/interface/illustrations/cabinet/adm_cabinet.dds"
 								alpha = 0.28
 							}
+							widget = {
+								visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_physician_character').IsSet]"
+								position = { 118 0 }
+								size = { 34 34 }
+								icon = {
+									size = { 34 34 }
+									position = { 0 0 }
+									texture = "gfx/interface/component_tiles/hud_corners/circle_progress_bg.dds"
+									modify_texture = {
+										using = color_red_texture
+									}
+									alpha = 0.72
+								}
+								widget = {
+									size = { 24 24 }
+									position = { 5 5 }
+									using = bg_circle_piechart_big
+									icon = {
+										size = { 18 18 }
+										position = { 3 3 }
+										texture = "gfx/interface/buttons/flats/replace.dds"
+										modify_texture = {
+											using = color_new_gold_texture
+											blend_mode = add
+										}
+										glow = {
+											name = "drop_shadow"
+											glow_radius = 3
+											color = { 0.0 0.0 0.0 1.0 }
+											alpha = 0.8
+										}
+									}
+								}
+								action_button = {
+									size = { 24 24 }
+									position = { 5 5 }
+									alpha = 0
+									alwaystransparent = no
+									using = action_button_common_template
+									title = "tv_court_replace_physician"
+									description = "tv_court_replace_physician_desc"
+									actor = "[SituationView.GetPlayer]"
+									left_action = { action_name = "tv_court_replace_physician" }
+									right_action = { action_name = "tv_court_dismiss_physician" }
+									tooltipwidget = {
+										ContextualTooltipType = {
+											blockoverride "title_text" {
+												text = "[Select_CString(PdxGuiWidget.HasTooltipMetaTitle, PdxGuiWidget.GetTooltipMetaTitle, UIAction.GetTitle)]"
+											}
+											blockoverride "tooltip_content" {
+												using = action_tooltip_inner_content
+											}
+											blockoverride "extra_tooltip_content" {
+												datacontext = "[SituationView.GetPlayer]"
+												TooltipTextBlock = {
+													blockoverride "text" {
+														text = "TV_COURT_PHYSICIAN_DESC"
+													}
+												}
+												TooltipTextBlock = {
+													blockoverride "text" {
+														text = "TV_COURT_PHYSICIAN_ABILITY_TOOLTIP"
+													}
+												}
+												TooltipTextBlock = {
+													blockoverride "text" {
+														text = "TV_COURT_TOOLTIP_EFFECT_AT_100"
+													}
+												}
+												TooltipStringPairList = {
+													layoutpolicy_horizontal = fixed
+													maximumsize = { 400 -1 }
+													textcontext = "[ShowModifierEffect('tv_court_physician_display_100')]"
+												}
+												TooltipTextBlock = {
+													visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_physician_character').IsSet]"
+													blockoverride "text" {
+														text = "TV_COURT_TOOLTIP_CURRENT_EFFECT"
+													}
+												}
+												TooltipStringPairList = {
+													visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_physician_character').IsSet]"
+													layoutpolicy_horizontal = fixed
+													maximumsize = { 400 -1 }
+													textcontext = "[ShowModifierEffect(Concatenate('tv_court_physician_display_', ToString_int32(FixedPointToInt(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_physician_ability').GetValue))))]"
+												}
+												TooltipTextBlock = {
+													visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_physician_character').IsSet]"
+													blockoverride "text" {
+														text = "TV_COURT_TOOLTIP_COURT_COST"
+													}
+												}
+											}
+										}
+									}
+								}
+							}
 							portrait_standard_full_body_center_button = {
 								visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_physician_character').IsSet]"
 								parentanchor = bottom|hcenter
@@ -147,71 +244,6 @@ situation_panel = {
 												layoutpolicy_horizontal = fixed
 												maximumsize = { 400 -1 }
 												textcontext = "[ShowModifierEffect('tv_court_physician_display_100')]"
-											}
-										}
-									}
-								}
-							}
-							action_button = {
-								visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_physician_character').IsSet]"
-								parentanchor = center
-								widgetanchor = center
-								size = { 100% 100% }
-								alpha = 0
-								alwaystransparent = no
-								using = action_button_common_template
-								title = "tv_court_replace_physician"
-								description = "tv_court_replace_physician_desc"
-								actor = "[SituationView.GetPlayer]"
-								left_action = { action_name = "tv_court_replace_physician" }
-								right_action = { action_name = "tv_court_dismiss_physician" }
-								tooltipwidget = {
-									ContextualTooltipType = {
-										blockoverride "title_text" {
-											text = "[Select_CString(PdxGuiWidget.HasTooltipMetaTitle, PdxGuiWidget.GetTooltipMetaTitle, UIAction.GetTitle)]"
-										}
-										blockoverride "tooltip_content" {
-											using = action_tooltip_inner_content
-										}
-										blockoverride "extra_tooltip_content" {
-											datacontext = "[SituationView.GetPlayer]"
-											TooltipTextBlock = {
-												blockoverride "text" {
-													text = "TV_COURT_PHYSICIAN_DESC"
-												}
-											}
-											TooltipTextBlock = {
-												blockoverride "text" {
-													text = "TV_COURT_PHYSICIAN_ABILITY_TOOLTIP"
-												}
-											}
-											TooltipTextBlock = {
-												blockoverride "text" {
-													text = "TV_COURT_TOOLTIP_EFFECT_AT_100"
-												}
-											}
-											TooltipStringPairList = {
-												layoutpolicy_horizontal = fixed
-												maximumsize = { 400 -1 }
-												textcontext = "[ShowModifierEffect('tv_court_physician_display_100')]"
-											}
-											TooltipTextBlock = {
-												visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_physician_character').IsSet]"
-												blockoverride "text" {
-													text = "TV_COURT_TOOLTIP_CURRENT_EFFECT"
-												}
-											}
-											TooltipStringPairList = {
-												visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_physician_character').IsSet]"
-												layoutpolicy_horizontal = fixed
-												maximumsize = { 400 -1 }
-												textcontext = "[ShowModifierEffect(Concatenate('tv_court_physician_display_', ToString_int32(FixedPointToInt(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_physician_ability').GetValue))))]"
-											}
-											TooltipTextBlock = {
-												visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_physician_character').IsSet]"
-												blockoverride "text" {
-													text = "TV_COURT_TOOLTIP_COURT_COST"
-												}
 											}
 										}
 									}
@@ -351,7 +383,7 @@ situation_panel = {
 									visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_physician_character').IsSet]"
 									datacontext = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_physician_character').GetCharacter]"
 									layoutpolicy_horizontal = expanding
-									maximumsize = { 134 16 }
+									maximumsize = { 142 16 }
 									autoresize = yes
 									elide = right
 									text = "[Localize('TV_COURT_PHYSICIAN_TITLE')] [Character.GetNameWithNoTooltip]"
@@ -413,10 +445,16 @@ situation_panel = {
 								}
 								TooltipStringPairList = {
 									visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_physician_character').IsSet]"
-									layoutpolicy_horizontal = fixed
-									maximumsize = { 134 17 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 134 -1 } }
-									blockoverride "field_text_format" { fontsize = 9 autoresize = yes max_width = 58 elide = right }
+									layoutpolicy_horizontal = expanding
+									maximumsize = { 142 17 }
+									blockoverride "tooltip_minimumsize" { minimumsize = { 142 -1 } }
+									blockoverride "row_size" { maximumsize = { -1 17 } minimumsize = { -1 17 } }
+									blockoverride "field_margin" {}
+									blockoverride "field_content" {
+										blockoverride "table_field_margin" { margin = { 2 0 } }
+										spacing = 2
+									}
+									blockoverride "field_text_format" { fontsize = 9 autoresize = yes max_width = 96 elide = right }
 									textcontext = "[ShowModifierEffect(Concatenate('tv_court_physician_display_', ToString_int32(FixedPointToInt(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_physician_ability').GetValue))))]"
 								}
 							}
@@ -479,6 +517,103 @@ situation_panel = {
 							background = {
 								texture = "gfx/interface/illustrations/cabinet/dip_cabinet.dds"
 								alpha = 0.28
+							}
+							widget = {
+								visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_tutor_character').IsSet]"
+								position = { 118 0 }
+								size = { 34 34 }
+								icon = {
+									size = { 34 34 }
+									position = { 0 0 }
+									texture = "gfx/interface/component_tiles/hud_corners/circle_progress_bg.dds"
+									modify_texture = {
+										using = color_light_green_texture
+									}
+									alpha = 0.72
+								}
+								widget = {
+									size = { 24 24 }
+									position = { 5 5 }
+									using = bg_circle_piechart_big
+									icon = {
+										size = { 18 18 }
+										position = { 3 3 }
+										texture = "gfx/interface/buttons/flats/replace.dds"
+										modify_texture = {
+											using = color_new_gold_texture
+											blend_mode = add
+										}
+										glow = {
+											name = "drop_shadow"
+											glow_radius = 3
+											color = { 0.0 0.0 0.0 1.0 }
+											alpha = 0.8
+										}
+									}
+								}
+								action_button = {
+									size = { 24 24 }
+									position = { 5 5 }
+									alpha = 0
+									alwaystransparent = no
+									using = action_button_common_template
+									title = "tv_court_replace_tutor"
+									description = "tv_court_replace_tutor_desc"
+									actor = "[SituationView.GetPlayer]"
+									left_action = { action_name = "tv_court_replace_tutor" }
+									right_action = { action_name = "tv_court_dismiss_tutor" }
+									tooltipwidget = {
+										ContextualTooltipType = {
+											blockoverride "title_text" {
+												text = "[Select_CString(PdxGuiWidget.HasTooltipMetaTitle, PdxGuiWidget.GetTooltipMetaTitle, UIAction.GetTitle)]"
+											}
+											blockoverride "tooltip_content" {
+												using = action_tooltip_inner_content
+											}
+											blockoverride "extra_tooltip_content" {
+												datacontext = "[SituationView.GetPlayer]"
+												TooltipTextBlock = {
+													blockoverride "text" {
+														text = "TV_COURT_TUTOR_DESC"
+													}
+												}
+												TooltipTextBlock = {
+													blockoverride "text" {
+														text = "TV_COURT_TUTOR_ABILITY_TOOLTIP"
+													}
+												}
+												TooltipTextBlock = {
+													blockoverride "text" {
+														text = "TV_COURT_TOOLTIP_EFFECT_AT_100"
+													}
+												}
+												TooltipStringPairList = {
+													layoutpolicy_horizontal = fixed
+													maximumsize = { 400 -1 }
+													textcontext = "[ShowModifierEffect('tv_court_tutor_display_100')]"
+												}
+												TooltipTextBlock = {
+													visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_tutor_character').IsSet]"
+													blockoverride "text" {
+														text = "TV_COURT_TOOLTIP_CURRENT_EFFECT"
+													}
+												}
+												TooltipStringPairList = {
+													visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_tutor_character').IsSet]"
+													layoutpolicy_horizontal = fixed
+													maximumsize = { 400 -1 }
+													textcontext = "[ShowModifierEffect(Concatenate('tv_court_tutor_display_', ToString_int32(FixedPointToInt(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_tutor_ability').GetValue))))]"
+												}
+												TooltipTextBlock = {
+													visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_tutor_character').IsSet]"
+													blockoverride "text" {
+														text = "TV_COURT_TOOLTIP_COURT_COST"
+													}
+												}
+											}
+										}
+									}
+								}
 							}
 							portrait_standard_full_body_center_button = {
 								visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_tutor_character').IsSet]"
@@ -554,71 +689,6 @@ situation_panel = {
 												layoutpolicy_horizontal = fixed
 												maximumsize = { 400 -1 }
 												textcontext = "[ShowModifierEffect('tv_court_tutor_display_100')]"
-											}
-										}
-									}
-								}
-							}
-							action_button = {
-								visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_tutor_character').IsSet]"
-								parentanchor = center
-								widgetanchor = center
-								size = { 100% 100% }
-								alpha = 0
-								alwaystransparent = no
-								using = action_button_common_template
-								title = "tv_court_replace_tutor"
-								description = "tv_court_replace_tutor_desc"
-								actor = "[SituationView.GetPlayer]"
-								left_action = { action_name = "tv_court_replace_tutor" }
-								right_action = { action_name = "tv_court_dismiss_tutor" }
-								tooltipwidget = {
-									ContextualTooltipType = {
-										blockoverride "title_text" {
-											text = "[Select_CString(PdxGuiWidget.HasTooltipMetaTitle, PdxGuiWidget.GetTooltipMetaTitle, UIAction.GetTitle)]"
-										}
-										blockoverride "tooltip_content" {
-											using = action_tooltip_inner_content
-										}
-										blockoverride "extra_tooltip_content" {
-											datacontext = "[SituationView.GetPlayer]"
-											TooltipTextBlock = {
-												blockoverride "text" {
-													text = "TV_COURT_TUTOR_DESC"
-												}
-											}
-											TooltipTextBlock = {
-												blockoverride "text" {
-													text = "TV_COURT_TUTOR_ABILITY_TOOLTIP"
-												}
-											}
-											TooltipTextBlock = {
-												blockoverride "text" {
-													text = "TV_COURT_TOOLTIP_EFFECT_AT_100"
-												}
-											}
-											TooltipStringPairList = {
-												layoutpolicy_horizontal = fixed
-												maximumsize = { 400 -1 }
-												textcontext = "[ShowModifierEffect('tv_court_tutor_display_100')]"
-											}
-											TooltipTextBlock = {
-												visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_tutor_character').IsSet]"
-												blockoverride "text" {
-													text = "TV_COURT_TOOLTIP_CURRENT_EFFECT"
-												}
-											}
-											TooltipStringPairList = {
-												visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_tutor_character').IsSet]"
-												layoutpolicy_horizontal = fixed
-												maximumsize = { 400 -1 }
-												textcontext = "[ShowModifierEffect(Concatenate('tv_court_tutor_display_', ToString_int32(FixedPointToInt(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_tutor_ability').GetValue))))]"
-											}
-											TooltipTextBlock = {
-												visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_tutor_character').IsSet]"
-												blockoverride "text" {
-													text = "TV_COURT_TOOLTIP_COURT_COST"
-												}
 											}
 										}
 									}
@@ -758,7 +828,7 @@ situation_panel = {
 									visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_tutor_character').IsSet]"
 									datacontext = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_tutor_character').GetCharacter]"
 									layoutpolicy_horizontal = expanding
-									maximumsize = { 134 16 }
+									maximumsize = { 142 16 }
 									autoresize = yes
 									elide = right
 									text = "[Localize('TV_COURT_TUTOR_TITLE')] [Character.GetNameWithNoTooltip]"
@@ -820,10 +890,16 @@ situation_panel = {
 								}
 								TooltipStringPairList = {
 									visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_tutor_character').IsSet]"
-									layoutpolicy_horizontal = fixed
-									maximumsize = { 134 17 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 134 -1 } }
-									blockoverride "field_text_format" { fontsize = 9 autoresize = yes max_width = 58 elide = right }
+									layoutpolicy_horizontal = expanding
+									maximumsize = { 142 17 }
+									blockoverride "tooltip_minimumsize" { minimumsize = { 142 -1 } }
+									blockoverride "row_size" { maximumsize = { -1 17 } minimumsize = { -1 17 } }
+									blockoverride "field_margin" {}
+									blockoverride "field_content" {
+										blockoverride "table_field_margin" { margin = { 2 0 } }
+										spacing = 2
+									}
+									blockoverride "field_text_format" { fontsize = 9 autoresize = yes max_width = 96 elide = right }
 									textcontext = "[ShowModifierEffect(Concatenate('tv_court_tutor_display_', ToString_int32(FixedPointToInt(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_tutor_ability').GetValue))))]"
 								}
 							}
@@ -886,6 +962,103 @@ situation_panel = {
 							background = {
 								texture = "gfx/interface/illustrations/cabinet/adm_cabinet.dds"
 								alpha = 0.28
+							}
+							widget = {
+								visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_steward_character').IsSet]"
+								position = { 118 0 }
+								size = { 34 34 }
+								icon = {
+									size = { 34 34 }
+									position = { 0 0 }
+									texture = "gfx/interface/component_tiles/hud_corners/circle_progress_bg.dds"
+									modify_texture = {
+										using = color_yellow_texture
+									}
+									alpha = 0.72
+								}
+								widget = {
+									size = { 24 24 }
+									position = { 5 5 }
+									using = bg_circle_piechart_big
+									icon = {
+										size = { 18 18 }
+										position = { 3 3 }
+										texture = "gfx/interface/buttons/flats/replace.dds"
+										modify_texture = {
+											using = color_new_gold_texture
+											blend_mode = add
+										}
+										glow = {
+											name = "drop_shadow"
+											glow_radius = 3
+											color = { 0.0 0.0 0.0 1.0 }
+											alpha = 0.8
+										}
+									}
+								}
+								action_button = {
+									size = { 24 24 }
+									position = { 5 5 }
+									alpha = 0
+									alwaystransparent = no
+									using = action_button_common_template
+									title = "tv_court_replace_steward"
+									description = "tv_court_replace_steward_desc"
+									actor = "[SituationView.GetPlayer]"
+									left_action = { action_name = "tv_court_replace_steward" }
+									right_action = { action_name = "tv_court_dismiss_steward" }
+									tooltipwidget = {
+										ContextualTooltipType = {
+											blockoverride "title_text" {
+												text = "[Select_CString(PdxGuiWidget.HasTooltipMetaTitle, PdxGuiWidget.GetTooltipMetaTitle, UIAction.GetTitle)]"
+											}
+											blockoverride "tooltip_content" {
+												using = action_tooltip_inner_content
+											}
+											blockoverride "extra_tooltip_content" {
+												datacontext = "[SituationView.GetPlayer]"
+												TooltipTextBlock = {
+													blockoverride "text" {
+														text = "TV_COURT_STEWARD_DESC"
+													}
+												}
+												TooltipTextBlock = {
+													blockoverride "text" {
+														text = "TV_COURT_STEWARD_ABILITY_TOOLTIP"
+													}
+												}
+												TooltipTextBlock = {
+													blockoverride "text" {
+														text = "TV_COURT_TOOLTIP_EFFECT_AT_100"
+													}
+												}
+												TooltipStringPairList = {
+													layoutpolicy_horizontal = fixed
+													maximumsize = { 400 -1 }
+													textcontext = "[ShowModifierEffect('tv_court_steward_display_100')]"
+												}
+												TooltipTextBlock = {
+													visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_steward_character').IsSet]"
+													blockoverride "text" {
+														text = "TV_COURT_TOOLTIP_CURRENT_EFFECT"
+													}
+												}
+												TooltipStringPairList = {
+													visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_steward_character').IsSet]"
+													layoutpolicy_horizontal = fixed
+													maximumsize = { 400 -1 }
+													textcontext = "[ShowModifierEffect(Concatenate('tv_court_steward_display_', ToString_int32(FixedPointToInt(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_steward_ability').GetValue))))]"
+												}
+												TooltipTextBlock = {
+													visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_steward_character').IsSet]"
+													blockoverride "text" {
+														text = "TV_COURT_TOOLTIP_COURT_COST"
+													}
+												}
+											}
+										}
+									}
+								}
 							}
 							portrait_standard_full_body_center_button = {
 								visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_steward_character').IsSet]"
@@ -961,71 +1134,6 @@ situation_panel = {
 												layoutpolicy_horizontal = fixed
 												maximumsize = { 400 -1 }
 												textcontext = "[ShowModifierEffect('tv_court_steward_display_100')]"
-											}
-										}
-									}
-								}
-							}
-							action_button = {
-								visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_steward_character').IsSet]"
-								parentanchor = center
-								widgetanchor = center
-								size = { 100% 100% }
-								alpha = 0
-								alwaystransparent = no
-								using = action_button_common_template
-								title = "tv_court_replace_steward"
-								description = "tv_court_replace_steward_desc"
-								actor = "[SituationView.GetPlayer]"
-								left_action = { action_name = "tv_court_replace_steward" }
-								right_action = { action_name = "tv_court_dismiss_steward" }
-								tooltipwidget = {
-									ContextualTooltipType = {
-										blockoverride "title_text" {
-											text = "[Select_CString(PdxGuiWidget.HasTooltipMetaTitle, PdxGuiWidget.GetTooltipMetaTitle, UIAction.GetTitle)]"
-										}
-										blockoverride "tooltip_content" {
-											using = action_tooltip_inner_content
-										}
-										blockoverride "extra_tooltip_content" {
-											datacontext = "[SituationView.GetPlayer]"
-											TooltipTextBlock = {
-												blockoverride "text" {
-													text = "TV_COURT_STEWARD_DESC"
-												}
-											}
-											TooltipTextBlock = {
-												blockoverride "text" {
-													text = "TV_COURT_STEWARD_ABILITY_TOOLTIP"
-												}
-											}
-											TooltipTextBlock = {
-												blockoverride "text" {
-													text = "TV_COURT_TOOLTIP_EFFECT_AT_100"
-												}
-											}
-											TooltipStringPairList = {
-												layoutpolicy_horizontal = fixed
-												maximumsize = { 400 -1 }
-												textcontext = "[ShowModifierEffect('tv_court_steward_display_100')]"
-											}
-											TooltipTextBlock = {
-												visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_steward_character').IsSet]"
-												blockoverride "text" {
-													text = "TV_COURT_TOOLTIP_CURRENT_EFFECT"
-												}
-											}
-											TooltipStringPairList = {
-												visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_steward_character').IsSet]"
-												layoutpolicy_horizontal = fixed
-												maximumsize = { 400 -1 }
-												textcontext = "[ShowModifierEffect(Concatenate('tv_court_steward_display_', ToString_int32(FixedPointToInt(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_steward_ability').GetValue))))]"
-											}
-											TooltipTextBlock = {
-												visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_steward_character').IsSet]"
-												blockoverride "text" {
-													text = "TV_COURT_TOOLTIP_COURT_COST"
-												}
 											}
 										}
 									}
@@ -1165,7 +1273,7 @@ situation_panel = {
 									visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_steward_character').IsSet]"
 									datacontext = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_steward_character').GetCharacter]"
 									layoutpolicy_horizontal = expanding
-									maximumsize = { 134 16 }
+									maximumsize = { 142 16 }
 									autoresize = yes
 									elide = right
 									text = "[Localize('TV_COURT_STEWARD_TITLE')] [Character.GetNameWithNoTooltip]"
@@ -1227,10 +1335,16 @@ situation_panel = {
 								}
 								TooltipStringPairList = {
 									visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_steward_character').IsSet]"
-									layoutpolicy_horizontal = fixed
-									maximumsize = { 134 17 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 134 -1 } }
-									blockoverride "field_text_format" { fontsize = 9 autoresize = yes max_width = 58 elide = right }
+									layoutpolicy_horizontal = expanding
+									maximumsize = { 142 17 }
+									blockoverride "tooltip_minimumsize" { minimumsize = { 142 -1 } }
+									blockoverride "row_size" { maximumsize = { -1 17 } minimumsize = { -1 17 } }
+									blockoverride "field_margin" {}
+									blockoverride "field_content" {
+										blockoverride "table_field_margin" { margin = { 2 0 } }
+										spacing = 2
+									}
+									blockoverride "field_text_format" { fontsize = 9 autoresize = yes max_width = 96 elide = right }
 									textcontext = "[ShowModifierEffect(Concatenate('tv_court_steward_display_', ToString_int32(FixedPointToInt(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_steward_ability').GetValue))))]"
 								}
 							}
@@ -1297,6 +1411,103 @@ situation_panel = {
 							background = {
 								texture = "gfx/interface/illustrations/cabinet/mil_cabinet.dds"
 								alpha = 0.28
+							}
+							widget = {
+								visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_architect_character').IsSet]"
+								position = { 118 0 }
+								size = { 34 34 }
+								icon = {
+									size = { 34 34 }
+									position = { 0 0 }
+									texture = "gfx/interface/component_tiles/hud_corners/circle_progress_bg.dds"
+									modify_texture = {
+										using = color_blue_texture
+									}
+									alpha = 0.72
+								}
+								widget = {
+									size = { 24 24 }
+									position = { 5 5 }
+									using = bg_circle_piechart_big
+									icon = {
+										size = { 18 18 }
+										position = { 3 3 }
+										texture = "gfx/interface/buttons/flats/replace.dds"
+										modify_texture = {
+											using = color_new_gold_texture
+											blend_mode = add
+										}
+										glow = {
+											name = "drop_shadow"
+											glow_radius = 3
+											color = { 0.0 0.0 0.0 1.0 }
+											alpha = 0.8
+										}
+									}
+								}
+								action_button = {
+									size = { 24 24 }
+									position = { 5 5 }
+									alpha = 0
+									alwaystransparent = no
+									using = action_button_common_template
+									title = "tv_court_replace_architect"
+									description = "tv_court_replace_architect_desc"
+									actor = "[SituationView.GetPlayer]"
+									left_action = { action_name = "tv_court_replace_architect" }
+									right_action = { action_name = "tv_court_dismiss_architect" }
+									tooltipwidget = {
+										ContextualTooltipType = {
+											blockoverride "title_text" {
+												text = "[Select_CString(PdxGuiWidget.HasTooltipMetaTitle, PdxGuiWidget.GetTooltipMetaTitle, UIAction.GetTitle)]"
+											}
+											blockoverride "tooltip_content" {
+												using = action_tooltip_inner_content
+											}
+											blockoverride "extra_tooltip_content" {
+												datacontext = "[SituationView.GetPlayer]"
+												TooltipTextBlock = {
+													blockoverride "text" {
+														text = "TV_COURT_ARCHITECT_DESC"
+													}
+												}
+												TooltipTextBlock = {
+													blockoverride "text" {
+														text = "TV_COURT_ARCHITECT_ABILITY_TOOLTIP"
+													}
+												}
+												TooltipTextBlock = {
+													blockoverride "text" {
+														text = "TV_COURT_TOOLTIP_EFFECT_AT_100"
+													}
+												}
+												TooltipStringPairList = {
+													layoutpolicy_horizontal = fixed
+													maximumsize = { 400 -1 }
+													textcontext = "[ShowModifierEffect('tv_court_architect_display_100')]"
+												}
+												TooltipTextBlock = {
+													visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_architect_character').IsSet]"
+													blockoverride "text" {
+														text = "TV_COURT_TOOLTIP_CURRENT_EFFECT"
+													}
+												}
+												TooltipStringPairList = {
+													visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_architect_character').IsSet]"
+													layoutpolicy_horizontal = fixed
+													maximumsize = { 400 -1 }
+													textcontext = "[ShowModifierEffect(Concatenate('tv_court_architect_display_', ToString_int32(FixedPointToInt(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_architect_ability').GetValue))))]"
+												}
+												TooltipTextBlock = {
+													visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_architect_character').IsSet]"
+													blockoverride "text" {
+														text = "TV_COURT_TOOLTIP_COURT_COST"
+													}
+												}
+											}
+										}
+									}
+								}
 							}
 							portrait_standard_full_body_center_button = {
 								visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_architect_character').IsSet]"
@@ -1372,71 +1583,6 @@ situation_panel = {
 												layoutpolicy_horizontal = fixed
 												maximumsize = { 400 -1 }
 												textcontext = "[ShowModifierEffect('tv_court_architect_display_100')]"
-											}
-										}
-									}
-								}
-							}
-							action_button = {
-								visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_architect_character').IsSet]"
-								parentanchor = center
-								widgetanchor = center
-								size = { 100% 100% }
-								alpha = 0
-								alwaystransparent = no
-								using = action_button_common_template
-								title = "tv_court_replace_architect"
-								description = "tv_court_replace_architect_desc"
-								actor = "[SituationView.GetPlayer]"
-								left_action = { action_name = "tv_court_replace_architect" }
-								right_action = { action_name = "tv_court_dismiss_architect" }
-								tooltipwidget = {
-									ContextualTooltipType = {
-										blockoverride "title_text" {
-											text = "[Select_CString(PdxGuiWidget.HasTooltipMetaTitle, PdxGuiWidget.GetTooltipMetaTitle, UIAction.GetTitle)]"
-										}
-										blockoverride "tooltip_content" {
-											using = action_tooltip_inner_content
-										}
-										blockoverride "extra_tooltip_content" {
-											datacontext = "[SituationView.GetPlayer]"
-											TooltipTextBlock = {
-												blockoverride "text" {
-													text = "TV_COURT_ARCHITECT_DESC"
-												}
-											}
-											TooltipTextBlock = {
-												blockoverride "text" {
-													text = "TV_COURT_ARCHITECT_ABILITY_TOOLTIP"
-												}
-											}
-											TooltipTextBlock = {
-												blockoverride "text" {
-													text = "TV_COURT_TOOLTIP_EFFECT_AT_100"
-												}
-											}
-											TooltipStringPairList = {
-												layoutpolicy_horizontal = fixed
-												maximumsize = { 400 -1 }
-												textcontext = "[ShowModifierEffect('tv_court_architect_display_100')]"
-											}
-											TooltipTextBlock = {
-												visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_architect_character').IsSet]"
-												blockoverride "text" {
-													text = "TV_COURT_TOOLTIP_CURRENT_EFFECT"
-												}
-											}
-											TooltipStringPairList = {
-												visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_architect_character').IsSet]"
-												layoutpolicy_horizontal = fixed
-												maximumsize = { 400 -1 }
-												textcontext = "[ShowModifierEffect(Concatenate('tv_court_architect_display_', ToString_int32(FixedPointToInt(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_architect_ability').GetValue))))]"
-											}
-											TooltipTextBlock = {
-												visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_architect_character').IsSet]"
-												blockoverride "text" {
-													text = "TV_COURT_TOOLTIP_COURT_COST"
-												}
 											}
 										}
 									}
@@ -1576,7 +1722,7 @@ situation_panel = {
 									visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_architect_character').IsSet]"
 									datacontext = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_architect_character').GetCharacter]"
 									layoutpolicy_horizontal = expanding
-									maximumsize = { 134 16 }
+									maximumsize = { 142 16 }
 									autoresize = yes
 									elide = right
 									text = "[Localize('TV_COURT_ARCHITECT_TITLE')] [Character.GetNameWithNoTooltip]"
@@ -1638,10 +1784,16 @@ situation_panel = {
 								}
 								TooltipStringPairList = {
 									visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_architect_character').IsSet]"
-									layoutpolicy_horizontal = fixed
-									maximumsize = { 134 17 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 134 -1 } }
-									blockoverride "field_text_format" { fontsize = 9 autoresize = yes max_width = 58 elide = right }
+									layoutpolicy_horizontal = expanding
+									maximumsize = { 142 17 }
+									blockoverride "tooltip_minimumsize" { minimumsize = { 142 -1 } }
+									blockoverride "row_size" { maximumsize = { -1 17 } minimumsize = { -1 17 } }
+									blockoverride "field_margin" {}
+									blockoverride "field_content" {
+										blockoverride "table_field_margin" { margin = { 2 0 } }
+										spacing = 2
+									}
+									blockoverride "field_text_format" { fontsize = 9 autoresize = yes max_width = 96 elide = right }
 									textcontext = "[ShowModifierEffect(Concatenate('tv_court_architect_display_', ToString_int32(FixedPointToInt(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_architect_ability').GetValue))))]"
 								}
 							}
@@ -1704,6 +1856,103 @@ situation_panel = {
 							background = {
 								texture = "gfx/interface/illustrations/cabinet/dip_cabinet.dds"
 								alpha = 0.28
+							}
+							widget = {
+								visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_cultural_emissary_character').IsSet]"
+								position = { 118 0 }
+								size = { 34 34 }
+								icon = {
+									size = { 34 34 }
+									position = { 0 0 }
+									texture = "gfx/interface/component_tiles/hud_corners/circle_progress_bg.dds"
+									modify_texture = {
+										using = color_purple_texture
+									}
+									alpha = 0.72
+								}
+								widget = {
+									size = { 24 24 }
+									position = { 5 5 }
+									using = bg_circle_piechart_big
+									icon = {
+										size = { 18 18 }
+										position = { 3 3 }
+										texture = "gfx/interface/buttons/flats/replace.dds"
+										modify_texture = {
+											using = color_new_gold_texture
+											blend_mode = add
+										}
+										glow = {
+											name = "drop_shadow"
+											glow_radius = 3
+											color = { 0.0 0.0 0.0 1.0 }
+											alpha = 0.8
+										}
+									}
+								}
+								action_button = {
+									size = { 24 24 }
+									position = { 5 5 }
+									alpha = 0
+									alwaystransparent = no
+									using = action_button_common_template
+									title = "tv_court_replace_cultural_emissary"
+									description = "tv_court_replace_cultural_emissary_desc"
+									actor = "[SituationView.GetPlayer]"
+									left_action = { action_name = "tv_court_replace_cultural_emissary" }
+									right_action = { action_name = "tv_court_dismiss_cultural_emissary" }
+									tooltipwidget = {
+										ContextualTooltipType = {
+											blockoverride "title_text" {
+												text = "[Select_CString(PdxGuiWidget.HasTooltipMetaTitle, PdxGuiWidget.GetTooltipMetaTitle, UIAction.GetTitle)]"
+											}
+											blockoverride "tooltip_content" {
+												using = action_tooltip_inner_content
+											}
+											blockoverride "extra_tooltip_content" {
+												datacontext = "[SituationView.GetPlayer]"
+												TooltipTextBlock = {
+													blockoverride "text" {
+														text = "TV_COURT_CULTURAL_EMISSARY_DESC"
+													}
+												}
+												TooltipTextBlock = {
+													blockoverride "text" {
+														text = "TV_COURT_CULTURAL_EMISSARY_ABILITY_TOOLTIP"
+													}
+												}
+												TooltipTextBlock = {
+													blockoverride "text" {
+														text = "TV_COURT_TOOLTIP_EFFECT_AT_100"
+													}
+												}
+												TooltipStringPairList = {
+													layoutpolicy_horizontal = fixed
+													maximumsize = { 400 -1 }
+													textcontext = "[ShowModifierEffect('tv_court_cultural_emissary_display_100')]"
+												}
+												TooltipTextBlock = {
+													visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_cultural_emissary_character').IsSet]"
+													blockoverride "text" {
+														text = "TV_COURT_TOOLTIP_CURRENT_EFFECT"
+													}
+												}
+												TooltipStringPairList = {
+													visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_cultural_emissary_character').IsSet]"
+													layoutpolicy_horizontal = fixed
+													maximumsize = { 400 -1 }
+													textcontext = "[ShowModifierEffect(Concatenate('tv_court_cultural_emissary_display_', ToString_int32(FixedPointToInt(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_cultural_emissary_ability').GetValue))))]"
+												}
+												TooltipTextBlock = {
+													visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_cultural_emissary_character').IsSet]"
+													blockoverride "text" {
+														text = "TV_COURT_TOOLTIP_COURT_COST"
+													}
+												}
+											}
+										}
+									}
+								}
 							}
 							portrait_standard_full_body_center_button = {
 								visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_cultural_emissary_character').IsSet]"
@@ -1779,71 +2028,6 @@ situation_panel = {
 												layoutpolicy_horizontal = fixed
 												maximumsize = { 400 -1 }
 												textcontext = "[ShowModifierEffect('tv_court_cultural_emissary_display_100')]"
-											}
-										}
-									}
-								}
-							}
-							action_button = {
-								visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_cultural_emissary_character').IsSet]"
-								parentanchor = center
-								widgetanchor = center
-								size = { 100% 100% }
-								alpha = 0
-								alwaystransparent = no
-								using = action_button_common_template
-								title = "tv_court_replace_cultural_emissary"
-								description = "tv_court_replace_cultural_emissary_desc"
-								actor = "[SituationView.GetPlayer]"
-								left_action = { action_name = "tv_court_replace_cultural_emissary" }
-								right_action = { action_name = "tv_court_dismiss_cultural_emissary" }
-								tooltipwidget = {
-									ContextualTooltipType = {
-										blockoverride "title_text" {
-											text = "[Select_CString(PdxGuiWidget.HasTooltipMetaTitle, PdxGuiWidget.GetTooltipMetaTitle, UIAction.GetTitle)]"
-										}
-										blockoverride "tooltip_content" {
-											using = action_tooltip_inner_content
-										}
-										blockoverride "extra_tooltip_content" {
-											datacontext = "[SituationView.GetPlayer]"
-											TooltipTextBlock = {
-												blockoverride "text" {
-													text = "TV_COURT_CULTURAL_EMISSARY_DESC"
-												}
-											}
-											TooltipTextBlock = {
-												blockoverride "text" {
-													text = "TV_COURT_CULTURAL_EMISSARY_ABILITY_TOOLTIP"
-												}
-											}
-											TooltipTextBlock = {
-												blockoverride "text" {
-													text = "TV_COURT_TOOLTIP_EFFECT_AT_100"
-												}
-											}
-											TooltipStringPairList = {
-												layoutpolicy_horizontal = fixed
-												maximumsize = { 400 -1 }
-												textcontext = "[ShowModifierEffect('tv_court_cultural_emissary_display_100')]"
-											}
-											TooltipTextBlock = {
-												visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_cultural_emissary_character').IsSet]"
-												blockoverride "text" {
-													text = "TV_COURT_TOOLTIP_CURRENT_EFFECT"
-												}
-											}
-											TooltipStringPairList = {
-												visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_cultural_emissary_character').IsSet]"
-												layoutpolicy_horizontal = fixed
-												maximumsize = { 400 -1 }
-												textcontext = "[ShowModifierEffect(Concatenate('tv_court_cultural_emissary_display_', ToString_int32(FixedPointToInt(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_cultural_emissary_ability').GetValue))))]"
-											}
-											TooltipTextBlock = {
-												visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_cultural_emissary_character').IsSet]"
-												blockoverride "text" {
-													text = "TV_COURT_TOOLTIP_COURT_COST"
-												}
 											}
 										}
 									}
@@ -1983,7 +2167,7 @@ situation_panel = {
 									visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_cultural_emissary_character').IsSet]"
 									datacontext = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_cultural_emissary_character').GetCharacter]"
 									layoutpolicy_horizontal = expanding
-									maximumsize = { 134 16 }
+									maximumsize = { 142 16 }
 									autoresize = yes
 									elide = right
 									text = "[Localize('TV_COURT_CULTURAL_EMISSARY_TITLE')] [Character.GetNameWithNoTooltip]"
@@ -2045,10 +2229,16 @@ situation_panel = {
 								}
 								TooltipStringPairList = {
 									visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_cultural_emissary_character').IsSet]"
-									layoutpolicy_horizontal = fixed
-									maximumsize = { 134 17 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 134 -1 } }
-									blockoverride "field_text_format" { fontsize = 9 autoresize = yes max_width = 58 elide = right }
+									layoutpolicy_horizontal = expanding
+									maximumsize = { 142 17 }
+									blockoverride "tooltip_minimumsize" { minimumsize = { 142 -1 } }
+									blockoverride "row_size" { maximumsize = { -1 17 } minimumsize = { -1 17 } }
+									blockoverride "field_margin" {}
+									blockoverride "field_content" {
+										blockoverride "table_field_margin" { margin = { 2 0 } }
+										spacing = 2
+									}
+									blockoverride "field_text_format" { fontsize = 9 autoresize = yes max_width = 96 elide = right }
 									textcontext = "[ShowModifierEffect(Concatenate('tv_court_cultural_emissary_display_', ToString_int32(FixedPointToInt(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_cultural_emissary_ability').GetValue))))]"
 								}
 							}
@@ -2111,6 +2301,103 @@ situation_panel = {
 							background = {
 								texture = "gfx/interface/illustrations/cabinet/adm_cabinet.dds"
 								alpha = 0.28
+							}
+							widget = {
+								visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_chronicler_character').IsSet]"
+								position = { 118 0 }
+								size = { 34 34 }
+								icon = {
+									size = { 34 34 }
+									position = { 0 0 }
+									texture = "gfx/interface/component_tiles/hud_corners/circle_progress_bg.dds"
+									modify_texture = {
+										using = color_white_texture
+									}
+									alpha = 0.72
+								}
+								widget = {
+									size = { 24 24 }
+									position = { 5 5 }
+									using = bg_circle_piechart_big
+									icon = {
+										size = { 18 18 }
+										position = { 3 3 }
+										texture = "gfx/interface/buttons/flats/replace.dds"
+										modify_texture = {
+											using = color_new_gold_texture
+											blend_mode = add
+										}
+										glow = {
+											name = "drop_shadow"
+											glow_radius = 3
+											color = { 0.0 0.0 0.0 1.0 }
+											alpha = 0.8
+										}
+									}
+								}
+								action_button = {
+									size = { 24 24 }
+									position = { 5 5 }
+									alpha = 0
+									alwaystransparent = no
+									using = action_button_common_template
+									title = "tv_court_replace_chronicler"
+									description = "tv_court_replace_chronicler_desc"
+									actor = "[SituationView.GetPlayer]"
+									left_action = { action_name = "tv_court_replace_chronicler" }
+									right_action = { action_name = "tv_court_dismiss_chronicler" }
+									tooltipwidget = {
+										ContextualTooltipType = {
+											blockoverride "title_text" {
+												text = "[Select_CString(PdxGuiWidget.HasTooltipMetaTitle, PdxGuiWidget.GetTooltipMetaTitle, UIAction.GetTitle)]"
+											}
+											blockoverride "tooltip_content" {
+												using = action_tooltip_inner_content
+											}
+											blockoverride "extra_tooltip_content" {
+												datacontext = "[SituationView.GetPlayer]"
+												TooltipTextBlock = {
+													blockoverride "text" {
+														text = "TV_COURT_CHRONICLER_DESC"
+													}
+												}
+												TooltipTextBlock = {
+													blockoverride "text" {
+														text = "TV_COURT_CHRONICLER_ABILITY_TOOLTIP"
+													}
+												}
+												TooltipTextBlock = {
+													blockoverride "text" {
+														text = "TV_COURT_TOOLTIP_EFFECT_AT_100"
+													}
+												}
+												TooltipStringPairList = {
+													layoutpolicy_horizontal = fixed
+													maximumsize = { 400 -1 }
+													textcontext = "[ShowModifierEffect('tv_court_chronicler_display_100')]"
+												}
+												TooltipTextBlock = {
+													visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_chronicler_character').IsSet]"
+													blockoverride "text" {
+														text = "TV_COURT_TOOLTIP_CURRENT_EFFECT"
+													}
+												}
+												TooltipStringPairList = {
+													visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_chronicler_character').IsSet]"
+													layoutpolicy_horizontal = fixed
+													maximumsize = { 400 -1 }
+													textcontext = "[ShowModifierEffect(Concatenate('tv_court_chronicler_display_', ToString_int32(FixedPointToInt(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_chronicler_ability').GetValue))))]"
+												}
+												TooltipTextBlock = {
+													visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_chronicler_character').IsSet]"
+													blockoverride "text" {
+														text = "TV_COURT_TOOLTIP_COURT_COST"
+													}
+												}
+											}
+										}
+									}
+								}
 							}
 							portrait_standard_full_body_center_button = {
 								visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_chronicler_character').IsSet]"
@@ -2186,71 +2473,6 @@ situation_panel = {
 												layoutpolicy_horizontal = fixed
 												maximumsize = { 400 -1 }
 												textcontext = "[ShowModifierEffect('tv_court_chronicler_display_100')]"
-											}
-										}
-									}
-								}
-							}
-							action_button = {
-								visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_chronicler_character').IsSet]"
-								parentanchor = center
-								widgetanchor = center
-								size = { 100% 100% }
-								alpha = 0
-								alwaystransparent = no
-								using = action_button_common_template
-								title = "tv_court_replace_chronicler"
-								description = "tv_court_replace_chronicler_desc"
-								actor = "[SituationView.GetPlayer]"
-								left_action = { action_name = "tv_court_replace_chronicler" }
-								right_action = { action_name = "tv_court_dismiss_chronicler" }
-								tooltipwidget = {
-									ContextualTooltipType = {
-										blockoverride "title_text" {
-											text = "[Select_CString(PdxGuiWidget.HasTooltipMetaTitle, PdxGuiWidget.GetTooltipMetaTitle, UIAction.GetTitle)]"
-										}
-										blockoverride "tooltip_content" {
-											using = action_tooltip_inner_content
-										}
-										blockoverride "extra_tooltip_content" {
-											datacontext = "[SituationView.GetPlayer]"
-											TooltipTextBlock = {
-												blockoverride "text" {
-													text = "TV_COURT_CHRONICLER_DESC"
-												}
-											}
-											TooltipTextBlock = {
-												blockoverride "text" {
-													text = "TV_COURT_CHRONICLER_ABILITY_TOOLTIP"
-												}
-											}
-											TooltipTextBlock = {
-												blockoverride "text" {
-													text = "TV_COURT_TOOLTIP_EFFECT_AT_100"
-												}
-											}
-											TooltipStringPairList = {
-												layoutpolicy_horizontal = fixed
-												maximumsize = { 400 -1 }
-												textcontext = "[ShowModifierEffect('tv_court_chronicler_display_100')]"
-											}
-											TooltipTextBlock = {
-												visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_chronicler_character').IsSet]"
-												blockoverride "text" {
-													text = "TV_COURT_TOOLTIP_CURRENT_EFFECT"
-												}
-											}
-											TooltipStringPairList = {
-												visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_chronicler_character').IsSet]"
-												layoutpolicy_horizontal = fixed
-												maximumsize = { 400 -1 }
-												textcontext = "[ShowModifierEffect(Concatenate('tv_court_chronicler_display_', ToString_int32(FixedPointToInt(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_chronicler_ability').GetValue))))]"
-											}
-											TooltipTextBlock = {
-												visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_chronicler_character').IsSet]"
-												blockoverride "text" {
-													text = "TV_COURT_TOOLTIP_COURT_COST"
-												}
 											}
 										}
 									}
@@ -2390,7 +2612,7 @@ situation_panel = {
 									visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_chronicler_character').IsSet]"
 									datacontext = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_chronicler_character').GetCharacter]"
 									layoutpolicy_horizontal = expanding
-									maximumsize = { 134 16 }
+									maximumsize = { 142 16 }
 									autoresize = yes
 									elide = right
 									text = "[Localize('TV_COURT_CHRONICLER_TITLE')] [Character.GetNameWithNoTooltip]"
@@ -2452,10 +2674,16 @@ situation_panel = {
 								}
 								TooltipStringPairList = {
 									visible = "[SituationView.GetPlayer.MakeScope.GetVariable('tv_court_chronicler_character').IsSet]"
-									layoutpolicy_horizontal = fixed
-									maximumsize = { 134 17 }
-									blockoverride "tooltip_minimumsize" { minimumsize = { 134 -1 } }
-									blockoverride "field_text_format" { fontsize = 9 autoresize = yes max_width = 58 elide = right }
+									layoutpolicy_horizontal = expanding
+									maximumsize = { 142 17 }
+									blockoverride "tooltip_minimumsize" { minimumsize = { 142 -1 } }
+									blockoverride "row_size" { maximumsize = { -1 17 } minimumsize = { -1 17 } }
+									blockoverride "field_margin" {}
+									blockoverride "field_content" {
+										blockoverride "table_field_margin" { margin = { 2 0 } }
+										spacing = 2
+									}
+									blockoverride "field_text_format" { fontsize = 9 autoresize = yes max_width = 96 elide = right }
 									textcontext = "[ShowModifierEffect(Concatenate('tv_court_chronicler_display_', ToString_int32(FixedPointToInt(SituationView.GetPlayer.MakeScope.GetVariable('tv_court_chronicler_ability').GetValue))))]"
 								}
 							}

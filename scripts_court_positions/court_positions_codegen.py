@@ -28,13 +28,22 @@ TITLE_CARD_HEIGHT = 28
 ROLE_FRAME_HEIGHT = 138
 INFO_CARD_HEIGHT = 62
 CARD_INNER_WIDTH = CARD_WIDTH - CARD_MARGIN * 2
+INFO_CARD_MARGIN_X = 5
+INFO_CARD_MARGIN_Y = 4
+INFO_CARD_CONTENT_WIDTH = CARD_INNER_WIDTH - INFO_CARD_MARGIN_X * 2
 TITLE_TEXT_WIDTH = 106
 VACANT_PROMPT_WIDTH = CARD_INNER_WIDTH - 20
-INFO_TEXT_WIDTH = CARD_INNER_WIDTH - 18
+INFO_TEXT_WIDTH = INFO_CARD_CONTENT_WIDTH
+MODIFIER_TOOLTIP_WIDTH = INFO_CARD_CONTENT_WIDTH
+MODIFIER_TOOLTIP_ROW_HEIGHT = 17
+MODIFIER_TOOLTIP_MARGIN = 2
+MODIFIER_TOOLTIP_SPACING = 2
+MODIFIER_TOOLTIP_TEXT_WIDTH = 96
 ROLE_ACTION_BUTTON_SIZE = 24
 ROLE_ACTION_SLOT_SIZE = 34
 ROLE_ACTION_SPACING = 2
 ROLE_ACTION_COUNT = 3
+REPLACE_BUTTON_ICON_SIZE = 18
 THEME_COLOR_TEXTURES = (
     "color_red_texture",
     "color_light_green_texture",
@@ -675,6 +684,7 @@ def _append_gui_role_frame(
     emit(lines, level + 2, f'texture = "{ABILITY_BACKGROUND[position["ability"]]}"')
     emit(lines, level + 2, "alpha = 0.28")
     emit(lines, level + 1, "}")
+    _append_replace_action_button(lines, level + 1, position, theme, assigned, player, current_modifier)
     emit(lines, level + 1, "portrait_standard_full_body_center_button = {")
     emit(lines, level + 2, f'visible = "[{assigned}]"')
     emit(lines, level + 2, "parentanchor = bottom|hcenter")
@@ -708,7 +718,7 @@ def _append_gui_role_frame(
     emit(lines, level + 2, "}")
     emit(lines, level + 2, "expand = {}")
     emit(lines, level + 1, "}")
-    _append_assignment_action_overlays(lines, level + 1, position, assigned, vacant, player, current_modifier)
+    _append_appoint_action_overlay(lines, level + 1, position, vacant, player)
     _append_role_action_buttons(lines, level + 1, position, theme, assigned, player_scope, player)
     emit(lines, level, "}")
 
@@ -753,46 +763,105 @@ def _append_action_button_tooltip(
     emit(lines, level, "}")
 
 
-def _append_assignment_action_overlays(
+def _append_assignment_action_button(
     lines: list[str],
     level: int,
     position: dict,
-    assigned: str,
-    vacant: str,
+    visible: str,
+    player: str,
+    action: str,
+    right_action: str | None = None,
+    current_modifier: str | None = None,
+    current_visible: str | None = None,
+) -> None:
+    emit(lines, level, "action_button = {")
+    emit(lines, level + 1, f'visible = "[{visible}]"')
+    emit(lines, level + 1, "parentanchor = center")
+    emit(lines, level + 1, "widgetanchor = center")
+    emit(lines, level + 1, "size = { 100% 100% }")
+    emit(lines, level + 1, "alpha = 0")
+    emit(lines, level + 1, "alwaystransparent = no")
+    emit(lines, level + 1, "using = action_button_common_template")
+    emit(lines, level + 1, f'title = "{action}"')
+    emit(lines, level + 1, f'description = "{action}_desc"')
+    emit(lines, level + 1, f'actor = "[{player}]"')
+    emit(lines, level + 1, f'left_action = {{ action_name = "{action}" }}')
+    if right_action is not None:
+        emit(lines, level + 1, f'right_action = {{ action_name = "{right_action}" }}')
+    _append_action_button_tooltip(lines, level + 1, position, current_modifier, current_visible)
+    emit(lines, level, "}")
+
+
+def _append_appoint_action_overlay(
+    lines: list[str],
+    level: int,
+    position: dict,
+    visible: str,
+    player: str,
+) -> None:
+    _append_assignment_action_button(lines, level, position, visible, player, appointment_action(position))
+
+
+def _append_replace_action_button(
+    lines: list[str],
+    level: int,
+    position: dict,
+    theme: str,
+    visible: str,
     player: str,
     current_modifier: str,
 ) -> None:
-    appoint = appointment_action(position)
-    replace = replace_action(position)
+    action = replace_action(position)
     dismiss = dismissal_action(position)
-    emit(lines, level, "action_button = {")
-    emit(lines, level + 1, f'visible = "[{vacant}]"')
-    emit(lines, level + 1, "parentanchor = center")
-    emit(lines, level + 1, "widgetanchor = center")
-    emit(lines, level + 1, "size = { 100% 100% }")
-    emit(lines, level + 1, "alpha = 0")
-    emit(lines, level + 1, "alwaystransparent = no")
-    emit(lines, level + 1, "using = action_button_common_template")
-    emit(lines, level + 1, f'title = "{appoint}"')
-    emit(lines, level + 1, f'description = "{appoint}_desc"')
-    emit(lines, level + 1, f'actor = "[{player}]"')
-    emit(lines, level + 1, f'left_action = {{ action_name = "{appoint}" }}')
-    _append_action_button_tooltip(lines, level + 1, position)
-    emit(lines, level, "}")
-    emit(lines, level, "action_button = {")
-    emit(lines, level + 1, f'visible = "[{assigned}]"')
-    emit(lines, level + 1, "parentanchor = center")
-    emit(lines, level + 1, "widgetanchor = center")
-    emit(lines, level + 1, "size = { 100% 100% }")
-    emit(lines, level + 1, "alpha = 0")
-    emit(lines, level + 1, "alwaystransparent = no")
-    emit(lines, level + 1, "using = action_button_common_template")
-    emit(lines, level + 1, f'title = "{replace}"')
-    emit(lines, level + 1, f'description = "{replace}_desc"')
-    emit(lines, level + 1, f'actor = "[{player}]"')
-    emit(lines, level + 1, f'left_action = {{ action_name = "{replace}" }}')
-    emit(lines, level + 1, f'right_action = {{ action_name = "{dismiss}" }}')
-    _append_action_button_tooltip(lines, level + 1, position, current_modifier, assigned)
+    slot_x = CARD_INNER_WIDTH - ROLE_ACTION_SLOT_SIZE
+    button_offset = (ROLE_ACTION_SLOT_SIZE - ROLE_ACTION_BUTTON_SIZE) // 2
+    icon_offset = (ROLE_ACTION_BUTTON_SIZE - REPLACE_BUTTON_ICON_SIZE) // 2
+    emit(lines, level, "widget = {")
+    emit(lines, level + 1, f'visible = "[{visible}]"')
+    emit(lines, level + 1, f"position = {{ {slot_x} 0 }}")
+    emit(lines, level + 1, f"size = {{ {ROLE_ACTION_SLOT_SIZE} {ROLE_ACTION_SLOT_SIZE} }}")
+    emit(lines, level + 1, "icon = {")
+    emit(lines, level + 2, f"size = {{ {ROLE_ACTION_SLOT_SIZE} {ROLE_ACTION_SLOT_SIZE} }}")
+    emit(lines, level + 2, "position = { 0 0 }")
+    emit(lines, level + 2, 'texture = "gfx/interface/component_tiles/hud_corners/circle_progress_bg.dds"')
+    emit(lines, level + 2, "modify_texture = {")
+    emit(lines, level + 3, f"using = {theme}")
+    emit(lines, level + 2, "}")
+    emit(lines, level + 2, "alpha = 0.72")
+    emit(lines, level + 1, "}")
+    emit(lines, level + 1, "widget = {")
+    emit(lines, level + 2, f"size = {{ {ROLE_ACTION_BUTTON_SIZE} {ROLE_ACTION_BUTTON_SIZE} }}")
+    emit(lines, level + 2, f"position = {{ {button_offset} {button_offset} }}")
+    emit(lines, level + 2, "using = bg_circle_piechart_big")
+    emit(lines, level + 2, "icon = {")
+    emit(lines, level + 3, f"size = {{ {REPLACE_BUTTON_ICON_SIZE} {REPLACE_BUTTON_ICON_SIZE} }}")
+    emit(lines, level + 3, f"position = {{ {icon_offset} {icon_offset} }}")
+    emit(lines, level + 3, 'texture = "gfx/interface/buttons/flats/replace.dds"')
+    emit(lines, level + 3, "modify_texture = {")
+    emit(lines, level + 4, "using = color_new_gold_texture")
+    emit(lines, level + 4, "blend_mode = add")
+    emit(lines, level + 3, "}")
+    emit(lines, level + 3, "glow = {")
+    emit(lines, level + 4, 'name = "drop_shadow"')
+    emit(lines, level + 4, "glow_radius = 3")
+    emit(lines, level + 4, "color = { 0.0 0.0 0.0 1.0 }")
+    emit(lines, level + 4, "alpha = 0.8")
+    emit(lines, level + 3, "}")
+    emit(lines, level + 2, "}")
+    emit(lines, level + 1, "}")
+    emit(lines, level + 1, "action_button = {")
+    emit(lines, level + 2, f"size = {{ {ROLE_ACTION_BUTTON_SIZE} {ROLE_ACTION_BUTTON_SIZE} }}")
+    emit(lines, level + 2, f"position = {{ {button_offset} {button_offset} }}")
+    emit(lines, level + 2, "alpha = 0")
+    emit(lines, level + 2, "alwaystransparent = no")
+    emit(lines, level + 2, "using = action_button_common_template")
+    emit(lines, level + 2, f'title = "{action}"')
+    emit(lines, level + 2, f'description = "{action}_desc"')
+    emit(lines, level + 2, f'actor = "[{player}]"')
+    emit(lines, level + 2, f'left_action = {{ action_name = "{action}" }}')
+    emit(lines, level + 2, f'right_action = {{ action_name = "{dismiss}" }}')
+    _append_action_button_tooltip(lines, level + 2, position, current_modifier, visible)
+    emit(lines, level + 1, "}")
     emit(lines, level, "}")
 
 
@@ -876,7 +945,7 @@ def _append_gui_info_card(
     emit(lines, level + 1, "vbox = {")
     emit(lines, level + 2, "layoutpolicy_horizontal = expanding")
     emit(lines, level + 2, "layoutpolicy_vertical = expanding")
-    emit(lines, level + 2, "margin = { 5 4 }")
+    emit(lines, level + 2, f"margin = {{ {INFO_CARD_MARGIN_X} {INFO_CARD_MARGIN_Y} }}")
     emit(lines, level + 2, "spacing = 1")
     emit(lines, level + 2, "text_single = {")
     emit(lines, level + 3, f'visible = "[{assigned}]"')
@@ -901,10 +970,16 @@ def _append_gui_info_card(
     _append_ability_row(lines, level + 2, assigned, character_context)
     emit(lines, level + 2, "TooltipStringPairList = {")
     emit(lines, level + 3, f'visible = "[{assigned}]"')
-    emit(lines, level + 3, "layoutpolicy_horizontal = fixed")
-    emit(lines, level + 3, f"maximumsize = {{ {INFO_TEXT_WIDTH} 17 }}")
-    emit(lines, level + 3, f'blockoverride "tooltip_minimumsize" {{ minimumsize = {{ {INFO_TEXT_WIDTH} -1 }} }}')
-    emit(lines, level + 3, 'blockoverride "field_text_format" { fontsize = 9 autoresize = yes max_width = 58 elide = right }')
+    emit(lines, level + 3, "layoutpolicy_horizontal = expanding")
+    emit(lines, level + 3, f"maximumsize = {{ {MODIFIER_TOOLTIP_WIDTH} {MODIFIER_TOOLTIP_ROW_HEIGHT} }}")
+    emit(lines, level + 3, f'blockoverride "tooltip_minimumsize" {{ minimumsize = {{ {MODIFIER_TOOLTIP_WIDTH} -1 }} }}')
+    emit(lines, level + 3, f'blockoverride "row_size" {{ maximumsize = {{ -1 {MODIFIER_TOOLTIP_ROW_HEIGHT} }} minimumsize = {{ -1 {MODIFIER_TOOLTIP_ROW_HEIGHT} }} }}')
+    emit(lines, level + 3, 'blockoverride "field_margin" {}')
+    emit(lines, level + 3, 'blockoverride "field_content" {')
+    emit(lines, level + 4, f'blockoverride "table_field_margin" {{ margin = {{ {MODIFIER_TOOLTIP_MARGIN} 0 }} }}')
+    emit(lines, level + 4, f"spacing = {MODIFIER_TOOLTIP_SPACING}")
+    emit(lines, level + 3, "}")
+    emit(lines, level + 3, f'blockoverride "field_text_format" {{ fontsize = 9 autoresize = yes max_width = {MODIFIER_TOOLTIP_TEXT_WIDTH} elide = right }}')
     emit(lines, level + 3, f'textcontext = "[{current_modifier}]"')
     emit(lines, level + 2, "}")
     emit(lines, level + 1, "}")
