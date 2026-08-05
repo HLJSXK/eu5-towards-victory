@@ -274,6 +274,38 @@
       }
     }
   },
+
+  "court_position_icons": {
+    "output_dir": "src_court_positions/main_menu/gfx/interface/icons/court_positions",
+    "artifact_stem": "{name}",
+    "name_template": "tv_court_{id}",
+    "style_reference_paths": [
+      "data/generated_icons/_style_refs/construction_center.dds"
+    ],
+    "icon_rules": "Compact Court Positions icon: one centered office emblem, at most 1-2 supporting shapes, bold silhouette at 128px, simple painterly brushwork, no text, no letters, no logo, no UI frame, no full scene, no crowded portrait.",
+    "prompt_prefix": "Create a compact Court Positions icon for",
+    "overrides": {
+      "physician": {
+        "icon_prompt": "a brass medicine bowl with a mortar and pestle, a single herb sprig, and a folded healing cloth"
+      },
+      "tutor": {
+        "icon_prompt": "an open book with a quill, ribbon bookmark, and a small wax seal"
+      },
+      "steward": {
+        "icon_prompt": "a ledger with a coin purse and key"
+      },
+      "architect": {
+        "icon_prompt": "a drafting compass over a rolled plan and a small stone arch"
+      },
+      "cultural_emissary": {
+        "icon_prompt": "a gilded theatre mask with a folded fan and envoy scroll"
+      },
+      "chronicler": {
+        "icon_prompt": "a bound manuscript with a quill and inkpot"
+      }
+    }
+  },
+
   "victory_path_icons": {
     "output_dir": "src/main_menu/gfx/interface/icons/towards_victory/victory_paths",
     "artifact_stem": "{name}",

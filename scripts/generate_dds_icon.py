@@ -13,8 +13,8 @@ The script expands a short asset idea into a production prompt for one selected
 target, uploads that target's style-reference images, writes the generated PNG,
 and converts it into one DDS target with enforced dimensions and byte limits.
 It can also run victory path icon, victory reward icon, and victory reward
-tree-background batches, plus a wonder building icon batch for every generated
-final wonder building.
+tree-background batches, plus wonder building and Court Positions batches for
+their respective generated icon sets.
 """
 
 from __future__ import annotations
@@ -53,12 +53,14 @@ from dds_image_lib import (
 # wonder_mechanics now lives in the standalone Engineering Department mod's
 # own script tree, not scripts/.
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts_engineering_department"))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts_court_positions"))
 from wonder_mechanics._core import (  # noqa: E402
     load_all_wonder_mechanics_data,
     load_generic_wonder_image_prompts,
     load_yaml as load_wonder_yaml,
     wonder_image_prompt,
 )
+from court_positions_codegen import load_positions  # noqa: E402
 
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -74,6 +76,7 @@ VICTORY_REWARD_BATCH = "victory_reward_icons"
 VICTORY_PATH_BATCH = "victory_path_icons"
 VICTORY_TREE_BATCH = "victory_tree_backgrounds"
 WONDER_BUILDING_BATCH = "wonder_building_icons"
+COURT_POSITION_BATCH = "court_position_icons"
 
 TARGET_PRESETS: dict[str, dict[str, Any]] = {
     "trade_good_icon": {
@@ -128,6 +131,27 @@ TARGET_PRESETS: dict[str, dict[str, Any]] = {
             "exactly 2-3 simple shapes: a small worksite structure, one crane or hoist, and a "
             "stone foundation. Avoid extra props, busy scenery, crowds, complex scaffolding, "
             "ornate architecture, or a finished monument."
+        ),
+    },
+    "court_position_icon": {
+        "label": "Court Position Icon",
+        "path": "src_court_positions/main_menu/gfx/interface/icons/court_positions/{name}.dds",
+        "width": 128,
+        "height": 128,
+        "resize": "cover",
+        "dds_format": "DXT5",
+        "mipmaps": True,
+        "mipmap_min_dimension": 2,
+        "circle_crop": True,
+        "circle_crop_feather_px": 8,
+        "max_file_size_bytes": 100_000,
+        "image_size": "1024x1024",
+        "style_reference_paths": ["data/generated_icons/_style_refs/construction_center.dds"],
+        "prompt_requirements": (
+            "This is a compact Court Positions icon. Treat the uploaded reference as the style "
+            "authority: match its simple painterly brushwork, compact crop, low object count, "
+            "and readable 128px silhouette. Depict one office emblem or symbolic object only. "
+            "Avoid portraits, full characters, busy scenes, interiors, crowds, or extra props."
         ),
     },
     "victory_reward_icon": {
@@ -276,6 +300,7 @@ TARGET_ALIASES = {
     "wonder_final_building_icons": WONDER_BUILDING_BATCH,
     "wonder_final_buildings": WONDER_BUILDING_BATCH,
     "wonder_icons": WONDER_BUILDING_BATCH,
+    "court_positions": COURT_POSITION_BATCH,
     "ed_cover": "ed_module_cover",
     "ed_thumbnail": "ed_module_cover",
     "engineering_department_cover": "ed_module_cover",
@@ -283,7 +308,7 @@ TARGET_ALIASES = {
     "ed_module_thumbnail": "ed_module_cover",
 }
 
-BATCH_TARGETS = {VICTORY_REWARD_BATCH, VICTORY_PATH_BATCH, VICTORY_TREE_BATCH, WONDER_BUILDING_BATCH}
+BATCH_TARGETS = {VICTORY_REWARD_BATCH, VICTORY_PATH_BATCH, VICTORY_TREE_BATCH, WONDER_BUILDING_BATCH, COURT_POSITION_BATCH}
 
 
 @dataclass(frozen=True)
@@ -932,6 +957,13 @@ def victory_tree_batch_config(config: dict[str, Any]) -> dict[str, Any]:
     return value
 
 
+def court_position_batch_config(config: dict[str, Any]) -> dict[str, Any]:
+    value = config.get(COURT_POSITION_BATCH, {})
+    if not isinstance(value, dict):
+        raise ValueError(f"{COURT_POSITION_BATCH} must be a JSON object")
+    return value
+
+
 def load_victory_path_configs(batch_config: dict[str, Any]) -> list[dict[str, Any]]:
     raw_paths = batch_config.get("paths", default_victory_reward_paths())
     if not isinstance(raw_paths, list) or not raw_paths:
@@ -1138,11 +1170,136 @@ def build_wonder_building_icon_batch_tasks(
                     image_config=apply_target_image_settings(image_config, target),
                     prompt_config=prompt_config,
                     output_config=batch_output_config,
-                )
             )
+        )
 
     if not tasks:
         raise ValueError(f"{WONDER_BUILDING_BATCH} did not find any final wonder buildings")
+    return tasks
+
+
+def build_court_position_icon_batch_tasks(
+    config: dict[str, Any],
+    output_config: dict[str, Any],
+    style_config: dict[str, Any],
+    image_config: dict[str, Any],
+    prompt_config: dict[str, Any],
+) -> list[BatchIconTask]:
+    batch_config = court_position_batch_config(config)
+    target_name = "court_position_icon"
+    target_defaults = target_override(output_config, target_name)
+    base_target_config = deep_merge(TARGET_PRESETS[target_name], target_defaults)
+    target_overrides = batch_config.get("target", {})
+    if target_overrides and not isinstance(target_overrides, dict):
+        raise ValueError(f"{COURT_POSITION_BATCH}.target must be a JSON object")
+    base_target_config = deep_merge(base_target_config, target_overrides or {})
+
+    output_dir = str(
+        batch_config.get("output_dir")
+        or base_target_config.get("path", TARGET_PRESETS[target_name]["path"]).rsplit("/", 1)[0]
+    )
+    artifact_stem_template = str(batch_config.get("artifact_stem") or "{name}")
+    name_template = str(batch_config.get("name_template") or "tv_court_{id}")
+    default_refs = parse_path_list(
+        batch_config.get(
+            "style_reference_paths",
+            base_target_config.get(
+                "style_reference_paths",
+                ["data/generated_icons/_style_refs/construction_center.dds"],
+            ),
+        ),
+        f"{COURT_POSITION_BATCH}.style_reference_paths",
+    )
+    icon_rules = str(
+        batch_config.get("icon_rules")
+        or base_target_config.get("prompt_requirements")
+        or (
+            "Compact Court Positions icon: one centered office emblem, at most 1-2 supporting shapes, "
+            "bold silhouette at 128px, simple painterly brushwork, no text, no letters, no logo, "
+            "no UI frame, no full scene, no crowded portrait."
+        )
+    )
+    prompt_prefix = str(
+        batch_config.get("prompt_prefix")
+        or "Create a compact Court Positions icon for"
+    )
+    overrides = batch_config.get("overrides", {})
+    if not isinstance(overrides, dict):
+        raise ValueError(f"{COURT_POSITION_BATCH}.overrides must be a JSON object")
+
+    positions = load_positions()
+    missing_positions = []
+    for position in positions:
+        position_id = str(position["id"])
+        raw_override = overrides.get(position_id)
+        if not isinstance(raw_override, dict):
+            missing_positions.append(position_id)
+            continue
+        icon_subject = str(raw_override.get("icon_prompt") or raw_override.get("subject") or "").strip()
+        if not icon_subject:
+            missing_positions.append(position_id)
+    if missing_positions:
+        raise ValueError(
+            f"{COURT_POSITION_BATCH}.overrides must define icon_prompt for: {', '.join(missing_positions)}"
+        )
+
+    batch_output_config = dict(output_config)
+    batch_output_config["artifact_stem"] = artifact_stem_template
+    tasks: list[BatchIconTask] = []
+    for position in positions:
+        position_id = str(position["id"])
+        override = dict(overrides[position_id])
+        position_label = str(override.get("label") or position.get("name_en") or position_id.replace("_", " ").title())
+        icon_subject = str(override.get("icon_prompt") or override.get("subject") or "").strip()
+        refs = parse_path_list(
+            override.get("style_reference_paths", default_refs),
+            f"{COURT_POSITION_BATCH}.overrides.{position_id}.style_reference_paths",
+        )
+        asset_name = safe_slug(format_task_template(name_template, {"id": position_id, "name": position_label}))
+        target_config = deep_merge(
+            base_target_config,
+            {
+                "asset_name": asset_name,
+                "path": f"{output_dir}/{{name}}.dds",
+                "style_reference_paths": refs,
+                "prompt_requirements": icon_rules,
+                "image": {
+                    "natural_prompt": (
+                        f"{prompt_prefix} {position_label}. "
+                        f"Office focus: {position.get('ability_en', 'court office')}. "
+                        f"Subject: {icon_subject}. "
+                        f"{icon_rules}"
+                    ),
+                    "negative_prompt": (
+                        "portrait, full character, body, crowded room, background scene, landscape, "
+                        "text, letters, numbers, logo, watermark, UI frame, ornate border, busy scene"
+                    ),
+                },
+            },
+        )
+        override_target_config = {
+            key: value
+            for key, value in override.items()
+            if key not in {"icon_prompt", "subject", "label"}
+        }
+        target_config = deep_merge(target_config, override_target_config)
+        target = build_target_spec(target_name, target_config, batch_output_config, style_config)
+        tasks.append(
+            BatchIconTask(
+                kind="court_position",
+                path_id=position_id,
+                path_label=position_label,
+                milestone=None,
+                choice=None,
+                target=target,
+                image_config=apply_target_image_settings(image_config, target),
+                prompt_config=prompt_config,
+                output_config=batch_output_config,
+            )
+        )
+
+    if not tasks:
+        raise ValueError(f"{COURT_POSITION_BATCH} did not find any court position icon tasks")
     return tasks
 
 
@@ -2593,6 +2750,40 @@ def run_wonder_building_icon_batch(
     return 0
 
 
+def run_court_position_icon_batch(
+    args: argparse.Namespace,
+    config: dict[str, Any],
+    api_config: dict[str, Any],
+    prompt_config: dict[str, Any],
+    image_config: dict[str, Any],
+    style_config: dict[str, Any],
+    output_config: dict[str, Any],
+) -> int:
+    if args.convert_existing_png:
+        raise ValueError("--convert-existing-png is only supported for a single selected target")
+    tasks = build_court_position_icon_batch_tasks(
+        config,
+        output_config,
+        style_config,
+        image_config,
+        prompt_config,
+    )
+    print(f"[batch] {COURT_POSITION_BATCH}: positions={len(tasks)}")
+    for index, task in enumerate(tasks, start=1):
+        print(f"[batch] {index}/{len(tasks)} court position icon {task.path_id} ({task.path_label})")
+        run_target_generation(
+            args,
+            api_config,
+            task.prompt_config,
+            task.image_config,
+            style_config,
+            task.output_config,
+            task.target,
+            allow_missing_style_reference_dry_run=task.allow_missing_style_reference_dry_run,
+        )
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(sys.argv[1:] if argv is None else argv)
     if args.list_targets:
@@ -2634,6 +2825,16 @@ def main(argv: list[str] | None = None) -> int:
         )
     if selected_target == VICTORY_TREE_BATCH:
         return run_victory_tree_background_batch(
+            args,
+            config,
+            api_config,
+            prompt_config,
+            image_config,
+            style_config,
+            output_config,
+        )
+    if selected_target == COURT_POSITION_BATCH:
+        return run_court_position_icon_batch(
             args,
             config,
             api_config,
