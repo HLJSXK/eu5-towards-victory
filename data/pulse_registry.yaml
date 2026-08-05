@@ -47,7 +47,7 @@ pulses:
     - tv_diplomatic_alliance_monthly_pulse # Diplomatic Alliance victory-point maintenance
     - tv_trade_league_monthly_pulse # Trade League leader-country slot monopoly maintenance
     - tv_victory_path_tasks_monthly_pulse # active cheap/empty Victory Path task slots only; no free points
-    - tv_court_positions_monthly_pulse # standalone Court Positions salaries and ability-scaled effect refresh
+    - tv_court_positions_monthly_pulse # standalone Court Positions ability-scaled effect refresh
 
   yearly_country_pulse:
     - tv_science_victory_yearly_pulse # temporary full has_advance scan for player countries; engine count is broken

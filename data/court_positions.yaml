@@ -1,9 +1,12 @@
 # Canonical data for the standalone Court Positions mod.
-# Ability values are normalized to 0..100 before they drive effects or salary.
+# Ability values are normalized to 0..100 before they drive effects and court expense.
 positions:
   - id: physician
     name_en: Court Physician
     name_zh: 宫廷医生
+    icon: "@disease_resistance!"
+    description_en: Cares for the court and strengthens the country's resistance to outbreaks.
+    description_zh: 照料宫廷成员，并提升国家面对疫病时的抵抗力。
     ability: adm
     ability_en: Administrative Skill
     ability_zh: 行政能力
@@ -11,11 +14,14 @@ positions:
     modifier: global_disease_resistance
     effect_at_100: 0.05
     effect_en: "+5% Disease Resistance"
-    effect_zh: "疾病抗性 +5%"
+    effect_zh: "疾病抵抗 +5%"
 
   - id: tutor
     name_en: Court Tutor
-    name_zh: 宫廷教师
+    name_zh: 宫廷导师
+    icon: "@heir!"
+    description_en: Guides royal children and improves the education of future heirs.
+    description_zh: 教导王室子女，并提升继承人的教育成效。
     ability: dip
     ability_en: Diplomatic Skill
     ability_zh: 外交能力
@@ -27,7 +33,10 @@ positions:
 
   - id: steward
     name_en: Steward
-    name_zh: 财政官
+    name_zh: 财政总管
+    icon: "@court_spending!"
+    description_en: Keeps the estates from hoarding wealth and watches the court's accounts.
+    description_zh: 管理宫廷账目，并限制阶层积聚过多财富。
     ability: adm
     ability_en: Administrative Skill
     ability_zh: 行政能力
@@ -40,6 +49,9 @@ positions:
   - id: architect
     name_en: Court Architect
     name_zh: 宫廷建筑师
+    icon: "@construction!"
+    description_en: Directs court-sponsored building works throughout the realm.
+    description_zh: 统筹王国各地由宫廷主持的建筑工程。
     ability: mil
     ability_en: Military Skill
     ability_zh: 军事能力
@@ -47,11 +59,14 @@ positions:
     modifier: global_build_buildings_efficiency
     effect_at_100: 0.10
     effect_en: "+10% Buildings Construction Efficiency"
-    effect_zh: "建筑建造花费 -10%"
+    effect_zh: "建筑建造效率 +10%"
 
   - id: cultural_emissary
     name_en: Cultural Emissary
     name_zh: 文化使者
+    icon: "@cultural_influence!"
+    description_en: Turns artistic reputation into wider cultural influence abroad and at court.
+    description_zh: 将艺术声望转化为宫廷内外更广泛的文化影响。
     ability: artist_skill
     ability_en: Artistic Skill
     ability_zh: 艺术技能
@@ -64,6 +79,9 @@ positions:
   - id: chronicler
     name_en: Court Chronicler
     name_zh: 宫廷史官
+    icon: "@prestige!"
+    description_en: Records royal deeds and burnishes the realm's prestige.
+    description_zh: 记录王室功业，并增进国家威望。
     ability: adm
     ability_en: Administrative Skill
     ability_zh: 行政能力

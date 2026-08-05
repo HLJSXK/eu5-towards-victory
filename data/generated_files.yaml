@@ -605,6 +605,10 @@ generated:
     data:   data/court_positions.yaml
     output: src_court_positions/in_game/common/static_modifiers/tv_court_positions_modifiers.txt
 
+  - script: scripts_court_positions/in_game/common/auto_modifiers/gen_tv_court_positions_auto_modifiers.py
+    data:   data/court_positions.yaml
+    output: src_court_positions/in_game/common/auto_modifiers/tv_court_positions_auto_modifiers.txt
+
   - script: scripts_court_positions/in_game/common/scripted_effects/gen_tv_court_positions_effects.py
     data:   data/court_positions.yaml
     output: src_court_positions/in_game/common/scripted_effects/tv_court_positions_effects.txt

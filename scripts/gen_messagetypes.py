@@ -36,6 +36,7 @@ COURT_POSITIONS = ROOT / "data/court_positions.yaml"
 
 MONOPOLY_SLOT_COUNT = 2
 INTELLIGENCE_ROW_COUNT = 10
+COURT_POSITION_ROLE_ACTION_COUNT = 3
 
 TRADE_MONOPOLY_ACTIONS = [
     *(f"tv_trade_select_monopoly_slot_{slot}" for slot in range(1, MONOPOLY_SLOT_COUNT + 1)),
@@ -113,16 +114,18 @@ def io_establishment_action_ids() -> list[str]:
 
 
 def court_position_action_ids() -> list[str]:
-    with COURT_POSITIONS.open(encoding="utf-8") as file:
+    with COURT_POSITIONS.open(encoding="utf-8-sig") as file:
         data = yaml.safe_load(file)
-    return [
-        action
-        for position in data["positions"]
-        for action in (
-            f"tv_court_appoint_{position['id']}",
-            f"tv_court_dismiss_{position['id']}",
-        )
-    ]
+    actions: list[str] = []
+    for position in data["positions"]:
+        pid = position["id"]
+        actions.extend((
+            f"tv_court_appoint_{pid}",
+            f"tv_court_replace_{pid}",
+            f"tv_court_dismiss_{pid}",
+        ))
+        actions.extend(f"tv_court_{pid}_select_action_{index}" for index in range(1, COURT_POSITION_ROLE_ACTION_COUNT + 1))
+    return actions
 
 
 ACTION_DECL_RE = re.compile(r"(?m)^([a-z][A-Za-z0-9_]*)\s*=\s*\{")
