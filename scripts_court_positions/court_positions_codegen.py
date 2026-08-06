@@ -1042,6 +1042,7 @@ def _append_role_action_buttons(
         emit(lines, level + 4, f"size = {{ {ROLE_ACTION_BUTTON_SIZE} {ROLE_ACTION_BUTTON_SIZE} }}")
         emit(lines, level + 4, f'raw_text = "{label}"')
         emit(lines, level + 4, "fontsize = 8")
+        emit(lines, level + 4, "fontsize_min = 7")
         emit(lines, level + 4, "align = center|nobaseline")
         emit(lines, level + 4, 'default_format = "#yellow_titles"')
         emit(lines, level + 3, "}")
