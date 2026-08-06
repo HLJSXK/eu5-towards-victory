@@ -106,14 +106,30 @@ tv_court_physician_select_action_1 = {
 	ai_tick = monthly
 	ai_tick_frequency = 99999
 	potential = { scope:actor = { has_variable = tv_court_positions_initialized } }
-	allow = {
-		scope:actor = {
-			has_variable = tv_court_physician_character
-			var:tv_court_physician_character ?= { is_alive = yes }
+	allow = { scope:actor = { has_variable = tv_court_physician_character var:tv_court_physician_character ?= { is_alive = yes } } }
+	select_trigger = {
+		looking_for_a = location
+		source = actor
+		interaction_source_list = {
+			scope:actor = { every_owned_location = { add_to_list = source } }
 		}
+		target_flag = target
+		name = "tv_court_select_physician_disease_control_location"
+		none_available_msg_key = "tv_court_no_physician_disease_control_location_available"
+		column = { data = name }
+		column = { data = population }
+		visible = { owner ?= scope:actor }
 	}
 	effect = {
-		scope:actor = { set_variable = { name = tv_court_physician_action value = 1 } }
+		if = {
+			limit = { exists = scope:target }
+			scope:actor = {
+				var:tv_court_physician_location ?= { remove_location_modifier = tv_court_physician_disease_control_modifier }
+				set_variable = { name = tv_court_physician_location value = scope:target }
+				set_variable = { name = tv_court_physician_action value = 1 }
+				tv_court_positions_refresh_physician_effect = yes
+			}
+		}
 	}
 	ai_will_do = { add = -100 }
 }
@@ -131,7 +147,7 @@ tv_court_physician_select_action_2 = {
 		}
 	}
 	effect = {
-		scope:actor = { set_variable = { name = tv_court_physician_action value = 2 } }
+		scope:actor = { set_variable = { name = tv_court_physician_action value = 2 } tv_court_positions_refresh_physician_effect = yes }
 	}
 	ai_will_do = { add = -100 }
 }
@@ -149,7 +165,7 @@ tv_court_physician_select_action_3 = {
 		}
 	}
 	effect = {
-		scope:actor = { set_variable = { name = tv_court_physician_action value = 3 } }
+		scope:actor = { set_variable = { name = tv_court_physician_action value = 3 } tv_court_positions_refresh_physician_effect = yes }
 	}
 	ai_will_do = { add = -100 }
 }
@@ -264,7 +280,7 @@ tv_court_tutor_select_action_1 = {
 		}
 	}
 	effect = {
-		scope:actor = { set_variable = { name = tv_court_tutor_action value = 1 } }
+		scope:actor = { set_variable = { name = tv_court_tutor_action value = 1 }  }
 	}
 	ai_will_do = { add = -100 }
 }
@@ -282,7 +298,7 @@ tv_court_tutor_select_action_2 = {
 		}
 	}
 	effect = {
-		scope:actor = { set_variable = { name = tv_court_tutor_action value = 2 } }
+		scope:actor = { set_variable = { name = tv_court_tutor_action value = 2 }  }
 	}
 	ai_will_do = { add = -100 }
 }
@@ -300,7 +316,7 @@ tv_court_tutor_select_action_3 = {
 		}
 	}
 	effect = {
-		scope:actor = { set_variable = { name = tv_court_tutor_action value = 3 } }
+		scope:actor = { set_variable = { name = tv_court_tutor_action value = 3 }  }
 	}
 	ai_will_do = { add = -100 }
 }
@@ -415,7 +431,7 @@ tv_court_steward_select_action_1 = {
 		}
 	}
 	effect = {
-		scope:actor = { set_variable = { name = tv_court_steward_action value = 1 } }
+		scope:actor = { set_variable = { name = tv_court_steward_action value = 1 }  }
 	}
 	ai_will_do = { add = -100 }
 }
@@ -433,7 +449,7 @@ tv_court_steward_select_action_2 = {
 		}
 	}
 	effect = {
-		scope:actor = { set_variable = { name = tv_court_steward_action value = 2 } }
+		scope:actor = { set_variable = { name = tv_court_steward_action value = 2 }  }
 	}
 	ai_will_do = { add = -100 }
 }
@@ -451,7 +467,7 @@ tv_court_steward_select_action_3 = {
 		}
 	}
 	effect = {
-		scope:actor = { set_variable = { name = tv_court_steward_action value = 3 } }
+		scope:actor = { set_variable = { name = tv_court_steward_action value = 3 }  }
 	}
 	ai_will_do = { add = -100 }
 }
@@ -566,7 +582,7 @@ tv_court_architect_select_action_1 = {
 		}
 	}
 	effect = {
-		scope:actor = { set_variable = { name = tv_court_architect_action value = 1 } }
+		scope:actor = { set_variable = { name = tv_court_architect_action value = 1 }  }
 	}
 	ai_will_do = { add = -100 }
 }
@@ -584,7 +600,7 @@ tv_court_architect_select_action_2 = {
 		}
 	}
 	effect = {
-		scope:actor = { set_variable = { name = tv_court_architect_action value = 2 } }
+		scope:actor = { set_variable = { name = tv_court_architect_action value = 2 }  }
 	}
 	ai_will_do = { add = -100 }
 }
@@ -602,7 +618,7 @@ tv_court_architect_select_action_3 = {
 		}
 	}
 	effect = {
-		scope:actor = { set_variable = { name = tv_court_architect_action value = 3 } }
+		scope:actor = { set_variable = { name = tv_court_architect_action value = 3 }  }
 	}
 	ai_will_do = { add = -100 }
 }
@@ -717,7 +733,7 @@ tv_court_cultural_emissary_select_action_1 = {
 		}
 	}
 	effect = {
-		scope:actor = { set_variable = { name = tv_court_cultural_emissary_action value = 1 } }
+		scope:actor = { set_variable = { name = tv_court_cultural_emissary_action value = 1 }  }
 	}
 	ai_will_do = { add = -100 }
 }
@@ -735,7 +751,7 @@ tv_court_cultural_emissary_select_action_2 = {
 		}
 	}
 	effect = {
-		scope:actor = { set_variable = { name = tv_court_cultural_emissary_action value = 2 } }
+		scope:actor = { set_variable = { name = tv_court_cultural_emissary_action value = 2 }  }
 	}
 	ai_will_do = { add = -100 }
 }
@@ -753,7 +769,7 @@ tv_court_cultural_emissary_select_action_3 = {
 		}
 	}
 	effect = {
-		scope:actor = { set_variable = { name = tv_court_cultural_emissary_action value = 3 } }
+		scope:actor = { set_variable = { name = tv_court_cultural_emissary_action value = 3 }  }
 	}
 	ai_will_do = { add = -100 }
 }
@@ -868,7 +884,7 @@ tv_court_chronicler_select_action_1 = {
 		}
 	}
 	effect = {
-		scope:actor = { set_variable = { name = tv_court_chronicler_action value = 1 } }
+		scope:actor = { set_variable = { name = tv_court_chronicler_action value = 1 }  }
 	}
 	ai_will_do = { add = -100 }
 }
@@ -886,7 +902,7 @@ tv_court_chronicler_select_action_2 = {
 		}
 	}
 	effect = {
-		scope:actor = { set_variable = { name = tv_court_chronicler_action value = 2 } }
+		scope:actor = { set_variable = { name = tv_court_chronicler_action value = 2 }  }
 	}
 	ai_will_do = { add = -100 }
 }
@@ -904,7 +920,7 @@ tv_court_chronicler_select_action_3 = {
 		}
 	}
 	effect = {
-		scope:actor = { set_variable = { name = tv_court_chronicler_action value = 3 } }
+		scope:actor = { set_variable = { name = tv_court_chronicler_action value = 3 }  }
 	}
 	ai_will_do = { add = -100 }
 }

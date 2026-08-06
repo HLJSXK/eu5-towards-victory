@@ -50,6 +50,7 @@ pulses:
     - tv_court_positions_monthly_pulse # standalone Court Positions ability-scaled effect refresh
 
   yearly_country_pulse:
+    - tv_court_positions_yearly_pulse # Court Physician research and skill events
     - tv_science_victory_yearly_pulse # temporary full has_advance scan for player countries; engine count is broken
     - tv_meditation_yearly_pulse # 50% chance for an eligible character to begin meditation autonomously
     - tv_arts_exhibition_yearly_pulse # touring artist elapsed counter + return-home

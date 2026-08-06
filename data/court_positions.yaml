@@ -5,16 +5,16 @@ positions:
     name_en: Court Physician
     name_zh: 宫廷医生
     icon: "@disease_resistance!"
-    description_en: Cares for the court and strengthens the country's resistance to outbreaks.
-    description_zh: 照料宫廷成员，并提升国家面对疫病时的抵抗力。
+    description_en: Cares for the court and extends the life expectancy of the physician.
+    description_zh: 照料宫廷成员，并提升宫廷医生的预期寿命。
     ability: adm
     ability_en: Administrative Skill
     ability_zh: 行政能力
     artist_only: false
-    modifier: global_disease_resistance
-    effect_at_100: 0.05
-    effect_en: "+5% Disease Resistance"
-    effect_zh: "疾病抵抗 +5%"
+    modifier: character_life_expectancy
+    effect_at_100: 5
+    effect_en: "+5 Character Life Expectancy"
+    effect_zh: "角色预期寿命 +5年"
 
   - id: tutor
     name_en: Court Tutor

@@ -4,11 +4,13 @@
 # Do not edit directly - modify the data file and re-run the generator.
 
 tv_court_positions_remove_physician_effect = {
-	remove_country_modifier = tv_court_physician_effect
 	var:tv_court_physician_character ?= {
+		remove_character_modifier = tv_court_physician_effect
 		remove_character_modifier = busy_modifier
 	}
+	var:tv_court_physician_location ?= { remove_location_modifier = tv_court_physician_disease_control_modifier }
 	remove_variable = tv_court_physician_character
+	remove_variable = tv_court_physician_location
 	set_variable = { name = tv_court_physician_ability value = 0 }
 	set_variable = { name = tv_court_physician_action value = 0 }
 }
@@ -65,37 +67,30 @@ tv_court_positions_remove_chronicler_effect = {
 
 tv_court_positions_refresh_physician_effect = {
 	save_scope_as = tv_court_physician_country
-	remove_country_modifier = tv_court_physician_effect
+	var:tv_court_physician_character ?= { remove_character_modifier = tv_court_physician_effect }
+	var:tv_court_physician_location ?= { remove_location_modifier = tv_court_physician_disease_control_modifier }
 	if = {
 		limit = { has_variable = tv_court_physician_character }
 		var:tv_court_physician_character ?= { save_scope_as = tv_court_physician_holder }
 		if = {
 			limit = { scope:tv_court_physician_holder = { is_alive = yes } }
-			scope:tv_court_physician_holder = {
-				add_character_modifier = { modifier = busy_modifier years = -1 mode = add_and_extend }
-			}
 			scope:tv_court_physician_country = {
-				set_variable = { name = tv_court_physician_ability
-				value = scope:tv_court_physician_holder.adm
-				}
+				set_variable = { name = tv_court_physician_ability value = scope:tv_court_physician_holder.adm }
 				clamp_variable = { name = tv_court_physician_ability min = 0 max = 100 }
 				if = { limit = { OR = { NOT = { has_variable = tv_court_physician_action } var:tv_court_physician_action < 1 var:tv_court_physician_action > 3 } } set_variable = { name = tv_court_physician_action value = 1 } }
-				add_country_modifier = {
-					modifier = tv_court_physician_effect
-					days = -1
-					mode = replace
-					size = { value = var:tv_court_physician_ability divide = 100 }
+				if = {
+					limit = { var:tv_court_physician_action = 1 has_variable = tv_court_physician_location }
+					var:tv_court_physician_location ?= { add_location_modifier = { modifier = tv_court_physician_disease_control_modifier days = -1 mode = replace size = { value = var:tv_court_physician_ability divide = 100 } } }
 				}
 			}
+			scope:tv_court_physician_holder = {
+				add_character_modifier = { modifier = busy_modifier years = -1 mode = add_and_extend }
+				add_character_modifier = { modifier = tv_court_physician_effect days = -1 mode = replace size = { value = scope:tv_court_physician_country.var:tv_court_physician_ability divide = 100 } }
+			}
 		}
-		else = {
-			scope:tv_court_physician_country = { tv_court_positions_remove_physician_effect = yes }
-		}
+		else = { scope:tv_court_physician_country = { tv_court_positions_remove_physician_effect = yes } }
 	}
-	else = {
-		set_variable = { name = tv_court_physician_ability value = 0 }
-		set_variable = { name = tv_court_physician_action value = 0 }
-	}
+	else = { set_variable = { name = tv_court_physician_ability value = 0 } set_variable = { name = tv_court_physician_action value = 0 } }
 	clear_saved_scope = tv_court_physician_holder
 	clear_saved_scope = tv_court_physician_country
 }
@@ -412,112 +407,153 @@ tv_court_positions_initialize_country_effect = {
 
 tv_court_positions_monthly_effect = {
 	tv_court_positions_refresh_all_effect = yes
+	tv_court_physician_disease_scan_effect = yes
+}
+
+tv_court_positions_yearly_effect = {
+	if = {
+		limit = { has_variable = tv_court_physician_character var:tv_court_physician_character ?= { is_alive = yes } var:tv_court_physician_action = 2 }
+		random = { chance = 10 trigger_event_non_silently = { id = tv_court_physician.1 days = 1 } }
+	}
+	if = {
+		limit = { has_variable = tv_court_physician_character var:tv_court_physician_character ?= { is_alive = yes } var:tv_court_physician_action = 3 }
+		random = { chance = 20 trigger_event_non_silently = { id = tv_court_physician.2 days = 1 } }
+	}
+}
+
+tv_court_physician_disease_scan_effect = {
+	save_scope_as = tv_court_physician_scan_country
+	random_character = {
+		limit = {
+			is_alive = yes
+			NOT = { has_variable = tv_court_physician_disease_notified }
+			OR = { has_trait = trait:sickly has_trait = trait:smallpox_trait has_trait = trait:bubonic_plague_trait }
+		}
+		if = {
+			limit = { NOT = { has_variable = tv_court_physician_disease_notified } }
+			set_variable = { name = tv_court_physician_disease_notified value = 1 }
+			save_scope_as = tv_court_physician_candidate
+			scope:tv_court_physician_scan_country = {
+				set_variable = { name = tv_court_physician_pending_patient value = scope:tv_court_physician_candidate }
+				trigger_event_non_silently = { id = tv_court_physician.10 days = 1 }
+			}
+			}
+		}
+	every_character = {
+		limit = {
+			NOT = { OR = { has_trait = trait:sickly has_trait = trait:smallpox_trait has_trait = trait:bubonic_plague_trait } }
+			has_variable = tv_court_physician_disease_notified
+		}
+		remove_variable = tv_court_physician_disease_notified
+	}
+	clear_saved_scope = tv_court_physician_candidate
+	clear_saved_scope = tv_court_physician_scan_country
 }
 
 tv_court_positions_display_modifier_static_reference_effect = {
 	if = {
 		limit = { always = no }
-		add_country_modifier = { modifier = tv_court_physician_display_0 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_1 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_2 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_3 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_4 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_5 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_6 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_7 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_8 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_9 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_10 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_11 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_12 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_13 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_14 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_15 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_16 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_17 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_18 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_19 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_20 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_21 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_22 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_23 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_24 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_25 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_26 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_27 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_28 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_29 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_30 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_31 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_32 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_33 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_34 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_35 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_36 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_37 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_38 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_39 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_40 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_41 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_42 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_43 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_44 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_45 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_46 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_47 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_48 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_49 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_50 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_51 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_52 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_53 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_54 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_55 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_56 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_57 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_58 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_59 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_60 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_61 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_62 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_63 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_64 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_65 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_66 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_67 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_68 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_69 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_70 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_71 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_72 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_73 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_74 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_75 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_76 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_77 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_78 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_79 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_80 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_81 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_82 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_83 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_84 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_85 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_86 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_87 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_88 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_89 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_90 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_91 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_92 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_93 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_94 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_95 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_96 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_97 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_98 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_99 days = 1 }
-		add_country_modifier = { modifier = tv_court_physician_display_100 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_0 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_1 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_2 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_3 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_4 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_5 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_6 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_7 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_8 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_9 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_10 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_11 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_12 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_13 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_14 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_15 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_16 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_17 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_18 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_19 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_20 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_21 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_22 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_23 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_24 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_25 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_26 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_27 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_28 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_29 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_30 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_31 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_32 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_33 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_34 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_35 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_36 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_37 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_38 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_39 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_40 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_41 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_42 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_43 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_44 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_45 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_46 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_47 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_48 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_49 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_50 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_51 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_52 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_53 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_54 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_55 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_56 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_57 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_58 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_59 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_60 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_61 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_62 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_63 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_64 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_65 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_66 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_67 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_68 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_69 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_70 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_71 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_72 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_73 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_74 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_75 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_76 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_77 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_78 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_79 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_80 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_81 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_82 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_83 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_84 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_85 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_86 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_87 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_88 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_89 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_90 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_91 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_92 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_93 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_94 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_95 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_96 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_97 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_98 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_99 days = 1 }
+		add_character_modifier = { modifier = tv_court_physician_display_100 days = 1 }
 		add_country_modifier = { modifier = tv_court_tutor_display_0 days = 1 }
 		add_country_modifier = { modifier = tv_court_tutor_display_1 days = 1 }
 		add_country_modifier = { modifier = tv_court_tutor_display_2 days = 1 }

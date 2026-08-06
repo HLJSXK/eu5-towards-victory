@@ -134,6 +134,10 @@ def role_action(position: dict, index: int) -> str:
     return f"tv_court_{position['id']}_select_action_{index}"
 
 
+def is_physician(position: dict) -> bool:
+    return position["id"] == "physician"
+
+
 def loc_prefix(position: dict) -> str:
     return f"TV_COURT_{position['id'].upper()}"
 
@@ -194,6 +198,12 @@ def render_static_modifiers(positions: Iterable[dict], script_rel: str) -> str:
                 f"\t{position['modifier']} = {effect_value(position, ability)}\n"
                 "}"
             )
+        if is_physician(position):
+            blocks.append(
+                "tv_court_physician_disease_control_modifier = {\n"
+                "\tlocal_disease_resistance = 0.20\n"
+                "}"
+            )
     return header(script_rel) + "\n\n".join(blocks) + "\n"
 
 
@@ -218,6 +228,20 @@ def render_auto_modifiers(positions: Iterable[dict], script_rel: str) -> str:
 
 
 def _render_remove_effect(position: dict) -> str:
+    if is_physician(position):
+        return (
+            "tv_court_positions_remove_physician_effect = {\n"
+            "\tvar:tv_court_physician_character ?= {\n"
+            "\t\tremove_character_modifier = tv_court_physician_effect\n"
+            "\t\tremove_character_modifier = busy_modifier\n"
+            "\t}\n"
+            "\tvar:tv_court_physician_location ?= { remove_location_modifier = tv_court_physician_disease_control_modifier }\n"
+            "\tremove_variable = tv_court_physician_character\n"
+            "\tremove_variable = tv_court_physician_location\n"
+            "\tset_variable = { name = tv_court_physician_ability value = 0 }\n"
+            "\tset_variable = { name = tv_court_physician_action value = 0 }\n"
+            "}"
+        )
     return (
         f"tv_court_positions_remove_{position['id']}_effect = {{\n"
         f"\tremove_country_modifier = {effect_modifier(position)}\n"
@@ -233,6 +257,38 @@ def _render_remove_effect(position: dict) -> str:
 
 def _render_refresh_effect(position: dict) -> str:
     pid = position["id"]
+    if is_physician(position):
+        return (
+            "tv_court_positions_refresh_physician_effect = {\n"
+            "\tsave_scope_as = tv_court_physician_country\n"
+            "\tvar:tv_court_physician_character ?= { remove_character_modifier = tv_court_physician_effect }\n"
+            "\tvar:tv_court_physician_location ?= { remove_location_modifier = tv_court_physician_disease_control_modifier }\n"
+            "\tif = {\n"
+            "\t\tlimit = { has_variable = tv_court_physician_character }\n"
+            "\t\tvar:tv_court_physician_character ?= { save_scope_as = tv_court_physician_holder }\n"
+            "\t\tif = {\n"
+            "\t\t\tlimit = { scope:tv_court_physician_holder = { is_alive = yes } }\n"
+            "\t\t\tscope:tv_court_physician_country = {\n"
+            "\t\t\t\tset_variable = { name = tv_court_physician_ability value = scope:tv_court_physician_holder.adm }\n"
+            "\t\t\t\tclamp_variable = { name = tv_court_physician_ability min = 0 max = 100 }\n"
+            "\t\t\t\tif = { limit = { OR = { NOT = { has_variable = tv_court_physician_action } var:tv_court_physician_action < 1 var:tv_court_physician_action > 3 } } set_variable = { name = tv_court_physician_action value = 1 } }\n"
+            "\t\t\t\tif = {\n"
+            "\t\t\t\t\tlimit = { var:tv_court_physician_action = 1 has_variable = tv_court_physician_location }\n"
+            "\t\t\t\t\tvar:tv_court_physician_location ?= { add_location_modifier = { modifier = tv_court_physician_disease_control_modifier days = -1 mode = replace size = { value = var:tv_court_physician_ability divide = 100 } } }\n"
+            "\t\t\t\t}\n"
+            "\t\t\t}\n"
+            "\t\t\tscope:tv_court_physician_holder = {\n"
+            "\t\t\t\tadd_character_modifier = { modifier = busy_modifier years = -1 mode = add_and_extend }\n"
+            "\t\t\t\tadd_character_modifier = { modifier = tv_court_physician_effect days = -1 mode = replace size = { value = scope:tv_court_physician_country.var:tv_court_physician_ability divide = 100 } }\n"
+            "\t\t\t}\n"
+            "\t\t}\n"
+            "\t\telse = { scope:tv_court_physician_country = { tv_court_positions_remove_physician_effect = yes } }\n"
+            "\t}\n"
+            "\telse = { set_variable = { name = tv_court_physician_ability value = 0 } set_variable = { name = tv_court_physician_action value = 0 } }\n"
+            "\tclear_saved_scope = tv_court_physician_holder\n"
+            "\tclear_saved_scope = tv_court_physician_country\n"
+            "}"
+        )
     country_scope = f"tv_court_{pid}_country"
     holder_scope = f"tv_court_{pid}_holder"
     ability_lines = ability_value_lines(position, f"scope:{holder_scope}", "\t\t\t\t")
@@ -326,6 +382,47 @@ def render_scripted_effects(positions: Iterable[dict], script_rel: str) -> str:
         "",
         "tv_court_positions_monthly_effect = {",
         "\ttv_court_positions_refresh_all_effect = yes",
+        "\ttv_court_physician_disease_scan_effect = yes",
+        "}",
+        "",
+        "tv_court_positions_yearly_effect = {",
+        "\tif = {",
+        "\t\tlimit = { has_variable = tv_court_physician_character var:tv_court_physician_character ?= { is_alive = yes } var:tv_court_physician_action = 2 }",
+        "\t\trandom = { chance = 10 trigger_event_non_silently = { id = tv_court_physician.1 days = 1 } }",
+        "\t}",
+        "\tif = {",
+        "\t\tlimit = { has_variable = tv_court_physician_character var:tv_court_physician_character ?= { is_alive = yes } var:tv_court_physician_action = 3 }",
+        "\t\trandom = { chance = 20 trigger_event_non_silently = { id = tv_court_physician.2 days = 1 } }",
+        "\t}",
+        "}",
+        "",
+        "tv_court_physician_disease_scan_effect = {",
+        "\tsave_scope_as = tv_court_physician_scan_country",
+        "\trandom_character = {",
+        "\t\tlimit = {",
+        "\t\t\tis_alive = yes",
+        "\t\t\tNOT = { has_variable = tv_court_physician_disease_notified }",
+        "\t\t\tOR = { has_trait = trait:sickly has_trait = trait:smallpox_trait has_trait = trait:bubonic_plague_trait }",
+        "\t\t}",
+        "\t\tif = {",
+        "\t\t\tlimit = { NOT = { has_variable = tv_court_physician_disease_notified } }",
+        "\t\t\tset_variable = { name = tv_court_physician_disease_notified value = 1 }",
+        "\t\t\tsave_scope_as = tv_court_physician_candidate",
+        "\t\t\tscope:tv_court_physician_scan_country = {",
+        "\t\t\t\tset_variable = { name = tv_court_physician_pending_patient value = scope:tv_court_physician_candidate }",
+        "\t\t\t\ttrigger_event_non_silently = { id = tv_court_physician.10 days = 1 }",
+        "\t\t\t}",
+        "\t\t\t}",
+        "\t\t}",
+        "\tevery_character = {",
+        "\t\tlimit = {",
+        "\t\t\tNOT = { OR = { has_trait = trait:sickly has_trait = trait:smallpox_trait has_trait = trait:bubonic_plague_trait } }",
+        "\t\t\thas_variable = tv_court_physician_disease_notified",
+        "\t\t}",
+        "\t\tremove_variable = tv_court_physician_disease_notified",
+        "\t}",
+        "\tclear_saved_scope = tv_court_physician_candidate",
+        "\tclear_saved_scope = tv_court_physician_scan_country",
         "}",
     ]
     blocks.append("\n".join(lines))
@@ -334,7 +431,8 @@ def render_scripted_effects(positions: Iterable[dict], script_rel: str) -> str:
     ref_lines = ["tv_court_positions_display_modifier_static_reference_effect = {", "\tif = {", "\t\tlimit = { always = no }"]
     for position in positions:
         for ability in range(101):
-            ref_lines.append(f"\t\tadd_country_modifier = {{ modifier = {display_modifier(position, ability)} days = 1 }}")
+            effect_target = "add_character_modifier" if is_physician(position) else "add_country_modifier"
+            ref_lines.append(f"\t\t{effect_target} = {{ modifier = {display_modifier(position, ability)} days = 1 }}")
     ref_lines.extend(["\t}", "}"])
     blocks.append("\n".join(ref_lines))
     return header(script_rel) + "\n\n".join(blocks) + "\n"
@@ -444,6 +542,42 @@ def _render_dismissal_action(position: dict) -> str:
 
 def _render_role_action(position: dict, index: int) -> str:
     action = role_action(position, index)
+    if is_physician(position) and index == 1:
+        return (
+            f"{action} = {{\n"
+            "\ttype = owncountry\n"
+            "\tsound = UI_action_religion_generic\n"
+            "\tai_tick = monthly\n"
+            "\tai_tick_frequency = 99999\n"
+            "\tpotential = { scope:actor = { has_variable = tv_court_positions_initialized } }\n"
+            "\tallow = { scope:actor = { has_variable = tv_court_physician_character var:tv_court_physician_character ?= { is_alive = yes } } }\n"
+            "\tselect_trigger = {\n"
+            "\t\tlooking_for_a = location\n"
+            "\t\tsource = actor\n"
+            "\t\tinteraction_source_list = {\n"
+            "\t\t\tscope:actor = { every_owned_location = { add_to_list = source } }\n"
+            "\t\t}\n"
+            "\t\ttarget_flag = target\n"
+            "\t\tname = \"tv_court_select_physician_disease_control_location\"\n"
+            "\t\tnone_available_msg_key = \"tv_court_no_physician_disease_control_location_available\"\n"
+            "\t\tcolumn = { data = name }\n"
+            "\t\tcolumn = { data = population }\n"
+            "\t\tvisible = { owner ?= scope:actor }\n"
+            "\t}\n"
+            "\teffect = {\n"
+            "\t\tif = {\n"
+            "\t\t\tlimit = { exists = scope:target }\n"
+            "\t\t\tscope:actor = {\n"
+            "\t\t\t\tvar:tv_court_physician_location ?= { remove_location_modifier = tv_court_physician_disease_control_modifier }\n"
+            "\t\t\t\tset_variable = { name = tv_court_physician_location value = scope:target }\n"
+            "\t\t\t\tset_variable = { name = tv_court_physician_action value = 1 }\n"
+            "\t\t\t\ttv_court_positions_refresh_physician_effect = yes\n"
+            "\t\t\t}\n"
+            "\t\t}\n"
+            "\t}\n"
+            "\tai_will_do = { add = -100 }\n"
+            "}"
+        )
     return (
         f"{action} = {{\n"
         "\ttype = owncountry\n"
@@ -458,7 +592,7 @@ def _render_role_action(position: dict, index: int) -> str:
         "\t\t}\n"
         "\t}\n"
         "\teffect = {\n"
-        f"\t\tscope:actor = {{ set_variable = {{ name = {role_action_var(position)} value = {index} }} }}\n"
+        f"\t\tscope:actor = {{ set_variable = {{ name = {role_action_var(position)} value = {index} }} {('tv_court_positions_refresh_physician_effect = yes' if is_physician(position) else '')} }}\n"
         "\t}\n"
         "\tai_will_do = { add = -100 }\n"
         "}"
@@ -539,6 +673,9 @@ def render_on_actions(positions: Iterable[dict], script_rel: str) -> str:
         "}\n\n"
         "tv_court_positions_monthly_pulse = {\n"
         "\teffect = { hidden_effect = { tv_court_positions_monthly_effect = yes } }\n"
+        "}\n\n"
+        "tv_court_positions_yearly_pulse = {\n"
+        "\teffect = { hidden_effect = { tv_court_positions_yearly_effect = yes } }\n"
         "}\n\n"
         "tv_court_positions_character_death = {\n"
         "\teffect = {\n"
@@ -1083,6 +1220,17 @@ def render_localization(positions: Iterable[dict], script_rel: str, language: st
             (f"STATIC_MODIFIER_NAME_{effect_modifier(position)}", name),
             (f"AUTO_MODIFIER_NAME_{court_cost_auto_modifier(position)}", f"{name}宫廷花费" if zh else f"{name} Court Expense"),
         ])
+        if is_physician(position):
+            entries.extend([
+                (
+                    "STATIC_MODIFIER_NAME_tv_court_physician_disease_control_modifier",
+                    "控制疫病" if zh else "Disease Control",
+                ),
+                (
+                    "STATIC_MODIFIER_DESC_tv_court_physician_disease_control_modifier",
+                    "该地点的本地疫病抗性提高，效果取决于宫廷医生的行政能力。" if zh else "Increases local disease resistance based on the Court Physician's administrative skill.",
+                ),
+            ])
         for ability_value in range(101):
             entries.append((f"STATIC_MODIFIER_NAME_{display_modifier(position, ability_value)}", name))
         entries.extend(_action_localization_entries(position, language))
@@ -1090,6 +1238,43 @@ def render_localization(positions: Iterable[dict], script_rel: str, language: st
         action_ids.extend(role_action(position, index) for index in range(1, ROLE_ACTION_COUNT + 1))
         for action in action_ids:
             entries.extend(_message_localization_entries(action, language))
+    event_entries = {
+        "STATIC_MODIFIER_NAME_tv_court_physician_treatment_good": ("治疗改善" if zh else "Successful Treatment"),
+        "STATIC_MODIFIER_NAME_tv_court_physician_treatment_bad": ("治疗恶化" if zh else "Failed Treatment"),
+        "STATIC_MODIFIER_DESC_tv_court_physician_treatment_good": ("治疗带来的预期寿命提升。" if zh else "A temporary increase in character life expectancy from successful treatment."),
+        "STATIC_MODIFIER_DESC_tv_court_physician_treatment_bad": ("激进治疗失败带来的预期寿命降低。" if zh else "A temporary decrease in character life expectancy after failed aggressive treatment."),
+        "tv_court_physician.1.t": ("医学研究推进" if zh else "Medical Research Advances"),
+        "tv_court_physician.1.d": ("宫廷医生带来了新的医学见解。" if zh else "The Court Physician has brought forward a new medical insight."),
+        "tv_court_physician.1.a": ("直接整理研究成果" if zh else "Record the findings"),
+        "tv_court_physician.1.b": ("资助更深入的研究" if zh else "Fund deeper research"),
+        "tv_court_physician.2.t": ("医术精进" if zh else "Medical Skill Improves"),
+        "tv_court_physician.2.d": ("宫廷医生提出了改进医术的方法。" if zh else "The Court Physician has found a way to improve their practice."),
+        "tv_court_physician.2.a": ("勤学苦练" if zh else "Practice diligently"),
+        "tv_court_physician.2.b": ("购买器材和书籍" if zh else "Buy equipment and books"),
+        "tv_court_physician.10.t": ("宫廷成员染病" if zh else "Illness at Court"),
+        "tv_court_physician.10.desc": ("一名宫廷成员获得了疾病特质。" if zh else "A member of the court has fallen ill."),
+        "tv_court_physician.10.a": ("立即寻访医生！" if zh else "Find a doctor immediately!"),
+        "tv_court_physician.10.b": ("我们还有更重要的事。" if zh else "We have more important matters."),
+        "tv_court_physician.10.c": ("不治疗" if zh else "Do not treat it"),
+        "tv_court_physician.10.d": ("激进的治疗" if zh else "Aggressive treatment"),
+        "tv_court_physician.10.e": ("稳重的治疗" if zh else "Cautious treatment"),
+        "tv_court_physician.11.t": ("寻访名医" if zh else "Seeking Physicians"),
+        "tv_court_physician.11.desc": ("三名医生来到了宫廷，请选择一人。" if zh else "Three physicians have arrived at court. Choose one."),
+        "tv_court_physician.11.a": ("任命著名医生（花费金钱）" if zh else "Appoint the famous physician (pay gold)"),
+        "tv_court_physician.11.b": ("任命医生（花费金钱）" if zh else "Appoint the physician (pay gold)"),
+        "tv_court_physician.11.c": ("任命江湖道士" if zh else "Appoint the wandering healer"),
+        "tv_court_physician.11.d": ("都不要" if zh else "Reject them all"),
+        "tv_court_physician.12.t": ("选择治疗方式" if zh else "Choose a Treatment"),
+        "tv_court_physician.12.d": ("宫廷医生已经就位，请决定如何治疗。" if zh else "The Court Physician is ready. Decide how to treat the patient."),
+        "tv_court_physician.12.a": ("不治疗" if zh else "Do not treat"),
+        "tv_court_physician.12.b": ("激进的治疗" if zh else "Aggressive treatment"),
+        "tv_court_physician.12.c": ("稳重的治疗" if zh else "Cautious treatment"),
+        "tv_court_physician.13.t": ("治疗结果" if zh else "Treatment Results"),
+        "tv_court_physician.13.d": ("三十天的治疗终于有了结果。" if zh else "Thirty days of treatment have finally produced a result."),
+        "tv_court_physician.13.a": ("接受结果" if zh else "Accept the result"),
+        "dynastic.7.e": ("我们的宫廷医生会照料他的" if zh else "Our Court Physician will care for him"),
+    }
+    entries.extend(event_entries.items())
     lines = [
         f"{header_key}:",
         f"# @Generated by {script_rel}",

@@ -1,0 +1,328 @@
+﻿# Court Physician events. The filename intentionally sorts before vanilla event files
+# so the dynastic.7 definition below overrides the vanilla event safely.
+
+namespace = tv_court_physician
+
+tv_court_physician.1 = {
+	type = country_event
+	title = tv_court_physician.1.t
+	desc = tv_court_physician.1.d
+	outcome = positive
+	trigger = {
+		has_variable = tv_court_physician_character
+		var:tv_court_physician_character ?= { is_alive = yes }
+		var:tv_court_physician_action = 2
+	}
+	option = {
+		name = tv_court_physician.1.a
+		add_research_progress = 5
+	}
+	option = {
+		name = tv_court_physician.1.b
+		change_gold_effect = { scale = -3 }
+		add_research_progress = 10
+	}
+}
+
+tv_court_physician.2 = {
+	type = country_event
+	title = tv_court_physician.2.t
+	desc = tv_court_physician.2.d
+	outcome = positive
+	trigger = {
+		has_variable = tv_court_physician_character
+		var:tv_court_physician_character ?= { is_alive = yes }
+		var:tv_court_physician_action = 3
+	}
+	option = {
+		name = tv_court_physician.2.a
+		var:tv_court_physician_character ?= { add_adm = { value = 5 max = 100 } }
+	}
+	option = {
+		name = tv_court_physician.2.b
+		change_gold_effect = { scale = -1 }
+		var:tv_court_physician_character ?= { add_adm = { value = 10 max = 100 } }
+	}
+}
+
+# A disease trait is checked by the Court Positions monthly callback. The
+# country keeps the selected patient in a scope variable for the delayed event.
+tv_court_physician.10 = {
+	type = country_event
+	title = tv_court_physician.10.t
+	desc = tv_court_physician.10.desc
+	outcome = neutral
+	trigger = {
+		has_variable = tv_court_physician_pending_patient
+		var:tv_court_physician_pending_patient ?= {
+			is_alive = yes
+			OR = {
+				has_trait = trait:sickly
+				has_trait = trait:smallpox_trait
+				has_trait = trait:bubonic_plague_trait
+			}
+		}
+	}
+
+	option = {
+		name = tv_court_physician.10.a
+		trigger = { NOT = { has_variable = tv_court_physician_character } }
+		change_gold_effect = { scale = -1 }
+		trigger_event_non_silently = { id = tv_court_physician.11 days = 30 }
+	}
+	option = {
+		name = tv_court_physician.10.b
+		trigger = { NOT = { has_variable = tv_court_physician_character } }
+		remove_variable = tv_court_physician_pending_patient
+	}
+	option = {
+		name = tv_court_physician.10.c
+		trigger = { has_variable = tv_court_physician_character }
+		remove_variable = tv_court_physician_pending_patient
+	}
+	option = {
+		name = tv_court_physician.10.d
+		trigger = { has_variable = tv_court_physician_character }
+			set_variable = { name = tv_court_physician_treatment_mode value = 2 }
+			set_variable = { name = tv_court_physician_treatment_result value = 0 }
+			# Administrative skill gives up to 50% success and up to 25% great success.
+			random = {
+				chance = 0
+				modifier = { add = 10 var:tv_court_physician_character ?= { adm >= 20 } }
+				modifier = { add = 10 var:tv_court_physician_character ?= { adm >= 40 } }
+				modifier = { add = 10 var:tv_court_physician_character ?= { adm >= 60 } }
+				modifier = { add = 10 var:tv_court_physician_character ?= { adm >= 80 } }
+				modifier = { add = 10 var:tv_court_physician_character ?= { adm >= 100 } }
+				set_variable = { name = tv_court_physician_treatment_result value = 1 }
+			}
+			if = {
+				limit = { var:tv_court_physician_treatment_result = 1 }
+				random = {
+					chance = 50
+					set_variable = { name = tv_court_physician_treatment_result value = 2 }
+				}
+			}
+		trigger_event_non_silently = { id = tv_court_physician.13 days = 30 }
+	}
+	option = {
+		name = tv_court_physician.10.e
+		trigger = { has_variable = tv_court_physician_character }
+			set_variable = { name = tv_court_physician_treatment_mode value = 3 }
+			set_variable = { name = tv_court_physician_treatment_result value = 0 }
+			random = {
+				chance = 0
+				modifier = { add = 10 var:tv_court_physician_character ?= { adm >= 20 } }
+				modifier = { add = 10 var:tv_court_physician_character ?= { adm >= 40 } }
+				modifier = { add = 10 var:tv_court_physician_character ?= { adm >= 60 } }
+				modifier = { add = 10 var:tv_court_physician_character ?= { adm >= 80 } }
+				modifier = { add = 10 var:tv_court_physician_character ?= { adm >= 100 } }
+				set_variable = { name = tv_court_physician_treatment_result value = 1 }
+			}
+		trigger_event_non_silently = { id = tv_court_physician.13 days = 30 }
+	}
+}
+
+# Three candidates are created after the paid search delay.
+tv_court_physician.11 = {
+	type = country_event
+	title = tv_court_physician.11.t
+	desc = tv_court_physician.11.desc
+	outcome = neutral
+	trigger = {
+		has_variable = tv_court_physician_pending_patient
+		var:tv_court_physician_pending_patient ?= { is_alive = yes }
+		NOT = { has_variable = tv_court_physician_character }
+	}
+	immediate = {
+		random_list = {
+			1 = { create_character = { estate = estate_type:clergy_estate age = { 30 60 } adm = { 60 100 } dip = { 0 100 } mil = { 0 100 } female = yes save_scope_as = tv_physician_candidate_1 } }
+			1 = { create_character = { estate = estate_type:clergy_estate age = { 30 60 } adm = { 60 100 } dip = { 0 100 } mil = { 0 100 } female = no save_scope_as = tv_physician_candidate_1 } }
+		}
+		random_list = {
+			1 = { create_character = { estate = estate_type:clergy_estate age = { 30 60 } adm = { 40 80 } dip = { 0 100 } mil = { 0 100 } female = yes save_scope_as = tv_physician_candidate_2 } }
+			1 = { create_character = { estate = estate_type:clergy_estate age = { 30 60 } adm = { 40 80 } dip = { 0 100 } mil = { 0 100 } female = no save_scope_as = tv_physician_candidate_2 } }
+		}
+		random_list = {
+			1 = { create_character = { estate = estate_type:clergy_estate age = { 30 60 } adm = { 0 100 } dip = { 0 100 } mil = { 0 100 } female = yes save_scope_as = tv_physician_candidate_3 } }
+			1 = { create_character = { estate = estate_type:clergy_estate age = { 30 60 } adm = { 0 100 } dip = { 0 100 } mil = { 0 100 } female = no save_scope_as = tv_physician_candidate_3 } }
+		}
+	}
+	option = {
+		name = tv_court_physician.11.a
+		change_gold_effect = { scale = -2 }
+		scope:tv_physician_candidate_1 = { save_scope_as = recipient }
+		tv_court_positions_appoint_physician_direct_effect = yes
+		trigger_event_non_silently = { id = tv_court_physician.12 days = 1 }
+	}
+	option = {
+		name = tv_court_physician.11.b
+		change_gold_effect = { scale = -1 }
+		scope:tv_physician_candidate_2 = { save_scope_as = recipient }
+		tv_court_positions_appoint_physician_direct_effect = yes
+		trigger_event_non_silently = { id = tv_court_physician.12 days = 1 }
+	}
+	option = {
+		name = tv_court_physician.11.c
+		scope:tv_physician_candidate_3 = { save_scope_as = recipient }
+		tv_court_positions_appoint_physician_direct_effect = yes
+		trigger_event_non_silently = { id = tv_court_physician.12 days = 1 }
+	}
+	option = {
+		name = tv_court_physician.11.d
+		remove_variable = tv_court_physician_pending_patient
+	}
+}
+
+tv_court_physician.12 = {
+	type = country_event
+	title = tv_court_physician.12.t
+	desc = tv_court_physician.12.d
+	outcome = neutral
+	trigger = {
+		has_variable = tv_court_physician_pending_patient
+		var:tv_court_physician_pending_patient ?= { is_alive = yes }
+		has_variable = tv_court_physician_character
+		var:tv_court_physician_character ?= { is_alive = yes }
+	}
+	option = {
+		name = tv_court_physician.12.a
+		remove_variable = tv_court_physician_pending_patient
+		remove_variable = tv_court_physician_treatment_mode
+		remove_variable = tv_court_physician_treatment_result
+	}
+	option = {
+		name = tv_court_physician.12.b
+		trigger = { always = yes }
+		set_variable = { name = tv_court_physician_treatment_mode value = 2 }
+		set_variable = { name = tv_court_physician_treatment_result value = 0 }
+		random = {
+			chance = 0
+			modifier = { add = 10 var:tv_court_physician_character ?= { adm >= 20 } }
+			modifier = { add = 10 var:tv_court_physician_character ?= { adm >= 40 } }
+			modifier = { add = 10 var:tv_court_physician_character ?= { adm >= 60 } }
+			modifier = { add = 10 var:tv_court_physician_character ?= { adm >= 80 } }
+			modifier = { add = 10 var:tv_court_physician_character ?= { adm >= 100 } }
+			set_variable = { name = tv_court_physician_treatment_result value = 1 }
+		}
+		if = {
+			limit = { var:tv_court_physician_treatment_result = 1 }
+			random = {
+				chance = 50
+				set_variable = { name = tv_court_physician_treatment_result value = 2 }
+			}
+		}
+		trigger_event_non_silently = { id = tv_court_physician.13 days = 30 }
+	}
+	option = {
+		name = tv_court_physician.12.c
+		trigger = { always = yes }
+		set_variable = { name = tv_court_physician_treatment_mode value = 3 }
+		set_variable = { name = tv_court_physician_treatment_result value = 0 }
+		random = {
+			chance = 0
+			modifier = { add = 10 var:tv_court_physician_character ?= { adm >= 20 } }
+			modifier = { add = 10 var:tv_court_physician_character ?= { adm >= 40 } }
+			modifier = { add = 10 var:tv_court_physician_character ?= { adm >= 60 } }
+			modifier = { add = 10 var:tv_court_physician_character ?= { adm >= 80 } }
+			modifier = { add = 10 var:tv_court_physician_character ?= { adm >= 100 } }
+			set_variable = { name = tv_court_physician_treatment_result value = 1 }
+		}
+		trigger_event_non_silently = { id = tv_court_physician.13 days = 30 }
+	}
+}
+
+tv_court_physician.13 = {
+	type = country_event
+	title = tv_court_physician.13.t
+	desc = tv_court_physician.13.d
+	outcome = neutral
+	trigger = {
+		has_variable = tv_court_physician_pending_patient
+		var:tv_court_physician_pending_patient ?= { is_alive = yes }
+	}
+	immediate = {
+		if = {
+			limit = { var:tv_court_physician_treatment_result >= 1 }
+			var:tv_court_physician_pending_patient ?= { add_character_modifier = { modifier = tv_court_physician_treatment_good years = 5 mode = add_and_extend } }
+		}
+		if = {
+			limit = { var:tv_court_physician_treatment_result = 2 }
+			var:tv_court_physician_pending_patient ?= {
+				remove_trait = trait:sickly
+				remove_trait = trait:smallpox_trait
+				remove_trait = trait:bubonic_plague_trait
+			}
+		}
+		if = {
+			limit = { var:tv_court_physician_treatment_result = 0 var:tv_court_physician_treatment_mode = 2 }
+			var:tv_court_physician_pending_patient ?= { add_character_modifier = { modifier = tv_court_physician_treatment_bad years = 5 mode = add_and_extend } }
+		}
+		remove_variable = tv_court_physician_pending_patient
+		remove_variable = tv_court_physician_treatment_mode
+		remove_variable = tv_court_physician_treatment_result
+	}
+	option = { name = tv_court_physician.13.a }
+}
+
+# Early-loading replacement for the vanilla heir-illness event.
+namespace = dynastic
+dynastic.7 = {
+	type = country_event
+	title = dynastic.7.title
+	desc = dynastic.7.desc
+	outcome = neutral
+	illustration_tags = { 10 = regular 10 = interior }
+	trigger = {
+		has_ruler_in_country = yes
+		has_heir = yes
+		has_regent = no
+		ruler ?= { any_child = { is_alive = yes age_in_years < 15 owner = root } }
+		government_type = government_type:monarchy
+	}
+	immediate = {
+		ruler ?= { random_child = { limit = { is_alive = yes age_in_years < 15 owner = root } save_scope_as = target_child } }
+		capital = { save_scope_as = target_location }
+		if = { limit = { has_variable = talisman_giver_variable } var:talisman_giver_variable = { save_scope_as = target_character } }
+	}
+	option = {
+		name = dynastic.7.a
+		change_gold_effect = { scale = -2.40 }
+		random_list = { 50 = { kill_character = { target = scope:target_child reason = fever } } 50 = { add_legitimacy = legitimacy_weak_bonus } }
+	}
+	option = {
+		name = dynastic.7.b
+		trigger = { owns = location:salerno location:salerno = { has_building_with_at_least_one_level = medical_school } }
+		change_gold_effect = { scale = -3.00 }
+		random_list = { 25 = { kill_character = { target = scope:target_child reason = fever } } 75 = { add_legitimacy = legitimacy_weak_bonus } }
+	}
+	option = {
+		name = dynastic.7.c
+		random_list = { 75 = { kill_character = { target = scope:target_child reason = fever } } 25 = { add_legitimacy = legitimacy_extreme_bonus } }
+	}
+	option = {
+		name = dynastic.7.d
+		ai_will_select = { value = 1000 }
+		trigger = { scope:target_child = { has_character_modifier = blessed_talisman_modifier } }
+		random_list = { 25 = { kill_character = { target = scope:target_child reason = fever } } 75 = { add_religious_influence = religious_influence_mild_bonus } }
+	}
+	option = {
+		name = dynastic.7.e
+		trigger = { has_variable = tv_court_physician_character var:tv_court_physician_character ?= { is_alive = yes } }
+		set_variable = { name = tv_court_physician_dynastic7_result value = 0 }
+		random = {
+			chance = 0
+			modifier = { add = 20 var:tv_court_physician_character ?= { adm >= 20 } }
+			modifier = { add = 20 var:tv_court_physician_character ?= { adm >= 40 } }
+			modifier = { add = 20 var:tv_court_physician_character ?= { adm >= 60 } }
+			modifier = { add = 20 var:tv_court_physician_character ?= { adm >= 80 } }
+			modifier = { add = 20 var:tv_court_physician_character ?= { adm >= 100 } }
+			add_legitimacy = 5
+			set_variable = { name = tv_court_physician_dynastic7_result value = 1 }
+		}
+		if = {
+			limit = { var:tv_court_physician_dynastic7_result = 0 }
+			kill_character = { target = scope:target_child reason = fever }
+		}
+		remove_variable = tv_court_physician_dynastic7_result
+	}
+}
