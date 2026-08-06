@@ -20,7 +20,12 @@ tv_court_positions_remove_tutor_effect = {
 	var:tv_court_tutor_character ?= {
 		remove_character_modifier = busy_modifier
 	}
+	var:tv_court_tutor_location ?= { remove_location_modifier = tv_court_tutor_language_modifier }
 	remove_variable = tv_court_tutor_character
+	remove_variable = tv_court_tutor_location
+	remove_variable = tv_court_tutor_event_pending
+	remove_variable = tv_court_tutor_ability_field
+	remove_variable = tv_court_tutor_trait_upgrade
 	set_variable = { name = tv_court_tutor_ability value = 0 }
 	set_variable = { name = tv_court_tutor_action value = 0 }
 }
@@ -98,6 +103,7 @@ tv_court_positions_refresh_physician_effect = {
 tv_court_positions_refresh_tutor_effect = {
 	save_scope_as = tv_court_tutor_country
 	remove_country_modifier = tv_court_tutor_effect
+	var:tv_court_tutor_location ?= { remove_location_modifier = tv_court_tutor_language_modifier }
 	if = {
 		limit = { has_variable = tv_court_tutor_character }
 		var:tv_court_tutor_character ?= { save_scope_as = tv_court_tutor_holder }
@@ -107,11 +113,13 @@ tv_court_positions_refresh_tutor_effect = {
 				add_character_modifier = { modifier = busy_modifier years = -1 mode = add_and_extend }
 			}
 			scope:tv_court_tutor_country = {
-				set_variable = { name = tv_court_tutor_ability
-				value = scope:tv_court_tutor_holder.dip
-				}
+				set_variable = { name = tv_court_tutor_ability value = scope:tv_court_tutor_holder.dip }
 				clamp_variable = { name = tv_court_tutor_ability min = 0 max = 100 }
 				if = { limit = { OR = { NOT = { has_variable = tv_court_tutor_action } var:tv_court_tutor_action < 1 var:tv_court_tutor_action > 3 } } set_variable = { name = tv_court_tutor_action value = 1 } }
+				if = {
+					limit = { var:tv_court_tutor_action = 3 has_variable = tv_court_tutor_location }
+					var:tv_court_tutor_location ?= { add_location_modifier = { modifier = tv_court_tutor_language_modifier days = -1 mode = replace size = { value = scope:tv_court_tutor_country.var:tv_court_tutor_ability divide = 100 } } }
+				}
 				add_country_modifier = {
 					modifier = tv_court_tutor_effect
 					days = -1
@@ -120,14 +128,9 @@ tv_court_positions_refresh_tutor_effect = {
 				}
 			}
 		}
-		else = {
-			scope:tv_court_tutor_country = { tv_court_positions_remove_tutor_effect = yes }
-		}
+		else = { scope:tv_court_tutor_country = { tv_court_positions_remove_tutor_effect = yes } }
 	}
-	else = {
-		set_variable = { name = tv_court_tutor_ability value = 0 }
-		set_variable = { name = tv_court_tutor_action value = 0 }
-	}
+	else = { set_variable = { name = tv_court_tutor_ability value = 0 } set_variable = { name = tv_court_tutor_action value = 0 } }
 	clear_saved_scope = tv_court_tutor_holder
 	clear_saved_scope = tv_court_tutor_country
 }
@@ -418,6 +421,36 @@ tv_court_positions_yearly_effect = {
 	if = {
 		limit = { has_variable = tv_court_physician_character var:tv_court_physician_character ?= { is_alive = yes } var:tv_court_physician_action = 3 }
 		random = { chance = 20 trigger_event_non_silently = { id = tv_court_physician.2 days = 1 } }
+	}
+	if = {
+		limit = { has_variable = tv_court_tutor_character var:tv_court_tutor_character ?= { is_alive = yes } var:tv_court_tutor_action = 1 }
+		random = {
+			chance = 0
+			modifier = { add = 4 var:tv_court_tutor_character ?= { dip >= 20 } }
+			modifier = { add = 4 var:tv_court_tutor_character ?= { dip >= 40 } }
+			modifier = { add = 4 var:tv_court_tutor_character ?= { dip >= 60 } }
+			modifier = { add = 4 var:tv_court_tutor_character ?= { dip >= 80 } }
+			modifier = { add = 4 var:tv_court_tutor_character ?= { dip >= 100 } }
+			random_list = {
+				1 = { trigger_event_non_silently = { id = tv_court_tutor.1 days = 1 } }
+				1 = { trigger_event_non_silently = { id = tv_court_tutor.2 days = 1 } }
+			}
+		}
+	}
+	if = {
+		limit = { has_variable = tv_court_tutor_character var:tv_court_tutor_character ?= { is_alive = yes } var:tv_court_tutor_action = 2 }
+		random = {
+			chance = 0
+			modifier = { add = 4 var:tv_court_tutor_character ?= { dip >= 20 } }
+			modifier = { add = 4 var:tv_court_tutor_character ?= { dip >= 40 } }
+			modifier = { add = 4 var:tv_court_tutor_character ?= { dip >= 60 } }
+			modifier = { add = 4 var:tv_court_tutor_character ?= { dip >= 80 } }
+			modifier = { add = 4 var:tv_court_tutor_character ?= { dip >= 100 } }
+			random_list = {
+				1 = { trigger_event_non_silently = { id = tv_court_tutor.3 days = 1 } }
+				1 = { trigger_event_non_silently = { id = tv_court_tutor.4 days = 1 } }
+			}
+		}
 	}
 }
 

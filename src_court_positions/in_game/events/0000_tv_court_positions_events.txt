@@ -264,6 +264,467 @@ tv_court_physician.13 = {
 	option = { name = tv_court_physician.13.a }
 }
 
+namespace = tv_court_tutor
+
+# Action 1: educate children — ability improvement.
+tv_court_tutor.1 = {
+	type = country_event
+	title = tv_court_tutor.1.t
+	desc = tv_court_tutor.1.d
+	outcome = positive
+	trigger = {
+		has_variable = tv_court_tutor_character
+		var:tv_court_tutor_character ?= { is_alive = yes }
+		var:tv_court_tutor_action = 1
+		NOT = { has_variable = tv_court_tutor_event_pending }
+		any_character = {
+			is_alive = yes
+			age_in_years < 15
+			owner = root
+		}
+	}
+	immediate = {
+		set_variable = { name = tv_court_tutor_event_pending value = 1 }
+		random_character = {
+			limit = { is_alive = yes age_in_years < 15 owner = root }
+			save_scope_as = tv_court_tutor_target_child
+		}
+		random_list = {
+			1 = { set_variable = { name = tv_court_tutor_ability_field value = 1 } }
+			1 = { set_variable = { name = tv_court_tutor_ability_field value = 2 } }
+			1 = { set_variable = { name = tv_court_tutor_ability_field value = 3 } }
+		}
+	}
+	option = {
+		name = tv_court_tutor.1.a
+		trigger = {
+			exists = scope:tv_court_tutor_target_child
+			scope:tv_court_tutor_target_child = { is_alive = yes age_in_years < 15 owner = root }
+		}
+		change_gold_effect = { scale = -1 }
+		if = {
+			limit = { var:tv_court_tutor_ability_field = 1 }
+			scope:tv_court_tutor_target_child = { add_adm = { value = 5 max = 100 } }
+		}
+		if = {
+			limit = { var:tv_court_tutor_ability_field = 2 }
+			scope:tv_court_tutor_target_child = { add_dip = { value = 5 max = 100 } }
+		}
+		if = {
+			limit = { var:tv_court_tutor_ability_field = 3 }
+			scope:tv_court_tutor_target_child = { add_mil = { value = 5 max = 100 } }
+		}
+		hidden_effect = {
+			remove_variable = tv_court_tutor_ability_field
+			remove_variable = tv_court_tutor_event_pending
+		}
+	}
+	option = {
+		name = tv_court_tutor.1.b
+		hidden_effect = {
+			remove_variable = tv_court_tutor_ability_field
+			remove_variable = tv_court_tutor_event_pending
+		}
+	}
+}
+
+# Action 1: educate children — child education-trait improvement.
+tv_court_tutor.2 = {
+	type = country_event
+	title = tv_court_tutor.2.t
+	desc = tv_court_tutor.2.d
+	outcome = positive
+	trigger = {
+		has_variable = tv_court_tutor_character
+		var:tv_court_tutor_character ?= { is_alive = yes }
+		var:tv_court_tutor_action = 1
+		NOT = { has_variable = tv_court_tutor_event_pending }
+		any_character = {
+			is_alive = yes
+			age_in_years < 15
+			owner = root
+			OR = {
+				has_trait = child_idiot
+				has_trait = child_slow
+				has_trait = child_intelligent
+				has_trait = child_gregarious
+				has_trait = child_rowdy
+				has_trait = child_ambitious
+				has_trait = child_gallant
+				has_trait = child_shrewd
+				has_trait = child_gifted
+			}
+		}
+	}
+	immediate = {
+		set_variable = { name = tv_court_tutor_event_pending value = 1 }
+		random_character = {
+			limit = {
+				is_alive = yes
+				age_in_years < 15
+				owner = root
+				OR = {
+					has_trait = child_idiot
+					has_trait = child_slow
+					has_trait = child_intelligent
+					has_trait = child_gregarious
+					has_trait = child_rowdy
+					has_trait = child_ambitious
+					has_trait = child_gallant
+					has_trait = child_shrewd
+					has_trait = child_gifted
+				}
+			}
+			save_scope_as = tv_court_tutor_target_child
+		}
+		scope:tv_court_tutor_target_child = {
+			remove_variable = tv_court_tutor_trait_upgrade
+			if = {
+				limit = { has_trait = child_idiot }
+				set_variable = { name = tv_court_tutor_trait_upgrade value = 1 }
+			}
+			if = {
+				limit = { has_trait = child_slow }
+				 random_list = {
+					1 = { set_variable = { name = tv_court_tutor_trait_upgrade value = 2 } }
+					1 = { set_variable = { name = tv_court_tutor_trait_upgrade value = 3 } }
+					1 = { set_variable = { name = tv_court_tutor_trait_upgrade value = 4 } }
+				}
+			}
+			if = {
+				limit = { OR = { has_trait = child_intelligent has_trait = child_gregarious has_trait = child_rowdy } }
+				random_list = {
+					1 = { set_variable = { name = tv_court_tutor_trait_upgrade value = 5 } }
+					1 = { set_variable = { name = tv_court_tutor_trait_upgrade value = 6 } }
+					1 = { set_variable = { name = tv_court_tutor_trait_upgrade value = 7 } }
+				}
+			}
+			if = {
+				limit = { OR = { has_trait = child_ambitious has_trait = child_gallant has_trait = child_shrewd } }
+				set_variable = { name = tv_court_tutor_trait_upgrade value = 8 }
+			}
+			if = {
+				limit = { has_trait = child_gifted }
+				set_variable = { name = tv_court_tutor_trait_upgrade value = 9 }
+			}
+		}
+	}
+	option = {
+		name = tv_court_tutor.2.a
+		trigger = {
+			exists = scope:tv_court_tutor_target_child
+				scope:tv_court_tutor_target_child = {
+					is_alive = yes
+					age_in_years < 15
+					owner = root
+				has_variable = tv_court_tutor_trait_upgrade
+			}
+		}
+		change_gold_effect = { scale = -1 }
+		scope:tv_court_tutor_target_child = {
+			if = {
+				limit = { var:tv_court_tutor_trait_upgrade = 1 has_trait = child_idiot }
+				remove_trait = trait:child_idiot
+				add_trait = trait:child_slow
+			}
+			if = {
+				limit = { var:tv_court_tutor_trait_upgrade = 2 has_trait = child_slow }
+				remove_trait = trait:child_slow
+				add_trait = trait:child_intelligent
+			}
+			if = {
+				limit = { var:tv_court_tutor_trait_upgrade = 3 has_trait = child_slow }
+				remove_trait = trait:child_slow
+				add_trait = trait:child_gregarious
+			}
+			if = {
+				limit = { var:tv_court_tutor_trait_upgrade = 4 has_trait = child_slow }
+				remove_trait = trait:child_slow
+				add_trait = trait:child_rowdy
+			}
+			if = {
+				limit = {
+					var:tv_court_tutor_trait_upgrade = 5
+					OR = { has_trait = child_intelligent has_trait = child_gregarious has_trait = child_rowdy }
+				}
+				if = { limit = { has_trait = child_intelligent } remove_trait = trait:child_intelligent }
+				if = { limit = { has_trait = child_gregarious } remove_trait = trait:child_gregarious }
+				if = { limit = { has_trait = child_rowdy } remove_trait = trait:child_rowdy }
+				add_trait = trait:child_ambitious
+			}
+			if = {
+				limit = {
+					var:tv_court_tutor_trait_upgrade = 6
+					OR = { has_trait = child_intelligent has_trait = child_gregarious has_trait = child_rowdy }
+				}
+				if = { limit = { has_trait = child_intelligent } remove_trait = trait:child_intelligent }
+				if = { limit = { has_trait = child_gregarious } remove_trait = trait:child_gregarious }
+				if = { limit = { has_trait = child_rowdy } remove_trait = trait:child_rowdy }
+				add_trait = trait:child_gallant
+			}
+			if = {
+				limit = {
+					var:tv_court_tutor_trait_upgrade = 7
+					OR = { has_trait = child_intelligent has_trait = child_gregarious has_trait = child_rowdy }
+				}
+				if = { limit = { has_trait = child_intelligent } remove_trait = trait:child_intelligent }
+				if = { limit = { has_trait = child_gregarious } remove_trait = trait:child_gregarious }
+				if = { limit = { has_trait = child_rowdy } remove_trait = trait:child_rowdy }
+				add_trait = trait:child_shrewd
+			}
+			if = {
+				limit = {
+					var:tv_court_tutor_trait_upgrade = 8
+					OR = { has_trait = child_ambitious has_trait = child_gallant has_trait = child_shrewd }
+				}
+				if = { limit = { has_trait = child_ambitious } remove_trait = trait:child_ambitious }
+				if = { limit = { has_trait = child_gallant } remove_trait = trait:child_gallant }
+				if = { limit = { has_trait = child_shrewd } remove_trait = trait:child_shrewd }
+				add_trait = trait:child_gifted
+			}
+			if = {
+				limit = { var:tv_court_tutor_trait_upgrade = 9 has_trait = child_gifted }
+				remove_trait = trait:child_gifted
+				add_trait = trait:child_prodigy
+			}
+			remove_variable = tv_court_tutor_trait_upgrade
+		}
+		hidden_effect = { remove_variable = tv_court_tutor_event_pending }
+	}
+	option = {
+		name = tv_court_tutor.2.b
+		hidden_effect = {
+			if = {
+				limit = { exists = scope:tv_court_tutor_target_child }
+				scope:tv_court_tutor_target_child = { remove_variable = tv_court_tutor_trait_upgrade }
+			}
+			remove_variable = tv_court_tutor_event_pending
+		}
+	}
+}
+
+# Action 2: educate the court — weighted adult-courtier ability improvement.
+tv_court_tutor.3 = {
+	type = country_event
+	title = tv_court_tutor.3.t
+	desc = tv_court_tutor.3.d
+	outcome = positive
+	trigger = {
+		has_variable = tv_court_tutor_character
+		var:tv_court_tutor_character ?= { is_alive = yes }
+		var:tv_court_tutor_action = 2
+		NOT = { has_variable = tv_court_tutor_event_pending }
+		any_character = { is_alive = yes is_adult = yes owner = root }
+	}
+	immediate = {
+		set_variable = { name = tv_court_tutor_event_pending value = 1 }
+		random_list = {
+			50 = {
+				ruler ?= {
+					if = { limit = { is_alive = yes is_adult = yes owner = root } save_scope_as = tv_court_tutor_target_courtier }
+				}
+			}
+			25 = {
+				heir ?= {
+					if = { limit = { is_alive = yes is_adult = yes owner = root } save_scope_as = tv_court_tutor_target_courtier }
+				}
+			}
+			10 = {
+				ruler ?= {
+					random_child = {
+						limit = { is_alive = yes is_adult = yes owner = root is_heir = no }
+						save_scope_as = tv_court_tutor_target_courtier
+					}
+				}
+			}
+			10 = {
+				random_character = {
+					limit = { is_alive = yes is_adult = yes owner = root in_cabinet = yes is_ruler = no is_heir = no }
+					save_scope_as = tv_court_tutor_target_courtier
+				}
+			}
+			5 = {
+				random_character = {
+					limit = {
+						is_alive = yes
+						is_adult = yes
+						owner = root
+						is_ruler = no
+						is_heir = no
+						in_cabinet = no
+						NOT = { is_child_of = root.ruler }
+					}
+					save_scope_as = tv_court_tutor_target_courtier
+				}
+			}
+		}
+		if = {
+			limit = { NOT = { exists = scope:tv_court_tutor_target_courtier } }
+			random_character = {
+				limit = { is_alive = yes is_adult = yes owner = root }
+				save_scope_as = tv_court_tutor_target_courtier
+			}
+		}
+		random_list = {
+			1 = { set_variable = { name = tv_court_tutor_ability_field value = 1 } }
+			1 = { set_variable = { name = tv_court_tutor_ability_field value = 2 } }
+			1 = { set_variable = { name = tv_court_tutor_ability_field value = 3 } }
+		}
+	}
+	option = {
+		name = tv_court_tutor.3.a
+		trigger = {
+			exists = scope:tv_court_tutor_target_courtier
+			scope:tv_court_tutor_target_courtier = { is_alive = yes owner = root }
+		}
+		change_gold_effect = { scale = -1 }
+		if = {
+			limit = { var:tv_court_tutor_ability_field = 1 }
+			scope:tv_court_tutor_target_courtier = { add_adm = { value = 5 max = 100 } }
+		}
+		if = {
+			limit = { var:tv_court_tutor_ability_field = 2 }
+			scope:tv_court_tutor_target_courtier = { add_dip = { value = 5 max = 100 } }
+		}
+		if = {
+			limit = { var:tv_court_tutor_ability_field = 3 }
+			scope:tv_court_tutor_target_courtier = { add_mil = { value = 5 max = 100 } }
+		}
+		hidden_effect = {
+			remove_variable = tv_court_tutor_ability_field
+			remove_variable = tv_court_tutor_event_pending
+		}
+	}
+	option = {
+		name = tv_court_tutor.3.b
+		hidden_effect = {
+			remove_variable = tv_court_tutor_ability_field
+			remove_variable = tv_court_tutor_event_pending
+		}
+	}
+}
+
+# Action 2: educate the court — remove a negative courtier trait.
+tv_court_tutor.4 = {
+	type = country_event
+	title = tv_court_tutor.4.t
+	desc = tv_court_tutor.4.d
+	outcome = positive
+	trigger = {
+		has_variable = tv_court_tutor_character
+		var:tv_court_tutor_character ?= { is_alive = yes }
+		var:tv_court_tutor_action = 2
+		NOT = { has_variable = tv_court_tutor_event_pending }
+		any_character = {
+			is_alive = yes
+			is_adult = yes
+			owner = root
+			OR = {
+				has_trait = cruel
+				has_trait = babbling_buffoon
+				has_trait = embezzler
+				has_trait = drunkard
+				has_trait = sinner
+				has_trait = greedy
+				has_trait = naive
+				has_trait = craven
+				has_trait = loose_lips
+				has_trait = obsessive_perfectionist
+				has_trait = malevolent
+				has_trait = deceitful
+				has_trait = fickle
+				has_trait = schemer
+				has_trait = corrupt
+				has_trait = influential
+				has_trait = unmotivated
+				has_trait = abrasive
+				has_trait = arrogant
+				has_trait = lazy
+				has_trait = inconspicious
+				has_trait = careless
+				has_trait = amateur
+				has_trait = idler
+			}
+		}
+	}
+	immediate = {
+		set_variable = { name = tv_court_tutor_event_pending value = 1 }
+		random_character = {
+			limit = {
+				is_alive = yes
+				is_adult = yes
+				owner = root
+				OR = {
+					has_trait = cruel
+					has_trait = babbling_buffoon
+					has_trait = embezzler
+					has_trait = drunkard
+					has_trait = sinner
+					has_trait = greedy
+					has_trait = naive
+					has_trait = craven
+					has_trait = loose_lips
+					has_trait = obsessive_perfectionist
+					has_trait = malevolent
+					has_trait = deceitful
+					has_trait = fickle
+					has_trait = schemer
+					has_trait = corrupt
+					has_trait = influential
+					has_trait = unmotivated
+					has_trait = abrasive
+					has_trait = arrogant
+					has_trait = lazy
+					has_trait = inconspicious
+					has_trait = careless
+					has_trait = amateur
+					has_trait = idler
+				}
+			}
+			save_scope_as = tv_court_tutor_target_courtier
+		}
+	}
+	option = {
+		name = tv_court_tutor.4.a
+		trigger = {
+			exists = scope:tv_court_tutor_target_courtier
+			scope:tv_court_tutor_target_courtier = { is_alive = yes owner = root }
+		}
+		change_gold_effect = { scale = -1 }
+		scope:tv_court_tutor_target_courtier = {
+			if = { limit = { has_trait = cruel } remove_trait = trait:cruel }
+			if = { limit = { has_trait = babbling_buffoon } remove_trait = trait:babbling_buffoon }
+			if = { limit = { has_trait = embezzler } remove_trait = trait:embezzler }
+			if = { limit = { has_trait = drunkard } remove_trait = trait:drunkard }
+			if = { limit = { has_trait = sinner } remove_trait = trait:sinner }
+			if = { limit = { has_trait = greedy } remove_trait = trait:greedy }
+			if = { limit = { has_trait = naive } remove_trait = trait:naive }
+			if = { limit = { has_trait = craven } remove_trait = trait:craven }
+			if = { limit = { has_trait = loose_lips } remove_trait = trait:loose_lips }
+			if = { limit = { has_trait = obsessive_perfectionist } remove_trait = trait:obsessive_perfectionist }
+			if = { limit = { has_trait = malevolent } remove_trait = trait:malevolent }
+			if = { limit = { has_trait = deceitful } remove_trait = trait:deceitful }
+			if = { limit = { has_trait = fickle } remove_trait = trait:fickle }
+			if = { limit = { has_trait = schemer } remove_trait = trait:schemer }
+			if = { limit = { has_trait = corrupt } remove_trait = trait:corrupt }
+			if = { limit = { has_trait = influential } remove_trait = trait:influential }
+			if = { limit = { has_trait = unmotivated } remove_trait = trait:unmotivated }
+			if = { limit = { has_trait = abrasive } remove_trait = trait:abrasive }
+			if = { limit = { has_trait = arrogant } remove_trait = trait:arrogant }
+			if = { limit = { has_trait = lazy } remove_trait = trait:lazy }
+			if = { limit = { has_trait = inconspicious } remove_trait = trait:inconspicious }
+			if = { limit = { has_trait = careless } remove_trait = trait:careless }
+			if = { limit = { has_trait = amateur } remove_trait = trait:amateur }
+			if = { limit = { has_trait = idler } remove_trait = trait:idler }
+		}
+		hidden_effect = { remove_variable = tv_court_tutor_event_pending }
+	}
+	option = {
+		name = tv_court_tutor.4.b
+		hidden_effect = { remove_variable = tv_court_tutor_event_pending }
+	}
+}
+
 # Early-loading replacement for the vanilla heir-illness event.
 namespace = dynastic
 dynastic.7 = {

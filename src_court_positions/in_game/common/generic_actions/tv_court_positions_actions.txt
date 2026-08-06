@@ -280,7 +280,7 @@ tv_court_tutor_select_action_1 = {
 		}
 	}
 	effect = {
-		scope:actor = { set_variable = { name = tv_court_tutor_action value = 1 }  }
+		scope:actor = { remove_variable = tv_court_tutor_event_pending remove_variable = tv_court_tutor_ability_field remove_variable = tv_court_tutor_trait_upgrade set_variable = { name = tv_court_tutor_action value = 1 } tv_court_positions_refresh_tutor_effect = yes }
 	}
 	ai_will_do = { add = -100 }
 }
@@ -298,7 +298,7 @@ tv_court_tutor_select_action_2 = {
 		}
 	}
 	effect = {
-		scope:actor = { set_variable = { name = tv_court_tutor_action value = 2 }  }
+		scope:actor = { remove_variable = tv_court_tutor_event_pending remove_variable = tv_court_tutor_ability_field remove_variable = tv_court_tutor_trait_upgrade set_variable = { name = tv_court_tutor_action value = 2 } tv_court_positions_refresh_tutor_effect = yes }
 	}
 	ai_will_do = { add = -100 }
 }
@@ -309,14 +309,33 @@ tv_court_tutor_select_action_3 = {
 	ai_tick = monthly
 	ai_tick_frequency = 99999
 	potential = { scope:actor = { has_variable = tv_court_positions_initialized } }
-	allow = {
-		scope:actor = {
-			has_variable = tv_court_tutor_character
-			var:tv_court_tutor_character ?= { is_alive = yes }
+	allow = { scope:actor = { has_variable = tv_court_tutor_character var:tv_court_tutor_character ?= { is_alive = yes } } }
+	select_trigger = {
+		looking_for_a = location
+		source = actor
+		interaction_source_list = {
+			scope:actor = { every_owned_location = { add_to_list = source } }
 		}
+		target_flag = target
+		name = "tv_court_select_tutor_language_location"
+		none_available_msg_key = "tv_court_no_tutor_language_location_available"
+		column = { data = name }
+		column = { data = population }
+		visible = { owner ?= scope:actor }
 	}
 	effect = {
-		scope:actor = { set_variable = { name = tv_court_tutor_action value = 3 }  }
+		if = {
+			limit = { exists = scope:target }
+			scope:actor = {
+				var:tv_court_tutor_location ?= { remove_location_modifier = tv_court_tutor_language_modifier }
+				remove_variable = tv_court_tutor_event_pending
+				remove_variable = tv_court_tutor_ability_field
+				remove_variable = tv_court_tutor_trait_upgrade
+				set_variable = { name = tv_court_tutor_location value = scope:target }
+				set_variable = { name = tv_court_tutor_action value = 3 }
+				tv_court_positions_refresh_tutor_effect = yes
+			}
+		}
 	}
 	ai_will_do = { add = -100 }
 }
