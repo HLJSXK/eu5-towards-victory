@@ -1174,9 +1174,34 @@ def _action_localization_entries(position: dict, language: str) -> list[tuple[st
     ]
     for index in range(1, ROLE_ACTION_COUNT + 1):
         action = role_action(position, index)
+        if is_physician(position):
+            physician_action_text = {
+                1: (
+                    "控制疫病" if zh else "Disease Control",
+                    "选择一个本国地点，由宫廷医生根据行政能力为当地提供至多20%本地疫病抗性。"
+                    if zh
+                    else "Select an owned location. The Court Physician provides up to 20% local disease resistance there, scaling with administrative skill.",
+                ),
+                2: (
+                    "推进研究" if zh else "Advance Medical Research",
+                    "宫廷医生将专注于医学研究。每年有10%概率触发医学研究推进事件：可直接获得5点研究进度，或支付规模为3的金钱获得10点研究进度。"
+                    if zh
+                    else "The Court Physician focuses on medical research. Each year there is a 10% chance of an event granting 5 research progress, or 10 research progress for a scale 3 gold payment.",
+                ),
+                3: (
+                    "提升技能" if zh else "Improve Medical Skill",
+                    "宫廷医生将专注于精进医术。每年有20%概率触发医术精进事件：可直接获得5点行政能力，或支付规模为1的金钱获得10点行政能力。"
+                    if zh
+                    else "The Court Physician focuses on improving medical skill. Each year there is a 20% chance of an event granting 5 administrative skill, or 10 administrative skill for a scale 1 gold payment.",
+                ),
+            }
+            action_title, action_desc = physician_action_text[index]
+        else:
+            action_title = f"{name}行动 {index}" if zh else f"{name} Action {index}"
+            action_desc = f"将当前{name}切换至行动 {index}{suffix}" if zh else f"Switch the current {name} to action {index}."
         entries.extend([
-            (action, f"{name}行动 {index}" if zh else f"{name} Action {index}"),
-            (f"{action}_desc", f"将当前{name}切换至行动 {index}{suffix}" if zh else f"Switch the current {name} to action {index}."),
+            (action, action_title),
+            (f"{action}_desc", action_desc),
         ])
         if is_physician(position) and index == 1:
             entries.extend([
