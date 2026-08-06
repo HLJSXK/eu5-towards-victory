@@ -402,7 +402,7 @@ def render_scripted_effects(positions: Iterable[dict], script_rel: str) -> str:
         "\t\tlimit = {",
         "\t\t\tis_alive = yes",
         "\t\t\tNOT = { has_variable = tv_court_physician_disease_notified }",
-        "\t\t\tOR = { has_trait = trait:sickly has_trait = trait:smallpox_trait has_trait = trait:bubonic_plague_trait }",
+        "\t\t\tOR = { has_trait = sickly has_trait = smallpox_trait has_trait = bubonic_plague_trait }",
         "\t\t}",
         "\t\tif = {",
         "\t\t\tlimit = { NOT = { has_variable = tv_court_physician_disease_notified } }",
@@ -416,7 +416,7 @@ def render_scripted_effects(positions: Iterable[dict], script_rel: str) -> str:
         "\t\t}",
         "\tevery_character = {",
         "\t\tlimit = {",
-        "\t\t\tNOT = { OR = { has_trait = trait:sickly has_trait = trait:smallpox_trait has_trait = trait:bubonic_plague_trait } }",
+        "\t\t\tNOT = { OR = { has_trait = sickly has_trait = smallpox_trait has_trait = bubonic_plague_trait } }",
         "\t\t\thas_variable = tv_court_physician_disease_notified",
         "\t\t}",
         "\t\tremove_variable = tv_court_physician_disease_notified",
@@ -1177,6 +1177,17 @@ def _action_localization_entries(position: dict, language: str) -> list[tuple[st
             (action, f"{name}行动 {index}" if zh else f"{name} Action {index}"),
             (f"{action}_desc", f"将当前{name}切换至行动 {index}{suffix}" if zh else f"Switch the current {name} to action {index}."),
         ])
+        if is_physician(position) and index == 1:
+            entries.extend([
+                (
+                    "tv_court_select_physician_disease_control_location",
+                    "选择控制疫病地点" if zh else "Select a location for disease control",
+                ),
+                (
+                    "tv_court_no_physician_disease_control_location_available",
+                    "@trigger_no! 没有可控制疫病的所属地点。" if zh else "@trigger_no! No owned location is available for disease control.",
+                ),
+            ])
     return entries
 
 

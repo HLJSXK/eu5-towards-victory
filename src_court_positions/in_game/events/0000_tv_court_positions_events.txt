@@ -57,9 +57,9 @@ tv_court_physician.10 = {
 		var:tv_court_physician_pending_patient ?= {
 			is_alive = yes
 			OR = {
-				has_trait = trait:sickly
-				has_trait = trait:smallpox_trait
-				has_trait = trait:bubonic_plague_trait
+				has_trait = sickly
+				has_trait = smallpox_trait
+				has_trait = bubonic_plague_trait
 			}
 		}
 	}

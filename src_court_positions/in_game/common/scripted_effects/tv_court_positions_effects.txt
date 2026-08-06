@@ -427,7 +427,7 @@ tv_court_physician_disease_scan_effect = {
 		limit = {
 			is_alive = yes
 			NOT = { has_variable = tv_court_physician_disease_notified }
-			OR = { has_trait = trait:sickly has_trait = trait:smallpox_trait has_trait = trait:bubonic_plague_trait }
+			OR = { has_trait = sickly has_trait = smallpox_trait has_trait = bubonic_plague_trait }
 		}
 		if = {
 			limit = { NOT = { has_variable = tv_court_physician_disease_notified } }
@@ -441,7 +441,7 @@ tv_court_physician_disease_scan_effect = {
 		}
 	every_character = {
 		limit = {
-			NOT = { OR = { has_trait = trait:sickly has_trait = trait:smallpox_trait has_trait = trait:bubonic_plague_trait } }
+			NOT = { OR = { has_trait = sickly has_trait = smallpox_trait has_trait = bubonic_plague_trait } }
 			has_variable = tv_court_physician_disease_notified
 		}
 		remove_variable = tv_court_physician_disease_notified
