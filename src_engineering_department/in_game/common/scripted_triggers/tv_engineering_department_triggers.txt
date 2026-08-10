@@ -402,17 +402,8 @@ tv_wonder_can_finish_construction_trigger = {
 	NOT = { has_variable = tv_wonder_construction_complete }
 	custom_tooltip = {
 		text = TV_WONDER_LEVEL_INCREASED_SINCE_CONSTRUCTION_TT
-		OR = {
-			AND = {
-				var:tv_wonder_project_mode ?= 2
-				has_variable = tv_wonder_project_base_level
-				var:tv_wonder_level > var:tv_wonder_project_base_level
-			}
-			AND = {
-				NOT = { var:tv_wonder_project_mode ?= 2 }
-				var:tv_wonder_level ?= { this >= 1 }
-			}
-		}
+		has_variable = tv_wonder_project_base_level
+		var:tv_wonder_level > var:tv_wonder_project_base_level
 	}
 }
 
