@@ -30,6 +30,7 @@ Use the direct interpreter or the `activate.bat` form shown above.
   - `src/` main mod
   - `src_engineering_department/` standalone Engineering Department mod
   - `src_court_positions/` standalone Court Positions mod
+  - `src_eureka/` standalone Eureka mod
 
 ## Core Rules
 

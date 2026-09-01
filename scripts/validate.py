@@ -4,8 +4,9 @@ EU5 Mod Static Validator
 Catches common errors before game loading. Reads docs/knowledge/*.yaml for patterns.
 
 Validates all deployable mod roots: src/ (Towards Victory),
-src_engineering_department/ (Engineering Department), and
-src_court_positions/ (Court Positions).
+src_engineering_department/ (Engineering Department),
+src_court_positions/ (Court Positions), and
+src_eureka/ (Eureka).
 
 Usage:
   python scripts/validate.py                   # validate every mod root
@@ -38,12 +39,12 @@ REPO_ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(REPO_ROOT / "scripts_engineering_department"))
 from wonder_unique_ritual_harness import validate_unique_ritual_specs_for_repo  # noqa: E402
 
-# Three deployable mod roots share this validator: the main "Towards Victory"
-# mod and the split-out standalone Engineering Department and Court Positions
-# mods. Every directory
+# Four deployable mod roots share this validator: the main "Towards Victory"
+# mod and the split-out standalone Engineering Department, Court Positions,
+# and Eureka mods. Every directory
 # constant/check below that used to assume a single `src/` root now iterates
 # MOD_ROOTS instead.
-MOD_ROOTS = (REPO_ROOT / "src", REPO_ROOT / "src_engineering_department", REPO_ROOT / "src_court_positions")
+MOD_ROOTS = (REPO_ROOT / "src", REPO_ROOT / "src_engineering_department", REPO_ROOT / "src_court_positions", REPO_ROOT / "src_eureka")
 MOD_ROOT_NAMES = tuple(root.name for root in MOD_ROOTS)
 KNOWLEDGE_DIR = REPO_ROOT / "docs" / "knowledge"
 VALIDATION_BASELINE_FILE = REPO_ROOT / "data" / "validation_baseline.yaml"
@@ -941,6 +942,7 @@ def _expected_title_modifiers_by_root() -> dict[str, set[str]]:
             title_modifiers_by_id["engineering"]
         } if "engineering" in title_modifiers_by_id else set(),
         "src_court_positions": set(),
+        "src_eureka": set(),
     }
 
 

@@ -10,6 +10,7 @@ set "ROOT=%~dp0"
 set "SRC=%ROOT%src"
 set "ED_SRC=%ROOT%src_engineering_department"
 set "COURT_SRC=%ROOT%src_court_positions"
+set "EUREKA_SRC=%ROOT%src_eureka"
 set "MNT_COMPAT=%ROOT%submods\tv_meiou_and_taxes_compat"
 set "SOL_COMPAT=%ROOT%submods\tv_standard_of_living_compat"
 set "PP_COMPAT=%ROOT%submods\tv_prosper_or_perish_compat"
@@ -17,6 +18,7 @@ set "MOD_DIR=C:\Program Files (x86)\Steam\steamapps\common\Europa Universalis V\
 set "DEST=%MOD_DIR%\tv"
 set "ED_DEST=%MOD_DIR%\tv_engineering_department"
 set "COURT_DEST=%MOD_DIR%\tv_court_positions"
+set "EUREKA_DEST=%MOD_DIR%\tv_eureka"
 set "MNT_COMPAT_DEST=%MOD_DIR%\tv_meiou_and_taxes_compat"
 set "SOL_COMPAT_DEST=%MOD_DIR%\tv_standard_of_living_compat"
 set "PP_COMPAT_DEST=%MOD_DIR%\tv_prosper_or_perish_compat"
@@ -48,7 +50,7 @@ if not exist "!EU5_PYTHON!" (
     exit /b 1
 )
 
-echo === [1/10] Regenerating generated submod outputs ===
+echo === [1/11] Regenerating generated submod outputs ===
 call "!EU5_PYTHON!" "%ROOT%scripts\regenerate_submods.py"
 if !errorlevel! neq 0 (
     echo.
@@ -58,7 +60,7 @@ if !errorlevel! neq 0 (
 )
 
 echo.
-echo === [2/10] Rebuilding unique wonders site ===
+echo === [2/11] Rebuilding unique wonders site ===
 call "!EU5_PYTHON!" "%ROOT%unique_wonders_site\scripts\build\build_site.py"
 if !errorlevel! neq 0 (
     echo.
@@ -68,7 +70,7 @@ if !errorlevel! neq 0 (
 )
 
 echo.
-echo === [3/10] Updating mod version ===
+echo === [3/11] Updating mod version ===
 call "!EU5_PYTHON!" "%ROOT%scripts\update_mod_version.py"
 if !errorlevel! neq 0 (
     echo.
@@ -79,10 +81,10 @@ if !errorlevel! neq 0 (
 
 echo.
 if "!SKIP_VALIDATION!"=="1" (
-    echo === [4/10] Skipping validation ===
+    echo === [4/11] Skipping validation ===
     echo [WARN] Validation bypassed because --skip-validation was supplied.
 ) else (
-    echo === [4/10] Validating mod source ===
+    echo === [4/11] Validating mod source ===
     set "VALIDATE_OUT=%TEMP%\tv_validate_out.txt"
     call "!EU5_PYTHON!" "%ROOT%scripts\validate.py" > "!VALIDATE_OUT!" 2>&1
     set "VALIDATE_RC=!errorlevel!"
@@ -97,7 +99,7 @@ if "!SKIP_VALIDATION!"=="1" (
 )
 
 echo.
-echo === [5/10] Deploying src to !DEST! ===
+echo === [5/11] Deploying src to !DEST! ===
 if not exist "!MOD_DIR!" (
     echo [ERROR] EU5 mod directory not found: !MOD_DIR!
     pause
@@ -114,7 +116,7 @@ if !RC! GEQ 8 (
 )
 
 echo.
-echo === [6/10] Deploying Engineering Department src to !ED_DEST! ===
+echo === [6/11] Deploying Engineering Department src to !ED_DEST! ===
 if not exist "!ED_SRC!" (
     echo [ERROR] Engineering Department source not found: !ED_SRC!
     pause
@@ -131,7 +133,7 @@ if !RC! GEQ 8 (
 )
 
 echo.
-echo === [7/10] Deploying Court Positions src to !COURT_DEST! ===
+echo === [7/11] Deploying Court Positions src to !COURT_DEST! ===
 if not exist "!COURT_SRC!" (
     echo [ERROR] Court Positions source not found: !COURT_SRC!
     pause
@@ -148,7 +150,24 @@ if !RC! GEQ 8 (
 )
 
 echo.
-echo === [8/10] Deploying M^&T compatibility submod to !MNT_COMPAT_DEST! ===
+echo === [8/11] Deploying Eureka src to !EUREKA_DEST! ===
+if not exist "!EUREKA_SRC!" (
+    echo [ERROR] Eureka source not found: !EUREKA_SRC!
+    pause
+    exit /b 1
+)
+
+robocopy "!EUREKA_SRC!" "!EUREKA_DEST!" /MIR
+set "RC=!errorlevel!"
+if !RC! GEQ 8 (
+    echo.
+    echo [ERROR] robocopy failed with exit code !RC!.
+    pause
+    exit /b 1
+)
+
+echo.
+echo === [9/11] Deploying M^&T compatibility submod to !MNT_COMPAT_DEST! ===
 if not exist "!MNT_COMPAT!" (
     echo [ERROR] Compatibility submod source not found: !MNT_COMPAT!
     pause
@@ -165,7 +184,7 @@ if !RC! GEQ 8 (
 )
 
 echo.
-echo === [9/10] Deploying Standard of Living compatibility submod to !SOL_COMPAT_DEST! ===
+echo === [10/11] Deploying Standard of Living compatibility submod to !SOL_COMPAT_DEST! ===
 if not exist "!SOL_COMPAT!" (
     echo [ERROR] Compatibility submod source not found: !SOL_COMPAT!
     pause
@@ -182,7 +201,7 @@ if !RC! GEQ 8 (
 )
 
 echo.
-echo === [10/10] Deploying Prosper or Perish compatibility submod to !PP_COMPAT_DEST! ===
+echo === [11/11] Deploying Prosper or Perish compatibility submod to !PP_COMPAT_DEST! ===
 if not exist "!PP_COMPAT!" (
     echo [ERROR] Compatibility submod source not found: !PP_COMPAT!
     pause
@@ -199,6 +218,6 @@ if !RC! GEQ 8 (
 )
 
 echo.
-echo [DONE] Deployed to !DEST!, !ED_DEST!, !COURT_DEST!, !MNT_COMPAT_DEST!, !SOL_COMPAT_DEST!, and !PP_COMPAT_DEST!
+echo [DONE] Deployed to !DEST!, !ED_DEST!, !COURT_DEST!, !EUREKA_DEST!, !MNT_COMPAT_DEST!, !SOL_COMPAT_DEST!, and !PP_COMPAT_DEST!
 endlocal
 pause

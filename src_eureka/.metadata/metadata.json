@@ -1,0 +1,21 @@
+{
+  "name": "Eureka",
+  "id": "hades.towards_victory.eureka",
+  "version": "260805",
+  "game_id": "eu5",
+  "supported_game_version": "1.3.*",
+  "short_description": "Standalone Eureka mod scaffold (framework only; mechanics not yet implemented). Requires Community Mod Framework.",
+  "tags": [],
+  "relationships": [
+    {
+      "rel_type": "dependency",
+      "id": "community_mod_framework",
+      "display_name": "Community Mod Framework",
+      "resource_type": "mod",
+      "version": "2.*"
+    }
+  ],
+  "game_custom_data": {
+    "multiplayer_synchronized": true
+  }
+}

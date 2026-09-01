@@ -54,4 +54,5 @@ Do not add legacy branches, old-state repair, or compatibility wrappers unless e
 - `docs/knowledge/risk_cards/` -> short task-domain warning cards
 - `src_engineering_department/` / `scripts_engineering_department/` -> standalone Engineering Department mod
 - `src_court_positions/` / `scripts_court_positions/` -> standalone Court Positions mod
+- `src_eureka/` / `scripts_eureka/` -> standalone Eureka mod
 - `scripts/ai_context.py` -> task-scoped context router

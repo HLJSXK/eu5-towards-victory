@@ -26,8 +26,9 @@ fallbacks for old internal state.
 - `src/`: main Towards Victory mod.
 - `src_engineering_department/`: standalone Engineering Department / Wonder Construction mod.
 - `src_court_positions/`: standalone Court Positions mod.
+- `src_eureka/`: standalone Eureka mod scaffold.
 
-All three roots are first-class for validation, source indexing, version stamping,
+All four roots are first-class for validation, source indexing, version stamping,
 and deployment. Shared singleton databases such as `character_title.txt` and
 `messagetypes.txt` are generated as full vanilla copies per root.
 
@@ -44,6 +45,7 @@ and deployment. Shared singleton databases such as `character_title.txt` and
   and wonder-specific localization.
 - **Court Positions:** standalone CMF-backed situation mod with six character offices,
   ability-scaled effects, direct character interactions, and monthly salaries.
+- **Eureka:** standalone mod scaffold (framework only; mechanics not yet implemented).
 - **Editor/Web Tools:** root-level tools support victory tree editing, wonder localization,
   cost/reward data, generated wonder assets, and static unique-wonder atlas data.
 - **Compat Submods:** GUI full-file overrides are handled through generated compat submods
