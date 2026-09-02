@@ -1,0 +1,23 @@
+﻿# Towards Victory — Eureka Prototype: Guilds Advance Effects
+# Country-scoped effects for checking and activating the guilds eureka boost
+
+# Check if guilds eureka condition is met, activate boost if so
+tv_eureka_guilds_check_and_activate_effect = {
+	if = {
+		limit = {
+			tv_eureka_guilds_condition_met_trigger = yes
+			NOT = { has_variable = tv_eureka_guilds_boost_unlocked }
+		}
+		set_variable = tv_eureka_guilds_boost_unlocked
+		# Set visual boost offset for GUI (40% = 0.4)
+		set_variable = {
+			name = tv_eureka_visual_boost_guilds
+			value = 0.4
+		}
+		# DEBUG: confirm the condition check + activation actually ran.
+		# Remove once hooks are confirmed working.
+		trigger_event_non_silently = { id = tv_eureka_debug.4 days = 1 }
+		# Optional: trigger notification event here when boost is unlocked
+		# trigger_event_non_silently = { id = tv_eureka.1 }
+	}
+}

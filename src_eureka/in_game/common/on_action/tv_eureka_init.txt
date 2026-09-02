@@ -1,0 +1,18 @@
+﻿# Towards Victory — Eureka: Initialize variables on game start
+
+on_game_start = {
+	on_actions = {
+		tv_eureka_init_variables
+	}
+}
+
+tv_eureka_init_variables = {
+	effect = {
+		every_country = {
+			set_variable = {
+				name = tv_eureka_visual_boost_guilds
+				value = 0
+			}
+		}
+	}
+}

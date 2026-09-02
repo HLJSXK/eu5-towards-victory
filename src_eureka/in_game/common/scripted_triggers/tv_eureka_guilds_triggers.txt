@@ -1,0 +1,16 @@
+﻿# Towards Victory — Eureka Prototype: Guilds Advance
+# Trigger checking if this country meets the guilds eureka condition
+# (owns at least one market center location)
+
+tv_eureka_guilds_condition_met_trigger = {
+	custom_description = {
+		text = tv_eureka_guilds_condition_met_trigger_desc
+		any_owned_location = {
+			is_market_center = yes
+		}
+	}
+}
+
+tv_eureka_guilds_boost_active_trigger = {
+	has_variable = tv_eureka_guilds_boost_unlocked
+}

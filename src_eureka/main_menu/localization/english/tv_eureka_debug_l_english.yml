@@ -1,0 +1,19 @@
+﻿l_english:
+# Towards Victory - Eureka Prototype: Debug Event Localization
+# TEMPORARY — remove alongside tv_eureka_debug_events.txt once hooks are confirmed.
+
+ tv_eureka_debug.1.title:0 "[DEBUG] Peace Treaty Location Transfer Hook Fired"
+ tv_eureka_debug.1.desc:0 "on_took_location_in_peace_treaty fired.\nLocation gained: [tv_eureka_debug_location.GetName]"
+ tv_eureka_debug.1.a:0 "Understood"
+
+ tv_eureka_debug.2.title:0 "[DEBUG] Location Occupation Hook Fired"
+ tv_eureka_debug.2.desc:0 "on_location_occupied fired.\nLocation occupied: [tv_eureka_debug_location.GetName]"
+ tv_eureka_debug.2.a:0 "Understood"
+
+ tv_eureka_debug.3.title:0 "[DEBUG] Country Annexation Hook Fired"
+ tv_eureka_debug.3.desc:0 "on_annexed fired."
+ tv_eureka_debug.3.a:0 "Understood"
+
+ tv_eureka_debug.4.title:0 "[DEBUG] Guilds Eureka Condition Activated"
+ tv_eureka_debug.4.desc:0 "The condition check passed. The tv_eureka_guilds_boost_unlocked variable is set and the research-speed bonus is active."
+ tv_eureka_debug.4.a:0 "Understood"

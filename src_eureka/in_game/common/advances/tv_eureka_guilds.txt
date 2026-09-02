@@ -1,0 +1,20 @@
+﻿# Towards Victory — Eureka Prototype: Guilds Advance Override
+# REPLACE vanilla guilds advance to add modifier_while_progressing
+
+REPLACE:guilds = {
+	age = age_1_traditions
+	icon = guilds
+	requires = organized_religion
+
+	# Original vanilla modifiers
+	global_burghers_city_desired_pop = 0.1
+	global_burghers_max_literacy = 5
+
+	# Eureka boost: +50% research speed when condition is met
+	modifier_while_progressing = {
+		potential_trigger = {
+			tv_eureka_guilds_boost_active_trigger = yes
+		}
+		research_speed_modifier = 0.5
+	}
+}

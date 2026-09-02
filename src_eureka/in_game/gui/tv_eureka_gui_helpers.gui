@@ -1,0 +1,32 @@
+﻿# Towards Victory — Eureka Prototype: GUI Helper Types
+# Defines reusable GUI functions for computing boosted research progress
+
+types tv_eureka_gui_helpers
+{
+	# This type provides a computed "visual progress" that adds the eureka boost
+	# to the real progress when researching guilds advance
+	type tv_eureka_boosted_progress = widget {
+		# This is a hidden widget that computes values for consumption by parent
+		# Access via: datacontext = "[CreateTvEurekaBoostedProgress]"
+
+		# Computed fields (accessed via GetValue):
+		# - visual_progress: real progress + boost offset (clamped 0-1)
+		# - visual_progress_percent: visual_progress * 100 (for text display)
+		# - boost_amount: the eureka boost value (0.0 or 0.4 for 40%)
+
+		visible = no
+
+		# Note: Jomini GUI doesn't support inline Add_float with variable reads
+		# in all contexts, so we'll need to define this computation in a different way.
+		# Alternative approach: use localization tokens with dynamic values.
+	}
+}
+
+# CORRECTION: Jomini GUI actually DOES support inline arithmetic with variable reads.
+# Based on the agent's findings (tv_diplomatic_alliance.gui:544 precedent), we can write:
+# Node/list rows gate the offset on their typed advance key. Global current-
+# research widgets gate through the current advance definition scope key.
+#
+# So we don't need a separate type - the generator in patch_gui_progress.py
+# inlines the appropriate formula in every vanilla progress binding.
+# The boost variable will be set to 0.4 (40%) when the condition is met.

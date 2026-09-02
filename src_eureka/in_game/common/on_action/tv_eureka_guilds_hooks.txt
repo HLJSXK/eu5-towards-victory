@@ -1,0 +1,87 @@
+﻿# Towards Victory — Eureka Prototype: Guilds On-Action Hooks
+# These hooks check if acquiring a new location or building a market center
+# triggers the guilds eureka condition
+#
+# DEBUG: each hook fires tv_eureka_debug.N unconditionally (regardless of
+# whether the location is a market center) so hook firing itself can be
+# verified in-game. Remove the trigger_event_non_silently calls and the
+# tv_eureka_debug_events.txt file once hooks are confirmed working.
+
+# Hook 1: When a location is taken in a peace treaty
+on_took_location_in_peace_treaty = {
+	on_actions = {
+		tv_eureka_guilds_on_location_gained
+	}
+}
+
+tv_eureka_guilds_on_location_gained = {
+	effect = {
+		# scope:winner is the country gaining the location
+		# scope:location is the location being transferred
+		scope:winner = {
+			scope:location = { save_scope_as = tv_eureka_debug_location }
+			trigger_event_non_silently = { id = tv_eureka_debug.1 days = 1 }
+			if = {
+				limit = {
+					scope:location = { is_market_center = yes }
+				}
+				tv_eureka_guilds_check_and_activate_effect = yes
+			}
+		}
+	}
+}
+
+# Hook 2: When a location is occupied (military conquest)
+on_location_occupied = {
+	on_actions = {
+		tv_eureka_guilds_on_occupation
+	}
+}
+
+tv_eureka_guilds_on_occupation = {
+	effect = {
+		# root = occupying country
+		# scope:target = occupied location
+		scope:target = { save_scope_as = tv_eureka_debug_location }
+		trigger_event_non_silently = { id = tv_eureka_debug.2 days = 1 }
+		if = {
+			limit = {
+				scope:target = { is_market_center = yes }
+			}
+			tv_eureka_guilds_check_and_activate_effect = yes
+		}
+	}
+}
+
+# Hook 3: When a country annexes another
+on_annexed = {
+	on_actions = {
+		tv_eureka_guilds_on_annexation
+	}
+}
+
+tv_eureka_guilds_on_annexation = {
+	effect = {
+		# root = annexing country
+		# scope:target = annexed country
+		trigger_event_non_silently = { id = tv_eureka_debug.3 days = 1 }
+		if = {
+			limit = {
+				scope:target = {
+					any_owned_location = { is_market_center = yes }
+				}
+			}
+			tv_eureka_guilds_check_and_activate_effect = yes
+		}
+	}
+}
+
+# Hook 4: When market center status is created on a location
+# This requires a custom trigger since vanilla doesn't have on_market_created
+# We'll use a monthly pulse check as fallback (not ideal, but functional)
+# Better approach: hook into the UI action if possible, or use building construction
+# For now, we'll monitor via building construction of market-center-prerequisite buildings
+
+# Note: Market center creation is a UI action (Location.CreateMarket), which doesn't
+# fire a script-side on_action. A more robust implementation would add a monthly
+# pulse check, but for this prototype we'll rely on the location-gain hooks above.
