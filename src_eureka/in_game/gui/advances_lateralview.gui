@@ -818,13 +818,38 @@ lateralview = {
 
 								blockoverride "scroll_list_content" {
 									addcolumn = 100%
-									addrow = 135
+									addrow = 160
 									datamodel = "[AdvancesLateralView.GetAllAdvances]"
 									item = {
 										widget = {
-											size = { 100% 135 }
+											size = { 100% 160 }
 											datacontext = "[AdvanceNode.GetItem]"
 											using = advance_item
+
+											widget = {
+												visible = "[EqualTo_string(AdvanceItem.GetKey, 'guilds')]"
+												parentanchor = bottom|hcenter
+												size = { 100% 20 }
+												using = bg_square_tile
+
+												blockoverride "container_color" {
+													modify_texture = {
+														visible = "[Player.MakeScope.GetVariable('tv_eureka_boost_active_guilds').IsSet]"
+														using = color_progress_blue_texture
+														blend_mode = multiply
+													}
+												}
+
+												text_single = {
+													parentanchor = center
+													size = { 100% 20 }
+													align = center|nobaseline
+													autoresize = yes
+													fontsize = 11
+													text = "TV_EUREKA_GUILDS_CONDITION_DISPLAY"
+													default_format = "#weak"
+												}
+											}
 										}
 									}
 								}
@@ -1096,14 +1121,39 @@ lateralview = {
 
 								blockoverride "scroll_list_content" {
 									addcolumn = 100%
-									addrow = 135
+									addrow = 160
 									setitemsizefromcell = yes
 
 									datamodel = "[AdvancesLateralView.GetUniqueAdvances]"
 									item = {
 										widget = {
-											size = { 100% 135 }
+											size = { 100% 160 }
 											using = advance_item
+
+											widget = {
+												visible = "[EqualTo_string(AdvanceItem.GetKey, 'guilds')]"
+												parentanchor = bottom|hcenter
+												size = { 100% 20 }
+												using = bg_square_tile
+
+												blockoverride "container_color" {
+													modify_texture = {
+														visible = "[Player.MakeScope.GetVariable('tv_eureka_boost_active_guilds').IsSet]"
+														using = color_progress_blue_texture
+														blend_mode = multiply
+													}
+												}
+
+												text_single = {
+													parentanchor = center
+													size = { 100% 20 }
+													align = center|nobaseline
+													autoresize = yes
+													fontsize = 11
+													text = "TV_EUREKA_GUILDS_CONDITION_DISPLAY"
+													default_format = "#weak"
+												}
+											}
 										}
 									}
 								}
@@ -1120,7 +1170,7 @@ lateralview = {
 
 template advance_item {
     widget = {
-        parentanchor = center
+        parentanchor = top|hcenter
         size = { 100% 135 }
 
 		background = {#shadow

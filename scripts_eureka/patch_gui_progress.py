@@ -194,6 +194,72 @@ def _patch_advances_effect_list(content: str) -> str:
     )
 
 
+def _patch_advances_eureka_condition(content: str) -> str:
+    """Add room for and render the Eureka condition below each advance card."""
+    content = _replace_regex(
+        content,
+        re.compile(r"(?m)^(?P<i>[ \t]*)addcolumn = 100%\n(?P=i)addrow = 135$"),
+        lambda m: f'{m.group("i")}addcolumn = 100%\n{m.group("i")}addrow = 160',
+        2,
+        "advances Eureka condition list row height",
+    )
+    content = _replace_regex(
+        content,
+        re.compile(
+            r"(?m)^(?P<i>[ \t]*)item = \{\n"
+            r"(?P=i)\twidget = \{\n"
+            r"(?P=i)\t\tsize = \{ 100% 135 \}$"
+        ),
+        lambda m: (
+            f'{m.group("i")}item = {{\n'
+            f'{m.group("i")}\twidget = {{\n'
+            f'{m.group("i")}\t\tsize = {{ 100% 160 }}'
+        ),
+        2,
+        "advances Eureka condition item height",
+    )
+    content = _replace_literal(
+        content,
+        "        parentanchor = center\n        size = { 100% 135 }\n",
+        "        parentanchor = top|hcenter\n        size = { 100% 135 }\n",
+        1,
+        "advances Eureka condition card anchor",
+    )
+    condition = """
+
+%(i)swidget = {
+%(i)s\tvisible = "[EqualTo_string(AdvanceItem.GetKey, 'guilds')]"
+%(i)s\tparentanchor = bottom|hcenter
+%(i)s\tsize = { 100%% 20 }
+%(i)s\tusing = bg_square_tile
+
+%(i)s\tblockoverride "container_color" {
+%(i)s\t\tmodify_texture = {
+%(i)s\t\t\tvisible = "[Player.MakeScope.GetVariable('tv_eureka_boost_active_guilds').IsSet]"
+%(i)s\t\t\tusing = color_progress_blue_texture
+%(i)s\t\t\tblend_mode = multiply
+%(i)s\t\t}
+%(i)s\t}
+
+%(i)s\ttext_single = {
+%(i)s\t\tparentanchor = center
+%(i)s\t\tsize = { 100%% 20 }
+%(i)s\t\talign = center|nobaseline
+%(i)s\t\tautoresize = yes
+%(i)s\t\tfontsize = 11
+%(i)s\t\ttext = "TV_EUREKA_GUILDS_CONDITION_DISPLAY"
+%(i)s\t\tdefault_format = "#weak"
+%(i)s\t}
+%(i)s}"""
+    return _replace_regex(
+        content,
+        re.compile(r"(?m)^(?P<i>[ \t]*)using = advance_item$"),
+        lambda m: m.group(0) + (condition % {"i": m.group("i")}),
+        2,
+        "advances Eureka condition widget",
+    )
+
+
 def _patch_technology_effect_lists(content: str) -> str:
     datamodel = re.compile(
         r'(?m)^(?P<i>[ \t]*)datamodel = "\[AdvanceNode\.GetItem\.GetAdvanceEffectItemsNoTooltip\]"$'
@@ -264,6 +330,7 @@ def patch_in_game_file(filename: str) -> None:
     content = _patch_progress_bindings(filename, _read_gui(source))
     if filename == "advances_lateralview.gui":
         content = _patch_advances_effect_list(content)
+        content = _patch_advances_eureka_condition(content)
     elif filename == "technology_lateralview.gui":
         content = _patch_technology_effect_lists(content)
         content = _patch_progress_info(content)
