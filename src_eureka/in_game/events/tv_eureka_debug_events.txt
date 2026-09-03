@@ -7,8 +7,8 @@ namespace = tv_eureka_debug
 # ── tv_eureka_debug.1 — Peace treaty location transfer hook fired ──────────────
 tv_eureka_debug.1 = {
 	type = country_event
-	title = tv_eureka_debug.1.title
-	desc = tv_eureka_debug.1.desc
+	title = tv_eureka_debug.1.t
+	desc = tv_eureka_debug.1.d
 	outcome = neutral
 
 	option = {
@@ -19,8 +19,8 @@ tv_eureka_debug.1 = {
 # ── tv_eureka_debug.2 — Occupation hook fired ──────────────────────────────────
 tv_eureka_debug.2 = {
 	type = country_event
-	title = tv_eureka_debug.2.title
-	desc = tv_eureka_debug.2.desc
+	title = tv_eureka_debug.2.t
+	desc = tv_eureka_debug.2.d
 	outcome = neutral
 
 	option = {
@@ -31,8 +31,8 @@ tv_eureka_debug.2 = {
 # ── tv_eureka_debug.3 — Annexation hook fired ──────────────────────────────────
 tv_eureka_debug.3 = {
 	type = country_event
-	title = tv_eureka_debug.3.title
-	desc = tv_eureka_debug.3.desc
+	title = tv_eureka_debug.3.t
+	desc = tv_eureka_debug.3.d
 	outcome = neutral
 
 	option = {
@@ -43,8 +43,8 @@ tv_eureka_debug.3 = {
 # ── tv_eureka_debug.4 — Boost actually activated (condition check passed) ─────
 tv_eureka_debug.4 = {
 	type = country_event
-	title = tv_eureka_debug.4.title
-	desc = tv_eureka_debug.4.desc
+	title = tv_eureka_debug.4.t
+	desc = tv_eureka_debug.4.d
 	outcome = positive
 
 	option = {

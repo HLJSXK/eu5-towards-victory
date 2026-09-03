@@ -2,18 +2,18 @@
 # Towards Victory — Eureka Prototype: Debug Event Localization
 # TEMPORARY — remove alongside tv_eureka_debug_events.txt once hooks are confirmed.
 
- tv_eureka_debug.1.title:0 "[DEBUG] 和约地点转移 Hook 已触发"
- tv_eureka_debug.1.desc:0 "on_took_location_in_peace_treaty 已触发。\n获得地点：[tv_eureka_debug_location.GetName]"
+ tv_eureka_debug.1.t:0 "和约地点转移 Hook 已触发"
+ tv_eureka_debug.1.d:0 "on_took_location_in_peace_treaty 已触发。\n获得地点：[tv_eureka_debug_location.GetName]"
  tv_eureka_debug.1.a:0 "明白"
 
- tv_eureka_debug.2.title:0 "[DEBUG] 占领地点 Hook 已触发"
- tv_eureka_debug.2.desc:0 "on_location_occupied 已触发。\n占领地点：[tv_eureka_debug_location.GetName]"
+ tv_eureka_debug.2.t:0 "占领地点 Hook 已触发"
+ tv_eureka_debug.2.d:0 "on_location_occupied 已触发。\n占领地点：[tv_eureka_debug_location.GetName]"
  tv_eureka_debug.2.a:0 "明白"
 
- tv_eureka_debug.3.title:0 "[DEBUG] 吞并国家 Hook 已触发"
- tv_eureka_debug.3.desc:0 "on_annexed 已触发。"
+ tv_eureka_debug.3.t:0 "吞并国家 Hook 已触发"
+ tv_eureka_debug.3.d:0 "on_annexed 已触发。"
  tv_eureka_debug.3.a:0 "明白"
 
- tv_eureka_debug.4.title:0 "[DEBUG] 行会提升条件已激活"
- tv_eureka_debug.4.desc:0 "条件检查通过，tv_eureka_guilds_boost_unlocked 变量已设置，研究速度加成已生效。"
+ tv_eureka_debug.4.t:0 "行会提升条件已激活"
+ tv_eureka_debug.4.d:0 "条件检查通过，tv_eureka_boost_active_guilds 变量已设置，研究速度加成已生效。"
  tv_eureka_debug.4.a:0 "明白"

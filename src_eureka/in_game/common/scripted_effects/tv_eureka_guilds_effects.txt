@@ -6,9 +6,10 @@ tv_eureka_guilds_check_and_activate_effect = {
 	if = {
 		limit = {
 			tv_eureka_guilds_condition_met_trigger = yes
-			NOT = { has_variable = tv_eureka_guilds_boost_unlocked }
+			NOT = { has_variable = tv_eureka_boost_active_guilds }
 		}
-		set_variable = tv_eureka_guilds_boost_unlocked
+		# GUI row filtering convention: tv_eureka_boost_active_<advance_key>
+		set_variable = tv_eureka_boost_active_guilds
 		# Set visual boost offset for GUI (40% = 0.4)
 		set_variable = {
 			name = tv_eureka_visual_boost_guilds

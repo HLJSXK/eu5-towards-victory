@@ -1861,11 +1861,12 @@ template advance_item {
 								
 								vbox = {
 									layoutpolicy_horizontal = expanding
-									datacontext = "[StringToStringPairList(AdvanceItem.GetEffects)]"
-									datamodel = "[StringPairList.GetRows]"
+									datamodel = "[AdvanceItem.GetAdvanceEffectItemsNoTooltip]"
+									ignoreinvisible = yes
 									item = {
 										hbox = {
 											layoutpolicy_horizontal = expanding
+											visible = "[Not(And(Player.MakeScope.GetVariable(Concatenate('tv_eureka_boost_active_', AdvanceItem.GetKey)).IsSet, StringContains(AdvanceEffectItem.GetIcon, 'research_speed')))]"
 											margin = { 5 0 }
 											background = {
 												visible = "[IsEven_int32(PdxGuiWidget.GetIndexInDataModel)]"
@@ -1875,11 +1876,11 @@ template advance_item {
 	
 											text_single = {
 												layoutpolicy_horizontal = expanding
-												text = "[StringViewPair.GetLeft.GetStringView]"
+												text = "[AdvanceEffectItem.GetTitleEffect]"
 											}
 	
 											text_single = {
-												text = "[StringViewPair.GetRight.GetStringView]"
+																		text = "[AdvanceEffectItem.GetDescEffect]"
 											}
 										}
 									}

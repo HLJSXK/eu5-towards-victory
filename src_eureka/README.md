@@ -19,7 +19,7 @@
 
 - `in_game/common/scripted_effects/tv_eureka_guilds_effects.txt`
   - `tv_eureka_guilds_check_and_activate_effect` — 条件满足时激活boost，设置两个变量：
-    - `tv_eureka_guilds_boost_unlocked` — 后端开关（用于`modifier_while_progressing`的`potential_trigger`）
+    - `tv_eureka_boost_active_guilds` — 后端开关（用于`modifier_while_progressing`的`potential_trigger`，GUI 也按此命名约定过滤重复效果行）
     - `tv_eureka_visual_boost_guilds` = 0.4 — GUI显示偏移量（40%）
 
 - `in_game/common/on_action/tv_eureka_guilds_hooks.txt`
@@ -72,7 +72,7 @@
    - 或通过和约/战争占领一个已经是市场中心的地点
    - 或吞并一个拥有市场中心的国家
 4. **观察效果**：
-   - 变量`tv_eureka_guilds_boost_unlocked`应该被设置（可用debug模式查看）
+   - 变量`tv_eureka_boost_active_guilds`应该被设置（可用debug模式查看）
    - 打开科技树，选择"guilds"作为研究目标
    - 进度环应该立刻显示为40%（视觉hack），并且顶部栏、议程和中央研究卡片保持一致
    - 实际研究速度应该比正常快50%（后端加速）
@@ -128,8 +128,9 @@ Select_float(
    - 当前只实现了guilds一条
    - 扩展到其他advance需要：
      - 复制一套trigger/effect/on_action（改条件判断）
-     - 为每条advance设置独立的变量名（如`tv_eureka_visual_boost_<advance_id>`）
-     - GUI公式需要改成"检查当前研究是哪条，读取对应的boost变量"
+     - 为每条advance设置独立的开关和视觉变量：`tv_eureka_boost_active_<advance_id>`、`tv_eureka_visual_boost_<advance_id>`
+     - advances/technology 效果列表会自动按 `tv_eureka_boost_active_<advance_id>` 隐藏研究速度行
+     - 顶部栏、议程和当前研究 tooltip 的进度显示仍需为新增 advance 增加对应的当前研究判断；CurrentResearch 暂未提供可验证的原始 advance key accessor
 
 ## 下一步
 

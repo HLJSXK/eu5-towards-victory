@@ -1,6 +1,6 @@
 ﻿template tv_eureka_guilds_research_bonus_tooltip {
 	TooltipTextBlock = {
-		visible = "[And3(Player.GetCurrentResearch.IsActive, EqualTo_string(Player.GetCurrentResearch.GetAdvance.GetDefinition.GetNameWithNoTooltip, Localize('guilds')), Player.MakeScope.GetVariable('tv_eureka_guilds_boost_unlocked').IsSet)]"
+		visible = "[And3(Player.GetCurrentResearch.IsActive, EqualTo_string(Player.GetCurrentResearch.GetAdvance.GetDefinition.GetNameWithNoTooltip, Localize('guilds')), Player.MakeScope.GetVariable('tv_eureka_boost_active_guilds').IsSet)]"
 		blockoverride "text" {
 			text = "TV_EUREKA_GUILDS_RESEARCH_SPEED_TOOLTIP"
 		}
