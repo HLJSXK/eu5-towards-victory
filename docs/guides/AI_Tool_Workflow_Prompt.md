@@ -13,10 +13,14 @@ or:
 
 Read every required risk card, especially any immediate risk alert.
 
-### 1. Use the compact startup entry
-- Read `CLAUDE.md` first.
-- Read `docs/knowledge/BRIEF.md` for broad project context.
-- Use `scripts/ai_context.py` for task-scoped routing.
+### 1. Use the layered startup entry
+- Read `CLAUDE.md` first for universal workflow rules.
+- Read `docs/knowledge/PROJECT_OVERVIEW.md` for current project state and directory map.
+- Read the active `docs/knowledge/subprojects/*.md` overview(s).
+- Use `scripts/ai_context.py` for task-scoped folder, filename, and keyword routing.
+- For cross-surface concepts, pass keywords too, for example:
+  `scripts/ai_context.py --files <paths> --keywords advance research eureka`.
+- Read `docs/knowledge/BRIEF.md` for compact project-wide gotchas.
 - In managed sandboxes, use the direct `eu5` interpreter. Do not use `conda run -n eu5`.
 
 ### 2. Mandatory reference categories
@@ -41,6 +45,9 @@ Do not add legacy branches, old-state repair, or compatibility wrappers unless e
 - When a new risk card is added, register it in `docs/knowledge/context_routes.yaml`.
 - When knowledge files change, regenerate `docs/knowledge/BRIEF.md`.
 - Run `scripts/validate.py --changed --fix --ai-report` before finishing a real code change.
+- After verification, update project/subproject overviews only with confirmed
+  current-state knowledge. Flag stale contradictory records and request explicit
+  overwrite permission; keep optional work logs outside automatic routing.
 
 ### 5. Avoid common mistakes
 - Use `on_construction_ended` for upgradeable building completion.

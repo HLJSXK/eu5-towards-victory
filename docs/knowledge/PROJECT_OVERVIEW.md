@@ -45,7 +45,8 @@ and deployment. Shared singleton databases such as `character_title.txt` and
   and wonder-specific localization.
 - **Court Positions:** standalone CMF-backed situation mod with six character offices,
   ability-scaled effects, direct character interactions, and monthly salaries.
-- **Eureka:** standalone mod scaffold (framework only; mechanics not yet implemented).
+- **Eureka:** standalone research-project condition prototype; current `guilds`
+  implementation spans backend triggers/effects and multiple Advance GUI surfaces.
 - **Editor/Web Tools:** root-level tools support victory tree editing, wonder localization,
   cost/reward data, generated wonder assets, and static unique-wonder atlas data.
 - **Compat Submods:** GUI full-file overrides are handled through generated compat submods
@@ -67,13 +68,16 @@ and deployment. Shared singleton databases such as `character_title.txt` and
 
 ## AI Workflow Knowledge
 
-`CLAUDE.md` is the single startup workflow entry. `docs/knowledge/BRIEF.md` is the
-compact generated broad read. `scripts/ai_context.py` builds task-scoped context
-from explicit or changed files, generated-file metadata, and
+`CLAUDE.md` is the single startup workflow entry. The task bootstrap then reads
+`PROJECT_OVERVIEW.md`, `BRIEF.md`, the active subproject overview(s), and finally
+folder/file/keyword-routed cards. `scripts/ai_context.py` builds this context
+from explicit or changed files, generated-file metadata, task keywords, and
 `docs/knowledge/context_routes.yaml`.
 
-Default `ai_context.py` output is concise: files, generated ownership, domains,
-immediate risk alerts, required reads, relevant anti-pattern summaries, and validation.
+Default `ai_context.py` output is concise: bootstrap order, files, active
+subprojects, generated ownership, domains, immediate risk alerts, required reads,
+relevant anti-pattern summaries, and validation. Use `--keywords` for concepts
+whose implementation crosses file boundaries, such as `advance research eureka`.
 Use `--full` only when full routed card text is needed. Use `--json` for regression
 tests or future tool integration.
 
@@ -88,7 +92,10 @@ Current routing sources:
 
 When routing behavior changes, update `context_routes.yaml`, `scripts/ai_context.py`,
 `CLAUDE.md`, `docs/guides/AI_Tool_Workflow_Prompt.md`, and this overview, then run
-`scripts/test_ai_context.py` and regenerate `BRIEF.md`.
+`scripts/test_ai_context.py` and regenerate `BRIEF.md`. After a task, update
+overviews only for confirmed current-state knowledge; if existing knowledge is
+contradictory or stale, call it out and obtain explicit overwrite approval before
+changing that fact.
 
 ## Script Reference
 

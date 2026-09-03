@@ -13,6 +13,65 @@ core_reads:
   - path: docs/knowledge/BRIEF.md
     reason: compact project-wide gotchas and indexes
 
+project_overview:
+  path: docs/knowledge/PROJECT_OVERVIEW.md
+  reason: current project state, deployable roots, and directory map
+
+subprojects:
+  - id: main_mod
+    path_prefixes: [src, scripts]
+    path_exact:
+      - data/victory_paths.yaml
+      - data/io_establishment.yaml
+      - data/io_leaders.yaml
+      - data/pulse_registry.yaml
+      - data/locked_advances.yaml
+      - data/research_d_events.yaml
+      - data/academy_laws.yaml
+      - data/govhouse_laws.yaml
+      - data/trade_league_laws.yaml
+      - data/trade_league_goods.yaml
+      - data/trade_chain.yaml
+      - data/philosophy_debates.yaml
+      - data/cmf_warning_suppressions.yaml
+    exclude_paths:
+      - data/wonders.yaml
+      - data/wonder_final_buildings.yaml
+      - data/wonder_generic_rituals.yaml
+      - data/wonder_base_modifiers.yaml
+      - data/wonder_site_rules.yaml
+      - data/unique_wonders.yaml
+      - data/court_positions.yaml
+    overview: docs/knowledge/subprojects/main_mod.md
+    summary: core Towards Victory mod, victory paths, research, IOs, and shared infrastructure
+    reason: detailed main-mod state, ownership boundaries, and generated-data map
+  - id: engineering_department
+    path_prefixes: [src_engineering_department, scripts_engineering_department]
+    overview: docs/knowledge/subprojects/engineering_department.md
+    summary: standalone Wonder Construction and Engineering Department mod
+    reason: detailed wonder mechanics, GUI, generators, and ownership boundaries
+  - id: court_positions
+    path_prefixes: [src_court_positions, scripts_court_positions]
+    overview: docs/knowledge/subprojects/court_positions.md
+    summary: standalone CMF-backed court-office situation mod
+    reason: detailed office data, generated scripts, situation GUI, and lifecycle
+  - id: eureka
+    path_prefixes: [src_eureka, scripts_eureka]
+    overview: docs/knowledge/subprojects/eureka.md
+    reads:
+      - path: docs/knowledge/eureka_gui_maintenance.md
+        reason: verified Eureka GUI ownership and Advance display-surface boundaries
+    summary: standalone Eureka research-project conditions, effects, and cross-surface GUI
+    reason: detailed Eureka state plus the complete Advance GUI surface map
+
+ownership_routes:
+  - id: eureka_gui_codegen
+    path_prefixes:
+      - src_eureka/in_game/gui/
+      - src_eureka/main_menu/gui/shared/
+    owner: scripts_eureka/patch_gui_progress.py
+    reason: Eureka GUI outputs are regenerated from vanilla files by the checked-in patcher
+
 domain_routes:
   - id: generic_actions
     expand_mod_roots: true
@@ -129,6 +188,17 @@ filename_routes:
     summary: bespoke unique-ritual implementation and audit rules
     reason: bespoke unique-wonder ritual source or output touched
 
+  - id: eureka_advance_surfaces
+    substrings:
+      - advances_lateralview
+      - technology_lateralview
+      - agenda_view
+      - hud_topbar
+      - advances_tooltips
+    card: eureka_advance_surfaces.md
+    summary: Advance research-project display spans every Eureka GUI surface, not one lateral view
+    reason: an Advance-related GUI file may be one part of a cross-surface feature
+
 content_routes:
   - id: variable_map
     markers:
@@ -155,6 +225,18 @@ content_routes:
       - path: docs/knowledge/anti_patterns.yaml rule variable_map_scope_link_used_direct_rhs
         reason: direct map RHS/effect-parameter use is unsafe
     reason: file content uses variable-map APIs
+
+keyword_routes:
+  - id: eureka_advance_concept
+    keywords: [advance, advances, research, research_project, eureka, guilds, current_research]
+    reads:
+      - path: docs/knowledge/subprojects/eureka.md
+        reason: Advance is the EU5 research-project concept and Eureka owns a cross-surface implementation of it
+      - path: docs/knowledge/eureka_gui_maintenance.md
+        reason: Advance is a research-project concept with multiple GUI owners and generator ownership
+    card: eureka_advance_surfaces.md
+    summary: route the full Advance/Eureka concept context even when only one surface is named
+    reason: prevent conceptual narrowing of Advance to advances_lateralview.gui
 
 object_alerts:
   - id: object_on_built

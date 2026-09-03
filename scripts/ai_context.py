@@ -5,6 +5,7 @@ Build task-scoped AI context without dumping every long-form knowledge file.
 Usage:
   C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\ai_context.py --changed
   C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\ai_context.py --files src/in_game/common/generic_actions/foo.txt
+  C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\ai_context.py --files scripts_eureka/patch_gui_progress.py --keywords advance research
   C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\ai_context.py --full --files src_engineering_department/in_game/common/building_types/foo.txt
   C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\ai_context.py --json --changed
 """
@@ -94,8 +95,11 @@ def load_routes() -> dict[str, Any]:
     routes.setdefault("domain_routes", [])
     routes.setdefault("filename_routes", [])
     routes.setdefault("content_routes", [])
+    routes.setdefault("keyword_routes", [])
     routes.setdefault("object_alerts", [])
     routes.setdefault("maintenance_routes", [])
+    routes.setdefault("project_overview", {"path": "docs/knowledge/PROJECT_OVERVIEW.md"})
+    routes.setdefault("subprojects", [])
     return routes
 
 
@@ -169,13 +173,42 @@ def _file_contains_marker(path: str, markers: tuple[str, ...]) -> bool:
     return False
 
 
+def _subproject_matches(path: str, subproject: dict[str, Any]) -> bool:
+    normalized = _norm(path)
+    excluded = {_norm(item) for item in subproject.get("exclude_paths", []) or []}
+    if normalized in excluded:
+        return False
+    prefixes = [_norm(item).rstrip("/") + "/" for item in subproject.get("path_prefixes", []) or []]
+    if any(normalized.startswith(prefix) for prefix in prefixes):
+        return True
+    return any(normalized == _norm(item) for item in subproject.get("path_exact", []) or [])
+
+
+def active_subprojects(paths: list[str], routes: dict[str, Any]) -> list[dict[str, Any]]:
+    active: list[dict[str, Any]] = []
+    for subproject in routes.get("subprojects", []) or []:
+        if any(_subproject_matches(path, subproject) for path in paths):
+            active.append(subproject)
+    return sorted(active, key=lambda item: item.get("id", ""))
+
+
+def _keyword_matches_route(keywords: list[str], route: dict[str, Any]) -> bool:
+    route_keywords = [str(item).lower() for item in route.get("keywords", []) or []]
+    return any(
+        route_keyword in keyword or keyword in route_keyword
+        for keyword in keywords
+        for route_keyword in route_keywords
+    )
+
+
 def _add_unique(items: list[dict[str, str]], item: dict[str, str], key: str) -> None:
     if item.get(key) and not any(existing.get(key) == item.get(key) for existing in items):
         items.append(item)
 
 
-def build_context(files: list[str], routes: dict[str, Any]) -> dict[str, Any]:
+def build_context(files: list[str], routes: dict[str, Any], keywords: list[str] | None = None) -> dict[str, Any]:
     files = sorted({_norm(f) for f in files if f})
+    keywords = sorted({str(keyword).strip().lower() for keyword in keywords or [] if str(keyword).strip()})
     gen = generated_map()
     routed_paths = route_paths(files, gen)
 
@@ -183,6 +216,61 @@ def build_context(files: list[str], routes: dict[str, Any]) -> dict[str, Any]:
     cards: list[dict[str, str]] = []
     reads: list[dict[str, str]] = []
     alerts: list[dict[str, str]] = []
+    ownership_paths = [path for path in files]
+    for path in files:
+        ownership_paths.extend(_split_generated_sources(gen.get(path))[:1])
+    active = active_subprojects(ownership_paths, routes)
+
+    project_overview = routes.get("project_overview") or {}
+    project_overview_path = project_overview.get("path", "docs/knowledge/PROJECT_OVERVIEW.md")
+    if project_overview_path:
+        _add_unique(
+            reads,
+            {"path": project_overview_path, "reason": project_overview.get("reason", "project-wide current state and directory map")},
+            "path",
+        )
+
+    for subproject in active:
+        overview = subproject.get("overview")
+        if overview:
+            _add_unique(
+                reads,
+                {"path": overview, "reason": subproject.get("reason", f"detailed {subproject.get('id', '')} subproject state and boundaries")},
+                "path",
+            )
+        for read in subproject.get("reads", []) or []:
+            _add_unique(reads, {"path": read["path"], "reason": read.get("reason", "")}, "path")
+
+    owners: list[dict[str, str]] = []
+    for path in [path for paths in routed_paths.values() for path in paths]:
+        for owner in routes.get("ownership_routes", []) or []:
+            prefixes = [_norm(item) for item in owner.get("path_prefixes", []) or []]
+            if prefixes and any(_norm(path).startswith(prefix) for prefix in prefixes):
+                owners.append(
+                    {
+                        "path": path,
+                        "owner": owner.get("owner", ""),
+                        "reason": owner.get("reason", ""),
+                    }
+                )
+
+    for route in routes.get("keyword_routes", []):
+        if not _keyword_matches_route(keywords, route):
+            continue
+        domains[route["id"]] = {"id": route["id"], "reason": route.get("reason", "")}
+        for read in route.get("reads", []) or []:
+            _add_unique(reads, {"path": read["path"], "reason": read.get("reason", "")}, "path")
+        if route.get("card"):
+            _add_unique(
+                cards,
+                {
+                    "path": f"docs/knowledge/risk_cards/{route['card']}",
+                    "domain": route["id"],
+                    "reason": route.get("reason", ""),
+                    "summary": route.get("summary", ""),
+                },
+                "path",
+            )
 
     for entry in routes.get("core_reads", []):
         _add_unique(reads, {"path": entry["path"], "reason": entry.get("reason", "")}, "path")
@@ -264,10 +352,28 @@ def build_context(files: list[str], routes: dict[str, Any]) -> dict[str, Any]:
                 for read in route.get("reads", []) or []:
                     _add_unique(reads, {"path": read["path"], "reason": read.get("reason", "")}, "path")
 
+    bootstrap_order = {
+        "CLAUDE.md": 0,
+        project_overview_path: 1,
+        "docs/knowledge/BRIEF.md": 2,
+    }
+    reads.sort(key=lambda item: (bootstrap_order.get(item.get("path", ""), 10), item.get("path", "")))
+
     return {
         "files": files,
+        "keywords": keywords,
         "generated": {path: gen[path] for path in files if path in gen},
         "routed_paths": routed_paths,
+        "ownership": owners,
+        "project_overview": project_overview_path,
+        "subprojects": [
+            {
+                "id": item.get("id", ""),
+                "overview": item.get("overview", ""),
+                "summary": item.get("summary", ""),
+            }
+            for item in active
+        ],
         "domains": sorted(domains.values(), key=lambda item: item["id"]),
         "cards": sorted(cards, key=lambda item: item["path"]),
         "reads": reads,
@@ -343,8 +449,23 @@ def print_markdown(context: dict[str, Any], full: bool) -> None:
 
     print("## Core Bootstrap")
     print("- Read `CLAUDE.md` for the compact mandatory workflow.")
+    print("- Read `docs/knowledge/PROJECT_OVERVIEW.md` for the current project state and directory map.")
     print("- Read `docs/knowledge/BRIEF.md` for project-wide gotchas; use routed cards for details.")
     print("- In managed sandboxes, run project scripts with the direct `eu5` interpreter, not `conda run`.")
+    print("")
+
+    print("## Project Overview")
+    print(f"- `{context['project_overview']}`")
+    print("")
+
+    print("## Active Subprojects")
+    if context["subprojects"]:
+        for subproject in context["subprojects"]:
+            overview = f" -> `{subproject['overview']}`" if subproject.get("overview") else ""
+            summary = f" - {subproject['summary']}" if subproject.get("summary") else ""
+            print(f"- `{subproject['id']}`{overview}{summary}")
+    else:
+        print("- none detected from the supplied files")
     print("")
 
     print("## Files")
@@ -354,8 +475,16 @@ def print_markdown(context: dict[str, Any], full: bool) -> None:
         if generated:
             source = generated.get("data", generated.get("script", "source"))
             marker = f" [generated: edit {source}]"
+        ownership = next((item for item in context["ownership"] if item["path"] == path), None)
+        if ownership:
+            marker += f" [owned by: edit `{ownership['owner']}`]"
         print(f"- `{path}`{marker}")
     print("")
+
+    if context["keywords"]:
+        print("## Task Keywords")
+        print("- " + ", ".join(f"`{keyword}`" for keyword in context["keywords"]))
+        print("")
 
     if context["alerts"]:
         print("## Immediate Risk Alerts")
@@ -432,13 +561,14 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--changed", action="store_true", help="Use git changed files")
     parser.add_argument("--files", nargs="*", default=[], help="Explicit files")
+    parser.add_argument("--keywords", nargs="*", default=[], help="Task concepts for keyword-specific context routes")
     parser.add_argument("--full", action="store_true", help="Inline full routed risk card text")
     parser.add_argument("--json", action="store_true", help="Emit machine-readable route data")
     args = parser.parse_args()
 
     files = changed_files() if args.changed else args.files
     routes = load_routes()
-    context = build_context(files, routes)
+    context = build_context(files, routes, args.keywords)
 
     if args.json:
         print(json.dumps(context, ensure_ascii=False, indent=2))

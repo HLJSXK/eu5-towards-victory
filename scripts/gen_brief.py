@@ -104,6 +104,15 @@ def append_route_table(lines: list[str], routes: dict[str, Any]) -> None:
     lines.append("")
     lines.append("Use `scripts/ai_context.py` for task-scoped details. Default output is concise; pass `--full` only when the full card text is needed.")
     lines.append("")
+    overview = routes.get("project_overview") or {}
+    if overview.get("path"):
+        lines.append(f"- Project overview: `{overview['path']}`")
+    subprojects = routes.get("subprojects", []) or []
+    if subprojects:
+        lines.append("- Active subproject overviews are selected from explicit file ownership:")
+        for subproject in subprojects:
+            lines.append(f"  - `{subproject.get('id', '')}` -> `{subproject.get('overview', '')}`")
+    lines.append("")
     lines.append(md_row("Route Type", "ID", "Card / Read", "Why It Routes"))
     lines.append(md_row("---", "---", "---", "---"))
     for route_type in ("domain_routes", "filename_routes"):
@@ -114,6 +123,11 @@ def append_route_table(lines: list[str], routes: dict[str, Any]) -> None:
     for route in routes.get("content_routes", []) or []:
         reads = ", ".join(f"`{read.get('path')}`" for read in route.get("reads", []) or [])
         lines.append(md_row("content_routes", route.get("id", ""), reads, route.get("reason", "")))
+    for route in routes.get("keyword_routes", []) or []:
+        reads = ", ".join(f"`{read.get('path')}`" for read in route.get("reads", []) or [])
+        card = route.get("card") or ""
+        target = f"`docs/knowledge/risk_cards/{card}`" if card else reads
+        lines.append(md_row("keyword_routes", route.get("id", ""), target, route.get("reason", "")))
     for route in routes.get("object_alerts", []) or []:
         card = route.get("card") or ""
         target = f"`docs/knowledge/risk_cards/{card}`" if card else ""

@@ -2,7 +2,16 @@
 
 ## Session Start
 
-For any non-trivial task, read `docs/knowledge/BRIEF.md` first.
+For any non-trivial task, read this file first, then follow the layered context
+sequence below. `docs/knowledge/BRIEF.md` is read after the project overview.
+
+The task context sequence is: read this file for universal rules, read
+`docs/knowledge/PROJECT_OVERVIEW.md` for the current project state and directory
+map, read the active subproject overview under `docs/knowledge/subprojects/`, then
+perform task-specific discovery. Do not enter planning while material uncertainty
+remains; ask the user when repository evidence cannot resolve it. Once intended
+files and concepts are known, run `scripts/ai_context.py` with those files and
+keywords so folder, filename, and conceptual routes are included.
 
 Before editing files, build a task-scoped AI context:
 
@@ -69,6 +78,12 @@ C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\gen_brief.py
 - If `scripts/ai_context.py` routing changes, update this file, `docs/guides/AI_Tool_Workflow_Prompt.md`, and `docs/knowledge/PROJECT_OVERVIEW.md`.
 - If a new risk card is added, register it in `context_routes.yaml`.
 - If `anti_patterns.yaml`, `valid_enums.yaml`, or `PROJECT_OVERVIEW.md` changes, regenerate `BRIEF.md`.
+- After implementation, verify the change, then decide whether project or
+  subproject overviews need updates. Record only confirmed knowledge discovered
+  during necessary investigation; do not promote speculative or test-only findings.
+- If an existing overview is wrong or stale, report the contradiction and request
+  explicit permission before overwriting that factual record. User-requested
+  handoffs, experience notes, or work records belong in an unrouted work-log file.
 
 ## Resume / Handoff
 
