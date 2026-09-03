@@ -253,6 +253,24 @@ Load this card before editing `.gui` files or GUI-bound localization expressions
     `towards_victory_editor_web/static/victory_tree.js` via `scripts/dds_image_lib.py`), then place it as a
     plain `background` widget layered under the node buttons.
 
+31. Generate full-file vanilla GUI overrides from the reference copy.
+    When a mod changes only a few controls in a large vanilla GUI file, keep
+    `reference_game_files/game/...` as the complete source and generate the
+    deployable copy with a small patch script. Anchor each replacement to a
+    distinctive vanilla fragment and assert its expected match count. Run the
+    generator as part of the build. Do not hand-edit the generated full copy:
+    that makes upstream layout updates impossible to audit and lets a missing
+    patch fail silently.
+
+32. Do not use display-equal localized values as string keys.
+    Accessors such as `AdvanceEffectItem.GetTitleEffect` return localized text
+    objects. They may render identically to `Localize('...')` while
+    `EqualTo_string` still returns false, and appending `.GetString` is not a
+    supported conversion in this context. Use a verified stable key/icon
+    accessor (for example `StringContains(AdvanceEffectItem.GetIcon,
+    'research_speed')`) plus a cached scripted-state variable when filtering
+    effect rows.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`, then check the in-game error log after hover

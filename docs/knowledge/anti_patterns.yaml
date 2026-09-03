@@ -127,6 +127,28 @@
   source: "src/in_game/common/scripted_effects/tv_research_subprocess_effects.txt (tv_research_refresh_open_age_ceiling_effect, tv_research_refresh_advance_status_effect); docs/knowledge/risk_cards/gui.md rule 2"
   notes: "Discovered building the Academy of Sciences 'Potential Projects' card: the age-frontier eligibility trigger and has_advance are only readable in script scope, so the card needed a tv_research_open_age_ceiling variable (contiguous-prefix simplification of 4 age-gate triggers into one int) and per-advance tv_advance_<id>_researched variables, refreshed from the join effect and the existing tv_academy_of_sciences_monthly_pulse. Once mirrored, register the mirror variable with [[cmf_suppress_for_confirmed_dynamic_reference_variables]] — the GUI read does not count as a script-side use, so error.log still flags it as 'set but never used'."
 
+- id: gui_vanilla_copy_patch_generator
+  pattern: ''
+  detectability: advisory
+  only_in_paths: ['gui']
+  bad: "Hand-maintaining a complete copied vanilla GUI file and editing large blocks directly when a mod needs only a few UI changes"
+  correction: "Keep reference_game_files/game as the source of the full file. Generate the deployable copy from a script, apply narrowly anchored replacements, and assert the expected match count for every replacement. Run the generator during the build so upstream GUI changes fail loudly instead of silently dropping or misplacing a patch."
+  category: workflow
+  scope: any
+  source: "scripts_eureka/patch_gui_progress.py; src_eureka/README.md (2026-09-03)"
+  notes: "This preserves unrelated vanilla layout and makes the maintenance boundary explicit: modify the generator's patch, not the generated GUI copy. A single generator should own related progress, tooltip, and effect-list patches; parallel in-place patch scripts create stale-source ambiguity."
+
+- id: gui_localized_text_display_equality
+  pattern: ''
+  detectability: advisory
+  only_in_paths: ['gui']
+  bad: "Using EqualTo_string on localized GUI accessors such as AdvanceEffectItem.GetTitleEffect and Localize(...) merely because both render the same visible text"
+  correction: "Treat localized display values as text objects, not stable CStrings. For Eureka effect-row filtering, use a stable icon/key predicate (for example StringContains(AdvanceEffectItem.GetIcon, 'research_speed')) together with a cached active-variable guard; do not depend on display-title string equality or invented GetString promotion."
+  category: gui
+  scope: any
+  source: "Runtime GUI test and error.log observations for advances_lateralview.gui / technology_lateralview.gui (2026-09-03)"
+  notes: "The title and Localize probe both displayed '每月研究进度 %', while EqualTo_string returned N. StringContains on the icon returned Y. Attempts to append GetString or call Localize(...).GetString failed at pdx_data_factory conversion, confirming that display equality is not a reliable type conversion."
+
 - id: ritual_content_event_text_dict_letter_key_collides_with_desc
   pattern: ''
   detectability: advisory
