@@ -39,13 +39,21 @@
 
 ### 前端显示（GUI层）
 
-通过`scripts_eureka/patch_gui_progress.py`和`patch_gui_progress_info.py`两个Python脚本批量修改vanilla GUI文件：
+通过`scripts_eureka/patch_gui_progress.py`从`reference_game_files/game/`重新生成GUI文件。生成器每次先读取原版文件，再对带数量断言的局部锚点进行替换；不要直接手改`src_eureka/in_game/gui/`或`src_eureka/main_menu/gui/shared/advances_tooltips.gui`。
+
+运行`build.bat`时会自动执行生成；也可以单独运行：
+
+```powershell
+C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts_eureka/patch_gui_progress.py
+```
 
 **修改的文件**（输出到`src_eureka/in_game/gui/`）：
 - `technology_lateralview.gui` — 科技树主视图（10处修改）
 - `agenda_view.gui` — 议程侧边栏（4处修改）
-- `advances_lateralview.gui` — 科技侧边栏（5处修改）
+- `advances_lateralview.gui` — 科技侧边栏（进度显示与效果列表）
 - `hud_topbar.gui` — 顶部HUD栏（2处修改）
+
+共享提示文件`src_eureka/main_menu/gui/shared/advances_tooltips.gui`也由同一生成器从原版复制并植入Eureka模板、进度环和研究速度提示行。
 
 **修改内容**：
 1. **有 advance 上下文的进度环和百分比文字**：

@@ -2220,21 +2220,21 @@ lateralview_full = {
 														}
 
 														hbox = {
-										layoutpolicy_horizontal = expanding
-										text_single = {
-											text = "TV_EUREKA_PROGRESS_INFO"
-										}
-										expand = {}
-										text_single = {
-											text = "[Select_float(EqualTo_string(Player.GetCurrentResearch.GetAdvance.GetDefinition.GetNameWithNoTooltip, Localize('guilds')), Min_float(Add_float(Player.GetCurrentResearch.GetProgress, FixedPointToFloat(Player.MakeScope.GetVariable('tv_eureka_visual_boost_guilds').GetValue)), '(float)1.0'), Player.GetCurrentResearch.GetProgress)|0%]"
-										}
-										text_single = {
-											raw_text = " / "
-										}
-										text_single = {
-											text = "[Player.GetCurrentResearch.GetResearchCost]"
-										}
-										}
+															layoutpolicy_horizontal = expanding
+															text_single = {
+																text = "TV_EUREKA_PROGRESS_INFO"
+															}
+															expand = {}
+															text_single = {
+																text = "[Select_float(EqualTo_string(Player.GetCurrentResearch.GetAdvance.GetDefinition.GetNameWithNoTooltip, Localize('guilds')), Min_float(Add_float(Player.GetCurrentResearch.GetProgress, FixedPointToFloat(Player.MakeScope.GetVariable('tv_eureka_visual_boost_guilds').GetValue)), '(float)1.0'), Player.GetCurrentResearch.GetProgress)|0%]"
+															}
+															text_single = {
+																raw_text = " / "
+															}
+															text_single = {
+																text = "[Player.GetCurrentResearch.GetResearchCost]"
+															}
+														}
 													}
 												}
 												TooltipTextBlock = {
