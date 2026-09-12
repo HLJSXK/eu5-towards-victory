@@ -818,38 +818,13 @@ lateralview = {
 
 								blockoverride "scroll_list_content" {
 									addcolumn = 100%
-									addrow = 160
+									addrow = 135
 									datamodel = "[AdvancesLateralView.GetAllAdvances]"
 									item = {
 										widget = {
-											size = { 100% 160 }
+											size = { 100% 135 }
 											datacontext = "[AdvanceNode.GetItem]"
 											using = advance_item
-
-											widget = {
-												visible = "[EqualTo_string(AdvanceItem.GetKey, 'guilds')]"
-												parentanchor = bottom|hcenter
-												size = { 100% 20 }
-												using = bg_square_tile
-
-												blockoverride "container_color" {
-													modify_texture = {
-														visible = "[Player.MakeScope.GetVariable('tv_eureka_boost_active_guilds').IsSet]"
-														using = color_progress_blue_texture
-														blend_mode = multiply
-													}
-												}
-
-												text_single = {
-													parentanchor = center
-													size = { 100% 20 }
-													align = center|nobaseline
-													autoresize = yes
-													fontsize = 11
-													text = "TV_EUREKA_GUILDS_CONDITION_DISPLAY"
-													default_format = "#weak"
-												}
-											}
 										}
 									}
 								}
@@ -1121,39 +1096,14 @@ lateralview = {
 
 								blockoverride "scroll_list_content" {
 									addcolumn = 100%
-									addrow = 160
+									addrow = 135
 									setitemsizefromcell = yes
 
 									datamodel = "[AdvancesLateralView.GetUniqueAdvances]"
 									item = {
 										widget = {
-											size = { 100% 160 }
+											size = { 100% 135 }
 											using = advance_item
-
-											widget = {
-												visible = "[EqualTo_string(AdvanceItem.GetKey, 'guilds')]"
-												parentanchor = bottom|hcenter
-												size = { 100% 20 }
-												using = bg_square_tile
-
-												blockoverride "container_color" {
-													modify_texture = {
-														visible = "[Player.MakeScope.GetVariable('tv_eureka_boost_active_guilds').IsSet]"
-														using = color_progress_blue_texture
-														blend_mode = multiply
-													}
-												}
-
-												text_single = {
-													parentanchor = center
-													size = { 100% 20 }
-													align = center|nobaseline
-													autoresize = yes
-													fontsize = 11
-													text = "TV_EUREKA_GUILDS_CONDITION_DISPLAY"
-													default_format = "#weak"
-												}
-											}
 										}
 									}
 								}
@@ -1170,7 +1120,7 @@ lateralview = {
 
 template advance_item {
     widget = {
-        parentanchor = top|hcenter
+        parentanchor = center
         size = { 100% 135 }
 
 		background = {#shadow
@@ -1909,6 +1859,53 @@ template advance_item {
 							vbox = {
 								using = layoutpolicy_expanding
 								
+								widget = {
+									visible = "[EqualTo_string(AdvanceItem.GetKey, 'guilds')]"
+									layoutpolicy_horizontal = expanding
+									size = { -1 20 }
+									background = {
+										visible = "[Player.MakeScope.GetVariable('tv_eureka_boost_active_guilds').IsSet]"
+										texture = "gfx/interface/component_tiles/square_tile.dds"
+										texture_density = 2
+										modify_texture = {
+											using = color_progress_blue_texture
+											blend_mode = multiply
+										}
+									}
+
+									hbox = {
+										parentanchor = center
+										size = { 100% 20 }
+										layoutpolicy_horizontal = expanding
+										spacing = 3
+										icon = {
+											visible = "[Not(Player.MakeScope.GetVariable('tv_eureka_boost_active_guilds').IsSet)]"
+											size = { 18 18 }
+											texture = "gfx/interface/icons/eureka/tv_eureka_condition.dds"
+										}
+										icon = {
+											visible = "[Player.MakeScope.GetVariable('tv_eureka_boost_active_guilds').IsSet]"
+											size = { 18 18 }
+											texture = "gfx/interface/icons/eureka/tv_eureka_condition_active.dds"
+										}
+										text_single = {
+											visible = "[Not(Player.MakeScope.GetVariable('tv_eureka_boost_active_guilds').IsSet)]"
+											autoresize = yes
+											fontsize = 11
+											text = "TV_EUREKA_GUILDS_CONDITION_DISPLAY"
+											default_format = "#weak"
+										}
+										text_single = {
+											visible = "[Player.MakeScope.GetVariable('tv_eureka_boost_active_guilds').IsSet]"
+											autoresize = yes
+											fontsize = 11
+											text = "TV_EUREKA_GUILDS_BOOSTED_DISPLAY"
+											default_format = "#weak"
+										}
+										expand = {}
+									}
+								}
+								expand = {}
 								vbox = {
 									layoutpolicy_horizontal = expanding
 									datamodel = "[AdvanceItem.GetAdvanceEffectItemsNoTooltip]"
@@ -1934,6 +1931,10 @@ template advance_item {
 											}
 										}
 									}
+								}
+								expand = {}
+								widget = {
+									size = { -1 20 }
 								}
 							}
 						}

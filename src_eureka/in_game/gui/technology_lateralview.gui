@@ -527,7 +527,7 @@ types AdvancesTreeView
 
 			item = {
 				widget = {
-					size = { 330 265 }
+					size = { 330 290 }
 					# DO NOT DELETE WIDGETID AND POSITION
 					widgetid = "[AdvanceNode.GetKey]"
 					position = "[AdvanceNode.GetPosition]"
@@ -609,12 +609,12 @@ types AdvancesTreeView
 
 						widget = {
 							visible = "[And(AdvanceNode.GetItem.IsOwned, Not(AdvanceNode.ShowSimplifiedVersion(TechnologyLateralView.Self)))]"
-							size = { 271 270 }
+							size = { 271 290 }
 
 							# data container
 							widget = {
 								size = { 250 200 }
-								position = {0 -10}
+								position = {0 -40}
 								parentanchor = hcenter|bottom
 
 								background = {
@@ -901,6 +901,54 @@ types AdvancesTreeView
 								}
 							}
 
+
+
+							widget = {
+								visible = "[EqualTo_string(AdvanceNode.GetItem.GetKey, 'guilds')]"
+								parentanchor = bottom|hcenter
+								position = { 0 -5 }
+								size = { 250 20 }
+								background = {
+									visible = "[Player.MakeScope.GetVariable('tv_eureka_boost_active_guilds').IsSet]"
+									texture = "gfx/interface/component_tiles/square_tile.dds"
+									texture_density = 2
+									modify_texture = {
+										using = color_progress_blue_texture
+										blend_mode = multiply
+									}
+								}
+								hbox = {
+									parentanchor = center
+									size = { 100% 20 }
+									layoutpolicy_horizontal = expanding
+									spacing = 3
+									icon = {
+										visible = "[Not(Player.MakeScope.GetVariable('tv_eureka_boost_active_guilds').IsSet)]"
+										size = { 18 18 }
+										texture = "gfx/interface/icons/eureka/tv_eureka_condition.dds"
+									}
+									icon = {
+										visible = "[Player.MakeScope.GetVariable('tv_eureka_boost_active_guilds').IsSet]"
+										size = { 18 18 }
+										texture = "gfx/interface/icons/eureka/tv_eureka_condition_active.dds"
+									}
+									text_single = {
+										visible = "[Not(Player.MakeScope.GetVariable('tv_eureka_boost_active_guilds').IsSet)]"
+										autoresize = yes
+										fontsize = 11
+										text = "TV_EUREKA_GUILDS_CONDITION_DISPLAY"
+										default_format = "#weak"
+									}
+									text_single = {
+										visible = "[Player.MakeScope.GetVariable('tv_eureka_boost_active_guilds').IsSet]"
+										autoresize = yes
+										fontsize = 11
+										text = "TV_EUREKA_GUILDS_BOOSTED_DISPLAY"
+										default_format = "#weak"
+									}
+									expand = {}
+								}
+							}
 							datacontext = "[AdvanceNode.GetItem.GetAdvance]"
 							tooltipwidget = {
 								using = Advance_tooltip_for_tech_tree
@@ -1099,12 +1147,12 @@ types AdvancesTreeView
 
 						widget = {
 							visible = "[And(Not(AdvanceNode.GetItem.IsOwned), Not(AdvanceNode.ShowSimplifiedVersion(TechnologyLateralView.Self)))]"
-							size = { 270 270 }
+							size = { 270 290 }
 
 							# data container
 							widget = {
 								size = { 250 200 }
-								position = {0 -10}
+								position = {0 -40}
 								parentanchor = hcenter|bottom
 
 								background = {
@@ -1442,6 +1490,54 @@ types AdvancesTreeView
 								}
 							}
 
+
+
+							widget = {
+								visible = "[EqualTo_string(AdvanceNode.GetItem.GetKey, 'guilds')]"
+								parentanchor = bottom|hcenter
+								position = { 0 -5 }
+								size = { 250 20 }
+								background = {
+									visible = "[Player.MakeScope.GetVariable('tv_eureka_boost_active_guilds').IsSet]"
+									texture = "gfx/interface/component_tiles/square_tile.dds"
+									texture_density = 2
+									modify_texture = {
+										using = color_progress_blue_texture
+										blend_mode = multiply
+									}
+								}
+								hbox = {
+									parentanchor = center
+									size = { 100% 20 }
+									layoutpolicy_horizontal = expanding
+									spacing = 3
+									icon = {
+										visible = "[Not(Player.MakeScope.GetVariable('tv_eureka_boost_active_guilds').IsSet)]"
+										size = { 18 18 }
+										texture = "gfx/interface/icons/eureka/tv_eureka_condition.dds"
+									}
+									icon = {
+										visible = "[Player.MakeScope.GetVariable('tv_eureka_boost_active_guilds').IsSet]"
+										size = { 18 18 }
+										texture = "gfx/interface/icons/eureka/tv_eureka_condition_active.dds"
+									}
+									text_single = {
+										visible = "[Not(Player.MakeScope.GetVariable('tv_eureka_boost_active_guilds').IsSet)]"
+										autoresize = yes
+										fontsize = 11
+										text = "TV_EUREKA_GUILDS_CONDITION_DISPLAY"
+										default_format = "#weak"
+									}
+									text_single = {
+										visible = "[Player.MakeScope.GetVariable('tv_eureka_boost_active_guilds').IsSet]"
+										autoresize = yes
+										fontsize = 11
+										text = "TV_EUREKA_GUILDS_BOOSTED_DISPLAY"
+										default_format = "#weak"
+									}
+									expand = {}
+								}
+							}
 							datacontext = "[AdvanceNode.GetItem.GetAdvance]"
 							tooltipwidget = {
 								using = Advance_tooltip_for_tech_tree

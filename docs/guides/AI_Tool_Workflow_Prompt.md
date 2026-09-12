@@ -20,6 +20,9 @@ Read every required risk card, especially any immediate risk alert.
 - Use `scripts/ai_context.py` for task-scoped folder, filename, and keyword routing.
 - For cross-surface concepts, pass keywords too, for example:
   `scripts/ai_context.py --files <paths> --keywords advance research eureka`.
+- If the output contains `Required Cross-Surface Audits`, inspect every listed path
+  before editing and record an explicit changed/unchanged decision for each one.
+  A concept such as Advance must not be narrowed to the filename that first matched.
 - Read `docs/knowledge/BRIEF.md` for compact project-wide gotchas.
 - In managed sandboxes, use the direct `eu5` interpreter. Do not use `conda run -n eu5`.
 

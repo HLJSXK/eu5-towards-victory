@@ -15,6 +15,8 @@ An Advance is represented across multiple surfaces, not only
 `advances_lateralview.gui`, `agenda_view.gui`, `hud_topbar.gui`, and shared
 `advances_tooltips.gui`. Backend files under `src_eureka/in_game/common/advances/`,
 scripted triggers/effects, and on-actions are part of the same feature.
+Any Advance/Eureka display change must audit all listed surfaces before narrowing
+the implementation and explicitly justify unchanged surfaces.
 
 ## Generator Ownership
 

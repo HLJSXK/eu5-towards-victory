@@ -195,68 +195,186 @@ def _patch_advances_effect_list(content: str) -> str:
 
 
 def _patch_advances_eureka_condition(content: str) -> str:
-    """Add room for and render the Eureka condition below each advance card."""
-    content = _replace_regex(
-        content,
-        re.compile(r"(?m)^(?P<i>[ \t]*)addcolumn = 100%\n(?P=i)addrow = 135$"),
-        lambda m: f'{m.group("i")}addcolumn = 100%\n{m.group("i")}addrow = 160',
-        2,
-        "advances Eureka condition list row height",
-    )
-    content = _replace_regex(
-        content,
-        re.compile(
-            r"(?m)^(?P<i>[ \t]*)item = \{\n"
-            r"(?P=i)\twidget = \{\n"
-            r"(?P=i)\t\tsize = \{ 100% 135 \}$"
-        ),
-        lambda m: (
-            f'{m.group("i")}item = {{\n'
-            f'{m.group("i")}\twidget = {{\n'
-            f'{m.group("i")}\t\tsize = {{ 100% 160 }}'
-        ),
-        2,
-        "advances Eureka condition item height",
-    )
-    content = _replace_literal(
-        content,
-        "        parentanchor = center\n        size = { 100% 135 }\n",
-        "        parentanchor = top|hcenter\n        size = { 100% 135 }\n",
-        1,
-        "advances Eureka condition card anchor",
-    )
-    condition = """
-
-%(i)swidget = {
+    """Render the Eureka condition at the top of the Advance effects container."""
+    condition = """%(i)swidget = {
 %(i)s\tvisible = "[EqualTo_string(AdvanceItem.GetKey, 'guilds')]"
-%(i)s\tparentanchor = bottom|hcenter
-%(i)s\tsize = { 100%% 20 }
-%(i)s\tusing = bg_square_tile
-
-%(i)s\tblockoverride "container_color" {
+%(i)s\tlayoutpolicy_horizontal = expanding
+%(i)s\tsize = { -1 20 }
+%(i)s\tbackground = {
+%(i)s\t\tvisible = "[Player.MakeScope.GetVariable('tv_eureka_boost_active_guilds').IsSet]"
+%(i)s\t\ttexture = "gfx/interface/component_tiles/square_tile.dds"
+%(i)s\t\ttexture_density = 2
 %(i)s\t\tmodify_texture = {
-%(i)s\t\t\tvisible = "[Player.MakeScope.GetVariable('tv_eureka_boost_active_guilds').IsSet]"
 %(i)s\t\t\tusing = color_progress_blue_texture
 %(i)s\t\t\tblend_mode = multiply
 %(i)s\t\t}
 %(i)s\t}
 
-%(i)s\ttext_single = {
+%(i)s\thbox = {
 %(i)s\t\tparentanchor = center
 %(i)s\t\tsize = { 100%% 20 }
-%(i)s\t\talign = center|nobaseline
-%(i)s\t\tautoresize = yes
-%(i)s\t\tfontsize = 11
-%(i)s\t\ttext = "TV_EUREKA_GUILDS_CONDITION_DISPLAY"
-%(i)s\t\tdefault_format = "#weak"
+%(i)s\t\tlayoutpolicy_horizontal = expanding
+%(i)s\t\tspacing = 3
+%(i)s\t\ticon = {
+%(i)s\t\t\tvisible = "[Not(Player.MakeScope.GetVariable('tv_eureka_boost_active_guilds').IsSet)]"
+%(i)s\t\t\tsize = { 18 18 }
+%(i)s\t\t\ttexture = "gfx/interface/icons/eureka/tv_eureka_condition.dds"
+%(i)s\t\t}
+%(i)s\t\ticon = {
+%(i)s\t\t\tvisible = "[Player.MakeScope.GetVariable('tv_eureka_boost_active_guilds').IsSet]"
+%(i)s\t\t\tsize = { 18 18 }
+%(i)s\t\t\ttexture = "gfx/interface/icons/eureka/tv_eureka_condition_active.dds"
+%(i)s\t\t}
+%(i)s\t\ttext_single = {
+%(i)s\t\t\tvisible = "[Not(Player.MakeScope.GetVariable('tv_eureka_boost_active_guilds').IsSet)]"
+%(i)s\t\t\tautoresize = yes
+%(i)s\t\t\tfontsize = 11
+%(i)s\t\t\ttext = "TV_EUREKA_GUILDS_CONDITION_DISPLAY"
+%(i)s\t\t\tdefault_format = "#weak"
+%(i)s\t\t}
+%(i)s\t\ttext_single = {
+%(i)s\t\t\tvisible = "[Player.MakeScope.GetVariable('tv_eureka_boost_active_guilds').IsSet]"
+%(i)s\t\t\tautoresize = yes
+%(i)s\t\t\tfontsize = 11
+%(i)s\t\t\ttext = "TV_EUREKA_GUILDS_BOOSTED_DISPLAY"
+%(i)s\t\t\tdefault_format = "#weak"
+%(i)s\t\t}
+%(i)s\t\texpand = {}
 %(i)s\t}
-%(i)s}"""
+%(i)s}
+%(i)sexpand = {}"""
+    content = _replace_regex(
+        content,
+        re.compile(
+            r"(?ms)^(?P<i>[ \t]*)scrollwidget = \{\n"
+            r"(?P=i)\tvbox = \{\n"
+            r"(?P=i)\t\tusing = layoutpolicy_expanding\n"
+            r"(?P=i)\t\t\n"
+            r"(?=(?P=i)\t\tvbox = \{)"
+        ),
+        lambda m: m.group(0) + (condition % {"i": m.group("i") + "\t\t"}) + "\n",
+        1,
+        "advances Eureka condition widget",
+    )
+    effect_list = re.compile(
+        r'(?ms)^(?P<i>[ \t]*)vbox = \{\n'
+        r'(?P=i)\tlayoutpolicy_horizontal = expanding\n'
+        r'(?P=i)\tdatamodel = "\[AdvanceItem\.GetAdvanceEffectItemsNoTooltip\]"\n'
+        r'(?P=i)\tignoreinvisible = yes\n'
+        r'.*?^(?P=i)\}$'
+    )
     return _replace_regex(
         content,
-        re.compile(r"(?m)^(?P<i>[ \t]*)using = advance_item$"),
-        lambda m: m.group(0) + (condition % {"i": m.group("i")}),
+        effect_list,
+        lambda m: f'{m.group(0)}\n{m.group("i")}expand = {{}}\n'
+        f'{m.group("i")}widget = {{\n'
+        f'{m.group("i")}\tsize = {{ -1 20 }}\n'
+        f'{m.group("i")}}}',
+        1,
+        "advances effect-list balancing expander and spacer",
+    )
+
+
+def _patch_technology_eureka_condition(content: str) -> str:
+    """Add the Eureka condition below detailed Advance cards in the tech tree."""
+    content = _replace_literal(
+        content,
+        "\t\t\t\t\tsize = { 330 265 }",
+        "\t\t\t\t\tsize = { 330 290 }",
+        1,
+        "technology Advance node item height",
+    )
+    owned = re.compile(
+        r'(?m)^(?P<i>[ \t]*)visible = "\[And\(AdvanceNode\.GetItem\.IsOwned, '
+        r'Not\(AdvanceNode\.ShowSimplifiedVersion\(TechnologyLateralView\.Self\)\)\)\]"\n'
+        r'(?P=i)size = \{ 271 270 \}$'
+    )
+    content = _replace_regex(
+        content,
+        owned,
+        lambda m: f'{m.group("i")}visible = "[And(AdvanceNode.GetItem.IsOwned, Not(AdvanceNode.ShowSimplifiedVersion(TechnologyLateralView.Self)))]"\n'
+        f'{m.group("i")}size = {{ 271 290 }}',
+        1,
+        "technology owned Advance card height",
+    )
+    unowned = re.compile(
+        r'(?m)^(?P<i>[ \t]*)visible = "\[And\(Not\(AdvanceNode\.GetItem\.IsOwned\), '
+        r'Not\(AdvanceNode\.ShowSimplifiedVersion\(TechnologyLateralView\.Self\)\)\)\]"\n'
+        r'(?P=i)size = \{ 270 270 \}$'
+    )
+    content = _replace_regex(
+        content,
+        unowned,
+        lambda m: f'{m.group("i")}visible = "[And(Not(AdvanceNode.GetItem.IsOwned), Not(AdvanceNode.ShowSimplifiedVersion(TechnologyLateralView.Self)))]"\n'
+        f'{m.group("i")}size = {{ 270 290 }}',
+        1,
+        "technology unowned Advance card height",
+    )
+    content = _replace_regex(
+        content,
+        re.compile(r"(?m)^(?P<i>[ \t]*)position = \{0 -10\}$"),
+        lambda m: f'{m.group("i")}position = {{0 -40}}',
         2,
-        "advances Eureka condition widget",
+        "technology Advance card position",
+    )
+
+    condition = """
+
+%(i)swidget = {
+%(i)s\tvisible = "[EqualTo_string(AdvanceNode.GetItem.GetKey, 'guilds')]"
+%(i)s\tparentanchor = bottom|hcenter
+%(i)s\tposition = { 0 -5 }
+%(i)s\tsize = { 250 20 }
+%(i)s\tbackground = {
+%(i)s\t\tvisible = "[Player.MakeScope.GetVariable('tv_eureka_boost_active_guilds').IsSet]"
+%(i)s\t\ttexture = "gfx/interface/component_tiles/square_tile.dds"
+%(i)s\t\ttexture_density = 2
+%(i)s\t\tmodify_texture = {
+%(i)s\t\t\tusing = color_progress_blue_texture
+%(i)s\t\t\tblend_mode = multiply
+%(i)s\t\t}
+%(i)s\t}
+%(i)s\thbox = {
+%(i)s\t\tparentanchor = center
+%(i)s\t\tsize = { 100%% 20 }
+%(i)s\t\tlayoutpolicy_horizontal = expanding
+%(i)s\t\tspacing = 3
+%(i)s\t\ticon = {
+%(i)s\t\t\tvisible = "[Not(Player.MakeScope.GetVariable('tv_eureka_boost_active_guilds').IsSet)]"
+%(i)s\t\t\tsize = { 18 18 }
+%(i)s\t\t\ttexture = "gfx/interface/icons/eureka/tv_eureka_condition.dds"
+%(i)s\t\t}
+%(i)s\t\ticon = {
+%(i)s\t\t\tvisible = "[Player.MakeScope.GetVariable('tv_eureka_boost_active_guilds').IsSet]"
+%(i)s\t\t\tsize = { 18 18 }
+%(i)s\t\t\ttexture = "gfx/interface/icons/eureka/tv_eureka_condition_active.dds"
+%(i)s\t\t}
+%(i)s\t\ttext_single = {
+%(i)s\t\t\tvisible = "[Not(Player.MakeScope.GetVariable('tv_eureka_boost_active_guilds').IsSet)]"
+%(i)s\t\t\tautoresize = yes
+%(i)s\t\t\tfontsize = 11
+%(i)s\t\t\ttext = "TV_EUREKA_GUILDS_CONDITION_DISPLAY"
+%(i)s\t\t\tdefault_format = "#weak"
+%(i)s\t\t}
+%(i)s\t\ttext_single = {
+%(i)s\t\t\tvisible = "[Player.MakeScope.GetVariable('tv_eureka_boost_active_guilds').IsSet]"
+%(i)s\t\t\tautoresize = yes
+%(i)s\t\t\tfontsize = 11
+%(i)s\t\t\ttext = "TV_EUREKA_GUILDS_BOOSTED_DISPLAY"
+%(i)s\t\t\tdefault_format = "#weak"
+%(i)s\t\t}
+%(i)s\t\texpand = {}
+%(i)s\t}
+%(i)s}"""
+    card = re.compile(
+        r'(?ms)^(?P<i>[ \t]*)# data container\n(?P<body>.*?)(?=^(?P=i)datacontext = "\[AdvanceNode\.GetItem\.GetAdvance\]")'
+    )
+    return _replace_regex(
+        content,
+        card,
+        lambda m: f'{m.group("i")}# data container\n{m.group("body")}' + (condition % {"i": m.group("i")}) + "\n",
+        2,
+        "technology Eureka condition widget",
     )
 
 
@@ -333,6 +451,7 @@ def patch_in_game_file(filename: str) -> None:
         content = _patch_advances_eureka_condition(content)
     elif filename == "technology_lateralview.gui":
         content = _patch_technology_effect_lists(content)
+        content = _patch_technology_eureka_condition(content)
         content = _patch_progress_info(content)
     output = OUTPUT_IN_GAME_GUI / filename
     _write_gui(output, content)

@@ -11,6 +11,8 @@ Eureka work must preserve the full feature boundary:
 - `scripts_eureka/patch_gui_progress.py`: generator ownership for these GUI overrides.
 - `src_eureka/in_game/common/advances/` and related triggers/effects/on_actions: backend condition and research-speed behavior.
 
-When a task names Advance, research, or Eureka, inspect the relevant backend and
-all affected display surfaces before narrowing the edit. Generated GUI outputs
-must be changed through the generator and then regenerated.
+When a task names Advance, research, or Eureka, treat Advance as the EU5
+research-project concept rather than a filename. Inspect every listed display
+surface before narrowing the edit, and record an explicit reason for every surface
+left unchanged. Generated GUI outputs must be changed through the generator and
+then regenerated.

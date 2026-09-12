@@ -206,6 +206,28 @@ def _add_unique(items: list[dict[str, str]], item: dict[str, str], key: str) -> 
         items.append(item)
 
 
+def _add_cross_surface_audit(
+    audits: list[dict[str, Any]], route: dict[str, Any], routes: dict[str, Any]
+) -> None:
+    audit_ref = route.get("cross_surface_audit")
+    audit = (
+        (routes.get("cross_surface_audits") or {}).get(audit_ref)
+        if isinstance(audit_ref, str)
+        else audit_ref
+    )
+    if isinstance(audit_ref, str) and isinstance(audit, dict):
+        audit = {"id": audit_ref, **audit}
+    if not isinstance(audit, dict) or not audit.get("id"):
+        return
+    item = {
+        "id": str(audit["id"]),
+        "instruction": str(audit.get("instruction", "")),
+        "paths": [_norm(str(path)) for path in audit.get("paths", []) or []],
+    }
+    if not any(existing.get("id") == item["id"] for existing in audits):
+        audits.append(item)
+
+
 def build_context(files: list[str], routes: dict[str, Any], keywords: list[str] | None = None) -> dict[str, Any]:
     files = sorted({_norm(f) for f in files if f})
     keywords = sorted({str(keyword).strip().lower() for keyword in keywords or [] if str(keyword).strip()})
@@ -216,11 +238,11 @@ def build_context(files: list[str], routes: dict[str, Any], keywords: list[str] 
     cards: list[dict[str, str]] = []
     reads: list[dict[str, str]] = []
     alerts: list[dict[str, str]] = []
+    cross_surface_audits: list[dict[str, Any]] = []
     ownership_paths = [path for path in files]
     for path in files:
         ownership_paths.extend(_split_generated_sources(gen.get(path))[:1])
     active = active_subprojects(ownership_paths, routes)
-
     project_overview = routes.get("project_overview") or {}
     project_overview_path = project_overview.get("path", "docs/knowledge/PROJECT_OVERVIEW.md")
     if project_overview_path:
@@ -257,6 +279,7 @@ def build_context(files: list[str], routes: dict[str, Any], keywords: list[str] 
     for route in routes.get("keyword_routes", []):
         if not _keyword_matches_route(keywords, route):
             continue
+        _add_cross_surface_audit(cross_surface_audits, route, routes)
         domains[route["id"]] = {"id": route["id"], "reason": route.get("reason", "")}
         for read in route.get("reads", []) or []:
             _add_unique(reads, {"path": read["path"], "reason": read.get("reason", "")}, "path")
@@ -279,6 +302,7 @@ def build_context(files: list[str], routes: dict[str, Any], keywords: list[str] 
         for path in paths:
             for route in routes.get("domain_routes", []):
                 if _path_matches_route(path, route, routes):
+                    _add_cross_surface_audit(cross_surface_audits, route, routes)
                     domains[route["id"]] = {"id": route["id"], "reason": route.get("reason", "")}
                     if route.get("card"):
                         card = {
@@ -291,6 +315,7 @@ def build_context(files: list[str], routes: dict[str, Any], keywords: list[str] 
             filename = Path(path).name.lower()
             for route in routes.get("filename_routes", []):
                 if any(str(s).lower() in filename for s in route.get("substrings", []) or []):
+                    _add_cross_surface_audit(cross_surface_audits, route, routes)
                     domains[route["id"]] = {"id": route["id"], "reason": route.get("reason", "")}
                     if route.get("card"):
                         card = {
@@ -306,6 +331,7 @@ def build_context(files: list[str], routes: dict[str, Any], keywords: list[str] 
                     continue
                 markers = tuple(str(m) for m in route.get("markers", []) or [])
                 if markers and _file_contains_marker(path, markers):
+                    _add_cross_surface_audit(cross_surface_audits, route, routes)
                     domains[route["id"]] = {"id": route["id"], "reason": route.get("reason", "")}
                     for read in route.get("reads", []) or []:
                         _add_unique(reads, {"path": read["path"], "reason": read.get("reason", "")}, "path")
@@ -376,6 +402,7 @@ def build_context(files: list[str], routes: dict[str, Any], keywords: list[str] 
         ],
         "domains": sorted(domains.values(), key=lambda item: item["id"]),
         "cards": sorted(cards, key=lambda item: item["path"]),
+        "cross_surface_audits": sorted(cross_surface_audits, key=lambda item: item["id"]),
         "reads": reads,
         "alerts": alerts,
         "anti_patterns": relevant_rules(files, {d["id"] for d in domains.values()}),
@@ -484,6 +511,15 @@ def print_markdown(context: dict[str, Any], full: bool) -> None:
     if context["keywords"]:
         print("## Task Keywords")
         print("- " + ", ".join(f"`{keyword}`" for keyword in context["keywords"]))
+        print("")
+
+    if context.get("cross_surface_audits"):
+        print("## Required Cross-Surface Audits")
+        for audit in context["cross_surface_audits"]:
+            instruction = f" - {audit['instruction']}" if audit.get("instruction") else ""
+            print(f"- `{audit['id']}`{instruction}")
+            for path in audit.get("paths", []):
+                print(f"  - `{path}`")
         print("")
 
     if context["alerts"]:

@@ -74,6 +74,11 @@ folder/file/keyword-routed cards. `scripts/ai_context.py` builds this context
 from explicit or changed files, generated-file metadata, task keywords, and
 `docs/knowledge/context_routes.yaml`.
 
+Concept routes may emit a mandatory cross-surface audit. For Advance/Eureka work,
+the audit lists every research-project GUI surface and the generator; each path
+must be inspected before narrowing the implementation, with unchanged surfaces
+explicitly justified.
+
 Default `ai_context.py` output is concise: bootstrap order, files, active
 subprojects, generated ownership, domains, immediate risk alerts, required reads,
 relevant anti-pattern summaries, and validation. Use `--keywords` for concepts

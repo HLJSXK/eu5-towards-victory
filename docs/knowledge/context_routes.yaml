@@ -17,6 +17,17 @@ project_overview:
   path: docs/knowledge/PROJECT_OVERVIEW.md
   reason: current project state, deployable roots, and directory map
 
+cross_surface_audits:
+  eureka_advance_surfaces:
+    instruction: Treat Advance as the EU5 research-project concept; inspect every listed surface before deciding what is affected, and record an explicit reason for any surface left unchanged.
+    paths:
+      - src_eureka/in_game/gui/technology_lateralview.gui
+      - src_eureka/in_game/gui/advances_lateralview.gui
+      - src_eureka/in_game/gui/agenda_view.gui
+      - src_eureka/in_game/gui/hud_topbar.gui
+      - src_eureka/main_menu/gui/shared/advances_tooltips.gui
+      - scripts_eureka/patch_gui_progress.py
+
 subprojects:
   - id: main_mod
     path_prefixes: [src, scripts]
@@ -86,6 +97,17 @@ domain_routes:
     card: gui.md
     summary: GUI expression, datacontext, layout, and tooltip constraints
     reason: GUI expression failures are often silent
+
+  - id: eureka_advance_backend
+    path_prefixes:
+      - src_eureka/in_game/common/advances/
+      - src_eureka/in_game/common/scripted_triggers/
+      - src_eureka/in_game/common/scripted_effects/
+      - src_eureka/in_game/common/on_action/
+    card: eureka_advance_surfaces.md
+    summary: Eureka Advance backend changes must be reviewed with all display surfaces
+    reason: Eureka research-project state crosses backend and GUI boundaries
+    cross_surface_audit: eureka_advance_surfaces
 
   - id: international_organizations
     expand_mod_roots: true
@@ -198,6 +220,7 @@ filename_routes:
     card: eureka_advance_surfaces.md
     summary: Advance research-project display spans every Eureka GUI surface, not one lateral view
     reason: an Advance-related GUI file may be one part of a cross-surface feature
+    cross_surface_audit: eureka_advance_surfaces
 
 content_routes:
   - id: variable_map
@@ -237,6 +260,7 @@ keyword_routes:
     card: eureka_advance_surfaces.md
     summary: route the full Advance/Eureka concept context even when only one surface is named
     reason: prevent conceptual narrowing of Advance to advances_lateralview.gui
+    cross_surface_audit: eureka_advance_surfaces
 
 object_alerts:
   - id: object_on_built

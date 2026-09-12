@@ -138,6 +138,17 @@
   source: "scripts_eureka/patch_gui_progress.py; src_eureka/README.md (2026-09-03)"
   notes: "This preserves unrelated vanilla layout and makes the maintenance boundary explicit: modify the generator's patch, not the generated GUI copy. A single generator should own related progress, tooltip, and effect-list patches; parallel in-place patch scripts create stale-source ambiguity."
 
+- id: advance_item_ui_surfaces_must_stay_in_sync
+  pattern: ''
+  detectability: advisory
+  only_in_paths: ['gui']
+  bad: "Treating an AdvanceItem UI change as an advances_lateralview-only edit and leaving the parallel technology_lateralview AdvanceItem surface unchecked"
+  correction: "For every AdvanceItem UI change, inspect and update both src_eureka/in_game/gui/advances_lateralview.gui and src_eureka/in_game/gui/technology_lateralview.gui in the same change. When these are generated outputs, edit scripts_eureka/patch_gui_progress.py and regenerate both files instead of hand-editing either copy."
+  category: gui
+  scope: any
+  source: "src_eureka/in_game/gui/advances_lateralview.gui; src_eureka/in_game/gui/technology_lateralview.gui; scripts_eureka/patch_gui_progress.py; docs/knowledge/risk_cards/eureka_advance_surfaces.md"
+  notes: "Advance is the game concept for a research project, while these two files are separate UI surfaces for AdvanceItem. Keeping only one surface updated causes inconsistent Eureka conditions and progress display."
+
 - id: gui_localized_text_display_equality
   pattern: ''
   detectability: advisory

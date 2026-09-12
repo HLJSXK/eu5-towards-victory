@@ -55,6 +55,9 @@ C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts_eureka/patch_gui_progress.p
 
 共享提示文件`src_eureka/main_menu/gui/shared/advances_tooltips.gui`也由同一生成器从原版复制并植入Eureka模板、进度环和研究速度提示行。
 
+条件行图标由`scripts_eureka/generate_eureka_icons.py`生成到
+`main_menu/gfx/interface/icons/eureka/`：未激活使用空心图标，激活后使用蓝色实心图标；同目录同时输出 DDS 游戏资源和 PNG 检查预览。
+
 **修改内容**：
 1. **有 advance 上下文的进度环和百分比文字**：
    - 科技树节点使用 `AdvanceNode.GetItem.GetKey`
@@ -63,7 +66,12 @@ C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts_eureka/patch_gui_progress.p
 2. **全局当前研究组件**：
    - 议程、顶部栏和科技页面中央卡片将当前研究的无提示名称与 `Localize('guilds')` 比较；只有当前研究为 `guilds` 时才叠加 Eureka 偏移
 
-3. **Tooltip进度信息**（1处，`technology_lateralview.gui:2218-2235`）：
+3. **Eureka 条件容器**：
+   - Advance 列表的效果列表容器顶部，以及科技树中的详细 Advance 卡片底部，显示 `提升条件：拥有至少一个市场中心`；Eureka 激活后切换为 `已获提升：拥有至少一个市场中心`
+   - 条件文字前显示状态图标，右侧 `expand = {}` 保持文字左对齐
+   - 条件未满足时容器背景透明；Eureka 激活后填充为蓝色
+
+4. **Tooltip进度信息**（1处，`technology_lateralview.gui:2218-2235`）：
    - 使用同样的本地化名称比较做门控；仅 guilds 显示视觉偏移
 
 ### 本地化

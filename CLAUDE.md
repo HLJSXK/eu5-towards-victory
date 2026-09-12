@@ -13,6 +13,11 @@ remains; ask the user when repository evidence cannot resolve it. Once intended
 files and concepts are known, run `scripts/ai_context.py` with those files and
 keywords so folder, filename, and conceptual routes are included.
 
+When `ai_context.py` emits a cross-surface audit, treat its listed paths as a
+mandatory pre-edit checklist. Inspect every listed surface and record why each
+one is changed or intentionally unchanged; never infer a game's concept boundary
+from one filename.
+
 Before editing files, build a task-scoped AI context:
 
 ```powershell
@@ -98,4 +103,5 @@ C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\gen_brief.py
 - `international_organizations` -> `docs/knowledge/risk_cards/international_organizations.md`
 - `on_action` -> `docs/knowledge/risk_cards/on_action.md`
 - `localization` -> `docs/knowledge/risk_cards/localization.md`
+- Advance / research / Eureka -> `docs/knowledge/risk_cards/eureka_advance_surfaces.md`
 - wonder / engineering_department files -> routed wonder cards in `docs/knowledge/risk_cards/`

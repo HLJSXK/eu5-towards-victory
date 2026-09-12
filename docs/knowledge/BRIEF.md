@@ -51,6 +51,7 @@ Use `scripts/ai_context.py` for task-scoped details. Default output is concise; 
 | --- | --- | --- | --- |
 | domain_routes | generic_actions | `docs/knowledge/risk_cards/generic_actions.md` | selector and hover pre-evaluation risks |
 | domain_routes | gui | `docs/knowledge/risk_cards/gui.md` | GUI expression, datacontext, layout, and tooltip constraints |
+| domain_routes | eureka_advance_backend | `docs/knowledge/risk_cards/eureka_advance_surfaces.md` | Eureka Advance backend changes must be reviewed with all display surfaces |
 | domain_routes | international_organizations | `docs/knowledge/risk_cards/international_organizations.md` | non-unique TV IO scope, leader, law, and monthly-change invariants |
 | domain_routes | events | `docs/knowledge/risk_cards/events.md` | event option hover can pre-evaluate visible and hidden effect chains |
 | domain_routes | on_action | `docs/knowledge/risk_cards/on_action.md` | bridge-registry, root scope, and one-day monthly event delay rules |
@@ -106,6 +107,7 @@ This is an index only. Use `scripts/ai_context.py` for task-relevant summaries o
 | `philosophy_debate_variant_random_list_ambiguity` | advisory | scope | country |
 | `gui_list_filter_needs_cached_variable` | advisory | gui | country |
 | `gui_vanilla_copy_patch_generator` | advisory | workflow | any |
+| `advance_item_ui_surfaces_must_stay_in_sync` | advisory | gui | any |
 | `gui_localized_text_display_equality` | advisory | gui | any |
 | `ritual_content_event_text_dict_letter_key_collides_with_desc` | advisory | localization | any |
 | `v1_3_cost_modifier_renamed_to_efficiency` | lint | modifier | any |
@@ -425,7 +427,7 @@ This is an index only. Use `scripts/ai_context.py` for task-relevant summaries o
 | Scripted Triggers | 4048 | `data/index/scripted_triggers.txt` |
 | Scripted Effects | 4629 | `data/index/scripted_effects.txt` |
 | Static Modifiers | 2438 | `data/index/static_modifiers.txt` |
-| English Loc Keys | 45527 | `data/index/loc_keys_en.txt` |
+| English Loc Keys | 45528 | `data/index/loc_keys_en.txt` |
 
 ## Codegen Script Map
 

@@ -42,6 +42,9 @@ C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts/validate.py --changed --fix
 git diff --check
 ```
 
+Advance is a game concept, not a synonym for `advances_lateralview.gui`. Any
+Advance/Eureka display change must audit all five GUI surfaces above before
+implementation and explicitly justify each surface that remains unchanged.
+
 生成器应可重复运行且输出稳定。游戏内仍需检查实际渲染和悬停 Tooltip，因为 GUI
 表达式错误经常只在控件显示或悬停时进入 error.log。
-

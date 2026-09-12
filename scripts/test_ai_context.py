@@ -30,6 +30,10 @@ def alert_ids(context: dict) -> set[str]:
     return {entry["id"] for entry in context["alerts"]}
 
 
+def audit_ids(context: dict) -> set[str]:
+    return {entry["id"] for entry in context.get("cross_surface_audits", [])}
+
+
 def build(files: list[str]) -> dict:
     return ai_context.build_context(files, ai_context.load_routes())
 
@@ -61,7 +65,17 @@ def main() -> None:
     assert_true("docs/knowledge/subprojects/eureka.md" in {item["path"] for item in eureka_ctx["reads"]}, "Eureka overview should be required")
     assert_true("docs/knowledge/eureka_gui_maintenance.md" in {item["path"] for item in eureka_ctx["reads"]}, "Eureka GUI maintenance map should be required")
     assert_true("eureka_advance_surfaces" in route_ids(build([eureka_file])), "Advance surface filename route should fire")
+    eureka_audits = eureka_ctx.get("cross_surface_audits", [])
+    assert_true("eureka_advance_surfaces" in audit_ids(eureka_ctx), "Advance surface route should emit a mandatory cross-surface audit")
+    audit_paths = {path for audit in eureka_audits for path in audit.get("paths", [])}
+    assert_true("src_eureka/in_game/gui/technology_lateralview.gui" in audit_paths, "Advance audit must include technology_lateralview.gui")
+    assert_true("src_eureka/in_game/gui/advances_lateralview.gui" in audit_paths, "Advance audit must include advances_lateralview.gui")
     assert_true(eureka_ctx["ownership"] == [{"path": eureka_file, "owner": "scripts_eureka/patch_gui_progress.py", "reason": "Eureka GUI outputs are regenerated from vanilla files by the checked-in patcher"}], "Eureka GUI output should identify its patch generator")
+
+    eureka_backend_file = "src_eureka/in_game/common/advances/tv_eureka_guilds.txt"
+    backend_ctx = build([eureka_backend_file])
+    assert_true("eureka_advance_surfaces" in audit_ids(backend_ctx), "Any Eureka backend change should emit the Advance cross-surface audit")
+    assert_true("eureka_advance_backend" in route_ids(backend_ctx), "Eureka Advance backend files should route to the dedicated backend domain")
 
     keyword_ctx = ai_context.build_context(["scripts_eureka/patch_gui_progress.py"], ai_context.load_routes(), ["Advance", "research"])
     assert_true("eureka_advance_concept" in route_ids(keyword_ctx), "Advance/research keywords should route the full Eureka concept")
@@ -76,6 +90,11 @@ def main() -> None:
         ai_context.print_markdown(ctx, full=False)
     default_output = buffer.getvalue()
     assert_true("## Immediate Risk Alerts" in default_output, "default output should include alerts")
+    eureka_buffer = io.StringIO()
+    with redirect_stdout(eureka_buffer):
+        ai_context.print_markdown(eureka_ctx, full=False)
+    eureka_output = eureka_buffer.getvalue()
+    assert_true("## Required Cross-Surface Audits" in eureka_output, "default output should include cross-surface audit instructions")
     assert_true("## Risk Card:" not in default_output, "default output should not inline full cards")
 
     json.dumps(ctx, ensure_ascii=False)
