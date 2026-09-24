@@ -32,6 +32,22 @@
     "moderation": "auto",
     "user": "towards_victory"
   },
+  "historical_images": {
+    "endpoint": "https://fluxionai.space/v1/images/edits",
+    "model": "gpt-image-2.5-sunburst",
+    "api_key_env": "IMAGE_API_KEY",
+    "overwrite": false,
+    "images": [
+      {
+        "source": "assets/historical/Taj-Mahal.jpg",
+        "output": "Taj-Mahal_ai_cartoon.png"
+      },
+      {
+        "source": "assets/historical/Bordeaux_-_Le_port_et_colonnes_rostrales.jpg",
+        "output": "Bordeaux_-_Le_port_et_colonnes_rostrales_ai_cartoon.png"
+      }
+    ]
+  },
   "style_reference": {
     "required": true,
     "notes": "Each output target must provide one or more same-type DDS/PNG references. The reference controls style only; the generated content follows image.natural_prompt.",

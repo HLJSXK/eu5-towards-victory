@@ -1,0 +1,32 @@
+{
+  "input": "assets/historical/Bordeaux_-_Le_port_et_colonnes_rostrales.jpg",
+  "output": "assets/historical/processed/Bordeaux_-_Le_port_et_colonnes_rostrales_cartoon.png",
+  "input_sha256": "dae6f8fcabe89fefc60f2c5ff4f9b28b7a8fb10b2d52a29fed8732aa612a7772",
+  "size": {
+    "width": 960,
+    "height": 698
+  },
+  "profile": "cartoon_historical_v2",
+  "seed": 17,
+  "source": {
+    "mean_luminance": 0.66741,
+    "luminance_std": 0.26541,
+    "mean_saturation": 0.25299,
+    "edge_density": 0.32318
+  },
+  "final": {
+    "mean_luminance": 0.6176,
+    "luminance_std": 0.27534,
+    "mean_saturation": 0.17989,
+    "edge_density": 0.17964
+  },
+  "structure_similarity": 0.91193,
+  "pixel_similarity": 0.51702,
+  "interpretation": {
+    "structure": "composition preserved under strong stylization",
+    "color": "compact 56-color palette, stronger warm/cool split, cel-shaded value bands",
+    "surface": "clean dark ink contours, softened photographic texture, light paper grain",
+    "edge_coverage": 0.11621,
+    "historical_weight": "preserved source architecture, perspective, and period details; no new scene content"
+  }
+}

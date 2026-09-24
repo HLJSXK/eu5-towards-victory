@@ -1,0 +1,28 @@
+{
+  "input": "assets/historical/Taj-Mahal.jpg",
+  "output": "assets/historical/processed/Taj-Mahal_painterly.png",
+  "size": {
+    "width": 1920,
+    "height": 1279
+  },
+  "profile": "painterly_historical_v1",
+  "seed": 17,
+  "source": {
+    "mean_luminance": 0.55005,
+    "luminance_std": 0.23928,
+    "mean_saturation": 0.572,
+    "edge_density": 0.15216
+  },
+  "final": {
+    "mean_luminance": 0.56703,
+    "luminance_std": 0.25601,
+    "mean_saturation": 0.42185,
+    "edge_density": 0.13432
+  },
+  "structure_similarity": 0.91207,
+  "interpretation": {
+    "structure": "high preservation",
+    "color": "reduced saturation and split tone for painted readability",
+    "surface": "edge-aware smoothing, broad value planes, restrained edges, paper grain"
+  }
+}

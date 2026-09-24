@@ -46,4 +46,34 @@ C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\gen_brief.py
 Use `conda run --no-capture-output -n eu5 python ...` only from a normal user
 terminal. Managed AI sandboxes should use the direct interpreter path above.
 
+## Historical Image Assets
+
+Historical illustrations start from a real source photograph or engraving. The
+local post-processing pipeline keeps the source composition and applies a warm,
+cool-shadow cartoon treatment with broad value planes, ink contours, and light
+paper texture:
+
+```bash
+python -m pip install -r requirements-image.txt
+python scripts/style_historical_image.py \
+  assets/historical/Taj-Mahal.jpg \
+  assets/historical/Bordeaux_-_Le_port_et_colonnes_rostrales.jpg \
+  --output-dir assets/historical/processed \
+  --keep-intermediates
+```
+
+For API image-to-image styling, run the dedicated batch entry point:
+
+```bash
+python scripts/generate_historical_images.py
+```
+
+The script always processes the two configured source images and writes
+`*_ai_cartoon.png` files under `assets/historical/processed/`. Its only runtime
+configuration is the `historical_images` section in the repository-root
+`generate_dds_icon_config.json`: change the edit endpoint, API key setting, or
+`overwrite`. Existing outputs are skipped while `overwrite` is `false`.
+See [the historical image pipeline](docs/design/Historical_Image_Postprocessing_Pipeline.md)
+for stages, review criteria, and generated evaluation reports.
+
 **Mod ID:** `eu5mp.towards_victory` | **Version:** build date (`YYMMDD`) | **Target:** EU5 `1.*.*`

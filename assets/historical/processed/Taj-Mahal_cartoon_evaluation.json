@@ -1,0 +1,32 @@
+{
+  "input": "assets/historical/Taj-Mahal.jpg",
+  "output": "assets/historical/processed/Taj-Mahal_cartoon.png",
+  "input_sha256": "700f0f5f74aded576a98270fadec334da41ebd6411274b9839ad3e31b19d93d6",
+  "size": {
+    "width": 1920,
+    "height": 1279
+  },
+  "profile": "cartoon_historical_v2",
+  "seed": 17,
+  "source": {
+    "mean_luminance": 0.55005,
+    "luminance_std": 0.23928,
+    "mean_saturation": 0.572,
+    "edge_density": 0.15216
+  },
+  "final": {
+    "mean_luminance": 0.52148,
+    "luminance_std": 0.26073,
+    "mean_saturation": 0.60046,
+    "edge_density": 0.0958
+  },
+  "structure_similarity": 0.9333,
+  "pixel_similarity": 0.68723,
+  "interpretation": {
+    "structure": "composition preserved under strong stylization",
+    "color": "compact 56-color palette, stronger warm/cool split, cel-shaded value bands",
+    "surface": "clean dark ink contours, softened photographic texture, light paper grain",
+    "edge_coverage": 0.04594,
+    "historical_weight": "preserved source architecture, perspective, and period details; no new scene content"
+  }
+}
