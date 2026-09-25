@@ -20,7 +20,7 @@ DIST_ROOT = SITE_ROOT / "dist"
 DATA_ROOT = DIST_ROOT / "data"
 REFERENCE_DIST = REPO_ROOT / "reference_mods" / "national_destinies_site" / "dist"
 HERE = Path(__file__).resolve().parent
-WONDER_IMAGE_SOURCE_ROOT = REPO_ROOT / "data" / "generated_wonders"
+WONDER_IMAGE_SOURCE_ROOT = REPO_ROOT / "assets" / "generated_wonders"
 
 
 def require_path(path: Path, label: str) -> None:

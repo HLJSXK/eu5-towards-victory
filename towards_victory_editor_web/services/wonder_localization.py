@@ -107,7 +107,7 @@ UNIQUE_RITUAL_DESIGNS_ZH_FILE = REPO_ROOT / UNIQUE_RITUAL_DESIGNS_ZH_REL
 UNIQUE_RITUAL_PROMPTS_FILE = REPO_ROOT / UNIQUE_RITUAL_PROMPTS_REL
 WONDER_EDITOR_CATALOG_FILE = REPO_ROOT / "data" / "wonder_editor_catalog.yaml"
 MODIFIER_LOCALIZATION_INDEX_FILE = REPO_ROOT / "data" / "index" / "modifier_localization.json"
-GENERATED_WONDER_IMAGES_DIR = REPO_ROOT / "data" / "generated_wonders"
+GENERATED_WONDER_IMAGES_DIR = REPO_ROOT / "assets" / "generated_wonders"
 WONDER_IMAGE_URL_PREFIX = "/wonder-images"
 GENERATED_LOC_FILES = {
     "english": REPO_ROOT / "src_engineering_department" / "main_menu" / "localization" / "english" / "tv_engineering_department_wonder_mechanics_l_english.yml",
@@ -2833,7 +2833,7 @@ class WonderLocalizationService:
         return {
             "stem": Path(filename).stem,
             "filename": filename,
-            "path": f"data/generated_wonders/{filename}",
+            "path": f"assets/generated_wonders/{filename}",
             "url": f"{WONDER_IMAGE_URL_PREFIX}/{quote(filename)}" if exists else None,
             "exists": exists,
         }

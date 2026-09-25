@@ -194,10 +194,10 @@ def build_registry() -> ToolRegistry:
     registry.register(ModuleRunTool(
         ToolSpec("media.dds_icon", "DDS icon generator", "Generate or convert configured icon and victory-tree DDS assets.", "media", (
             ToolOption("target", "Target", "text"), ToolOption("convert_existing_png", "Convert existing PNG", "file"), ToolOption("dry_run", "Dry run", "boolean", False), ToolOption("force_api", "Force API", "boolean", False), ToolOption("list_targets", "List targets", "boolean", False),
-        )), "scripts/generate_dds_icon.py", _dds_options, _roots("data/generated_icons", "src/main_menu/gfx/interface/icons", "src_engineering_department/main_menu/gfx/interface/icons"), ("scripts", "scripts_engineering_department")))
+        )), "scripts/generate_dds_icon.py", _dds_options, _roots("assets/generated_icons", "src/main_menu/gfx/interface/icons", "src_engineering_department/main_menu/gfx/interface/icons"), ("scripts", "scripts_engineering_department")))
     registry.register(ModuleRunTool(
         ToolSpec("media.wonder_image", "Wonder image generator", "Generate wonder PNG/DDS pairs or rebuild DDS files from existing PNGs.", "media", (ToolOption("convert_existing_assets", "Rebuild from existing assets", "boolean", False),)),
-        "scripts_engineering_department/generate_wonder_image.py", _wonder_options, _roots("data/generated_wonders", "src_engineering_department/main_menu/gfx/interface/icons/towards_victory/wonders"), ("scripts", "scripts_engineering_department")))
+        "scripts_engineering_department/generate_wonder_image.py", _wonder_options, _roots("assets/generated_wonders", "src_engineering_department/main_menu/gfx/interface/icons/towards_victory/wonders"), ("scripts", "scripts_engineering_department")))
     registry.register(HistoricalStyleTool())
     registry.register(ModuleRunTool(
         ToolSpec("media.historical_api", "Historical image API batch", "Run the configured historical image edit batch.", "media", (ToolOption("dry_run", "Dry run", "boolean", False),)),

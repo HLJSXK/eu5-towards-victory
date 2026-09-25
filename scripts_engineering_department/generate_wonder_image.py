@@ -53,7 +53,8 @@ DEFAULT_WONDERS_DIR = (
     / "towards_victory"
     / "wonders"
 )
-DEFAULT_PNG_DIR = REPO_ROOT / "data" / "generated_wonders"
+DEFAULT_PNG_DIR = REPO_ROOT / "assets" / "generated_wonders"
+DEFAULT_METADATA_DIR = REPO_ROOT / "data" / "generated_wonders"
 PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
 
 from wonder_mechanics.io import load_wonder_image_tasks
@@ -976,7 +977,8 @@ def run(options: dict[str, Any] | argparse.Namespace) -> int:
         png_path = png_dir / f"{stem}.png"
         dds_path = dds_dir / f"{stem}.dds"
         cropped_path = cropped_wonder_dds_path(dds_path)
-        metadata_path = png_dir / f"{stem}.json"
+        metadata_dir = resolve_repo_path(task.get("metadata_dir"), DEFAULT_METADATA_DIR)
+        metadata_path = metadata_dir / f"{stem}.json"
         existing_paths = [path for path in (dds_path, cropped_path, png_path, metadata_path) if path.exists()]
         full_dds_exists = dds_path.exists()
         cropped_dds_exists = cropped_path.exists()

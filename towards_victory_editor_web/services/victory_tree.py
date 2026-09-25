@@ -19,7 +19,7 @@ POSITIONS_FILE = REPO_ROOT / "data" / "victory_tree_node_positions.yaml"
 POSITIONS_REL = "data/victory_tree_node_positions.yaml"
 
 TREES_DIR = REPO_ROOT / "src/main_menu/gfx/interface/icons/towards_victory/victory_trees"
-GENERATED_PREVIEWS_DIR = REPO_ROOT / "data" / "generated_tree_previews"
+GENERATED_PREVIEWS_DIR = REPO_ROOT / "assets" / "generated_tree_previews"
 TREE_PREVIEW_URL_PREFIX = "/tree-previews"
 
 # Default trunk layout: a gentle rising left-to-right S-curve (5 points),

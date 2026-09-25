@@ -53,7 +53,7 @@
     "notes": "Each output target must provide one or more same-type DDS/PNG references. The reference controls style only; the generated content follows image.natural_prompt.",
     "upload_field_name": "image",
     "write_converted_pngs": true,
-    "temporary_png_dir": "data/generated_icons/_style_refs"
+    "temporary_png_dir": "assets/generated_icons/_style_refs"
   },
   "output": {
     "name": "tv_victory_path_icons",
@@ -61,7 +61,7 @@
     "overwrite": false,
     "keep_png": true,
     "write_metadata": true,
-    "png_dir": "data/generated_icons",
+    "png_dir": "assets/generated_icons",
     "metadata_dir": "data/generated_icons",
     "targets": {
       "trade_good_icon": {
@@ -75,7 +75,7 @@
         "max_file_size_bytes": 100000,
         "image_size": "1024x1024",
         "style_reference_paths": [
-          "data/generated_icons/_style_refs/01_icon_goods_marble.png"
+          "assets/generated_icons/_style_refs/01_icon_goods_marble.png"
         ]
       },
       "trade_good_illustration": {
@@ -89,7 +89,7 @@
         "max_file_size_bytes": 1000000,
         "image_size": "2160x880",
         "style_reference_paths": [
-          "data/generated_icons/_style_refs/icon_goods_marble.dds"
+          "assets/generated_icons/_style_refs/icon_goods_marble.dds"
         ]
       },
       "building_icon": {
@@ -105,9 +105,9 @@
         "circle_crop_feather_px": 8,
         "max_file_size_bytes": 100000,
         "image_size": "1024x1024",
-        "prompt_requirements": "This is a compact building icon for the Wonder Material Workshop (建材工坊), the sibling structure of the Wonder Worksite that processes raw goods into wonder building materials. Treat the uploaded Construction Center and Wonder Worksite references as the style authority: same simple painterly brushwork, compact crop, low object count, and readable 128px silhouette. Depict the workshop using exactly 2-3 simple shapes: one small workshop shed or lean-to, one stack of cut stone/timber material blocks, and one small workbench or anvil. The result should feel premium through restrained marble and bronze accents while staying as simple as the reference. Do not add extra props, workers, crowds, complex scaffolding, full scenery, a finished monument, a palace, or a narrative construction scene.",
+        "prompt_requirements": "This is a compact building icon for the Wonder Material Workshop (寤烘潗宸ュ潑), the sibling structure of the Wonder Worksite that processes raw goods into wonder building materials. Treat the uploaded Construction Center and Wonder Worksite references as the style authority: same simple painterly brushwork, compact crop, low object count, and readable 128px silhouette. Depict the workshop using exactly 2-3 simple shapes: one small workshop shed or lean-to, one stack of cut stone/timber material blocks, and one small workbench or anvil. The result should feel premium through restrained marble and bronze accents while staying as simple as the reference. Do not add extra props, workers, crowds, complex scaffolding, full scenery, a finished monument, a palace, or a narrative construction scene.",
         "style_reference_paths": [
-          "data/generated_icons/_style_refs/construction_center.dds",
+          "assets/generated_icons/_style_refs/construction_center.dds",
           "src_engineering_department/main_menu/gfx/interface/icons/buildings/tv_wonder_labor_camp.dds"
         ],
         "local_template": {
@@ -145,7 +145,7 @@
         "max_file_size_bytes": 100000,
         "image_size": "1024x1024",
         "style_reference_paths": [
-          "data/generated_icons/_style_refs/construction_center.dds"
+          "assets/generated_icons/_style_refs/construction_center.dds"
         ],
         "image": {
           "natural_prompt": "Create the main Towards Victory situation icon: a minimalist victory-road emblem with a central crown or laurel mark and six tiny route accents in the six route theme colors.",
@@ -183,7 +183,7 @@
         "max_file_size_bytes": 1000000,
         "image_size": "1024x1024",
         "style_reference_paths": [
-          "data/generated_icons/_style_refs/construction_center.dds",
+          "assets/generated_icons/_style_refs/construction_center.dds",
           "src/main_menu/gfx/interface/icons/towards_victory/victory_trees/tv_victory_prosperity_tree.dds"
         ],
         "image": {
@@ -211,7 +211,7 @@
     "include_generic": true,
     "include_unique": true,
     "style_reference_paths": [
-      "data/generated_icons/_style_refs/construction_center.dds"
+      "assets/generated_icons/_style_refs/construction_center.dds"
     ],
     "target": {
       "width": 128,
@@ -303,7 +303,7 @@
       "asset_name": "tv_victory_situation",
       "icon_prompt": "a six-road victory emblem with a central crown or laurel and six tiny route marks",
       "style_reference_paths": [
-        "data/generated_icons/_style_refs/construction_center.dds"
+        "assets/generated_icons/_style_refs/construction_center.dds"
       ]
     },
     "paths": [
@@ -395,7 +395,7 @@
         "template_prompt": "a single crowned sword silhouette over a tiny laurel mark",
         "reward_motif": "a crowned sword, shield, or banner symbol for conquest rewards",
         "style_reference_paths": [
-          "data/generated_icons/_style_refs/construction_center.dds"
+          "assets/generated_icons/_style_refs/construction_center.dds"
         ]
       },
       {
@@ -404,7 +404,7 @@
         "template_prompt": "a single sprouting coin or granary mark",
         "reward_motif": "a sprouting coin, granary, or civic growth symbol for prosperity rewards",
         "style_reference_paths": [
-          "data/generated_icons/_style_refs/construction_center.dds"
+          "assets/generated_icons/_style_refs/construction_center.dds"
         ]
       },
       {
@@ -413,7 +413,7 @@
         "template_prompt": "a single balanced scale with a small merchant sail accent",
         "reward_motif": "a scale, merchant sail, coin, or trade route symbol for trade rewards",
         "style_reference_paths": [
-          "data/generated_icons/_style_refs/icon_goods_marble.dds"
+          "assets/generated_icons/_style_refs/icon_goods_marble.dds"
         ]
       },
       {
@@ -422,7 +422,7 @@
         "template_prompt": "a single sealed treaty scroll with two small clasped rings",
         "reward_motif": "a treaty scroll, seal, clasped rings, or envoy symbol for diplomatic rewards",
         "style_reference_paths": [
-          "data/generated_icons/_style_refs/construction_center.dds"
+          "assets/generated_icons/_style_refs/construction_center.dds"
         ]
       },
       {
@@ -431,7 +431,7 @@
         "template_prompt": "a single theater mask with a small star accent",
         "reward_motif": "a theater mask, lyre, manuscript, or star symbol for cultural rewards",
         "style_reference_paths": [
-          "data/generated_icons/_style_refs/icon_goods_marble.dds"
+          "assets/generated_icons/_style_refs/icon_goods_marble.dds"
         ]
       },
       {
@@ -440,7 +440,7 @@
         "template_prompt": "a single astrolabe disk with one small spark",
         "reward_motif": "an astrolabe, compass, lens, or spark symbol for scientific rewards",
         "style_reference_paths": [
-          "data/generated_icons/_style_refs/construction_center.dds"
+          "assets/generated_icons/_style_refs/construction_center.dds"
         ]
       }
     ]
@@ -455,7 +455,7 @@
       }
     },
     "prompt_prefix": "Create a wide, route-specific victory reward tree background for",
-    "tree_rules": "A beautiful, high-quality 16:9 painting or photograph of a single tree standing close to the viewer, large enough to dominate the frame and partly block a hazy, distant landscape beyond it — near and far are the same place under the same light, not a collage. Let the tree feel bigger than the picture: at the edge named below, a branch or the trunk simply runs off the frame, as though only part of a larger tree was caught in view, so no roots or ground appear there. Each route below names one exact entry point on one border and one direction the tree grows toward on the far side of the frame — anchor the trunk at that exact point (don't default to the generic 'trunk rooted in the bottom-left corner' shot unless that is the named point) and let it sweep across the frame toward the named direction, its branches spreading out along the way so the tree commands most of the picture. The six routes should read as differently angled at a glance because their entry points and directions differ, not because the tree is boxed into a smaller region. Let the trunk fork naturally into a handful of branches as it grows, each with some open, unembellished stretches of bark — a round button will be overlaid on the branches later, so avoid drawing circles, rings, or icons, but otherwise trust your own eye for where and how the branches should fall. Prioritize a gorgeous, atmospheric, painterly result over any rigid structure. No text or UI elements.",
+    "tree_rules": "A beautiful, high-quality 16:9 painting or photograph of a single tree standing close to the viewer, large enough to dominate the frame and partly block a hazy, distant landscape beyond it 鈥?near and far are the same place under the same light, not a collage. Let the tree feel bigger than the picture: at the edge named below, a branch or the trunk simply runs off the frame, as though only part of a larger tree was caught in view, so no roots or ground appear there. Each route below names one exact entry point on one border and one direction the tree grows toward on the far side of the frame 鈥?anchor the trunk at that exact point (don't default to the generic 'trunk rooted in the bottom-left corner' shot unless that is the named point) and let it sweep across the frame toward the named direction, its branches spreading out along the way so the tree commands most of the picture. The six routes should read as differently angled at a glance because their entry points and directions differ, not because the tree is boxed into a smaller region. Let the trunk fork naturally into a handful of branches as it grows, each with some open, unembellished stretches of bark 鈥?a round button will be overlaid on the branches later, so avoid drawing circles, rings, or icons, but otherwise trust your own eye for where and how the branches should fall. Prioritize a gorgeous, atmospheric, painterly result over any rigid structure. No text or UI elements.",
     "negative_prompt": "text, letters, numbers, labels, UI buttons, circular nodes or rings, badges, medallions, icons on the tree, logos, watermark, flat 2D illustration, cutout foreground pasted over a backdrop, mismatched lighting between tree and background, visible roots or ground line at the cropped edge, whole tree fully contained in frame, second tree, trunk entering from a different border than the one specified, tree cropped small into one corner instead of sweeping across most of the frame",
     "paths": [
       {
@@ -480,7 +480,7 @@
         "style_reference_paths": [
           "src/main_menu/gfx/interface/icons/towards_victory/victory_paths/tv_victory_trade.dds"
         ],
-        "tree_prompt": "A maritime trade mood in gold and ink-navy: a wind-bent tree with a strongly horizontal trunk, set against a hazy harbor of distant sails and warehouses. The trunk enters at the vertical midpoint of the left border — clearly above the bottom-left corner — and reaches horizontally across nearly the whole frame toward the right, its branches sweeping above and below along the way like shipping lanes to command most of the picture. Expansive, adventurous, far-reaching."
+        "tree_prompt": "A maritime trade mood in gold and ink-navy: a wind-bent tree with a strongly horizontal trunk, set against a hazy harbor of distant sails and warehouses. The trunk enters at the vertical midpoint of the left border 鈥?clearly above the bottom-left corner 鈥?and reaches horizontally across nearly the whole frame toward the right, its branches sweeping above and below along the way like shipping lanes to command most of the picture. Expansive, adventurous, far-reaching."
       },
       {
         "id": "diplomatic",

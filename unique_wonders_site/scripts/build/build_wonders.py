@@ -55,7 +55,7 @@ DEFAULT_REFERENCE_LOC = (
 DEFAULT_OUT = SITE_ROOT / "dist" / "data" / "unique_wonders.json"
 DEFAULT_MODIFIER_LOCALIZATION_INDEX = REPO_ROOT / "data" / "index" / "modifier_localization.json"
 DEFAULT_TRIGGER_LOCALIZATION_INDEX = REPO_ROOT / "data" / "index" / "trigger_localization.json"
-WONDER_IMAGE_SOURCE_ROOT = REPO_ROOT / "data" / "generated_wonders"
+WONDER_IMAGE_SOURCE_ROOT = REPO_ROOT / "assets" / "generated_wonders"
 DIST_WONDER_IMAGE_ROOT = Path("images") / "wonders"
 IMAGE_EXTENSIONS = (".png", ".jpg", ".jpeg", ".webp")
 

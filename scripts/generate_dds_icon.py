@@ -66,7 +66,8 @@ CONFIG_PATH = REPO_ROOT / "generate_dds_icon_config.json"
 LOCAL_CONFIG_PATH = REPO_ROOT / "generate_dds_icon.local.json"
 DEFAULT_GENERATIONS_ENDPOINT = "https://www.right.codes/draw/v1/images/generations"
 DEFAULT_EDITS_ENDPOINT = "https://www.right.codes/draw/v1/images/edits"
-DEFAULT_PNG_DIR = REPO_ROOT / "data" / "generated_icons"
+DEFAULT_PNG_DIR = REPO_ROOT / "assets" / "generated_icons"
+DEFAULT_METADATA_DIR = REPO_ROOT / "data" / "generated_icons"
 DEFAULT_REF_DIR = DEFAULT_PNG_DIR / "_style_refs"
 WONDER_LOCALIZATION_PATH = REPO_ROOT / "data" / "wonder_localization.yaml"
 DEFAULT_STYLE_UPLOAD_FIELD = "image"
@@ -752,42 +753,42 @@ def default_victory_reward_paths() -> list[dict[str, str]]:
             "label": "Conquest Victory",
             "template_prompt": "a single crowned sword silhouette over a tiny laurel mark",
             "reward_motif": "a crowned sword, shield, or banner symbol for conquest rewards",
-            "style_reference_paths": ["data/generated_icons/_style_refs/construction_center.dds"],
+            "style_reference_paths": ["assets/generated_icons/_style_refs/construction_center.dds"],
         },
         {
             "id": "prosperity",
             "label": "Prosperity Victory",
             "template_prompt": "a single sprouting coin or granary mark",
             "reward_motif": "a sprouting coin, granary, or civic growth symbol for prosperity rewards",
-            "style_reference_paths": ["data/generated_icons/_style_refs/construction_center.dds"],
+            "style_reference_paths": ["assets/generated_icons/_style_refs/construction_center.dds"],
         },
         {
             "id": "trade",
             "label": "Trade Victory",
             "template_prompt": "a single balanced scale with a small merchant sail accent",
             "reward_motif": "a scale, merchant sail, coin, or trade route symbol for trade rewards",
-            "style_reference_paths": ["data/generated_icons/_style_refs/icon_goods_marble.dds"],
+            "style_reference_paths": ["assets/generated_icons/_style_refs/icon_goods_marble.dds"],
         },
         {
             "id": "diplomatic",
             "label": "Diplomatic Victory",
             "template_prompt": "a single sealed treaty scroll with two small clasped rings",
             "reward_motif": "a treaty scroll, seal, clasped rings, or envoy symbol for diplomatic rewards",
-            "style_reference_paths": ["data/generated_icons/_style_refs/construction_center.dds"],
+            "style_reference_paths": ["assets/generated_icons/_style_refs/construction_center.dds"],
         },
         {
             "id": "cultural",
             "label": "Cultural Victory",
             "template_prompt": "a single theater mask with a small star accent",
             "reward_motif": "a theater mask, lyre, manuscript, or star symbol for cultural rewards",
-            "style_reference_paths": ["data/generated_icons/_style_refs/icon_goods_marble.dds"],
+            "style_reference_paths": ["assets/generated_icons/_style_refs/icon_goods_marble.dds"],
         },
         {
             "id": "science",
             "label": "Scientific Victory",
             "template_prompt": "a single astrolabe disk with one small spark",
             "reward_motif": "an astrolabe, compass, lens, or spark symbol for scientific rewards",
-            "style_reference_paths": ["data/generated_icons/_style_refs/construction_center.dds"],
+            "style_reference_paths": ["assets/generated_icons/_style_refs/construction_center.dds"],
         },
     ]
 
@@ -1034,7 +1035,7 @@ def build_wonder_building_icon_batch_tasks(
             "style_reference_paths",
             base_target_config.get(
                 "style_reference_paths",
-                ["data/generated_icons/_style_refs/construction_center.dds"],
+                ["assets/generated_icons/_style_refs/construction_center.dds"],
             ),
         ),
         f"{WONDER_BUILDING_BATCH}.style_reference_paths",
@@ -1366,7 +1367,7 @@ def build_victory_path_icon_batch_tasks(
     situation_refs = parse_path_list(
         situation_config.get(
             "style_reference_paths",
-            ["data/generated_icons/_style_refs/construction_center.dds"],
+            ["assets/generated_icons/_style_refs/construction_center.dds"],
         ),
         f"{VICTORY_PATH_BATCH}.situation.style_reference_paths",
     )
@@ -2181,7 +2182,7 @@ def write_local_template_metadata(
 ) -> None:
     if not bool(output_config.get("write_metadata", True)):
         return
-    metadata_dir = resolve_repo_path(output_config.get("metadata_dir"), DEFAULT_PNG_DIR)
+    metadata_dir = resolve_repo_path(output_config.get("metadata_dir"), DEFAULT_METADATA_DIR)
     metadata_path = metadata_dir / f"{output_artifact_stem(output_config, target)}.json"
     metadata_path.parent.mkdir(parents=True, exist_ok=True)
     metadata = {
@@ -2299,7 +2300,7 @@ def update_existing_metadata_target(
 ) -> None:
     if not bool(output_config.get("write_metadata", True)):
         return
-    metadata_dir = resolve_repo_path(output_config.get("metadata_dir"), DEFAULT_PNG_DIR)
+    metadata_dir = resolve_repo_path(output_config.get("metadata_dir"), DEFAULT_METADATA_DIR)
     metadata_path = metadata_dir / f"{output_artifact_stem(output_config, target)}.json"
     if not metadata_path.exists():
         return
@@ -2329,7 +2330,7 @@ def write_metadata(
 ) -> None:
     if not bool(output_config.get("write_metadata", True)):
         return
-    metadata_dir = resolve_repo_path(output_config.get("metadata_dir"), DEFAULT_PNG_DIR)
+    metadata_dir = resolve_repo_path(output_config.get("metadata_dir"), DEFAULT_METADATA_DIR)
     metadata_path = metadata_dir / f"{output_artifact_stem(output_config, target)}.json"
     metadata_path.parent.mkdir(parents=True, exist_ok=True)
     metadata = {
