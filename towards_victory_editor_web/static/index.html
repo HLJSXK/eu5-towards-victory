@@ -8,6 +8,8 @@
 <link rel="stylesheet" href="static/cost_reward.css">
 <link rel="stylesheet" href="static/victory_tree.css">
 <link rel="stylesheet" href="static/wonder_localization.css">
+<link rel="stylesheet" href="static/media_studio.css">
+<link rel="stylesheet" href="static/workspace_theme.css">
 </head>
 <body>
 <div id="tool-hub-shell">
@@ -17,6 +19,8 @@
       <button class="tool-hub-tab-btn" data-tool="cost-reward">花费/奖励编辑器</button>
       <button class="tool-hub-tab-btn" data-tool="victory-tree">胜利树规划器</button>
       <button class="tool-hub-tab-btn" data-tool="wonder-localization">奇观本地化编辑器</button>
+      <button class="tool-hub-tab-btn" data-tool="media-studio">Media studio</button>
+      <button class="tool-hub-tab-btn" data-tool="wonder-cropper">Wonder cropper</button>
     </nav>
   </header>
   <main id="tool-hub-panels">
@@ -152,11 +156,60 @@
       <div id="toast" class="toast hidden" aria-live="polite"></div>
     </section>
 
+    <section class="tool-panel tool-media-studio" data-tool="media-studio">
+      <header class="workspace-heading">
+        <p class="eyebrow">Unified media tools</p>
+        <h1>Media studio</h1>
+        <p class="subtitle">Run the project image generators through the shared media workspace. Each job reports live logs and validated output artifacts.</p>
+      </header>
+      <div class="media-layout">
+        <aside class="media-tool-list" id="media-tool-list"></aside>
+        <main class="media-workspace">
+          <div id="media-form" class="media-form"></div>
+          <div class="media-actions">
+            <button id="media-run" class="primary-button" type="button">Run tool</button>
+            <button id="media-cancel" type="button" disabled>Cancel job</button>
+            <span id="media-status" class="job-status">Ready</span>
+          </div>
+          <pre id="media-log" class="job-log"></pre>
+        </main>
+      </div>
+    </section>
+
+    <section class="tool-panel tool-wonder-cropper" data-tool="wonder-cropper">
+      <header class="workspace-heading">
+        <p class="eyebrow">Unified media tools</p>
+        <h1>Wonder image cropper</h1>
+        <p class="subtitle">Choose a generated wonder image, drag a 27:11 crop, save it to the shared crop data, then rebuild DDS assets.</p>
+      </header>
+      <div class="cropper-layout">
+        <aside class="cropper-sidebar">
+          <div class="section-label">Images</div>
+          <div id="cropper-task-list"></div>
+        </aside>
+        <main class="cropper-stage-wrap">
+          <canvas id="cropper-canvas"></canvas>
+        </main>
+        <aside class="cropper-inspector">
+          <h2 id="cropper-title">No image</h2>
+          <dl id="cropper-meta"></dl>
+          <div class="cropper-actions">
+            <button id="cropper-save" class="primary-button" type="button">Save crop</button>
+            <button id="cropper-remove" type="button">Remove saved crop</button>
+            <button id="cropper-apply" type="button">Rebuild DDS</button>
+          </div>
+          <p id="cropper-status" class="job-status">Ready</p>
+          <pre id="cropper-log" class="job-log"></pre>
+        </aside>
+      </div>
+    </section>
   </main>
 </div>
 <script type="module" src="static/shared.js"></script>
 <script type="module" src="static/cost_reward.js"></script>
 <script type="module" src="static/victory_tree.js"></script>
 <script type="module" src="static/wonder_localization.js"></script>
+<script type="module" src="static/media_studio.js"></script>
+<script type="module" src="static/cropper.js"></script>
 </body>
 </html>

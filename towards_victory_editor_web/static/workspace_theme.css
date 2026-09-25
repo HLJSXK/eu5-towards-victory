@@ -1,0 +1,316 @@
+:root {
+  color-scheme: light;
+  --workspace-bg: #f3eee4;
+  --workspace-bg-strong: #fffaf2;
+  --workspace-panel: rgba(255, 250, 242, 0.94);
+  --workspace-line: rgba(39, 54, 74, 0.14);
+  --workspace-line-strong: rgba(39, 54, 74, 0.28);
+  --workspace-text: #243144;
+  --workspace-muted: #64748b;
+  --workspace-accent: #0f6c75;
+  --workspace-accent-strong: #0f4e57;
+  --workspace-warm: #b35c2e;
+  --workspace-shadow: 0 20px 40px rgba(38, 44, 59, 0.12);
+  --workspace-radius-lg: 18px;
+  --workspace-radius-md: 12px;
+}
+
+body {
+  background: var(--workspace-bg);
+  color: var(--workspace-text);
+  font-family: "Segoe UI Variable Text", "Microsoft YaHei UI", "PingFang SC", "Noto Sans SC", system-ui, sans-serif;
+}
+
+#tool-hub-header {
+  padding: 16px 20px 0;
+  background: linear-gradient(135deg, #0d293a, #123e50);
+  border-bottom: 0;
+  box-shadow: 0 8px 24px rgba(16, 39, 54, 0.16);
+}
+
+#tool-hub-header h1 {
+  color: #eef4f7;
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
+}
+
+.tool-hub-tab-bar {
+  gap: 8px;
+  overflow-x: auto;
+}
+
+.tool-hub-tab-btn {
+  border: 1px solid rgba(238, 244, 247, 0.14);
+  border-bottom: 0;
+  border-radius: 10px 10px 0 0;
+  background: rgba(255, 255, 255, 0.07);
+  color: rgba(238, 244, 247, 0.72);
+  padding: 10px 16px;
+  white-space: nowrap;
+}
+
+.tool-hub-tab-btn:hover,
+.tool-hub-tab-btn.active {
+  background: var(--workspace-bg);
+  color: var(--workspace-text);
+}
+
+#tool-hub-panels {
+  background: var(--workspace-bg);
+}
+
+.tool-cost-reward,
+.tool-victory-tree,
+.tool-media-studio,
+.tool-wonder-cropper {
+  min-height: 100%;
+  background:
+    radial-gradient(circle at top left, rgba(179, 92, 46, 0.07), transparent 28%),
+    radial-gradient(circle at top right, rgba(15, 108, 117, 0.09), transparent 32%),
+    linear-gradient(180deg, #f8f4ea 0%, var(--workspace-bg) 100%);
+  color: var(--workspace-text);
+}
+
+.tool-cost-reward header h1,
+.tool-victory-tree header h1,
+.workspace-heading h1 {
+  color: var(--workspace-text);
+  font-size: clamp(1.35rem, 2vw, 1.8rem);
+  letter-spacing: -0.02em;
+}
+
+.tool-cost-reward .subtitle,
+.tool-victory-tree .subtitle,
+.workspace-heading .subtitle {
+  color: var(--workspace-muted);
+  line-height: 1.6;
+}
+
+.tool-cost-reward .tabs,
+.tool-victory-tree .tabs {
+  border-bottom-color: var(--workspace-line);
+}
+
+.tool-cost-reward .tab,
+.tool-victory-tree .tab {
+  color: var(--workspace-muted);
+  border-radius: 10px 10px 0 0;
+}
+
+.tool-cost-reward .tab:hover,
+.tool-victory-tree .tab:hover,
+.tool-cost-reward .tab.active,
+.tool-victory-tree .tab.active {
+  color: var(--workspace-accent-strong);
+  background: rgba(15, 108, 117, 0.08);
+  border-bottom-color: var(--workspace-accent);
+}
+
+.tool-cost-reward table,
+.tool-victory-tree aside,
+.tool-victory-tree .canvas-wrap,
+.media-workspace,
+.cropper-stage-wrap,
+.cropper-inspector {
+  border: 1px solid var(--workspace-line);
+  border-radius: var(--workspace-radius-lg);
+  background: var(--workspace-panel);
+  box-shadow: var(--workspace-shadow);
+}
+
+.tool-cost-reward table {
+  overflow: hidden;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.tool-cost-reward th,
+.tool-cost-reward td {
+  border-color: var(--workspace-line);
+  padding: 0.65rem 0.75rem;
+}
+
+.tool-cost-reward th {
+  background: rgba(15, 108, 117, 0.08);
+  color: var(--workspace-accent-strong);
+}
+
+.tool-victory-tree aside h2,
+.tool-victory-tree .zoom-row,
+.tool-victory-tree .toggle,
+.tool-victory-tree .node-row .title {
+  color: var(--workspace-muted);
+}
+
+.tool-victory-tree .group-header {
+  color: var(--workspace-text);
+  border-bottom-color: var(--workspace-line);
+}
+
+.tool-victory-tree .node-row:hover,
+.tool-victory-tree .node-row.selected {
+  background: var(--workspace-accent-soft, rgba(15, 108, 117, 0.08));
+  border-color: rgba(15, 108, 117, 0.22);
+}
+
+.tool-victory-tree .node-row input {
+  background: rgba(255, 255, 255, 0.78);
+  color: var(--workspace-text);
+  border-color: var(--workspace-line-strong);
+}
+
+.tool-cost-reward input[type="number"],
+.tool-cost-reward select,
+.tool-cost-reward textarea,
+.tool-victory-tree input,
+.media-field input,
+.media-field select,
+.media-field textarea {
+  border: 1px solid var(--workspace-line-strong);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.78);
+  color: var(--workspace-text);
+}
+
+.tool-cost-reward input:focus,
+.tool-cost-reward select:focus,
+.tool-cost-reward textarea:focus,
+.tool-victory-tree input:focus,
+.media-field input:focus,
+.media-field select:focus,
+.media-field textarea:focus {
+  outline: 3px solid rgba(15, 108, 117, 0.14);
+  border-color: var(--workspace-accent);
+}
+
+.tool-cost-reward button,
+.tool-victory-tree button,
+.media-actions button,
+.cropper-actions button {
+  border: 1px solid var(--workspace-line-strong);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.78);
+  color: var(--workspace-text);
+  padding: 0.65rem 0.95rem;
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+}
+
+.tool-cost-reward button:hover,
+.tool-victory-tree button:hover,
+.media-actions button:hover,
+.cropper-actions button:hover {
+  transform: translateY(-1px);
+  border-color: var(--workspace-accent);
+  box-shadow: 0 8px 18px rgba(38, 44, 59, 0.1);
+}
+
+.tool-cost-reward .actions button:first-child,
+.tool-victory-tree .actions button:first-child,
+.media-actions .primary-button,
+.cropper-actions .primary-button {
+  border-color: var(--workspace-accent);
+  background: var(--workspace-accent);
+  color: #fff;
+}
+
+.tool-cost-reward button:disabled,
+.tool-victory-tree button:disabled,
+.media-actions button:disabled,
+.cropper-actions button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+#cr-log,
+#vt-log,
+.job-log {
+  border: 1px solid var(--workspace-line);
+  border-radius: var(--workspace-radius-md);
+  background: #172b36;
+  color: #dce9ed;
+}
+
+.tool-media-studio .media-layout {
+  max-width: 88rem;
+}
+
+.media-tool-list,
+.cropper-sidebar {
+  border: 0;
+  border-radius: var(--workspace-radius-lg);
+  background: linear-gradient(180deg, #0d293a, #123e50);
+  box-shadow: var(--workspace-shadow);
+}
+
+.media-tool-item,
+.cropper-task {
+  border-color: rgba(238, 244, 247, 0.12);
+  border-radius: 10px;
+  color: #eef4f7;
+}
+
+.media-tool-item:hover,
+.media-tool-item.active,
+.cropper-task.active {
+  background: linear-gradient(135deg, rgba(179, 92, 46, 0.3), rgba(15, 108, 117, 0.3));
+  border-color: rgba(238, 244, 247, 0.42);
+}
+
+.media-tool-item span,
+.cropper-task.saved::after {
+  color: rgba(238, 244, 247, 0.68);
+}
+
+.media-workspace,
+.cropper-inspector {
+  padding: 1.25rem;
+}
+
+.media-workspace h2,
+.cropper-inspector h2 {
+  color: var(--workspace-text);
+}
+
+.media-field,
+.media-input-list legend,
+.cropper-inspector dd {
+  color: var(--workspace-muted);
+}
+
+.media-input-list {
+  border-color: var(--workspace-line);
+  border-radius: var(--workspace-radius-md);
+  background: rgba(255, 255, 255, 0.38);
+}
+
+.media-field input,
+.media-field select {
+  min-height: 2.6rem;
+  padding: 0.55rem 0.7rem;
+}
+
+.job-status {
+  color: var(--workspace-warm);
+  font-weight: 600;
+}
+
+.cropper-layout {
+  max-width: 96rem;
+}
+
+.cropper-stage-wrap {
+  background: #172b36;
+}
+
+.cropper-inspector dl {
+  color: var(--workspace-text);
+}
+
+@media (max-width: 900px) {
+  #tool-hub-header { padding-left: 12px; padding-right: 12px; }
+  .tool-cost-reward,
+  .tool-victory-tree,
+  .tool-media-studio,
+  .tool-wonder-cropper { padding: 1rem; }
+}

@@ -220,7 +220,7 @@ C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts_engineering_department\in_g
 1. 通用 prompt 写 `data/wonder_image_prompts.yaml`，独特 prompt 写 `data/unique_wonders.yaml` 的 `prompt`。
 2. 临时把 `scripts_engineering_department/generate_wonder_image_config.json` 的 `selection.only_keys` 改成 15 个 key，`include_generic/include_unique` 保持 `true`，`overwrite` 默认 `false`。
 3. 执行 `C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts_engineering_department\generate_wonder_image.py`。
-4. 如需人工裁切，运行 `C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts_engineering_department\wonder_image_cropper.py`；确认后用 `--apply` 写 DDS 裁切结果。
+4. 如需人工裁切，启动统一 Web 工具 `C:\Users\Hades\anaconda3\envs\eu5\python.exe -m towards_victory_editor_web --no-browser`，在 `Wonder cropper` 标签页保存裁切后点击 `Rebuild DDS`。
 5. 恢复 `selection.only_keys: []`，避免后续编辑器默认只处理亚洲区批次。
 
 最终建筑 Icon 流程：

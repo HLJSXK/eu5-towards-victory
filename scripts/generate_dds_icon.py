@@ -2593,8 +2593,14 @@ def run_wonder_building_icon_batch(
     return 0
 
 
-def main(argv: list[str] | None = None) -> int:
-    args = parse_args(sys.argv[1:] if argv is None else argv)
+def run(options: dict[str, Any] | argparse.Namespace) -> int:
+    """Run the generator from a normalized application configuration.
+
+    The web workspace calls this function directly.  Keeping argument parsing
+    in ``main`` makes the CLI a thin adapter instead of making it the service
+    boundary.
+    """
+    args = options if isinstance(options, argparse.Namespace) else argparse.Namespace(**options)
     if args.list_targets:
         for name, preset in TARGET_PRESETS.items():
             print(
@@ -2664,6 +2670,10 @@ def main(argv: list[str] | None = None) -> int:
         target,
     )
     return 0
+
+
+def main(argv: list[str] | None = None) -> int:
+    return run(parse_args(sys.argv[1:] if argv is None else argv))
 
 
 if __name__ == "__main__":

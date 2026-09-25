@@ -1,0 +1,35 @@
+.tool-media-studio, .tool-wonder-cropper { padding: 1.5rem; background: #14161a; color: #e6e6e6; min-height: calc(100vh - 70px); }
+.workspace-heading { max-width: 70rem; margin: 0 auto 1.2rem; }
+.workspace-heading h1 { margin: 0.15rem 0 0.35rem; }
+.eyebrow, .section-label { color: #8d98a8; text-transform: uppercase; letter-spacing: .08em; font-size: .72rem; }
+.media-layout { display: grid; grid-template-columns: minmax(220px, 280px) minmax(0, 1fr); gap: 1rem; max-width: 70rem; margin: auto; }
+.media-tool-list, .media-workspace, .cropper-sidebar, .cropper-inspector { background: #20242a; border: 1px solid #343b45; border-radius: 6px; }
+.media-tool-list { padding: .5rem; }
+.media-tool-item { display: grid; width: 100%; gap: .3rem; margin-bottom: .35rem; padding: .7rem; border: 1px solid transparent; border-radius: 4px; background: transparent; color: #e6e6e6; text-align: left; cursor: pointer; }
+.media-tool-item:hover, .media-tool-item.active { background: #2d3945; border-color: #4e7187; }
+.media-tool-item span { color: #aab4c0; font-size: .8rem; line-height: 1.35; }
+.media-workspace { padding: 1rem; }
+.media-workspace h2 { margin-top: 0; }
+.media-fields { display: grid; gap: .8rem; max-width: 42rem; }
+.media-field { display: grid; gap: .3rem; color: #b9c1cb; }
+.media-field input { min-height: 2.1rem; padding: .35rem .5rem; border: 1px solid #48515c; border-radius: 4px; background: #111316; color: #eef2f6; }
+.checkbox-field { display: flex; grid-template-columns: none; align-items: center; gap: .5rem; }
+.checkbox-field input { min-height: auto; width: 1rem; }
+.media-input-list { display: grid; gap: .45rem; border: 1px solid #3b444f; padding: .7rem; }
+.media-input-list legend { color: #b9c1cb; padding: 0 .3rem; }
+.media-actions, .cropper-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .55rem; margin-top: 1.2rem; }
+.job-status { color: #f6c453; font-size: .85rem; }
+.job-log { min-height: 12rem; max-height: 28rem; overflow: auto; margin: 1rem 0 0; padding: .8rem; border: 1px solid #343b45; background: #101214; color: #d3dae2; white-space: pre-wrap; }
+.cropper-layout { display: grid; grid-template-columns: 220px minmax(0, 1fr) 280px; gap: 1rem; max-width: 90rem; height: calc(100vh - 190px); min-height: 420px; margin: auto; }
+.cropper-sidebar { overflow: auto; padding: .6rem; }
+.cropper-sidebar .section-label { padding: .4rem; }
+.cropper-task { display: block; width: 100%; padding: .65rem; border: 0; border-top: 1px solid #343b45; background: transparent; color: #dbe2ea; text-align: left; cursor: pointer; }
+.cropper-task.active { background: #2d3945; color: #fff; }
+.cropper-task.saved::after { content: "  saved"; color: #f6c453; font-size: .75rem; }
+.cropper-stage-wrap { min-width: 0; min-height: 0; padding: .8rem; border: 1px solid #343b45; border-radius: 6px; background: #101214; }
+#cropper-canvas { display: block; width: 100%; height: 100%; object-fit: contain; cursor: crosshair; }
+.cropper-inspector { overflow: auto; padding: 1rem; }
+.cropper-inspector h2 { margin-top: 0; overflow-wrap: anywhere; }
+.cropper-inspector dl { display: grid; grid-template-columns: 58px minmax(0, 1fr); gap: .45rem; font-size: .8rem; }
+.cropper-inspector dd { margin: 0; overflow-wrap: anywhere; color: #b9c1cb; }
+@media (max-width: 900px) { .media-layout, .cropper-layout { grid-template-columns: 1fr; height: auto; } .cropper-stage-wrap { min-height: 55vh; } }

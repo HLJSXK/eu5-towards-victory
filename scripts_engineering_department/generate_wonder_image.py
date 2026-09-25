@@ -938,8 +938,9 @@ def write_metadata(path: Path, payload: dict[str, Any], response: dict[str, Any]
     path.write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
-def main(argv: list[str] | None = None) -> int:
-    args = parse_args(sys.argv[1:] if argv is None else argv)
+def run(options: dict[str, Any] | argparse.Namespace) -> int:
+    """Run generation from normalized options shared by CLI and Web."""
+    args = options if isinstance(options, argparse.Namespace) else argparse.Namespace(**options)
     config = load_config()
     api_config = require_object(config, "api")
     dds_config = require_object(config, "dds")
@@ -1058,6 +1059,10 @@ def main(argv: list[str] | None = None) -> int:
             print("[png] removed because output.keep_png is false")
 
     return 0
+
+
+def main(argv: list[str] | None = None) -> int:
+    return run(parse_args(sys.argv[1:] if argv is None else argv))
 
 
 if __name__ == "__main__":

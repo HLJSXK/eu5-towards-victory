@@ -1,57 +1,47 @@
-# Towards Victory 编辑器 Web
+# Towards Victory Web Workspace
 
-把原先各自独立的三个 Web 工具——花费/奖励/Modifier/任务池编辑器、胜利之路节点位置规划器、
-奇观本地化编辑器——合并成一个 FastAPI 应用、一个端口、一个页面。三个工具原来各自的服务层
-（`CostRewardEditorService`/`VictoryTreePlannerService`/`WonderLocalizationService`）与前端
-业务逻辑基本保持不变，迁移到本包下的 `services/` 与 `static/`；真正合并的是：
+The repository has one local web server for project editing and media work:
 
-- **路由**：原来三个工具都各自定义 `/api/bootstrap`、`/static/*`（cost_reward 和 victory_tree
-  还都定义了 `/api/save`），现在统一按工具前缀区分：`/api/cost-reward/*`、`/api/victory-tree/*`、
-  `/api/wonder-localization/*`，图片静态资源仍是 `/tree-previews/*`、`/wonder-images/*`（本来就
-  互不冲突）。
-- **异常处理**：三个工具原来在每个路由里手写的
-  `except KeyError: 404 / except ValueError: 400 / except RuntimeError: 500 / except Exception: 500`
-  样板代码完全相同，现在提到 `server.py` 顶层用 FastAPI 的 `exception_handler` 统一注册一次，
-  路由函数本身不再重复这段 try/except。
-- **日志缓冲**：三个服务原来各自实现了几乎一样的"有上限的滚动日志列表"（`_log_lines`/
-  `_append_log`、`_log_fragments`），现在共用 `services/common.py` 里的 `RollingLog`。
-- **前端**：一个共享外壳页面 `static/index.html`（标签页 + 三个 `<section>`），三个工具原来的
-  页面主体内容原样搬进各自的 `<section>`；三份 `app.js` 仍各自是独立的 ES module（`type="module"`
-  意味着它们本来就不共享顶层作用域，不需要为此重写业务逻辑），只改了少量确实冲突的 DOM id
-  （`cost_reward` 和 `victory_tree` 都用过的 `tabs`/`save-btn`/`reload-btn`/`log`，改成
-  `cr-*`/`vt-*` 前缀）和 fetch 路径；三份 CSS 用 `@scope` 包裹后各自只在自己的 `<section>`
-  内生效，不再互相覆盖 `body`/`button` 等通用选择器样式。
+- cost/reward data editor;
+- victory tree planner;
+- wonder localization and mechanics editor;
+- DDS icon generator;
+- wonder image generator and DDS rebuild;
+- deterministic historical image styling;
+- configured historical image API batch;
+- 27:11 wonder image cropper and DDS rebuild.
 
-`wonder_localization` 服务在构造时会校验 `data/wonder_localization.yaml`
-的本地化完整性，如果校验失败会在启动时被单独捕获——不会连带整个应用无法启动，只有奇观本地化
-这一个标签页会显示 503 错误，另外两个工具仍可正常使用。
-
-## 安装依赖
+Start it with the managed project interpreter:
 
 ```powershell
-conda run --no-capture-output -n eu5 python -m pip install -r towards_victory_editor_web/requirements.txt
+C:\Users\Hades\anaconda3\envs\eu5\python.exe -m towards_victory_editor_web --no-browser
 ```
 
-## 启动
+The default address is `http://127.0.0.1:8760/`. Use `--host`, `--port`, or
+omit `--no-browser` when a browser tab should open automatically. The older
+standalone cropper server and its port no longer exist; all crop operations are
+under the `Wonder cropper` tab and `/api/cropper/*`.
+
+Run the server checks without starting Uvicorn:
 
 ```powershell
-conda run --no-capture-output -n eu5 python scripts/towards_victory_editor.py
-# 或
-conda run --no-capture-output -n eu5 python -m towards_victory_editor_web
+C:\Users\Hades\anaconda3\envs\eu5\python.exe -m towards_victory_editor_web --check
 ```
 
-默认监听 `127.0.0.1:8760`。常用参数：
+Media jobs are submitted through `/api/jobs` and expose status, bounded logs,
+return codes, cancellation, artifact manifests, and output-format validation at
+`/api/jobs/{job_id}`. Every runnable tool implements the same `ToolHandler`
+contract (`validate`, `roots`, `run`) and runs in-process through the shared
+`JobManager`; the command-line entry points are thin adapters over the same
+generator `run(options)` APIs. There is one option schema for the Web forms,
+one execution lock for image writers, and one artifact snapshot/validation
+path for PNG, DDS, JPEG, and JSON outputs.
 
-```powershell
-conda run --no-capture-output -n eu5 python scripts/towards_victory_editor.py --host 127.0.0.1 --port 8760 --no-browser
-conda run --no-capture-output -n eu5 python scripts/towards_victory_editor.py --check
-```
+The three data editors are registered in the same tool catalog as interactive
+tools. Their specialized editing endpoints remain available because they need
+structured draft/save operations rather than a batch job, but they share the
+same server, static shell, error boundary, and tool discovery contract.
 
-`--check` 依次运行三个工具各自的无头数据校验（`build_check_report()`），按工具名分组打印，
-不启动服务器；某个工具校验失败不会中断其余工具的校验（见 `services/common.py` 的 `safe_check`）。
-
-## 保存行为
-
-与合并前完全一致：每个工具的保存逻辑、写入的 YAML 文件、校验规则都未改变，只是路由前缀和
-异常处理位置变了。三个工具原有的独立启动方式（各自的端口 8765/8766/8767）已被本包完全取代，
-不再保留。
+The image styling tool requires the packages in `requirements-image.txt`.
+Generation tools that call an image API still require the API key configured
+by their existing JSON configuration or environment variables.

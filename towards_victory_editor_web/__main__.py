@@ -15,6 +15,8 @@ def _run_combined_check() -> None:
     from .services.cost_reward import build_check_report as cost_reward_check
     from .services.victory_tree import build_check_report as victory_tree_check
     from .services.wonder_localization import build_check_report as wonder_localization_check
+    from .services.media import bootstrap_payload, registry
+    from .services.cropper import cropper
 
     tools = [
         ("cost_reward", cost_reward_check),
@@ -25,16 +27,20 @@ def _run_combined_check() -> None:
         print(f"=== {name} ===")
         for line in safe_check(name, check_fn):
             print(line)
+    print("=== media ===")
+    payload = bootstrap_payload()
+    print(f"[PASS] registered tools: {len(registry.payload())} ({len(payload['tools'])} runnable media tools)")
+    print(f"[PASS] cropper images discovered: {len(cropper.tasks)}")
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Run the merged Towards Victory editor web app (cost/reward, victory tree, wonder localization)."
+        description="Run the unified Towards Victory web workspace (editors, media generators, and wonder cropper)."
     )
     parser.add_argument(
         "--check",
         action="store_true",
-        help="run all three tools' data validation checks, then exit without starting the web app",
+        help="run editor checks and unified media discovery checks, then exit",
     )
     parser.add_argument("--host", default="127.0.0.1", help="host interface for the web server")
     parser.add_argument("--port", type=int, default=8760, help="port for the web server")
@@ -53,7 +59,7 @@ def main() -> None:
         raise SystemExit(
             "Missing dependency: uvicorn/fastapi.\n"
             "Install them in the eu5 environment first, for example:\n"
-            "conda run --no-capture-output -n eu5 python -m pip install -r towards_victory_editor_web/requirements.txt"
+            "C:\\Users\\Hades\\anaconda3\\envs\\eu5\\python.exe -m pip install -r towards_victory_editor_web/requirements.txt"
         ) from exc
 
     url = f"http://{args.host}:{args.port}/"

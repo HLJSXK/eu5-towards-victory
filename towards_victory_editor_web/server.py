@@ -15,6 +15,10 @@ from .services.wonder_localization import (
     WONDER_IMAGE_URL_PREFIX,
     WonderLocalizationService,
 )
+from .services.cropper import cropper
+from .services.media import bootstrap_payload as media_bootstrap
+from .services.media import registry
+from .services.media import jobs
 
 PACKAGE_ROOT = Path(__file__).resolve().parent
 STATIC_DIR = PACKAGE_ROOT / "static"
@@ -50,6 +54,15 @@ class SaveRitualPromptRequest(BaseModel):
     prompt: str = ""
 
 
+class JobRequest(BaseModel):
+    tool: str
+    options: dict[str, Any] = Field(default_factory=dict)
+
+
+class CropRequest(BaseModel):
+    rect: dict[str, Any] = Field(default_factory=dict)
+
+
 def create_app() -> FastAPI:
     app = FastAPI(
         title="Towards Victory Editor Web",
@@ -59,7 +72,7 @@ def create_app() -> FastAPI:
 
     # Shared exception-handling boundary, replacing the identical
     # try/except KeyError->404 / ValueError->400 / RuntimeError->500 / Exception->500
-    # block that used to be repeated in every route of all three standalone tools.
+    # block that used to be repeated in every editor route.
     @app.exception_handler(KeyError)
     async def _handle_key_error(request, exc: KeyError):
         return JSONResponse(status_code=404, content={"detail": str(exc)})
@@ -189,6 +202,51 @@ def create_app() -> FastAPI:
         StaticFiles(directory=GENERATED_WONDER_IMAGES_DIR, check_dir=False),
         name="wonder-images",
     )
+
+    # --- Unified media workspace ---------------------------------------------
+    @app.get("/api/tools")
+    def tools_bootstrap() -> dict[str, Any]:
+        return {
+            "tools": registry.payload(),
+            **{key: value for key, value in media_bootstrap().items() if key != "tools"},
+        }
+
+    @app.get("/api/media/bootstrap")
+    def media_tools_bootstrap() -> dict[str, Any]:
+        return media_bootstrap()
+
+    @app.post("/api/jobs")
+    def create_job(request: JobRequest) -> dict[str, Any]:
+        return jobs.submit(request.tool, request.options).payload()
+
+    @app.get("/api/jobs/{job_id}")
+    def get_job(job_id: str) -> dict[str, Any]:
+        return jobs.get(job_id).payload()
+
+    @app.post("/api/jobs/{job_id}/cancel")
+    def cancel_job(job_id: str) -> dict[str, Any]:
+        return jobs.cancel(job_id).payload()
+
+    @app.get("/api/cropper/bootstrap")
+    def cropper_bootstrap() -> dict[str, Any]:
+        return cropper.bootstrap()
+
+    @app.get("/api/cropper/image/{index}")
+    def cropper_image(index: int) -> FileResponse:
+        task = cropper._task(index)
+        return FileResponse(task.png_path)
+
+    @app.post("/api/cropper/{index}/save")
+    def cropper_save(index: int, request: CropRequest) -> dict[str, Any]:
+        return cropper.save(index, request.rect)
+
+    @app.post("/api/cropper/{index}/remove")
+    def cropper_remove(index: int) -> dict[str, Any]:
+        return cropper.remove(index)
+
+    @app.post("/api/cropper/apply")
+    def cropper_apply() -> dict[str, Any]:
+        return jobs.submit("media.wonder_crop", {}).payload()
 
     return app
 

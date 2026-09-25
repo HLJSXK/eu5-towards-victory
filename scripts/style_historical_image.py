@@ -19,7 +19,7 @@ from PIL import Image, ImageDraw
 from skimage import color, filters, metrics, morphology
 
 
-def parse_args() -> argparse.Namespace:
+def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "inputs",
@@ -40,7 +40,7 @@ def parse_args() -> argparse.Namespace:
         help="write the named intermediate stages as JPEG files",
     )
     parser.add_argument("--seed", type=int, default=17, help="seed for repeatable paper grain")
-    return parser.parse_args()
+    return parser.parse_args(argv)
 
 
 def resize_image(image: Image.Image, max_size: int) -> Image.Image:
@@ -290,8 +290,8 @@ def run(input_path: Path, output_dir: Path, max_size: int, keep_intermediates: b
     return {"final": final_path, "comparison": comparison_path, "report": report_path, "size": source_image.size}
 
 
-def main() -> None:
-    args = parse_args()
+def main(argv: list[str] | None = None) -> None:
+    args = parse_args(argv)
     if args.max_size <= 0:
         raise SystemExit("--max-size must be a positive integer")
 

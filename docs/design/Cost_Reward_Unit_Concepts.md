@@ -52,7 +52,7 @@ tables instead of inventing new magnitudes from scratch.
 
 Section 1-3 numbers, and the `country_modifier`/`local_modifier` generic entries in sections 4-5,
 all live in `data/cost_reward_units.yaml` and can be tuned independently of any one system
-through the merged `towards_victory_editor_web/` tool's cost/reward tab (`scripts/towards_victory_editor.py`,
+through the unified `towards_victory_editor_web/` tool's cost/reward tab (`python -m towards_victory_editor_web`,
 five tabs), without touching any other file or triggering any regeneration. The wonder-specific
 modifier tables in sections 4-5 are still the wonder system's own live data; retuning them
 retunes the wonder system directly. If a future mechanic genuinely needs different magnitudes
@@ -623,7 +623,7 @@ from the first wave's flat magnitudes.
   Numeric modifier entries are per-level; the two country unlock rows are literal YAML
   `value: true`/`value: false` non-scaling switches. Each entry is an `id`/`value`/`loc`.
   Edited through the merged `towards_victory_editor_web/` tool's cost/reward tab
-  (`scripts/towards_victory_editor.py`, default port 8760, five tabs).
+  (`python -m towards_victory_editor_web`, default port 8760, five tabs).
 - `data/wonder_construction_events.yaml` — the wonder system's own, independent copy of
   cost/reward token magnitudes (both `engineering_tokens` and `non_engineering_tokens` carry a
   `value` field). Not read by, and does not read from, `cost_reward_units.yaml`.

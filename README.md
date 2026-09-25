@@ -76,4 +76,18 @@ configuration is the `historical_images` section in the repository-root
 See [the historical image pipeline](docs/design/Historical_Image_Postprocessing_Pipeline.md)
 for stages, review criteria, and generated evaluation reports.
 
+## Unified Web Workspace
+
+All human-operated project tools are available from one FastAPI server:
+
+```powershell
+C:\Users\Hades\anaconda3\envs\eu5\python.exe -m towards_victory_editor_web --no-browser
+```
+
+Open `http://127.0.0.1:8760/` and use the tabs for the three data editors,
+DDS icon generation, wonder image generation, local historical styling,
+historical API batches, and the 27:11 wonder cropper. Long-running generators
+run as cancellable jobs with live logs. The standalone wonder cropper server
+was removed; crop data and DDS rebuilds now use the unified server.
+
 **Mod ID:** `eu5mp.towards_victory` | **Version:** build date (`YYMMDD`) | **Target:** EU5 `1.*.*`

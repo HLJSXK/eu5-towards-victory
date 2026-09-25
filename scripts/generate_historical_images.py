@@ -126,10 +126,9 @@ def edit_image(config: dict, source: Path, api_key: str) -> bytes:
     return image
 
 
-def main() -> int:
-    parser = argparse.ArgumentParser(description="Edit the configured historical images into styled PNGs.")
-    parser.add_argument("--dry-run", action="store_true", help="List pending edits without calling the API")
-    args = parser.parse_args()
+def run(options: dict[str, object] | argparse.Namespace) -> int:
+    """Run the configured batch from normalized application options."""
+    dry_run = bool(options.dry_run) if isinstance(options, argparse.Namespace) else bool(options.get("dry_run", False))
     config, tasks = load_tasks()
     print(f"[config] {CONFIG_PATH.relative_to(REPO_ROOT)}")
     pending = [(source, output) for source, output in tasks if config["overwrite"] or not output.exists()]
@@ -138,7 +137,7 @@ def main() -> int:
             print(f"[skip] {output.relative_to(REPO_ROOT)} exists; overwrite=false")
     if not pending:
         return 0
-    if args.dry_run:
+    if dry_run:
         print(f"[dry-run] POST {config['endpoint']}")
         for source, output in pending:
             print(f"[dry-run] {source.relative_to(REPO_ROOT)} -> {output.relative_to(REPO_ROOT)}")
@@ -156,6 +155,12 @@ def main() -> int:
             temporary.unlink(missing_ok=True)
         print(f"[write] {output.relative_to(REPO_ROOT)}")
     return 0
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description="Edit the configured historical images into styled PNGs.")
+    parser.add_argument("--dry-run", action="store_true", help="List pending edits without calling the API")
+    return run(parser.parse_args(argv))
 
 
 if __name__ == "__main__":
