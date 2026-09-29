@@ -10,6 +10,8 @@
 
 ## 现状基线
 
+以下架构诊断记录迁移前的基线；具体切片进度以文末“当前验证结果”为准。
+
 ### 入口已经合并，服务没有合并
 
 `server.py` 分别实例化 `CostRewardEditorService`、`VictoryTreePlannerService` 和 `WonderLocalizationService`，然后再独立接入 `cropper`、`registry` 和 `jobs`（见 [server.py](../../towards_victory_editor_web/server.py)）。三个编辑器有自己的 bootstrap/save 路由，媒体工具走另一套 `/api/tools`、`/api/jobs` 协议。
@@ -276,7 +278,7 @@ ArtifactReport + OperationLog
 
 ## 当前验证结果
 
-本次核对后已完成 cost/reward 统一资源协议的修正版切片；其余编辑器仍未迁移。现有基线检查通过：
+目前已完成 cost/reward 与 victory tree 两个统一资源协议切片；wonder、media/cropper 仍未迁移。现有基线检查通过：
 
 - `python -m towards_victory_editor_web --check`：cost/reward 459 条、task pool 96 条、victory tree 104 个节点、192 个 wonder 的生成与本地化检查均通过；媒体注册 8 项、可运行媒体工具 5 项、cropper 发现 196 张图片。
 - `python -m compileall -q towards_victory_editor_web` 通过。
@@ -286,9 +288,13 @@ ArtifactReport + OperationLog
 
 - `GET /api/resources/editor.cost_reward` 返回 `ResourceDescriptor`、draft 和仓库相对路径的源文件快照；
 - `POST /api/resources/editor.cost_reward/{validate,preview,commit}` 提供统一操作入口；校验和预览基于深拷贝，commit 强制携带加载时的 base 摘要，冲突返回 409，写入走暂存替换；
-- 仓库测试 `tests/test_cost_reward_resource_contract.py` 使用与仓库一致的 `data/` 目录结构，覆盖校验隔离、未知分类、字段级 diff、文件头注释与 BOM 保留、base 冲突检测；
-- `services/platform.py` 提供文件快照、`ChangeSet` 和暂存替换基础设施，后续 tree/wonder/media 适配器可复用。
+- 仓库测试 `tests/test_cost_reward_resource_contract.py` 使用临时目录中的固定样本，覆盖校验隔离、未知分类、字段级 diff、文件头注释与 BOM 保留、外部修改后重新加载，以及旧 base 冲突检测；
+- `services/platform.py` 提供文件快照、`ChangeSet` 和暂存替换基础设施，tree 已复用，wonder/media 后续仍可接入。
+- `GET /api/resources/editor.victory_tree` 返回树变体和坐标源文件快照及原有画布 draft；`POST /api/resources/editor.victory_tree/{validate,preview,commit}` 保留完整节点集合与归一化坐标校验，preview 给出字段级坐标 diff，commit 校验两个源文件摘要并只写坐标 YAML。旧 tree bootstrap/save 路由已删除，前端保留原有拖拽交互并改用新端点。
+- 两个服务在同一次文件读取中解析 YAML 并记录加载时的摘要。preview 与 commit 都必须携带客户端 base（缺失返回 400），并要求客户端 base、加载摘要和当前磁盘摘要三者一致，否则返回 409；持有旧 base 的标签页不能借 preview 取得新 base。tree 在节点增删后保留仍存在节点的手工坐标，仅给新增节点填入默认坐标；坐标文件中格式错误的条目会以包含路径与节点 ID 的错误返回 500。
+- `tests/test_victory_tree_resource_contract.py` 使用固定样本覆盖画布 draft 等价、预览隔离、非法坐标、节点增删后的坐标保留、并发冲突、旧标签页经 preview 刷新 base、坐标文件格式错误、写入失败与坐标文件缺失时的首次保存；两个编辑器契约测试共 16 项通过，FastAPI 测试验证了 400 和 409 的映射。
+- `python scripts/validate.py --changed --ai-report`、Python 编译检查、两个编辑器 JavaScript 语法检查与 `git diff --check` 通过；未运行会改写文件的 `--fix`。
 
-这些结果说明当前数据和语法处于可运行状态；目前只有 cost/reward 已接入统一资源协议，victory tree、wonder 和 media 仍需按同一契约迁移。前端 cost/reward 已改用新资源接口，旧的 `/api/cost-reward/bootstrap`、`/api/cost-reward/save` 路由已删除。
+这些结果说明当前数据和语法处于可运行状态；cost/reward 与 victory tree 已接入统一资源协议，wonder 和 media/cropper 仍需按同一契约迁移。tree 的 DDS 背景预览仍在服务初始化时解码，不属于坐标提交的生成产物。前端 cost/reward 已改用新资源接口，旧的 `/api/cost-reward/bootstrap`、`/api/cost-reward/save` 路由已删除。
 
-已知限制：保存仍会整体重写 YAML 文件（与迁移前行为一致）。文件头注释和原有 BOM 状态会保留，但正文中的分节注释（如 `task_pool.yaml` 的 `# --- Military ---`）不会被保留，字符串引号也会被统一去掉。若后续要求保留正文注释和字段顺序，需要改成定点改写或往返式 YAML 读写，属于独立任务。
+已知限制：保存仍会整体重写 YAML 文件（与迁移前行为一致）。文件头注释和原有 BOM 状态会保留，但正文中的分节注释（如 `task_pool.yaml` 的 `# --- Military ---`）不会被保留，字符串引号也会被统一去掉。若后续要求保留正文注释和字段顺序，需要改成定点改写或往返式 YAML 读写，属于独立任务。409 后草稿仍保留在页面中；重新加载会提示确认，但目前没有自动合并外部修改与未保存草稿。`atomic_write_files` 会先暂存全部内容，但跨多个目标文件的替换并非全局原子操作；wonder 的多文件事务与生成器回滚仍未实现。

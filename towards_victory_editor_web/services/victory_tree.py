@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 import sys
 import threading
 from typing import Any
@@ -7,14 +8,16 @@ from typing import Any
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
-from scripts_engineering_department.wonder_mechanics.io import REPO_ROOT, load_yaml, save_yaml_document
+from scripts_engineering_department.wonder_mechanics.io import REPO_ROOT, load_yaml
 
 from .common import RollingLog
+from .platform import ChangeSet, ResourceDescriptor, assert_resource_base, atomic_write_files, load_yaml_snapshots, snapshot_files, yaml_bytes
 
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 from dds_image_lib import encode_png_rgba, read_dds  # noqa: E402
 
 TREE_VARIANT_FILE = REPO_ROOT / "data" / "victory_path_tree_variant.yaml"
+TREE_VARIANT_REL = "data/victory_path_tree_variant.yaml"
 POSITIONS_FILE = REPO_ROOT / "data" / "victory_tree_node_positions.yaml"
 POSITIONS_REL = "data/victory_tree_node_positions.yaml"
 
@@ -108,26 +111,40 @@ class VictoryTreePlannerService:
     def __init__(self) -> None:
         self._lock = threading.Lock()
         self._log = RollingLog(max_lines=4000)
-        self.tree_variant: dict = load_yaml(TREE_VARIANT_FILE)
-        self.positions: dict[str, dict[str, dict[str, float]]] = self._load_positions()
+        self.reload_from_disk()
         self._ensure_tree_previews()
 
-    def _load_positions(self) -> dict[str, dict[str, dict[str, float]]]:
-        try:
-            raw = load_yaml(POSITIONS_FILE)
-        except FileNotFoundError:
-            raw = {}
+    def reload_from_disk(self) -> None:
+        documents, snapshots = load_yaml_snapshots(
+            (TREE_VARIANT_FILE, POSITIONS_FILE), repo_root=REPO_ROOT, optional=(POSITIONS_FILE,)
+        )
+        tree_variant = documents[TREE_VARIANT_FILE]
+        raw_positions = documents[POSITIONS_FILE] or {}
+        positions = self._load_positions(tree_variant, raw_positions)
+        self.tree_variant = tree_variant
+        self.positions = positions
+        self._positions_dirty = raw_positions != positions
+        self._base = snapshots
+
+    @staticmethod
+    def _load_positions(tree_variant: dict, raw: dict) -> dict[str, dict[str, dict[str, float]]]:
         positions: dict[str, dict[str, dict[str, float]]] = {}
-        for path in self.tree_variant["paths"]:
+        for path in tree_variant["paths"]:
             path_id = path["id"]
-            node_ids = {n["id"] for n in _build_path_nodes(path)}
+            _build_path_nodes(path)
             stored = raw.get(path_id) if isinstance(raw, dict) else None
-            if stored and set(stored.keys()) == node_ids:
-                positions[path_id] = {
-                    node_id: {"x": float(coord["x"]), "y": float(coord["y"])} for node_id, coord in stored.items()
-                }
-            else:
-                positions[path_id] = _default_positions(path)
+            defaults = _default_positions(path)
+            path_positions: dict[str, dict[str, float]] = {}
+            for node_id, default in defaults.items():
+                if not isinstance(stored, dict) or node_id not in stored:
+                    path_positions[node_id] = default
+                    continue
+                coord = stored[node_id]
+                try:
+                    path_positions[node_id] = {"x": float(coord["x"]), "y": float(coord["y"])}
+                except (KeyError, TypeError, ValueError) as exc:
+                    raise RuntimeError(f"{POSITIONS_REL}: {path_id}.{node_id} must have numeric x/y, got {coord!r}") from exc
+            positions[path_id] = path_positions
         return positions
 
     def _ensure_tree_previews(self) -> None:
@@ -139,6 +156,14 @@ class VictoryTreePlannerService:
             image = read_dds(dds_path)
             png_path.write_bytes(encode_png_rgba(image))
             self._log.append(f"[preview] Decoded {dds_path.relative_to(REPO_ROOT)} -> {png_path.relative_to(REPO_ROOT)}\n")
+
+    def resource_descriptor(self) -> ResourceDescriptor:
+        return ResourceDescriptor(
+            id="editor.victory_tree",
+            kind="yaml_graph",
+            label="Victory tree layout",
+            source_paths=(TREE_VARIANT_REL, POSITIONS_REL),
+        )
 
     def bootstrap_payload(self) -> dict:
         paths = []
@@ -163,31 +188,115 @@ class VictoryTreePlannerService:
             "log": self._log.tail_text(200),
         }
 
-    def save_positions(self, edits: dict[str, dict[str, dict[str, Any]]]) -> dict:
+    def load_resource(self) -> dict:
         with self._lock:
-            paths_by_id = {path["id"]: path for path in self.tree_variant["paths"]}
+            self.reload_from_disk()
+            return self._resource_payload()
 
-            for path_id, coords in edits.items():
-                if path_id not in paths_by_id:
-                    raise KeyError(f"Unknown victory path id: {path_id}")
-                expected_ids = {n["id"] for n in _build_path_nodes(paths_by_id[path_id])}
-                seen_ids = set(coords.keys())
-                if seen_ids != expected_ids:
-                    missing = sorted(expected_ids - seen_ids)
-                    extra = sorted(seen_ids - expected_ids)
-                    raise ValueError(f"{path_id}: node id mismatch (missing={missing}, extra={extra})")
-                normalized = {}
-                for node_id, coord in coords.items():
+    def _resource_payload(self) -> dict:
+        return {
+            "resource": self.resource_descriptor().payload(),
+            "draft": self.bootstrap_payload(),
+            "change_set": ChangeSet(
+                self.resource_descriptor().id,
+                (TREE_VARIANT_REL, POSITIONS_REL),
+                self._base,
+            ).payload(),
+        }
+
+    def _validate_and_apply(self, edits: dict[str, dict[str, dict[str, Any]]]) -> dict[str, dict[str, dict[str, float]]]:
+        positions = copy.deepcopy(self.positions)
+        paths_by_id = {path["id"]: path for path in self.tree_variant["paths"]}
+
+        for path_id, coords in edits.items():
+            if path_id not in paths_by_id:
+                raise ValueError(f"Unknown victory path id: {path_id}")
+            if not isinstance(coords, dict):
+                raise ValueError(f"{path_id}: node positions must be a mapping")
+            expected_ids = {n["id"] for n in _build_path_nodes(paths_by_id[path_id])}
+            seen_ids = set(coords.keys())
+            if seen_ids != expected_ids:
+                missing = sorted(expected_ids - seen_ids)
+                extra = sorted(seen_ids - expected_ids)
+                raise ValueError(f"{path_id}: node id mismatch (missing={missing}, extra={extra})")
+            normalized: dict[str, dict[str, float]] = {}
+            for node_id, coord in coords.items():
+                if not isinstance(coord, dict) or "x" not in coord or "y" not in coord:
+                    raise ValueError(f"{path_id}.{node_id}: x/y coordinates are required")
+                if isinstance(coord["x"], bool) or isinstance(coord["y"], bool):
+                    raise ValueError(f"{path_id}.{node_id}: x/y must be numbers")
+                try:
                     x = float(coord["x"])
                     y = float(coord["y"])
-                    if not (0.0 <= x <= 1.0) or not (0.0 <= y <= 1.0):
-                        raise ValueError(f"{path_id}.{node_id}: x/y must be within 0..1, got x={x}, y={y}")
-                    normalized[node_id] = {"x": round(x, 4), "y": round(y, 4)}
-                self.positions[path_id] = normalized
+                except (TypeError, ValueError) as exc:
+                    raise ValueError(f"{path_id}.{node_id}: x/y must be numbers") from exc
+                if not (0.0 <= x <= 1.0) or not (0.0 <= y <= 1.0):
+                    raise ValueError(f"{path_id}.{node_id}: x/y must be within 0..1, got x={x}, y={y}")
+                normalized[node_id] = {"x": round(x, 4), "y": round(y, 4)}
+            positions[path_id] = normalized
+        return positions
 
-            save_yaml_document(POSITIONS_FILE, self.positions, preserve_leading_comments=True)
-            self._log.append(f"[save] Wrote {POSITIONS_REL}\n")
-            return self.bootstrap_payload()
+    @staticmethod
+    def _position_diff(
+        edits: dict[str, dict[str, dict[str, Any]]],
+        before: dict[str, dict[str, dict[str, float]]],
+        after: dict[str, dict[str, dict[str, float]]],
+    ) -> list[dict[str, Any]]:
+        result: list[dict[str, Any]] = []
+        for path_id, coords in edits.items():
+            for node_id in coords:
+                for axis in ("x", "y"):
+                    previous = before[path_id][node_id][axis]
+                    current = after[path_id][node_id][axis]
+                    if previous != current:
+                        result.append(
+                            {
+                                "path": POSITIONS_REL,
+                                "id": f"{path_id}.{node_id}",
+                                "field": axis,
+                                "before": previous,
+                                "after": current,
+                            }
+                        )
+        return result
+
+    def validate_edits(self, edits: dict[str, dict[str, dict[str, Any]]]) -> dict:
+        with self._lock:
+            try:
+                self._validate_and_apply(edits)
+            except (KeyError, ValueError) as exc:
+                return {
+                    "valid": False,
+                    "errors": [str(exc).strip("'\"")],
+                    "resource": self.resource_descriptor().payload(),
+                }
+            return {"valid": True, "errors": [], "resource": self.resource_descriptor().payload()}
+
+    def preview_edits(self, edits: dict[str, dict[str, dict[str, Any]]], base: dict[str, str] | None = None) -> dict:
+        with self._lock:
+            self._assert_base(base)
+            candidate = self._validate_and_apply(edits)
+            return {
+                "valid": True,
+                "errors": [],
+                "diff": self._position_diff(edits, self.positions, candidate),
+                "change_set": self._resource_payload()["change_set"],
+            }
+
+    def _assert_base(self, base: dict[str, str] | None) -> None:
+        current = snapshot_files((TREE_VARIANT_FILE, POSITIONS_FILE), repo_root=REPO_ROOT)
+        assert_resource_base(base, self._base, current)
+
+    def save_positions(self, edits: dict[str, dict[str, dict[str, Any]]], base: dict[str, str] | None = None) -> dict:
+        with self._lock:
+            self._assert_base(base)
+
+            candidate = self._validate_and_apply(edits)
+            if candidate != self.positions or self._positions_dirty:
+                atomic_write_files({POSITIONS_FILE: yaml_bytes(POSITIONS_FILE, candidate)})
+                self._log.append(f"[save] Wrote {POSITIONS_REL}\n")
+            self.reload_from_disk()
+            return self._resource_payload()
 
 
 def build_check_report() -> list[str]:
@@ -239,7 +348,11 @@ def build_check_report() -> list[str]:
         for node_id, coord in coords.items():
             total += 1
             x, y = coord.get("x"), coord.get("y")
-            if not isinstance(x, (int, float)) or not isinstance(y, (int, float)) or not (0 <= x <= 1) or not (0 <= y <= 1):
+            if (
+                isinstance(x, bool) or isinstance(y, bool)
+                or not isinstance(x, (int, float)) or not isinstance(y, (int, float))
+                or not (0 <= x <= 1) or not (0 <= y <= 1)
+            ):
                 lines.append(f"[FAIL] {path_id}.{node_id}: x/y must be numbers within 0..1, got x={x!r}, y={y!r}")
 
     if len(lines) == 1:

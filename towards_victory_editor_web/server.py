@@ -8,7 +8,7 @@ from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from .services.cost_reward import ConflictError, CostRewardEditorService
+from .services.cost_reward import CostRewardEditorService
 from .services.victory_tree import GENERATED_PREVIEWS_DIR, TREE_PREVIEW_URL_PREFIX, VictoryTreePlannerService
 from .services.wonder_localization import (
     GENERATED_WONDER_IMAGES_DIR,
@@ -19,6 +19,7 @@ from .services.cropper import cropper
 from .services.media import bootstrap_payload as media_bootstrap
 from .services.media import registry
 from .services.media import jobs
+from .services.platform import ConflictError
 
 PACKAGE_ROOT = Path(__file__).resolve().parent
 STATIC_DIR = PACKAGE_ROOT / "static"
@@ -31,6 +32,7 @@ class SaveCostRewardRequest(BaseModel):
 
 class SaveVictoryTreeRequest(BaseModel):
     edits: dict[str, dict[str, dict[str, Any]]] = Field(default_factory=dict)
+    base: dict[str, str] = Field(default_factory=dict)
 
 
 class SaveWonderRequest(BaseModel):
@@ -122,7 +124,7 @@ def create_app() -> FastAPI:
 
     @app.post("/api/resources/editor.cost_reward/preview")
     def cost_reward_preview(request: SaveCostRewardRequest) -> dict:
-        report = cost_reward_service.preview_edits(request.edits)
+        report = cost_reward_service.preview_edits(request.edits, request.base)
         return {"resource": cost_reward_service.resource_descriptor().payload(), **report}
 
     @app.post("/api/resources/editor.cost_reward/commit")
@@ -132,13 +134,22 @@ def create_app() -> FastAPI:
     # --- Victory tree planner --------------------------------------------------
     victory_tree_service = VictoryTreePlannerService()
 
-    @app.get("/api/victory-tree/bootstrap")
-    def victory_tree_bootstrap() -> dict:
-        return victory_tree_service.bootstrap_payload()
+    @app.get("/api/resources/editor.victory_tree")
+    def victory_tree_resource() -> dict:
+        return victory_tree_service.load_resource()
 
-    @app.post("/api/victory-tree/save")
-    def victory_tree_save(request: SaveVictoryTreeRequest) -> dict:
-        return victory_tree_service.save_positions(request.edits)
+    @app.post("/api/resources/editor.victory_tree/validate")
+    def victory_tree_validate(request: SaveVictoryTreeRequest) -> dict:
+        return victory_tree_service.validate_edits(request.edits)
+
+    @app.post("/api/resources/editor.victory_tree/preview")
+    def victory_tree_preview(request: SaveVictoryTreeRequest) -> dict:
+        report = victory_tree_service.preview_edits(request.edits, request.base)
+        return {"resource": victory_tree_service.resource_descriptor().payload(), **report}
+
+    @app.post("/api/resources/editor.victory_tree/commit")
+    def victory_tree_commit(request: SaveVictoryTreeRequest) -> dict:
+        return victory_tree_service.save_positions(request.edits, request.base)
 
     app.mount(
         TREE_PREVIEW_URL_PREFIX,

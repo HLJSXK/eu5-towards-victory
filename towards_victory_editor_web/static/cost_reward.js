@@ -16,7 +16,9 @@ async function fetchJson(url, options) {
   }
   if (!response.ok) {
     const detail = payload && payload.detail ? payload.detail : text || response.statusText;
-    throw new Error(detail);
+    const error = new Error(detail);
+    error.status = response.status;
+    throw error;
   }
   return payload;
 }
@@ -328,6 +330,7 @@ async function save() {
     appendLog("\n[ok] Saved.\n");
   } catch (err) {
     appendLog(`\n[error] ${err.message}\n`);
+    if (err.status === 409) appendLog("[conflict] 源文件已变化。请先核对未保存的修改，再重新加载。\n");
   } finally {
     saveBtn.disabled = false;
   }
@@ -335,6 +338,7 @@ async function save() {
 
 document.getElementById("cr-save-btn").addEventListener("click", save);
 document.getElementById("cr-reload-btn").addEventListener("click", () => {
+  if (Object.keys(state.edits).length && !confirm("重新加载会丢弃未保存的修改，继续吗？")) return;
   loadBootstrap().catch((err) => appendLog(`\n[error] ${err.message}\n`));
 });
 

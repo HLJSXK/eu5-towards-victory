@@ -11,11 +11,7 @@ if hasattr(sys.stdout, "reconfigure"):
 from scripts_engineering_department.wonder_mechanics.io import REPO_ROOT, load_yaml
 
 from .common import RollingLog
-from .platform import ChangeSet, ResourceDescriptor, atomic_write_files, snapshot_files, yaml_bytes
-
-
-class ConflictError(RuntimeError):
-    """Raised when a resource changed after the editor loaded its draft."""
+from .platform import ChangeSet, ResourceDescriptor, assert_resource_base, atomic_write_files, load_yaml_snapshots, snapshot_files, yaml_bytes
 
 DATA_FILE = REPO_ROOT / "data" / "cost_reward_units.yaml"
 DATA_REL = "data/cost_reward_units.yaml"
@@ -81,12 +77,13 @@ class CostRewardEditorService:
     def __init__(self) -> None:
         self._lock = threading.Lock()
         self._log = RollingLog(max_lines=4000)
-        self.data: dict = load_yaml(DATA_FILE)
-        self.task_data: dict = load_yaml(TASK_POOL_FILE)
+        self.reload_from_disk()
 
     def reload_from_disk(self) -> None:
-        self.data = load_yaml(DATA_FILE)
-        self.task_data = load_yaml(TASK_POOL_FILE)
+        documents, snapshots = load_yaml_snapshots((DATA_FILE, TASK_POOL_FILE), repo_root=REPO_ROOT)
+        self.data = documents[DATA_FILE]
+        self.task_data = documents[TASK_POOL_FILE]
+        self._base = snapshots
 
     def bootstrap_payload(self) -> dict:
         groups = []
@@ -111,17 +108,17 @@ class CostRewardEditorService:
 
     def load_resource(self) -> dict:
         with self._lock:
+            self.reload_from_disk()
             return self._resource_payload()
 
     def _resource_payload(self) -> dict:
-        files = (DATA_FILE, TASK_POOL_FILE)
         return {
             "resource": self.resource_descriptor().payload(),
             "draft": self.bootstrap_payload(),
             "change_set": ChangeSet(
                 self.resource_descriptor().id,
                 (DATA_REL, TASK_POOL_REL),
-                snapshot_files(files, repo_root=REPO_ROOT),
+                self._base,
             ).payload(),
         }
 
@@ -153,11 +150,16 @@ class CostRewardEditorService:
                 return {"valid": False, "errors": [str(exc).strip("'\\\"")], "resource": self.resource_descriptor().payload()}
             return {"valid": True, "errors": [], "resource": self.resource_descriptor().payload()}
 
-    def preview_edits(self, edits: dict[str, dict[str, dict[str, Any]]]) -> dict:
+    def preview_edits(self, edits: dict[str, dict[str, dict[str, Any]]], base: dict[str, str] | None = None) -> dict:
         with self._lock:
+            self._assert_base(base)
             candidate_data, candidate_tasks = self._validate_and_apply(edits)
             changes = self._field_diff(edits, self.data, self.task_data, candidate_data, candidate_tasks)
             return {"valid": True, "errors": [], "diff": changes, "change_set": self._resource_payload()["change_set"]}
+
+    def _assert_base(self, base: dict[str, str] | None) -> None:
+        current = snapshot_files((DATA_FILE, TASK_POOL_FILE), repo_root=REPO_ROOT)
+        assert_resource_base(base, self._base, current)
 
     @staticmethod
     def _field_diff(edits, before_data, before_tasks, after_data, after_tasks) -> list[dict[str, Any]]:
@@ -181,7 +183,7 @@ class CostRewardEditorService:
         by_id = {token["id"]: token for token in tokens}
         for token_id, fields in edits.items():
             if token_id not in by_id:
-                raise KeyError(f"Unknown unit id in {category_key}: {token_id}")
+                raise ValueError(f"Unknown unit id in {category_key}: {token_id}")
             token = by_id[token_id]
             if "value" in fields:
                 if isinstance(token.get("value"), bool):
@@ -201,7 +203,7 @@ class CostRewardEditorService:
         by_id = {token["id"]: token for token in tokens}
         for token_id, fields in edits.items():
             if token_id not in by_id:
-                raise KeyError(f"Unknown task id in on_action_task: {token_id}")
+                raise ValueError(f"Unknown task id in on_action_task: {token_id}")
             token = by_id[token_id]
             if "wired" in fields:
                 token["wired"] = _parse_bool(fields["wired"])
@@ -216,7 +218,7 @@ class CostRewardEditorService:
         by_id = {token["id"]: token for token in tokens}
         for token_id, fields in edits.items():
             if token_id not in by_id:
-                raise KeyError(f"Unknown task id in trigger_task: {token_id}")
+                raise ValueError(f"Unknown task id in trigger_task: {token_id}")
             token = by_id[token_id]
             if "comparison" in fields:
                 comparison = str(fields["comparison"]).strip()
@@ -245,13 +247,7 @@ class CostRewardEditorService:
 
     def save_tokens(self, edits: dict[str, dict[str, dict[str, Any]]], base: dict[str, str] | None = None) -> dict:
         with self._lock:
-            current = {item.path: item.sha256 for item in snapshot_files((DATA_FILE, TASK_POOL_FILE), repo_root=REPO_ROOT)}
-            expected_paths = {DATA_REL, TASK_POOL_REL}
-            if set(base or {}) != expected_paths:
-                raise ValueError("base must include snapshots for both resource files")
-            for path in (DATA_REL, TASK_POOL_REL):
-                if current.get(path) != base[path]:
-                    raise ConflictError(f"Resource changed since load: {path}")
+            self._assert_base(base)
             candidate_data, candidate_tasks = self._validate_and_apply(edits)
             touched_cost_reward = any(edits.get(key) for key in CATEGORY_KEYS)
             touched_task_pool = any(edits.get(key) for key in TASK_CATEGORY_KEYS)

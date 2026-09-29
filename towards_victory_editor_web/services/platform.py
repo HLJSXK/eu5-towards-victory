@@ -14,6 +14,12 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable
 
+from scripts_engineering_department.wonder_mechanics._core import StrictWonderYamlLoader
+
+
+class ConflictError(RuntimeError):
+    """Raised when a resource changed after the editor loaded its draft."""
+
 
 @dataclass(frozen=True)
 class ResourceDescriptor:
@@ -60,7 +66,6 @@ class ChangeSet:
 def snapshot_files(paths: Iterable[Path], *, repo_root: Path | None = None) -> tuple[FileSnapshot, ...]:
     snapshots: list[FileSnapshot] = []
     for path in paths:
-        data = path.read_bytes()
         resolved = path.resolve()
         display_path = str(resolved)
         if repo_root is not None:
@@ -68,8 +73,57 @@ def snapshot_files(paths: Iterable[Path], *, repo_root: Path | None = None) -> t
                 display_path = str(resolved.relative_to(repo_root.resolve())).replace("\\", "/")
             except ValueError:
                 pass
-        snapshots.append(FileSnapshot(display_path, hashlib.sha256(data).hexdigest(), len(data)))
+        try:
+            data = path.read_bytes()
+        except FileNotFoundError:
+            snapshots.append(FileSnapshot(display_path, "missing", 0))
+        else:
+            snapshots.append(FileSnapshot(display_path, hashlib.sha256(data).hexdigest(), len(data)))
     return tuple(snapshots)
+
+
+def load_yaml_snapshots(
+    paths: Iterable[Path], *, repo_root: Path, optional: Iterable[Path] = ()
+) -> tuple[dict[Path, dict | None], tuple[FileSnapshot, ...]]:
+    """Parse and hash each YAML source from the same read."""
+    optional_paths = set(optional)
+    documents: dict[Path, dict | None] = {}
+    snapshots: list[FileSnapshot] = []
+    for path in paths:
+        display_path = str(path.resolve().relative_to(repo_root.resolve())).replace("\\", "/")
+        try:
+            raw = path.read_bytes()
+        except FileNotFoundError:
+            if path not in optional_paths:
+                raise
+            documents[path] = None
+            snapshots.append(FileSnapshot(display_path, "missing", 0))
+            continue
+        loader = StrictWonderYamlLoader(raw.decode("utf-8"))
+        loader.source_name = str(path)
+        try:
+            document = loader.get_single_data()
+        finally:
+            loader.dispose()
+        if not isinstance(document, dict):
+            raise TypeError(f"{path} must contain a top-level mapping")
+        documents[path] = document
+        snapshots.append(FileSnapshot(display_path, hashlib.sha256(raw).hexdigest(), len(raw)))
+    return documents, tuple(snapshots)
+
+
+def assert_resource_base(
+    base: dict[str, str] | None,
+    loaded: tuple[FileSnapshot, ...],
+    current: tuple[FileSnapshot, ...],
+) -> None:
+    expected = {item.path: item.sha256 for item in loaded}
+    if set(base or {}) != set(expected):
+        raise ValueError("base must include snapshots for all resource files")
+    actual = {item.path: item.sha256 for item in current}
+    for path, digest in expected.items():
+        if base[path] != digest or actual.get(path) != digest:
+            raise ConflictError(f"Resource changed since load: {path}")
 
 
 def atomic_write_files(files: dict[Path, bytes]) -> None:

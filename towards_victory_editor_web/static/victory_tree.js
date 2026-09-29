@@ -20,10 +20,12 @@ const SVG_NS = "http://www.w3.org/2000/svg";
 
 const state = {
   paths: [],
+  base: {},
   activeId: null,
   selectedId: null,
   scale: 0.5,
   dragging: null,
+  savedPositions: "",
 };
 
 async function fetchJson(url, options) {
@@ -37,7 +39,9 @@ async function fetchJson(url, options) {
   }
   if (!response.ok) {
     const detail = payload && payload.detail ? payload.detail : text || response.statusText;
-    throw new Error(detail);
+    const error = new Error(detail);
+    error.status = response.status;
+    throw error;
   }
   return payload;
 }
@@ -54,6 +58,10 @@ function appendLog(text) {
 
 function activePath() {
   return state.paths.find((p) => p.id === state.activeId) || null;
+}
+
+function positionsSignature() {
+  return JSON.stringify(state.paths.map((path) => [path.id, path.nodes.map((node) => [node.id, node.x, node.y])]));
 }
 
 function nodeById(path, id) {
@@ -306,12 +314,15 @@ document.getElementById("reset-btn").addEventListener("click", () => {
   renderNodeList();
 });
 
-function applyBootstrapPayload(payload) {
-  state.paths = payload.paths || [];
+function applyResourcePayload(payload) {
+  const draft = payload.draft;
+  state.paths = draft.paths || [];
+  state.savedPositions = positionsSignature();
+  state.base = Object.fromEntries((payload.change_set?.base || []).map((item) => [item.path, item.sha256]));
   if (!state.activeId || !state.paths.some((p) => p.id === state.activeId)) {
     state.activeId = state.paths.length ? state.paths[0].id : null;
   }
-  setLog(payload.log || "");
+  setLog(draft.log || "");
   renderTabs();
   applyZoom();
   renderStage();
@@ -319,8 +330,8 @@ function applyBootstrapPayload(payload) {
 }
 
 async function loadBootstrap() {
-  const payload = await fetchJson("api/victory-tree/bootstrap");
-  applyBootstrapPayload(payload);
+  const payload = await fetchJson("api/resources/editor.victory_tree");
+  applyResourcePayload(payload);
 }
 
 async function save() {
@@ -335,15 +346,16 @@ async function save() {
       });
       edits[path.id] = coords;
     });
-    const payload = await fetchJson("api/victory-tree/save", {
+    const payload = await fetchJson("api/resources/editor.victory_tree/commit", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ edits }),
+      body: JSON.stringify({ edits, base: state.base }),
     });
-    applyBootstrapPayload(payload);
+    applyResourcePayload(payload);
     appendLog("\n[ok] Saved.\n");
   } catch (err) {
     appendLog(`\n[error] ${err.message}\n`);
+    if (err.status === 409) appendLog("[conflict] 源文件已变化。请先核对未保存的坐标，再重新加载。\n");
   } finally {
     saveBtn.disabled = false;
   }
@@ -351,6 +363,7 @@ async function save() {
 
 document.getElementById("vt-save-btn").addEventListener("click", save);
 document.getElementById("vt-reload-btn").addEventListener("click", () => {
+  if (positionsSignature() !== state.savedPositions && !confirm("重新加载会丢弃未保存的坐标，继续吗？")) return;
   loadBootstrap().catch((err) => appendLog(`\n[error] ${err.message}\n`));
 });
 
