@@ -2,7 +2,7 @@
 
 ## 结论
 
-`towards_victory_editor_web` 已经统一了启动命令、浏览器入口和部分媒体任务基础设施，cost/reward 与 victory tree 也已接入统一资源协议。Wonder 已完成 bootstrap 与仪式设计按需加载的传输优化，但 Wonder 和 media/cropper 尚未接入统一资源协议，底层架构仍未完全统一。
+`towards_victory_editor_web` 已经统一了启动命令、浏览器入口和部分媒体任务基础设施，cost/reward 与 victory tree 也已接入统一资源协议。Wonder 已完成 bootstrap、仪式设计按需加载和共享选项目录的传输优化，但 Wonder 和 media/cropper 尚未接入统一资源协议，底层架构仍未完全统一。
 
 因此，当前主要问题不是页面是否放在同一个标签栏，而是统一资源模型、保存事务、服务协议、前端状态模型和设计令牌尚未覆盖全部工具。若继续在现有壳层上添加标签页，功能数量会增加，架构一致性不会提高。
 
@@ -280,7 +280,7 @@ ArtifactReport + OperationLog
 
 ## 当前验证结果
 
-目前已完成 cost/reward 与 victory tree 两个统一资源协议切片，以及 Wonder 的 bootstrap 与仪式设计按需加载切片。Wonder 的统一资源协议与提交事务、media/cropper 的资源协议仍未迁移。现有基线检查通过：
+目前已完成 cost/reward 与 victory tree 两个统一资源协议切片，以及 Wonder 的 bootstrap、仪式设计按需加载和共享选项目录切片。Wonder 的统一资源协议与提交事务、media/cropper 的资源协议仍未迁移。现有基线检查通过：
 
 - `python -m towards_victory_editor_web --check`：cost/reward 459 条、task pool 96 条、victory tree 104 个节点、192 个 wonder 的生成与本地化检查均通过；媒体注册 8 项、可运行媒体工具 5 项、cropper 发现 196 张图片。
 - `python -m compileall -q towards_victory_editor_web` 通过。
@@ -307,6 +307,14 @@ Wonder 本次验证与边界：
 - 当前奇观的详情自带仪式字段中文标签，因此目录未完成或失败时也能正确显示并生成 Prompt；目录请求完成时只更新目录区域，不重建 Prompt 编辑框。
 - 这是传输层优化，仍使用 Wonder 的原有路由与领域保存逻辑，未宣称已完成统一资源契约、跨文件事务或生成器回滚。
 
-这些结果说明当前数据和语法处于可运行状态；cost/reward 与 victory tree 已接入统一资源协议，Wonder 已减少首屏和仪式列表的传输负担，Wonder 与 media/cropper 仍需按同一契约迁移。tree 的 DDS 背景预览仍在服务初始化时解码，不属于坐标提交的生成产物。前端 cost/reward 已改用新资源接口，旧的 `/api/cost-reward/bootstrap`、`/api/cost-reward/save` 路由已删除。
+后续选项目录切片：
+
+- `GET /api/wonder-localization/catalog` 提供带 SHA-256 版本的四类共享选项；Wonder 详情中重复的大型选项列表改为 `catalog_ref`，前端按版本缓存并在渲染前解析。结构化草稿的 `original_value` 与提交值不再包含仅供控件使用的选项列表。
+- `options` 和以 `_options` 结尾的键约定为仅供控件使用，不能作为实际数据字段；切回带未保存草稿的奇观时，前端从新加载的详情按结构补回这些选项列表，保留草稿值与 dirty 状态。
+- 浏览器回归脚本新增 Trinity Lavra 草稿修改、切换及恢复检查，核对仪式 Mode 和典礼阶段 Cost 的选项菜单及 dirty 状态；在当前工作树的本地服务上实跑通过。
+- 当前环境以 `json.dumps(..., ensure_ascii=False)` 测得首个 generic 详情从 3,805,579 bytes 降到 97,024 bytes，Trinity Lavra unique 详情从 13,986,051 bytes 降到 177,006 bytes；一次性目录为 898,811 bytes。两类详情均低于 500 KB 目标。
+- 目录拆分不改变 Wonder 的旧保存路由或多文件写入方式。继承只读字段仍创建可编辑结构再禁用，服务初始化仍全量加载；这些仍是后续切片。
+
+这些结果说明当前数据和语法处于可运行状态；cost/reward 与 victory tree 已接入统一资源协议，Wonder 已减少首屏、仪式列表和详情的传输负担，Wonder 与 media/cropper 仍需按同一契约迁移。tree 的 DDS 背景预览仍在服务初始化时解码，不属于坐标提交的生成产物。前端 cost/reward 已改用新资源接口，旧的 `/api/cost-reward/bootstrap`、`/api/cost-reward/save` 路由已删除。
 
 已知限制：保存仍会整体重写 YAML 文件（与迁移前行为一致）。文件头注释和原有 BOM 状态会保留，但正文中的分节注释（如 `task_pool.yaml` 的 `# --- Military ---`）不会被保留，字符串引号也会被统一去掉。若后续要求保留正文注释和字段顺序，需要改成定点改写或往返式 YAML 读写，属于独立任务。409 后草稿仍保留在页面中；重新加载会提示确认，但目前没有自动合并外部修改与未保存草稿。`atomic_write_files` 会先暂存全部内容，但跨多个目标文件的替换并非全局原子操作；Wonder 的多文件事务与生成器回滚仍未实现，生成器仍使用 `conda run`，需要后续独立处理。

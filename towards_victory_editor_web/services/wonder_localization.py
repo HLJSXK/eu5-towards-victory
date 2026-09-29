@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 import subprocess
@@ -389,7 +390,20 @@ def normalize_text_file(text: str) -> str:
 
 
 def serialize_structured_editor_value(payload: object) -> str:
-    return json.dumps(payload, ensure_ascii=False, separators=(",", ":"), sort_keys=True)
+    return json.dumps(_without_editor_options(payload), ensure_ascii=False, separators=(",", ":"), sort_keys=True)
+
+
+def _without_editor_options(value: object) -> object:
+    """Reserve options and *_options for UI lists, never edited source data."""
+    if isinstance(value, dict):
+        return {
+            key: _without_editor_options(item)
+            for key, item in value.items()
+            if key != "options" and not key.endswith("_options")
+        }
+    if isinstance(value, list):
+        return [_without_editor_options(item) for item in value]
+    return value
 
 
 def parse_structured_editor_value(raw_value: object, *, context: str) -> object:
@@ -2277,6 +2291,8 @@ class WonderLocalizationService:
         self.local_modifier_options: list[dict[str, Any]] = []
         self.reward_type_options: list[dict[str, Any]] = []
         self.ceremony_cost_type_options: list[dict[str, str]] = []
+        self._option_catalogs: dict[str, list[dict[str, Any]]] = {}
+        self._option_catalog_version = ""
         self.reload_from_disk()
         self._log.append("[server] Wonder Localization Editor ready\n")
 
@@ -2306,6 +2322,16 @@ class WonderLocalizationService:
                 self.reward_type_options,
             ) = _modifier_option_catalog(self.mechanics_data, self.unique_wonders_data)
             self.ceremony_cost_type_options = ceremony_stage_cost_options()
+            self._option_catalogs = {
+                "country_modifier": self.country_modifier_options,
+                "local_modifier": self.local_modifier_options,
+                "reward_type": self.reward_type_options,
+                "ceremony_cost_type": self.ceremony_cost_type_options,
+            }
+            catalog_bytes = json.dumps(
+                self._option_catalogs, ensure_ascii=False, sort_keys=True, separators=(",", ":")
+            ).encode("utf-8")
+            self._option_catalog_version = hashlib.sha256(catalog_bytes).hexdigest()
             validate_canonical_localization_data(
                 self.wonders,
                 self.mechanics,
@@ -2324,6 +2350,24 @@ class WonderLocalizationService:
                 "initial_wonder_id": first_wonder_id,
                 "log_text": self.log_text,
             }
+
+    def option_catalog_payload(self) -> dict[str, Any]:
+        with self._lock:
+            return {"version": self._option_catalog_version, "catalogs": self._option_catalogs}
+
+    def _reference_option_catalogs(self, value: object) -> None:
+        if isinstance(value, dict):
+            for key, item in value.items():
+                if isinstance(item, list) and (key == "options" or key.endswith("_options")):
+                    for catalog_id, options in self._option_catalogs.items():
+                        if item == options:
+                            value[key] = {"catalog_ref": catalog_id}
+                            break
+                else:
+                    self._reference_option_catalogs(item)
+        elif isinstance(value, list):
+            for item in value:
+                self._reference_option_catalogs(item)
 
     def list_wonders(self, filter_text: str = "") -> list[dict[str, Any]]:
         normalized_filter = filter_text.strip().lower()
@@ -2353,7 +2397,7 @@ class WonderLocalizationService:
             wonder = self._get_wonder(wonder_id)
             specs = self._build_specs_for_wonder(wonder)
             mechanics_specs = self._build_mechanics_specs_for_wonder(wonder)
-            return {
+            payload = {
                 "summary": self._wonder_summary(wonder),
                 "meta": self._wonder_meta(wonder),
                 "languages": self._serialize_specs(specs),
@@ -2361,7 +2405,10 @@ class WonderLocalizationService:
                 "ritual_design": self._unique_ritual_design_for_wonder(wonder),
                 "ritual_prompt": self._unique_ritual_prompt_for_wonder(wonder),
                 "status": f"Loaded {wonder['key']}",
+                "catalog_version": self._option_catalog_version,
             }
+            self._reference_option_catalogs(payload["mechanics"])
+            return payload
 
     def reload_wonder_payload(self, wonder_id: int) -> dict[str, Any]:
         self.reload_from_disk()

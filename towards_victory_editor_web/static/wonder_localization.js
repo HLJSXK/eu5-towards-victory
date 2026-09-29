@@ -18,6 +18,8 @@ const state = {
 let ritualDesignCatalogRequest = null;
 let ritualDesignGeneration = 0;
 const ritualDesignDetailRequests = new Map();
+let optionCatalog = null;
+let optionCatalogRequest = null;
 
 const toolSection = document.querySelector('.tool-panel[data-tool="wonder-localization"]');
 
@@ -209,7 +211,7 @@ function applyDraftToField(field, scope, draft) {
     field.value = cachedValue;
     if (isStructuredFieldType(field.field_type || "text")) {
         try {
-            field.structured_value = JSON.parse(cachedValue);
+            field.structured_value = restoreEditorOptions(JSON.parse(cachedValue), field.structured_value);
         } catch {
             field.structured_value = field.structured_value ?? {};
         }
@@ -529,6 +531,7 @@ function renderWonderList() {
         const button = document.createElement("button");
         button.type = "button";
         button.className = "wonder-item";
+        button.dataset.wonderKey = wonder.key;
         if (state.currentWonder && state.currentWonder.summary.id === wonder.id) {
             button.classList.add("active");
         }
@@ -749,6 +752,39 @@ function stableStringify(value) {
         return `{${keys.map((key) => `${JSON.stringify(key)}:${stableStringify(value[key])}`).join(",")}}`;
     }
     return JSON.stringify(value);
+}
+
+function isEditorOptionKey(key) {
+    // These names are reserved for UI-only option lists, never source data.
+    return key === "options" || key.endsWith("_options");
+}
+
+function withoutEditorOptions(value) {
+    if (Array.isArray(value)) {
+        return value.map(withoutEditorOptions);
+    }
+    if (value !== null && typeof value === "object") {
+        return Object.fromEntries(Object.entries(value)
+            .filter(([key]) => !isEditorOptionKey(key))
+            .map(([key, item]) => [key, withoutEditorOptions(item)]));
+    }
+    return value;
+}
+
+function restoreEditorOptions(draftValue, serverValue) {
+    if (Array.isArray(draftValue) && Array.isArray(serverValue)) {
+        draftValue.forEach((item, index) => restoreEditorOptions(item, serverValue[index]));
+    } else if (draftValue !== null && typeof draftValue === "object" &&
+        serverValue !== null && typeof serverValue === "object" && !Array.isArray(serverValue)) {
+        for (const [key, item] of Object.entries(serverValue)) {
+            if (isEditorOptionKey(key)) {
+                draftValue[key] = item;
+            } else if (Object.hasOwn(draftValue, key)) {
+                restoreEditorOptions(draftValue[key], item);
+            }
+        }
+    }
+    return draftValue;
 }
 
 function deepClone(value) {
@@ -1429,7 +1465,7 @@ function createStructuredShell(field, scope) {
     preview.append(previewOutput);
 
     const commit = () => {
-        binding.value = stableStringify(stateValue);
+        binding.value = stableStringify(withoutEditorOptions(stateValue));
         previewOutput.textContent = previewTextForField(field, stateValue);
         refreshDirtyState();
     };
@@ -1474,6 +1510,9 @@ function buildReadonlyStructuredNote(field) {
 function buildRowListEditor(config) {
     const section = document.createElement("section");
     section.className = "structured-group";
+    if (config.listId) {
+        section.dataset.rowList = config.listId;
+    }
     const readonly = config.readonly === true;
 
     const header = document.createElement("div");
@@ -2204,6 +2243,7 @@ function renderUniqueCeremonyEditorField(field, scope) {
             textFields,
             buildRowListEditor({
                 title: "Stage costs (one or two required)",
+                listId: "stage-cost",
                 rows: stage.cost.rows,
                 primaryKey: "type",
                 secondaryKey: "value",
@@ -2802,6 +2842,45 @@ async function fetchJson(url, options = {}) {
     return response.json();
 }
 
+function resolveOptionReferences(value, catalogs) {
+    if (Array.isArray(value)) {
+        value.forEach((item) => resolveOptionReferences(item, catalogs));
+    } else if (value !== null && typeof value === "object") {
+        for (const [key, item] of Object.entries(value)) {
+            if (item !== null && typeof item === "object" && !Array.isArray(item) &&
+                Object.hasOwn(item, "catalog_ref")) {
+                const options = catalogs[item.catalog_ref];
+                if (!Array.isArray(options)) {
+                    throw new Error(`Unknown option catalog: ${item.catalog_ref}`);
+                }
+                value[key] = options;
+            } else {
+                resolveOptionReferences(item, catalogs);
+            }
+        }
+    }
+}
+
+async function hydrateWonderPayload(payload) {
+    if (!payload) {
+        return payload;
+    }
+    if (optionCatalog?.version !== payload.catalog_version) {
+        optionCatalogRequest ||= fetchJson("api/wonder-localization/catalog")
+            .finally(() => { optionCatalogRequest = null; });
+        let catalog = await optionCatalogRequest;
+        if (catalog.version !== payload.catalog_version) {
+            catalog = await fetchJson("api/wonder-localization/catalog");
+        }
+        if (catalog.version !== payload.catalog_version) {
+            throw new Error("Option catalog changed while loading the wonder");
+        }
+        optionCatalog = catalog;
+    }
+    resolveOptionReferences(payload.mechanics, optionCatalog.catalogs);
+    return payload;
+}
+
 async function loadRitualDesignCatalog() {
     if (state.ritualDesigns || ritualDesignCatalogRequest) {
         return;
@@ -2902,7 +2981,7 @@ async function loadBootstrap() {
         render();
         const wonder = payload.initial_wonder_id === null
             ? null
-            : await fetchJson(`api/wonder-localization/wonders/${payload.initial_wonder_id}`);
+            : await hydrateWonderPayload(await fetchJson(`api/wonder-localization/wonders/${payload.initial_wonder_id}`));
         setCurrentWonderPayload(wonder);
         state.status = payload.status || (state.currentWonder ? state.currentWonder.status : "就绪");
         state.statusKind = "default";
@@ -2931,7 +3010,7 @@ async function selectWonder(wonderId) {
     setBusy(true);
     updateStatus("正在切换奇观", "working");
     try {
-        const payload = await fetchJson(`api/wonder-localization/wonders/${wonderId}`);
+        const payload = await hydrateWonderPayload(await fetchJson(`api/wonder-localization/wonders/${wonderId}`));
         setCurrentWonderPayload(payload);
         state.status = payload.status;
         state.statusKind = "default";
@@ -2961,6 +3040,7 @@ async function saveCurrentWonder() {
         }));
     setBusy(true);
     updateStatus("正在保存并重新生成", "working");
+    let retryWonderId = null;
     try {
         const payload = await fetchJson("api/wonder-localization/wonders/save", {
             method: "POST",
@@ -2973,8 +3053,19 @@ async function saveCurrentWonder() {
         state.pageDrafts = {};
         state.wonders = payload.wonders;
         invalidateRitualDesigns();
-        setCurrentWonderPayload(payload.wonder);
         state.logText = payload.log_text || state.logText;
+        try {
+            await hydrateWonderPayload(payload.wonder);
+        } catch (error) {
+            console.error(error);
+            setCurrentWonderPayload(null);
+            retryWonderId = currentId;
+            updateStatus("已保存，详情加载失败", "error");
+            render();
+            showToast(`保存成功，但详情加载失败，正在重新加载: ${error.message}`, "error");
+            return;
+        }
+        setCurrentWonderPayload(payload.wonder);
         state.status = payload.status;
         state.statusKind = "default";
         syncWonderModeWithSelection();
@@ -2986,6 +3077,9 @@ async function saveCurrentWonder() {
         showToast(`保存失败: ${error.message}`, "error");
     } finally {
         setBusy(false);
+        if (retryWonderId !== null) {
+            void selectWonder(retryWonderId);
+        }
     }
 }
 
@@ -3039,6 +3133,7 @@ async function reloadCurrentWonder() {
         const payload = await fetchJson(`api/wonder-localization/wonders/${state.currentWonder.summary.id}/reload`, {
             method: "POST",
         });
+        await hydrateWonderPayload(payload.wonder);
         delete state.pageDrafts[String(currentId)];
         state.wonders = payload.wonders;
         invalidateRitualDesigns();

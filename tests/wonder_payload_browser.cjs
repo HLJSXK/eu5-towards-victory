@@ -2,6 +2,13 @@
 const assert = require('node:assert/strict');
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 
+async function optionCount(select) {
+    await select.locator('.option-open-button').click();
+    const count = await select.locator('.option-item').count();
+    await select.locator('.option-open-button').click();
+    return count;
+}
+
 async function main() {
     const browser = await chromium.launch({
         headless: true,
@@ -13,6 +20,11 @@ async function main() {
         const errors = [];
         page.on('pageerror', (error) => errors.push(error.message));
         let initialDetailCalls = 0;
+        let optionCatalogCalls = 0;
+        await page.route('**/api/wonder-localization/catalog', async (route) => {
+            optionCatalogCalls += 1;
+            await route.continue();
+        });
         await page.route('**/api/wonder-localization/wonders/*', async (route) => {
             if (route.request().method() === 'GET' && initialDetailCalls++ === 0) {
                 await route.fulfill({ status: 503, json: { detail: 'test detail failure' } });
@@ -61,8 +73,48 @@ async function main() {
         assert.equal(catalogCalls, 0);
         await page.locator('#wonder-list .wonder-item').first().click();
         await page.locator('#language-tabs button').first().waitFor();
+        assert.equal(optionCatalogCalls, 1);
+        assert(await page.locator('#dirty-badge').isHidden());
         await page.locator('#wonder-kind-tabs button').nth(1).click();
         await page.locator('#wonder-list .wonder-item').first().click();
+        await page.locator('#wonder-list .wonder-item.active').waitFor();
+        assert.equal(optionCatalogCalls, 1);
+        assert(await page.locator('#dirty-badge').isHidden());
+
+        const trinityKey = 'unique_trinity_lavra';
+        const trinity = page.locator(`#wonder-list .wonder-item[data-wonder-key="${trinityKey}"]`);
+        const waitForActive = (key) => page.locator(`#wonder-list .wonder-item.active[data-wonder-key="${key}"]`).waitFor();
+        await trinity.click();
+        await waitForActive(trinityKey);
+        await page.locator('#language-tabs button').filter({ hasText: 'Mechanics' }).click();
+        const mechanics = page.locator('[data-editor-tab="mechanics"]');
+        const ritual = mechanics.locator('.field-card:has(input[data-field-type="unique_ritual_editor"])');
+        const ceremony = mechanics.locator('.field-card:has(input[data-field-type="unique_ceremony_editor"])');
+        const ritualKey = ritual.locator('.scalar-grid').first().locator('label.scalar-field').first().locator('input');
+        const modeSelect = ritual.locator('.scalar-grid').first().locator('label.scalar-field').nth(1).locator('.option-combobox');
+        const stageCostSelect = ceremony.locator('[data-row-list="stage-cost"]').first()
+            .locator('.structured-row .option-combobox').first();
+        const originalKey = await ritualKey.inputValue();
+        const modeOptions = await optionCount(modeSelect);
+        const stageCostOptions = await optionCount(stageCostSelect);
+        assert(modeOptions > 1);
+        assert(stageCostOptions > 1);
+        await ritualKey.fill(`${originalKey}_draft_probe`);
+        assert(await page.locator('#dirty-badge').isVisible());
+        const otherWonder = page.locator('#wonder-list .wonder-item:not(.active)').first();
+        const otherKey = await otherWonder.getAttribute('data-wonder-key');
+        await otherWonder.click();
+        await waitForActive(otherKey);
+        await trinity.click();
+        await waitForActive(trinityKey);
+        assert.equal(await ritualKey.inputValue(), `${originalKey}_draft_probe`);
+        assert(await page.locator('#dirty-badge').isVisible());
+        assert.equal(await optionCount(modeSelect), modeOptions);
+        assert.equal(await optionCount(stageCostSelect), stageCostOptions);
+        await ritualKey.fill(originalKey);
+        assert(await page.locator('#dirty-badge').isHidden());
+        assert.equal(optionCatalogCalls, 1);
+
         const ritualTab = page.locator('#language-tabs button').filter({ hasText: '仪式设计' });
         await ritualTab.waitFor();
         assert.equal(catalogCalls, 0);
@@ -82,6 +134,7 @@ async function main() {
         const originalInput = await prompt.elementHandle();
         releaseCatalog();
         await panel.locator('.ritual-design-all').waitFor();
+        assert.equal(optionCatalogCalls, 1);
         assert.equal(await prompt.inputValue(), 'draft while catalog loads');
         assert(await prompt.evaluate((element) => element === document.activeElement && element.selectionStart === 6));
         assert(await originalInput.evaluate((element) => element === document.activeElement));
