@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 import sys
 import threading
 from typing import Any
@@ -7,9 +8,14 @@ from typing import Any
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
-from scripts_engineering_department.wonder_mechanics.io import REPO_ROOT, load_yaml, save_yaml_document
+from scripts_engineering_department.wonder_mechanics.io import REPO_ROOT, load_yaml
 
 from .common import RollingLog
+from .platform import ChangeSet, ResourceDescriptor, atomic_write_files, snapshot_files, yaml_bytes
+
+
+class ConflictError(RuntimeError):
+    """Raised when a resource changed after the editor loaded its draft."""
 
 DATA_FILE = REPO_ROOT / "data" / "cost_reward_units.yaml"
 DATA_REL = "data/cost_reward_units.yaml"
@@ -95,6 +101,81 @@ class CostRewardEditorService:
             "log": self._log.tail_text(200),
         }
 
+    def resource_descriptor(self) -> ResourceDescriptor:
+        return ResourceDescriptor(
+            id="editor.cost_reward",
+            kind="yaml_catalog",
+            label="Cost / reward catalog",
+            source_paths=(DATA_REL, TASK_POOL_REL),
+        )
+
+    def load_resource(self) -> dict:
+        with self._lock:
+            return self._resource_payload()
+
+    def _resource_payload(self) -> dict:
+        files = (DATA_FILE, TASK_POOL_FILE)
+        return {
+            "resource": self.resource_descriptor().payload(),
+            "draft": self.bootstrap_payload(),
+            "change_set": ChangeSet(
+                self.resource_descriptor().id,
+                (DATA_REL, TASK_POOL_REL),
+                snapshot_files(files, repo_root=REPO_ROOT),
+            ).payload(),
+        }
+
+    def _validate_and_apply(self, edits: dict[str, dict[str, dict[str, Any]]]) -> tuple[dict, dict]:
+        unknown_categories = sorted(set(edits) - set(CATEGORY_KEYS) - set(TASK_CATEGORY_KEYS))
+        if unknown_categories:
+            raise ValueError(f"Unknown category: {', '.join(unknown_categories)}")
+        data = copy.deepcopy(self.data)
+        task_data = copy.deepcopy(self.task_data)
+        original_data, original_tasks = self.data, self.task_data
+        self.data, self.task_data = data, task_data
+        try:
+            for category_key in CATEGORY_KEYS:
+                if edits.get(category_key):
+                    self._apply_reward_modifier_edits(category_key, edits[category_key])
+            if edits.get("on_action_task"):
+                self._apply_on_action_task_edits(edits["on_action_task"])
+            if edits.get("trigger_task"):
+                self._apply_trigger_task_edits(edits["trigger_task"])
+            return data, task_data
+        finally:
+            self.data, self.task_data = original_data, original_tasks
+
+    def validate_edits(self, edits: dict[str, dict[str, dict[str, Any]]]) -> dict:
+        with self._lock:
+            try:
+                self._validate_and_apply(edits)
+            except (KeyError, ValueError) as exc:
+                return {"valid": False, "errors": [str(exc).strip("'\\\"")], "resource": self.resource_descriptor().payload()}
+            return {"valid": True, "errors": [], "resource": self.resource_descriptor().payload()}
+
+    def preview_edits(self, edits: dict[str, dict[str, dict[str, Any]]]) -> dict:
+        with self._lock:
+            candidate_data, candidate_tasks = self._validate_and_apply(edits)
+            changes = self._field_diff(edits, self.data, self.task_data, candidate_data, candidate_tasks)
+            return {"valid": True, "errors": [], "diff": changes, "change_set": self._resource_payload()["change_set"]}
+
+    @staticmethod
+    def _field_diff(edits, before_data, before_tasks, after_data, after_tasks) -> list[dict[str, Any]]:
+        result = []
+        for category, token_edits in edits.items():
+            source = before_tasks if category in TASK_CATEGORY_KEYS else before_data
+            candidate = after_tasks if category in TASK_CATEGORY_KEYS else after_data
+            tokens = {item.get("id"): item for item in source.get(category, [])}
+            changed_tokens = {item.get("id"): item for item in candidate.get(category, [])}
+            for token_id, fields in token_edits.items():
+                for field in fields:
+                    before = tokens.get(token_id, {}).get(field)
+                    after = changed_tokens.get(token_id, {}).get(field)
+                    if before != after:
+                        result.append({"path": DATA_REL if category in CATEGORY_KEYS else TASK_POOL_REL,
+                                       "id": token_id, "field": field, "before": before, "after": after})
+        return result
+
     def _apply_reward_modifier_edits(self, category_key: str, edits: dict[str, dict[str, Any]]) -> None:
         tokens = self.data.get(category_key, [])
         by_id = {token["id"]: token for token in tokens}
@@ -162,37 +243,30 @@ class CostRewardEditorService:
                     f"trigger_task.{token_id}: representative_threshold is required unless comparison is boolean"
                 )
 
-    def save_tokens(self, edits: dict[str, dict[str, dict[str, Any]]]) -> dict:
+    def save_tokens(self, edits: dict[str, dict[str, dict[str, Any]]], base: dict[str, str] | None = None) -> dict:
         with self._lock:
-            touched_cost_reward = False
-            touched_task_pool = False
-
-            for category_key in CATEGORY_KEYS:
-                category_edits = edits.get(category_key) or {}
-                if not category_edits:
-                    continue
-                self._apply_reward_modifier_edits(category_key, category_edits)
-                touched_cost_reward = True
-
-            on_action_edits = edits.get("on_action_task") or {}
-            if on_action_edits:
-                self._apply_on_action_task_edits(on_action_edits)
-                touched_task_pool = True
-
-            trigger_edits = edits.get("trigger_task") or {}
-            if trigger_edits:
-                self._apply_trigger_task_edits(trigger_edits)
-                touched_task_pool = True
-
+            current = {item.path: item.sha256 for item in snapshot_files((DATA_FILE, TASK_POOL_FILE), repo_root=REPO_ROOT)}
+            expected_paths = {DATA_REL, TASK_POOL_REL}
+            if set(base or {}) != expected_paths:
+                raise ValueError("base must include snapshots for both resource files")
+            for path in (DATA_REL, TASK_POOL_REL):
+                if current.get(path) != base[path]:
+                    raise ConflictError(f"Resource changed since load: {path}")
+            candidate_data, candidate_tasks = self._validate_and_apply(edits)
+            touched_cost_reward = any(edits.get(key) for key in CATEGORY_KEYS)
+            touched_task_pool = any(edits.get(key) for key in TASK_CATEGORY_KEYS)
+            files: dict = {}
             if touched_cost_reward:
-                save_yaml_document(DATA_FILE, self.data, preserve_leading_comments=True)
+                files[DATA_FILE] = yaml_bytes(DATA_FILE, candidate_data)
+            if touched_task_pool:
+                files[TASK_POOL_FILE] = yaml_bytes(TASK_POOL_FILE, candidate_tasks)
+            atomic_write_files(files)
+            if touched_cost_reward:
                 self._log.append(f"[save] Wrote {DATA_REL}\n")
             if touched_task_pool:
-                save_yaml_document(TASK_POOL_FILE, self.task_data, preserve_leading_comments=True)
                 self._log.append(f"[save] Wrote {TASK_POOL_REL}\n")
-
             self.reload_from_disk()
-            return self.bootstrap_payload()
+            return self._resource_payload()
 
 
 def _check_cost_reward(data: dict) -> list[str]:

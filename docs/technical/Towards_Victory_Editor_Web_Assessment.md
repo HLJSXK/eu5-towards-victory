@@ -1,0 +1,294 @@
+# Towards Victory Editor Web 现状评估与改造指导
+
+## 结论
+
+`towards_victory_editor_web` 已经统一了启动命令、浏览器入口和部分媒体任务基础设施，但还没有统一底层架构。当前形态更准确地说是：一个 FastAPI 壳层，挂载三个旧编辑器的领域服务，再挂载一套后来加入的媒体作业系统。
+
+因此，当前主要问题不是页面是否放在同一个标签栏，而是系统缺少同一套资源模型、保存事务、服务协议、前端状态模型和设计令牌。若继续在现有壳层上添加标签页，功能数量会增加，架构一致性不会提高。
+
+“完全一致”应定义为平台契约一致：所有工具使用同一套资源描述、校验、草稿、保存、生成、日志和错误协议；页面共享同一套布局、控件、状态和主题令牌。各领域仍可以保留不同的编辑器交互，例如树形画布与表单编辑不应被强行做成同一种控件。
+
+## 现状基线
+
+### 入口已经合并，服务没有合并
+
+`server.py` 分别实例化 `CostRewardEditorService`、`VictoryTreePlannerService` 和 `WonderLocalizationService`，然后再独立接入 `cropper`、`registry` 和 `jobs`（见 [server.py](../../towards_victory_editor_web/server.py)）。三个编辑器有自己的 bootstrap/save 路由，媒体工具走另一套 `/api/tools`、`/api/jobs` 协议。
+
+媒体侧虽然有 `ToolSpec`、`ToolRegistry` 和 `JobManager`，但编辑器只是通过 `registry.register_spec(..., interactive=True)` 注册了展示元数据，并没有进入同一个 handler、校验、作业或结果协议（见 [media.py](../../towards_victory_editor_web/services/media.py#L14)）。这说明“统一工具目录”目前只覆盖媒体执行工具，未覆盖交互式编辑器。
+
+### 后端仍是三个旧领域服务加一套新作业系统
+
+当前服务规模和职责明显不对称：`wonder_localization.py` 约 3,856 行，`cost_reward.py`、`victory_tree.py` 又各自维护加载、校验、内存状态、保存和日志；媒体则由 `tooling.py`、`media.py`、`media_tools.py`、`cropper.py` 组成另一条生命周期。旧工具在提交 `1653d467` 中被移入统一包，但提交内容主要是入口、路由和静态资源迁移，原有 service 和页面逻辑基本被保留；提交 `d56fa727` 又在此基础上追加了媒体作业框架。这与“拼接旧工具”的现象相符。
+
+编辑器保存是同步、按领域直接写文件；媒体任务是异步、线程池、作业轮询和产物快照。`JobManager` 允许三个 worker，但用全局执行锁把实际写入串行化（见 [tooling.py](../../towards_victory_editor_web/services/tooling.py#L297)），它与编辑器的领域锁并不共享，也没有统一的变更事件或提交记录。
+
+### 数据契约没有共同的资源边界
+
+不同工具直接绑定不同文件集合：
+
+- cost/reward 直接维护 `data/cost_reward_units.yaml` 与 `data/task_pool.yaml`；
+- victory tree 维护树变体、节点坐标，并在服务初始化时解码 DDS 预览（见 [victory_tree.py](../../towards_victory_editor_web/services/victory_tree.py#L107)）；
+- wonder 编辑器同时读取本地化、通用奇观、机制、独特奇观、仪式设计、提示词、索引和生成脚本输入，保存时还会依次运行大量 generator（见 [wonder_localization.py](../../towards_victory_editor_web/services/wonder_localization.py#L2264) 和 [wonder_localization.py](../../towards_victory_editor_web/services/wonder_localization.py#L3515)）；
+- media/cropper 直接操作 assets、DDS、PNG 和 crop JSON。
+
+这些文件之间没有统一的 `Resource`、版本、来源、依赖、生成状态或变更集合。前端只能知道“当前标签页的 payload”，不知道一次编辑影响哪些源文件、哪些生成文件、哪些检查，也不能在跨资源保存前做统一预览。
+
+### 保存流程存在跨文件一致性风险
+
+cost/reward 和 tree 在服务内缓存数据并直接覆盖 YAML；wonder 的 `save_wonders` 先修改内存对象，再按 localization、mechanics、wonders、unique 的顺序分别写文件，之后再运行生成器。任一步失败都可能留下部分已写文件；异常时主要通过重新加载内存来恢复页面状态，不能回滚已经写入磁盘的文件。
+
+wonder 的生成命令仍组装 `conda run -n eu5 python ...`（见 [wonder_localization.py](../../towards_victory_editor_web/services/wonder_localization.py#L3528)），而项目工作流明确要求受管沙箱使用直接解释器。这使统一 Web 入口依赖一条与项目其他工具不同的运行时路径，也是部署和复现的实际阻力。
+
+### 前端只有壳层共享，状态和组件没有共享
+
+`index.html` 将五个工作区和六个独立模块全部加载到同一页面（见 [index.html](../../towards_victory_editor_web/static/index.html#L1)）。`shared.js` 只负责标签切换和 `body.dataset.activeTool`，没有路由、共享 store、请求层、通知、dirty 状态、权限或错误边界（见 [shared.js](../../towards_victory_editor_web/static/shared.js#L1)）。每个模块继续拥有自己的全局 `state`、`fetch` 封装、渲染函数和保存语义。
+
+CSS 也只是叠加覆盖：`shared.css` 保留旧的深色根样式，`workspace_theme.css` 再覆盖为浅色主题；wonder 仍有一套约 1,331 行的专用视觉系统，cost/reward、tree、media/cropper 又各自保留布局和控件规则。两个 `:root`、多个 `body`、`button`、输入框规则并存，主题顺序成为行为的一部分，而不是显式设计系统（见 [shared.css](../../towards_victory_editor_web/static/shared.css#L1)、[workspace_theme.css](../../towards_victory_editor_web/static/workspace_theme.css#L1)）。
+
+前端交互也未统一：三个编辑器是立即改草稿、一次性 save；媒体是提交 job、轮询、取消和产物报告；cropper 又有自己的直接 save/remove/apply 路由。用户看到的是同一组标签，但得到的是三种不同的工作模型。
+
+## 主要缺陷
+
+按影响排序，当前缺陷可以归纳为以下六类：
+
+1. **架构边界缺失**：统一入口没有统一 application/service/domain 层；路由直接持有领域 service，媒体 registry 与编辑器 registry 是两套概念。
+2. **资源模型缺失**：没有统一描述“源数据—生成器—产物—校验”的图，导致工具之间只能靠文件路径和隐式约定连接。
+3. **写入不可组合**：没有通用 draft、事务、预览 diff、提交、回滚或冲突检测；wonder 的多文件生成尤其容易产生半提交状态。
+4. **运行时契约不一致**：同步接口、异步作业、直接文件服务和脚本子进程混用；错误码、日志、状态、返回 payload 也不一致。
+5. **前端一致性不足**：共享的只有 tab shell 和少量 CSS 变量，组件、表单 schema、请求状态、dirty/save/reload 逻辑各自复制。
+6. **验证覆盖不匹配**：现有 `--check` 能证明四个领域数据当前有效，但没有证明 API 契约统一、保存原子性、生成失败恢复、跨工具状态同步、响应式布局或视觉一致性。
+
+## 改造主要阻力
+
+### 1. wonder 编辑器是高耦合核心
+
+wonder 服务不只是 CRUD，它还负责字段规格生成、来源追踪、结构化编辑器、多个 YAML 的读写、生成器编排、概念输出和仪式设计展示。它既是领域模型、编译器 facade，也是 UI schema provider。若直接把它拆成通用 CRUD，会损失现有语义；若继续保留 3,856 行单体，又会把旧边界带入新平台。
+
+### 2. 生成器副作用没有被建模
+
+现有 generator 既可能写 `src_*`，也可能写 localization、GUI、concept 和媒体产物。统一后端必须知道每个 generator 的输入、输出、可否预览、失败恢复和依赖顺序，否则只能继续在 service 中硬编码脚本列表。
+
+### 3. 文件格式和注释保留要求真实存在
+
+项目数据是 YAML、JSON、DDS、PNG 和游戏脚本的混合物，部分 YAML 还要求保留 BOM、头部注释和字段顺序。把所有内容强行转换成一个数据库或一个 JSON schema，短期会破坏生成器和审阅流程。因此需要“统一资源接口 + 格式适配器”，而不是先抹平文件格式。
+
+### 4. 旧前端隐含了大量交互语义
+
+奇观编辑器的结构化字段、原型继承、仪式设计和多页草稿都藏在专用 JS 中；victory tree 的拖拽、曲线和归一化坐标又是另一类交互。视觉统一可以先做，但状态和组件迁移必须以行为等价为验收条件，不能只做 CSS 重写。
+
+### 5. 当前服务是进程内单例
+
+`server.py` 在模块导入时创建 `app`，服务实例和 cropper 状态随进程存在；日志、缓存、任务列表和草稿都不是持久资源。未来若启用 reload、多 worker 或多个浏览器，会出现缓存过期、互相覆盖和 job 丢失问题。即使项目暂时只在本机使用，也应把这个限制显式化。
+
+## 下一步改造指导
+
+### 阶段 0：先冻结目标契约
+
+先写一页平台 RFC，定义以下不可变接口：`ResourceDescriptor`、`Draft`、`ValidationReport`、`ChangeSet`、`GenerationJob`、`Artifact`、`OperationLog`。每个工具必须回答：源文件是谁、编辑对象是什么、保存影响哪些文件、需要哪些生成器、如何验证、如何回滚。
+
+同时记录当前 API 和文件映射作为基线，建立 golden fixtures。此阶段不改业务逻辑，只把现状变成可测试契约。
+
+### 阶段 1：建立平台内核
+
+建议形成如下单向依赖：
+
+```mermaid
+flowchart LR
+  UI[共享 Web Shell / 组件 / Store]
+  API[Application API: load draft / validate / preview / commit]
+  DOMAIN[领域模型与规则]
+  ADAPTER[文件与生成器适配器]
+  JOB[统一 Job / Artifact / Log]
+  FILES[(data / src / assets)]
+  UI --> API
+  API --> DOMAIN
+  API --> ADAPTER
+  API --> JOB
+  ADAPTER --> FILES
+  JOB --> ADAPTER
+```
+
+平台内核应先提供：统一路径解析、编码处理、错误类型、日志、文件快照、原子临时目录提交、生成器执行器和变更产物报告。编辑器保存和媒体 job 都使用同一个执行器；同步操作只是 job 的一个前端呈现方式。
+
+### 阶段 2：用适配器统一后端，而不是立即重写领域规则
+
+为三个领域各写一个 adapter：
+
+- `CostRewardAdapter`：把五类 unit 和两类 task 映射为实体集合，保留现有数值约束。
+- `VictoryTreeAdapter`：把 path/node/position 映射为实体图，保留归一化坐标和预览生成。
+- `WonderAdapter`：先把现有 `WonderLocalizationService` 拆成 loader、field schema、draft parser、source writer、generator plan 五个内部模块，外部先实现统一 adapter。
+
+每个 adapter 都只返回统一的 `ResourceDescriptor` 和 `ChangeSet`，不让 FastAPI route 直接调用 YAML 或 generator。旧 service 可以暂时作为 adapter 内部实现，待契约稳定后再删除。
+
+### 阶段 3：先做一个垂直切片
+
+推荐顺序是 cost/reward → victory tree → wonder → media/cropper：
+
+1. cost/reward 验证统一表单 schema、draft、校验、原子保存和 reload；
+2. victory tree 验证画布交互、实体图和二进制预览产物；
+3. wonder 验证多源文件、生成器计划和跨文件提交；
+4. media/cropper 接入统一 job/artifact 协议，删除现有重复的媒体状态接口。
+
+每完成一个切片，就让旧标签页和新实现对同一组 fixture 输出相同的 source diff 和 validation report，再迁移下一项。
+
+### 阶段 4：重做前端共享层
+
+建立明确的设计令牌文件（颜色、间距、圆角、阴影、字体、焦点、状态色），再提供 `AppShell`、`ToolNav`、`ResourceList`、`EditorPanel`、`Field`、`ActionBar`、`StatusBanner`、`LogPanel`、`JobProgress` 等共享组件。各工具只提供 schema 和少量专用视图。
+
+共享 store 至少要统一 `loading / dirty / validating / saving / succeeded / failed` 状态、错误展示、确认离开、reload 和 toast。页面模块不应再各自定义 `fetchJson`、日志格式和 save 按钮状态。
+
+### 阶段 5：删除拼接层
+
+当三个编辑器都走统一 application API 后，删除旧的领域专用 route 形态、重复的 CSS 根规则、各自的请求封装和只为兼容旧入口保留的 wrapper。项目未发布，按 `CLAUDE.md` 的规则不需要保留旧内部 schema 或兼容分支。
+
+## Wonder 编辑器专项分析
+
+### 它实际承担了八种职责
+
+Wonder 编辑器的耦合核心不是“奇观字段很多”，而是一个类同时决定了数据如何读取、如何显示、如何解析、如何写回和如何生成。`WonderLocalizationService` 约 3,856 行，启动时一次加载通用奇观、独特奇观、机制、站点规则、最终建筑、通用仪式、本地化、独特仪式设计和提示词，然后构建选项目录并执行全量 canonical localization 校验（见 [wonder_localization.py](../../towards_victory_editor_web/services/wonder_localization.py#L2290)）。同一对象还负责：
+
+1. 源文件快照和进程内缓存；
+2. generic/unique wonder 的领域聚合；
+3. localization 与 mechanics 的字段规格及 UI schema；
+4. 文本、modifier、reward、site script、仪式和 ceremony 的解析/序列化；
+5. 跨字段规则校验；
+6. 多个 YAML/脚本文件的写入；
+7. generator 子进程编排；
+8. 操作日志和 HTTP payload 组装。
+
+因此，任何一个看似局部的改动都会穿过多层隐式协议。例如，新增一个 mechanics 字段不只要改数据读取，还要同步 `MechanicsFieldSpec`、structured parser、前端 `field_type` 分派、`_apply_wonder_edits` 的 target kind、源文件写入分支和 generator 输出。这里的“字段”实际上是从源文件到游戏产物的一条编译管线，而不是普通表单控件。
+
+### 当前数据流和耦合边界
+
+```mermaid
+flowchart LR
+    YAML[(wonders.yaml / unique_wonders.yaml\n+localization / mechanics / rituals)]
+    LOAD[WonderLocalizationService.reload_from_disk]
+    AGG[Wonder aggregate + inherited prototype]
+    SCHEMA[FieldSpec / MechanicsFieldSpec\n+structured_value + options]
+    API[bootstrap / wonder detail / save]
+    UI[wonder_localization.js\n+pageDrafts + DOM editors]
+    PARSE[_apply_wonder_edits\n+target_kind dispatch]
+    WRITE[multi-file writers]
+    GEN[hard-coded generator scripts]
+    OUT[(src localization / concepts / GUI / mechanics)]
+    YAML --> LOAD --> AGG --> SCHEMA --> API --> UI
+    UI --> API --> PARSE --> WRITE --> GEN --> OUT
+    GEN -. reload after failure .-> LOAD
+```
+
+这条链路有三个特别脆弱的连接：
+
+- **聚合与 schema 绑定**：`get_wonder_payload()` 每次按当前 wonder 动态重建两套 field spec；schema 没有独立版本，也没有只针对变更字段的缓存。
+- **结构化值与传输绑定**：复杂状态被放进单个 field 的 `structured_value`，并在前端以 JSON 字符串作为 input value 往返。解析时才恢复对象，导致一个小改动也携带整个 ritual/ceremony 文档。
+- **保存与生成绑定**：`save_wonders()` 在一个锁内修改多个内存对象、分批写文件、再运行 generator；失败时 reload 只能恢复进程内对象，无法撤销已经落盘的前几个文件（见 [wonder_localization.py](../../towards_victory_editor_web/services/wonder_localization.py#L2379) 和 [wonder_localization.py](../../towards_victory_editor_web/services/wonder_localization.py#L2554)）。
+
+### 已证实的性能瓶颈
+
+测量结果表明，主要问题在 payload 形状和初始化时机，而不是 YAML 文件本身的读取速度：
+
+| 操作 | 实测结果 | 说明 |
+| --- | ---: | --- |
+| 导入模块 | 约 0.24 s | 单纯 import 尚可 |
+| `WonderLocalizationService()` | 约 36.4 s（原评估环境） | 启动即全量读取、建目录、校验；该数字依赖机器和解释器，当前环境未复现 |
+| bootstrap JSON | 约 9.1 MB | 首屏同时返回列表、首个完整 wonder、全部 ritual designs |
+| generic detail | 约 3.37 MB | mechanics 约 3.33 MB |
+| unique Pharos detail | 约 6.14 MB | mechanics 约 6.10 MB |
+| unique Trinity Lavra detail | 约 12.56 MB | mechanics 约 12.48 MB |
+| unique Zhoushan detail | 约 12.52 MB | mechanics 约 12.49 MB |
+
+以 Trinity Lavra 为例，只有 9 个 mechanics 字段，但 `unique_ceremony` 约 6.39 MB、`unique_ritual` 约 4.41 MB；base modifiers 约 1.38 MB，其余字段均远小于此。原因是 `build_unique_ritual_editor_state()` 与 `build_unique_ceremony_editor_state()` 把完整结构连同每个 row 的 options 直接嵌入一个 field，前端再完整深拷贝并构建 DOM。`renderReadonlyStructuredField()` 甚至会先构建完整可编辑结构，再逐个禁用控件（见 [wonder_localization.js](../../towards_victory_editor_web/static/wonder_localization.js#L2241)）。继承 prototype 的只读页面因此也承担了编辑态的传输和渲染成本。
+
+前端还把所有页面草稿保存在 `pageDrafts`，保存时将所有 dirty wonder 一次提交到 `/wonders/save`。这会把“当前页面的一个小改动”升级为一次跨 wonder、跨文件、跨 generator 的长事务；保存耗时和失败范围随用户浏览过的页面数增长。
+
+### 正确性和可维护性风险
+
+- **部分提交**：localization、mechanics、wonders、unique 文件按不同分支写入；generator 失败没有文件级回滚，下一次启动可能读到源文件与生成文件不一致。
+- **隐式 target kind 协议**：`_apply_wonder_edits()` 同时处理 localization、site rules、generic wonder、base modifiers、generic rituals、unique wonder、unique ritual 和 unique ceremony。新增分支容易出现“字段能显示但不能保存”或“保存成功但生成器未覆盖”的静默缺口。
+- **继承语义容易被误编辑**：unique wonder 可展示 prototype 的 inherited fields；若前端把只读结构当作普通 JSON 回传，后端必须再次判断哪些值属于 prototype、哪些值属于本实体。当前语义依赖 `editable`、`prototype_key` 和多个 target kind 的组合，而不是一个显式的来源图。
+- **选项目录重复且不稳定**：modifier/reward/cost options 被复制到多个 field。目录来源来自其他 data/generator 输入，若没有版本或引用标识，前后端可能在长时间打开页面后使用过期选项。
+- **脚本编辑缺少独立边界**：site trigger、preference、ritual script 与结构化字段共用保存请求。脚本语法错误会阻塞不相关的本地化改动，也难以给出字段级错误位置。
+- **运行时不一致**：`_run_generators()` 拼接 `conda run -n eu5 python ...`，与受管沙箱要求的 direct interpreter 不一致；同一保存操作在开发机、CI 和部署环境可能使用不同解释器。
+- **历史拼接痕迹**：文件尾部重复定义 option helper，并明确以“later definitions intentionally replace older”覆盖前面的实现。这表示继续在单体中加分支会扩大名称覆盖和调用顺序风险。
+
+### 优化空间和建议顺序
+
+#### 低风险：先改变传输和渲染，不改变领域 schema
+
+1. bootstrap 只返回 wonder summary、catalog/version 和首屏元数据；当前 wonder 走 detail endpoint，ritual designs 改为按 unique wonder 请求。
+2. 把 options、localized labels、modifier catalog 改为 workspace 级共享引用（例如 `catalog_id` + `catalog_version`），field 只携带当前值和引用，不再为每行复制完整选项。
+3. 将 `structured_value` 变为规范化对象或带版本的资源引用；提交时由后端按 field schema 解析，避免 JSON 字符串在 DOM、draft、API 间三次编码/解码。
+4. inherited field 返回 `prototype_key`、effective summary 和 source path；只有用户展开时才请求完整 readonly state。只读视图使用摘要组件，禁止先构建再禁用编辑器。
+5. 为 `_build_specs_for_wonder()` 和 mechanics schema 增加缓存键（source fingerprint + schema version），只在源快照变化或目标字段变化时重建。
+
+这些改动可以先在现有 service 外包一层 serializer/endpoint 完成，用现有生成结果做 golden fixture，风险最低。
+
+#### 中风险：拆分 Wonder service 的内部模块
+
+按单向依赖拆为以下组件，先保持外部路由不变：
+
+```text
+SourceSnapshot / Repository
+        ↓
+WonderDomainModel + PrototypeResolver
+        ↓
+EditorSchemaFactory + CatalogRegistry
+        ↓
+Draft / ChangeSet + FieldParsers
+        ↓
+Validator
+        ↓
+SourceWriter（原子临时目录、文件快照、diff）
+        ↓
+GenerationPlan / GenerationRunner
+        ↓
+ArtifactReport + OperationLog
+```
+
+`ChangeSet` 必须记录每个字段的 source path、target path、原值、新值、受影响文件和 generator outputs；`GenerationPlan` 必须是可打印的 DAG，而不是 service 内的脚本元组。generic ritual、bespoke unique ritual 和 unique ceremony 继续使用各自 parser/validator，不能为了统一控件而把它们压成同一模板；`wonder_unique_rituals.md` 已明确要求 bespoke 内容保持独特。
+
+保存流程应改成：读取快照 → 构建 draft → 生成 change set → 全量校验 → 在临时目录写入源文件 → 运行声明的 generator → 校验产物 → 一次替换目标文件 → 写 operation log。任何阶段失败都只丢弃临时目录，并返回字段级错误与 generator 级错误。对当前未发布项目，不需要保留旧 schema 的兼容 wrapper；应直接把新 ChangeSet 作为唯一内部协议。
+
+#### 高风险：把 Wonder 接入平台统一提交协议
+
+只有上述边界稳定后，才将 Wonder 接入平台的 `load/draft/validate/preview/commit` API。一次 commit 应明确选择一个或多个 wonder resource；默认保存当前资源，跨 wonder 批量保存必须由用户显式创建 batch change set。generator 按 localization-only、generic mechanics、unique mechanics、concept/GUI 等依赖组执行，彼此独立的组可以并行，有依赖的组按 DAG 顺序执行，并逐项报告 artifact。
+
+### Wonder 专项验收指标
+
+- 服务 import 不触发全量 payload 构建；首次 service ready 时间目标小于 2 秒，或至少与页面请求解耦。
+- bootstrap 只含 summary/catalog，目标小于 200 KB；generic detail 目标小于 500 KB，unique ritual/ceremony 按需加载。
+- 同一 unique wonder 的 inherited readonly 初次响应只含 prototype reference 和摘要；展开后才返回完整结构，前端不创建可编辑 DOM。
+- 只修改一个字段时，ChangeSet 只能包含对应 source path 及其确实依赖的 generator outputs；不能因为 page draft 把所有 dirty wonder 一起提交。
+- 任意 writer 或 generator 失败后，源文件和已声明产物均保持提交前内容；返回可定位的失败阶段和文件列表。
+- generic、unique、bespoke ritual 与 ceremony 的 golden fixture 生成 source diff 和 validation report 与当前基线一致；保留 Engineering Department standalone root、local/country effect 分离等 Wonder 约束。
+- 每个 field 能显示 source file、source path、prototype/inherited 状态、validator 和 generator outputs；日志可关联到同一个 operation id。
+- 在 192 个 wonder 数据规模下，切换 wonder 的响应体、后端构建时间和前端 DOM 节点数分别设上限并纳入回归测试。
+
+## 必须设置的验收门槛
+
+- **协议**：所有工具都能通过同一组 load/draft/validate/preview/commit API 工作；同步编辑与异步生成只是显示方式不同。
+- **一致性**：一次 commit 要么所有声明的源文件和产物都更新，要么源文件和产物都不变，并留下可读的失败报告。
+- **来源**：每个可编辑字段都能显示 source file、generator、generated outputs 和 validation rules。
+- **行为**：旧工具的 golden fixture 在新 adapter 下产生相同的 YAML/JSON/script diff；wonder 的结构化字段和 tree 拖拽行为必须有回归测试。
+- **视觉**：所有公共控件只使用设计令牌；页面不能依赖 CSS 文件加载顺序覆盖另一套 `:root/body/button` 规则。
+- **运行时**：生成器使用统一解释器和命令执行器；不在领域 service 中拼接 `conda run` 或直接依赖当前进程的 `sys.path` 副作用。
+- **质量**：除现有领域 `--check` 外，增加 API contract、保存失败恢复、并发编辑、生成器失败、产物校验和最小视觉回归检查。
+
+## 当前验证结果
+
+本次核对后已完成 cost/reward 统一资源协议的修正版切片；其余编辑器仍未迁移。现有基线检查通过：
+
+- `python -m towards_victory_editor_web --check`：cost/reward 459 条、task pool 96 条、victory tree 104 个节点、192 个 wonder 的生成与本地化检查均通过；媒体注册 8 项、可运行媒体工具 5 项、cropper 发现 196 张图片。
+- `python -m compileall -q towards_victory_editor_web` 通过。
+- 六个前端 JavaScript 文件均通过 `node --check`。
+
+新增验证：
+
+- `GET /api/resources/editor.cost_reward` 返回 `ResourceDescriptor`、draft 和仓库相对路径的源文件快照；
+- `POST /api/resources/editor.cost_reward/{validate,preview,commit}` 提供统一操作入口；校验和预览基于深拷贝，commit 强制携带加载时的 base 摘要，冲突返回 409，写入走暂存替换；
+- 仓库测试 `tests/test_cost_reward_resource_contract.py` 使用与仓库一致的 `data/` 目录结构，覆盖校验隔离、未知分类、字段级 diff、文件头注释与 BOM 保留、base 冲突检测；
+- `services/platform.py` 提供文件快照、`ChangeSet` 和暂存替换基础设施，后续 tree/wonder/media 适配器可复用。
+
+这些结果说明当前数据和语法处于可运行状态；目前只有 cost/reward 已接入统一资源协议，victory tree、wonder 和 media 仍需按同一契约迁移。前端 cost/reward 已改用新资源接口，旧的 `/api/cost-reward/bootstrap`、`/api/cost-reward/save` 路由已删除。
+
+已知限制：保存仍会整体重写 YAML 文件（与迁移前行为一致）。文件头注释和原有 BOM 状态会保留，但正文中的分节注释（如 `task_pool.yaml` 的 `# --- Military ---`）不会被保留，字符串引号也会被统一去掉。若后续要求保留正文注释和字段顺序，需要改成定点改写或往返式 YAML 读写，属于独立任务。

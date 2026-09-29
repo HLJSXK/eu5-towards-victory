@@ -8,7 +8,7 @@ from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from .services.cost_reward import CostRewardEditorService
+from .services.cost_reward import ConflictError, CostRewardEditorService
 from .services.victory_tree import GENERATED_PREVIEWS_DIR, TREE_PREVIEW_URL_PREFIX, VictoryTreePlannerService
 from .services.wonder_localization import (
     GENERATED_WONDER_IMAGES_DIR,
@@ -26,6 +26,7 @@ STATIC_DIR = PACKAGE_ROOT / "static"
 
 class SaveCostRewardRequest(BaseModel):
     edits: dict[str, dict[str, dict[str, Any]]] = Field(default_factory=dict)
+    base: dict[str, str] = Field(default_factory=dict)
 
 
 class SaveVictoryTreeRequest(BaseModel):
@@ -85,6 +86,10 @@ def create_app() -> FastAPI:
     async def _handle_runtime_error(request, exc: RuntimeError):
         return JSONResponse(status_code=500, content={"detail": str(exc)})
 
+    @app.exception_handler(ConflictError)
+    async def _handle_conflict_error(request, exc: ConflictError):
+        return JSONResponse(status_code=409, content={"detail": str(exc)})
+
     @app.exception_handler(Exception)
     async def _handle_generic_error(request, exc: Exception):
         return JSONResponse(status_code=500, content={"detail": str(exc)})
@@ -107,13 +112,22 @@ def create_app() -> FastAPI:
     # --- Cost / Reward editor -------------------------------------------------
     cost_reward_service = CostRewardEditorService()
 
-    @app.get("/api/cost-reward/bootstrap")
-    def cost_reward_bootstrap() -> dict:
-        return cost_reward_service.bootstrap_payload()
+    @app.get("/api/resources/editor.cost_reward")
+    def cost_reward_resource() -> dict:
+        return cost_reward_service.load_resource()
 
-    @app.post("/api/cost-reward/save")
-    def cost_reward_save(request: SaveCostRewardRequest) -> dict:
-        return cost_reward_service.save_tokens(request.edits)
+    @app.post("/api/resources/editor.cost_reward/validate")
+    def cost_reward_validate(request: SaveCostRewardRequest) -> dict:
+        return cost_reward_service.validate_edits(request.edits)
+
+    @app.post("/api/resources/editor.cost_reward/preview")
+    def cost_reward_preview(request: SaveCostRewardRequest) -> dict:
+        report = cost_reward_service.preview_edits(request.edits)
+        return {"resource": cost_reward_service.resource_descriptor().payload(), **report}
+
+    @app.post("/api/resources/editor.cost_reward/commit")
+    def cost_reward_commit(request: SaveCostRewardRequest) -> dict:
+        return cost_reward_service.save_tokens(request.edits, request.base)
 
     # --- Victory tree planner --------------------------------------------------
     victory_tree_service = VictoryTreePlannerService()

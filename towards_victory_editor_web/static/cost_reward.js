@@ -1,6 +1,7 @@
 const state = {
   groups: [],
   edits: {},
+  base: {},
   activeKey: null,
 };
 
@@ -292,18 +293,22 @@ function renderPanels() {
 }
 
 function applyBootstrapPayload(payload) {
-  state.groups = payload.groups || [];
+  const draft = payload.draft || payload;
+  state.groups = draft.groups || [];
+  if (payload.change_set && Array.isArray(payload.change_set.base)) {
+    state.base = Object.fromEntries(payload.change_set.base.map((item) => [item.path, item.sha256]));
+  }
   if (!state.activeKey || !state.groups.some((g) => g.key === state.activeKey)) {
     state.activeKey = state.groups.length ? state.groups[0].key : null;
   }
   clearEdits();
-  setLog(payload.log || "");
+  setLog(draft.log || "");
   renderTabs();
   renderPanels();
 }
 
 async function loadBootstrap() {
-  const payload = await fetchJson("api/cost-reward/bootstrap");
+  const payload = await fetchJson("api/resources/editor.cost_reward");
   applyBootstrapPayload(payload);
 }
 
@@ -311,10 +316,13 @@ async function save() {
   const saveBtn = document.getElementById("cr-save-btn");
   saveBtn.disabled = true;
   try {
-    const payload = await fetchJson("api/cost-reward/save", {
+    const payload = await fetchJson("api/resources/editor.cost_reward/commit", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ edits: state.edits }),
+      body: JSON.stringify({
+        edits: state.edits,
+        base: state.base,
+      }),
     });
     applyBootstrapPayload(payload);
     appendLog("\n[ok] Saved.\n");
