@@ -11,10 +11,15 @@ const state = {
     rendering: false,
     pageDrafts: {},
     ritualDesigns: null,
+    ritualDesignDetails: {},
+    ritualDesignsError: "",
     ritualPromptDrafts: {},
 };
+let ritualDesignCatalogRequest = null;
+let ritualDesignGeneration = 0;
+const ritualDesignDetailRequests = new Map();
 
-const toolSection = document.querySelector('[data-tool="wonder-localization"]');
+const toolSection = document.querySelector('.tool-panel[data-tool="wonder-localization"]');
 
 const elements = {
     appTitle: document.getElementById("app-title"),
@@ -677,7 +682,7 @@ function editorTabsForCurrentWonder() {
             kind: "mechanics",
         });
     }
-    if (state.currentWonder.summary?.is_unique && state.ritualDesigns) {
+    if (state.currentWonder.summary?.is_unique) {
         tabs.push({
             id: "ritual-design",
             label: "仪式设计",
@@ -710,6 +715,10 @@ function renderEditorTabs() {
             state.activeEditorTab = tab.id;
             renderEditorTabs();
             syncActiveEditorPanel();
+            if (tab.id === "ritual-design" && !state.ritualDesigns) {
+                state.ritualDesignsError = "";
+                void loadRitualDesignCatalog();
+            }
         });
         elements.languageTabs.append(button);
     }
@@ -2377,21 +2386,15 @@ function currentRitualDesignEntry() {
     if (!state.currentWonder?.summary?.is_unique) {
         return null;
     }
-    if (state.currentWonder.ritual_design) {
-        return state.currentWonder.ritual_design;
-    }
-    const wonderId = state.currentWonder.summary.id;
-    return (state.ritualDesigns?.wonders || []).find((entry) => Number(entry.id) === Number(wonderId)) || null;
+    return state.currentWonder.ritual_design || null;
 }
 
 function currentRitualPromptOriginal() {
-    const wonderId = currentWonderId();
     const currentPrompt = state.currentWonder?.ritual_prompt?.prompt;
     if (currentPrompt !== undefined) {
         return String(currentPrompt || "");
     }
-    const entry = (state.ritualDesigns?.wonders || []).find((item) => Number(item.id) === Number(wonderId));
-    return String(entry?.prompt || "");
+    return "";
 }
 
 function currentRitualPromptValue() {
@@ -2401,7 +2404,9 @@ function currentRitualPromptValue() {
 }
 
 function ritualDesignLabel(key) {
-    return state.ritualDesigns?.field_labels?.[key] || key.replaceAll("_", " ");
+    return state.currentWonder?.ritual_design?.field_labels?.[key]
+        || state.ritualDesigns?.field_labels?.[key]
+        || key.replaceAll("_", " ");
 }
 
 function ritualDesignEntriesForDisplay(design) {
@@ -2570,7 +2575,7 @@ function renderRitualPromptCard(panel) {
                 <p class="eyebrow">AI Prompt</p>
                 <h3>实现指令 Prompt</h3>
             </div>
-            <span class="origin-pill">${escapeHtml(state.ritualDesigns?.prompt_source_path || "")}</span>
+            <span class="origin-pill">${escapeHtml(state.currentWonder.ritual_prompt?.source_path || "")}</span>
         </div>
     `;
 
@@ -2647,6 +2652,30 @@ function renderRitualDesignPanel(panel) {
         panel.append(currentSection);
     }
 
+    const catalog = document.createElement("div");
+    catalog.className = "ritual-design-catalog-content";
+    panel.append(catalog);
+    renderRitualDesignCatalog(catalog);
+}
+
+function renderRitualDesignCatalog(container) {
+    container.innerHTML = "";
+    if (!state.ritualDesigns) {
+        const status = document.createElement("div");
+        status.className = "empty-state wide";
+        status.textContent = state.ritualDesignsError || "正在加载仪式设计目录...";
+        if (state.ritualDesignsError) {
+            const retry = document.createElement("button");
+            retry.type = "button";
+            retry.className = "secondary-button";
+            retry.textContent = "重试";
+            retry.addEventListener("click", () => { void loadRitualDesignCatalog(); });
+            status.append(document.createElement("br"), retry);
+        }
+        container.append(status);
+        return;
+    }
+
     const allSection = document.createElement("section");
     allSection.className = "ritual-design-all";
     allSection.innerHTML = `
@@ -2664,12 +2693,23 @@ function renderRitualDesignPanel(panel) {
         const item = document.createElement("details");
         item.className = "ritual-design-card";
         item.open = isCurrent;
-        item.append(renderRitualDesignSummary(design, isCurrent), renderRitualDesignBody(design));
-        appendOriginalRitualDesign(item, design, { showFallbackNote: false });
+        const fullDesign = isCurrent
+            ? state.currentWonder.ritual_design
+            : state.ritualDesignDetails[String(design.id)];
+        item.append(renderRitualDesignSummary(design, isCurrent));
+        if (fullDesign) {
+            item.append(renderRitualDesignBody(fullDesign));
+            appendOriginalRitualDesign(item, fullDesign, { showFallbackNote: false });
+        }
+        item.addEventListener("toggle", () => {
+            if (item.open && !fullDesign && !item.dataset.loaded) {
+                void loadRitualDesignItem(design.id, item);
+            }
+        });
         list.append(item);
     }
     allSection.append(list);
-    panel.append(allSection);
+    container.append(allSection);
 }
 
 function renderEditorPanels() {
@@ -2695,7 +2735,7 @@ function renderEditorPanels() {
         elements.languagePanels.append(panel);
     }
 
-    if (state.currentWonder.summary?.is_unique && state.ritualDesigns) {
+    if (state.currentWonder.summary?.is_unique) {
         const panel = document.createElement("div");
         panel.className = "language-panel";
         panel.dataset.editorTab = "ritual-design";
@@ -2705,6 +2745,9 @@ function renderEditorPanels() {
 
     syncActiveEditorPanel();
     refreshDirtyState();
+    if (state.activeEditorTab === "ritual-design" && !state.ritualDesigns && !state.ritualDesignsError) {
+        void loadRitualDesignCatalog();
+    }
 }
 
 function syncActiveEditorPanel() {
@@ -2759,6 +2802,85 @@ async function fetchJson(url, options = {}) {
     return response.json();
 }
 
+async function loadRitualDesignCatalog() {
+    if (state.ritualDesigns || ritualDesignCatalogRequest) {
+        return;
+    }
+    const generation = ritualDesignGeneration;
+    state.ritualDesignsError = "";
+    const panel = elements.languagePanels.querySelector('[data-editor-tab="ritual-design"]');
+    if (panel) {
+        renderRitualDesignCatalog(panel.querySelector(".ritual-design-catalog-content"));
+    }
+    const request = fetchJson("api/wonder-localization/ritual-designs");
+    ritualDesignCatalogRequest = request;
+    try {
+        const catalog = await request;
+        if (generation === ritualDesignGeneration) {
+            state.ritualDesigns = catalog;
+            state.ritualDesignsError = "";
+        }
+    } catch (error) {
+        if (generation === ritualDesignGeneration) {
+            state.ritualDesignsError = `仪式设计加载失败: ${error.message}`;
+            showToast(state.ritualDesignsError, "error");
+        }
+    } finally {
+        if (generation === ritualDesignGeneration) {
+            ritualDesignCatalogRequest = null;
+            const currentPanel = elements.languagePanels.querySelector('[data-editor-tab="ritual-design"]');
+            if (currentPanel) {
+                renderRitualDesignCatalog(currentPanel.querySelector(".ritual-design-catalog-content"));
+            }
+        }
+    }
+}
+
+async function loadRitualDesignItem(wonderId, item) {
+    const generation = ritualDesignGeneration;
+    const key = String(wonderId);
+    item.dataset.loaded = "true";
+    item.querySelector(".ritual-design-load-state")?.remove();
+    const status = document.createElement("p");
+    status.className = "ritual-design-load-state";
+    status.textContent = "正在加载仪式设计...";
+    item.append(status);
+    try {
+        if (!ritualDesignDetailRequests.has(key)) {
+            ritualDesignDetailRequests.set(key, fetchJson(`api/wonder-localization/ritual-designs/${wonderId}`));
+        }
+        const design = await ritualDesignDetailRequests.get(key);
+        if (generation !== ritualDesignGeneration) {
+            return;
+        }
+        state.ritualDesignDetails[key] = design;
+        status.remove();
+        if (item.isConnected) {
+            item.append(renderRitualDesignBody(design));
+            appendOriginalRitualDesign(item, design, { showFallbackNote: false });
+        }
+    } catch (error) {
+        if (generation === ritualDesignGeneration) {
+            delete item.dataset.loaded;
+            status.textContent = `仪式设计加载失败: ${error.message}`;
+            showToast(status.textContent, "error");
+        }
+    } finally {
+        if (generation === ritualDesignGeneration) {
+            ritualDesignDetailRequests.delete(key);
+        }
+    }
+}
+
+function invalidateRitualDesigns() {
+    ritualDesignGeneration += 1;
+    ritualDesignCatalogRequest = null;
+    ritualDesignDetailRequests.clear();
+    state.ritualDesigns = null;
+    state.ritualDesignDetails = {};
+    state.ritualDesignsError = "";
+}
+
 function syncWonderModeWithSelection() {
     if (!state.currentWonder) {
         return;
@@ -2773,17 +2895,24 @@ async function loadBootstrap() {
         const payload = await fetchJson("api/wonder-localization/bootstrap");
         state.title = payload.title;
         state.wonders = payload.wonders;
-        state.ritualDesigns = payload.ritual_designs || null;
-        setCurrentWonderPayload(payload.current_wonder);
+        setCurrentWonderPayload(null);
         state.logText = payload.log_text || "";
+        state.status = payload.status || "就绪";
+        state.statusKind = "default";
+        render();
+        const wonder = payload.initial_wonder_id === null
+            ? null
+            : await fetchJson(`api/wonder-localization/wonders/${payload.initial_wonder_id}`);
+        setCurrentWonderPayload(wonder);
         state.status = payload.status || (state.currentWonder ? state.currentWonder.status : "就绪");
         state.statusKind = "default";
         syncWonderModeWithSelection();
         render();
     } catch (error) {
         console.error(error);
-        updateStatus("加载失败", "error");
-        showToast(`加载失败: ${error.message}`, "error");
+        const phase = state.wonders.length ? "奇观详情" : "奇观列表";
+        updateStatus(`${phase}加载失败`, "error");
+        showToast(`${phase}加载失败: ${error.message}`, "error");
     } finally {
         setBusy(false);
     }
@@ -2843,6 +2972,7 @@ async function saveCurrentWonder() {
         });
         state.pageDrafts = {};
         state.wonders = payload.wonders;
+        invalidateRitualDesigns();
         setCurrentWonderPayload(payload.wonder);
         state.logText = payload.log_text || state.logText;
         state.status = payload.status;
@@ -2874,7 +3004,6 @@ async function saveCurrentRitualPrompt(prompt) {
                 prompt: normalizedPrompt,
             }),
         });
-        state.ritualDesigns = payload.ritual_designs || state.ritualDesigns;
         state.currentWonder.ritual_prompt = payload.prompt || state.currentWonder.ritual_prompt;
         delete state.ritualPromptDrafts[String(wonderId)];
         state.logText = payload.log_text || state.logText;
@@ -2912,6 +3041,7 @@ async function reloadCurrentWonder() {
         });
         delete state.pageDrafts[String(currentId)];
         state.wonders = payload.wonders;
+        invalidateRitualDesigns();
         setCurrentWonderPayload(payload.wonder);
         state.logText = payload.log_text || state.logText;
         state.status = payload.status;

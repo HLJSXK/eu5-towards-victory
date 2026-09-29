@@ -2,9 +2,9 @@
 
 ## 结论
 
-`towards_victory_editor_web` 已经统一了启动命令、浏览器入口和部分媒体任务基础设施，但还没有统一底层架构。当前形态更准确地说是：一个 FastAPI 壳层，挂载三个旧编辑器的领域服务，再挂载一套后来加入的媒体作业系统。
+`towards_victory_editor_web` 已经统一了启动命令、浏览器入口和部分媒体任务基础设施，cost/reward 与 victory tree 也已接入统一资源协议。Wonder 已完成 bootstrap 与仪式设计按需加载的传输优化，但 Wonder 和 media/cropper 尚未接入统一资源协议，底层架构仍未完全统一。
 
-因此，当前主要问题不是页面是否放在同一个标签栏，而是系统缺少同一套资源模型、保存事务、服务协议、前端状态模型和设计令牌。若继续在现有壳层上添加标签页，功能数量会增加，架构一致性不会提高。
+因此，当前主要问题不是页面是否放在同一个标签栏，而是统一资源模型、保存事务、服务协议、前端状态模型和设计令牌尚未覆盖全部工具。若继续在现有壳层上添加标签页，功能数量会增加，架构一致性不会提高。
 
 “完全一致”应定义为平台契约一致：所有工具使用同一套资源描述、校验、草稿、保存、生成、日志和错误协议；页面共享同一套布局、控件、状态和主题令牌。各领域仍可以保留不同的编辑器交互，例如树形画布与表单编辑不应被强行做成同一种控件。
 
@@ -189,6 +189,8 @@ flowchart LR
 
 测量结果表明，主要问题在 payload 形状和初始化时机，而不是 YAML 文件本身的读取速度：
 
+下表保留迁移前的测量记录；bootstrap 已在后续切片中缩小，当前测量见文末“当前验证结果”。
+
 | 操作 | 实测结果 | 说明 |
 | --- | ---: | --- |
 | 导入模块 | 约 0.24 s | 单纯 import 尚可 |
@@ -278,7 +280,7 @@ ArtifactReport + OperationLog
 
 ## 当前验证结果
 
-目前已完成 cost/reward 与 victory tree 两个统一资源协议切片；wonder、media/cropper 仍未迁移。现有基线检查通过：
+目前已完成 cost/reward 与 victory tree 两个统一资源协议切片，以及 Wonder 的 bootstrap 与仪式设计按需加载切片。Wonder 的统一资源协议与提交事务、media/cropper 的资源协议仍未迁移。现有基线检查通过：
 
 - `python -m towards_victory_editor_web --check`：cost/reward 459 条、task pool 96 条、victory tree 104 个节点、192 个 wonder 的生成与本地化检查均通过；媒体注册 8 项、可运行媒体工具 5 项、cropper 发现 196 张图片。
 - `python -m compileall -q towards_victory_editor_web` 通过。
@@ -295,6 +297,16 @@ ArtifactReport + OperationLog
 - `tests/test_victory_tree_resource_contract.py` 使用固定样本覆盖画布 draft 等价、预览隔离、非法坐标、节点增删后的坐标保留、并发冲突、旧标签页经 preview 刷新 base、坐标文件格式错误、写入失败与坐标文件缺失时的首次保存；两个编辑器契约测试共 16 项通过，FastAPI 测试验证了 400 和 409 的映射。
 - `python scripts/validate.py --changed --ai-report`、Python 编译检查、两个编辑器 JavaScript 语法检查与 `git diff --check` 通过；未运行会改写文件的 `--fix`。
 
-这些结果说明当前数据和语法处于可运行状态；cost/reward 与 victory tree 已接入统一资源协议，wonder 和 media/cropper 仍需按同一契约迁移。tree 的 DDS 背景预览仍在服务初始化时解码，不属于坐标提交的生成产物。前端 cost/reward 已改用新资源接口，旧的 `/api/cost-reward/bootstrap`、`/api/cost-reward/save` 路由已删除。
+Wonder 本次验证与边界：
 
-已知限制：保存仍会整体重写 YAML 文件（与迁移前行为一致）。文件头注释和原有 BOM 状态会保留，但正文中的分节注释（如 `task_pool.yaml` 的 `# --- Military ---`）不会被保留，字符串引号也会被统一去掉。若后续要求保留正文注释和字段顺序，需要改成定点改写或往返式 YAML 读写，属于独立任务。409 后草稿仍保留在页面中；重新加载会提示确认，但目前没有自动合并外部修改与未保存草稿。`atomic_write_files` 会先暂存全部内容，但跨多个目标文件的替换并非全局原子操作；wonder 的多文件事务与生成器回滚仍未实现。
+- `GET /api/wonder-localization/bootstrap` 只返回奇观摘要列表、`initial_wonder_id` 和页面元数据，首个奇观通过现有 detail endpoint 单独请求；bootstrap 不再构建完整 detail 或聚合全部仪式设计。
+- `GET /api/wonder-localization/ritual-designs` 返回轻量目录；`GET /api/wonder-localization/ritual-designs/{wonder_id}` 返回单个独特奇观的完整设计。前端打开仪式设计标签页才请求目录，展开其他奇观才请求其完整设计；当前奇观继续使用 detail 中的设计与 Prompt。Prompt 保存响应不再返回全部设计。
+- 本机同一 JSON 序列化方式（`json.dumps(..., ensure_ascii=False)`）测得 bootstrap 从 10,227,296 bytes 降至 110,659 bytes，达到小于 200 KB 的目标；136 条仪式设计目录为 44,797 bytes。首个 generic detail 仍为 3,805,579 bytes，服务初始化约 7.3 s；本次未解决共享 options 重复、详情体积或启动时全量校验的问题。
+- `tests/test_wonder_payload_loading.py` 覆盖摘要载荷大小、目录与详情等价、中文字段标签、非独特奇观拒绝、独特奇观无设计、错误或重复的设计 `id/key`、HTTP 错误码和 Prompt 保存。设计源数据只在服务加载时校验一次：损坏的数据使启动失败（Wonder 接口返回 503 并给出源路径），重新加载时失败返回 500；未知详情仍返回 404。
+- `tests/wonder_payload_browser.cjs` 是可重复运行的 Playwright 回归脚本。启动本地服务后，可用 `PLAYWRIGHT_MODULE=<playwright 包路径> CHROME_PATH=<Chrome 可执行文件> EDITOR_URL=http://127.0.0.1:8760/ node tests/wonder_payload_browser.cjs` 执行；若 Playwright 已在 Node 搜索路径中，可省略 `PLAYWRIGHT_MODULE`。它覆盖首个详情失败后列表仍可选、仪式目录延迟加载与失败重试、中文标签进入 Prompt、目录更新时 Prompt 焦点与光标保留、单项详情失败重试、旧目录请求隔离及 390 px 窄屏来源路径换行。
+- 当前奇观的详情自带仪式字段中文标签，因此目录未完成或失败时也能正确显示并生成 Prompt；目录请求完成时只更新目录区域，不重建 Prompt 编辑框。
+- 这是传输层优化，仍使用 Wonder 的原有路由与领域保存逻辑，未宣称已完成统一资源契约、跨文件事务或生成器回滚。
+
+这些结果说明当前数据和语法处于可运行状态；cost/reward 与 victory tree 已接入统一资源协议，Wonder 已减少首屏和仪式列表的传输负担，Wonder 与 media/cropper 仍需按同一契约迁移。tree 的 DDS 背景预览仍在服务初始化时解码，不属于坐标提交的生成产物。前端 cost/reward 已改用新资源接口，旧的 `/api/cost-reward/bootstrap`、`/api/cost-reward/save` 路由已删除。
+
+已知限制：保存仍会整体重写 YAML 文件（与迁移前行为一致）。文件头注释和原有 BOM 状态会保留，但正文中的分节注释（如 `task_pool.yaml` 的 `# --- Military ---`）不会被保留，字符串引号也会被统一去掉。若后续要求保留正文注释和字段顺序，需要改成定点改写或往返式 YAML 读写，属于独立任务。409 后草稿仍保留在页面中；重新加载会提示确认，但目前没有自动合并外部修改与未保存草稿。`atomic_write_files` 会先暂存全部内容，但跨多个目标文件的替换并非全局原子操作；Wonder 的多文件事务与生成器回滚仍未实现，生成器仍使用 `conda run`，需要后续独立处理。

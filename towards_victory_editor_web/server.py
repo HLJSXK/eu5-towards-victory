@@ -174,6 +174,18 @@ def create_app() -> FastAPI:
             return JSONResponse(status_code=503, content={"detail": wonder_load_error})
         return wonder_service.bootstrap_payload()
 
+    @app.get("/api/wonder-localization/ritual-designs")
+    def ritual_design_catalog() -> dict:
+        if wonder_service is None:
+            return JSONResponse(status_code=503, content={"detail": wonder_load_error})
+        return wonder_service.ritual_design_catalog_payload()
+
+    @app.get("/api/wonder-localization/ritual-designs/{wonder_id}")
+    def ritual_design_get(wonder_id: int) -> dict:
+        if wonder_service is None:
+            return JSONResponse(status_code=503, content={"detail": wonder_load_error})
+        return wonder_service.ritual_design_payload(wonder_id)
+
     @app.get("/api/wonder-localization/wonders/{wonder_id}")
     def wonder_get(wonder_id: int) -> dict:
         if wonder_service is None:

@@ -2297,6 +2297,7 @@ class WonderLocalizationService:
             self.event_suffixes = load_engineering_department_suffix_map()
             self.localization_data = load_wonder_localization_data()
             self.unique_ritual_designs_data = load_unique_ritual_designs_data()
+            self._validate_unique_ritual_designs()
             self.unique_ritual_design_translations_data = load_unique_ritual_design_translations_data()
             self.unique_ritual_prompts_data = load_unique_ritual_prompts_data()
             (
@@ -2320,8 +2321,7 @@ class WonderLocalizationService:
                 "title": "Towards Victory Wonder Editor",
                 "status": "Ready",
                 "wonders": wonders,
-                "current_wonder": self.get_wonder_payload(first_wonder_id) if first_wonder_id is not None else None,
-                "ritual_designs": self._unique_ritual_designs_payload(),
+                "initial_wonder_id": first_wonder_id,
                 "log_text": self.log_text,
             }
 
@@ -2693,7 +2693,6 @@ class WonderLocalizationService:
             return {
                 "status": status,
                 "prompt": self._unique_ritual_prompt_for_wonder(wonder),
-                "ritual_designs": self._unique_ritual_designs_payload(),
                 "log_text": self.log_text,
             }
 
@@ -2710,6 +2709,23 @@ class WonderLocalizationService:
             if isinstance(entry, dict) and entry.get("key") == wonder_key:
                 return entry
         return None
+
+    def _validate_unique_ritual_designs(self) -> None:
+        wonders_by_id = {int(wonder["id"]): wonder for wonder in self.wonders}
+        seen_ids: set[int] = set()
+        seen_keys: set[str] = set()
+        for index, entry in enumerate(self.unique_ritual_designs_data.get("unique_wonders", [])):
+            source = f"{UNIQUE_RITUAL_DESIGNS_REL}.unique_wonders[{index}]"
+            if not isinstance(entry, dict) or type(entry.get("id")) is not int or not isinstance(entry.get("key"), str):
+                raise RuntimeError(f"{source} must have an integer id and string key")
+            wonder_id, key = entry["id"], entry["key"]
+            wonder = wonders_by_id.get(wonder_id)
+            if wonder is None or not wonder.get("is_unique") or wonder["key"] != key:
+                raise RuntimeError(f"{source} id/key does not match a unique wonder: {wonder_id}/{key}")
+            if wonder_id in seen_ids or key in seen_keys:
+                raise RuntimeError(f"{source} duplicates ritual design id/key: {wonder_id}/{key}")
+            seen_ids.add(wonder_id)
+            seen_keys.add(key)
 
     def _unique_ritual_prompt_for_wonder(self, wonder: dict[str, Any]) -> dict[str, Any] | None:
         if not wonder.get("is_unique"):
@@ -2744,40 +2760,48 @@ class WonderLocalizationService:
         payload["name_zh"] = summary["name_zh"]
         payload["display_name"] = summary["display_name"]
         payload["source_path"] = UNIQUE_RITUAL_DESIGNS_REL
+        payload["field_labels"] = dict(RITUAL_DESIGN_FIELD_LABELS)
         self._attach_unique_ritual_translation(payload)
         return payload
 
-    def _unique_ritual_designs_payload(self) -> dict[str, Any]:
-        prompt_index = unique_ritual_prompt_index(self.unique_ritual_prompts_data)
-        entries: list[dict[str, Any]] = []
-        for entry in self.unique_ritual_designs_data.get("unique_wonders", []):
-            if not isinstance(entry, dict):
-                continue
-            payload = deepcopy(entry)
-            try:
-                wonder = self._get_wonder(int(entry["id"]))
+    def ritual_design_catalog_payload(self) -> dict[str, Any]:
+        with self._lock:
+            entries = []
+            translations = unique_ritual_design_translation_index(self.unique_ritual_design_translations_data)
+            for entry in self.unique_ritual_designs_data.get("unique_wonders", []):
+                wonder = self._get_wonder(entry["id"])
                 summary = self._wonder_summary(wonder)
-                payload["name_en"] = summary["name_en"]
-                payload["name_zh"] = summary["name_zh"]
-                payload["display_name"] = summary["display_name"]
-            except Exception:
-                payload["name_en"] = ""
-                payload["name_zh"] = ""
-                payload["display_name"] = str(entry.get("key", ""))
-            self._attach_unique_ritual_translation(payload)
-            payload["prompt"] = str(prompt_index.get(str(entry.get("key", "")), {}).get("prompt", ""))
-            entries.append(payload)
-        entries.sort(key=lambda entry: int(entry.get("id", 0)))
-        return {
-            "source_path": UNIQUE_RITUAL_DESIGNS_REL,
-            "translation_source_path": UNIQUE_RITUAL_DESIGNS_ZH_REL,
-            "prompt_source_path": UNIQUE_RITUAL_PROMPTS_REL,
-            "field_labels": RITUAL_DESIGN_FIELD_LABELS,
-            "metadata": deepcopy(self.unique_ritual_designs_data.get("metadata", {})),
-            "translation_metadata": deepcopy(self.unique_ritual_design_translations_data.get("metadata", {})),
-            "count": len(entries),
-            "wonders": entries,
-        }
+                ritual = entry.get("ritual_design") or {}
+                translated = translations.get(str(entry.get("key", "")), {}).get("ritual_design_zh") or {}
+                fields = ("title", "mode", "listeners")
+                item = {
+                    "id": entry["id"],
+                    "key": entry["key"],
+                    "display_name": summary["display_name"],
+                    "ritual_design": {key: deepcopy(ritual[key]) for key in fields if key in ritual},
+                }
+                if translated:
+                    item["ritual_design_zh"] = {key: deepcopy(translated[key]) for key in fields if key in translated}
+                entries.append(item)
+            entries.sort(key=lambda item: item["id"])
+            return {
+                "source_path": UNIQUE_RITUAL_DESIGNS_REL,
+                "translation_source_path": UNIQUE_RITUAL_DESIGNS_ZH_REL,
+                "prompt_source_path": UNIQUE_RITUAL_PROMPTS_REL,
+                "field_labels": dict(RITUAL_DESIGN_FIELD_LABELS),
+                "count": len(entries),
+                "wonders": entries,
+            }
+
+    def ritual_design_payload(self, wonder_id: int) -> dict[str, Any]:
+        with self._lock:
+            wonder = self._get_wonder(wonder_id)
+            if not wonder.get("is_unique"):
+                raise ValueError(f"{wonder['key']} is not a unique wonder")
+            payload = self._unique_ritual_design_for_wonder(wonder)
+            if payload is None:
+                raise KeyError(f"No ritual design for wonder id: {wonder_id}")
+            return payload
 
     def _get_wonder(self, wonder_id: int) -> dict[str, Any]:
         for wonder in self.wonders:

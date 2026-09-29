@@ -977,9 +977,13 @@ textarea {
 }
 
 .ritual-prompt-card + .ritual-design-current,
-.ritual-design-current + .ritual-design-all,
-.ritual-prompt-card + .ritual-design-all {
+.ritual-design-current + .ritual-design-catalog-content,
+.ritual-prompt-card + .ritual-design-catalog-content {
     margin-top: 18px;
+}
+
+.ritual-design-catalog-content .empty-state button {
+    margin-top: 12px;
 }
 
 .ritual-prompt-card {
@@ -987,6 +991,19 @@ textarea {
     border: 1px solid var(--line);
     border-radius: var(--radius-lg);
     background: var(--panel-strong);
+}
+
+.ritual-prompt-card .panel-header {
+    flex-wrap: wrap;
+}
+
+.ritual-prompt-card .panel-header > div {
+    flex: 1 1 180px;
+}
+
+.ritual-prompt-card .origin-pill {
+    max-width: 100%;
+    overflow-wrap: anywhere;
 }
 
 .ritual-prompt-input {
