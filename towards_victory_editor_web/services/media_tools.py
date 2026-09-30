@@ -1,20 +1,24 @@
 from __future__ import annotations
 
 import importlib.util
+from contextlib import contextmanager
 import sys
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable, Iterator
 
 from .tooling import (
     ToolContext,
     ToolOption,
     ToolRegistry,
     ToolResult,
+    ToolPlan,
+    read_plan_inputs,
     ToolSpec,
     capture_script_output,
     normalize_declared_options,
 )
 from .cropper import WonderCropTool, cropper
+from .media_plans import dds_icon_plan, wonder_image_plan, historical_api_plan
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 _MODULES: dict[str, Any] = {}
@@ -41,41 +45,34 @@ def _load(name: str, path: Path, extra_paths: tuple[Path, ...] = ()) -> Any:
     return module
 
 
-def _json_options(spec: ToolSpec, options: dict[str, Any]) -> dict[str, Any]:
-    return normalize_declared_options(spec, options)
-
-
 class ModuleRunTool:
     """Adapter from the shared job contract to a generator's domain API.
 
-    Generators expose ``run(options)``; their CLI ``main`` functions only
-    parse command-line arguments and delegate here.  This keeps Web execution
-    independent of ``sys.argv`` and makes the boundary explicit.
+    A required plan builder resolves configuration and tasks once. CLI and Web
+    then call the same generator functions with those resolved tasks.
     """
 
-    def __init__(self, spec: ToolSpec, script: str, options_builder, roots_builder, extra_paths=()) -> None:
+    def __init__(
+        self, spec: ToolSpec, script: str,
+        options_builder: Callable[[dict[str, Any]], dict[str, Any]],
+        plan_builder: Callable[[Any, dict[str, Any]], ToolPlan],
+        extra_paths: tuple[str, ...] = (),
+    ) -> None:
         self.spec = spec
         self.script_path = REPO_ROOT / script
         self.options_builder = options_builder
-        self.roots_builder = roots_builder
+        self.plan_builder = plan_builder
         self.extra_paths = tuple(REPO_ROOT / path for path in extra_paths)
 
     def validate(self, options: dict[str, Any]) -> dict[str, Any]:
-        normalized = _json_options(self.spec, options)
-        self.options_builder(normalized, validate_only=True)
+        normalized = normalize_declared_options(self.spec, options)
+        self.options_builder(normalized)
         return normalized
 
-    def roots(self, options: dict[str, Any]) -> tuple[Path, ...]:
-        return self.roots_builder(options)
-
-    def run(self, options: dict[str, Any], context: ToolContext) -> ToolResult:
+    @contextmanager
+    def prepare(self, options: dict[str, Any]) -> Iterator[ToolPlan]:
         module = _load(self.spec.id.replace(".", "_"), self.script_path, self.extra_paths)
-        run_options = self.options_builder(options, validate_only=False)
-        with capture_script_output(context):
-            result = module.run(run_options)
-        if result not in (None, 0):
-            raise RuntimeError(f"{self.spec.label} exited with code {result}")
-        return ToolResult(message=f"{self.spec.label} completed")
+        yield self.plan_builder(module, self.options_builder(options))
 
 
 class HistoricalStyleTool:
@@ -91,10 +88,11 @@ class HistoricalStyleTool:
             ToolOption("seed", "Seed", "integer", 17),
             ToolOption("keep_intermediates", "Keep intermediate stages", "boolean", False),
         ),
+        artifact_formats=("png", "jpg", "json"),
     )
 
     def validate(self, options: dict[str, Any]) -> dict[str, Any]:
-        normalized = _json_options(self.spec, options)
+        normalized = normalize_declared_options(self.spec, options)
         inputs = normalized.get("inputs")
         if not isinstance(inputs, list) or not inputs:
             raise ValueError("inputs must contain at least one image")
@@ -110,8 +108,39 @@ class HistoricalStyleTool:
             raise ValueError("max_size must be positive")
         return {**normalized, "inputs": [str(path) for path in input_paths], "output_dir": str(output_dir), "max_size": max_size, "seed": int(normalized.get("seed", 17))}
 
-    def roots(self, options: dict[str, Any]) -> tuple[Path, ...]:
-        return (_repo_dir(options["output_dir"]),)
+    @contextmanager
+    def prepare(self, options: dict[str, Any]) -> Iterator[ToolPlan]:
+        _, snapshots = read_plan_inputs(
+            tuple(Path(value) for value in options["inputs"]), lambda: None, repo_root=REPO_ROOT,
+        )
+        outputs = self.outputs(options)
+        if len(set(outputs)) != len(outputs):
+            raise ValueError("Input images must have distinct filenames without extensions")
+        yield ToolPlan(snapshots, outputs, lambda context: self.run(options, context))
+
+    def outputs(self, options: dict[str, Any]) -> tuple[Path, ...]:
+        output_dir = Path(options["output_dir"])
+        paths: list[Path] = []
+        for value in options["inputs"]:
+            stem = Path(value).stem
+            paths.extend((
+                output_dir / f"{stem}_cartoon.png",
+                output_dir / f"{stem}_cartoon_comparison.jpg",
+                output_dir / f"{stem}_cartoon_evaluation.json",
+            ))
+            if options.get("keep_intermediates"):
+                paths.extend(
+                    output_dir / f"{stem}_{name}.jpg"
+                    for name in (
+                        "01_normalized",
+                        "02_smoothed",
+                        "03_color_grade",
+                        "04_cartoon_palette",
+                        "05_cel_shade",
+                        "06_ink_edges",
+                    )
+                )
+        return tuple(paths)
 
     def run(self, options: dict[str, Any], context: ToolContext) -> ToolResult:
         try:
@@ -123,13 +152,11 @@ class HistoricalStyleTool:
                     f"(missing {exc.name})"
                 ) from exc
             raise
-        outputs: list[Path] = []
         with capture_script_output(context):
             for value in options["inputs"]:
                 context.check_cancelled()
-                result = module.run(Path(value), Path(options["output_dir"]), options["max_size"], bool(options.get("keep_intermediates", False)), options["seed"])
-                outputs.extend(Path(item) for item in (result["final"], result["comparison"], result["report"]))
-        return ToolResult(message="Historical image styling completed", output_paths=tuple(outputs))
+                module.run(Path(value), Path(options["output_dir"]), options["max_size"], bool(options.get("keep_intermediates", False)), options["seed"])
+        return ToolResult(message="Historical image styling completed")
 
 
 def _repo_file(value: Any) -> Path:
@@ -155,7 +182,7 @@ def _inside(path: Path) -> None:
         raise ValueError("Paths must stay inside the repository") from exc
 
 
-def _dds_options(options: dict[str, Any], *, validate_only: bool) -> dict[str, Any]:
+def _dds_options(options: dict[str, Any]) -> dict[str, Any]:
     args: dict[str, Any] = {
         "target": None,
         "convert_existing_png": None,
@@ -177,16 +204,12 @@ def _dds_options(options: dict[str, Any], *, validate_only: bool) -> dict[str, A
     return args
 
 
-def _wonder_options(options: dict[str, Any], *, validate_only: bool) -> dict[str, Any]:
-    return {"convert_existing_assets": bool(options.get("convert_existing_assets"))}
+def _wonder_options(options: dict[str, Any]) -> dict[str, Any]:
+    return {}
 
 
-def _historical_api_options(options: dict[str, Any], *, validate_only: bool) -> dict[str, Any]:
+def _historical_api_options(options: dict[str, Any]) -> dict[str, Any]:
     return {"dry_run": bool(options.get("dry_run"))}
-
-
-def _roots(*relative: str):
-    return lambda options: tuple(REPO_ROOT / path for path in relative)
 
 
 def build_registry() -> ToolRegistry:
@@ -194,14 +217,14 @@ def build_registry() -> ToolRegistry:
     registry.register(ModuleRunTool(
         ToolSpec("media.dds_icon", "DDS icon generator", "Generate or convert configured icon and victory-tree DDS assets.", "media", (
             ToolOption("target", "Target", "text"), ToolOption("convert_existing_png", "Convert existing PNG", "file"), ToolOption("dry_run", "Dry run", "boolean", False), ToolOption("force_api", "Force API", "boolean", False), ToolOption("list_targets", "List targets", "boolean", False),
-        )), "scripts/generate_dds_icon.py", _dds_options, _roots("assets/generated_icons", "src/main_menu/gfx/interface/icons", "src_engineering_department/main_menu/gfx/interface/icons"), ("scripts", "scripts_engineering_department")))
+        ), artifact_formats=("dds", "png", "json")), "scripts/generate_dds_icon.py", _dds_options, dds_icon_plan, ("scripts", "scripts_engineering_department")))
     registry.register(ModuleRunTool(
-        ToolSpec("media.wonder_image", "Wonder image generator", "Generate wonder PNG/DDS pairs or rebuild DDS files from existing PNGs.", "media", (ToolOption("convert_existing_assets", "Rebuild from existing assets", "boolean", False),)),
-        "scripts_engineering_department/generate_wonder_image.py", _wonder_options, _roots("assets/generated_wonders", "src_engineering_department/main_menu/gfx/interface/icons/towards_victory/wonders"), ("scripts", "scripts_engineering_department")))
+        ToolSpec("media.wonder_image", "Wonder image generator", "Generate configured wonder PNG/DDS pairs.", "media", resource_ids=("editor.wonder", "editor.wonder_crop"), artifact_formats=("png", "dds", "json")),
+        "scripts_engineering_department/generate_wonder_image.py", _wonder_options, wonder_image_plan, ("scripts", "scripts_engineering_department")))
     registry.register(HistoricalStyleTool())
     registry.register(ModuleRunTool(
-        ToolSpec("media.historical_api", "Historical image API batch", "Run the configured historical image edit batch.", "media", (ToolOption("dry_run", "Dry run", "boolean", False),)),
-        "scripts/generate_historical_images.py", _historical_api_options, _roots("assets/historical/processed"), ("scripts",)))
+        ToolSpec("media.historical_api", "Historical image API batch", "Run the configured historical image edit batch.", "media", (ToolOption("dry_run", "Dry run", "boolean", False),), artifact_formats=("png",)),
+        "scripts/generate_historical_images.py", _historical_api_options, historical_api_plan, ("scripts",)))
     registry.register(WonderCropTool(cropper))
     return registry
 

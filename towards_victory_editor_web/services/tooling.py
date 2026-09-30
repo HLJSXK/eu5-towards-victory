@@ -11,7 +11,9 @@ import uuid
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Callable, Iterable, Protocol
+from typing import Any, Callable, ContextManager, Iterable, Protocol
+
+from .platform import ConflictError, FileSnapshot, repo_relative_path, resource_operation, snapshot_files
 
 
 class ToolCancelled(RuntimeError):
@@ -50,6 +52,13 @@ class ToolSpec:
     group: str
     options: tuple[ToolOption, ...] = ()
     interactive: bool = False
+    # Resources identify the editor contract a generator consumes.  Keeping
+    # this on the tool spec lets the catalog and every job report the same
+    # dependency without importing a domain service into the job runner.
+    resource_ids: tuple[str, ...] = ()
+    # Formats are a small, declarative contract for the artifacts a tool may
+    # produce. Each prepared invocation supplies concrete output paths.
+    artifact_formats: tuple[str, ...] = ()
 
     def payload(self) -> dict[str, Any]:
         return {
@@ -59,6 +68,8 @@ class ToolSpec:
             "group": self.group,
             "interactive": self.interactive,
             "options": [option.payload() for option in self.options],
+            "resource_ids": list(self.resource_ids),
+            "artifact_formats": list(self.artifact_formats),
         }
 
 
@@ -120,7 +131,33 @@ class Artifact:
 class ToolResult:
     message: str = ""
     metadata: dict[str, Any] = field(default_factory=dict)
-    output_paths: tuple[Path, ...] = ()
+
+
+@dataclass(frozen=True)
+class ToolPlan:
+    """One resolved invocation; declarations and execution share this state."""
+
+    inputs: tuple[FileSnapshot, ...]
+    outputs: tuple[Path, ...]
+    run: Callable[["ToolContext"], ToolResult]
+    optional_outputs: tuple[Path, ...] = ()
+
+
+def read_plan_inputs(
+    paths: Iterable[Path], loader: Callable[[], Any], *,
+    repo_root: Path, optional: Iterable[Path] = (),
+) -> tuple[Any, tuple[FileSnapshot, ...]]:
+    """Track absent optional files too, and reject changes during preparation."""
+    paths = tuple(paths)
+    optional = set(optional)
+    before = snapshot_files(paths, repo_root=repo_root)
+    for path, snapshot in zip(paths, before):
+        if snapshot.sha256 == "missing" and path not in optional:
+            raise FileNotFoundError(f"Missing declared input: {snapshot.path}")
+    value = loader()
+    if before != snapshot_files(paths, repo_root=repo_root):
+        raise ConflictError("Declared inputs changed during job preparation")
+    return value, before
 
 
 class ToolHandler(Protocol):
@@ -128,9 +165,7 @@ class ToolHandler(Protocol):
 
     def validate(self, options: dict[str, Any]) -> dict[str, Any]: ...
 
-    def roots(self, options: dict[str, Any]) -> tuple[Path, ...]: ...
-
-    def run(self, options: dict[str, Any], context: "ToolContext") -> ToolResult: ...
+    def prepare(self, options: dict[str, Any]) -> ContextManager[ToolPlan]: ...
 
 
 class ToolContext:
@@ -193,43 +228,45 @@ def _relative(repo_root: Path, path: Path) -> str:
 
 def _snapshot(paths: Iterable[Path]) -> dict[Path, tuple[int, str]]:
     result: dict[Path, tuple[int, str]] = {}
-    for root in paths:
-        if not root.exists():
+    for path in paths:
+        try:
+            data = path.read_bytes()
+        except FileNotFoundError:
             continue
-        candidates = [root] if root.is_file() else [path for path in root.rglob("*") if path.is_file()]
-        for path in candidates:
-            digest = hashlib.sha256()
-            with path.open("rb") as handle:
-                for chunk in iter(lambda: handle.read(1024 * 1024), b""):
-                    digest.update(chunk)
-            result[path.resolve()] = (path.stat().st_size, digest.hexdigest())
+        result[path.resolve()] = (len(data), hashlib.sha256(data).hexdigest())
     return result
 
 
-def collect_artifacts(repo_root: Path, before: dict[Path, tuple[int, str]], after: dict[Path, tuple[int, str]], output_paths: Iterable[Path]) -> tuple[Artifact, ...]:
-    explicit = {path.resolve() for path in output_paths}
-    changed = set(before) | set(after) | explicit
-    artifacts: list[Artifact] = []
-    for path in sorted(changed, key=str):
+def collect_artifacts(repo_root, before, after) -> tuple[Artifact, ...]:
+    artifacts = []
+    for path in sorted(set(before) | set(after), key=str):
         current = after.get(path)
         if current is None:
-            continue
-        previous = before.get(path)
-        if previous == current and path not in explicit:
-            continue
-        role = "output" if path in explicit else "changed"
-        artifacts.append(Artifact(_relative(repo_root, path), role, current[0], current[1], previous != current))
+            artifacts.append(Artifact(_relative(repo_root, path), "deleted", 0, "missing", True))
+        else:
+            artifacts.append(Artifact(_relative(repo_root, path), "output", *current, before.get(path) != current))
     return tuple(artifacts)
 
 
-def validate_artifact_contract(repo_root: Path, artifacts: Iterable[Artifact]) -> list[dict[str, Any]]:
+def validate_artifact_contract(
+    repo_root: Path,
+    artifacts: Iterable[Artifact],
+    allowed_formats: Iterable[str] = (),
+) -> list[dict[str, Any]]:
     """Validate the file-level contracts shared by all media tools."""
+    allowed = {str(value).lower().lstrip(".") for value in allowed_formats}
     reports: list[dict[str, Any]] = []
     for artifact in artifacts:
+        if artifact.role == "deleted":
+            continue
         path = (repo_root / artifact.path).resolve()
         suffix = path.suffix.lower()
         report: dict[str, Any] = {"path": artifact.path, "format": suffix.lstrip(".") or "file", "valid": True}
         try:
+            if allowed and suffix.lstrip(".") not in allowed:
+                raise ValueError(
+                    f"format {suffix.lstrip('.') or 'file'} is not declared by {artifact.role} contract"
+                )
             data = path.read_bytes()
             if suffix == ".png":
                 if len(data) < 24 or not data.startswith(b"\x89PNG\r\n\x1a\n"):
@@ -251,7 +288,6 @@ def validate_artifact_contract(repo_root: Path, artifacts: Iterable[Artifact]) -
         except (OSError, UnicodeDecodeError, ValueError, json.JSONDecodeError) as exc:
             report["valid"] = False
             report["error"] = str(exc)
-            raise RuntimeError(f"Output validation failed for {artifact.path}: {exc}") from exc
         reports.append(report)
     return reports
 
@@ -269,6 +305,10 @@ class Job:
         self.message = ""
         self.metadata: dict[str, Any] = {}
         self.artifacts: tuple[Artifact, ...] = ()
+        self.source_snapshots: list[dict[str, Any]] = []
+        self.declared_outputs: list[str] = []
+        self.missing_outputs: list[str] = []
+        self.outputs_may_be_partial = False
         self.created_at = time.time()
         self.finished_at: float | None = None
         self.context = ToolContext(job_id, repo_root, self._append)
@@ -288,6 +328,12 @@ class Job:
             "error": self.error,
             "message": self.message,
             "metadata": self.metadata,
+            "resource_ids": list(self.handler.spec.resource_ids),
+            "artifact_formats": list(self.handler.spec.artifact_formats),
+            "source_snapshots": self.source_snapshots,
+            "declared_outputs": self.declared_outputs,
+            "missing_outputs": self.missing_outputs,
+            "outputs_may_be_partial": self.outputs_may_be_partial,
             "artifacts": [artifact.payload() for artifact in self.artifacts],
             "created_at": self.created_at,
             "finished_at": self.finished_at,
@@ -327,36 +373,71 @@ class JobManager:
                 job.context.request_cancel()
         return job
 
+    def shutdown(self) -> None:
+        self._executor.shutdown(wait=True)
+
     def _run(self, job: Job) -> None:
-        with self._lock:
-            if job.status != "queued":
-                job.status = "cancelled"
-                job.finished_at = time.time()
-                return
-            job.status = "running"
         try:
-            with self._execution_lock:
-                before = _snapshot(job.handler.roots(job.options))
-                result = job.handler.run(job.options, job.context)
-                after = _snapshot(job.handler.roots(job.options))
-            job.context.check_cancelled()
-            job.message = result.message
-            job.metadata = result.metadata
-            job.artifacts = collect_artifacts(self.repo_root, before, after, result.output_paths)
-            job.metadata["output_validation"] = validate_artifact_contract(self.repo_root, job.artifacts)
+            with self._execution_lock, resource_operation(job.handler.spec.resource_ids, blocking=False):
+                job.context.check_cancelled()
+                with self._lock:
+                    job.status = "running"
+                with capture_script_output(job.context), job.handler.prepare(job.options) as plan:
+                    outputs = tuple(dict.fromkeys(path.resolve() for path in (*plan.outputs, *plan.optional_outputs)))
+                    for path in outputs:
+                        repo_relative_path(path, self.repo_root)
+                    job.source_snapshots = [vars(item) for item in plan.inputs]
+                    job.declared_outputs = [_relative(self.repo_root, path) for path in outputs]
+                    inputs = tuple(self.repo_root / item.path for item in plan.inputs)
+                    job.context.check_cancelled()
+                    if snapshot_files(inputs, repo_root=self.repo_root) != plan.inputs:
+                        raise ConflictError("Declared inputs changed before job execution")
+                    before = _snapshot(outputs)
+                    try:
+                        result = plan.run(job.context)
+                        job.message = result.message
+                        job.metadata = dict(result.metadata)
+                    finally:
+                        # Preserve the real disk outcome even if run() raises or is cancelled.
+                        after = _snapshot(outputs)
+                        job.artifacts = collect_artifacts(self.repo_root, before, after)
+                        job.missing_outputs = [
+                            _relative(self.repo_root, path) for path in plan.outputs
+                            if path.resolve() not in after
+                        ]
+                        job.metadata["output_validation"] = validate_artifact_contract(
+                            self.repo_root, job.artifacts, job.handler.spec.artifact_formats
+                        )
+                    # Cancellation wins over stale-input / missing-output diagnostics.
+                    job.context.check_cancelled()
+                    # DDS-only conversions intentionally transform their input in place.
+                    immutable = tuple(item for item in plan.inputs if (self.repo_root / item.path).resolve() not in outputs)
+                    if snapshot_files((self.repo_root / item.path for item in immutable), repo_root=self.repo_root) != immutable:
+                        raise ConflictError("Declared inputs changed during job execution; outputs may be stale")
+                    if job.missing_outputs:
+                        raise RuntimeError("Missing declared outputs: " + ", ".join(job.missing_outputs))
+                    failures = [item for item in job.metadata["output_validation"] if not item["valid"]]
+                    if failures:
+                        raise RuntimeError("Output validation failed: " + "; ".join(
+                            f"{item['path']}: {item['error']}" for item in failures
+                        ))
+                    with self._lock:
+                        job.context.check_cancelled()
+                        job.status = "succeeded"
+                        job.returncode = 0
+        except Exception as exc:  # surfaced through the job API, including partial writes
             with self._lock:
-                job.status = "succeeded"
-                job.returncode = 0
-        except ToolCancelled as exc:
-            job.error = str(exc)
-            with self._lock:
-                job.status = "cancelled"
-                job.returncode = 130
-        except Exception as exc:  # noqa: BLE001 - surfaced through the job API.
-            job.error = str(exc)
-            with self._lock:
-                job.status = "failed"
-                job.returncode = 1
+                try:
+                    job.context.check_cancelled()
+                except ToolCancelled as cancelled:
+                    exc = cancelled
+                job.error = str(exc)
+                job.outputs_may_be_partial = any(artifact.changed for artifact in job.artifacts)
+                job.status = "cancelled" if isinstance(exc, ToolCancelled) else "failed"
+                job.returncode = 130 if job.status == "cancelled" else 1
+                job.context.log(f"{job.status}: {exc}")
+                if job.outputs_may_be_partial:
+                    job.context.log("Output files were changed on disk; no rollback was performed.")
         finally:
             job.finished_at = time.time()
 

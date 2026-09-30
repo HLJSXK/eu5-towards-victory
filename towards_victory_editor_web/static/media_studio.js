@@ -70,8 +70,25 @@ function formOptions() {
 }
 
 function renderJob(job) {
-  document.getElementById("media-status").textContent = job.status;
+  window.clearTimeout(state.timer);
+  document.getElementById("media-status").textContent = job.outputs_may_be_partial
+    ? `${job.status} — output files changed; no rollback performed` : job.status;
   document.getElementById("media-log").textContent = (job.lines || []).join("\n");
+  const files = [];
+  if (job.resource_ids.length) files.push(`Resources: ${job.resource_ids.join(", ")}`);
+  if (job.source_snapshots.length) files.push("Inputs:", ...job.source_snapshots.map((source) => `  ${source.path}${source.sha256 === "missing" ? " (optional, absent)" : ""}`));
+  const artifacts = new Map(job.artifacts.map((artifact) => [artifact.path, artifact]));
+  const errors = new Map((job.metadata.output_validation || []).filter((report) => !report.valid).map((report) => [report.path, report.error]));
+  if (job.declared_outputs.length) files.push("Outputs:", ...job.declared_outputs.map((path) => {
+    const artifact = artifacts.get(path);
+    let status = "not produced";
+    if (artifact) status = artifact.role === "deleted" ? "deleted" : artifact.changed ? "changed" : "unchanged";
+    else if (job.missing_outputs.includes(path)) status = "missing";
+    else if (["queued", "running", "cancelling"].includes(job.status)) status = "pending";
+    return `  ${path} (${status})${errors.has(path) ? `: ${errors.get(path)}` : ""}`;
+  }));
+  document.getElementById("media-files").hidden = files.length === 0;
+  document.getElementById("media-file-report").textContent = files.join("\n");
   document.getElementById("media-cancel").disabled = !["queued", "running", "cancelling"].includes(job.status);
   if (["queued", "running", "cancelling"].includes(job.status) && state.jobId) state.timer = window.setTimeout(pollJob, 700);
   else state.jobId = null;
@@ -82,7 +99,7 @@ document.getElementById("media-run").addEventListener("click", async () => {
   const button = document.getElementById("media-run"); button.disabled = true;
   try {
     const job = await jsonFetch("/api/jobs", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ tool: state.selected, options: formOptions() }) });
-    state.jobId = job.id; renderJob(job); pollJob();
+    state.jobId = job.id; renderJob(job);
   } catch (error) { document.getElementById("media-status").textContent = error.message; }
   finally { button.disabled = false; }
 });

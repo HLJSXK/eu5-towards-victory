@@ -10,6 +10,7 @@ from __future__ import annotations
 import hashlib
 import os
 import tempfile
+import threading
 from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
@@ -20,6 +21,27 @@ from scripts_engineering_department.wonder_mechanics._core import StrictWonderYa
 
 class ConflictError(RuntimeError):
     """Raised when a resource changed after the editor loaded its draft."""
+
+
+_resource_locks: dict[str, threading.Lock] = {}
+_resource_locks_guard = threading.Lock()
+
+
+@contextmanager
+def resource_operation(resource_ids: Iterable[str], *, blocking: bool = True) -> Iterator[None]:
+    """Coordinate writers and generators in this single-process workspace."""
+    acquired = []
+    try:
+        for resource_id in sorted(set(resource_ids)):
+            with _resource_locks_guard:
+                lock = _resource_locks.setdefault(resource_id, threading.Lock())
+            if not lock.acquire(blocking=blocking):
+                raise ConflictError(f"Resource busy: {resource_id}; retry after the current operation finishes")
+            acquired.append(lock)
+        yield
+    finally:
+        for lock in reversed(acquired):
+            lock.release()
 
 
 class RollbackError(RuntimeError):

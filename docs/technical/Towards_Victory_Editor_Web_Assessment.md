@@ -2,7 +2,7 @@
 
 ## 结论
 
-`towards_victory_editor_web` 已统一启动命令和浏览器入口，cost/reward、victory tree、Wonder 与 Wonder crop 配置均已接入统一资源协议。Wonder 同时完成了 bootstrap、仪式设计按需加载和共享选项目录的传输优化；媒体生成仍使用独立的异步 job/artifact 协议，底层架构尚未完全统一。
+`towards_victory_editor_web` 已统一启动命令和浏览器入口，cost/reward、victory tree、Wonder 与 Wonder crop 配置均已接入统一资源协议。Wonder 同时完成了 bootstrap、仪式设计按需加载和共享选项目录的传输优化；媒体生成仍使用异步 job/artifact 生命周期，但现在已有首个资源依赖与产物契约切片，底层架构尚未完全统一。
 
 因此，当前主要问题不是页面是否放在同一个标签栏，而是统一资源模型、保存事务、服务协议、前端状态模型和设计令牌尚未覆盖全部工具。若继续在现有壳层上添加标签页，功能数量会增加，架构一致性不会提高。
 
@@ -20,9 +20,9 @@
 
 ### 后端仍是三个旧领域服务加一套新作业系统
 
-当前服务规模和职责仍明显不对称：`wonder_localization.py` 约 3,800 行，四个编辑器仍各自维护领域加载、校验、内存状态和日志；Wonder 只是在外层增加了统一资源描述、快照、预览和提交事务。媒体则由 `tooling.py`、`media.py`、`media_tools.py`、`cropper.py` 组成另一条生命周期。旧工具在提交 `1653d467` 中被移入统一包，但提交内容主要是入口、路由和静态资源迁移，原有 service 和页面逻辑基本被保留；提交 `d56fa727` 又在此基础上追加了媒体作业框架。这与“拼接旧工具”的现象相符。
+当前服务规模和职责仍明显不对称：`wonder_localization.py` 约 3,800 行，四个编辑器仍各自维护领域加载、校验、内存状态和日志；Wonder 只是在外层增加了统一资源描述、快照、预览和提交事务。媒体则由 `tooling.py`、`media.py`、`media_tools.py`、`media_plans.py`、`cropper.py` 组成另一条生命周期。旧工具在提交 `1653d467` 中被移入统一包，但提交内容主要是入口、路由和静态资源迁移，原有 service 和页面逻辑基本被保留；提交 `d56fa727` 又在此基础上追加了媒体作业框架。这与“拼接旧工具”的现象相符。
 
-编辑器保存是同步请求，通过各自的资源 commit 写入文件；媒体任务是异步、线程池、作业轮询和产物快照。`JobManager` 允许三个 worker，但用全局执行锁把实际写入串行化（见 [tooling.py](../../towards_victory_editor_web/services/tooling.py#L338)），它与编辑器的领域锁并不共享，也没有统一的变更事件或提交记录。
+编辑器保存是同步请求，通过各自的资源 commit 写入文件；媒体任务是异步、线程池、作业轮询和产物快照。`JobManager` 允许三个 worker，但用全局执行锁把实际写入串行化（见 [tooling.py](../../towards_victory_editor_web/services/tooling.py#L338)），Wonder 两个媒体作业与 Wonder、crop commit 已共享进程内资源锁；cost/reward 与 victory tree 尚未共享，也没有统一的变更事件或提交记录。
 
 ### 数据契约没有共同的资源边界
 
@@ -33,7 +33,7 @@
 - wonder 编辑器同时读取本地化、通用奇观、机制、独特奇观、仪式设计、提示词、索引和生成脚本输入，保存时还会依次运行大量 generator（见 [wonder_localization.py](../../towards_victory_editor_web/services/wonder_localization.py#L2352) 和 [wonder_localization.py](../../towards_victory_editor_web/services/wonder_localization.py#L3724)）；
 - media 生成工具通过 job 写入 DDS/PNG 等产物；cropper 的 `data/wonder_image_crops.json` 已通过资源接口编辑，PNG 读取和 DDS 重建仍分别走图片读取与 job 接口。
 
-cost/reward、victory tree、Wonder 和 cropper 配置现在通过统一 `ResourceDescriptor`、源文件 SHA-256 快照、draft、校验、预览 diff 和 commit 返回变更集合；媒体生成仍以 tool/job 描述输入与产物，没有与源资源关联的完整依赖模型。当前资源协议还没有把完整的生成依赖图、产物级校验和跨资源 batch change set 建模，前端也不能在跨资源保存前做统一预览。
+cost/reward、victory tree、Wonder 和 cropper 配置现在通过统一 `ResourceDescriptor`、源文件 SHA-256 快照、draft、校验、预览 diff 和 commit 返回变更集合；媒体工具也开始在 `ToolSpec` 和 job payload 中声明资源依赖、源文件快照与允许的产物格式。当前仍没有完整的生成依赖图、跨资源 batch change set 或跨资源统一预览；Wonder 的生成器还需要单独的 DAG 和逐产物报告。
 
 ### 保存流程存在跨文件一致性风险
 
@@ -58,7 +58,7 @@ CSS 也只是叠加覆盖：`shared.css` 保留旧的深色根样式，`workspac
 3. **写入不可组合**：四个编辑器已有资源级 draft、预览 diff、base 冲突检测和提交入口，Wonder 也已有生成失败恢复；跨资源 batch change set、统一生成器 DAG、产物级校验和全局多文件原子替换仍未完成。
 4. **运行时契约不一致**：同步接口、异步作业、直接文件服务和脚本子进程混用；错误码、日志、状态、返回 payload 也不一致。
 5. **前端一致性不足**：共享的只有 tab shell 和少量 CSS 变量，组件、表单 schema、请求状态、dirty/save/reload 逻辑各自复制。
-6. **验证覆盖不匹配**：现有 `--check` 和资源契约、文件事务测试能证明部分 API、冲突检测和 Wonder 生成失败恢复，但还没有证明跨工具状态同步、并发编辑合并、产物校验、响应式布局或视觉一致性。
+6. **验证覆盖不匹配**：现有 `--check`、资源契约、文件事务和媒体作业测试能证明部分 API、冲突检测、输入快照和产物格式校验，但还没有证明跨工具状态同步、并发编辑合并、响应式布局或视觉一致性。
 
 ## 改造主要阻力
 
@@ -129,7 +129,7 @@ flowchart LR
 1. cost/reward 验证统一表单 schema、draft、校验、原子保存和 reload；已完成。
 2. victory tree 验证画布交互、实体图和二进制预览产物；已完成。
 3. wonder 验证多源文件、生成器计划和跨文件提交；已完成资源描述、base 冲突、预览和失败恢复的首个切片，生成器 DAG 和产物校验仍待完成。
-4. cropper 配置接入统一资源协议，图片重建继续使用统一 job/artifact；已完成首个切片。媒体工具的源资源依赖、统一产物声明与校验仍待建模。
+4. cropper 配置接入统一资源协议，图片重建继续使用统一 job/artifact；已完成首个切片。媒体工具的资源依赖、动态产物声明与格式校验已完成首个切片，其他工具和跨资源事务仍待扩展。
 
 每完成一个切片，就让旧标签页和新实现对同一组 fixture 输出相同的 source diff 和 validation report，再迁移下一项。
 
@@ -281,9 +281,9 @@ Wonder 已接入平台的 `load/draft/validate/preview/commit` API：`editor.won
 
 ## 当前验证结果
 
-目前已完成 cost/reward、victory tree、Wonder 与 cropper 配置的统一资源协议首个切片，以及 Wonder 的 bootstrap、仪式设计按需加载和共享选项目录切片。媒体生成仍通过统一 job/artifact 接口执行，尚未建模工具与源资源之间的依赖关系。现有基线检查通过：
+目前已完成 cost/reward、victory tree、Wonder 与 cropper 配置的统一资源协议首个切片，以及 Wonder 的 bootstrap、仪式设计按需加载和共享选项目录切片。媒体生成仍通过异步 job/artifact 接口执行；媒体工具目录已能声明资源依赖、输入快照、动态产物和格式校验，Wonder crop rebuild 已接入 `editor.wonder_crop`。现有基线检查通过：
 
-- `python -m towards_victory_editor_web --check`：cost/reward 459 条、task pool 96 条、victory tree 104 个节点、192 个 wonder 的生成与本地化检查均通过；媒体注册 8 项、可运行媒体工具 5 项、cropper 发现 196 张图片。
+- `python -m towards_victory_editor_web --check`：cost/reward 459 条、task pool 96 条、victory tree 104 个节点、192 个 wonder 的生成与本地化检查均通过；媒体注册 9 项、可运行媒体工具 5 项、cropper 发现 196 张图片。
 - `python -m compileall -q towards_victory_editor_web` 通过。
 - 六个前端 JavaScript 文件均通过 `node --check`。
 
@@ -301,8 +301,14 @@ Wonder 已接入平台的 `load/draft/validate/preview/commit` API：`editor.won
 - `tests/test_editor_file_transactions.py` 的 7 项测试覆盖恢复写入、删除与重新加载同时失败时的完整错误报告、未修改文件的 mtime 保留、执行计划筛选、产物登记缺失，以及 LF/CRLF 与 BOM 的组合。
 - `GET /api/resources/editor.wonder_crop` 与对应 `validate/preview/commit` 操作描述 `data/wonder_image_crops.json`，将裁剪框按图片索引映射为 draft，并用源文件 SHA-256 base 检测外部修改。commit 使用平台暂存写入和恢复事务；`/api/cropper/image/{index}` 仅保留图片读取，DDS 重建通过 `/api/jobs` 提交 `media.wonder_crop`。旧 cropper bootstrap/save/remove/apply 路由已删除。
 - `tests/test_cropper_resource_contract.py` 的 4 项固定样本测试覆盖资源描述、裁剪预览隔离、保存与删除、非法索引/非有限坐标、缺失或过期 base、写入失败恢复及 HTTP 路由；`python -m pytest tests/test_cropper_resource_contract.py -q` 通过。
+- 五个可运行媒体 handler 都通过必需的 `prepare` 方法返回 `ToolPlan`：配置与任务集合只解析一次，执行闭包使用同一批解析结果。必需输入缺失时在写入前失败；必需产物缺失或格式校验失败时任务失败。可选 local/crop 配置即使不存在也记录摘要，以检测运行期间的新建。格式检查覆盖 PNG/DDS/JPEG 文件头和 JSON 语法，尚不是完整图片解码、尺寸策略或领域 schema 校验。
+- 目前只有 `media.wonder_crop` 和 `media.wonder_image` 声明了 `editor.wonder` 与 `editor.wonder_crop` 资源依赖；其余三个媒体 handler 声明文件输入和产物格式，尚无编辑器资源依赖登记。交互式目录条目不运行媒体产物校验。Web 的既有 DDS 重建只保留 `media.wonder_crop`，已删除 `media.wonder_image` 的 `convert_existing_assets` 选项；CLI 重建参数仍调用共用转换函数。
+- Wonder rebuild 输入包含 `scripts_engineering_department/generate_wonder_image_config.json`、可选 local 配置、决定任务集合的 Wonder YAML/Prompt、可选 crop JSON、PNG 及纯 DDS 源；声明完整 DDS 和 PNG 对应的 `_cropped.dds`。声明使用生成器当前任务计划，与 cropper 启动时的 UI 图片缓存无关。DDS 图标的 JSON 元数据和参考图片转换产物也按配置路径声明；不再扫描整个目录，把无关文件变化误归属到当前 job。
+- Wonder 作业与 Wonder commit、crop commit 共用 `editor.wonder`、`editor.wonder_crop` 进程内锁，作业期间保存返回 HTTP 409；作业遇到正在保存的资源则在写入前失败。Wonder 任务也读取 `data/cost_reward_units.yaml`，但 cost/reward commit 未加锁，其变化只在执行后作为输入过期报告。外部编辑无法由此锁阻止，仍以执行前后摘要检测；纯 DDS 就地转换和元数据就地更新的输入输出重叠文件只做执行前检查。
+- 媒体生成器仍直接写正式产物，没有暂存发布或媒体回滚事务。异常、输入变化、产物缺失和取消都会先收集执行后状态，保留产物清单、缺失路径和格式报告；已有输出变动时返回 `outputs_may_be_partial` 并记录未回滚。取消状态优先于输入过期错误。中途创建并删除的临时文件不留在清单中，未声明写入也不自动追踪或恢复。Media studio 展示输入、声明输出、变化状态与校验错误。
+- `tests/test_media_job_contract.py` 和 `tests/test_media_plans.py` 覆盖失败/取消后清单保留、输入与产物缺失、可选配置新建、无关文件不归属、格式失败、真实 Wonder 计划与 DDS 转换、DDS 图标元数据、固定任务执行、dry-run、Web 重建唯一入口、生成器跳过无 PNG 的半套 DDS 时的产物声明，以及 `/api/jobs` / crop commit 409；`tests/test_wonder_resource_contract.py` 覆盖 Wonder 作业占用资源时 commit 在写入前失败。真实图片转换使用临时目录，网络生成以替身隔离，不会调用付费图片 API。
 - Wonder 的资源接口为 `GET /api/resources/editor.wonder` 与 `POST .../{validate,preview,commit}`。资源 commit 在写入前检查当前奇观 ID，再暂存源文件、运行按变更类别选择的 generator；生成器、重新加载或响应构建失败时，由平台事务恢复已快照且发生变化的文件。完整生成计划仍为 22 个产物，其路径来自 `data/generated_files.yaml`，共享 organization GUI 由两个合并脚本的显式例外补充；未登记产物的脚本在写入前报错。生成器使用 `sys.executable`。
-- `python scripts/validate.py --changed --ai-report`、Python 编译检查、前端 JavaScript 语法检查、60 项资源、payload 和文件事务测试与 `git diff --check` 通过；另有 9 项 Node 前端状态测试通过；未运行会改写文件的 `--fix`。
+- `python scripts/validate.py --changed --ai-report`、Python 编译检查、前端 JavaScript 语法检查、84 项资源、payload、媒体作业和文件事务测试与 `git diff --check` 通过；另有 10 项 Node 前端状态测试通过；未运行会改写文件的 `--fix`。
 
 Wonder 本次验证与边界：
 
@@ -325,6 +331,6 @@ Wonder 本次验证与边界：
 - 当前环境以 `json.dumps(..., ensure_ascii=False)` 测得首个 generic 详情从 3,805,579 bytes 降到 97,024 bytes，Trinity Lavra unique 详情从 13,986,051 bytes 降到 177,006 bytes；一次性目录为 898,811 bytes。两类详情均低于 500 KB 目标。
 - 目录拆分不改变 Wonder 的详情读取方式。保存已改用 `editor.wonder` 资源 commit，但继承只读字段仍创建可编辑结构再禁用，服务初始化仍全量加载；这些仍是后续切片。
 
-这些结果说明当前数据和语法处于可运行状态；cost/reward、victory tree、Wonder 与 cropper 配置已接入统一资源协议，Wonder 还减少了首屏、仪式列表和详情的传输负担。媒体 job 与编辑器资源提交仍是两个执行生命周期，后续需要把资源依赖、生成计划和产物校验建模起来。tree 的 DDS 背景预览仍在服务初始化时解码，不属于坐标提交的生成产物。四个编辑器前端已改用资源接口，旧的 cost/reward、tree、Wonder 和 cropper bootstrap/save 路由已删除。
+这些结果说明当前数据和语法处于可运行状态；cost/reward、victory tree、Wonder 与 cropper 配置已接入统一资源协议，Wonder 还减少了首屏、仪式列表和详情的传输负担。媒体 job 与编辑器资源提交仍是两个执行生命周期，后续需要扩展到完整的资源依赖图、生成计划 DAG、跨资源事务和统一操作日志。tree 的 DDS 背景预览仍在服务初始化时解码，不属于坐标提交的生成产物。四个编辑器前端已改用资源接口，旧的 cost/reward、tree、Wonder 和 cropper bootstrap/save 路由已删除。
 
-已知限制：保存仍会整体重写 YAML 文件（与迁移前行为一致）。文件头注释、原有 BOM 状态与 LF/CRLF 换行符会保留，但正文中的分节注释（如 `task_pool.yaml` 的 `# --- Military ---`）不会被保留，字符串引号也会被统一去掉。若后续要求保留正文注释和字段顺序，需要改成定点改写或往返式 YAML 读写，属于独立任务。409 后草稿仍保留在页面中。Wonder 的所有页面草稿共享同一个 base，因此重新加载时会提示放弃全部未保存的奇观页面编辑；仅在资源、当前详情与选项目录全部加载成功后，才一起清除这些草稿并更新 base，失败则保留原状态。仪式 Prompt 草稿另行保留。目前没有自动合并外部修改与未保存草稿。`atomic_write_files` 会先暂存全部内容，但跨多个目标文件的替换并非全局原子操作；跨资源 batch change set、生成器 DAG、产物级校验和未登记生成器副作用的恢复仍未实现。Wonder 的完整生成计划覆盖 22 个产物，按实际执行计划进行快照；文件锁或权限错误仍可能阻止部分恢复，但其他文件恢复与重新加载都会继续尝试，并报告全部错误。生成器使用 `sys.executable`。
+已知限制：保存仍会整体重写 YAML 文件（与迁移前行为一致）。文件头注释、原有 BOM 状态与 LF/CRLF 换行符会保留，但正文中的分节注释（如 `task_pool.yaml` 的 `# --- Military ---`）不会被保留，字符串引号也会被统一去掉。若后续要求保留正文注释和字段顺序，需要改成定点改写或往返式 YAML 读写，属于独立任务。409 后草稿仍保留在页面中。Wonder 的所有页面草稿共享同一个 base，因此重新加载时会提示放弃全部未保存的奇观页面编辑；仅在资源、当前详情与选项目录全部加载成功后，才一起清除这些草稿并更新 base，失败则保留原状态。仪式 Prompt 草稿另行保留。目前没有自动合并外部修改与未保存草稿。`atomic_write_files` 会先暂存全部内容，但跨多个目标文件的替换并非全局原子操作；跨资源 batch change set、生成器 DAG、编辑器生成产物的统一校验和未登记生成器副作用的恢复仍未实现。媒体作业已有声明文件格式校验和失败清单，但尚无暂存发布或回滚事务。Wonder 的完整生成计划覆盖 22 个产物，按实际执行计划进行快照；文件锁或权限错误仍可能阻止部分恢复，但其他文件恢复与重新加载都会继续尝试，并报告全部错误。生成器使用 `sys.executable`。

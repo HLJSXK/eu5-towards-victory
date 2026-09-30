@@ -10,7 +10,7 @@ from fastapi.testclient import TestClient
 
 from towards_victory_editor_web.services import wonder_localization
 from towards_victory_editor_web.services.common import RollingLog
-from towards_victory_editor_web.services.platform import ConflictError, ResourceDescriptor, snapshot_files
+from towards_victory_editor_web.services.platform import ConflictError, ResourceDescriptor, resource_operation, snapshot_files
 
 
 SOURCE_ATTRIBUTES = (
@@ -264,6 +264,17 @@ def test_commit_logs_prewrite_errors_without_mutating_state(service, failure):
     assert wonder_localization.WONDER_LOCALIZATION_FILE.read_bytes() == before
     if failure == "validation":
         assert error.value is original
+
+
+def test_commit_conflicts_while_wonder_media_job_holds_resource(service):
+    source_path = wonder_localization._wonder_source_paths()[0]
+    before = source_path.read_bytes()
+    service._candidate_for_drafts = lambda _drafts: pytest.fail("busy commit prepared a candidate")
+    with resource_operation(("editor.wonder",)):
+        with pytest.raises(ConflictError, match="Resource busy: editor.wonder"):
+            service.commit_resource({}, _base(service), regenerate=False)
+    assert "[error] Resource busy: editor.wonder" in service.log_text
+    assert source_path.read_bytes() == before
 
 
 def test_commit_rejects_unknown_current_wonder_before_writing(service):

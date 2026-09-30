@@ -807,18 +807,15 @@ def complete_missing_dds_pair_from_png(
         print(f"[dds] {pretty_repo_path(cropped_path)}{dds_note}")
 
 
-def convert_existing_assets(
-    tasks: list[dict[str, Any]],
-    background: tuple[int, int, int],
-) -> int:
-    crop_data = load_crop_data()
+def plan_existing_assets(tasks: list[dict[str, Any]]) -> list[tuple[Path, Path, str, str]]:
+    """Resolve conversion sources and destinations once, before any writes."""
     converted = 0
     skipped = 0
     seen_dds_paths: set[Path] = set()
     seen_png_paths: set[Path] = set()
     dds_dirs: set[Path] = set()
     png_dds_dirs: dict[Path, Path] = {}
-    parallel_jobs: list[tuple[Path, Path, tuple[int, int, int], str, dict[str, Any], str]] = []
+    jobs: list[tuple[Path, Path, str, str]] = []
     task_total = len(tasks)
     for index, task in enumerate(tasks, start=1):
         name = str(task.get("name") or "").strip()
@@ -849,17 +846,7 @@ def convert_existing_assets(
             continue
 
         label = f"[convert {index}/{task_total}] {stem}"
-        if source_path.suffix.lower() == ".png":
-            parallel_jobs.append((source_path, dds_path, background, label, crop_data, stem))
-        else:
-            convert_existing_dds(
-                source_path,
-                dds_path,
-                background,
-                label,
-                crop_data,
-                stem,
-            )
+        jobs.append((source_path, dds_path, stem, label))
         converted += 1
 
     extra_png_total = 0
@@ -873,10 +860,8 @@ def convert_existing_assets(
             dds_path = dds_dir / f"{stem}.dds"
             seen_dds_paths.add(dds_path.resolve())
             extra_png_total += 1
-            parallel_jobs.append((png_path, dds_path, background, f"[convert extra png] {stem}", crop_data, stem))
+            jobs.append((png_path, dds_path, stem, f"[convert extra png] {stem}"))
             converted += 1
-
-    run_parallel_existing_dds_jobs(parallel_jobs)
 
     extra_total = 0
     for dds_dir in sorted(dds_dirs):
@@ -886,21 +871,29 @@ def convert_existing_assets(
             if dds_path.stem.endswith("_cropped"):
                 continue
             extra_total += 1
-            convert_existing_dds(
-                dds_path,
-                dds_path,
-                background,
-                f"[convert extra] {dds_path.stem}",
-                crop_data,
-                dds_path.stem,
-            )
+            jobs.append((dds_path, dds_path, dds_path.stem, f"[convert extra] {dds_path.stem}"))
             converted += 1
 
     if extra_png_total:
         print(f"[summary] converted extra PNG files not listed in image tasks: {extra_png_total}")
     if extra_total:
         print(f"[summary] converted extra DDS files not listed in image tasks: {extra_total}")
-    print(f"[summary] converted={converted}, skipped={skipped}")
+    print(f"[plan] conversions={converted}, skipped={skipped}")
+    return jobs
+
+
+def run_existing_assets(
+    jobs: list[tuple[Path, Path, str, str]],
+    background: tuple[int, int, int],
+    crop_data: dict[str, Any],
+) -> int:
+    parallel_jobs = []
+    for source, output, stem, label in jobs:
+        if source.suffix.lower() == ".png":
+            parallel_jobs.append((source, output, background, label, crop_data, stem))
+        else:
+            convert_existing_dds(source, output, background, label, crop_data, stem)
+    run_parallel_existing_dds_jobs(parallel_jobs)
     return 0
 
 
@@ -943,10 +936,19 @@ def run(options: dict[str, Any] | argparse.Namespace) -> int:
     """Run generation from normalized options shared by CLI and Web."""
     args = options if isinstance(options, argparse.Namespace) else argparse.Namespace(**options)
     config = load_config()
-    api_config = require_object(config, "api")
     dds_config = require_object(config, "dds")
     tasks = load_task_config(config)
 
+    if args.convert_existing_assets:
+        background = parse_background(dds_config.get("opaque_background", [0, 0, 0]))
+        return run_existing_assets(plan_existing_assets(tasks), background, load_crop_data())
+    return run_generation(config, tasks, load_crop_data())
+
+
+def run_generation(config: dict[str, Any], tasks: list[dict[str, Any]], crop_data: dict[str, Any]) -> int:
+    """Execute the already resolved generation tasks shared by CLI and Web."""
+    api_config = require_object(config, "api")
+    dds_config = require_object(config, "dds")
     endpoint = str(api_config.get("endpoint") or DEFAULT_ENDPOINT)
     timeout = float(api_config.get("timeout_seconds", 180))
     retry_settings = load_retry_settings(api_config)
@@ -957,10 +959,6 @@ def run(options: dict[str, Any] | argparse.Namespace) -> int:
         raise ValueError("dds.format currently supports only DXT1")
     background = parse_background(dds_config.get("opaque_background", [0, 0, 0]))
 
-    if args.convert_existing_assets:
-        return convert_existing_assets(tasks, background)
-
-    crop_data = load_crop_data()
     api_key = resolve_api_key(api_config)
     if proxy_url:
         print(f"[network] proxy={proxy_url}")

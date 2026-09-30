@@ -5,12 +5,13 @@ import json
 import math
 import sys
 import threading
+from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-from .tooling import ToolContext, ToolOption, ToolResult, ToolSpec, capture_script_output, normalize_declared_options
-from .platform import ChangeSet, ConflictError, FileSnapshot, ResourceDescriptor, assert_resource_base, atomic_write_files, file_transaction, repo_relative_path, snapshot_files
+from .tooling import ToolContext, ToolPlan, ToolResult, ToolSpec, capture_script_output, normalize_declared_options, read_plan_inputs
+from .platform import ChangeSet, ConflictError, FileSnapshot, ResourceDescriptor, assert_resource_base, atomic_write_files, file_transaction, repo_relative_path, resource_operation, snapshot_files
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO_ROOT / "scripts_engineering_department"))
@@ -18,13 +19,16 @@ sys.path.insert(0, str(REPO_ROOT / "scripts_engineering_department"))
 from generate_wonder_image import (  # noqa: E402
     DEFAULT_PNG_DIR,
     DEFAULT_WONDERS_DIR,
+    CONFIG_PATH,
+    LOCAL_CONFIG_PATH,
     load_config,
     load_task_config,
     parse_background,
     require_object,
     resolve_repo_path,
     wonder_file_stem,
-    convert_existing_assets,
+    plan_existing_assets,
+    run_existing_assets,
 )
 from wonder_image_crop_lib import (  # noqa: E402
     CROP_DATA_PATH,
@@ -37,6 +41,14 @@ from wonder_image_crop_lib import (  # noqa: E402
     remove_crop_record,
     set_crop_record,
 )
+
+
+# load_task_config resolves these files through wonder_mechanics.io.
+WONDER_TASK_INPUTS = tuple(REPO_ROOT / "data" / name for name in (
+    "wonders.yaml", "wonder_design_notes.yaml", "wonder_final_buildings.yaml",
+    "wonder_generic_rituals.yaml", "wonder_base_modifiers.yaml", "wonder_site_rules.yaml",
+    "unique_wonders.yaml", "wonder_image_prompts.yaml", "cost_reward_units.yaml",
+))
 
 
 @dataclass(frozen=True)
@@ -108,7 +120,7 @@ class CropperService:
         return ResourceDescriptor(
             "editor.wonder_crop", "editor", "Wonder image crops",
             (repo_relative_path(self.data_path, self.repo_root),),
-            ("media.wonder_crop",),
+            ("media.wonder_crop", "media.wonder_image"),
         )
 
     def _read_data(self) -> tuple[dict[str, Any], tuple[FileSnapshot, ...]]:
@@ -218,7 +230,7 @@ class CropperService:
             }
 
     def commit_edits(self, edits: dict[str, Any], base: dict[str, str]) -> dict[str, Any]:
-        with self.lock:
+        with resource_operation(("editor.wonder_crop",), blocking=False), self.lock:
             candidate, diff = self._prepare(edits, base)
             if diff:
                 payload = json.dumps(candidate, ensure_ascii=False, indent=2).encode("utf-8") + b"\n"
@@ -230,6 +242,7 @@ class CropperService:
                 return result
             return self.load_resource()
 
+
 class WonderCropTool:
     spec = ToolSpec(
         id="media.wonder_crop",
@@ -237,6 +250,8 @@ class WonderCropTool:
         description="Apply saved 27:11 wonder image crops and rebuild DDS assets.",
         group="media",
         options=(),
+        resource_ids=("editor.wonder", "editor.wonder_crop"),
+        artifact_formats=("dds",),
     )
 
     def __init__(self, workspace: CropperService) -> None:
@@ -245,28 +260,39 @@ class WonderCropTool:
     def validate(self, options: dict[str, Any]) -> dict[str, Any]:
         return normalize_declared_options(self.spec, options)
 
-    def roots(self, options: dict[str, Any]) -> tuple[Path, ...]:
-        config = load_config()
-        tasks = load_task_config(config)
-        roots = {self.workspace.data_path}
-        roots.update(resolve_repo_path(task.get("dds_dir"), DEFAULT_WONDERS_DIR) for task in tasks)
-        return tuple(roots)
+    @contextmanager
+    def prepare(self, options: dict[str, Any]):
+        def load():
+            config = load_config()
+            tasks = load_task_config(config)
+            background = parse_background(require_object(config, "dds").get("opaque_background", [0, 0, 0]))
+            return plan_existing_assets(tasks), background, load_crop_data(self.workspace.data_path)
 
-    def run(self, options: dict[str, Any], context: ToolContext) -> ToolResult:
-        context.log("rebuild started")
-        with self.workspace.lock:
-            self.workspace.logs.append("rebuild started")
-        config = load_config()
-        tasks = load_task_config(config)
-        background = parse_background(require_object(config, "dds").get("opaque_background", [0, 0, 0]))
-        with capture_script_output(context):
-            code = convert_existing_assets(tasks, background)
-        if code != 0:
-            raise RuntimeError(f"Wonder DDS rebuild exited with code {code}")
-        context.log("DDS rebuild finished")
-        with self.workspace.lock:
-            self.workspace.logs.append("DDS rebuild finished")
-        return ToolResult(message="Wonder DDS rebuild completed")
+        (jobs, background, crops), sources = read_plan_inputs(
+            (CONFIG_PATH, LOCAL_CONFIG_PATH, *WONDER_TASK_INPUTS, self.workspace.data_path),
+            load, repo_root=self.workspace.repo_root,
+            optional=(LOCAL_CONFIG_PATH, self.workspace.data_path),
+        )
+        _, images = read_plan_inputs(
+            tuple(dict.fromkeys(item[0] for item in jobs)), lambda: None,
+            repo_root=self.workspace.repo_root,
+        )
+        outputs = []
+        for source, output, _, _ in jobs:
+            outputs.append(output)
+            if source.suffix.lower() == ".png":
+                outputs.append(cropped_wonder_dds_path(output))
+
+        def run(context: ToolContext) -> ToolResult:
+            context.check_cancelled()
+            context.log("rebuild started")
+            with capture_script_output(context):
+                code = run_existing_assets(jobs, background, crops)
+            if code != 0:
+                raise RuntimeError(f"Wonder DDS rebuild exited with code {code}")
+            return ToolResult(message="Wonder DDS rebuild completed")
+
+        yield ToolPlan(sources + images, tuple(outputs), run)
 
 
 cropper = CropperService()

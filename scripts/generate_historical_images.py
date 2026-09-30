@@ -130,6 +130,11 @@ def run(options: dict[str, object] | argparse.Namespace) -> int:
     """Run the configured batch from normalized application options."""
     dry_run = bool(options.dry_run) if isinstance(options, argparse.Namespace) else bool(options.get("dry_run", False))
     config, tasks = load_tasks()
+    return run_tasks(config, tasks, dry_run=dry_run)
+
+
+def run_tasks(config: dict, tasks: list[tuple[Path, Path]], *, dry_run: bool = False) -> int:
+    """Execute the task set already resolved by the CLI or Web plan."""
     print(f"[config] {CONFIG_PATH.relative_to(REPO_ROOT)}")
     pending = [(source, output) for source, output in tasks if config["overwrite"] or not output.exists()]
     for source, output in tasks:

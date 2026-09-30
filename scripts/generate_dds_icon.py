@@ -2388,6 +2388,10 @@ def run_target_generation(
             "skipped": True,
         }
 
+    if args.dry_run and (args.convert_existing_png or (target.local_template.get("enabled") and not args.force_api)):
+        print("[dry-run] skipped local conversion and output writes")
+        return None
+
     if args.convert_existing_png:
         source_png_path = resolve_repo_path(args.convert_existing_png)
         if not source_png_path.exists():
@@ -2453,154 +2457,42 @@ def run_target_generation(
     return written_target
 
 
-def run_victory_reward_batch(
-    args: argparse.Namespace,
-    config: dict[str, Any],
-    api_config: dict[str, Any],
-    prompt_config: dict[str, Any],
-    image_config: dict[str, Any],
-    style_config: dict[str, Any],
-    output_config: dict[str, Any],
-) -> int:
-    if args.convert_existing_png:
-        raise ValueError("--convert-existing-png is only supported for a single selected target")
-    tasks = build_victory_batch_tasks(config, output_config, style_config, image_config, prompt_config)
-    template_count = sum(1 for task in tasks if task.kind == "template")
-    reward_count = sum(1 for task in tasks if task.kind == "reward")
-    print(f"[batch] {VICTORY_REWARD_BATCH}: templates={template_count}, rewards={reward_count}, total={len(tasks)}")
+def build_generation_tasks(config: dict[str, Any], args: argparse.Namespace) -> list[BatchIconTask]:
+    output = require_object(config, "output")
+    style = require_object(config, "style_reference")
+    image = require_object(config, "image")
+    prompt = require_object(config, "prompt_refinement")
+    selected = select_target_name(config, output, args.target)
+    builders = {
+        VICTORY_PATH_BATCH: build_victory_path_icon_batch_tasks,
+        VICTORY_REWARD_BATCH: build_victory_batch_tasks,
+        VICTORY_TREE_BATCH: build_victory_tree_background_batch_tasks,
+        WONDER_BUILDING_BATCH: build_wonder_building_icon_batch_tasks,
+    }
+    if selected in builders:
+        if args.convert_existing_png:
+            raise ValueError("--convert-existing-png is only supported for a single selected target")
+        return builders[selected](config, output, style, image, prompt)
+    target = load_target_spec(config, output, style, args.target)
+    return [BatchIconTask("single", target.name, target.label, None, None, target,
+                          apply_target_image_settings(image, target), prompt, output)]
+
+
+def run_generation_tasks(config: dict[str, Any], args: argparse.Namespace, tasks: list[BatchIconTask]) -> int:
+    api = require_object(config, "api")
+    style = require_object(config, "style_reference")
     for index, task in enumerate(tasks, start=1):
-        if task.kind == "template":
-            print(f"[batch] {index}/{len(tasks)} template path={task.path_id}")
-        else:
-            print(
-                f"[batch] {index}/{len(tasks)} reward path={task.path_id} "
-                f"m{task.milestone} option={task.choice}"
-            )
+        print(f"[task {index}/{len(tasks)}] {task.path_id} ({task.kind})")
         run_target_generation(
-            args,
-            api_config,
-            task.prompt_config,
-            task.image_config,
-            style_config,
-            task.output_config,
-            task.target,
-            allow_missing_style_reference_dry_run=task.allow_missing_style_reference_dry_run,
-        )
-    return 0
-
-
-def run_victory_tree_background_batch(
-    args: argparse.Namespace,
-    config: dict[str, Any],
-    api_config: dict[str, Any],
-    prompt_config: dict[str, Any],
-    image_config: dict[str, Any],
-    style_config: dict[str, Any],
-    output_config: dict[str, Any],
-) -> int:
-    if args.convert_existing_png:
-        raise ValueError("--convert-existing-png is only supported for a single selected target")
-    tasks = build_victory_tree_background_batch_tasks(
-        config,
-        output_config,
-        style_config,
-        image_config,
-        prompt_config,
-    )
-    print(f"[batch] {VICTORY_TREE_BATCH}: trees={len(tasks)}")
-    for index, task in enumerate(tasks, start=1):
-        print(f"[batch] {index}/{len(tasks)} tree background path={task.path_id}")
-        run_target_generation(
-            args,
-            api_config,
-            task.prompt_config,
-            task.image_config,
-            style_config,
-            task.output_config,
-            task.target,
-        )
-    return 0
-
-
-def run_victory_path_icon_batch(
-    args: argparse.Namespace,
-    config: dict[str, Any],
-    api_config: dict[str, Any],
-    prompt_config: dict[str, Any],
-    image_config: dict[str, Any],
-    style_config: dict[str, Any],
-    output_config: dict[str, Any],
-) -> int:
-    if args.convert_existing_png:
-        raise ValueError("--convert-existing-png is only supported for a single selected target")
-    tasks = build_victory_path_icon_batch_tasks(config, output_config, style_config, image_config, prompt_config)
-    situation_count = sum(1 for task in tasks if task.kind == "situation")
-    path_count = sum(1 for task in tasks if task.kind == "path")
-    print(f"[batch] {VICTORY_PATH_BATCH}: situation={situation_count}, paths={path_count}, total={len(tasks)}")
-    for index, task in enumerate(tasks, start=1):
-        if task.kind == "situation":
-            print(f"[batch] {index}/{len(tasks)} situation icon")
-        else:
-            print(f"[batch] {index}/{len(tasks)} path icon path={task.path_id}")
-        run_target_generation(
-            args,
-            api_config,
-            task.prompt_config,
-            task.image_config,
-            style_config,
-            task.output_config,
-            task.target,
-            allow_missing_style_reference_dry_run=task.allow_missing_style_reference_dry_run,
-        )
-    return 0
-
-
-def run_wonder_building_icon_batch(
-    args: argparse.Namespace,
-    config: dict[str, Any],
-    api_config: dict[str, Any],
-    prompt_config: dict[str, Any],
-    image_config: dict[str, Any],
-    style_config: dict[str, Any],
-    output_config: dict[str, Any],
-) -> int:
-    if args.convert_existing_png:
-        raise ValueError("--convert-existing-png is only supported for a single selected target")
-    tasks = build_wonder_building_icon_batch_tasks(
-        config,
-        output_config,
-        style_config,
-        image_config,
-        prompt_config,
-    )
-    generic_count = sum(1 for task in tasks if task.kind == "generic_wonder_building")
-    unique_count = sum(1 for task in tasks if task.kind == "unique_wonder_building")
-    print(
-        f"[batch] {WONDER_BUILDING_BATCH}: generic={generic_count}, "
-        f"unique={unique_count}, total={len(tasks)}"
-    )
-    for index, task in enumerate(tasks, start=1):
-        print(f"[batch] {index}/{len(tasks)} wonder building icon {task.path_id} ({task.path_label})")
-        run_target_generation(
-            args,
-            api_config,
-            task.prompt_config,
-            task.image_config,
-            style_config,
-            task.output_config,
-            task.target,
+            args, api, task.prompt_config, task.image_config, style,
+            task.output_config, task.target,
             allow_missing_style_reference_dry_run=task.allow_missing_style_reference_dry_run,
         )
     return 0
 
 
 def run(options: dict[str, Any] | argparse.Namespace) -> int:
-    """Run the generator from a normalized application configuration.
-
-    The web workspace calls this function directly.  Keeping argument parsing
-    in ``main`` makes the CLI a thin adapter instead of making it the service
-    boundary.
-    """
+    """Resolve once, then execute the same tasks used by the Web job plan."""
     args = options if isinstance(options, argparse.Namespace) else argparse.Namespace(**options)
     if args.list_targets:
         for name, preset in TARGET_PRESETS.items():
@@ -2611,66 +2503,8 @@ def run(options: dict[str, Any] | argparse.Namespace) -> int:
         for name in sorted(BATCH_TARGETS):
             print(f"{name}: batch mode")
         return 0
-
     config = load_config()
-    api_config = require_object(config, "api")
-    prompt_config = require_object(config, "prompt_refinement")
-    image_config = require_object(config, "image")
-    style_config = require_object(config, "style_reference")
-    output_config = require_object(config, "output")
-    selected_target = select_target_name(config, output_config, args.target)
-    if selected_target == VICTORY_PATH_BATCH:
-        return run_victory_path_icon_batch(
-            args,
-            config,
-            api_config,
-            prompt_config,
-            image_config,
-            style_config,
-            output_config,
-        )
-    if selected_target == VICTORY_REWARD_BATCH:
-        return run_victory_reward_batch(
-            args,
-            config,
-            api_config,
-            prompt_config,
-            image_config,
-            style_config,
-            output_config,
-        )
-    if selected_target == VICTORY_TREE_BATCH:
-        return run_victory_tree_background_batch(
-            args,
-            config,
-            api_config,
-            prompt_config,
-            image_config,
-            style_config,
-            output_config,
-        )
-    if selected_target == WONDER_BUILDING_BATCH:
-        return run_wonder_building_icon_batch(
-            args,
-            config,
-            api_config,
-            prompt_config,
-            image_config,
-            style_config,
-            output_config,
-        )
-    target = load_target_spec(config, output_config, style_config, args.target)
-    image_config = apply_target_image_settings(image_config, target)
-    run_target_generation(
-        args,
-        api_config,
-        prompt_config,
-        image_config,
-        style_config,
-        output_config,
-        target,
-    )
-    return 0
+    return run_generation_tasks(config, args, build_generation_tasks(config, args))
 
 
 def main(argv: list[str] | None = None) -> int:

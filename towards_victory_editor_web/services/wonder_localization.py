@@ -6,6 +6,7 @@ import re
 import subprocess
 import sys
 import threading
+from contextlib import ExitStack
 from copy import copy, deepcopy
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -77,6 +78,7 @@ from .platform import (
     file_transaction,
     generated_output_paths,
     repo_relative_path,
+    resource_operation,
     snapshot_files,
     source_text_bytes,
     yaml_bytes,
@@ -2534,8 +2536,10 @@ class WonderLocalizationService:
         current_wonder_id: int | None = None,
         regenerate: bool = True,
     ) -> dict[str, Any]:
-        with self._lock:
+        with self._lock, ExitStack() as resource_guard:
             try:
+                # Wonder media jobs read these sources; a busy resource is logged and returned as 409.
+                resource_guard.enter_context(resource_operation(("editor.wonder",), blocking=False))
                 self._assert_base(base)
                 target_wonder_id = current_wonder_id
                 if target_wonder_id is None and drafts_by_wonder_id:
