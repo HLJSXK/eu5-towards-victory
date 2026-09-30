@@ -70,7 +70,7 @@ def main() -> None:
         for part in PARTS:
             lines.extend(building_block(f"tv_wonder_{wonder['key']}_{part}", wonder, 0.1))
         lines.extend(building_block(f"tv_wonder_{wonder['key']}", wonder, 0.4))
-    OUT_FILE.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
+    OUT_FILE.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8-sig")
     print(f"Wrote {OUT_FILE.relative_to(REPO_ROOT)}")
 
 

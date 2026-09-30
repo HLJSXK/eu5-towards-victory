@@ -9,6 +9,8 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from .services.cost_reward import CostRewardEditorService
+from .services.generation import GenerationError
+from .services.platform import RollbackError
 from .services.victory_tree import GENERATED_PREVIEWS_DIR, TREE_PREVIEW_URL_PREFIX, VictoryTreePlannerService
 from .services.wonder_localization import (
     GENERATED_WONDER_IMAGES_DIR,
@@ -74,6 +76,9 @@ def create_app() -> FastAPI:
     # block that used to be repeated in every editor route.
     def error_response(request, exc: Exception, status_code: int) -> JSONResponse:
         content = {"detail": str(exc)}
+        original = exc.original if isinstance(exc, RollbackError) else exc
+        if isinstance(original, GenerationError):
+            content["generation"] = original.report
         if (
             request.url.path == "/api/resources/editor.wonder"
             or request.url.path.startswith("/api/resources/editor.wonder/")
@@ -204,7 +209,7 @@ def create_app() -> FastAPI:
             draft.wonder_id: {"values": draft.values, "mechanics": draft.mechanics}
             for draft in request.wonders
         }
-        report = wonder_service.preview_resource_edits(drafts, request.base)
+        report = wonder_service.preview_resource_edits(drafts, request.base, regenerate=request.regenerate)
         return {"resource": wonder_service.resource_descriptor().payload(), **report}
 
     @app.post("/api/resources/editor.wonder/commit")

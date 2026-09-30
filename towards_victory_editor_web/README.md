@@ -29,6 +29,40 @@ Run the server checks without starting Uvicorn:
 C:\Users\Hades\anaconda3\envs\eu5\python.exe -m towards_victory_editor_web --check
 ```
 
+The Wonder preview API includes a `generation_plan` with ordered steps, dependency
+edges, declared outputs and per-step timeouts. Commit runs this prepared DAG using
+`sys.executable`, validates each step and the final artifact set, and returns a `generation` report
+with an operation ID, step status/return code/duration, hashes and file changes.
+The existing scope is 23 scripts / 22 outputs for mechanics changes, or two
+localization scripts / outputs. `regenerate: false` skips plan resolution and
+artifact checks. GUI merges explicitly depend on their fragments and serialize
+writes to the shared organization panel.
+
+Each generator has a 120-second timeout by default; a timeout terminates and
+waits for the child process before recovery, marks the step `timed_out`, retains
+captured output in the log and skips the remaining steps. The plan and generation
+report are currently exposed through the API only; the Wonder page does not render them.
+
+The shared artifact module validates media headers and generated text formats.
+TXT/GUI checks cover UTF-8, nonempty content and balanced strings/braces, and
+require BOM under `common/`, `events/` and `gui/`. Intermediate files under
+`data/generated_fragments/` need not have BOM;
+localization YML checks include BOM, language header, quoted physical lines and
+duplicate keys, allowing the literal interior quotes used by the game.
+These checks do not validate all Jomini semantics or references.
+Missing or invalid outputs fail the commit and trigger source/output recovery.
+An HTTP 500 generation failure includes the attempted artifact report and a
+separate `rollback` status/errors field; artifacts in that report describe the
+attempt before rollback. The DAG declares direct GUI file dependencies, not the
+complete transitive data/Python dependency graph, and still selects either
+localization or full mechanics generation.
+
+`tests/test_generation_plan.py` runs all 23 Wonder generators in a temporary
+repository copy and compares the 22 outputs byte-for-byte with the working-tree
+outputs, including BOM, so generated files must be current with their data. This
+regression requires the local reference game/mod inputs used by the generators
+to be available.
+
 Media jobs are submitted through `/api/jobs` and expose status, bounded logs,
 return codes, cancellation, artifact manifests, source snapshots, and output
 validation at `/api/jobs/{job_id}`. All five runnable handlers implement

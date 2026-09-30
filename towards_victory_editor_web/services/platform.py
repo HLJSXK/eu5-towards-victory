@@ -241,30 +241,32 @@ def file_transaction(paths: Iterable[Path], *, reload: Callable[[], None]) -> It
         raise
 
 
-def generated_output_paths(
+def generated_outputs_by_script(
     scripts: Iterable[str],
     *,
     repo_root: Path,
     extra_outputs: dict[str, tuple[str, ...]] | None = None,
-) -> tuple[Path, ...]:
-    """Resolve this execution plan's outputs, rejecting unregistered scripts."""
+) -> dict[str, tuple[Path, ...]]:
+    """Read the output registry once for a prepared generation plan."""
     scripts = tuple(scripts)
     if not scripts:
-        return ()
+        return {}
     by_script: dict[str, list[str]] = {}
     for entry in load_yaml(repo_root / "data/generated_files.yaml")["generated"]:
         by_script.setdefault(entry["script"], []).append(entry["output"])
     for script, outputs in (extra_outputs or {}).items():
         by_script.setdefault(script, []).extend(outputs)
-    paths: dict[Path, None] = {}
+    result: dict[str, tuple[Path, ...]] = {}
     for script in scripts:
         if not by_script.get(script):
             raise ValueError(f"No registered outputs for generator: {script}")
+        paths: dict[Path, None] = {}
         for output in by_script[script]:
-            path = repo_root / output
+            path = (repo_root / output).resolve()
             repo_relative_path(path, repo_root)  # Reject outputs outside the repository.
             paths[path] = None
-    return tuple(paths)
+        result[script] = tuple(paths)
+    return result
 
 
 def source_text_bytes(path: Path, body: str) -> bytes:

@@ -3,7 +3,6 @@ from __future__ import annotations
 import hashlib
 import json
 import re
-import subprocess
 import sys
 import threading
 from contextlib import ExitStack
@@ -69,14 +68,16 @@ from scripts_engineering_department.wonder_mechanics.rituals import (
     STYLE_3_REWARD_EFFECTS,
     unique_ceremony_modifier_name,
 )
+from .generation import GenerationError, run_generation
+from .wonder_generation import LOCALIZATION_SCRIPTS, wonder_generation_plan
 from .common import RollingLog
 from .platform import (
     ChangeSet,
     ResourceDescriptor,
+    RollbackError,
     assert_resource_base,
     atomic_write_files,
     file_transaction,
-    generated_output_paths,
     repo_relative_path,
     resource_operation,
     snapshot_files,
@@ -145,15 +146,6 @@ def _wonder_source_rels() -> tuple[str, ...]:
     )
 
 
-# These merge scripts modify a hand-authored panel, outside the generated-file registry.
-WONDER_EXTRA_GENERATED_OUTPUTS = {
-    "scripts_engineering_department/in_game/gui/panels/organization/merge_tv_engineering_department_wonder_mechanics_gui.py": (
-        "src_engineering_department/in_game/gui/panels/organization/tv_engineering_department.gui",
-    ),
-    "scripts_engineering_department/in_game/gui/panels/organization/merge_tv_wonder_ceremony_cards_gui.py": (
-        "src_engineering_department/in_game/gui/panels/organization/tv_engineering_department.gui",
-    ),
-}
 WONDER_EDITOR_CATALOG_FILE = REPO_ROOT / "data" / "wonder_editor_catalog.yaml"
 MODIFIER_LOCALIZATION_INDEX_FILE = REPO_ROOT / "data" / "index" / "modifier_localization.json"
 GENERATED_WONDER_IMAGES_DIR = REPO_ROOT / "assets" / "generated_wonders"
@@ -161,10 +153,6 @@ WONDER_IMAGE_URL_PREFIX = "/wonder-images"
 GENERATED_LOC_FILES = {
     "english": REPO_ROOT / "src_engineering_department" / "main_menu" / "localization" / "english" / "tv_engineering_department_wonder_mechanics_l_english.yml",
     "simp_chinese": REPO_ROOT / "src_engineering_department" / "main_menu" / "localization" / "simp_chinese" / "tv_engineering_department_wonder_mechanics_l_simp_chinese.yml",
-}
-GENERATED_LOC_SCRIPT_REL = {
-    "english": "scripts_engineering_department/main_menu/localization/english/gen_tv_engineering_department_wonder_mechanics_l_english.py",
-    "simp_chinese": "scripts_engineering_department/main_menu/localization/simp_chinese/gen_tv_engineering_department_wonder_mechanics_l_simp_chinese.py",
 }
 MANUAL_CONCEPT_FILES = {
     "english": REPO_ROOT / "src_engineering_department" / "main_menu" / "localization" / "english" / "tv_engineering_department_game_concepts_l_english.yml",
@@ -174,35 +162,6 @@ MANUAL_ENGINEERING_FILES = {
     "english": REPO_ROOT / "src_engineering_department" / "main_menu" / "localization" / "english" / "tv_engineering_department_l_english.yml",
     "simp_chinese": REPO_ROOT / "src_engineering_department" / "main_menu" / "localization" / "simp_chinese" / "tv_engineering_department_l_simp_chinese.yml",
 }
-REGEN_SCRIPTS = (
-    GENERATED_LOC_SCRIPT_REL["english"],
-    GENERATED_LOC_SCRIPT_REL["simp_chinese"],
-)
-WONDER_DATA_REGEN_SCRIPTS = (
-    "scripts_engineering_department/in_game/common/building_types/gen_tv_wonder_module_buildings.py",
-    "scripts_engineering_department/in_game/common/building_types/gen_tv_engineering_department_wonder_mechanics_buildings.py",
-    "scripts_engineering_department/in_game/common/static_modifiers/gen_tv_engineering_department_wonder_mechanics_modifiers.py",
-    "scripts_engineering_department/in_game/common/generic_actions/gen_tv_engineering_department_wonder_mechanics_actions.py",
-    "scripts_engineering_department/in_game/common/scripted_triggers/gen_tv_engineering_department_wonder_mechanics_triggers.py",
-    "scripts_engineering_department/in_game/common/scripted_effects/gen_tv_wonder_module_effects.py",
-    "scripts_engineering_department/in_game/common/scripted_effects/gen_tv_engineering_department_wonder_mechanics_effects.py",
-    "scripts_engineering_department/in_game/common/scripted_effects/gen_tv_wonder_ritual_effects.py",
-    "scripts_engineering_department/main_menu/common/game_concepts/gen_tv_engineering_department_wonder_mechanics_concepts.py",
-    GENERATED_LOC_SCRIPT_REL["english"],
-    GENERATED_LOC_SCRIPT_REL["simp_chinese"],
-    "scripts_engineering_department/in_game/gui/panels/organization/gen_tv_engineering_department_wonder_mechanics_gui.py",
-    "scripts_engineering_department/in_game/gui/panels/organization/merge_tv_engineering_department_wonder_mechanics_gui.py",
-    "scripts_engineering_department/in_game/common/customizable_localization/gen_tv_wonder_ceremony_options.py",
-    "scripts_engineering_department/main_menu/common/static_modifiers/gen_tv_wonder_ceremony_cost_country_modifiers.py",
-    "scripts_engineering_department/main_menu/common/static_modifiers/gen_tv_wonder_ceremony_cost_local_modifiers.py",
-    "scripts_engineering_department/in_game/common/scripted_effects/gen_tv_wonder_ceremony_effects.py",
-    "scripts_engineering_department/in_game/events/gen_tv_wonder_ceremony_events.py",
-    "scripts_engineering_department/main_menu/localization/english/gen_tv_wonder_ceremony_l_english.py",
-    "scripts_engineering_department/main_menu/localization/simp_chinese/gen_tv_wonder_ceremony_l_simp_chinese.py",
-    "scripts_engineering_department/in_game/gui/panels/organization/gen_tv_wonder_ceremony_cards_gui.py",
-    "scripts_engineering_department/in_game/gui/panels/organization/merge_tv_wonder_ceremony_cards_gui.py",
-    "scripts_engineering_department/in_game/gui/gen_location_window.py",
-)
 CONCEPT_FILE = REPO_ROOT / "src_engineering_department" / "main_menu" / "common" / "game_concepts" / "tv_engineering_department_wonder_mechanics_concepts.txt"
 CONCEPT_SCRIPT_REL = "scripts_engineering_department/main_menu/common/game_concepts/gen_tv_engineering_department_wonder_mechanics_concepts.py"
 CONCEPT_ICONS = {
@@ -2302,7 +2261,7 @@ def validate_canonical_localization_data(
 def render_expected_localization_output(language: str, localization_data: dict[str, dict[str, str]]) -> str:
     header = f"l_{language}:"
     lines = [header]
-    for line in render_header(GENERATED_LOC_SCRIPT_REL[language], GENERATED_LOC_DATA_REL):
+    for line in render_header(LOCALIZATION_SCRIPTS[language], GENERATED_LOC_DATA_REL):
         lines.append(f" {line}")
     for key, value in generated_localization_map(language, localization_data).items():
         lines.append(loc_line(key, value))
@@ -2503,11 +2462,13 @@ class WonderLocalizationService:
             return {"valid": True, "errors": [], "resource": self.resource_descriptor().payload()}
 
     def preview_resource_edits(
-        self, drafts_by_wonder_id: dict[int, dict[str, Any]], base: dict[str, str] | None = None
+        self, drafts_by_wonder_id: dict[int, dict[str, Any]], base: dict[str, str] | None = None,
+        *, regenerate: bool = True,
     ) -> dict[str, Any]:
         with self._lock:
             self._assert_base(base)
-            _, files, _ = self._candidate_for_drafts(drafts_by_wonder_id)
+            changed, files, _ = self._candidate_for_drafts(drafts_by_wonder_id)
+            plan = wonder_generation_plan(changed if files else {}, repo_root=REPO_ROOT, regenerate=regenerate)
             before = {item.path: item.sha256 for item in self._base}
             diff = [
                 {
@@ -2523,6 +2484,7 @@ class WonderLocalizationService:
                 "valid": True,
                 "errors": [],
                 "diff": diff,
+                "generation_plan": plan.payload(),
                 "change_set": ChangeSet(
                     self.resource_descriptor().id, self.resource_descriptor().source_paths, self._base
                 ).payload(),
@@ -2551,25 +2513,19 @@ class WonderLocalizationService:
                     payload = self.get_wonder_payload(target_wonder_id)
                     return {**self._resource_payload(), "status": "No changes", "changed_files": [],
                             "changed_wonder_ids": [], "wonder": payload, "wonders": self.list_wonders(),
+                            "generation": None,
                             "log_text": self.log_text}
 
-                scripts = ()
-                if regenerate:
-                    if changed["wonders"] or changed["mechanics"] or changed["unique"]:
-                        scripts = WONDER_DATA_REGEN_SCRIPTS
-                    elif changed["localization"]:
-                        scripts = REGEN_SCRIPTS
-                outputs = generated_output_paths(
-                    scripts, repo_root=REPO_ROOT, extra_outputs=WONDER_EXTRA_GENERATED_OUTPUTS
-                )
+                plan = wonder_generation_plan(changed, repo_root=REPO_ROOT, regenerate=regenerate)
                 changed_files = [repo_relative_path(path, REPO_ROOT) for path in files]
                 # Candidate serialization and registry lookup may take time; recheck
                 # the loaded base immediately before snapshotting and writing.
                 self._assert_base(base)
-                with file_transaction((*files, *outputs), reload=self.reload_from_disk):
+                generation = None
+                with file_transaction((*files, *plan.outputs), reload=self.reload_from_disk):
                     atomic_write_files(files)
-                    if scripts:
-                        self._run_generators(scripts)
+                    if plan.steps:
+                        generation = run_generation(plan, log=self._append_log)
                     self.reload_from_disk()
                     payload = self.get_wonder_payload(target_wonder_id)
                     status = f"Saved {len(changed_wonder_ids)} page{'s' if len(changed_wonder_ids) != 1 else ''}: {', '.join(changed_files)}"
@@ -2582,9 +2538,16 @@ class WonderLocalizationService:
                         "changed_wonder_ids": changed_wonder_ids,
                         "wonders": self.list_wonders(),
                         "wonder": payload,
+                        "generation": generation,
                         "log_text": self.log_text,
                     }
             except Exception as exc:
+                original = exc.original if isinstance(exc, RollbackError) else exc
+                if isinstance(original, GenerationError):
+                    original.report["rollback"] = {
+                        "status": "incomplete" if isinstance(exc, RollbackError) else "succeeded",
+                        "errors": exc.errors if isinstance(exc, RollbackError) else [],
+                    }
                 self._append_log(f"[error] {exc}\n")
                 raise
 
@@ -3725,28 +3688,6 @@ class WonderLocalizationService:
             )
         )
 
-    def _run_generators(self, scripts: tuple[str, ...] = REGEN_SCRIPTS) -> None:
-        self._append_log("\n[regen] Starting wonder generation\n")
-        for script in scripts:
-            command = [sys.executable, script]
-            self._append_log(f"$ {' '.join(command)}\n")
-            result = subprocess.run(
-                command,
-                cwd=REPO_ROOT,
-                text=True,
-                encoding="utf-8",
-                errors="replace",
-                capture_output=True,
-                check=False,
-            )
-            if result.stdout:
-                self._append_log(result.stdout)
-            if result.stderr:
-                self._append_log(result.stderr)
-            if result.returncode != 0:
-                self._append_log(f"[regen] Failed: {script} exited with {result.returncode}\n")
-                raise RuntimeError(f"{script} exited with {result.returncode}. See log for details.")
-        self._append_log("[regen] Complete\n")
 
 
 def build_check_report() -> list[str]:

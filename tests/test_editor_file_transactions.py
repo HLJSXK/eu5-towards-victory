@@ -86,17 +86,17 @@ def test_registry_selects_only_planned_scripts_and_rejects_missing_registration(
         {"script": "loc.py", "output": "added.yml"},
         {"script": "mechanics.py", "output": "mechanics.txt"},
     ]}))
-    assert platform.generated_output_paths(("loc.py",), repo_root=tmp_path) == (
-        tmp_path / "loc.yml", tmp_path / "added.yml",
-    )
-    assert platform.generated_output_paths(
+    assert platform.generated_outputs_by_script(("loc.py",), repo_root=tmp_path) == {
+        "loc.py": (tmp_path / "loc.yml", tmp_path / "added.yml"),
+    }
+    assert platform.generated_outputs_by_script(
         ("merge.py", "merge2.py"), repo_root=tmp_path,
         extra_outputs={"merge.py": ("shared.gui",), "merge2.py": ("shared.gui",)},
-    ) == (tmp_path / "shared.gui",)
+    ) == {"merge.py": (tmp_path / "shared.gui",), "merge2.py": (tmp_path / "shared.gui",)}
     with pytest.raises(ValueError, match="No registered outputs.*unknown.py"):
-        platform.generated_output_paths(("unknown.py",), repo_root=tmp_path)
+        platform.generated_outputs_by_script(("unknown.py",), repo_root=tmp_path)
     registry.unlink()
-    assert platform.generated_output_paths((), repo_root=tmp_path) == ()
+    assert platform.generated_outputs_by_script((), repo_root=tmp_path) == {}
 
 
 @pytest.mark.parametrize("newline", ["\n", "\r\n"])

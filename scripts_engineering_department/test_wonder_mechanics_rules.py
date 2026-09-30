@@ -200,8 +200,8 @@ from wonder_ceremony_lib import (
     stage_event_id,
 )
 from wonder_localization_lib import load_engineering_department_suffix_map, load_wonder_localization_data
+from towards_victory_editor_web.services.wonder_generation import wonder_generation_plan
 from towards_victory_editor_web.services.wonder_localization import (
-    WONDER_DATA_REGEN_SCRIPTS,
     build_unique_ceremony_editor_state,
     ceremony_stage_cost_options,
     render_expected_localization_output,
@@ -1329,13 +1329,15 @@ def validate_unique_ceremony_editor_support(wonders: list[dict]) -> None:
         "scripts_engineering_department/in_game/gui/panels/organization/gen_tv_wonder_ceremony_cards_gui.py",
         "scripts_engineering_department/in_game/gui/panels/organization/merge_tv_wonder_ceremony_cards_gui.py",
     )
+    plan = wonder_generation_plan({"unique": True}, repo_root=REPO_ROOT)
+    scripts = [step.spec.script for step in plan.steps]
     for script in ceremony_regen_scripts:
-        require(script in WONDER_DATA_REGEN_SCRIPTS, f"Ceremony edits must regenerate {script}.")
+        require(script in scripts, f"Ceremony edits must regenerate {script}.")
     require(
-        WONDER_DATA_REGEN_SCRIPTS.index(
+        scripts.index(
             "scripts_engineering_department/in_game/gui/panels/organization/merge_tv_engineering_department_wonder_mechanics_gui.py"
         )
-        < WONDER_DATA_REGEN_SCRIPTS.index(ceremony_regen_scripts[-1]),
+        < scripts.index(ceremony_regen_scripts[-1]),
         "The ceremony card merge must run after the main mechanics GUI merge.",
     )
 

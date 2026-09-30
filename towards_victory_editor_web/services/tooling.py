@@ -1,10 +1,7 @@
 from __future__ import annotations
 
 import contextlib
-import hashlib
 import io
-import json
-import struct
 import threading
 import time
 import uuid
@@ -13,6 +10,9 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Callable, ContextManager, Iterable, Protocol
 
+from .artifacts import (
+    Artifact, artifact_path, collect_artifacts, snapshot_artifacts, validate_artifact_contract,
+)
 from .platform import ConflictError, FileSnapshot, repo_relative_path, resource_operation, snapshot_files
 
 
@@ -110,24 +110,6 @@ def normalize_declared_options(spec: ToolSpec, options: dict[str, Any]) -> dict[
 
 
 @dataclass(frozen=True)
-class Artifact:
-    path: str
-    role: str
-    size: int
-    sha256: str
-    changed: bool
-
-    def payload(self) -> dict[str, Any]:
-        return {
-            "path": self.path,
-            "role": self.role,
-            "size": self.size,
-            "sha256": self.sha256,
-            "changed": self.changed,
-        }
-
-
-@dataclass(frozen=True)
 class ToolResult:
     message: str = ""
     metadata: dict[str, Any] = field(default_factory=dict)
@@ -217,80 +199,6 @@ class ToolRegistry:
             for spec in self._specs.values()
             if interactive is None or spec.interactive == interactive
         ]
-
-
-def _relative(repo_root: Path, path: Path) -> str:
-    try:
-        return str(path.resolve().relative_to(repo_root.resolve())).replace("\\", "/")
-    except ValueError:
-        return str(path)
-
-
-def _snapshot(paths: Iterable[Path]) -> dict[Path, tuple[int, str]]:
-    result: dict[Path, tuple[int, str]] = {}
-    for path in paths:
-        try:
-            data = path.read_bytes()
-        except FileNotFoundError:
-            continue
-        result[path.resolve()] = (len(data), hashlib.sha256(data).hexdigest())
-    return result
-
-
-def collect_artifacts(repo_root, before, after) -> tuple[Artifact, ...]:
-    artifacts = []
-    for path in sorted(set(before) | set(after), key=str):
-        current = after.get(path)
-        if current is None:
-            artifacts.append(Artifact(_relative(repo_root, path), "deleted", 0, "missing", True))
-        else:
-            artifacts.append(Artifact(_relative(repo_root, path), "output", *current, before.get(path) != current))
-    return tuple(artifacts)
-
-
-def validate_artifact_contract(
-    repo_root: Path,
-    artifacts: Iterable[Artifact],
-    allowed_formats: Iterable[str] = (),
-) -> list[dict[str, Any]]:
-    """Validate the file-level contracts shared by all media tools."""
-    allowed = {str(value).lower().lstrip(".") for value in allowed_formats}
-    reports: list[dict[str, Any]] = []
-    for artifact in artifacts:
-        if artifact.role == "deleted":
-            continue
-        path = (repo_root / artifact.path).resolve()
-        suffix = path.suffix.lower()
-        report: dict[str, Any] = {"path": artifact.path, "format": suffix.lstrip(".") or "file", "valid": True}
-        try:
-            if allowed and suffix.lstrip(".") not in allowed:
-                raise ValueError(
-                    f"format {suffix.lstrip('.') or 'file'} is not declared by {artifact.role} contract"
-                )
-            data = path.read_bytes()
-            if suffix == ".png":
-                if len(data) < 24 or not data.startswith(b"\x89PNG\r\n\x1a\n"):
-                    raise ValueError("invalid PNG signature")
-                report["width"] = int.from_bytes(data[16:20], "big")
-                report["height"] = int.from_bytes(data[20:24], "big")
-            elif suffix == ".dds":
-                if len(data) < 128 or not data.startswith(b"DDS "):
-                    raise ValueError("invalid DDS header")
-                report["height"], report["width"] = struct.unpack_from("<II", data, 12)
-                fourcc = data[84:88].decode("ascii", errors="replace").strip("\x00")
-                if fourcc not in {"DXT1", "DXT5"}:
-                    raise ValueError(f"unsupported DDS format {fourcc!r}")
-                report["dds_format"] = fourcc
-            elif suffix == ".json":
-                json.loads(data.decode("utf-8-sig"))
-            elif suffix in {".jpg", ".jpeg"} and not data.startswith(b"\xff\xd8"):
-                raise ValueError("invalid JPEG signature")
-        except (OSError, UnicodeDecodeError, ValueError, json.JSONDecodeError) as exc:
-            report["valid"] = False
-            report["error"] = str(exc)
-        reports.append(report)
-    return reports
-
 
 class Job:
     def __init__(self, job_id: str, handler: ToolHandler, options: dict[str, Any], repo_root: Path) -> None:
@@ -387,22 +295,22 @@ class JobManager:
                     for path in outputs:
                         repo_relative_path(path, self.repo_root)
                     job.source_snapshots = [vars(item) for item in plan.inputs]
-                    job.declared_outputs = [_relative(self.repo_root, path) for path in outputs]
+                    job.declared_outputs = [artifact_path(self.repo_root, path) for path in outputs]
                     inputs = tuple(self.repo_root / item.path for item in plan.inputs)
                     job.context.check_cancelled()
                     if snapshot_files(inputs, repo_root=self.repo_root) != plan.inputs:
                         raise ConflictError("Declared inputs changed before job execution")
-                    before = _snapshot(outputs)
+                    before = snapshot_artifacts(outputs)
                     try:
                         result = plan.run(job.context)
                         job.message = result.message
                         job.metadata = dict(result.metadata)
                     finally:
                         # Preserve the real disk outcome even if run() raises or is cancelled.
-                        after = _snapshot(outputs)
+                        after = snapshot_artifacts(outputs)
                         job.artifacts = collect_artifacts(self.repo_root, before, after)
                         job.missing_outputs = [
-                            _relative(self.repo_root, path) for path in plan.outputs
+                            artifact_path(self.repo_root, path) for path in plan.outputs
                             if path.resolve() not in after
                         ]
                         job.metadata["output_validation"] = validate_artifact_contract(

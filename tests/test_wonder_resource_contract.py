@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import threading
+from dataclasses import replace
 from pathlib import Path
 
 import pytest
@@ -9,6 +10,7 @@ import yaml
 from fastapi.testclient import TestClient
 
 from towards_victory_editor_web.services import wonder_localization
+from towards_victory_editor_web.services.wonder_generation import LOCALIZATION_SCRIPTS, wonder_generation_plan
 from towards_victory_editor_web.services.common import RollingLog
 from towards_victory_editor_web.services.platform import ConflictError, ResourceDescriptor, resource_operation, snapshot_files
 
@@ -25,11 +27,17 @@ SOURCE_ATTRIBUTES = (
 
 
 def _registry(tmp_path, outputs):
-    entries = [
-        {"script": script, "output": output}
-        for script in wonder_localization.REGEN_SCRIPTS
-        for output in outputs
-    ]
+    entries = []
+    for index, script in enumerate(LOCALIZATION_SCRIPTS.values()):
+        # Each real localization generator owns separate files.
+        owned = list(outputs[index::2]) or [f"generated/unused_{index}.txt"]
+        entries.extend({"script": script, "output": output} for output in owned)
+        path = tmp_path / script
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("from pathlib import Path\n" + "\n".join(
+            f"Path({output!r}).parent.mkdir(parents=True, exist_ok=True); "
+            f"Path({output!r}).write_text('sample = {{}}\\n')" for output in owned
+        ))
     (tmp_path / "data/generated_files.yaml").write_text(yaml.safe_dump({"generated": entries}))
 
 
@@ -188,7 +196,7 @@ def test_crlf_mechanics_edit_changes_only_edited_source(service):
     assert b"\r\n" in raw
     assert b"\n" not in raw.replace(b"\r\n", b"")
     service._candidate_for_drafts = lambda _drafts: (changed, files, [1])
-    report = service.preview_resource_edits({}, _base(service))
+    report = service.preview_resource_edits({}, _base(service), regenerate=False)
     assert [item["path"] for item in report["diff"]] == [sources["buildings"].relative_to(wonder_localization.REPO_ROOT).as_posix()]
 
 
@@ -224,24 +232,24 @@ def test_generation_snapshots_only_planned_files(service, tmp_path, monkeypatch,
 
     monkeypatch.setattr(platform, "snapshot_file_contents", record)
     executed = []
-    service._run_generators = lambda scripts: executed.extend(scripts)
+    monkeypatch.setattr(wonder_localization, "run_generation", lambda plan, **_kwargs: executed.extend(step.spec.script for step in plan.steps))
     result = service.commit_resource({}, _base(service), regenerate=regenerate)
     assert result["changed_files"] == [source.relative_to(tmp_path).as_posix()]
     expected = [source]
     if regenerate:
         expected.extend([tmp_path / "generated/english.yml", tmp_path / "generated/chinese.yml"])
     assert snapshots == expected
-    assert executed == (list(wonder_localization.REGEN_SCRIPTS) if regenerate else [])
+    assert executed == (list(LOCALIZATION_SCRIPTS.values()) if regenerate else [])
 
 
 def test_generator_outputs_follow_registered_plan():
     root = Path(__file__).resolve().parents[1]
-    kwargs = {"repo_root": root, "extra_outputs": wonder_localization.WONDER_EXTRA_GENERATED_OUTPUTS}
-    localization = wonder_localization.generated_output_paths(wonder_localization.REGEN_SCRIPTS, **kwargs)
-    mechanics = wonder_localization.generated_output_paths(wonder_localization.WONDER_DATA_REGEN_SCRIPTS, **kwargs)
-    assert set(localization) == set(wonder_localization.GENERATED_LOC_FILES.values())
-    assert len(mechanics) == 22
-    assert set(localization) <= set(mechanics)
+    localization = wonder_generation_plan({"localization": True}, repo_root=root)
+    mechanics = wonder_generation_plan({"mechanics": True}, repo_root=root)
+    assert set(localization.outputs) == set(wonder_localization.GENERATED_LOC_FILES.values())
+    assert len(mechanics.outputs) == 22
+    assert len(mechanics.steps) == 23
+    assert set(localization.outputs) <= set(mechanics.outputs)
 
 
 @pytest.mark.parametrize("failure", ["conflict", "validation"])
@@ -292,7 +300,7 @@ def test_commit_rejects_unknown_current_wonder_before_writing(service):
     assert source_path.read_bytes() == source_before
 
 
-def test_response_failure_restores_committed_files(service, tmp_path):
+def test_response_failure_restores_committed_files(service, tmp_path, monkeypatch):
     output = tmp_path / "generated.txt"
     output.write_bytes(b"old artifact\n")
     _registry(tmp_path, ("generated.txt",))
@@ -303,7 +311,7 @@ def test_response_failure_restores_committed_files(service, tmp_path):
         {source_path: b"new source\n"},
         [1],
     )
-    service._run_generators = lambda _scripts: output.write_bytes(b"new artifact\n")
+    monkeypatch.setattr(wonder_localization, "run_generation", lambda _plan, **_kwargs: output.write_bytes(b"new artifact\n"))
 
     def fail_response():
         raise RuntimeError("response failed")
@@ -316,7 +324,7 @@ def test_response_failure_restores_committed_files(service, tmp_path):
     assert output.read_bytes() == b"old artifact\n"
 
 
-def test_generator_failure_restores_sources_and_existing_outputs(service, tmp_path):
+def test_generator_failure_restores_sources_and_existing_outputs(service, tmp_path, monkeypatch):
     service.wonders = [{"id": 1, "key": "test"}]
     existing_output = tmp_path / "generated" / "existing.txt"
     new_output = tmp_path / "generated" / "created.txt"
@@ -332,13 +340,13 @@ def test_generator_failure_restores_sources_and_existing_outputs(service, tmp_pa
         [1],
     )
 
-    def fail_after_writing(_scripts):
+    def fail_after_writing(_plan, **_kwargs):
         wonder_localization.atomic_write_files(
             {existing_output: b"new artifact\n", new_output: b"newly created\n"}
         )
         raise RuntimeError("generator failed")
 
-    service._run_generators = fail_after_writing
+    monkeypatch.setattr(wonder_localization, "run_generation", fail_after_writing)
     with pytest.raises(RuntimeError, match="generator failed"):
         service.commit_resource({}, _base(service), current_wonder_id=1)
 
@@ -367,7 +375,7 @@ def test_http_resource_contract_maps_missing_base_and_conflict(monkeypatch):
         def validate_resource_edits(self, _drafts):
             return {"valid": True, "errors": [], "resource": descriptor}
 
-        def preview_resource_edits(self, _drafts, incoming_base):
+        def preview_resource_edits(self, _drafts, incoming_base, **_kwargs):
             if not incoming_base:
                 raise ValueError("base must include snapshots for all resource files")
             if incoming_base != base:
@@ -423,12 +431,134 @@ def test_http_commit_errors_include_service_log(service, monkeypatch, failure, s
             {"localization": True, "mechanics": False, "wonders": False, "unique": False},
             {source: b"new source\n"}, [1],
         )
-        def fail_generator(_scripts):
+        def fail_generator(_plan, **_kwargs):
             raise RuntimeError("generator X exited with 1")
-        service._run_generators = fail_generator
+        monkeypatch.setattr(wonder_localization, "run_generation", fail_generator)
     with TestClient(server.create_app()) as client:
         response = client.post("/api/resources/editor.wonder/commit", json={"base": base})
     assert response.status_code == status
     assert response.json()["log_text"] == service.log_text
     assert response.json()["detail"] in service.log_text
     assert "[error]" in service.log_text
+
+
+def test_preview_plan_matches_committed_generation_and_artifacts(service, tmp_path):
+    source = wonder_localization.WONDER_LOCALIZATION_FILE
+    _registry(tmp_path, ('generated/english.txt', 'generated/chinese.txt'))
+    service._candidate_for_drafts = lambda _drafts: (
+        {'localization': True}, {source: b'new source\n'}, [1],
+    )
+    preview = service.preview_resource_edits({}, _base(service))
+    assert len(preview['generation_plan']['steps']) == 2
+    assert not (tmp_path / 'generated').exists()
+    service.reload_from_disk = lambda: setattr(service, '_base', snapshot_files(
+        wonder_localization._wonder_source_paths(), repo_root=tmp_path))
+    result = service.commit_resource({}, _base(service))
+    assert result['generation']['plan'] == preview['generation_plan']
+    assert result['generation']['status'] == 'succeeded'
+    assert all(item['changed'] for item in result['generation']['artifacts'])
+    assert all(item['valid'] for item in result['generation']['output_validation'])
+    assert source.read_bytes() == b'new source\n'
+
+
+@pytest.mark.parametrize('failure', ['missing', 'invalid', 'exit', 'bom', 'timeout'])
+def test_real_runner_failure_rolls_back_and_returns_http_report(service, tmp_path, monkeypatch, failure):
+    from towards_victory_editor_web import server
+
+    source = wonder_localization.WONDER_LOCALIZATION_FILE
+    source_before = source.read_bytes()
+    output_name = ('src_engineering_department/in_game/common/scripted_effects/sample.txt'
+                   if failure == 'bom' else 'generated/english.txt')
+    _registry(tmp_path, (output_name, 'generated/chinese.txt'))
+    output = tmp_path / output_name
+    output.parent.mkdir(parents=True)
+    output_before = b'\xef\xbb\xbfold = {}\n'
+    output.write_bytes(output_before)
+    script = tmp_path / LOCALIZATION_SCRIPTS['english']
+    action = {
+        'missing': f"Path({output_name!r}).unlink()",
+        'invalid': f"Path({output_name!r}).write_text('broken = {{')",
+        'exit': f"Path({output_name!r}).write_text('partial = {{}}'); raise SystemExit(9)",
+        'bom': f"Path({output_name!r}).write_text('old = {{}}\\n', encoding='utf-8')",
+        'timeout': (f"Path({output_name!r}).write_text('partial = {{}}'); "
+                    "print('partial output before timeout', flush=True); "
+                    "import time; time.sleep(60)"),
+    }[failure]
+    script.write_text('from pathlib import Path\n' + action)
+    service._candidate_for_drafts = lambda _drafts: (
+        {'localization': True}, {source: b'new source\n'}, [1],
+    )
+    if failure == 'timeout':
+        def short_plan(*args, **kwargs):
+            plan = wonder_generation_plan(*args, **kwargs)
+            return replace(plan, steps=tuple(
+                replace(step, spec=replace(step.spec, timeout_seconds=1)) for step in plan.steps))
+        monkeypatch.setattr(wonder_localization, 'wonder_generation_plan', short_plan)
+    monkeypatch.setattr(server, 'CostRewardEditorService', lambda: object())
+    monkeypatch.setattr(server, 'VictoryTreePlannerService', lambda: object())
+    monkeypatch.setattr(server, 'WonderLocalizationService', lambda: service)
+    with TestClient(server.create_app()) as client:
+        response = client.post('/api/resources/editor.wonder/commit', json={'base': _base(service)})
+    assert response.status_code == 500
+    report = response.json()['generation']
+    assert report['status'] == 'failed'
+    assert report['rollback'] == {'status': 'succeeded', 'errors': []}
+    assert [step['status'] for step in report['steps']] == ['failed', 'skipped']
+    assert report['artifacts'][0]['changed']
+    assert source.read_bytes() == source_before
+    assert output.read_bytes() == output_before
+    assert not (tmp_path / 'generated/chinese.txt').exists()
+    if failure == 'bom':
+        assert 'UTF-8 BOM' in response.json()['detail']
+        assert not report['output_validation'][0]['valid']
+    if failure == 'timeout':
+        assert report['steps'][0]['timed_out']
+        assert report['plan']['steps'][0]['timeout_seconds'] == 1
+        assert 'timed out after 1s' in response.json()['detail']
+        assert 'partial output before timeout' in response.json()['log_text']
+        assert report['artifacts'][0]['sha256'] == hashlib.sha256(b'partial = {}').hexdigest()
+    # The request ran on another thread. Both service and resource locks must
+    # be reusable after recovery, including after the subprocess is killed.
+    assert service._lock.acquire(blocking=False)
+    service._lock.release()
+    with resource_operation(('editor.wonder',)):
+        pass
+
+
+def test_plan_errors_precede_source_write(service, tmp_path):
+    source = wonder_localization.WONDER_LOCALIZATION_FILE
+    before = source.read_bytes()
+    service._candidate_for_drafts = lambda _drafts: (
+        {'localization': True}, {source: b'new source\n'}, [1],
+    )
+    (tmp_path / LOCALIZATION_SCRIPTS['english']).unlink()
+    with pytest.raises(ValueError, match='Missing generator script'):
+        service.commit_resource({}, _base(service))
+    assert source.read_bytes() == before
+    report = service.preview_resource_edits({}, _base(service), regenerate=False)
+    assert report['generation_plan'] == {'steps': [], 'outputs': []}
+
+
+def test_generation_error_keeps_report_when_rollback_is_incomplete(service, tmp_path, monkeypatch):
+    from towards_victory_editor_web.services import platform
+    from towards_victory_editor_web.services.generation import GenerationError
+
+    source = wonder_localization.WONDER_LOCALIZATION_FILE
+    _registry(tmp_path, ('generated/english.txt', 'generated/chinese.txt'))
+    (tmp_path / LOCALIZATION_SCRIPTS['english']).write_text('raise SystemExit(8)')
+    service._candidate_for_drafts = lambda _drafts: ({'localization': True}, {source: b'new\n'}, [1])
+    write = platform.atomic_write_files
+
+    def failed_restore(files):
+        if source in files:
+            raise PermissionError('restore denied')
+        return write(files)
+
+    monkeypatch.setattr(platform, 'atomic_write_files', failed_restore)
+    with pytest.raises(platform.RollbackError) as failure:
+        service.commit_resource({}, _base(service))
+    original = failure.value.original
+    assert isinstance(original, GenerationError)
+    assert original.report['rollback']['status'] == 'incomplete'
+    assert 'restore denied' in original.report['rollback']['errors'][0]
+    assert 'exited with 8' in str(failure.value)

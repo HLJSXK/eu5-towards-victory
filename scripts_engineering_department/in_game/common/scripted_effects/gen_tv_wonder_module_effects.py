@@ -1072,7 +1072,7 @@ def main() -> None:
     lines.append("}")
     lines.append("")
 
-    OUT_FILE.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
+    OUT_FILE.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8-sig")
     print(f"Wrote {OUT_FILE.relative_to(REPO_ROOT)}")
 
 
