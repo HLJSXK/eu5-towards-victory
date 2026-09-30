@@ -6,7 +6,7 @@ import re
 import subprocess
 import sys
 import threading
-from copy import deepcopy
+from copy import copy, deepcopy
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
@@ -20,12 +20,12 @@ if hasattr(sys.stdout, "reconfigure"):
 from scripts_engineering_department.wonder_localization_lib import (
     REPO_ROOT,
     WONDER_LOCALIZATION_FILE,
+    collapse_wonder_localization_data,
     engineering_department_wonder_mechanics_localization_map,
     load_engineering_department_suffix_map,
     load_localization_map,
     load_wonder_localization_data,
     normalize_editor_text,
-    save_wonder_localization_data,
 )
 from scripts_engineering_department.wonder_mechanics.io import (
     UNIQUE_WONDERS_FILE,
@@ -40,7 +40,6 @@ from scripts_engineering_department.wonder_mechanics.io import (
     load_mechanics_source_data,
     load_unique_wonders_source_data,
     load_wonders_source_data,
-    save_mechanics_source_data,
     save_yaml_document,
 )
 from scripts_engineering_department.wonder_mechanics.modifiers import authored_final_building_local_modifiers
@@ -70,6 +69,18 @@ from scripts_engineering_department.wonder_mechanics.rituals import (
     unique_ceremony_modifier_name,
 )
 from .common import RollingLog
+from .platform import (
+    ChangeSet,
+    ResourceDescriptor,
+    assert_resource_base,
+    atomic_write_files,
+    file_transaction,
+    generated_output_paths,
+    repo_relative_path,
+    snapshot_files,
+    source_text_bytes,
+    yaml_bytes,
+)
 from scripts_engineering_department.wonder_mechanics.schema import (
     site_preference_script_for_key,
     site_trigger_script_for_key,
@@ -106,6 +117,41 @@ UNIQUE_RITUAL_PROMPTS_REL = "data/unique_wonder_ritual_prompts.yaml"
 UNIQUE_RITUAL_DESIGNS_FILE = REPO_ROOT / UNIQUE_RITUAL_DESIGNS_REL
 UNIQUE_RITUAL_DESIGNS_ZH_FILE = REPO_ROOT / UNIQUE_RITUAL_DESIGNS_ZH_REL
 UNIQUE_RITUAL_PROMPTS_FILE = REPO_ROOT / UNIQUE_RITUAL_PROMPTS_REL
+
+def _wonder_source_paths() -> tuple[Path, ...]:
+    """Return source paths from the current module constants.
+
+    Tests and local editor instances can redirect the repository data files;
+    deriving this tuple at use time keeps the resource contract aligned with
+    those redirected paths.
+    """
+    return (
+        WONDER_LOCALIZATION_FILE,
+        WONDER_FINAL_BUILDINGS_FILE,
+        WONDER_GENERIC_RITUALS_FILE,
+        WONDER_BASE_MODIFIERS_FILE,
+        WONDER_SITE_RULES_FILE,
+        WONDERS_FILE,
+        UNIQUE_WONDERS_FILE,
+    )
+
+
+def _wonder_source_rels() -> tuple[str, ...]:
+    return tuple(
+        repo_relative_path(path, REPO_ROOT)
+        for path in _wonder_source_paths()
+    )
+
+
+# These merge scripts modify a hand-authored panel, outside the generated-file registry.
+WONDER_EXTRA_GENERATED_OUTPUTS = {
+    "scripts_engineering_department/in_game/gui/panels/organization/merge_tv_engineering_department_wonder_mechanics_gui.py": (
+        "src_engineering_department/in_game/gui/panels/organization/tv_engineering_department.gui",
+    ),
+    "scripts_engineering_department/in_game/gui/panels/organization/merge_tv_wonder_ceremony_cards_gui.py": (
+        "src_engineering_department/in_game/gui/panels/organization/tv_engineering_department.gui",
+    ),
+}
 WONDER_EDITOR_CATALOG_FILE = REPO_ROOT / "data" / "wonder_editor_catalog.yaml"
 MODIFIER_LOCALIZATION_INDEX_FILE = REPO_ROOT / "data" / "index" / "modifier_localization.json"
 GENERATED_WONDER_IMAGES_DIR = REPO_ROOT / "assets" / "generated_wonders"
@@ -2305,39 +2351,238 @@ class WonderLocalizationService:
 
     def reload_from_disk(self) -> None:
         with self._lock:
-            self.wonders_data = load_wonders_source_data()
-            self.mechanics_data = load_mechanics_source_data()
-            self.unique_wonders_data = load_unique_wonders_source_data()
-            self.wonders, self.mechanics = load_all_wonder_mechanics_data()
-            self.wonders = sorted(self.wonders, key=lambda item: int(item["id"]))
-            self.event_suffixes = load_engineering_department_suffix_map()
-            self.localization_data = load_wonder_localization_data()
-            self.unique_ritual_designs_data = load_unique_ritual_designs_data()
-            self._validate_unique_ritual_designs()
-            self.unique_ritual_design_translations_data = load_unique_ritual_design_translations_data()
-            self.unique_ritual_prompts_data = load_unique_ritual_prompts_data()
-            (
-                self.country_modifier_options,
-                self.local_modifier_options,
-                self.reward_type_options,
-            ) = _modifier_option_catalog(self.mechanics_data, self.unique_wonders_data)
-            self.ceremony_cost_type_options = ceremony_stage_cost_options()
-            self._option_catalogs = {
-                "country_modifier": self.country_modifier_options,
-                "local_modifier": self.local_modifier_options,
-                "reward_type": self.reward_type_options,
-                "ceremony_cost_type": self.ceremony_cost_type_options,
-            }
-            catalog_bytes = json.dumps(
-                self._option_catalogs, ensure_ascii=False, sort_keys=True, separators=(",", ":")
-            ).encode("utf-8")
-            self._option_catalog_version = hashlib.sha256(catalog_bytes).hexdigest()
-            validate_canonical_localization_data(
-                self.wonders,
-                self.mechanics,
-                self.event_suffixes,
-                self.localization_data,
+            base = snapshot_files(_wonder_source_paths(), repo_root=REPO_ROOT)
+            loaded = copy(self)
+            loaded._load_from_disk()
+            assert_resource_base(
+                {item.path: item.sha256 for item in base},
+                base,
+                snapshot_files(_wonder_source_paths(), repo_root=REPO_ROOT),
             )
+            loaded._base = base
+            self.__dict__.update(loaded.__dict__)
+
+    def _load_from_disk(self) -> None:
+        self.wonders_data = load_wonders_source_data()
+        self.mechanics_data = load_mechanics_source_data()
+        self.unique_wonders_data = load_unique_wonders_source_data()
+        self.wonders, self.mechanics = load_all_wonder_mechanics_data()
+        self.wonders = sorted(self.wonders, key=lambda item: int(item["id"]))
+        self.event_suffixes = load_engineering_department_suffix_map()
+        self.localization_data = load_wonder_localization_data()
+        self.unique_ritual_designs_data = load_unique_ritual_designs_data()
+        self._validate_unique_ritual_designs()
+        self.unique_ritual_design_translations_data = load_unique_ritual_design_translations_data()
+        self.unique_ritual_prompts_data = load_unique_ritual_prompts_data()
+        (
+            self.country_modifier_options,
+            self.local_modifier_options,
+            self.reward_type_options,
+        ) = _modifier_option_catalog(self.mechanics_data, self.unique_wonders_data)
+        self.ceremony_cost_type_options = ceremony_stage_cost_options()
+        self._option_catalogs = {
+            "country_modifier": self.country_modifier_options,
+            "local_modifier": self.local_modifier_options,
+            "reward_type": self.reward_type_options,
+            "ceremony_cost_type": self.ceremony_cost_type_options,
+        }
+        catalog_bytes = json.dumps(
+            self._option_catalogs, ensure_ascii=False, sort_keys=True, separators=(",", ":")
+        ).encode("utf-8")
+        self._option_catalog_version = hashlib.sha256(catalog_bytes).hexdigest()
+        validate_canonical_localization_data(
+            self.wonders,
+            self.mechanics,
+            self.event_suffixes,
+            self.localization_data,
+        )
+
+    def resource_descriptor(self) -> ResourceDescriptor:
+        return ResourceDescriptor(
+            id="editor.wonder",
+            kind="yaml_aggregate",
+            label="Wonder localization and mechanics",
+            source_paths=_wonder_source_rels(),
+            generator_ids=("wonder.localization", "wonder.mechanics"),
+        )
+
+    def _resource_payload(self) -> dict[str, Any]:
+        descriptor = self.resource_descriptor()
+        return {
+            "resource": descriptor.payload(),
+            "draft": self.bootstrap_payload(),
+            "change_set": ChangeSet(descriptor.id, descriptor.source_paths, self._base).payload(),
+        }
+
+    def load_resource(self) -> dict[str, Any]:
+        with self._lock:
+            self.reload_from_disk()
+            return self._resource_payload()
+
+    @staticmethod
+    def _localization_bytes(path: Path, localization: dict[str, dict[str, str]]) -> bytes:
+        canonical = collapse_wonder_localization_data(deepcopy(localization))
+        payload = {"wonder_localization": {language: dict(canonical[language]) for language in LANGUAGES}}
+        text = yaml.safe_dump(payload, sort_keys=False, allow_unicode=True, default_flow_style=False)
+        return source_text_bytes(path, text)
+
+    def _candidate_source_bytes(self, changed: dict[str, bool]) -> dict[Path, bytes]:
+        files: dict[Path, bytes] = {}
+        if changed["localization"]:
+            files[WONDER_LOCALIZATION_FILE] = self._localization_bytes(
+                WONDER_LOCALIZATION_FILE, self.localization_data
+            )
+        if changed["mechanics"]:
+            files.update(
+                {
+                    WONDER_FINAL_BUILDINGS_FILE: yaml_bytes(
+                        WONDER_FINAL_BUILDINGS_FILE, {"buildings": self.mechanics_data.get("buildings", {})}
+                    ),
+                    WONDER_GENERIC_RITUALS_FILE: yaml_bytes(
+                        WONDER_GENERIC_RITUALS_FILE, {"generic_rituals": self.mechanics_data.get("generic_rituals", {})}
+                    ),
+                    WONDER_BASE_MODIFIERS_FILE: yaml_bytes(
+                        WONDER_BASE_MODIFIERS_FILE, {"base_modifiers": self.mechanics_data.get("base_modifiers", {})}
+                    ),
+                    WONDER_SITE_RULES_FILE: yaml_bytes(
+                        WONDER_SITE_RULES_FILE, {"site_rules": self.mechanics_data.get("site_rules", {})}
+                    ),
+                }
+            )
+        if changed["wonders"]:
+            files[WONDERS_FILE] = yaml_bytes(WONDERS_FILE, self.wonders_data)
+        if changed["unique"]:
+            files[UNIQUE_WONDERS_FILE] = yaml_bytes(UNIQUE_WONDERS_FILE, self.unique_wonders_data)
+        return {
+            path: content
+            for path, content in files.items()
+            if not path.exists() or path.read_bytes() != content
+        }
+
+    def _candidate_for_drafts(self, drafts_by_wonder_id: dict[int, dict[str, Any]]) -> tuple[dict, dict[Path, bytes], list[int]]:
+        changed = {"localization": False, "mechanics": False, "wonders": False, "unique": False}
+        changed_wonder_ids: list[int] = []
+        state_attrs = ("wonders_data", "mechanics_data", "unique_wonders_data", "localization_data")
+        original = {name: getattr(self, name) for name in state_attrs}
+        for name, value in original.items():
+            setattr(self, name, deepcopy(value))
+        try:
+            for wonder_id, draft in sorted(drafts_by_wonder_id.items(), key=lambda item: int(item[0])):
+                page_changes = self._apply_wonder_edits(
+                    int(wonder_id), draft.get("values", {}), draft.get("mechanics", {})
+                )
+                if any(page_changes.values()):
+                    changed_wonder_ids.append(int(wonder_id))
+                for key, value in page_changes.items():
+                    changed[key] = changed[key] or value
+            if changed["localization"]:
+                validate_canonical_localization_data(
+                    self.wonders, self.mechanics, self.event_suffixes, self.localization_data
+                )
+            return changed, self._candidate_source_bytes(changed), changed_wonder_ids
+        finally:
+            for name, value in original.items():
+                setattr(self, name, value)
+
+    def _assert_base(self, base: dict[str, str] | None) -> None:
+        current = snapshot_files(_wonder_source_paths(), repo_root=REPO_ROOT)
+        assert_resource_base(base, self._base, current)
+
+    def validate_resource_edits(self, drafts_by_wonder_id: dict[int, dict[str, Any]]) -> dict[str, Any]:
+        with self._lock:
+            try:
+                self._candidate_for_drafts(drafts_by_wonder_id)
+            except (KeyError, RuntimeError, TypeError, ValueError) as exc:
+                return {
+                    "valid": False,
+                    "errors": [str(exc).strip("'\"")],
+                    "resource": self.resource_descriptor().payload(),
+                }
+            return {"valid": True, "errors": [], "resource": self.resource_descriptor().payload()}
+
+    def preview_resource_edits(
+        self, drafts_by_wonder_id: dict[int, dict[str, Any]], base: dict[str, str] | None = None
+    ) -> dict[str, Any]:
+        with self._lock:
+            self._assert_base(base)
+            _, files, _ = self._candidate_for_drafts(drafts_by_wonder_id)
+            before = {item.path: item.sha256 for item in self._base}
+            diff = [
+                {
+                    "path": repo_relative_path(path, REPO_ROOT),
+                    "before": before.get(repo_relative_path(path, REPO_ROOT), "missing"),
+                    "after": hashlib.sha256(content).hexdigest(),
+                }
+                for path, content in files.items()
+                if before.get(repo_relative_path(path, REPO_ROOT), "missing")
+                != hashlib.sha256(content).hexdigest()
+            ]
+            return {
+                "valid": True,
+                "errors": [],
+                "diff": diff,
+                "change_set": ChangeSet(
+                    self.resource_descriptor().id, self.resource_descriptor().source_paths, self._base
+                ).payload(),
+            }
+
+    def commit_resource(
+        self,
+        drafts_by_wonder_id: dict[int, dict[str, Any]],
+        base: dict[str, str] | None = None,
+        *,
+        current_wonder_id: int | None = None,
+        regenerate: bool = True,
+    ) -> dict[str, Any]:
+        with self._lock:
+            try:
+                self._assert_base(base)
+                target_wonder_id = current_wonder_id
+                if target_wonder_id is None and drafts_by_wonder_id:
+                    target_wonder_id = int(next(iter(drafts_by_wonder_id)))
+                if target_wonder_id is not None:
+                    self._get_wonder(target_wonder_id)
+                changed, files, changed_wonder_ids = self._candidate_for_drafts(drafts_by_wonder_id)
+                if not files:
+                    payload = self.get_wonder_payload(target_wonder_id)
+                    return {**self._resource_payload(), "status": "No changes", "changed_files": [],
+                            "changed_wonder_ids": [], "wonder": payload, "wonders": self.list_wonders(),
+                            "log_text": self.log_text}
+
+                scripts = ()
+                if regenerate:
+                    if changed["wonders"] or changed["mechanics"] or changed["unique"]:
+                        scripts = WONDER_DATA_REGEN_SCRIPTS
+                    elif changed["localization"]:
+                        scripts = REGEN_SCRIPTS
+                outputs = generated_output_paths(
+                    scripts, repo_root=REPO_ROOT, extra_outputs=WONDER_EXTRA_GENERATED_OUTPUTS
+                )
+                changed_files = [repo_relative_path(path, REPO_ROOT) for path in files]
+                # Candidate serialization and registry lookup may take time; recheck
+                # the loaded base immediately before snapshotting and writing.
+                self._assert_base(base)
+                with file_transaction((*files, *outputs), reload=self.reload_from_disk):
+                    atomic_write_files(files)
+                    if scripts:
+                        self._run_generators(scripts)
+                    self.reload_from_disk()
+                    payload = self.get_wonder_payload(target_wonder_id)
+                    status = f"Saved {len(changed_wonder_ids)} page{'s' if len(changed_wonder_ids) != 1 else ''}: {', '.join(changed_files)}"
+                    if payload is not None:
+                        payload["status"] = status
+                    return {
+                        **self._resource_payload(),
+                        "status": status,
+                        "changed_files": changed_files,
+                        "changed_wonder_ids": changed_wonder_ids,
+                        "wonders": self.list_wonders(),
+                        "wonder": payload,
+                        "log_text": self.log_text,
+                    }
+            except Exception as exc:
+                self._append_log(f"[error] {exc}\n")
+                raise
 
     def bootstrap_payload(self) -> dict[str, Any]:
         with self._lock:
@@ -2409,19 +2654,6 @@ class WonderLocalizationService:
             }
             self._reference_option_catalogs(payload["mechanics"])
             return payload
-
-    def reload_wonder_payload(self, wonder_id: int) -> dict[str, Any]:
-        self.reload_from_disk()
-        payload = self.get_wonder_payload(wonder_id)
-        if payload is None:
-            raise KeyError(f"Unknown wonder id: {wonder_id}")
-        payload["status"] = f"Reloaded {payload['summary']['key']}"
-        return {
-            "status": payload["status"],
-            "wonder": payload,
-            "wonders": self.list_wonders(),
-            "log_text": self.log_text,
-        }
 
     def _apply_wonder_edits(
         self,
@@ -2597,110 +2829,6 @@ class WonderLocalizationService:
             "wonders": wonders_file_changed,
             "unique": unique_file_changed,
         }
-
-    def save_wonders(
-        self,
-        drafts_by_wonder_id: dict[int, dict[str, Any]],
-        *,
-        current_wonder_id: int | None = None,
-        regenerate: bool = True,
-    ) -> dict[str, Any]:
-        with self._lock:
-            changed = {
-                "localization": False,
-                "mechanics": False,
-                "wonders": False,
-                "unique": False,
-            }
-            changed_wonder_ids: list[int] = []
-            try:
-                for wonder_id, draft in sorted(drafts_by_wonder_id.items(), key=lambda item: int(item[0])):
-                    page_changes = self._apply_wonder_edits(
-                        int(wonder_id),
-                        draft.get("values", {}),
-                        draft.get("mechanics", {}),
-                    )
-                    if any(page_changes.values()):
-                        changed_wonder_ids.append(int(wonder_id))
-                    for key, value in page_changes.items():
-                        changed[key] = changed[key] or value
-
-                changed_files: list[str] = []
-                if changed["localization"]:
-                    validate_canonical_localization_data(
-                        self.wonders,
-                        self.mechanics,
-                        self.event_suffixes,
-                        self.localization_data,
-                    )
-                    save_wonder_localization_data(self.localization_data)
-                    changed_files.append(str(WONDER_LOCALIZATION_FILE.relative_to(REPO_ROOT)))
-
-                if changed["mechanics"]:
-                    for path in save_mechanics_source_data(self.mechanics_data):
-                        changed_files.append(str(path.relative_to(REPO_ROOT)))
-
-                if changed["wonders"]:
-                    save_yaml_document(WONDERS_FILE, self.wonders_data)
-                    changed_files.append(str(WONDERS_FILE.relative_to(REPO_ROOT)))
-
-                if changed["unique"]:
-                    save_yaml_document(UNIQUE_WONDERS_FILE, self.unique_wonders_data, preserve_leading_comments=True)
-                    changed_files.append(str(UNIQUE_WONDERS_FILE.relative_to(REPO_ROOT)))
-
-                if regenerate:
-                    if changed["wonders"] or changed["mechanics"] or changed["unique"]:
-                        self._run_generators(WONDER_DATA_REGEN_SCRIPTS)
-                    elif changed["localization"]:
-                        self._run_generators(REGEN_SCRIPTS)
-
-                self.reload_from_disk()
-                target_wonder_id = current_wonder_id
-                if target_wonder_id is None and drafts_by_wonder_id:
-                    target_wonder_id = int(next(iter(drafts_by_wonder_id)))
-                payload = self.get_wonder_payload(target_wonder_id) if target_wonder_id is not None else None
-                if payload is None and target_wonder_id is not None:
-                    raise KeyError(f"Unknown wonder id after reload: {target_wonder_id}")
-
-                if changed_files:
-                    page_count = len(changed_wonder_ids)
-                    status = f"Saved {page_count} page{'s' if page_count != 1 else ''}: {', '.join(changed_files)}"
-                else:
-                    status = "No changes"
-
-                if payload is not None:
-                    payload["status"] = status
-                return {
-                    "status": status,
-                    "changed_files": changed_files,
-                    "changed_wonder_ids": changed_wonder_ids,
-                    "wonders": self.list_wonders(),
-                    "wonder": payload,
-                    "log_text": self.log_text,
-                }
-            except Exception as exc:
-                self._append_log(f"[error] {exc}\n")
-                self.reload_from_disk()
-                raise
-
-    def save_wonder(
-        self,
-        wonder_id: int,
-        values_by_language: dict[str, dict[str, str]] | None,
-        mechanics_values: dict[str, Any] | None = None,
-        *,
-        regenerate: bool = True,
-    ) -> dict[str, Any]:
-        return self.save_wonders(
-            {
-                int(wonder_id): {
-                    "values": values_by_language or {},
-                    "mechanics": mechanics_values or {},
-                }
-            },
-            current_wonder_id=wonder_id,
-            regenerate=regenerate,
-        )
 
     def save_unique_ritual_prompt(self, wonder_id: int, prompt: str) -> dict[str, Any]:
         with self._lock:
@@ -3596,15 +3724,7 @@ class WonderLocalizationService:
     def _run_generators(self, scripts: tuple[str, ...] = REGEN_SCRIPTS) -> None:
         self._append_log("\n[regen] Starting wonder generation\n")
         for script in scripts:
-            command = [
-                "conda",
-                "run",
-                "--no-capture-output",
-                "-n",
-                "eu5",
-                "python",
-                script,
-            ]
+            command = [sys.executable, script]
             self._append_log(f"$ {' '.join(command)}\n")
             result = subprocess.run(
                 command,

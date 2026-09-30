@@ -14,6 +14,7 @@ const state = {
     ritualDesignDetails: {},
     ritualDesignsError: "",
     ritualPromptDrafts: {},
+    resourceBase: {},
 };
 let ritualDesignCatalogRequest = null;
 let ritualDesignGeneration = 0;
@@ -2831,13 +2832,17 @@ async function fetchJson(url, options = {}) {
     });
     if (!response.ok) {
         let detail = `${response.status} ${response.statusText}`;
+        let logText;
         try {
             const payload = await response.json();
             detail = payload.detail || detail;
+            logText = payload.log_text;
         } catch {
             detail = await response.text();
         }
-        throw new Error(detail);
+        const error = new Error(detail);
+        error.logText = logText;
+        throw error;
     }
     return response.json();
 }
@@ -2971,7 +2976,11 @@ async function loadBootstrap() {
     setBusy(true);
     updateStatus("正在加载", "working");
     try {
-        const payload = await fetchJson("api/wonder-localization/bootstrap");
+        const resource = await fetchJson("api/resources/editor.wonder");
+        const payload = resource.draft;
+        state.resourceBase = Object.fromEntries(
+            (resource.change_set?.base || []).map((item) => [item.path, item.sha256]),
+        );
         state.title = payload.title;
         state.wonders = payload.wonders;
         setCurrentWonderPayload(null);
@@ -3042,15 +3051,19 @@ async function saveCurrentWonder() {
     updateStatus("正在保存并重新生成", "working");
     let retryWonderId = null;
     try {
-        const payload = await fetchJson("api/wonder-localization/wonders/save", {
+        const payload = await fetchJson("api/resources/editor.wonder/commit", {
             method: "POST",
             body: JSON.stringify({
                 regenerate: true,
                 current_wonder_id: currentId,
                 wonders: drafts,
+                base: state.resourceBase,
             }),
         });
         state.pageDrafts = {};
+        state.resourceBase = Object.fromEntries(
+            (payload.change_set?.base || []).map((item) => [item.path, item.sha256]),
+        );
         state.wonders = payload.wonders;
         invalidateRitualDesigns();
         state.logText = payload.log_text || state.logText;
@@ -3070,9 +3083,13 @@ async function saveCurrentWonder() {
         state.statusKind = "default";
         syncWonderModeWithSelection();
         render();
-        showToast(payload.status, "success");
+        showToast(state.status, "success");
     } catch (error) {
         console.error(error);
+        if (typeof error.logText === "string") {
+            state.logText = error.logText;
+            renderLog();
+        }
         updateStatus("保存失败", "error");
         showToast(`保存失败: ${error.message}`, "error");
     } finally {
@@ -3119,9 +3136,11 @@ async function reloadCurrentWonder() {
         return;
     }
     cacheCurrentWonderDraft();
+    cacheCurrentRitualPromptDraft();
     const currentId = currentWonderId();
-    if (draftHasChanges(state.pageDrafts[String(currentId)])) {
-        const shouldDiscard = window.confirm("放弃当前未保存编辑并重新读取文件吗？");
+    const dirtyCount = dirtyPageCount();
+    if (dirtyCount > 0) {
+        const shouldDiscard = window.confirm(`重新加载会放弃全部 ${dirtyCount} 个奇观页面的未保存编辑，继续吗？`);
         if (!shouldDiscard) {
             return;
         }
@@ -3130,20 +3149,26 @@ async function reloadCurrentWonder() {
     setBusy(true);
     updateStatus("正在重新加载", "working");
     try {
-        const payload = await fetchJson(`api/wonder-localization/wonders/${state.currentWonder.summary.id}/reload`, {
-            method: "POST",
-        });
-        await hydrateWonderPayload(payload.wonder);
-        delete state.pageDrafts[String(currentId)];
+        const resource = await fetchJson("api/resources/editor.wonder");
+        const payload = resource.draft;
+        const wonder = await hydrateWonderPayload(
+            await fetchJson(`api/wonder-localization/wonders/${currentId}`),
+        );
+        // All page drafts share this base. Publish the refreshed state together,
+        // only after detail and option-catalog loading have both succeeded.
+        state.resourceBase = Object.fromEntries(
+            (resource.change_set?.base || []).map((item) => [item.path, item.sha256]),
+        );
+        state.pageDrafts = {};
         state.wonders = payload.wonders;
         invalidateRitualDesigns();
-        setCurrentWonderPayload(payload.wonder);
+        setCurrentWonderPayload(wonder);
         state.logText = payload.log_text || state.logText;
-        state.status = payload.status;
+        state.status = "已重新加载";
         state.statusKind = "default";
         syncWonderModeWithSelection();
         render();
-        showToast(payload.status, "success");
+        showToast(state.status, "success");
     } catch (error) {
         console.error(error);
         updateStatus("重新加载失败", "error");

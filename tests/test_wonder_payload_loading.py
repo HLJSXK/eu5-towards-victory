@@ -123,10 +123,11 @@ def test_http_summary_detail_and_errors(service, monkeypatch):
 
     monkeypatch.setattr(server, "WonderLocalizationService", lambda: service)
     with TestClient(server.create_app()) as client:
-        bootstrap = client.get("/api/wonder-localization/bootstrap")
-        assert bootstrap.status_code == 200
-        assert len(bootstrap.content) < 200_000
-        assert "current_wonder" not in bootstrap.json()
+        resource = client.get("/api/resources/editor.wonder")
+        assert resource.status_code == 200
+        assert len(resource.content) < 200_000
+        assert resource.json()["resource"]["id"] == "editor.wonder"
+        assert "current_wonder" not in resource.json()["draft"]
         options = client.get("/api/wonder-localization/catalog")
         assert options.status_code == 200
         assert options.json()["version"] == service.option_catalog_payload()["version"]
@@ -151,8 +152,8 @@ def test_http_unavailable_service(monkeypatch):
 
     monkeypatch.setattr(server, "WonderLocalizationService", fail_load)
     with TestClient(server.create_app()) as client:
-        for path in ("bootstrap", "catalog", "ritual-designs", "ritual-designs/1"):
-            response = client.get(f"/api/wonder-localization/{path}")
+        for path in ("/api/resources/editor.wonder", "/api/wonder-localization/catalog", "/api/wonder-localization/ritual-designs", "/api/wonder-localization/ritual-designs/1"):
+            response = client.get(path)
             assert response.status_code == 503
             assert response.json()["detail"] == "invalid wonder data"
 

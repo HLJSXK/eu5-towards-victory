@@ -35,22 +35,17 @@ class SaveVictoryTreeRequest(BaseModel):
     base: dict[str, str] = Field(default_factory=dict)
 
 
-class SaveWonderRequest(BaseModel):
-    values: dict[str, dict[str, str]] = Field(default_factory=dict)
-    mechanics: dict[str, Any] = Field(default_factory=dict)
-    regenerate: bool = True
-
-
 class WonderDraftRequest(BaseModel):
     wonder_id: int
     values: dict[str, dict[str, str]] = Field(default_factory=dict)
     mechanics: dict[str, Any] = Field(default_factory=dict)
 
 
-class SaveWondersRequest(BaseModel):
+class WonderResourceRequest(BaseModel):
     wonders: list[WonderDraftRequest] = Field(default_factory=list)
     current_wonder_id: int | None = None
     regenerate: bool = True
+    base: dict[str, str] = Field(default_factory=dict)
 
 
 class SaveRitualPromptRequest(BaseModel):
@@ -76,25 +71,31 @@ def create_app() -> FastAPI:
     # Shared exception-handling boundary, replacing the identical
     # try/except KeyError->404 / ValueError->400 / RuntimeError->500 / Exception->500
     # block that used to be repeated in every editor route.
+    def error_response(request, exc: Exception, status_code: int) -> JSONResponse:
+        content = {"detail": str(exc)}
+        if request.url.path.startswith("/api/resources/editor.wonder") and wonder_service is not None:
+            content["log_text"] = wonder_service.log_text
+        return JSONResponse(status_code=status_code, content=content)
+
     @app.exception_handler(KeyError)
     async def _handle_key_error(request, exc: KeyError):
-        return JSONResponse(status_code=404, content={"detail": str(exc)})
+        return error_response(request, exc, 404)
 
     @app.exception_handler(ValueError)
     async def _handle_value_error(request, exc: ValueError):
-        return JSONResponse(status_code=400, content={"detail": str(exc)})
+        return error_response(request, exc, 400)
 
     @app.exception_handler(RuntimeError)
     async def _handle_runtime_error(request, exc: RuntimeError):
-        return JSONResponse(status_code=500, content={"detail": str(exc)})
+        return error_response(request, exc, 500)
 
     @app.exception_handler(ConflictError)
     async def _handle_conflict_error(request, exc: ConflictError):
-        return JSONResponse(status_code=409, content={"detail": str(exc)})
+        return error_response(request, exc, 409)
 
     @app.exception_handler(Exception)
     async def _handle_generic_error(request, exc: Exception):
-        return JSONResponse(status_code=500, content={"detail": str(exc)})
+        return error_response(request, exc, 500)
 
     @app.middleware("http")
     async def no_cache_editor_static(request, call_next):
@@ -168,17 +169,54 @@ def create_app() -> FastAPI:
     except Exception as exc:  # noqa: BLE001
         wonder_load_error = str(exc)
 
-    @app.get("/api/wonder-localization/bootstrap")
-    def wonder_bootstrap() -> dict:
-        if wonder_service is None:
-            return JSONResponse(status_code=503, content={"detail": wonder_load_error})
-        return wonder_service.bootstrap_payload()
-
     @app.get("/api/wonder-localization/catalog")
     def wonder_catalog() -> dict:
         if wonder_service is None:
             return JSONResponse(status_code=503, content={"detail": wonder_load_error})
         return wonder_service.option_catalog_payload()
+
+    # --- Unified Wonder resource --------------------------------------------
+    @app.get("/api/resources/editor.wonder")
+    def wonder_resource() -> dict:
+        if wonder_service is None:
+            return JSONResponse(status_code=503, content={"detail": wonder_load_error})
+        return wonder_service.load_resource()
+
+    @app.post("/api/resources/editor.wonder/validate")
+    def wonder_resource_validate(request: WonderResourceRequest) -> dict:
+        if wonder_service is None:
+            return JSONResponse(status_code=503, content={"detail": wonder_load_error})
+        drafts = {
+            draft.wonder_id: {"values": draft.values, "mechanics": draft.mechanics}
+            for draft in request.wonders
+        }
+        return wonder_service.validate_resource_edits(drafts)
+
+    @app.post("/api/resources/editor.wonder/preview")
+    def wonder_resource_preview(request: WonderResourceRequest) -> dict:
+        if wonder_service is None:
+            return JSONResponse(status_code=503, content={"detail": wonder_load_error})
+        drafts = {
+            draft.wonder_id: {"values": draft.values, "mechanics": draft.mechanics}
+            for draft in request.wonders
+        }
+        report = wonder_service.preview_resource_edits(drafts, request.base)
+        return {"resource": wonder_service.resource_descriptor().payload(), **report}
+
+    @app.post("/api/resources/editor.wonder/commit")
+    def wonder_resource_commit(request: WonderResourceRequest) -> dict:
+        if wonder_service is None:
+            return JSONResponse(status_code=503, content={"detail": wonder_load_error})
+        drafts = {
+            draft.wonder_id: {"values": draft.values, "mechanics": draft.mechanics}
+            for draft in request.wonders
+        }
+        return wonder_service.commit_resource(
+            drafts,
+            request.base,
+            current_wonder_id=request.current_wonder_id,
+            regenerate=request.regenerate,
+        )
 
     @app.get("/api/wonder-localization/ritual-designs")
     def ritual_design_catalog() -> dict:
@@ -200,39 +238,6 @@ def create_app() -> FastAPI:
         if payload is None:
             return JSONResponse(status_code=404, content={"detail": f"Unknown wonder id: {wonder_id}"})
         return payload
-
-    @app.post("/api/wonder-localization/wonders/{wonder_id}/reload")
-    def wonder_reload(wonder_id: int) -> dict:
-        if wonder_service is None:
-            return JSONResponse(status_code=503, content={"detail": wonder_load_error})
-        return wonder_service.reload_wonder_payload(wonder_id)
-
-    @app.post("/api/wonder-localization/wonders/{wonder_id}/save")
-    def wonder_save_one(wonder_id: int, request: SaveWonderRequest) -> dict:
-        if wonder_service is None:
-            return JSONResponse(status_code=503, content={"detail": wonder_load_error})
-        return wonder_service.save_wonder(
-            wonder_id,
-            request.values,
-            mechanics_values=request.mechanics,
-            regenerate=request.regenerate,
-        )
-
-    @app.post("/api/wonder-localization/wonders/save")
-    def wonder_save_many(request: SaveWondersRequest) -> dict:
-        if wonder_service is None:
-            return JSONResponse(status_code=503, content={"detail": wonder_load_error})
-        return wonder_service.save_wonders(
-            {
-                draft.wonder_id: {
-                    "values": draft.values,
-                    "mechanics": draft.mechanics,
-                }
-                for draft in request.wonders
-            },
-            current_wonder_id=request.current_wonder_id,
-            regenerate=request.regenerate,
-        )
 
     @app.post("/api/wonder-localization/ritual-prompts/{wonder_id}")
     def wonder_save_ritual_prompt(wonder_id: int, request: SaveRitualPromptRequest) -> dict:

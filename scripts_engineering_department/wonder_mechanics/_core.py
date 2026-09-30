@@ -1115,20 +1115,6 @@ def load_mechanics_source_data() -> dict:
     }
 
 
-def save_mechanics_source_data(mechanics: dict) -> list[Path]:
-    outputs = [
-        (WONDER_FINAL_BUILDINGS_FILE, {"buildings": mechanics.get("buildings", {})}),
-        (WONDER_GENERIC_RITUALS_FILE, {"generic_rituals": mechanics.get("generic_rituals", {})}),
-        (WONDER_BASE_MODIFIERS_FILE, {"base_modifiers": mechanics.get("base_modifiers", {})}),
-        (WONDER_SITE_RULES_FILE, {"site_rules": mechanics.get("site_rules", {})}),
-    ]
-    written: list[Path] = []
-    for path, payload in outputs:
-        save_yaml_document(path, payload)
-        written.append(path)
-    return written
-
-
 def load_unique_wonders_source_data(path: Path = UNIQUE_WONDERS_FILE) -> dict:
     raw = load_yaml(path)
     _expect_keys(raw, required={"unique_wonders"}, optional=set(), context=str(path))

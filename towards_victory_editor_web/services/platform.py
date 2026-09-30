@@ -10,15 +10,29 @@ from __future__ import annotations
 import hashlib
 import os
 import tempfile
+from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Iterable
+from typing import Callable, Iterable, Iterator
 
-from scripts_engineering_department.wonder_mechanics._core import StrictWonderYamlLoader
+from scripts_engineering_department.wonder_mechanics._core import StrictWonderYamlLoader, load_yaml
 
 
 class ConflictError(RuntimeError):
     """Raised when a resource changed after the editor loaded its draft."""
+
+
+class RollbackError(RuntimeError):
+    """Keep the operation error and every recovery failure visible together."""
+
+    def __init__(self, original: Exception, errors: list[str]) -> None:
+        self.original = original
+        self.errors = errors
+        super().__init__(f"{original}\nRollback incomplete:\n" + "\n".join(errors))
+
+
+def repo_relative_path(path: Path, repo_root: Path) -> str:
+    return path.resolve().relative_to(repo_root.resolve()).as_posix()
 
 
 @dataclass(frozen=True)
@@ -70,7 +84,7 @@ def snapshot_files(paths: Iterable[Path], *, repo_root: Path | None = None) -> t
         display_path = str(resolved)
         if repo_root is not None:
             try:
-                display_path = str(resolved.relative_to(repo_root.resolve())).replace("\\", "/")
+                display_path = repo_relative_path(resolved, repo_root)
             except ValueError:
                 pass
         try:
@@ -90,7 +104,7 @@ def load_yaml_snapshots(
     documents: dict[Path, dict | None] = {}
     snapshots: list[FileSnapshot] = []
     for path in paths:
-        display_path = str(path.resolve().relative_to(repo_root.resolve())).replace("\\", "/")
+        display_path = repo_relative_path(path, repo_root)
         try:
             raw = path.read_bytes()
         except FileNotFoundError:
@@ -158,20 +172,103 @@ def atomic_write_files(files: dict[Path, bytes]) -> None:
             temporary_path.unlink(missing_ok=True)
 
 
-def yaml_bytes(path: Path, payload: object) -> bytes:
-    """Serialize a YAML document while preserving its leading comments/encoding."""
-    import codecs
+def snapshot_file_contents(paths: Iterable[Path]) -> dict[Path, bytes | None]:
+    snapshots: dict[Path, bytes | None] = {}
+    for path in paths:
+        try:
+            snapshots[path] = path.read_bytes()
+        except FileNotFoundError:
+            snapshots[path] = None
+    return snapshots
 
-    from scripts_engineering_department.wonder_mechanics.io import dump_yaml_document
+
+def restore_file_contents(snapshots: dict[Path, bytes | None]) -> list[str]:
+    """Restore each changed file independently, attempting all paths on failure."""
+    errors: list[str] = []
+    for path, original in snapshots.items():
+        try:
+            try:
+                current = path.read_bytes()
+            except FileNotFoundError:
+                current = None
+            if current == original:
+                continue
+            if original is None:
+                path.unlink(missing_ok=True)
+            else:
+                atomic_write_files({path: original})
+        except Exception as exc:
+            errors.append(f"{path}: {exc}")
+    return errors
+
+
+@contextmanager
+def file_transaction(paths: Iterable[Path], *, reload: Callable[[], None]) -> Iterator[None]:
+    """Recover registered files and reload state after any operation failure."""
+    snapshots = snapshot_file_contents(paths)
+    try:
+        yield
+    except Exception as exc:
+        errors = restore_file_contents(snapshots)
+        try:
+            reload()
+        except Exception as reload_error:
+            errors.append(f"Reload failed: {reload_error}")
+        if errors:
+            raise RollbackError(exc, errors) from exc
+        raise
+
+
+def generated_output_paths(
+    scripts: Iterable[str],
+    *,
+    repo_root: Path,
+    extra_outputs: dict[str, tuple[str, ...]] | None = None,
+) -> tuple[Path, ...]:
+    """Resolve this execution plan's outputs, rejecting unregistered scripts."""
+    scripts = tuple(scripts)
+    if not scripts:
+        return ()
+    by_script: dict[str, list[str]] = {}
+    for entry in load_yaml(repo_root / "data/generated_files.yaml")["generated"]:
+        by_script.setdefault(entry["script"], []).append(entry["output"])
+    for script, outputs in (extra_outputs or {}).items():
+        by_script.setdefault(script, []).extend(outputs)
+    paths: dict[Path, None] = {}
+    for script in scripts:
+        if not by_script.get(script):
+            raise ValueError(f"No registered outputs for generator: {script}")
+        for output in by_script[script]:
+            path = repo_root / output
+            repo_relative_path(path, repo_root)  # Reject outputs outside the repository.
+            paths[path] = None
+    return tuple(paths)
+
+
+def source_text_bytes(path: Path, body: str) -> bytes:
+    """Preserve a source document's leading comments, BOM and newline style."""
+    import codecs
+    import re
+
     from scripts_engineering_department.wonder_mechanics._core import leading_comment_block
 
     header = ""
     has_bom = False
+    newline = "\n"
     if path.exists():
         raw = path.read_bytes()
         has_bom = raw.startswith(codecs.BOM_UTF8)
-        text = raw.decode("utf-8-sig")
+        first_newline = re.search(rb"\r\n|\n|\r", raw)
+        if first_newline:
+            newline = first_newline.group().decode("ascii")
+        text = raw.decode("utf-8-sig").replace("\r\n", "\n").replace("\r", "\n")
         header = leading_comment_block(text)
-    body = dump_yaml_document(payload).rstrip() + "\n"
+    body = body.replace("\r\n", "\n").replace("\r", "\n").rstrip() + "\n"
     text = f"{header}\n{body}" if header else body
-    return text.encode("utf-8-sig" if has_bom else "utf-8")
+    return text.replace("\n", newline).encode("utf-8-sig" if has_bom else "utf-8")
+
+
+def yaml_bytes(path: Path, payload: object) -> bytes:
+    from scripts_engineering_department.wonder_mechanics.io import dump_yaml_document
+
+    return source_text_bytes(path, dump_yaml_document(payload))

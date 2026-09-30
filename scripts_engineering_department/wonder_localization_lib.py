@@ -672,21 +672,6 @@ def engineering_department_wonder_mechanics_localization_map(
     }
 
 
-def save_wonder_localization_data(localization: dict[str, dict[str, str]]) -> None:
-    canonical = collapse_wonder_localization_data(localization)
-    payload = {
-        "wonder_localization": {
-            language: dict(canonical[language])
-            for language in LANGUAGES
-        },
-    }
-    WONDER_LOCALIZATION_FILE.parent.mkdir(parents=True, exist_ok=True)
-    WONDER_LOCALIZATION_FILE.write_text(
-        yaml.safe_dump(payload, sort_keys=False, allow_unicode=True, default_flow_style=False),
-        encoding="utf-8",
-    )
-
-
 def apply_localization_values(text: str, localization: dict[str, str]) -> str:
     raise RuntimeError("Localization overlay mode has been removed; write canonical values to data/wonder_localization.yaml")
 

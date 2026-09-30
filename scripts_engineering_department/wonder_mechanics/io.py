@@ -27,6 +27,5 @@ from ._core import (
     load_wonder_image_tasks,
     load_wonders_source_data,
     load_yaml,
-    save_mechanics_source_data,
     save_yaml_document,
 )
