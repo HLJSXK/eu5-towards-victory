@@ -19,8 +19,9 @@ C:\Users\Hades\anaconda3\envs\eu5\python.exe -m towards_victory_editor_web --no-
 
 The default address is `http://127.0.0.1:8760/`. Use `--host`, `--port`, or
 omit `--no-browser` when a browser tab should open automatically. The older
-standalone cropper server and its port no longer exist; all crop operations are
-under the `Wonder cropper` tab and `/api/cropper/*`.
+standalone cropper server and its port no longer exist. Crop settings use the
+resource API; image reads use `/api/cropper/image/*`, and DDS rebuilds use the
+shared job API.
 
 Run the server checks without starting Uvicorn:
 
@@ -37,10 +38,10 @@ generator `run(options)` APIs. There is one option schema for the Web forms,
 one execution lock for image writers, and one artifact snapshot/validation
 path for PNG, DDS, JPEG, and JSON outputs.
 
-The three data editors are registered in the same tool catalog as interactive
-tools. Their specialized editing endpoints remain available because they need
-structured draft/save operations rather than a batch job, but they share the
-same server, static shell, error boundary, and tool discovery contract.
+The data editors and crop configuration editor are registered in the same tool
+catalog as interactive tools. They use resource load/validate/preview/commit
+operations for source changes; media generation remains an asynchronous job
+with status, logs, cancellation, and artifact reports.
 
 The image styling tool requires the packages in `requirements-image.txt`.
 Generation tools that call an image API still require the API key configured

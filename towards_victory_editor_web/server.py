@@ -57,8 +57,9 @@ class JobRequest(BaseModel):
     options: dict[str, Any] = Field(default_factory=dict)
 
 
-class CropRequest(BaseModel):
-    rect: dict[str, Any] = Field(default_factory=dict)
+class CropResourceRequest(BaseModel):
+    edits: dict[str, dict[str, Any] | None] = Field(default_factory=dict)
+    base: dict[str, str] = Field(default_factory=dict)
 
 
 def create_app() -> FastAPI:
@@ -73,7 +74,10 @@ def create_app() -> FastAPI:
     # block that used to be repeated in every editor route.
     def error_response(request, exc: Exception, status_code: int) -> JSONResponse:
         content = {"detail": str(exc)}
-        if request.url.path.startswith("/api/resources/editor.wonder") and wonder_service is not None:
+        if (
+            request.url.path == "/api/resources/editor.wonder"
+            or request.url.path.startswith("/api/resources/editor.wonder/")
+        ) and wonder_service is not None:
             content["log_text"] = wonder_service.log_text
         return JSONResponse(status_code=status_code, content=content)
 
@@ -275,26 +279,26 @@ def create_app() -> FastAPI:
     def cancel_job(job_id: str) -> dict[str, Any]:
         return jobs.cancel(job_id).payload()
 
-    @app.get("/api/cropper/bootstrap")
-    def cropper_bootstrap() -> dict[str, Any]:
-        return cropper.bootstrap()
+    @app.get("/api/resources/editor.wonder_crop")
+    def cropper_resource() -> dict[str, Any]:
+        return cropper.load_resource()
+
+    @app.post("/api/resources/editor.wonder_crop/validate")
+    def cropper_validate(request: CropResourceRequest) -> dict[str, Any]:
+        return cropper.validate_edits(request.edits)
+
+    @app.post("/api/resources/editor.wonder_crop/preview")
+    def cropper_preview(request: CropResourceRequest) -> dict[str, Any]:
+        return cropper.preview_edits(request.edits, request.base)
+
+    @app.post("/api/resources/editor.wonder_crop/commit")
+    def cropper_commit(request: CropResourceRequest) -> dict[str, Any]:
+        return cropper.commit_edits(request.edits, request.base)
 
     @app.get("/api/cropper/image/{index}")
     def cropper_image(index: int) -> FileResponse:
         task = cropper._task(index)
         return FileResponse(task.png_path)
-
-    @app.post("/api/cropper/{index}/save")
-    def cropper_save(index: int, request: CropRequest) -> dict[str, Any]:
-        return cropper.save(index, request.rect)
-
-    @app.post("/api/cropper/{index}/remove")
-    def cropper_remove(index: int) -> dict[str, Any]:
-        return cropper.remove(index)
-
-    @app.post("/api/cropper/apply")
-    def cropper_apply() -> dict[str, Any]:
-        return jobs.submit("media.wonder_crop", {}).payload()
 
     return app
 

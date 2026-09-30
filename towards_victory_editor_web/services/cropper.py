@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import copy
+import json
+import math
 import sys
 import threading
 from dataclasses import dataclass
@@ -7,6 +10,7 @@ from pathlib import Path
 from typing import Any
 
 from .tooling import ToolContext, ToolOption, ToolResult, ToolSpec, capture_script_output, normalize_declared_options
+from .platform import ChangeSet, ConflictError, FileSnapshot, ResourceDescriptor, assert_resource_base, atomic_write_files, file_transaction, repo_relative_path, snapshot_files
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO_ROOT / "scripts_engineering_department"))
@@ -31,7 +35,6 @@ from wonder_image_crop_lib import (  # noqa: E402
     load_crop_data,
     normalize_crop_key,
     remove_crop_record,
-    save_crop_data,
     set_crop_record,
 )
 
@@ -93,10 +96,28 @@ def _rect_payload(rect: tuple[float, float, float, float]) -> dict[str, float]:
 
 
 class CropperService:
-    def __init__(self) -> None:
-        self.tasks = build_tasks()
+    def __init__(self, *, tasks: list[ImageTask] | None = None, data_path: Path = CROP_DATA_PATH, repo_root: Path = REPO_ROOT) -> None:
+        self.tasks = build_tasks() if tasks is None else tasks
+        self.data_path = data_path
+        self.repo_root = repo_root
         self.lock = threading.RLock()
         self.logs: list[str] = []
+        self._base = snapshot_files((self.data_path,), repo_root=self.repo_root)
+
+    def resource_descriptor(self) -> ResourceDescriptor:
+        return ResourceDescriptor(
+            "editor.wonder_crop", "editor", "Wonder image crops",
+            (repo_relative_path(self.data_path, self.repo_root),),
+            ("media.wonder_crop",),
+        )
+
+    def _read_data(self) -> tuple[dict[str, Any], tuple[FileSnapshot, ...]]:
+        before = snapshot_files((self.data_path,), repo_root=self.repo_root)
+        data = load_crop_data(self.data_path)
+        after = snapshot_files((self.data_path,), repo_root=self.repo_root)
+        if before != after:
+            raise ConflictError("Crop configuration changed during load")
+        return data, after
 
     def _summary(self, task: ImageTask, index: int, data: dict[str, Any]) -> dict[str, Any]:
         width, height = _png_size(task.png_path)
@@ -117,51 +138,102 @@ class CropperService:
             "defaultRect": _rect_payload(default),
         }
 
-    def bootstrap(self) -> dict[str, Any]:
+    def load_resource(self) -> dict[str, Any]:
         with self.lock:
-            data = load_crop_data()
-            return {
-                "aspect": {"width": TARGET_ASPECT[0], "height": TARGET_ASPECT[1]},
-                "dataPath": _repo_path(CROP_DATA_PATH),
-                "tasks": [self._summary(task, i, data) for i, task in enumerate(self.tasks)],
-                "logs": self.logs[-80:],
+            data, base = self._read_data()
+            descriptor = self.resource_descriptor()
+            payload = {
+                "resource": descriptor.payload(),
+                "draft": {
+                    "aspect": {"width": TARGET_ASPECT[0], "height": TARGET_ASPECT[1]},
+                    "tasks": [self._summary(task, i, data) for i, task in enumerate(self.tasks)],
+                    "logs": self.logs[-80:],
+                },
+                "change_set": ChangeSet(descriptor.id, (), base).payload(),
             }
+            self._base = base
+            return payload
 
     def _task(self, index: int) -> ImageTask:
+        if index < 0:
+            raise ValueError(f"Unknown crop image index: {index}")
         try:
             return self.tasks[index]
         except IndexError as exc:
-            raise KeyError(f"Unknown crop image index: {index}") from exc
+            raise ValueError(f"Unknown crop image index: {index}") from exc
 
-    def save(self, index: int, rect: dict[str, Any]) -> dict[str, Any]:
-        task = self._task(index)
-        try:
-            values = tuple(float(rect[key]) for key in ("x", "y", "width", "height"))
-        except (KeyError, TypeError, ValueError) as exc:
-            raise ValueError("rect must contain numeric x, y, width, and height") from exc
-        with self.lock:
-            data = load_crop_data()
+    def _candidate(self, data: dict[str, Any], edits: dict[str, Any]) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+        candidate = copy.deepcopy(data)
+        diff: list[dict[str, Any]] = []
+        for index_text, rect in edits.items():
+            try:
+                index = int(index_text)
+            except (TypeError, ValueError) as exc:
+                raise ValueError(f"Invalid crop image index: {index_text}") from exc
+            if str(index) != index_text:
+                raise ValueError(f"Invalid crop image index: {index_text}")
+            task = self._task(index)
             width, height = _png_size(task.png_path)
-            saved = set_crop_record(data, task.stem, task.png_path, width, height, values)  # type: ignore[arg-type]
-            save_crop_data(data)
-            message = f"saved {task.stem}: {saved[0]:.1f},{saved[1]:.1f},{saved[2]:.1f}x{saved[3]:.1f}"
-            self.logs.append(message)
-            return {"ok": True, "message": message, "task": self._summary(task, index, data)}
+            key = normalize_crop_key(task.stem)
+            before = copy.deepcopy(candidate.get("crops", {}).get(key))
+            if rect is None:
+                remove_crop_record(candidate, task.stem)
+            else:
+                if not isinstance(rect, dict):
+                    raise ValueError("rect must be an object or null")
+                try:
+                    values = tuple(float(rect[field]) for field in ("x", "y", "width", "height"))
+                except (KeyError, TypeError, ValueError) as exc:
+                    raise ValueError("rect must contain numeric x, y, width, and height") from exc
+                if not all(math.isfinite(value) for value in values):
+                    raise ValueError("rect coordinates must be finite")
+                set_crop_record(candidate, task.stem, task.png_path, width, height, values)  # type: ignore[arg-type]
+                candidate["crops"][key]["source"] = repo_relative_path(task.png_path, self.repo_root)
+            after = candidate.get("crops", {}).get(key)
+            if before != after:
+                diff.append({"index": index, "key": task.key, "before": before, "after": copy.deepcopy(after)})
+        return candidate, diff
 
-    def remove(self, index: int) -> dict[str, Any]:
-        task = self._task(index)
+    def validate_edits(self, edits: dict[str, Any]) -> dict[str, Any]:
         with self.lock:
-            data = load_crop_data()
-            removed = remove_crop_record(data, task.stem)
-            save_crop_data(data)
-            message = f"removed crop for {task.stem}" if removed else f"no saved crop for {task.stem}"
-            self.logs.append(message)
-            return {"ok": True, "message": message, "removed": removed, "task": self._summary(task, index, data)}
+            try:
+                data, _ = self._read_data()
+                _, diff = self._candidate(data, edits)
+            except (KeyError, ValueError) as exc:
+                return {"valid": False, "errors": [str(exc)], "diff": []}
+            return {"valid": True, "errors": [], "diff": diff}
+
+    def _prepare(self, edits: dict[str, Any], base: dict[str, str]) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+        data, current = self._read_data()
+        assert_resource_base(base, self._base, current)
+        return self._candidate(data, edits)
+
+    def preview_edits(self, edits: dict[str, Any], base: dict[str, str]) -> dict[str, Any]:
+        with self.lock:
+            _, diff = self._prepare(edits, base)
+            descriptor = self.resource_descriptor()
+            return {
+                "resource": descriptor.payload(), "valid": True, "errors": [], "diff": diff,
+                "change_set": ChangeSet(descriptor.id, descriptor.source_paths if diff else (), self._base).payload(),
+            }
+
+    def commit_edits(self, edits: dict[str, Any], base: dict[str, str]) -> dict[str, Any]:
+        with self.lock:
+            candidate, diff = self._prepare(edits, base)
+            if diff:
+                payload = json.dumps(candidate, ensure_ascii=False, indent=2).encode("utf-8") + b"\n"
+                with file_transaction((self.data_path,), reload=lambda: None):
+                    atomic_write_files({self.data_path: payload})
+                    result = self.load_resource()
+                self.logs.extend(f"{'removed' if item['after'] is None else 'saved'} {item['key']}" for item in diff)
+                result["draft"]["logs"] = self.logs[-80:]
+                return result
+            return self.load_resource()
 
 class WonderCropTool:
     spec = ToolSpec(
         id="media.wonder_crop",
-        label="Wonder image cropper",
+        label="Wonder DDS rebuild",
         description="Apply saved 27:11 wonder image crops and rebuild DDS assets.",
         group="media",
         options=(),
@@ -176,7 +248,7 @@ class WonderCropTool:
     def roots(self, options: dict[str, Any]) -> tuple[Path, ...]:
         config = load_config()
         tasks = load_task_config(config)
-        roots = {CROP_DATA_PATH}
+        roots = {self.workspace.data_path}
         roots.update(resolve_repo_path(task.get("dds_dir"), DEFAULT_WONDERS_DIR) for task in tasks)
         return tuple(roots)
 

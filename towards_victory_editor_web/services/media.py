@@ -26,9 +26,16 @@ registry.register_spec(ToolSpec(
     interactive=True,
 ))
 registry.register_spec(ToolSpec(
-    "editor.wonder_localization",
+    "editor.wonder",
     "Wonder localization editor",
     "Edit wonder localization and mechanics data.",
+    "editor",
+    interactive=True,
+))
+registry.register_spec(ToolSpec(
+    "editor.wonder_crop",
+    "Wonder image cropper",
+    "Edit source image crops used by the wonder DDS rebuild job.",
     "editor",
     interactive=True,
 ))
