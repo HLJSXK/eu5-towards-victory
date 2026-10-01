@@ -15,8 +15,7 @@ BASE_FILE = REPO_ROOT / "reference_mods" / "3735059838" / "in_game" / "gui" / "l
 OUT_FILE = REPO_ROOT / "submods" / "tv_meiou_and_taxes_compat" / "in_game" / "gui" / "location_window.gui"
 SCRIPT_REL = "scripts/compat/gen_tv_meiou_and_taxes_location_window.py"
 DATA_REL = (
-    "reference_mods/3735059838/in_game/gui/location_window.gui + "
-    "data/wonders.yaml + data/wonder_final_buildings.yaml + data/wonder_generic_rituals.yaml + data/wonder_base_modifiers.yaml + data/wonder_site_rules.yaml + data/unique_wonders.yaml"
+    "reference_mods/3735059838/in_game/gui/location_window.gui"
 )
 OVERLAY_MARKER = "\n\t\t\t\tvbox = {\n\t\t\t\t\texpand = {}\n"
 

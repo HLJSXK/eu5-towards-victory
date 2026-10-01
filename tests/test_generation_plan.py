@@ -163,9 +163,15 @@ def test_real_wonder_plan_dependencies_and_current_artifacts():
     assert {Path(script).name for script in merge.spec.depends_on} == {
         'gen_tv_wonder_ceremony_cards_gui.py', 'merge_tv_engineering_department_wonder_mechanics_gui.py',
     }
+    encyclopedia_merge = by_name['merge_tv_encyclopedia_wonders_cards_gui.py']
+    prosper_or_perish = by_name['gen_tv_prosper_or_perish_encyclopedia_lateralview.py']
+    assert prosper_or_perish.spec.depends_on == (encyclopedia_merge.spec.script,)
+    assert prosper_or_perish.outputs == (
+        root / 'submods/tv_prosper_or_perish_compat/in_game/gui/encyclopedia_lateralview.gui',
+    )
     artifacts = collect_artifacts(root, {}, snapshot_artifacts(plan.outputs))
-    assert len(artifacts) == 22
-    assert all(item['valid'] for item in validate_artifact_contract(root, artifacts, ('txt', 'gui', 'yml')))
+    assert len(artifacts) == 40
+    assert all(item['valid'] for item in validate_artifact_contract(root, artifacts, ('txt', 'gui', 'yml', 'yaml')))
     assert not wonder_generation_plan({'mechanics': True}, repo_root=root, regenerate=False).steps
 
 
@@ -191,19 +197,41 @@ def test_plan_adds_downstream_consumers_of_planned_outputs(tmp_path):
                               ('fragment.py',), repo_root=tmp_path)
 
 
-def test_real_wonder_cost_reward_plan_includes_loader_consumers_and_merges():
+def test_real_wonder_cost_reward_plan_selects_only_catalog_consumers():
     root = Path(__file__).resolve().parents[1]
     plan = wonder_generation_plan({'cost_reward': True}, repo_root=root)
     names = {Path(step.spec.script).name for step in plan.steps}
-    assert len(plan.steps) == 22
-    assert names >= {
-        'merge_tv_engineering_department_wonder_mechanics_gui.py',
-        'gen_tv_wonder_ceremony_cards_gui.py',
-        'merge_tv_wonder_ceremony_cards_gui.py',
+    assert names == {
+        'gen_tv_wonder_ceremony_cost_country_modifiers.py',
+        'gen_tv_wonder_ceremony_cost_local_modifiers.py',
+        'gen_tv_wonder_ceremony_effects.py',
+        'gen_tv_wonder_ceremony_l_english.py',
+        'gen_tv_wonder_ceremony_l_simp_chinese.py',
+        'gen_wonder_editor_catalog.py',
     }
+    assert len(plan.outputs) == 6
+    assert all('cost_reward' in step.spec.input_groups for step in plan.steps)
+
+
+def test_real_wonder_source_groups_keep_shared_gui_order():
+    root = Path(__file__).resolve().parents[1]
+    plan = wonder_generation_plan({'unique': True}, repo_root=root)
+    names = [Path(step.spec.script).name for step in plan.steps]
     assert 'gen_location_window.py' not in names
-    readers = [step for step in plan.steps if 'data/cost_reward_units.yaml' in step.spec.inputs]
-    assert len(readers) == 19
+    assert names.index('gen_tv_engineering_department_wonder_mechanics_gui.py') < names.index(
+        'merge_tv_engineering_department_wonder_mechanics_gui.py'
+    ) < names.index('merge_tv_wonder_ceremony_cards_gui.py')
+    assert names.index('gen_tv_wonder_ceremony_cards_gui.py') < names.index(
+        'merge_tv_wonder_ceremony_cards_gui.py'
+    )
+    assert 'gen_tv_wonder_ceremony_events.py' in names
+
+    buildings = wonder_generation_plan({}, input_groups={'mechanics.buildings'}, repo_root=root)
+    building_names = {Path(step.spec.script).name for step in buildings.steps}
+    assert 'gen_tv_wonder_module_buildings.py' in building_names
+    assert 'gen_tv_wonder_ceremony_cost_country_modifiers.py' not in building_names
+    assert 'gen_location_window.py' not in building_names
+    assert any('mechanics.buildings' in step['input_groups'] for step in buildings.payload()['steps'])
 
 
 def test_real_wonder_regeneration_matches_current_outputs(tmp_path):
@@ -225,8 +253,11 @@ def test_real_wonder_regeneration_matches_current_outputs(tmp_path):
                       if source.startswith('reference_'))
     for relative in references:
         destination = tmp_path / relative
-        destination.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(root / relative, destination)
+        if (root / relative).is_dir():
+            shutil.copytree(root / relative, destination)
+        else:
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(root / relative, destination)
 
     # Compare with the working tree, not HEAD: uncommitted data edits with their
     # regenerated outputs are consistent, and checkout newline conversion is not drift.
@@ -245,8 +276,8 @@ def test_real_wonder_regeneration_matches_current_outputs(tmp_path):
         report = run_generation(plan, log=logs.append)
     except GenerationError as exc:
         pytest.fail(f'{exc}\n' + ''.join(logs))
-    assert len(report['steps']) == 23
-    assert len(report['artifacts']) == len(current) == 22
+    assert len(report['steps']) == 41
+    assert len(report['artifacts']) == len(current) == 40
     mismatches = [relative for relative, content in current.items()
                   if (tmp_path / relative).read_bytes() != content]
     assert not mismatches, f'Generated bytes differ from working tree outputs: {mismatches}'

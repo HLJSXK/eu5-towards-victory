@@ -27,6 +27,9 @@ class GeneratorSpec:
     inputs: tuple[str, ...] = ()
     extra_outputs: tuple[str, ...] = ()
     timeout_seconds: float = 120
+    # Semantic source groups used by domain planners to select a minimal set of
+    # roots.  File inputs remain the authoritative preflight dependency check.
+    input_groups: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -52,6 +55,7 @@ class GenerationPlan:
                     "script": step.spec.script,
                     "depends_on": list(step.spec.depends_on),
                     "inputs": list(step.spec.inputs),
+                    "input_groups": list(step.spec.input_groups),
                     "outputs": [repo_relative_path(path, self.repo_root) for path in step.outputs],
                     "timeout_seconds": step.spec.timeout_seconds,
                 }
@@ -149,7 +153,7 @@ def build_generation_plan(
             upstream = [writer for writer in producers if writer in ancestors[script]]
             if producers and not upstream and path not in outputs[script]:
                 raise ValueError(f"Missing dependency for {script} input: {source}")
-            if not upstream and not path.is_file():
+            if not upstream and not path.exists():
                 raise ValueError(f"Missing generator input for {script}: {source}")
     return GenerationPlan(repo_root, tuple(GenerationStep(catalog[script], outputs[script]) for script in ordered))
 
@@ -170,7 +174,7 @@ def run_generation(plan: GenerationPlan, *, log: Callable[[str], None]) -> dict:
         report["artifacts"] = [artifact.payload() for artifact in artifacts]
         report["missing_outputs"] = [repo_relative_path(path, plan.repo_root)
                                      for path in plan.outputs if path not in after]
-        report["output_validation"] = validate_artifact_contract(plan.repo_root, artifacts, ("txt", "gui", "yml"))
+        report["output_validation"] = validate_artifact_contract(plan.repo_root, artifacts, ("txt", "gui", "yml", "yaml"))
 
     log(f"\n[regen {report['operation_id']}] Starting {len(plan.steps)} generators\n")
     try:
@@ -179,7 +183,7 @@ def run_generation(plan: GenerationPlan, *, log: Callable[[str], None]) -> dict:
             result["status"] = "running"
             try:
                 for source in step.spec.inputs:
-                    if not (plan.repo_root / source).is_file():
+                    if not (plan.repo_root / source).exists():
                         raise RuntimeError(f"Missing generator input: {source}")
                 command = [sys.executable, step.spec.script]
                 log(f"$ {' '.join(command)}\n")
@@ -207,7 +211,7 @@ def run_generation(plan: GenerationPlan, *, log: Callable[[str], None]) -> dict:
                 result["missing_outputs"] = [repo_relative_path(path, plan.repo_root)
                                              for path in step.outputs if path not in after]
                 artifacts = collect_artifacts(plan.repo_root, {}, after)
-                result["output_validation"] = validate_artifact_contract(plan.repo_root, artifacts, ("txt", "gui", "yml"))
+                result["output_validation"] = validate_artifact_contract(plan.repo_root, artifacts, ("txt", "gui", "yml", "yaml"))
                 if process.returncode:
                     raise RuntimeError(f"{step.spec.script} exited with {process.returncode}. See log for details.")
                 if result["missing_outputs"]:

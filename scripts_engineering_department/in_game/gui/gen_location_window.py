@@ -25,9 +25,7 @@ SCRIPT_REL = "scripts_engineering_department/in_game/gui/gen_location_window.py"
 DATA_REL = (
     "reference_mods/3601047146/in_game/gui/location_window.gui + "
     "reference_mods/3601047146/in_game/gui/glorpUI_shared_types.gui + "
-    "reference_mods/3601047146/in_game/gui/vanilla/cmfg_location_window_vanilla_types.gui + "
-    "data/wonders.yaml + data/wonder_final_buildings.yaml + data/wonder_generic_rituals.yaml + "
-    "data/wonder_base_modifiers.yaml + data/wonder_site_rules.yaml + data/unique_wonders.yaml"
+    "reference_mods/3601047146/in_game/gui/vanilla/cmfg_location_window_vanilla_types.gui"
 )
 T = "\t"
 

@@ -12,6 +12,7 @@ from fastapi.testclient import TestClient
 from towards_victory_editor_web.services import wonder_localization
 from towards_victory_editor_web.services.wonder_generation import (
     LOCALIZATION_SCRIPTS,
+    WONDER_GENERATORS,
     wonder_generation_plan,
 )
 from towards_victory_editor_web.services.generation import GeneratorSpec, build_generation_plan
@@ -27,6 +28,15 @@ SOURCE_ATTRIBUTES = (
     "WONDER_SITE_RULES_FILE",
     "WONDERS_FILE",
     "UNIQUE_WONDERS_FILE",
+)
+SOURCE_RELATIVE_NAMES = (
+    "wonder_localization.yaml",
+    "wonder_final_buildings.yaml",
+    "wonder_generic_rituals.yaml",
+    "wonder_base_modifiers.yaml",
+    "wonder_site_rules.yaml",
+    "wonders.yaml",
+    "unique_wonders.yaml",
 )
 
 
@@ -49,19 +59,26 @@ def _registry(tmp_path, outputs):
 def service(tmp_path, monkeypatch):
     data_dir = tmp_path / "data"
     data_dir.mkdir()
-    for index, attribute in enumerate(SOURCE_ATTRIBUTES):
-        path = data_dir / f"source_{index}.yaml"
+    for index, (relative_name, attribute) in enumerate(zip(SOURCE_RELATIVE_NAMES, SOURCE_ATTRIBUTES)):
+        path = data_dir / relative_name
         path.write_bytes(f"source-{index}\n".encode())
         monkeypatch.setattr(wonder_localization, attribute, path)
     monkeypatch.setattr(wonder_localization, "REPO_ROOT", tmp_path)
     _registry(tmp_path, ("generated/localization.yml",))
 
-    def isolated_plan(changed, *, repo_root, regenerate=True):
+    def isolated_plan(changed, *, repo_root, regenerate=True, input_groups=None):
         if repo_root == tmp_path:
-            if not regenerate or not changed.get("localization"):
+            if not regenerate or not input_groups:
                 return build_generation_plan((), (), repo_root=repo_root)
-            specs = tuple(GeneratorSpec(script) for script in LOCALIZATION_SCRIPTS.values())
-            return build_generation_plan(specs, LOCALIZATION_SCRIPTS.values(), repo_root=repo_root)
+            specs = tuple(
+                GeneratorSpec(script, input_groups=("localization",))
+                for script in LOCALIZATION_SCRIPTS.values()
+            )
+            roots = (
+                spec.script for spec in specs
+                if set(spec.input_groups) & set(input_groups)
+            )
+            return build_generation_plan(specs, roots, repo_root=repo_root)
         return wonder_generation_plan(changed, repo_root=repo_root, regenerate=regenerate)
 
     monkeypatch.setattr(wonder_localization, "wonder_generation_plan", isolated_plan)
@@ -265,10 +282,78 @@ def test_generator_outputs_follow_registered_plan():
     root = Path(__file__).resolve().parents[1]
     localization = wonder_generation_plan({"localization": True}, repo_root=root)
     mechanics = wonder_generation_plan({"mechanics": True}, repo_root=root)
-    assert set(localization.outputs) == set(wonder_localization.GENERATED_LOC_FILES.values())
-    assert len(mechanics.outputs) == 22
-    assert len(mechanics.steps) == 23
+    assert set(localization.outputs) == {
+        *wonder_localization.GENERATED_LOC_FILES.values(),
+        root / "src_engineering_department/main_menu/localization/english/tv_wonder_ownership_l_english.yml",
+        root / "src_engineering_department/main_menu/localization/simp_chinese/tv_wonder_ownership_l_simp_chinese.yml",
+        root / "data/unique_wonder_ritual_specs.yaml",
+        root / "src_engineering_department/in_game/events/tv_wonder_finalization_events.txt",
+    }
+    assert len(mechanics.outputs) == 40
+    assert len(mechanics.steps) == 41
     assert set(localization.outputs) <= set(mechanics.outputs)
+
+
+def test_registered_wonder_data_generators_are_in_wonder_plan():
+    root = Path(__file__).resolve().parents[1]
+    registry = yaml.safe_load((root / "data/generated_files.yaml").read_text(encoding="utf-8"))["generated"]
+    source_files = (
+        "data/wonders.yaml", "data/wonder_final_buildings.yaml",
+        "data/wonder_generic_rituals.yaml", "data/wonder_base_modifiers.yaml",
+        "data/wonder_site_rules.yaml", "data/unique_wonders.yaml",
+        "data/wonder_localization.yaml", "data/cost_reward_units.yaml",
+    )
+    registered = {
+        entry["script"] for entry in registry
+        if entry["script"].startswith("scripts_engineering_department/")
+        and any(source in entry.get("data", "") for source in source_files)
+    }
+    planned = {spec.script for spec in WONDER_GENERATORS}
+    assert registered <= planned
+
+
+@pytest.mark.parametrize("source_index,group,changed_key", [
+    (0, "localization", "localization"),
+    (1, "mechanics.buildings", "mechanics"),
+    (2, "mechanics.rituals", "mechanics"),
+    (3, "mechanics.base_modifiers", "mechanics"),
+    (4, "mechanics.site_rules", "mechanics"),
+    (5, "wonders", "wonders"),
+    (6, "unique", "unique"),
+])
+def test_candidate_uses_changed_source_as_generation_input_group(service, monkeypatch, source_index, group, changed_key):
+    source = wonder_localization._wonder_source_paths()[source_index]
+    monkeypatch.setattr(wonder_localization, "validate_canonical_localization_data", lambda *_args: None)
+    service._candidate_source_bytes = lambda _changed: {source: b"edited\n"}
+    service._apply_wonder_edits = lambda *_args: {
+        key: key == changed_key for key in ("localization", "mechanics", "wonders", "unique")
+    }
+    service._get_wonder = lambda _wonder_id: {}
+
+    changed, files, ids = service._candidate_for_drafts({1: {}})
+
+    assert wonder_localization._wonder_input_groups(files) == {group}
+    assert files == {source: b"edited\n"}
+    assert ids == [1]
+
+
+def test_preview_with_semantic_change_but_no_source_bytes_has_empty_plan(service):
+    service._candidate_for_drafts = lambda _drafts: (
+        {"localization": True, "mechanics": False, "wonders": False, "unique": False},
+        {},
+        [1],
+    )
+
+    report = service.preview_resource_edits({}, _base(service))
+
+    assert report["generation_plan"] == {"steps": [], "outputs": []}
+
+
+def test_site_rule_change_plans_mechanics_buildings_generator():
+    root = Path(__file__).resolve().parents[1]
+    plan = wonder_generation_plan({}, input_groups={"mechanics.site_rules"}, repo_root=root)
+    names = {Path(step.spec.script).name for step in plan.steps}
+    assert "gen_tv_engineering_department_wonder_mechanics_buildings.py" in names
 
 
 @pytest.mark.parametrize("failure", ["conflict", "validation"])

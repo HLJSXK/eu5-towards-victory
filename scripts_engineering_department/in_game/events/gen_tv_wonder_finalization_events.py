@@ -31,6 +31,11 @@ from wonder_image_crop_lib import cropped_wonder_image_name
 
 OUT_FILE = REPO_ROOT / "src_engineering_department" / "in_game" / "events" / "tv_wonder_finalization_events.txt"
 SCRIPT_REL = "scripts_engineering_department/in_game/events/gen_tv_wonder_finalization_events.py"
+DATA_REL = (
+    "data/wonders.yaml + data/wonder_final_buildings.yaml + data/wonder_generic_rituals.yaml + data/wonder_base_modifiers.yaml + "
+    "data/wonder_site_rules.yaml + data/unique_wonders.yaml + "
+    "data/wonder_localization.yaml"
+)
 T = "\t"
 WONDER_IMAGE_DIR = "gfx/interface/icons/towards_victory/wonders"
 
@@ -213,7 +218,7 @@ def append_hidden_final_building_destruction_sync_event(lines: list[str], wonder
 def generate() -> str:
     wonders, _mechanics = load_all_wonder_mechanics()
     loc_keys = known_loc_keys()
-    lines = render_header(SCRIPT_REL)
+    lines = render_header(SCRIPT_REL, DATA_REL)
     lines.append("namespace = tv_engineering_department")
     lines.append("")
     for wonder in wonders:

@@ -33,9 +33,10 @@ The Wonder preview API includes a `generation_plan` with ordered steps, dependen
 edges, declared outputs and per-step timeouts. Commit runs this prepared DAG using
 `sys.executable`, validates each step and the final artifact set, and returns a `generation` report
 with an operation ID, step status/return code/duration, hashes and file changes.
-The existing scope is 23 scripts / 22 outputs for mechanics changes, 22 scripts
-for a cost/reward catalog change that leaves `unique_wonders.yaml` unchanged, or
-two localization scripts / outputs. `regenerate: false` skips plan resolution and
+The full Wonder plan is 41 scripts / 40 outputs. Wonder saves select roots
+from the source files that actually changed; a cost/reward catalog change that
+leaves `unique_wonders.yaml` unchanged runs six generators, including the editor
+catalog, while a localization-only edit runs six generators / outputs. `regenerate: false` skips plan resolution and
 artifact checks. GUI merges explicitly depend on their fragments and serialize
 writes to the shared organization panel. A plan adds the upstream dependencies of
 its roots and every downstream generator that depends on a planned step or reads
@@ -57,11 +58,12 @@ Missing or invalid outputs fail the commit and trigger source/output recovery.
 An HTTP 500 generation failure includes the attempted artifact report and a
 separate `rollback` status/errors field; artifacts in that report describe the
 attempt before rollback. The DAG declares direct GUI file dependencies, not the
-complete transitive data/Python dependency graph; roots are selected per
-change source (localization, cost/reward catalog, or full mechanics).
+complete transitive data/Python dependency graph. Semantic input groups select
+roots from changed Wonder sources; the plan then includes required upstream and
+downstream generators.
 
-`tests/test_generation_plan.py` runs all 23 Wonder generators in a temporary
-repository copy and compares the 22 outputs byte-for-byte with the working-tree
+`tests/test_generation_plan.py` runs all 41 Wonder generators in a temporary
+repository copy and compares the 40 outputs byte-for-byte with the working-tree
 outputs, including BOM, so generated files must be current with their data. This
 regression requires the local reference game/mod inputs used by the generators
 to be available.

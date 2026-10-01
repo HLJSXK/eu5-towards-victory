@@ -70,7 +70,7 @@ from scripts_engineering_department.wonder_mechanics.rituals import (
     unique_ceremony_modifier_name,
 )
 from .generation import GenerationError, run_generation
-from .wonder_generation import LOCALIZATION_SCRIPTS, wonder_generation_plan
+from .wonder_generation import LOCALIZATION_SCRIPTS, WONDER_SOURCE_GROUPS, wonder_generation_plan
 from .common import RollingLog
 from .platform import (
     ChangeSet,
@@ -145,6 +145,14 @@ def _wonder_source_rels() -> tuple[str, ...]:
         repo_relative_path(path, REPO_ROOT)
         for path in _wonder_source_paths()
     )
+
+
+def _wonder_input_groups(files: dict[Path, bytes]) -> set[str]:
+    return {
+        WONDER_SOURCE_GROUPS[repo_relative_path(path, REPO_ROOT)]
+        for path in files
+        if repo_relative_path(path, REPO_ROOT) in WONDER_SOURCE_GROUPS
+    }
 
 
 WONDER_EDITOR_CATALOG_FILE = REPO_ROOT / "data" / "wonder_editor_catalog.yaml"
@@ -2442,7 +2450,8 @@ class WonderLocalizationService:
                 validate_canonical_localization_data(
                     self.wonders, self.mechanics, self.event_suffixes, self.localization_data
                 )
-            return changed, self._candidate_source_bytes(changed), changed_wonder_ids
+            files = self._candidate_source_bytes(changed)
+            return changed, files, changed_wonder_ids
         finally:
             for name, value in original.items():
                 setattr(self, name, value)
@@ -2470,7 +2479,11 @@ class WonderLocalizationService:
         with self._lock:
             self._assert_base(base)
             changed, files, _ = self._candidate_for_drafts(drafts_by_wonder_id)
-            plan = wonder_generation_plan(changed if files else {}, repo_root=REPO_ROOT, regenerate=regenerate)
+            groups = _wonder_input_groups(files)
+            plan = wonder_generation_plan(
+                changed if files else {}, repo_root=REPO_ROOT, regenerate=regenerate,
+                input_groups=groups,
+            )
             before = {item.path: item.sha256 for item in self._base}
             diff = [
                 {
@@ -2529,7 +2542,11 @@ class WonderLocalizationService:
                             "generation": None,
                             "log_text": self.log_text}
 
-                plan = wonder_generation_plan(changed, repo_root=REPO_ROOT, regenerate=regenerate)
+                groups = _wonder_input_groups(files)
+                plan = wonder_generation_plan(
+                    changed, repo_root=REPO_ROOT, regenerate=regenerate,
+                    input_groups=groups,
+                )
                 changed_files = [repo_relative_path(path, REPO_ROOT) for path in files]
                 # Candidate serialization and registry lookup may take time; recheck
                 # the loaded base immediately before snapshotting and writing.

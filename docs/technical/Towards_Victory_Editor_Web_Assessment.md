@@ -128,7 +128,7 @@ flowchart LR
 
 1. cost/reward 验证统一表单 schema、draft、校验、原子保存和 reload；已完成。
 2. victory tree 验证画布交互、实体图和二进制预览产物；已完成。
-3. wonder 验证多源文件、生成器计划和跨文件提交；已完成资源描述、base 冲突、预览和失败恢复的首个切片，现有 23 个生成脚本已形成 DAG，并完成逐产物文件级校验；完整领域依赖与语义校验仍待扩展。
+3. wonder 验证多源文件、生成器计划和跨文件提交；已完成资源描述、base 冲突、预览和失败恢复的首个切片，现有 41 个生成脚本已形成 DAG，并完成逐产物文件级校验；完整领域依赖与语义校验仍待扩展。
 4. cropper 配置接入统一资源协议，图片重建继续使用统一 job/artifact；已完成首个切片。媒体工具的资源依赖、动态产物声明与格式校验已完成首个切片，其他工具和跨资源事务仍待扩展。
 
 每完成一个切片，就让旧标签页和新实现对同一组 fixture 输出相同的 source diff 和 validation report，再迁移下一项。
@@ -256,7 +256,7 @@ ArtifactReport + OperationLog
 
 #### 高风险：把 Wonder 接入平台统一提交协议（首个切片已完成）
 
-Wonder 已接入平台的 `load/draft/validate/preview/commit` API：`editor.wonder` 描述 7 个源文件，preview 返回源文件摘要 diff，commit 校验 base，并按实际执行计划快照源文件与产物；完整机制生成覆盖 22 个产物，本地化生成覆盖 2 个，禁用生成则不读取产物。失败时仅恢复与快照不同的文件。一次 commit 目前仍可提交多个 dirty wonder；后续应让默认保存当前资源，跨 wonder 批量保存必须由用户显式创建 batch change set。generator 已用声明式 DAG 执行并逐项报告 artifact，但计划选择仍沿用本地化 / 全部机制两种粒度，尚未按 generic mechanics、unique mechanics、concept/GUI 的实际输入进一步缩小。
+Wonder 已接入平台的 `load/draft/validate/preview/commit` API：`editor.wonder` 描述 7 个源文件，preview 返回源文件摘要 diff，commit 校验 base，并按实际执行计划快照源文件与产物；完整机制生成覆盖 40 个产物，本地化生成覆盖 6 个，禁用生成则不读取产物。失败时仅恢复与快照不同的文件。一次 commit 目前仍可提交多个 dirty wonder；后续应让默认保存当前资源，跨 wonder 批量保存必须由用户显式创建 batch change set。generator 已用声明式 DAG 执行并逐项报告 artifact；现已按实际变更的源文件组选择根步骤，但尚未建立完整的 Python 导入与领域语义依赖图。
 
 ### Wonder 专项验收指标
 
@@ -307,7 +307,7 @@ Wonder 已接入平台的 `load/draft/validate/preview/commit` API：`editor.won
 - Wonder 作业锁定 `editor.wonder`、`editor.wonder_crop`、`editor.cost_reward`；会运行生成器的 Wonder commit 锁定 `editor.wonder` 与 `editor.cost_reward`，禁用生成时只锁 `editor.wonder`；crop commit 锁定 `editor.wonder_crop`；修改 cost/reward 分类时的 commit 锁定 `editor.cost_reward` 与 `editor.wonder`，只改 task pool 时只锁 `editor.cost_reward`。cost/reward 保存会根据新目录重写 `unique_wonders.yaml` 中的典礼阶段数值（重写结果在写入前重新解析并按候选目录逐项校验，文件布局无法识别时在 preview/commit 阶段直接报错），在同一恢复事务中运行受影响的 Wonder 生成器，并刷新驻留的 Wonder 服务目录；因此长时间运行的 Wonder 图片作业期间 cost/reward 保存返回 409 是有意的强一致性取舍。禁用生成的 Wonder 保存不再额外占用 `editor.cost_reward` 锁；cost/reward 保存仍占用 `editor.wonder` 锁以保护派生文件。作业期间保存返回 HTTP 409，作业遇到正在保存的资源则在写入前失败。外部编辑无法由此锁阻止，仍以执行前后摘要检测；纯 DDS 就地转换和元数据就地更新的输入输出重叠文件只做执行前检查。
 - 媒体生成器仍直接写正式产物，没有暂存发布或媒体回滚事务。异常、输入变化、产物缺失和取消都会先收集执行后状态，保留产物清单、缺失路径和格式报告；已有输出变动时返回 `outputs_may_be_partial` 并记录未回滚。取消状态优先于输入过期错误。中途创建并删除的临时文件不留在清单中，未声明写入也不自动追踪或恢复。Media studio 展示输入、声明输出、变化状态与校验错误。
 - `tests/test_media_job_contract.py` 和 `tests/test_media_plans.py` 覆盖失败/取消后清单保留、输入与产物缺失、可选配置新建、无关文件不归属、格式失败、真实 Wonder 计划与 DDS 转换、DDS 图标元数据、固定任务执行、dry-run、Web 重建唯一入口、生成器跳过无 PNG 的半套 DDS 时的产物声明，以及 `/api/jobs` / crop commit 409；`tests/test_wonder_resource_contract.py` 覆盖 Wonder 作业占用资源时 commit 在写入前失败。真实图片转换使用临时目录，网络生成以替身隔离，不会调用付费图片 API。
-- Wonder 的资源接口为 `GET /api/resources/editor.wonder` 与 `POST .../{validate,preview,commit}`。资源 commit 在写入前检查当前奇观 ID，再暂存源文件、运行按变更类别选择的 generator；生成器、重新加载或响应构建失败时，由平台事务恢复已快照且发生变化的文件。完整生成计划仍为 22 个产物，其路径来自 `data/generated_files.yaml`，共享 organization GUI 由两个合并脚本的显式例外补充；未登记产物的脚本在写入前报错。生成器使用 `sys.executable`。
+- Wonder 的资源接口为 `GET /api/resources/editor.wonder` 与 `POST .../{validate,preview,commit}`。资源 commit 在写入前检查当前奇观 ID，再暂存源文件、运行按变更类别选择的 generator；生成器、重新加载或响应构建失败时，由平台事务恢复已快照且发生变化的文件。完整生成计划仍为 40 个产物，其路径来自 `data/generated_files.yaml`，共享 organization GUI 由两个合并脚本的显式例外补充；未登记产物的脚本在写入前报错。生成器使用 `sys.executable`。
 - `python scripts/validate.py --changed --ai-report`、Python 编译检查、前端 JavaScript 语法检查、84 项资源、payload、媒体作业和文件事务测试与 `git diff --check` 通过；另有 10 项 Node 前端状态测试通过；未运行会改写文件的 `--fix`。
 
 Wonder 本次验证与边界：
@@ -333,18 +333,22 @@ Wonder 本次验证与边界：
 
 本次生成计划切片（2026-10-01）：
 
-- 对照生成器源码核实当前保存范围为 **23 个脚本、22 个不同产物**。两个 GUI 合并脚本写同一个 organization panel；典礼合并依赖机制合并及自身片段生成。独立脚本保持原来的稳定顺序，不把 Python 函数导入误判成必须先执行另一脚本的依赖。
-- `wonder_generation.py` 维护领域目录，`generation.py` 对所选根节点的上游依赖及下游消费者（依赖计划内步骤或读取其产物的生成器）闭包进行拓扑排序；cost/reward 目录变更且派生值不变时计划为 22 步，包含两个 GUI merge，写入前拒绝环、未知依赖、未登记产物、丢失脚本/直接输入、越界路径、非法超时及没有先后依赖的共享写入。`preview` 返回 `generation_plan`，并与 `commit` 一样遵守 `regenerate=false`；无变更时计划为空。
+- 对照生成器源码核实当前保存范围为 **41 个脚本、40 个不同产物**。三个 GUI 合并脚本分别维护 organization panel 和 Europedia panel；典礼合并依赖机制合并及自身片段生成，Prosper-or-Perish Europedia 兼容脚本作为 Europedia merge 的下游消费者纳入计划。独立脚本保持原来的稳定顺序，不把 Python 函数导入误判成必须先执行另一脚本的依赖。
+- `wonder_generation.py` 维护领域目录，`generation.py` 对所选根节点的上游依赖及下游消费者（依赖计划内步骤或读取其产物的生成器）闭包进行拓扑排序；当时 cost/reward 目录变更且派生值不变会计划 22 步，现已缩小为 6 步。写入前拒绝环、未知依赖、未登记产物、丢失脚本/直接输入、越界路径、非法超时及没有先后依赖的共享写入。`preview` 返回 `generation_plan`，并与 `commit` 一样遵守 `regenerate=false`；无变更时计划为空。
 - `commit` 返回 `generation`，含 operation id、实际计划、每步状态/退出码/耗时及最终产物清单。产物形状与媒体 job 相同，包含路径、大小、SHA-256、变化状态。两个执行生命周期共用 `artifacts.py`，并未把同步保存伪装成异步 job。计划和报告目前仅通过 API 提供，前端尚未展示。
 - 每步检查必需产物存在及格式，结束后再检查整个产物集合。TXT/GUI 检查非空 UTF-8、NUL、引号和花括号闭合，`common/`、`events/`、`gui/` 下还必须带 BOM；`data/generated_fragments/` 中间片段不受该 BOM 要求约束。三个原先使用 `utf-8` 的 Wonder 生成器已改为 `utf-8-sig`，避免无修改重生成时丢掉已提交产物的 BOM。游戏本地化 YML 检查 BOM、语言头、物理行/ASCII 外层引号、重复键及文件名语言，允许原版 `government_l_english.yml` 使用的未转义内部引号。此处不是完整 Jomini 语义、跨文件引用或期望生成内容校验。
 - 每个生成步骤默认超时 120 秒，计划中包含 `timeout_seconds`。超时后先终止并等待子进程，再进入恢复事务；步骤报告标记 `timed_out`，保留已捕获日志和尝试写出的产物，其余步骤跳过。回归测试覆盖源文件与产物恢复，以及服务锁和 `editor.wonder` 资源锁释放。
 - 生成失败返回 HTTP 500、可定位错误、日志和生成报告；未执行的步骤标为 skipped。报告描述回滚前的生成尝试，另附 `rollback.status/errors` 表明实际恢复结果，不把已回滚产物描述为当前落盘内容。原有重新加载或响应构建失败仍由文件事务恢复。
 - 新增生成计划与真实子进程测试，覆盖拓扑排序、共享输出、空/缺失/损坏产物、BOM 丢失、非零退出、超时、后续步骤跳过、最终集合复查，以及 HTTP 报告、恢复失败和禁用生成。原 Wonder 规则检查已直接检查新计划，删除旧脚本元组的调用。
 - 本轮 `python -m pytest tests -q` 的测试、Web `--check`、Wonder mechanics 规则检查、`validate.py --changed --ai-report`、Python 编译与 `git diff --check` 均通过；pytest 的弃用警告来自 Starlette/httpx 与 anyio 兼容层。10 项 Node 状态测试本轮重跑通过。
-- `test_real_wonder_regeneration_matches_current_outputs` 在临时仓库副本中运行当前全部 23 个生成器，将 **22 个产物逐字节与工作区现有产物对比，全部一致**，包括 BOM。测试使用当前源数据/生成器和本地引用文件，共享 GUI 从工作区版本开始合并；未改写工作区游戏产物，也未调用图片 API。此前仅比较新旧两套执行流程，无法发现两者共同丢失 BOM 的问题。基准选工作区而非 Git HEAD：编辑器保存后未提交的数据与产物彼此一致，不应误报；检出时的换行转换也不属于产物漂移。
+- `test_real_wonder_regeneration_matches_current_outputs` 在临时仓库副本中运行当前全部 41 个生成器，将 **40 个产物逐字节与工作区现有产物对比，全部一致**，包括 BOM。测试使用当前源数据/生成器和本地引用文件，共享 GUI 从工作区版本开始合并；未改写工作区游戏产物，也未调用图片 API。此前仅比较新旧两套执行流程，无法发现两者共同丢失 BOM 的问题。基准选工作区而非 Git HEAD：编辑器保存后未提交的数据与产物彼此一致，不应误报；检出时的换行转换也不属于产物漂移。
 
-下一切片建议：在现有 DAG 上继续补充经源码核实的字段级输入依赖，并按具体变更源缩小计划。媒体暂存发布/回滚、跨资源 change set 和前端共享 store 仍是独立未完成项。
+后续输入组切片（2026-10-01）：
+
+- 每个 Wonder 生成步骤增加 `input_groups`，在计划 payload 中公开。Wonder 草稿根据最终确实改写的源文件确定本地化、通用奇观、独特奇观及四类 mechanics 输入组；同一次多奇观提交合并这些组后选择生成根节点，仍沿用现有 DAG 的上游/下游闭包、共享 GUI 顺序、事务恢复和产物检查。
+- 完整 `mechanics=True` 计划覆盖 41 脚本、40 产物；仅本地化为 6 步（finalization events 按本地化键是否存在选择事件描述，故纳入）；仅 cost/reward 目录且 `unique_wonders.yaml` 未变化为 6 步（含 editor catalog）。`unique` 变更仍触发典礼脚本和共享 GUI merge；location window 生成器经源码核实仅读取三个参考 GUI 文件，actions 生成器输出固定、只借加载器校验数据，二者不声明输入组，仅在完整计划中执行。
+- 此映射按源文件组缩小执行范围，并非完整字段级依赖追踪。生成脚本的 Python 导入和间接读取、未登记的副作用以及领域产物语义仍需单独核实。媒体暂存发布/回滚、跨资源 change set 和前端共享 store 仍是独立未完成项。
 
 这些结果说明当前数据和语法处于可运行状态；cost/reward、victory tree、Wonder 与 cropper 配置已接入统一资源协议，Wonder 还减少了首屏、仪式列表和详情的传输负担。媒体 job 与编辑器资源提交仍是两个执行生命周期，后续需要扩展到完整的资源依赖图、跨资源生成 DAG、跨资源事务和统一操作日志。tree 的 DDS 背景预览仍在服务初始化时解码，不属于坐标提交的生成产物。四个编辑器前端已改用资源接口，旧的 cost/reward、tree、Wonder 和 cropper bootstrap/save 路由已删除。
 
-已知限制：保存仍会整体重写 YAML 文件（与迁移前行为一致）。文件头注释、原有 BOM 状态与 LF/CRLF 换行符会保留，但正文中的分节注释（如 `task_pool.yaml` 的 `# --- Military ---`）不会被保留，字符串引号也会被统一去掉。若后续要求保留正文注释和字段顺序，需要改成定点改写或往返式 YAML 读写，属于独立任务。409 后草稿仍保留在页面中。Wonder 的所有页面草稿共享同一个 base，因此重新加载时会提示放弃全部未保存的奇观页面编辑；仅在资源、当前详情与选项目录全部加载成功后，才一起清除这些草稿并更新 base，失败则保留原状态。仪式 Prompt 草稿另行保留。目前没有自动合并外部修改与未保存草稿。`atomic_write_files` 会先暂存全部内容，但跨多个目标文件的替换并非全局原子操作；跨资源 batch change set、完整输入依赖、产物领域语义校验和未登记生成器副作用的恢复仍未实现。媒体作业已有声明文件格式校验和失败清单，但尚无暂存发布或回滚事务。Wonder 的完整生成计划覆盖 22 个产物，按实际执行计划进行快照；文件锁或权限错误仍可能阻止部分恢复，但其他文件恢复与重新加载都会继续尝试，并报告全部错误。生成器使用 `sys.executable`。
+已知限制：保存仍会整体重写 YAML 文件（与迁移前行为一致）。文件头注释、原有 BOM 状态与 LF/CRLF 换行符会保留，但正文中的分节注释（如 `task_pool.yaml` 的 `# --- Military ---`）不会被保留，字符串引号也会被统一去掉。若后续要求保留正文注释和字段顺序，需要改成定点改写或往返式 YAML 读写，属于独立任务。409 后草稿仍保留在页面中。Wonder 的所有页面草稿共享同一个 base，因此重新加载时会提示放弃全部未保存的奇观页面编辑；仅在资源、当前详情与选项目录全部加载成功后，才一起清除这些草稿并更新 base，失败则保留原状态。仪式 Prompt 草稿另行保留。目前没有自动合并外部修改与未保存草稿。`atomic_write_files` 会先暂存全部内容，但跨多个目标文件的替换并非全局原子操作；跨资源 batch change set、完整输入依赖、产物领域语义校验和未登记生成器副作用的恢复仍未实现。媒体作业已有声明文件格式校验和失败清单，但尚无暂存发布或回滚事务。Wonder 的完整生成计划覆盖 40 个产物，按实际执行计划进行快照；文件锁或权限错误仍可能阻止部分恢复，但其他文件恢复与重新加载都会继续尝试，并报告全部错误。生成器使用 `sys.executable`。

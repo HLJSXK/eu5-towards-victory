@@ -5,9 +5,29 @@
 # Target: src_engineering_department/main_menu/gui/shared/tv_ceremony_font_icons.gui
 
 texticon = {
+	icon = tv_ceremony_adm
+	iconsize = {
+		texture = "gfx/interface/icons/text_icons/adm.dds"
+		size = { 32 32 }
+		offset = { 0 0 }
+		fontsize = 17
+	}
+}
+
+texticon = {
 	icon = tv_ceremony_advance
 	iconsize = {
 		texture = "gfx/interface/icons/alerts_icons/advances.dds"
+		size = { 32 32 }
+		offset = { 0 0 }
+		fontsize = 17
+	}
+}
+
+texticon = {
+	icon = tv_ceremony_advances_panel
+	iconsize = {
+		texture = "gfx/interface/icons/flat_icons/tabicons/advances.dds"
 		size = { 32 32 }
 		offset = { 0 0 }
 		fontsize = 17
@@ -275,6 +295,16 @@ texticon = {
 }
 
 texticon = {
+	icon = tv_ceremony_court_spending
+	iconsize = {
+		texture = "gfx/interface/icons/modifier_types/court_spending_cost.dds"
+		size = { 32 32 }
+		offset = { 0 0 }
+		fontsize = 17
+	}
+}
+
+texticon = {
 	icon = tv_ceremony_creditworthiness
 	iconsize = {
 		texture = "gfx/interface/icons/flat_icons/balance/creditworthiness.dds"
@@ -368,6 +398,16 @@ texticon = {
 	icon = tv_ceremony_diplomacy
 	iconsize = {
 		texture = "gfx/interface/icons/flat_icons/balance/diplomacy.dds"
+		size = { 32 32 }
+		offset = { 0 0 }
+		fontsize = 17
+	}
+}
+
+texticon = {
+	icon = tv_ceremony_diplomatic_reputation
+	iconsize = {
+		texture = "gfx/interface/icons/flat_icons/diplomatic_reputation.dds"
 		size = { 32 32 }
 		offset = { 0 0 }
 		fontsize = 17
@@ -615,6 +655,16 @@ texticon = {
 }
 
 texticon = {
+	icon = tv_ceremony_manpower
+	iconsize = {
+		texture = "gfx/interface/icons/resources/manpower.dds"
+		size = { 32 32 }
+		offset = { 0 0 }
+		fontsize = 17
+	}
+}
+
+texticon = {
 	icon = tv_ceremony_mapmode
 	iconsize = {
 		texture = "gfx/interface/icons/flat_icons/tabicons/mapmodes.dds"
@@ -648,6 +698,16 @@ texticon = {
 	icon = tv_ceremony_migration_attraction
 	iconsize = {
 		texture = "gfx/interface/icons/modifier_types/migration_attraction.dds"
+		size = { 32 32 }
+		offset = { 0 0 }
+		fontsize = 17
+	}
+}
+
+texticon = {
+	icon = tv_ceremony_mil
+	iconsize = {
+		texture = "gfx/interface/icons/text_icons/mil.dds"
 		size = { 32 32 }
 		offset = { 0 0 }
 		fontsize = 17
@@ -725,6 +785,26 @@ texticon = {
 }
 
 texticon = {
+	icon = tv_ceremony_nobles
+	iconsize = {
+		texture = "gfx/interface/icons/pops/nobles.dds"
+		size = { 32 32 }
+		offset = { 0 0 }
+		fontsize = 17
+	}
+}
+
+texticon = {
+	icon = tv_ceremony_novel
+	iconsize = {
+		texture = "gfx/interface/icons/work_of_art/novel.dds"
+		size = { 32 32 }
+		offset = { 0 0 }
+		fontsize = 17
+	}
+}
+
+texticon = {
 	icon = tv_ceremony_organization
 	iconsize = {
 		texture = "gfx/interface/icons/alerts_icons/international_organization.dds"
@@ -768,6 +848,16 @@ texticon = {
 	icon = tv_ceremony_paved_road
 	iconsize = {
 		texture = "gfx/interface/icons/roads/paved_road.dds"
+		size = { 32 32 }
+		offset = { 0 0 }
+		fontsize = 17
+	}
+}
+
+texticon = {
+	icon = tv_ceremony_peasants
+	iconsize = {
+		texture = "gfx/interface/icons/pops/peasants.dds"
 		size = { 32 32 }
 		offset = { 0 0 }
 		fontsize = 17
@@ -928,6 +1018,16 @@ texticon = {
 	icon = tv_ceremony_ruler
 	iconsize = {
 		texture = "gfx/interface/icons/character_roles/ruler.dds"
+		size = { 32 32 }
+		offset = { 0 0 }
+		fontsize = 17
+	}
+}
+
+texticon = {
+	icon = tv_ceremony_rural_settlement_capital
+	iconsize = {
+		texture = "gfx/interface/mapitems/rural_settlement_capital.dds"
 		size = { 32 32 }
 		offset = { 0 0 }
 		fontsize = 17
