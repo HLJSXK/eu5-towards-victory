@@ -1,20 +1,42 @@
 from __future__ import annotations
 
 import copy
+import hashlib
 import sys
 import threading
-from typing import Any
+from typing import Any, Callable
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
-from scripts_engineering_department.wonder_mechanics.io import REPO_ROOT, load_yaml
+from scripts_engineering_department.wonder_mechanics.io import (
+    REPO_ROOT,
+    build_cost_reward_unit_catalogs,
+    load_yaml,
+    reset_cost_reward_unit_caches,
+    rewrite_unique_wonder_ceremony_cost_values,
+)
 
 from .common import RollingLog
-from .platform import ChangeSet, ResourceDescriptor, assert_resource_base, atomic_write_files, load_yaml_snapshots, snapshot_files, yaml_bytes
+from .generation import run_generation
+from .wonder_generation import wonder_generation_plan
+from .platform import (
+    ChangeSet,
+    ResourceDescriptor,
+    assert_resource_base,
+    atomic_write_files,
+    file_transaction,
+    load_yaml_snapshots,
+    resource_operation,
+    snapshot_files,
+    yaml_bytes,
+)
 
 DATA_FILE = REPO_ROOT / "data" / "cost_reward_units.yaml"
 DATA_REL = "data/cost_reward_units.yaml"
+
+UNIQUE_WONDERS_FILE = REPO_ROOT / "data" / "unique_wonders.yaml"
+UNIQUE_WONDERS_REL = "data/unique_wonders.yaml"
 
 TASK_POOL_FILE = REPO_ROOT / "data" / "task_pool.yaml"
 TASK_POOL_REL = "data/task_pool.yaml"
@@ -77,13 +99,26 @@ class CostRewardEditorService:
     def __init__(self) -> None:
         self._lock = threading.Lock()
         self._log = RollingLog(max_lines=4000)
+        self._reload_callback: Callable[[], None] | None = None
         self.reload_from_disk()
 
+    def set_reload_callback(self, callback: Callable[[], None] | None) -> None:
+        """Register a dependent service that must publish the new catalog atomically."""
+        with self._lock:
+            self._reload_callback = callback
+
     def reload_from_disk(self) -> None:
-        documents, snapshots = load_yaml_snapshots((DATA_FILE, TASK_POOL_FILE), repo_root=REPO_ROOT)
+        reset_cost_reward_unit_caches()
+        documents, snapshots = load_yaml_snapshots(
+            (DATA_FILE, TASK_POOL_FILE, UNIQUE_WONDERS_FILE), repo_root=REPO_ROOT
+        )
         self.data = documents[DATA_FILE]
         self.task_data = documents[TASK_POOL_FILE]
         self._base = snapshots
+
+    @property
+    def log_text(self) -> str:
+        return self._log.text
 
     def bootstrap_payload(self) -> dict:
         groups = []
@@ -103,7 +138,7 @@ class CostRewardEditorService:
             id="editor.cost_reward",
             kind="yaml_catalog",
             label="Cost / reward catalog",
-            source_paths=(DATA_REL, TASK_POOL_REL),
+            source_paths=(DATA_REL, TASK_POOL_REL, UNIQUE_WONDERS_REL),
         )
 
     def load_resource(self) -> dict:
@@ -117,7 +152,7 @@ class CostRewardEditorService:
             "draft": self.bootstrap_payload(),
             "change_set": ChangeSet(
                 self.resource_descriptor().id,
-                (DATA_REL, TASK_POOL_REL),
+                (DATA_REL, TASK_POOL_REL, UNIQUE_WONDERS_REL),
                 self._base,
             ).payload(),
         }
@@ -152,14 +187,36 @@ class CostRewardEditorService:
 
     def preview_edits(self, edits: dict[str, dict[str, dict[str, Any]]], base: dict[str, str] | None = None) -> dict:
         with self._lock:
-            self._assert_base(base)
+            touched_cost_reward = any(edits.get(key) for key in CATEGORY_KEYS)
+            self._assert_base(base, include_derived=touched_cost_reward)
             candidate_data, candidate_tasks = self._validate_and_apply(edits)
             changes = self._field_diff(edits, self.data, self.task_data, candidate_data, candidate_tasks)
+            if touched_cost_reward:
+                catalogs = build_cost_reward_unit_catalogs(candidate_data)
+                current_unique = UNIQUE_WONDERS_FILE.read_bytes()
+                candidate_unique = rewrite_unique_wonder_ceremony_cost_values(
+                    UNIQUE_WONDERS_FILE, cost_catalogs=catalogs
+                )
+                if candidate_unique != current_unique:
+                    changes.append({
+                        "path": UNIQUE_WONDERS_REL,
+                        "before": hashlib.sha256(current_unique).hexdigest(),
+                        "after": hashlib.sha256(candidate_unique).hexdigest(),
+                    })
             return {"valid": True, "errors": [], "diff": changes, "change_set": self._resource_payload()["change_set"]}
 
-    def _assert_base(self, base: dict[str, str] | None) -> None:
-        current = snapshot_files((DATA_FILE, TASK_POOL_FILE), repo_root=REPO_ROOT)
-        assert_resource_base(base, self._base, current)
+    def _assert_base(self, base: dict[str, str] | None, *, include_derived: bool) -> None:
+        """Check the files this save depends on.
+
+        Task-pool-only saves neither read nor write the derived ceremony values,
+        so a Wonder commit that changed unique_wonders.yaml must not block them.
+        """
+        current = snapshot_files((DATA_FILE, TASK_POOL_FILE, UNIQUE_WONDERS_FILE), repo_root=REPO_ROOT)
+        loaded = self._base
+        if not include_derived:
+            base = {path: digest for path, digest in (base or {}).items() if path != UNIQUE_WONDERS_REL}
+            loaded = tuple(item for item in loaded if item.path != UNIQUE_WONDERS_REL)
+        assert_resource_base(base, loaded, current)
 
     @staticmethod
     def _field_diff(edits, before_data, before_tasks, after_data, after_tasks) -> list[dict[str, Any]]:
@@ -246,23 +303,60 @@ class CostRewardEditorService:
                 )
 
     def save_tokens(self, edits: dict[str, dict[str, dict[str, Any]]], base: dict[str, str] | None = None) -> dict:
-        with self._lock:
-            self._assert_base(base)
-            candidate_data, candidate_tasks = self._validate_and_apply(edits)
+        try:
             touched_cost_reward = any(edits.get(key) for key in CATEGORY_KEYS)
-            touched_task_pool = any(edits.get(key) for key in TASK_CATEGORY_KEYS)
-            files: dict = {}
-            if touched_cost_reward:
-                files[DATA_FILE] = yaml_bytes(DATA_FILE, candidate_data)
-            if touched_task_pool:
-                files[TASK_POOL_FILE] = yaml_bytes(TASK_POOL_FILE, candidate_tasks)
-            atomic_write_files(files)
-            if touched_cost_reward:
-                self._log.append(f"[save] Wrote {DATA_REL}\n")
-            if touched_task_pool:
-                self._log.append(f"[save] Wrote {TASK_POOL_REL}\n")
-            self.reload_from_disk()
-            return self._resource_payload()
+            resource_ids = ("editor.cost_reward", "editor.wonder") if touched_cost_reward else ("editor.cost_reward",)
+            with resource_operation(resource_ids, blocking=False), self._lock:
+                self._assert_base(base, include_derived=touched_cost_reward)
+                candidate_data, candidate_tasks = self._validate_and_apply(edits)
+                touched_task_pool = any(edits.get(key) for key in TASK_CATEGORY_KEYS)
+                files: dict = {}
+                if touched_cost_reward:
+                    files[DATA_FILE] = yaml_bytes(DATA_FILE, candidate_data)
+                    catalogs = build_cost_reward_unit_catalogs(candidate_data)
+                    unique_bytes = rewrite_unique_wonder_ceremony_cost_values(
+                        UNIQUE_WONDERS_FILE, cost_catalogs=catalogs
+                    )
+                    if UNIQUE_WONDERS_FILE.read_bytes() != unique_bytes:
+                        files[UNIQUE_WONDERS_FILE] = unique_bytes
+                if touched_task_pool:
+                    files[TASK_POOL_FILE] = yaml_bytes(TASK_POOL_FILE, candidate_tasks)
+                if not files:
+                    return self._resource_payload()
+
+                changed_unique = UNIQUE_WONDERS_FILE in files
+                plan = wonder_generation_plan(
+                    {"unique": changed_unique, "cost_reward": touched_cost_reward},
+                    repo_root=REPO_ROOT,
+                    regenerate=touched_cost_reward,
+                )
+                # Candidate serialization and plan construction may take long
+                # enough for another editor to change a source file. Recheck
+                # the base immediately before taking snapshots and replacing
+                # any target.
+                self._assert_base(base, include_derived=touched_cost_reward)
+                transaction_paths = (*files, *plan.outputs)
+
+                def reload_after_transaction() -> None:
+                    self.reload_from_disk()
+                    if touched_cost_reward and self._reload_callback is not None:
+                        self._reload_callback()
+
+                with file_transaction(transaction_paths, reload=reload_after_transaction):
+                    atomic_write_files(files)
+                    if plan.steps:
+                        run_generation(plan, log=self._log.append)
+                    reload_after_transaction()
+                if touched_cost_reward:
+                    self._log.append(f"[save] Wrote {DATA_REL}\n")
+                if changed_unique:
+                    self._log.append(f"[save] Recomputed {UNIQUE_WONDERS_REL}\n")
+                if touched_task_pool:
+                    self._log.append(f"[save] Wrote {TASK_POOL_REL}\n")
+                return self._resource_payload()
+        except Exception as exc:
+            self._log.append(f"[error] {exc}\n")
+            raise
 
 
 def _check_cost_reward(data: dict) -> list[str]:

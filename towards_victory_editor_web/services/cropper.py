@@ -250,7 +250,7 @@ class WonderCropTool:
         description="Apply saved 27:11 wonder image crops and rebuild DDS assets.",
         group="media",
         options=(),
-        resource_ids=("editor.wonder", "editor.wonder_crop"),
+        resource_ids=("editor.wonder", "editor.wonder_crop", "editor.cost_reward"),
         artifact_formats=("dds",),
     )
 

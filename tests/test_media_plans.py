@@ -212,7 +212,8 @@ def test_web_catalog_has_one_wonder_rebuild_entry():
     registry = build_registry()
     generator = registry.get("media.wonder_image")
     assert generator.spec.options == ()
-    assert generator.spec.resource_ids == ("editor.wonder", "editor.wonder_crop")
+    expected_resources = ("editor.wonder", "editor.wonder_crop", "editor.cost_reward")
+    assert generator.spec.resource_ids == expected_resources
     with pytest.raises(ValueError, match="Unknown option"):
         generator.validate({"convert_existing_assets": True})
-    assert registry.get("media.wonder_crop").spec.resource_ids == ("editor.wonder", "editor.wonder_crop")
+    assert registry.get("media.wonder_crop").spec.resource_ids == expected_resources

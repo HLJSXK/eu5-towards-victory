@@ -27,5 +27,8 @@ from ._core import (
     load_wonder_image_tasks,
     load_wonders_source_data,
     load_yaml,
+    build_cost_reward_unit_catalogs,
+    rewrite_unique_wonder_ceremony_cost_values,
+    reset_cost_reward_unit_caches,
     save_yaml_document,
 )

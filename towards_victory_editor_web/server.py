@@ -84,6 +84,8 @@ def create_app() -> FastAPI:
             or request.url.path.startswith("/api/resources/editor.wonder/")
         ) and wonder_service is not None:
             content["log_text"] = wonder_service.log_text
+        if request.url.path.startswith("/api/resources/editor.cost_reward"):
+            content["log_text"] = cost_reward_service.log_text
         return JSONResponse(status_code=status_code, content=content)
 
     @app.exception_handler(KeyError)
@@ -177,6 +179,8 @@ def create_app() -> FastAPI:
         wonder_service = WonderLocalizationService()
     except Exception as exc:  # noqa: BLE001
         wonder_load_error = str(exc)
+    if wonder_service is not None:
+        cost_reward_service.set_reload_callback(wonder_service.reload_from_disk)
 
     @app.get("/api/wonder-localization/catalog")
     def wonder_catalog() -> dict:

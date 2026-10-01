@@ -67,15 +67,11 @@ class GenerationError(RuntimeError):
         super().__init__(message)
 
 
-def build_generation_plan(
-    specs: Iterable[GeneratorSpec], roots: Iterable[str], *, repo_root: Path,
-) -> GenerationPlan:
-    catalog = {}
-    for spec in specs:
-        if spec.script in catalog:
-            raise ValueError(f"Duplicate generator: {spec.script}")
-        catalog[spec.script] = spec
-    ordered = []
+def _order_generators(
+    catalog: dict[str, GeneratorSpec], roots: Iterable[str],
+) -> tuple[list[str], dict[str, set[str]]]:
+    """Topologically order roots and their upstream closure."""
+    ordered: list[str] = []
     visiting = set()
     ancestors: dict[str, set[str]] = {}
 
@@ -97,10 +93,40 @@ def build_generation_plan(
 
     for script in roots:
         visit(script)
-    outputs = generated_outputs_by_script(
-        ordered, repo_root=repo_root,
-        extra_outputs={script: catalog[script].extra_outputs for script in ordered},
-    )
+    return ordered, ancestors
+
+
+def build_generation_plan(
+    specs: Iterable[GeneratorSpec], roots: Iterable[str], *, repo_root: Path,
+) -> GenerationPlan:
+    """Plan roots, their upstream dependencies, and every downstream consumer.
+
+    A generator joins the plan when it depends on a planned generator or reads
+    one of its outputs, so a partial plan cannot leave a merge step stale.
+    """
+    catalog = {}
+    for spec in specs:
+        if spec.script in catalog:
+            raise ValueError(f"Duplicate generator: {spec.script}")
+        catalog[spec.script] = spec
+    selected = list(dict.fromkeys(roots))
+    while True:
+        ordered, ancestors = _order_generators(catalog, selected)
+        outputs = generated_outputs_by_script(
+            ordered, repo_root=repo_root,
+            extra_outputs={script: catalog[script].extra_outputs for script in ordered},
+        )
+        produced = {path for script in ordered for path in outputs[script]}
+        dependents = [
+            spec.script for spec in catalog.values()
+            if spec.script not in ancestors and (
+                any(dependency in ancestors for dependency in spec.depends_on)
+                or any((repo_root / source).resolve() in produced for source in spec.inputs)
+            )
+        ]
+        if not dependents:
+            break
+        selected.extend(dependents)
     writers: dict[Path, list[str]] = {}
     for script in ordered:
         if not math.isfinite(catalog[script].timeout_seconds) or catalog[script].timeout_seconds <= 0:

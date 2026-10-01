@@ -5,7 +5,7 @@ import json
 import re
 import sys
 import threading
-from contextlib import ExitStack
+from contextlib import ExitStack, contextmanager
 from copy import copy, deepcopy
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -40,6 +40,7 @@ from scripts_engineering_department.wonder_mechanics.io import (
     load_mechanics_source_data,
     load_unique_wonders_source_data,
     load_wonders_source_data,
+    reset_cost_reward_unit_caches,
     save_yaml_document,
 )
 from scripts_engineering_department.wonder_mechanics.modifiers import authored_final_building_local_modifiers
@@ -2324,6 +2325,7 @@ class WonderLocalizationService:
             self.__dict__.update(loaded.__dict__)
 
     def _load_from_disk(self) -> None:
+        reset_cost_reward_unit_caches()
         self.wonders_data = load_wonders_source_data()
         self.mechanics_data = load_mechanics_source_data()
         self.unique_wonders_data = load_unique_wonders_source_data()
@@ -2490,6 +2492,19 @@ class WonderLocalizationService:
                 ).payload(),
             }
 
+    @contextmanager
+    def _commit_locks(self, *, regenerate: bool):
+        """Acquire shared resources before the service lock to keep lock order global."""
+        with ExitStack() as resource_guard:
+            resource_ids = ("editor.wonder", "editor.cost_reward") if regenerate else ("editor.wonder",)
+            try:
+                resource_guard.enter_context(resource_operation(resource_ids, blocking=False))
+                resource_guard.enter_context(self._lock)
+            except Exception as exc:
+                self._append_log(f"[error] {exc}\n")
+                raise
+            yield resource_guard
+
     def commit_resource(
         self,
         drafts_by_wonder_id: dict[int, dict[str, Any]],
@@ -2498,10 +2513,8 @@ class WonderLocalizationService:
         current_wonder_id: int | None = None,
         regenerate: bool = True,
     ) -> dict[str, Any]:
-        with self._lock, ExitStack() as resource_guard:
+        with self._commit_locks(regenerate=regenerate) as resource_guard:
             try:
-                # Wonder media jobs read these sources; a busy resource is logged and returned as 409.
-                resource_guard.enter_context(resource_operation(("editor.wonder",), blocking=False))
                 self._assert_base(base)
                 target_wonder_id = current_wonder_id
                 if target_wonder_id is None and drafts_by_wonder_id:

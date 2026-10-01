@@ -10,7 +10,11 @@ import yaml
 from fastapi.testclient import TestClient
 
 from towards_victory_editor_web.services import wonder_localization
-from towards_victory_editor_web.services.wonder_generation import LOCALIZATION_SCRIPTS, wonder_generation_plan
+from towards_victory_editor_web.services.wonder_generation import (
+    LOCALIZATION_SCRIPTS,
+    wonder_generation_plan,
+)
+from towards_victory_editor_web.services.generation import GeneratorSpec, build_generation_plan
 from towards_victory_editor_web.services.common import RollingLog
 from towards_victory_editor_web.services.platform import ConflictError, ResourceDescriptor, resource_operation, snapshot_files
 
@@ -52,6 +56,16 @@ def service(tmp_path, monkeypatch):
     monkeypatch.setattr(wonder_localization, "REPO_ROOT", tmp_path)
     _registry(tmp_path, ("generated/localization.yml",))
 
+    def isolated_plan(changed, *, repo_root, regenerate=True):
+        if repo_root == tmp_path:
+            if not regenerate or not changed.get("localization"):
+                return build_generation_plan((), (), repo_root=repo_root)
+            specs = tuple(GeneratorSpec(script) for script in LOCALIZATION_SCRIPTS.values())
+            return build_generation_plan(specs, LOCALIZATION_SCRIPTS.values(), repo_root=repo_root)
+        return wonder_generation_plan(changed, repo_root=repo_root, regenerate=regenerate)
+
+    monkeypatch.setattr(wonder_localization, "wonder_generation_plan", isolated_plan)
+
     service = object.__new__(wonder_localization.WonderLocalizationService)
     service._lock = threading.RLock()
     service._base = snapshot_files(wonder_localization._wonder_source_paths(), repo_root=tmp_path)
@@ -71,6 +85,11 @@ def service(tmp_path, monkeypatch):
 
 def _base(service) -> dict[str, str]:
     return {item.path: item.sha256 for item in service._base}
+
+
+class _UnusedCostRewardService:
+    def set_reload_callback(self, _callback) -> None:
+        pass
 
 
 def test_resource_descriptor_and_base_snapshot(service):
@@ -285,6 +304,28 @@ def test_commit_conflicts_while_wonder_media_job_holds_resource(service):
     assert source_path.read_bytes() == before
 
 
+def test_commit_without_regeneration_does_not_lock_cost_reward(service):
+    source_path = wonder_localization._wonder_source_paths()[0]
+    before = source_path.read_bytes()
+    service._candidate_for_drafts = lambda _drafts: (
+        {"localization": True, "mechanics": False, "wonders": False, "unique": False},
+        {source_path: b"saved without regeneration\n"},
+        [],
+    )
+    with resource_operation(("editor.cost_reward",)):
+        result = service.commit_resource({}, _base(service), regenerate=False)
+    assert result["changed_files"]
+    assert source_path.read_bytes() != before
+
+
+def test_regenerating_wonder_commit_locks_cost_reward(service):
+    service._candidate_for_drafts = lambda _drafts: pytest.fail("busy commit prepared a candidate")
+    with resource_operation(("editor.cost_reward",)):
+        with pytest.raises(ConflictError, match="Resource busy: editor.cost_reward"):
+            service.commit_resource({}, _base(service), regenerate=True)
+    assert "[error] Resource busy: editor.cost_reward" in service.log_text
+
+
 def test_commit_rejects_unknown_current_wonder_before_writing(service):
     source_path = wonder_localization._wonder_source_paths()[0]
     source_before = source_path.read_bytes()
@@ -369,6 +410,9 @@ def test_http_resource_contract_maps_missing_base_and_conflict(monkeypatch):
     class FakeWonderService:
         log_text = ""
 
+        def reload_from_disk(self):
+            pass
+
         def load_resource(self):
             return {"resource": descriptor, "draft": {}, "change_set": {"base": []}}
 
@@ -387,7 +431,7 @@ def test_http_resource_contract_maps_missing_base_and_conflict(monkeypatch):
                 raise ValueError("base must include snapshots for all resource files")
             return {"status": "ok"}
 
-    monkeypatch.setattr(server, "CostRewardEditorService", lambda: object())
+    monkeypatch.setattr(server, "CostRewardEditorService", _UnusedCostRewardService)
     monkeypatch.setattr(server, "VictoryTreePlannerService", lambda: object())
     monkeypatch.setattr(server, "WonderLocalizationService", FakeWonderService)
 
@@ -415,7 +459,7 @@ def test_http_resource_contract_maps_missing_base_and_conflict(monkeypatch):
 def test_http_commit_errors_include_service_log(service, monkeypatch, failure, status):
     from towards_victory_editor_web import server
 
-    monkeypatch.setattr(server, "CostRewardEditorService", lambda: object())
+    monkeypatch.setattr(server, "CostRewardEditorService", _UnusedCostRewardService)
     monkeypatch.setattr(server, "VictoryTreePlannerService", lambda: object())
     monkeypatch.setattr(server, "WonderLocalizationService", lambda: service)
     base = _base(service)
@@ -489,12 +533,14 @@ def test_real_runner_failure_rolls_back_and_returns_http_report(service, tmp_pat
         {'localization': True}, {source: b'new source\n'}, [1],
     )
     if failure == 'timeout':
+        base_plan = wonder_localization.wonder_generation_plan
+
         def short_plan(*args, **kwargs):
-            plan = wonder_generation_plan(*args, **kwargs)
+            plan = base_plan(*args, **kwargs)
             return replace(plan, steps=tuple(
                 replace(step, spec=replace(step.spec, timeout_seconds=1)) for step in plan.steps))
         monkeypatch.setattr(wonder_localization, 'wonder_generation_plan', short_plan)
-    monkeypatch.setattr(server, 'CostRewardEditorService', lambda: object())
+    monkeypatch.setattr(server, 'CostRewardEditorService', _UnusedCostRewardService)
     monkeypatch.setattr(server, 'VictoryTreePlannerService', lambda: object())
     monkeypatch.setattr(server, 'WonderLocalizationService', lambda: service)
     with TestClient(server.create_app()) as client:

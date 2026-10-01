@@ -169,6 +169,43 @@ def test_real_wonder_plan_dependencies_and_current_artifacts():
     assert not wonder_generation_plan({'mechanics': True}, repo_root=root, regenerate=False).steps
 
 
+def test_plan_adds_downstream_consumers_of_planned_outputs(tmp_path):
+    _workspace(tmp_path, {name: '' for name in ('fragment.py', 'merge.py', 'reader.py', 'other.py')}, {
+        'fragment.py': ['fragment.gui'], 'merge.py': ['panel.gui'],
+        'reader.py': ['report.txt'], 'other.py': ['other.txt'],
+    })
+    (tmp_path / 'fragment.gui').write_text('widget = {}')
+    (tmp_path / 'panel.gui').write_text('widget = {}')
+    specs = (
+        GeneratorSpec('fragment.py'),
+        GeneratorSpec('merge.py', ('fragment.py',), ('fragment.gui',)),
+        GeneratorSpec('reader.py', ('merge.py',), ('panel.gui',)),
+        GeneratorSpec('other.py'),
+    )
+    plan = build_generation_plan(specs, ('fragment.py',), repo_root=tmp_path)
+    assert [step.spec.script for step in plan.steps] == ['fragment.py', 'merge.py', 'reader.py']
+    # A consumer that reads a planned output without declaring the edge is
+    # pulled in and then rejected instead of being silently left stale.
+    with pytest.raises(ValueError, match='Missing dependency for reader.py'):
+        build_generation_plan((GeneratorSpec('fragment.py'), GeneratorSpec('reader.py', inputs=('fragment.gui',))),
+                              ('fragment.py',), repo_root=tmp_path)
+
+
+def test_real_wonder_cost_reward_plan_includes_loader_consumers_and_merges():
+    root = Path(__file__).resolve().parents[1]
+    plan = wonder_generation_plan({'cost_reward': True}, repo_root=root)
+    names = {Path(step.spec.script).name for step in plan.steps}
+    assert len(plan.steps) == 22
+    assert names >= {
+        'merge_tv_engineering_department_wonder_mechanics_gui.py',
+        'gen_tv_wonder_ceremony_cards_gui.py',
+        'merge_tv_wonder_ceremony_cards_gui.py',
+    }
+    assert 'gen_location_window.py' not in names
+    readers = [step for step in plan.steps if 'data/cost_reward_units.yaml' in step.spec.inputs]
+    assert len(readers) == 19
+
+
 def test_real_wonder_regeneration_matches_current_outputs(tmp_path):
     """Execute current generators in isolation; compare bytes with current outputs."""
     root = Path(__file__).resolve().parents[1]

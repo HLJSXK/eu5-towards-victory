@@ -3,7 +3,7 @@ from fastapi.testclient import TestClient
 
 from towards_victory_editor_web.services import cost_reward
 from towards_victory_editor_web.services.cost_reward import CostRewardEditorService
-from towards_victory_editor_web.services.platform import ConflictError
+from towards_victory_editor_web.services.platform import ConflictError, resource_operation
 from scripts_engineering_department.wonder_mechanics.io import dump_yaml_document, load_yaml
 
 
@@ -23,6 +23,14 @@ trigger_task:
     comparison: gte
     representative_threshold: 1
 """
+UNIQUE_SAMPLE = """unique_wonders:
+- id: 101
+  ceremony:
+    stages:
+""" + "".join(
+    f"    - title_en: stage_{index}\n      cost:\n        - catalog: country_reward\n          type: sample_one\n          value: {-0.2 if index % 2 else -0.4}{' # authored' if index == 1 else ''}\n"
+    for index in range(1, 9)
+)
 
 
 @pytest.fixture
@@ -31,13 +39,18 @@ def service(tmp_path, monkeypatch):
     data_dir.mkdir()
     data_file = data_dir / "cost_reward_units.yaml"
     task_file = data_dir / "task_pool.yaml"
+    unique_file = data_dir / "unique_wonders.yaml"
     data_file.write_text(COST_SAMPLE, encoding="utf-8")
     task_file.write_text(TASK_SAMPLE, encoding="utf-8")
+    unique_file.write_text("unique_wonders: []\n", encoding="utf-8")
     monkeypatch.setattr(cost_reward, "DATA_FILE", data_file)
     monkeypatch.setattr(cost_reward, "TASK_POOL_FILE", task_file)
+    monkeypatch.setattr(cost_reward, "UNIQUE_WONDERS_FILE", unique_file)
     monkeypatch.setattr(cost_reward, "DATA_REL", "data/cost_reward_units.yaml")
     monkeypatch.setattr(cost_reward, "TASK_POOL_REL", "data/task_pool.yaml")
     monkeypatch.setattr(cost_reward, "REPO_ROOT", tmp_path)
+    from towards_victory_editor_web.services.generation import GenerationPlan
+    monkeypatch.setattr(cost_reward, "wonder_generation_plan", lambda changed, **kwargs: GenerationPlan(tmp_path, ()))
     return CostRewardEditorService()
 
 
@@ -113,6 +126,70 @@ def test_commit_preserves_existing_bom(service):
     base = {item["path"]: item["sha256"] for item in loaded["change_set"]["base"]}
     service.save_tokens({"country_reward": {"sample_one": {"value": 42}}}, base)
     assert data_file.read_bytes().startswith(b"\xef\xbb\xbf")
+
+
+def test_cost_change_rewrites_derived_unique_ceremony_values(service, monkeypatch):
+    cost_reward.UNIQUE_WONDERS_FILE.write_text(UNIQUE_SAMPLE, encoding="utf-8")
+    service.reload_from_disk()
+    from towards_victory_editor_web.services.generation import GenerationPlan
+
+    captured = {}
+    refreshed = []
+    monkeypatch.setattr(cost_reward, "wonder_generation_plan", lambda changed, **kwargs: (
+        captured.setdefault("changed", changed), GenerationPlan(kwargs["repo_root"], ())
+    )[1])
+    service.set_reload_callback(lambda: refreshed.append(load_yaml(cost_reward.UNIQUE_WONDERS_FILE)))
+    initial = service.load_resource()
+    base = {item["path"]: item["sha256"] for item in initial["change_set"]["base"]}
+    service.save_tokens({"country_reward": {"sample_one": {"value": 0.3}}}, base)
+    assert captured["changed"] == {"unique": True, "cost_reward": True}
+    assert refreshed and refreshed[0]["unique_wonders"][0]["ceremony"]["stages"][0]["cost"][0]["value"] == -0.3
+    updated_unique = cost_reward.UNIQUE_WONDERS_FILE.read_text(encoding="utf-8")
+    assert "value: -0.3 # authored" in updated_unique
+    assert "value: -0.2" not in updated_unique
+
+
+def test_derived_unique_change_blocks_only_cost_saves(service):
+    initial = service.load_resource()
+    base = {item["path"]: item["sha256"] for item in initial["change_set"]["base"]}
+    unique_before = "unique_wonders: []\n# edited by the Wonder editor\n"
+    cost_reward.UNIQUE_WONDERS_FILE.write_text(unique_before, encoding="utf-8")
+    cost_before = cost_reward.DATA_FILE.read_bytes()
+    with pytest.raises(ConflictError, match="data/unique_wonders.yaml"):
+        service.save_tokens({"country_reward": {"sample_one": {"value": 0.3}}}, base)
+    assert cost_reward.DATA_FILE.read_bytes() == cost_before
+    service.save_tokens({"on_action_task": {"sample_action": {"wired": True}}}, base)
+    assert load_yaml(cost_reward.TASK_POOL_FILE)["on_action_task"][0]["wired"] is True
+    assert cost_reward.UNIQUE_WONDERS_FILE.read_text(encoding="utf-8") == unique_before
+
+
+def test_unrecognized_unique_layout_fails_before_writing(service):
+    # The stage title is not the first key, so the line rewrite cannot count stages.
+    cost_reward.UNIQUE_WONDERS_FILE.write_text(
+        UNIQUE_SAMPLE.replace("    - title_en: stage_2\n", "    - desc_en: moved\n      title_en: stage_2\n"),
+        encoding="utf-8",
+    )
+    service.reload_from_disk()
+    initial = service.load_resource()
+    base = {item["path"]: item["sha256"] for item in initial["change_set"]["base"]}
+    before = {path: path.read_bytes() for path in (cost_reward.DATA_FILE, cost_reward.UNIQUE_WONDERS_FILE)}
+    with pytest.raises(ValueError, match="check the file layout"):
+        service.preview_edits({"country_reward": {"sample_one": {"value": 0.3}}}, base)
+    with pytest.raises(ValueError, match="check the file layout"):
+        service.save_tokens({"country_reward": {"sample_one": {"value": 0.3}}}, base)
+    assert {path: path.read_bytes() for path in before} == before
+    assert "[error] Ceremony cost rewrite left" in service.log_text
+
+
+def test_commit_conflicts_while_cost_reward_resource_is_busy(service):
+    loaded = service.load_resource()
+    base = {item["path"]: item["sha256"] for item in loaded["change_set"]["base"]}
+    before = cost_reward.DATA_FILE.read_bytes()
+    with resource_operation(("editor.cost_reward",)):
+        with pytest.raises(ConflictError, match="Resource busy: editor.cost_reward"):
+            service.save_tokens({}, base)
+    assert cost_reward.DATA_FILE.read_bytes() == before
+    assert "[error] Resource busy: editor.cost_reward" in service.log_text
 
 
 def test_http_bad_id_missing_base_and_conflict(service, monkeypatch):

@@ -256,6 +256,13 @@ _COST_REWARD_UNIT_ENTRIES_CACHE: dict[str, list[dict[str, object]]] | None = Non
 _COST_REWARD_UNITS_CACHE: dict[str, dict[str, float]] | None = None
 
 
+def reset_cost_reward_unit_caches() -> None:
+    """Forget the process-local cost/reward catalog after its source changes."""
+    global _COST_REWARD_UNIT_ENTRIES_CACHE, _COST_REWARD_UNITS_CACHE
+    _COST_REWARD_UNIT_ENTRIES_CACHE = None
+    _COST_REWARD_UNITS_CACHE = None
+
+
 def load_cost_reward_unit_entries() -> dict[str, list[dict[str, object]]]:
     """Load the complete data/cost_reward_units.yaml catalog, preserving every
     authored entry. Ceremony-cost helpers apply their own filtering on top."""
@@ -285,21 +292,32 @@ def load_cost_reward_units() -> dict[str, dict[str, float]]:
     {catalog: {id: base_value}} map. Cached after the first call."""
     global _COST_REWARD_UNITS_CACHE
     if _COST_REWARD_UNITS_CACHE is None:
-        data = load_cost_reward_unit_entries()
-        catalogs: dict[str, dict[str, float]] = {}
-        for catalog in CEREMONY_COST_CATALOGS:
-            usable: dict[str, float] = {}
-            for entry in data[catalog]:
-                entry_id = entry["id"]
-                if (catalog, entry_id) in CEREMONY_COST_EXCLUDED_IDS:
-                    continue
-                value = entry["value"]
-                if isinstance(value, bool):
-                    continue
-                usable[entry_id] = value
-            catalogs[catalog] = usable
-        _COST_REWARD_UNITS_CACHE = catalogs
+        _COST_REWARD_UNITS_CACHE = build_cost_reward_unit_catalogs(
+            {catalog: list(entries) for catalog, entries in load_cost_reward_unit_entries().items()}
+        )
     return _COST_REWARD_UNITS_CACHE
+
+
+def build_cost_reward_unit_catalogs(data: dict[str, object]) -> dict[str, dict[str, float]]:
+    """Build the ceremony-cost lookup from an already validated candidate document."""
+    catalogs: dict[str, dict[str, float]] = {}
+    for catalog in CEREMONY_COST_CATALOGS:
+        raw_entries = data.get(catalog, [])
+        if not isinstance(raw_entries, list):
+            raise TypeError(f"{COST_REWARD_UNITS_FILE}.{catalog} must be a list")
+        usable: dict[str, float] = {}
+        for entry in raw_entries:
+            if not isinstance(entry, dict):
+                raise TypeError(f"{COST_REWARD_UNITS_FILE}.{catalog} entries must be objects")
+            entry_id = str(entry.get("id", "")).strip()
+            if not entry_id or (catalog, entry_id) in CEREMONY_COST_EXCLUDED_IDS:
+                continue
+            value = entry.get("value")
+            if isinstance(value, bool) or not isinstance(value, (int, float)):
+                continue
+            usable[entry_id] = value
+        catalogs[catalog] = usable
+    return catalogs
 
 
 def ceremony_cost_stage_multiplier(stage_index: int) -> int:
@@ -309,7 +327,12 @@ def ceremony_cost_stage_multiplier(stage_index: int) -> int:
 
 
 def ceremony_cost_computed_value(catalog: str, entry_id: str, stage_index: int) -> float:
-    cost_catalogs = load_cost_reward_units()
+    return ceremony_cost_value_from_catalogs(load_cost_reward_units(), catalog, entry_id, stage_index)
+
+
+def ceremony_cost_value_from_catalogs(
+    cost_catalogs: dict[str, dict[str, float]], catalog: str, entry_id: str, stage_index: int
+) -> float:
     if catalog not in cost_catalogs or entry_id not in cost_catalogs[catalog]:
         raise ValueError(f"Unknown ceremony cost catalog entry: {catalog}.{entry_id}")
     base_value = cost_catalogs[catalog][entry_id]
@@ -320,6 +343,99 @@ def ceremony_cost_computed_value(catalog: str, entry_id: str, stage_index: int) 
     if catalog == "country_reward" and entry_id == "inflation":
         return round(base_value * multiplier, 10)
     return round(-base_value * multiplier, 10)
+
+
+def rewrite_unique_wonder_ceremony_cost_values(
+    path: Path = UNIQUE_WONDERS_FILE,
+    *,
+    cost_catalogs: dict[str, dict[str, float]] | None = None,
+) -> bytes:
+    """Rewrite authored ceremony cost magnitudes from the current catalog.
+
+    The unique-wonder file is intentionally edited line-by-line so its BOM,
+    comments, ordering, and formatting remain stable. Only ``value`` lines
+    inside a ceremony stage's ``cost`` block are changed.
+    """
+    raw = path.read_bytes()
+    has_bom = raw.startswith(b"\xef\xbb\xbf")
+    text = raw.decode("utf-8-sig")
+    newline = "\r\n" if "\r\n" in text else "\n"
+    lines = text.replace("\r\n", "\n").replace("\r", "\n").split("\n")
+    catalogs = load_cost_reward_units() if cost_catalogs is None else cost_catalogs
+    stage_index = 0
+    in_cost = False
+    catalog = entry_id = None
+    changed = 0
+
+    def format_value(value: float) -> str:
+        return str(int(value)) if float(value).is_integer() else repr(float(value))
+
+    for index, line in enumerate(lines):
+        if line.startswith("- id:"):
+            stage_index = 0
+            in_cost = False
+            catalog = entry_id = None
+        elif line.startswith("    - title_en:"):
+            stage_index += 1
+            in_cost = False
+            catalog = entry_id = None
+        elif line == "      cost:":
+            in_cost = True
+            catalog = entry_id = None
+        elif in_cost and line.lstrip().startswith("- catalog:"):
+            catalog = line.split(":", 1)[1].strip()
+        elif in_cost and line.lstrip().startswith("type:"):
+            entry_id = line.split(":", 1)[1].strip()
+        elif in_cost and line.lstrip().startswith("value:") and catalog and entry_id:
+            value = ceremony_cost_value_from_catalogs(catalogs, catalog, entry_id, stage_index)
+            prefix = line.split(":", 1)[0] + ": "
+            value_text = line.split(":", 1)[1]
+            numeric_text, marker, comment = value_text.partition("#")
+            replacement = prefix + format_value(value)
+            try:
+                unchanged = float(numeric_text.strip()) == float(value)
+            except ValueError:
+                unchanged = False
+            if not unchanged:
+                if marker:
+                    replacement += " #" + comment
+                lines[index] = replacement
+                changed += 1
+            in_cost = False
+
+    if changed == 0:
+        result = raw
+    else:
+        result = (b"\xef\xbb\xbf" if has_bom else b"") + newline.join(lines).encode("utf-8")
+    _check_unique_wonder_ceremony_cost_values(result, catalogs, source_name=str(path))
+    return result
+
+
+def _check_unique_wonder_ceremony_cost_values(
+    content: bytes, cost_catalogs: dict[str, dict[str, float]], *, source_name: str
+) -> None:
+    """Fail before writing when the line rewrite missed a stage or used the wrong parity."""
+    loader = StrictWonderYamlLoader(content.decode("utf-8-sig"))
+    loader.source_name = source_name
+    try:
+        data = loader.get_single_data()
+    finally:
+        loader.dispose()
+    for wonder_index, wonder in enumerate(data.get("unique_wonders") or [], start=1):
+        ceremony = wonder.get("ceremony") if isinstance(wonder, dict) else None
+        if not isinstance(ceremony, dict):
+            continue
+        for stage_index, stage in enumerate(ceremony.get("stages") or [], start=1):
+            for cost_index, item in enumerate(stage.get("cost") or [], start=1):
+                expected = ceremony_cost_value_from_catalogs(
+                    cost_catalogs, item["catalog"], item["type"], stage_index
+                )
+                if abs(item["value"] - expected) > 1e-9:
+                    raise ValueError(
+                        f"Ceremony cost rewrite left {source_name}.unique_wonders[{wonder_index}]"
+                        f".ceremony.stages[{stage_index}].cost[{cost_index}].value at {item['value']},"
+                        f" expected {expected}; check the file layout"
+                    )
 
 
 def ceremony_stage_cost_country_modifier_name(wonder_key: str, stage_index: int) -> str:

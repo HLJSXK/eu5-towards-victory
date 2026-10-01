@@ -22,7 +22,7 @@
 
 当前服务规模和职责仍明显不对称：`wonder_localization.py` 约 3,800 行，四个编辑器仍各自维护领域加载、校验、内存状态和日志；Wonder 只是在外层增加了统一资源描述、快照、预览和提交事务。媒体则由 `tooling.py`、`media.py`、`media_tools.py`、`media_plans.py`、`cropper.py` 组成另一条生命周期。旧工具在提交 `1653d467` 中被移入统一包，但提交内容主要是入口、路由和静态资源迁移，原有 service 和页面逻辑基本被保留；提交 `d56fa727` 又在此基础上追加了媒体作业框架。这与“拼接旧工具”的现象相符。
 
-编辑器保存是同步请求，通过各自的资源 commit 写入文件；媒体任务是异步、线程池、作业轮询和产物快照。`JobManager` 允许三个 worker，但用全局执行锁把实际写入串行化（见 [tooling.py](../../towards_victory_editor_web/services/tooling.py#L289)），Wonder 两个媒体作业与 Wonder、crop commit 已共享进程内资源锁；cost/reward 与 victory tree 尚未共享，也没有统一的变更事件或提交记录。
+编辑器保存是同步请求，通过各自的资源 commit 写入文件；媒体任务是异步、线程池、作业轮询和产物快照。`JobManager` 允许三个 worker，但用全局执行锁把实际写入串行化（见 [tooling.py](../../towards_victory_editor_web/services/tooling.py#L289)）。两个 Wonder 媒体作业锁定 `editor.wonder`、`editor.wonder_crop` 和 `editor.cost_reward`；会运行生成器的 Wonder commit 锁定 `editor.wonder` 与 `editor.cost_reward`，禁用生成时只锁前者；crop commit 锁定 `editor.wonder_crop`；修改 cost/reward 分类时的 commit 锁定 `editor.cost_reward` 与 `editor.wonder`，只改 task pool 时只锁 `editor.cost_reward`。victory tree 尚未共享，也没有统一的变更事件或提交记录。
 
 ### 数据契约没有共同的资源边界
 
@@ -289,7 +289,7 @@ Wonder 已接入平台的 `load/draft/validate/preview/commit` API：`editor.won
 
 新增验证：
 
-- `GET /api/resources/editor.cost_reward` 返回 `ResourceDescriptor`、draft 和仓库相对路径的源文件快照；
+- `GET /api/resources/editor.cost_reward` 返回 `ResourceDescriptor`、draft 和仓库相对路径的源文件快照；cost/reward 的资源边界同时包含 `data/unique_wonders.yaml`，因为典礼阶段的派生 cost.value 会随基础目录更新。修改分类的保存校验三个文件的 base；只改 task pool 的保存不读写派生文件，因此忽略 `unique_wonders.yaml` 的 base，Wonder 保存后不会产生假冲突。
 - `POST /api/resources/editor.cost_reward/{validate,preview,commit}` 提供统一操作入口；校验和预览基于深拷贝，commit 强制携带加载时的 base 摘要，冲突返回 409，写入走暂存替换；
 - 仓库测试 `tests/test_cost_reward_resource_contract.py` 使用临时目录中的固定样本，覆盖校验隔离、未知分类、字段级 diff、文件头注释与 BOM 保留、外部修改后重新加载，以及旧 base 冲突检测；
 - `services/platform.py` 提供文件快照、`ChangeSet` 和暂存替换基础设施；cost/reward、tree、Wonder 和 cropper 配置均已复用。
@@ -302,9 +302,9 @@ Wonder 已接入平台的 `load/draft/validate/preview/commit` API：`editor.won
 - `GET /api/resources/editor.wonder_crop` 与对应 `validate/preview/commit` 操作描述 `data/wonder_image_crops.json`，将裁剪框按图片索引映射为 draft，并用源文件 SHA-256 base 检测外部修改。commit 使用平台暂存写入和恢复事务；`/api/cropper/image/{index}` 仅保留图片读取，DDS 重建通过 `/api/jobs` 提交 `media.wonder_crop`。旧 cropper bootstrap/save/remove/apply 路由已删除。
 - `tests/test_cropper_resource_contract.py` 的 4 项固定样本测试覆盖资源描述、裁剪预览隔离、保存与删除、非法索引/非有限坐标、缺失或过期 base、写入失败恢复及 HTTP 路由；`python -m pytest tests/test_cropper_resource_contract.py -q` 通过。
 - 五个可运行媒体 handler 都通过必需的 `prepare` 方法返回 `ToolPlan`：配置与任务集合只解析一次，执行闭包使用同一批解析结果。必需输入缺失时在写入前失败；必需产物缺失或格式校验失败时任务失败。可选 local/crop 配置即使不存在也记录摘要，以检测运行期间的新建。格式检查覆盖 PNG/DDS/JPEG 文件头和 JSON 语法，尚不是完整图片解码、尺寸策略或领域 schema 校验。
-- 目前只有 `media.wonder_crop` 和 `media.wonder_image` 声明了 `editor.wonder` 与 `editor.wonder_crop` 资源依赖；其余三个媒体 handler 声明文件输入和产物格式，尚无编辑器资源依赖登记。交互式目录条目不运行媒体产物校验。Web 的既有 DDS 重建只保留 `media.wonder_crop`，已删除 `media.wonder_image` 的 `convert_existing_assets` 选项；CLI 重建参数仍调用共用转换函数。
+- 目前 `media.wonder_crop` 和 `media.wonder_image` 声明了 `editor.wonder`、`editor.wonder_crop` 与 `editor.cost_reward` 资源依赖；其余三个媒体 handler 声明文件输入和产物格式，尚无编辑器资源依赖登记。交互式目录条目不运行媒体产物校验。Web 的既有 DDS 重建只保留 `media.wonder_crop`，已删除 `media.wonder_image` 的 `convert_existing_assets` 选项；CLI 重建参数仍调用共用转换函数。
 - Wonder rebuild 输入包含 `scripts_engineering_department/generate_wonder_image_config.json`、可选 local 配置、决定任务集合的 Wonder YAML/Prompt、可选 crop JSON、PNG 及纯 DDS 源；声明完整 DDS 和 PNG 对应的 `_cropped.dds`。声明使用生成器当前任务计划，与 cropper 启动时的 UI 图片缓存无关。DDS 图标的 JSON 元数据和参考图片转换产物也按配置路径声明；不再扫描整个目录，把无关文件变化误归属到当前 job。
-- Wonder 作业与 Wonder commit、crop commit 共用 `editor.wonder`、`editor.wonder_crop` 进程内锁，作业期间保存返回 HTTP 409；作业遇到正在保存的资源则在写入前失败。Wonder 任务也读取 `data/cost_reward_units.yaml`，但 cost/reward commit 未加锁，其变化只在执行后作为输入过期报告。外部编辑无法由此锁阻止，仍以执行前后摘要检测；纯 DDS 就地转换和元数据就地更新的输入输出重叠文件只做执行前检查。
+- Wonder 作业锁定 `editor.wonder`、`editor.wonder_crop`、`editor.cost_reward`；会运行生成器的 Wonder commit 锁定 `editor.wonder` 与 `editor.cost_reward`，禁用生成时只锁 `editor.wonder`；crop commit 锁定 `editor.wonder_crop`；修改 cost/reward 分类时的 commit 锁定 `editor.cost_reward` 与 `editor.wonder`，只改 task pool 时只锁 `editor.cost_reward`。cost/reward 保存会根据新目录重写 `unique_wonders.yaml` 中的典礼阶段数值（重写结果在写入前重新解析并按候选目录逐项校验，文件布局无法识别时在 preview/commit 阶段直接报错），在同一恢复事务中运行受影响的 Wonder 生成器，并刷新驻留的 Wonder 服务目录；因此长时间运行的 Wonder 图片作业期间 cost/reward 保存返回 409 是有意的强一致性取舍。禁用生成的 Wonder 保存不再额外占用 `editor.cost_reward` 锁；cost/reward 保存仍占用 `editor.wonder` 锁以保护派生文件。作业期间保存返回 HTTP 409，作业遇到正在保存的资源则在写入前失败。外部编辑无法由此锁阻止，仍以执行前后摘要检测；纯 DDS 就地转换和元数据就地更新的输入输出重叠文件只做执行前检查。
 - 媒体生成器仍直接写正式产物，没有暂存发布或媒体回滚事务。异常、输入变化、产物缺失和取消都会先收集执行后状态，保留产物清单、缺失路径和格式报告；已有输出变动时返回 `outputs_may_be_partial` 并记录未回滚。取消状态优先于输入过期错误。中途创建并删除的临时文件不留在清单中，未声明写入也不自动追踪或恢复。Media studio 展示输入、声明输出、变化状态与校验错误。
 - `tests/test_media_job_contract.py` 和 `tests/test_media_plans.py` 覆盖失败/取消后清单保留、输入与产物缺失、可选配置新建、无关文件不归属、格式失败、真实 Wonder 计划与 DDS 转换、DDS 图标元数据、固定任务执行、dry-run、Web 重建唯一入口、生成器跳过无 PNG 的半套 DDS 时的产物声明，以及 `/api/jobs` / crop commit 409；`tests/test_wonder_resource_contract.py` 覆盖 Wonder 作业占用资源时 commit 在写入前失败。真实图片转换使用临时目录，网络生成以替身隔离，不会调用付费图片 API。
 - Wonder 的资源接口为 `GET /api/resources/editor.wonder` 与 `POST .../{validate,preview,commit}`。资源 commit 在写入前检查当前奇观 ID，再暂存源文件、运行按变更类别选择的 generator；生成器、重新加载或响应构建失败时，由平台事务恢复已快照且发生变化的文件。完整生成计划仍为 22 个产物，其路径来自 `data/generated_files.yaml`，共享 organization GUI 由两个合并脚本的显式例外补充；未登记产物的脚本在写入前报错。生成器使用 `sys.executable`。
@@ -334,16 +334,16 @@ Wonder 本次验证与边界：
 本次生成计划切片（2026-10-01）：
 
 - 对照生成器源码核实当前保存范围为 **23 个脚本、22 个不同产物**。两个 GUI 合并脚本写同一个 organization panel；典礼合并依赖机制合并及自身片段生成。独立脚本保持原来的稳定顺序，不把 Python 函数导入误判成必须先执行另一脚本的依赖。
-- `wonder_generation.py` 维护领域目录，`generation.py` 对所选依赖闭包进行拓扑排序，写入前拒绝环、未知依赖、未登记产物、丢失脚本/直接输入、越界路径、非法超时及没有先后依赖的共享写入。`preview` 返回 `generation_plan`，并与 `commit` 一样遵守 `regenerate=false`；无变更时计划为空。
+- `wonder_generation.py` 维护领域目录，`generation.py` 对所选根节点的上游依赖及下游消费者（依赖计划内步骤或读取其产物的生成器）闭包进行拓扑排序；cost/reward 目录变更且派生值不变时计划为 22 步，包含两个 GUI merge，写入前拒绝环、未知依赖、未登记产物、丢失脚本/直接输入、越界路径、非法超时及没有先后依赖的共享写入。`preview` 返回 `generation_plan`，并与 `commit` 一样遵守 `regenerate=false`；无变更时计划为空。
 - `commit` 返回 `generation`，含 operation id、实际计划、每步状态/退出码/耗时及最终产物清单。产物形状与媒体 job 相同，包含路径、大小、SHA-256、变化状态。两个执行生命周期共用 `artifacts.py`，并未把同步保存伪装成异步 job。计划和报告目前仅通过 API 提供，前端尚未展示。
 - 每步检查必需产物存在及格式，结束后再检查整个产物集合。TXT/GUI 检查非空 UTF-8、NUL、引号和花括号闭合，`common/`、`events/`、`gui/` 下还必须带 BOM；`data/generated_fragments/` 中间片段不受该 BOM 要求约束。三个原先使用 `utf-8` 的 Wonder 生成器已改为 `utf-8-sig`，避免无修改重生成时丢掉已提交产物的 BOM。游戏本地化 YML 检查 BOM、语言头、物理行/ASCII 外层引号、重复键及文件名语言，允许原版 `government_l_english.yml` 使用的未转义内部引号。此处不是完整 Jomini 语义、跨文件引用或期望生成内容校验。
 - 每个生成步骤默认超时 120 秒，计划中包含 `timeout_seconds`。超时后先终止并等待子进程，再进入恢复事务；步骤报告标记 `timed_out`，保留已捕获日志和尝试写出的产物，其余步骤跳过。回归测试覆盖源文件与产物恢复，以及服务锁和 `editor.wonder` 资源锁释放。
 - 生成失败返回 HTTP 500、可定位错误、日志和生成报告；未执行的步骤标为 skipped。报告描述回滚前的生成尝试，另附 `rollback.status/errors` 表明实际恢复结果，不把已回滚产物描述为当前落盘内容。原有重新加载或响应构建失败仍由文件事务恢复。
 - 新增生成计划与真实子进程测试，覆盖拓扑排序、共享输出、空/缺失/损坏产物、BOM 丢失、非零退出、超时、后续步骤跳过、最终集合复查，以及 HTTP 报告、恢复失败和禁用生成。原 Wonder 规则检查已直接检查新计划，删除旧脚本元组的调用。
-- 本轮 `python -m pytest tests -q` 的 133 项测试、Web `--check`、Wonder mechanics 规则检查、`validate.py --changed --ai-report`、Python 编译与 `git diff --check` 均通过；pytest 仅有两条测试框架依赖的弃用警告。前次通过的 10 项 Node 状态测试本轮未重跑，前端代码未改动。
+- 本轮 `python -m pytest tests -q` 的测试、Web `--check`、Wonder mechanics 规则检查、`validate.py --changed --ai-report`、Python 编译与 `git diff --check` 均通过；pytest 的弃用警告来自 Starlette/httpx 与 anyio 兼容层。10 项 Node 状态测试本轮重跑通过。
 - `test_real_wonder_regeneration_matches_current_outputs` 在临时仓库副本中运行当前全部 23 个生成器，将 **22 个产物逐字节与工作区现有产物对比，全部一致**，包括 BOM。测试使用当前源数据/生成器和本地引用文件，共享 GUI 从工作区版本开始合并；未改写工作区游戏产物，也未调用图片 API。此前仅比较新旧两套执行流程，无法发现两者共同丢失 BOM 的问题。基准选工作区而非 Git HEAD：编辑器保存后未提交的数据与产物彼此一致，不应误报；检出时的换行转换也不属于产物漂移。
 
-下一切片建议：在现有 DAG 上补充经源码核实的源数据依赖和资源锁，尤其是 cost/reward 对 Wonder 生成的影响；再按具体变更源缩小计划。媒体暂存发布/回滚、跨资源 change set 和前端共享 store 仍是独立未完成项。
+下一切片建议：在现有 DAG 上继续补充经源码核实的字段级输入依赖，并按具体变更源缩小计划。媒体暂存发布/回滚、跨资源 change set 和前端共享 store 仍是独立未完成项。
 
 这些结果说明当前数据和语法处于可运行状态；cost/reward、victory tree、Wonder 与 cropper 配置已接入统一资源协议，Wonder 还减少了首屏、仪式列表和详情的传输负担。媒体 job 与编辑器资源提交仍是两个执行生命周期，后续需要扩展到完整的资源依赖图、跨资源生成 DAG、跨资源事务和统一操作日志。tree 的 DDS 背景预览仍在服务初始化时解码，不属于坐标提交的生成产物。四个编辑器前端已改用资源接口，旧的 cost/reward、tree、Wonder 和 cropper bootstrap/save 路由已删除。
 
