@@ -1,5 +1,7 @@
 # Towards Victory Editor Web 现状评估与改造指导
 
+> 当前进度先读 [Editor/Web 工具整合重构状态](Editor_Web_Refactor_Status.md)。本文保留迁移前基线、架构理由和详细验证证据。
+
 ## 结论
 
 `towards_victory_editor_web` 已统一启动命令和浏览器入口，cost/reward、victory tree、Wonder 与 Wonder crop 配置均已接入统一资源协议。Wonder 同时完成了 bootstrap、仪式设计按需加载和共享选项目录的传输优化；媒体生成仍使用异步 job/artifact 生命周期，但现在已有首个资源依赖与产物契约切片，Wonder 的生成链现已抽出独立 DAG 执行器，并与媒体任务共享产物报告和格式校验；底层执行生命周期尚未完全统一。

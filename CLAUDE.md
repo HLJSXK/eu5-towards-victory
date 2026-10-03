@@ -4,6 +4,12 @@
 
 For any non-trivial task, read `docs/knowledge/BRIEF.md` first.
 
+For tool-integration or `towards_victory_editor_web` refactor work, read the
+current status snapshot at `docs/technical/Editor_Web_Refactor_Status.md` after
+the brief. It separates completed slices from remaining work; use
+`docs/technical/Towards_Victory_Editor_Web_Assessment.md` for the detailed
+architecture baseline and rationale.
+
 Before editing files, build a task-scoped AI context:
 
 ```powershell
@@ -75,6 +81,11 @@ C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\gen_brief.py
 - Trust handoff summaries unless local evidence contradicts them.
 - After a handoff, start with the exact next validation or the named target file.
 - Do not rerun broad bootstrap commands unless the handoff is inconsistent or stale.
+
+When a tool-integration slice changes its completion state, update
+`docs/technical/Editor_Web_Refactor_Status.md` in the same change and record
+the validation environment. Keep the status snapshot current instead of adding
+another chronological progress log to `BRIEF.md`.
 
 ## Current Routing
 

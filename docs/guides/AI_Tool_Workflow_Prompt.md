@@ -16,6 +16,10 @@ Read every required risk card, especially any immediate risk alert.
 ### 1. Use the compact startup entry
 - Read `CLAUDE.md` first.
 - Read `docs/knowledge/BRIEF.md` for broad project context.
+- For tool-integration or Web editor refactor tasks, read
+  `docs/technical/Editor_Web_Refactor_Status.md` next. Use
+  `docs/technical/Towards_Victory_Editor_Web_Assessment.md` only when the
+  detailed architecture baseline or rationale is needed.
 - Use `scripts/ai_context.py` for task-scoped routing.
 - In managed sandboxes, use the direct `eu5` interpreter. Do not use `conda run -n eu5`.
 
