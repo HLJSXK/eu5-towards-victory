@@ -13,7 +13,14 @@ from typing import Any, Callable, ContextManager, Iterable, Protocol
 from .artifacts import (
     Artifact, artifact_path, collect_artifacts, snapshot_artifacts, validate_artifact_contract,
 )
-from .platform import ConflictError, FileSnapshot, repo_relative_path, resource_operation, snapshot_files
+from .platform import (
+    ConflictError,
+    FileSnapshot,
+    OperationLog,
+    repo_relative_path,
+    resource_operation,
+    snapshot_files,
+)
 
 
 class ToolCancelled(RuntimeError):
@@ -151,17 +158,29 @@ class ToolHandler(Protocol):
 
 
 class ToolContext:
-    def __init__(self, job_id: str, repo_root: Path, emit: Callable[[str], None]) -> None:
+    def __init__(
+        self,
+        job_id: str,
+        repo_root: Path,
+        emit: Callable[[str], None],
+        operation: OperationLog | None = None,
+    ) -> None:
         self.job_id = job_id
         self.repo_root = repo_root
         self._emit = emit
+        self.operation = operation
         self._cancel = threading.Event()
 
     def log(self, message: str) -> None:
-        self._emit(str(message).rstrip("\r\n"))
+        message = str(message).rstrip("\r\n")
+        self._emit(message)
+        if self.operation is not None and message:
+            self.operation.event(message)
 
     def request_cancel(self) -> None:
         self._cancel.set()
+        if self.operation is not None:
+            self.operation.request_cancel()
 
     def check_cancelled(self) -> None:
         if self._cancel.is_set():
@@ -219,7 +238,8 @@ class Job:
         self.outputs_may_be_partial = False
         self.created_at = time.time()
         self.finished_at: float | None = None
-        self.context = ToolContext(job_id, repo_root, self._append)
+        self.operation = OperationLog("media_job", handler.spec.resource_ids)
+        self.context = ToolContext(job_id, repo_root, self._append, self.operation)
 
     def _append(self, line: str) -> None:
         self.lines.append(line)
@@ -242,6 +262,8 @@ class Job:
             "declared_outputs": self.declared_outputs,
             "missing_outputs": self.missing_outputs,
             "outputs_may_be_partial": self.outputs_may_be_partial,
+            "operation_id": self.operation.id,
+            "operation": self.operation.payload(),
             "artifacts": [artifact.payload() for artifact in self.artifacts],
             "created_at": self.created_at,
             "finished_at": self.finished_at,
@@ -287,9 +309,10 @@ class JobManager:
     def _run(self, job: Job) -> None:
         try:
             with self._execution_lock, resource_operation(job.handler.spec.resource_ids, blocking=False):
-                job.context.check_cancelled()
                 with self._lock:
+                    job.context.check_cancelled()
                     job.status = "running"
+                    job.operation.start()
                 with capture_script_output(job.context), job.handler.prepare(job.options) as plan:
                     outputs = tuple(dict.fromkeys(path.resolve() for path in (*plan.outputs, *plan.optional_outputs)))
                     for path in outputs:
@@ -333,6 +356,7 @@ class JobManager:
                         job.context.check_cancelled()
                         job.status = "succeeded"
                         job.returncode = 0
+                job.operation.succeed()
         except Exception as exc:  # surfaced through the job API, including partial writes
             with self._lock:
                 try:
@@ -343,9 +367,14 @@ class JobManager:
                 job.outputs_may_be_partial = any(artifact.changed for artifact in job.artifacts)
                 job.status = "cancelled" if isinstance(exc, ToolCancelled) else "failed"
                 job.returncode = 130 if job.status == "cancelled" else 1
-                job.context.log(f"{job.status}: {exc}")
+                # fail()/cancel() below records the error event on the operation.
+                job._append(f"{job.status}: {exc}")
                 if job.outputs_may_be_partial:
                     job.context.log("Output files were changed on disk; no rollback was performed.")
+                if job.status == "cancelled":
+                    job.operation.cancel(exc)
+                else:
+                    job.operation.fail(exc)
         finally:
             job.finished_at = time.time()
 

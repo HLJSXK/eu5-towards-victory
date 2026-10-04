@@ -5,7 +5,6 @@ import json
 import re
 import sys
 import threading
-from contextlib import ExitStack, contextmanager
 from copy import copy, deepcopy
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -74,6 +73,7 @@ from .wonder_generation import LOCALIZATION_SCRIPTS, WONDER_SOURCE_GROUPS, wonde
 from .common import RollingLog
 from .platform import (
     ChangeSet,
+    OperationLog,
     ResourceDescriptor,
     RollbackError,
     assert_resource_base,
@@ -2505,19 +2505,6 @@ class WonderLocalizationService:
                 ).payload(),
             }
 
-    @contextmanager
-    def _commit_locks(self, *, regenerate: bool):
-        """Acquire shared resources before the service lock to keep lock order global."""
-        with ExitStack() as resource_guard:
-            resource_ids = ("editor.wonder", "editor.cost_reward") if regenerate else ("editor.wonder",)
-            try:
-                resource_guard.enter_context(resource_operation(resource_ids, blocking=False))
-                resource_guard.enter_context(self._lock)
-            except Exception as exc:
-                self._append_log(f"[error] {exc}\n")
-                raise
-            yield resource_guard
-
     def commit_resource(
         self,
         drafts_by_wonder_id: dict[int, dict[str, Any]],
@@ -2526,8 +2513,18 @@ class WonderLocalizationService:
         current_wonder_id: int | None = None,
         regenerate: bool = True,
     ) -> dict[str, Any]:
-        with self._commit_locks(regenerate=regenerate) as resource_guard:
-            try:
+        resource_ids = ("editor.wonder", "editor.cost_reward") if regenerate else ("editor.wonder",)
+        operation = OperationLog("resource_commit", resource_ids)
+
+        def log(text: str) -> None:
+            self._append_log(text)
+            if text.strip():
+                operation.event(text.strip())
+
+        try:
+            # Acquire shared resources before the service lock to keep lock order global.
+            with resource_operation(resource_ids, blocking=False), self._lock:
+                operation.start()
                 self._assert_base(base)
                 target_wonder_id = current_wonder_id
                 if target_wonder_id is None and drafts_by_wonder_id:
@@ -2537,10 +2534,12 @@ class WonderLocalizationService:
                 changed, files, changed_wonder_ids = self._candidate_for_drafts(drafts_by_wonder_id)
                 if not files:
                     payload = self.get_wonder_payload(target_wonder_id)
-                    return {**self._resource_payload(), "status": "No changes", "changed_files": [],
-                            "changed_wonder_ids": [], "wonder": payload, "wonders": self.list_wonders(),
-                            "generation": None,
-                            "log_text": self.log_text}
+                    result = {**self._resource_payload(), "status": "No changes", "changed_files": [],
+                              "changed_wonder_ids": [], "wonder": payload, "wonders": self.list_wonders(),
+                              "generation": None,
+                              "log_text": self.log_text}
+                    operation.succeed()
+                    return {**result, "operation_id": operation.id, "operation": operation.payload()}
 
                 groups = _wonder_input_groups(files)
                 plan = wonder_generation_plan(
@@ -2555,13 +2554,13 @@ class WonderLocalizationService:
                 with file_transaction((*files, *plan.outputs), reload=self.reload_from_disk):
                     atomic_write_files(files)
                     if plan.steps:
-                        generation = run_generation(plan, log=self._append_log)
+                        generation = run_generation(plan, log=log, operation_id=operation.id)
                     self.reload_from_disk()
                     payload = self.get_wonder_payload(target_wonder_id)
                     status = f"Saved {len(changed_wonder_ids)} page{'s' if len(changed_wonder_ids) != 1 else ''}: {', '.join(changed_files)}"
                     if payload is not None:
                         payload["status"] = status
-                    return {
+                    result = {
                         **self._resource_payload(),
                         "status": status,
                         "changed_files": changed_files,
@@ -2571,15 +2570,19 @@ class WonderLocalizationService:
                         "generation": generation,
                         "log_text": self.log_text,
                     }
-            except Exception as exc:
-                original = exc.original if isinstance(exc, RollbackError) else exc
-                if isinstance(original, GenerationError):
-                    original.report["rollback"] = {
-                        "status": "incomplete" if isinstance(exc, RollbackError) else "succeeded",
-                        "errors": exc.errors if isinstance(exc, RollbackError) else [],
-                    }
-                self._append_log(f"[error] {exc}\n")
-                raise
+                    operation.succeed()
+                    return {**result, "operation_id": operation.id, "operation": operation.payload()}
+        except Exception as exc:
+            operation.fail(exc)
+            exc.operation = operation.payload()
+            original = exc.original if isinstance(exc, RollbackError) else exc
+            if isinstance(original, GenerationError):
+                original.report["rollback"] = {
+                    "status": "incomplete" if isinstance(exc, RollbackError) else "succeeded",
+                    "errors": exc.errors if isinstance(exc, RollbackError) else [],
+                }
+            self._append_log(f"[error] {exc}\n")
+            raise
 
     def bootstrap_payload(self) -> dict[str, Any]:
         with self._lock:

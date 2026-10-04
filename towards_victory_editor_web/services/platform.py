@@ -11,6 +11,8 @@ import hashlib
 import os
 import tempfile
 import threading
+import time
+import uuid
 from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
@@ -21,6 +23,109 @@ from scripts_engineering_department.wonder_mechanics._core import StrictWonderYa
 
 class ConflictError(RuntimeError):
     """Raised when a resource changed after the editor loaded its draft."""
+
+    code = "resource_changed"
+
+
+class ResourceBusyError(ConflictError):
+    """Raised when another operation currently holds a resource lock."""
+
+    code = "resource_busy"
+
+
+class OperationLog:
+    """Shared lifecycle record for resource commits and media jobs.
+
+    The record is deliberately small and in-memory.  It gives synchronous
+    commits and asynchronous jobs the same observable state contract while
+    keeping the existing domain logs and artifact reports intact.
+    """
+
+    MAX_EVENTS = 500
+    TERMINAL_STATUSES = frozenset({"succeeded", "failed", "cancelled"})
+
+    def __init__(self, kind: str, resource_ids: Iterable[str] = ()) -> None:
+        self.id = uuid.uuid4().hex
+        self.kind = kind
+        self.resource_ids = tuple(sorted(set(resource_ids)))
+        self.status = "queued"
+        self.error: str | None = None
+        self.cancel_requested = False
+        self.created_at = time.time()
+        self.started_at: float | None = None
+        self.finished_at: float | None = None
+        self._events: list[dict[str, object]] = []
+        self._lock = threading.RLock()
+
+    @property
+    def operation_id(self) -> str:
+        return self.id
+
+    def event(self, message: str, *, level: str = "info") -> None:
+        with self._lock:
+            self._events.append({"at": time.time(), "level": level, "message": str(message)})
+            del self._events[:-self.MAX_EVENTS]
+
+    def start(self) -> None:
+        with self._lock:
+            if self.status in self.TERMINAL_STATUSES:
+                return
+            if self.started_at is None:
+                self.started_at = time.time()
+            self.status = "cancelling" if self.cancel_requested else "running"
+            self.event("started")
+
+    def request_cancel(self) -> None:
+        with self._lock:
+            if self.status in self.TERMINAL_STATUSES:
+                return
+            self.cancel_requested = True
+            if self.status in {"queued", "running"}:
+                self.status = "cancelling"
+            self.event("cancellation requested", level="warning")
+
+    def succeed(self) -> None:
+        with self._lock:
+            if self.status in self.TERMINAL_STATUSES:
+                return
+            self.status = "succeeded"
+            self.finished_at = time.time()
+            self.event("succeeded")
+
+    def fail(self, error: object) -> None:
+        with self._lock:
+            if self.status in self.TERMINAL_STATUSES:
+                return
+            self.status = "failed"
+            self.error = str(error)
+            self.finished_at = time.time()
+            self.event(self.error, level="error")
+
+    def cancel(self, error: object = "Cancellation requested") -> None:
+        with self._lock:
+            if self.status in self.TERMINAL_STATUSES:
+                return
+            self.cancel_requested = True
+            self.status = "cancelled"
+            self.error = str(error)
+            self.finished_at = time.time()
+            self.event(self.error, level="warning")
+
+    def payload(self) -> dict[str, object]:
+        with self._lock:
+            return {
+                "id": self.id,
+                "operation_id": self.id,
+                "kind": self.kind,
+                "status": self.status,
+                "resource_ids": list(self.resource_ids),
+                "events": list(self._events),
+                "error": self.error,
+                "cancel_requested": self.cancel_requested,
+                "created_at": self.created_at,
+                "started_at": self.started_at,
+                "finished_at": self.finished_at,
+            }
 
 
 _resource_locks: dict[str, threading.Lock] = {}
@@ -36,7 +141,7 @@ def resource_operation(resource_ids: Iterable[str], *, blocking: bool = True) ->
             with _resource_locks_guard:
                 lock = _resource_locks.setdefault(resource_id, threading.Lock())
             if not lock.acquire(blocking=blocking):
-                raise ConflictError(f"Resource busy: {resource_id}; retry after the current operation finishes")
+                raise ResourceBusyError(f"Resource busy: {resource_id}; retry after the current operation finishes")
             acquired.append(lock)
         yield
     finally:

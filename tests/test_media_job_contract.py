@@ -63,6 +63,9 @@ def test_job_reports_resource_snapshot_and_declared_artifact(job_env):
     tool, manager = job_env
     job = execute(tool, manager)
     assert job["status"] == "succeeded"
+    assert job["operation_id"] == job["operation"]["id"]
+    assert job["operation"]["status"] == job["status"]
+    assert job["operation"]["started_at"] is not None
     assert job["resource_ids"] == ["editor.wonder_crop"]
     assert job["artifact_formats"] == ["json"]
     assert job["source_snapshots"][0]["path"] == "source.txt"
@@ -87,6 +90,8 @@ def test_failed_or_cancelled_job_preserves_written_artifacts(job_env, failure):
     tool.action = action
     job = execute(tool, manager)
     assert job["status"] == ("cancelled" if failure == "cancelled" else "failed")
+    assert job["operation_id"] == job["operation"]["id"]
+    assert job["operation"]["status"] == job["status"]
     assert job["returncode"] == (130 if failure == "cancelled" else 1)
     assert job["artifacts"][0]["path"] == "output.json"
     assert job["artifacts"][0]["changed"] is True
@@ -135,8 +140,41 @@ def test_busy_resource_fails_job_before_writes(job_env):
     with resource_operation(("editor.wonder_crop",)):
         job = execute(tool, manager)
     assert job["status"] == "failed"
+    assert job["operation"]["status"] == "failed"
+    assert job["operation"]["started_at"] is None
     assert "Resource busy" in job["error"]
     assert not tool.output.exists()
+
+
+@pytest.mark.parametrize("cancel", [False, True])
+def test_waiting_for_execution_lock_does_not_start_operation(job_env, monkeypatch, cancel):
+    tool, manager = job_env
+    execution_lock = manager._execution_lock
+    waiting = threading.Event()
+
+    @contextmanager
+    def observed_lock():
+        waiting.set()
+        with execution_lock:
+            yield
+
+    monkeypatch.setattr(manager, "_execution_lock", observed_lock())
+    with execution_lock:
+        job = manager.submit(tool.spec.id, {})
+        assert waiting.wait(5), "worker did not reach the execution lock"
+        payload = job.payload()
+        assert payload["status"] == payload["operation"]["status"] == "queued"
+        assert payload["operation"]["started_at"] is None
+        assert payload["operation"]["events"] == []
+        if cancel:
+            manager.cancel(job.id)
+            payload = job.payload()
+            assert payload["status"] == payload["operation"]["status"] == "cancelling"
+    manager.shutdown()
+    payload = job.payload()
+    assert payload["status"] == payload["operation"]["status"] == ("cancelled" if cancel else "succeeded")
+    assert (payload["operation"]["started_at"] is None) == cancel
+    assert tool.output.exists() != cancel
 
 
 def test_input_change_during_preparation_is_rejected(job_env):
@@ -229,6 +267,9 @@ def test_http_job_contract_and_crop_commit_conflict(job_env, monkeypatch):
             conflict = client.post("/api/resources/editor.wonder_crop/commit", json={"base": base, "edits": {}})
             assert conflict.status_code == 409
             assert "Resource busy" in conflict.json()["detail"]
+            assert conflict.json()["code"] == "resource_busy"
+            assert conflict.json()["operation"]["status"] == "failed"
+            assert conflict.json()["operation_id"] != running["operation_id"]
             assert not cropper.data_path.exists()
         finally:
             finish.set()

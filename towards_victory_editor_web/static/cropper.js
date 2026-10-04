@@ -13,6 +13,7 @@ async function cropJson(url, options) {
   if (!response.ok) {
     const error = new Error(payload.detail || payload.error || response.statusText);
     error.status = response.status;
+    error.code = payload.code;
     throw error;
   }
   return payload;
@@ -181,7 +182,9 @@ async function commitCrop(rect) {
     if (cropState.index === index) { renderInspector(); draw(); }
   } catch (error) {
     document.getElementById("cropper-status").textContent = error.status === 409
-      ? "Crop data changed on disk. Reload crops before saving."
+      ? (error.code === "resource_busy"
+        ? "Crop resource is busy. Edits are kept; retry saving shortly."
+        : "Crop data changed on disk. Reload crops before saving.")
       : error.message;
     document.getElementById("cropper-log").textContent += `${error.message}\n`;
   } finally {

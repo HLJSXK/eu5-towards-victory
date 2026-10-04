@@ -6,7 +6,7 @@
 
 ## 状态基准
 
-- 核对日期：2026-10-03
+- 核对日期：2026-10-05
 - 基准提交：`448eb992`（2026-10-02，按变更源文件组选择 Wonder 生成根节点）
 - 基准工作区：核对前干净；本文之后的入口文档变更不属于业务代码切片
 - 当前判断：统一资源协议已经完成首个可运行切片，编辑器提交和媒体作业仍是两条执行生命周期，整个平台重构尚未完成
@@ -28,8 +28,19 @@
 
 - Wonder DAG 按源文件组选择步骤，但还不是字段级依赖图；Python 导入、间接读取、未
   登记副作用和领域语义校验仍需补齐。
-- 编辑器保存是同步资源提交，媒体生成是异步 job/artifact；两者没有统一的执行器、
-  operation log 或状态协议。
+- 编辑器保存是同步资源提交，媒体生成是异步 job/artifact；两者已统一 `OperationLog`
+  和错误/取消状态字段，但仍没有统一的执行器、持久化日志或跨操作查询接口。
+- `OperationLog` 包含 operation ID、资源、状态、事件、错误、取消请求和时间戳；四个资源
+  commit 与媒体 job 都返回该协议。commit 错误响应从本次异常携带的操作记录中返回，
+  Wonder/cost_reward 的 generation 报告沿用本次 operation ID；操作记录目前仅驻留内存。
+  媒体 job 取得执行锁和资源锁后才从 queued 进入 running；资源忙时直接失败且不设置
+  started_at。终态不能被后续启动、完成、失败或取消调用覆盖。
+- Victory Tree 保存使用非阻塞资源锁，并发保存从原先排队改为忙时返回 HTTP 409。
+  错误码区分 `resource_busy` 和 `resource_changed`；Victory Tree、cost/reward 和裁剪
+  页面分别提示稍后重试或核对修改后重新加载。
+- Wonder 操作事件只记录本次提交的生成日志和错误；资源忙失败只记录一次错误。
+  媒体 job 的终态行只写入 job lines，operation 事件中的错误由 fail/cancel 记录一次。
+  媒体轮询仍同时返回 lines 和 operation.events，重复日志的传输开销尚未处理。
 - 媒体 handler 只有首个资源依赖切片；媒体仍直接写正式产物，没有暂存发布、回滚事务
   或未登记写入恢复。现有 PNG/DDS/JPEG/JSON 检查是文件级检查，不是完整图片或领域 schema 校验。
 - `atomic_write_files` 能逐文件暂存和恢复，但跨资源 change set 和全局多文件原子替换
@@ -43,7 +54,8 @@
 
 按优先级建议从以下任务中选取，并在任务描述中写明涉及的资源和验证范围：
 
-1. 统一编辑器 commit 与媒体 job 的执行生命周期、`OperationLog` 和错误/取消协议。
+1. 在现有 `OperationLog` 协议上统一编辑器 commit 与媒体 job 的执行器，补充持久化日志
+   和操作查询，并减少媒体轮询的重复日志传输。
 2. 建立跨资源 `ChangeSet`、完整输入依赖图、领域产物语义校验和跨资源预览。
 3. 为媒体生成增加暂存发布和回滚，并恢复未登记的生成器副作用。
 4. 迁移前端共享 store、请求层、状态协议和公共组件；同时展示 generation/artifact 报告。
@@ -72,9 +84,11 @@ node --check <各前端 .js 文件>
 git diff --check
 ```
 
-当前 `eu5` 环境未安装 `pytest`，因此本次不能声称 `python -m pytest tests -q` 已通过；
-系统 Python 3.9 也不满足本项目的运行条件。详细评估中记录的完整 pytest 和浏览器回归
-结果属于此前具备依赖的环境，不能替代本次环境检查。
+`eu5` 环境已安装 pytest 9.1.1（含 pluggy 1.6.0、iniconfig 2.3.0，2026-10-04 装入 eu5
+site-packages）。以 eu5 Python 3.11 运行 `python -m pytest tests -q`，`tests/` 下全部
+10 个 Python 测试文件通过（另有 1 个 FastAPI/httpx 弃用警告）。覆盖排队/取消、并发请求
+错误归属、commit operation ID、generation ID 一致性和终态保护。本次未运行浏览器回归
+（`tests/*.cjs`）；系统 Python 3.9 不满足本项目的运行条件。
 
 ## 子代理启动顺序
 

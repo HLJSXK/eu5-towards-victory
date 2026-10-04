@@ -11,7 +11,17 @@ if hasattr(sys.stdout, "reconfigure"):
 from scripts_engineering_department.wonder_mechanics.io import REPO_ROOT, load_yaml
 
 from .common import RollingLog
-from .platform import ChangeSet, ResourceDescriptor, assert_resource_base, atomic_write_files, load_yaml_snapshots, snapshot_files, yaml_bytes
+from .platform import (
+    ChangeSet,
+    OperationLog,
+    ResourceDescriptor,
+    assert_resource_base,
+    atomic_write_files,
+    load_yaml_snapshots,
+    resource_operation,
+    snapshot_files,
+    yaml_bytes,
+)
 
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 from dds_image_lib import encode_png_rgba, read_dds  # noqa: E402
@@ -288,15 +298,26 @@ class VictoryTreePlannerService:
         assert_resource_base(base, self._base, current)
 
     def save_positions(self, edits: dict[str, dict[str, dict[str, Any]]], base: dict[str, str] | None = None) -> dict:
-        with self._lock:
-            self._assert_base(base)
+        operation = OperationLog("resource_commit", ("editor.victory_tree",))
+        try:
+            with resource_operation(("editor.victory_tree",), blocking=False), self._lock:
+                operation.start()
+                self._assert_base(base)
 
-            candidate = self._validate_and_apply(edits)
-            if candidate != self.positions or self._positions_dirty:
-                atomic_write_files({POSITIONS_FILE: yaml_bytes(POSITIONS_FILE, candidate)})
-                self._log.append(f"[save] Wrote {POSITIONS_REL}\n")
-            self.reload_from_disk()
-            return self._resource_payload()
+                candidate = self._validate_and_apply(edits)
+                if candidate != self.positions or self._positions_dirty:
+                    atomic_write_files({POSITIONS_FILE: yaml_bytes(POSITIONS_FILE, candidate)})
+                    message = f"[save] Wrote {POSITIONS_REL}\n"
+                    self._log.append(message)
+                    operation.event(message.strip())
+                self.reload_from_disk()
+                result = self._resource_payload()
+            operation.succeed()
+            return {**result, "operation_id": operation.id, "operation": operation.payload()}
+        except Exception as exc:
+            operation.fail(exc)
+            exc.operation = operation.payload()
+            raise
 
 
 def build_check_report() -> list[str]:

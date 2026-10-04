@@ -38,6 +38,8 @@ def test_crop_preview_commit_and_remove(service):
     assert not service.data_path.exists()
 
     saved = service.commit_edits(edits, base)
+    assert saved["operation_id"] == saved["operation"]["id"]
+    assert saved["operation"]["status"] == "succeeded"
     assert saved["draft"]["tasks"][0]["saved"] is True
     assert base_of(saved) != base
     assert json.loads(service.data_path.read_text())["crops"]["sample"]["rect"]["x"] == 12
@@ -96,5 +98,8 @@ def test_http_resource_contract(service, monkeypatch):
         invalid = client.post(endpoint, json={"edits": {"99999": None}, "base": base})
         assert invalid.status_code == 400
         assert invalid.json()["detail"] == "Unknown crop image index: 99999"
+        assert invalid.json()["operation_id"] == invalid.json()["operation"]["id"]
+        assert invalid.json()["operation"]["error"] == invalid.json()["detail"]
+        assert invalid.json()["operation"]["status"] == "failed"
         assert "log_text" not in invalid.json()
         assert client.post("/api/cropper/0/save", json={"rect": {}}).status_code == 404

@@ -22,6 +22,7 @@ from .generation import run_generation
 from .wonder_generation import wonder_generation_plan
 from .platform import (
     ChangeSet,
+    OperationLog,
     ResourceDescriptor,
     assert_resource_base,
     atomic_write_files,
@@ -303,10 +304,19 @@ class CostRewardEditorService:
                 )
 
     def save_tokens(self, edits: dict[str, dict[str, dict[str, Any]]], base: dict[str, str] | None = None) -> dict:
+        touched_cost_reward = any(edits.get(key) for key in CATEGORY_KEYS)
+        resource_ids = ("editor.cost_reward", "editor.wonder") if touched_cost_reward else ("editor.cost_reward",)
+        operation = OperationLog("resource_commit", resource_ids)
+
+        def log(message: str) -> None:
+            self._log.append(message)
+            text = str(message).strip()
+            if text:
+                operation.event(text)
+
         try:
-            touched_cost_reward = any(edits.get(key) for key in CATEGORY_KEYS)
-            resource_ids = ("editor.cost_reward", "editor.wonder") if touched_cost_reward else ("editor.cost_reward",)
             with resource_operation(resource_ids, blocking=False), self._lock:
+                operation.start()
                 self._assert_base(base, include_derived=touched_cost_reward)
                 candidate_data, candidate_tasks = self._validate_and_apply(edits)
                 touched_task_pool = any(edits.get(key) for key in TASK_CATEGORY_KEYS)
@@ -322,7 +332,9 @@ class CostRewardEditorService:
                 if touched_task_pool:
                     files[TASK_POOL_FILE] = yaml_bytes(TASK_POOL_FILE, candidate_tasks)
                 if not files:
-                    return self._resource_payload()
+                    result = self._resource_payload()
+                    operation.succeed()
+                    return {**result, "operation_id": operation.id, "operation": operation.payload()}
 
                 changed_unique = UNIQUE_WONDERS_FILE in files
                 plan = wonder_generation_plan(
@@ -345,16 +357,20 @@ class CostRewardEditorService:
                 with file_transaction(transaction_paths, reload=reload_after_transaction):
                     atomic_write_files(files)
                     if plan.steps:
-                        run_generation(plan, log=self._log.append)
+                        run_generation(plan, log=log, operation_id=operation.id)
                     reload_after_transaction()
                 if touched_cost_reward:
-                    self._log.append(f"[save] Wrote {DATA_REL}\n")
+                    log(f"[save] Wrote {DATA_REL}\n")
                 if changed_unique:
-                    self._log.append(f"[save] Recomputed {UNIQUE_WONDERS_REL}\n")
+                    log(f"[save] Recomputed {UNIQUE_WONDERS_REL}\n")
                 if touched_task_pool:
-                    self._log.append(f"[save] Wrote {TASK_POOL_REL}\n")
-                return self._resource_payload()
+                    log(f"[save] Wrote {TASK_POOL_REL}\n")
+                result = self._resource_payload()
+                operation.succeed()
+                return {**result, "operation_id": operation.id, "operation": operation.payload()}
         except Exception as exc:
+            operation.fail(exc)
+            exc.operation = operation.payload()
             self._log.append(f"[error] {exc}\n")
             raise
 

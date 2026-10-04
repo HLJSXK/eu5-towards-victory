@@ -84,6 +84,8 @@ def test_commit_preserves_header_and_encoding_and_detects_conflict(service):
     edits = {"country_reward": {token["id"]: {"value": token["value"] + 1}}}
     base = {item["path"]: item["sha256"] for item in initial["change_set"]["base"]}
     result = service.save_tokens(edits, base)
+    assert result["operation_id"] == result["operation"]["id"]
+    assert result["operation"]["status"] == "succeeded"
     assert result["draft"]
     raw = cost_reward.DATA_FILE.read_bytes()
     assert not raw.startswith(b"\xef\xbb\xbf")
@@ -126,6 +128,37 @@ def test_commit_preserves_existing_bom(service):
     base = {item["path"]: item["sha256"] for item in loaded["change_set"]["base"]}
     service.save_tokens({"country_reward": {"sample_one": {"value": 42}}}, base)
     assert data_file.read_bytes().startswith(b"\xef\xbb\xbf")
+
+
+@pytest.mark.parametrize("fail", [False, True])
+def test_generation_report_uses_commit_operation_id(service, tmp_path, monkeypatch, fail):
+    from towards_victory_editor_web.services.generation import (
+        GenerationError, GenerationPlan, GenerationStep, GeneratorSpec, run_generation,
+    )
+
+    script = tmp_path / "generate.py"
+    script.write_text("raise SystemExit(1)" if fail else "print('generated')", encoding="utf-8")
+    plan = GenerationPlan(tmp_path, (GenerationStep(GeneratorSpec("generate.py"), ()),))
+    monkeypatch.setattr(cost_reward, "wonder_generation_plan", lambda *_args, **_kwargs: plan)
+    reports = []
+
+    def generate(*args, **kwargs):
+        report = run_generation(*args, **kwargs)
+        reports.append(report)
+        return report
+
+    monkeypatch.setattr(cost_reward, "run_generation", generate)
+    resource = service.load_resource()
+    base = {item["path"]: item["sha256"] for item in resource["change_set"]["base"]}
+    edits = {"country_reward": {"sample_one": {"value": 0.3}}}
+    if fail:
+        with pytest.raises(GenerationError) as error:
+            service.save_tokens(edits, base)
+        assert error.value.operation["id"] == error.value.report["operation_id"]
+        assert error.value.operation["status"] == "failed"
+    else:
+        result = service.save_tokens(edits, base)
+        assert result["operation_id"] == result["operation"]["id"] == reports[0]["operation_id"]
 
 
 def test_cost_change_rewrites_derived_unique_ceremony_values(service, monkeypatch):
@@ -204,6 +237,9 @@ def test_http_bad_id_missing_base_and_conflict(service, monkeypatch):
         bad = client.post(endpoint, json={"edits": {"country_reward": {"nope": {"value": 1}}}, "base": base})
         assert bad.status_code == 400
         assert bad.json()["detail"] == "Unknown unit id in country_reward: nope"
+        assert bad.json()["operation_id"] == bad.json()["operation"]["id"]
+        assert bad.json()["operation"]["error"] == bad.json()["detail"]
+        assert bad.json()["operation"]["status"] == "failed"
         preview = "/api/resources/editor.cost_reward/preview"
         assert client.post(preview, json={"edits": {}}).status_code == 400
         cost_reward.DATA_FILE.write_bytes(cost_reward.DATA_FILE.read_bytes() + b"\n# external\n")

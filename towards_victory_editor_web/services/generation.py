@@ -158,9 +158,14 @@ def build_generation_plan(
     return GenerationPlan(repo_root, tuple(GenerationStep(catalog[script], outputs[script]) for script in ordered))
 
 
-def run_generation(plan: GenerationPlan, *, log: Callable[[str], None]) -> dict:
+def run_generation(
+    plan: GenerationPlan,
+    *,
+    log: Callable[[str], None],
+    operation_id: str | None = None,
+) -> dict:
     report = {
-        "operation_id": uuid.uuid4().hex,
+        "operation_id": operation_id or uuid.uuid4().hex,
         "status": "running",
         "plan": plan.payload(),
         "steps": [{"id": step.spec.script, "status": "pending"} for step in plan.steps],

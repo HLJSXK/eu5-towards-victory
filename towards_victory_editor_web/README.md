@@ -103,10 +103,13 @@ affected Wonder outputs in the same recovery transaction, then refresh the
 resident Wonder service catalog. The rewrite is re-parsed and checked against
 the candidate catalog before anything is written. Category saves check the base
 of all three files; task-pool-only saves ignore `unique_wonders.yaml`, so a
-Wonder save does not make them conflict. A busy commit
-returns HTTP 409, and a job that encounters a busy resource fails before
-writing. These locks coordinate
-this server process only. External edits are detected by comparing input
+Wonder save does not make them conflict. A busy commit returns HTTP 409 with
+`code: resource_busy`, and a job that encounters a busy resource fails before
+writing. Victory Tree saves now also acquire `editor.victory_tree` without
+waiting; concurrent saves receive HTTP 409 instead of queuing on the service
+lock. Stale source snapshots return `code: resource_changed`. The Victory Tree,
+cost/reward, and crop pages distinguish these cases and preserve unsaved edits.
+These locks coordinate this server process only. External edits are detected by comparing input
 snapshots before and after execution; in-place inputs (DDS conversion and icon
 metadata updates) are checked before execution only.
 
@@ -123,7 +126,18 @@ publication, cross-process locking, or recovery of undeclared generator writes.
 The data editors and crop configuration editor are registered in the same tool
 catalog as interactive tools. They use resource load/validate/preview/commit
 operations for source changes; media generation remains an asynchronous job
-with status, logs, cancellation, and artifact reports.
+with status, logs, cancellation, and artifact reports. Both resource commits
+and media jobs expose the same `operation_id` and `operation` payload. The
+payload contains the operation kind, resource IDs, lifecycle status, bounded
+events, error/cancellation state, and timestamps. Commit failures carry their
+own operation snapshot on the exception used to build the HTTP response.
+Wonder and cost/reward generation reports use the commit's operation ID.
+Jobs waiting for the media execution lock remain queued with no started_at;
+busy resources fail before the operation starts. Terminal lifecycle states
+cannot be overwritten by later start, completion, failure, or cancellation calls.
+Operation records are currently process-local; commit execution and media job
+execution remain separate lifecycles. Job polling still returns both lines and
+operation.events, including duplicate log content.
 
 The image styling tool requires the packages in `requirements-image.txt`.
 Generation tools that call an image API still require the API key configured

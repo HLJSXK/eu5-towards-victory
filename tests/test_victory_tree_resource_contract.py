@@ -5,7 +5,7 @@ from fastapi.testclient import TestClient
 
 from scripts_engineering_department.wonder_mechanics.io import dump_yaml_document, load_yaml
 from towards_victory_editor_web.services import victory_tree
-from towards_victory_editor_web.services.platform import ConflictError
+from towards_victory_editor_web.services.platform import ConflictError, resource_operation
 
 
 VARIANT_SAMPLE = """paths:
@@ -112,6 +112,8 @@ def test_commit_preserves_encoding_and_detects_external_changes(service):
     original_variant = variant_file.read_bytes()
 
     result = service.save_positions(edits, _base(initial))
+    assert result["operation_id"] == result["operation"]["id"]
+    assert result["operation"]["status"] == "succeeded"
     assert result["draft"]["paths"][0]["nodes"][0]["x"] == round(edits[path_id][node_id]["x"], 4)
     assert not positions_file.read_bytes().startswith(b"\xef\xbb\xbf")
     assert variant_file.read_bytes() == original_variant
@@ -221,8 +223,22 @@ def test_http_bad_id_missing_base_and_conflict(service, monkeypatch):
         bad = client.post(endpoint, json={"edits": {"nope": {}}, "base": base})
         assert bad.status_code == 400
         assert bad.json()["detail"] == "Unknown victory path id: nope"
+        assert bad.json()["operation_id"] == bad.json()["operation"]["id"]
+        assert bad.json()["operation"]["error"] == bad.json()["detail"]
+        assert bad.json()["operation"]["status"] == "failed"
+        with resource_operation(("editor.victory_tree",)):
+            busy = client.post(endpoint, json={"edits": {}, "base": base})
+        assert busy.status_code == 409
+        assert busy.json()["code"] == "resource_busy"
+        assert busy.json()["operation"]["status"] == "failed"
+        assert busy.json()["operation"]["started_at"] is None
         preview = "/api/resources/editor.victory_tree/preview"
         assert client.post(preview, json={"edits": {}}).status_code == 400
         victory_tree.POSITIONS_FILE.write_bytes(victory_tree.POSITIONS_FILE.read_bytes() + b"\n# external\n")
-        assert client.post(endpoint, json={"edits": {}, "base": base}).status_code == 409
-        assert client.post(preview, json={"edits": {}, "base": base}).status_code == 409
+        conflict = client.post(endpoint, json={"edits": {}, "base": base})
+        assert conflict.status_code == 409
+        assert conflict.json()["code"] == "resource_changed"
+        assert conflict.json()["operation_id"] != busy.json()["operation_id"]
+        preview_conflict = client.post(preview, json={"edits": {}, "base": base})
+        assert preview_conflict.status_code == 409
+        assert "operation" not in preview_conflict.json()

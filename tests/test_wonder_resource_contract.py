@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import threading
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import replace
 from pathlib import Path
 
@@ -569,6 +570,59 @@ def test_http_commit_errors_include_service_log(service, monkeypatch, failure, s
     assert response.json()["log_text"] == service.log_text
     assert response.json()["detail"] in service.log_text
     assert "[error]" in service.log_text
+    assert response.json()["operation_id"] == response.json()["operation"]["id"]
+    assert response.json()["operation"]["status"] == "failed"
+    assert response.json()["operation"]["error"] == response.json()["detail"]
+
+
+def test_concurrent_commit_errors_and_logs_belong_to_their_operation(service, monkeypatch):
+    from towards_victory_editor_web import server
+    from towards_victory_editor_web.services.generation import GenerationError
+
+    monkeypatch.setattr(server, "CostRewardEditorService", _UnusedCostRewardService)
+    monkeypatch.setattr(server, "VictoryTreePlannerService", lambda: object())
+    monkeypatch.setattr(server, "WonderLocalizationService", lambda: service)
+    source = wonder_localization.WONDER_LOCALIZATION_FILE
+    before = source.read_bytes()
+    service._candidate_for_drafts = lambda _drafts: ({"localization": True}, {source: b"new\n"}, [1])
+    started, finish = threading.Event(), threading.Event()
+
+    def fail_generator(_plan, *, log, operation_id):
+        log("request A generation\n")
+        started.set()
+        assert finish.wait(10), "test did not release request A"
+        raise GenerationError("request A failed", {"operation_id": operation_id})
+
+    monkeypatch.setattr(wonder_localization, "run_generation", fail_generator)
+    with TestClient(server.create_app()) as client, ThreadPoolExecutor(max_workers=1) as executor:
+        endpoint = "/api/resources/editor.wonder/commit"
+        request = {"base": _base(service)}
+        first = executor.submit(client.post, endpoint, json=request)
+        try:
+            assert started.wait(10), "request A did not start"
+            second = client.post(endpoint, json=request)
+            assert second.status_code == 409
+            service._append_log("unrelated thread log\n")
+        finally:
+            finish.set()
+        failed = first.result(timeout=10)
+    assert failed.status_code == 500
+    operation_a = failed.json()["operation"]
+    operation_b = second.json()["operation"]
+    assert failed.json()["operation_id"] == operation_a["id"]
+    assert second.json()["operation_id"] == operation_b["id"]
+    assert operation_a["id"] != operation_b["id"]
+    assert failed.json()["generation"]["operation_id"] == operation_a["id"]
+    assert operation_a["status"] == operation_b["status"] == "failed"
+    assert operation_a["error"] == "request A failed"
+    assert operation_b["error"] == second.json()["detail"]
+    assert second.json()["code"] == "resource_busy"
+    assert operation_b["started_at"] is None
+    assert [event["message"] for event in operation_a["events"]] == [
+        "started", "request A generation", "request A failed",
+    ]
+    assert [event["message"] for event in operation_b["events"]] == [operation_b["error"]]
+    assert source.read_bytes() == before
 
 
 def test_preview_plan_matches_committed_generation_and_artifacts(service, tmp_path):
@@ -583,6 +637,8 @@ def test_preview_plan_matches_committed_generation_and_artifacts(service, tmp_pa
     service.reload_from_disk = lambda: setattr(service, '_base', snapshot_files(
         wonder_localization._wonder_source_paths(), repo_root=tmp_path))
     result = service.commit_resource({}, _base(service))
+    assert result['operation_id'] == result['operation']['id'] == result['generation']['operation_id']
+    assert result['operation']['status'] == 'succeeded'
     assert result['generation']['plan'] == preview['generation_plan']
     assert result['generation']['status'] == 'succeeded'
     assert all(item['changed'] for item in result['generation']['artifacts'])
@@ -632,6 +688,8 @@ def test_real_runner_failure_rolls_back_and_returns_http_report(service, tmp_pat
         response = client.post('/api/resources/editor.wonder/commit', json={'base': _base(service)})
     assert response.status_code == 500
     report = response.json()['generation']
+    assert response.json()['operation_id'] == response.json()['operation']['id'] == report['operation_id']
+    assert response.json()['operation']['status'] == 'failed'
     assert report['status'] == 'failed'
     assert report['rollback'] == {'status': 'succeeded', 'errors': []}
     assert [step['status'] for step in report['steps']] == ['failed', 'skipped']
@@ -690,6 +748,8 @@ def test_generation_error_keeps_report_when_rollback_is_incomplete(service, tmp_
         service.commit_resource({}, _base(service))
     original = failure.value.original
     assert isinstance(original, GenerationError)
+    assert failure.value.operation['id'] == original.report['operation_id']
+    assert failure.value.operation['status'] == 'failed'
     assert original.report['rollback']['status'] == 'incomplete'
     assert 'restore denied' in original.report['rollback']['errors'][0]
     assert 'exited with 8' in str(failure.value)

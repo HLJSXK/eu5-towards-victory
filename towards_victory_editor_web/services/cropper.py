@@ -11,7 +11,19 @@ from pathlib import Path
 from typing import Any
 
 from .tooling import ToolContext, ToolPlan, ToolResult, ToolSpec, capture_script_output, normalize_declared_options, read_plan_inputs
-from .platform import ChangeSet, ConflictError, FileSnapshot, ResourceDescriptor, assert_resource_base, atomic_write_files, file_transaction, repo_relative_path, resource_operation, snapshot_files
+from .platform import (
+    ChangeSet,
+    ConflictError,
+    FileSnapshot,
+    OperationLog,
+    ResourceDescriptor,
+    assert_resource_base,
+    atomic_write_files,
+    file_transaction,
+    repo_relative_path,
+    resource_operation,
+    snapshot_files,
+)
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO_ROOT / "scripts_engineering_department"))
@@ -230,17 +242,30 @@ class CropperService:
             }
 
     def commit_edits(self, edits: dict[str, Any], base: dict[str, str]) -> dict[str, Any]:
-        with resource_operation(("editor.wonder_crop",), blocking=False), self.lock:
-            candidate, diff = self._prepare(edits, base)
-            if diff:
-                payload = json.dumps(candidate, ensure_ascii=False, indent=2).encode("utf-8") + b"\n"
-                with file_transaction((self.data_path,), reload=lambda: None):
-                    atomic_write_files({self.data_path: payload})
+        operation = OperationLog("resource_commit", ("editor.wonder_crop",))
+        try:
+            with resource_operation(("editor.wonder_crop",), blocking=False), self.lock:
+                operation.start()
+                candidate, diff = self._prepare(edits, base)
+                if diff:
+                    payload = json.dumps(candidate, ensure_ascii=False, indent=2).encode("utf-8") + b"\n"
+                    with file_transaction((self.data_path,), reload=lambda: None):
+                        atomic_write_files({self.data_path: payload})
+                        result = self.load_resource()
+                    messages = [f"{'removed' if item['after'] is None else 'saved'} {item['key']}" for item in diff]
+                    self.logs.extend(messages)
+                    for message in messages:
+                        operation.event(message)
+                    result["draft"]["logs"] = self.logs[-80:]
+                else:
                     result = self.load_resource()
-                self.logs.extend(f"{'removed' if item['after'] is None else 'saved'} {item['key']}" for item in diff)
-                result["draft"]["logs"] = self.logs[-80:]
-                return result
-            return self.load_resource()
+            operation.succeed()
+            return {**result, "operation_id": operation.id, "operation": operation.payload()}
+        except Exception as exc:
+            operation.fail(exc)
+            exc.operation = operation.payload()
+            self.logs.append(f"[error] {exc}")
+            raise
 
 
 class WonderCropTool:

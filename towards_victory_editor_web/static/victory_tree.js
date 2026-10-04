@@ -41,6 +41,7 @@ async function fetchJson(url, options) {
     const detail = payload && payload.detail ? payload.detail : text || response.statusText;
     const error = new Error(detail);
     error.status = response.status;
+    error.code = payload && payload.code;
     throw error;
   }
   return payload;
@@ -355,7 +356,11 @@ async function save() {
     appendLog("\n[ok] Saved.\n");
   } catch (err) {
     appendLog(`\n[error] ${err.message}\n`);
-    if (err.status === 409) appendLog("[conflict] 源文件已变化。请先核对未保存的坐标，再重新加载。\n");
+    if (err.status === 409) {
+      appendLog(err.code === "resource_busy"
+        ? "[busy] 资源正在保存中。坐标已保留，请稍后重试保存。\n"
+        : "[conflict] 源文件已变化。请先核对未保存的坐标，再重新加载。\n");
+    }
   } finally {
     saveBtn.disabled = false;
   }

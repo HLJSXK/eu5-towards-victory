@@ -76,6 +76,8 @@ def create_app() -> FastAPI:
     # block that used to be repeated in every editor route.
     def error_response(request, exc: Exception, status_code: int) -> JSONResponse:
         content = {"detail": str(exc)}
+        if isinstance(exc, ConflictError):
+            content["code"] = exc.code
         original = exc.original if isinstance(exc, RollbackError) else exc
         if isinstance(original, GenerationError):
             content["generation"] = original.report
@@ -86,6 +88,10 @@ def create_app() -> FastAPI:
             content["log_text"] = wonder_service.log_text
         if request.url.path.startswith("/api/resources/editor.cost_reward"):
             content["log_text"] = cost_reward_service.log_text
+        operation = getattr(exc, "operation", None)
+        if isinstance(operation, dict):
+            content["operation_id"] = operation["id"]
+            content["operation"] = operation
         return JSONResponse(status_code=status_code, content=content)
 
     @app.exception_handler(KeyError)
