@@ -1,4 +1,4 @@
-const state = { tools: [], selected: null, jobId: null, timer: null };
+const state = { tools: [], selected: null, jobId: null, timer: null, lineCursor: 0, logLines: [] };
 
 async function jsonFetch(url, options) {
   const response = await fetch(url, options);
@@ -70,10 +70,13 @@ function formOptions() {
 }
 
 function renderJob(job) {
+  if (job.id !== state.jobId || job.line_cursor < state.lineCursor) return;
   window.clearTimeout(state.timer);
   document.getElementById("media-status").textContent = job.outputs_may_be_partial
     ? `${job.status} — output files changed; no rollback performed` : job.status;
-  document.getElementById("media-log").textContent = (job.lines || []).join("\n");
+  state.logLines = (job.lines_reset ? job.lines : [...state.logLines, ...job.lines]).slice(-300);
+  state.lineCursor = job.line_cursor;
+  document.getElementById("media-log").textContent = state.logLines.join("\n");
   const files = [];
   if (job.resource_ids.length) files.push(`Resources: ${job.resource_ids.join(", ")}`);
   if (job.source_snapshots.length) files.push("Inputs:", ...job.source_snapshots.map((source) => `  ${source.path}${source.sha256 === "missing" ? " (optional, absent)" : ""}`));
@@ -93,17 +96,31 @@ function renderJob(job) {
   if (["queued", "running", "cancelling"].includes(job.status) && state.jobId) state.timer = window.setTimeout(pollJob, 700);
   else state.jobId = null;
 }
-async function pollJob() { try { renderJob(await jsonFetch(`/api/jobs/${state.jobId}`)); } catch (error) { document.getElementById("media-status").textContent = error.message; } }
+async function pollJob() {
+  const jobId = state.jobId;
+  const cursor = state.lineCursor;
+  if (!jobId) return;
+  try {
+    const job = await jsonFetch(`/api/jobs/${jobId}?after_line=${cursor}`);
+    if (state.jobId !== jobId || state.lineCursor !== cursor) return;
+    renderJob(job);
+  } catch (error) {
+    if (state.jobId === jobId) document.getElementById("media-status").textContent = error.message;
+  }
+}
 
 document.getElementById("media-run").addEventListener("click", async () => {
   const button = document.getElementById("media-run"); button.disabled = true;
   try {
     const job = await jsonFetch("/api/jobs", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ tool: state.selected, options: formOptions() }) });
-    state.jobId = job.id; renderJob(job);
+    state.jobId = job.id; state.lineCursor = 0; state.logLines = []; renderJob(job);
   } catch (error) { document.getElementById("media-status").textContent = error.message; }
   finally { button.disabled = false; }
 });
-document.getElementById("media-cancel").addEventListener("click", async () => { if (state.jobId) renderJob(await jsonFetch(`/api/jobs/${state.jobId}/cancel`, { method: "POST" })); });
+document.getElementById("media-cancel").addEventListener("click", async () => {
+  const jobId = state.jobId;
+  if (jobId) renderJob(await jsonFetch(`/api/jobs/${jobId}/cancel`, { method: "POST" }));
+});
 
 jsonFetch("/api/media/bootstrap").then((payload) => {
   window.__mediaBootstrap = payload; state.tools = payload.tools || []; state.selected = state.tools[0]?.id || null; renderToolList(); renderForm();

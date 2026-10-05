@@ -3,7 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Query
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
@@ -287,8 +287,8 @@ def create_app() -> FastAPI:
         return jobs.submit(request.tool, request.options).payload()
 
     @app.get("/api/jobs/{job_id}")
-    def get_job(job_id: str) -> dict[str, Any]:
-        return jobs.get(job_id).payload()
+    def get_job(job_id: str, after_line: int | None = Query(default=None, ge=0)) -> dict[str, Any]:
+        return jobs.get(job_id).payload(after_line=after_line)
 
     @app.post("/api/jobs/{job_id}/cancel")
     def cancel_job(job_id: str) -> dict[str, Any]:

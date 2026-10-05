@@ -75,6 +75,47 @@ def test_job_reports_resource_snapshot_and_declared_artifact(job_env):
     assert job["metadata"]["output_validation"][0]["valid"] is True
 
 
+def test_job_polling_returns_only_new_lines_and_keeps_lifecycle_events(job_env):
+    tool, manager = job_env
+
+    def action(context):
+        context.log("first line")
+        context.log("second line")
+        tool.output.write_text('{}')
+
+    tool.action = action
+    job = manager.submit(tool.spec.id, {})
+    manager.shutdown()
+    full = job.payload()
+    assert full["lines"] == ["first line", "second line"]
+    assert full["lines_reset"] is True
+    assert full["line_cursor"] == 2
+    assert job.payload(after_line=1)["lines"] == ["second line"]
+    assert job.payload(after_line=2)["lines"] == []
+    assert job.payload(after_line=2)["lines_reset"] is False
+    assert [event["message"] for event in full["operation"]["events"]] == ["started", "succeeded"]
+
+
+def test_job_polling_resets_when_cursor_falls_out_of_retained_window(job_env):
+    tool, manager = job_env
+
+    def action(context):
+        for index in range(510):
+            context.log(f"line {index}")
+        tool.output.write_text('{}')
+
+    tool.action = action
+    job = manager.submit(tool.spec.id, {})
+    manager.shutdown()
+    payload = job.payload(after_line=0)
+    assert payload["lines_reset"] is True
+    assert payload["line_cursor"] == 510
+    assert len(payload["lines"]) == 300
+    assert payload["lines"][0] == "line 210"
+    assert payload["lines"][-1] == "line 509"
+    assert job.payload(after_line=509)["lines"] == ["line 509"]
+
+
 @pytest.mark.parametrize("failure", ["source_changed", "exception", "cancelled"])
 def test_failed_or_cancelled_job_preserves_written_artifacts(job_env, failure):
     tool, manager = job_env
@@ -277,4 +318,6 @@ def test_http_job_contract_and_crop_commit_conflict(job_env, monkeypatch):
         completed = client.get(f"/api/jobs/{job_id}").json()
         assert completed["status"] == "succeeded"
         assert completed["artifacts"][0]["path"] == "output.json"
+        assert client.get(f"/api/jobs/{job_id}?after_line={completed['line_cursor']}").json()["lines"] == []
+        assert client.get(f"/api/jobs/{job_id}?after_line=-1").status_code == 422
         assert client.post("/api/resources/editor.wonder_crop/commit", json={"base": base, "edits": {}}).status_code == 200

@@ -200,7 +200,21 @@ document.getElementById("cropper-apply").addEventListener("click", async () => {
   const button = document.getElementById("cropper-apply"); button.disabled = true;
   if (cropState.busy) { button.disabled = false; return; }
   if (cropState.dirty && !window.confirm("The crop has unsaved changes. Rebuild DDS using the saved crop?")) { button.disabled = false; return; }
-  try { const job = await cropJson("/api/jobs", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ tool: "media.wonder_crop", options: {} }) }); const poll = async () => { const current = await cropJson(`/api/jobs/${job.id}`); document.getElementById("cropper-log").textContent = (current.lines || []).join("\n"); document.getElementById("cropper-status").textContent = current.status; if (["queued", "running", "cancelling"].includes(current.status)) window.setTimeout(poll, 600); else button.disabled = false; }; await poll(); }
+  try {
+    const job = await cropJson("/api/jobs", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ tool: "media.wonder_crop", options: {} }) });
+    let lineCursor = 0;
+    let logLines = [];
+    const poll = async () => {
+      const current = await cropJson(`/api/jobs/${job.id}?after_line=${lineCursor}`);
+      logLines = (current.lines_reset ? current.lines : [...logLines, ...current.lines]).slice(-300);
+      lineCursor = current.line_cursor;
+      document.getElementById("cropper-log").textContent = logLines.join("\n");
+      document.getElementById("cropper-status").textContent = current.status;
+      if (["queued", "running", "cancelling"].includes(current.status)) window.setTimeout(poll, 600);
+      else button.disabled = false;
+    };
+    await poll();
+  }
   catch (error) { document.getElementById("cropper-log").textContent += `${error.message}\n`; button.disabled = false; }
 });
 reloadCropResource({ confirmDirty: false });

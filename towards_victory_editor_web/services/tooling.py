@@ -174,8 +174,6 @@ class ToolContext:
     def log(self, message: str) -> None:
         message = str(message).rstrip("\r\n")
         self._emit(message)
-        if self.operation is not None and message:
-            self.operation.event(message)
 
     def request_cancel(self) -> None:
         self._cancel.set()
@@ -227,6 +225,8 @@ class Job:
         self.repo_root = repo_root
         self.status = "queued"
         self.lines: list[str] = []
+        self._line_cursor = 0
+        self._lines_lock = threading.Lock()
         self.returncode: int | None = None
         self.error: str | None = None
         self.message = ""
@@ -242,16 +242,26 @@ class Job:
         self.context = ToolContext(job_id, repo_root, self._append, self.operation)
 
     def _append(self, line: str) -> None:
-        self.lines.append(line)
-        del self.lines[:-500]
+        with self._lines_lock:
+            self.lines.append(line)
+            self._line_cursor += 1
+            del self.lines[:-500]
 
-    def payload(self) -> dict[str, Any]:
+    def payload(self, after_line: int | None = None) -> dict[str, Any]:
+        with self._lines_lock:
+            cursor = self._line_cursor
+            retained_start = cursor - len(self.lines)
+            reset = after_line is None or after_line < retained_start or after_line > cursor
+            start = max(retained_start, cursor - 300) if reset else after_line
+            lines = self.lines[start - retained_start:].copy()
         return {
             "id": self.id,
             "tool": self.handler.spec.id,
             "status": self.status,
             "options": self.options,
-            "lines": self.lines[-300:],
+            "lines": lines,
+            "line_cursor": cursor,
+            "lines_reset": reset,
             "returncode": self.returncode,
             "error": self.error,
             "message": self.message,

@@ -136,8 +136,12 @@ Jobs waiting for the media execution lock remain queued with no started_at;
 busy resources fail before the operation starts. Terminal lifecycle states
 cannot be overwritten by later start, completion, failure, or cancellation calls.
 Operation records are currently process-local; commit execution and media job
-execution remain separate lifecycles. Job polling still returns both lines and
-operation.events, including duplicate log content.
+execution remain separate lifecycles. Media job `operation.events` contain
+lifecycle events; generator output is carried only in `lines`. Poll
+`/api/jobs/{job_id}?after_line=<line_cursor>` to receive only new lines. Each
+response includes `line_cursor` and `lines_reset`; when a cursor falls behind
+the bounded log buffer, `lines_reset` is true and `lines` contains the latest
+300 lines for replacement. Omitting `after_line` also returns the latest 300.
 
 The image styling tool requires the packages in `requirements-image.txt`.
 Generation tools that call an image API still require the API key configured
