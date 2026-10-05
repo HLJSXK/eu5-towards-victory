@@ -10,6 +10,7 @@ from towards_victory_editor_web.services.cropper import CropperService, WonderCr
 from towards_victory_editor_web.services import media_plans
 from towards_victory_editor_web.services.media_plans import dds_icon_plan, historical_api_plan, wonder_image_plan
 from towards_victory_editor_web.services.media_tools import build_registry
+from towards_victory_editor_web.services.platform import OperationLog
 from towards_victory_editor_web.services.tooling import JobManager, ToolContext, ToolRegistry, ToolSpec
 
 from dds_image_lib import RgbaImage, encode_png_rgba, write_dds
@@ -106,7 +107,7 @@ def test_prepared_wonder_rebuild_executes_resolved_tasks_without_reloading(wonde
         config.write_text('{}')
         tasks.write_text('[]')
         monkeypatch.setattr(cropper_module, "load_task_config", lambda _: pytest.fail("execution reloaded tasks"))
-        plan.run(ToolContext("fixed-plan", service.repo_root, lambda line: None))
+        plan.run(ToolContext("fixed-plan", service.repo_root, lambda line: None, OperationLog("media_job")))
         assert all(path.is_file() for path in plan.outputs)
 
 
@@ -204,7 +205,7 @@ def test_historical_api_plan_keeps_config_and_outputs(tmp_path, monkeypatch):
     plan = historical_api_plan(historical, {"dry_run": False})
     assert {item.path for item in plan.inputs} == {"historical.json", "source.png"}
     config.write_text('{}')
-    plan.run(ToolContext("fixed-plan", tmp_path, lambda line: None))
+    plan.run(ToolContext("fixed-plan", tmp_path, lambda line: None, OperationLog("media_job")))
     assert (tmp_path / "processed/out.png").read_bytes() == (tmp_path / "source.png").read_bytes()
 
 

@@ -13,10 +13,10 @@ import tempfile
 import threading
 import time
 import uuid
-from contextlib import contextmanager
+from contextlib import contextmanager, nullcontext
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Callable, Iterable, Iterator
+from typing import Callable, ContextManager, Iterable, Iterator, TypeVar
 
 from scripts_engineering_department.wonder_mechanics._core import StrictWonderYamlLoader, load_yaml
 
@@ -31,6 +31,10 @@ class ResourceBusyError(ConflictError):
     """Raised when another operation currently holds a resource lock."""
 
     code = "resource_busy"
+
+
+class OperationCancelled(RuntimeError):
+    """Cooperative cancellation shared by operation runners and handlers."""
 
 
 class OperationLog:
@@ -56,6 +60,7 @@ class OperationLog:
         self.finished_at: float | None = None
         self._events: list[dict[str, object]] = []
         self._lock = threading.RLock()
+        self._execution_claimed = False
 
     @property
     def operation_id(self) -> str:
@@ -77,12 +82,17 @@ class OperationLog:
 
     def request_cancel(self) -> None:
         with self._lock:
-            if self.status in self.TERMINAL_STATUSES:
+            if self.status in self.TERMINAL_STATUSES or self.cancel_requested:
                 return
             self.cancel_requested = True
             if self.status in {"queued", "running"}:
                 self.status = "cancelling"
             self.event("cancellation requested", level="warning")
+
+    def check_cancelled(self) -> None:
+        with self._lock:
+            if self.cancel_requested:
+                raise OperationCancelled("Cancellation requested")
 
     def succeed(self) -> None:
         with self._lock:
@@ -147,6 +157,64 @@ def resource_operation(resource_ids: Iterable[str], *, blocking: bool = True) ->
     finally:
         for lock in reversed(acquired):
             lock.release()
+
+
+OperationResult = TypeVar("OperationResult")
+
+
+def run_operation(
+    operation: OperationLog,
+    execute: Callable[[], OperationResult],
+    *,
+    execution_lock: ContextManager | None = None,
+    on_error: Callable[[Exception], None] | None = None,
+) -> OperationResult:
+    """Run a commit or job under the same resource and lifecycle boundary.
+
+    Scheduling remains with the caller. An optional execution lock serializes
+    media work without marking jobs running while they wait. Domain callbacks
+    own validation, transactions and cleanup; all must finish before success.
+    The error observer records domain diagnostics before terminal publication.
+    ``on_error`` runs without the operation lock and must remain lightweight;
+    its failure does not prevent the operation from reaching a terminal state.
+    """
+    with operation._lock:
+        if operation._execution_claimed or operation.status not in {"queued", "cancelling"}:
+            raise RuntimeError("An operation can only be executed once")
+        operation._execution_claimed = True
+    try:
+        with execution_lock if execution_lock is not None else nullcontext():
+            operation.check_cancelled()
+            with resource_operation(operation.resource_ids, blocking=False):
+                with operation._lock:
+                    operation.check_cancelled()
+                    operation.start()
+                result = execute()
+                # Cancellation and completion share a lock so a late request
+                # cannot leave the operation cancelling after successful work.
+                with operation._lock:
+                    operation.check_cancelled()
+                    operation.succeed()
+                return result
+    except Exception as exc:
+        with operation._lock:
+            error = exc
+            if operation.cancel_requested and not isinstance(error, OperationCancelled):
+                error = OperationCancelled("Cancellation requested")
+        try:
+            if on_error is not None:
+                on_error(error)
+        finally:
+            # Keep diagnostics ahead of the terminal event, while guaranteeing
+            # that a faulty observer cannot leave polling stuck in running.
+            if isinstance(error, OperationCancelled):
+                operation.cancel(error)
+            else:
+                operation.fail(error)
+            error.operation = operation.payload()
+        if error is not exc:
+            raise error from exc
+        raise
 
 
 class RollbackError(RuntimeError):

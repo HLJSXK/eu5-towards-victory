@@ -218,6 +218,73 @@ def test_waiting_for_execution_lock_does_not_start_operation(job_env, monkeypatc
     assert tool.output.exists() != cancel
 
 
+@pytest.mark.parametrize("cancel,cleanup_fails", [(False, False), (False, True), (True, False), (True, True)])
+def test_job_finishes_only_after_handler_cleanup(job_env, monkeypatch, cancel, cleanup_fails):
+    from towards_victory_editor_web.services.platform import resource_operation
+
+    tool, manager = job_env
+    cleanup_started, finish_cleanup = threading.Event(), threading.Event()
+    prepare = tool.prepare
+
+    @contextmanager
+    def prepare_with_cleanup(options):
+        with prepare(options) as plan:
+            yield plan
+            cleanup_started.set()
+            assert finish_cleanup.wait(5), "test did not release cleanup"
+            if cleanup_fails:
+                raise RuntimeError("cleanup failed")
+
+    monkeypatch.setattr(tool, "prepare", prepare_with_cleanup)
+    job = manager.submit(tool.spec.id, {})
+    try:
+        assert cleanup_started.wait(5)
+        running = job.payload()
+        assert running["status"] == running["operation"]["status"] == "running"
+        assert running["returncode"] is None
+        assert running["finished_at"] is running["operation"]["finished_at"] is None
+        if cancel:
+            manager.cancel(job.id)
+            cancelling = job.payload()
+            manager.cancel(job.id)
+            assert cancelling["status"] == "cancelling"
+            assert job.payload()["operation"] == cancelling["operation"]
+    finally:
+        finish_cleanup.set()
+        manager.shutdown()
+
+    completed = job.payload()
+    expected = "cancelled" if cancel else "failed" if cleanup_fails else "succeeded"
+    assert completed["status"] == completed["operation"]["status"] == expected
+    assert completed["error"] == completed["operation"]["error"]
+    assert completed["error"] == ("Cancellation requested" if cancel else "cleanup failed" if cleanup_fails else None)
+    assert completed["returncode"] == {"succeeded": 0, "failed": 1, "cancelled": 130}[expected]
+    assert completed["created_at"] == completed["operation"]["created_at"]
+    assert completed["finished_at"] == completed["operation"]["finished_at"]
+    assert completed["finished_at"] is not None
+    assert completed["outputs_may_be_partial"] == (expected != "succeeded")
+    manager.cancel(job.id)
+    assert job.payload() == completed
+    with resource_operation(tool.spec.resource_ids, blocking=False):
+        pass
+
+
+def test_cancelled_queued_job_does_not_try_to_acquire_busy_resource(job_env):
+    from towards_victory_editor_web.services.platform import resource_operation
+
+    tool, manager = job_env
+    with resource_operation(tool.spec.resource_ids):
+        with manager._execution_lock:
+            job = manager.submit(tool.spec.id, {})
+            manager.cancel(job.id)
+        manager.shutdown()
+    payload = job.payload()
+    assert payload["status"] == "cancelled"
+    assert payload["operation"]["started_at"] is None
+    assert payload["error"] == "Cancellation requested"
+    assert not tool.output.exists()
+
+
 def test_input_change_during_preparation_is_rejected(job_env):
     from towards_victory_editor_web.services.platform import ConflictError
 

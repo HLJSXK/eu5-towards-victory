@@ -18,7 +18,7 @@ from .platform import (
     assert_resource_base,
     atomic_write_files,
     load_yaml_snapshots,
-    resource_operation,
+    run_operation,
     snapshot_files,
     yaml_bytes,
 )
@@ -299,9 +299,9 @@ class VictoryTreePlannerService:
 
     def save_positions(self, edits: dict[str, dict[str, dict[str, Any]]], base: dict[str, str] | None = None) -> dict:
         operation = OperationLog("resource_commit", ("editor.victory_tree",))
-        try:
-            with resource_operation(("editor.victory_tree",), blocking=False), self._lock:
-                operation.start()
+
+        def commit() -> dict:
+            with self._lock:
                 self._assert_base(base)
 
                 candidate = self._validate_and_apply(edits)
@@ -311,13 +311,10 @@ class VictoryTreePlannerService:
                     self._log.append(message)
                     operation.event(message.strip())
                 self.reload_from_disk()
-                result = self._resource_payload()
-            operation.succeed()
-            return {**result, "operation_id": operation.id, "operation": operation.payload()}
-        except Exception as exc:
-            operation.fail(exc)
-            exc.operation = operation.payload()
-            raise
+                return self._resource_payload()
+
+        result = run_operation(operation, commit)
+        return {**result, "operation_id": operation.id, "operation": operation.payload()}
 
 
 def build_check_report() -> list[str]:

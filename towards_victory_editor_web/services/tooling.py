@@ -3,7 +3,6 @@ from __future__ import annotations
 import contextlib
 import io
 import threading
-import time
 import uuid
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, field
@@ -16,15 +15,12 @@ from .artifacts import (
 from .platform import (
     ConflictError,
     FileSnapshot,
+    OperationCancelled,
     OperationLog,
     repo_relative_path,
-    resource_operation,
+    run_operation,
     snapshot_files,
 )
-
-
-class ToolCancelled(RuntimeError):
-    """Raised by a handler when a cooperative cancellation was requested."""
 
 
 @dataclass(frozen=True)
@@ -163,26 +159,22 @@ class ToolContext:
         job_id: str,
         repo_root: Path,
         emit: Callable[[str], None],
-        operation: OperationLog | None = None,
+        operation: OperationLog,
     ) -> None:
         self.job_id = job_id
         self.repo_root = repo_root
         self._emit = emit
         self.operation = operation
-        self._cancel = threading.Event()
 
     def log(self, message: str) -> None:
         message = str(message).rstrip("\r\n")
         self._emit(message)
 
     def request_cancel(self) -> None:
-        self._cancel.set()
-        if self.operation is not None:
-            self.operation.request_cancel()
+        self.operation.request_cancel()
 
     def check_cancelled(self) -> None:
-        if self._cancel.is_set():
-            raise ToolCancelled("Cancellation requested")
+        self.operation.check_cancelled()
 
 
 class ToolRegistry:
@@ -223,21 +215,15 @@ class Job:
         self.handler = handler
         self.options = options
         self.repo_root = repo_root
-        self.status = "queued"
         self.lines: list[str] = []
         self._line_cursor = 0
         self._lines_lock = threading.Lock()
-        self.returncode: int | None = None
-        self.error: str | None = None
         self.message = ""
         self.metadata: dict[str, Any] = {}
         self.artifacts: tuple[Artifact, ...] = ()
         self.source_snapshots: list[dict[str, Any]] = []
         self.declared_outputs: list[str] = []
         self.missing_outputs: list[str] = []
-        self.outputs_may_be_partial = False
-        self.created_at = time.time()
-        self.finished_at: float | None = None
         self.operation = OperationLog("media_job", handler.spec.resource_ids)
         self.context = ToolContext(job_id, repo_root, self._append, self.operation)
 
@@ -248,6 +234,7 @@ class Job:
             del self.lines[:-500]
 
     def payload(self, after_line: int | None = None) -> dict[str, Any]:
+        operation = self.operation.payload()
         with self._lines_lock:
             cursor = self._line_cursor
             retained_start = cursor - len(self.lines)
@@ -257,13 +244,13 @@ class Job:
         return {
             "id": self.id,
             "tool": self.handler.spec.id,
-            "status": self.status,
+            "status": operation["status"],
             "options": self.options,
             "lines": lines,
             "line_cursor": cursor,
             "lines_reset": reset,
-            "returncode": self.returncode,
-            "error": self.error,
+            "returncode": {"succeeded": 0, "failed": 1, "cancelled": 130}.get(operation["status"]),
+            "error": operation["error"],
             "message": self.message,
             "metadata": self.metadata,
             "resource_ids": list(self.handler.spec.resource_ids),
@@ -271,12 +258,13 @@ class Job:
             "source_snapshots": self.source_snapshots,
             "declared_outputs": self.declared_outputs,
             "missing_outputs": self.missing_outputs,
-            "outputs_may_be_partial": self.outputs_may_be_partial,
+            "outputs_may_be_partial": operation["status"] in {"failed", "cancelled"}
+            and any(artifact.changed for artifact in self.artifacts),
             "operation_id": self.operation.id,
-            "operation": self.operation.payload(),
+            "operation": operation,
             "artifacts": [artifact.payload() for artifact in self.artifacts],
-            "created_at": self.created_at,
-            "finished_at": self.finished_at,
+            "created_at": operation["created_at"],
+            "finished_at": operation["finished_at"],
         }
 
 
@@ -307,86 +295,65 @@ class JobManager:
 
     def cancel(self, job_id: str) -> Job:
         job = self.get(job_id)
-        with self._lock:
-            if job.status in {"queued", "running"}:
-                job.status = "cancelling"
-                job.context.request_cancel()
+        job.context.request_cancel()
         return job
 
     def shutdown(self) -> None:
         self._executor.shutdown(wait=True)
 
     def _run(self, job: Job) -> None:
-        try:
-            with self._execution_lock, resource_operation(job.handler.spec.resource_ids, blocking=False):
-                with self._lock:
-                    job.context.check_cancelled()
-                    job.status = "running"
-                    job.operation.start()
-                with capture_script_output(job.context), job.handler.prepare(job.options) as plan:
-                    outputs = tuple(dict.fromkeys(path.resolve() for path in (*plan.outputs, *plan.optional_outputs)))
-                    for path in outputs:
-                        repo_relative_path(path, self.repo_root)
-                    job.source_snapshots = [vars(item) for item in plan.inputs]
-                    job.declared_outputs = [artifact_path(self.repo_root, path) for path in outputs]
-                    inputs = tuple(self.repo_root / item.path for item in plan.inputs)
-                    job.context.check_cancelled()
-                    if snapshot_files(inputs, repo_root=self.repo_root) != plan.inputs:
-                        raise ConflictError("Declared inputs changed before job execution")
-                    before = snapshot_artifacts(outputs)
-                    try:
-                        result = plan.run(job.context)
-                        job.message = result.message
-                        job.metadata = dict(result.metadata)
-                    finally:
-                        # Preserve the real disk outcome even if run() raises or is cancelled.
-                        after = snapshot_artifacts(outputs)
-                        job.artifacts = collect_artifacts(self.repo_root, before, after)
-                        job.missing_outputs = [
-                            artifact_path(self.repo_root, path) for path in plan.outputs
-                            if path.resolve() not in after
-                        ]
-                        job.metadata["output_validation"] = validate_artifact_contract(
-                            self.repo_root, job.artifacts, job.handler.spec.artifact_formats
-                        )
-                    # Cancellation wins over stale-input / missing-output diagnostics.
-                    job.context.check_cancelled()
-                    # DDS-only conversions intentionally transform their input in place.
-                    immutable = tuple(item for item in plan.inputs if (self.repo_root / item.path).resolve() not in outputs)
-                    if snapshot_files((self.repo_root / item.path for item in immutable), repo_root=self.repo_root) != immutable:
-                        raise ConflictError("Declared inputs changed during job execution; outputs may be stale")
-                    if job.missing_outputs:
-                        raise RuntimeError("Missing declared outputs: " + ", ".join(job.missing_outputs))
-                    failures = [item for item in job.metadata["output_validation"] if not item["valid"]]
-                    if failures:
-                        raise RuntimeError("Output validation failed: " + "; ".join(
-                            f"{item['path']}: {item['error']}" for item in failures
-                        ))
-                    with self._lock:
-                        job.context.check_cancelled()
-                        job.status = "succeeded"
-                        job.returncode = 0
-                job.operation.succeed()
-        except Exception as exc:  # surfaced through the job API, including partial writes
-            with self._lock:
+        def execute() -> None:
+            with capture_script_output(job.context), job.handler.prepare(job.options) as plan:
+                outputs = tuple(dict.fromkeys(path.resolve() for path in (*plan.outputs, *plan.optional_outputs)))
+                for path in outputs:
+                    repo_relative_path(path, self.repo_root)
+                job.source_snapshots = [vars(item) for item in plan.inputs]
+                job.declared_outputs = [artifact_path(self.repo_root, path) for path in outputs]
+                inputs = tuple(self.repo_root / item.path for item in plan.inputs)
+                job.context.check_cancelled()
+                if snapshot_files(inputs, repo_root=self.repo_root) != plan.inputs:
+                    raise ConflictError("Declared inputs changed before job execution")
+                before = snapshot_artifacts(outputs)
                 try:
-                    job.context.check_cancelled()
-                except ToolCancelled as cancelled:
-                    exc = cancelled
-                job.error = str(exc)
-                job.outputs_may_be_partial = any(artifact.changed for artifact in job.artifacts)
-                job.status = "cancelled" if isinstance(exc, ToolCancelled) else "failed"
-                job.returncode = 130 if job.status == "cancelled" else 1
-                # fail()/cancel() below records the error event on the operation.
-                job._append(f"{job.status}: {exc}")
-                if job.outputs_may_be_partial:
-                    job.context.log("Output files were changed on disk; no rollback was performed.")
-                if job.status == "cancelled":
-                    job.operation.cancel(exc)
-                else:
-                    job.operation.fail(exc)
-        finally:
-            job.finished_at = time.time()
+                    result = plan.run(job.context)
+                    job.message = result.message
+                    job.metadata = dict(result.metadata)
+                finally:
+                    # Preserve the real disk outcome even if run() raises or is cancelled.
+                    after = snapshot_artifacts(outputs)
+                    job.artifacts = collect_artifacts(self.repo_root, before, after)
+                    job.missing_outputs = [
+                        artifact_path(self.repo_root, path) for path in plan.outputs
+                        if path.resolve() not in after
+                    ]
+                    job.metadata["output_validation"] = validate_artifact_contract(
+                        self.repo_root, job.artifacts, job.handler.spec.artifact_formats
+                    )
+                # Cancellation wins over stale-input / missing-output diagnostics.
+                job.context.check_cancelled()
+                # DDS-only conversions intentionally transform their input in place.
+                immutable = tuple(item for item in plan.inputs if (self.repo_root / item.path).resolve() not in outputs)
+                if snapshot_files((self.repo_root / item.path for item in immutable), repo_root=self.repo_root) != immutable:
+                    raise ConflictError("Declared inputs changed during job execution; outputs may be stale")
+                if job.missing_outputs:
+                    raise RuntimeError("Missing declared outputs: " + ", ".join(job.missing_outputs))
+                failures = [item for item in job.metadata["output_validation"] if not item["valid"]]
+                if failures:
+                    raise RuntimeError("Output validation failed: " + "; ".join(
+                        f"{item['path']}: {item['error']}" for item in failures
+                    ))
+
+        def record_failure(exc: Exception) -> None:
+            status = "cancelled" if isinstance(exc, OperationCancelled) else "failed"
+            job._append(f"{status}: {exc}")
+            if any(artifact.changed for artifact in job.artifacts):
+                job.context.log("Output files were changed on disk; no rollback was performed.")
+
+        try:
+            run_operation(job.operation, execute, execution_lock=self._execution_lock, on_error=record_failure)
+        except Exception:
+            # The executor has recorded the failure; expose it through polling.
+            pass
 
 
 class CapturedOutput(io.TextIOBase):

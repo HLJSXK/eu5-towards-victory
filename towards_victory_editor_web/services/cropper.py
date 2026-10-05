@@ -21,7 +21,7 @@ from .platform import (
     atomic_write_files,
     file_transaction,
     repo_relative_path,
-    resource_operation,
+    run_operation,
     snapshot_files,
 )
 
@@ -243,9 +243,9 @@ class CropperService:
 
     def commit_edits(self, edits: dict[str, Any], base: dict[str, str]) -> dict[str, Any]:
         operation = OperationLog("resource_commit", ("editor.wonder_crop",))
-        try:
-            with resource_operation(("editor.wonder_crop",), blocking=False), self.lock:
-                operation.start()
+
+        def commit() -> dict[str, Any]:
+            with self.lock:
                 candidate, diff = self._prepare(edits, base)
                 if diff:
                     payload = json.dumps(candidate, ensure_ascii=False, indent=2).encode("utf-8") + b"\n"
@@ -259,11 +259,12 @@ class CropperService:
                     result["draft"]["logs"] = self.logs[-80:]
                 else:
                     result = self.load_resource()
-            operation.succeed()
+                return result
+
+        try:
+            result = run_operation(operation, commit)
             return {**result, "operation_id": operation.id, "operation": operation.payload()}
         except Exception as exc:
-            operation.fail(exc)
-            exc.operation = operation.payload()
             self.logs.append(f"[error] {exc}")
             raise
 

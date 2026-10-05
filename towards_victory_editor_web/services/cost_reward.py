@@ -28,7 +28,7 @@ from .platform import (
     atomic_write_files,
     file_transaction,
     load_yaml_snapshots,
-    resource_operation,
+    run_operation,
     snapshot_files,
     yaml_bytes,
 )
@@ -314,9 +314,8 @@ class CostRewardEditorService:
             if text:
                 operation.event(text)
 
-        try:
-            with resource_operation(resource_ids, blocking=False), self._lock:
-                operation.start()
+        def commit() -> dict:
+            with self._lock:
                 self._assert_base(base, include_derived=touched_cost_reward)
                 candidate_data, candidate_tasks = self._validate_and_apply(edits)
                 touched_task_pool = any(edits.get(key) for key in TASK_CATEGORY_KEYS)
@@ -332,9 +331,7 @@ class CostRewardEditorService:
                 if touched_task_pool:
                     files[TASK_POOL_FILE] = yaml_bytes(TASK_POOL_FILE, candidate_tasks)
                 if not files:
-                    result = self._resource_payload()
-                    operation.succeed()
-                    return {**result, "operation_id": operation.id, "operation": operation.payload()}
+                    return self._resource_payload()
 
                 changed_unique = UNIQUE_WONDERS_FILE in files
                 plan = wonder_generation_plan(
@@ -365,12 +362,12 @@ class CostRewardEditorService:
                     log(f"[save] Recomputed {UNIQUE_WONDERS_REL}\n")
                 if touched_task_pool:
                     log(f"[save] Wrote {TASK_POOL_REL}\n")
-                result = self._resource_payload()
-                operation.succeed()
-                return {**result, "operation_id": operation.id, "operation": operation.payload()}
+                return self._resource_payload()
+
+        try:
+            result = run_operation(operation, commit)
+            return {**result, "operation_id": operation.id, "operation": operation.payload()}
         except Exception as exc:
-            operation.fail(exc)
-            exc.operation = operation.payload()
             self._log.append(f"[error] {exc}\n")
             raise
 

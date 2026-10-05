@@ -80,7 +80,7 @@ from .platform import (
     atomic_write_files,
     file_transaction,
     repo_relative_path,
-    resource_operation,
+    run_operation,
     snapshot_files,
     source_text_bytes,
     yaml_bytes,
@@ -2521,10 +2521,9 @@ class WonderLocalizationService:
             if text.strip():
                 operation.event(text.strip())
 
-        try:
-            # Acquire shared resources before the service lock to keep lock order global.
-            with resource_operation(resource_ids, blocking=False), self._lock:
-                operation.start()
+        def commit() -> dict[str, Any]:
+            # The executor acquires shared resources before this service lock.
+            with self._lock:
                 self._assert_base(base)
                 target_wonder_id = current_wonder_id
                 if target_wonder_id is None and drafts_by_wonder_id:
@@ -2538,8 +2537,7 @@ class WonderLocalizationService:
                               "changed_wonder_ids": [], "wonder": payload, "wonders": self.list_wonders(),
                               "generation": None,
                               "log_text": self.log_text}
-                    operation.succeed()
-                    return {**result, "operation_id": operation.id, "operation": operation.payload()}
+                    return result
 
                 groups = _wonder_input_groups(files)
                 plan = wonder_generation_plan(
@@ -2570,11 +2568,12 @@ class WonderLocalizationService:
                         "generation": generation,
                         "log_text": self.log_text,
                     }
-                    operation.succeed()
-                    return {**result, "operation_id": operation.id, "operation": operation.payload()}
+                    return result
+
+        try:
+            result = run_operation(operation, commit)
+            return {**result, "operation_id": operation.id, "operation": operation.payload()}
         except Exception as exc:
-            operation.fail(exc)
-            exc.operation = operation.payload()
             original = exc.original if isinstance(exc, RollbackError) else exc
             if isinstance(original, GenerationError):
                 original.report["rollback"] = {

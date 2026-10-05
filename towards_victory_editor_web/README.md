@@ -135,8 +135,24 @@ Wonder and cost/reward generation reports use the commit's operation ID.
 Jobs waiting for the media execution lock remain queued with no started_at;
 busy resources fail before the operation starts. Terminal lifecycle states
 cannot be overwritten by later start, completion, failure, or cancellation calls.
-Operation records are currently process-local; commit execution and media job
-execution remain separate lifecycles. Media job `operation.events` contain
+Both commits and jobs run through `platform.run_operation`, which owns resource
+locking, lifecycle transitions and exception operation snapshots. Domain
+callbacks retain validation, file transactions and cleanup; success is published
+only after the callback and its cleanup finish. Media jobs still use the thread
+pool and media execution lock, while commits remain synchronous. Records are
+process-local, with no persistent history or cross-operation query API yet.
+
+Media status, error, return code and timestamps derive from one operation
+snapshot. Cancellation and completion are synchronized; repeated cancellation
+requests are idempotent, queued cancellation is checked before acquiring resource
+locks, and cancellation during handler cleanup still takes effect. Failure logs
+are recorded before publishing the terminal state so polling receives the final
+diagnostics. The failed/cancelled outcome is decided before the error callback
+runs; a cancellation request arriving during the callback leaves the outcome
+failed with cancel_requested set. A failing callback still publishes the
+terminal state. Each operation can be executed only once.
+
+Media job `operation.events` contain
 lifecycle events; generator output is carried only in `lines`. Poll
 `/api/jobs/{job_id}?after_line=<line_cursor>` to receive only new lines. Each
 response includes `line_cursor` and `lines_reset`; when a cursor falls behind
