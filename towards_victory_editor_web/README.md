@@ -147,6 +147,9 @@ explicit store uses an in-memory store, while tests and embedded callers can
 inject `OperationStore(<temporary path>)`. `GET /api/operations?limit=25&kind=media_job&status=failed` lists recent
 operation summaries, and `GET /api/operations/{operation_id}` returns the full
 snapshot, including lifecycle events. The list limit is 1–100; filters are optional.
+Terminal operation snapshots are retained for 30 days from `finished_at`; active
+operations are never pruned. Expired snapshots return 404 and no longer appear in
+the recent list.
 The media generator's separate `lines` log and job/artifact payload remain available
 only through `/api/jobs/{job_id}` while that server process is alive.
 

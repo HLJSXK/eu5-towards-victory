@@ -7,9 +7,9 @@
 ## 状态基准
 
 - 核对日期：2026-10-07
-- 基准提交：`1faebf56`（共享操作执行器）；本次推进操作记录持久化与查询
+- 基准提交：`86f74f9e`（操作记录持久化与查询）；本次推进终态操作记录保留策略
 - 基准工作区：核对前干净；本次实现及验证范围见下文
-- 当前判断：统一资源协议、共享操作执行器及本地操作记录查询已经完成首个可运行切片；编辑器同步提交与媒体异步调度仍各自保留，整个平台重构尚未完成
+- 当前判断：统一资源协议、共享操作执行器及本地操作记录查询和保留策略已经完成首个可运行切片；编辑器同步提交与媒体异步调度仍各自保留，整个平台重构尚未完成
 
 ## 已完成
 
@@ -29,6 +29,7 @@
 - 四个资源提交与媒体 job 的 `OperationLog` 状态及有界事件现写入本地 SQLite；
   `GET /api/operations` 提供最近操作摘要及 kind/status 筛选，`GET /api/operations/{id}`
   提供完整快照。服务重启时，尚未终结的记录标记为带明确诊断的 failed，已完成记录保留。
+  终态快照按 `finished_at` 保留 30 天；活动操作不会被清理，过期记录在启动、写入或查询时删除。
   生产 app 在 FastAPI lifespan 中才打开数据库；无参数 `create_app()` 使用内存库，测试可注入
   临时 `OperationStore`，因此导入 `server.py` 不会修改工作区数据库。lifespan 结束时先恢复
   进程级 `cropper` 和 `jobs` 单例原有的 store 引用，再关闭本次连接；多个 app 的 lifespan
@@ -43,7 +44,8 @@
 - `OperationLog` 包含 operation ID、资源、状态、事件、错误、取消请求和时间戳；四个资源
   commit 与媒体 job 都返回该协议。commit 错误响应从本次异常携带的操作记录中返回，
   Wonder/cost_reward 的 generation 报告沿用本次 operation ID；操作快照保存在忽略版本管理的
-  `.editor_state/operations.sqlite3`，每条记录最多保留 500 个事件。存储写入失败不会把已完成的
+  `.editor_state/operations.sqlite3`，每条记录最多保留 500 个事件，终态记录保留 30 天。
+  存储写入失败不会把已完成的
   文件提交改判为失败；实时响应带 `persistence_error`，这类记录可能在查询库中缺失或不完整。
   普通生成输出事件按 0.5 秒或 50 条阈值节流写入，生命周期转移和终态诊断立即刷新。
   媒体 job 取得执行锁和资源锁后才从 queued 进入 running；资源忙时直接失败且不设置
@@ -63,8 +65,8 @@
 - 媒体 handler 只有首个资源依赖切片；媒体仍直接写正式产物，没有暂存发布、回滚事务
   或未登记写入恢复。现有 PNG/DDS/JPEG/JSON 检查是文件级检查，不是完整图片或领域 schema 校验。
 - 重启中断记录不代表实际文件已恢复，必须人工核对产物；媒体 job 的生成日志、产物和取消控制
-  仍仅在进程内，重启后只能查询操作快照，不能恢复旧 `/api/jobs/{job_id}`。操作库目前没有保留期限，
-  也不是跨进程状态协调或锁。
+  仍仅在进程内，重启后只能查询操作快照，不能恢复旧 `/api/jobs/{job_id}`。操作快照的终态记录保留
+  30 天；媒体 job 详情仍缺持久化策略和保留期限。操作库也不是跨进程状态协调或锁。
 - `atomic_write_files` 能逐文件暂存和恢复，但跨资源 change set 和全局多文件原子替换
   尚未实现。锁只协调当前服务进程，尚未覆盖多进程或多 worker 的持久状态。
 - 前端共享的只是工作区外壳和少量样式；共享 store、请求层、dirty/loading/error 状态、
@@ -77,7 +79,7 @@
 按优先级建议从以下任务中选取，并在任务描述中写明涉及的资源和验证范围：
 
 1. 在已有持久化操作快照及查询上继续整合调度和领域事务；媒体生成日志及 job/artifact
-   详情仍需持久化策略和保留期限。媒体重复日志传输已由游标轮询解决。
+   详情仍需持久化及保留策略。操作快照已实现终态完成后 30 天保留，媒体重复日志传输已由游标轮询解决。
 2. 建立跨资源 `ChangeSet`、完整输入依赖图、领域产物语义校验和跨资源预览。
 3. 为媒体生成增加暂存发布和回滚，并恢复未登记的生成器副作用。
 4. 迁移前端共享 store、请求层、状态协议和公共组件；同时展示 generation/artifact 报告。
@@ -103,7 +105,7 @@
 
 ```powershell
 C:\Users\Hades\anaconda3\envs\eu5\python.exe -m towards_victory_editor_web --check
-C:\Users\Hades\anaconda3\envs\eu5\python.exe -m pytest tests -q --basetemp .pytest-final-20261007
+C:\Users\Hades\anaconda3\envs\eu5\python.exe -m pytest tests -q --basetemp .pytest-retention-full-20261007
 C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\validate.py --changed --ai-report
 C:\Users\Hades\anaconda3\envs\eu5\python.exe -m compileall -q towards_victory_editor_web
 node --test tests/media_job_polling.cjs
@@ -111,9 +113,10 @@ git diff --check
 ```
 
 本轮使用 Windows 托管沙箱与 eu5 Python 3.11.15；工作区临时目录使用新建短名目录，
-避免默认目录权限及 Windows 深路径长度问题。`tests/` 下 183 个用例通过（另有 1 个既有
+避免默认目录权限及 Windows 深路径长度问题。`tests/` 下 184 个用例通过（另有 1 个既有
 FastAPI/httpx 弃用警告）。新增测试覆盖操作记录重开查询、未终结记录的重启中断语义、
-存储故障不改变文件提交结果、查询 API，以及资源提交和媒体 job 的实际持久化接线。
+终态记录按完成时间过期且活动记录不被清理、存储故障不改变文件提交结果、查询 API，
+以及资源提交和媒体 job 的实际持久化接线。
 既有共享执行器、回滚、并发请求、commit/generation ID 和日志游标测试也通过；临时仓库内
 运行全部 41 个 Wonder 生成器，40 个产物与工作区逐字节一致。
 `node --test tests/media_job_polling.cjs` 的 2 项测试通过，覆盖取消后迟到轮询和新旧 job 响应串号。

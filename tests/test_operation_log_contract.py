@@ -272,6 +272,57 @@ def test_reopen_marks_unfinished_operations_interrupted_without_replaying(tmp_pa
         reopened.close()
 
 
+def test_operation_store_prunes_terminal_records_after_configured_retention(tmp_path, monkeypatch) -> None:
+    from towards_victory_editor_web.services import operation_store as operation_store_module
+
+    now = [1_800_000_000.0]
+    monkeypatch.setattr(operation_store_module.time, "time", lambda: now[0])
+    path = tmp_path / "operations.sqlite3"
+    store = OperationStore(path, retention_days=1)
+
+    def save_record(operation_id, *, created_days_ago, status, finished_days_ago=None):
+        finished_at = None if finished_days_ago is None else now[0] - finished_days_ago * 86400
+        store.save({
+            "id": operation_id,
+            "operation_id": operation_id,
+            "kind": "media_job",
+            "status": status,
+            "resource_ids": [],
+            "events": [],
+            "error": None,
+            "cancel_requested": False,
+            "created_at": now[0] - created_days_ago * 86400,
+            "started_at": None,
+            "finished_at": finished_at,
+        })
+
+    save_record("old-but-recently-finished", created_days_ago=3, status="succeeded", finished_days_ago=0.5)
+    save_record("still-running", created_days_ago=3, status="running")
+
+    # Retention counts from finished_at, so an old creation time alone does not expire it.
+    assert store.get("old-but-recently-finished")["status"] == "succeeded"
+    assert [item["id"] for item in store.recent(status="succeeded")] == ["old-but-recently-finished"]
+
+    now[0] += 2 * 86400
+    with pytest.raises(KeyError, match="old-but-recently-finished"):
+        store.get("old-but-recently-finished")
+    assert store.get("still-running")["status"] == "running"
+    store.close()
+
+    reopened = OperationStore(path, retention_days=1)
+    try:
+        interrupted = reopened.get("still-running")
+        assert interrupted["status"] == "failed"
+        assert interrupted["error"] == OperationStore.INTERRUPTED_ERROR
+
+        now[0] += 2 * 86400
+        assert reopened.recent() == []
+        with pytest.raises(KeyError, match="still-running"):
+            reopened.get("still-running")
+    finally:
+        reopened.close()
+
+
 def test_persistence_failure_is_visible_without_changing_commit_outcome(tmp_path, monkeypatch) -> None:
     store = OperationStore(tmp_path / "operations.sqlite3")
     operation = OperationLog("resource_commit", store=store)

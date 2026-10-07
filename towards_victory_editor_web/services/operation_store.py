@@ -10,14 +10,19 @@ from pathlib import Path
 
 
 class OperationStore:
-    """Persist bounded OperationLog snapshots in the local workspace."""
+    """Persist OperationLog snapshots with a bounded event and record lifetime."""
 
     INTERRUPTED_ERROR = (
         "Server restarted before this operation finished; inspect output files before retrying"
     )
+    TERMINAL_STATUSES = ("succeeded", "failed", "cancelled")
+    DEFAULT_RETENTION_DAYS = 30
 
-    def __init__(self, path: Path | str) -> None:
+    def __init__(self, path: Path | str, *, retention_days: int = DEFAULT_RETENTION_DAYS) -> None:
+        if retention_days < 0:
+            raise ValueError("retention_days must be non-negative")
         self.path = Path(path)
+        self.retention_seconds = retention_days * 24 * 60 * 60
         self._lock = threading.RLock()
         if str(path) == ":memory:":
             self._connection = sqlite3.connect(":memory:", check_same_thread=False, timeout=5)
@@ -35,6 +40,8 @@ class OperationStore:
                 "ON operations(created_at DESC, id DESC)"
             )
         self._recover_interrupted()
+        with self._lock, self._connection:
+            self._prune_expired()
 
     def save(self, payload: dict[str, object]) -> None:
         encoded = json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
@@ -44,9 +51,11 @@ class OperationStore:
                 "ON CONFLICT(id) DO UPDATE SET status=excluded.status, payload=excluded.payload",
                 (payload["id"], payload["created_at"], payload["kind"], payload["status"], encoded),
             )
+            self._prune_expired()
 
     def get(self, operation_id: str) -> dict[str, object]:
-        with self._lock:
+        with self._lock, self._connection:
+            self._prune_expired()
             row = self._connection.execute(
                 "SELECT payload FROM operations WHERE id = ?", (operation_id,)
             ).fetchone()
@@ -66,7 +75,8 @@ class OperationStore:
                 conditions.append(f"{column} = ?")
                 values.append(value)
         where = " WHERE " + " AND ".join(conditions) if conditions else ""
-        with self._lock:
+        with self._lock, self._connection:
+            self._prune_expired()
             rows = self._connection.execute(
                 "SELECT payload FROM operations" + where + " ORDER BY created_at DESC, id DESC LIMIT ?",
                 (*values, limit),
@@ -79,6 +89,24 @@ class OperationStore:
     def close(self) -> None:
         with self._lock:
             self._connection.close()
+
+    def _prune_expired(self) -> None:
+        cutoff = time.time() - self.retention_seconds
+        rows = self._connection.execute(
+            "SELECT id, payload FROM operations "
+            "WHERE created_at < ? AND status IN (?, ?, ?)",
+            (cutoff, *self.TERMINAL_STATUSES),
+        ).fetchall()
+        expired_ids: list[tuple[str]] = []
+        for operation_id, encoded in rows:
+            payload = json.loads(encoded)
+            finished_at = payload.get("finished_at")
+            if isinstance(finished_at, (int, float)) and finished_at < cutoff:
+                expired_ids.append((operation_id,))
+        if expired_ids:
+            self._connection.executemany(
+                "DELETE FROM operations WHERE id = ?", expired_ids
+            )
 
     def _recover_interrupted(self) -> None:
         with self._lock:
