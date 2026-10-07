@@ -20,6 +20,7 @@ Read every required risk card, especially any immediate risk alert.
   `docs/technical/Editor_Web_Refactor_Status.md` next. Use
   `docs/technical/Towards_Victory_Editor_Web_Assessment.md` only when the
   detailed architecture baseline or rationale is needed.
+- In refactor work, advance only the snapshot's "当前焦点" and follow its "使用规则".
 - Use `scripts/ai_context.py` for task-scoped routing.
 - In managed sandboxes, use the direct `eu5` interpreter. Do not use `conda run -n eu5`.
 
