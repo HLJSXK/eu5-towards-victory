@@ -24,6 +24,7 @@ class JsonTool:
         self.output = root / "output.json"
         self.action = lambda context: self.output.write_text('{"ok": true}')
         self.optional = ()
+        self.result = ToolResult(message="done")
 
     def validate(self, options):
         if options:
@@ -38,7 +39,7 @@ class JsonTool:
 
         def run(context):
             self.action(context)
-            return ToolResult(message="done")
+            return self.result
 
         yield ToolPlan(snapshots, (self.output,), run)
 
@@ -59,7 +60,7 @@ def job_env(tmp_path):
 def execute(tool, manager):
     job = manager.submit(tool.spec.id, {})
     manager.shutdown()
-    return manager.get(job.id).payload()
+    return manager.get(job.id)
 
 
 def test_job_reports_resource_snapshot_and_declared_artifact(job_env):
@@ -77,6 +78,110 @@ def test_job_reports_resource_snapshot_and_declared_artifact(job_env):
     assert job["artifacts"][0]["path"] == "output.json"
     assert job["artifacts"][0]["changed"] is True
     assert job["metadata"]["output_validation"][0]["valid"] is True
+
+
+def test_completed_job_details_are_queryable_after_manager_restart(tmp_path):
+    tool = JsonTool(tmp_path)
+    tool.source.write_text("source")
+    registry = ToolRegistry()
+    registry.register(tool)
+    store = OperationStore(tmp_path / "operations.sqlite3")
+    manager = JobManager(registry, tmp_path, store)
+    completed = execute(tool, manager)
+    job_id = completed["id"]
+    store.close()
+    restarted_store = OperationStore(tmp_path / "operations.sqlite3")
+    restarted = JobManager(ToolRegistry(), tmp_path, restarted_store)
+    try:
+        queried = restarted.get(job_id)
+        assert queried["status"] == "succeeded"
+        assert queried["tool"] == tool.spec.id
+        assert queried["lines"] == []
+        assert queried["artifacts"] == completed["artifacts"]
+        assert restarted.get(job_id, after_line=queried["line_cursor"])["lines"] == []
+    finally:
+        restarted.shutdown()
+        restarted_store.close()
+
+
+@pytest.mark.parametrize("invalid", ["path", "circular", "nonfinite", "message"])
+def test_invalid_tool_result_keeps_terminal_diagnostic_and_artifacts(job_env, invalid):
+    tool, manager = job_env
+    metadata = {"output": {"path": tool.output}}
+    message = "done"
+    if invalid == "circular":
+        metadata = {}
+        metadata["self"] = metadata
+    elif invalid == "nonfinite":
+        metadata = {"progress": float("nan")}
+    elif invalid == "message":
+        metadata = {}
+        message = tool.output
+    tool.result = ToolResult(message=message, metadata=metadata)
+
+    failed = execute(tool, manager)
+
+    assert failed["status"] == "failed"
+    assert "Tool result from test.json must be JSON serializable" in failed["error"]
+    assert "persistence_error" not in failed["operation"]
+    assert failed["message"] == ""
+    assert list(failed["metadata"]) == ["output_validation"]
+    assert failed["metadata"]["output_validation"][0]["valid"] is True
+    assert failed["artifacts"][0]["path"] == "output.json"
+    assert failed["outputs_may_be_partial"] is True
+    operation, details = manager.operation_store.get_with_details(failed["id"])
+    assert operation == failed["operation"]
+    assert details["metadata"] == failed["metadata"]
+    assert details["lines"] == failed["lines"]
+
+    reopened = OperationStore(manager.operation_store.path)
+    archived = JobManager(ToolRegistry(), tool.root, reopened)
+    try:
+        assert archived.get(failed["id"]) == failed
+        assert "interrupted" not in reopened.get(failed["id"])
+    finally:
+        archived.shutdown()
+        reopened.close()
+
+
+@pytest.mark.parametrize("invalid", ["path", "circular"])
+def test_invalid_normalized_options_are_rejected_before_creating_job(job_env, monkeypatch, invalid):
+    tool, manager = job_env
+    options = {"source": tool.source}
+    if invalid == "circular":
+        options = {}
+        options["self"] = options
+    monkeypatch.setattr(tool, "validate", lambda _options: options)
+
+    with pytest.raises(ValueError, match="Tool options for test.json must be JSON serializable"):
+        manager.submit(tool.spec.id, {})
+
+    assert manager.operation_store.recent() == []
+    assert not tool.output.exists()
+
+
+def test_tool_result_is_detached_before_handler_cleanup(job_env, monkeypatch):
+    tool, manager = job_env
+    metadata = {"output": {"path": "output.json"}}
+    tool.result = ToolResult(message="done", metadata=metadata)
+    prepare = tool.prepare
+
+    @contextmanager
+    def prepare_with_cleanup(options):
+        with prepare(options) as plan:
+            yield plan
+            # A handler-owned object must not mutate the published JSON snapshot.
+            metadata["output"]["path"] = tool.output
+
+    monkeypatch.setattr(tool, "prepare", prepare_with_cleanup)
+
+    completed = execute(tool, manager)
+
+    assert completed["status"] == "succeeded"
+    assert completed["metadata"]["output"] == {"path": "output.json"}
+    operation, details = manager.operation_store.get_with_details(completed["id"])
+    assert operation == completed["operation"]
+    assert details["metadata"] == completed["metadata"]
 
 
 def test_job_polling_returns_only_new_lines_and_keeps_lifecycle_events(job_env):

@@ -6,10 +6,10 @@
 
 ## 状态基准
 
-- 核对日期：2026-10-07
-- 基准提交：`86f74f9e`（操作记录持久化与查询）；本次推进终态操作记录保留策略
-- 基准工作区：核对前干净；本次实现及验证范围见下文
-- 当前判断：统一资源协议、共享操作执行器及本地操作记录查询和保留策略已经完成首个可运行切片；编辑器同步提交与媒体异步调度仍各自保留，整个平台重构尚未完成
+- 核对日期：2026-10-08
+- 基准提交：`8d93e64c`（终态操作记录保留）；本轮推进媒体 job 详情持久化及 JSON 契约审计修复
+- 基准工作区：媒体详情持久化与 JSON 契约修复在同一提交中完成；验证范围见下文
+- 当前判断：统一资源协议、共享操作执行器、操作及媒体详情持久化查询和保留策略已经完成首个可运行切片；编辑器同步提交与媒体异步调度仍各自保留，整个平台重构尚未完成
 
 ## 已完成
 
@@ -20,7 +20,7 @@
 - Wonder 首屏摘要、仪式设计和共享选项目录已按需加载；大选项目录通过版本引用共享。
 - Wonder 生成链已有声明式 DAG：完整计划为 41 个脚本、40 个不同产物，按实际变更的
   输入组选择根步骤，并返回步骤状态、超时、日志和产物清单。
-- 编辑器和媒体共用产物清单及文件级格式检查；媒体目录有 9 个注册工具，其中 5 个
+- `services/artifacts.py` 提供编辑器和媒体共用的产物清单及文件级格式检查；媒体目录有 9 个注册工具，其中 5 个
   可运行 handler 已实现 `prepare`、输入快照和输出声明，Wonder 相关 job 已接入资源锁。
 - 四个编辑器已使用统一资源接口，Web 工具已有统一启动入口和 `--check` 检查。
 - 四个编辑器 commit 与媒体 job 共用 `run_operation`：统一非阻塞资源锁、启动、
@@ -28,12 +28,18 @@
   媒体调度仍由线程池负责，执行锁等待期间保持 queued；同一操作不能重复执行。
 - 四个资源提交与媒体 job 的 `OperationLog` 状态及有界事件现写入本地 SQLite；
   `GET /api/operations` 提供最近操作摘要及 kind/status 筛选，`GET /api/operations/{id}`
-  提供完整快照。服务重启时，尚未终结的记录标记为带明确诊断的 failed，已完成记录保留。
+  提供完整操作生命周期及事件快照；媒体产物和校验报告通过 `/api/jobs/{job_id}` 查询。
+  服务重启时，尚未终结的记录标记为带明确诊断及 `interrupted=true` 的 failed，已完成记录保留。
   终态快照按 `finished_at` 保留 30 天；活动操作不会被清理，过期记录在启动、写入或查询时删除。
   生产 app 在 FastAPI lifespan 中才打开数据库；无参数 `create_app()` 使用内存库，测试可注入
   临时 `OperationStore`，因此导入 `server.py` 不会修改工作区数据库。lifespan 结束时先恢复
   进程级 `cropper` 和 `jobs` 单例原有的 store 引用，再关闭本次连接；多个 app 的 lifespan
   若重叠，仍可能互相覆盖这些共享引用，这是当前进程级单例架构的边界。
+- 媒体 job 的工具参数、有限日志游标、输入快照、声明产物、产物清单、校验结果和输出状态
+  现与操作快照一起持久化；job ID 直接使用 operation ID，服务重启后 `/api/jobs/{job_id}`
+  可读取终态详情，并继续支持 `after_line` 游标。归档查询不重建 handler 或恢复执行；对
+  归档 job 的取消调用是幂等读取。SQLite 详情随操作记录级联删除，内存终态 job 也按完成
+  后 30 天清理；没有详情行的旧媒体记录不会补全。
 
 ## 部分完成和明确边界
 
@@ -64,9 +70,14 @@
   返回最近 300 行并标记 `lines_reset`，媒体工作台与裁剪页均按此协议更新日志。
 - 媒体 handler 只有首个资源依赖切片；媒体仍直接写正式产物，没有暂存发布、回滚事务
   或未登记写入恢复。现有 PNG/DDS/JPEG/JSON 检查是文件级检查，不是完整图片或领域 schema 校验。
-- 重启中断记录不代表实际文件已恢复，必须人工核对产物；媒体 job 的生成日志、产物和取消控制
-  仍仅在进程内，重启后只能查询操作快照，不能恢复旧 `/api/jobs/{job_id}`。操作快照的终态记录保留
-  30 天；媒体 job 详情仍缺持久化策略和保留期限。操作库也不是跨进程状态协调或锁。
+- 重启中断记录不代表实际文件已恢复，必须人工核对产物；媒体 job 的取消控制和活动执行
+  仍仅在进程内，重启后不会恢复执行。操作快照的终态记录保留 30 天；操作库也不是跨进程
+  状态协调或锁。
+- 媒体 handler 校验后的 options 在创建 job 前检查 JSON 契约；`ToolResult` 的 message 和
+  metadata 在发布到 job 前检查并生成独立 JSON 快照。Path、循环引用及非有限数值会产生
+  明确的工具错误；非法结果不会进入待持久化详情，失败终态、日志和实际产物报告仍可落库。
+  清理阶段修改 handler 持有的嵌套 metadata 不会改变已发布快照。JSON 契约错误按工具失败
+  处理；`persistence_error` 仍用于存储故障。
 - `atomic_write_files` 能逐文件暂存和恢复，但跨资源 change set 和全局多文件原子替换
   尚未实现。锁只协调当前服务进程，尚未覆盖多进程或多 worker 的持久状态。
 - 前端共享的只是工作区外壳和少量样式；共享 store、请求层、dirty/loading/error 状态、
@@ -78,8 +89,8 @@
 
 按优先级建议从以下任务中选取，并在任务描述中写明涉及的资源和验证范围：
 
-1. 在已有持久化操作快照及查询上继续整合调度和领域事务；媒体生成日志及 job/artifact
-   详情仍需持久化及保留策略。操作快照已实现终态完成后 30 天保留，媒体重复日志传输已由游标轮询解决。
+1. 在已有持久化操作快照及查询上继续整合调度和领域事务；媒体详情已持久化并沿用终态
+   完成后 30 天保留，但媒体执行调度仍未与资源提交统一。媒体重复日志传输已由游标轮询解决。
 2. 建立跨资源 `ChangeSet`、完整输入依赖图、领域产物语义校验和跨资源预览。
 3. 为媒体生成增加暂存发布和回滚，并恢复未登记的生成器副作用。
 4. 迁移前端共享 store、请求层、状态协议和公共组件；同时展示 generation/artifact 报告。
@@ -105,7 +116,7 @@
 
 ```powershell
 C:\Users\Hades\anaconda3\envs\eu5\python.exe -m towards_victory_editor_web --check
-C:\Users\Hades\anaconda3\envs\eu5\python.exe -m pytest tests -q --basetemp .pytest-retention-full-20261007
+C:\Users\Hades\anaconda3\envs\eu5\python.exe -m pytest tests -q --basetemp .pytest-job-details-20261008
 C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\validate.py --changed --ai-report
 C:\Users\Hades\anaconda3\envs\eu5\python.exe -m compileall -q towards_victory_editor_web
 node --test tests/media_job_polling.cjs
@@ -113,10 +124,13 @@ git diff --check
 ```
 
 本轮使用 Windows 托管沙箱与 eu5 Python 3.11.15；工作区临时目录使用新建短名目录，
-避免默认目录权限及 Windows 深路径长度问题。`tests/` 下 184 个用例通过（另有 1 个既有
-FastAPI/httpx 弃用警告）。新增测试覆盖操作记录重开查询、未终结记录的重启中断语义、
-终态记录按完成时间过期且活动记录不被清理、存储故障不改变文件提交结果、查询 API，
-以及资源提交和媒体 job 的实际持久化接线。
+避免默认目录权限及 Windows 深路径长度问题。`tests/` 下 192 个用例通过（另有 1 个既有
+FastAPI/httpx 弃用警告）。媒体详情持久化切片共有 185 项，其中新增 1 个重开查询测试，
+验证已成功 job 的工具标识、产物清单及 `after_line` 协议；本次 JSON
+契约审计另增 7 项，覆盖 Path、循环引用、非有限数值和非法 message 的持久化失败诊断、
+实际产物保留、重开后失败状态不被误判为中断、非法 normalized options 在创建 job 前拒绝，
+以及 handler 清理阶段修改嵌套 metadata 的隔离。既有操作记录重开、重启中断、终态完成
+时间保留、存储故障、查询 API 及资源提交的持久化接线测试继续覆盖。
 既有共享执行器、回滚、并发请求、commit/generation ID 和日志游标测试也通过；临时仓库内
 运行全部 41 个 Wonder 生成器，40 个产物与工作区逐字节一致。
 `node --test tests/media_job_polling.cjs` 的 2 项测试通过，覆盖取消后迟到轮询和新旧 job 响应串号。

@@ -75,6 +75,13 @@ validation at `/api/jobs/{job_id}`. All five runnable handlers implement
 into a `ToolPlan` with input snapshots, required/optional output paths, and an
 execution callback. CLI and Web use the same generator execution functions.
 
+Handler-normalized options and `ToolResult` fields must be JSON serializable,
+with finite numeric values. The job manager validates and detaches options before
+creating a job, and validates and detaches results before publishing their fields.
+Invalid results fail with a tool-specific diagnostic while still collecting actual
+output artifacts and persisting the failed lifecycle and detail snapshots. Handler
+cleanup cannot mutate the published result through references to nested metadata.
+
 Required inputs must exist during preparation, required outputs must exist
 after execution, and declared outputs are checked for PNG/DDS/JPEG headers or
 valid JSON. This is a file-level check, not full image decoding or domain schema
@@ -151,7 +158,13 @@ Terminal operation snapshots are retained for 30 days from `finished_at`; active
 operations are never pruned. Expired snapshots return 404 and no longer appear in
 the recent list.
 The media generator's separate `lines` log and job/artifact payload remain available
-only through `/api/jobs/{job_id}` while that server process is alive.
+through `/api/jobs/{job_id}` after restart as well. Completed media jobs persist their
+tool, options, bounded log lines, input snapshots, declared outputs, artifacts and
+validation metadata alongside the operation snapshot, using the same 30-day terminal
+retention policy. A restarted server can query these terminal details but does not
+recreate handlers, resume execution or provide cancellation for archived jobs. The
+in-memory job manager still owns live execution and cancellation; media job details
+are unavailable for records written before this persistence slice.
 
 Ordinary generator output events are persisted in batches no more often than every
 0.5 seconds or 50 events. Lifecycle transitions and terminal diagnostics always

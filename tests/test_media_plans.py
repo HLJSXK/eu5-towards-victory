@@ -32,7 +32,7 @@ def run_tool(root, tool):
         job = manager.submit(tool.spec.id, {})
     finally:
         manager.shutdown()
-    return manager.get(job.id).payload()
+    return manager.get(job.id)
 
 
 class PlannedTool:

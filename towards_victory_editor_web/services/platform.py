@@ -52,7 +52,8 @@ class OperationLog:
     TERMINAL_STATUSES = frozenset({"succeeded", "failed", "cancelled"})
 
     def __init__(
-        self, kind: str, resource_ids: Iterable[str] = (), *, store: OperationStore | None = None
+        self, kind: str, resource_ids: Iterable[str] = (), *, store: OperationStore | None = None,
+        snapshot_details: Callable[[], dict[str, object]] | None = None,
     ) -> None:
         self.id = uuid.uuid4().hex
         self.kind = kind
@@ -67,6 +68,7 @@ class OperationLog:
         self._lock = threading.RLock()
         self._execution_claimed = False
         self._store = store
+        self._snapshot_details = snapshot_details
         self.persistence_error: str | None = None
         self._last_persist_at = 0.0
         self._events_since_persist = 0
@@ -137,6 +139,18 @@ class OperationLog:
         with self._lock:
             return self._payload_locked()
 
+    def checkpoint(self, *, force: bool = True) -> None:
+        """Persist changed domain details without duplicating them in events."""
+        with self._lock:
+            self._events_since_persist += 1
+            self._persist_locked(force=force)
+
+    def payload_with_details(self) -> tuple[dict[str, object], dict[str, object]]:
+        with self._lock:
+            if self._snapshot_details is None:
+                raise RuntimeError("Operation has no domain details")
+            return self._payload_locked(), self._snapshot_details()
+
     def _payload_locked(self) -> dict[str, object]:
         payload: dict[str, object] = {
             "id": self.id,
@@ -166,7 +180,10 @@ class OperationLog:
         ):
             return
         try:
-            self._store.save(self._payload_locked())
+            if self._snapshot_details is None:
+                self._store.save(self._payload_locked())
+            else:
+                self._store.save(self._payload_locked(), details=self._snapshot_details())
             self._last_persist_at = now
             self._events_since_persist = 0
         except (OSError, sqlite3.Error) as exc:

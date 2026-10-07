@@ -1,9 +1,11 @@
 from __future__ import annotations
 
 import contextlib
+import copy
 import io
+import json
 import threading
-import uuid
+import time
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -115,8 +117,18 @@ def normalize_declared_options(spec: ToolSpec, options: dict[str, Any]) -> dict[
 
 @dataclass(frozen=True)
 class ToolResult:
+    """Result fields must be JSON serializable before publication."""
+
     message: str = ""
     metadata: dict[str, Any] = field(default_factory=dict)
+
+
+def _json_snapshot(value: dict[str, Any], *, label: str) -> dict[str, Any]:
+    """Validate the tool boundary and detach the published JSON tree."""
+    try:
+        return json.loads(json.dumps(value, allow_nan=False))
+    except (TypeError, ValueError) as exc:
+        raise ValueError(f"{label} must be JSON serializable: {exc}") from exc
 
 
 @dataclass(frozen=True)
@@ -212,16 +224,15 @@ class ToolRegistry:
 
 class Job:
     def __init__(
-        self, job_id: str, handler: ToolHandler, options: dict[str, Any], repo_root: Path,
+        self, handler: ToolHandler, options: dict[str, Any], repo_root: Path,
         operation_store: OperationStore | None = None,
     ) -> None:
-        self.id = job_id
         self.handler = handler
         self.options = options
         self.repo_root = repo_root
         self.lines: list[str] = []
         self._line_cursor = 0
-        self._lines_lock = threading.Lock()
+        self._details_lock = threading.RLock()
         self.message = ""
         self.metadata: dict[str, Any] = {}
         self.artifacts: tuple[Artifact, ...] = ()
@@ -229,49 +240,68 @@ class Job:
         self.declared_outputs: list[str] = []
         self.missing_outputs: list[str] = []
         self.operation = OperationLog(
-            "media_job", handler.spec.resource_ids, store=operation_store
+            "media_job", handler.spec.resource_ids, store=operation_store,
+            snapshot_details=self._snapshot_details,
         )
-        self.context = ToolContext(job_id, repo_root, self._append, self.operation)
+        self.id = self.operation.id
+        self.context = ToolContext(self.id, repo_root, self._append, self.operation)
 
     def _append(self, line: str) -> None:
-        with self._lines_lock:
+        with self._details_lock:
             self.lines.append(line)
             self._line_cursor += 1
             del self.lines[:-500]
+        # Never acquire the operation lock while holding the details lock:
+        # lifecycle checkpoints take them in the opposite order.
+        self.operation.checkpoint(force=False)
 
     def payload(self, after_line: int | None = None) -> dict[str, Any]:
-        operation = self.operation.payload()
-        with self._lines_lock:
-            cursor = self._line_cursor
-            retained_start = cursor - len(self.lines)
-            reset = after_line is None or after_line < retained_start or after_line > cursor
-            start = max(retained_start, cursor - 300) if reset else after_line
-            lines = self.lines[start - retained_start:].copy()
-        return {
-            "id": self.id,
-            "tool": self.handler.spec.id,
-            "status": operation["status"],
-            "options": self.options,
-            "lines": lines,
-            "line_cursor": cursor,
-            "lines_reset": reset,
-            "returncode": {"succeeded": 0, "failed": 1, "cancelled": 130}.get(operation["status"]),
-            "error": operation["error"],
-            "message": self.message,
-            "metadata": self.metadata,
-            "resource_ids": list(self.handler.spec.resource_ids),
-            "artifact_formats": list(self.handler.spec.artifact_formats),
-            "source_snapshots": self.source_snapshots,
-            "declared_outputs": self.declared_outputs,
-            "missing_outputs": self.missing_outputs,
-            "outputs_may_be_partial": operation["status"] in {"failed", "cancelled"}
-            and any(artifact.changed for artifact in self.artifacts),
-            "operation_id": self.operation.id,
-            "operation": operation,
-            "artifacts": [artifact.payload() for artifact in self.artifacts],
-            "created_at": operation["created_at"],
-            "finished_at": operation["finished_at"],
-        }
+        operation, details = self.operation.payload_with_details()
+        return job_payload(operation, details, after_line=after_line)
+
+    def _snapshot_details(self) -> dict[str, Any]:
+        with self._details_lock:
+            return copy.deepcopy({
+                "tool": self.handler.spec.id,
+                "options": self.options,
+                "lines": self.lines,
+                "line_cursor": self._line_cursor,
+                "message": self.message,
+                "metadata": self.metadata,
+                "artifact_formats": list(self.handler.spec.artifact_formats),
+                "source_snapshots": self.source_snapshots,
+                "declared_outputs": self.declared_outputs,
+                "missing_outputs": self.missing_outputs,
+                "artifacts": [artifact.payload() for artifact in self.artifacts],
+            })
+
+
+def job_payload(
+    operation: dict[str, Any], details: dict[str, Any], *, after_line: int | None = None
+) -> dict[str, Any]:
+    """Use one read protocol for live jobs and durable, read-only checkpoints."""
+    cursor = details["line_cursor"]
+    retained_start = cursor - len(details["lines"])
+    reset = after_line is None or after_line < retained_start or after_line > cursor
+    start = max(retained_start, cursor - 300) if reset else after_line
+    return {
+        **details,
+        "id": operation["id"],
+        "status": operation["status"],
+        "lines": details["lines"][start - retained_start:],
+        "lines_reset": reset,
+        "returncode": {"succeeded": 0, "failed": 1, "cancelled": 130}.get(operation["status"]),
+        "error": operation["error"],
+        "resource_ids": operation["resource_ids"],
+        "outputs_may_be_partial": operation["status"] in {"failed", "cancelled"} and (
+            any(artifact["changed"] for artifact in details["artifacts"])
+            or (operation.get("interrupted", False) and operation["started_at"] is not None)
+        ),
+        "operation_id": operation["id"],
+        "operation": operation,
+        "created_at": operation["created_at"],
+        "finished_at": operation["finished_at"],
+    }
 
 
 class JobManager:
@@ -289,26 +319,54 @@ class JobManager:
 
     def submit(self, tool_id: str, options: dict[str, Any]) -> Job:
         handler = self.registry.get(tool_id)
-        normalized = handler.validate(options)
-        job = Job(
-            uuid.uuid4().hex[:12], handler, normalized, self.repo_root, self.operation_store
+        normalized = _json_snapshot(
+            handler.validate(options), label=f"Tool options for {handler.spec.id}"
         )
+        job = Job(handler, normalized, self.repo_root, self.operation_store)
         with self._lock:
+            self._prune_expired_locked()
             self._jobs[job.id] = job
         self._executor.submit(self._run, job)
         return job
 
-    def get(self, job_id: str) -> Job:
+    def get(self, job_id: str, after_line: int | None = None) -> dict[str, Any]:
         with self._lock:
+            self._prune_expired_locked()
+            job = self._jobs.get(job_id)
+        if job is not None:
+            return job.payload(after_line=after_line)
+        if self.operation_store is not None:
             try:
-                return self._jobs[job_id]
-            except KeyError as exc:
-                raise KeyError(f"Unknown job: {job_id}") from exc
+                operation, details = self.operation_store.get_with_details(job_id)
+            except KeyError:
+                pass
+            else:
+                if operation["kind"] == "media_job":
+                    return job_payload(operation, details, after_line=after_line)
+        raise KeyError(f"Unknown job: {job_id}")
 
-    def cancel(self, job_id: str) -> Job:
-        job = self.get(job_id)
-        job.context.request_cancel()
-        return job
+    def cancel(self, job_id: str) -> dict[str, Any]:
+        with self._lock:
+            self._prune_expired_locked()
+            job = self._jobs.get(job_id)
+        if job is not None:
+            job.context.request_cancel()
+        # Archived jobs are terminal: cancellation is an idempotent read, not
+        # reconstruction of a handler or a request to resume execution.
+        return self.get(job_id)
+
+    def _prune_expired_locked(self) -> None:
+        retention = (self.operation_store.retention_seconds if self.operation_store is not None
+                     else OperationStore.DEFAULT_RETENTION_DAYS * 86400)
+        cutoff = time.time() - retention
+        expired = []
+        for job_id, job in self._jobs.items():
+            operation = job.operation.payload()
+            if (operation["status"] in OperationLog.TERMINAL_STATUSES
+                    and operation["finished_at"] < cutoff):
+                expired.append(job_id)
+        for job_id in expired:
+            del self._jobs[job_id]
 
     def shutdown(self) -> None:
         self._executor.shutdown(wait=True)
@@ -319,8 +377,10 @@ class JobManager:
                 outputs = tuple(dict.fromkeys(path.resolve() for path in (*plan.outputs, *plan.optional_outputs)))
                 for path in outputs:
                     repo_relative_path(path, self.repo_root)
-                job.source_snapshots = [vars(item) for item in plan.inputs]
-                job.declared_outputs = [artifact_path(self.repo_root, path) for path in outputs]
+                with job._details_lock:
+                    job.source_snapshots = [vars(item) for item in plan.inputs]
+                    job.declared_outputs = [artifact_path(self.repo_root, path) for path in outputs]
+                job.operation.checkpoint()
                 inputs = tuple(self.repo_root / item.path for item in plan.inputs)
                 job.context.check_cancelled()
                 if snapshot_files(inputs, repo_root=self.repo_root) != plan.inputs:
@@ -328,19 +388,29 @@ class JobManager:
                 before = snapshot_artifacts(outputs)
                 try:
                     result = plan.run(job.context)
-                    job.message = result.message
-                    job.metadata = dict(result.metadata)
+                    result_snapshot = _json_snapshot(
+                        {"message": result.message, "metadata": dict(result.metadata)},
+                        label=f"Tool result from {job.handler.spec.id}",
+                    )
+                    with job._details_lock:
+                        job.message = result_snapshot["message"]
+                        job.metadata = result_snapshot["metadata"]
                 finally:
                     # Preserve the real disk outcome even if run() raises or is cancelled.
                     after = snapshot_artifacts(outputs)
-                    job.artifacts = collect_artifacts(self.repo_root, before, after)
-                    job.missing_outputs = [
+                    artifacts = collect_artifacts(self.repo_root, before, after)
+                    missing_outputs = [
                         artifact_path(self.repo_root, path) for path in plan.outputs
                         if path.resolve() not in after
                     ]
-                    job.metadata["output_validation"] = validate_artifact_contract(
-                        self.repo_root, job.artifacts, job.handler.spec.artifact_formats
+                    validation = validate_artifact_contract(
+                        self.repo_root, artifacts, job.handler.spec.artifact_formats
                     )
+                    with job._details_lock:
+                        job.artifacts = artifacts
+                        job.missing_outputs = missing_outputs
+                        job.metadata["output_validation"] = validation
+                    job.operation.checkpoint()
                 # Cancellation wins over stale-input / missing-output diagnostics.
                 job.context.check_cancelled()
                 # DDS-only conversions intentionally transform their input in place.

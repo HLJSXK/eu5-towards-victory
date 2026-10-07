@@ -29,6 +29,7 @@ class OperationStore:
         else:
             self.path.parent.mkdir(parents=True, exist_ok=True)
             self._connection = sqlite3.connect(self.path, check_same_thread=False, timeout=5)
+        self._connection.execute("PRAGMA foreign_keys = ON")
         with self._connection:
             self._connection.execute(
                 "CREATE TABLE IF NOT EXISTS operations ("
@@ -39,18 +40,35 @@ class OperationStore:
                 "CREATE INDEX IF NOT EXISTS operations_recent "
                 "ON operations(created_at DESC, id DESC)"
             )
+            self._connection.execute(
+                "CREATE TABLE IF NOT EXISTS operation_details ("
+                "operation_id TEXT PRIMARY KEY REFERENCES operations(id) ON DELETE CASCADE, "
+                "payload TEXT NOT NULL)"
+            )
         self._recover_interrupted()
         with self._lock, self._connection:
             self._prune_expired()
 
-    def save(self, payload: dict[str, object]) -> None:
+    def save(
+        self, payload: dict[str, object], *, details: dict[str, object] | None = None
+    ) -> None:
         encoded = json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
+        encoded_details = (
+            json.dumps(details, ensure_ascii=False, separators=(",", ":"))
+            if details is not None else None
+        )
         with self._lock, self._connection:
             self._connection.execute(
                 "INSERT INTO operations(id, created_at, kind, status, payload) VALUES (?, ?, ?, ?, ?) "
                 "ON CONFLICT(id) DO UPDATE SET status=excluded.status, payload=excluded.payload",
                 (payload["id"], payload["created_at"], payload["kind"], payload["status"], encoded),
             )
+            if encoded_details is not None:
+                self._connection.execute(
+                    "INSERT INTO operation_details(operation_id, payload) VALUES (?, ?) "
+                    "ON CONFLICT(operation_id) DO UPDATE SET payload=excluded.payload",
+                    (payload["id"], encoded_details),
+                )
             self._prune_expired()
 
     def get(self, operation_id: str) -> dict[str, object]:
@@ -62,6 +80,19 @@ class OperationStore:
         if row is None:
             raise KeyError(f"Unknown operation: {operation_id}")
         return json.loads(row[0])
+
+    def get_with_details(self, operation_id: str) -> tuple[dict[str, object], dict[str, object]]:
+        """Read lifecycle and domain details from the same committed checkpoint."""
+        with self._lock, self._connection:
+            self._prune_expired()
+            row = self._connection.execute(
+                "SELECT operations.payload, operation_details.payload FROM operations "
+                "JOIN operation_details ON operation_details.operation_id = operations.id "
+                "WHERE operations.id = ?", (operation_id,),
+            ).fetchone()
+        if row is None:
+            raise KeyError(f"Unknown operation details: {operation_id}")
+        return json.loads(row[0]), json.loads(row[1])
 
     def recent(
         self, *, limit: int = 25, kind: str | None = None, status: str | None = None
@@ -117,6 +148,7 @@ class OperationStore:
                 payload = json.loads(encoded)
                 now = time.time()
                 payload["status"] = "failed"
+                payload["interrupted"] = True
                 payload["error"] = self.INTERRUPTED_ERROR
                 payload["finished_at"] = now
                 events = payload["events"]

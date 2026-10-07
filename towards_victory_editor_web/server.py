@@ -344,11 +344,11 @@ def create_app(
 
     @app.get("/api/jobs/{job_id}")
     def get_job(job_id: str, after_line: int | None = Query(default=None, ge=0)) -> dict[str, Any]:
-        return jobs.get(job_id).payload(after_line=after_line)
+        return jobs.get(job_id, after_line=after_line)
 
     @app.post("/api/jobs/{job_id}/cancel")
     def cancel_job(job_id: str) -> dict[str, Any]:
-        return jobs.cancel(job_id).payload()
+        return jobs.cancel(job_id)
 
     @app.get("/api/resources/editor.wonder_crop")
     def cropper_resource() -> dict[str, Any]:
