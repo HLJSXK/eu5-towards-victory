@@ -228,7 +228,7 @@ def test_commit_conflicts_while_cost_reward_resource_is_busy(service):
 def test_http_bad_id_missing_base_and_conflict(service, monkeypatch):
     from towards_victory_editor_web import server
 
-    monkeypatch.setattr(server, "CostRewardEditorService", lambda: service)
+    monkeypatch.setattr(server, "CostRewardEditorService", lambda _operation_store: service)
     with TestClient(server.create_app()) as client:
         loaded = client.get("/api/resources/editor.cost_reward").json()
         base = {item["path"]: item["sha256"] for item in loaded["change_set"]["base"]}

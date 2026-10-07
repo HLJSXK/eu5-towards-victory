@@ -214,7 +214,7 @@ def test_malformed_stored_coordinate_reports_source(service):
 def test_http_bad_id_missing_base_and_conflict(service, monkeypatch):
     from towards_victory_editor_web import server
 
-    monkeypatch.setattr(server, "VictoryTreePlannerService", lambda: service)
+    monkeypatch.setattr(server, "VictoryTreePlannerService", lambda _operation_store: service)
     with TestClient(server.create_app()) as client:
         loaded = client.get("/api/resources/editor.victory_tree").json()
         base = _base(loaded)

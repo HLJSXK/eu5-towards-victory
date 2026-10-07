@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import os
+from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Any
 
@@ -21,10 +23,16 @@ from .services.cropper import cropper
 from .services.media import bootstrap_payload as media_bootstrap
 from .services.media import registry
 from .services.media import jobs
+from .services.operation_store import OperationStore
 from .services.platform import ConflictError
 
 PACKAGE_ROOT = Path(__file__).resolve().parent
 STATIC_DIR = PACKAGE_ROOT / "static"
+
+
+def _default_operation_store_path() -> Path:
+    configured = os.environ.get("TV_EDITOR_OPERATION_STORE")
+    return Path(configured) if configured else PACKAGE_ROOT.parent / ".editor_state" / "operations.sqlite3"
 
 
 class SaveCostRewardRequest(BaseModel):
@@ -64,11 +72,41 @@ class CropResourceRequest(BaseModel):
     base: dict[str, str] = Field(default_factory=dict)
 
 
-def create_app() -> FastAPI:
+def create_app(
+    operation_store: OperationStore | None = None,
+    *,
+    operation_store_path: Path | str | None = None,
+) -> FastAPI:
+    configured_store = operation_store
+
+    @asynccontextmanager
+    async def lifespan(app: FastAPI):
+        owns_store = configured_store is None
+        store = configured_store or OperationStore(operation_store_path or ":memory:")
+        app.state.operation_store = store
+        # cropper and jobs are process-level singletons. Overlapping app
+        # lifespans can still overwrite each other's shared store reference;
+        # restore the reference owned before this lifespan when it ends.
+        shared_targets = (cropper, jobs)
+        previous_shared_stores = tuple(
+            getattr(target, "operation_store", None) for target in shared_targets
+        )
+        for target in (cost_reward_service, victory_tree_service, wonder_service, cropper, jobs):
+            if hasattr(target, "operation_store"):
+                target.operation_store = store
+        try:
+            yield
+        finally:
+            for target, previous_store in zip(shared_targets, previous_shared_stores):
+                target.operation_store = previous_store
+            if owns_store:
+                store.close()
+
     app = FastAPI(
         title="Towards Victory Editor Web",
         docs_url=None,
         redoc_url=None,
+        lifespan=lifespan,
     )
 
     # Shared exception-handling boundary, replacing the identical
@@ -130,7 +168,7 @@ def create_app() -> FastAPI:
     app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
     # --- Cost / Reward editor -------------------------------------------------
-    cost_reward_service = CostRewardEditorService()
+    cost_reward_service = CostRewardEditorService(configured_store)
 
     @app.get("/api/resources/editor.cost_reward")
     def cost_reward_resource() -> dict:
@@ -150,7 +188,7 @@ def create_app() -> FastAPI:
         return cost_reward_service.save_tokens(request.edits, request.base)
 
     # --- Victory tree planner --------------------------------------------------
-    victory_tree_service = VictoryTreePlannerService()
+    victory_tree_service = VictoryTreePlannerService(configured_store)
 
     @app.get("/api/resources/editor.victory_tree")
     def victory_tree_resource() -> dict:
@@ -182,7 +220,7 @@ def create_app() -> FastAPI:
     wonder_service: WonderLocalizationService | None = None
     wonder_load_error: str | None = None
     try:
-        wonder_service = WonderLocalizationService()
+        wonder_service = WonderLocalizationService(configured_store)
     except Exception as exc:  # noqa: BLE001
         wonder_load_error = str(exc)
     if wonder_service is not None:
@@ -282,6 +320,24 @@ def create_app() -> FastAPI:
     def media_tools_bootstrap() -> dict[str, Any]:
         return media_bootstrap()
 
+    @app.get("/api/operations")
+    def recent_operations(
+        limit: int = Query(default=25, ge=1, le=100),
+        kind: str | None = None,
+        status: str | None = None,
+    ) -> dict[str, Any]:
+        store = getattr(app.state, "operation_store", None)
+        if store is None:
+            raise RuntimeError("Operation store is not initialized")
+        return {"operations": store.recent(limit=limit, kind=kind, status=status)}
+
+    @app.get("/api/operations/{operation_id}")
+    def get_operation(operation_id: str) -> dict[str, object]:
+        store = getattr(app.state, "operation_store", None)
+        if store is None:
+            raise RuntimeError("Operation store is not initialized")
+        return store.get(operation_id)
+
     @app.post("/api/jobs")
     def create_job(request: JobRequest) -> dict[str, Any]:
         return jobs.submit(request.tool, request.options).payload()
@@ -318,4 +374,4 @@ def create_app() -> FastAPI:
     return app
 
 
-app = create_app()
+app = create_app(operation_store_path=_default_operation_store_path())

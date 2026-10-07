@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import Any
 
 from .tooling import ToolContext, ToolPlan, ToolResult, ToolSpec, capture_script_output, normalize_declared_options, read_plan_inputs
+from .operation_store import OperationStore
 from .platform import (
     ChangeSet,
     ConflictError,
@@ -120,7 +121,11 @@ def _rect_payload(rect: tuple[float, float, float, float]) -> dict[str, float]:
 
 
 class CropperService:
-    def __init__(self, *, tasks: list[ImageTask] | None = None, data_path: Path = CROP_DATA_PATH, repo_root: Path = REPO_ROOT) -> None:
+    def __init__(
+        self, *, tasks: list[ImageTask] | None = None, data_path: Path = CROP_DATA_PATH,
+        repo_root: Path = REPO_ROOT, operation_store: OperationStore | None = None,
+    ) -> None:
+        self.operation_store = operation_store
         self.tasks = build_tasks() if tasks is None else tasks
         self.data_path = data_path
         self.repo_root = repo_root
@@ -242,7 +247,9 @@ class CropperService:
             }
 
     def commit_edits(self, edits: dict[str, Any], base: dict[str, str]) -> dict[str, Any]:
-        operation = OperationLog("resource_commit", ("editor.wonder_crop",))
+        operation = OperationLog(
+            "resource_commit", ("editor.wonder_crop",), store=self.operation_store
+        )
 
         def commit() -> dict[str, Any]:
             with self.lock:

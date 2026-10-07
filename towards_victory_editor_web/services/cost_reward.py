@@ -19,6 +19,7 @@ from scripts_engineering_department.wonder_mechanics.io import (
 
 from .common import RollingLog
 from .generation import run_generation
+from .operation_store import OperationStore
 from .wonder_generation import wonder_generation_plan
 from .platform import (
     ChangeSet,
@@ -97,7 +98,8 @@ def _parse_bool(raw: Any) -> bool:
 
 
 class CostRewardEditorService:
-    def __init__(self) -> None:
+    def __init__(self, operation_store: OperationStore | None = None) -> None:
+        self.operation_store = operation_store
         self._lock = threading.Lock()
         self._log = RollingLog(max_lines=4000)
         self._reload_callback: Callable[[], None] | None = None
@@ -306,7 +308,7 @@ class CostRewardEditorService:
     def save_tokens(self, edits: dict[str, dict[str, dict[str, Any]]], base: dict[str, str] | None = None) -> dict:
         touched_cost_reward = any(edits.get(key) for key in CATEGORY_KEYS)
         resource_ids = ("editor.cost_reward", "editor.wonder") if touched_cost_reward else ("editor.cost_reward",)
-        operation = OperationLog("resource_commit", resource_ids)
+        operation = OperationLog("resource_commit", resource_ids, store=self.operation_store)
 
         def log(message: str) -> None:
             self._log.append(message)

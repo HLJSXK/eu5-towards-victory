@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import hashlib
 import os
+import sqlite3
 import tempfile
 import threading
 import time
@@ -19,6 +20,7 @@ from pathlib import Path
 from typing import Callable, ContextManager, Iterable, Iterator, TypeVar
 
 from scripts_engineering_department.wonder_mechanics._core import StrictWonderYamlLoader, load_yaml
+from .operation_store import OperationStore
 
 
 class ConflictError(RuntimeError):
@@ -40,15 +42,18 @@ class OperationCancelled(RuntimeError):
 class OperationLog:
     """Shared lifecycle record for resource commits and media jobs.
 
-    The record is deliberately small and in-memory.  It gives synchronous
-    commits and asynchronous jobs the same observable state contract while
-    keeping the existing domain logs and artifact reports intact.
+    The record stays small and keeps domain logs and artifact reports separate.
+    A configured store snapshots each visible transition for later queries.
     """
 
     MAX_EVENTS = 500
+    EVENT_PERSIST_INTERVAL = 0.5
+    EVENT_PERSIST_BATCH = 50
     TERMINAL_STATUSES = frozenset({"succeeded", "failed", "cancelled"})
 
-    def __init__(self, kind: str, resource_ids: Iterable[str] = ()) -> None:
+    def __init__(
+        self, kind: str, resource_ids: Iterable[str] = (), *, store: OperationStore | None = None
+    ) -> None:
         self.id = uuid.uuid4().hex
         self.kind = kind
         self.resource_ids = tuple(sorted(set(resource_ids)))
@@ -61,15 +66,22 @@ class OperationLog:
         self._events: list[dict[str, object]] = []
         self._lock = threading.RLock()
         self._execution_claimed = False
+        self._store = store
+        self.persistence_error: str | None = None
+        self._last_persist_at = 0.0
+        self._events_since_persist = 0
+        self._persist_locked()
 
     @property
     def operation_id(self) -> str:
         return self.id
 
-    def event(self, message: str, *, level: str = "info") -> None:
+    def event(self, message: str, *, level: str = "info", force_persist: bool = False) -> None:
         with self._lock:
             self._events.append({"at": time.time(), "level": level, "message": str(message)})
             del self._events[:-self.MAX_EVENTS]
+            self._events_since_persist += 1
+            self._persist_locked(force=force_persist)
 
     def start(self) -> None:
         with self._lock:
@@ -78,7 +90,7 @@ class OperationLog:
             if self.started_at is None:
                 self.started_at = time.time()
             self.status = "cancelling" if self.cancel_requested else "running"
-            self.event("started")
+            self.event("started", force_persist=True)
 
     def request_cancel(self) -> None:
         with self._lock:
@@ -87,7 +99,7 @@ class OperationLog:
             self.cancel_requested = True
             if self.status in {"queued", "running"}:
                 self.status = "cancelling"
-            self.event("cancellation requested", level="warning")
+            self.event("cancellation requested", level="warning", force_persist=True)
 
     def check_cancelled(self) -> None:
         with self._lock:
@@ -100,7 +112,7 @@ class OperationLog:
                 return
             self.status = "succeeded"
             self.finished_at = time.time()
-            self.event("succeeded")
+            self.event("succeeded", force_persist=True)
 
     def fail(self, error: object) -> None:
         with self._lock:
@@ -109,7 +121,7 @@ class OperationLog:
             self.status = "failed"
             self.error = str(error)
             self.finished_at = time.time()
-            self.event(self.error, level="error")
+            self.event(self.error, level="error", force_persist=True)
 
     def cancel(self, error: object = "Cancellation requested") -> None:
         with self._lock:
@@ -119,23 +131,50 @@ class OperationLog:
             self.status = "cancelled"
             self.error = str(error)
             self.finished_at = time.time()
-            self.event(self.error, level="warning")
+            self.event(self.error, level="warning", force_persist=True)
 
     def payload(self) -> dict[str, object]:
         with self._lock:
-            return {
-                "id": self.id,
-                "operation_id": self.id,
-                "kind": self.kind,
-                "status": self.status,
-                "resource_ids": list(self.resource_ids),
-                "events": list(self._events),
-                "error": self.error,
-                "cancel_requested": self.cancel_requested,
-                "created_at": self.created_at,
-                "started_at": self.started_at,
-                "finished_at": self.finished_at,
-            }
+            return self._payload_locked()
+
+    def _payload_locked(self) -> dict[str, object]:
+        payload: dict[str, object] = {
+            "id": self.id,
+            "operation_id": self.id,
+            "kind": self.kind,
+            "status": self.status,
+            "resource_ids": list(self.resource_ids),
+            "events": list(self._events),
+            "error": self.error,
+            "cancel_requested": self.cancel_requested,
+            "created_at": self.created_at,
+            "started_at": self.started_at,
+            "finished_at": self.finished_at,
+        }
+        if self.persistence_error is not None:
+            payload["persistence_error"] = self.persistence_error
+        return payload
+
+    def _persist_locked(self, *, force: bool = True) -> None:
+        if self._store is None:
+            return
+        now = time.time()
+        if (
+            not force
+            and self._events_since_persist < self.EVENT_PERSIST_BATCH
+            and now - self._last_persist_at < self.EVENT_PERSIST_INTERVAL
+        ):
+            return
+        try:
+            self._store.save(self._payload_locked())
+            self._last_persist_at = now
+            self._events_since_persist = 0
+        except (OSError, sqlite3.Error) as exc:
+            # A diagnostic-store failure must not turn a completed file commit
+            # into an apparent failed commit after its transaction has ended.
+            self._last_persist_at = now
+            self._events_since_persist = 0
+            self.persistence_error = f"{type(exc).__name__}: {exc}"
 
 
 _resource_locks: dict[str, threading.Lock] = {}

@@ -5,6 +5,7 @@ from fastapi.testclient import TestClient
 
 from towards_victory_editor_web.services import cropper as cropper_module
 from towards_victory_editor_web.services.cropper import CropperService, ImageTask
+from towards_victory_editor_web.services.operation_store import OperationStore
 from towards_victory_editor_web.services.platform import ConflictError
 
 
@@ -17,7 +18,13 @@ def service(tmp_path):
     png = images_dir / "sample.png"
     png.write_bytes(b"\x89PNG\r\n\x1a\n" + b"\x00" * 8 + (270).to_bytes(4, "big") + (110).to_bytes(4, "big"))
     task = ImageTask("sample", "Sample", "sample", png, images_dir / "sample.dds", "configured")
-    return CropperService(tasks=[task], data_path=data_dir / "wonder_image_crops.json", repo_root=tmp_path)
+    store = OperationStore(tmp_path / "operations.sqlite3")
+    service = CropperService(
+        tasks=[task], data_path=data_dir / "wonder_image_crops.json",
+        repo_root=tmp_path, operation_store=store,
+    )
+    yield service
+    store.close()
 
 
 def base_of(payload):
@@ -40,6 +47,7 @@ def test_crop_preview_commit_and_remove(service):
     saved = service.commit_edits(edits, base)
     assert saved["operation_id"] == saved["operation"]["id"]
     assert saved["operation"]["status"] == "succeeded"
+    assert service.operation_store.get(saved["operation_id"]) == saved["operation"]
     assert saved["draft"]["tasks"][0]["saved"] is True
     assert base_of(saved) != base
     assert json.loads(service.data_path.read_text())["crops"]["sample"]["rect"]["x"] == 12

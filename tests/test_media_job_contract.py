@@ -9,6 +9,7 @@ from fastapi.testclient import TestClient
 from towards_victory_editor_web.services.tooling import (
     JobManager, ToolPlan, ToolRegistry, ToolResult, ToolSpec, read_plan_inputs,
 )
+from towards_victory_editor_web.services.operation_store import OperationStore
 
 
 class JsonTool:
@@ -48,9 +49,11 @@ def job_env(tmp_path):
     tool.source.write_text("source")
     registry = ToolRegistry()
     registry.register(tool)
-    manager = JobManager(registry, tmp_path)
+    store = OperationStore(tmp_path / "operations.sqlite3")
+    manager = JobManager(registry, tmp_path, store)
     yield tool, manager
     manager.shutdown()
+    store.close()
 
 
 def execute(tool, manager):
@@ -66,6 +69,7 @@ def test_job_reports_resource_snapshot_and_declared_artifact(job_env):
     assert job["operation_id"] == job["operation"]["id"]
     assert job["operation"]["status"] == job["status"]
     assert job["operation"]["started_at"] is not None
+    assert manager.operation_store.get(job["operation_id"]) == job["operation"]
     assert job["resource_ids"] == ["editor.wonder_crop"]
     assert job["artifact_formats"] == ["json"]
     assert job["source_snapshots"][0]["path"] == "source.txt"

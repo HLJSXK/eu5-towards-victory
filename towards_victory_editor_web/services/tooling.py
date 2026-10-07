@@ -12,6 +12,7 @@ from typing import Any, Callable, ContextManager, Iterable, Protocol
 from .artifacts import (
     Artifact, artifact_path, collect_artifacts, snapshot_artifacts, validate_artifact_contract,
 )
+from .operation_store import OperationStore
 from .platform import (
     ConflictError,
     FileSnapshot,
@@ -210,7 +211,10 @@ class ToolRegistry:
         ]
 
 class Job:
-    def __init__(self, job_id: str, handler: ToolHandler, options: dict[str, Any], repo_root: Path) -> None:
+    def __init__(
+        self, job_id: str, handler: ToolHandler, options: dict[str, Any], repo_root: Path,
+        operation_store: OperationStore | None = None,
+    ) -> None:
         self.id = job_id
         self.handler = handler
         self.options = options
@@ -224,7 +228,9 @@ class Job:
         self.source_snapshots: list[dict[str, Any]] = []
         self.declared_outputs: list[str] = []
         self.missing_outputs: list[str] = []
-        self.operation = OperationLog("media_job", handler.spec.resource_ids)
+        self.operation = OperationLog(
+            "media_job", handler.spec.resource_ids, store=operation_store
+        )
         self.context = ToolContext(job_id, repo_root, self._append, self.operation)
 
     def _append(self, line: str) -> None:
@@ -269,9 +275,13 @@ class Job:
 
 
 class JobManager:
-    def __init__(self, registry: ToolRegistry, repo_root: Path) -> None:
+    def __init__(
+        self, registry: ToolRegistry, repo_root: Path,
+        operation_store: OperationStore | None = None,
+    ) -> None:
         self.registry = registry
         self.repo_root = repo_root
+        self.operation_store = operation_store
         self._jobs: dict[str, Job] = {}
         self._lock = threading.RLock()
         self._executor = ThreadPoolExecutor(max_workers=3, thread_name_prefix="tv-tool")
@@ -280,7 +290,9 @@ class JobManager:
     def submit(self, tool_id: str, options: dict[str, Any]) -> Job:
         handler = self.registry.get(tool_id)
         normalized = handler.validate(options)
-        job = Job(uuid.uuid4().hex[:12], handler, normalized, self.repo_root)
+        job = Job(
+            uuid.uuid4().hex[:12], handler, normalized, self.repo_root, self.operation_store
+        )
         with self._lock:
             self._jobs[job.id] = job
         self._executor.submit(self._run, job)

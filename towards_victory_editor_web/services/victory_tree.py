@@ -11,6 +11,7 @@ if hasattr(sys.stdout, "reconfigure"):
 from scripts_engineering_department.wonder_mechanics.io import REPO_ROOT, load_yaml
 
 from .common import RollingLog
+from .operation_store import OperationStore
 from .platform import (
     ChangeSet,
     OperationLog,
@@ -118,7 +119,8 @@ def _default_positions(path: dict[str, Any]) -> dict[str, dict[str, float]]:
 
 
 class VictoryTreePlannerService:
-    def __init__(self) -> None:
+    def __init__(self, operation_store: OperationStore | None = None) -> None:
+        self.operation_store = operation_store
         self._lock = threading.Lock()
         self._log = RollingLog(max_lines=4000)
         self.reload_from_disk()
@@ -298,7 +300,9 @@ class VictoryTreePlannerService:
         assert_resource_base(base, self._base, current)
 
     def save_positions(self, edits: dict[str, dict[str, dict[str, Any]]], base: dict[str, str] | None = None) -> dict:
-        operation = OperationLog("resource_commit", ("editor.victory_tree",))
+        operation = OperationLog(
+            "resource_commit", ("editor.victory_tree",), store=self.operation_store
+        )
 
         def commit() -> dict:
             with self._lock:

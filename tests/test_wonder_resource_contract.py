@@ -85,6 +85,7 @@ def service(tmp_path, monkeypatch):
     monkeypatch.setattr(wonder_localization, "wonder_generation_plan", isolated_plan)
 
     service = object.__new__(wonder_localization.WonderLocalizationService)
+    service.operation_store = None
     service._lock = threading.RLock()
     service._base = snapshot_files(wonder_localization._wonder_source_paths(), repo_root=tmp_path)
     service.wonders_data = {"wonders": []}
@@ -106,6 +107,9 @@ def _base(service) -> dict[str, str]:
 
 
 class _UnusedCostRewardService:
+    def __init__(self, _operation_store):
+        pass
+
     def set_reload_callback(self, _callback) -> None:
         pass
 
@@ -496,6 +500,9 @@ def test_http_resource_contract_maps_missing_base_and_conflict(monkeypatch):
     class FakeWonderService:
         log_text = ""
 
+        def __init__(self, _operation_store):
+            pass
+
         def reload_from_disk(self):
             pass
 
@@ -518,7 +525,7 @@ def test_http_resource_contract_maps_missing_base_and_conflict(monkeypatch):
             return {"status": "ok"}
 
     monkeypatch.setattr(server, "CostRewardEditorService", _UnusedCostRewardService)
-    monkeypatch.setattr(server, "VictoryTreePlannerService", lambda: object())
+    monkeypatch.setattr(server, "VictoryTreePlannerService", lambda _operation_store: object())
     monkeypatch.setattr(server, "WonderLocalizationService", FakeWonderService)
 
     with TestClient(server.create_app()) as client:
@@ -546,8 +553,8 @@ def test_http_commit_errors_include_service_log(service, monkeypatch, failure, s
     from towards_victory_editor_web import server
 
     monkeypatch.setattr(server, "CostRewardEditorService", _UnusedCostRewardService)
-    monkeypatch.setattr(server, "VictoryTreePlannerService", lambda: object())
-    monkeypatch.setattr(server, "WonderLocalizationService", lambda: service)
+    monkeypatch.setattr(server, "VictoryTreePlannerService", lambda _operation_store: object())
+    monkeypatch.setattr(server, "WonderLocalizationService", lambda _operation_store: service)
     base = _base(service)
     if failure == "conflict":
         base[next(iter(base))] = "stale"
@@ -580,8 +587,8 @@ def test_concurrent_commit_errors_and_logs_belong_to_their_operation(service, mo
     from towards_victory_editor_web.services.generation import GenerationError
 
     monkeypatch.setattr(server, "CostRewardEditorService", _UnusedCostRewardService)
-    monkeypatch.setattr(server, "VictoryTreePlannerService", lambda: object())
-    monkeypatch.setattr(server, "WonderLocalizationService", lambda: service)
+    monkeypatch.setattr(server, "VictoryTreePlannerService", lambda _operation_store: object())
+    monkeypatch.setattr(server, "WonderLocalizationService", lambda _operation_store: service)
     source = wonder_localization.WONDER_LOCALIZATION_FILE
     before = source.read_bytes()
     service._candidate_for_drafts = lambda _drafts: ({"localization": True}, {source: b"new\n"}, [1])
@@ -682,8 +689,8 @@ def test_real_runner_failure_rolls_back_and_returns_http_report(service, tmp_pat
                 replace(step, spec=replace(step.spec, timeout_seconds=1)) for step in plan.steps))
         monkeypatch.setattr(wonder_localization, 'wonder_generation_plan', short_plan)
     monkeypatch.setattr(server, 'CostRewardEditorService', _UnusedCostRewardService)
-    monkeypatch.setattr(server, 'VictoryTreePlannerService', lambda: object())
-    monkeypatch.setattr(server, 'WonderLocalizationService', lambda: service)
+    monkeypatch.setattr(server, 'VictoryTreePlannerService', lambda _operation_store: object())
+    monkeypatch.setattr(server, 'WonderLocalizationService', lambda _operation_store: service)
     with TestClient(server.create_app()) as client:
         response = client.post('/api/resources/editor.wonder/commit', json={'base': _base(service)})
     assert response.status_code == 500

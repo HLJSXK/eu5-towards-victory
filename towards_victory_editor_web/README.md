@@ -139,8 +139,28 @@ Both commits and jobs run through `platform.run_operation`, which owns resource
 locking, lifecycle transitions and exception operation snapshots. Domain
 callbacks retain validation, file transactions and cleanup; success is published
 only after the callback and its cleanup finish. Media jobs still use the thread
-pool and media execution lock, while commits remain synchronous. Records are
-process-local, with no persistent history or cross-operation query API yet.
+pool and media execution lock, while commits remain synchronous. The production
+module-level app opens its operation store during the FastAPI lifespan; the path
+comes from `TV_EDITOR_OPERATION_STORE` or defaults to
+`.editor_state/operations.sqlite3` (ignored by Git). `create_app()` without an
+explicit store uses an in-memory store, while tests and embedded callers can
+inject `OperationStore(<temporary path>)`. `GET /api/operations?limit=25&kind=media_job&status=failed` lists recent
+operation summaries, and `GET /api/operations/{operation_id}` returns the full
+snapshot, including lifecycle events. The list limit is 1–100; filters are optional.
+The media generator's separate `lines` log and job/artifact payload remain available
+only through `/api/jobs/{job_id}` while that server process is alive.
+
+Ordinary generator output events are persisted in batches no more often than every
+0.5 seconds or 50 events. Lifecycle transitions and terminal diagnostics always
+flush immediately, so a completed or failed operation has its final snapshot before
+the response is published.
+
+On startup, persisted operations left queued, running or cancelling are marked
+failed with a restart-interruption diagnostic. This records uncertainty; it does
+not replay work or roll back files. Inspect generated outputs before retrying.
+If SQLite becomes unavailable during an operation, the live response includes
+`persistence_error` and the file operation keeps its real outcome. The archive
+is local to this workspace and does not provide cross-process locks or job recovery.
 
 Media status, error, return code and timestamps derive from one operation
 snapshot. Cancellation and completion are synchronized; repeated cancellation

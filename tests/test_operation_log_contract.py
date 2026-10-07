@@ -1,10 +1,13 @@
 from __future__ import annotations
 
 from contextlib import contextmanager
+import sqlite3
 import threading
 
 import pytest
+from fastapi.testclient import TestClient
 
+from towards_victory_editor_web.services.operation_store import OperationStore
 from towards_victory_editor_web.services.platform import (
     OperationCancelled, OperationLog, ResourceBusyError, resource_operation, run_operation,
 )
@@ -212,3 +215,133 @@ def test_executor_observer_runs_without_operation_lock() -> None:
     assert not runner.is_alive()
     assert len(errors) == 1 and isinstance(errors[0], ValueError)
     assert operation.payload()["status"] == "failed"
+
+
+def test_operation_store_queries_snapshots_after_reopen(tmp_path) -> None:
+    path = tmp_path / "operations.sqlite3"
+    store = OperationStore(path)
+    completed = OperationLog("resource_commit", ("editor.wonder",), store=store)
+    run_operation(completed, lambda: completed.event("saved") or "done")
+    failed = OperationLog("media_job", store=store)
+    with pytest.raises(ValueError, match="generator failed"):
+        run_operation(failed, lambda: (_ for _ in ()).throw(ValueError("generator failed")))
+
+    assert store.get(completed.id) == completed.payload()
+    assert store.get(failed.id) == failed.payload()
+    assert [item["id"] for item in store.recent(kind="media_job")] == [failed.id]
+    assert [item["id"] for item in store.recent(status="succeeded")] == [completed.id]
+    assert "events" not in store.recent(limit=1)[0]
+    store.close()
+
+    reopened = OperationStore(path)
+    try:
+        assert reopened.get(completed.id) == completed.payload()
+        assert reopened.get(failed.id) == failed.payload()
+        with pytest.raises(KeyError, match="Unknown operation"):
+            reopened.get("missing")
+    finally:
+        reopened.close()
+
+
+def test_reopen_marks_unfinished_operations_interrupted_without_replaying(tmp_path) -> None:
+    path = tmp_path / "operations.sqlite3"
+    store = OperationStore(path)
+    queued = OperationLog("media_job", store=store)
+    running = OperationLog("resource_commit", store=store)
+    running.start()
+    cancelling = OperationLog("media_job", store=store)
+    cancelling.request_cancel()
+    completed = OperationLog("media_job", store=store)
+    completed.start()
+    completed.succeed()
+    store.close()
+
+    reopened = OperationStore(path)
+    try:
+        for operation in (queued, running, cancelling):
+            payload = reopened.get(operation.id)
+            assert payload["status"] == "failed"
+            assert payload["error"] == OperationStore.INTERRUPTED_ERROR
+            assert payload["finished_at"] is not None
+            assert payload["events"][-1]["message"] == OperationStore.INTERRUPTED_ERROR
+        assert reopened.get(queued.id)["started_at"] is None
+        assert reopened.get(running.id)["started_at"] is not None
+        assert reopened.get(cancelling.id)["cancel_requested"] is True
+        assert reopened.get(completed.id) == completed.payload()
+    finally:
+        reopened.close()
+
+
+def test_persistence_failure_is_visible_without_changing_commit_outcome(tmp_path, monkeypatch) -> None:
+    store = OperationStore(tmp_path / "operations.sqlite3")
+    operation = OperationLog("resource_commit", store=store)
+
+    def reject_save(_payload):
+        raise sqlite3.OperationalError("disk unavailable")
+
+    monkeypatch.setattr(store, "save", reject_save)
+    try:
+        assert run_operation(operation, lambda: "saved") == "saved"
+        assert operation.payload()["status"] == "succeeded"
+        assert "disk unavailable" in operation.payload()["persistence_error"]
+    finally:
+        store.close()
+
+
+def test_operation_query_api_returns_full_record_and_recent_summary(tmp_path) -> None:
+    from towards_victory_editor_web.server import create_app
+
+    store = OperationStore(tmp_path / "operations.sqlite3")
+    operation = OperationLog("query_contract_test", store=store)
+    run_operation(operation, lambda: "done")
+    try:
+        with TestClient(create_app(store)) as client:
+            detail = client.get(f"/api/operations/{operation.id}")
+            recent = client.get("/api/operations", params={"kind": "query_contract_test", "limit": 1})
+            missing = client.get("/api/operations/missing")
+    finally:
+        store.close()
+
+    assert detail.status_code == 200
+    assert detail.json() == operation.payload()
+    assert recent.status_code == 200
+    assert recent.json()["operations"] == [
+        {key: value for key, value in operation.payload().items() if key != "events"}
+    ]
+    assert missing.status_code == 404
+
+
+def test_lifespan_restores_shared_operation_store_references(tmp_path) -> None:
+    from towards_victory_editor_web import server
+
+    store = OperationStore(tmp_path / "operations.sqlite3")
+    previous_cropper_store = server.cropper.operation_store
+    previous_jobs_store = server.jobs.operation_store
+    try:
+        with TestClient(server.create_app(store)):
+            assert server.cropper.operation_store is store
+            assert server.jobs.operation_store is store
+        assert server.cropper.operation_store is previous_cropper_store
+        assert server.jobs.operation_store is previous_jobs_store
+    finally:
+        store.close()
+
+
+def test_operation_events_are_throttled_but_lifecycle_transitions_persisted(tmp_path, monkeypatch) -> None:
+    monkeypatch.setattr(OperationLog, "EVENT_PERSIST_INTERVAL", 3600.0)
+    store = OperationStore(tmp_path / "operations.sqlite3")
+    writes = []
+    original_save = store.save
+    store.save = lambda payload: (writes.append(payload), original_save(payload))[1]
+    try:
+        operation = OperationLog("media_job", store=store)
+        assert len(writes) == 1
+        for index in range(10):
+            operation.event(f"generator output {index}")
+        assert len(writes) == 1
+        operation.start()
+        assert len(writes) == 2
+        operation.succeed()
+        assert len(writes) == 3
+    finally:
+        store.close()

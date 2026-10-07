@@ -88,7 +88,7 @@ def test_unique_wonder_without_ritual_design(service, monkeypatch):
     with pytest.raises(KeyError, match="No ritual design"):
         service.ritual_design_payload(removed["id"])
     assert service.ritual_design_catalog_payload()["count"] == len(entries) - 1
-    monkeypatch.setattr(server, "WonderLocalizationService", lambda: service)
+    monkeypatch.setattr(server, "WonderLocalizationService", lambda _operation_store: service)
     with TestClient(server.create_app()) as client:
         assert client.get(f"/api/wonder-localization/ritual-designs/{removed['id']}").status_code == 404
 
@@ -108,7 +108,7 @@ def test_invalid_ritual_design_source_fails_service_load(service, monkeypatch, c
     with pytest.raises(RuntimeError, match="unique_wonders") as error:
         service._validate_unique_ritual_designs()
 
-    def fail_load():
+    def fail_load(_operation_store):
         raise error.value
 
     monkeypatch.setattr(server, "WonderLocalizationService", fail_load)
@@ -121,7 +121,7 @@ def test_invalid_ritual_design_source_fails_service_load(service, monkeypatch, c
 def test_http_summary_detail_and_errors(service, monkeypatch):
     from towards_victory_editor_web import server
 
-    monkeypatch.setattr(server, "WonderLocalizationService", lambda: service)
+    monkeypatch.setattr(server, "WonderLocalizationService", lambda _operation_store: service)
     with TestClient(server.create_app()) as client:
         resource = client.get("/api/resources/editor.wonder")
         assert resource.status_code == 200
@@ -147,7 +147,7 @@ def test_http_summary_detail_and_errors(service, monkeypatch):
 def test_http_unavailable_service(monkeypatch):
     from towards_victory_editor_web import server
 
-    def fail_load():
+    def fail_load(_operation_store):
         raise ValueError("invalid wonder data")
 
     monkeypatch.setattr(server, "WonderLocalizationService", fail_load)

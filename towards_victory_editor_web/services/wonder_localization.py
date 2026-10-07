@@ -69,6 +69,7 @@ from scripts_engineering_department.wonder_mechanics.rituals import (
     unique_ceremony_modifier_name,
 )
 from .generation import GenerationError, run_generation
+from .operation_store import OperationStore
 from .wonder_generation import LOCALIZATION_SCRIPTS, WONDER_SOURCE_GROUPS, wonder_generation_plan
 from .common import RollingLog
 from .platform import (
@@ -2290,7 +2291,8 @@ def render_expected_concepts_output(wonders: list[dict[str, Any]]) -> str:
 
 
 class WonderLocalizationService:
-    def __init__(self) -> None:
+    def __init__(self, operation_store: OperationStore | None = None) -> None:
+        self.operation_store = operation_store
         self._lock = threading.RLock()
         self._log = RollingLog(max_lines=400)
         self.wonders: list[dict[str, Any]] = []
@@ -2514,7 +2516,7 @@ class WonderLocalizationService:
         regenerate: bool = True,
     ) -> dict[str, Any]:
         resource_ids = ("editor.wonder", "editor.cost_reward") if regenerate else ("editor.wonder",)
-        operation = OperationLog("resource_commit", resource_ids)
+        operation = OperationLog("resource_commit", resource_ids, store=self.operation_store)
 
         def log(text: str) -> None:
             self._append_log(text)
