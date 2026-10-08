@@ -19,7 +19,8 @@ function editor() {
         // Leave the automatic bootstrap pending; each test supplies its own loaded state.
         fetch: () => new Promise(() => {}),
     });
-    vm.runInContext(readFileSync(join(__dirname, '../towards_victory_editor_web/static/wonder_localization.js'), 'utf8'), context);
+    vm.runInContext(readFileSync(join(__dirname, '../towards_victory_editor_web/static/api.js'), 'utf8').replace(/^export /gm, ''), context);
+    vm.runInContext(readFileSync(join(__dirname, '../towards_victory_editor_web/static/wonder_localization.js'), 'utf8').replace(/^import .*;\r?\n/gm, ''), context);
     vm.runInContext(`
         render = () => {};
         showToast = () => {};
@@ -36,7 +37,7 @@ function editor() {
         prompts,
         state: vm.runInContext('state', context),
         reload: () => vm.runInContext('reloadCurrentWonder()', context),
-        respond: (fetcher) => { context.testFetch = fetcher; vm.runInContext('fetchJson = testFetch', context); },
+        respond: (fetcher) => { context.fetch = async (url) => Response.json(await fetcher(url)); },
     };
 }
 
@@ -89,10 +90,9 @@ for (const failure of ['resource', 'detail', 'catalog']) {
 
 test('a rejected commit refreshes the displayed log and retains drafts and base', async () => {
     const app = editor();
-    app.context.fetch = async () => ({
-        ok: false, status: 409, statusText: 'Conflict',
-        json: async () => ({ detail: 'source changed', log_text: '[error] source changed\n' }),
-    });
+    app.context.fetch = async () => Response.json({
+        detail: 'source changed', code: 'resource_changed', log_text: '[error] source changed\n',
+    }, { status: 409 });
     await vm.runInContext(`
         renderLog = () => { globalThis.displayedLog = state.logText; };
         saveCurrentWonder();

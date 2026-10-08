@@ -1,13 +1,6 @@
-const state = { tools: [], selected: null, jobId: null, timer: null, lineCursor: 0, logLines: [] };
+import { fetchJson } from "./api.js";
 
-async function jsonFetch(url, options) {
-  const response = await fetch(url, options);
-  const text = await response.text();
-  let payload = {};
-  try { payload = text ? JSON.parse(text) : {}; } catch { payload = { detail: text }; }
-  if (!response.ok) throw new Error(payload.detail || response.statusText);
-  return payload;
-}
+const state = { tools: [], selected: null, jobId: null, timer: null, lineCursor: 0, logLines: [] };
 
 function selectedTool() { return state.tools.find((tool) => tool.id === state.selected); }
 
@@ -104,7 +97,7 @@ async function pollJob() {
   const cursor = state.lineCursor;
   if (!jobId) return;
   try {
-    const job = await jsonFetch(`/api/jobs/${jobId}?after_line=${cursor}`);
+    const job = await fetchJson(`/api/jobs/${jobId}?after_line=${cursor}`);
     if (state.jobId !== jobId || state.lineCursor !== cursor) return;
     renderJob(job);
   } catch (error) {
@@ -115,16 +108,16 @@ async function pollJob() {
 document.getElementById("media-run").addEventListener("click", async () => {
   const button = document.getElementById("media-run"); button.disabled = true;
   try {
-    const job = await jsonFetch("/api/jobs", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ tool: state.selected, options: formOptions() }) });
+    const job = await fetchJson("/api/jobs", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ tool: state.selected, options: formOptions() }) });
     state.jobId = job.id; state.lineCursor = 0; state.logLines = []; renderJob(job);
   } catch (error) { document.getElementById("media-status").textContent = error.message; }
   finally { button.disabled = false; }
 });
 document.getElementById("media-cancel").addEventListener("click", async () => {
   const jobId = state.jobId;
-  if (jobId) renderJob(await jsonFetch(`/api/jobs/${jobId}/cancel`, { method: "POST" }));
+  if (jobId) renderJob(await fetchJson(`/api/jobs/${jobId}/cancel`, { method: "POST" }));
 });
 
-jsonFetch("/api/media/bootstrap").then((payload) => {
+fetchJson("/api/media/bootstrap").then((payload) => {
   window.__mediaBootstrap = payload; state.tools = payload.tools || []; state.selected = state.tools[0]?.id || null; renderToolList(); renderForm();
 }).catch((error) => { document.getElementById("media-status").textContent = error.message; });

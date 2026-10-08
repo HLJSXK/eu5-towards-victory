@@ -1,3 +1,5 @@
+import { fetchJson } from "./api.js";
+
 const cropState = {
   tasks: [], index: -1, image: null, rect: null, saved: false,
   base: {}, dirty: false, busy: false,
@@ -6,18 +8,6 @@ const cropState = {
 const canvas = document.getElementById("cropper-canvas");
 const context = canvas.getContext("2d");
 const RATIO = 27 / 11;
-
-async function cropJson(url, options) {
-  const response = await fetch(url, options);
-  const payload = await response.json();
-  if (!response.ok) {
-    const error = new Error(payload.detail || payload.error || response.statusText);
-    error.status = response.status;
-    error.code = payload.code;
-    throw error;
-  }
-  return payload;
-}
 
 function activeTask() { return cropState.tasks[cropState.index]; }
 function clamp(value, low, high) { return Math.max(low, Math.min(high, value)); }
@@ -133,7 +123,7 @@ async function reloadCropResource({ confirmDirty = true } = {}) {
   if (cropState.busy) return false;
   if (confirmDirty && cropState.dirty && !window.confirm("Discard the unsaved crop?")) return false;
   try {
-    const payload = await cropJson("/api/resources/editor.wonder_crop");
+    const payload = await fetchJson("/api/resources/editor.wonder_crop");
     cropState.base = Object.fromEntries(payload.change_set.base.map((item) => [item.path, item.sha256]));
     cropState.tasks = payload.draft.tasks || [];
     cropState.dirty = false;
@@ -165,7 +155,7 @@ async function commitCrop(rect) {
   document.getElementById("cropper-save").disabled = true;
   document.getElementById("cropper-remove").disabled = true;
   try {
-    const result = await cropJson("/api/resources/editor.wonder_crop/commit", {
+    const result = await fetchJson("/api/resources/editor.wonder_crop/commit", {
       method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ edits: { [index]: requestedRect }, base: cropState.base }),
     });
@@ -181,11 +171,7 @@ async function commitCrop(rect) {
     renderTasks();
     if (cropState.index === index) { renderInspector(); draw(); }
   } catch (error) {
-    document.getElementById("cropper-status").textContent = error.status === 409
-      ? (error.code === "resource_busy"
-        ? "Crop resource is busy. Edits are kept; retry saving shortly."
-        : "Crop data changed on disk. Reload crops before saving.")
-      : error.message;
+    document.getElementById("cropper-status").textContent = error.message;
     document.getElementById("cropper-log").textContent += `${error.message}\n`;
   } finally {
     cropState.busy = false;
@@ -201,11 +187,11 @@ document.getElementById("cropper-apply").addEventListener("click", async () => {
   if (cropState.busy) { button.disabled = false; return; }
   if (cropState.dirty && !window.confirm("The crop has unsaved changes. Rebuild DDS using the saved crop?")) { button.disabled = false; return; }
   try {
-    const job = await cropJson("/api/jobs", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ tool: "media.wonder_crop", options: {} }) });
+    const job = await fetchJson("/api/jobs", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ tool: "media.wonder_crop", options: {} }) });
     let lineCursor = 0;
     let logLines = [];
     const poll = async () => {
-      const current = await cropJson(`/api/jobs/${job.id}?after_line=${lineCursor}`);
+      const current = await fetchJson(`/api/jobs/${job.id}?after_line=${lineCursor}`);
       logLines = (current.lines_reset ? current.lines : [...logLines, ...current.lines]).slice(-300);
       lineCursor = current.line_cursor;
       document.getElementById("cropper-log").textContent = logLines.join("\n");

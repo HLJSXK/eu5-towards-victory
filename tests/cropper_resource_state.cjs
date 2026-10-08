@@ -34,7 +34,8 @@ function editor() {
     fetch: () => new Promise(() => {}),
     console: { error() {} },
   });
-  vm.runInContext(readFileSync(join(__dirname, '../towards_victory_editor_web/static/cropper.js'), 'utf8'), context);
+  vm.runInContext(readFileSync(join(__dirname, '../towards_victory_editor_web/static/api.js'), 'utf8').replace(/^export /gm, ''), context);
+  vm.runInContext(readFileSync(join(__dirname, '../towards_victory_editor_web/static/cropper.js'), 'utf8').replace(/^import .*;\r?\n/gm, ''), context);
   vm.runInContext(`
     cropState.tasks = [
       { name: 'One', rect: { x: 1, y: 2, width: 27, height: 11 }, saved: true },
@@ -114,7 +115,7 @@ test('a commit conflict keeps the draft until an explicit reload advances the ba
   const app = editor();
   app.context.fetch = async (url) => {
     if (url.includes('/commit')) {
-      return { ok: false, status: 409, statusText: 'Conflict', json: async () => ({ detail: 'source changed' }) };
+      return Response.json({ detail: 'source changed', code: 'resource_changed' }, { status: 409 });
     }
     return { ok: true, json: async () => ({
       change_set: { base: [{ path: 'source', sha256: 'reloaded' }] },
@@ -124,7 +125,8 @@ test('a commit conflict keeps the draft until an explicit reload advances the ba
   await app.commit({ x: 10, y: 10, width: 27, height: 11 });
   assert.equal(app.state().base.source, 'old');
   assert.equal(app.state().dirty, true);
-  assert.match(app.context.document.getElementById('cropper-status').textContent, /Reload crops/);
+  assert.match(app.context.document.getElementById('cropper-status').textContent, /源文件已变化.*核对最新内容.*source changed/);
+  assert.match(app.context.document.getElementById('cropper-log').textContent, /source changed/);
   await app.listeners['cropper-reload:click']();
   assert.equal(app.state().base.source, 'reloaded');
   assert.equal(app.state().dirty, false);

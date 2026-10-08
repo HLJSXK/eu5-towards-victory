@@ -1,3 +1,5 @@
+import { fetchJson } from "./api.js";
+
 const STAGE_W = 2048;
 const STAGE_H = 1152;
 const BRANCH_COLORS = ["#2563eb", "#16a34a", "#dc2626", "#9333ea", "#0891b2"];
@@ -27,25 +29,6 @@ const state = {
   dragging: null,
   savedPositions: "",
 };
-
-async function fetchJson(url, options) {
-  const response = await fetch(url, options);
-  const text = await response.text();
-  let payload = null;
-  try {
-    payload = text ? JSON.parse(text) : null;
-  } catch (err) {
-    payload = null;
-  }
-  if (!response.ok) {
-    const detail = payload && payload.detail ? payload.detail : text || response.statusText;
-    const error = new Error(detail);
-    error.status = response.status;
-    error.code = payload && payload.code;
-    throw error;
-  }
-  return payload;
-}
 
 function setLog(text) {
   document.getElementById("vt-log").textContent = text || "";
@@ -356,11 +339,6 @@ async function save() {
     appendLog("\n[ok] Saved.\n");
   } catch (err) {
     appendLog(`\n[error] ${err.message}\n`);
-    if (err.status === 409) {
-      appendLog(err.code === "resource_busy"
-        ? "[busy] 资源正在保存中。坐标已保留，请稍后重试保存。\n"
-        : "[conflict] 源文件已变化。请先核对未保存的坐标，再重新加载。\n");
-    }
   } finally {
     saveBtn.disabled = false;
   }

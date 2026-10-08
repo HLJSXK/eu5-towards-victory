@@ -17,7 +17,20 @@
 
 ## 当前焦点：待指定
 
-媒体 job 暂存发布切片已完成并提交；下一切片由用户指定。
+前端共享请求层切片已完成并提交；下一切片由用户指定。
+
+## 已完成切片：前端共享请求层（2026-10-08）
+
+- `static/api.js` 提供唯一的 `fetchJson` 和统一 `ApiError`，保留 `status`、`detail`、
+  `code`、`operation_id`、`operation`、`generation`、`log_text`；非 JSON 错误响应只读取一次 body。
+- 五个前端通过 ES module 导入共享函数，已删除各自副本；共享模块由 import 加载，无需单独的 script 标签。
+- `resource_busy` / `resource_changed` 的 `message` 同时包含统一提示与服务端诊断，界面可见资源 ID 或文件路径；
+  原始诊断仍保留在 `detail`，文件变化提示不再假设调用方有未保存草稿，适用于编辑器与媒体 job。
+  Wonder 已区分两者并改为读取 `error.log_text`，两个 POST 调用显式保留 JSON 请求头。
+- 新增 `tests/api.cjs` 覆盖两种 409、带 generation/log_text 的 500、非 JSON 错误和成功响应，
+  并覆盖未知 409 与结构化校验详情；原媒体轮询、cropper/Wonder 状态测试已接入共享请求层。
+  409 用例断言 `message` 包含资源/路径诊断，cropper 用例核对状态栏及日志保留诊断；测试顶部注明正则加载器的限制。
+- 后端 API、响应结构和各页面状态模型未改动；共享 store、dirty/loading 协议、公共组件与报告展示仍属后续任务。
 
 ## 已完成切片：媒体 job 产物的暂存发布与失败恢复（2026-10-08）
 
@@ -42,7 +55,7 @@
   和 `GET /api/jobs/{job_id}` 可在重启后查询；未终结记录在启动时标记为 interrupted；
   终态记录保留 30 天。
 - 媒体日志按 `after_line` 游标轮询；工具 options 和结果在发布前检查 JSON 契约。
-- 错误响应区分 `resource_busy` 与 `resource_changed`，前端分别提示。
+- 错误响应区分 `resource_busy` 与 `resource_changed`，前端已通过共享请求层统一提示。
 
 “统一同步提交与异步调度”和“领域事务统一”**不在本阶段继续推进**，转为待议事项。
 
@@ -62,7 +75,9 @@
 会导致错误结果或误导性状态的问题。已关闭阶段允许修复这些问题：
 
 - 第二个服务进程启动时，`OperationStore` 会把第一个进程仍在运行的操作标记为 interrupted。
-- Victory Tree 保存失败时不写 `[error]` 日志，与其他三个编辑器不一致。
+- Victory Tree 后端保存失败时不写 `[error]` 日志，与其他三个编辑器不一致；前端已有错误提示。
+- `server.py` lifespan 结束时关闭自有 `OperationStore` 但不调用 `jobs.shutdown()`；关闭时仍在运行的 job 无法写入终态，下次启动被标记为 interrupted。
+- 媒体取消请求与 cropper 定时器中的后续轮询没有异常处理；请求失败可能不显示错误，cropper 重建按钮仍禁用，另列后续修复。
 
 ## 待议事项
 
@@ -72,8 +87,10 @@
 - `JobManager._prune_expired_locked` 每次轮询都复制所有内存 job 的完整操作快照；
   内存 job 保留 30 天，数量大时开销线性增长。
 - 仓库根目录残留不可读的 `.pt-*-1008/` 测试目录（未被 `/.pytest-*/` 忽略规则覆盖）及 `.pytest-review-*` 目录；由 Codex 沙箱用户创建，当前账户无删除权限，需手动清理。
+- 本轮 `.pytest-api-1008/`、`.pytest-api-browser-1008/` 已完成验证、待清理；删除操作因自动审批服务审核模型不可用（404）未执行，两个目录均已被 Git 忽略。
 - 任意未声明正式路径的写入检测与可靠归属尚未实现；本轮按确认的 A 仅核对声明文件，写入审计另行决定。
 - 中断后的 staging/备份启动恢复与清理尚未实现；本轮按确认的 A 准确提示人工核对，另行决定自动恢复。
+- `ToolContext.formalize_json_paths` 只替换整值等于暂存文件路径的 JSON 字符串；目录路径或嵌入更长字符串的 staging 路径会漏入正式产物。现有 5 个 handler 有逐字节比对兜底，新增 handler 时需确认。
 
 ## 已接受限制
 
@@ -90,8 +107,8 @@
 
 ## 后续任务（按顺序，当前焦点完成后由用户指定下一项）
 
-1. 迁移前端共享 store、请求层、dirty/loading/error 状态协议和公共组件；展示
-   generation/artifact 报告。
+1. 迁移前端共享 store、dirty/loading/error 状态协议和公共组件；展示
+   generation/artifact 报告（请求层已完成，下一切片范围待用户指定）。
 2. 建立跨资源 `ChangeSet`、完整输入依赖图、领域产物语义校验和跨资源预览。
 3. 设计跨进程持久锁和状态存储，再删除旧领域 service 拼接层。
 
@@ -112,22 +129,36 @@
 
 ## 验证记录
 
-最近一次核对：2026-10-08，Windows + eu5 Python 3.11.15；eu5 环境已按 `requirements-image.txt`
+最近一次核对：2026-10-09，Windows + eu5 Python 3.11.15 + Node 22.19.0。审阅修复后，四个 Node 测试文件
+共 23 项通过；409 断言确认提示包含资源/路径诊断，cropper 状态栏和日志均保留诊断。
+`--check` 通过（9 个注册工具、5 个可运行、196 张裁剪图）；`scripts/validate.py --changed --ai-report`
+通过（2 个适用文件、无错误或警告）；`fetch()` 仍仅出现在 `static/api.js`，`git diff --check` 通过。
+本次未重跑全量 pytest 与浏览器验收；下列完整验证结果沿用 2026-10-08 的记录。
+
+最近一次完整验证：2026-10-08，Windows + eu5 Python 3.11.15 + Node 22.19.0 + 本机 Chrome headless；eu5 环境已按 `requirements-image.txt`
 安装 scikit-image 0.26.0，historical_style 字节比对用例不再跳过。
 
 ```powershell
 C:\Users\Hades\anaconda3\envs\eu5\python.exe -m towards_victory_editor_web --check
 C:\Users\Hades\anaconda3\envs\eu5\python.exe -m pytest tests -q --basetemp .pytest-<短名>
 C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\validate.py --changed --ai-report
-node --test tests/media_job_polling.cjs
+node --test tests/api.cjs tests/media_job_polling.cjs tests/cropper_resource_state.cjs tests/wonder_resource_state.cjs
+rg -n 'fetch\(' towards_victory_editor_web/static -g '*.js'
 git diff --check
 ```
 
-结果：全量 `pytest tests` 214 passed、无跳过（约 5.4 分钟）；包含五个 handler 的成功字节比对、
+结果：全量 `pytest tests` 214 passed、无跳过（523.31 秒）；包含五个 handler 的成功字节比对、
 失败恢复、清理后校验、未扫描无关文件及文件冲突分类回归。警告来自既有 FastAPI/httpx 接口及
-style 脚本的 `binary_dilation` 弃用提示。`media_job_polling.cjs` 5 项通过；`--check` 通过
+style 脚本的 `binary_dilation` 弃用提示。Node 共 23 项通过（共享请求层 8 项、媒体轮询 5 项、
+cropper 状态 4 项、Wonder 状态 6 项）；`fetch()` 仅出现在 `static/api.js`。`--check` 通过
 （9 个注册工具，5 个可运行，196 张裁剪图）；`scripts/validate.py --changed --ai-report` 通过
-（12 个文件，无错误或警告）；`git diff --check` 通过。
+（2 个适用文件，无错误或警告）；`git diff --check` 通过。
+
+浏览器验收以 Chrome DevTools 自动驱动真实页面完成：四个编辑器提交过期 base 均收到真实
+`resource_changed`；独立测试服务中的受控媒体 job 持有四个资源锁时，四个编辑器均收到真实
+`resource_busy`，提示一致且草稿保留。该 job 通过真实 `/api/jobs` 提交、游标轮询到成功并显示
+日志与产物，输出仅写入测试目录；媒体提交的两种 HTTP 409 提示另用模拟响应验证。无页面未捕获异常。
+浏览器使用隔离 profile 与本机 headless 模式；沙箱内启动需 `--no-sandbox`，未使用真实图片 API。
 `--basetemp` 使用仓库内新建短名目录，避免 Windows 临时目录权限和深路径问题，用完删除。
 
 ## 子代理启动顺序

@@ -1,28 +1,11 @@
+import { fetchJson } from "./api.js";
+
 const state = {
   groups: [],
   edits: {},
   base: {},
   activeKey: null,
 };
-
-async function fetchJson(url, options) {
-  const response = await fetch(url, options);
-  const text = await response.text();
-  let payload = null;
-  try {
-    payload = text ? JSON.parse(text) : null;
-  } catch (err) {
-    payload = null;
-  }
-  if (!response.ok) {
-    const detail = payload && payload.detail ? payload.detail : text || response.statusText;
-    const error = new Error(detail);
-    error.status = response.status;
-    error.code = payload && payload.code;
-    throw error;
-  }
-  return payload;
-}
 
 function setLog(text) {
   document.getElementById("cr-log").textContent = text || "";
@@ -331,11 +314,6 @@ async function save() {
     appendLog("\n[ok] Saved.\n");
   } catch (err) {
     appendLog(`\n[error] ${err.message}\n`);
-    if (err.status === 409) {
-      appendLog(err.code === "resource_busy"
-        ? "[busy] 资源正在保存或生成中。修改已保留，请稍后重试保存。\n"
-        : "[conflict] 源文件已变化。请先核对未保存的修改，再重新加载。\n");
-    }
   } finally {
     saveBtn.disabled = false;
   }

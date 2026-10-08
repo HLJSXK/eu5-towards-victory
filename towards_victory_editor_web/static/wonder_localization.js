@@ -1,3 +1,5 @@
+import { fetchJson } from "./api.js";
+
 const state = {
     title: "Towards Victory 奇观编辑器",
     wonders: [],
@@ -2822,31 +2824,6 @@ function render() {
     refreshDirtyState();
 }
 
-async function fetchJson(url, options = {}) {
-    const response = await fetch(url, {
-        headers: {
-            "Content-Type": "application/json",
-            ...(options.headers || {}),
-        },
-        ...options,
-    });
-    if (!response.ok) {
-        let detail = `${response.status} ${response.statusText}`;
-        let logText;
-        try {
-            const payload = await response.json();
-            detail = payload.detail || detail;
-            logText = payload.log_text;
-        } catch {
-            detail = await response.text();
-        }
-        const error = new Error(detail);
-        error.logText = logText;
-        throw error;
-    }
-    return response.json();
-}
-
 function resolveOptionReferences(value, catalogs) {
     if (Array.isArray(value)) {
         value.forEach((item) => resolveOptionReferences(item, catalogs));
@@ -3053,6 +3030,7 @@ async function saveCurrentWonder() {
     try {
         const payload = await fetchJson("api/resources/editor.wonder/commit", {
             method: "POST",
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 regenerate: true,
                 current_wonder_id: currentId,
@@ -3086,8 +3064,8 @@ async function saveCurrentWonder() {
         showToast(state.status, "success");
     } catch (error) {
         console.error(error);
-        if (typeof error.logText === "string") {
-            state.logText = error.logText;
+        if (typeof error.log_text === "string") {
+            state.logText = error.log_text;
             renderLog();
         }
         updateStatus("保存失败", "error");
@@ -3111,6 +3089,7 @@ async function saveCurrentRitualPrompt(prompt) {
         const normalizedPrompt = normalizeMultilineText(String(prompt || ""));
         const payload = await fetchJson(`api/wonder-localization/ritual-prompts/${wonderId}`, {
             method: "POST",
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 prompt: normalizedPrompt,
             }),

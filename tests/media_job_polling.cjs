@@ -16,7 +16,8 @@ function studio() {
     window: { setTimeout: () => 1, clearTimeout() {} },
     fetch: () => new Promise(() => {}),
   });
-  vm.runInContext(readFileSync(join(__dirname, '../towards_victory_editor_web/static/media_studio.js'), 'utf8'), context);
+  vm.runInContext(readFileSync(join(__dirname, '../towards_victory_editor_web/static/api.js'), 'utf8').replace(/^export /gm, ''), context);
+  vm.runInContext(readFileSync(join(__dirname, '../towards_victory_editor_web/static/media_studio.js'), 'utf8').replace(/^import .*;\r?\n/gm, ''), context);
   return { context, control, state: () => vm.runInContext('state', context) };
 }
 
@@ -77,12 +78,11 @@ test('a late poll after cancellation cannot append duplicate lines', async () =>
   vm.runInContext('renderJob(initial)', app.context);
 
   let respond;
-  app.context.testFetch = () => new Promise((resolve) => { respond = resolve; });
-  vm.runInContext('jsonFetch = testFetch', app.context);
+  app.context.fetch = () => new Promise((resolve) => { respond = resolve; });
   const pending = vm.runInContext('pollJob()', app.context);
   app.context.cancelled = job('first', 3, ['one', 'two', 'three'], true);
   vm.runInContext('renderJob(cancelled)', app.context);
-  respond(job('first', 2, ['two']));
+  respond(Response.json(job('first', 2, ['two'])));
   await pending;
 
   assert.equal(app.control('media-log').textContent, 'one\ntwo\nthree');
@@ -97,14 +97,13 @@ test('a late response from an earlier job cannot change the current job', async 
   vm.runInContext('renderJob(first)', app.context);
 
   let respond;
-  app.context.testFetch = () => new Promise((resolve) => { respond = resolve; });
-  vm.runInContext('jsonFetch = testFetch', app.context);
+  app.context.fetch = () => new Promise((resolve) => { respond = resolve; });
   const pending = vm.runInContext('pollJob()', app.context);
   state.jobId = 'second';
   state.lineCursor = 0;
   app.context.second = job('second', 2, ['new one', 'new two'], true);
   vm.runInContext('renderJob(second)', app.context);
-  respond(job('first', 3, ['old two', 'old three']));
+  respond(Response.json(job('first', 3, ['old two', 'old three'])));
   await pending;
 
   assert.equal(app.control('media-log').textContent, 'new one\nnew two');

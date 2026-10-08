@@ -17,6 +17,13 @@ Start it with the managed project interpreter:
 C:\Users\Hades\anaconda3\envs\eu5\python.exe -m towards_victory_editor_web --no-browser
 ```
 
+All five frontend modules import `fetchJson` from `static/api.js`. It returns
+JSON on success and throws `ApiError` for HTTP errors, retaining `status`,
+`detail`, `code`, `operation_id`, `operation`, `generation`, and `log_text`.
+Its message combines shared guidance with the server diagnostic for `resource_busy`
+and `resource_changed`; `detail` retains the raw diagnostic. The changed-input
+guidance applies to both editors and media jobs. Non-JSON error bodies are read once.
+
 The default address is `http://127.0.0.1:8760/`. Use `--host`, `--port`, or
 omit `--no-browser` when a browser tab should open automatically. The older
 standalone cropper server and its port no longer exist. Crop settings use the
@@ -115,7 +122,7 @@ Wonder save does not make them conflict. A busy commit returns HTTP 409 with
 writing. Victory Tree saves now also acquire `editor.victory_tree` without
 waiting; concurrent saves receive HTTP 409 instead of queuing on the service
 lock. Stale source snapshots return `code: resource_changed`. The Victory Tree,
-cost/reward, and crop pages distinguish these cases and preserve unsaved edits.
+cost/reward, Wonder, and crop pages distinguish these cases and preserve unsaved edits.
 These locks coordinate this server process only. Media jobs compare declared
 input snapshots before execution and after handler cleanup, including inputs
 that are also declared outputs. Their generated replacements stay in staging
