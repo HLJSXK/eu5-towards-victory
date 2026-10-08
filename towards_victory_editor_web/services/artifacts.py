@@ -123,6 +123,7 @@ def validate_artifact_contract(
     repo_root: Path,
     artifacts: Iterable[Artifact],
     allowed_formats: Iterable[str] = (),
+    path_overrides: dict[str, Path] | None = None,
 ) -> list[dict[str, Any]]:
     """Validate declared media formats and generated script/localization files."""
     allowed = {str(value).lower().lstrip(".") for value in allowed_formats}
@@ -130,7 +131,7 @@ def validate_artifact_contract(
     for artifact in artifacts:
         if artifact.role == "deleted":
             continue
-        path = (repo_root / artifact.path).resolve()
+        path = (path_overrides or {}).get(artifact.path, (repo_root / artifact.path).resolve())
         suffix = path.suffix.lower()
         report: dict[str, Any] = {"path": artifact.path, "format": suffix.lstrip(".") or "file", "valid": True}
         try:

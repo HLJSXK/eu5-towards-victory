@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import json
+from argparse import Namespace
 from contextlib import contextmanager
+from pathlib import Path
 
 import pytest
 
@@ -9,7 +11,7 @@ from towards_victory_editor_web.services import cropper as cropper_module
 from towards_victory_editor_web.services.cropper import CropperService, WonderCropTool
 from towards_victory_editor_web.services import media_plans
 from towards_victory_editor_web.services.media_plans import dds_icon_plan, historical_api_plan, wonder_image_plan
-from towards_victory_editor_web.services.media_tools import build_registry
+from towards_victory_editor_web.services.media_tools import HistoricalStyleTool, build_registry
 from towards_victory_editor_web.services.platform import OperationLog
 from towards_victory_editor_web.services.tooling import JobManager, ToolContext, ToolRegistry, ToolSpec
 
@@ -33,6 +35,39 @@ def run_tool(root, tool):
     finally:
         manager.shutdown()
     return manager.get(job.id)
+
+
+def run_tool_options(root, tool, options):
+    registry = ToolRegistry()
+    registry.register(tool)
+    manager = JobManager(registry, root)
+    try:
+        job = manager.submit(tool.spec.id, options)
+    finally:
+        manager.shutdown()
+    return manager.get(job.id)
+
+
+def baseline_bytes(outputs, run):
+    before = {path: path.read_bytes() if path.exists() else None for path in outputs}
+    run()
+    expected = {path: path.read_bytes() if path.exists() else None for path in outputs}
+    for path, data in before.items():
+        if data is None:
+            path.unlink(missing_ok=True)
+        else:
+            path.write_bytes(data)
+    return expected
+
+
+def assert_output_bytes(expected):
+    assert {path: path.read_bytes() if path.exists() else None for path in expected} == expected
+
+
+def staged_context(root, outputs):
+    context = ToolContext("fixed-plan", root, lambda line: None, OperationLog("media_job"))
+    context.set_staging(root / ".editor_state" / "test-staging", outputs)
+    return context
 
 
 class PlannedTool:
@@ -94,11 +129,120 @@ def test_wonder_rebuild_declares_and_writes_full_and_cropped_dds(wonder_env):
             "selected", "selected_cropped", "extra", "extra_cropped", "dds_only", "orphan",
         )}
         assert {path.relative_to(service.repo_root).as_posix() for path in plan.outputs} == expected
+        config_data = wonder.load_config()
+        expected_bytes = baseline_bytes(plan.outputs, lambda: wonder.run_existing_assets(
+            wonder.plan_existing_assets(wonder.load_task_config(config_data)),
+            (0, 0, 0), wonder.load_crop_data(service.data_path),
+        ))
     job = run_tool(service.repo_root, tool)
     assert job["status"] == "succeeded", job["error"]
     assert {item["path"] for item in job["artifacts"]} == expected
     assert all(item["valid"] for item in job["metadata"]["output_validation"])
     assert not (service.repo_root / "dds/tv_wonder_disabled.dds").exists()
+    assert_output_bytes(expected_bytes)
+
+
+def test_wonder_crop_failure_restores_formal_outputs(wonder_env, monkeypatch):
+    service, tool, _, _ = wonder_env
+    target = service.repo_root / "dds/tv_wonder_dds_only.dds"
+    before = target.read_bytes()
+
+    def fail(jobs, *_args):
+        jobs[0][1].write_bytes(b"partial")
+        raise RuntimeError("crop failed")
+
+    monkeypatch.setattr(cropper_module, "run_existing_assets", fail)
+    job = run_tool(service.repo_root, tool)
+    assert job["status"] == "failed"
+    assert target.read_bytes() == before
+
+
+def test_wonder_image_failure_restores_formal_outputs(wonder_env, monkeypatch):
+    service, _, config, tasks = wonder_env
+    monkeypatch.setattr(media_plans, "WONDER_TASK_INPUTS", (tasks,))
+    monkeypatch.setattr(cropper_module.cropper, "data_path", service.data_path)
+    plan = wonder_image_plan(wonder, {})
+
+    def fail(_config, planned, _crops):
+        path = Path(planned[0]["dds_dir"]) / "tv_wonder_selected.dds"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(b"partial")
+        raise RuntimeError("image failed")
+
+    monkeypatch.setattr(wonder, "run_generation", fail)
+    target = service.repo_root / "dds/tv_wonder_selected.dds"
+    target.write_bytes(b"original")
+    before = target.read_bytes()
+    job = run_tool(service.repo_root, PlannedTool(lambda: plan))
+    assert job["status"] == "failed"
+    assert target.read_bytes() == before
+
+
+def test_dds_icon_failure_restores_formal_outputs(icon_env, monkeypatch):
+    root, _, options = icon_env
+    plan = dds_icon_plan(icons, options)
+    target = root / "icons/sample.dds"
+    target.parent.mkdir(parents=True)
+    target.write_bytes(b"original")
+
+    def fail(_config, _args, tasks):
+        tasks[0].target.path.write_bytes(b"partial")
+        raise RuntimeError("icon failed")
+
+    monkeypatch.setattr(icons, "run_generation_tasks", fail)
+    before = target.read_bytes()
+    job = run_tool(root, PlannedTool(lambda: plan))
+    assert job["status"] == "failed"
+    assert target.read_bytes() == before
+
+
+def test_historical_api_failure_restores_formal_outputs(tmp_path, monkeypatch):
+    config = tmp_path / "historical.json"
+    write_png(tmp_path / "source.png")
+    config.write_text(json.dumps({"historical_images": {
+        "endpoint": "https://example.invalid/images/edits", "model": "fixture", "overwrite": True,
+        "api_key": "fixture", "images": [{"source": "source.png", "output": "out.png"}],
+    }}))
+    monkeypatch.setattr(historical, "REPO_ROOT", tmp_path)
+    monkeypatch.setattr(historical, "CONFIG_PATH", config)
+    monkeypatch.setattr(historical, "OUTPUT_DIR", tmp_path / "processed")
+    plan = historical_api_plan(historical, {"dry_run": False})
+    target = tmp_path / "processed/out.png"
+    target.parent.mkdir()
+    target.write_bytes(b"original")
+
+    def fail(_config, planned, **_kwargs):
+        planned[0][1].write_bytes(b"partial")
+        raise RuntimeError("historical failed")
+
+    monkeypatch.setattr(historical, "run_tasks", fail)
+    before = target.read_bytes()
+    job = run_tool(tmp_path, PlannedTool(lambda: plan))
+    assert job["status"] == "failed"
+    assert target.read_bytes() == before
+
+
+def test_historical_style_failure_restores_formal_outputs(tmp_path, monkeypatch):
+    source = tmp_path / "source.png"
+    write_png(source)
+    output_dir = tmp_path / "processed"
+    target = output_dir / "source_cartoon.png"
+    target.parent.mkdir()
+    target.write_bytes(b"original")
+
+    class FailingStyle:
+        @staticmethod
+        def run(_input, output, *_args):
+            (Path(output) / "source_cartoon.png").write_bytes(b"partial")
+            raise RuntimeError("style failed")
+
+    monkeypatch.setattr("towards_victory_editor_web.services.media_tools._load", lambda *_args: FailingStyle)
+    monkeypatch.setattr("towards_victory_editor_web.services.media_tools.REPO_ROOT", tmp_path)
+    tool = HistoricalStyleTool()
+    before = target.read_bytes()
+    job = run_tool_options(tmp_path, tool, {"inputs": ["source.png"], "output_dir": "processed"})
+    assert job["status"] == "failed"
+    assert target.read_bytes() == before
 
 
 def test_prepared_wonder_rebuild_executes_resolved_tasks_without_reloading(wonder_env, monkeypatch):
@@ -107,8 +251,9 @@ def test_prepared_wonder_rebuild_executes_resolved_tasks_without_reloading(wonde
         config.write_text('{}')
         tasks.write_text('[]')
         monkeypatch.setattr(cropper_module, "load_task_config", lambda _: pytest.fail("execution reloaded tasks"))
-        plan.run(ToolContext("fixed-plan", service.repo_root, lambda line: None, OperationLog("media_job")))
-        assert all(path.is_file() for path in plan.outputs)
+        context = staged_context(service.repo_root, plan.outputs)
+        plan.run(context)
+        assert all(context.stage_path(path).is_file() for path in plan.outputs)
 
 
 def test_live_wonder_crop_plan_tracks_repository_task_sources():
@@ -149,6 +294,68 @@ def test_wonder_generation_skips_partial_dds_without_png(wonder_env, monkeypatch
     assert (service.repo_root / "dds/tv_wonder_dds_only.dds").read_bytes() == before
 
 
+@pytest.mark.parametrize("keep_png", [True, False])
+def test_wonder_repair_and_generation_match_direct_outputs(wonder_env, monkeypatch, keep_png):
+    service, _, config, tasks = wonder_env
+    root = service.repo_root
+    monkeypatch.setattr(media_plans, "WONDER_TASK_INPUTS", (tasks,))
+    monkeypatch.setattr(cropper_module.cropper, "data_path", service.data_path)
+    monkeypatch.setattr(wonder, "resolve_api_key", lambda _: "fixture")
+    write_png(root / "png/tv_wonder_dds_only.png")
+    config.write_text(json.dumps({
+        "defaults": {"png_dir": "png", "dds_dir": "dds", "metadata_dir": "metadata",
+                     "size": "1024x640", "keep_png": keep_png},
+    }))
+    (root / "metadata").mkdir()
+    tasks.write_text(json.dumps([
+        {"name": name, "key": name, "is_unique": False, "prompt": name}
+        for name in ("dds_only", "new")
+    ]))
+    image = encode_png_rgba(RgbaImage(1024, 640, bytes([120, 80, 40, 255]) * (1024 * 640)))
+    monkeypatch.setattr(wonder, "api_post_json", lambda *_: {"created": 42})
+    monkeypatch.setattr(wonder, "extract_png_bytes", lambda *_: (image, "fixture"))
+    plan = wonder_image_plan(wonder, {})
+    png = root / "png/tv_wonder_dds_only.png"
+    png_before = png.read_bytes()
+    assert png not in plan.outputs
+    loaded_config = wonder.load_config()
+    expected = baseline_bytes((*plan.outputs, *plan.optional_outputs), lambda: wonder.run_generation(
+        loaded_config, wonder.load_task_config(loaded_config), wonder.load_crop_data(service.data_path),
+    ))
+    job = run_tool(root, PlannedTool(lambda: plan))
+    assert job["status"] == "succeeded", job["error"]
+    assert_output_bytes(expected)
+    assert png.read_bytes() == png_before
+    assert job["missing_outputs"] == []
+
+
+@pytest.mark.parametrize("keep_intermediates", [True, False])
+def test_historical_style_matches_direct_output_bytes(tmp_path, monkeypatch, keep_intermediates):
+    pytest.importorskip("skimage.color")
+    from scripts import style_historical_image as style
+    from towards_victory_editor_web.services import media_tools
+
+    source = tmp_path / "source.png"
+    # Nonuniform input exercises image statistics, palette and deterministic noise.
+    pixels = bytes(channel for y in range(32) for x in range(32)
+                   for channel in (x * 8, y * 8, (x + y) * 4, 255))
+    source.write_bytes(encode_png_rgba(RgbaImage(32, 32, pixels)))
+    monkeypatch.setattr(media_tools, "REPO_ROOT", tmp_path)
+    monkeypatch.setattr(media_tools, "_load", lambda *_: style)
+    tool = HistoricalStyleTool()
+    options = {"inputs": ["source.png"], "output_dir": "processed", "max_size": 32,
+               "seed": 17, "keep_intermediates": keep_intermediates}
+    normalized = tool.validate(options)
+    outputs = tool.outputs(normalized)
+    expected = baseline_bytes(outputs, lambda: style.run(source, tmp_path / "processed", 32, keep_intermediates, 17))
+    job = run_tool_options(tmp_path, tool, options)
+    assert job["status"] == "succeeded", job["error"]
+    assert_output_bytes(expected)
+    report = json.loads((tmp_path / "processed/source_cartoon_evaluation.json").read_bytes())
+    assert report["output"] == str(tmp_path / "processed/source_cartoon.png")
+    assert Path(report["output"]).is_file()
+
+
 @pytest.fixture
 def icon_env(tmp_path, monkeypatch):
     config = tmp_path / "icons.json"
@@ -174,10 +381,14 @@ def test_dds_conversion_tracks_json_outside_image_directory(icon_env):
     plan = dds_icon_plan(icons, options)
     assert {path.relative_to(root).as_posix() for path in plan.outputs} == {"icons/sample.dds", "data/generated_icons/sample.json"}
     assert metadata.relative_to(root).as_posix() in {item.path for item in plan.inputs}
+    expected_bytes = baseline_bytes(plan.outputs, lambda: icons.run(Namespace(**options)))
     job = run_tool(root, PlannedTool(lambda: dds_icon_plan(icons, options)))
     assert job["status"] == "succeeded", job["error"]
     assert {item["path"] for item in job["metadata"]["output_validation"]} == {"icons/sample.dds", "data/generated_icons/sample.json"}
-    assert json.loads(metadata.read_text())["targets"][0]["name"] == "building_icon"
+    metadata_payload = json.loads(metadata.read_text())
+    assert metadata_payload["targets"][0]["name"] == "building_icon"
+    assert metadata_payload["targets"][0]["path"] == "icons/sample.dds"
+    assert_output_bytes(expected_bytes)
 
 
 def test_dds_dry_run_does_not_write_conversion_or_metadata(icon_env):
@@ -204,9 +415,15 @@ def test_historical_api_plan_keeps_config_and_outputs(tmp_path, monkeypatch):
     monkeypatch.setattr(historical, "edit_image", lambda cfg, src, key: src.read_bytes())
     plan = historical_api_plan(historical, {"dry_run": False})
     assert {item.path for item in plan.inputs} == {"historical.json", "source.png"}
+    loaded_config, tasks = historical.load_tasks()
+    expected_bytes = baseline_bytes(plan.outputs, lambda: historical.run_tasks(loaded_config, tasks, dry_run=False))
+    job = run_tool(tmp_path, PlannedTool(lambda: plan))
+    assert job["status"] == "succeeded", job["error"]
+    assert_output_bytes(expected_bytes)
     config.write_text('{}')
-    plan.run(ToolContext("fixed-plan", tmp_path, lambda line: None, OperationLog("media_job")))
-    assert (tmp_path / "processed/out.png").read_bytes() == (tmp_path / "source.png").read_bytes()
+    context = staged_context(tmp_path, plan.outputs)
+    plan.run(context)
+    assert context.stage_path(tmp_path / "processed/out.png").read_bytes() == (tmp_path / "source.png").read_bytes()
 
 
 def test_web_catalog_has_one_wonder_rebuild_entry():

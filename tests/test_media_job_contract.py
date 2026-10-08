@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import threading
 from contextlib import contextmanager
+from pathlib import Path
 
 import pytest
 from fastapi.testclient import TestClient
@@ -22,7 +23,7 @@ class JsonTool:
         self.root = root
         self.source = root / "source.txt"
         self.output = root / "output.json"
-        self.action = lambda context: self.output.write_text('{"ok": true}')
+        self.action = lambda context: context.stage_path(self.output).write_text('{"ok": true}')
         self.optional = ()
         self.result = ToolResult(message="done")
 
@@ -38,6 +39,7 @@ class JsonTool:
         )
 
         def run(context):
+            self.context = context
             self.action(context)
             return self.result
 
@@ -128,7 +130,7 @@ def test_invalid_tool_result_keeps_terminal_diagnostic_and_artifacts(job_env, in
     assert list(failed["metadata"]) == ["output_validation"]
     assert failed["metadata"]["output_validation"][0]["valid"] is True
     assert failed["artifacts"][0]["path"] == "output.json"
-    assert failed["outputs_may_be_partial"] is True
+    assert failed["outputs_may_be_partial"] is False
     operation, details = manager.operation_store.get_with_details(failed["id"])
     assert operation == failed["operation"]
     assert details["metadata"] == failed["metadata"]
@@ -190,7 +192,7 @@ def test_job_polling_returns_only_new_lines_and_keeps_lifecycle_events(job_env):
     def action(context):
         context.log("first line")
         context.log("second line")
-        tool.output.write_text('{}')
+        context.stage_path(tool.output).write_text('{}')
 
     tool.action = action
     job = manager.submit(tool.spec.id, {})
@@ -211,7 +213,7 @@ def test_job_polling_resets_when_cursor_falls_out_of_retained_window(job_env):
     def action(context):
         for index in range(510):
             context.log(f"line {index}")
-        tool.output.write_text('{}')
+        context.stage_path(tool.output).write_text('{}')
 
     tool.action = action
     job = manager.submit(tool.spec.id, {})
@@ -230,7 +232,7 @@ def test_failed_or_cancelled_job_preserves_written_artifacts(job_env, failure):
     tool, manager = job_env
 
     def action(context):
-        tool.output.write_text('{"partial": true}')
+        context.stage_path(tool.output).write_text('{"partial": true}')
         tool.source.write_text("changed")
         if failure == "exception":
             raise RuntimeError("generator stopped")
@@ -245,8 +247,9 @@ def test_failed_or_cancelled_job_preserves_written_artifacts(job_env, failure):
     assert job["returncode"] == (130 if failure == "cancelled" else 1)
     assert job["artifacts"][0]["path"] == "output.json"
     assert job["artifacts"][0]["changed"] is True
-    assert job["outputs_may_be_partial"] is True
-    assert "no rollback" in job["lines"][-1]
+    assert job["outputs_may_be_partial"] is False
+    assert job["formal_output_changes"] == []
+    assert not tool.output.exists()
     expected = {"source_changed": "Declared inputs changed", "exception": "generator stopped", "cancelled": "Cancellation requested"}
     assert expected[failure] in job["error"]
 
@@ -261,17 +264,93 @@ def test_missing_declared_output_fails_and_unrelated_files_are_not_artifacts(job
     assert "Missing declared outputs" in job["error"]
 
 
-def test_unrelated_file_change_does_not_fail_valid_job(job_env):
+def test_unrelated_file_changes_are_not_scanned_or_attributed_to_job(job_env, monkeypatch):
     tool, manager = job_env
+    tool.output = tool.root / "images" / "output.json"
+    tool.output.parent.mkdir()
+    unrelated = (tool.root / "unrelated.txt", tool.output.parent / "unrelated.txt")
+    for path in unrelated:
+        path.write_text("before")
+    read_bytes = Path.read_bytes
+    rglob = Path.rglob
+
+    def read_declared_only(path):
+        assert path not in unrelated, f"read unrelated file: {path}"
+        return read_bytes(path)
+
+    def scan_job_staging_only(path, pattern):
+        assert path.parent == tool.root / ".editor_state", f"scanned outside job staging: {path}"
+        return rglob(path, pattern)
+
+    monkeypatch.setattr(Path, "read_bytes", read_declared_only)
+    monkeypatch.setattr(Path, "rglob", scan_job_staging_only)
 
     def action(context):
-        tool.output.write_text('{}')
-        (tool.root / "unrelated.txt").write_text("another writer")
+        context.stage_path(tool.output).write_text('{}')
+        for path in unrelated:
+            path.write_text("another writer")
+        (tool.root / "__pycache__").mkdir()
+        (tool.root / "__pycache__" / "unrelated.pyc").write_bytes(b"cache")
 
     tool.action = action
     job = execute(tool, manager)
     assert job["status"] == "succeeded"
-    assert [item["path"] for item in job["artifacts"]] == ["output.json"]
+    assert [item["path"] for item in job["artifacts"]] == ["images/output.json"]
+    assert job["formal_output_changes"] == []
+    assert job["outputs_may_be_partial"] is False
+    assert job["lines"] == []
+
+
+@pytest.mark.parametrize("existing", [False, True])
+@pytest.mark.parametrize("outcome", ["return", "exception", "cancel"])
+def test_direct_formal_writes_are_rejected_and_reported(job_env, existing, outcome):
+    tool, manager = job_env
+    if existing:
+        tool.output.write_bytes(b'{"before": true}')
+
+    def action(context):
+        tool.output.write_bytes(b'{"outside_staging": true}')
+        if outcome == "exception":
+            raise RuntimeError("generator failed")
+        if outcome == "cancel":
+            context.request_cancel()
+
+    tool.action = action
+    job = execute(tool, manager)
+    assert job["status"] == ("cancelled" if outcome == "cancel" else "failed")
+    assert job["formal_output_changes"] == ["output.json"]
+    assert job["outputs_may_be_partial"] is True
+    if outcome == "return":
+        assert "Formal outputs changed outside staging" in job["error"]
+    assert any("writer unknown, review files: output.json" in line for line in job["lines"])
+    # No compatibility copy into staging and no restoration over another writer.
+    assert tool.output.read_bytes() == b'{"outside_staging": true}'
+    restarted = JobManager(ToolRegistry(), tool.root, manager.operation_store)
+    try:
+        assert restarted.get(job["id"]) == job
+    finally:
+        restarted.shutdown()
+
+
+@pytest.mark.parametrize("fails", [False, True])
+def test_staging_intermediates_do_not_mark_formal_outputs_partial(job_env, fails):
+    tool, manager = job_env
+    def action(context):
+        output = context.stage_path(tool.output)
+        output.write_bytes(b'{}')
+        output.with_name("intermediate.bin").write_bytes(b"intermediate")
+        if fails:
+            raise RuntimeError("generator failed")
+
+    tool.action = action
+    job = execute(tool, manager)
+    assert job["status"] == ("failed" if fails else "succeeded")
+    assert job["staging_extra_files"] == ["staging/intermediate.bin"]
+    assert job["formal_output_changes"] == []
+    assert job["outputs_may_be_partial"] is False
+    assert not (tool.root / "intermediate.bin").exists()
+    assert list((tool.root / ".editor_state").iterdir()) == []
+    assert all("Undeclared" not in line for line in job["lines"])
 
 
 def test_missing_declared_input_fails_before_writes(job_env):
@@ -332,6 +411,8 @@ def test_job_finishes_only_after_handler_cleanup(job_env, monkeypatch, cancel, c
     from towards_victory_editor_web.services.platform import resource_operation
 
     tool, manager = job_env
+    tool.output.write_text('{"original": true}')
+    original_output = tool.output.read_bytes()
     cleanup_started, finish_cleanup = threading.Event(), threading.Event()
     prepare = tool.prepare
 
@@ -340,6 +421,7 @@ def test_job_finishes_only_after_handler_cleanup(job_env, monkeypatch, cancel, c
         with prepare(options) as plan:
             yield plan
             cleanup_started.set()
+            tool.context.stage_path(tool.output).write_text('{"cleanup": true}')
             assert finish_cleanup.wait(5), "test did not release cleanup"
             if cleanup_fails:
                 raise RuntimeError("cleanup failed")
@@ -371,11 +453,113 @@ def test_job_finishes_only_after_handler_cleanup(job_env, monkeypatch, cancel, c
     assert completed["created_at"] == completed["operation"]["created_at"]
     assert completed["finished_at"] == completed["operation"]["finished_at"]
     assert completed["finished_at"] is not None
-    assert completed["outputs_may_be_partial"] == (expected != "succeeded")
+    assert completed["outputs_may_be_partial"] is False
+    if expected == "succeeded":
+        assert tool.output.read_bytes() != original_output
+    else:
+        assert tool.output.read_bytes() == original_output
     manager.cancel(job.id)
     assert job.payload() == completed
     with resource_operation(tool.spec.resource_ids, blocking=False):
         pass
+
+
+@pytest.mark.parametrize("cleanup_change", ["invalid_output", "input_change"])
+def test_job_validates_files_after_handler_cleanup(job_env, monkeypatch, cleanup_change):
+    tool, manager = job_env
+    tool.output.write_bytes(b'{"original": true}')
+    before = tool.output.read_bytes()
+    prepare = tool.prepare
+
+    @contextmanager
+    def prepare_with_cleanup(options):
+        with prepare(options) as plan:
+            yield plan
+            if cleanup_change == "invalid_output":
+                tool.context.stage_path(tool.output).write_bytes(b"not JSON")
+            else:
+                tool.source.write_text("changed in cleanup")
+
+    monkeypatch.setattr(tool, "prepare", prepare_with_cleanup)
+    job = execute(tool, manager)
+    assert job["status"] == "failed"
+    expected = "Output validation failed" if cleanup_change == "invalid_output" else "Declared inputs changed"
+    assert expected in job["error"]
+    assert tool.output.read_bytes() == before
+
+
+@pytest.mark.parametrize("rollback_fails", [False, True])
+def test_publication_failure_restores_files_or_retains_backups(job_env, monkeypatch, rollback_fails):
+    from towards_victory_editor_web.services import tooling
+
+    tool, manager = job_env
+    outputs = (tool.output, tool.root / "new.json", tool.root / "last.json")
+    original = b'{"original": true}'
+    outputs[0].write_bytes(original)
+    outputs[2].write_bytes(original)
+    unrelated_tmp = tool.root / "unrelated.tmp"
+    unrelated_tmp.write_text("keep")
+    prepare = tool.prepare
+
+    @contextmanager
+    def prepare_multiple(options):
+        with prepare(options) as plan:
+            def run(context):
+                for output in outputs:
+                    context.stage_path(output).write_bytes(b'{"new": true}')
+                return ToolResult()
+            yield ToolPlan(plan.inputs, outputs, run)
+
+    replace = tooling.os.replace
+    def fail_last(source, target):
+        if target == outputs[2]:
+            raise OSError("publication failed")
+        replace(source, target)
+
+    copy = tooling.shutil.copy2
+    def copy_with_locked_output(source, target):
+        if rollback_fails and ".backup" in source.parts and target == outputs[0]:
+            raise PermissionError("output is locked")
+        return copy(source, target)
+
+    monkeypatch.setattr(tool, "prepare", prepare_multiple)
+    monkeypatch.setattr(tooling.os, "replace", fail_last)
+    monkeypatch.setattr(tooling.shutil, "copy2", copy_with_locked_output)
+    job = execute(tool, manager)
+    assert job["status"] == "failed"
+    assert ("output is locked" if rollback_fails else "publication failed") in job["error"]
+    assert outputs[2].read_bytes() == original
+    assert not outputs[1].exists()
+    assert job["outputs_may_be_partial"] == rollback_fails
+    assert job["publication_rollback_failed"] == rollback_fails
+    assert list(tool.root.glob("*.tmp")) == [unrelated_tmp]
+    if rollback_fails:
+        assert outputs[0].read_bytes() == b'{"new": true}'
+        retained, = (tool.root / ".editor_state").iterdir()
+        assert (retained / ".backup" / outputs[0].name).read_bytes() == original
+        assert any("retained backups at" in line for line in job["lines"])
+    else:
+        assert outputs[0].read_bytes() == original
+        assert list((tool.root / ".editor_state").iterdir()) == []
+    restarted = JobManager(ToolRegistry(), tool.root, manager.operation_store)
+    try:
+        assert restarted.get(job["id"]) == job
+    finally:
+        restarted.shutdown()
+
+
+def test_stage_path_rejects_undeclared_outputs_before_and_after_setup(tmp_path):
+    from towards_victory_editor_web.services.platform import OperationLog
+    from towards_victory_editor_web.services.tooling import ToolContext
+
+    context = ToolContext("strict-staging", tmp_path, lambda line: None, OperationLog("media_job"))
+    output = tmp_path / "out" / "declared.json"
+    with pytest.raises(ValueError, match="not a declared job output"):
+        context.stage_path(output)
+    context.set_staging(tmp_path / ".editor_state" / "test-staging", (output,))
+    with pytest.raises(ValueError, match="not a declared job output"):
+        context.stage_path(output.with_name("undeclared.json"))
+    assert context.stage_path(output).parent.is_dir()
 
 
 def test_cancelled_queued_job_does_not_try_to_acquire_busy_resource(job_env):
@@ -409,7 +593,7 @@ def test_optional_input_appearing_during_execution_is_a_conflict(job_env):
 
     def action(context):
         tool.source.write_text("new config")
-        tool.output.write_text('{}')
+        context.stage_path(tool.output).write_text('{}')
 
     tool.action = action
     job = execute(tool, manager)
@@ -425,7 +609,7 @@ def test_optional_input_appearing_during_execution_is_a_conflict(job_env):
 def test_invalid_artifact_retains_manifest(job_env, extension, content, error):
     tool, manager = job_env
     tool.output = tool.root / f"output.{extension}"
-    tool.action = lambda context: tool.output.write_text(content)
+    tool.action = lambda context: context.stage_path(tool.output).write_text(content)
     job = execute(tool, manager)
     assert job["status"] == "failed"
     assert error in job["error"]
@@ -445,12 +629,12 @@ def test_unchanged_output_is_validated_and_reported(job_env):
 def test_deleted_output_is_recorded_after_failure(job_env):
     tool, manager = job_env
     tool.output.write_text('{}')
-    tool.action = lambda context: tool.output.unlink()
+    tool.action = lambda context: context.stage_path(tool.output).unlink()
     job = execute(tool, manager)
     assert job["status"] == "failed"
     assert job["missing_outputs"] == ["output.json"]
     assert job["artifacts"][0]["role"] == "deleted"
-    assert job["outputs_may_be_partial"] is True
+    assert job["outputs_may_be_partial"] is False
 
 
 def test_http_job_contract_and_crop_commit_conflict(job_env, monkeypatch):
@@ -466,7 +650,7 @@ def test_http_job_contract_and_crop_commit_conflict(job_env, monkeypatch):
     def action(context):
         started.set()
         assert finish.wait(5), "test did not release generator"
-        tool.output.write_text('{}')
+        context.stage_path(tool.output).write_text('{}')
 
     tool.action = action
     with TestClient(server.create_app()) as client:

@@ -249,7 +249,6 @@ def run_operation(
                 # Cancellation and completion share a lock so a late request
                 # cannot leave the operation cancelling after successful work.
                 with operation._lock:
-                    operation.check_cancelled()
                     operation.succeed()
                 return result
     except Exception as exc:

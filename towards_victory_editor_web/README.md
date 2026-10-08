@@ -116,19 +116,37 @@ writing. Victory Tree saves now also acquire `editor.victory_tree` without
 waiting; concurrent saves receive HTTP 409 instead of queuing on the service
 lock. Stale source snapshots return `code: resource_changed`. The Victory Tree,
 cost/reward, and crop pages distinguish these cases and preserve unsaved edits.
-These locks coordinate this server process only. External edits are detected by comparing input
-snapshots before and after execution; in-place inputs (DDS conversion and icon
-metadata updates) are checked before execution only.
+These locks coordinate this server process only. Media jobs compare declared
+input snapshots before execution and after handler cleanup, including inputs
+that are also declared outputs. Their generated replacements stay in staging
+until publication.
 
-Media generators write directly to their destinations. Failure, cancellation,
-missing outputs, or stale inputs do not roll files back: the job retains the
-manifest and validation results, lists `missing_outputs`, and sets
-`outputs_may_be_partial` when planned output files changed. Cancellation takes
-precedence over stale-input diagnostics. Media studio shows inputs, declared
-outputs, file changes, and validation errors. Optional intermediate PNG files
-are recorded if present after a failure; files created and removed within a run
-are not retained. This slice does not provide a complete resource DAG, staged
-publication, cross-process locking, or recovery of undeclared generator writes.
+Media generators write declared outputs to a job-local staging directory.
+After execution and handler cleanup, declared formats and required outputs are
+validated before the staged files are published to their formal paths. Existing formal files are
+backed up so a failure during multi-file publication can restore them. Staged
+writes are discarded on failure, cancellation, missing outputs, format errors,
+or stale inputs; the job retains the attempted manifest and validation results.
+Only declared files are compared; their parent directories are not scanned.
+Input changes cause a conflict. Changes to declared formal outputs outside
+staging block publication and appear in `formal_output_changes`; their writer
+is unknown, so the job leaves them for review instead of restoring a backup
+over them. Arbitrary undeclared formal paths are not monitored; write auditing
+is a separate TODO in the refactor status.
+
+`staging_extra_files` lists intermediate files excluded from publication and
+removed during normal staging cleanup. They do not trigger a partial-output
+warning. `outputs_may_be_partial` is true for `formal_output_changes`,
+publication rollback failure, or an interrupted operation that started running.
+Cancellation takes precedence over stale-input diagnostics. Media studio shows
+inputs, declared outputs, file changes, intermediate files, and validation
+errors. If publication rollback itself fails, the job
+sets `publication_rollback_failed`, preserves the backup directory, and reports
+the files that could not be restored. A service interruption may leave formal
+files partially published and backups under `.editor_state/media-*/.backup`;
+the UI asks for manual review. Startup recovery and cleanup are not implemented
+and are tracked separately in the refactor status TODOs.
+This slice does not provide a complete resource DAG or cross-process locking.
 
 The data editors and crop configuration editor are registered in the same tool
 catalog as interactive tools. They use resource load/validate/preview/commit

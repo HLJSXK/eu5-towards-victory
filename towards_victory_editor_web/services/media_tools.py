@@ -116,7 +116,14 @@ class HistoricalStyleTool:
         outputs = self.outputs(options)
         if len(set(outputs)) != len(outputs):
             raise ValueError("Input images must have distinct filenames without extensions")
-        yield ToolPlan(snapshots, outputs, lambda context: self.run(options, context))
+        def run(context: ToolContext) -> ToolResult:
+            staged = dict(options)
+            staged["output_dir"] = str(context.stage_path(outputs[0]).parent)
+            result = self.run(staged, context)
+            context.formalize_json_paths(outputs)
+            return result
+
+        yield ToolPlan(snapshots, outputs, run)
 
     def outputs(self, options: dict[str, Any]) -> tuple[Path, ...]:
         output_dir = Path(options["output_dir"])

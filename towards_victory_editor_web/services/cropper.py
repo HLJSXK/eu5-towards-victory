@@ -319,8 +319,12 @@ class WonderCropTool:
         def run(context: ToolContext) -> ToolResult:
             context.check_cancelled()
             context.log("rebuild started")
+            staged_jobs = [
+                (source, context.stage_path(output), stem, label)
+                for source, output, stem, label in jobs
+            ]
             with capture_script_output(context):
-                code = run_existing_assets(jobs, background, crops)
+                code = run_existing_assets(staged_jobs, background, crops)
             if code != 0:
                 raise RuntimeError(f"Wonder DDS rebuild exited with code {code}")
             return ToolResult(message="Wonder DDS rebuild completed")

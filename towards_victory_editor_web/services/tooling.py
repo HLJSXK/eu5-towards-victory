@@ -4,6 +4,9 @@ import contextlib
 import copy
 import io
 import json
+import os
+import shutil
+import tempfile
 import threading
 import time
 from concurrent.futures import ThreadPoolExecutor
@@ -178,6 +181,8 @@ class ToolContext:
         self.repo_root = repo_root
         self._emit = emit
         self.operation = operation
+        self._staging_root: Path | None = None
+        self._staging_paths: dict[Path, Path] = {}
 
     def log(self, message: str) -> None:
         message = str(message).rstrip("\r\n")
@@ -188,6 +193,45 @@ class ToolContext:
 
     def check_cancelled(self) -> None:
         self.operation.check_cancelled()
+
+    def set_staging(self, root: Path, paths: Iterable[Path]) -> None:
+        self._staging_root = root.resolve()
+        self._staging_paths = {path.resolve(): self._staging_root / path.resolve().relative_to(self.repo_root) for path in paths}
+        for staged in self._staging_paths.values():
+            staged.parent.mkdir(parents=True, exist_ok=True)
+
+    def stage_path(self, path: Path) -> Path:
+        """Return the job-local destination for a declared output path."""
+        resolved = path.resolve()
+        try:
+            return self._staging_paths[resolved]
+        except KeyError as exc:
+            raise ValueError(f"Path is not a declared job output: {path}") from exc
+
+    def formalize_json_paths(self, paths: Iterable[Path]) -> None:
+        """Restore serialized output paths without changing JSON formatting."""
+        replacements: dict[bytes, bytes] = {}
+        for formal, staged in self._staging_paths.items():
+            for source, target in (
+                (staged, formal),
+                (staged.relative_to(self.repo_root), formal.relative_to(self.repo_root)),
+            ):
+                for before, after in ((str(source), str(target)), (source.as_posix(), target.as_posix())):
+                    for ascii_only in (True, False):
+                        replacements[json.dumps(before, ensure_ascii=ascii_only).encode("utf-8")] = (
+                            json.dumps(after, ensure_ascii=ascii_only).encode("utf-8")
+                        )
+        for path in paths:
+            if path.suffix.lower() != ".json":
+                continue
+            staged = self.stage_path(path)
+            if staged.is_file():
+                original = staged.read_bytes()
+                data = original
+                for before, after in replacements.items():
+                    data = data.replace(before, after)
+                if data != original:
+                    staged.write_bytes(data)
 
 
 class ToolRegistry:
@@ -239,6 +283,9 @@ class Job:
         self.source_snapshots: list[dict[str, Any]] = []
         self.declared_outputs: list[str] = []
         self.missing_outputs: list[str] = []
+        self.formal_output_changes: list[str] = []
+        self.staging_extra_files: list[str] = []
+        self.publication_rollback_failed = False
         self.operation = OperationLog(
             "media_job", handler.spec.resource_ids, store=operation_store,
             snapshot_details=self._snapshot_details,
@@ -272,6 +319,9 @@ class Job:
                 "source_snapshots": self.source_snapshots,
                 "declared_outputs": self.declared_outputs,
                 "missing_outputs": self.missing_outputs,
+                "formal_output_changes": self.formal_output_changes,
+                "staging_extra_files": self.staging_extra_files,
+                "publication_rollback_failed": self.publication_rollback_failed,
                 "artifacts": [artifact.payload() for artifact in self.artifacts],
             })
 
@@ -293,9 +343,10 @@ def job_payload(
         "returncode": {"succeeded": 0, "failed": 1, "cancelled": 130}.get(operation["status"]),
         "error": operation["error"],
         "resource_ids": operation["resource_ids"],
-        "outputs_may_be_partial": operation["status"] in {"failed", "cancelled"} and (
-            any(artifact["changed"] for artifact in details["artifacts"])
-            or (operation.get("interrupted", False) and operation["started_at"] is not None)
+        "outputs_may_be_partial": bool(details["formal_output_changes"]) or details["publication_rollback_failed"] or (
+            operation["status"] in {"failed", "cancelled"}
+            and operation.get("interrupted", False)
+            and operation["started_at"] is not None
         ),
         "operation_id": operation["id"],
         "operation": operation,
@@ -373,69 +424,164 @@ class JobManager:
 
     def _run(self, job: Job) -> None:
         def execute() -> None:
-            with capture_script_output(job.context), job.handler.prepare(job.options) as plan:
-                outputs = tuple(dict.fromkeys(path.resolve() for path in (*plan.outputs, *plan.optional_outputs)))
-                for path in outputs:
-                    repo_relative_path(path, self.repo_root)
-                with job._details_lock:
-                    job.source_snapshots = [vars(item) for item in plan.inputs]
-                    job.declared_outputs = [artifact_path(self.repo_root, path) for path in outputs]
-                job.operation.checkpoint()
-                inputs = tuple(self.repo_root / item.path for item in plan.inputs)
-                job.context.check_cancelled()
-                if snapshot_files(inputs, repo_root=self.repo_root) != plan.inputs:
-                    raise ConflictError("Declared inputs changed before job execution")
-                before = snapshot_artifacts(outputs)
+            staging: Path | None = None
+            attempt_ready = False
+            with capture_script_output(job.context):
                 try:
-                    result = plan.run(job.context)
-                    result_snapshot = _json_snapshot(
-                        {"message": result.message, "metadata": dict(result.metadata)},
-                        label=f"Tool result from {job.handler.spec.id}",
-                    )
-                    with job._details_lock:
-                        job.message = result_snapshot["message"]
-                        job.metadata = result_snapshot["metadata"]
-                finally:
-                    # Preserve the real disk outcome even if run() raises or is cancelled.
+                    try:
+                        with job.handler.prepare(job.options) as plan:
+                            outputs = tuple(dict.fromkeys(path.resolve() for path in (*plan.outputs, *plan.optional_outputs)))
+                            for path in outputs:
+                                repo_relative_path(path, self.repo_root)
+                            with job._details_lock:
+                                job.source_snapshots = [vars(item) for item in plan.inputs]
+                                job.declared_outputs = [artifact_path(self.repo_root, path) for path in outputs]
+                            job.operation.checkpoint()
+                            inputs = tuple(self.repo_root / item.path for item in plan.inputs)
+                            job.context.check_cancelled()
+                            if snapshot_files(inputs, repo_root=self.repo_root) != plan.inputs:
+                                raise ConflictError("Declared inputs changed before job execution")
+                            before = snapshot_artifacts(outputs)
+                            (self.repo_root / ".editor_state").mkdir(parents=True, exist_ok=True)
+                            staging = Path(tempfile.mkdtemp(prefix=f"media-{job.id}-", dir=self.repo_root / ".editor_state"))
+                            backup = staging / ".backup"
+                            backup.mkdir()
+                            job.context.set_staging(staging, outputs)
+                            for path in outputs:
+                                if path.is_file():
+                                    shutil.copy2(path, job.context.stage_path(path))
+                                    saved = backup / path.relative_to(self.repo_root)
+                                    saved.parent.mkdir(parents=True, exist_ok=True)
+                                    shutil.copy2(path, saved)
+                            attempt_ready = True
+                            result = plan.run(job.context)
+                            result_snapshot = _json_snapshot(
+                                {"message": result.message, "metadata": dict(result.metadata)},
+                                label=f"Tool result from {job.handler.spec.id}",
+                            )
+                            with job._details_lock:
+                                job.message = result_snapshot["message"]
+                                job.metadata = result_snapshot["metadata"]
+                    finally:
+                        # Inspect after handler cleanup, including failed attempts.
+                        # These are exactly the bytes that publication will use.
+                        if attempt_ready:
+                            staged_paths = {job.context.stage_path(path): path for path in outputs}
+                            staged_after = {staged_paths[path]: value for path, value in snapshot_artifacts(staged_paths).items()}
+                            staged_artifacts = collect_artifacts(self.repo_root, before, staged_after)
+                            missing_outputs = [artifact_path(self.repo_root, path) for path in plan.outputs
+                                               if path.resolve() not in staged_after]
+                            validation = validate_artifact_contract(
+                                self.repo_root, staged_artifacts, job.handler.spec.artifact_formats,
+                                path_overrides={artifact_path(self.repo_root, formal): staged
+                                                for staged, formal in staged_paths.items()},
+                            )
+                            extra_staged = _staging_extras(staging, set(staged_paths))
+                            formal_after = snapshot_artifacts(outputs)
+                            formal_changes = sorted(
+                                artifact_path(self.repo_root, path) for path in outputs
+                                if before.get(path) != formal_after.get(path)
+                            )
+                            with job._details_lock:
+                                job.artifacts = staged_artifacts
+                                job.missing_outputs = missing_outputs
+                                job.formal_output_changes = formal_changes
+                                job.staging_extra_files = extra_staged
+                                job.metadata["output_validation"] = validation
+                            job.operation.checkpoint()
+                    job.context.check_cancelled()
+                    if formal_changes:
+                        raise ConflictError("Formal outputs changed outside staging; outputs were not published")
+                    if missing_outputs:
+                        raise RuntimeError("Missing declared outputs: " + ", ".join(missing_outputs))
+                    failures = [item for item in validation if not item["valid"]]
+                    if failures:
+                        raise RuntimeError("Output validation failed: " + "; ".join(
+                            f"{item['path']}: {item['error']}" for item in failures
+                        ))
+                    if snapshot_files(inputs, repo_root=self.repo_root) != plan.inputs:
+                        raise ConflictError("Declared inputs changed during job execution; outputs were not published")
+                    job.context.check_cancelled()
+                    _publish_staged(job.context, outputs, backup)
                     after = snapshot_artifacts(outputs)
-                    artifacts = collect_artifacts(self.repo_root, before, after)
-                    missing_outputs = [
-                        artifact_path(self.repo_root, path) for path in plan.outputs
-                        if path.resolve() not in after
-                    ]
-                    validation = validate_artifact_contract(
-                        self.repo_root, artifacts, job.handler.spec.artifact_formats
-                    )
                     with job._details_lock:
-                        job.artifacts = artifacts
-                        job.missing_outputs = missing_outputs
-                        job.metadata["output_validation"] = validation
+                        job.artifacts = collect_artifacts(self.repo_root, before, after)
                     job.operation.checkpoint()
-                # Cancellation wins over stale-input / missing-output diagnostics.
-                job.context.check_cancelled()
-                # DDS-only conversions intentionally transform their input in place.
-                immutable = tuple(item for item in plan.inputs if (self.repo_root / item.path).resolve() not in outputs)
-                if snapshot_files((self.repo_root / item.path for item in immutable), repo_root=self.repo_root) != immutable:
-                    raise ConflictError("Declared inputs changed during job execution; outputs may be stale")
-                if job.missing_outputs:
-                    raise RuntimeError("Missing declared outputs: " + ", ".join(job.missing_outputs))
-                failures = [item for item in job.metadata["output_validation"] if not item["valid"]]
-                if failures:
-                    raise RuntimeError("Output validation failed: " + "; ".join(
-                        f"{item['path']}: {item['error']}" for item in failures
-                    ))
+                except PublicationRecoveryError:
+                    with job._details_lock:
+                        job.publication_rollback_failed = True
+                    job.context.log(
+                        "Publication rollback failed; review formal outputs and retained backups at "
+                        + artifact_path(self.repo_root, backup)
+                    )
+                    raise
+                finally:
+                    if staging is not None and not job.publication_rollback_failed:
+                        shutil.rmtree(staging, ignore_errors=True)
 
         def record_failure(exc: Exception) -> None:
             status = "cancelled" if isinstance(exc, OperationCancelled) else "failed"
             job._append(f"{status}: {exc}")
-            if any(artifact.changed for artifact in job.artifacts):
-                job.context.log("Output files were changed on disk; no rollback was performed.")
+            if job.formal_output_changes:
+                job.context.log(
+                    "Formal outputs changed outside staging; writer unknown, review files: "
+                    + ", ".join(job.formal_output_changes)
+                )
 
         try:
             run_operation(job.operation, execute, execution_lock=self._execution_lock, on_error=record_failure)
         except Exception:
             # The executor has recorded the failure; expose it through polling.
             pass
+
+
+def _staging_extras(staging: Path, declared: set[Path]) -> list[str]:
+    return sorted(f"staging/{path.relative_to(staging).as_posix()}" for path in staging.rglob("*")
+                  if path.is_file() and path.resolve() not in declared and ".backup" not in path.parts)
+
+
+def _publish_staged(context: ToolContext, outputs: tuple[Path, ...], backup: Path) -> None:
+    temporary_paths: list[Path] = []
+    replaced: list[Path] = []
+    try:
+        for path in outputs:
+            staged = context.stage_path(path)
+            if staged.is_file():
+                path.parent.mkdir(parents=True, exist_ok=True)
+                temporary = path.with_name(path.name + f".{context.job_id}.tmp")
+                temporary_paths.append(temporary)
+                shutil.copy2(staged, temporary)
+                os.replace(temporary, path)
+                replaced.append(path)
+            elif path.exists():
+                path.unlink()
+                replaced.append(path)
+    except Exception:
+        _restore_published(context.repo_root, tuple(replaced), backup)
+        raise
+    finally:
+        for temporary in temporary_paths:
+            temporary.unlink(missing_ok=True)
+
+
+class PublicationRecoveryError(RuntimeError):
+    """Publication failed and some formal outputs could not be restored."""
+
+
+def _restore_published(root: Path, outputs: tuple[Path, ...], backup: Path) -> None:
+    errors = []
+    for path in outputs:
+        saved = backup / path.relative_to(root)
+        try:
+            if saved.is_file():
+                path.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(saved, path)
+            else:
+                path.unlink(missing_ok=True)
+        except OSError as exc:
+            errors.append(f"{artifact_path(root, path)}: {exc}")
+    if errors:
+        raise PublicationRecoveryError("Could not restore formal outputs: " + "; ".join(errors))
 
 
 class CapturedOutput(io.TextIOBase):

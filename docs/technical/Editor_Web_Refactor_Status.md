@@ -15,27 +15,21 @@
   “待议事项”（需要决定是否处理），每条一行。
 - 完成一个切片后更新本文的焦点进度和验证记录；不要写成按提交排列的历史日志。
 
-## 当前焦点：媒体 job 产物的原子发布与失败恢复
+## 当前焦点：待指定
 
-对应原后续任务 3。目标是让媒体 job 失败或取消时不再留下半成品正式产物。
+媒体 job 暂存发布切片已完成并提交；下一切片由用户指定。
 
-- **现状**：5 个可运行 handler（`media.dds_icon`、`media.wonder_image`、
-  `media.historical_style`、`media.historical_api`、`media.wonder_crop`）由生成脚本
-  自行计算路径并直接写入正式产物；`ToolPlan` 已声明 `outputs` / `optional_outputs`，
-  失败时只报告 `outputs_may_be_partial`，不回滚。
-- **第一步（需确认后再实现）**：提交设计方案，至少比较以下两种做法并给出推荐：
-  1. 暂存发布：handler 写入 staging 根目录，校验通过后替换正式产物；
-     需要说明各生成脚本如何改写输出根目录。
-  2. 快照恢复：执行前快照已声明产物，失败/取消时恢复；需要说明大图片快照的
-     内存/磁盘成本，以及如何检测未声明的写入。
-- **退出条件**：
-  - 5 个可运行 handler 失败或取消后，已声明的正式产物与执行前逐字节一致；
-  - 成功路径的产物与当前实现逐字节一致；
-  - 未声明的写入至少能被检测并在 job 详情中报告；
-  - job 详情中 `outputs_may_be_partial` 的语义随之更新，前端提示同步调整；
-  - 每个 handler 至少一个失败恢复测试，全量 `pytest tests` 通过。
-- **不在范围内**：操作层（`OperationLog`、`run_operation`、`OperationStore`）的加固、
-  跨进程锁、前端共享 store、Wonder DAG 依赖细化。
+## 已完成切片：媒体 job 产物的暂存发布与失败恢复（2026-10-08）
+
+- 已删除目录递归扫描，只核对声明输入/输出文件；输入变化报冲突，正式输出在 staging 外的变化通过 `formal_output_changes` 报告并阻止发布，不推断写入者。
+- staging 中间文件单列 `staging_extra_files`，不计入正式写入冲突；`outputs_may_be_partial` 仅由正式输出在 staging 外的变化、发布恢复失败或已开始运行的 interrupted 操作触发。
+- 已修复 historical_style JSON 指向 staging、Wonder 已有 PNG 补全与新生成混跑失败，并为首次生成创建 staging 输出父目录。
+- 已删除直接写正式路径的旧 handler 兼容分支和吞掉路径错误的回退。
+- 进程中断按用户确认的 A 处理：已开始运行的 interrupted job 提示可能部分发布、备份需人工核对；排队中被中断的 job 不提示。启动恢复另列待办。
+- 已将产物校验和输入复核移到 handler 清理后；发布失败只恢复实际替换的文件，只清理本 job 创建的临时文件；恢复失败继续处理其他文件、保留备份并持久化需核对状态。
+- 五个 handler 的成功用例与直接运行脚本逐字节比对通过；图片 API 使用固定响应，historical_style 使用真实图片处理流程。普通发布回滚和恢复受文件锁阻止的回归通过。
+
+本切片不处理操作层的其他设计、跨进程锁、前端共享 store 或 Wonder DAG 依赖细化。
 
 ## 已关闭阶段：统一操作层（2026-10-05 至 10-08）
 
@@ -67,8 +61,6 @@
 
 会导致错误结果或误导性状态的问题。已关闭阶段允许修复这些问题：
 
-- `run_operation` 在 `execute()` 成功返回后仍检查取消：工作已完成、产物已校验的媒体 job
-  会被记为 `cancelled`（returncode 130、`outputs_may_be_partial=true`），与磁盘实际不符。
 - 第二个服务进程启动时，`OperationStore` 会把第一个进程仍在运行的操作标记为 interrupted。
 - Victory Tree 保存失败时不写 `[error]` 日志，与其他三个编辑器不一致。
 
@@ -79,7 +71,9 @@
 - 是否把编辑器同步提交与媒体异步调度统一为一个调度器（原任务 1 剩余部分）。
 - `JobManager._prune_expired_locked` 每次轮询都复制所有内存 job 的完整操作快照；
   内存 job 保留 30 天，数量大时开销线性增长。
-- 仓库根目录残留不可读的 `.pt-*-1008/` 测试目录，未被 `/.pytest-*/` 忽略规则覆盖。
+- 仓库根目录残留不可读的 `.pt-*-1008/` 测试目录（未被 `/.pytest-*/` 忽略规则覆盖）及 `.pytest-review-*` 目录；由 Codex 沙箱用户创建，当前账户无删除权限，需手动清理。
+- 任意未声明正式路径的写入检测与可靠归属尚未实现；本轮按确认的 A 仅核对声明文件，写入审计另行决定。
+- 中断后的 staging/备份启动恢复与清理尚未实现；本轮按确认的 A 准确提示人工核对，另行决定自动恢复。
 
 ## 已接受限制
 
@@ -118,7 +112,8 @@
 
 ## 验证记录
 
-最近一次核对：2026-10-08，基准提交 `99bfa27a`，Windows + eu5 Python 3.11.15。
+最近一次核对：2026-10-08，Windows + eu5 Python 3.11.15；eu5 环境已按 `requirements-image.txt`
+安装 scikit-image 0.26.0，historical_style 字节比对用例不再跳过。
 
 ```powershell
 C:\Users\Hades\anaconda3\envs\eu5\python.exe -m towards_victory_editor_web --check
@@ -128,8 +123,11 @@ node --test tests/media_job_polling.cjs
 git diff --check
 ```
 
-结果：`pytest tests` 192 passed（1 个既有 FastAPI/httpx 弃用警告，约 5.5 分钟）；
-`media_job_polling.cjs` 2 项通过；`--check` 通过（9 个注册工具，5 个可运行，196 张裁剪图）。
+结果：全量 `pytest tests` 214 passed、无跳过（约 5.4 分钟）；包含五个 handler 的成功字节比对、
+失败恢复、清理后校验、未扫描无关文件及文件冲突分类回归。警告来自既有 FastAPI/httpx 接口及
+style 脚本的 `binary_dilation` 弃用提示。`media_job_polling.cjs` 5 项通过；`--check` 通过
+（9 个注册工具，5 个可运行，196 张裁剪图）；`scripts/validate.py --changed --ai-report` 通过
+（12 个文件，无错误或警告）；`git diff --check` 通过。
 `--basetemp` 使用仓库内新建短名目录，避免 Windows 临时目录权限和深路径问题，用完删除。
 
 ## 子代理启动顺序

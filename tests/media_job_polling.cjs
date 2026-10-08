@@ -24,9 +24,50 @@ function job(id, cursor, lines, reset = false) {
   return {
     id, line_cursor: cursor, lines, lines_reset: reset, status: 'running',
     outputs_may_be_partial: false, resource_ids: [], source_snapshots: [],
+    operation: {},
+    formal_output_changes: [], staging_extra_files: [],
     artifacts: [], metadata: {}, declared_outputs: [], missing_outputs: [],
   };
 }
+
+test('an interrupted publication warns about formal outputs and retained backups', () => {
+  const app = studio();
+  app.state().jobId = 'interrupted';
+  app.context.interrupted = { ...job('interrupted', 1, [], true), status: 'failed',
+    operation: { interrupted: true }, outputs_may_be_partial: true };
+  vm.runInContext('renderJob(interrupted)', app.context);
+  const message = app.control('media-status').textContent;
+  assert.match(message, /may be partially published/);
+  assert.match(message, /retained backups/);
+  assert.doesNotMatch(message, /preserved/);
+});
+
+test('a job interrupted before it started does not warn about partial publication', () => {
+  const app = studio();
+  app.state().jobId = 'queued';
+  app.context.queued = { ...job('queued', 1, [], true), status: 'failed',
+    operation: { interrupted: true }, outputs_may_be_partial: false };
+  vm.runInContext('renderJob(queued)', app.context);
+  assert.equal(app.control('media-status').textContent, 'failed');
+});
+
+test('discarded intermediate files are separate from formal output conflicts', () => {
+  const app = studio();
+  app.state().jobId = 'generated';
+  app.context.completed = { ...job('generated', 1, [], true), status: 'succeeded',
+    staging_extra_files: ['staging/intermediate.bin'] };
+  vm.runInContext('renderJob(completed)', app.context);
+  assert.equal(app.control('media-status').textContent, 'succeeded');
+  assert.match(app.control('media-file-report').textContent, /Intermediate files excluded from publication/);
+  assert.doesNotMatch(app.control('media-file-report').textContent, /Undeclared|review required/);
+
+  app.state().jobId = 'conflict';
+  app.context.conflict = { ...job('conflict', 2, [], true), status: 'failed',
+    formal_output_changes: ['output.json'], outputs_may_be_partial: true };
+  vm.runInContext('renderJob(conflict)', app.context);
+  assert.match(app.control('media-status').textContent, /formal outputs require review/);
+  assert.match(app.control('media-file-report').textContent, /Formal outputs changed outside staging/);
+});
 
 test('a late poll after cancellation cannot append duplicate lines', async () => {
   const app = studio();

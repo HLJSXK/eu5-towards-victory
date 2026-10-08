@@ -72,13 +72,16 @@ function formOptions() {
 function renderJob(job) {
   if (job.id !== state.jobId || job.line_cursor < state.lineCursor) return;
   window.clearTimeout(state.timer);
-  document.getElementById("media-status").textContent = job.outputs_may_be_partial
-    ? `${job.status} — output files changed; no rollback performed` : job.status;
+  document.getElementById("media-status").textContent = job.operation.interrupted && job.outputs_may_be_partial
+    ? `${job.status} — interrupted; formal outputs may be partially published; review files and retained backups`
+    : job.outputs_may_be_partial ? `${job.status} — formal outputs require review` : job.status;
   state.logLines = (job.lines_reset ? job.lines : [...state.logLines, ...job.lines]).slice(-300);
   state.lineCursor = job.line_cursor;
   document.getElementById("media-log").textContent = state.logLines.join("\n");
   const files = [];
   if (job.resource_ids.length) files.push(`Resources: ${job.resource_ids.join(", ")}`);
+  if (job.formal_output_changes.length) files.push("Formal outputs changed outside staging (review required):", ...job.formal_output_changes.map((path) => `  ${path}`));
+  if (job.staging_extra_files.length) files.push("Intermediate files excluded from publication:", ...job.staging_extra_files.map((path) => `  ${path}`));
   if (job.source_snapshots.length) files.push("Inputs:", ...job.source_snapshots.map((source) => `  ${source.path}${source.sha256 === "missing" ? " (optional, absent)" : ""}`));
   const artifacts = new Map(job.artifacts.map((artifact) => [artifact.path, artifact]));
   const errors = new Map((job.metadata.output_validation || []).filter((report) => !report.valid).map((report) => [report.path, report.error]));

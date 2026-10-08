@@ -108,7 +108,7 @@ def test_executor_waits_for_cleanup_and_preserves_original_failure() -> None:
 
 
 @pytest.mark.parametrize("fail_after_cancel", [False, True])
-def test_executor_cancellation_wins_over_result_or_error(fail_after_cancel) -> None:
+def test_executor_completed_result_wins_but_cancellation_overrides_error(fail_after_cancel) -> None:
     operation = OperationLog("media_job", ("test.cancel",))
 
     def execute():
@@ -117,11 +117,15 @@ def test_executor_cancellation_wins_over_result_or_error(fail_after_cancel) -> N
             raise ValueError("stale input")
         return "done"
 
-    with pytest.raises(OperationCancelled) as caught:
-        run_operation(operation, execute)
-    assert caught.value.operation == operation.payload()
-    assert operation.payload()["status"] == "cancelled"
-    assert operation.payload()["error"] == "Cancellation requested"
+    if fail_after_cancel:
+        with pytest.raises(OperationCancelled) as caught:
+            run_operation(operation, execute)
+        assert caught.value.operation == operation.payload()
+        assert operation.payload()["status"] == "cancelled"
+        assert operation.payload()["error"] == "Cancellation requested"
+    else:
+        assert run_operation(operation, execute) == "done"
+        assert operation.payload()["status"] == "succeeded"
     with resource_operation(("test.cancel",), blocking=False):
         pass
 
