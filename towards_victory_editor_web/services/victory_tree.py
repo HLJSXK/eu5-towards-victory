@@ -317,8 +317,12 @@ class VictoryTreePlannerService:
                 self.reload_from_disk()
                 return self._resource_payload()
 
-        result = run_operation(operation, commit)
-        return {**result, "operation_id": operation.id, "operation": operation.payload()}
+        try:
+            result = run_operation(operation, commit)
+            return {**result, "operation_id": operation.id, "operation": operation.payload()}
+        except Exception as exc:
+            self._log.append(f"[error] {exc}\n")
+            raise
 
 
 def build_check_report() -> list[str]:

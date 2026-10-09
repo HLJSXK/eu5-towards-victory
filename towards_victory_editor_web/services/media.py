@@ -6,10 +6,9 @@ from pathlib import Path
 from typing import Any
 
 from .media_tools import registry
-from .tooling import JobManager, ToolSpec
+from .tooling import ToolSpec
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-jobs = JobManager(registry, REPO_ROOT)
 
 registry.register_spec(ToolSpec(
     "editor.cost_reward",

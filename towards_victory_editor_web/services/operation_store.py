@@ -3,10 +3,19 @@
 from __future__ import annotations
 
 import json
+import os
 import sqlite3
 import threading
 import time
 from pathlib import Path
+
+
+_PROCESS_LOCKS: set[str] = set()
+_PROCESS_LOCKS_GUARD = threading.Lock()
+
+
+class OperationStoreBusyError(RuntimeError):
+    """Raised when another editor server owns an operation database."""
 
 
 class OperationStore:
@@ -24,30 +33,41 @@ class OperationStore:
         self.path = Path(path)
         self.retention_seconds = retention_days * 24 * 60 * 60
         self._lock = threading.RLock()
-        if str(path) == ":memory:":
-            self._connection = sqlite3.connect(":memory:", check_same_thread=False, timeout=5)
-        else:
-            self.path.parent.mkdir(parents=True, exist_ok=True)
-            self._connection = sqlite3.connect(self.path, check_same_thread=False, timeout=5)
-        self._connection.execute("PRAGMA foreign_keys = ON")
-        with self._connection:
-            self._connection.execute(
-                "CREATE TABLE IF NOT EXISTS operations ("
-                "id TEXT PRIMARY KEY, created_at REAL NOT NULL, "
-                "kind TEXT NOT NULL, status TEXT NOT NULL, payload TEXT NOT NULL)"
-            )
-            self._connection.execute(
-                "CREATE INDEX IF NOT EXISTS operations_recent "
-                "ON operations(created_at DESC, id DESC)"
-            )
-            self._connection.execute(
-                "CREATE TABLE IF NOT EXISTS operation_details ("
-                "operation_id TEXT PRIMARY KEY REFERENCES operations(id) ON DELETE CASCADE, "
-                "payload TEXT NOT NULL)"
-            )
-        self._recover_interrupted()
-        with self._lock, self._connection:
-            self._prune_expired()
+        self._connection: sqlite3.Connection | None = None
+        self._lock_handle = None
+        self._lock_key: str | None = None
+        try:
+            if str(path) == ":memory:":
+                self._connection = sqlite3.connect(":memory:", check_same_thread=False, timeout=5)
+            else:
+                self.path.parent.mkdir(parents=True, exist_ok=True)
+                self._acquire_process_lock()
+                self._connection = sqlite3.connect(self.path, check_same_thread=False, timeout=5)
+            self._connection.execute("PRAGMA foreign_keys = ON")
+            with self._connection:
+                self._connection.execute(
+                    "CREATE TABLE IF NOT EXISTS operations ("
+                    "id TEXT PRIMARY KEY, created_at REAL NOT NULL, "
+                    "kind TEXT NOT NULL, status TEXT NOT NULL, payload TEXT NOT NULL)"
+                )
+                self._connection.execute(
+                    "CREATE INDEX IF NOT EXISTS operations_recent "
+                    "ON operations(created_at DESC, id DESC)"
+                )
+                self._connection.execute(
+                    "CREATE TABLE IF NOT EXISTS operation_details ("
+                    "operation_id TEXT PRIMARY KEY REFERENCES operations(id) ON DELETE CASCADE, "
+                    "payload TEXT NOT NULL)"
+                )
+            self._recover_interrupted()
+            with self._lock, self._connection:
+                self._prune_expired()
+        except Exception:
+            if self._connection is not None:
+                self._connection.close()
+                self._connection = None
+            self._release_process_lock()
+            raise
 
     def save(
         self, payload: dict[str, object], *, details: dict[str, object] | None = None
@@ -119,7 +139,62 @@ class OperationStore:
 
     def close(self) -> None:
         with self._lock:
-            self._connection.close()
+            if self._connection is not None:
+                self._connection.close()
+                self._connection = None
+            self._release_process_lock()
+
+    def _acquire_process_lock(self) -> None:
+        key = os.fspath(self.path.resolve())
+        with _PROCESS_LOCKS_GUARD:
+            if key in _PROCESS_LOCKS:
+                raise OperationStoreBusyError(f"Operation store is already in use: {self.path}")
+            _PROCESS_LOCKS.add(key)
+        self._lock_key = key
+        lock_path = self.path.with_name(self.path.name + ".lock")
+        try:
+            handle = lock_path.open("a+b")
+            handle.seek(0)
+            if not handle.read(1):
+                handle.write(b"\0")
+                handle.flush()
+            handle.seek(0)
+            if os.name == "nt":
+                import msvcrt
+
+                msvcrt.locking(handle.fileno(), msvcrt.LK_NBLCK, 1)
+            else:
+                import fcntl
+
+                fcntl.flock(handle.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+            self._lock_handle = handle
+        except OSError as exc:
+            try:
+                handle.close()
+            except UnboundLocalError:
+                pass
+            self._release_process_lock()
+            raise OperationStoreBusyError(f"Operation store is already in use: {self.path}") from exc
+
+    def _release_process_lock(self) -> None:
+        handle, self._lock_handle = self._lock_handle, None
+        if handle is not None:
+            try:
+                handle.seek(0)
+                if os.name == "nt":
+                    import msvcrt
+
+                    msvcrt.locking(handle.fileno(), msvcrt.LK_UNLCK, 1)
+                else:
+                    import fcntl
+
+                    fcntl.flock(handle.fileno(), fcntl.LOCK_UN)
+            finally:
+                handle.close()
+        if self._lock_key is not None:
+            with _PROCESS_LOCKS_GUARD:
+                _PROCESS_LOCKS.discard(self._lock_key)
+            self._lock_key = None
 
     def _prune_expired(self) -> None:
         cutoff = time.time() - self.retention_seconds

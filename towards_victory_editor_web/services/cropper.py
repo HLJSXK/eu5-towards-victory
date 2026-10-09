@@ -324,7 +324,7 @@ class WonderCropTool:
                 for source, output, stem, label in jobs
             ]
             with capture_script_output(context):
-                code = run_existing_assets(staged_jobs, background, crops)
+                code = run_existing_assets(staged_jobs, background, crops, check_cancelled=context.check_cancelled)
             if code != 0:
                 raise RuntimeError(f"Wonder DDS rebuild exited with code {code}")
             return ToolResult(message="Wonder DDS rebuild completed")

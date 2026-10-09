@@ -33,7 +33,7 @@ import urllib.request
 import uuid
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -1619,7 +1619,7 @@ def validate_images_endpoint(endpoint: str, expected_tail: str) -> None:
         print(f"[warning] endpoint does not end with {expected_tail}: {endpoint}")
 
 
-def sleep_before_retry(label: str, attempt: int, error: Exception, retry_settings: RetrySettings) -> None:
+def sleep_before_retry(label: str, attempt: int, error: Exception, retry_settings: RetrySettings, *, wait: Callable[[float], None] = time.sleep) -> None:
     delay = min(
         retry_settings.initial_delay_seconds * (retry_settings.backoff_multiplier ** max(attempt - 1, 0)),
         retry_settings.max_delay_seconds,
@@ -1629,7 +1629,7 @@ def sleep_before_retry(label: str, attempt: int, error: Exception, retry_setting
         f"{error}. Retrying in {delay:.1f}s..."
     )
     if delay > 0:
-        time.sleep(delay)
+        wait(delay)
 
 
 def api_request(
@@ -1638,22 +1638,26 @@ def api_request(
     timeout: float,
     retry_settings: RetrySettings,
     opener: urllib.request.OpenerDirector,
+    *, check_cancelled: Callable[[], None] = lambda: None, wait: Callable[[float], None] = time.sleep,
 ) -> bytes:
     for attempt in range(1, retry_settings.max_attempts + 1):
+        check_cancelled()
         try:
             with opener.open(request, timeout=timeout) as response:
-                return response.read()
+                data = response.read()
+            check_cancelled()
+            return data
         except urllib.error.HTTPError as exc:
             error_body = exc.read().decode("utf-8", errors="replace")
             if exc.code not in {408, 409, 425, 429, 500, 502, 503, 504}:
                 raise RuntimeError(f"{label} failed: HTTP {exc.code}: {error_body}") from exc
             if attempt >= retry_settings.max_attempts:
                 raise RuntimeError(f"{label} failed after {attempt} attempts: HTTP {exc.code}: {error_body}") from exc
-            sleep_before_retry(label, attempt, exc, retry_settings)
+            sleep_before_retry(label, attempt, exc, retry_settings, wait=wait)
         except (urllib.error.URLError, TimeoutError, OSError) as exc:
             if attempt >= retry_settings.max_attempts:
                 raise RuntimeError(f"{label} failed after {attempt} attempts: {exc}") from exc
-            sleep_before_retry(label, attempt, exc, retry_settings)
+            sleep_before_retry(label, attempt, exc, retry_settings, wait=wait)
     raise RuntimeError(f"{label} failed without a response")
 
 
@@ -1664,6 +1668,7 @@ def api_post_json(
     timeout: float,
     retry_settings: RetrySettings,
     opener: urllib.request.OpenerDirector,
+    *, check_cancelled: Callable[[], None] = lambda: None, wait: Callable[[float], None] = time.sleep,
 ) -> dict[str, Any]:
     body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
     request = urllib.request.Request(
@@ -1677,7 +1682,7 @@ def api_post_json(
         },
         method="POST",
     )
-    response_body = api_request("API JSON request", request, timeout, retry_settings, opener)
+    response_body = api_request("API JSON request", request, timeout, retry_settings, opener, check_cancelled=check_cancelled, wait=wait)
     return decode_json_response(response_body, "API JSON request")
 
 
@@ -1718,6 +1723,7 @@ def api_post_multipart(
     timeout: float,
     retry_settings: RetrySettings,
     opener: urllib.request.OpenerDirector,
+    *, check_cancelled: Callable[[], None] = lambda: None, wait: Callable[[float], None] = time.sleep,
 ) -> dict[str, Any]:
     body, boundary = build_multipart_body(fields, files)
     request = urllib.request.Request(
@@ -1731,7 +1737,7 @@ def api_post_multipart(
         },
         method="POST",
     )
-    response_body = api_request("API multipart request", request, timeout, retry_settings, opener)
+    response_body = api_request("API multipart request", request, timeout, retry_settings, opener, check_cancelled=check_cancelled, wait=wait)
     return decode_json_response(response_body, "API multipart request")
 
 
@@ -1751,9 +1757,10 @@ def download_bytes(
     timeout: float,
     retry_settings: RetrySettings,
     opener: urllib.request.OpenerDirector,
+    *, check_cancelled: Callable[[], None] = lambda: None, wait: Callable[[float], None] = time.sleep,
 ) -> bytes:
     request = urllib.request.Request(url, headers={"User-Agent": "TowardsVictoryDDSIconHelper/1.0"})
-    return api_request("image download", request, timeout, retry_settings, opener)
+    return api_request("image download", request, timeout, retry_settings, opener, check_cancelled=check_cancelled, wait=wait)
 
 
 def extract_image_bytes(
@@ -1761,7 +1768,9 @@ def extract_image_bytes(
     timeout: float,
     retry_settings: RetrySettings,
     opener: urllib.request.OpenerDirector,
+    *, check_cancelled: Callable[[], None] = lambda: None, wait: Callable[[float], None] = time.sleep,
 ) -> tuple[bytes, str]:
+    check_cancelled()
     data = response.get("data")
     if not isinstance(data, list) or not data or not isinstance(data[0], dict):
         raise RuntimeError("Image API response did not contain data[0]")
@@ -1778,7 +1787,7 @@ def extract_image_bytes(
             raise RuntimeError("Image API returned invalid b64_json image data") from exc
 
     if isinstance(item.get("url"), str):
-        return download_bytes(item["url"], timeout, retry_settings, opener), revised_prompt
+        return download_bytes(item["url"], timeout, retry_settings, opener, check_cancelled=check_cancelled, wait=wait), revised_prompt
 
     raise RuntimeError("Image API response did not contain b64_json or url image data")
 
@@ -1935,6 +1944,7 @@ def call_image_api(
     timeout: float,
     retry_settings: RetrySettings,
     opener: urllib.request.OpenerDirector,
+    *, check_cancelled: Callable[[], None] = lambda: None, wait: Callable[[float], None] = time.sleep,
 ) -> dict[str, Any]:
     if style_uploads:
         image_payload = dict(payload)
@@ -1943,13 +1953,13 @@ def call_image_api(
         validate_images_endpoint(endpoint, "/v1/images/edits")
         print(f"[request] POST {endpoint}")
         print(f"[request] model={image_payload['model']} size={image_payload['size']} quality={image_payload['quality']} references={len(style_uploads)}")
-        return api_post_multipart(endpoint, api_key, image_payload, style_uploads, timeout, retry_settings, opener)
+        return api_post_multipart(endpoint, api_key, image_payload, style_uploads, timeout, retry_settings, opener, check_cancelled=check_cancelled, wait=wait)
 
     endpoint = str(api_config.get("generations_endpoint") or api_config.get("endpoint") or DEFAULT_GENERATIONS_ENDPOINT)
     validate_images_endpoint(endpoint, "/v1/images/generations")
     print(f"[request] POST {endpoint}")
     print(f"[request] model={payload['model']} size={payload['size']} quality={payload['quality']} references=0")
-    return api_post_json(endpoint, api_key, payload, timeout, retry_settings, opener)
+    return api_post_json(endpoint, api_key, payload, timeout, retry_settings, opener, check_cancelled=check_cancelled, wait=wait)
 
 
 def output_asset_name(output_config: dict[str, Any], target: TargetSpec | None = None) -> str:
@@ -2367,7 +2377,10 @@ def run_target_generation(
     target: TargetSpec,
     *,
     allow_missing_style_reference_dry_run: bool = False,
+    check_cancelled: Callable[[], None] = lambda: None,
+    wait: Callable[[float], None] = time.sleep,
 ) -> dict[str, Any] | None:
+    check_cancelled()
     print_target_summary(target)
 
     if should_skip_existing(output_config, target):
@@ -2443,8 +2456,9 @@ def run_target_generation(
         timeout,
         retry_settings,
         opener,
+        check_cancelled=check_cancelled, wait=wait,
     )
-    png_bytes, revised_prompt = extract_image_bytes(image_response, timeout, retry_settings, opener)
+    png_bytes, revised_prompt = extract_image_bytes(image_response, timeout, retry_settings, opener, check_cancelled=check_cancelled, wait=wait)
     png_path = write_generated_png(png_bytes, output_config, target)
     written_target = write_target(output_config, png_path, target, source_is_prepared=True)
     write_metadata(output_config, target, image_payload, image_response, final_prompt, revised_prompt, [written_target])
@@ -2478,15 +2492,17 @@ def build_generation_tasks(config: dict[str, Any], args: argparse.Namespace) -> 
                           apply_target_image_settings(image, target), prompt, output)]
 
 
-def run_generation_tasks(config: dict[str, Any], args: argparse.Namespace, tasks: list[BatchIconTask]) -> int:
+def run_generation_tasks(config: dict[str, Any], args: argparse.Namespace, tasks: list[BatchIconTask], *, check_cancelled: Callable[[], None] = lambda: None, wait: Callable[[float], None] = time.sleep) -> int:
     api = require_object(config, "api")
     style = require_object(config, "style_reference")
     for index, task in enumerate(tasks, start=1):
+        check_cancelled()
         print(f"[task {index}/{len(tasks)}] {task.path_id} ({task.kind})")
         run_target_generation(
             args, api, task.prompt_config, task.image_config, style,
             task.output_config, task.target,
             allow_missing_style_reference_dry_run=task.allow_missing_style_reference_dry_run,
+            check_cancelled=check_cancelled, wait=wait,
         )
     return 0
 

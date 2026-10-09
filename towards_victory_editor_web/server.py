@@ -22,7 +22,7 @@ from .services.wonder_localization import (
 from .services.cropper import cropper
 from .services.media import bootstrap_payload as media_bootstrap
 from .services.media import registry
-from .services.media import jobs
+from .services.tooling import JobManager
 from .services.operation_store import OperationStore
 from .services.platform import ConflictError
 
@@ -49,6 +49,7 @@ class WonderDraftRequest(BaseModel):
     wonder_id: int
     values: dict[str, dict[str, str]] = Field(default_factory=dict)
     mechanics: dict[str, Any] = Field(default_factory=dict)
+    ritual_prompt: str | None = None
 
 
 class WonderResourceRequest(BaseModel):
@@ -56,10 +57,6 @@ class WonderResourceRequest(BaseModel):
     current_wonder_id: int | None = None
     regenerate: bool = True
     base: dict[str, str] = Field(default_factory=dict)
-
-
-class SaveRitualPromptRequest(BaseModel):
-    prompt: str = ""
 
 
 class JobRequest(BaseModel):
@@ -70,6 +67,13 @@ class JobRequest(BaseModel):
 class CropResourceRequest(BaseModel):
     edits: dict[str, dict[str, Any] | None] = Field(default_factory=dict)
     base: dict[str, str] = Field(default_factory=dict)
+
+
+def _wonder_draft(draft: WonderDraftRequest) -> dict[str, Any]:
+    payload: dict[str, Any] = {"values": draft.values, "mechanics": draft.mechanics}
+    if draft.ritual_prompt is not None:
+        payload["ritual_prompt"] = draft.ritual_prompt
+    return payload
 
 
 def create_app(
@@ -84,19 +88,19 @@ def create_app(
         owns_store = configured_store is None
         store = configured_store or OperationStore(operation_store_path or ":memory:")
         app.state.operation_store = store
-        # cropper and jobs are process-level singletons. Overlapping app
-        # lifespans can still overwrite each other's shared store reference;
-        # restore the reference owned before this lifespan when it ends.
-        shared_targets = (cropper, jobs)
+        app.state.jobs = JobManager(registry, PACKAGE_ROOT.parent, store)
+        # cropper remains shared; restore its store when this lifespan ends.
+        shared_targets = (cropper,)
         previous_shared_stores = tuple(
             getattr(target, "operation_store", None) for target in shared_targets
         )
-        for target in (cost_reward_service, victory_tree_service, wonder_service, cropper, jobs):
+        for target in (cost_reward_service, victory_tree_service, wonder_service, cropper):
             if hasattr(target, "operation_store"):
                 target.operation_store = store
         try:
             yield
         finally:
+            app.state.jobs.shutdown()
             for target, previous_store in zip(shared_targets, previous_shared_stores):
                 target.operation_store = previous_store
             if owns_store:
@@ -243,20 +247,14 @@ def create_app(
     def wonder_resource_validate(request: WonderResourceRequest) -> dict:
         if wonder_service is None:
             return JSONResponse(status_code=503, content={"detail": wonder_load_error})
-        drafts = {
-            draft.wonder_id: {"values": draft.values, "mechanics": draft.mechanics}
-            for draft in request.wonders
-        }
+        drafts = {draft.wonder_id: _wonder_draft(draft) for draft in request.wonders}
         return wonder_service.validate_resource_edits(drafts)
 
     @app.post("/api/resources/editor.wonder/preview")
     def wonder_resource_preview(request: WonderResourceRequest) -> dict:
         if wonder_service is None:
             return JSONResponse(status_code=503, content={"detail": wonder_load_error})
-        drafts = {
-            draft.wonder_id: {"values": draft.values, "mechanics": draft.mechanics}
-            for draft in request.wonders
-        }
+        drafts = {draft.wonder_id: _wonder_draft(draft) for draft in request.wonders}
         report = wonder_service.preview_resource_edits(drafts, request.base, regenerate=request.regenerate)
         return {"resource": wonder_service.resource_descriptor().payload(), **report}
 
@@ -264,10 +262,7 @@ def create_app(
     def wonder_resource_commit(request: WonderResourceRequest) -> dict:
         if wonder_service is None:
             return JSONResponse(status_code=503, content={"detail": wonder_load_error})
-        drafts = {
-            draft.wonder_id: {"values": draft.values, "mechanics": draft.mechanics}
-            for draft in request.wonders
-        }
+        drafts = {draft.wonder_id: _wonder_draft(draft) for draft in request.wonders}
         return wonder_service.commit_resource(
             drafts,
             request.base,
@@ -295,12 +290,6 @@ def create_app(
         if payload is None:
             return JSONResponse(status_code=404, content={"detail": f"Unknown wonder id: {wonder_id}"})
         return payload
-
-    @app.post("/api/wonder-localization/ritual-prompts/{wonder_id}")
-    def wonder_save_ritual_prompt(wonder_id: int, request: SaveRitualPromptRequest) -> dict:
-        if wonder_service is None:
-            return JSONResponse(status_code=503, content={"detail": wonder_load_error})
-        return wonder_service.save_unique_ritual_prompt(wonder_id, request.prompt)
 
     app.mount(
         WONDER_IMAGE_URL_PREFIX,
@@ -340,15 +329,15 @@ def create_app(
 
     @app.post("/api/jobs")
     def create_job(request: JobRequest) -> dict[str, Any]:
-        return jobs.submit(request.tool, request.options).payload()
+        return app.state.jobs.submit(request.tool, request.options).payload()
 
     @app.get("/api/jobs/{job_id}")
     def get_job(job_id: str, after_line: int | None = Query(default=None, ge=0)) -> dict[str, Any]:
-        return jobs.get(job_id, after_line=after_line)
+        return app.state.jobs.get(job_id, after_line=after_line)
 
     @app.post("/api/jobs/{job_id}/cancel")
     def cancel_job(job_id: str) -> dict[str, Any]:
-        return jobs.cancel(job_id)
+        return app.state.jobs.cancel(job_id)
 
     @app.get("/api/resources/editor.wonder_crop")
     def cropper_resource() -> dict[str, Any]:

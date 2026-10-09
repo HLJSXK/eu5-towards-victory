@@ -1,13 +1,53 @@
 import { fetchJson } from "./api.js";
+import { ResourceState, JobPoller, resourceBase } from "./resource_state.js";
 
 const cropState = {
-  tasks: [], index: -1, image: null, rect: null, saved: false,
-  base: {}, dirty: false, busy: false,
+  resource: new ResourceState({ saved: { tasks: [] }, onChange: () => syncCropControls() }),
+  index: -1, image: null,
+  get tasks() { return this.resource.draft.tasks; },
+  get rect() { return activeTask()?.rect ?? null; },
+  set rect(rect) { this.resource.mutate((draft) => { draft.tasks[this.index].rect = rect; }); },
+  get saved() { return activeTask()?.saved && !this.dirty; },
+  get base() { return this.resource.base; },
+  get dirty() { return this.resource.dirty; },
+  get busy() { return this.resource.busy || cropPoller.active; },
   view: { left: 0, top: 0, width: 0, height: 0, scale: 1 }, drag: null,
 };
 const canvas = document.getElementById("cropper-canvas");
 const context = canvas.getContext("2d");
 const RATIO = 27 / 11;
+const cropErrors = {
+  resource_busy: (detail) => `Resource is busy. Your crop is preserved; retry shortly. (${detail})`,
+  resource_changed: (detail) => `Source files changed. Your crop is preserved; reload to review the latest files. (${detail})`,
+};
+const cropPoller = new JobPoller({
+  delay: 600,
+  fetchJob: (id, cursor) => fetchJson(`/api/jobs/${id}?after_line=${cursor}`, undefined, { errorMessages: cropErrors }),
+  onUpdate: (job) => {
+    document.getElementById("cropper-log").textContent = job.lines.join("\n");
+    document.getElementById("cropper-status").textContent = job.error ? `${job.status}: ${job.error}` : job.status;
+    document.getElementById("cropper-poll-retry").hidden = true;
+    document.getElementById("cropper-poll-stop").hidden = true;
+    syncCropControls();
+  },
+  onError: renderCropPollError,
+});
+function renderCropPollError(error, retrying) {
+  const message = cropPoller.active
+    ? `Status request failed${retrying ? "; retrying" : "; retry or stop tracking"}`
+    : `Stopped tracking job ${cropPoller.jobId}; server outcome unknown`;
+  document.getElementById("cropper-status").textContent = `${message}: ${error.message}`;
+  document.getElementById("cropper-poll-retry").hidden = !cropPoller.active;
+  document.getElementById("cropper-poll-stop").hidden = !cropPoller.active;
+  syncCropControls();
+}
+function syncCropControls() {
+  if (cropState.busy) cropState.drag = null;
+  for (const id of ["cropper-save", "cropper-remove", "cropper-reload", "cropper-apply"]) {
+    document.getElementById(id).disabled = cropState.busy;
+  }
+  renderTasks();
+}
 
 function activeTask() { return cropState.tasks[cropState.index]; }
 function clamp(value, low, high) { return Math.max(low, Math.min(high, value)); }
@@ -37,7 +77,7 @@ function resizeFromCenter(factor) {
   if (cropState.busy || !cropState.image || !cropState.rect) return;
   const rect = cropState.rect; const center = { x: rect.x + rect.width / 2, y: rect.y + rect.height / 2 };
   cropState.rect = clampRect({ x: center.x - rect.width * factor / 2, y: center.y - rect.height * factor / 2, width: rect.width * factor, height: rect.height * factor }, cropState.image.naturalWidth, cropState.image.naturalHeight);
-  cropState.saved = false; cropState.dirty = true; renderInspector(); draw();
+  renderInspector(); draw();
 }
 function resizeCanvasToDisplay() {
   const box = canvas.getBoundingClientRect(); const ratio = window.devicePixelRatio || 1;
@@ -84,7 +124,7 @@ function draw() {
 }
 function renderTasks() {
   const root = document.getElementById("cropper-task-list"); root.innerHTML = "";
-  cropState.tasks.forEach((task, index) => { const button = document.createElement("button"); button.type = "button"; button.className = `cropper-task${index === cropState.index ? " active" : ""}${task.saved ? " saved" : ""}`; button.textContent = `${task.name}  ${task.width}x${task.height}`; button.addEventListener("click", () => selectTask(index)); root.appendChild(button); });
+  cropState.tasks.forEach((task, index) => { const button = document.createElement("button"); button.type = "button"; button.disabled = cropState.busy; button.className = `cropper-task${index === cropState.index ? " active" : ""}${task.saved ? " saved" : ""}`; button.textContent = `${task.name}  ${task.width}x${task.height}`; button.addEventListener("click", () => selectTask(index)); root.appendChild(button); });
 }
 function renderInspector() {
   const task = activeTask(); if (!task || !cropState.rect) return;
@@ -92,11 +132,14 @@ function renderInspector() {
   document.getElementById("cropper-meta").innerHTML = `<dt>Source</dt><dd>${task.pngPath}</dd><dt>Output</dt><dd>${task.ddsPath}</dd><dt>Image</dt><dd>${task.width} x ${task.height}</dd><dt>Crop</dt><dd>${cropState.rect.x.toFixed(1)}, ${cropState.rect.y.toFixed(1)}, ${cropState.rect.width.toFixed(1)} x ${cropState.rect.height.toFixed(1)}</dd>`;
 }
 function selectTask(index) {
-  if (cropState.busy && index !== cropState.index) return;
+  if (cropState.busy || index === cropState.index) return;
   if (index !== cropState.index && cropState.dirty && !window.confirm("Discard the unsaved crop?")) return;
   cropState.index = index; const task = activeTask(); if (!task) return;
-  cropState.dirty = false;
-  cropState.rect = { ...task.rect }; cropState.saved = task.saved; cropState.image = new Image(); cropState.image.onload = () => { draw(); renderInspector(); }; cropState.image.src = `/api/cropper/image/${index}?v=${Date.now()}`; renderTasks(); renderInspector();
+  cropState.resource.setDraft(cropState.resource.saved);
+  loadCropImage();
+}
+function loadCropImage() {
+  cropState.image = new Image(); cropState.image.onload = () => { draw(); renderInspector(); }; cropState.image.src = `/api/cropper/image/${cropState.index}?v=${Date.now()}`; renderTasks(); renderInspector();
 }
 canvas.addEventListener("pointerdown", (event) => { if (cropState.busy || !cropState.image || !cropState.rect) return; canvas.setPointerCapture(event.pointerId); const point = canvasToImage(event); cropState.drag = { mode: hitTest(point), start: point, rect: { ...cropState.rect } }; });
 canvas.addEventListener("pointermove", (event) => {
@@ -105,7 +148,7 @@ canvas.addEventListener("pointermove", (event) => {
   if (drag.mode === "move") cropState.rect = clampRect({ x: rect.x + point.x - drag.start.x, y: rect.y + point.y - drag.start.y, width: rect.width, height: rect.height }, width, height);
   else if (drag.mode.startsWith("resize")) { const anchors = { resize_nw: { x: rect.x + rect.width, y: rect.y + rect.height }, resize_ne: { x: rect.x, y: rect.y + rect.height }, resize_sw: { x: rect.x + rect.width, y: rect.y }, resize_se: { x: rect.x, y: rect.y } }; cropState.rect = rectFromPoints(anchors[drag.mode], point, width, height); }
   else cropState.rect = rectFromPoints(drag.start, point, width, height);
-  cropState.saved = false; cropState.dirty = true; renderInspector(); draw();
+  renderInspector(); draw();
 });
 canvas.addEventListener("pointerup", () => { cropState.drag = null; }); canvas.addEventListener("pointercancel", () => { cropState.drag = null; });
 canvas.addEventListener("wheel", (event) => { event.preventDefault(); resizeFromCenter(event.deltaY < 0 ? 1.08 : 0.92); }, { passive: false }); window.addEventListener("resize", draw);
@@ -123,23 +166,22 @@ async function reloadCropResource({ confirmDirty = true } = {}) {
   if (cropState.busy) return false;
   if (confirmDirty && cropState.dirty && !window.confirm("Discard the unsaved crop?")) return false;
   try {
-    const payload = await fetchJson("/api/resources/editor.wonder_crop");
-    cropState.base = Object.fromEntries(payload.change_set.base.map((item) => [item.path, item.sha256]));
-    cropState.tasks = payload.draft.tasks || [];
-    cropState.dirty = false;
+    await cropState.resource.run("loading", () => fetchJson("/api/resources/editor.wonder_crop"), { apply: (payload) => {
+    cropState.resource.replace({ base: resourceBase(payload), saved: payload.draft });
     document.getElementById("cropper-log").textContent = (payload.draft.logs || []).join("\n");
     if (cropState.tasks.length) {
       const nextIndex = Math.min(Math.max(cropState.index, 0), cropState.tasks.length - 1);
-      cropState.index = -1;
-      selectTask(nextIndex);
+      cropState.index = nextIndex;
+      loadCropImage();
       document.getElementById("cropper-status").textContent = "Reloaded";
     } else {
       cropState.index = -1;
       cropState.image = null;
-      cropState.rect = null;
       document.getElementById("cropper-status").textContent = "No generated PNG files found";
       renderTasks();
+      draw();
     }
+    } });
     return true;
   } catch (error) {
     document.getElementById("cropper-status").textContent = error.message;
@@ -149,58 +191,38 @@ async function reloadCropResource({ confirmDirty = true } = {}) {
 
 async function commitCrop(rect) {
   if (cropState.index < 0 || cropState.busy) return;
-  cropState.busy = true;
   const index = cropState.index;
   const requestedRect = rect === null ? null : { ...rect };
-  document.getElementById("cropper-save").disabled = true;
-  document.getElementById("cropper-remove").disabled = true;
   try {
-    const result = await fetchJson("/api/resources/editor.wonder_crop/commit", {
+    await cropState.resource.run("saving", () => fetchJson("/api/resources/editor.wonder_crop/commit", {
       method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ edits: { [index]: requestedRect }, base: cropState.base }),
-    });
-    cropState.base = Object.fromEntries(result.change_set.base.map((item) => [item.path, item.sha256]));
-    cropState.tasks = result.draft.tasks;
-    if (cropState.index === index) {
-      cropState.rect = { ...cropState.tasks[index].rect };
-      cropState.saved = cropState.tasks[index].saved;
-      cropState.dirty = false;
-    }
+    }, { errorMessages: cropErrors }), { apply: (result) => {
+    cropState.resource.replace({ base: resourceBase(result), saved: result.draft });
     document.getElementById("cropper-log").textContent = result.draft.logs.join("\n");
     document.getElementById("cropper-status").textContent = requestedRect === null ? "Removed" : "Saved";
     renderTasks();
     if (cropState.index === index) { renderInspector(); draw(); }
+    } });
   } catch (error) {
     document.getElementById("cropper-status").textContent = error.message;
     document.getElementById("cropper-log").textContent += `${error.message}\n`;
-  } finally {
-    cropState.busy = false;
-    document.getElementById("cropper-save").disabled = false;
-    document.getElementById("cropper-remove").disabled = false;
   }
 }
 document.getElementById("cropper-save").addEventListener("click", () => commitCrop(cropState.rect));
 document.getElementById("cropper-remove").addEventListener("click", () => commitCrop(null));
 document.getElementById("cropper-reload").addEventListener("click", () => reloadCropResource());
+document.getElementById("cropper-poll-retry").addEventListener("click", () => cropPoller.poll());
+document.getElementById("cropper-poll-stop").addEventListener("click", () => {
+  cropPoller.stop();
+  renderCropPollError(cropPoller.error, false);
+});
 document.getElementById("cropper-apply").addEventListener("click", async () => {
-  const button = document.getElementById("cropper-apply"); button.disabled = true;
-  if (cropState.busy) { button.disabled = false; return; }
-  if (cropState.dirty && !window.confirm("The crop has unsaved changes. Rebuild DDS using the saved crop?")) { button.disabled = false; return; }
+  if (cropState.busy) return;
+  if (cropState.dirty && !window.confirm("The crop has unsaved changes. Rebuild DDS using the saved crop?")) return;
   try {
-    const job = await fetchJson("/api/jobs", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ tool: "media.wonder_crop", options: {} }) });
-    let lineCursor = 0;
-    let logLines = [];
-    const poll = async () => {
-      const current = await fetchJson(`/api/jobs/${job.id}?after_line=${lineCursor}`);
-      logLines = (current.lines_reset ? current.lines : [...logLines, ...current.lines]).slice(-300);
-      lineCursor = current.line_cursor;
-      document.getElementById("cropper-log").textContent = logLines.join("\n");
-      document.getElementById("cropper-status").textContent = current.status;
-      if (["queued", "running", "cancelling"].includes(current.status)) window.setTimeout(poll, 600);
-      else button.disabled = false;
-    };
-    await poll();
+    await cropState.resource.run("submitting", () => fetchJson("/api/jobs", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ tool: "media.wonder_crop", options: {} }) }, { errorMessages: cropErrors }), { apply: (job) => cropPoller.start(job) });
   }
-  catch (error) { document.getElementById("cropper-log").textContent += `${error.message}\n`; button.disabled = false; }
+  catch (error) { document.getElementById("cropper-status").textContent = error.message; document.getElementById("cropper-log").textContent += `${error.message}\n`; }
 });
 reloadCropResource({ confirmDirty: false });

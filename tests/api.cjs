@@ -100,3 +100,15 @@ test('structured validation details remain inspectable and produce a readable me
     return true;
   });
 });
+
+test('empty detail falls back to the raw response and custom messages keep diagnostics', async () => {
+  const raw = JSON.stringify({ detail: '  ', code: 'resource_busy' });
+  const api = client(async () => new Response(raw, { status: 409 }));
+  await assert.rejects(api.fetchJson('/commit', undefined, {
+    errorMessages: { resource_busy: (detail) => `Busy; draft preserved (${detail})` },
+  }), (error) => {
+    assert.equal(error.detail, raw);
+    assert.equal(error.message, `Busy; draft preserved (${raw})`);
+    return true;
+  });
+});

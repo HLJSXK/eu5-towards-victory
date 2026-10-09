@@ -9,7 +9,7 @@ import shutil
 import tempfile
 import threading
 import time
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import Future, ThreadPoolExecutor
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Callable, ContextManager, Iterable, Protocol
@@ -194,6 +194,9 @@ class ToolContext:
     def check_cancelled(self) -> None:
         self.operation.check_cancelled()
 
+    def wait(self, seconds: float) -> None:
+        self.operation.wait(seconds)
+
     def set_staging(self, root: Path, paths: Iterable[Path]) -> None:
         self._staging_root = root.resolve()
         self._staging_paths = {path.resolve(): self._staging_root / path.resolve().relative_to(self.repo_root) for path in paths}
@@ -366,6 +369,8 @@ class JobManager:
         self._jobs: dict[str, Job] = {}
         self._lock = threading.RLock()
         self._executor = ThreadPoolExecutor(max_workers=3, thread_name_prefix="tv-tool")
+        self._closed = False
+        self._futures: dict[str, Future] = {}
         self._execution_lock = threading.RLock()
 
     def submit(self, tool_id: str, options: dict[str, Any]) -> Job:
@@ -373,12 +378,27 @@ class JobManager:
         normalized = _json_snapshot(
             handler.validate(options), label=f"Tool options for {handler.spec.id}"
         )
-        job = Job(handler, normalized, self.repo_root, self.operation_store)
         with self._lock:
+            if self._closed:
+                raise RuntimeError("Job manager is closed")
             self._prune_expired_locked()
+            job = Job(handler, normalized, self.repo_root, self.operation_store)
             self._jobs[job.id] = job
-        self._executor.submit(self._run, job)
+            try:
+                future = self._executor.submit(self._run, job)
+            except Exception as exc:
+                job.operation.fail(exc)
+                raise
+            self._futures[job.id] = future
+            future.add_done_callback(lambda completed: self._finish_future(job, completed))
         return job
+
+    def _finish_future(self, job: Job, future: Future) -> None:
+        with self._lock:
+            self._futures.pop(job.id, None)
+        if future.cancelled():
+            job._append("cancelled: Service shutting down before execution")
+            job.operation.cancel("Service shutting down before execution")
 
     def get(self, job_id: str, after_line: int | None = None) -> dict[str, Any]:
         with self._lock:
@@ -420,7 +440,22 @@ class JobManager:
             del self._jobs[job_id]
 
     def shutdown(self) -> None:
-        self._executor.shutdown(wait=True)
+        with self._lock:
+            self._closed = True
+            # Cancelling runs done callbacks that remove entries from _futures.
+            for future in list(self._futures.values()):
+                future.cancel()
+            for job in self._jobs.values():
+                job.context.request_cancel()
+        self._executor.shutdown(wait=True, cancel_futures=True)
+
+    @contextlib.contextmanager
+    def _job_execution(self, job: Job):
+        with self._execution_lock:
+            with self._lock:
+                if self._closed:
+                    job.context.request_cancel()
+            yield
 
     def _run(self, job: Job) -> None:
         def execute() -> None:
@@ -468,13 +503,16 @@ class JobManager:
                         if attempt_ready:
                             staged_paths = {job.context.stage_path(path): path for path in outputs}
                             staged_after = {staged_paths[path]: value for path, value in snapshot_artifacts(staged_paths).items()}
-                            staged_artifacts = collect_artifacts(self.repo_root, before, staged_after)
+                            staged_artifacts = collect_artifacts(
+                                self.repo_root, {path: before[path] for path in staged_after if path in before}, staged_after,
+                            )
                             missing_outputs = [artifact_path(self.repo_root, path) for path in plan.outputs
                                                if path.resolve() not in staged_after]
                             validation = validate_artifact_contract(
                                 self.repo_root, staged_artifacts, job.handler.spec.artifact_formats,
                                 path_overrides={artifact_path(self.repo_root, formal): staged
                                                 for staged, formal in staged_paths.items()},
+                                require_overrides=True,
                             )
                             extra_staged = _staging_extras(staging, set(staged_paths))
                             formal_after = snapshot_artifacts(outputs)
@@ -502,7 +540,14 @@ class JobManager:
                     if snapshot_files(inputs, repo_root=self.repo_root) != plan.inputs:
                         raise ConflictError("Declared inputs changed during job execution; outputs were not published")
                     job.context.check_cancelled()
-                    _publish_staged(job.context, outputs, backup)
+                    try:
+                        _publish_staged(job.context, outputs, backup, before)
+                    except (PublicationConflictError, PublicationRecoveryError) as exc:
+                        conflict = exc.original if isinstance(exc, PublicationRecoveryError) else exc
+                        if isinstance(conflict, PublicationConflictError):
+                            with job._details_lock:
+                                job.formal_output_changes = conflict.paths
+                        raise
                     after = snapshot_artifacts(outputs)
                     with job._details_lock:
                         job.artifacts = collect_artifacts(self.repo_root, before, after)
@@ -529,7 +574,7 @@ class JobManager:
                 )
 
         try:
-            run_operation(job.operation, execute, execution_lock=self._execution_lock, on_error=record_failure)
+            run_operation(job.operation, execute, execution_lock=self._job_execution(job), on_error=record_failure)
         except Exception:
             # The executor has recorded the failure; expose it through polling.
             pass
@@ -540,7 +585,12 @@ def _staging_extras(staging: Path, declared: set[Path]) -> list[str]:
                   if path.is_file() and path.resolve() not in declared and ".backup" not in path.parts)
 
 
-def _publish_staged(context: ToolContext, outputs: tuple[Path, ...], backup: Path) -> None:
+def _publish_staged(
+    context: ToolContext,
+    outputs: tuple[Path, ...],
+    backup: Path,
+    before: dict[Path, tuple[int, str]],
+) -> None:
     temporary_paths: list[Path] = []
     replaced: list[Path] = []
     try:
@@ -551,24 +601,38 @@ def _publish_staged(context: ToolContext, outputs: tuple[Path, ...], backup: Pat
                 temporary = path.with_name(path.name + f".{context.job_id}.tmp")
                 temporary_paths.append(temporary)
                 shutil.copy2(staged, temporary)
+                resolved = path.resolve()
+                expected = {resolved: before[resolved]} if resolved in before else {}
+                if snapshot_artifacts((path,)) != expected:
+                    raise PublicationConflictError([artifact_path(context.repo_root, path)])
                 os.replace(temporary, path)
                 replaced.append(path)
-            elif path.exists():
-                path.unlink()
-                replaced.append(path)
-    except Exception:
-        _restore_published(context.repo_root, tuple(replaced), backup)
+    except Exception as original:
+        recovery_errors = _restore_published(context.repo_root, tuple(replaced), backup)
+        if recovery_errors:
+            raise PublicationRecoveryError(original, recovery_errors) from original
         raise
     finally:
         for temporary in temporary_paths:
             temporary.unlink(missing_ok=True)
 
 
+class PublicationConflictError(ConflictError):
+    def __init__(self, paths: list[str]) -> None:
+        self.paths = paths
+        super().__init__("Formal output changed before publication: " + ", ".join(paths))
+
+
 class PublicationRecoveryError(RuntimeError):
     """Publication failed and some formal outputs could not be restored."""
 
+    def __init__(self, original: Exception, recovery_errors: list[str]) -> None:
+        self.original = original
+        self.recovery_errors = recovery_errors
+        super().__init__(f"{original}; Rollback incomplete: {'; '.join(recovery_errors)}")
 
-def _restore_published(root: Path, outputs: tuple[Path, ...], backup: Path) -> None:
+
+def _restore_published(root: Path, outputs: tuple[Path, ...], backup: Path) -> list[str]:
     errors = []
     for path in outputs:
         saved = backup / path.relative_to(root)
@@ -580,8 +644,7 @@ def _restore_published(root: Path, outputs: tuple[Path, ...], backup: Path) -> N
                 path.unlink(missing_ok=True)
         except OSError as exc:
             errors.append(f"{artifact_path(root, path)}: {exc}")
-    if errors:
-        raise PublicationRecoveryError("Could not restore formal outputs: " + "; ".join(errors))
+    return errors
 
 
 class CapturedOutput(io.TextIOBase):

@@ -143,7 +143,10 @@ def test_failed_write_keeps_disk_and_cached_draft(service, monkeypatch):
     with pytest.raises(OSError, match="simulated write failure"):
         service.save_positions(edits, _base(initial))
     assert victory_tree.POSITIONS_FILE.read_bytes() == before
-    assert service.load_resource()["draft"] == initial["draft"]
+    refreshed = service.load_resource()
+    assert refreshed["draft"]["paths"] == initial["draft"]["paths"]
+    assert _base(refreshed) == _base(initial)
+    assert "[error] simulated write failure" in refreshed["draft"]["log"]
 
 
 def test_missing_positions_file_uses_defaults_until_first_edit(service):

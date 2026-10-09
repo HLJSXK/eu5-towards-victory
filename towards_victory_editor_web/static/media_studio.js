@@ -1,8 +1,34 @@
 import { fetchJson } from "./api.js";
+import { ResourceState, JobPoller, setControlsBusy } from "./resource_state.js";
 
-const state = { tools: [], selected: null, jobId: null, timer: null, lineCursor: 0, logLines: [] };
+// detachedJobId: a job the user stopped tracking while it may still run; it stays cancellable.
+const state = { tools: [], selected: null, cancelError: "", cancelling: false, detachedJobId: null };
+const submission = new ResourceState({ onChange: () => syncFormControls() });
+const poller = new JobPoller({
+  fetchJob: (id, cursor) => fetchJson(`/api/jobs/${id}?after_line=${cursor}`),
+  onUpdate: renderJob,
+  onError: renderPollError,
+});
+
+function renderPollError(error, retrying) {
+  const message = poller.active
+    ? `Status request failed${retrying ? "; retrying" : "; retry or stop tracking"}`
+    : `Stopped tracking job ${poller.jobId}; server outcome unknown${state.detachedJobId === poller.jobId ? "; it may still run and can be cancelled" : ""}`;
+  document.getElementById("media-status").textContent = `${message}: ${error.message}${state.cancelError ? ` — ${state.cancelError}` : ""}`;
+  document.getElementById("media-poll-retry").hidden = !poller.active;
+  document.getElementById("media-poll-stop").hidden = !poller.active;
+  syncFormControls();
+}
 
 function selectedTool() { return state.tools.find((tool) => tool.id === state.selected); }
+
+function cancellable() { return poller.active || state.detachedJobId === poller.jobId; }
+
+function syncFormControls() {
+  setControlsBusy(document.querySelectorAll("#media-tool-list button, #media-form input, #media-form select"), submission.busy || poller.active);
+  document.getElementById("media-cancel").disabled = !cancellable() || state.cancelling;
+  document.getElementById("media-run").disabled = poller.active || submission.busy;
+}
 
 function renderToolList() {
   const root = document.getElementById("media-tool-list");
@@ -12,7 +38,10 @@ function renderToolList() {
     button.type = "button";
     button.className = `media-tool-item${tool.id === state.selected ? " active" : ""}`;
     button.innerHTML = `<strong>${tool.label}</strong><span>${tool.description}</span>`;
-    button.addEventListener("click", () => { state.selected = tool.id; renderToolList(); renderForm(); });
+    button.addEventListener("click", () => {
+      if (submission.busy || poller.active) return;
+      state.selected = tool.id; renderToolList(); renderForm();
+    });
     root.appendChild(button);
   });
 }
@@ -63,14 +92,15 @@ function formOptions() {
 }
 
 function renderJob(job) {
-  if (job.id !== state.jobId || job.line_cursor < state.lineCursor) return;
-  window.clearTimeout(state.timer);
+  state.detachedJobId = null;
   document.getElementById("media-status").textContent = job.operation.interrupted && job.outputs_may_be_partial
     ? `${job.status} — interrupted; formal outputs may be partially published; review files and retained backups`
     : job.outputs_may_be_partial ? `${job.status} — formal outputs require review` : job.status;
-  state.logLines = (job.lines_reset ? job.lines : [...state.logLines, ...job.lines]).slice(-300);
-  state.lineCursor = job.line_cursor;
-  document.getElementById("media-log").textContent = state.logLines.join("\n");
+  if (job.error) document.getElementById("media-status").textContent += `: ${job.error}`;
+  if (state.cancelError) document.getElementById("media-status").textContent += ` — ${state.cancelError}`;
+  document.getElementById("media-log").textContent = job.lines.join("\n");
+  document.getElementById("media-poll-retry").hidden = true;
+  document.getElementById("media-poll-stop").hidden = true;
   const files = [];
   if (job.resource_ids.length) files.push(`Resources: ${job.resource_ids.join(", ")}`);
   if (job.formal_output_changes.length) files.push("Formal outputs changed outside staging (review required):", ...job.formal_output_changes.map((path) => `  ${path}`));
@@ -88,34 +118,50 @@ function renderJob(job) {
   }));
   document.getElementById("media-files").hidden = files.length === 0;
   document.getElementById("media-file-report").textContent = files.join("\n");
-  document.getElementById("media-cancel").disabled = !["queued", "running", "cancelling"].includes(job.status);
-  if (["queued", "running", "cancelling"].includes(job.status) && state.jobId) state.timer = window.setTimeout(pollJob, 700);
-  else state.jobId = null;
-}
-async function pollJob() {
-  const jobId = state.jobId;
-  const cursor = state.lineCursor;
-  if (!jobId) return;
-  try {
-    const job = await fetchJson(`/api/jobs/${jobId}?after_line=${cursor}`);
-    if (state.jobId !== jobId || state.lineCursor !== cursor) return;
-    renderJob(job);
-  } catch (error) {
-    if (state.jobId === jobId) document.getElementById("media-status").textContent = error.message;
-  }
+  syncFormControls();
 }
 
+document.getElementById("media-poll-retry").addEventListener("click", () => poller.poll());
+document.getElementById("media-poll-stop").addEventListener("click", () => {
+  poller.stop();
+  state.detachedJobId = poller.jobId;
+  renderPollError(poller.error, false);
+});
 document.getElementById("media-run").addEventListener("click", async () => {
+  if (submission.busy || poller.active) return;
   const button = document.getElementById("media-run"); button.disabled = true;
   try {
-    const job = await fetchJson("/api/jobs", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ tool: state.selected, options: formOptions() }) });
-    state.jobId = job.id; state.lineCursor = 0; state.logLines = []; renderJob(job);
+    await submission.run("submitting", () => fetchJson("/api/jobs", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ tool: state.selected, options: formOptions() }) }), { apply: (job) => {
+      state.cancelError = "";
+      poller.start(job);
+    } });
   } catch (error) { document.getElementById("media-status").textContent = error.message; }
-  finally { button.disabled = false; }
+  finally { button.disabled = poller.active; }
 });
 document.getElementById("media-cancel").addEventListener("click", async () => {
-  const jobId = state.jobId;
-  if (jobId) renderJob(await fetchJson(`/api/jobs/${jobId}/cancel`, { method: "POST" }));
+  const jobId = poller.jobId;
+  const generation = poller.generation;
+  const detached = !poller.active;
+  if (!cancellable() || state.cancelling) return;
+  state.cancelling = true;
+  state.cancelError = "";
+  document.getElementById("media-cancel").disabled = true;
+  try {
+    const job = await fetchJson(`/api/jobs/${jobId}/cancel`, { method: "POST" });
+    // The cancel response is a full snapshot, so a detached job resumes tracking from it.
+    if (detached ? state.detachedJobId === jobId && poller.jobId === jobId : poller.isCurrent(jobId, generation) && poller.active) {
+      if (detached) poller.start(job);
+      else poller.accept(job, generation);
+    }
+  } catch (error) {
+    if (poller.jobId === jobId && (detached || poller.isCurrent(jobId, generation))) {
+      state.cancelError = `Cancellation failed: ${error.message}`;
+      document.getElementById("media-status").textContent = state.cancelError;
+    }
+  } finally {
+    state.cancelling = false;
+    syncFormControls();
+  }
 });
 
 fetchJson("/api/media/bootstrap").then((payload) => {

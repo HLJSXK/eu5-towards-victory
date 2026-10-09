@@ -11,7 +11,10 @@ function errorMessage(detail, code) {
 
 export class ApiError extends Error {
   constructor(status, payload, fallback) {
-    const detail = payload?.detail ?? fallback;
+    const payloadDetail = payload?.detail;
+    const detail = typeof payloadDetail === "string" && !payloadDetail.trim()
+      ? fallback
+      : payloadDetail ?? fallback;
     super(errorMessage(detail, payload?.code));
     this.name = "ApiError";
     this.status = status;
@@ -24,7 +27,7 @@ export class ApiError extends Error {
   }
 }
 
-export async function fetchJson(url, options) {
+export async function fetchJson(url, options, { errorMessages } = {}) {
   const response = await fetch(url, options);
   if (response.ok) return response.json();
 
@@ -36,5 +39,13 @@ export async function fetchJson(url, options) {
   } catch {
     // Proxies and unhandled server errors can return plain text or HTML.
   }
-  throw new ApiError(response.status, payload, text || response.statusText || `HTTP ${response.status}`);
+  const fallback = text || response.statusText || `HTTP ${response.status}`;
+  const error = new ApiError(response.status, payload, fallback);
+  const customMessage = errorMessages?.[payload?.code];
+  if (customMessage) {
+    error.message = typeof customMessage === "function"
+      ? customMessage(error.detail, error)
+      : customMessage;
+  }
+  return Promise.reject(error);
 }

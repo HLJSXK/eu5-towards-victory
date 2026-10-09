@@ -61,6 +61,7 @@ class OperationLog:
         self.status = "queued"
         self.error: str | None = None
         self.cancel_requested = False
+        self._cancel_event = threading.Event()
         self.created_at = time.time()
         self.started_at: float | None = None
         self.finished_at: float | None = None
@@ -99,6 +100,7 @@ class OperationLog:
             if self.status in self.TERMINAL_STATUSES or self.cancel_requested:
                 return
             self.cancel_requested = True
+            self._cancel_event.set()
             if self.status in {"queued", "running"}:
                 self.status = "cancelling"
             self.event("cancellation requested", level="warning", force_persist=True)
@@ -107,6 +109,10 @@ class OperationLog:
         with self._lock:
             if self.cancel_requested:
                 raise OperationCancelled("Cancellation requested")
+
+    def wait(self, seconds: float) -> None:
+        self._cancel_event.wait(seconds)
+        self.check_cancelled()
 
     def succeed(self) -> None:
         with self._lock:
@@ -130,6 +136,7 @@ class OperationLog:
             if self.status in self.TERMINAL_STATUSES:
                 return
             self.cancel_requested = True
+            self._cancel_event.set()
             self.status = "cancelled"
             self.error = str(error)
             self.finished_at = time.time()

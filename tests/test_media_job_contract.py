@@ -59,10 +59,97 @@ def job_env(tmp_path):
     store.close()
 
 
+def wait_for_jobs(manager):
+    for future in list(manager._futures.values()):
+        future.result(timeout=15)
+
+
 def execute(tool, manager):
     job = manager.submit(tool.spec.id, {})
+    wait_for_jobs(manager)
     manager.shutdown()
     return manager.get(job.id)
+
+
+def test_shutdown_cancels_running_waiting_and_queued_jobs_and_persists_all(job_env):
+    tool, manager = job_env
+    started = threading.Event()
+    attempts = []
+    def action(context):
+        attempts.append(context.job_id)
+        started.set()
+        context.wait(10)
+        pytest.fail("running job was not cancelled")
+    tool.action = action
+    first = manager.submit(tool.spec.id, {})
+    assert started.wait(5)
+    others = [manager.submit(tool.spec.id, {}) for _ in range(5)]
+    manager.shutdown()
+    assert attempts == [first.id]
+    for job in [first, *others]:
+        payload = manager.get(job.id)
+        assert payload["status"] == "cancelled"
+        assert payload["finished_at"] is not None
+        assert payload["operation"].get("persistence_error") is None
+        assert manager.operation_store.get(job.id)["status"] == "cancelled"
+    assert manager._futures == {}
+    assert all(job.operation.started_at is None for job in others)
+    with pytest.raises(RuntimeError, match="closed"):
+        manager.submit(tool.spec.id, {})
+    assert len(manager.operation_store.recent()) == 6
+    assert not tool.output.exists()
+
+
+def test_submit_racing_with_shutdown_cannot_leave_a_queued_record(job_env, monkeypatch):
+    tool, manager = job_env
+    submitting, release, closing, closed = (threading.Event() for _ in range(4))
+    submit = manager._executor.submit
+    def blocked_submit(*args):
+        submitting.set()
+        assert release.wait(5)
+        return submit(*args)
+    monkeypatch.setattr(manager._executor, "submit", blocked_submit)
+    tool.action = lambda context: context.wait(10)
+    submitted, errors = [], []
+    def submit_job():
+        try:
+            submitted.append(manager.submit(tool.spec.id, {}))
+        except Exception as error:
+            errors.append(error)
+    def shutdown():
+        closing.set()
+        manager.shutdown()
+        closed.set()
+    submit_thread = threading.Thread(target=submit_job)
+    close_thread = threading.Thread(target=shutdown)
+    submit_thread.start()
+    try:
+        assert submitting.wait(5)
+        close_thread.start()
+        assert closing.wait(5)
+        assert not closed.is_set()
+    finally:
+        release.set()
+        submit_thread.join(5)
+        close_thread.join(5)
+    assert closed.is_set()
+    assert not errors
+    assert len(submitted) == 1
+    assert manager.get(submitted[0].id)["status"] == "cancelled"
+    assert manager.operation_store.get(submitted[0].id)["status"] == "cancelled"
+
+
+def test_shutdown_during_validation_rejects_without_registering_job(job_env, monkeypatch):
+    tool, manager = job_env
+    validate = tool.validate
+    def close_during_validation(options):
+        normalized = validate(options)
+        manager.shutdown()
+        return normalized
+    monkeypatch.setattr(tool, "validate", close_during_validation)
+    with pytest.raises(RuntimeError, match="closed"):
+        manager.submit(tool.spec.id, {})
+    assert manager.operation_store.recent() == []
 
 
 def test_job_reports_resource_snapshot_and_declared_artifact(job_env):
@@ -106,6 +193,39 @@ def test_completed_job_details_are_queryable_after_manager_restart(tmp_path):
         restarted_store.close()
 
 
+def test_lifespan_cancels_job_before_closing_owned_store(job_env, monkeypatch):
+    from towards_victory_editor_web import server
+
+    tool, manager = job_env
+    started = threading.Event()
+    def action(context):
+        started.set()
+        context.wait(10)
+        pytest.fail("shutdown did not cancel the running job")
+    tool.action = action
+    monkeypatch.setattr(server, "registry", manager.registry)
+    monkeypatch.setattr(server, "PACKAGE_ROOT", tool.root / "web")
+    store_path = tool.root / "lifespan.sqlite3"
+    app = server.create_app(operation_store_path=store_path)
+    with TestClient(app) as client:
+        submitted = client.post("/api/jobs", json={"tool": tool.spec.id, "options": {}})
+        assert submitted.status_code == 200
+        assert started.wait(5)
+        job_id = submitted.json()["id"]
+        first_manager = app.state.jobs
+    reopened = OperationStore(store_path)
+    try:
+        persisted = reopened.get(job_id)
+        assert persisted["status"] == "cancelled"
+        assert not persisted.get("interrupted")
+        assert "persistence_error" not in persisted
+    finally:
+        reopened.close()
+    with TestClient(app):
+        assert app.state.jobs is not first_manager
+        assert app.state.jobs.get(job_id)["status"] == "cancelled"
+
+
 @pytest.mark.parametrize("invalid", ["path", "circular", "nonfinite", "message"])
 def test_invalid_tool_result_keeps_terminal_diagnostic_and_artifacts(job_env, invalid):
     tool, manager = job_env
@@ -136,6 +256,7 @@ def test_invalid_tool_result_keeps_terminal_diagnostic_and_artifacts(job_env, in
     assert details["metadata"] == failed["metadata"]
     assert details["lines"] == failed["lines"]
 
+    manager.operation_store.close()
     reopened = OperationStore(manager.operation_store.path)
     archived = JobManager(ToolRegistry(), tool.root, reopened)
     try:
@@ -196,6 +317,7 @@ def test_job_polling_returns_only_new_lines_and_keeps_lifecycle_events(job_env):
 
     tool.action = action
     job = manager.submit(tool.spec.id, {})
+    wait_for_jobs(manager)
     manager.shutdown()
     full = job.payload()
     assert full["lines"] == ["first line", "second line"]
@@ -217,6 +339,7 @@ def test_job_polling_resets_when_cursor_falls_out_of_retained_window(job_env):
 
     tool.action = action
     job = manager.submit(tool.spec.id, {})
+    wait_for_jobs(manager)
     manager.shutdown()
     payload = job.payload(after_line=0)
     assert payload["lines_reset"] is True
@@ -399,6 +522,7 @@ def test_waiting_for_execution_lock_does_not_start_operation(job_env, monkeypatc
             manager.cancel(job.id)
             payload = job.payload()
             assert payload["status"] == payload["operation"]["status"] == "cancelling"
+    wait_for_jobs(manager)
     manager.shutdown()
     payload = job.payload()
     assert payload["status"] == payload["operation"]["status"] == ("cancelled" if cancel else "succeeded")
@@ -442,6 +566,7 @@ def test_job_finishes_only_after_handler_cleanup(job_env, monkeypatch, cancel, c
             assert job.payload()["operation"] == cancelling["operation"]
     finally:
         finish_cleanup.set()
+        wait_for_jobs(manager)
         manager.shutdown()
 
     completed = job.payload()
@@ -528,6 +653,9 @@ def test_publication_failure_restores_files_or_retains_backups(job_env, monkeypa
     job = execute(tool, manager)
     assert job["status"] == "failed"
     assert ("output is locked" if rollback_fails else "publication failed") in job["error"]
+    assert "publication failed" in job["error"]
+    if rollback_fails:
+        assert "Rollback incomplete" in job["error"]
     assert outputs[2].read_bytes() == original
     assert not outputs[1].exists()
     assert job["outputs_may_be_partial"] == rollback_fails
@@ -562,6 +690,83 @@ def test_stage_path_rejects_undeclared_outputs_before_and_after_setup(tmp_path):
     assert context.stage_path(output).parent.is_dir()
 
 
+@pytest.mark.parametrize("rollback_fails", [False, True])
+def test_last_moment_publication_conflict_restores_prior_replacements(job_env, monkeypatch, rollback_fails):
+    from towards_victory_editor_web.services import tooling
+
+    tool, manager = job_env
+    outputs = (tool.output, tool.root / "last.json")
+    for output in outputs:
+        output.write_text('{"old":true}')
+
+    @contextmanager
+    def prepare(options):
+        def run(context):
+            for output in outputs:
+                context.stage_path(output).write_text('{"new":true}')
+            return ToolResult()
+        yield ToolPlan((), outputs, run)
+
+    copy = tooling.shutil.copy2
+    def change_during_copy(source, target):
+        if rollback_fails and ".backup" in source.parts and target == outputs[0]:
+            raise PermissionError("restore blocked")
+        result = copy(source, target)
+        if target.name.startswith("last.json.") and target.suffix == ".tmp":
+            outputs[1].write_text('{"external":true}')
+        return result
+
+    monkeypatch.setattr(tool, "prepare", prepare)
+    monkeypatch.setattr(tooling.shutil, "copy2", change_during_copy)
+    job = execute(tool, manager)
+    assert job["status"] == "failed"
+    assert "changed before publication" in job["error"]
+    assert outputs[0].read_text() == ('{"new":true}' if rollback_fails else '{"old":true}')
+    assert outputs[1].read_text() == '{"external":true}'
+    assert job["formal_output_changes"] == ["last.json"]
+    assert job["outputs_may_be_partial"] is True
+    if rollback_fails:
+        assert "Rollback incomplete" in job["error"]
+        assert "restore blocked" in job["error"]
+    _, details = manager.operation_store.get_with_details(job["id"])
+    assert details["formal_output_changes"] == ["last.json"]
+
+
+@pytest.mark.parametrize("fails", [False, True])
+def test_missing_optional_staged_png_preserves_formal_png(job_env, monkeypatch, fails):
+    tool, manager = job_env
+    png = tool.root / "kept.png"
+    png.write_bytes(b"original PNG")
+
+    @contextmanager
+    def prepare(options):
+        def run(context):
+            context.stage_path(tool.output).write_text('{}')
+            context.stage_path(png).unlink()
+            if fails:
+                raise RuntimeError("generation failed")
+            return ToolResult()
+        yield ToolPlan((), (tool.output,), run, optional_outputs=(png,))
+
+    monkeypatch.setattr(tool, "prepare", prepare)
+    job = execute(tool, manager)
+    assert job["status"] == ("failed" if fails else "succeeded"), job["error"]
+    assert png.read_bytes() == b"original PNG"
+    assert not any(item["role"] == "deleted" for item in job["artifacts"])
+    _, details = manager.operation_store.get_with_details(job["id"])
+    assert details["artifacts"] == job["artifacts"]
+
+
+def test_staging_validation_rejects_artifact_without_override(tmp_path):
+    from towards_victory_editor_web.services.artifacts import Artifact, validate_artifact_contract
+
+    (tmp_path / "old.json").write_text('{}')
+    report, = validate_artifact_contract(tmp_path, (Artifact("old.json", "output", 2, "digest", True),),
+                                         ("json",), path_overrides={}, require_overrides=True)
+    assert report["valid"] is False
+    assert "staging contract" in report["error"]
+
+
 def test_cancelled_queued_job_does_not_try_to_acquire_busy_resource(job_env):
     from towards_victory_editor_web.services.platform import resource_operation
 
@@ -570,7 +775,8 @@ def test_cancelled_queued_job_does_not_try_to_acquire_busy_resource(job_env):
         with manager._execution_lock:
             job = manager.submit(tool.spec.id, {})
             manager.cancel(job.id)
-        manager.shutdown()
+        wait_for_jobs(manager)
+    manager.shutdown()
     payload = job.payload()
     assert payload["status"] == "cancelled"
     assert payload["operation"]["started_at"] is None
@@ -626,14 +832,15 @@ def test_unchanged_output_is_validated_and_reported(job_env):
     assert job["artifacts"][0]["changed"] is False
 
 
-def test_deleted_output_is_recorded_after_failure(job_env):
+def test_missing_staged_output_does_not_report_formal_deletion(job_env):
     tool, manager = job_env
     tool.output.write_text('{}')
     tool.action = lambda context: context.stage_path(tool.output).unlink()
     job = execute(tool, manager)
     assert job["status"] == "failed"
     assert job["missing_outputs"] == ["output.json"]
-    assert job["artifacts"][0]["role"] == "deleted"
+    assert job["artifacts"] == []
+    assert tool.output.read_text() == '{}'
     assert job["outputs_may_be_partial"] is False
 
 
@@ -643,7 +850,8 @@ def test_http_job_contract_and_crop_commit_conflict(job_env, monkeypatch):
 
     tool, manager = job_env
     cropper = CropperService(tasks=[], data_path=tool.root / "crops.json", repo_root=tool.root)
-    monkeypatch.setattr(server, "jobs", manager)
+    monkeypatch.setattr(server, "registry", manager.registry)
+    monkeypatch.setattr(server, "PACKAGE_ROOT", tool.root / "web")
     monkeypatch.setattr(server, "cropper", cropper)
     started, finish = threading.Event(), threading.Event()
 
@@ -674,7 +882,7 @@ def test_http_job_contract_and_crop_commit_conflict(job_env, monkeypatch):
             assert not cropper.data_path.exists()
         finally:
             finish.set()
-            manager.shutdown()
+            wait_for_jobs(client.app.state.jobs)
         completed = client.get(f"/api/jobs/{job_id}").json()
         assert completed["status"] == "succeeded"
         assert completed["artifacts"][0]["path"] == "output.json"

@@ -11,6 +11,7 @@ import urllib.parse
 import urllib.request
 import uuid
 from pathlib import Path
+from typing import Callable
 
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -92,7 +93,8 @@ def multipart_body(source: Path, model: str) -> tuple[bytes, str]:
     return bytes(body), boundary
 
 
-def edit_image(config: dict, source: Path, api_key: str) -> bytes:
+def edit_image(config: dict, source: Path, api_key: str, *, check_cancelled: Callable[[], None] = lambda: None) -> bytes:
+    check_cancelled()
     body, boundary = multipart_body(source, config["model"])
     request = urllib.request.Request(
         config["endpoint"],
@@ -107,6 +109,7 @@ def edit_image(config: dict, source: Path, api_key: str) -> bytes:
     try:
         with urllib.request.urlopen(request, timeout=180) as response:
             result = json.load(response)
+        check_cancelled()
         item = result["data"][0]
         if isinstance(item.get("b64_json"), str):
             encoded = item["b64_json"].split(",", 1)[-1]
@@ -133,7 +136,7 @@ def run(options: dict[str, object] | argparse.Namespace) -> int:
     return run_tasks(config, tasks, dry_run=dry_run)
 
 
-def run_tasks(config: dict, tasks: list[tuple[Path, Path]], *, dry_run: bool = False) -> int:
+def run_tasks(config: dict, tasks: list[tuple[Path, Path]], *, dry_run: bool = False, check_cancelled: Callable[[], None] = lambda: None) -> int:
     """Execute the task set already resolved by the CLI or Web plan."""
     print(f"[config] {CONFIG_PATH.relative_to(REPO_ROOT)}")
     pending = [(source, output) for source, output in tasks if config["overwrite"] or not output.exists()]
@@ -150,8 +153,10 @@ def run_tasks(config: dict, tasks: list[tuple[Path, Path]], *, dry_run: bool = F
     api_key = resolve_api_key(config)
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     for source, output in pending:
+        check_cancelled()
         print(f"[edit] {source.relative_to(REPO_ROOT)} -> {output.relative_to(REPO_ROOT)}")
-        image = edit_image(config, source, api_key)
+        image = edit_image(config, source, api_key, check_cancelled=check_cancelled)
+        check_cancelled()
         temporary = output.with_suffix(output.suffix + ".tmp")
         try:
             temporary.write_bytes(image)

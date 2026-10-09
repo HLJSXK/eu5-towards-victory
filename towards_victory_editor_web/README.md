@@ -123,6 +123,18 @@ writing. Victory Tree saves now also acquire `editor.victory_tree` without
 waiting; concurrent saves receive HTTP 409 instead of queuing on the service
 lock. Stale source snapshots return `code: resource_changed`. The Victory Tree,
 cost/reward, Wonder, and crop pages distinguish these cases and preserve unsaved edits.
+`static/resource_state.js` owns each editor's saved data, draft, dirty flag, base,
+request phase and error. Loading and saving freeze edits, selection and duplicate
+requests; successful responses replace the draft and base together. Ritual Prompt
+edits use the Wonder page's unified save and resource preview/commit;
+there is no separate Prompt save API.
+`ResourceState.replace` updates resource data and revision without ending a request;
+`reset` explicitly invalidates a pending request when an external resource is selected.
+`run` owns request completion and reports apply/render errors.
+Media and cropper share cursor polling with transient-error retries, stale-response
+isolation and visible job errors. A 404/410 stops tracking and unlocks the page while
+retaining the job ID, logs and query error. Other query failures offer retry and
+Stop tracking; stopping tracking does not cancel the server job or declare its outcome.
 These locks coordinate this server process only. Media jobs compare declared
 input snapshots before execution and after handler cleanup, including inputs
 that are also declared outputs. Their generated replacements stay in staging
@@ -134,6 +146,9 @@ validated before the staged files are published to their formal paths. Existing 
 backed up so a failure during multi-file publication can restore them. Staged
 writes are discarded on failure, cancellation, missing outputs, format errors,
 or stale inputs; the job retains the attempted manifest and validation results.
+Each formal file is checked against its snapshot immediately before replacement;
+a conflict restores earlier replacements. Missing optional staged files leave
+their formal files intact. A rollback failure retains the original diagnostic.
 Only declared files are compared; their parent directories are not scanned.
 Input changes cause a conflict. Changes to declared formal outputs outside
 staging block publication and appear in `formal_output_changes`; their writer
@@ -174,8 +189,18 @@ only after the callback and its cleanup finish. Media jobs still use the thread
 pool and media execution lock, while commits remain synchronous. The production
 module-level app opens its operation store during the FastAPI lifespan; the path
 comes from `TV_EDITOR_OPERATION_STORE` or defaults to
-`.editor_state/operations.sqlite3` (ignored by Git). `create_app()` without an
-explicit store uses an in-memory store, while tests and embedded callers can
+`.editor_state/operations.sqlite3` (ignored by Git). Opening a persistent operation
+store acquires an OS file lock;
+a second owner is rejected before recovery can alter running records. Each lifespan
+creates its own `JobManager`; a closed manager rejects submission. Shutdown cancels
+queued futures and persists their cancelled state, requests cooperative cancellation
+for running jobs, and waits for terminal persistence before closing the store.
+Image generators check cancellation between tasks and requests; retry delays can
+be interrupted. Crop conversion dispatches only enough work for its active workers
+and stops dispatching on cancellation, waiting for active conversions before staging
+cleanup. An already blocked request or conversion must still return; image request
+timeouts default to 180 seconds, so shutdown has no fixed time limit.
+`create_app()` without an explicit store uses an in-memory store, while tests and embedded callers can
 inject `OperationStore(<temporary path>)`. `GET /api/operations?limit=25&kind=media_job&status=failed` lists recent
 operation summaries, and `GET /api/operations/{operation_id}` returns the full
 snapshot, including lifecycle events. The list limit is 1–100; filters are optional.

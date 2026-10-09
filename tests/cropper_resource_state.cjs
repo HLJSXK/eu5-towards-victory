@@ -22,6 +22,7 @@ function editor() {
   });
   canvas.getBoundingClientRect = () => ({ left: 0, top: 0, width: 100, height: 100 });
   const context = vm.createContext({
+    setTimeout: () => 1, clearTimeout() {},
     document: {
       body: { dataset: { activeTool: 'wonder-cropper' } },
       activeElement: null,
@@ -35,17 +36,15 @@ function editor() {
     console: { error() {} },
   });
   vm.runInContext(readFileSync(join(__dirname, '../towards_victory_editor_web/static/api.js'), 'utf8').replace(/^export /gm, ''), context);
+  vm.runInContext(readFileSync(join(__dirname, '../towards_victory_editor_web/static/resource_state.js'), 'utf8').replace(/^export /gm, ''), context);
   vm.runInContext(readFileSync(join(__dirname, '../towards_victory_editor_web/static/cropper.js'), 'utf8').replace(/^import .*;\r?\n/gm, ''), context);
   vm.runInContext(`
-    cropState.tasks = [
+    cropState.resource.reset({ base: { source: 'old' }, saved: { tasks: [
       { name: 'One', rect: { x: 1, y: 2, width: 27, height: 11 }, saved: true },
       { name: 'Two', rect: { x: 3, y: 4, width: 27, height: 11 }, saved: true },
-    ];
+    ] } });
     cropState.index = 0;
     cropState.rect = { x: 9, y: 9, width: 27, height: 11 };
-    cropState.saved = false;
-    cropState.dirty = true;
-    cropState.base = { source: 'old' };
   `, context);
   return {
     context,
@@ -125,9 +124,26 @@ test('a commit conflict keeps the draft until an explicit reload advances the ba
   await app.commit({ x: 10, y: 10, width: 27, height: 11 });
   assert.equal(app.state().base.source, 'old');
   assert.equal(app.state().dirty, true);
-  assert.match(app.context.document.getElementById('cropper-status').textContent, /源文件已变化.*核对最新内容.*source changed/);
+  assert.match(app.context.document.getElementById('cropper-status').textContent, /Source files changed.*reload.*source changed/);
   assert.match(app.context.document.getElementById('cropper-log').textContent, /source changed/);
   await app.listeners['cropper-reload:click']();
   assert.equal(app.state().base.source, 'reloaded');
   assert.equal(app.state().dirty, false);
+});
+
+for (const status of [404, 422]) test(`cropper unlocks after ${status} without discarding the crop`, async () => {
+  const app = editor();
+  const draft = JSON.stringify(app.state().resource.draft);
+  vm.runInContext("cropPoller.start({ id: 'lost', status: 'running', line_cursor: 1, lines: ['one'], lines_reset: true })", app.context);
+  assert.equal(app.state().busy, true);
+  app.context.fetch = async () => Response.json({ detail: 'cannot query' }, { status });
+  await vm.runInContext('cropPoller.poll()', app.context);
+  if (status === 422) app.listeners['cropper-poll-stop:click']();
+  assert.equal(app.state().busy, false);
+  assert.equal(JSON.stringify(app.state().resource.draft), draft);
+  for (const id of ['cropper-save', 'cropper-remove', 'cropper-reload', 'cropper-apply']) {
+    assert.equal(app.context.document.getElementById(id).disabled, false);
+  }
+  assert.equal(app.context.document.getElementById('cropper-log').textContent, 'one');
+  assert.match(app.context.document.getElementById('cropper-status').textContent, /Stopped tracking job lost.*cannot query/);
 });

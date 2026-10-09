@@ -20,17 +20,16 @@ function editor() {
         fetch: () => new Promise(() => {}),
     });
     vm.runInContext(readFileSync(join(__dirname, '../towards_victory_editor_web/static/api.js'), 'utf8').replace(/^export /gm, ''), context);
+    vm.runInContext(readFileSync(join(__dirname, '../towards_victory_editor_web/static/resource_state.js'), 'utf8').replace(/^export /gm, ''), context);
     vm.runInContext(readFileSync(join(__dirname, '../towards_victory_editor_web/static/wonder_localization.js'), 'utf8').replace(/^import .*;\r?\n/gm, ''), context);
     vm.runInContext(`
         render = () => {};
         showToast = () => {};
         cacheCurrentWonderDraft = () => {};
-        cacheCurrentRitualPromptDraft = () => {};
         hydrateWonderPayload = async (payload) => payload;
-        state.busy = false;
         state.currentWonder = { summary: { id: 1 } };
-        state.resourceBase = { source: 'old' };
-        state.pageDrafts = { 2: { values: { english: { title: 'old draft' } }, mechanics: {} } };
+        state.resource.reset({ base: { source: 'old' }, saved: { wonders: [], pageDrafts: {} },
+          draft: { wonders: [], pageDrafts: { 2: { values: { english: { title: 'old draft' } }, mechanics: {} } } } });
     `, context);
     return {
         context,

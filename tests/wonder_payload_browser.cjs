@@ -16,6 +16,7 @@ async function main() {
     });
     try {
         const page = await browser.newPage({ viewport: { width: 1440, height: 1050 } });
+        page.on('dialog', (dialog) => dialog.accept());
         page.setDefaultTimeout(60000);
         const errors = [];
         page.on('pageerror', (error) => errors.push(error.message));

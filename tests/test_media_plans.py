@@ -32,6 +32,7 @@ def run_tool(root, tool):
     manager = JobManager(registry, root)
     try:
         job = manager.submit(tool.spec.id, {})
+        manager._futures[job.id].result(timeout=30)
     finally:
         manager.shutdown()
     return manager.get(job.id)
@@ -43,6 +44,7 @@ def run_tool_options(root, tool, options):
     manager = JobManager(registry, root)
     try:
         job = manager.submit(tool.spec.id, options)
+        manager._futures[job.id].result(timeout=30)
     finally:
         manager.shutdown()
     return manager.get(job.id)
@@ -107,7 +109,7 @@ def wonder_env(tmp_path, monkeypatch):
     monkeypatch.setattr(wonder, "load_wonder_image_tasks", lambda **kwargs: json.loads(tasks.read_text()))
     monkeypatch.setattr(cropper_module, "WONDER_TASK_INPUTS", (tasks,))
     # Exercise the real converter without process creation in a unit test.
-    monkeypatch.setattr(wonder, "run_parallel_existing_dds_jobs", lambda jobs: [wonder.convert_existing_dds_worker(job) for job in jobs])
+    monkeypatch.setattr(wonder, "run_parallel_existing_dds_jobs", lambda jobs, **_: [wonder.convert_existing_dds_worker(job) for job in jobs])
     for name in ("selected", "extra", "disabled"):
         write_png(tmp_path / "png" / f"tv_wonder_{name}.png")
     for name in ("dds_only", "orphan", "ignored_cropped"):
@@ -147,7 +149,7 @@ def test_wonder_crop_failure_restores_formal_outputs(wonder_env, monkeypatch):
     target = service.repo_root / "dds/tv_wonder_dds_only.dds"
     before = target.read_bytes()
 
-    def fail(jobs, *_args):
+    def fail(jobs, *_args, **_controls):
         jobs[0][1].write_bytes(b"partial")
         raise RuntimeError("crop failed")
 
@@ -312,8 +314,8 @@ def test_wonder_repair_and_generation_match_direct_outputs(wonder_env, monkeypat
         for name in ("dds_only", "new")
     ]))
     image = encode_png_rgba(RgbaImage(1024, 640, bytes([120, 80, 40, 255]) * (1024 * 640)))
-    monkeypatch.setattr(wonder, "api_post_json", lambda *_: {"created": 42})
-    monkeypatch.setattr(wonder, "extract_png_bytes", lambda *_: (image, "fixture"))
+    monkeypatch.setattr(wonder, "api_post_json", lambda *_, **__: {"created": 42})
+    monkeypatch.setattr(wonder, "extract_png_bytes", lambda *_, **__: (image, "fixture"))
     plan = wonder_image_plan(wonder, {})
     png = root / "png/tv_wonder_dds_only.png"
     png_before = png.read_bytes()
@@ -412,7 +414,7 @@ def test_historical_api_plan_keeps_config_and_outputs(tmp_path, monkeypatch):
     monkeypatch.setattr(historical, "REPO_ROOT", tmp_path)
     monkeypatch.setattr(historical, "CONFIG_PATH", config)
     monkeypatch.setattr(historical, "OUTPUT_DIR", tmp_path / "processed")
-    monkeypatch.setattr(historical, "edit_image", lambda cfg, src, key: src.read_bytes())
+    monkeypatch.setattr(historical, "edit_image", lambda cfg, src, key, **_: src.read_bytes())
     plan = historical_api_plan(historical, {"dry_run": False})
     assert {item.path for item in plan.inputs} == {"historical.json", "source.png"}
     loaded_config, tasks = historical.load_tasks()

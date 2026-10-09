@@ -1,22 +1,27 @@
 import { fetchJson } from "./api.js";
+import { ResourceState, resourceBase, setControlsBusy } from "./resource_state.js";
 
 const state = {
     title: "Towards Victory 奇观编辑器",
-    wonders: [],
+    resource: new ResourceState({
+        saved: { wonders: [], pageDrafts: {} },
+        isDirty: (_saved, draft) => Object.values(draft.pageDrafts).some(draftHasChanges),
+        onChange: () => syncBusyControls(),
+    }),
+    get wonders() { return this.resource.draft.wonders; },
+    get pageDrafts() { return this.resource.draft.pageDrafts; },
+    get resourceBase() { return this.resource.base; },
+    get busy() { return this.resource.busy; },
     currentWonder: null,
     activeEditorTab: "english",
     listMode: "generic",
     status: "就绪",
     statusKind: "default",
     logText: "",
-    busy: false,
     rendering: false,
-    pageDrafts: {},
     ritualDesigns: null,
     ritualDesignDetails: {},
     ritualDesignsError: "",
-    ritualPromptDrafts: {},
-    resourceBase: {},
 };
 let ritualDesignCatalogRequest = null;
 let ritualDesignGeneration = 0;
@@ -87,15 +92,9 @@ function updateStatus(text, kind = "default") {
     elements.statusBadge.dataset.kind = kind;
 }
 
-function setBusy(isBusy) {
-    state.busy = isBusy;
-    elements.saveButton.disabled = isBusy;
-    elements.reloadButton.disabled = isBusy;
-    elements.copyLogButton.disabled = isBusy && !state.logText;
-    for (const control of document.querySelectorAll("[data-ritual-prompt-control='true']")) {
-        control.disabled = isBusy;
-    }
-    toolSection.dataset.busy = String(isBusy);
+function syncBusyControls() {
+    setControlsBusy(document.querySelectorAll("#wonder-kind-tabs button, #wonder-list button, #language-tabs button, #search-input, #wonder-name-editors input, #wonder-name-editors textarea, #language-panels input, #language-panels textarea, #language-panels select, #language-panels button, #save-button, #reload-button"), state.busy);
+    toolSection.dataset.busy = String(state.busy);
 }
 
 function getEditorFields() {
@@ -118,7 +117,7 @@ function draftHasChanges(draft) {
     return Boolean(
         draft &&
             (Object.values(draft.values || {}).some((values) => Object.keys(values || {}).length > 0) ||
-                Object.keys(draft.mechanics || {}).length > 0),
+                Object.keys(draft.mechanics || {}).length > 0 || draft.ritual_prompt !== undefined),
     );
 }
 
@@ -172,38 +171,22 @@ function collectCurrentDraft() {
         }
         setDraftValueForField(draft, field, field.value);
     }
+    const input = document.querySelector("[data-ritual-prompt-input='true']");
+    const prompt = input ? normalizeMultilineText(input.value) : state.pageDrafts[String(currentWonderId())]?.ritual_prompt;
+    if (prompt !== undefined && prompt !== currentRitualPromptOriginal()) draft.ritual_prompt = prompt;
     return draft;
 }
 
 function cacheCurrentWonderDraft() {
     const wonderId = currentWonderId();
-    if (wonderId === null || state.rendering) {
+    if (wonderId === null || state.rendering || state.busy) {
         return;
     }
     const draft = collectCurrentDraft();
-    if (draftHasChanges(draft)) {
-        state.pageDrafts[String(wonderId)] = draft;
-    } else {
-        delete state.pageDrafts[String(wonderId)];
-    }
-}
-
-function cacheCurrentRitualPromptDraft() {
-    const wonderId = currentWonderId();
-    if (wonderId === null || state.rendering) {
-        return;
-    }
-    const input = document.querySelector("[data-ritual-prompt-input='true']");
-    if (!input) {
-        return;
-    }
-    const originalPrompt = String(input.dataset.originalPrompt || "");
-    const value = normalizeMultilineText(String(input.value || ""));
-    if (value === originalPrompt) {
-        delete state.ritualPromptDrafts[String(wonderId)];
-    } else {
-        state.ritualPromptDrafts[String(wonderId)] = value;
-    }
+    state.resource.mutate((resourceDraft) => {
+        if (draftHasChanges(draft)) resourceDraft.pageDrafts[String(wonderId)] = draft;
+        else delete resourceDraft.pageDrafts[String(wonderId)];
+    });
 }
 
 function applyDraftToField(field, scope, draft) {
@@ -505,6 +488,7 @@ function renderWonderKindTabs() {
         }
         button.textContent = `${mode.label} (${wondersForMode(mode.id).length})`;
         button.addEventListener("click", () => {
+            if (state.busy) return;
             state.listMode = mode.id;
             renderWonderKindTabs();
             renderWonderList();
@@ -718,6 +702,7 @@ function renderEditorTabs() {
         }
         button.textContent = tab.label;
         button.addEventListener("click", () => {
+            if (state.busy) return;
             state.activeEditorTab = tab.id;
             renderEditorTabs();
             syncActiveEditorPanel();
@@ -2442,7 +2427,7 @@ function currentRitualPromptOriginal() {
 
 function currentRitualPromptValue() {
     const wonderId = currentWonderId();
-    const draftValue = state.ritualPromptDrafts[String(wonderId)];
+    const draftValue = state.pageDrafts[String(wonderId)]?.ritual_prompt;
     return draftValue === undefined ? currentRitualPromptOriginal() : draftValue;
 }
 
@@ -2638,22 +2623,17 @@ function renderRitualPromptCard(panel) {
     draftButton.className = "secondary-button";
     draftButton.textContent = "用当前设计生成 Prompt 草稿";
     draftButton.dataset.ritualPromptControl = "true";
-    const saveButton = document.createElement("button");
-    saveButton.type = "button";
-    saveButton.className = "primary-button";
-    saveButton.textContent = "保存 Prompt 到 YAML";
-    saveButton.dataset.ritualPromptControl = "true";
     const status = document.createElement("span");
     status.className = "ritual-prompt-status";
 
     const refreshPromptState = () => {
-        cacheCurrentRitualPromptDraft();
+        refreshDirtyState();
         const changed = normalizeMultilineText(textarea.value) !== textarea.dataset.originalPrompt;
-        saveButton.disabled = state.busy || !changed;
-        status.textContent = changed ? "Prompt 尚未保存" : "Prompt 已同步";
+        status.textContent = changed ? "Prompt 尚未保存，使用页面顶部的统一保存" : "Prompt 已同步";
     };
     textarea.addEventListener("input", refreshPromptState);
     draftButton.addEventListener("click", () => {
+        if (state.busy) return;
         const currentDesign = currentRitualDesignEntry();
         if (!currentDesign) {
             return;
@@ -2662,10 +2642,7 @@ function renderRitualPromptCard(panel) {
         refreshPromptState();
         textarea.focus();
     });
-    saveButton.addEventListener("click", () => {
-        void saveCurrentRitualPrompt(textarea.value);
-    });
-    actions.append(draftButton, saveButton, status);
+    actions.append(draftButton, status);
     section.append(textarea, actions);
     panel.append(section);
     refreshPromptState();
@@ -2822,6 +2799,7 @@ function render() {
         state.rendering = false;
     }
     refreshDirtyState();
+    syncBusyControls();
 }
 
 function resolveOptionReferences(value, catalogs) {
@@ -2949,211 +2927,117 @@ function syncWonderModeWithSelection() {
     state.listMode = currentWonderKind();
 }
 
+function acceptWonderResource(payload, wonders) {
+    state.resource.replace({ base: resourceBase(payload), saved: { wonders, pageDrafts: {} } });
+}
+
 async function loadBootstrap() {
-    setBusy(true);
+    if (state.busy) return;
     updateStatus("正在加载", "working");
+    let initialId = null;
     try {
-        const resource = await fetchJson("api/resources/editor.wonder");
-        const payload = resource.draft;
-        state.resourceBase = Object.fromEntries(
-            (resource.change_set?.base || []).map((item) => [item.path, item.sha256]),
-        );
-        state.title = payload.title;
-        state.wonders = payload.wonders;
-        setCurrentWonderPayload(null);
-        state.logText = payload.log_text || "";
-        state.status = payload.status || "就绪";
-        state.statusKind = "default";
-        render();
-        const wonder = payload.initial_wonder_id === null
-            ? null
-            : await hydrateWonderPayload(await fetchJson(`api/wonder-localization/wonders/${payload.initial_wonder_id}`));
-        setCurrentWonderPayload(wonder);
-        state.status = payload.status || (state.currentWonder ? state.currentWonder.status : "就绪");
-        state.statusKind = "default";
-        syncWonderModeWithSelection();
-        render();
+        await state.resource.run("loading", () => fetchJson("api/resources/editor.wonder"), { apply: (resource) => {
+            const payload = resource.draft;
+            acceptWonderResource(resource, payload.wonders);
+            initialId = payload.initial_wonder_id;
+            state.title = payload.title;
+            setCurrentWonderPayload(null);
+            state.logText = payload.log_text || "";
+            state.status = payload.status || "就绪";
+            state.statusKind = "default";
+            syncWonderModeWithSelection();
+            render();
+        } });
     } catch (error) {
-        console.error(error);
-        const phase = state.wonders.length ? "奇观详情" : "奇观列表";
-        updateStatus(`${phase}加载失败`, "error");
-        showToast(`${phase}加载失败: ${error.message}`, "error");
-    } finally {
-        setBusy(false);
+        updateStatus("加载失败", "error");
+        showToast("加载失败: " + error.message, "error");
     }
+    if (initialId !== null) await selectWonder(initialId);
 }
 
 async function selectWonder(wonderId) {
-    if (state.busy) {
-        return;
-    }
-    if (state.currentWonder && state.currentWonder.summary.id === wonderId) {
-        return;
-    }
+    if (state.busy || currentWonderId() === wonderId) return;
     cacheCurrentWonderDraft();
-    cacheCurrentRitualPromptDraft();
-
-    setBusy(true);
     updateStatus("正在切换奇观", "working");
     try {
-        const payload = await hydrateWonderPayload(await fetchJson(`api/wonder-localization/wonders/${wonderId}`));
-        setCurrentWonderPayload(payload);
-        state.status = payload.status;
-        state.statusKind = "default";
-        syncWonderModeWithSelection();
-        render();
+        await state.resource.run("loading", async () => hydrateWonderPayload(await fetchJson("api/wonder-localization/wonders/" + wonderId)), { apply: (payload) => {
+            setCurrentWonderPayload(payload);
+            state.status = payload.status;
+            state.statusKind = "default";
+            syncWonderModeWithSelection();
+            render();
+        } });
     } catch (error) {
-        console.error(error);
         updateStatus("切换失败", "error");
-        showToast(`切换失败: ${error.message}`, "error");
-    } finally {
-        setBusy(false);
+        showToast("切换失败: " + error.message, "error");
     }
 }
 
 async function saveCurrentWonder() {
-    if (!state.currentWonder || state.busy) {
-        return;
-    }
+    if (!state.currentWonder || state.busy) return;
     cacheCurrentWonderDraft();
-    cacheCurrentRitualPromptDraft();
     const currentId = currentWonderId();
-    const drafts = Object.entries(state.pageDrafts)
-        .filter(([, draft]) => draftHasChanges(draft))
-        .map(([wonderId, draft]) => ({
-            wonder_id: Number.parseInt(wonderId, 10),
-            ...draft,
-        }));
-    setBusy(true);
+    const drafts = Object.entries(state.pageDrafts).filter(([, draft]) => draftHasChanges(draft))
+        .map(([wonderId, draft]) => ({ wonder_id: Number.parseInt(wonderId, 10), ...draft }));
     updateStatus("正在保存并重新生成", "working");
-    let retryWonderId = null;
+    let detailError = null;
     try {
-        const payload = await fetchJson("api/resources/editor.wonder/commit", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                regenerate: true,
-                current_wonder_id: currentId,
-                wonders: drafts,
-                base: state.resourceBase,
-            }),
-        });
-        state.pageDrafts = {};
-        state.resourceBase = Object.fromEntries(
-            (payload.change_set?.base || []).map((item) => [item.path, item.sha256]),
-        );
-        state.wonders = payload.wonders;
-        invalidateRitualDesigns();
-        state.logText = payload.log_text || state.logText;
-        try {
-            await hydrateWonderPayload(payload.wonder);
-        } catch (error) {
-            console.error(error);
-            setCurrentWonderPayload(null);
-            retryWonderId = currentId;
-            updateStatus("已保存，详情加载失败", "error");
+        await state.resource.run("saving", async () => {
+            const payload = await fetchJson("api/resources/editor.wonder/commit", {
+                method: "POST", headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ regenerate: true, current_wonder_id: currentId, wonders: drafts, base: state.resourceBase }),
+            });
+            try { await hydrateWonderPayload(payload.wonder); }
+            catch (error) { detailError = error; }
+            return payload;
+        }, { apply: (payload) => {
+            acceptWonderResource(payload, payload.wonders);
+            invalidateRitualDesigns();
+            state.logText = payload.log_text || state.logText;
+            setCurrentWonderPayload(detailError ? null : payload.wonder);
+            state.status = detailError ? "已保存，详情加载失败" : payload.status;
+            state.statusKind = detailError ? "error" : "default";
+            syncWonderModeWithSelection();
             render();
-            showToast(`保存成功，但详情加载失败，正在重新加载: ${error.message}`, "error");
-            return;
-        }
-        setCurrentWonderPayload(payload.wonder);
-        state.status = payload.status;
-        state.statusKind = "default";
-        syncWonderModeWithSelection();
-        render();
-        showToast(state.status, "success");
+            showToast(detailError ? "保存成功，但详情加载失败，正在重新加载: " + detailError.message : state.status, detailError ? "error" : "success");
+        } });
     } catch (error) {
-        console.error(error);
         if (typeof error.log_text === "string") {
             state.logText = error.log_text;
             renderLog();
         }
         updateStatus("保存失败", "error");
-        showToast(`保存失败: ${error.message}`, "error");
-    } finally {
-        setBusy(false);
-        if (retryWonderId !== null) {
-            void selectWonder(retryWonderId);
-        }
+        showToast("保存失败: " + error.message, "error");
     }
-}
-
-async function saveCurrentRitualPrompt(prompt) {
-    if (!state.currentWonder?.summary?.is_unique || state.busy) {
-        return;
-    }
-    const wonderId = currentWonderId();
-    setBusy(true);
-    updateStatus("正在保存 Prompt", "working");
-    try {
-        const normalizedPrompt = normalizeMultilineText(String(prompt || ""));
-        const payload = await fetchJson(`api/wonder-localization/ritual-prompts/${wonderId}`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                prompt: normalizedPrompt,
-            }),
-        });
-        state.currentWonder.ritual_prompt = payload.prompt || state.currentWonder.ritual_prompt;
-        delete state.ritualPromptDrafts[String(wonderId)];
-        state.logText = payload.log_text || state.logText;
-        state.status = payload.status;
-        state.statusKind = "default";
-        render();
-        showToast(payload.status, "success");
-    } catch (error) {
-        console.error(error);
-        updateStatus("Prompt 保存失败", "error");
-        showToast(`Prompt 保存失败: ${error.message}`, "error");
-    } finally {
-        setBusy(false);
-    }
+    if (detailError) void selectWonder(currentId);
 }
 
 async function reloadCurrentWonder() {
-    if (!state.currentWonder || state.busy) {
-        return;
-    }
+    if (!state.currentWonder || state.busy) return;
     cacheCurrentWonderDraft();
-    cacheCurrentRitualPromptDraft();
     const currentId = currentWonderId();
     const dirtyCount = dirtyPageCount();
-    if (dirtyCount > 0) {
-        const shouldDiscard = window.confirm(`重新加载会放弃全部 ${dirtyCount} 个奇观页面的未保存编辑，继续吗？`);
-        if (!shouldDiscard) {
-            return;
-        }
-    }
-
-    setBusy(true);
+    if (dirtyCount > 0 && !window.confirm("重新加载会放弃全部 " + dirtyCount + " 个奇观页面的未保存编辑，继续吗？")) return;
     updateStatus("正在重新加载", "working");
     try {
-        const resource = await fetchJson("api/resources/editor.wonder");
-        const payload = resource.draft;
-        const wonder = await hydrateWonderPayload(
-            await fetchJson(`api/wonder-localization/wonders/${currentId}`),
-        );
-        // All page drafts share this base. Publish the refreshed state together,
-        // only after detail and option-catalog loading have both succeeded.
-        state.resourceBase = Object.fromEntries(
-            (resource.change_set?.base || []).map((item) => [item.path, item.sha256]),
-        );
-        state.pageDrafts = {};
-        state.wonders = payload.wonders;
-        invalidateRitualDesigns();
-        setCurrentWonderPayload(wonder);
-        state.logText = payload.log_text || state.logText;
-        state.status = "已重新加载";
-        state.statusKind = "default";
-        syncWonderModeWithSelection();
-        render();
-        showToast(state.status, "success");
+        await state.resource.run("loading", async () => {
+            const resource = await fetchJson("api/resources/editor.wonder");
+            const wonder = await hydrateWonderPayload(await fetchJson("api/wonder-localization/wonders/" + currentId));
+            return { resource, wonder };
+        }, { apply: ({ resource, wonder }) => {
+            acceptWonderResource(resource, resource.draft.wonders);
+            invalidateRitualDesigns();
+            setCurrentWonderPayload(wonder);
+            state.logText = resource.draft.log_text || state.logText;
+            state.status = "已重新加载";
+            state.statusKind = "default";
+            syncWonderModeWithSelection();
+            render();
+            showToast(state.status, "success");
+        } });
     } catch (error) {
-        console.error(error);
         updateStatus("重新加载失败", "error");
-        showToast(`重新加载失败: ${error.message}`, "error");
-    } finally {
-        setBusy(false);
+        showToast("重新加载失败: " + error.message, "error");
     }
 }
 

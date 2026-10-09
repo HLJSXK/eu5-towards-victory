@@ -159,12 +159,15 @@ def test_http_unavailable_service(monkeypatch):
 
 
 def test_prompt_save_keeps_detail_without_returning_catalog(service, monkeypatch, tmp_path):
+    service.operation_store = None
     prompt_file = tmp_path / "prompts.yaml"
     monkeypatch.setattr(wonder_localization, "UNIQUE_RITUAL_PROMPTS_FILE", prompt_file)
     monkeypatch.setattr(service, "unique_ritual_prompts_data", {"unique_wonders": []})
     wonder_id = service.ritual_design_catalog_payload()["wonders"][0]["id"]
-    payload = service.save_unique_ritual_prompt(wonder_id, "  Implement ritual\r\nwith rewards  ")
-    assert payload["prompt"]["prompt"] == "Implement ritual\nwith rewards"
+    service._base = wonder_localization.snapshot_files(wonder_localization._wonder_source_paths(), repo_root=wonder_localization.REPO_ROOT)
+    base = {item.path: item.sha256 for item in service._base}
+    payload = service.commit_resource({wonder_id: {"ritual_prompt": "  Implement ritual\r\nwith rewards  "}}, base, current_wonder_id=wonder_id, regenerate=False)
+    assert payload["wonder"]["ritual_prompt"]["prompt"] == "Implement ritual\nwith rewards"
     assert "ritual_designs" not in payload
-    assert service.get_wonder_payload(wonder_id)["ritual_prompt"] == payload["prompt"]
+    assert service.get_wonder_payload(wonder_id)["ritual_prompt"] == payload["wonder"]["ritual_prompt"]
     assert "Implement ritual" in prompt_file.read_text(encoding="utf-8")

@@ -169,6 +169,8 @@
           <div class="media-actions">
             <button id="media-run" class="primary-button" type="button">Run tool</button>
             <button id="media-cancel" type="button" disabled>Cancel job</button>
+            <button id="media-poll-retry" type="button" hidden>Retry status</button>
+            <button id="media-poll-stop" type="button" hidden>Stop tracking</button>
             <span id="media-status" class="job-status">Ready</span>
           </div>
           <pre id="media-log" class="job-log"></pre>
@@ -202,6 +204,8 @@
             <button id="cropper-remove" type="button">Remove saved crop</button>
             <button id="cropper-reload" type="button">Reload crops</button>
             <button id="cropper-apply" type="button">Rebuild DDS</button>
+            <button id="cropper-poll-retry" type="button" hidden>Retry status</button>
+            <button id="cropper-poll-stop" type="button" hidden>Stop tracking</button>
           </div>
           <p id="cropper-status" class="job-status">Ready</p>
           <pre id="cropper-log" class="job-log"></pre>

@@ -1,9 +1,11 @@
 import { fetchJson } from "./api.js";
+import { ResourceState, resourceBase, setControlsBusy } from "./resource_state.js";
 
 const state = {
-  groups: [],
-  edits: {},
-  base: {},
+  resource: new ResourceState({ saved: { groups: [], edits: {} }, onChange: () => syncControls() }),
+  get groups() { return this.resource.draft.groups; },
+  get edits() { return this.resource.draft.edits; },
+  get base() { return this.resource.base; },
   activeKey: null,
 };
 
@@ -17,14 +19,26 @@ function appendLog(text) {
   log.scrollTop = log.scrollHeight;
 }
 
-function clearEdits() {
-  state.edits = {};
+function syncControls() {
+  setControlsBusy(document.querySelectorAll("#cr-tabs button, #panels input, #panels textarea, #panels select, #cr-save-btn, #cr-reload-btn"), state.resource.busy);
 }
 
 function stageEdit(categoryKey, tokenId, field, rawValue) {
-  if (!state.edits[categoryKey]) state.edits[categoryKey] = {};
-  if (!state.edits[categoryKey][tokenId]) state.edits[categoryKey][tokenId] = {};
-  state.edits[categoryKey][tokenId][field] = rawValue;
+  state.resource.mutate((draft) => {
+    const token = draft.groups.find((group) => group.key === categoryKey).tokens.find((item) => item.id === tokenId);
+    const original = state.resource.saved.groups.find((group) => group.key === categoryKey).tokens.find((item) => item.id === tokenId)[field];
+    draft.edits[categoryKey] ||= {};
+    draft.edits[categoryKey][tokenId] ||= {};
+    if (String(original ?? "") === String(rawValue)) {
+      token[field] = original;
+      delete draft.edits[categoryKey][tokenId][field];
+      if (!Object.keys(draft.edits[categoryKey][tokenId]).length) delete draft.edits[categoryKey][tokenId];
+      if (!Object.keys(draft.edits[categoryKey]).length) delete draft.edits[categoryKey];
+    } else {
+      token[field] = rawValue;
+      draft.edits[categoryKey][tokenId][field] = rawValue;
+    }
+  });
 }
 
 function renderTabs() {
@@ -36,6 +50,7 @@ function renderTabs() {
     btn.className = "tab" + (group.key === state.activeKey ? " active" : "");
     btn.textContent = `${group.label_zh}（${group.tokens.length}）`;
     btn.addEventListener("click", () => {
+      if (state.resource.busy) return;
       state.activeKey = group.key;
       renderTabs();
       renderPanels();
@@ -196,6 +211,7 @@ function renderTriggerTaskTable(group) {
     tr.appendChild(thresholdCell);
 
     comparisonSelect.addEventListener("change", () => {
+      if (state.resource.busy) return;
       stageEdit(group.key, token.id, "comparison", comparisonSelect.value);
       if (comparisonSelect.value === "boolean") {
         thresholdInput.value = "";
@@ -276,52 +292,45 @@ function renderPanels() {
   wrap.className = "table-wrap";
   wrap.appendChild(renderTable(group));
   panelsEl.appendChild(wrap);
+  syncControls();
 }
 
 function applyBootstrapPayload(payload) {
-  const draft = payload.draft || payload;
-  state.groups = draft.groups || [];
-  if (payload.change_set && Array.isArray(payload.change_set.base)) {
-    state.base = Object.fromEntries(payload.change_set.base.map((item) => [item.path, item.sha256]));
-  }
+  const draft = payload.draft;
+  state.resource.replace({ base: resourceBase(payload), saved: { ...draft, edits: {} } });
   if (!state.activeKey || !state.groups.some((g) => g.key === state.activeKey)) {
     state.activeKey = state.groups.length ? state.groups[0].key : null;
   }
-  clearEdits();
   setLog(draft.log || "");
   renderTabs();
   renderPanels();
 }
 
 async function loadBootstrap() {
-  const payload = await fetchJson("api/resources/editor.cost_reward");
-  applyBootstrapPayload(payload);
+  return state.resource.run("loading", () => fetchJson("api/resources/editor.cost_reward"), { apply: applyBootstrapPayload });
 }
 
 async function save() {
-  const saveBtn = document.getElementById("cr-save-btn");
-  saveBtn.disabled = true;
+  if (state.resource.busy) return;
   try {
-    const payload = await fetchJson("api/resources/editor.cost_reward/commit", {
+    await state.resource.run("saving", () => fetchJson("api/resources/editor.cost_reward/commit", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         edits: state.edits,
         base: state.base,
       }),
-    });
-    applyBootstrapPayload(payload);
+    }), { apply: applyBootstrapPayload });
     appendLog("\n[ok] Saved.\n");
   } catch (err) {
     appendLog(`\n[error] ${err.message}\n`);
-  } finally {
-    saveBtn.disabled = false;
   }
 }
 
 document.getElementById("cr-save-btn").addEventListener("click", save);
 document.getElementById("cr-reload-btn").addEventListener("click", () => {
-  if (Object.keys(state.edits).length && !confirm("重新加载会丢弃未保存的修改，继续吗？")) return;
+  if (state.resource.busy) return;
+  if (state.resource.dirty && !confirm("重新加载会丢弃未保存的修改，继续吗？")) return;
   loadBootstrap().catch((err) => appendLog(`\n[error] ${err.message}\n`));
 });
 

@@ -1,4 +1,5 @@
 import { fetchJson } from "./api.js";
+import { ResourceState, resourceBase, setControlsBusy } from "./resource_state.js";
 
 const STAGE_W = 2048;
 const STAGE_H = 1152;
@@ -21,13 +22,13 @@ const LINE_WIDTH = 0.6;
 const SVG_NS = "http://www.w3.org/2000/svg";
 
 const state = {
-  paths: [],
-  base: {},
+  resource: new ResourceState({ saved: { paths: [] }, onChange: () => syncControls() }),
+  get paths() { return this.resource.draft.paths; },
+  get base() { return this.resource.base; },
   activeId: null,
   selectedId: null,
   scale: 0.5,
   dragging: null,
-  savedPositions: "",
 };
 
 function setLog(text) {
@@ -44,8 +45,15 @@ function activePath() {
   return state.paths.find((p) => p.id === state.activeId) || null;
 }
 
-function positionsSignature() {
-  return JSON.stringify(state.paths.map((path) => [path.id, path.nodes.map((node) => [node.id, node.x, node.y])]));
+function syncControls() {
+  if (state.resource.busy) state.dragging = null;
+  setControlsBusy(document.querySelectorAll("#vt-tabs button, #nodeList input, #reset-btn, #vt-save-btn, #vt-reload-btn"), state.resource.busy);
+}
+
+function moveNode(id, coordinates) {
+  state.resource.mutate((draft) => {
+    Object.assign(nodeById(draft.paths.find((path) => path.id === state.activeId), id), coordinates);
+  });
 }
 
 function nodeById(path, id) {
@@ -69,6 +77,7 @@ function renderTabs() {
     btn.className = "tab" + (path.id === state.activeId ? " active" : "");
     btn.textContent = path.id;
     btn.addEventListener("click", () => {
+      if (state.resource.busy) return;
       state.activeId = path.id;
       state.selectedId = null;
       renderTabs();
@@ -214,8 +223,9 @@ function renderNodeList() {
     });
     row.querySelectorAll("input").forEach((inp) => {
       inp.addEventListener("change", () => {
+        if (state.resource.busy) return;
         const v = Math.max(0, Math.min(1, parseFloat(inp.value) || 0));
-        node[inp.dataset.axis] = v;
+        moveNode(node.id, { [inp.dataset.axis]: v });
         renderStage();
         renderNodeList();
       });
@@ -232,9 +242,11 @@ function renderNodeList() {
     addGroupHeader(`分支 ${b + 1}`, BRANCH_COLORS[b]);
     branchNodes.forEach(addRow);
   }
+  syncControls();
 }
 
 function onNodeDragStart(e, id) {
+  if (state.resource.busy) return;
   e.preventDefault();
   e.stopPropagation();
   state.selectedId = id;
@@ -244,17 +256,14 @@ function onNodeDragStart(e, id) {
 }
 
 document.addEventListener("mousemove", (e) => {
-  if (!state.dragging) return;
+  if (state.resource.busy || !state.dragging) return;
   const stage = document.getElementById("stage");
   const rect = stage.getBoundingClientRect();
   let x = (e.clientX - rect.left) / rect.width;
   let y = (e.clientY - rect.top) / rect.height;
   x = Math.max(0, Math.min(1, x));
   y = Math.max(0, Math.min(1, y));
-  const path = activePath();
-  const node = nodeById(path, state.dragging.id);
-  node.x = x;
-  node.y = y;
+  moveNode(state.dragging.id, { x, y });
   renderStage();
 });
 
@@ -264,15 +273,16 @@ document.addEventListener("mouseup", () => {
 });
 
 document.getElementById("stage").addEventListener("click", (e) => {
+  if (state.resource.busy) return;
   const bgImage = document.getElementById("bgImage");
   const stage = document.getElementById("stage");
   if (e.target !== bgImage && e.target !== stage) return;
   if (state.selectedId == null) return;
   const rect = stage.getBoundingClientRect();
-  const path = activePath();
-  const node = nodeById(path, state.selectedId);
-  node.x = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-  node.y = Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height));
+  moveNode(state.selectedId, {
+    x: Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width)),
+    y: Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height)),
+  });
   renderStage();
   renderNodeList();
 });
@@ -286,12 +296,15 @@ document.getElementById("toggleLinks").addEventListener("change", renderStage);
 document.getElementById("toggleLabels").addEventListener("change", renderStage);
 
 document.getElementById("reset-btn").addEventListener("click", () => {
+  if (state.resource.busy) return;
   const path = activePath();
   if (!path) return;
   if (!confirm(`将 ${path.id} 的所有节点重置为默认布局？`)) return;
-  path.nodes.forEach((node) => {
-    node.x = node.default_x;
-    node.y = node.default_y;
+  state.resource.mutate((draft) => {
+    draft.paths.find((item) => item.id === state.activeId).nodes.forEach((node) => {
+      node.x = node.default_x;
+      node.y = node.default_y;
+    });
   });
   state.selectedId = null;
   renderStage();
@@ -300,9 +313,7 @@ document.getElementById("reset-btn").addEventListener("click", () => {
 
 function applyResourcePayload(payload) {
   const draft = payload.draft;
-  state.paths = draft.paths || [];
-  state.savedPositions = positionsSignature();
-  state.base = Object.fromEntries((payload.change_set?.base || []).map((item) => [item.path, item.sha256]));
+  state.resource.replace({ base: resourceBase(payload), saved: draft });
   if (!state.activeId || !state.paths.some((p) => p.id === state.activeId)) {
     state.activeId = state.paths.length ? state.paths[0].id : null;
   }
@@ -314,13 +325,11 @@ function applyResourcePayload(payload) {
 }
 
 async function loadBootstrap() {
-  const payload = await fetchJson("api/resources/editor.victory_tree");
-  applyResourcePayload(payload);
+  return state.resource.run("loading", () => fetchJson("api/resources/editor.victory_tree"), { apply: applyResourcePayload });
 }
 
 async function save() {
-  const saveBtn = document.getElementById("vt-save-btn");
-  saveBtn.disabled = true;
+  if (state.resource.busy) return;
   try {
     const edits = {};
     state.paths.forEach((path) => {
@@ -330,23 +339,21 @@ async function save() {
       });
       edits[path.id] = coords;
     });
-    const payload = await fetchJson("api/resources/editor.victory_tree/commit", {
+    await state.resource.run("saving", () => fetchJson("api/resources/editor.victory_tree/commit", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ edits, base: state.base }),
-    });
-    applyResourcePayload(payload);
+    }), { apply: applyResourcePayload });
     appendLog("\n[ok] Saved.\n");
   } catch (err) {
     appendLog(`\n[error] ${err.message}\n`);
-  } finally {
-    saveBtn.disabled = false;
   }
 }
 
 document.getElementById("vt-save-btn").addEventListener("click", save);
 document.getElementById("vt-reload-btn").addEventListener("click", () => {
-  if (positionsSignature() !== state.savedPositions && !confirm("重新加载会丢弃未保存的坐标，继续吗？")) return;
+  if (state.resource.busy) return;
+  if (state.resource.dirty && !confirm("重新加载会丢弃未保存的坐标，继续吗？")) return;
   loadBootstrap().catch((err) => appendLog(`\n[error] ${err.message}\n`));
 });
 

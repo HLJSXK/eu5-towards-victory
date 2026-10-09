@@ -327,6 +327,33 @@ def test_operation_store_prunes_terminal_records_after_configured_retention(tmp_
         reopened.close()
 
 
+def test_second_store_rejects_ownership_without_interrupting_running_record(tmp_path):
+    import subprocess
+    import sys
+    from towards_victory_editor_web.services.operation_store import OperationStoreBusyError
+
+    path = tmp_path / "operations.sqlite3"
+    store = OperationStore(path)
+    operation = OperationLog("ownership_test", store=store)
+    operation.start()
+    try:
+        with pytest.raises(OperationStoreBusyError, match="already in use"):
+            OperationStore(path)
+        script = (
+            "import sys\n"
+            "from towards_victory_editor_web.services.operation_store import OperationStore, OperationStoreBusyError\n"
+            "try: OperationStore(sys.argv[1])\n"
+            "except OperationStoreBusyError: sys.exit(0)\n"
+            "sys.exit(1)\n"
+        )
+        child = subprocess.run([sys.executable, "-c", script, str(path)], capture_output=True, text=True, timeout=15)
+        assert child.returncode == 0, child.stderr
+        assert store.get(operation.id)["status"] == "running"
+        assert "interrupted" not in store.get(operation.id)
+    finally:
+        store.close()
+
+
 def test_persistence_failure_is_visible_without_changing_commit_outcome(tmp_path, monkeypatch) -> None:
     store = OperationStore(tmp_path / "operations.sqlite3")
     operation = OperationLog("resource_commit", store=store)
@@ -371,13 +398,12 @@ def test_lifespan_restores_shared_operation_store_references(tmp_path) -> None:
 
     store = OperationStore(tmp_path / "operations.sqlite3")
     previous_cropper_store = server.cropper.operation_store
-    previous_jobs_store = server.jobs.operation_store
+    app = server.create_app(store)
     try:
-        with TestClient(server.create_app(store)):
+        with TestClient(app):
             assert server.cropper.operation_store is store
-            assert server.jobs.operation_store is store
+            assert app.state.jobs.operation_store is store
         assert server.cropper.operation_store is previous_cropper_store
-        assert server.jobs.operation_store is previous_jobs_store
     finally:
         store.close()
 

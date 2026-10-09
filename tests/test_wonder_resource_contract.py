@@ -29,6 +29,7 @@ SOURCE_ATTRIBUTES = (
     "WONDER_SITE_RULES_FILE",
     "WONDERS_FILE",
     "UNIQUE_WONDERS_FILE",
+    "UNIQUE_RITUAL_PROMPTS_FILE",
 )
 SOURCE_RELATIVE_NAMES = (
     "wonder_localization.yaml",
@@ -38,6 +39,7 @@ SOURCE_RELATIVE_NAMES = (
     "wonder_site_rules.yaml",
     "wonders.yaml",
     "unique_wonders.yaml",
+    "unique_wonder_ritual_prompts.yaml",
 )
 
 
@@ -91,6 +93,7 @@ def service(tmp_path, monkeypatch):
     service.wonders_data = {"wonders": []}
     service.mechanics_data = {}
     service.unique_wonders_data = {"unique_wonders": []}
+    service.unique_ritual_prompts_data = {"unique_wonders": []}
     service.localization_data = {"english": {}, "simp_chinese": {}}
     service.wonders = []
     service.mechanics = {}
@@ -122,6 +125,95 @@ def test_resource_descriptor_and_base_snapshot(service):
     assert descriptor["kind"] == "yaml_aggregate"
     assert set(descriptor["source_paths"]) == set(base)
     assert all(len(digest) == 64 for digest in base.values())
+
+
+@pytest.fixture
+def prompt_service(service):
+    path = wonder_localization.UNIQUE_RITUAL_PROMPTS_FILE
+    path.write_text("unique_wonders: []\n", encoding="utf-8")
+    service._get_wonder = lambda _id: {"id": 1, "key": "unique_test", "is_unique": True}
+    service._unique_ritual_design_for_wonder = lambda _wonder: {}
+    service._apply_wonder_edits = lambda *_args: dict.fromkeys(
+        ("localization", "mechanics", "wonders", "unique"), False
+    )
+    service.list_wonders = lambda: [{"id": 1}]
+    service.get_wonder_payload = lambda _id: {"prompts": service.unique_ritual_prompts_data}
+
+    def reload():
+        service.unique_ritual_prompts_data = yaml.safe_load(path.read_text(encoding="utf-8"))
+        service._base = snapshot_files(wonder_localization._wonder_source_paths(), repo_root=wonder_localization.REPO_ROOT)
+
+    service.reload_from_disk = reload
+    reload()
+    return service
+
+
+def test_prompt_http_validate_preview_and_commit_share_resource(prompt_service, monkeypatch):
+    from towards_victory_editor_web import server
+
+    service = prompt_service
+    path = wonder_localization.UNIQUE_RITUAL_PROMPTS_FILE
+    before = path.read_bytes()
+    monkeypatch.setattr(server, "CostRewardEditorService", _UnusedCostRewardService)
+    monkeypatch.setattr(server, "VictoryTreePlannerService", lambda _store: object())
+    monkeypatch.setattr(server, "WonderLocalizationService", lambda _store: service)
+    body = {"base": _base(service), "wonders": [{"wonder_id": 1, "ritual_prompt": "  draft\r\nprompt  "}]}
+    with TestClient(server.create_app()) as client:
+        assert client.post("/api/resources/editor.wonder/validate", json=body).json()["valid"]
+        preview = client.post("/api/resources/editor.wonder/preview", json=body).json()
+        assert [item["path"] for item in preview["diff"]] == ["data/unique_wonder_ritual_prompts.yaml"]
+        assert path.read_bytes() == before
+        assert service.unique_ritual_prompts_data == {"unique_wonders": []}
+        response = client.post("/api/resources/editor.wonder/commit", json=body)
+        assert response.status_code == 200, response.text
+        assert response.json()["changed_wonder_ids"] == [1]
+        assert response.json()["operation"]["status"] == "succeeded"
+        assert service.unique_ritual_prompts_data["unique_wonders"][0]["prompt"] == "draft\nprompt"
+        assert _base(service) != body["base"]
+        assert client.post("/api/wonder-localization/ritual-prompts/1", json={"prompt": "old route"}).status_code == 404
+        body["base"] = _base(service)
+        body["wonders"][0]["ritual_prompt"] = ""
+        assert client.post("/api/resources/editor.wonder/commit", json=body).status_code == 200
+        assert service.unique_ritual_prompts_data["unique_wonders"] == []
+
+
+def test_prompt_commit_honors_resource_lock_and_external_base(prompt_service):
+    service = prompt_service
+    draft = {1: {"ritual_prompt": "draft"}}
+    base = _base(service)
+    with resource_operation(("editor.wonder",)):
+        with pytest.raises(ConflictError, match="Resource busy"):
+            service.commit_resource(draft, base, regenerate=False)
+    path = wonder_localization.UNIQUE_RITUAL_PROMPTS_FILE
+    path.write_text("unique_wonders: []\n# external\n", encoding="utf-8")
+    with pytest.raises(ConflictError, match="Resource changed"):
+        service.commit_resource(draft, base, regenerate=False)
+    assert "external" in path.read_text(encoding="utf-8")
+    assert service.unique_ritual_prompts_data == {"unique_wonders": []}
+
+
+def test_prompt_and_other_wonder_edits_rollback_together(prompt_service):
+    service = prompt_service
+    path = wonder_localization.UNIQUE_RITUAL_PROMPTS_FILE
+    other = wonder_localization.UNIQUE_WONDERS_FILE
+    before = {item: item.read_bytes() for item in (path, other)}
+
+    def edit(*_args):
+        service.unique_wonders_data = {"unique_wonders": [{"id": 1}]}
+        return {"localization": False, "mechanics": False, "wonders": False, "unique": True}
+
+    service._apply_wonder_edits = edit
+    def fail_response(_id):
+        assert "draft" in path.read_text(encoding="utf-8")
+        assert other.read_bytes() != before[other]
+        raise RuntimeError("response failed after writing both files")
+    service.get_wonder_payload = fail_response
+    base = _base(service)
+    with pytest.raises(RuntimeError, match="response failed"):
+        service.commit_resource({1: {"ritual_prompt": "draft"}}, base, regenerate=False)
+    assert {item: item.read_bytes() for item in before} == before
+    assert _base(service) == base
+    assert service.unique_ritual_prompts_data == {"unique_wonders": []}
 
 
 def test_validate_does_not_mutate_cached_draft(service):
@@ -230,7 +322,7 @@ def test_crlf_mechanics_edit_changes_only_edited_source(service):
         path.write_bytes(text.replace("\n", "\r\n").encode())
     service._base = snapshot_files(wonder_localization._wonder_source_paths(), repo_root=wonder_localization.REPO_ROOT)
     service.mechanics_data["buildings"]["sample"] = 2
-    changed = {"localization": False, "mechanics": True, "wonders": False, "unique": False}
+    changed = {"localization": False, "mechanics": True, "wonders": False, "unique": False, "prompts": False}
     files = service._candidate_source_bytes(changed)
     assert set(files) == {sources["buildings"]}
     raw = files[sources["buildings"]]

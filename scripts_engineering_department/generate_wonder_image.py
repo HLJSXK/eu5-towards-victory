@@ -30,7 +30,7 @@ import urllib.request
 import zlib
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -342,7 +342,7 @@ def build_url_opener(proxy_url: str) -> urllib.request.OpenerDirector:
     )
 
 
-def sleep_before_retry(label: str, attempt: int, error: Exception, retry_settings: RetrySettings) -> None:
+def sleep_before_retry(label: str, attempt: int, error: Exception, retry_settings: RetrySettings, *, wait: Callable[[float], None] = time.sleep) -> None:
     delay = min(
         retry_settings.initial_delay_seconds
         * (retry_settings.backoff_multiplier ** max(attempt - 1, 0)),
@@ -353,7 +353,7 @@ def sleep_before_retry(label: str, attempt: int, error: Exception, retry_setting
         f"{error}. Retrying in {delay:.1f}s..."
     )
     if delay > 0:
-        time.sleep(delay)
+        wait(delay)
 
 
 def api_post_json(
@@ -363,10 +363,12 @@ def api_post_json(
     timeout: float,
     retry_settings: RetrySettings,
     opener: urllib.request.OpenerDirector,
+    *, check_cancelled: Callable[[], None] = lambda: None, wait: Callable[[float], None] = time.sleep,
 ) -> dict[str, Any]:
     request_body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
 
     for attempt in range(1, retry_settings.max_attempts + 1):
+        check_cancelled()
         request = urllib.request.Request(
             endpoint,
             data=request_body,
@@ -382,6 +384,7 @@ def api_post_json(
         try:
             with opener.open(request, timeout=timeout) as response:
                 response_body = response.read()
+            check_cancelled()
             break
         except urllib.error.HTTPError as exc:
             error_body = exc.read().decode("utf-8", errors="replace")
@@ -389,11 +392,11 @@ def api_post_json(
                 raise RuntimeError(f"Packy API request failed: HTTP {exc.code}: {error_body}") from exc
             if attempt >= retry_settings.max_attempts:
                 raise RuntimeError(f"Packy API request failed after {attempt} attempts: HTTP {exc.code}: {error_body}") from exc
-            sleep_before_retry("Packy API request", attempt, exc, retry_settings)
+            sleep_before_retry("Packy API request", attempt, exc, retry_settings, wait=wait)
         except (urllib.error.URLError, TimeoutError, OSError) as exc:
             if attempt >= retry_settings.max_attempts:
                 raise RuntimeError(f"Packy API request failed after {attempt} attempts: {exc}") from exc
-            sleep_before_retry("Packy API request", attempt, exc, retry_settings)
+            sleep_before_retry("Packy API request", attempt, exc, retry_settings, wait=wait)
     else:
         raise RuntimeError("Packy API request failed without a response")
 
@@ -413,23 +416,27 @@ def download_bytes(
     timeout: float,
     retry_settings: RetrySettings,
     opener: urllib.request.OpenerDirector,
+    *, check_cancelled: Callable[[], None] = lambda: None, wait: Callable[[float], None] = time.sleep,
 ) -> bytes:
     for attempt in range(1, retry_settings.max_attempts + 1):
+        check_cancelled()
         request = urllib.request.Request(url, headers={"User-Agent": "TowardsVictoryWonderImageHelper/1.0"})
         try:
             with opener.open(request, timeout=timeout) as response:
-                return response.read()
+                data = response.read()
+            check_cancelled()
+            return data
         except urllib.error.HTTPError as exc:
             error_body = exc.read().decode("utf-8", errors="replace")
             if exc.code not in {408, 409, 425, 429, 500, 502, 503, 504}:
                 raise RuntimeError(f"Image download failed: HTTP {exc.code}: {error_body}") from exc
             if attempt >= retry_settings.max_attempts:
                 raise RuntimeError(f"Image download failed after {attempt} attempts: HTTP {exc.code}: {error_body}") from exc
-            sleep_before_retry("image download", attempt, exc, retry_settings)
+            sleep_before_retry("image download", attempt, exc, retry_settings, wait=wait)
         except (urllib.error.URLError, TimeoutError, OSError) as exc:
             if attempt >= retry_settings.max_attempts:
                 raise RuntimeError(f"Image download failed after {attempt} attempts: {exc}") from exc
-            sleep_before_retry("image download", attempt, exc, retry_settings)
+            sleep_before_retry("image download", attempt, exc, retry_settings, wait=wait)
     raise RuntimeError("Image download failed without a response")
 
 
@@ -438,7 +445,9 @@ def extract_png_bytes(
     timeout: float,
     retry_settings: RetrySettings,
     opener: urllib.request.OpenerDirector,
+    *, check_cancelled: Callable[[], None] = lambda: None, wait: Callable[[float], None] = time.sleep,
 ) -> tuple[bytes, str]:
+    check_cancelled()
     data = response.get("data")
     if not isinstance(data, list) or not data or not isinstance(data[0], dict):
         raise RuntimeError("Packy API response did not contain data[0]")
@@ -456,7 +465,7 @@ def extract_png_bytes(
             raise RuntimeError("Packy API returned invalid b64_json image data") from exc
 
     if isinstance(item.get("url"), str):
-        return download_bytes(item["url"], timeout, retry_settings, opener), revised_prompt
+        return download_bytes(item["url"], timeout, retry_settings, opener, check_cancelled=check_cancelled, wait=wait), revised_prompt
 
     raise RuntimeError("Packy API response did not contain b64_json or url image data")
 
@@ -721,20 +730,37 @@ def convert_existing_dds_worker(args: tuple[Path, Path, tuple[int, int, int], st
 
 def run_parallel_existing_dds_jobs(
     jobs: list[tuple[Path, Path, tuple[int, int, int], str, dict[str, Any], str]],
+    *, check_cancelled: Callable[[], None] = lambda: None,
 ) -> int:
     if not jobs:
         return 0
     worker_count = min(len(jobs), max(1, min(os.cpu_count() or 1, 8)))
     print(f"[parallel] converting {len(jobs)} PNG-backed DDS jobs with {worker_count} workers")
     completed = 0
-    with concurrent.futures.ProcessPoolExecutor(max_workers=worker_count) as executor:
-        futures = [executor.submit(convert_existing_dds_worker, job) for job in jobs]
-        for future in concurrent.futures.as_completed(futures):
-            for message in future.result():
-                print(message)
-            completed += 1
-            if completed % 10 == 0 or completed == len(jobs):
-                print(f"[parallel] completed {completed}/{len(jobs)}")
+    executor = concurrent.futures.ProcessPoolExecutor(max_workers=worker_count)
+    pending = set()
+    remaining = iter(jobs)
+    try:
+        while True:
+            check_cancelled()
+            while len(pending) < worker_count:
+                job = next(remaining, None)
+                if job is None:
+                    break
+                check_cancelled()
+                pending.add(executor.submit(convert_existing_dds_worker, job))
+            if not pending:
+                break
+            done, pending = concurrent.futures.wait(pending, timeout=0.1, return_when=concurrent.futures.FIRST_COMPLETED)
+            check_cancelled()
+            for future in done:
+                for message in future.result():
+                    print(message)
+                completed += 1
+                if completed % 10 == 0 or completed == len(jobs):
+                    print(f"[parallel] completed {completed}/{len(jobs)}")
+    finally:
+        executor.shutdown(wait=True, cancel_futures=True)
     return completed
 
 
@@ -886,14 +912,16 @@ def run_existing_assets(
     jobs: list[tuple[Path, Path, str, str]],
     background: tuple[int, int, int],
     crop_data: dict[str, Any],
+    *, check_cancelled: Callable[[], None] = lambda: None,
 ) -> int:
     parallel_jobs = []
     for source, output, stem, label in jobs:
+        check_cancelled()
         if source.suffix.lower() == ".png":
             parallel_jobs.append((source, output, background, label, crop_data, stem))
         else:
             convert_existing_dds(source, output, background, label, crop_data, stem)
-    run_parallel_existing_dds_jobs(parallel_jobs)
+    run_parallel_existing_dds_jobs(parallel_jobs, check_cancelled=check_cancelled)
     return 0
 
 
@@ -945,7 +973,7 @@ def run(options: dict[str, Any] | argparse.Namespace) -> int:
     return run_generation(config, tasks, load_crop_data())
 
 
-def run_generation(config: dict[str, Any], tasks: list[dict[str, Any]], crop_data: dict[str, Any]) -> int:
+def run_generation(config: dict[str, Any], tasks: list[dict[str, Any]], crop_data: dict[str, Any], *, check_cancelled: Callable[[], None] = lambda: None, wait: Callable[[float], None] = time.sleep) -> int:
     """Execute the already resolved generation tasks shared by CLI and Web."""
     api_config = require_object(config, "api")
     dds_config = require_object(config, "dds")
@@ -965,6 +993,7 @@ def run_generation(config: dict[str, Any], tasks: list[dict[str, Any]], crop_dat
 
     task_total = len(tasks)
     for index, task in enumerate(tasks, start=1):
+        check_cancelled()
         name = str(task.get("name") or "").strip()
         overwrite = bool(task.get("overwrite", False))
         enabled = bool(task.get("enabled", True))
@@ -1014,8 +1043,8 @@ def run_generation(config: dict[str, Any], tasks: list[dict[str, Any]], crop_dat
             f"[request {index}/{task_total}] model={payload['model']} "
             f"size={payload['size']} quality={payload['quality']}"
         )
-        response = api_post_json(endpoint, api_key, payload, timeout, retry_settings, opener)
-        png_bytes, revised_prompt = extract_png_bytes(response, timeout, retry_settings, opener)
+        response = api_post_json(endpoint, api_key, payload, timeout, retry_settings, opener, check_cancelled=check_cancelled, wait=wait)
+        png_bytes, revised_prompt = extract_png_bytes(response, timeout, retry_settings, opener, check_cancelled=check_cancelled, wait=wait)
         if not png_bytes.startswith(PNG_SIGNATURE):
             raise RuntimeError("Generated image payload is not a PNG")
 

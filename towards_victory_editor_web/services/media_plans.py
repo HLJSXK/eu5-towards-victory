@@ -89,7 +89,7 @@ def dds_icon_plan(module: Any, options: dict[str, Any]) -> ToolPlan:
     )
     def run(context: ToolContext) -> int:
         if args.dry_run:
-            return module.run_generation_tasks(config, args, tasks)
+            return module.run_generation_tasks(config, args, tasks, check_cancelled=context.check_cancelled, wait=context.wait)
         staged_config = copy.deepcopy(config)
         staged_tasks = []
         for task, previous_outputs in zip(tasks, preceding_outputs):
@@ -124,7 +124,10 @@ def dds_icon_plan(module: Any, options: dict[str, Any]) -> ToolPlan:
             references = [path for path in outputs if path.parent == directory]
             if references:
                 style_config["temporary_png_dir"] = str(context.stage_path(references[0]).parent)
-        code = module.run_generation_tasks(staged_config, args, staged_tasks)
+        code = module.run_generation_tasks(
+            staged_config, args, staged_tasks,
+            check_cancelled=context.check_cancelled, wait=context.wait,
+        )
         if code == 0:
             context.formalize_json_paths(outputs)
         return code
@@ -186,7 +189,10 @@ def wonder_image_plan(module: Any, options: dict[str, Any]) -> ToolPlan:
                 if destination is not None:
                     staged[key] = str(context.stage_path(destination).parent)
             staged_tasks.append(staged)
-        return module.run_generation(config, staged_tasks, crops)
+        return module.run_generation(
+            config, staged_tasks, crops,
+            check_cancelled=context.check_cancelled, wait=context.wait,
+        )
 
     return ToolPlan(
         snapshots + image_snapshots, tuple(sorted(outputs)),
@@ -203,9 +209,11 @@ def historical_api_plan(module: Any, options: dict[str, Any]) -> ToolPlan:
     outputs = () if options["dry_run"] else tuple(output for _, output in tasks)
     def run(context: ToolContext) -> int:
         if options["dry_run"]:
-            return module.run_tasks(config, tasks, dry_run=True)
+            return module.run_tasks(config, tasks, dry_run=True, check_cancelled=context.check_cancelled)
         staged_tasks = [(source, context.stage_path(output)) for source, output in tasks]
-        return module.run_tasks(config, staged_tasks, dry_run=options["dry_run"])
+        return module.run_tasks(
+            config, staged_tasks, dry_run=options["dry_run"], check_cancelled=context.check_cancelled,
+        )
 
     return ToolPlan(
         snapshots + sources, outputs,

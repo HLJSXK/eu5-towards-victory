@@ -40,7 +40,6 @@ from scripts_engineering_department.wonder_mechanics.io import (
     load_unique_wonders_source_data,
     load_wonders_source_data,
     reset_cost_reward_unit_caches,
-    save_yaml_document,
 )
 from scripts_engineering_department.wonder_mechanics.modifiers import authored_final_building_local_modifiers
 from scripts_engineering_department.wonder_mechanics.naming import (
@@ -138,6 +137,7 @@ def _wonder_source_paths() -> tuple[Path, ...]:
         WONDER_SITE_RULES_FILE,
         WONDERS_FILE,
         UNIQUE_WONDERS_FILE,
+        UNIQUE_RITUAL_PROMPTS_FILE,
     )
 
 
@@ -2346,7 +2346,7 @@ class WonderLocalizationService:
         self.unique_ritual_designs_data = load_unique_ritual_designs_data()
         self._validate_unique_ritual_designs()
         self.unique_ritual_design_translations_data = load_unique_ritual_design_translations_data()
-        self.unique_ritual_prompts_data = load_unique_ritual_prompts_data()
+        self.unique_ritual_prompts_data = load_unique_ritual_prompts_data(UNIQUE_RITUAL_PROMPTS_FILE)
         (
             self.country_modifier_options,
             self.local_modifier_options,
@@ -2426,6 +2426,10 @@ class WonderLocalizationService:
             files[WONDERS_FILE] = yaml_bytes(WONDERS_FILE, self.wonders_data)
         if changed["unique"]:
             files[UNIQUE_WONDERS_FILE] = yaml_bytes(UNIQUE_WONDERS_FILE, self.unique_wonders_data)
+        if changed["prompts"]:
+            files[UNIQUE_RITUAL_PROMPTS_FILE] = yaml_bytes(
+                UNIQUE_RITUAL_PROMPTS_FILE, self.unique_ritual_prompts_data
+            )
         return {
             path: content
             for path, content in files.items()
@@ -2433,9 +2437,21 @@ class WonderLocalizationService:
         }
 
     def _candidate_for_drafts(self, drafts_by_wonder_id: dict[int, dict[str, Any]]) -> tuple[dict, dict[Path, bytes], list[int]]:
-        changed = {"localization": False, "mechanics": False, "wonders": False, "unique": False}
+        changed = {
+            "localization": False,
+            "mechanics": False,
+            "wonders": False,
+            "unique": False,
+            "prompts": False,
+        }
         changed_wonder_ids: list[int] = []
-        state_attrs = ("wonders_data", "mechanics_data", "unique_wonders_data", "localization_data")
+        state_attrs = (
+            "wonders_data",
+            "mechanics_data",
+            "unique_wonders_data",
+            "localization_data",
+            "unique_ritual_prompts_data",
+        )
         original = {name: getattr(self, name) for name in state_attrs}
         for name, value in original.items():
             setattr(self, name, deepcopy(value))
@@ -2444,10 +2460,16 @@ class WonderLocalizationService:
                 page_changes = self._apply_wonder_edits(
                     int(wonder_id), draft.get("values", {}), draft.get("mechanics", {})
                 )
-                if any(page_changes.values()):
+                prompt_changed = (
+                    self._apply_ritual_prompt_edit(int(wonder_id), draft["ritual_prompt"])
+                    if "ritual_prompt" in draft
+                    else False
+                )
+                if any(page_changes.values()) or prompt_changed:
                     changed_wonder_ids.append(int(wonder_id))
                 for key, value in page_changes.items():
                     changed[key] = changed[key] or value
+                changed["prompts"] = changed["prompts"] or prompt_changed
             if changed["localization"]:
                 validate_canonical_localization_data(
                     self.wonders, self.mechanics, self.event_suffixes, self.localization_data
@@ -2831,46 +2853,43 @@ class WonderLocalizationService:
             "unique": unique_file_changed,
         }
 
-    def save_unique_ritual_prompt(self, wonder_id: int, prompt: str) -> dict[str, Any]:
-        with self._lock:
-            wonder = self._get_wonder(wonder_id)
-            if not wonder.get("is_unique"):
-                raise ValueError(f"{wonder['key']} is not a unique wonder")
+    def _apply_ritual_prompt_edit(self, wonder_id: int, prompt: str) -> bool:
+        wonder = self._get_wonder(wonder_id)
+        if not wonder.get("is_unique"):
+            raise ValueError(f"{wonder['key']} is not a unique wonder")
 
-            normalized_prompt = normalize_multiline_editor_text(str(prompt))
-            prompt_entries = [
-                deepcopy(entry)
-                for entry in self.unique_ritual_prompts_data.get("unique_wonders", [])
-                if isinstance(entry, dict) and str(entry.get("key", "")).strip() != wonder["key"]
-            ]
-            if normalized_prompt:
-                design = self._unique_ritual_design_for_wonder(wonder) or {}
-                ritual_design = design.get("ritual_design", {}) if isinstance(design, dict) else {}
-                prompt_entries.append(
-                    {
-                        "id": int(wonder["id"]),
-                        "key": wonder["key"],
-                        "base_key": wonder.get("base_key", ""),
-                        "location": wonder.get("location", ""),
-                        "ritual_title": ritual_design.get("title", ""),
-                        "prompt": normalized_prompt,
-                    }
-                )
-            prompt_entries.sort(key=lambda entry: int(entry.get("id", 0)))
+        normalized_prompt = normalize_multiline_editor_text(str(prompt))
+        current_prompt = str(
+            unique_ritual_prompt_index(self.unique_ritual_prompts_data)
+            .get(wonder["key"], {})
+            .get("prompt", "")
+        )
+        if normalized_prompt == current_prompt:
+            return False
 
-            data = deepcopy(self.unique_ritual_prompts_data or default_unique_ritual_prompts_data())
-            data["unique_wonders"] = prompt_entries
-            self.unique_ritual_prompts_data = data
-            save_yaml_document(UNIQUE_RITUAL_PROMPTS_FILE, data)
-
-            verb = "Saved" if normalized_prompt else "Cleared"
-            status = f"{verb} AI prompt for {wonder['key']} -> {UNIQUE_RITUAL_PROMPTS_REL}"
-            self._append_log(f"[data] {status}\n")
-            return {
-                "status": status,
-                "prompt": self._unique_ritual_prompt_for_wonder(wonder),
-                "log_text": self.log_text,
-            }
+        prompt_entries = [
+            deepcopy(entry)
+            for entry in self.unique_ritual_prompts_data.get("unique_wonders", [])
+            if isinstance(entry, dict) and str(entry.get("key", "")).strip() != wonder["key"]
+        ]
+        if normalized_prompt:
+            design = self._unique_ritual_design_for_wonder(wonder) or {}
+            ritual_design = design.get("ritual_design", {}) if isinstance(design, dict) else {}
+            prompt_entries.append(
+                {
+                    "id": int(wonder["id"]),
+                    "key": wonder["key"],
+                    "base_key": wonder.get("base_key", ""),
+                    "location": wonder.get("location", ""),
+                    "ritual_title": ritual_design.get("title", ""),
+                    "prompt": normalized_prompt,
+                }
+            )
+        prompt_entries.sort(key=lambda entry: int(entry.get("id", 0)))
+        data = deepcopy(self.unique_ritual_prompts_data or default_unique_ritual_prompts_data())
+        data["unique_wonders"] = prompt_entries
+        self.unique_ritual_prompts_data = data
+        return True
 
     def _localization_value(self, language: str, key: str) -> str:
         if language not in self.localization_data:

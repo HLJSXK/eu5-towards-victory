@@ -124,6 +124,8 @@ def validate_artifact_contract(
     artifacts: Iterable[Artifact],
     allowed_formats: Iterable[str] = (),
     path_overrides: dict[str, Path] | None = None,
+    *,
+    require_overrides: bool = False,
 ) -> list[dict[str, Any]]:
     """Validate declared media formats and generated script/localization files."""
     allowed = {str(value).lower().lstrip(".") for value in allowed_formats}
@@ -131,10 +133,13 @@ def validate_artifact_contract(
     for artifact in artifacts:
         if artifact.role == "deleted":
             continue
-        path = (path_overrides or {}).get(artifact.path, (repo_root / artifact.path).resolve())
+        override = (path_overrides or {}).get(artifact.path)
+        path = override or (repo_root / artifact.path).resolve()
         suffix = path.suffix.lower()
         report: dict[str, Any] = {"path": artifact.path, "format": suffix.lstrip(".") or "file", "valid": True}
         try:
+            if require_overrides and override is None:
+                raise ValueError("artifact is missing from the staging contract")
             if allowed and suffix.lstrip(".") not in allowed:
                 raise ValueError(
                     f"format {suffix.lstrip('.') or 'file'} is not declared by {artifact.role} contract"
