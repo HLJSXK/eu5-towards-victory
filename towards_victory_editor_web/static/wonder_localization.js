@@ -1,4 +1,5 @@
 import { fetchJson } from "./api.js";
+import { createLogView, createStatusView, escapeHtml, formatOperationReport } from "./display.js";
 import { ResourceState, resourceBase, setControlsBusy } from "./resource_state.js";
 
 const state = {
@@ -18,6 +19,8 @@ const state = {
     status: "就绪",
     statusKind: "default",
     logText: "",
+    // Report of the latest save only, so repeated saves do not accumulate reports.
+    logReport: "",
     rendering: false,
     ritualDesigns: null,
     ritualDesignDetails: {},
@@ -50,6 +53,8 @@ const elements = {
     logOutput: document.getElementById("log-output"),
     toast: document.getElementById("toast"),
 };
+const wonderLog = createLogView(elements.logOutput);
+const wonderStatus = createStatusView(elements.statusBadge);
 
 function normalizeLocalizationText(value) {
     return value.replace(/\r\n/g, "\n").replace(/\r/g, "\n").replace(/\n/g, " ").trim();
@@ -88,8 +93,7 @@ function showToast(message, kind = "info") {
 function updateStatus(text, kind = "default") {
     state.status = text;
     state.statusKind = kind;
-    elements.statusBadge.textContent = text;
-    elements.statusBadge.dataset.kind = kind;
+    wonderStatus.set(text, kind);
 }
 
 function syncBusyControls() {
@@ -2777,9 +2781,13 @@ function syncActiveEditorPanel() {
     }
 }
 
+function fullLogText() {
+    return state.logReport ? `${state.logText}\n${state.logReport}\n` : state.logText;
+}
+
 function renderLog() {
-    elements.logOutput.textContent = state.logText || "[server] 暂无新日志";
-    elements.copyLogButton.disabled = !state.logText;
+    wonderLog.set(fullLogText() || "[server] 暂无新日志");
+    elements.copyLogButton.disabled = !fullLogText();
 }
 
 function render() {
@@ -2943,6 +2951,7 @@ async function loadBootstrap() {
             state.title = payload.title;
             setCurrentWonderPayload(null);
             state.logText = payload.log_text || "";
+            state.logReport = "";
             state.status = payload.status || "就绪";
             state.statusKind = "default";
             syncWonderModeWithSelection();
@@ -2994,6 +3003,7 @@ async function saveCurrentWonder() {
             acceptWonderResource(payload, payload.wonders);
             invalidateRitualDesigns();
             state.logText = payload.log_text || state.logText;
+            state.logReport = formatOperationReport(payload);
             setCurrentWonderPayload(detailError ? null : payload.wonder);
             state.status = detailError ? "已保存，详情加载失败" : payload.status;
             state.statusKind = detailError ? "error" : "default";
@@ -3004,8 +3014,9 @@ async function saveCurrentWonder() {
     } catch (error) {
         if (typeof error.log_text === "string") {
             state.logText = error.log_text;
-            renderLog();
         }
+        state.logReport = formatOperationReport(error);
+        renderLog();
         updateStatus("保存失败", "error");
         showToast("保存失败: " + error.message, "error");
     }
@@ -3029,6 +3040,7 @@ async function reloadCurrentWonder() {
             invalidateRitualDesigns();
             setCurrentWonderPayload(wonder);
             state.logText = resource.draft.log_text || state.logText;
+            state.logReport = "";
             state.status = "已重新加载";
             state.statusKind = "default";
             syncWonderModeWithSelection();
@@ -3042,25 +3054,17 @@ async function reloadCurrentWonder() {
 }
 
 async function copyLog() {
-    if (!state.logText) {
+    const text = fullLogText();
+    if (!text) {
         return;
     }
     try {
-        await navigator.clipboard.writeText(state.logText);
+        await navigator.clipboard.writeText(text);
         showToast("日志已复制", "success");
     } catch (error) {
         console.error(error);
         showToast(`复制失败: ${error.message}`, "error");
     }
-}
-
-function escapeHtml(value) {
-    return String(value)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#39;");
 }
 
 elements.searchInput.addEventListener("input", renderWonderList);

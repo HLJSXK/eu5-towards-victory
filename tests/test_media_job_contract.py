@@ -733,7 +733,7 @@ def test_last_moment_publication_conflict_restores_prior_replacements(job_env, m
 
 
 @pytest.mark.parametrize("fails", [False, True])
-def test_missing_optional_staged_png_preserves_formal_png(job_env, monkeypatch, fails):
+def test_optional_png_deleted_in_staging_is_deleted_only_on_success(job_env, monkeypatch, fails):
     tool, manager = job_env
     png = tool.root / "kept.png"
     png.write_bytes(b"original PNG")
@@ -751,8 +751,15 @@ def test_missing_optional_staged_png_preserves_formal_png(job_env, monkeypatch, 
     monkeypatch.setattr(tool, "prepare", prepare)
     job = execute(tool, manager)
     assert job["status"] == ("failed" if fails else "succeeded"), job["error"]
-    assert png.read_bytes() == b"original PNG"
-    assert not any(item["role"] == "deleted" for item in job["artifacts"])
+    deleted = [item["path"] for item in job["artifacts"] if item["role"] == "deleted"]
+    if fails:
+        assert png.read_bytes() == b"original PNG"
+        assert deleted == []
+    else:
+        # A stale PNG left beside regenerated outputs would be preferred as
+        # the source by later rebuilds, so the handler's deletion is published.
+        assert not png.exists()
+        assert deleted == ["kept.png"]
     _, details = manager.operation_store.get_with_details(job["id"])
     assert details["artifacts"] == job["artifacts"]
 

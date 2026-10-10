@@ -12,7 +12,7 @@ function studio() {
   const formInput = { disabled: false };
   let timerId = 0;
   const control = (id) => controls[id] ||= {
-    textContent: '', disabled: false, hidden: false,
+    textContent: '', dataset: {}, disabled: false, hidden: false,
     addEventListener(event, handler) { listeners[id + ":" + event] = handler; }, appendChild() {},
   };
   const context = vm.createContext({
@@ -24,6 +24,8 @@ function studio() {
   });
   vm.runInContext(readFileSync(join(__dirname, '../towards_victory_editor_web/static/api.js'), 'utf8').replace(/^export /gm, ''), context);
   vm.runInContext(readFileSync(join(__dirname, '../towards_victory_editor_web/static/resource_state.js'), 'utf8').replace(/^export /gm, ''), context);
+  vm.runInContext(readFileSync(join(__dirname, '../towards_victory_editor_web/static/display.js'), 'utf8').replace(/^import .*;\r?\n/gm, '').replace(/^export /gm, ''), context);
+  vm.runInContext(readFileSync(join(__dirname, '../towards_victory_editor_web/static/job_panel.js'), 'utf8').replace(/^import .*;\r?\n/gm, '').replace(/^export /gm, ''), context);
   vm.runInContext(readFileSync(join(__dirname, '../towards_victory_editor_web/static/media_studio.js'), 'utf8').replace(/^import .*;\r?\n/gm, ''), context);
   return { context, control, timers, listeners, formInput, state: () => vm.runInContext('poller', context) };
 }
@@ -44,9 +46,9 @@ test('an interrupted publication warns about formal outputs and retained backups
     operation: { interrupted: true }, outputs_may_be_partial: true };
   vm.runInContext('poller.start(interrupted)', app.context);
   const message = app.control('media-status').textContent;
-  assert.match(message, /may be partially published/);
-  assert.match(message, /retained backups/);
-  assert.doesNotMatch(message, /preserved/);
+  assert.match(message, /可能部分发布/);
+  assert.match(message, /保留的备份/);
+  assert.doesNotMatch(message, /草稿已保留/);
 });
 
 test('a job interrupted before it started does not warn about partial publication', () => {
@@ -54,7 +56,7 @@ test('a job interrupted before it started does not warn about partial publicatio
   app.context.queued = { ...job('queued', 1, [], true), status: 'failed',
     operation: { interrupted: true }, outputs_may_be_partial: false };
   vm.runInContext('poller.start(queued)', app.context);
-  assert.equal(app.control('media-status').textContent, 'failed');
+  assert.equal(app.control('media-status').textContent, '失败');
 });
 
 test('discarded intermediate files are separate from formal output conflicts', () => {
@@ -62,15 +64,15 @@ test('discarded intermediate files are separate from formal output conflicts', (
   app.context.completed = { ...job('generated', 1, [], true), status: 'succeeded',
     staging_extra_files: ['staging/intermediate.bin'] };
   vm.runInContext('poller.start(completed)', app.context);
-  assert.equal(app.control('media-status').textContent, 'succeeded');
-  assert.match(app.control('media-file-report').textContent, /Intermediate files excluded from publication/);
-  assert.doesNotMatch(app.control('media-file-report').textContent, /Undeclared|review required/);
+  assert.equal(app.control('media-status').textContent, '已完成');
+  assert.match(app.control('media-file-report').textContent, /不参与发布的中间文件/);
+  assert.doesNotMatch(app.control('media-file-report').textContent, /未声明|需核对/);
 
   app.context.conflict = { ...job('conflict', 2, [], true), status: 'failed',
     formal_output_changes: ['output.json'], outputs_may_be_partial: true };
   vm.runInContext('poller.start(conflict)', app.context);
-  assert.match(app.control('media-status').textContent, /formal outputs require review/);
-  assert.match(app.control('media-file-report').textContent, /Formal outputs changed outside staging/);
+  assert.match(app.control('media-status').textContent, /正式输出需人工核对/);
+  assert.match(app.control('media-file-report').textContent, /正式输出在暂存区外发生变化/);
 });
 
 test('a late poll after cancellation cannot append duplicate lines', async () => {
@@ -117,7 +119,7 @@ test('transient polling failure retains the cursor and logs, then resumes', asyn
   await app.state().poll();
   assert.equal(app.state().cursor, 1);
   assert.equal(app.control('media-log').textContent, 'one');
-  assert.match(app.control('media-status').textContent, /retrying.*offline/);
+  assert.match(app.control('media-status').textContent, /正在重试.*offline/);
   assert.equal(app.timers.size, 1);
   app.context.fetch = async (url) => {
     assert.equal(url, '/api/jobs/retry?after_line=1');
@@ -125,7 +127,7 @@ test('transient polling failure retains the cursor and logs, then resumes', asyn
   };
   await app.state().poll();
   assert.equal(app.control('media-log').textContent, 'one\ntwo');
-  assert.match(app.control('media-status').textContent, /failed: generator failed/);
+  assert.match(app.control('media-status').textContent, /失败: generator failed/);
   assert.equal(app.state().active, false);
   assert.equal(app.timers.size, 0);
 });
@@ -149,7 +151,7 @@ test('a nontransient polling failure allows stopping without losing the job or a
   assert.equal(app.control('media-run').disabled, false);
   assert.equal(app.formInput.disabled, false);
   assert.equal(app.control('media-log').textContent, 'one');
-  assert.match(app.control('media-status').textContent, /Stopped tracking job retry.*outcome unknown.*invalid cursor/);
+  assert.match(app.control('media-status').textContent, /已停止跟踪作业 retry.*服务端结果未知.*invalid cursor/);
 });
 
 for (const status of [404, 410]) test(`${status} stops tracking and unlocks the form while preserving diagnostics`, async () => {
@@ -165,7 +167,7 @@ for (const status of [404, 410]) test(`${status} stops tracking and unlocks the 
   assert.equal(app.control('media-run').disabled, false);
   assert.equal(app.formInput.disabled, false);
   assert.equal(app.control('media-poll-retry').hidden, true);
-  assert.match(app.control('media-status').textContent, /Stopped tracking job missing.*outcome unknown.*unknown job/);
+  assert.match(app.control('media-status').textContent, /已停止跟踪作业 missing.*服务端结果未知.*unknown job/);
 });
 
 test('cancellation failure remains visible across polling and allows another cancel', async () => {
@@ -176,7 +178,7 @@ test('cancellation failure remains visible across polling and allows another can
   assert.equal(app.state().active, true);
   assert.equal(app.control('media-cancel').disabled, false);
   app.state().accept(job('cancel', 2, ['two']));
-  assert.match(app.control('media-status').textContent, /Cancellation failed: cancel offline/);
+  assert.match(app.control('media-status').textContent, /取消失败: cancel offline/);
   assert.equal(app.control('media-log').textContent, 'one\ntwo');
 });
 
@@ -189,7 +191,7 @@ test('same-cursor terminal cancellation discards a late running response', async
   app.state().accept({ ...job('cancel', 1, []), status: 'cancelled' });
   respond(Response.json(job('cancel', 1, [])));
   await pending;
-  assert.equal(app.control('media-status').textContent, 'cancelled');
+  assert.equal(app.control('media-status').textContent, '已取消');
   assert.equal(app.state().active, false);
 });
 
@@ -201,7 +203,7 @@ test('a job detached by Stop tracking stays cancellable and resumes tracking fro
   app.listeners['media-poll-stop:click']();
   assert.equal(app.state().active, false);
   assert.equal(app.control('media-cancel').disabled, false);
-  assert.match(app.control('media-status').textContent, /can be cancelled/);
+  assert.match(app.control('media-status').textContent, /可取消/);
   app.context.fetch = async () => Response.json({ ...job('detached', 2, ['one', 'cancel requested'], true), status: 'cancelling' });
   await app.listeners['media-cancel:click']();
   assert.equal(app.state().active, true);

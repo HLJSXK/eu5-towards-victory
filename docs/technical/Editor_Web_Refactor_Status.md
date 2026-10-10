@@ -15,9 +15,33 @@
   “待议事项”（需要决定是否处理），每条一行。
 - 完成一个切片后更新本文的焦点进度和验证记录；不要写成按提交排列的历史日志。
 
-## 当前焦点：待指定
+## 当前焦点：待用户指定（2026-10-10）
 
-“提交前审计缺陷收尾”已按用户确认的方案完成，第 1–6 项已修复并验收。第 7、8 项保留为独立待办；下一焦点待用户指定，不自行推进后续任务。
+前端共享展示层已完成并验收，见下一节。下一焦点由用户指定；不要自行开始 Wonder 单体拆分、后续任务或已关闭阶段的加固。
+
+## 已完成切片：前端共享展示层（2026-10-10）
+
+已按用户确认的方案完成：ES module 导出函数、保存前预览确认、操作提示统一中文，字段名、路径及服务端诊断保留原文。
+
+- `static/display.js` 统一日志/状态、标签渲染、HTML 转义及操作/生成报告；cost/reward 与 Victory Tree 已删除各自的日志、标签 DOM 与 load/save/reload 样板，统一使用 `static/editor_panel.js`。
+- 两个试点编辑器保存先请求资源 `/preview`，展示服务端文件/条目/字段及原值→新值；确认后提交相同的序列化请求。预览、确认与提交期间冻结编辑，返回编辑或 Escape 保留 draft/base，不提交。派生文件的哈希差异单列“文件摘要”。
+- `static/job_panel.js` 统一媒体与 cropper 的作业状态/日志、轮询错误、Retry/Stop 和输入/输出报告；媒体取消与停止跟踪后的可取消状态也由组件持有。`index.html` 只保留挂载位置，重复作业按钮和报告标记已删除；cropper 同样显示产物变化、缺失/校验错误、中间文件与发布恢复失败提示。
+- Wonder 只接入共享日志/状态、操作/生成报告及转义函数；媒体工具标签、cropper 文件路径及 Victory Tree 节点标签的 HTML 写入已转义。日志显示 `operation_id`、生成步骤与产物和独立的恢复结果，保留服务端诊断；操作报告单独保存，只显示最近一次保存的报告，复制日志包含该报告。
+- 重复按钮、actions 与日志样式，以及媒体 `.job-*` 基础样式移入 `shared.css`，按钮及其禁用样式只作用于两个试点编辑器、作业面板和预览对话框；组件提示统一中文。共享标签使用已有控件冻结机制，加载期间新建的标签在请求结束后恢复可用。
+
+共享展示测试以原生 ES module 导入；Chrome 验收使用真实 DOM 和服务端只读 preview，覆盖试点、媒体/cropper 和 Wonder 接入。完整结果与环境见“验证记录”。
+
+## 已完成切片：重构审计缺陷修复（2026-10-10）
+
+对 324e6d48..85e9a086 的审计发现两个未登记缺陷，均已修复：
+
+- 可选产物删除：staging 预先复制全部已有产物，handler 在 staging 删除的可选输出（`keep_png: false` 的 PNG）
+  现在在成功发布时同步删除正式文件，删除前同样复核正式快照，失败时由备份恢复；失败 job 不发布。此前旧 PNG
+  会留在新 DDS 旁，后续裁剪重建优先读取 PNG，用旧图覆盖新生成的 DDS。修正了上一切片“缺失可选 PNG 不再删除
+  正式 PNG”对成功运行的错误推广；Wonder 图片与 DDS 图标两个 handler 同时受益。
+- 轮询渲染异常：`JobPoller.accept` 改为先安排下一次轮询再调用 `onUpdate`；轮询路径中的渲染异常经 `onError`
+  显示，不再因 revision 已变化被静默丢弃。此前渲染抛错会让 job 停在 active 且没有定时器，cropper 与媒体页
+  控件永久禁用、无任何提示。终态 job 的渲染异常经 `onError(error, false)` 显示为停止跟踪提示，文案不精确但可见。
 
 ## 已完成切片：提交前审计缺陷收尾（2026-10-10）
 
@@ -37,14 +61,14 @@
 - Prompt 加入 Wonder 页面草稿、dirty、预览与统一提交；清空也是草稿编辑。Prompt 文件参与 base、资源锁和多文件恢复事务，独立 Prompt 路由和保存按钮已删除。
 - 媒体与 cropper 共用 `JobPoller`：瞬时网络/服务端错误自动重试，其他查询错误提供手动重试；保留 job ID、游标、日志，隔离迟到响应，显示 `job.error`。取消请求失败保留活动任务并恢复按钮。
 - cropper 的 409 提示使用英文并明确裁剪草稿已保留；共享请求层对空 detail 回退原始响应，保留服务端诊断。
-- 发布只替换声明且 staging 中实际存在的文件，缺失可选 PNG 不再删除正式 PNG；每个文件替换前复核正式快照，冲突恢复已替换文件并保留外部修改。回滚失败同时保留原始错误和恢复错误；staging 校验拒绝缺少映射的产物。
+- 发布只替换声明且 staging 中实际存在的文件（成功 job 中 handler 删除的可选输出现在同步删除，见重构审计缺陷修复）；每个文件替换前复核正式快照，冲突恢复已替换文件并保留外部修改。回滚失败同时保留原始错误和恢复错误；staging 校验拒绝缺少映射的产物。
 - 操作库打开前取得 OS 文件锁；同一库的第二个持有者明确报错退出，不触发恢复逻辑、不污染首进程的运行记录。服务关闭时先取消 jobs 并等待终态持久化，再关闭操作库（关闭策略见本次审计收尾）。
 - Victory Tree 保存失败补齐 `[error]` 日志。相关测试同时核对文件、base 和节点草稿不变。
 
 验收已覆盖 Prompt 的 HTTP validate/preview/commit、清空、资源锁、base 冲突与多文件回滚，
 以及逐文件发布冲突、PNG 保留、第二进程拒绝和关闭时终态持久化。前端 Node 回归与真实 Chrome
 页面验收通过；详细命令、结果和验证方式见“验证记录”。公共展示组件及 generation/artifact
-报告整合仍待用户指定，不属于本切片。
+报告展示已由“前端共享展示层”切片完成。
 
 ## 已完成切片：前端共享请求层（2026-10-08）
 
@@ -57,7 +81,7 @@
 - 新增 `tests/api.cjs` 覆盖两种 409、带 generation/log_text 的 500、非 JSON 错误和成功响应，
   并覆盖未知 409 与结构化校验详情；原媒体轮询、cropper/Wonder 状态测试已接入共享请求层。
   409 用例断言 `message` 包含资源/路径诊断，cropper 用例核对状态栏及日志保留诊断；测试顶部注明正则加载器的限制。
-- 该切片完成了共享请求层；资源状态迁移已由本次切片完成，公共组件与报告展示仍待指定。
+- 该切片完成了共享请求层；资源状态迁移已由本次切片完成，公共组件与报告展示已由“前端共享展示层”切片完成。
 
 ## 已完成切片：媒体 job 产物的暂存发布与失败恢复（2026-10-08）
 
@@ -99,13 +123,21 @@
 
 ## 已知缺陷
 
-2026-10-10 待提交审计第 1–6 项均已修复并验收，详见本次已完成切片；当前无未解决条目。第 7、8 项仍在“待议事项”。
+2026-10-10 重构审计发现的可选产物删除与轮询渲染异常已修复，见“重构审计缺陷修复”；当前无未解决条目。
 
 ## 待议事项
 
 需要决定是否处理、何时处理；未经确认不要动手：
 
-- 审计 7：cropper 与 Victory Tree 每次拖拽事件都复制并比较整份 draft；现有规模可用，性能优化另行决定。
+- 审计 7：cropper 与 Victory Tree 每次拖拽事件、Wonder 每次输入（`refreshDirtyState` → `cacheCurrentWonderDraft`）都复制并比较整份 draft；现有规模可用，性能优化另行决定。
+- `missing_outputs` 只能发现首次生成的必需输出缺失：staging 预填已有产物，handler 未重写既有输出时仍报成功（`changed: false`）。
+- `run_operation` 中 `on_error` 自身抛错会取代原始错误；当前只有 job 传入且会吞掉异常，属潜在问题。
+- 后端简化：`require_overrides` 不可能触发、`OperationLog.start` 的 `cancelling` 分支不可达、生产中必有的 store 到处判空、
+  `job_payload` 顶层与 `operation` 内重复字段、`OperationLog.operation_id`/`CapturedOutput.stream_name`/`ToolRegistry.all()` 无调用者。
+  与“不保留防御分支”规则不符，是否开简化切片待定（已关闭阶段默认只修缺陷）。
+- 既有 Node 测试以正则去掉 import/export 后在 sloppy-mode `vm` 中运行；共享展示组件的新测试已用原生 ES module，cost/reward 与 Victory Tree 页面接入由 Chrome 覆盖，是否迁移其余测试待定。
+- cost/reward 的 preview 对派生 `unique_wonders.yaml` 只返回文件 SHA-256 差异，没有字段级 diff；本切片标注为文件摘要，是否细化后端报告另行决定。
+- 提交审计小项：`editor_panel.js` 首次加载失败也提示“草稿已保留”；作业面板取消请求中的渲染异常会显示为“取消失败”；cropper 错误先写操作报告再追加错误信息，媒体页提交/引导失败只写状态栏不写日志。均不影响数据，是否整理另行决定。
 - 审计 8：`OperationStore` 文件锁异常路径通过捕获 `UnboundLocalError` 处理未赋值 handle，待整理为显式初始化。
 - 审计 8：`api.js` 使用 `return Promise.reject(error)` 替代 throw，行为相同，风格整理另行决定。
 - 审计 8：Wonder 保存/加载错误路径减少了 `console.error` 堆栈记录，复制日志按钮缺少请求期间的忙碌处理，待决定是否恢复。
@@ -134,9 +166,9 @@
 
 ## 后续任务（按顺序，当前焦点完成后由用户指定下一项）
 
-1. 提取前端公共展示组件，整合 generation/artifact 报告（共享请求层与资源状态协议已完成，范围待用户指定）。
-2. 建立跨资源 `ChangeSet`、完整输入依赖图、领域产物语义校验和跨资源预览。
-3. 设计跨进程持久锁和状态存储，再删除旧领域 service 拼接层。
+1. 拆分 Wonder 单体（`wonder_localization.py` 约 4,000 行、`.js` 约 3,100 行、`.css` 约 1,350 行），前端使用当前焦点产出的共享组件。
+2. 建立跨资源 `ChangeSet`、完整输入依赖图、领域产物语义校验和跨资源预览（Wonder 拆分后再评估必要性）。
+3. 设计跨进程持久锁和状态存储，再删除旧领域 service 拼接层（单用户本地工具收益低，建议降级，是否删除待用户确认）。
 
 ## 当前架构边界
 
@@ -154,6 +186,35 @@
   [详细评估](Towards_Victory_Editor_Web_Assessment.md) 为准。
 
 ## 验证记录
+
+提交前审计收尾：2026-10-11，Windows + eu5 Python 3.11.15 + Node 22.19.0 + 本机 Chrome headless。审计时重跑下方共享展示层全部命令：Python 241 passed、Node 47 项、Chrome 验收、Web `--check` 与 `git diff --check` 均通过。修复禁用按钮样式外溢和 Wonder 报告累积后，Node 48 项（新增报告不累积用例）与 Chrome 验收通过。
+
+前端共享展示层验收：2026-10-10，Windows + eu5 Python 3.11.15 + Node 22.19.0 + 本机 Chrome headless。修改前运行 task-scoped `ai_context.py`。
+
+```powershell
+C:\Users\Hades\anaconda3\envs\eu5\python.exe -m pytest --basetemp .pytest-shared-display-1010 tests/test_cost_reward_resource_contract.py tests/test_victory_tree_resource_contract.py tests/test_wonder_resource_contract.py tests/test_wonder_payload_loading.py tests/test_cropper_resource_contract.py tests/test_media_job_contract.py tests/test_media_cancellation.py tests/test_media_plans.py tests/test_operation_log_contract.py tests/test_editor_file_transactions.py tests/test_generation_plan.py -q
+node --test tests/api.cjs tests/resource_state.cjs tests/media_job_polling.cjs tests/cropper_resource_state.cjs tests/wonder_resource_state.cjs tests/shared_display.cjs
+node tests/resource_state_browser.cjs
+C:\Users\Hades\anaconda3\envs\eu5\python.exe -m towards_victory_editor_web --check
+C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts/validate.py --changed --fix --ai-report
+git diff --check
+```
+
+- Python 11 文件一次全量 241 passed，3 条已有 FastAPI/httpx 与 `binary_dilation` 弃用警告；包含临时副本中的完整 Wonder 生成链及产物逐字节比对。
+- Node 47 项通过，其中共享展示组件 10 项用原生 ES module；覆盖同一预览/提交体、请求冻结与重复提交、返回编辑/Escape、失败保留 draft/base、生成/恢复报告、共享作业文件报告及转义。8 个改动/新增前端模块 `node --check` 通过。
+- Chrome 使用真实 ES module、DOM、GET 和两个编辑器的服务端只读 preview，验证可见 diff、取消后继续编辑、确认提交体一致、409/生成失败后的草稿与诊断、四编辑器状态、媒体/cropper 共享报告、轮询恢复/取消失败/404 解锁/422 停止跟踪，以及 HTML 数据转义；无页面未捕获异常。写请求和网络错误由浏览器拦截，未写业务文件或调用图片 API。
+- Web `--check` 通过：9 个注册工具、5 个可运行、196 张裁剪图；changed validation 通过（4 个适用文件，无错误或警告），`git diff --check` 通过。重复日志样板已删除，`escapeHtml`/`renderTabs`/作业按钮标记/`new JobPoller` 均只有共享实现；生产 `fetch()` 仍仅位于 `api.js`。
+
+重构审计缺陷修复验收：2026-10-10，Windows + eu5 Python 3.11.15 + Node 22.19.0。修改前运行 task-scoped `ai_context.py`。
+
+```powershell
+C:\Users\Hades\anaconda3\envs\eu5\python.exe -m pytest --basetemp .pytest-claude-fix tests/test_media_job_contract.py tests/test_media_cancellation.py tests/test_media_plans.py tests/test_operation_log_contract.py tests/test_cropper_resource_contract.py -q
+node --test tests/api.cjs tests/resource_state.cjs tests/media_job_polling.cjs tests/cropper_resource_state.cjs tests/wonder_resource_state.cjs
+```
+
+- 审计前基线：11 个编辑器/媒体测试文件一次全量 241 passed；Node 36 项、Web `--check` 通过。
+- 修复后：五个媒体/操作/cropper 测试文件 110 passed；Node 37 项通过。两个新回归用例在撤掉对应修复时失败。
+  未重跑 Chrome 验收。
 
 本次审计收尾验收：2026-10-10，Windows + eu5 Python 3.11.15 + Node 22.19.0 + 本机 Chrome headless。修改前运行 task-scoped `ai_context.py`。
 

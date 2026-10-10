@@ -1,5 +1,6 @@
-import { fetchJson } from "./api.js";
 import { ResourceState, resourceBase, setControlsBusy } from "./resource_state.js";
+import { escapeHtml, renderTabs } from "./display.js";
+import { createEditorPanel } from "./editor_panel.js";
 
 const STAGE_W = 2048;
 const STAGE_H = 1152;
@@ -31,15 +32,15 @@ const state = {
   dragging: null,
 };
 
-function setLog(text) {
-  document.getElementById("vt-log").textContent = text || "";
-}
-
-function appendLog(text) {
-  const log = document.getElementById("vt-log");
-  log.textContent += text;
-  log.scrollTop = log.scrollHeight;
-}
+const editor = createEditorPanel({
+  prefix: "vt", resourceId: "editor.victory_tree", resource: state.resource,
+  request: () => ({
+    edits: Object.fromEntries(state.paths.map((path) => [path.id,
+      Object.fromEntries(path.nodes.map((node) => [node.id, { x: node.x, y: node.y }]))])),
+    base: state.base,
+  }),
+  apply: applyResourcePayload,
+});
 
 function activePath() {
   return state.paths.find((p) => p.id === state.activeId) || null;
@@ -68,23 +69,18 @@ function nodeColorHex(node) {
   return node.kind === "trunk" ? "#d97706" : BRANCH_COLORS[node.branch_index % BRANCH_COLORS.length];
 }
 
-function renderTabs() {
-  const tabsEl = document.getElementById("vt-tabs");
-  tabsEl.innerHTML = "";
-  state.paths.forEach((path) => {
-    const btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = "tab" + (path.id === state.activeId ? " active" : "");
-    btn.textContent = path.id;
-    btn.addEventListener("click", () => {
-      if (state.resource.busy) return;
-      state.activeId = path.id;
+function renderPathTabs() {
+  renderTabs(document.getElementById("vt-tabs"), {
+    items: state.paths, active: state.activeId,
+    key: (path) => path.id, label: (path) => path.id,
+    busy: () => state.resource.busy,
+    select: (id) => {
+      state.activeId = id;
       state.selectedId = null;
-      renderTabs();
+      renderPathTabs();
       renderStage();
       renderNodeList();
-    });
-    tabsEl.appendChild(btn);
+    },
   });
 }
 
@@ -202,7 +198,7 @@ function renderNodeList() {
   function addGroupHeader(title, color) {
     const header = document.createElement("div");
     header.className = "group-header";
-    header.innerHTML = `<span class="swatch" style="background:${color}"></span>${title}`;
+    header.innerHTML = `<span class="swatch" style="background:${escapeHtml(color)}"></span>${escapeHtml(title)}`;
     listEl.appendChild(header);
   }
 
@@ -210,8 +206,8 @@ function renderNodeList() {
     const row = document.createElement("div");
     row.className = "node-row" + (node.id === state.selectedId ? " selected" : "");
     row.innerHTML = `
-      <div class="n" style="color:${nodeColorHex(node)}">${node.id}</div>
-      <div class="title" title="${node.label}">${node.label}</div>
+      <div class="n" style="color:${escapeHtml(nodeColorHex(node))}">${escapeHtml(node.id)}</div>
+      <div class="title" title="${escapeHtml(node.label)}">${escapeHtml(node.label)}</div>
       <input type="number" step="0.001" min="0" max="1" value="${node.x.toFixed(3)}" data-axis="x">
       <input type="number" step="0.001" min="0" max="1" value="${node.y.toFixed(3)}" data-axis="y">
     `;
@@ -317,44 +313,11 @@ function applyResourcePayload(payload) {
   if (!state.activeId || !state.paths.some((p) => p.id === state.activeId)) {
     state.activeId = state.paths.length ? state.paths[0].id : null;
   }
-  setLog(draft.log || "");
-  renderTabs();
+  editor.log.set(draft.log || "");
+  renderPathTabs();
   applyZoom();
   renderStage();
   renderNodeList();
 }
 
-async function loadBootstrap() {
-  return state.resource.run("loading", () => fetchJson("api/resources/editor.victory_tree"), { apply: applyResourcePayload });
-}
-
-async function save() {
-  if (state.resource.busy) return;
-  try {
-    const edits = {};
-    state.paths.forEach((path) => {
-      const coords = {};
-      path.nodes.forEach((n) => {
-        coords[n.id] = { x: n.x, y: n.y };
-      });
-      edits[path.id] = coords;
-    });
-    await state.resource.run("saving", () => fetchJson("api/resources/editor.victory_tree/commit", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ edits, base: state.base }),
-    }), { apply: applyResourcePayload });
-    appendLog("\n[ok] Saved.\n");
-  } catch (err) {
-    appendLog(`\n[error] ${err.message}\n`);
-  }
-}
-
-document.getElementById("vt-save-btn").addEventListener("click", save);
-document.getElementById("vt-reload-btn").addEventListener("click", () => {
-  if (state.resource.busy) return;
-  if (state.resource.dirty && !confirm("重新加载会丢弃未保存的坐标，继续吗？")) return;
-  loadBootstrap().catch((err) => appendLog(`\n[error] ${err.message}\n`));
-});
-
-loadBootstrap().catch((err) => appendLog(`\n[error] ${err.message}\n`));
+void editor.load();

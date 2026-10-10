@@ -75,3 +75,47 @@ body {
 .tool-panel.active {
   display: block;
 }
+
+:where(.tool-cost-reward, .tool-victory-tree, .job-actions, .diff-dialog) button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+:where(.tool-cost-reward, .tool-victory-tree, .job-actions, .diff-dialog) button:disabled { opacity: 0.6; cursor: default; }
+.actions { display: flex; gap: 0.75rem; margin: 1rem 0; }
+.job-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .55rem; margin-top: .8rem; }
+.job-status { color: #f6c453; font-size: .85rem; overflow-wrap: anywhere; }
+.job-status[data-kind="error"] { color: #d14b36; }
+.job-identity { font-size: .8rem; overflow-wrap: anywhere; color: #71828a; }
+.job-log, #cr-log, #vt-log {
+  overflow: auto;
+  padding: .8rem;
+  border: 1px solid #343b45;
+  background: #101214;
+  color: #d3dae2;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.job-log { min-height: 12rem; max-height: 28rem; margin: 1rem 0 0; }
+#cr-log, #vt-log { min-height: 6rem; max-height: 16rem; }
+
+.diff-dialog {
+  width: min(64rem, 92vw);
+  max-height: 88vh;
+  padding: 1.4rem;
+  border: 1px solid #587480;
+  border-radius: 12px;
+  background: #edf3f4;
+  color: #173847;
+}
+.diff-dialog::backdrop { background: rgba(0, 0, 0, .6); }
+.diff-scroll { overflow: auto; max-height: 58vh; }
+.diff-dialog table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.diff-dialog th, .diff-dialog td { padding: .6rem; border: 1px solid #b7c9ce; vertical-align: top; overflow-wrap: anywhere; white-space: pre-wrap; }
+.diff-dialog th { background: #d8e5e9; color: #173847; }
+.diff-dialog tr { background: transparent; }
+.diff-dialog h2 { color: #173847; }

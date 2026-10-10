@@ -1,5 +1,7 @@
 import { fetchJson } from "./api.js";
-import { ResourceState, JobPoller, resourceBase } from "./resource_state.js";
+import { ResourceState, resourceBase } from "./resource_state.js";
+import { escapeHtml } from "./display.js";
+import { createJobPanel } from "./job_panel.js";
 
 const cropState = {
   resource: new ResourceState({ saved: { tasks: [] }, onChange: () => syncCropControls() }),
@@ -17,30 +19,14 @@ const canvas = document.getElementById("cropper-canvas");
 const context = canvas.getContext("2d");
 const RATIO = 27 / 11;
 const cropErrors = {
-  resource_busy: (detail) => `Resource is busy. Your crop is preserved; retry shortly. (${detail})`,
-  resource_changed: (detail) => `Source files changed. Your crop is preserved; reload to review the latest files. (${detail})`,
+  resource_busy: (detail) => `资源正在保存或生成中。裁剪草稿已保留，请稍后重试。（${detail}）`,
+  resource_changed: (detail) => `源文件已变化。裁剪草稿已保留，请重新加载并核对最新内容。（${detail}）`,
 };
-const cropPoller = new JobPoller({
-  delay: 600,
-  fetchJob: (id, cursor) => fetchJson(`/api/jobs/${id}?after_line=${cursor}`, undefined, { errorMessages: cropErrors }),
-  onUpdate: (job) => {
-    document.getElementById("cropper-log").textContent = job.lines.join("\n");
-    document.getElementById("cropper-status").textContent = job.error ? `${job.status}: ${job.error}` : job.status;
-    document.getElementById("cropper-poll-retry").hidden = true;
-    document.getElementById("cropper-poll-stop").hidden = true;
-    syncCropControls();
-  },
-  onError: renderCropPollError,
+const cropJobPanel = createJobPanel({
+  root: document.getElementById("cropper-job"), prefix: "cropper", delay: 600,
+  onChange: syncCropControls,
 });
-function renderCropPollError(error, retrying) {
-  const message = cropPoller.active
-    ? `Status request failed${retrying ? "; retrying" : "; retry or stop tracking"}`
-    : `Stopped tracking job ${cropPoller.jobId}; server outcome unknown`;
-  document.getElementById("cropper-status").textContent = `${message}: ${error.message}`;
-  document.getElementById("cropper-poll-retry").hidden = !cropPoller.active;
-  document.getElementById("cropper-poll-stop").hidden = !cropPoller.active;
-  syncCropControls();
-}
+const cropPoller = cropJobPanel.poller;
 function syncCropControls() {
   if (cropState.busy) cropState.drag = null;
   for (const id of ["cropper-save", "cropper-remove", "cropper-reload", "cropper-apply"]) {
@@ -129,11 +115,11 @@ function renderTasks() {
 function renderInspector() {
   const task = activeTask(); if (!task || !cropState.rect) return;
   document.getElementById("cropper-title").textContent = `${cropState.index + 1}/${cropState.tasks.length} ${task.name}`;
-  document.getElementById("cropper-meta").innerHTML = `<dt>Source</dt><dd>${task.pngPath}</dd><dt>Output</dt><dd>${task.ddsPath}</dd><dt>Image</dt><dd>${task.width} x ${task.height}</dd><dt>Crop</dt><dd>${cropState.rect.x.toFixed(1)}, ${cropState.rect.y.toFixed(1)}, ${cropState.rect.width.toFixed(1)} x ${cropState.rect.height.toFixed(1)}</dd>`;
+  document.getElementById("cropper-meta").innerHTML = `<dt>来源</dt><dd>${escapeHtml(task.pngPath)}</dd><dt>输出</dt><dd>${escapeHtml(task.ddsPath)}</dd><dt>图像</dt><dd>${escapeHtml(task.width)} x ${escapeHtml(task.height)}</dd><dt>裁剪</dt><dd>${cropState.rect.x.toFixed(1)}, ${cropState.rect.y.toFixed(1)}, ${cropState.rect.width.toFixed(1)} x ${cropState.rect.height.toFixed(1)}</dd>`;
 }
 function selectTask(index) {
   if (cropState.busy || index === cropState.index) return;
-  if (index !== cropState.index && cropState.dirty && !window.confirm("Discard the unsaved crop?")) return;
+  if (index !== cropState.index && cropState.dirty && !window.confirm("放弃未保存的裁剪修改？")) return;
   cropState.index = index; const task = activeTask(); if (!task) return;
   cropState.resource.setDraft(cropState.resource.saved);
   loadCropImage();
@@ -164,27 +150,27 @@ document.addEventListener("keydown", (event) => {
 
 async function reloadCropResource({ confirmDirty = true } = {}) {
   if (cropState.busy) return false;
-  if (confirmDirty && cropState.dirty && !window.confirm("Discard the unsaved crop?")) return false;
+  if (confirmDirty && cropState.dirty && !window.confirm("放弃未保存的裁剪修改？")) return false;
   try {
     await cropState.resource.run("loading", () => fetchJson("/api/resources/editor.wonder_crop"), { apply: (payload) => {
     cropState.resource.replace({ base: resourceBase(payload), saved: payload.draft });
-    document.getElementById("cropper-log").textContent = (payload.draft.logs || []).join("\n");
+    cropJobPanel.log.set((payload.draft.logs || []).join("\n"));
     if (cropState.tasks.length) {
       const nextIndex = Math.min(Math.max(cropState.index, 0), cropState.tasks.length - 1);
       cropState.index = nextIndex;
       loadCropImage();
-      document.getElementById("cropper-status").textContent = "Reloaded";
+      cropJobPanel.status.set("已重新加载");
     } else {
       cropState.index = -1;
       cropState.image = null;
-      document.getElementById("cropper-status").textContent = "No generated PNG files found";
+      cropJobPanel.status.set("没有已生成的 PNG 文件");
       renderTasks();
       draw();
     }
     } });
     return true;
   } catch (error) {
-    document.getElementById("cropper-status").textContent = error.message;
+    cropJobPanel.error(error);
     return false;
   }
 }
@@ -199,30 +185,27 @@ async function commitCrop(rect) {
       body: JSON.stringify({ edits: { [index]: requestedRect }, base: cropState.base }),
     }, { errorMessages: cropErrors }), { apply: (result) => {
     cropState.resource.replace({ base: resourceBase(result), saved: result.draft });
-    document.getElementById("cropper-log").textContent = result.draft.logs.join("\n");
-    document.getElementById("cropper-status").textContent = requestedRect === null ? "Removed" : "Saved";
+    cropJobPanel.log.set(result.draft.logs.join("\n"));
+    cropJobPanel.log.report(result);
+    cropJobPanel.status.set(requestedRect === null ? "已移除" : "已保存");
     renderTasks();
     if (cropState.index === index) { renderInspector(); draw(); }
     } });
   } catch (error) {
-    document.getElementById("cropper-status").textContent = error.message;
-    document.getElementById("cropper-log").textContent += `${error.message}\n`;
+    cropJobPanel.error(error);
+    cropJobPanel.log.append(`${error.message}\n`);
   }
 }
 document.getElementById("cropper-save").addEventListener("click", () => commitCrop(cropState.rect));
 document.getElementById("cropper-remove").addEventListener("click", () => commitCrop(null));
 document.getElementById("cropper-reload").addEventListener("click", () => reloadCropResource());
-document.getElementById("cropper-poll-retry").addEventListener("click", () => cropPoller.poll());
-document.getElementById("cropper-poll-stop").addEventListener("click", () => {
-  cropPoller.stop();
-  renderCropPollError(cropPoller.error, false);
-});
 document.getElementById("cropper-apply").addEventListener("click", async () => {
   if (cropState.busy) return;
-  if (cropState.dirty && !window.confirm("The crop has unsaved changes. Rebuild DDS using the saved crop?")) return;
+  if (cropState.dirty && !window.confirm("裁剪有未保存的修改。使用已保存的裁剪重建 DDS？")) return;
   try {
-    await cropState.resource.run("submitting", () => fetchJson("/api/jobs", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ tool: "media.wonder_crop", options: {} }) }, { errorMessages: cropErrors }), { apply: (job) => cropPoller.start(job) });
+    cropJobPanel.status.set("正在提交", "working");
+    await cropState.resource.run("submitting", () => fetchJson("/api/jobs", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ tool: "media.wonder_crop", options: {} }) }, { errorMessages: cropErrors }), { apply: (job) => cropJobPanel.start(job) });
   }
-  catch (error) { document.getElementById("cropper-status").textContent = error.message; document.getElementById("cropper-log").textContent += `${error.message}\n`; }
+  catch (error) { cropJobPanel.error(error); cropJobPanel.log.append(`${error.message}\n`); }
 });
 reloadCropResource({ confirmDirty: false });

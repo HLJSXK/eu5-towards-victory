@@ -21,6 +21,7 @@ function editor() {
     });
     vm.runInContext(readFileSync(join(__dirname, '../towards_victory_editor_web/static/api.js'), 'utf8').replace(/^export /gm, ''), context);
     vm.runInContext(readFileSync(join(__dirname, '../towards_victory_editor_web/static/resource_state.js'), 'utf8').replace(/^export /gm, ''), context);
+    vm.runInContext(readFileSync(join(__dirname, '../towards_victory_editor_web/static/display.js'), 'utf8').replace(/^import .*;\r?\n/gm, '').replace(/^export /gm, ''), context);
     vm.runInContext(readFileSync(join(__dirname, '../towards_victory_editor_web/static/wonder_localization.js'), 'utf8').replace(/^import .*;\r?\n/gm, ''), context);
     vm.runInContext(`
         render = () => {};
@@ -100,4 +101,18 @@ test('a rejected commit refreshes the displayed log and retains drafts and base'
     assert.equal(app.state.pageDrafts[2].values.english.title, 'old draft');
     assert.equal(app.state.logText, '[error] source changed\n');
     assert.equal(app.context.displayedLog, app.state.logText);
+});
+
+test('repeated failed commits show only the latest operation report', async () => {
+    const app = editor();
+    let attempt = 0;
+    app.context.fetch = async () => Response.json({
+        detail: 'generator failed', operation_id: `op-${++attempt}`,
+    }, { status: 500 });
+    vm.runInContext('renderLog = () => { globalThis.displayedLog = fullLogText(); };', app.context);
+    await vm.runInContext('saveCurrentWonder()', app.context);
+    await vm.runInContext('saveCurrentWonder()', app.context);
+    assert.match(app.context.displayedLog, /op-2/);
+    assert.doesNotMatch(app.context.displayedLog, /op-1/);
+    assert.doesNotMatch(app.state.logText, /操作 ID/);
 });

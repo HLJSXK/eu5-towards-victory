@@ -17,12 +17,29 @@ Start it with the managed project interpreter:
 C:\Users\Hades\anaconda3\envs\eu5\python.exe -m towards_victory_editor_web --no-browser
 ```
 
-All five frontend modules import `fetchJson` from `static/api.js`. It returns
+All five frontends use `fetchJson` from `static/api.js`, directly or through shared components. It returns
 JSON on success and throws `ApiError` for HTTP errors, retaining `status`,
 `detail`, `code`, `operation_id`, `operation`, `generation`, and `log_text`.
 Its message combines shared guidance with the server diagnostic for `resource_busy`
 and `resource_changed`; `detail` retains the raw diagnostic. The changed-input
 guidance applies to both editors and media jobs. Non-JSON error bodies are read once.
+
+`static/display.js` provides shared log/status views, tabs, HTML escaping and
+operation/generation diagnostics. `static/editor_panel.js` owns the cost/reward
+and Victory Tree load/reload/save workflow. Save first calls the resource's
+`/preview` and shows the server diff in a confirmation dialog; returning to edit
+or pressing Escape keeps the draft and base. Editing stays frozen from preview
+through confirmation and commit, and both requests use the same serialized body.
+Field changes show their path, item, field and before/after values; the derived
+Wonder source change in cost/reward is a file-hash row labeled as a file summary.
+Commit success and errors render operation IDs and any generation/recovery report.
+
+`static/job_panel.js` owns media/cropper status, logs, polling Retry/Stop controls
+and input/output reports; media cancellation uses the same panel. The pages
+retain their own forms and resource edits. Wonder uses the shared log/status
+and escaping functions. Operation prompts are Chinese, while technical IDs,
+paths, field names and server diagnostics retain their original text. Common
+buttons, logs, job styles and preview styles live in `static/shared.css`.
 
 The default address is `http://127.0.0.1:8760/`. Use `--host`, `--port`, or
 omit `--no-browser` when a browser tab should open automatically. The older
@@ -51,8 +68,9 @@ one of its outputs, so a partial plan cannot leave a merge step stale.
 
 Each generator has a 120-second timeout by default; a timeout terminates and
 waits for the child process before recovery, marks the step `timed_out`, retains
-captured output in the log and skips the remaining steps. The plan and generation
-report are currently exposed through the API only; the Wonder page does not render them.
+captured output in the log and skips the remaining steps. The full plan remains
+available through the API. The Wonder page's shared log renders generation step
+results, artifact changes and recovery diagnostics.
 
 The shared artifact module validates media headers and generated text formats.
 TXT/GUI checks cover UTF-8, nonempty content and balanced strings/braces, and
@@ -95,6 +113,9 @@ valid JSON. This is a file-level check, not full image decoding or domain schema
 validation. Artifact collection only visits declared paths, including icon
 metadata under `data/generated_icons`; unrelated directory changes are ignored.
 Outputs that already exist are reported with `changed: false` when unchanged.
+Staging starts as a copy of the existing outputs, so an optional output the
+handler deletes in staging (for example a PNG with `keep_png: false`) is deleted
+from its formal path when a successful job publishes; failed jobs publish nothing.
 
 `media.wonder_crop` and `media.wonder_image` declare the `editor.wonder`,
 `editor.wonder_crop`, and `editor.cost_reward` resource dependencies. Other handlers declare files and formats but have no editor

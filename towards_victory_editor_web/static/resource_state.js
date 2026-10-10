@@ -158,8 +158,9 @@ export class JobPoller {
     this.error = job.error || null;
     this.revision += 1;
     this.active = ["queued", "running", "cancelling"].includes(job.status);
-    this.onUpdate({ ...job, lines: this.lines });
+    // Schedule before rendering so a render exception cannot strand an active job.
     if (this.active) this.schedulePoll(generation);
+    this.onUpdate({ ...job, lines: this.lines });
     return true;
   }
 
@@ -175,10 +176,9 @@ export class JobPoller {
     if (!jobId || !this.active || !this.isCurrent(jobId, generation)) return;
     if (this.timer !== null) this.cancel(this.timer);
     this.timer = null;
+    let job;
     try {
-      const job = await this.fetchJob(jobId, cursor);
-      if (!this.isCurrent(jobId, generation) || this.revision !== revision) return;
-      this.accept(job, generation);
+      job = await this.fetchJob(jobId, cursor);
     } catch (error) {
       if (!this.isCurrent(jobId, generation) || this.revision !== revision) return;
       this.error = error;
@@ -186,6 +186,15 @@ export class JobPoller {
       if ([404, 410].includes(error.status)) this.stop();
       this.onError(error, retrying);
       if (retrying) this.schedulePoll(generation);
+      return;
+    }
+    if (!this.isCurrent(jobId, generation) || this.revision !== revision) return;
+    try {
+      this.accept(job, generation);
+    } catch (error) {
+      // onUpdate failed after the job was accepted; surface it instead of dropping it.
+      this.error = error;
+      this.onError(error, this.active);
     }
   }
 }

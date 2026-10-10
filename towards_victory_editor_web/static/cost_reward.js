@@ -1,5 +1,6 @@
-import { fetchJson } from "./api.js";
 import { ResourceState, resourceBase, setControlsBusy } from "./resource_state.js";
+import { renderTabs } from "./display.js";
+import { createEditorPanel } from "./editor_panel.js";
 
 const state = {
   resource: new ResourceState({ saved: { groups: [], edits: {} }, onChange: () => syncControls() }),
@@ -9,15 +10,11 @@ const state = {
   activeKey: null,
 };
 
-function setLog(text) {
-  document.getElementById("cr-log").textContent = text || "";
-}
-
-function appendLog(text) {
-  const log = document.getElementById("cr-log");
-  log.textContent += text;
-  log.scrollTop = log.scrollHeight;
-}
+const editor = createEditorPanel({
+  prefix: "cr", resourceId: "editor.cost_reward", resource: state.resource,
+  request: () => ({ edits: state.edits, base: state.base }),
+  apply: applyBootstrapPayload,
+});
 
 function syncControls() {
   setControlsBusy(document.querySelectorAll("#cr-tabs button, #panels input, #panels textarea, #panels select, #cr-save-btn, #cr-reload-btn"), state.resource.busy);
@@ -41,21 +38,17 @@ function stageEdit(categoryKey, tokenId, field, rawValue) {
   });
 }
 
-function renderTabs() {
-  const tabsEl = document.getElementById("cr-tabs");
-  tabsEl.innerHTML = "";
-  state.groups.forEach((group) => {
-    const btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = "tab" + (group.key === state.activeKey ? " active" : "");
-    btn.textContent = `${group.label_zh}（${group.tokens.length}）`;
-    btn.addEventListener("click", () => {
-      if (state.resource.busy) return;
-      state.activeKey = group.key;
-      renderTabs();
+function renderCategoryTabs() {
+  renderTabs(document.getElementById("cr-tabs"), {
+    items: state.groups, active: state.activeKey,
+    key: (group) => group.key,
+    label: (group) => `${group.label_zh}（${group.tokens.length}）`,
+    busy: () => state.resource.busy,
+    select: (key) => {
+      state.activeKey = key;
+      renderCategoryTabs();
       renderPanels();
-    });
-    tabsEl.appendChild(btn);
+    },
   });
 }
 
@@ -301,37 +294,9 @@ function applyBootstrapPayload(payload) {
   if (!state.activeKey || !state.groups.some((g) => g.key === state.activeKey)) {
     state.activeKey = state.groups.length ? state.groups[0].key : null;
   }
-  setLog(draft.log || "");
-  renderTabs();
+  editor.log.set(draft.log || "");
+  renderCategoryTabs();
   renderPanels();
 }
 
-async function loadBootstrap() {
-  return state.resource.run("loading", () => fetchJson("api/resources/editor.cost_reward"), { apply: applyBootstrapPayload });
-}
-
-async function save() {
-  if (state.resource.busy) return;
-  try {
-    await state.resource.run("saving", () => fetchJson("api/resources/editor.cost_reward/commit", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        edits: state.edits,
-        base: state.base,
-      }),
-    }), { apply: applyBootstrapPayload });
-    appendLog("\n[ok] Saved.\n");
-  } catch (err) {
-    appendLog(`\n[error] ${err.message}\n`);
-  }
-}
-
-document.getElementById("cr-save-btn").addEventListener("click", save);
-document.getElementById("cr-reload-btn").addEventListener("click", () => {
-  if (state.resource.busy) return;
-  if (state.resource.dirty && !confirm("重新加载会丢弃未保存的修改，继续吗？")) return;
-  loadBootstrap().catch((err) => appendLog(`\n[error] ${err.message}\n`));
-});
-
-loadBootstrap().catch((err) => appendLog(`\n[error] ${err.message}\n`));
+void editor.load();

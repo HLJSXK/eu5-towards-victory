@@ -186,6 +186,7 @@ body {
 .tool-cost-reward button,
 .tool-victory-tree button,
 .media-actions button,
+.job-actions button,
 .cropper-actions button {
   border: 1px solid var(--workspace-line-strong);
   border-radius: 10px;
@@ -198,6 +199,7 @@ body {
 .tool-cost-reward button:hover,
 .tool-victory-tree button:hover,
 .media-actions button:hover,
+.job-actions button:hover,
 .cropper-actions button:hover {
   transform: translateY(-1px);
   border-color: var(--workspace-accent);
@@ -216,6 +218,7 @@ body {
 .tool-cost-reward button:disabled,
 .tool-victory-tree button:disabled,
 .media-actions button:disabled,
+.job-actions button:disabled,
 .cropper-actions button:disabled {
   opacity: 0.5;
   cursor: not-allowed;

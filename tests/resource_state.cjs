@@ -5,7 +5,7 @@ const { test } = require('node:test');
 const vm = require('node:vm');
 const context = vm.createContext({});
 vm.runInContext(readFileSync(join(__dirname, '../towards_victory_editor_web/static/resource_state.js'), 'utf8').replace(/^export /gm, ''), context);
-const { ResourceState } = vm.runInContext('({ ResourceState })', context);
+const { ResourceState, JobPoller } = vm.runInContext('({ ResourceState, JobPoller })', context);
 
 test('requests freeze editing and duplicates, and failure retains draft and base', async () => {
   const state = new ResourceState({ base: { source: 'old' }, saved: { text: 'saved' } });
@@ -50,4 +50,32 @@ test('applying a replacement keeps the request busy and reports render failures'
   assert.equal(state.error.message, 'render failed');
   assert.equal(state.busy, false);
   assert.equal(state.draft.value, 2);
+});
+
+test('a render failure during polling is reported and keeps an active job polling', async () => {
+  const timers = [];
+  const errors = [];
+  let renders = 0;
+  const responses = [
+    { id: 'job', status: 'running', line_cursor: 1, lines: ['a'] },
+    { id: 'job', status: 'succeeded', line_cursor: 2, lines: ['b'] },
+  ];
+  const poller = new JobPoller({
+    fetchJob: async () => responses.shift(),
+    onUpdate: () => { renders += 1; if (renders === 2) throw new Error('render failed'); },
+    onError: (error, retrying) => errors.push([error.message, retrying]),
+    schedule: (callback) => { timers.push(callback); return timers.length; },
+    cancel: () => {},
+  });
+  poller.start({ id: 'job', status: 'queued', line_cursor: 0, lines: [] });
+  await poller.poll();
+  assert.equal(renders, 2);
+  assert.deepEqual(errors, [['render failed', true]]);
+  assert.equal(poller.active, true);
+  assert.notEqual(poller.timer, null);
+  assert.deepEqual([...poller.lines], ['a']);
+  await poller.poll();
+  assert.equal(renders, 3);
+  assert.equal(poller.active, false);
+  assert.deepEqual([...poller.lines], ['a', 'b']);
 });

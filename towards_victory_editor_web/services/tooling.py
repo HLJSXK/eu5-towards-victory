@@ -596,17 +596,24 @@ def _publish_staged(
     try:
         for path in outputs:
             staged = context.stage_path(path)
+            resolved = path.resolve()
+            # Staging starts as a copy of every existing output, so a staged
+            # file that is gone was deleted by the handler (e.g. keep_png: false).
+            if not staged.is_file() and resolved not in before:
+                continue
+            expected = {resolved: before[resolved]} if resolved in before else {}
             if staged.is_file():
                 path.parent.mkdir(parents=True, exist_ok=True)
                 temporary = path.with_name(path.name + f".{context.job_id}.tmp")
                 temporary_paths.append(temporary)
                 shutil.copy2(staged, temporary)
-                resolved = path.resolve()
-                expected = {resolved: before[resolved]} if resolved in before else {}
-                if snapshot_artifacts((path,)) != expected:
-                    raise PublicationConflictError([artifact_path(context.repo_root, path)])
+            if snapshot_artifacts((path,)) != expected:
+                raise PublicationConflictError([artifact_path(context.repo_root, path)])
+            if staged.is_file():
                 os.replace(temporary, path)
-                replaced.append(path)
+            else:
+                path.unlink()
+            replaced.append(path)
     except Exception as original:
         recovery_errors = _restore_published(context.repo_root, tuple(replaced), backup)
         if recovery_errors:

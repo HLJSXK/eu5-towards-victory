@@ -19,8 +19,8 @@
       <button class="tool-hub-tab-btn" data-tool="cost-reward">花费/奖励编辑器</button>
       <button class="tool-hub-tab-btn" data-tool="victory-tree">胜利树规划器</button>
       <button class="tool-hub-tab-btn" data-tool="wonder-localization">奇观本地化编辑器</button>
-      <button class="tool-hub-tab-btn" data-tool="media-studio">Media studio</button>
-      <button class="tool-hub-tab-btn" data-tool="wonder-cropper">Wonder cropper</button>
+      <button class="tool-hub-tab-btn" data-tool="media-studio">媒体工具</button>
+      <button class="tool-hub-tab-btn" data-tool="wonder-cropper">奇观裁剪</button>
     </nav>
   </header>
   <main id="tool-hub-panels">
@@ -46,6 +46,8 @@
           <button id="cr-save-btn">保存并重新生成</button>
           <button id="cr-reload-btn">重新加载</button>
         </div>
+        <p id="cr-status" class="job-status" role="status">就绪</p>
+        <div id="cr-preview"></div>
         <pre id="cr-log"></pre>
       </main>
     </section>
@@ -90,6 +92,8 @@
           <button id="vt-reload-btn">重新加载</button>
           <button id="reset-btn">重置当前路径</button>
         </div>
+        <p id="vt-status" class="job-status" role="status">就绪</p>
+        <div id="vt-preview"></div>
         <pre id="vt-log"></pre>
       </main>
     </section>
@@ -158,57 +162,46 @@
 
     <section class="tool-panel tool-media-studio" data-tool="media-studio">
       <header class="workspace-heading">
-        <p class="eyebrow">Unified media tools</p>
-        <h1>Media studio</h1>
-        <p class="subtitle">Run the project image generators through the shared media workspace. Each job reports live logs and validated output artifacts.</p>
+        <p class="eyebrow">媒体工具</p>
+        <h1>媒体工作台</h1>
+        <p class="subtitle">运行项目图片生成器，查看作业日志及经过校验的产物报告。</p>
       </header>
       <div class="media-layout">
         <aside class="media-tool-list" id="media-tool-list"></aside>
         <main class="media-workspace">
           <div id="media-form" class="media-form"></div>
           <div class="media-actions">
-            <button id="media-run" class="primary-button" type="button">Run tool</button>
-            <button id="media-cancel" type="button" disabled>Cancel job</button>
-            <button id="media-poll-retry" type="button" hidden>Retry status</button>
-            <button id="media-poll-stop" type="button" hidden>Stop tracking</button>
-            <span id="media-status" class="job-status">Ready</span>
+            <button id="media-run" class="primary-button" type="button">运行工具</button>
           </div>
-          <pre id="media-log" class="job-log"></pre>
-          <details id="media-files" hidden>
-            <summary>Job inputs and outputs</summary>
-            <pre id="media-file-report" class="job-log"></pre>
-          </details>
+          <div id="media-job"></div>
         </main>
       </div>
     </section>
 
     <section class="tool-panel tool-wonder-cropper" data-tool="wonder-cropper">
       <header class="workspace-heading">
-        <p class="eyebrow">Unified media tools</p>
-        <h1>Wonder image cropper</h1>
-        <p class="subtitle">Choose a generated wonder image, drag a 27:11 crop, save it to the shared crop data, then rebuild DDS assets.</p>
+        <p class="eyebrow">媒体工具</p>
+        <h1>奇观图片裁剪</h1>
+        <p class="subtitle">选择已生成的奇观图片，拖出 27:11 裁剪区域，保存后重建 DDS 产物。</p>
       </header>
       <div class="cropper-layout">
         <aside class="cropper-sidebar">
-          <div class="section-label">Images</div>
+          <div class="section-label">图片</div>
           <div id="cropper-task-list"></div>
         </aside>
         <main class="cropper-stage-wrap">
           <canvas id="cropper-canvas"></canvas>
         </main>
         <aside class="cropper-inspector">
-          <h2 id="cropper-title">No image</h2>
+          <h2 id="cropper-title">未选择图片</h2>
           <dl id="cropper-meta"></dl>
           <div class="cropper-actions">
-            <button id="cropper-save" class="primary-button" type="button">Save crop</button>
-            <button id="cropper-remove" type="button">Remove saved crop</button>
-            <button id="cropper-reload" type="button">Reload crops</button>
-            <button id="cropper-apply" type="button">Rebuild DDS</button>
-            <button id="cropper-poll-retry" type="button" hidden>Retry status</button>
-            <button id="cropper-poll-stop" type="button" hidden>Stop tracking</button>
+            <button id="cropper-save" class="primary-button" type="button">保存裁剪</button>
+            <button id="cropper-remove" type="button">移除已保存裁剪</button>
+            <button id="cropper-reload" type="button">重新加载裁剪</button>
+            <button id="cropper-apply" type="button">重建 DDS</button>
           </div>
-          <p id="cropper-status" class="job-status">Ready</p>
-          <pre id="cropper-log" class="job-log"></pre>
+          <div id="cropper-job"></div>
         </aside>
       </div>
     </section>

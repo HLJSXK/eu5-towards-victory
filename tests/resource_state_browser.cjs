@@ -1,4 +1,4 @@
-// Real ES modules and DOM, live GETs, intercepted writes; no game data is changed.
+// Real ES modules and DOM, live GETs and read-only previews, intercepted writes; no game data is changed.
 // Run with EU5_PYTHON and CHROME_PATH set if the Windows defaults do not apply.
 const assert = require('node:assert/strict');
 const { spawn } = require('node:child_process');
@@ -75,12 +75,27 @@ async function main() {
           return Response.json({ ...probe.job, lines: [], lines_reset: false, error: probe.terminal ? 'generator probe failure' : null,
             status: probe.terminal ? 'failed' : 'running' });
         }
+        if (path.endsWith('/preview')) return liveFetch(url, options);
         if (options.method === 'POST') {
           await new Promise((resolve) => { probe.release = resolve; });
-          return Response.json({ code: probe.code || 'resource_changed', detail: 'probe source changed' }, { status: 409 });
+          return Response.json(probe.commitStatus === 500
+            ? { detail: 'generation probe failure', operation_id: 'probe-commit', generation: { status: 'failed',
+              steps: [{ id: 'probe.py', status: 'failed', returncode: 1 }], rollback: { status: 'succeeded', errors: [] } } }
+            : { code: probe.code || 'resource_changed', detail: 'probe source changed' }, { status: probe.commitStatus || 409 });
         }
         if (probe.gates.has(path)) await new Promise((resolve) => { probe.release = resolve; });
-        return liveFetch(url, options);
+        const response = await liveFetch(url, options);
+        const malicious = '<img src=x onerror="window.__xss=true"> & "text"';
+        if (path === '/api/resources/editor.victory_tree') {
+          const payload = await response.json(); payload.draft.paths[0].nodes[0].label = malicious; return Response.json(payload);
+        }
+        if (path === '/api/resources/editor.wonder_crop') {
+          const payload = await response.json(); payload.draft.tasks[0].pngPath = malicious; return Response.json(payload);
+        }
+        if (path === '/api/media/bootstrap') {
+          const payload = await response.json(); payload.tools[0].label = malicious; return Response.json(payload);
+        }
+        return response;
       };
     ` });
     await send('Page.navigate', { url: 'http://127.0.0.1:8767/' });
@@ -94,11 +109,31 @@ async function main() {
         { const input = document.querySelector('${input}'); input.value = '0.123'; input.dispatchEvent(new Event('${tool === 'cost-reward' ? 'input' : 'change'}', { bubbles: true })); }
         document.querySelector('${save}').click();`);
       assert(await evaluate(`document.querySelector('${input}').disabled && document.querySelector('${save}').disabled && document.querySelector('${reload}').disabled && document.querySelector('${tab}').disabled`), `${tool} commit controls`);
+      const prefix = tool === 'cost-reward' ? 'cr' : 'vt';
+      await ready(`document.querySelector('#${prefix}-preview dialog').open`);
+      assert.match(await evaluate(`document.querySelector('#${prefix}-preview tbody').textContent`), /0\.123/);
+      assert.equal(await evaluate(`__probe.requests.filter(r => r.path === '/api/resources/${resource}/commit').length`), 0);
+      await evaluate(`document.querySelector('#${prefix}-preview [data-cancel]').click()`);
+      await ready(`!document.querySelector('${save}').disabled`);
+      assert.equal(await evaluate(`Number(document.querySelector('${input}').value)`), 0.123);
+      await evaluate(`document.querySelector('${save}').click()`);
+      await ready(`document.querySelector('#${prefix}-preview dialog').open`);
+      await evaluate(`__probe.release = null; document.querySelector('#${prefix}-preview [data-confirm]').click()`);
+      await ready('!!__probe.release');
+      assert(await evaluate(`__probe.requests.findLast(r => r.path === '/api/resources/${resource}/preview').body === __probe.requests.findLast(r => r.path === '/api/resources/${resource}/commit').body`));
       await evaluate('__probe.release()');
       await ready(`!document.querySelector('${save}').disabled`);
       assert.equal(await evaluate(`Number(document.querySelector('${input}').value)`), 0.123);
       assert.match(await evaluate(`document.querySelector('${log}').textContent`), /probe source changed/);
-      await evaluate(`__probe.gates.set('/api/resources/${resource}', true); document.querySelector('${reload}').click()`);
+      await evaluate(`__probe.commitStatus = 500; document.querySelector('${save}').click()`);
+      await ready(`document.querySelector('#${prefix}-preview dialog').open`);
+      await evaluate(`__probe.release = null; document.querySelector('#${prefix}-preview [data-confirm]').click()`);
+      await ready('!!__probe.release');
+      await evaluate('__probe.release()');
+      await ready(`!document.querySelector('${save}').disabled`);
+      assert.match(await evaluate(`document.querySelector('${log}').textContent`), /probe-commit[\s\S]*probe.py[\s\S]*恢复结果: 已完成/);
+      assert.equal(await evaluate(`Number(document.querySelector('${input}').value)`), 0.123);
+      await evaluate(`__probe.commitStatus = null; __probe.gates.set('/api/resources/${resource}', true); document.querySelector('${reload}').click()`);
       assert(await evaluate(`document.querySelector('${input}').disabled && document.querySelector('${tab}').disabled`), `${tool} reload controls`);
       await evaluate(`__probe.gates.clear(); __probe.release()`);
       await ready(`!document.querySelector('${save}').disabled`);
@@ -121,7 +156,7 @@ async function main() {
     assert(await evaluate("document.querySelector('#dirty-badge').classList.contains('hidden')"));
 
     await evaluate("document.querySelector('.tool-hub-tab-btn[data-tool=\"wonder-cropper\"]').click()");
-    await ready("document.querySelector('#cropper-meta').textContent.includes('Crop')");
+    await ready("document.querySelector('#cropper-meta').textContent.includes('裁剪')");
     await delay(500);
     await evaluate("document.querySelector('#cropper-canvas').dispatchEvent(new WheelEvent('wheel', { deltaY: 100, cancelable: true }))");
     const crop = await evaluate("document.querySelector('#cropper-meta').textContent");
@@ -130,17 +165,17 @@ async function main() {
     await evaluate('__probe.release()');
     await ready("!document.querySelector('#cropper-save').disabled");
     assert.equal(await evaluate("document.querySelector('#cropper-meta').textContent"), crop);
-    assert.match(await evaluate("document.querySelector('#cropper-status').textContent"), /Your crop is preserved/);
+    assert.match(await evaluate("document.querySelector('#cropper-status').textContent"), /裁剪草稿已保留/);
 
     const job = { id: 'probe', status: 'running', line_cursor: 1, lines: ['first log'], lines_reset: true,
       operation: {}, resource_ids: [], source_snapshots: [], artifacts: [], metadata: {}, declared_outputs: [],
       formal_output_changes: [], staging_extra_files: [], missing_outputs: [] };
     await evaluate(`__probe.job = ${JSON.stringify(job)}; document.querySelector('.tool-hub-tab-btn[data-tool="media-studio"]').click(); document.querySelector('#media-run').click()`);
-    await ready("document.querySelector('#media-status').textContent.includes('retrying')");
+    await ready("document.querySelector('#media-status').textContent.includes('正在重试')");
     assert.equal(await evaluate("document.querySelector('#media-log').textContent"), 'first log');
-    await ready("__probe.polls >= 2 && document.querySelector('#media-status').textContent === 'running'");
+    await ready("__probe.polls >= 2 && document.querySelector('#media-status').textContent === '运行中'");
     await evaluate("document.querySelector('#media-cancel').click()");
-    await ready("document.querySelector('#media-status').textContent.includes('Cancellation failed') && !document.querySelector('#media-cancel').disabled");
+    await ready("document.querySelector('#media-status').textContent.includes('取消失败') && !document.querySelector('#media-cancel').disabled");
     await evaluate('__probe.terminal = true');
     await ready("document.querySelector('#media-status').textContent.includes('generator probe failure')");
     assert.equal(await evaluate("document.querySelector('#media-log').textContent"), 'first log');
@@ -154,12 +189,31 @@ async function main() {
           await evaluate(`document.querySelector('#${prefix}-poll-stop').click()`);
         }
         assert(await evaluate(`!document.querySelector('#${run}').disabled`));
-        assert.match(await evaluate(`document.querySelector('#${prefix}-status').textContent`), /Stopped tracking job probe.*outcome unknown/);
+        assert.match(await evaluate(`document.querySelector('#${prefix}-status').textContent`), /已停止跟踪作业 probe.*服务端结果未知/);
         assert.equal(await evaluate(`document.querySelector('#${prefix}-log').textContent`), 'first log');
       }
     }
+    const fileJob = { ...job, status: 'failed', error: 'output probe failure', outputs_may_be_partial: true,
+      publication_rollback_failed: true, declared_outputs: ['probe.dds'], missing_outputs: ['probe.dds'],
+      source_snapshots: [{ path: '<input.png>', sha256: 'missing' }],
+      staging_extra_files: ['staging/intermediate'], formal_output_changes: ['probe.dds'] };
+    let report;
+    for (const [tool, prefix, run] of [['media-studio', 'media', 'media-run'], ['wonder-cropper', 'cropper', 'cropper-apply']]) {
+      await evaluate(`__probe.job = ${JSON.stringify(fileJob)}; __probe.pollStatus = null; document.querySelector('.tool-hub-tab-btn[data-tool="${tool}"]').click(); document.querySelector('#${run}').click()`);
+      await ready(`document.querySelector('#${prefix}-status').textContent.includes('output probe failure')`);
+      const text = await evaluate(`document.querySelector('#${prefix}-file-report').textContent`);
+      if (report) assert.equal(text, report); else report = text;
+      assert.match(text, /<input.png>（可选，缺失）[\s\S]*probe.dds（缺失）[\s\S]*发布恢复失败/);
+      assert(await evaluate(`!document.querySelector('#${prefix}-files').hidden`));
+    }
+    assert(await evaluate(`document.querySelector('#media-tool-list button strong').textContent.includes('<img') && !document.querySelector('#media-tool-list img')`));
+    await evaluate(`document.querySelector('.tool-hub-tab-btn[data-tool="victory-tree"]').click()`);
+    assert(await evaluate(`document.querySelector('#nodeList .title').textContent.includes('<img') && !document.querySelector('#nodeList img')`));
+    assert(await evaluate(`document.querySelector('#cropper-meta').textContent.includes('<img') && !document.querySelector('#cropper-meta img') && !window.__xss`));
+    const modules = await evaluate(`Promise.all([import('/static/display.js'), import('/static/job_panel.js'), import('/static/editor_panel.js')]).then(m => m.every(x => Object.keys(x).length > 0))`);
+    assert(modules);
     assert.deepEqual(pageErrors, []);
-    console.log('Chrome resource-state acceptance passed: four editors, unified Prompt, polling recovery, cancellation failure, job error, 404 unlock and 422 stop tracking on both pages; no page exceptions.');
+    console.log('Chrome shared-display acceptance passed: live server diffs in two editors, preview cancellation and exact commit payload, generation/recovery diagnostics, four-editor state, shared media/cropper file reports and polling controls, escaped data; no page exceptions.');
     await send('Browser.close');
   } finally {
     if (ws) ws.close();
