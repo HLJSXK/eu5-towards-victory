@@ -15,30 +15,29 @@
   “待议事项”（需要决定是否处理），每条一行。
 - 完成一个切片后更新本文的焦点进度和验证记录；不要写成按提交排列的历史日志。
 
-## 当前焦点（已确认方案 A）：Wonder 列表、图片与元信息面板拆分（2026-10-12）
+## 当前焦点：待用户指定（2026-10-12）
 
-来源：后续任务 1 的最后一个切片。用户于 2026-10-12 确认方案 A（面板工厂），尚未开始实施；B、C 不在本切片范围，C 的摘要预览改走 `ResourceState.mutate` 如需处理须另行确认。
+后续任务 1（Wonder 单体拆分）已完成。候选项（未经确认不要动手）：
 
-现状（`wonder_localization.js` 约 230 行、16 个函数）：`wonderSearchHaystack`、`wondersForMode`、`findWonderByKey`、
-`renderWonderKindTabs`、`renderWonderList` 负责类型标签、搜索与列表；`wonderImageForSummary`、`currentWonderImage`、
-`wonderImageAlt`、`renderWonderImage` 负责图片框与缩略图；`renderMeta`、`currentUniqueInitialLevelState`、
-`uniqueInitialLevelStartStateLabel` 负责元信息卡片。依赖为 `state.wonders`、`state.currentWonder`、`state.listMode`、
-`state.pageDrafts`（初始等级草稿）、`state.busy`、搜索框与四个容器元素，列表点击调用 `wonderEditor.select`。
-名称/等级预览（`updateWonderNamePreview`、`updateUniqueInitialLevelPreview`）直接改写 `currentWonder` 与
-`state.wonders` 摘要后重绘列表和元信息，不经过 `ResourceState`。
+- **cost/reward 提交后同步 Wonder base**（后续任务 2 中唯一影响正常使用的一项）：cost/reward 保存改写
+  `unique_wonders.yaml` 后，Wonder 页面的 base 不更新，下次保存必然 409，只能整体 reload 并丢弃页面草稿。
+- **待议事项集中处理**：逐条决定关闭、修复或保留。
+- **页面剩余部分拆分**：`render` 编排、名称编辑器、编辑区与详情水合（562 行），收益较低。
 
-方案（已确认 A）：
+## 已完成切片：Wonder 列表、图片与元信息面板拆分（2026-10-12）
 
-- **A（已确认）面板工厂。** 新建 `static/wonder_panels.js`，导出无 DOM 的搜索/筛选/查找/图片替代文本辅助函数，以及
-  `createWonderPanels({ elements, getWonders, getCurrentWonder, getListMode, setListMode, getInitialLevelState, isBusy, onSelect })`，
-  返回 `renderKindTabs`、`renderList`、`renderMeta`、`renderImage`。页面保留 `render` 编排、名称编辑器、编辑区标签/字段区、
-  详情水合及名称/等级预览，预览后调用面板的重绘入口；摘要改写方式不变。验收：Node 原生 ES module 覆盖搜索、
-  类型筛选、按 key 查找和替代文本；Chrome 既有验收不变，另加类型切换计数、搜索过滤、缩略图转义与元信息初始等级标签。
-- B（未采用）仅迁移纯函数。 只迁出搜索/筛选/查找/替代文本/初始等级标签，渲染留在页面；改动小，页面仍持有全部面板 DOM。
-- C（未采用）摘要预览改走 `ResourceState.mutate`。 在 A 的基础上，把名称/等级预览对 `state.wonders` 的直接改写改为资源 draft
-  变更；行为更一致，但每次输入多一次 draft 复制，并改变预览与 busy 冻结的交互，需要单独确认。
+来源：后续任务 1 的最后一个切片；用户于 2026-10-12 确认方案 A（面板工厂）。
 
-完成后后续任务 1 即结束；页面剩余部分（`render` 编排、名称编辑器、编辑区与详情水合）是否继续拆分另行决定。
+- 新建 `static/wonder_panels.js`（216 行），导出无 DOM 的搜索、类型筛选、按 key 查找、图片替代文本及初始等级标签辅助函数。
+  `createWonderPanels({ elements, getWonders, getCurrentWonder, getListMode, setListMode, getInitialLevelState, isBusy, onSelect })`
+  返回 `renderKindTabs`、`renderList`、`renderMeta`、`renderImage`，通过 getter 读取当前页面数据，通过回调切换类型和选择奇观。
+- 页面保留 `render` 编排、名称编辑器、编辑区标签/字段区、详情水合、名称/等级预览及初始等级草稿读取。
+  预览继续直接更新当前奇观和列表摘要，再调用面板重绘入口；没有改走 `ResourceState.mutate`。
+- `wonder_localization.js` 从 758 行、39 个顶层函数降至 562 行、28 个；迁出的定义已删除，两处图片读取辅助函数内联，
+  不保留转发函数、页面反向依赖或模块级可变回调。列表模板、草稿读取与预览更新同迁出前一致。README 已补模块说明。
+- 新增 `tests/wonder_panels.cjs`，以原生 ES module 覆盖搜索字段、筛选顺序、同 key 原型查找、替代文本和等级标签。
+  新增 `tests/wonder_panels_browser.cjs` 并接入完整 Chrome 验收，覆盖类型计数、搜索过滤、空列表、缩略图转义、选择回调、
+  初始等级草稿标签及空/缺失/有图状态。验收结果与环境见“验证记录”。
 
 ## 已完成切片：Wonder 草稿与修改追踪模型拆分（2026-10-12）
 
@@ -121,7 +120,7 @@
 - 首次加载先显示摘要列表，再加载详情；reload 只有资源、详情与选项目录全部成功才替换页面。保存成功立即接受新 base 并清空已提交草稿；随后详情加载失败明确提示“已保存，但详情加载失败”，提供只读重试。返回编辑/Escape、409 与生成失败保留草稿及诊断。
 - 共享 `createLatestLogView` 分别保存服务日志、最近一次操作报告和当前诊断；详情重试保留保存报告，复制日志包含报告。Wonder 保留 toast、dirty 计数和快捷键，并新增未保存编辑的离开页面保护。原单体中的加载/保存/预览编排已删除。
 
-仪式设计、选项目录、图片面板等其余 Wonder UI 拆分仍在后续任务 1；cost/reward 提交后 Wonder base 不同步仍单列待议。验收结果与环境见“验证记录”。
+后续 Wonder 前端拆分见上方已完成切片；cost/reward 提交后 Wonder base 不同步仍单列待议。验收结果与环境见“验证记录”。
 
 ## 已完成切片：2026-10-11 审计缺陷修复
 
@@ -279,7 +278,7 @@
 
 ## 后续任务（按顺序，当前焦点完成后由用户指定下一项）
 
-1. 继续拆分 Wonder 剩余前端单体（当前 `wonder_localization.js` 为 758 行、39 个顶层函数）：保存/加载/预览、后端领域模块、前端结构值编解码、字段编辑器、仪式设计/Prompt 与草稿/修改追踪模型已完成；列表/图片/元信息面板待拆分。复用已产出的共享组件，各切片规模按实际依赖核对。
+1. **已完成：Wonder 单体拆分。** 保存/加载/预览、后端领域模块、前端结构值编解码、字段编辑器、仪式设计/Prompt、草稿/修改追踪模型及列表/图片/元信息面板均已完成。当前 `wonder_localization.js` 为 562 行、28 个顶层函数；页面剩余编排、名称编辑器、编辑区与详情水合是否继续拆分另行决定。
 2. 建立跨资源 `ChangeSet`、完整输入依赖图、领域产物语义校验和跨资源预览（Wonder 拆分后再评估必要性）。
 3. 设计跨进程持久锁和状态存储，再删除旧领域 service 拼接层（单用户本地工具收益低，建议降级，是否删除待用户确认）。
 
@@ -299,6 +298,22 @@
   [详细评估](Towards_Victory_Editor_Web_Assessment.md) 为准。
 
 ## 验证记录
+
+Wonder 列表、图片与元信息面板拆分：2026-10-12，Windows + eu5 Python 3.11.15 + Node 22.19.0 + 本机 Chrome headless。修改前已运行 task-scoped `ai_context.py` 并读取 Wonder 风险卡。
+
+```powershell
+node --test tests/api.cjs tests/resource_state.cjs tests/media_job_polling.cjs tests/cropper_resource_state.cjs tests/wonder_resource_state.cjs tests/shared_display.cjs tests/wonder_values.cjs tests/wonder_rituals.cjs tests/wonder_drafts.cjs tests/wonder_panels.cjs
+node tests/resource_state_browser.cjs
+C:\Users\Hades\anaconda3\envs\eu5\python.exe -m towards_victory_editor_web --check
+C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts/validate.py --fix --ai-report towards_victory_editor_web/static/wonder_panels.js towards_victory_editor_web/static/wonder_localization.js tests/wonder_panels.cjs tests/wonder_panels_browser.cjs tests/resource_state_browser.cjs
+git diff --check
+```
+
+- Node 全部 10 个测试文件 **79 项通过**；两个改动/新增生产模块及三个改动/新增测试文件均通过 `node --check`。
+- Chrome 完整验收通过，包含字段、面板、仪式三个子验收及既有四编辑器、媒体/cropper 场景，无页面未捕获异常。
+  新增面板验收使用真实 GET 和页面事件，缩略图转义场景仅改写读取响应；写请求沿用浏览器拦截，未改业务源文件或调用图片 API。
+- Web `--check` 通过（192 个奇观、7,534 个本地化键、9 个工具、5 个可运行、196 张裁剪图）；显式路径 validation 检查 5 个源文件，无错误或警告；`git diff --check` 通过。本次仅前端拆分，未重跑后端事务 pytest。
+- 提交前审计（2026-10-12，同一环境，独立重跑）：9 个迁出函数与迁出前源码逐行对照，差异仅为页面 `state` 读写改为注入的 getter/回调，以及两个单行图片读取函数内联为同一表达式；列表模板仅缩进变化。页面导入均有使用，无重复定义或残留调用；行数与函数计数与实测一致。Node 79 项、Chrome 完整验收、草稿边界补测、Web `--check`、changed validation 与 `git diff --check` 均通过。未发现缺陷；收尾补面板浏览器验收的调用说明注释，搜索测试不再断言空对象拼接出的空格数，当前焦点列出候选项。
 
 Wonder 草稿与修改追踪模型拆分：2026-10-12，Windows + eu5 Python 3.11.15 + Node 22.19.0 + 本机 Chrome headless。修改前已运行 task-scoped `ai_context.py` 并读取 Wonder 风险卡。
 

@@ -70,6 +70,14 @@ current Wonder, `pageDrafts` and busy state, and prompt edits go straight into
 the page draft. The catalog loads only when the ritual tab opens, details load
 on expansion, and a resource reload discards late responses.
 
+Wonder list, kind tabs, metadata cards and image rendering live in
+`static/wonder_panels.js`. `createWonderPanels` reads page data through getters
+and delegates kind changes and selection through callbacks; it returns
+`renderKindTabs`, `renderList`, `renderMeta` and `renderImage`. The module also
+exports DOM-free search, kind filtering, key lookup, image alt text and
+initial-level labels. The page keeps name/level previews and initial-level draft
+lookup, and calls the panel renderers after preview changes.
+
 `static/job_panel.js` owns media/cropper status, logs, polling Retry/Stop controls
 and input/output reports; media cancellation uses the same panel. The pages
 retain their own forms and resource edits. Operation prompts are Chinese, while technical IDs,

@@ -1,3 +1,4 @@
+import { createWonderPanels, findWonderByKey } from "./wonder_panels.js";
 import { createWonderFields } from "./wonder_fields.js";
 import { createWonderEditor } from "./wonder_editor.js";
 import { createWonderRituals } from "./wonder_rituals.js";
@@ -63,29 +64,13 @@ const wonderStatus = createStatusView(elements.statusBadge);
 const { buildEditorInput, createSingleLineEditorBinding } = createWonderFields({
     onChange: handleFieldChange,
     onOpenPrototype: (key) => {
-        const target = findWonderByKey(key, false);
+        const target = findWonderByKey(state.wonders, key, false);
         if (target) {
             void wonderEditor.select(target.id);
         }
     },
     onInitialLevelChange: updateUniqueInitialLevelPreview,
 });
-
-function wonderSearchHaystack(wonder) {
-    return [
-        wonder.id,
-        wonder.key,
-        wonder.concept,
-        wonder.name_zh,
-        wonder.name_en,
-        wonder.display_name,
-        wonder.kind_label,
-        wonder.size,
-        wonder.size_label,
-    ]
-        .join(" ")
-        .toLowerCase();
-}
 
 function showToast(message, kind = "info") {
     const toast = elements.toast;
@@ -226,8 +211,8 @@ function updateWonderNamePreview(language, value) {
         summary.display_name = state.currentWonder.summary.display_name;
     }
 
-    renderWonderList();
-    renderMeta();
+    wonderPanels.renderList();
+    wonderPanels.renderMeta();
 }
 
 function updateUniqueInitialLevelPreview(value) {
@@ -243,61 +228,11 @@ function updateUniqueInitialLevelPreview(value) {
             summary.initial_level = parsed.level;
         }
     }
-    renderMeta();
+    wonderPanels.renderMeta();
 }
 
 function currentWonderKind() {
     return state.currentWonder?.summary?.is_unique ? "unique" : "generic";
-}
-
-function wonderImageForSummary(wonder) {
-    return wonder?.image || null;
-}
-
-function currentWonderImage() {
-    return state.currentWonder?.summary?.image || state.currentWonder?.meta?.image || null;
-}
-
-function wonderImageAlt(wonder) {
-    const summary = wonder?.summary || wonder || {};
-    const name = summary.name_zh || summary.name_en || summary.key || "wonder";
-    return `${name} image`;
-}
-
-function renderWonderImage() {
-    const frame = elements.wonderImageFrame;
-    if (!frame) {
-        return;
-    }
-    frame.innerHTML = "";
-    frame.classList.remove("has-image", "is-missing");
-
-    if (!state.currentWonder) {
-        frame.classList.add("is-missing");
-        return;
-    }
-
-    const image = currentWonderImage();
-    if (image?.url) {
-        const img = document.createElement("img");
-        img.src = image.url;
-        img.alt = wonderImageAlt(state.currentWonder);
-        img.loading = "eager";
-        frame.append(img);
-        frame.classList.add("has-image");
-    } else {
-        const placeholder = document.createElement("div");
-        placeholder.className = "wonder-image-placeholder";
-        placeholder.textContent = "No generated image";
-        frame.append(placeholder);
-        frame.classList.add("is-missing");
-    }
-
-    if (image?.filename) {
-        const caption = document.createElement("figcaption");
-        caption.textContent = image.path || image.filename;
-        frame.append(caption);
-    }
 }
 
 function currentUniqueInitialLevelState() {
@@ -314,147 +249,16 @@ function currentUniqueInitialLevelState() {
     return parseUniqueInitialLevelValue(rawValue);
 }
 
-function uniqueInitialLevelStartStateLabel() {
-    const stateValue = currentUniqueInitialLevelState();
-    if (!stateValue.valid) {
-        return stateValue.value ? `Invalid level: ${stateValue.value}` : "Invalid level";
-    }
-    return stateValue.level > 0 ? `Level ${stateValue.level}` : "Not present";
-}
-
-function findWonderByKey(key, isUnique = null) {
-    return state.wonders.find((wonder) => {
-        if (wonder.key !== key) {
-            return false;
-        }
-        if (isUnique === null) {
-            return true;
-        }
-        return Boolean(wonder.is_unique) === Boolean(isUnique);
-    });
-}
-
-function wondersForMode(mode) {
-    const isUnique = mode === "unique";
-    return state.wonders.filter((wonder) => Boolean(wonder.is_unique) === isUnique);
-}
-
-function renderWonderKindTabs() {
-    const modes = [
-        { id: "generic", label: "通用奇观" },
-        { id: "unique", label: "独特奇观" },
-    ];
-    elements.wonderKindTabs.innerHTML = "";
-    for (const mode of modes) {
-        const button = document.createElement("button");
-        button.type = "button";
-        button.className = "kind-switch-button";
-        if (state.listMode === mode.id) {
-            button.classList.add("active");
-        }
-        button.textContent = `${mode.label} (${wondersForMode(mode.id).length})`;
-        button.addEventListener("click", () => {
-            if (state.busy) return;
-            state.listMode = mode.id;
-            renderWonderKindTabs();
-            renderWonderList();
-        });
-        elements.wonderKindTabs.append(button);
-    }
-}
-
-function renderWonderList() {
-    const query = elements.searchInput.value.trim().toLowerCase();
-    const pool = wondersForMode(state.listMode);
-    const wonders = pool.filter((wonder) => wonderSearchHaystack(wonder).includes(query));
-    const label = state.listMode === "unique" ? "独特奇观" : "通用奇观";
-
-    elements.wonderCount.textContent = `显示 ${wonders.length} / ${pool.length} 个${label}`;
-    elements.wonderList.innerHTML = "";
-
-    if (!wonders.length) {
-        const empty = document.createElement("div");
-        empty.className = "empty-state";
-        empty.textContent = "没有匹配的奇观。";
-        elements.wonderList.append(empty);
-        return;
-    }
-
-    for (const wonder of wonders) {
-        const button = document.createElement("button");
-        button.type = "button";
-        button.className = "wonder-item";
-        button.dataset.wonderKey = wonder.key;
-        if (state.currentWonder && state.currentWonder.summary.id === wonder.id) {
-            button.classList.add("active");
-        }
-        const image = wonderImageForSummary(wonder);
-        const thumbnailHtml = image?.url
-            ? `<img class="wonder-thumb" src="${escapeHtml(image.url)}" alt="${escapeHtml(wonderImageAlt(wonder))}" loading="lazy">`
-            : `<span class="wonder-thumb wonder-thumb-missing" aria-hidden="true"></span>`;
-        button.innerHTML = `
-            ${thumbnailHtml}
-            <span class="wonder-list-copy">
-                <span class="wonder-row">
-                    <span class="wonder-id">#${wonder.id}</span>
-                    <span class="wonder-badges">
-                        <span class="wonder-kind">${escapeHtml(wonder.kind_label)}</span>
-                        <span class="wonder-size">${escapeHtml(wonder.size_label || wonder.size || "-")}</span>
-                    </span>
-                </span>
-                <strong>${escapeHtml(wonder.name_zh || wonder.key)}</strong>
-                <span class="wonder-subtitle">${escapeHtml(wonder.name_en || wonder.concept)}</span>
-                <code>${escapeHtml(wonder.key)}</code>
-            </span>
-        `;
-        button.addEventListener("click", () => {
-            void wonderEditor.select(wonder.id);
-        });
-        elements.wonderList.append(button);
-    }
-}
-
-function renderMeta() {
-    elements.wonderMeta.innerHTML = "";
-    if (!state.currentWonder) {
-        return;
-    }
-
-    const { meta, summary } = state.currentWonder;
-    const entries = [
-        ["ID", String(meta.id)],
-        ["Key", meta.key],
-        ["Concept key", meta.concept],
-        ["Size", meta.size_label || summary.size_label || meta.size || "-"],
-        ["类型", summary.kind_label],
-        ["中文名", meta.name_zh || "-"],
-        ["英文名", meta.name_en || "-"],
-    ];
-    if (meta.base_key) {
-        entries.push(["原型", meta.base_key]);
-    }
-    if (meta.base_effect_multiplier && Number(meta.base_effect_multiplier) !== 1) {
-        entries.push(["Base effect x", `x${meta.base_effect_multiplier}`]);
-    }
-    if (meta.location) {
-        entries.push(["固定地点", meta.location]);
-    }
-
-    if (summary.is_unique) {
-        entries.push(["Start state", uniqueInitialLevelStartStateLabel()]);
-    }
-
-    if (meta.image?.filename) {
-        entries.push(["Image", meta.image.exists ? meta.image.filename : `${meta.image.filename} (missing)`]);
-    }
-
-    for (const [label, value] of entries) {
-        const card = document.createElement("div");
-        card.className = "meta-card";
-        card.innerHTML = `<span>${escapeHtml(label)}</span><strong>${escapeHtml(value)}</strong>`;
-        elements.wonderMeta.append(card);
-    }
-}
+const wonderPanels = createWonderPanels({
+    elements,
+    getWonders: () => state.wonders,
+    getCurrentWonder: () => state.currentWonder,
+    getListMode: () => state.listMode,
+    setListMode: (mode) => { state.listMode = mode; },
+    getInitialLevelState: currentUniqueInitialLevelState,
+    isBusy: () => state.busy,
+    onSelect: (id) => wonderEditor.select(id),
+});
 
 function renderWonderNameEditors() {
     elements.wonderNameEditors.innerHTML = "";
@@ -649,10 +453,10 @@ function render() {
     state.rendering = true;
     try {
         elements.appTitle.textContent = state.title;
-        renderWonderKindTabs();
-        renderWonderList();
-        renderMeta();
-        renderWonderImage();
+        wonderPanels.renderKindTabs();
+        wonderPanels.renderList();
+        wonderPanels.renderMeta();
+        wonderPanels.renderImage();
         renderWonderNameEditors();
         renderEditorTabs();
         renderEditorPanels();
@@ -734,7 +538,7 @@ async function copyLog() {
     }
 }
 
-elements.searchInput.addEventListener("input", renderWonderList);
+elements.searchInput.addEventListener("input", wonderPanels.renderList);
 elements.copyLogButton.addEventListener("click", () => {
     void copyLog();
 });
