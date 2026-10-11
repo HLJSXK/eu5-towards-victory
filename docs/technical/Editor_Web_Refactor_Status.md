@@ -15,9 +15,9 @@
   “待议事项”（需要决定是否处理），每条一行。
 - 完成一个切片后更新本文的焦点进度和验证记录；不要写成按提交排列的历史日志。
 
-## 当前焦点（提议，待确认）：Wonder 列表、图片与元信息面板拆分（2026-10-12）
+## 当前焦点（已确认方案 A）：Wonder 列表、图片与元信息面板拆分（2026-10-12）
 
-来源：后续任务 1 的最后一个切片。草稿/修改追踪模型已完成，本项尚未开始实施，需用户确认方案后再动手。
+来源：后续任务 1 的最后一个切片。用户于 2026-10-12 确认方案 A（面板工厂），尚未开始实施；B、C 不在本切片范围，C 的摘要预览改走 `ResourceState.mutate` 如需处理须另行确认。
 
 现状（`wonder_localization.js` 约 230 行、16 个函数）：`wonderSearchHaystack`、`wondersForMode`、`findWonderByKey`、
 `renderWonderKindTabs`、`renderWonderList` 负责类型标签、搜索与列表；`wonderImageForSummary`、`currentWonderImage`、
@@ -27,15 +27,15 @@
 名称/等级预览（`updateWonderNamePreview`、`updateUniqueInitialLevelPreview`）直接改写 `currentWonder` 与
 `state.wonders` 摘要后重绘列表和元信息，不经过 `ResourceState`。
 
-提议方案：
+方案（已确认 A）：
 
-- **A（推荐）面板工厂。** 新建 `static/wonder_panels.js`，导出无 DOM 的搜索/筛选/查找/图片替代文本辅助函数，以及
+- **A（已确认）面板工厂。** 新建 `static/wonder_panels.js`，导出无 DOM 的搜索/筛选/查找/图片替代文本辅助函数，以及
   `createWonderPanels({ elements, getWonders, getCurrentWonder, getListMode, setListMode, getInitialLevelState, isBusy, onSelect })`，
   返回 `renderKindTabs`、`renderList`、`renderMeta`、`renderImage`。页面保留 `render` 编排、名称编辑器、编辑区标签/字段区、
   详情水合及名称/等级预览，预览后调用面板的重绘入口；摘要改写方式不变。验收：Node 原生 ES module 覆盖搜索、
   类型筛选、按 key 查找和替代文本；Chrome 既有验收不变，另加类型切换计数、搜索过滤、缩略图转义与元信息初始等级标签。
-- **B 仅迁移纯函数。** 只迁出搜索/筛选/查找/替代文本/初始等级标签，渲染留在页面；改动小，页面仍持有全部面板 DOM。
-- **C 摘要预览改走 `ResourceState.mutate`。** 在 A 的基础上，把名称/等级预览对 `state.wonders` 的直接改写改为资源 draft
+- B（未采用）仅迁移纯函数。 只迁出搜索/筛选/查找/替代文本/初始等级标签，渲染留在页面；改动小，页面仍持有全部面板 DOM。
+- C（未采用）摘要预览改走 `ResourceState.mutate`。 在 A 的基础上，把名称/等级预览对 `state.wonders` 的直接改写改为资源 draft
   变更；行为更一致，但每次输入多一次 draft 复制，并改变预览与 busy 冻结的交互，需要单独确认。
 
 完成后后续任务 1 即结束；页面剩余部分（`render` 编排、名称编辑器、编辑区与详情水合）是否继续拆分另行决定。
