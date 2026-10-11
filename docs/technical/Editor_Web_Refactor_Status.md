@@ -17,7 +17,22 @@
 
 ## 当前焦点：待用户指定（2026-10-11）
 
-清理切片已完成（见下方“已完成切片：清理切片”）。下一项由用户指定，不自动推进其余 Wonder UI 拆分或跨资源 ChangeSet。
+Wonder 前端结构值编解码切片已按用户确认的 A 方案完成。下一项由用户指定；不要自行推进后续切片或待议事项。
+
+## 已完成切片：Wonder 前端结构值编解码模块（2026-10-11）
+
+来源：2026-10-11 对 324e6d48..3e17b763 的审计，后续任务 1 的第一个切片；用户确认采用单一模块 A。
+
+- 新建 `static/wonder_values.js`（463 行，29 个命名导出函数），迁入单行/多行文本规范化、结构字段判定、
+  稳定序列化、editor option 剥离/恢复、深复制、modifier/reward/字符串行编解码、独特仪式/典礼 payload、
+  选址触发/偏好脚本渲染、YAML 预览和选项规范化；模块不依赖 DOM、页面 `state` 或 `elements`。
+- `wonder_localization.js` 从新模块导入直接使用的 14 个函数，原定义删除，不保留转发；从 2970 行、121 个
+  顶层函数降至 2524 行、92 个。迁出函数体与原文逐字一致，只增加 `export`；页面其余代码不变。
+- 新增 `tests/wonder_values.cjs`，用原生 ES module 导入覆盖各类行编解码、空编辑状态、editor option
+  剥离/恢复、选项搜索标签、选址脚本和 YAML 预览；调用真实 Python 后端核对同一结构值的规范化结果。
+  典礼成本按 editor 的 `catalog:id` 表示核对，选址脚本采用后端真实目录；数字样式文本预览问题单列待办。
+- Chrome 验收新增真实 modifier 字段编辑：隐藏绑定剥离目录、Code State 更新、dirty 标记和服务端只读预览。
+  保存/加载/事务及其余 UI 拆分不在本切片。验收环境与结果见“验证记录”。
 
 ## 已完成切片：清理切片（2026-10-11）
 
@@ -98,7 +113,7 @@
 
 - `static/resource_state.js` 统一持有 base、saved、draft、dirty、请求阶段和 error；四个编辑器接入资源状态，媒体提交接入请求生命周期。请求在途冻结编辑、资源内切换、reload 和重复提交；成功同步更新 draft/base，失败保留草稿，旧响应不覆盖新资源。
 - Prompt 加入 Wonder 页面草稿、dirty、预览与统一提交；清空也是草稿编辑。Prompt 文件参与 base、资源锁和多文件恢复事务，独立 Prompt 路由和保存按钮已删除。
-- 媒体与 cropper 共用 `JobPoller`：瞬时网络/服务端错误自动重试，其他查询错误提供手动重试；保留 job ID、游标、日志，隔离迟到响应，显示 `job.error`。取消请求失败保留活动任务并恢复按钮。
+- 媒体与 cropper 共用 `JobPoller`：瞬时网络/服务端错误自动重试，其他查询错误提供手动重试；保留 job ID、游标、日志，隔离迟到响应，显示 `job.operation.error`。取消请求失败保留活动任务并恢复按钮。
 - cropper 的 409 提示使用英文并明确裁剪草稿已保留；共享请求层对空 detail 回退原始响应，保留服务端诊断。
 - 发布只替换声明且 staging 中实际存在的文件（成功 job 中 handler 删除的可选输出现在同步删除，见重构审计缺陷修复）；每个文件替换前复核正式快照，冲突恢复已替换文件并保留外部修改。回滚失败同时保留原始错误和恢复错误；staging 校验拒绝缺少映射的产物。
 - 操作库打开前取得 OS 文件锁；同一库的第二个持有者明确报错退出，不触发恢复逻辑、不污染首进程的运行记录。服务关闭时先取消 jobs 并等待终态持久化，再关闭操作库（关闭策略见本次审计收尾）。
@@ -186,6 +201,9 @@
 - 媒体 job 的 `redirect_stdout/stderr` 替换进程全局流，job 运行期间其他请求线程的警告会写入该 job 日志并持久化；只影响诊断归属。
 - cost/reward 提交改写 `unique_wonders.yaml` 后，前端 Wonder 的 base 不更新，下次 Wonder 保存必然 409，只能整体 reload 并丢弃页面草稿；与后续任务 2 的跨资源 ChangeSet 相关。
 - 提交审计：Wonder reload 固定请求当前奇观详情；该奇观若已从磁盘删除，reload 每次 404 失败且页面不替换，只能刷新浏览器。正常编辑流程不删除奇观。
+- 2026-10-11 审计：`JobManager._run` 的执行闭包（`services/tooling.py`，约 130 行）把暂存、校验、发布与回滚交织在一起，是后端最密的代码；新增 handler 或修改发布逻辑前是否拆分待定。
+- 2026-10-11 审计：`wonder_localization.js` 的仪式 Prompt 文本框与按钮仍设置 `dataset.ritualPromptControl`，唯一读取方 `setBusy` 已删除；可在 Wonder 前端拆分切片中顺带删除。
+- 2026-10-11 结构值切片：Code State 的 YAML 预览未给数字样式文本加引号（如独特仪式辅助建筑的 `maintenance`/`price`），解析类型可能与后端保存的字符串不同；实际保存不受影响，预览是否改为忠实源值另行决定。
 
 ## 已接受限制
 
@@ -202,7 +220,7 @@
 
 ## 后续任务（按顺序，当前焦点完成后由用户指定下一项）
 
-1. 继续拆分 Wonder 剩余前端单体：保存/加载/预览与后端领域模块已完成，仪式设计、选项目录与图片面板等前端职责的下一切片由用户指定，复用已产出的共享组件。
+1. 继续拆分 Wonder 剩余前端单体（2524 行、92 个顶层函数）：保存/加载/预览、后端领域模块和前端结构值编解码已完成。后续按依赖顺序分别确认：结构化字段编辑器与可搜索下拉框（约 1100 行）、仪式设计与 Prompt（约 450 行）、草稿/修改追踪模型（约 250 行）、列表/图片/元信息面板（约 350 行）；复用已产出的共享组件。
 2. 建立跨资源 `ChangeSet`、完整输入依赖图、领域产物语义校验和跨资源预览（Wonder 拆分后再评估必要性）。
 3. 设计跨进程持久锁和状态存储，再删除旧领域 service 拼接层（单用户本地工具收益低，建议降级，是否删除待用户确认）。
 
@@ -222,6 +240,28 @@
   [详细评估](Towards_Victory_Editor_Web_Assessment.md) 为准。
 
 ## 验证记录
+
+Wonder 前端结构值编解码切片：2026-10-11，Windows + eu5 Python 3.11.15 + Node 22.19.0 + 本机 Chrome headless。修改前已运行 task-scoped `ai_context.py` 并读取 Wonder 风险卡。
+
+```powershell
+C:\Users\Hades\anaconda3\envs\eu5\python.exe -m pytest --basetemp .pytest-wonder-values-1011 tests/test_wonder_resource_contract.py tests/test_wonder_field_preview.py tests/test_wonder_payload_loading.py -q
+node --test tests/api.cjs tests/resource_state.cjs tests/media_job_polling.cjs tests/cropper_resource_state.cjs tests/wonder_resource_state.cjs tests/shared_display.cjs tests/wonder_values.cjs
+node --check towards_victory_editor_web/static/wonder_values.js
+node --check towards_victory_editor_web/static/wonder_localization.js
+node tests/resource_state_browser.cjs
+C:\Users\Hades\anaconda3\envs\eu5\python.exe -m towards_victory_editor_web --check
+C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts/validate.py --changed --fix --ai-report
+git diff --check
+```
+
+- Wonder 相关三个 Python 测试文件一次运行 **65 passed**（221.61 秒）；有既有 FastAPI/httpx 弃用警告及 `.pytest_cache` 缓存目录权限警告，无失败。后端无改动，未重跑其余 Python 测试。
+- Node **70 项通过**，含新增原生 ES module 测试 12 项；两个前端模块语法检查通过。前后端交叉验证覆盖 modifier/reward、字符串列表、独特仪式/典礼、editor option 剥离及选址脚本；已识别的数字样式文本预览差异单列待议。
+- Chrome 验收通过，新增结构字段隐藏绑定、目录剥离、Code State、dirty 与服务端预览检查；既有三个编辑器预览、状态恢复、Prompt、报告和轮询场景均通过，无页面未捕获异常。真实 GET 与只读 preview，写请求由浏览器拦截，未写业务文件或调用图片 API。
+- 与迁出前源码逐字比较：29 个函数体只增加 `export`，页面仅删除原定义并加入导入，无残留定义；新模块无 DOM/页面状态依赖。
+- Web `--check` 通过（192 个奇观、7,534 个本地化键、9 个工具、5 个可运行、196 张裁剪图）；changed validation 通过（1 个适用文件，无错误或警告）；`git diff --check` 通过。
+- 提交前审计（2026-10-11，同一环境，独立重跑）：Node 70 项、Wonder 三文件 pytest 65 passed（201.30 秒）、Chrome 验收、`--check`、changed validation 与 `git diff --check` 均通过。29 个迁出函数按函数体与迁出前源码逐字比对一致（仅增加 `export`）；无重复定义、无未使用导入、无死代码，新模块无 DOM/页面状态依赖；文档中的行数与函数计数（463 行、29 个导出、2970→2524 行、121→92 个函数）与实测一致。未发现缺陷。`ritualPromptControl` 死属性仍在，按待议事项留给后续切片。
+
+2026-10-11 审计（324e6d48..3e17b763，只读，覆盖清理切片）：Windows + eu5 Python 3.11.15 + Node 22.19.0。12 文件 pytest 一次全量 **250 passed**（513 秒，3 条已有弃用警告）；Node **58 项通过**；Web `--check` 通过（192 个奇观、7,534 个本地化键、9 个工具、5 个可运行、196 张裁剪图）；11 个前端模块 `node --check` 通过。逐项复核 3e17b763：job 生命周期字段只经 `job.operation` 读取（前端、Node 夹具、Python 测试均无顶层残留），删除的 `cancelling` 分支与 `require_overrides` 确认不可达，`--check` 失败退出码、`OperationStore` 锁句柄与 Wonder 双资源锁正确；已删除名称在源码与文档中无残留。未发现新缺陷；修正本文一处 `job.error` 过时描述，两条小项登记到待议事项。未重跑 Chrome（之后无前端改动）。
 
 2026-10-11 清理切片验收：Windows + eu5 Python 3.11.15 + Node 22.19.0 + 本机 Chrome headless。
 

@@ -148,6 +148,34 @@ async function main() {
       await ready(`!document.querySelector('${save}').disabled`);
     }
 
+    // Exercise the extracted value module through a real structured editor and read-only server preview.
+    await evaluate("document.querySelector('.tool-hub-tab-btn[data-tool=\"wonder-localization\"]').click(); [...document.querySelectorAll('#language-tabs button')].at(-1).click()");
+    await ready("!!document.querySelector('[data-field-type=\"modifier_table\"]')");
+    const structured = await evaluate(`(() => {
+      const binding = [...document.querySelectorAll('[data-field-type="modifier_table"]')]
+        .find(input => JSON.parse(input.value).rows.some(row => row.modifier && row.value));
+      const shell = binding.closest('.structured-field');
+      const rows = JSON.parse(binding.value).rows;
+      const index = rows.findIndex(row => row.modifier && row.value);
+      const input = shell.querySelector('.structured-group').querySelectorAll('.structured-row')[index]
+        .querySelector('input[placeholder="Value"]');
+      input.value = '0.125'; input.dispatchEvent(new Event('input', { bubbles: true }));
+      return { value: JSON.parse(binding.value), preview: shell.querySelector('.code-state-output').textContent,
+        modifier: rows[index].modifier, index };
+    })()`);
+    assert.equal(structured.value.rows[structured.index].value, '0.125');
+    assert.equal(Object.hasOwn(structured.value, 'options'), false);
+    assert(structured.preview.includes(structured.modifier + ': 0.125'));
+    assert(await evaluate("!document.querySelector('#dirty-badge').classList.contains('hidden')"));
+    await evaluate("document.querySelector('#save-button').click()");
+    await ready("document.querySelector('#wonder-preview dialog').open");
+    assert.match(await evaluate("document.querySelector('#wonder-preview tbody').textContent"), /0\.125/);
+    assert.equal(await evaluate("__probe.requests.filter(r => r.path === '/api/resources/editor.wonder/commit').length"), 0);
+    await evaluate("document.querySelector('#wonder-preview [data-cancel]').click()");
+    await ready("!document.querySelector('#save-button').disabled");
+    await evaluate("document.querySelector('#reload-button').click()");
+    await ready("document.querySelector('.tool-wonder-localization').dataset.busy === 'false'");
+
     await evaluate("document.querySelector('.tool-hub-tab-btn[data-tool=\"wonder-localization\"]').click(); document.querySelectorAll('#wonder-kind-tabs button')[1].click(); document.querySelector('#wonder-list button').click()");
     await ready("document.querySelector('.tool-wonder-localization').dataset.busy === 'false'");
     await evaluate("[...document.querySelectorAll('#language-tabs button')].find(b => b.textContent.includes('仪式设计')).click()");
