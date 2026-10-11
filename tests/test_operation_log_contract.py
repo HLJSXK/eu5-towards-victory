@@ -164,7 +164,7 @@ def test_executor_observer_failure_still_publishes_terminal_state() -> None:
     def record_failure(_error):
         raise RuntimeError("diagnostic observer failed")
 
-    with pytest.raises(RuntimeError, match="diagnostic observer failed"):
+    with pytest.raises(ValueError, match="generator failed") as failure:
         run_operation(
             operation,
             lambda: (_ for _ in ()).throw(ValueError("generator failed")),
@@ -175,6 +175,9 @@ def test_executor_observer_failure_still_publishes_terminal_state() -> None:
     assert payload["status"] == "failed"
     assert payload["error"] == "generator failed"
     assert payload["finished_at"] is not None
+    assert failure.value.operation == payload
+    assert "diagnostic observer failed" in failure.value.__notes__[0]
+    assert any("diagnostic observer failed" in event["message"] for event in payload["events"])
 
 
 def test_executor_observer_runs_without_operation_lock() -> None:

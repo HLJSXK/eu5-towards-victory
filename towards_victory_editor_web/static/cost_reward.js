@@ -1,3 +1,4 @@
+import { fetchJson } from "./api.js";
 import { ResourceState, resourceBase, setControlsBusy } from "./resource_state.js";
 import { renderTabs } from "./display.js";
 import { createEditorPanel } from "./editor_panel.js";
@@ -14,7 +15,47 @@ const editor = createEditorPanel({
   prefix: "cr", resourceId: "editor.cost_reward", resource: state.resource,
   request: () => ({ edits: state.edits, base: state.base }),
   apply: applyBootstrapPayload,
+  refreshKeepingDrafts,
 });
+
+function findToken(groups, categoryKey, tokenId) {
+  return groups.find((group) => group.key === categoryKey)?.tokens.find((item) => item.id === tokenId);
+}
+
+async function refreshKeepingDrafts() {
+  editor.status.set("正在同步其他编辑器的变更，保留草稿", "working");
+  try {
+    await state.resource.run("loading", () => fetchJson("api/resources/editor.cost_reward"), { apply: (payload) => {
+      const oldSaved = state.resource.saved.groups, edits = state.edits, warnings = [];
+      const groups = structuredClone(payload.draft.groups), kept = {};
+      for (const [categoryKey, tokens] of Object.entries(edits)) {
+        for (const [tokenId, fields] of Object.entries(tokens)) {
+          const token = findToken(groups, categoryKey, tokenId);
+          if (!token) {
+            warnings.push(`[warning] 条目已在其他编辑器中删除，草稿已丢弃：${categoryKey} / ${tokenId}`);
+            continue;
+          }
+          for (const [field, value] of Object.entries(fields)) {
+            const before = findToken(oldSaved, categoryKey, tokenId)?.[field];
+            if (before !== token[field]) warnings.push(`[warning] 原值已在其他编辑器中改变：${categoryKey} / ${tokenId} / ${field}: ${JSON.stringify(before)} → ${JSON.stringify(token[field])}；保留用户草稿`);
+            token[field] = value;
+            ((kept[categoryKey] ||= {})[tokenId] ||= {})[field] = value;
+          }
+        }
+      }
+      state.resource.replace({ base: resourceBase(payload), saved: { ...payload.draft, edits: {} },
+        draft: { ...payload.draft, groups, edits: kept } });
+      editor.log.set(payload.draft.log || "");
+      if (warnings.length) editor.log.append(`\n${warnings.join("\n")}\n`);
+      renderCategoryTabs();
+      renderPanels();
+      editor.status.set(warnings.length ? "已同步，草稿已保留；原值冲突见日志" : "已同步，草稿已保留");
+    } });
+  } catch (error) {
+    editor.log.append(`\n[error] 同步失败，原状态与草稿已保留: ${error.message}\n`);
+    editor.status.set(`同步失败，原状态与草稿已保留: ${error.message}`, "error");
+  }
+}
 
 function syncControls() {
   setControlsBusy(document.querySelectorAll("#cr-tabs button, #panels input, #panels textarea, #panels select, #cr-save-btn, #cr-reload-btn"), state.resource.busy);

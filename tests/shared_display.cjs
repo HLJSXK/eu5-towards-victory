@@ -37,7 +37,7 @@ function dom(t) {
     return controls.get(id);
   };
   global.document = { getElementById: control, createElement: () => new Element() };
-  global.window = { confirm: () => true };
+  global.window = Object.assign(new EventTarget(), { confirm: () => true });
   t.after(() => { for (const [key, value] of Object.entries(original)) global[key] = value; });
   return control;
 }
@@ -221,4 +221,65 @@ test('both job panels show identical file reports, validation errors and retaine
   assert.equal(report, control('media-file-report').textContent);
   for (const expected of ['optional.png（可选，缺失）', 'changed.dds（已变化）: bad header', 'unchanged.dds（未变化）',
     'deleted.png（已删除）', 'missing.dds（缺失）', '不参与发布的中间文件', '发布恢复失败', 'external.dds']) assert(report.includes(expected));
+});
+
+
+test('initial load failure does not claim a draft was preserved', async t => {
+  const { editor, resource, control } = await editorFixture(t);
+  resource.reset();
+  global.fetch = async () => { throw new Error('bootstrap failed'); };
+  await editor.load();
+  assert.match(control('cr-status').textContent, /加载失败.*bootstrap failed/);
+  assert.doesNotMatch(control('cr-status').textContent, /草稿已保留/);
+  assert.match(control('cr-log').textContent, /bootstrap failed/);
+});
+
+test('committed source paths are announced even when the saved page cannot render', async t => {
+  const { editor, resource, control, dialog, preview } = await editorFixture(t);
+  const events = [];
+  window.addEventListener('resource-committed', event => events.push(event.detail));
+  global.fetch = async url => Response.json(url.endsWith('/preview') ? preview
+    : { draft: { value: 2 }, written_paths: ['source'], operation_id: 'saved-render' });
+  const pending = editor.save(); await until(() => dialog.open);
+  const originalReplace = resource.replace.bind(resource);
+  resource.replace = payload => { originalReplace(payload); throw new Error('render failed'); };
+  await dialog.querySelector('[data-confirm]').emit('click'); await pending;
+  assert.equal(resource.base.source, 'new'); assert.equal(resource.dirty, false);
+  assert.match(control('cr-status').textContent, /已保存，但页面更新失败.*render failed/);
+  assert.match(control('cr-log').textContent, /render failed/);
+  assert.deepEqual(events, [{ resourceId: 'editor.cost_reward', writtenPaths: ['source'] }]);
+});
+
+test('intersecting writes from another editor refresh once after the active request', async t => {
+  const [, { createEditorPanel }, , { ResourceState }] = await modules;
+  const control = dom(t);
+  const resource = new ResourceState({ base: { 'data/shared.yaml': 'a' }, saved: { value: 1 }, draft: { value: 2 } });
+  const calls = [];
+  const editor = createEditorPanel({ prefix: 'cr', resourceId: 'editor.cost_reward', resource,
+    request: () => ({}), apply() {}, refreshKeepingDrafts: async () => { calls.push(resource.busy); } });
+  const announce = (resourceId, writtenPaths) =>
+    window.dispatchEvent(new CustomEvent('resource-committed', { detail: { resourceId, writtenPaths } }));
+  const tick = () => new Promise(resolve => setTimeout(resolve));
+  announce('editor.wonder', ['data/other.yaml']);
+  announce('editor.cost_reward', ['data/shared.yaml']);
+  await tick();
+  assert.deepEqual(calls, []);
+  global.fetch = async () => Response.json({ valid: true, diff: [] });
+  const dialog = control('cr-preview').querySelector('dialog');
+  const pending = editor.save(); await until(() => dialog.open);
+  announce('editor.wonder', ['data/shared.yaml']);
+  announce('editor.wonder', ['data/shared.yaml']);
+  await tick();
+  assert.deepEqual(calls, []);
+  await dialog.querySelector('[data-cancel]').emit('click'); await pending;
+  assert.deepEqual(calls, [false]);
+  assert.equal(resource.draft.value, 2);
+});
+
+test('job panel errors put the diagnostic before the operation report', async t => {
+  const [, , { createJobPanel }] = await modules;
+  const control = dom(t);
+  const panel = createJobPanel({ root: control('cropper-job'), prefix: 'cropper', onChange() {} });
+  panel.error(Object.assign(new Error('crop failed'), { operation_id: 'crop-op' }));
+  assert.match(control('cropper-log').textContent, /crop failed[\s\S]*crop-op/);
 });

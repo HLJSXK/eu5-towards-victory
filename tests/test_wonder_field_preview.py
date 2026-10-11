@@ -142,3 +142,95 @@ def test_preview_matches_commit_file_bytes_and_values(service):
         assert hashlib.sha256(path.read_bytes()).hexdigest() == row['after']
     saved = yaml.safe_load(sources.WONDER_LOCALIZATION_FILE.read_bytes())
     assert saved['wonder_localization']['english'][key] == report['diff'][0]['after'] == 'Committed name'
+
+
+@pytest.fixture
+def cost_editor(service, monkeypatch):
+    """A cost/reward service sharing the isolated Wonder sources, wired as in the server."""
+    from scripts_engineering_department.wonder_mechanics import _core
+    import scripts_engineering_department.wonder_localization_lib as localization_lib
+    from towards_victory_editor_web.services import cost_reward
+    from towards_victory_editor_web.services.generation import GenerationPlan
+
+    root = sources.REPO_ROOT
+    original_root = cost_reward.REPO_ROOT
+    for name, filename in [('DATA_FILE', 'cost_reward_units.yaml'), ('TASK_POOL_FILE', 'task_pool.yaml')]:
+        path = root / 'data' / filename
+        shutil.copyfile(original_root / 'data' / filename, path)
+        monkeypatch.setattr(cost_reward, name, path)
+    monkeypatch.setattr(cost_reward, 'UNIQUE_WONDERS_FILE', sources.UNIQUE_WONDERS_FILE)
+    monkeypatch.setattr(cost_reward, 'REPO_ROOT', root)
+    monkeypatch.setattr(cost_reward, 'wonder_generation_plan', lambda *args, **kwargs: GenerationPlan(root, ()))
+    original_load = _core.load_yaml
+
+    def read_isolated(path):
+        candidate = root / 'data' / path.name
+        return original_load(candidate if candidate.exists() else path)
+
+    monkeypatch.setattr(_core, 'load_yaml', read_isolated)
+    monkeypatch.setattr(localization_lib, 'WONDER_LOCALIZATION_FILE', sources.WONDER_LOCALIZATION_FILE)
+    _core.reset_cost_reward_unit_caches()
+    try:
+        editor = cost_reward.CostRewardEditorService()
+        editor.set_reload_callback(service.reload_from_disk)
+        yield editor
+    finally:
+        _core.reset_cost_reward_unit_caches()
+
+
+def doubled_ceremony_cost_edit(service, resource):
+    row = next(w['ceremony']['stages'][0]['cost'][0] for w in service.unique_wonders_data['unique_wonders'] if w.get('ceremony'))
+    token = next(t for group in resource['draft']['groups'] if group['key'] == row['catalog'] for t in group['tokens'] if t['id'] == row['type'])
+    return {row['catalog']: {row['type']: {'value': token['value'] * 2}}}
+
+
+def test_cost_reward_commit_then_wonder_refresh_and_commit_preserves_both_edits(service, cost_editor):
+    from towards_victory_editor_web.services.platform import ConflictError
+
+    old_base = {item.path: item.sha256 for item in service._base}
+    wonder = next(w for w in service.wonders if w['is_unique'])
+    key = localization.wonder_name_key(wonder)
+    drafts = {wonder['id']: {'values': {'english': {key: 'Preserved Wonder draft'}}}}
+    initial = cost_editor.load_resource()
+    base = {item['path']: item['sha256'] for item in initial['change_set']['base']}
+    result = cost_editor.save_tokens(doubled_ceremony_cost_edit(service, initial), base)
+    assert set(result['written_paths']) == {'data/cost_reward_units.yaml', 'data/unique_wonders.yaml'}
+    after_cost = sources.UNIQUE_WONDERS_FILE.read_bytes()
+    with pytest.raises(ConflictError):
+        service.preview_resource_edits(drafts, old_base, regenerate=False)
+    refreshed = service.load_resource()
+    new_base = {item['path']: item['sha256'] for item in refreshed['change_set']['base']}
+    assert new_base['data/unique_wonders.yaml'] != old_base['data/unique_wonders.yaml']
+    report = service.preview_resource_edits(drafts, new_base, regenerate=False)
+    assert [item['field'] for item in report['diff']] == [key]
+    committed = service.commit_resource(drafts, new_base, regenerate=False)
+    assert committed['operation']['status'] == 'succeeded'
+    assert service.localization_data['english'][key] == 'Preserved Wonder draft'
+    assert sources.UNIQUE_WONDERS_FILE.read_bytes() == after_cost
+
+
+def test_wonder_commit_then_cost_reward_refresh_and_category_save(service, cost_editor):
+    from towards_victory_editor_web.services.platform import ConflictError
+
+    initial = cost_editor.load_resource()
+    old_base = {item['path']: item['sha256'] for item in initial['change_set']['base']}
+    edits = doubled_ceremony_cost_edit(service, initial)
+    wonder = next(w for w in service.wonders if w['is_unique'])
+    key = f"mechanics.unique_initial_level.{wonder['key']}"
+    field = next(f for section in service.get_wonder_payload(wonder['id'])['mechanics']['sections']
+                 for f in section['fields'] if f['key'] == key)
+    level = '2' if str(field['original_value']).strip() == '3' else '3'
+    wonder_base = {item.path: item.sha256 for item in service._base}
+    committed = service.commit_resource({wonder['id']: {'mechanics': {key: level}}}, wonder_base, regenerate=False)
+    assert committed['written_paths'] == ['data/unique_wonders.yaml']
+    after_wonder = yaml.safe_load(sources.UNIQUE_WONDERS_FILE.read_bytes())
+    with pytest.raises(ConflictError):
+        cost_editor.save_tokens(edits, old_base)
+    refreshed = cost_editor.load_resource()
+    new_base = {item['path']: item['sha256'] for item in refreshed['change_set']['base']}
+    assert new_base['data/unique_wonders.yaml'] != old_base['data/unique_wonders.yaml']
+    result = cost_editor.save_tokens(edits, new_base)
+    assert result['operation']['status'] == 'succeeded'
+    saved = yaml.safe_load(sources.UNIQUE_WONDERS_FILE.read_bytes())
+    entry = lambda data: next(w for w in data['unique_wonders'] if w['key'] == wonder['key'])
+    assert entry(saved).get('initial_level') == entry(after_wonder).get('initial_level')

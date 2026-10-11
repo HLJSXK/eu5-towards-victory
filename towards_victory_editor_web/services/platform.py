@@ -265,6 +265,10 @@ def run_operation(
         try:
             if on_error is not None:
                 on_error(error)
+        except Exception as observer_error:
+            diagnostic = f"on_error failed: {type(observer_error).__name__}: {observer_error}"
+            error.add_note(diagnostic)
+            operation.event(diagnostic, level="error")
         finally:
             # Keep diagnostics ahead of the terminal event, while guaranteeing
             # that a faulty observer cannot leave polling stuck in running.

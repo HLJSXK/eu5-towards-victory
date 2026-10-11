@@ -184,6 +184,10 @@ Invalid results fail with a tool-specific diagnostic while still collecting actu
 output artifacts and persisting the failed lifecycle and detail snapshots. Handler
 cleanup cannot mutate the published result through references to nested metadata.
 
+When writing a handler, `ToolContext.formalize_json_paths` replaces JSON string
+values that equal a declared staged file path. It does not rewrite directory
+paths or paths embedded in longer strings; emit those using formal paths.
+
 Required inputs must exist during preparation, required outputs must exist
 after execution, and declared outputs are checked for PNG/DDS/JPEG headers or
 valid JSON. This is a file-level check, not full image decoding or domain schema
@@ -214,7 +218,18 @@ acquire `editor.cost_reward` and `editor.wonder`; task-pool-only commits acquire
 only `editor.cost_reward`. Cost/reward saves also rewrite the
 derived ceremony values in `data/unique_wonders.yaml` and regenerate the
 affected Wonder outputs in the same recovery transaction, then refresh the
-resident Wonder service catalog. The rewrite is re-parsed and checked against
+resident Wonder service. Successful cost/reward and Wonder commits return
+`written_paths` for the source files actually written. The shared editor panel
+emits a local `resource-committed` event carrying `resourceId` and `writtenPaths`.
+A panel created with `refreshKeepingDrafts` listens for other resources' events;
+when the paths intersect its base it runs that refresh once the active request
+finishes. The Wonder adapter refreshes the resource and details, retaining all
+`pageDrafts` and reapplying them; cost/reward reloads its tokens and reapplies
+its edits, so a Wonder commit that rewrites `data/unique_wonders.yaml` no longer
+makes the next category save conflict. Failed reads retain the old page and
+drafts. Changed originals on drafted fields are listed in the log.
+Manual reload still discards drafts after confirmation.
+The rewrite is re-parsed and checked against
 the candidate catalog before anything is written. Category saves check the base
 of all three files; task-pool-only saves ignore `unique_wonders.yaml`, so a
 Wonder save does not make them conflict. A busy commit returns HTTP 409 with
@@ -253,8 +268,8 @@ Only declared files are compared; their parent directories are not scanned.
 Input changes cause a conflict. Changes to declared formal outputs outside
 staging block publication and appear in `formal_output_changes`; their writer
 is unknown, so the job leaves them for review instead of restoring a backup
-over them. Arbitrary undeclared formal paths are not monitored; write auditing
-is a separate TODO in the refactor status.
+over them. Arbitrary undeclared formal paths are not monitored; the decision is
+recorded in `docs/technical/Editor_Web_Refactor_TODO.md`.
 
 `staging_extra_files` lists intermediate files excluded from publication and
 removed during normal staging cleanup. They do not trigger a partial-output
@@ -338,6 +353,8 @@ diagnostics. The failed/cancelled outcome is decided before the error callback
 runs; a cancellation request arriving during the callback leaves the outcome
 failed with cancel_requested set. A failing callback still publishes the
 terminal state. Each operation can be executed only once.
+If the error callback fails, its diagnostic is appended to the operation events
+and exception notes; the original execution error still reaches the caller.
 
 Media job `operation.events` contain
 lifecycle events; generator output is carried only in `lines`. Poll

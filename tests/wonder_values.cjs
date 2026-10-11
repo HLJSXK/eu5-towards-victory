@@ -178,7 +178,8 @@ test('editor catalogs strip recursively and restore without replacing edited sou
 test('numeric and row conversion preserves scripts and ignores unfinished preview rows', async () => {
   const v = await values;
   for (const [input, expected] of [[' -2 ', -2], ['0', 0], ['.125', .125], ['-2.5e+2', -250],
-    ['1e2', 100], ['', ''], [null, ''], ['yes', 'yes'], ['var:progress', 'var:progress']]) {
+    ['+2', 2], ['1.', 1], ['+1e2', 100], ['1_000', 1000], ['1__0', '1__0'],
+    ['1e2', 100], ['', ''], [null, ''], ['yes', true], ['NO', false], ['var:progress', 'var:progress']]) {
     assert.equal(v.parseNumberMaybe(input), expected);
   }
   assert.deepEqual(v.rowsToModifierMapping([...modifierState.rows, null,
@@ -203,7 +204,7 @@ test('unique ritual payload includes nested values and normalizes empty editing 
   assert.deepEqual(payload.listeners, ['monthly']); assert.deepEqual(payload.runtime_variables, ['progress']);
   assert.equal(payload.timed.years, 3); assert.deepEqual(payload.timed.burden_modifier, {});
   assert.deepEqual(payload.auxiliary_building, { local_modifier: {}, maintenance: '2', build_time: null,
-    construction_demand: null, price: '10', attributes: { enabled: 'yes' }, max_levels: 2 });
+    construction_demand: null, price: '10', attributes: { enabled: true }, max_levels: 2 });
   const empty = v.uniqueRitualPayloadFromState({ timed: { years: 'bad' }, auxiliary_building: { max_levels: '-2' } });
   assert.equal(empty.key, 'ritual'); assert.equal(empty.mode, 'immediate'); assert.equal(empty.cost_type, null);
   assert.equal(empty.timed.years, 1); assert.equal(empty.auxiliary_building.max_levels, 1);
@@ -268,6 +269,7 @@ test('YAML rendering keeps nested lists, empty values, Unicode and multiline sca
   const v = await values;
   assert.equal(v.yamlScalar('中文\n"quoted"'), '"中文\\n\\"quoted\\""');
   assert.equal(v.yamlScalar('scope:key'), 'scope:key');
+  for (const text of ['2', '-1.5', '1e2', '.inf', '2026-10-12', 'true', 'yes', 'null']) assert.equal(v.yamlScalar(text), JSON.stringify(text));
   assert.equal(v.yamlScalar(''), '""'); assert.equal(v.yamlScalar(null), 'null');
   assert.equal(v.yamlScalar(true), 'true'); assert.equal(v.yamlScalar(2.5), '2.5');
   assert.equal(v.inlineYamlValue([]), '[]'); assert.equal(v.inlineYamlValue({}), '{}');
@@ -301,16 +303,12 @@ test('field previews select the correct payload, source path and indentation', a
 
 test('frontend YAML previews and scripts agree with backend normalization of the same editor states', async () => {
   const v = await values;
-  // Numeric-looking optional text has an existing preview quoting discrepancy,
-  // tracked in Editor_Web_Refactor_Status.md; this extraction preserves rendering.
-  const ritual = v.deepClone(ritualState);
-  ritual.auxiliary_building.maintenance = 'var:progress';
-  ritual.auxiliary_building.price = 'var:progress';
   const cases = [
+    { kind: 'modifier', state: { rows: ['+2', '1.', '+1e2', '1_000', 'yes', 'no'].map((value, i) => ({ modifier: 'value_' + i, value })) }, field: { field_type: 'modifier_table' } },
     { kind: 'modifier', state: modifierState, field: { field_type: 'modifier_table' } },
     { kind: 'reward', state: rewardState, field: { field_type: 'reward_editor' } },
     { kind: 'reward', state: { rows: [] }, field: { field_type: 'reward_editor' } },
-    { kind: 'ritual', state: ritual, field: { field_type: 'unique_ritual_editor' } },
+    { kind: 'ritual', state: ritualState, field: { field_type: 'unique_ritual_editor' } },
     { kind: 'ceremony', state: ceremonyState(), field: { field_type: 'unique_ceremony_editor' } },
     { kind: 'strings', state: { rows: [{ value: ' monthly ' }, { value: '' }, { value: 'ending_war' }] } },
     { kind: 'strip', state: { options: ['top'], nested: [{ cost_options: ['cost'], rows: [], text: '中文' }] } },

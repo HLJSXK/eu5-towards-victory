@@ -159,6 +159,11 @@ def test_real_wonder_plan_dependencies_and_current_artifacts():
     root = Path(__file__).resolve().parents[1]
     plan = wonder_generation_plan({'mechanics': True}, repo_root=root)
     by_name = {Path(step.spec.script).name: step for step in plan.steps}
+    ritual = by_name['gen_unique_wonder_ritual_specs.py']
+    assert 'data/unique_wonder_ritual_prompts.yaml' not in ritual.spec.inputs
+    manifest = yaml.safe_load((root / 'data/generated_files.yaml').read_text(encoding='utf-8'))
+    declaration = next(item for item in manifest['generated'] if item['script'] == ritual.spec.script)
+    assert set(declaration['data'].split(' + ')) == set(ritual.spec.inputs)
     merge = by_name['merge_tv_wonder_ceremony_cards_gui.py']
     assert {Path(script).name for script in merge.spec.depends_on} == {
         'gen_tv_wonder_ceremony_cards_gui.py', 'merge_tv_engineering_department_wonder_mechanics_gui.py',

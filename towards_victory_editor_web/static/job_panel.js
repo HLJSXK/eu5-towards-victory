@@ -73,17 +73,20 @@ export function createJobPanel({ root, prefix, onChange, allowCancel = false, de
     if (!(poller.active || detachedJobId === jobId) || cancelling) return;
     cancelling = true;
     cancelError = "";
-    changed();
+    let accepted = false;
     try {
+      changed();
       const job = await fetchJson(`/api/jobs/${jobId}/cancel`, { method: "POST" });
+      accepted = true;
       if (detached ? detachedJobId === jobId && poller.jobId === jobId : poller.isCurrent(jobId, generation) && poller.active) {
         if (detached) poller.start(job);
         else poller.accept(job, generation);
       }
     } catch (error) {
       if (poller.jobId === jobId && (detached || poller.isCurrent(jobId, generation))) {
-        cancelError = `取消失败: ${error.message}`;
+        cancelError = `${accepted ? "取消请求已受理，但页面更新失败" : "取消失败"}: ${error.message}`;
         status.set(cancelError, "error");
+        log.append(`\n[error] ${cancelError}\n`);
       }
     } finally {
       cancelling = false;
@@ -93,6 +96,6 @@ export function createJobPanel({ root, prefix, onChange, allowCancel = false, de
   return {
     poller, log, status,
     start(job) { cancelError = ""; detachedJobId = null; poller.start(job); },
-    error(error) { status.set(error.message, "error"); log.report(error); },
+    error(error) { status.set(error.message, "error"); log.append(`\n[error] ${error.message}\n`); log.report(error); },
   };
 }

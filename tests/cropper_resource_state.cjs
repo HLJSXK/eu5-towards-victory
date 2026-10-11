@@ -1,4 +1,5 @@
 // Run with: node --test tests/cropper_resource_state.cjs
+// Page internals still use a regex/VM loader; real module wiring and DOM are covered in resource_state_browser.cjs.
 const assert = require('node:assert/strict');
 const { readFileSync } = require('node:fs');
 const { join } = require('node:path');

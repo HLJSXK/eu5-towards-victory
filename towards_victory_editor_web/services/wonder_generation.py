@@ -283,7 +283,6 @@ WONDER_GENERATORS = (
             "data/unique_wonders.yaml",
             "data/wonder_localization.yaml",
             "data/unique_wonder_ritual_designs.yaml",
-            "data/unique_wonder_ritual_prompts.yaml",
             "data/unique_wonder_ritual_codegen_templates.yaml",
             "data/unique_wonder_ritual_capabilities.yaml",
         ),

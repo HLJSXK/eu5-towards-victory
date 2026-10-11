@@ -35,7 +35,7 @@ async function fixture(t) {
   const root = new Element(), elements = Object.fromEntries(['logOutput', 'copyLogButton', 'saveButton', 'reloadButton', 'retryDetailButton'].map(k => [k, new Element()]));
   const prompts = [], calls = [];
   global.document = { getElementById: () => root, createElement: () => new Element() };
-  global.window = { confirm: message => { prompts.push(message); return true; } };
+  global.window = Object.assign(new EventTarget(), { confirm: message => { prompts.push(message); return true; } });
   t.after(() => Object.assign(global, previous));
   const state = {
     currentWonder: detail,
@@ -44,13 +44,13 @@ async function fixture(t) {
     get pageDrafts() { return this.resource.draft.pageDrafts; },
     get busy() { return this.resource.busy; },
   };
-  const hooks = { hydrate: async payload => payload };
+  const hooks = { hydrate: async payload => payload, render() {} };
   const editor = createWonderEditor({ state, elements,
     dirtyCount: () => Object.keys(state.pageDrafts).length,
     draftHasChanges: draft => Object.keys(draft.values.english).length > 0,
     currentId: () => state.currentWonder?.summary.id ?? null,
     setCurrent: payload => { state.currentWonder = payload; }, hydrate: payload => hooks.hydrate(payload),
-    invalidateDesigns() {}, syncSelection() {}, render() { editor.renderLog(); },
+    invalidateDesigns() {}, syncSelection() {}, render() { hooks.render(); editor.renderLog(); },
     updateStatus(text, kind = 'default') { state.status = text; state.statusKind = kind; }, showToast() {},
   });
   function respond(fn) { global.fetch = async (url, options = {}) => { calls.push({ url, ...options }); const result = await fn(url, options); return result instanceof Response ? result : Response.json(result); }; }
@@ -173,4 +173,71 @@ test('committed base survives catalog failure; explicit retry only loads detail 
   assert.equal(app.elements.retryDetailButton.hidden, true);
   assert.equal(app.calls.filter(c => c.method === 'POST').length, 2);
   assert.match(app.editor.log.text, /saved-1/);
+});
+
+function notifyCommit(paths = ['source']) {
+  window.dispatchEvent(new CustomEvent('resource-committed', { detail: { resourceId: 'editor.cost_reward', writtenPaths: paths } }));
+}
+
+function page(id, original = 'old') {
+  return { summary: { id, key: 'w' + id }, meta: {},
+    languages: { english: { sections: [{ fields: [{ key: 'title', original_value: original, value: original }] }] } }, mechanics: {} };
+}
+
+test('external commits rebase every drafted page and report hidden-page original conflicts', async t => {
+  const app = await fixture(t);
+  app.respond(url => page(Number(url.split('/').at(-1))));
+  await app.editor.select(2); await app.editor.select(1);
+  app.respond(url => url === 'api/resources/editor.wonder' ? resourcePayload : page(Number(url.split('/').at(-1)), 'external'));
+  notifyCommit(['unrelated']); assert.equal(app.state.busy, false);
+  notifyCommit(); await until(() => !app.state.busy);
+  assert.equal(app.state.resource.base.source, 'new');
+  assert.equal(app.state.pageDrafts[2].values.english.title, 'old draft');
+  assert.deepEqual(app.state.resource.saved.pageDrafts, {});
+  assert.equal(app.state.resource.dirty, true);
+  assert.match(app.editor.log.text, /原值已在其他编辑器中改变：2.*title.*old.*external/);
+  app.respond(url => url.endsWith('/preview') ? preview : committed);
+  const pending = app.editor.save(); await until(() => app.dialog.open);
+  const body = JSON.parse(app.calls.at(-1).body);
+  assert.equal(body.base.source, 'new');
+  assert.deepEqual(body.wonders, [{ wonder_id: 2, ...{ values: { english: { title: 'old draft' } }, mechanics: {} } }]);
+  await app.dialog.querySelector('[data-confirm]').emit('click'); await pending;
+  assert.equal(app.state.resource.dirty, false);
+});
+
+test('external refresh waits for an active request and preserves drafts on failure', async t => {
+  const app = await fixture(t);
+  const pending = app.editor.save(); await until(() => app.dialog.open);
+  notifyCommit(); assert.equal(app.calls.length, 1);
+  app.respond(() => { throw new Error('refresh offline'); });
+  await app.dialog.querySelector('[data-cancel]').emit('click'); await pending;
+  assert.equal(app.state.resource.base.source, 'old');
+  assert.equal(app.state.pageDrafts[2].values.english.title, 'old draft');
+  assert.equal(app.state.currentWonder, detail);
+  assert.match(app.state.status, /同步失败.*原状态与草稿已保留.*refresh offline/);
+  assert.match(app.editor.log.text, /refresh offline/);
+});
+
+test('reload falls back to the initial wonder when the selected entry was deleted', async t => {
+  const app = await fixture(t);
+  app.respond(url => url === 'api/resources/editor.wonder'
+    ? { ...resourcePayload, draft: { ...resourcePayload.draft, wonders: [{ id: 2 }], initial_wonder_id: 2 } } : page(2));
+  await app.editor.load({ confirmDirty: true });
+  assert.equal(app.state.currentWonder.summary.id, 2);
+  assert(app.calls.some(call => call.url.endsWith('/wonders/2')));
+  assert(!app.calls.some(call => call.url.endsWith('/wonders/1')));
+});
+
+test('a successful commit with failed rendering retains the new base and offers detail retry', async t => {
+  const app = await fixture(t);
+  app.hooks.render = () => { throw new Error('render probe'); };
+  const pending = app.editor.save(); await until(() => app.dialog.open);
+  await app.dialog.querySelector('[data-confirm]').emit('click'); await pending;
+  assert.equal(app.state.resource.base.source, 'new');
+  assert.equal(app.state.resource.dirty, false);
+  assert.match(app.state.status, /已保存.*详情加载失败/);
+  assert.equal(app.elements.retryDetailButton.hidden, false);
+  app.hooks.render = () => {};
+  await app.elements.retryDetailButton.emit('click'); await until(() => !app.state.busy);
+  assert.equal(app.calls.filter(call => call.url.endsWith('/commit')).length, 1);
 });

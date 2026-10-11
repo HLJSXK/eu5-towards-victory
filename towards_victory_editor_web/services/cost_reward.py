@@ -333,7 +333,7 @@ class CostRewardEditorService:
                 if touched_task_pool:
                     files[TASK_POOL_FILE] = yaml_bytes(TASK_POOL_FILE, candidate_tasks)
                 if not files:
-                    return self._resource_payload()
+                    return {**self._resource_payload(), "written_paths": []}
 
                 changed_unique = UNIQUE_WONDERS_FILE in files
                 plan = wonder_generation_plan(
@@ -364,7 +364,7 @@ class CostRewardEditorService:
                     log(f"[save] Recomputed {UNIQUE_WONDERS_REL}\n")
                 if touched_task_pool:
                     log(f"[save] Wrote {TASK_POOL_REL}\n")
-                return self._resource_payload()
+                return {**self._resource_payload(), "written_paths": [path.relative_to(REPO_ROOT).as_posix() for path in files]}
 
         try:
             result = run_operation(operation, commit)

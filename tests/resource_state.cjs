@@ -1,11 +1,8 @@
+// Native ES module imports.
 const assert = require('node:assert/strict');
-const { readFileSync } = require('node:fs');
-const { join } = require('node:path');
-const { test } = require('node:test');
-const vm = require('node:vm');
-const context = vm.createContext({});
-vm.runInContext(readFileSync(join(__dirname, '../towards_victory_editor_web/static/resource_state.js'), 'utf8').replace(/^export /gm, ''), context);
-const { ResourceState, JobPoller } = vm.runInContext('({ ResourceState, JobPoller })', context);
+const { test, before } = require('node:test');
+let ResourceState, JobPoller;
+before(async () => { ({ ResourceState, JobPoller } = await import('../towards_victory_editor_web/static/resource_state.js')); });
 
 test('requests freeze editing and duplicates, and failure retains draft and base', async () => {
   const state = new ResourceState({ base: { source: 'old' }, saved: { text: 'saved' } });

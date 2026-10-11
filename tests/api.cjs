@@ -1,17 +1,11 @@
-// Run with: node --test tests/api.cjs
-// VM loaders strip export keywords; page tests also strip single-line imports with regex.
-// Multiline imports or export default require updating these loaders.
+// Native ES module imports.
 const assert = require('node:assert/strict');
-const { readFileSync } = require('node:fs');
-const { join } = require('node:path');
 const { test } = require('node:test');
-const vm = require('node:vm');
-
-function client(fetch) {
-  const context = vm.createContext({ fetch });
-  vm.runInContext(readFileSync(join(__dirname, '../towards_victory_editor_web/static/api.js'), 'utf8')
-    .replace(/^export /gm, ''), context);
-  return vm.runInContext('({ fetchJson, ApiError })', context);
+const originalFetch = global.fetch;
+test.afterEach(() => { global.fetch = originalFetch; });
+async function client(fetch) {
+  global.fetch = fetch;
+  return import('../towards_victory_editor_web/static/api.js');
 }
 
 for (const [code, guidance, detail] of [
@@ -23,7 +17,7 @@ for (const [code, guidance, detail] of [
       detail, code, operation_id: 'commit-1',
       operation: { id: 'commit-1', status: 'conflict', events: [{ message: 'conflict' }] },
     };
-    const api = client(async () => Response.json(payload, { status: 409 }));
+    const api = await client(async () => Response.json(payload, { status: 409 }));
     await assert.rejects(api.fetchJson('/api/resources/editor.wonder/commit'), (error) => {
       assert(error instanceof api.ApiError);
       assert.equal(error.name, 'ApiError');
@@ -43,7 +37,7 @@ for (const [field, value] of [
   ['log_text', '[error] generator failed\nrestored outputs\n'],
 ]) {
   test(`500 retains ${field} on the error`, async () => {
-    const api = client(async () => Response.json({ detail: 'generator failed', [field]: value }, { status: 500 }));
+    const api = await client(async () => Response.json({ detail: 'generator failed', [field]: value }, { status: 500 }));
     await assert.rejects(api.fetchJson('/commit'), (error) => {
       assert(error instanceof api.ApiError);
       assert.equal(error.status, 500);
@@ -62,7 +56,7 @@ test('non-JSON error bodies are consumed once and retain the original text', asy
   const readText = response.text.bind(response);
   response.text = () => { reads += 1; return readText(); };
   response.json = () => { assert.fail('an error response must be read as text only'); };
-  const api = client(async () => response);
+  const api = await client(async () => response);
   await assert.rejects(api.fetchJson('/commit'), (error) => {
     assert(error instanceof api.ApiError);
     assert.equal(error.status, 502);
@@ -77,7 +71,7 @@ test('non-JSON error bodies are consumed once and retain the original text', asy
 test('a successful response returns JSON and forwards request options unchanged', async () => {
   const options = { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{"edits":{}}' };
   const payload = { operation_id: 'commit-3', draft: { value: 7 } };
-  const api = client(async (url, received) => {
+  const api = await client(async (url, received) => {
     assert.equal(url, '/commit');
     assert.equal(received, options);
     return Response.json(payload);
@@ -86,13 +80,13 @@ test('a successful response returns JSON and forwards request options unchanged'
 });
 
 test('an unrecognized 409 keeps its diagnostic instead of reporting a stale resource', async () => {
-  const api = client(async () => Response.json({ detail: 'another conflict' }, { status: 409 }));
+  const api = await client(async () => Response.json({ detail: 'another conflict' }, { status: 409 }));
   await assert.rejects(api.fetchJson('/commit'), { message: 'another conflict', status: 409 });
 });
 
 test('structured validation details remain inspectable and produce a readable message', async () => {
   const detail = [{ loc: ['body', 'base'], msg: 'Field required' }];
-  const api = client(async () => Response.json({ detail }, { status: 422 }));
+  const api = await client(async () => Response.json({ detail }, { status: 422 }));
   await assert.rejects(api.fetchJson('/commit'), (error) => {
     assert.equal(error.status, 422);
     assert.equal(JSON.stringify(error.detail), JSON.stringify(detail));
@@ -103,7 +97,7 @@ test('structured validation details remain inspectable and produce a readable me
 
 test('empty detail falls back to the raw response and custom messages keep diagnostics', async () => {
   const raw = JSON.stringify({ detail: '  ', code: 'resource_busy' });
-  const api = client(async () => new Response(raw, { status: 409 }));
+  const api = await client(async () => new Response(raw, { status: 409 }));
   await assert.rejects(api.fetchJson('/commit', undefined, {
     errorMessages: { resource_busy: (detail) => `Busy; draft preserved (${detail})` },
   }), (error) => {

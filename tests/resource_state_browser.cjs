@@ -59,14 +59,22 @@ async function main() {
     await send('Runtime.enable');
     await send('Page.enable');
     await send('Page.addScriptToEvaluateOnNewDocument', { source: `
-      window.confirm = () => true;
-      window.__probe = { requests: [], gates: new Map(), release: null, job: null, polls: 0 };
+      window.confirm = message => {
+        if (!/^重新加载会/.test(message) && message !== '裁剪有未保存的修改。使用已保存的裁剪重建 DDS？') throw new Error('Unexpected confirmation: ' + message);
+        __probe.confirmations.push(message);
+        return true;
+      };
+      window.__probe = { requests: [], confirmations: [], gates: new Map(), release: null, job: null, polls: 0, initialDetail: true };
       const liveFetch = window.fetch.bind(window);
       window.fetch = async (url, options = {}) => {
         const path = new URL(url, location.href).pathname;
         const probe = window.__probe;
         probe.requests.push({ path, body: options.body, method: options.method || 'GET' });
-        const intercepted = await probe.intercept?.(path, () => liveFetch(url, options));
+        if (path.startsWith('/api/wonder-localization/wonders/') && probe.initialDetail) {
+          probe.initialDetail = false;
+          return Response.json({ detail: 'initial detail probe failure' }, { status: 503 });
+        }
+        const intercepted = await probe.intercept?.(path, (requestOptions = options) => liveFetch(url, requestOptions), options);
         if (intercepted) return intercepted;
         if (path === '/api/wonder-localization/catalog' && probe.catalogFailure) return Response.json({ detail: 'catalog probe failure' }, { status: 503 });
         if (path === '/api/jobs' && options.method === 'POST') return Response.json(probe.job);
@@ -105,6 +113,13 @@ async function main() {
     ` });
     await send('Page.navigate', { url: 'http://127.0.0.1:8767/' });
     await ready("!!document.querySelector('#panels input') && !!document.querySelector('#nodeList input') && document.querySelector('.tool-wonder-localization').dataset.busy === 'false'");
+    assert.match(await evaluate("document.querySelector('#status-badge').textContent"), /initial detail probe failure/);
+    assert(await evaluate("document.querySelectorAll('#wonder-list button').length > 0"));
+    assert.equal(await evaluate("__probe.requests.filter(r => r.path === '/api/wonder-localization/catalog').length"), 0);
+    await evaluate("document.querySelector('#wonder-list button').click()");
+    await ready("document.querySelector('.tool-wonder-localization').dataset.busy === 'false' && !!document.querySelector('#wonder-name-editors input')");
+    assert.equal(await evaluate("__probe.requests.filter(r => r.path === '/api/wonder-localization/catalog').length"), 1);
+    assert(await evaluate("document.querySelector('#dirty-badge').classList.contains('hidden')"));
 
     for (const [tool, input, save, reload, tab, log, resource] of [
       ['cost-reward', '#panels input[type=number]', '#cr-save-btn', '#cr-reload-btn', '#cr-tabs button', '#cr-log', 'editor.cost_reward'],
@@ -243,6 +258,7 @@ async function main() {
     assert(await evaluate("document.querySelector('#dirty-badge').classList.contains('hidden')"));
 
     await require('./wonder_rituals_browser.cjs')({ evaluate, ready, send });
+    await require('./closeout_browser.cjs')({ evaluate, ready });
 
     await evaluate("document.querySelector('.tool-hub-tab-btn[data-tool=\"wonder-cropper\"]').click()");
     await ready("document.querySelector('#cropper-meta').textContent.includes('裁剪')");

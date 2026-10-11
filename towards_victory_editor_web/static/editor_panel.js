@@ -65,15 +65,30 @@ export function createEditorPanel({ prefix, resourceId, resource, request, apply
   onLoaded = () => status.set("已加载"),
   afterLoad = async () => {},
   onSaved = (payload) => { log.report(payload); log.append("\n[ok] 已保存。\n"); status.set("已保存"); },
-  afterSave = async () => {}, onError,
+  afterSave = async () => {}, refreshKeepingDrafts = null, onError,
 }) {
   const diff = createDiffView(document.getElementById(`${prefix}-preview`));
   const url = `api/resources/${resourceId}`;
-  function error(err) {
+  let syncPending = false;
+  // Another editor wrote files in this base: refresh without discarding drafts once idle.
+  async function sync() {
+    if (!syncPending || resource.busy) return;
+    syncPending = false;
+    await refreshKeepingDrafts();
+    await sync();
+  }
+  if (refreshKeepingDrafts) {
+    window.addEventListener("resource-committed", ({ detail }) => {
+      if (detail.resourceId === resourceId || !detail.writtenPaths.some(path => Object.hasOwn(resource.base, path))) return;
+      syncPending = true;
+      void sync();
+    });
+  }
+  function error(err, label) {
     if (typeof err.log_text === "string") log.set(err.log_text);
-    log.append(`\n[error] ${err.message}\n`);
+    log.append(`\n[error] ${label}: ${err.message}\n`);
     log.report(err);
-    status.set(`请求失败，草稿已保留: ${err.message}`, "error");
+    status.set(`${label}: ${err.message}`, "error");
   }
   async function load({ confirmDirty = false, context } = {}) {
     if (resource.busy) return;
@@ -83,8 +98,9 @@ export function createEditorPanel({ prefix, resourceId, resource, request, apply
       if (confirmDirty && resource.dirty && !confirmReload()) return;
       status.set("正在加载", "working");
       loaded = await resource.run("loading", () => loadRequest(context), { apply: (payload) => { applyLoaded(payload); onLoaded(payload); } });
-    } catch (err) { (onError || error)(err, "加载失败"); }
+    } catch (err) { (onError || error)(err, resource.dirty ? "加载失败，草稿已保留" : "加载失败"); }
     if (loaded) await afterLoad(loaded);
+    await sync();
   }
   async function save() {
     if (resource.busy) return;
@@ -94,7 +110,7 @@ export function createEditorPanel({ prefix, resourceId, resource, request, apply
       status.set("正在获取预览", "working");
       // Freeze one serialized request through preview, confirmation and commit.
       // Preview never changes the resource base or marks the draft as saved.
-      committed = await resource.run("saving", async () => {
+      await resource.run("saving", async () => {
         const options = { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(request()) };
         const preview = await fetchJson(`${url}/preview`, options);
         status.set("请确认变更", "working");
@@ -103,16 +119,27 @@ export function createEditorPanel({ prefix, resourceId, resource, request, apply
           return null;
         }
         status.set("正在保存并重新生成", "working");
-        return fetchJson(`${url}/commit`, options);
+        const payload = await fetchJson(`${url}/commit`, options);
+        if (payload.written_paths?.length) {
+          window.dispatchEvent(new CustomEvent("resource-committed", {
+            detail: { resourceId, writtenPaths: payload.written_paths },
+          }));
+        }
+        return payload;
       }, { apply: (payload) => {
         if (!payload) return;
+        committed = payload;
         apply(payload);
         onSaved(payload);
       } });
-    } catch (err) { (onError || error)(err, "保存失败"); }
+    } catch (err) {
+      if (committed) log.report(committed);
+      (onError || error)(err, committed ? "已保存，但页面更新失败" : "保存失败，草稿已保留", { keepReport: !!committed });
+    }
     if (committed) await afterSave(committed);
+    await sync();
   }
   buttons.save.addEventListener("click", save);
   buttons.reload.addEventListener("click", () => load({ confirmDirty: true }));
-  return { log, status, load, save };
+  return { log, status, load, save, sync };
 }

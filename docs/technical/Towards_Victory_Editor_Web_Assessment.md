@@ -321,7 +321,7 @@ Wonder 本次验证与边界：
 - `GET /api/wonder-localization/ritual-designs` 返回轻量目录；`GET /api/wonder-localization/ritual-designs/{wonder_id}` 返回单个独特奇观的完整设计。前端打开仪式设计标签页才请求目录，展开其他奇观才请求其完整设计；当前奇观继续使用 detail 中的设计与 Prompt。Prompt 保存响应不再返回全部设计。
 - 本机同一 JSON 序列化方式（`json.dumps(..., ensure_ascii=False)`）测得资源摘要 draft 从 10,227,296 bytes 降至 110,659 bytes，资源 load 响应保持小于 200 KB；136 条仪式设计目录为 44,797 bytes。首个 generic detail 仍为 3,805,579 bytes，服务初始化约 7.3 s；本次未解决共享 options 重复、详情体积或启动时全量校验的问题。
 - `tests/test_wonder_payload_loading.py` 覆盖摘要载荷大小、目录与详情等价、中文字段标签、非独特奇观拒绝、独特奇观无设计、错误或重复的设计 `id/key`、HTTP 错误码和 Prompt 保存。服务初始化和 `load_resource()` 的重新加载都会校验设计源数据：损坏的数据使启动失败（Wonder 接口返回 503 并给出源路径），已运行服务的资源 load/reload 失败返回 500；未知详情仍返回 404。
-- `tests/wonder_payload_browser.cjs` 是可重复运行的 Playwright 回归脚本。启动本地服务后，可用 `PLAYWRIGHT_MODULE=<playwright 包路径> CHROME_PATH=<Chrome 可执行文件> EDITOR_URL=http://127.0.0.1:8760/ node tests/wonder_payload_browser.cjs` 执行；若 Playwright 已在 Node 搜索路径中，可省略 `PLAYWRIGHT_MODULE`。它覆盖首个详情失败后列表仍可选、仪式目录延迟加载与失败重试、中文标签进入 Prompt、目录更新时 Prompt 焦点与光标保留、单项详情失败重试、旧目录请求隔离及 390 px 窄屏来源路径换行。
+- 浏览器回归统一运行 `node tests/resource_state_browser.cjs`（可用 `EU5_PYTHON`、`CHROME_PATH` 指定环境）。原 Playwright 入口已删除；首个详情失败后列表仍可选、目录复用、草稿往返后选项保留、中文 Prompt、目录/详情重试、焦点与光标保留、旧响应隔离及 390 px 窄屏均由该入口和子验收覆盖。
 - 当前奇观的详情自带仪式字段中文标签，因此目录未完成或失败时也能正确显示并生成 Prompt；目录请求完成时只更新目录区域，不重建 Prompt 编辑框。
 - 这是传输层优化与统一资源提交首个切片：详情和仪式设计仍使用领域专用读取路由，但页面保存已改用 `editor.wonder` 资源 commit；已覆盖 base 冲突和登记文件的生成失败恢复。
 

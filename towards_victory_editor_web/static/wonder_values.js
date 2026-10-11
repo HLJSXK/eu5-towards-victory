@@ -75,11 +75,14 @@ export function parseNumberMaybe(value) {
     if (!text) {
         return "";
     }
-    if (/^-?\d+$/.test(text)) {
-        return Number.parseInt(text, 10);
+    if (text.toLowerCase() === "yes") return true;
+    if (text.toLowerCase() === "no") return false;
+    const numeric = text.replace(/(?<=\d)_(?=\d)/g, "");
+    if (/^[+-]?\d+$/.test(numeric)) {
+        return Number.parseInt(numeric, 10);
     }
-    if (/^-?(?:\d+|\d*\.\d+)(?:[eE][+-]?\d+)?$/.test(text)) {
-        return Number.parseFloat(text);
+    if (/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?$/.test(numeric)) {
+        return Number.parseFloat(numeric);
     }
     return text;
 }
@@ -312,7 +315,7 @@ export function yamlScalar(value) {
     if (!text) {
         return '""';
     }
-    if (/^[A-Za-z0-9_:.+\-/]+$/.test(text)) {
+    if (/^[A-Za-z_/][A-Za-z0-9_:.+\-/]*$/.test(text) && !/^(?:null|true|false|yes|no|on|off)$/i.test(text)) {
         return text;
     }
     return JSON.stringify(text);

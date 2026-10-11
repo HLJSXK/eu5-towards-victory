@@ -193,7 +193,6 @@ async function commitCrop(rect) {
     } });
   } catch (error) {
     cropJobPanel.error(error);
-    cropJobPanel.log.append(`${error.message}\n`);
   }
 }
 document.getElementById("cropper-save").addEventListener("click", () => commitCrop(cropState.rect));
@@ -206,6 +205,6 @@ document.getElementById("cropper-apply").addEventListener("click", async () => {
     cropJobPanel.status.set("正在提交", "working");
     await cropState.resource.run("submitting", () => fetchJson("/api/jobs", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ tool: "media.wonder_crop", options: {} }) }, { errorMessages: cropErrors }), { apply: (job) => cropJobPanel.start(job) });
   }
-  catch (error) { cropJobPanel.error(error); cropJobPanel.log.append(`${error.message}\n`); }
+  catch (error) { cropJobPanel.error(error); }
 });
 reloadCropResource({ confirmDirty: false });

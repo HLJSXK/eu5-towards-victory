@@ -44,7 +44,7 @@ class WonderCommit:
                 changed, files, changed_wonder_ids = self._candidate_for_drafts(drafts_by_wonder_id)
                 if not files:
                     payload = self.get_wonder_payload(target_wonder_id)
-                    result = {**self._resource_payload(), "status": "No changes", "changed_files": [],
+                    result = {**self._resource_payload(), "status": "No changes", "changed_files": [], "written_paths": [],
                               "changed_wonder_ids": [], "wonder": payload, "wonders": self.list_wonders(),
                               "generation": None,
                               "log_text": self.log_text}
@@ -73,6 +73,7 @@ class WonderCommit:
                         **self._resource_payload(),
                         "status": status,
                         "changed_files": changed_files,
+                        "written_paths": changed_files,
                         "changed_wonder_ids": changed_wonder_ids,
                         "wonders": self.list_wonders(),
                         "wonder": payload,
