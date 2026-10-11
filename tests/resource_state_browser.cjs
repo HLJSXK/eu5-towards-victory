@@ -66,6 +66,8 @@ async function main() {
         const path = new URL(url, location.href).pathname;
         const probe = window.__probe;
         probe.requests.push({ path, body: options.body, method: options.method || 'GET' });
+        const intercepted = await probe.intercept?.(path, () => liveFetch(url, options));
+        if (intercepted) return intercepted;
         if (path === '/api/wonder-localization/catalog' && probe.catalogFailure) return Response.json({ detail: 'catalog probe failure' }, { status: 503 });
         if (path === '/api/jobs' && options.method === 'POST') return Response.json(probe.job);
         if (path.endsWith('/cancel')) return Response.json({ detail: 'cancel probe failure' }, { status: 503 });
@@ -238,6 +240,8 @@ async function main() {
     await evaluate("document.querySelector('#reload-button').click()");
     await ready("!document.querySelector('#reload-button').disabled");
     assert(await evaluate("document.querySelector('#dirty-badge').classList.contains('hidden')"));
+
+    await require('./wonder_rituals_browser.cjs')({ evaluate, ready, send });
 
     await evaluate("document.querySelector('.tool-hub-tab-btn[data-tool=\"wonder-cropper\"]').click()");
     await ready("document.querySelector('#cropper-meta').textContent.includes('裁剪')");

@@ -56,6 +56,15 @@ preview callbacks. Name inputs supply their own preview callback. Field controls
 use `static/wonder_values.js` for value conversion and preview text, without
 importing page state or save/load orchestration.
 
+Wonder ritual designs and the implementation prompt live in
+`static/wonder_rituals.js`. `createWonderRituals({ getCurrentWonder,
+getPromptDraft, setPromptDraft, isBusy, onDirty, onToast })` returns `render`,
+`loadCatalog` and `invalidate`. The instance owns the ritual catalog, detail
+cache, request de-duplication and invalidation generation; the page keeps the
+current Wonder, `pageDrafts` and busy state, and prompt edits go straight into
+the page draft. The catalog loads only when the ritual tab opens, details load
+on expansion, and a resource reload discards late responses.
+
 `static/job_panel.js` owns media/cropper status, logs, polling Retry/Stop controls
 and input/output reports; media cancellation uses the same panel. The pages
 retain their own forms and resource edits. Operation prompts are Chinese, while technical IDs,
