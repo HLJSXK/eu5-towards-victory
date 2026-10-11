@@ -1,7 +1,10 @@
 import { fetchJson } from "./api.js";
 import { createLogView, createStatusView } from "./display.js";
 
-function diffValue(value) {
+function diffValue(value, item, side) {
+  if (item[side + "_present"] === false) return "（不存在）";
+  if (item.value_kind === "text" || item.value_kind === "script") return value;
+  if (item.value_kind === "structure") return JSON.stringify(value, null, 2);
   return value === undefined ? "—" : JSON.stringify(value);
 }
 
@@ -16,17 +19,21 @@ export function createDiffView(root) {
     confirm(preview) {
       const tbody = dialog.querySelector("tbody");
       tbody.innerHTML = "";
-      for (const item of preview.diff) {
+      for (const item of [...preview.diff, ...(preview.file_diff || [])]) {
         const row = document.createElement("tr");
-        const target = [item.path, item.id, item.field || (!item.id ? "文件摘要" : "")].filter(Boolean).join(" / ");
-        for (const text of [target, diffValue(item.before), diffValue(item.after)]) {
+        const target = [item.path, item.wonder_id, item.wonder_key, item.language, item.id,
+          item.field || (!item.id ? "文件摘要" : "")].filter(value => value !== undefined && value !== null && value !== "").join(" / ");
+        for (const text of [target, diffValue(item.before, item, "before"), diffValue(item.after, item, "after")]) {
           const cell = document.createElement("td");
+          if (item.value_kind) cell.className = "diff-value";
           cell.textContent = text;
           row.appendChild(cell);
         }
         tbody.appendChild(row);
       }
-      dialog.querySelector(".diff-summary").textContent = preview.diff.length
+      dialog.querySelector(".diff-summary").textContent = preview.generation_plan
+        ? `${preview.diff.length} 个字段变更；${preview.file_diff.length} 个源文件；${preview.generation_plan.steps.length} 个生成步骤。生成产物的实际文件摘要在保存后报告。`
+        : preview.diff.length
         ? `${preview.diff.length} 项变更；确认后保存并重新生成。` : "没有内容差异；确认后仍执行保存和重新生成。";
       return new Promise((resolve) => {
         const confirm = dialog.querySelector("[data-confirm]"), cancel = dialog.querySelector("[data-cancel]");
@@ -48,9 +55,18 @@ export function createDiffView(root) {
   };
 }
 
-export function createEditorPanel({ prefix, resourceId, resource, request, apply }) {
-  const log = createLogView(document.getElementById(`${prefix}-log`));
-  const status = createStatusView(document.getElementById(`${prefix}-status`));
+export function createEditorPanel({ prefix, resourceId, resource, request, apply,
+  log = createLogView(document.getElementById(`${prefix}-log`)),
+  status = createStatusView(document.getElementById(`${prefix}-status`)),
+  buttons = { save: document.getElementById(`${prefix}-save-btn`), reload: document.getElementById(`${prefix}-reload-btn`) },
+  beforeSave = () => true, beforeLoad = () => {},
+  confirmReload = () => window.confirm("重新加载会丢弃未保存的修改，继续吗？"),
+  loadRequest = () => fetchJson(`api/resources/${resourceId}`), applyLoaded = apply,
+  onLoaded = () => status.set("已加载"),
+  afterLoad = async () => {},
+  onSaved = (payload) => { log.report(payload); log.append("\n[ok] 已保存。\n"); status.set("已保存"); },
+  afterSave = async () => {}, onError,
+}) {
   const diff = createDiffView(document.getElementById(`${prefix}-preview`));
   const url = `api/resources/${resourceId}`;
   function error(err) {
@@ -59,22 +75,26 @@ export function createEditorPanel({ prefix, resourceId, resource, request, apply
     log.report(err);
     status.set(`请求失败，草稿已保留: ${err.message}`, "error");
   }
-  async function load({ confirmDirty = false } = {}) {
+  async function load({ confirmDirty = false, context } = {}) {
     if (resource.busy) return;
-    if (confirmDirty && resource.dirty && !window.confirm("重新加载会丢弃未保存的修改，继续吗？")) return;
-    status.set("正在加载", "working");
+    let loaded;
     try {
-      await resource.run("loading", () => fetchJson(url), { apply });
-      status.set("已加载");
-    } catch (err) { error(err); }
+      beforeLoad();
+      if (confirmDirty && resource.dirty && !confirmReload()) return;
+      status.set("正在加载", "working");
+      loaded = await resource.run("loading", () => loadRequest(context), { apply: (payload) => { applyLoaded(payload); onLoaded(payload); } });
+    } catch (err) { (onError || error)(err, "加载失败"); }
+    if (loaded) await afterLoad(loaded);
   }
   async function save() {
     if (resource.busy) return;
-    status.set("正在获取预览", "working");
+    let committed;
     try {
+      if (beforeSave() === false) return;
+      status.set("正在获取预览", "working");
       // Freeze one serialized request through preview, confirmation and commit.
       // Preview never changes the resource base or marks the draft as saved.
-      await resource.run("saving", async () => {
+      committed = await resource.run("saving", async () => {
         const options = { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(request()) };
         const preview = await fetchJson(`${url}/preview`, options);
         status.set("请确认变更", "working");
@@ -87,13 +107,12 @@ export function createEditorPanel({ prefix, resourceId, resource, request, apply
       }, { apply: (payload) => {
         if (!payload) return;
         apply(payload);
-        log.report(payload);
-        log.append("\n[ok] 已保存。\n");
-        status.set("已保存");
+        onSaved(payload);
       } });
-    } catch (err) { error(err); }
+    } catch (err) { (onError || error)(err, "保存失败"); }
+    if (committed) await afterSave(committed);
   }
-  document.getElementById(`${prefix}-save-btn`).addEventListener("click", save);
-  document.getElementById(`${prefix}-reload-btn`).addEventListener("click", () => load({ confirmDirty: true }));
+  buttons.save.addEventListener("click", save);
+  buttons.reload.addEventListener("click", () => load({ confirmDirty: true }));
   return { log, status, load, save };
 }

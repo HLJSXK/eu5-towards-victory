@@ -32,6 +32,8 @@ export function createJobPanel({ root, prefix, onChange, allowCancel = false, de
   }
   function renderJob(job) {
     detachedJobId = null;
+    // A failed cancel request only matters while the job can still be cancelled.
+    if (!poller.active) cancelError = "";
     let message = statusLabel(job.status);
     if (job.outputs_may_be_partial) message += job.operation.interrupted
       ? " — 作业已中断，正式输出可能部分发布，请核对文件及保留的备份"

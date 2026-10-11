@@ -1,6 +1,7 @@
+import { createWonderEditor } from "./wonder_editor.js";
 import { fetchJson } from "./api.js";
-import { createLogView, createStatusView, escapeHtml, formatOperationReport } from "./display.js";
-import { ResourceState, resourceBase, setControlsBusy } from "./resource_state.js";
+import { createStatusView, escapeHtml } from "./display.js";
+import { ResourceState, setControlsBusy } from "./resource_state.js";
 
 const state = {
     title: "Towards Victory 奇观编辑器",
@@ -11,16 +12,12 @@ const state = {
     }),
     get wonders() { return this.resource.draft.wonders; },
     get pageDrafts() { return this.resource.draft.pageDrafts; },
-    get resourceBase() { return this.resource.base; },
     get busy() { return this.resource.busy; },
     currentWonder: null,
     activeEditorTab: "english",
     listMode: "generic",
     status: "就绪",
     statusKind: "default",
-    logText: "",
-    // Report of the latest save only, so repeated saves do not accumulate reports.
-    logReport: "",
     rendering: false,
     ritualDesigns: null,
     ritualDesignDetails: {},
@@ -47,13 +44,13 @@ const elements = {
     languagePanels: document.getElementById("language-panels"),
     saveButton: document.getElementById("save-button"),
     reloadButton: document.getElementById("reload-button"),
+    retryDetailButton: document.getElementById("retry-detail-button"),
     copyLogButton: document.getElementById("copy-log-button"),
     statusBadge: document.getElementById("status-badge"),
     dirtyBadge: document.getElementById("dirty-badge"),
     logOutput: document.getElementById("log-output"),
     toast: document.getElementById("toast"),
 };
-const wonderLog = createLogView(elements.logOutput);
 const wonderStatus = createStatusView(elements.statusBadge);
 
 function normalizeLocalizationText(value) {
@@ -97,7 +94,7 @@ function updateStatus(text, kind = "default") {
 }
 
 function syncBusyControls() {
-    setControlsBusy(document.querySelectorAll("#wonder-kind-tabs button, #wonder-list button, #language-tabs button, #search-input, #wonder-name-editors input, #wonder-name-editors textarea, #language-panels input, #language-panels textarea, #language-panels select, #language-panels button, #save-button, #reload-button"), state.busy);
+    setControlsBusy(document.querySelectorAll("#wonder-kind-tabs button, #wonder-list button, #language-tabs button, #search-input, #wonder-name-editors input, #wonder-name-editors textarea, #language-panels input, #language-panels textarea, #language-panels select, #language-panels button, #save-button, #reload-button, #retry-detail-button"), state.busy);
     toolSection.dataset.busy = String(state.busy);
 }
 
@@ -546,7 +543,7 @@ function renderWonderList() {
             </span>
         `;
         button.addEventListener("click", () => {
-            void selectWonder(wonder.id);
+            void wonderEditor.select(wonder.id);
         });
         elements.wonderList.append(button);
     }
@@ -1489,7 +1486,7 @@ function buildReadonlyStructuredNote(field) {
         button.addEventListener("click", () => {
             const target = findWonderByKey(field.prototype_key, false);
             if (target) {
-                void selectWonder(target.id);
+                void wonderEditor.select(target.id);
             }
         });
         actions.append(button);
@@ -2781,15 +2778,6 @@ function syncActiveEditorPanel() {
     }
 }
 
-function fullLogText() {
-    return state.logReport ? `${state.logText}\n${state.logReport}\n` : state.logText;
-}
-
-function renderLog() {
-    wonderLog.set(fullLogText() || "[server] 暂无新日志");
-    elements.copyLogButton.disabled = !fullLogText();
-}
-
 function render() {
     state.rendering = true;
     try {
@@ -2801,7 +2789,7 @@ function render() {
         renderWonderNameEditors();
         renderEditorTabs();
         renderEditorPanels();
-        renderLog();
+        wonderEditor.renderLog();
         updateStatus(state.status, state.statusKind);
     } finally {
         state.rendering = false;
@@ -2935,126 +2923,17 @@ function syncWonderModeWithSelection() {
     state.listMode = currentWonderKind();
 }
 
-function acceptWonderResource(payload, wonders) {
-    state.resource.replace({ base: resourceBase(payload), saved: { wonders, pageDrafts: {} } });
-}
-
-async function loadBootstrap() {
-    if (state.busy) return;
-    updateStatus("正在加载", "working");
-    let initialId = null;
-    try {
-        await state.resource.run("loading", () => fetchJson("api/resources/editor.wonder"), { apply: (resource) => {
-            const payload = resource.draft;
-            acceptWonderResource(resource, payload.wonders);
-            initialId = payload.initial_wonder_id;
-            state.title = payload.title;
-            setCurrentWonderPayload(null);
-            state.logText = payload.log_text || "";
-            state.logReport = "";
-            state.status = payload.status || "就绪";
-            state.statusKind = "default";
-            syncWonderModeWithSelection();
-            render();
-        } });
-    } catch (error) {
-        updateStatus("加载失败", "error");
-        showToast("加载失败: " + error.message, "error");
-    }
-    if (initialId !== null) await selectWonder(initialId);
-}
-
-async function selectWonder(wonderId) {
-    if (state.busy || currentWonderId() === wonderId) return;
-    cacheCurrentWonderDraft();
-    updateStatus("正在切换奇观", "working");
-    try {
-        await state.resource.run("loading", async () => hydrateWonderPayload(await fetchJson("api/wonder-localization/wonders/" + wonderId)), { apply: (payload) => {
-            setCurrentWonderPayload(payload);
-            state.status = payload.status;
-            state.statusKind = "default";
-            syncWonderModeWithSelection();
-            render();
-        } });
-    } catch (error) {
-        updateStatus("切换失败", "error");
-        showToast("切换失败: " + error.message, "error");
-    }
-}
-
-async function saveCurrentWonder() {
-    if (!state.currentWonder || state.busy) return;
-    cacheCurrentWonderDraft();
-    const currentId = currentWonderId();
-    const drafts = Object.entries(state.pageDrafts).filter(([, draft]) => draftHasChanges(draft))
-        .map(([wonderId, draft]) => ({ wonder_id: Number.parseInt(wonderId, 10), ...draft }));
-    updateStatus("正在保存并重新生成", "working");
-    let detailError = null;
-    try {
-        await state.resource.run("saving", async () => {
-            const payload = await fetchJson("api/resources/editor.wonder/commit", {
-                method: "POST", headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ regenerate: true, current_wonder_id: currentId, wonders: drafts, base: state.resourceBase }),
-            });
-            try { await hydrateWonderPayload(payload.wonder); }
-            catch (error) { detailError = error; }
-            return payload;
-        }, { apply: (payload) => {
-            acceptWonderResource(payload, payload.wonders);
-            invalidateRitualDesigns();
-            state.logText = payload.log_text || state.logText;
-            state.logReport = formatOperationReport(payload);
-            setCurrentWonderPayload(detailError ? null : payload.wonder);
-            state.status = detailError ? "已保存，详情加载失败" : payload.status;
-            state.statusKind = detailError ? "error" : "default";
-            syncWonderModeWithSelection();
-            render();
-            showToast(detailError ? "保存成功，但详情加载失败，正在重新加载: " + detailError.message : state.status, detailError ? "error" : "success");
-        } });
-    } catch (error) {
-        if (typeof error.log_text === "string") {
-            state.logText = error.log_text;
-        }
-        state.logReport = formatOperationReport(error);
-        renderLog();
-        updateStatus("保存失败", "error");
-        showToast("保存失败: " + error.message, "error");
-    }
-    if (detailError) void selectWonder(currentId);
-}
-
-async function reloadCurrentWonder() {
-    if (!state.currentWonder || state.busy) return;
-    cacheCurrentWonderDraft();
-    const currentId = currentWonderId();
-    const dirtyCount = dirtyPageCount();
-    if (dirtyCount > 0 && !window.confirm("重新加载会放弃全部 " + dirtyCount + " 个奇观页面的未保存编辑，继续吗？")) return;
-    updateStatus("正在重新加载", "working");
-    try {
-        await state.resource.run("loading", async () => {
-            const resource = await fetchJson("api/resources/editor.wonder");
-            const wonder = await hydrateWonderPayload(await fetchJson("api/wonder-localization/wonders/" + currentId));
-            return { resource, wonder };
-        }, { apply: ({ resource, wonder }) => {
-            acceptWonderResource(resource, resource.draft.wonders);
-            invalidateRitualDesigns();
-            setCurrentWonderPayload(wonder);
-            state.logText = resource.draft.log_text || state.logText;
-            state.logReport = "";
-            state.status = "已重新加载";
-            state.statusKind = "default";
-            syncWonderModeWithSelection();
-            render();
-            showToast(state.status, "success");
-        } });
-    } catch (error) {
-        updateStatus("重新加载失败", "error");
-        showToast("重新加载失败: " + error.message, "error");
-    }
-}
+const wonderEditor = createWonderEditor({
+    state, elements,
+    cacheDraft: () => cacheCurrentWonderDraft(), dirtyCount: dirtyPageCount, draftHasChanges,
+    currentId: currentWonderId, setCurrent: setCurrentWonderPayload,
+    hydrate: (payload) => hydrateWonderPayload(payload), invalidateDesigns: invalidateRitualDesigns,
+    syncSelection: syncWonderModeWithSelection, render: () => render(), updateStatus,
+    showToast: (message, kind) => showToast(message, kind),
+});
 
 async function copyLog() {
-    const text = fullLogText();
+    const text = wonderEditor.log.text;
     if (!text) {
         return;
     }
@@ -3068,12 +2947,6 @@ async function copyLog() {
 }
 
 elements.searchInput.addEventListener("input", renderWonderList);
-elements.saveButton.addEventListener("click", () => {
-    void saveCurrentWonder();
-});
-elements.reloadButton.addEventListener("click", () => {
-    void reloadCurrentWonder();
-});
 elements.copyLogButton.addEventListener("click", () => {
     void copyLog();
 });
@@ -3084,8 +2957,14 @@ window.addEventListener("keydown", (event) => {
     }
     if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "s") {
         event.preventDefault();
-        void saveCurrentWonder();
+        void wonderEditor.save();
     }
 });
 
-void loadBootstrap();
+window.addEventListener("beforeunload", (event) => {
+    if (!hasUnsavedChanges()) return;
+    event.preventDefault();
+    event.returnValue = "";
+});
+
+void wonderEditor.load({ context: { initial: true } });

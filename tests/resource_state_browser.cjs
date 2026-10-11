@@ -66,6 +66,7 @@ async function main() {
         const path = new URL(url, location.href).pathname;
         const probe = window.__probe;
         probe.requests.push({ path, body: options.body, method: options.method || 'GET' });
+        if (path === '/api/wonder-localization/catalog' && probe.catalogFailure) return Response.json({ detail: 'catalog probe failure' }, { status: 503 });
         if (path === '/api/jobs' && options.method === 'POST') return Response.json(probe.job);
         if (path.endsWith('/cancel')) return Response.json({ detail: 'cancel probe failure' }, { status: 503 });
         if (path.startsWith('/api/jobs/')) {
@@ -78,6 +79,7 @@ async function main() {
         if (path.endsWith('/preview')) return liveFetch(url, options);
         if (options.method === 'POST') {
           await new Promise((resolve) => { probe.release = resolve; });
+          if (probe.commitPayload) return Response.json(probe.commitPayload);
           return Response.json(probe.commitStatus === 500
             ? { detail: 'generation probe failure', operation_id: 'probe-commit', generation: { status: 'failed',
               steps: [{ id: 'probe.py', status: 'failed', returncode: 1 }], rollback: { status: 'succeeded', errors: [] } } }
@@ -116,6 +118,12 @@ async function main() {
       await evaluate(`document.querySelector('#${prefix}-preview [data-cancel]').click()`);
       await ready(`!document.querySelector('${save}').disabled`);
       assert.equal(await evaluate(`Number(document.querySelector('${input}').value)`), 0.123);
+      // Leaving the tool while the preview is in flight must not open an invisible modal that blocks the page.
+      await evaluate(`document.querySelector('${save}').click(); document.querySelector('.tool-hub-tab-btn[data-tool="wonder-localization"]').click()`);
+      await ready(`document.querySelector('#${prefix}-preview dialog').open`);
+      assert(await evaluate(`document.querySelector('#${prefix}-preview dialog').getClientRects().length > 0`), `${tool} preview visible from another tool`);
+      await evaluate(`document.querySelector('#${prefix}-preview [data-cancel]').click(); document.querySelector('.tool-hub-tab-btn[data-tool="${tool}"]').click()`);
+      await ready(`!document.querySelector('${save}').disabled`);
       await evaluate(`document.querySelector('${save}').click()`);
       await ready(`document.querySelector('#${prefix}-preview dialog').open`);
       await evaluate(`__probe.release = null; document.querySelector('#${prefix}-preview [data-confirm]').click()`);
@@ -145,12 +153,57 @@ async function main() {
     await ready("!!document.querySelector('[data-ritual-prompt-input]')");
     await evaluate("{ const input = document.querySelector('[data-ritual-prompt-input]'); input.value = 'unified prompt probe'; input.dispatchEvent(new Event('input', { bubbles: true })); } document.querySelector('#save-button').click()");
     assert(await evaluate("document.querySelector('[data-ritual-prompt-input]').disabled && document.querySelector('#reload-button').disabled && [...document.querySelectorAll('#wonder-list button')].every(b => b.disabled)"));
-    const commit = await evaluate("JSON.parse(__probe.requests.findLast(r => r.path === '/api/resources/editor.wonder/commit').body)");
-    assert.equal(commit.wonders[0].ritual_prompt, 'unified prompt probe');
-    await evaluate('__probe.release()');
+    await ready("document.querySelector('#wonder-preview dialog').open");
+    assert.match(await evaluate("document.querySelector('#wonder-preview tbody').textContent"), /unified prompt probe/);
+    assert.equal(await evaluate("__probe.requests.filter(r => r.path === '/api/resources/editor.wonder/commit').length"), 0);
+    await evaluate("document.querySelector('#wonder-preview [data-cancel]').click()");
     await ready("!document.querySelector('#save-button').disabled");
     assert.equal(await evaluate("document.querySelector('[data-ritual-prompt-input]').value"), 'unified prompt probe');
+    await evaluate("document.querySelector('#save-button').click(); document.querySelector('.tool-hub-tab-btn[data-tool=\"cost-reward\"]').click()");
+    await ready("document.querySelector('#wonder-preview dialog').open");
+    assert(await evaluate("document.querySelector('#wonder-preview dialog').getClientRects().length > 0"));
+    await evaluate("__probe.release = null; document.querySelector('#wonder-preview [data-confirm]').click()");
+    await ready('!!__probe.release');
+    const commit = await evaluate("JSON.parse(__probe.requests.findLast(r => r.path === '/api/resources/editor.wonder/commit').body)");
+    assert.equal(commit.wonders[0].ritual_prompt, 'unified prompt probe');
+    assert(await evaluate("__probe.requests.findLast(r => r.path === '/api/resources/editor.wonder/preview').body === __probe.requests.findLast(r => r.path === '/api/resources/editor.wonder/commit').body"));
+    await evaluate('__probe.release()');
+    await ready("!document.querySelector('#save-button').disabled");
+    await evaluate("document.querySelector('.tool-hub-tab-btn[data-tool=\"wonder-localization\"]').click()");
+    assert.equal(await evaluate("document.querySelector('[data-ritual-prompt-input]').value"), 'unified prompt probe');
     assert(await evaluate("!document.querySelector('#dirty-badge').classList.contains('hidden')"));
+    assert.match(await evaluate("document.querySelector('#log-output').textContent"), /probe source changed/);
+    await evaluate("__probe.commitStatus = 500; document.querySelector('#save-button').click()");
+    await ready("document.querySelector('#wonder-preview dialog').open");
+    await evaluate("__probe.release = null; document.querySelector('#wonder-preview [data-confirm]').click()");
+    await ready('!!__probe.release');
+    await evaluate('__probe.release()');
+    await ready("!document.querySelector('#save-button').disabled");
+    assert.match(await evaluate("document.querySelector('#log-output').textContent"), /probe-commit[\s\S]*probe.py[\s\S]*恢复结果: 已完成/);
+    assert.equal(await evaluate("document.querySelector('[data-ritual-prompt-input]').value"), 'unified prompt probe');
+    await evaluate('__probe.commitStatus = null');
+    await evaluate(`(async () => {
+      const resource = await (await fetch('/api/resources/editor.wonder')).json();
+      const id = JSON.parse(__probe.requests.findLast(r => r.path === '/api/resources/editor.wonder/commit').body).current_wonder_id;
+      const wonder = await (await fetch('/api/wonder-localization/wonders/' + id)).json();
+      wonder.catalog_version = 'probe-committed-catalog';
+      __probe.commitPayload = { ...resource, wonders: resource.draft.wonders, wonder, operation_id: 'probe-saved', operation: { status: 'succeeded' } };
+      __probe.catalogFailure = true;
+      document.querySelector('#save-button').click();
+    })()`);
+    await ready("document.querySelector('#wonder-preview dialog').open");
+    await evaluate("__probe.release = null; document.querySelector('#wonder-preview [data-confirm]').click()");
+    await ready('!!__probe.release');
+    await evaluate('__probe.release()');
+    await ready("!document.querySelector('#retry-detail-button').hidden && !document.querySelector('#retry-detail-button').disabled");
+    assert.match(await evaluate("document.querySelector('#status-badge').textContent"), /已保存.*详情加载失败.*catalog probe failure/);
+    assert(await evaluate("document.querySelector('#dirty-badge').classList.contains('hidden')"));
+    assert.match(await evaluate("document.querySelector('#log-output').textContent"), /probe-saved/);
+    const commitsBeforeRetry = await evaluate("__probe.requests.filter(r => r.path === '/api/resources/editor.wonder/commit').length");
+    await evaluate("__probe.catalogFailure = false; __probe.commitPayload = null; document.querySelector('#retry-detail-button').click()");
+    await ready("document.querySelector('#retry-detail-button').hidden && !document.querySelector('#save-button').disabled");
+    assert.equal(await evaluate("__probe.requests.filter(r => r.path === '/api/resources/editor.wonder/commit').length"), commitsBeforeRetry);
+    assert.match(await evaluate("document.querySelector('#log-output').textContent"), /probe-saved/);
     await evaluate("document.querySelector('#reload-button').click()");
     await ready("!document.querySelector('#reload-button').disabled");
     assert(await evaluate("document.querySelector('#dirty-badge').classList.contains('hidden')"));
@@ -213,7 +266,7 @@ async function main() {
     const modules = await evaluate(`Promise.all([import('/static/display.js'), import('/static/job_panel.js'), import('/static/editor_panel.js')]).then(m => m.every(x => Object.keys(x).length > 0))`);
     assert(modules);
     assert.deepEqual(pageErrors, []);
-    console.log('Chrome shared-display acceptance passed: live server diffs in two editors, preview cancellation and exact commit payload, generation/recovery diagnostics, four-editor state, shared media/cropper file reports and polling controls, escaped data; no page exceptions.');
+    console.log('Chrome acceptance passed: live diffs in three editors, cancellation and exact preview/commit bodies, hidden-tool modal, 409/generation diagnostics, Wonder committed state and detail-only retry, four-editor state, media/cropper reports and polling, escaped data; no page exceptions.');
     await send('Browser.close');
   } finally {
     if (ws) ws.close();

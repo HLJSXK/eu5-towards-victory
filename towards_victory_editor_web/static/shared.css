@@ -119,3 +119,8 @@ body {
 .diff-dialog th { background: #d8e5e9; color: #173847; }
 .diff-dialog tr { background: transparent; }
 .diff-dialog h2 { color: #173847; }
+.diff-dialog td.diff-value {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  vertical-align: top;
+}

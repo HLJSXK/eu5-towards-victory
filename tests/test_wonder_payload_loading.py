@@ -5,12 +5,13 @@ import pytest
 from fastapi.testclient import TestClient
 
 from towards_victory_editor_web.services import wonder_localization
-from towards_victory_editor_web.services.wonder_localization import WonderLocalizationService
+from towards_victory_editor_web.services.wonder_resource import WonderResourceService
+from towards_victory_editor_web.services.platform import snapshot_files
 
 
 @pytest.fixture(scope="module")
 def service():
-    return WonderLocalizationService()
+    return WonderResourceService()
 
 
 def test_bootstrap_is_summary_only(service, monkeypatch):
@@ -88,7 +89,7 @@ def test_unique_wonder_without_ritual_design(service, monkeypatch):
     with pytest.raises(KeyError, match="No ritual design"):
         service.ritual_design_payload(removed["id"])
     assert service.ritual_design_catalog_payload()["count"] == len(entries) - 1
-    monkeypatch.setattr(server, "WonderLocalizationService", lambda _operation_store: service)
+    monkeypatch.setattr(server, "WonderResourceService", lambda _operation_store: service)
     with TestClient(server.create_app()) as client:
         assert client.get(f"/api/wonder-localization/ritual-designs/{removed['id']}").status_code == 404
 
@@ -111,7 +112,7 @@ def test_invalid_ritual_design_source_fails_service_load(service, monkeypatch, c
     def fail_load(_operation_store):
         raise error.value
 
-    monkeypatch.setattr(server, "WonderLocalizationService", fail_load)
+    monkeypatch.setattr(server, "WonderResourceService", fail_load)
     with TestClient(server.create_app()) as client:
         response = client.get("/api/wonder-localization/ritual-designs")
         assert response.status_code == 503
@@ -121,7 +122,7 @@ def test_invalid_ritual_design_source_fails_service_load(service, monkeypatch, c
 def test_http_summary_detail_and_errors(service, monkeypatch):
     from towards_victory_editor_web import server
 
-    monkeypatch.setattr(server, "WonderLocalizationService", lambda _operation_store: service)
+    monkeypatch.setattr(server, "WonderResourceService", lambda _operation_store: service)
     with TestClient(server.create_app()) as client:
         resource = client.get("/api/resources/editor.wonder")
         assert resource.status_code == 200
@@ -150,7 +151,7 @@ def test_http_unavailable_service(monkeypatch):
     def fail_load(_operation_store):
         raise ValueError("invalid wonder data")
 
-    monkeypatch.setattr(server, "WonderLocalizationService", fail_load)
+    monkeypatch.setattr(server, "WonderResourceService", fail_load)
     with TestClient(server.create_app()) as client:
         for path in ("/api/resources/editor.wonder", "/api/wonder-localization/catalog", "/api/wonder-localization/ritual-designs", "/api/wonder-localization/ritual-designs/1"):
             response = client.get(path)
@@ -164,7 +165,7 @@ def test_prompt_save_keeps_detail_without_returning_catalog(service, monkeypatch
     monkeypatch.setattr(wonder_localization, "UNIQUE_RITUAL_PROMPTS_FILE", prompt_file)
     monkeypatch.setattr(service, "unique_ritual_prompts_data", {"unique_wonders": []})
     wonder_id = service.ritual_design_catalog_payload()["wonders"][0]["id"]
-    service._base = wonder_localization.snapshot_files(wonder_localization._wonder_source_paths(), repo_root=wonder_localization.REPO_ROOT)
+    service._base = snapshot_files(wonder_localization._wonder_source_paths(), repo_root=wonder_localization.REPO_ROOT)
     base = {item.path: item.sha256 for item in service._base}
     payload = service.commit_resource({wonder_id: {"ritual_prompt": "  Implement ritual\r\nwith rewards  "}}, base, current_wonder_id=wonder_id, regenerate=False)
     assert payload["wonder"]["ritual_prompt"]["prompt"] == "Implement ritual\nwith rewards"

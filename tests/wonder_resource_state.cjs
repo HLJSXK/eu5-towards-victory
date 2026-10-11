@@ -1,118 +1,178 @@
-// Run with: node --test tests/wonder_resource_state.cjs
+// Native modules: exercise the Wonder adapter and shared preview/save controller together.
 const assert = require('node:assert/strict');
-const { readFileSync } = require('node:fs');
-const { join } = require('node:path');
 const { test } = require('node:test');
-const vm = require('node:vm');
 
-function editor() {
-    const control = { dataset: {}, addEventListener() {} };
-    const prompts = [];
-    const context = vm.createContext({
-        document: {
-            querySelector: () => control,
-            querySelectorAll: () => [],
-            getElementById: () => control,
-        },
-        window: { addEventListener() {}, confirm: (message) => { prompts.push(message); return true; } },
-        console: { error() {} },
-        // Leave the automatic bootstrap pending; each test supplies its own loaded state.
-        fetch: () => new Promise(() => {}),
-    });
-    vm.runInContext(readFileSync(join(__dirname, '../towards_victory_editor_web/static/api.js'), 'utf8').replace(/^export /gm, ''), context);
-    vm.runInContext(readFileSync(join(__dirname, '../towards_victory_editor_web/static/resource_state.js'), 'utf8').replace(/^export /gm, ''), context);
-    vm.runInContext(readFileSync(join(__dirname, '../towards_victory_editor_web/static/display.js'), 'utf8').replace(/^import .*;\r?\n/gm, '').replace(/^export /gm, ''), context);
-    vm.runInContext(readFileSync(join(__dirname, '../towards_victory_editor_web/static/wonder_localization.js'), 'utf8').replace(/^import .*;\r?\n/gm, ''), context);
-    vm.runInContext(`
-        render = () => {};
-        showToast = () => {};
-        cacheCurrentWonderDraft = () => {};
-        hydrateWonderPayload = async (payload) => payload;
-        state.currentWonder = { summary: { id: 1 } };
-        state.resource.reset({ base: { source: 'old' }, saved: { wonders: [], pageDrafts: {} },
-          draft: { wonders: [], pageDrafts: { 2: { values: { english: { title: 'old draft' } }, mechanics: {} } } } });
-    `, context);
-    return {
-        context,
-        prompts,
-        state: vm.runInContext('state', context),
-        reload: () => vm.runInContext('reloadCurrentWonder()', context),
-        respond: (fetcher) => { context.fetch = async (url) => Response.json(await fetcher(url)); },
-    };
+class Element {
+  constructor() { this.dataset = {}; this.children = []; this.selectors = new Map(); this.listeners = new Map(); this.textContent = ''; }
+  querySelector(key) { if (!this.selectors.has(key)) this.selectors.set(key, new Element()); return this.selectors.get(key); }
+  appendChild(child) { this.children.push(child); }
+  addEventListener(key, fn) { if (!this.listeners.has(key)) this.listeners.set(key, new Set()); this.listeners.get(key).add(fn); }
+  removeEventListener(key, fn) { this.listeners.get(key)?.delete(fn); }
+  async emit(key, event = {}) { await Promise.all([...this.listeners.get(key) || []].map(fn => fn(event))); }
+  showModal() { this.open = true; }
+  close() { this.open = false; }
 }
 
-const resource = {
-    change_set: { base: [{ path: 'source', sha256: 'new' }] },
-    draft: { wonders: [{ id: 1 }, { id: 2 }], log_text: '' },
+async function until(check) {
+  for (let i = 0; i < 50; i++) { if (check()) return; await new Promise(setImmediate); }
+  assert.fail('Expected UI state');
+}
+
+const resourcePayload = {
+  change_set: { base: [{ path: 'source', sha256: 'new' }] },
+  draft: { title: 'Wonder', wonders: [{ id: 1 }, { id: 2 }], initial_wonder_id: 1, log_text: '' },
 };
+const detail = { summary: { id: 1 }, languages: {}, mechanics: {}, status: 'Loaded' };
+const committed = { ...resourcePayload, wonder: detail, wonders: resourcePayload.draft.wonders,
+  operation_id: 'saved-1', operation: { status: 'succeeded' }, log_text: 'server log' };
+const preview = { diff: [{ kind: 'field', path: 'data/source.yaml', wonder_id: 2, wonder_key: 'test',
+  language: 'english', field: 'title', value_kind: 'text', before: 'old', after: 'old draft' }] };
 
-test('reload confirms and discards every page draft before advancing the resource base', async () => {
-    const app = editor();
-    app.respond(async (url) => url === 'api/resources/editor.wonder'
-        ? resource : { summary: { id: 1 }, languages: {}, mechanics: {} });
-    await app.reload();
-    assert.equal(app.prompts.length, 1, 'a dirty page other than the current one must require confirmation');
-    assert.equal(Object.keys(app.state.pageDrafts).length, 0);
-    assert.equal(app.state.resourceBase.source, 'new');
-});
-
-test('cancelled reload retains the old base and all drafts without making requests', async () => {
-    const app = editor();
-    app.context.window.confirm = () => false;
-    let calls = 0;
-    app.respond(async () => { calls += 1; return resource; });
-    await app.reload();
-    assert.equal(calls, 0);
-    assert.equal(app.state.resourceBase.source, 'old');
-    assert.equal(app.state.pageDrafts[2].values.english.title, 'old draft');
-});
-
-for (const failure of ['resource', 'detail', 'catalog']) {
-    test(`failed ${failure} reload preserves the old base, current detail and every draft`, async () => {
-        const app = editor();
-        const previousWonder = app.state.currentWonder;
-        app.respond(async (url) => {
-            if (failure === 'resource' || (failure === 'detail' && url !== 'api/resources/editor.wonder')) {
-                throw new Error('load failed');
-            }
-            return url === 'api/resources/editor.wonder' ? resource : { summary: { id: 1 } };
-        });
-        if (failure === 'catalog') {
-            vm.runInContext('hydrateWonderPayload = async () => { throw new Error("catalog failed"); }', app.context);
-        }
-        await app.reload();
-        assert.equal(app.state.resourceBase.source, 'old');
-        assert.equal(app.state.pageDrafts[2].values.english.title, 'old draft');
-        assert.equal(app.state.currentWonder, previousWonder);
-        assert.equal(app.state.busy, false);
-    });
+async function fixture(t) {
+  const { createWonderEditor } = await import('../towards_victory_editor_web/static/wonder_editor.js');
+  const { ResourceState } = await import('../towards_victory_editor_web/static/resource_state.js');
+  const previous = { document: global.document, window: global.window, fetch: global.fetch };
+  const root = new Element(), elements = Object.fromEntries(['logOutput', 'copyLogButton', 'saveButton', 'reloadButton', 'retryDetailButton'].map(k => [k, new Element()]));
+  const prompts = [], calls = [];
+  global.document = { getElementById: () => root, createElement: () => new Element() };
+  global.window = { confirm: message => { prompts.push(message); return true; } };
+  t.after(() => Object.assign(global, previous));
+  const state = {
+    currentWonder: detail,
+    resource: new ResourceState({ base: { source: 'old' }, saved: { wonders: [], pageDrafts: {} },
+      draft: { wonders: [], pageDrafts: { 2: { values: { english: { title: 'old draft' } }, mechanics: {} } } } }),
+    get pageDrafts() { return this.resource.draft.pageDrafts; },
+    get busy() { return this.resource.busy; },
+  };
+  let cacheCalls = 0;
+  const hooks = { hydrate: async payload => payload };
+  const editor = createWonderEditor({ state, elements,
+    cacheDraft: () => { cacheCalls++; }, dirtyCount: () => Object.keys(state.pageDrafts).length,
+    draftHasChanges: draft => Object.keys(draft.values.english).length > 0,
+    currentId: () => state.currentWonder?.summary.id ?? null,
+    setCurrent: payload => { state.currentWonder = payload; }, hydrate: payload => hooks.hydrate(payload),
+    invalidateDesigns() {}, syncSelection() {}, render() { editor.renderLog(); },
+    updateStatus(text, kind = 'default') { state.status = text; state.statusKind = kind; }, showToast() {},
+  });
+  function respond(fn) { global.fetch = async (url, options = {}) => { calls.push({ url, ...options }); const result = await fn(url, options); return result instanceof Response ? result : Response.json(result); }; }
+  respond(url => url.endsWith('/preview') ? preview : url.endsWith('/commit') ? committed : url === 'api/resources/editor.wonder' ? resourcePayload : detail);
+  return { editor, state, elements, prompts, calls, hooks, respond, dialog: root.querySelector('dialog'), get cacheCalls() { return cacheCalls; } };
 }
 
-test('a rejected commit refreshes the displayed log and retains drafts and base', async () => {
-    const app = editor();
-    app.context.fetch = async () => Response.json({
-        detail: 'source changed', code: 'resource_changed', log_text: '[error] source changed\n',
-    }, { status: 409 });
-    await vm.runInContext(`
-        renderLog = () => { globalThis.displayedLog = state.logText; };
-        saveCurrentWonder();
-    `, app.context);
-    assert.equal(app.state.resourceBase.source, 'old');
-    assert.equal(app.state.pageDrafts[2].values.english.title, 'old draft');
-    assert.equal(app.state.logText, '[error] source changed\n');
-    assert.equal(app.context.displayedLog, app.state.logText);
+test('reload confirms all page drafts and publishes resource and detail together', async t => {
+  const app = await fixture(t);
+  await app.editor.load({ confirmDirty: true });
+  assert.equal(app.prompts.length, 1);
+  assert.equal(app.state.resource.base.source, 'new');
+  assert.deepEqual(app.state.pageDrafts, {});
+  assert.equal(app.state.currentWonder.summary.id, 1);
 });
 
-test('repeated failed commits show only the latest operation report', async () => {
-    const app = editor();
-    let attempt = 0;
-    app.context.fetch = async () => Response.json({
-        detail: 'generator failed', operation_id: `op-${++attempt}`,
-    }, { status: 500 });
-    vm.runInContext('renderLog = () => { globalThis.displayedLog = fullLogText(); };', app.context);
-    await vm.runInContext('saveCurrentWonder()', app.context);
-    await vm.runInContext('saveCurrentWonder()', app.context);
-    assert.match(app.context.displayedLog, /op-2/);
-    assert.doesNotMatch(app.context.displayedLog, /op-1/);
-    assert.doesNotMatch(app.state.logText, /操作 ID/);
+test('cancelled reload keeps drafts/base without requests', async t => {
+  const app = await fixture(t);
+  global.window.confirm = () => false;
+  await app.editor.load({ confirmDirty: true });
+  assert.equal(app.calls.length, 0);
+  assert.equal(app.state.resource.base.source, 'old');
+  assert.equal(app.state.pageDrafts[2].values.english.title, 'old draft');
+});
+
+test('initial detail failure leaves the summary loaded and retry can select the first wonder', async t => {
+  const app = await fixture(t);
+  app.state.currentWonder = null;
+  app.respond(url => {
+    if (url !== 'api/resources/editor.wonder') throw new Error('initial detail failed');
+    return resourcePayload;
+  });
+  await app.editor.load({ context: { initial: true } });
+  assert.deepEqual(app.state.resource.draft.wonders, resourcePayload.draft.wonders);
+  assert.equal(app.state.currentWonder, null);
+  assert.equal(app.state.resource.base.source, 'new');
+  app.respond(() => detail);
+  await app.editor.select(1);
+  assert.equal(app.state.currentWonder.summary.id, 1);
+});
+
+for (const failure of ['resource', 'detail', 'catalog']) test('failed ' + failure + ' reload retains all drafts/base/detail', async t => {
+  const app = await fixture(t), before = app.state.currentWonder;
+  app.respond(url => {
+    if (failure === 'resource' || failure === 'detail' && url !== 'api/resources/editor.wonder') throw new Error('load failed');
+    return url === 'api/resources/editor.wonder' ? resourcePayload : detail;
+  });
+  if (failure === 'catalog') app.hooks.hydrate = async () => { throw new Error('catalog failed'); };
+  await app.editor.load({ confirmDirty: true });
+  assert.equal(app.state.resource.base.source, 'old');
+  assert.equal(app.state.pageDrafts[2].values.english.title, 'old draft');
+  assert.equal(app.state.currentWonder, before);
+  assert.equal(app.state.busy, false);
+  assert.match(app.editor.log.text, /failed/);
+});
+
+test('save caches before freezing and uses the same body, with all Wonder fields, for preview and commit', async t => {
+  const app = await fixture(t);
+  const pending = app.editor.save(); await until(() => app.dialog.open);
+  assert.equal(app.cacheCalls, 1);
+  assert.equal(app.state.busy, true);
+  assert.equal(app.state.resource.mutate(d => { d.pageDrafts = {}; }), false);
+  await app.editor.save(); assert.equal(app.calls.length, 1);
+  assert.equal(app.state.resource.base.source, 'old');
+  await app.dialog.querySelector('[data-confirm]').emit('click'); await pending;
+  assert.equal(app.calls[0].body, app.calls[1].body);
+  assert.deepEqual(JSON.parse(app.calls[0].body), { regenerate: true, current_wonder_id: 1, base: { source: 'old' },
+    wonders: [{ wonder_id: 2, values: { english: { title: 'old draft' } }, mechanics: {} }] });
+  assert.equal(app.state.resource.base.source, 'new');
+  assert.equal(app.state.resource.dirty, false);
+  assert.match(app.editor.log.text, /saved-1/);
+});
+
+for (const action of ['cancel', 'escape']) test(action + ' from preview keeps all drafts and base', async t => {
+  const app = await fixture(t);
+  const pending = app.editor.save(); await until(() => app.dialog.open);
+  if (action === 'cancel') await app.dialog.querySelector('[data-cancel]').emit('click');
+  else await app.dialog.emit('cancel', { preventDefault() {} });
+  await pending;
+  assert.equal(app.calls.length, 1);
+  assert.equal(app.state.resource.base.source, 'old');
+  assert.equal(app.state.pageDrafts[2].values.english.title, 'old draft');
+  assert.equal(app.state.busy, false);
+});
+
+for (const endpoint of ['preview', 'commit']) for (const status of [409, 500]) test(endpoint + ' ' + status + ' keeps drafts and diagnostics', async t => {
+  const app = await fixture(t);
+  app.respond(url => url.endsWith('/' + endpoint) ? Response.json({ detail: 'data/wonder.yaml failed', code: 'resource_changed',
+    operation_id: 'failed-1', log_text: 'server log', generation: { status: 'failed', rollback: { status: 'succeeded', errors: [] } } }, { status }) : preview);
+  const pending = app.editor.save();
+  if (endpoint === 'commit') { await until(() => app.dialog.open); await app.dialog.querySelector('[data-confirm]').emit('click'); }
+  await pending;
+  assert.equal(app.state.resource.base.source, 'old');
+  assert.equal(app.state.pageDrafts[2].values.english.title, 'old draft');
+  assert.equal(app.state.statusKind, 'error');
+  assert.match(app.state.status, /data\/wonder.yaml/);
+  assert.match(app.editor.log.text, /server log[\s\S]*failed-1[\s\S]*恢复结果[\s\S]*data\/wonder.yaml/);
+});
+
+test('repeated failures replace the previous operation report', async t => {
+  const app = await fixture(t); let attempt = 0;
+  app.respond(() => Response.json({ detail: 'generator failed', operation_id: 'op-' + ++attempt }, { status: 500 }));
+  await app.editor.save(); await app.editor.save();
+  assert.match(app.editor.log.text, /op-2/); assert.doesNotMatch(app.editor.log.text, /op-1/);
+});
+
+test('committed base survives catalog failure; explicit retry only loads detail and preserves the operation report', async t => {
+  const app = await fixture(t);
+  app.hooks.hydrate = async () => { throw new Error('catalog failed'); };
+  const pending = app.editor.save(); await until(() => app.dialog.open);
+  await app.dialog.querySelector('[data-confirm]').emit('click'); await pending;
+  assert.equal(app.state.resource.base.source, 'new'); assert.equal(app.state.resource.dirty, false);
+  assert.equal(app.state.currentWonder, null);
+  assert.equal(app.elements.retryDetailButton.hidden, false);
+  assert.match(app.state.status, /已保存.*详情加载失败/);
+  assert.match(app.editor.log.text, /saved-1[\s\S]*catalog failed/);
+  app.hooks.hydrate = async payload => payload;
+  await app.elements.retryDetailButton.emit('click');
+  await until(() => !app.state.busy);
+  assert.equal(app.state.currentWonder.summary.id, 1);
+  assert.equal(app.elements.retryDetailButton.hidden, true);
+  assert.equal(app.calls.filter(c => c.method === 'POST').length, 2);
+  assert.match(app.editor.log.text, /saved-1/);
 });

@@ -29,6 +29,21 @@ export function createStatusView(node) {
   };
 }
 
+// Used by editors that show one operation report alongside the server log.
+export function createLatestLogView(node) {
+  let server = "", report = "", diagnostic = "";
+  const view = createLogView(node);
+  const log = {
+    get text() { return [server, report, diagnostic].filter(Boolean).join("\n"); },
+    set(text) { server = text || ""; log.render(); },
+    report(payload) { report = formatOperationReport(payload); diagnostic = ""; log.render(); },
+    diagnostic(text) { diagnostic = text; log.render(); },
+    reset(text) { server = text || ""; report = diagnostic = ""; log.render(); },
+    render() { view.set(log.text || "[server] 暂无新日志"); },
+  };
+  return log;
+}
+
 export function renderTabs(root, { items, active, key, label, select, busy }) {
   root.innerHTML = "";
   for (const item of items) {

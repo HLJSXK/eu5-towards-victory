@@ -23,6 +23,7 @@ from .platform import (
     FileSnapshot,
     OperationCancelled,
     OperationLog,
+    RollbackError,
     repo_relative_path,
     run_operation,
     snapshot_files,
@@ -542,8 +543,8 @@ class JobManager:
                     job.context.check_cancelled()
                     try:
                         _publish_staged(job.context, outputs, backup, before)
-                    except (PublicationConflictError, PublicationRecoveryError) as exc:
-                        conflict = exc.original if isinstance(exc, PublicationRecoveryError) else exc
+                    except (PublicationConflictError, RollbackError) as exc:
+                        conflict = exc.original if isinstance(exc, RollbackError) else exc
                         if isinstance(conflict, PublicationConflictError):
                             with job._details_lock:
                                 job.formal_output_changes = conflict.paths
@@ -552,7 +553,7 @@ class JobManager:
                     with job._details_lock:
                         job.artifacts = collect_artifacts(self.repo_root, before, after)
                     job.operation.checkpoint()
-                except PublicationRecoveryError:
+                except RollbackError:
                     with job._details_lock:
                         job.publication_rollback_failed = True
                     job.context.log(
@@ -617,7 +618,7 @@ def _publish_staged(
     except Exception as original:
         recovery_errors = _restore_published(context.repo_root, tuple(replaced), backup)
         if recovery_errors:
-            raise PublicationRecoveryError(original, recovery_errors) from original
+            raise RollbackError(original, recovery_errors) from original
         raise
     finally:
         for temporary in temporary_paths:
@@ -628,15 +629,6 @@ class PublicationConflictError(ConflictError):
     def __init__(self, paths: list[str]) -> None:
         self.paths = paths
         super().__init__("Formal output changed before publication: " + ", ".join(paths))
-
-
-class PublicationRecoveryError(RuntimeError):
-    """Publication failed and some formal outputs could not be restored."""
-
-    def __init__(self, original: Exception, recovery_errors: list[str]) -> None:
-        self.original = original
-        self.recovery_errors = recovery_errors
-        super().__init__(f"{original}; Rollback incomplete: {'; '.join(recovery_errors)}")
 
 
 def _restore_published(root: Path, outputs: tuple[Path, ...], backup: Path) -> list[str]:

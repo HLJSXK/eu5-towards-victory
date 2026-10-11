@@ -262,7 +262,10 @@ def run_operation(
         with operation._lock:
             error = exc
             if operation.cancel_requested and not isinstance(error, OperationCancelled):
-                error = OperationCancelled("Cancellation requested")
+                # Cancellation decides the terminal status, but an incomplete
+                # rollback must stay visible: files may need manual recovery.
+                detail = f"; {exc}" if isinstance(exc, RollbackError) else ""
+                error = OperationCancelled(f"Cancellation requested{detail}")
         try:
             if on_error is not None:
                 on_error(error)

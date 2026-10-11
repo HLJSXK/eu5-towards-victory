@@ -14,10 +14,10 @@ from .services.cost_reward import CostRewardEditorService
 from .services.generation import GenerationError
 from .services.platform import RollbackError
 from .services.victory_tree import GENERATED_PREVIEWS_DIR, TREE_PREVIEW_URL_PREFIX, VictoryTreePlannerService
+from .services.wonder_resource import WonderResourceService
 from .services.wonder_localization import (
     GENERATED_WONDER_IMAGES_DIR,
     WONDER_IMAGE_URL_PREFIX,
-    WonderLocalizationService,
 )
 from .services.cropper import cropper
 from .services.media import bootstrap_payload as media_bootstrap
@@ -221,10 +221,10 @@ def create_app(
     # Isolated construction: this service's __init__ eagerly validates
     # data/wonder_localization.yaml and raises if required zh-CN keys are missing.
     # A data bug here must not take down the cost-reward/victory-tree tabs too.
-    wonder_service: WonderLocalizationService | None = None
+    wonder_service: WonderResourceService | None = None
     wonder_load_error: str | None = None
     try:
-        wonder_service = WonderLocalizationService(configured_store)
+        wonder_service = WonderResourceService(configured_store)
     except Exception as exc:  # noqa: BLE001
         wonder_load_error = str(exc)
     if wonder_service is not None:

@@ -120,6 +120,25 @@ test('preview renders structured values and derived file hashes without interpre
   assert.equal(await pending, true);
 });
 
+test('Wonder text and structure preview preserves newlines and differentiates deletion from null', async (t) => {
+  const [, { createDiffView }] = await modules;
+  const root = dom(t)('preview'), diff = createDiffView(root);
+  const pending = diff.confirm({ diff: [
+    { wonder_id: 101, wonder_key: 'unique_test', language: 'english', field: 'prompt', value_kind: 'text', before: 'First\nSecond', after: '<text>\nThird' },
+    { field: 'ritual', value_kind: 'structure', before: { reward: [1, 2] }, after: { reward: [2] } },
+    { field: 'prompt', before_present: true, after_present: false, before: '', after: null },
+  ] });
+  const dialog = root.querySelector('dialog'), rows = dialog.querySelector('tbody').children;
+  assert.equal(rows[0].children[0].textContent, '101 / unique_test / english / prompt');
+  assert.equal(rows[0].children[1].textContent, 'First\nSecond');
+  assert.equal(rows[0].children[2].textContent, '<text>\nThird');
+  assert.equal(rows[0].children[2].className, 'diff-value');
+  assert.equal(rows[1].children[1].textContent, JSON.stringify({ reward: [1, 2] }, null, 2));
+  assert.equal(rows[2].children[2].textContent, '（不存在）');
+  await dialog.querySelector('[data-cancel]').emit('click');
+  assert.equal(await pending, false);
+});
+
 test('save previews before commit, blocks duplicates, and commits the exact confirmed request', async (t) => {
   const { editor, resource, control, dialog, preview } = await editorFixture(t);
   const calls = [];

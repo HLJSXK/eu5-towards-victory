@@ -676,6 +676,51 @@ def test_publication_failure_restores_files_or_retains_backups(job_env, monkeypa
         restarted.shutdown()
 
 
+def test_cancellation_during_publication_keeps_rollback_diagnostics(job_env, monkeypatch):
+    from towards_victory_editor_web.services import tooling
+
+    tool, manager = job_env
+    outputs = (tool.output, tool.root / "last.json")
+    for output in outputs:
+        output.write_text('{"old":true}')
+    contexts = []
+
+    @contextmanager
+    def prepare(options):
+        def run(context):
+            contexts.append(context)
+            for output in outputs:
+                context.stage_path(output).write_text('{"new":true}')
+            return ToolResult()
+        yield ToolPlan((), outputs, run)
+
+    replace = tooling.os.replace
+    def cancel_then_fail(source, target):
+        if target == outputs[1]:
+            contexts[0].operation.request_cancel()
+            raise OSError("publication failed")
+        replace(source, target)
+
+    copy = tooling.shutil.copy2
+    def locked_restore(source, target):
+        if ".backup" in source.parts and target == outputs[0]:
+            raise PermissionError("restore blocked")
+        return copy(source, target)
+
+    monkeypatch.setattr(tool, "prepare", prepare)
+    monkeypatch.setattr(tooling.os, "replace", cancel_then_fail)
+    monkeypatch.setattr(tooling.shutil, "copy2", locked_restore)
+    job = execute(tool, manager)
+    assert job["status"] == "cancelled"
+    assert job["publication_rollback_failed"] is True
+    for text in (job["error"], "\n".join(job["lines"])):
+        assert "Cancellation requested" in text
+        assert "publication failed" in text
+        assert "Rollback incomplete" in text and "restore blocked" in text
+    stored, _ = manager.operation_store.get_with_details(job["id"])
+    assert "restore blocked" in stored["error"]
+
+
 def test_stage_path_rejects_undeclared_outputs_before_and_after_setup(tmp_path):
     from towards_victory_editor_web.services.platform import OperationLog
     from towards_victory_editor_web.services.tooling import ToolContext

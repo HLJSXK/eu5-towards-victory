@@ -25,8 +25,8 @@ and `resource_changed`; `detail` retains the raw diagnostic. The changed-input
 guidance applies to both editors and media jobs. Non-JSON error bodies are read once.
 
 `static/display.js` provides shared log/status views, tabs, HTML escaping and
-operation/generation diagnostics. `static/editor_panel.js` owns the cost/reward
-and Victory Tree load/reload/save workflow. Save first calls the resource's
+operation/generation diagnostics. `static/editor_panel.js` owns the cost/reward,
+Victory Tree and Wonder load/reload/save workflow. Save first calls the resource's
 `/preview` and shows the server diff in a confirmation dialog; returning to edit
 or pressing Escape keeps the draft and base. Editing stays frozen from preview
 through confirmation and commit, and both requests use the same serialized body.
@@ -34,10 +34,22 @@ Field changes show their path, item, field and before/after values; the derived
 Wonder source change in cost/reward is a file-hash row labeled as a file summary.
 Commit success and errors render operation IDs and any generation/recovery report.
 
+`static/wonder_editor.js` adapts that workflow to Wonder: it caches the current
+page before freezing edits and adds `regenerate` and `current_wonder_id` to the
+request. Bootstrap publishes the summary before loading the first detail;
+reload publishes the summary and hydrated current detail together, retaining
+the old base, details and all page drafts if either request fails. After a
+successful commit, the new base and cleared drafts take effect immediately.
+If loading the detail's option catalog then fails, the page reports that the
+save succeeded and offers a detail-only retry without another commit.
+`createLatestLogView` keeps the server log, latest operation report and latest
+diagnostic separately; copying the log includes all three. Detail retries keep
+the save report. Wonder's forms retain toast, dirty counts and keyboard shortcuts,
+and now add an unsaved-edit unload guard.
+
 `static/job_panel.js` owns media/cropper status, logs, polling Retry/Stop controls
 and input/output reports; media cancellation uses the same panel. The pages
-retain their own forms and resource edits. Wonder uses the shared log/status
-and escaping functions. Operation prompts are Chinese, while technical IDs,
+retain their own forms and resource edits. Operation prompts are Chinese, while technical IDs,
 paths, field names and server diagnostics retain their original text. Common
 buttons, logs, job styles and preview styles live in `static/shared.css`.
 
@@ -53,7 +65,25 @@ Run the server checks without starting Uvicorn:
 C:\Users\Hades\anaconda3\envs\eu5\python.exe -m towards_victory_editor_web --check
 ```
 
-The Wonder preview API includes a `generation_plan` with ordered steps, dependency
+`services/wonder_resource.py` exposes `WonderResourceService` and owns resource
+loading, snapshots and validation. `wonder_preview.py` builds candidate source
+bytes shared by preview and commit, and `wonder_commit.py` runs the existing
+commit transaction and generation lifecycle. `wonder_localization.py` retains
+the domain field schemas, normalization and detail payloads; moved resource
+implementations have been removed from it.
+
+Wonder `/preview` compares parsed candidate bytes with the actual source files.
+Its `diff` contains semantic rows with `wonder_id`, `wonder_key`, `scope`,
+`language`, `field`, `value_kind`, `before`/`after` and presence flags. Values are
+the normalized source values: multiline text/scripts preserve newlines, mapping
+and sequence fields display as indented JSON, and absent fields are distinct
+from empty strings or null. Editor option catalogs are excluded. A prototype
+selection reports both written fields, `base_key` and `mechanic_key`.
+`file_diff` separately lists changed source hashes. Preview does not run
+generators; actual generated-artifact hashes and changes appear in the commit
+report.
+
+The Wonder preview API also includes a `generation_plan` with ordered steps, dependency
 edges, declared outputs and per-step timeouts. Commit runs this prepared DAG using
 `sys.executable`, validates each step and the final artifact set, and returns a `generation` report
 with an operation ID, step status/return code/duration, hashes and file changes.
@@ -118,7 +148,9 @@ handler deletes in staging (for example a PNG with `keep_png: false`) is deleted
 from its formal path when a successful job publishes; failed jobs publish nothing.
 
 `media.wonder_crop` and `media.wonder_image` declare the `editor.wonder`,
-`editor.wonder_crop`, and `editor.cost_reward` resource dependencies. Other handlers declare files and formats but have no editor
+`editor.wonder_crop`, and `editor.cost_reward` resource dependencies.
+`media.dds_icon` declares `editor.wonder` and `editor.cost_reward`, because its
+Wonder building batch reads those editors' source files. Other handlers declare files and formats but have no editor
 resource dependency registered yet. Wonder rebuild resolves current generator
 configuration and task data, PNG sources, and DDS-only sources; both full DDS
 and PNG-backed cropped DDS variants are declared. Web rebuilding has one entry,

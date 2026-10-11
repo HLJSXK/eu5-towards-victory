@@ -10,7 +10,8 @@ import pytest
 import yaml
 from fastapi.testclient import TestClient
 
-from towards_victory_editor_web.services import wonder_localization
+from towards_victory_editor_web.services import wonder_localization, wonder_preview, wonder_commit
+from towards_victory_editor_web.services.wonder_resource import WonderResourceService
 from towards_victory_editor_web.services.wonder_generation import (
     LOCALIZATION_SCRIPTS,
     WONDER_GENERATORS,
@@ -84,9 +85,13 @@ def service(tmp_path, monkeypatch):
             return build_generation_plan(specs, roots, repo_root=repo_root)
         return wonder_generation_plan(changed, repo_root=repo_root, regenerate=regenerate)
 
-    monkeypatch.setattr(wonder_localization, "wonder_generation_plan", isolated_plan)
+    monkeypatch.setattr(wonder_preview, "wonder_generation_plan", isolated_plan)
+    monkeypatch.setattr(wonder_commit, "wonder_generation_plan", isolated_plan)
+    # These transaction tests use arbitrary bytes rather than domain YAML.
+    # Semantic preview coverage uses real candidates in test_wonder_field_preview.py.
+    monkeypatch.setattr(wonder_preview, "field_diff", lambda *_args: [])
 
-    service = object.__new__(wonder_localization.WonderLocalizationService)
+    service = object.__new__(WonderResourceService)
     service.operation_store = None
     service._lock = threading.RLock()
     service._base = snapshot_files(wonder_localization._wonder_source_paths(), repo_root=tmp_path)
@@ -156,12 +161,12 @@ def test_prompt_http_validate_preview_and_commit_share_resource(prompt_service, 
     before = path.read_bytes()
     monkeypatch.setattr(server, "CostRewardEditorService", _UnusedCostRewardService)
     monkeypatch.setattr(server, "VictoryTreePlannerService", lambda _store: object())
-    monkeypatch.setattr(server, "WonderLocalizationService", lambda _store: service)
+    monkeypatch.setattr(server, "WonderResourceService", lambda _store: service)
     body = {"base": _base(service), "wonders": [{"wonder_id": 1, "ritual_prompt": "  draft\r\nprompt  "}]}
     with TestClient(server.create_app()) as client:
         assert client.post("/api/resources/editor.wonder/validate", json=body).json()["valid"]
         preview = client.post("/api/resources/editor.wonder/preview", json=body).json()
-        assert [item["path"] for item in preview["diff"]] == ["data/unique_wonder_ritual_prompts.yaml"]
+        assert [item["path"] for item in preview["file_diff"]] == ["data/unique_wonder_ritual_prompts.yaml"]
         assert path.read_bytes() == before
         assert service.unique_ritual_prompts_data == {"unique_wonders": []}
         response = client.post("/api/resources/editor.wonder/commit", json=body)
@@ -243,8 +248,8 @@ def test_preview_reports_changed_source_file(service):
 
     relative = str(source_path.relative_to(wonder_localization.REPO_ROOT)).replace("\\", "/")
     assert report["valid"]
-    assert report["diff"] == [
-        {
+    assert report["file_diff"] == [
+        {"kind": "file",
             "path": relative,
             "before": service._base[0].sha256,
             "after": hashlib.sha256(new_content).hexdigest(),
@@ -330,7 +335,7 @@ def test_crlf_mechanics_edit_changes_only_edited_source(service):
     assert b"\n" not in raw.replace(b"\r\n", b"")
     service._candidate_for_drafts = lambda _drafts: (changed, files, [1])
     report = service.preview_resource_edits({}, _base(service), regenerate=False)
-    assert [item["path"] for item in report["diff"]] == [sources["buildings"].relative_to(wonder_localization.REPO_ROOT).as_posix()]
+    assert [item["path"] for item in report["file_diff"]] == [sources["buildings"].relative_to(wonder_localization.REPO_ROOT).as_posix()]
 
 
 def test_localization_bytes_preserve_crlf_header_and_bom(service, monkeypatch):
@@ -365,7 +370,7 @@ def test_generation_snapshots_only_planned_files(service, tmp_path, monkeypatch,
 
     monkeypatch.setattr(platform, "snapshot_file_contents", record)
     executed = []
-    monkeypatch.setattr(wonder_localization, "run_generation", lambda plan, **_kwargs: executed.extend(step.spec.script for step in plan.steps))
+    monkeypatch.setattr(wonder_commit, "run_generation", lambda plan, **_kwargs: executed.extend(step.spec.script for step in plan.steps))
     result = service.commit_resource({}, _base(service), regenerate=regenerate)
     assert result["changed_files"] == [source.relative_to(tmp_path).as_posix()]
     expected = [source]
@@ -534,7 +539,7 @@ def test_response_failure_restores_committed_files(service, tmp_path, monkeypatc
         {source_path: b"new source\n"},
         [1],
     )
-    monkeypatch.setattr(wonder_localization, "run_generation", lambda _plan, **_kwargs: output.write_bytes(b"new artifact\n"))
+    monkeypatch.setattr(wonder_commit, "run_generation", lambda _plan, **_kwargs: output.write_bytes(b"new artifact\n"))
 
     def fail_response():
         raise RuntimeError("response failed")
@@ -564,12 +569,12 @@ def test_generator_failure_restores_sources_and_existing_outputs(service, tmp_pa
     )
 
     def fail_after_writing(_plan, **_kwargs):
-        wonder_localization.atomic_write_files(
+        wonder_commit.atomic_write_files(
             {existing_output: b"new artifact\n", new_output: b"newly created\n"}
         )
         raise RuntimeError("generator failed")
 
-    monkeypatch.setattr(wonder_localization, "run_generation", fail_after_writing)
+    monkeypatch.setattr(wonder_commit, "run_generation", fail_after_writing)
     with pytest.raises(RuntimeError, match="generator failed"):
         service.commit_resource({}, _base(service), current_wonder_id=1)
 
@@ -618,7 +623,7 @@ def test_http_resource_contract_maps_missing_base_and_conflict(monkeypatch):
 
     monkeypatch.setattr(server, "CostRewardEditorService", _UnusedCostRewardService)
     monkeypatch.setattr(server, "VictoryTreePlannerService", lambda _operation_store: object())
-    monkeypatch.setattr(server, "WonderLocalizationService", FakeWonderService)
+    monkeypatch.setattr(server, "WonderResourceService", FakeWonderService)
 
     with TestClient(server.create_app()) as client:
         assert client.get("/api/resources/editor.wonder").status_code == 200
@@ -646,7 +651,7 @@ def test_http_commit_errors_include_service_log(service, monkeypatch, failure, s
 
     monkeypatch.setattr(server, "CostRewardEditorService", _UnusedCostRewardService)
     monkeypatch.setattr(server, "VictoryTreePlannerService", lambda _operation_store: object())
-    monkeypatch.setattr(server, "WonderLocalizationService", lambda _operation_store: service)
+    monkeypatch.setattr(server, "WonderResourceService", lambda _operation_store: service)
     base = _base(service)
     if failure == "conflict":
         base[next(iter(base))] = "stale"
@@ -662,7 +667,7 @@ def test_http_commit_errors_include_service_log(service, monkeypatch, failure, s
         )
         def fail_generator(_plan, **_kwargs):
             raise RuntimeError("generator X exited with 1")
-        monkeypatch.setattr(wonder_localization, "run_generation", fail_generator)
+        monkeypatch.setattr(wonder_commit, "run_generation", fail_generator)
     with TestClient(server.create_app()) as client:
         response = client.post("/api/resources/editor.wonder/commit", json={"base": base})
     assert response.status_code == status
@@ -680,7 +685,7 @@ def test_concurrent_commit_errors_and_logs_belong_to_their_operation(service, mo
 
     monkeypatch.setattr(server, "CostRewardEditorService", _UnusedCostRewardService)
     monkeypatch.setattr(server, "VictoryTreePlannerService", lambda _operation_store: object())
-    monkeypatch.setattr(server, "WonderLocalizationService", lambda _operation_store: service)
+    monkeypatch.setattr(server, "WonderResourceService", lambda _operation_store: service)
     source = wonder_localization.WONDER_LOCALIZATION_FILE
     before = source.read_bytes()
     service._candidate_for_drafts = lambda _drafts: ({"localization": True}, {source: b"new\n"}, [1])
@@ -692,7 +697,7 @@ def test_concurrent_commit_errors_and_logs_belong_to_their_operation(service, mo
         assert finish.wait(10), "test did not release request A"
         raise GenerationError("request A failed", {"operation_id": operation_id})
 
-    monkeypatch.setattr(wonder_localization, "run_generation", fail_generator)
+    monkeypatch.setattr(wonder_commit, "run_generation", fail_generator)
     with TestClient(server.create_app()) as client, ThreadPoolExecutor(max_workers=1) as executor:
         endpoint = "/api/resources/editor.wonder/commit"
         request = {"base": _base(service)}
@@ -773,16 +778,16 @@ def test_real_runner_failure_rolls_back_and_returns_http_report(service, tmp_pat
         {'localization': True}, {source: b'new source\n'}, [1],
     )
     if failure == 'timeout':
-        base_plan = wonder_localization.wonder_generation_plan
+        base_plan = wonder_commit.wonder_generation_plan
 
         def short_plan(*args, **kwargs):
             plan = base_plan(*args, **kwargs)
             return replace(plan, steps=tuple(
                 replace(step, spec=replace(step.spec, timeout_seconds=1)) for step in plan.steps))
-        monkeypatch.setattr(wonder_localization, 'wonder_generation_plan', short_plan)
+        monkeypatch.setattr(wonder_commit, 'wonder_generation_plan', short_plan)
     monkeypatch.setattr(server, 'CostRewardEditorService', _UnusedCostRewardService)
     monkeypatch.setattr(server, 'VictoryTreePlannerService', lambda _operation_store: object())
-    monkeypatch.setattr(server, 'WonderLocalizationService', lambda _operation_store: service)
+    monkeypatch.setattr(server, 'WonderResourceService', lambda _operation_store: service)
     with TestClient(server.create_app()) as client:
         response = client.post('/api/resources/editor.wonder/commit', json={'base': _base(service)})
     assert response.status_code == 500

@@ -182,6 +182,16 @@ test('cancellation failure remains visible across polling and allows another can
   assert.equal(app.control('media-log').textContent, 'one\ntwo');
 });
 
+test('a cancellation failure is cleared once the job reaches a terminal state', async () => {
+  const app = studio();
+  app.state().start(job('cancel', 1, ['one'], true));
+  app.context.fetch = async () => { throw new Error('cancel offline'); };
+  await app.listeners['media-cancel:click']();
+  app.state().accept({ ...job('cancel', 2, ['two']), status: 'succeeded' });
+  assert.equal(app.control('media-status').textContent, '已完成');
+  assert.notEqual(app.control('media-status').dataset.kind, 'error');
+});
+
 test('same-cursor terminal cancellation discards a late running response', async () => {
   const app = studio();
   app.state().start(job('cancel', 1, ['one'], true));

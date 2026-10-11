@@ -15,9 +15,29 @@
   “待议事项”（需要决定是否处理），每条一行。
 - 完成一个切片后更新本文的焦点进度和验证记录；不要写成按提交排列的历史日志。
 
-## 当前焦点：待用户指定（2026-10-10）
+## 当前焦点：待用户指定（2026-10-11）
 
-前端共享展示层已完成并验收，见下一节。下一焦点由用户指定；不要自行开始 Wonder 单体拆分、后续任务或已关闭阶段的加固。
+已完成用户确认的 Wonder 保存/加载/预览拆分。下一项由用户指定，不自动开始其余 Wonder UI 拆分或跨资源 ChangeSet。
+
+## 已完成切片：Wonder 保存/加载/预览拆分（2026-10-11）
+
+- 后端入口改为 `services/wonder_resource.py` 的 `WonderResourceService`；资源加载/base/校验、候选源文件与 preview、commit 事务分别位于 `wonder_resource.py`、`wonder_preview.py`、`wonder_commit.py`。原 `wonder_localization.py` 保留领域字段、规范化和详情模型；已删除迁出的实现及旧类入口。
+- Wonder `/preview` 的 `diff` 按实际候选 YAML 与磁盘源文件比较，包含奇观 ID/key、语言、字段、类型、前后值和存在标记；使用规范化后将要写入的值，结构字段整体展示，不带选项目录。原型切换同时报告 `base_key` 与 `mechanic_key`。源文件 SHA-256 单列 `file_diff`；preview 只给生成计划，实际生成产物哈希仍在 commit 后报告。
+- 前端 `static/wonder_editor.js` 负责 Wonder 草稿缓存、请求字段、多段加载和保存后的详情补加载；共享 `editor_panel.js` 执行 preview → 确认 → 同一序列化请求体 commit。共享对话框支持多行文本/脚本、缩进结构值及不存在标记，挂载于工具面板之外。两个试点编辑器沿用原行为。
+- 首次加载先显示摘要列表，再加载详情；reload 只有资源、详情与选项目录全部成功才替换页面。保存成功立即接受新 base 并清空已提交草稿；随后详情加载失败明确提示“已保存，但详情加载失败”，提供只读重试。返回编辑/Escape、409 与生成失败保留草稿及诊断。
+- 共享 `createLatestLogView` 分别保存服务日志、最近一次操作报告和当前诊断；详情重试保留保存报告，复制日志包含报告。Wonder 保留 toast、dirty 计数和快捷键，并新增未保存编辑的离开页面保护。原单体中的加载/保存/预览编排已删除。
+
+仪式设计、选项目录、图片面板等其余 Wonder UI 拆分仍在后续任务 1；cost/reward 提交后 Wonder base 不同步仍单列待议。验收结果与环境见“验证记录”。
+
+## 已完成切片：2026-10-11 审计缺陷修复
+
+对 324e6d48..5c0b379e 的审计发现 5 个未登记缺陷，均已修复，每条回归用例在撤掉对应修复时失败：
+
+- 预览对话框挂载点 `#cr-preview`/`#vt-preview` 移到工具面板之外：此前保存期间切走顶层标签，`showModal()` 在 display:none 面板内打开不可见模态框，整页 inert、资源停在 saving。Chrome 验收新增“预览在途时切到 Wonder，对话框仍可见可取消”。
+- `media.dds_icon` 声明 `editor.wonder`、`editor.cost_reward`：Wonder 批量目标读取两者的源文件，此前编辑器保存不报 `resource_busy`，job 在输入复核时作废已付费图片。新测试按资源源文件与任务输入的交集推导所需锁。
+- 有取消请求时，`run_operation` 对 `RollbackError` 保留诊断：终态仍为 cancelled，但 `operation.error`、job 日志和持久化记录包含原始错误与恢复错误。`PublicationRecoveryError` 已删除，媒体发布改用 `platform.RollbackError`。
+- `job_panel.js` 在 job 进入终态时清空 `cancelError`：取消失败后正常完成的 job 不再显示为错误。
+- Wonder 加载、切换、保存、重新加载失败统一报告：状态栏与可复制日志都包含 `error.message`（资源 ID/文件路径），toast 只是重复；实现现已迁入 Wonder 适配层。
 
 ## 已完成切片：前端共享展示层（2026-10-10）
 
@@ -26,7 +46,7 @@
 - `static/display.js` 统一日志/状态、标签渲染、HTML 转义及操作/生成报告；cost/reward 与 Victory Tree 已删除各自的日志、标签 DOM 与 load/save/reload 样板，统一使用 `static/editor_panel.js`。
 - 两个试点编辑器保存先请求资源 `/preview`，展示服务端文件/条目/字段及原值→新值；确认后提交相同的序列化请求。预览、确认与提交期间冻结编辑，返回编辑或 Escape 保留 draft/base，不提交。派生文件的哈希差异单列“文件摘要”。
 - `static/job_panel.js` 统一媒体与 cropper 的作业状态/日志、轮询错误、Retry/Stop 和输入/输出报告；媒体取消与停止跟踪后的可取消状态也由组件持有。`index.html` 只保留挂载位置，重复作业按钮和报告标记已删除；cropper 同样显示产物变化、缺失/校验错误、中间文件与发布恢复失败提示。
-- Wonder 只接入共享日志/状态、操作/生成报告及转义函数；媒体工具标签、cropper 文件路径及 Victory Tree 节点标签的 HTML 写入已转义。日志显示 `operation_id`、生成步骤与产物和独立的恢复结果，保留服务端诊断；操作报告单独保存，只显示最近一次保存的报告，复制日志包含该报告。
+- Wonder 的共享日志/状态、操作/生成报告及转义接入已进一步扩展为上述保存/加载/预览切片；媒体工具标签、cropper 文件路径及 Victory Tree 节点标签的 HTML 写入已转义。日志显示 `operation_id`、生成步骤与产物和独立的恢复结果，保留服务端诊断；操作报告单独保存，只显示最近一次保存的报告，复制日志包含该报告。
 - 重复按钮、actions 与日志样式，以及媒体 `.job-*` 基础样式移入 `shared.css`，按钮及其禁用样式只作用于两个试点编辑器、作业面板和预览对话框；组件提示统一中文。共享标签使用已有控件冻结机制，加载期间新建的标签在请求结束后恢复可用。
 
 共享展示测试以原生 ES module 导入；Chrome 验收使用真实 DOM 和服务端只读 preview，覆盖试点、媒体/cropper 和 Wonder 接入。完整结果与环境见“验证记录”。
@@ -123,7 +143,7 @@
 
 ## 已知缺陷
 
-2026-10-10 重构审计发现的可选产物删除与轮询渲染异常已修复，见“重构审计缺陷修复”；当前无未解决条目。
+2026-10-10 与 2026-10-11 审计发现的缺陷均已修复，见对应已完成切片；当前无未解决条目。
 
 ## 待议事项
 
@@ -135,7 +155,7 @@
 - 后端简化：`require_overrides` 不可能触发、`OperationLog.start` 的 `cancelling` 分支不可达、生产中必有的 store 到处判空、
   `job_payload` 顶层与 `operation` 内重复字段、`OperationLog.operation_id`/`CapturedOutput.stream_name`/`ToolRegistry.all()` 无调用者。
   与“不保留防御分支”规则不符，是否开简化切片待定（已关闭阶段默认只修缺陷）。
-- 既有 Node 测试以正则去掉 import/export 后在 sloppy-mode `vm` 中运行；共享展示组件的新测试已用原生 ES module，cost/reward 与 Victory Tree 页面接入由 Chrome 覆盖，是否迁移其余测试待定。
+- 部分既有 Node 测试以正则去掉 import/export 后在 sloppy-mode `vm` 中运行；Wonder 与共享展示组件测试已用原生 ES module，cost/reward 与 Victory Tree 页面接入由 Chrome 覆盖，是否迁移其余测试待定。
 - cost/reward 的 preview 对派生 `unique_wonders.yaml` 只返回文件 SHA-256 差异，没有字段级 diff；本切片标注为文件摘要，是否细化后端报告另行决定。
 - 提交审计小项：`editor_panel.js` 首次加载失败也提示“草稿已保留”；作业面板取消请求中的渲染异常会显示为“取消失败”；cropper 错误先写操作报告再追加错误信息，媒体页提交/引导失败只写状态栏不写日志。均不影响数据，是否整理另行决定。
 - 审计 8：`OperationStore` 文件锁异常路径通过捕获 `UnboundLocalError` 处理未赋值 handle，待整理为显式初始化。
@@ -150,6 +170,11 @@
 - 中断后的 staging/备份启动恢复与清理尚未实现；本轮按确认的 A 准确提示人工核对，另行决定自动恢复。
 - `ToolContext.formalize_json_paths` 只替换整值等于暂存文件路径的 JSON 字符串；目录路径或嵌入更长字符串的 staging 路径会漏入正式产物。现有 5 个 handler 有逐字节比对兜底，新增 handler 时需确认。
 - ritual specs 生成清单声明 Prompt 输入，但实际生成路径不读取它（审计工具读取）；该依赖声明与实际读取不一致，待单独决定是否整理。
+- 媒体 job 的 `redirect_stdout/stderr` 替换进程全局流，job 运行期间其他请求线程的警告会写入该 job 日志并持久化；只影响诊断归属。
+- cost/reward 提交改写 `unique_wonders.yaml` 后，前端 Wonder 的 base 不更新，下次 Wonder 保存必然 409，只能整体 reload 并丢弃页面草稿；与后续任务 2 的跨资源 ChangeSet 相关。
+- Web `--check` 在子检查打印 `[FAIL]` 时仍退出 0；本切片发现并记录，后续需让自动化检查能通过退出码判断失败。
+- 提交审计：Wonder reload 固定请求当前奇观详情；该奇观若已从磁盘删除，reload 每次 404 失败且页面不替换，只能刷新浏览器。正常编辑流程不删除奇观。
+- 提交审计：`WonderResourceService` 以 `commit_resource = commit_resource` 挂载模块函数，与 `WonderPreview` 的 mixin 写法不一致，风格整理另行决定。
 
 ## 已接受限制
 
@@ -166,7 +191,7 @@
 
 ## 后续任务（按顺序，当前焦点完成后由用户指定下一项）
 
-1. 拆分 Wonder 单体（`wonder_localization.py` 约 4,000 行、`.js` 约 3,100 行、`.css` 约 1,350 行），前端使用当前焦点产出的共享组件。
+1. 继续拆分 Wonder 剩余单体：保存/加载/预览已完成，其余领域模型、仪式设计、选项目录与图片面板等的下一切片由用户指定，复用已产出的共享组件。
 2. 建立跨资源 `ChangeSet`、完整输入依赖图、领域产物语义校验和跨资源预览（Wonder 拆分后再评估必要性）。
 3. 设计跨进程持久锁和状态存储，再删除旧领域 service 拼接层（单用户本地工具收益低，建议降级，是否删除待用户确认）。
 
@@ -186,6 +211,25 @@
   [详细评估](Towards_Victory_Editor_Web_Assessment.md) 为准。
 
 ## 验证记录
+
+Wonder 保存/加载/预览拆分：2026-10-11，Windows + eu5 Python 3.11.15 + Node 22.19.0 + 本机 Chrome headless。修改前已运行 task-scoped `ai_context.py`。
+
+```powershell
+C:\Users\Hades\anaconda3\envs\eu5\python.exe -m pytest --basetemp .pytest-wonder-final-1011 tests/test_cost_reward_resource_contract.py tests/test_victory_tree_resource_contract.py tests/test_wonder_resource_contract.py tests/test_wonder_field_preview.py tests/test_wonder_payload_loading.py tests/test_cropper_resource_contract.py tests/test_media_job_contract.py tests/test_media_cancellation.py tests/test_media_plans.py tests/test_operation_log_contract.py tests/test_editor_file_transactions.py tests/test_generation_plan.py -q
+node --test tests/api.cjs tests/resource_state.cjs tests/media_job_polling.cjs tests/cropper_resource_state.cjs tests/wonder_resource_state.cjs tests/shared_display.cjs
+node tests/resource_state_browser.cjs
+C:\Users\Hades\anaconda3\envs\eu5\python.exe -m towards_victory_editor_web --check
+C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts/validate.py --changed --fix --ai-report
+git diff --check
+```
+
+- Python 12 文件一次全量 **250 passed**，3 条已有 FastAPI/httpx 与 `binary_dilation` 弃用警告；保留资源事务、payload 加载、完整生成链回归。新增 7 项使用真实领域模型与临时源文件验证字段归属、双语规范化、结构值、原型联动、Prompt 多行/删除、无变化预览及 preview 与实际 commit 字节一致。
+- Node **58 项通过**；Wonder 的 15 项与共享展示的 11 项使用原生 ES module，覆盖首次详情失败仍显示列表、reload 整体发布、预览取消、完整请求体一致、错误诊断、保存成功后详情失败及只读重试。5 个改动/新增前端模块通过 `node --check`，5 个相关 Python 模块通过语法检查。
+- Chrome 验收通过：三个编辑器的真实只读 preview 与可见 diff、返回编辑、预览期间切走工具仍可操作对话框、相同 preview/commit 请求体、409/生成失败保留草稿与诊断，以及 Wonder 提交成功后目录加载失败、新 base 保留、详情重试不再提交。继续覆盖四编辑器状态及媒体/cropper 报告和轮询；无页面未捕获异常。GET/preview 使用真实本地服务，commit 和错误由浏览器拦截；实际 commit 写入由 Python 临时文件测试验证，未改动业务源文件或调用图片 API。
+- Web `--check` 各检查均输出通过（192 个奇观、7,534 个本地化键、9 个注册工具、5 个可运行、196 张裁剪图）。changed validation 通过（15 个适用文件，无错误或警告），`git diff --check` 通过。拆分辅助脚本已删除；`WonderLocalizationService` 与原前端保存/加载编排无残留入口。
+- 提交前审计（2026-10-11，同一环境）：重跑上述全部命令，Python 250 passed、Node 58 项、Chrome 验收、Web `--check`、changed validation（15 个文件）与 `git diff --check` 均通过；未发现缺陷，两条待议小项已登记，离开页面保护的文档措辞改为“新增”。
+
+2026-10-11 审计缺陷修复：Windows + eu5 Python 3.11.15 + Node 22.19.0 + 本机 Chrome headless。修改前运行 task-scoped `ai_context.py`；命令同下方共享展示层验收。Python 11 文件一次全量 243 passed（新增回滚诊断与 dds_icon 资源锁 2 项），3 条已有弃用警告。Node 51 项通过（新增取消错误清空、Wonder 保存/重新加载诊断 3 项），修改的前端模块 `node --check` 通过；Chrome 验收通过，含新增的切走标签后预览可见用例。Web `--check` 通过（9 个注册工具、5 个可运行、196 张裁剪图）；changed validation 通过（6 个适用文件，无错误或警告），`git diff --check` 通过。五条回归用例逐一在撤掉对应修复后确认失败。
 
 提交前审计收尾：2026-10-11，Windows + eu5 Python 3.11.15 + Node 22.19.0 + 本机 Chrome headless。审计时重跑下方共享展示层全部命令：Python 241 passed、Node 47 项、Chrome 验收、Web `--check` 与 `git diff --check` 均通过。修复禁用按钮样式外溢和 Wonder 报告累积后，Node 48 项（新增报告不累积用例）与 Chrome 验收通过。
 
