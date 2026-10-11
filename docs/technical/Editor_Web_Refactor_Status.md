@@ -17,7 +17,17 @@
 
 ## 当前焦点：待用户指定（2026-10-11）
 
-已完成用户确认的方案 A：Wonder 后端领域模块拆分。下一项由用户指定，不自动推进其余 Wonder UI 拆分或跨资源 ChangeSet。
+清理切片已完成（见下方“已完成切片：清理切片”）。下一项由用户指定，不自动推进其余 Wonder UI 拆分或跨资源 ChangeSet。
+
+## 已完成切片：清理切片（2026-10-11）
+
+来源：2026-10-11 对 324e6d48..194bc267 的审计。不改变编辑器或事务行为，Wonder 锁范围修正除外。
+
+- 后端简化：删除不可达的 `require_overrides` 与 `OperationLog.start` 的 `cancelling` 分支，以及服务器里对 store 的判空；`OperationStore` 文件锁的 handle 改为显式初始化；删除无调用者的 `OperationLog.operation_id`、`CapturedOutput.stream_name` 和 `ToolRegistry.all()`。
+- job payload 只在 `operation` 中保留生命周期字段（`id/status/error/resource_ids/created_at/finished_at`），顶层只保留日志、游标与产物报告；前端作业面板、`JobPoller` 和测试已改为读取 `job.operation.*`。
+- Wonder commit 改为 `WonderCommit` mixin；`regenerate=false` 也锁定 `editor.cost_reward`，因为提交仍可能写共享源文件。README 与评估文档的锁描述已同步更新。
+- Web `--check` 子检查出现 `[FAIL]` 时退出码为 1。`context_routes.yaml` 新增 `wonder_service` 路由，`services/wonder/` 通用文件名可命中 Wonder 风险卡。
+- 仓库根目录历史 `.pytest-*/` 与 `.pt-*-1008/` 验证目录已清空。
 
 ## 已完成切片：Wonder 后端领域模块拆分（2026-10-11）
 
@@ -161,30 +171,21 @@
 - 审计 7：cropper 与 Victory Tree 每次拖拽事件、Wonder 每次输入（`refreshDirtyState` → `cacheCurrentWonderDraft`）都复制并比较整份 draft；现有规模可用，性能优化另行决定。
 - `missing_outputs` 只能发现首次生成的必需输出缺失：staging 预填已有产物，handler 未重写既有输出时仍报成功（`changed: false`）。
 - `run_operation` 中 `on_error` 自身抛错会取代原始错误；当前只有 job 传入且会吞掉异常，属潜在问题。
-- 后端简化：`require_overrides` 不可能触发、`OperationLog.start` 的 `cancelling` 分支不可达、生产中必有的 store 到处判空、
-  `job_payload` 顶层与 `operation` 内重复字段、`OperationLog.operation_id`/`CapturedOutput.stream_name`/`ToolRegistry.all()` 无调用者。
-  与“不保留防御分支”规则不符，是否开简化切片待定（已关闭阶段默认只修缺陷）。
 - 部分既有 Node 测试以正则去掉 import/export 后在 sloppy-mode `vm` 中运行；Wonder 与共享展示组件测试已用原生 ES module，cost/reward 与 Victory Tree 页面接入由 Chrome 覆盖，是否迁移其余测试待定。
 - cost/reward 的 preview 对派生 `unique_wonders.yaml` 只返回文件 SHA-256 差异，没有字段级 diff；本切片标注为文件摘要，是否细化后端报告另行决定。
-- 提交审计小项：`editor_panel.js` 首次加载失败也提示“草稿已保留”；作业面板取消请求中的渲染异常会显示为“取消失败”；cropper 错误先写操作报告再追加错误信息，媒体页提交/引导失败只写状态栏不写日志。均不影响数据，是否整理另行决定。
-- 审计 8：`OperationStore` 文件锁异常路径通过捕获 `UnboundLocalError` 处理未赋值 handle，待整理为显式初始化。
-- 审计 8：`api.js` 使用 `return Promise.reject(error)` 替代 throw，行为相同，风格整理另行决定。
+- 提交审计小项：`editor_panel.js` 首次加载失败也提示“草稿已保留”；提交成功后若渲染抛错，会显示“保存失败，草稿已保留”且无详情重试；作业面板取消请求中的渲染异常会显示为“取消失败”；cropper 错误先写操作报告再追加错误信息，媒体页提交/引导失败只写状态栏不写日志。均不影响数据，是否整理另行决定。
 - 审计 8：Wonder 保存/加载错误路径减少了 `console.error` 堆栈记录，复制日志按钮缺少请求期间的忙碌处理，待决定是否恢复。
 - 审计 8：`tests/wonder_payload_browser.cjs` 自动接受所有对话框，可能漏掉意外 confirm；应按场景断言对话框，本轮尚未运行该脚本。
 - 是否把编辑器同步提交与媒体异步调度统一为一个调度器（原任务 1 剩余部分）。
 - `JobManager._prune_expired_locked` 每次轮询都复制所有内存 job 的完整操作快照；
   内存 job 保留 30 天，数量大时开销线性增长。
-- 仓库根目录累积约 90 个历史 `.pytest-*/` 验证目录（已被 Git 忽略，可一次性删除）；另有不可读的 `.pt-*-1008/` 目录（未被忽略规则覆盖），由 Codex 沙箱用户创建，当前账户无删除权限，需手动清理。
 - 任意未声明正式路径的写入检测与可靠归属尚未实现；本轮按确认的 A 仅核对声明文件，写入审计另行决定。
 - 中断后的 staging/备份启动恢复与清理尚未实现；本轮按确认的 A 准确提示人工核对，另行决定自动恢复。
 - `ToolContext.formalize_json_paths` 只替换整值等于暂存文件路径的 JSON 字符串；目录路径或嵌入更长字符串的 staging 路径会漏入正式产物。现有 5 个 handler 有逐字节比对兜底，新增 handler 时需确认。
 - ritual specs 生成清单声明 Prompt 输入，但实际生成路径不读取它（审计工具读取）；该依赖声明与实际读取不一致，待单独决定是否整理。
 - 媒体 job 的 `redirect_stdout/stderr` 替换进程全局流，job 运行期间其他请求线程的警告会写入该 job 日志并持久化；只影响诊断归属。
 - cost/reward 提交改写 `unique_wonders.yaml` 后，前端 Wonder 的 base 不更新，下次 Wonder 保存必然 409，只能整体 reload 并丢弃页面草稿；与后续任务 2 的跨资源 ChangeSet 相关。
-- Web `--check` 在子检查打印 `[FAIL]` 时仍退出 0；本切片发现并记录，后续需让自动化检查能通过退出码判断失败。
 - 提交审计：Wonder reload 固定请求当前奇观详情；该奇观若已从磁盘删除，reload 每次 404 失败且页面不替换，只能刷新浏览器。正常编辑流程不删除奇观。
-- 提交审计：`WonderResourceService` 以 `commit_resource = commit_resource` 挂载模块函数，与 `WonderPreview` 的 mixin 写法不一致，风格整理另行决定。
-- Wonder 领域包使用 `fields.py`、`values.py` 等通用文件名后，`ai_context.py --files` 未自动命中 Wonder 风险卡；待调整 `context_routes.yaml` 的路径匹配，本次已手动读取相关卡片。
 
 ## 已接受限制
 
@@ -221,6 +222,15 @@
   [详细评估](Towards_Victory_Editor_Web_Assessment.md) 为准。
 
 ## 验证记录
+
+2026-10-11 清理切片验收：Windows + eu5 Python 3.11.15 + Node 22.19.0 + 本机 Chrome headless。
+
+- 12 文件 pytest 一次全量 **250 passed**（544.35 秒，3 条第三方弃用/未来警告）；Node **58 项通过**；Chrome 浏览器验收通过，无页面异常。
+- Web `--check` 通过（192 个奇观、7,534 个本地化键、9 个工具、5 个可运行、196 张裁剪图）；`scripts/validate.py --changed --fix --ai-report` 通过（20 个文件，无错误或警告）；`git diff --check` 通过。
+- `ai_context.py --files services/wonder/fields.py` 命中 `wonder_service` 风险卡，`scripts/test_ai_context.py` 通过。CLI 检查失败退出码与 Wonder `regenerate=false` 双资源锁回归包含在 pytest 中；第 5、6 项删除的名称无残留引用。
+- 提交前审计（同一环境）：Node 58 项通过；媒体 job/操作库/取消三文件 pytest 86 passed（`-k "not wonder"`），Wonder 锁与 Prompt 提交 3 passed；`scripts/test_ai_context.py` 与 `git diff --check` 通过。修正 README 与评估文档中 `regenerate=false` 只锁 `editor.wonder` 的过时描述，删除一条重复断言；根目录验证目录确认已清空。
+
+2026-10-11 审计（324e6d48..194bc267，只读）：Windows + eu5 Python 3.11.15 + Node 22.19.0。12 文件 pytest 一次全量 250 passed（671 秒，3 条已有弃用警告）；Node 58 项通过；Web `--check` 通过。69f84928 与 194bc267 未发现缺陷，新发现小项已并入当前焦点与待议事项；未重跑 Chrome（之后无前端改动）。
 
 Wonder 后端领域模块拆分：2026-10-11，Windows + eu5 Python 3.11.15 + Node 22.19.0。修改前已运行 task-scoped `ai_context.py` 并读取 Wonder 风险卡。
 

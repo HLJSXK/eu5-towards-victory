@@ -44,6 +44,7 @@ Do not add legacy branches, old-state repair, or compatibility wrappers unless e
 ### 4. Practical rules
 - When `scripts/ai_context.py` changes, update `CLAUDE.md`, this file, and `docs/knowledge/PROJECT_OVERVIEW.md`.
 - When a new risk card is added, register it in `docs/knowledge/context_routes.yaml`.
+- `context_routes.yaml` routes Wonder service files (including the CLI-relative `services/wonder/` path) to `docs/knowledge/risk_cards/wonders.md`.
 - When knowledge files change, regenerate `docs/knowledge/BRIEF.md`.
 - Run `scripts/validate.py --changed --fix --ai-report` before finishing a real code change.
 

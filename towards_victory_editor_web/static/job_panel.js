@@ -31,23 +31,24 @@ export function createJobPanel({ root, prefix, onChange, allowCancel = false, de
     onChange();
   }
   function renderJob(job) {
+    const operation = job.operation;
     detachedJobId = null;
     // A failed cancel request only matters while the job can still be cancelled.
     if (!poller.active) cancelError = "";
-    let message = statusLabel(job.status);
-    if (job.outputs_may_be_partial) message += job.operation.interrupted
+    let message = statusLabel(operation.status);
+    if (job.outputs_may_be_partial) message += operation.interrupted
       ? " — 作业已中断，正式输出可能部分发布，请核对文件及保留的备份"
       : " — 正式输出需人工核对";
-    if (job.error) message += `: ${job.error}`;
+    if (operation.error) message += `: ${operation.error}`;
     if (cancelError) message += ` — ${cancelError}`;
-    status.set(message, job.error || cancelError ? "error" : "default");
+    status.set(message, operation.error || cancelError ? "error" : "default");
     log.set(job.lines.join("\n"));
     element("poll-retry").hidden = true;
     element("poll-stop").hidden = true;
     const report = formatJobFiles(job);
     element("files").hidden = !report;
     element("file-report").textContent = report;
-    element("identity").textContent = `作业 / 操作 ID: ${job.id}${job.returncode == null ? "" : `；退出码: ${job.returncode}`}${job.operation.persistence_error ? `；记录写入失败: ${job.operation.persistence_error}` : ""}`;
+    element("identity").textContent = `作业 / 操作 ID: ${operation.id}${job.returncode == null ? "" : `；退出码: ${job.returncode}`}${operation.persistence_error ? `；记录写入失败: ${operation.persistence_error}` : ""}`;
     changed();
   }
   function renderPollError(error, retrying) {

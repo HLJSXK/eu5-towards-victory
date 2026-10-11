@@ -130,7 +130,7 @@ export class JobPoller {
 
   start(job) {
     this.stop();
-    this.jobId = job.id;
+    this.jobId = job.operation.id;
     this.cursor = 0;
     this.lines = [];
     this.error = null;
@@ -150,14 +150,15 @@ export class JobPoller {
   }
 
   accept(job, generation = this.generation) {
-    if (!this.isCurrent(job.id, generation) || job.line_cursor < this.cursor) return false;
+    const operation = job.operation;
+    if (!this.isCurrent(operation.id, generation) || job.line_cursor < this.cursor) return false;
     if (this.timer !== null) this.cancel(this.timer);
     this.timer = null;
     this.lines = (job.lines_reset ? job.lines : [...this.lines, ...job.lines]).slice(-300);
     this.cursor = job.line_cursor;
-    this.error = job.error || null;
+    this.error = operation.error || null;
     this.revision += 1;
-    this.active = ["queued", "running", "cancelling"].includes(job.status);
+    this.active = ["queued", "running", "cancelling"].includes(operation.status);
     // Schedule before rendering so a render exception cannot strand an active job.
     if (this.active) this.schedulePoll(generation);
     this.onUpdate({ ...job, lines: this.lines });

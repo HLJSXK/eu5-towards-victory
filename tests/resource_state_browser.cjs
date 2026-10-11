@@ -73,8 +73,9 @@ async function main() {
           probe.polls++;
           if (probe.pollStatus) return Response.json({ detail: 'job query probe failure' }, { status: probe.pollStatus });
           if (probe.polls === 1) throw new TypeError('network probe failure');
-          return Response.json({ ...probe.job, lines: [], lines_reset: false, error: probe.terminal ? 'generator probe failure' : null,
-            status: probe.terminal ? 'failed' : 'running' });
+          return Response.json({ ...probe.job, lines: [], lines_reset: false,
+            operation: { ...probe.job.operation, error: probe.terminal ? 'generator probe failure' : null,
+              status: probe.terminal ? 'failed' : 'running' } });
         }
         if (path.endsWith('/preview')) return liveFetch(url, options);
         if (options.method === 'POST') {
@@ -220,8 +221,8 @@ async function main() {
     assert.equal(await evaluate("document.querySelector('#cropper-meta').textContent"), crop);
     assert.match(await evaluate("document.querySelector('#cropper-status').textContent"), /裁剪草稿已保留/);
 
-    const job = { id: 'probe', status: 'running', line_cursor: 1, lines: ['first log'], lines_reset: true,
-      operation: {}, resource_ids: [], source_snapshots: [], artifacts: [], metadata: {}, declared_outputs: [],
+    const job = { line_cursor: 1, lines: ['first log'], lines_reset: true,
+      operation: { id: 'probe', status: 'running', error: null, resource_ids: [] }, source_snapshots: [], artifacts: [], metadata: {}, declared_outputs: [],
       formal_output_changes: [], staging_extra_files: [], missing_outputs: [] };
     await evaluate(`__probe.job = ${JSON.stringify(job)}; document.querySelector('.tool-hub-tab-btn[data-tool="media-studio"]').click(); document.querySelector('#media-run').click()`);
     await ready("document.querySelector('#media-status').textContent.includes('正在重试')");
@@ -246,7 +247,7 @@ async function main() {
         assert.equal(await evaluate(`document.querySelector('#${prefix}-log').textContent`), 'first log');
       }
     }
-    const fileJob = { ...job, status: 'failed', error: 'output probe failure', outputs_may_be_partial: true,
+    const fileJob = { ...job, operation: { ...job.operation, status: 'failed', error: 'output probe failure' }, outputs_may_be_partial: true,
       publication_rollback_failed: true, declared_outputs: ['probe.dds'], missing_outputs: ['probe.dds'],
       source_snapshots: [{ path: '<input.png>', sha256: 'missing' }],
       staging_extra_files: ['staging/intermediate'], formal_output_changes: ['probe.dds'] };

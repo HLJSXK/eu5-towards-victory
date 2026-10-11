@@ -260,9 +260,6 @@ class ToolRegistry:
         except KeyError as exc:
             raise ValueError(f"Unknown tool: {tool_id}") from exc
 
-    def all(self) -> tuple[ToolHandler, ...]:
-        return tuple(self._handlers.values())
-
     def payload(self, *, interactive: bool | None = None) -> list[dict[str, Any]]:
         return [
             spec.payload()
@@ -340,22 +337,15 @@ def job_payload(
     start = max(retained_start, cursor - 300) if reset else after_line
     return {
         **details,
-        "id": operation["id"],
-        "status": operation["status"],
         "lines": details["lines"][start - retained_start:],
         "lines_reset": reset,
         "returncode": {"succeeded": 0, "failed": 1, "cancelled": 130}.get(operation["status"]),
-        "error": operation["error"],
-        "resource_ids": operation["resource_ids"],
         "outputs_may_be_partial": bool(details["formal_output_changes"]) or details["publication_rollback_failed"] or (
             operation["status"] in {"failed", "cancelled"}
             and operation.get("interrupted", False)
             and operation["started_at"] is not None
         ),
-        "operation_id": operation["id"],
         "operation": operation,
-        "created_at": operation["created_at"],
-        "finished_at": operation["finished_at"],
     }
 
 
@@ -513,7 +503,6 @@ class JobManager:
                                 self.repo_root, staged_artifacts, job.handler.spec.artifact_formats,
                                 path_overrides={artifact_path(self.repo_root, formal): staged
                                                 for staged, formal in staged_paths.items()},
-                                require_overrides=True,
                             )
                             extra_staged = _staging_extras(staging, set(staged_paths))
                             formal_after = snapshot_artifacts(outputs)
@@ -647,10 +636,9 @@ def _restore_published(root: Path, outputs: tuple[Path, ...], backup: Path) -> l
 
 
 class CapturedOutput(io.TextIOBase):
-    def __init__(self, context: ToolContext, stream_name: str) -> None:
+    def __init__(self, context: ToolContext) -> None:
         super().__init__()
         self.context = context
-        self.stream_name = stream_name
 
     def write(self, text: str) -> int:
         for line in text.splitlines():
@@ -664,7 +652,7 @@ class CapturedOutput(io.TextIOBase):
 
 @contextlib.contextmanager
 def capture_script_output(context: ToolContext):
-    stdout = CapturedOutput(context, "stdout")
-    stderr = CapturedOutput(context, "stderr")
+    stdout = CapturedOutput(context)
+    stderr = CapturedOutput(context)
     with contextlib.redirect_stdout(stdout), contextlib.redirect_stderr(stderr):
         yield

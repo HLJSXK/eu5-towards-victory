@@ -203,8 +203,9 @@ test('reload requires approval for a dirty draft and discards it only on success
 test('both job panels show identical file reports, validation errors and retained-backup diagnostics', async (t) => {
   const [, , { createJobPanel }] = await modules;
   const control = dom(t);
-  const job = { id: 'job-1', status: 'failed', operation: {}, lines: ['<log>'], line_cursor: 1, lines_reset: true,
-    resource_ids: ['editor.wonder'], outputs_may_be_partial: true, publication_rollback_failed: true,
+  const job = { operation: { id: 'job-1', status: 'failed', resource_ids: ['editor.wonder'] },
+    lines: ['<log>'], line_cursor: 1, lines_reset: true,
+    outputs_may_be_partial: true, publication_rollback_failed: true,
     source_snapshots: [{ path: 'optional.png', sha256: 'missing' }], staging_extra_files: ['staging/extra'],
     formal_output_changes: ['external.dds'], declared_outputs: ['changed.dds', 'unchanged.dds', 'deleted.png', 'missing.dds'],
     artifacts: [{ path: 'changed.dds', changed: true }, { path: 'unchanged.dds', changed: false }, { path: 'deleted.png', role: 'deleted' }],

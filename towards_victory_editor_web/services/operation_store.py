@@ -152,6 +152,7 @@ class OperationStore:
             _PROCESS_LOCKS.add(key)
         self._lock_key = key
         lock_path = self.path.with_name(self.path.name + ".lock")
+        handle = None
         try:
             handle = lock_path.open("a+b")
             handle.seek(0)
@@ -169,10 +170,8 @@ class OperationStore:
                 fcntl.flock(handle.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
             self._lock_handle = handle
         except OSError as exc:
-            try:
+            if handle is not None:
                 handle.close()
-            except UnboundLocalError:
-                pass
             self._release_process_lock()
             raise OperationStoreBusyError(f"Operation store is already in use: {self.path}") from exc
 

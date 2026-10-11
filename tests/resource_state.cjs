@@ -57,8 +57,8 @@ test('a render failure during polling is reported and keeps an active job pollin
   const errors = [];
   let renders = 0;
   const responses = [
-    { id: 'job', status: 'running', line_cursor: 1, lines: ['a'] },
-    { id: 'job', status: 'succeeded', line_cursor: 2, lines: ['b'] },
+    { operation: { id: 'job', status: 'running', error: null }, line_cursor: 1, lines: ['a'] },
+    { operation: { id: 'job', status: 'succeeded', error: null }, line_cursor: 2, lines: ['b'] },
   ];
   const poller = new JobPoller({
     fetchJob: async () => responses.shift(),
@@ -67,7 +67,7 @@ test('a render failure during polling is reported and keeps an active job pollin
     schedule: (callback) => { timers.push(callback); return timers.length; },
     cancel: () => {},
   });
-  poller.start({ id: 'job', status: 'queued', line_cursor: 0, lines: [] });
+  poller.start({ operation: { id: 'job', status: 'queued', error: null }, line_cursor: 0, lines: [] });
   await poller.poll();
   assert.equal(renders, 2);
   assert.deepEqual(errors, [['render failed', true]]);

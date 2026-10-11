@@ -84,6 +84,14 @@ domain_routes:
     summary: wonder GUI override, tooltip scope, layout, and icon-routing rules
     reason: wonder GUI or GUI-facing localization touched
 
+  - id: wonder_service
+    path_prefixes:
+      - towards_victory_editor_web/services/wonder/
+      - services/wonder/
+    card: wonders.md
+    summary: Wonder domain model, source and field invariants
+    reason: Wonder service modules use generic filenames
+
 filename_routes:
   - id: wonders
     substrings: [wonder, engineering_department]

@@ -192,6 +192,9 @@ def test_prompt_commit_honors_resource_lock_and_external_base(prompt_service):
     with resource_operation(("editor.wonder",)):
         with pytest.raises(ConflictError, match="Resource busy"):
             service.commit_resource(draft, base, regenerate=False)
+    with resource_operation(("editor.cost_reward",)):
+        with pytest.raises(ConflictError, match="Resource busy"):
+            service.commit_resource(draft, base, regenerate=False)
     path = sources.UNIQUE_RITUAL_PROMPTS_FILE
     path.write_text("unique_wonders: []\n# external\n", encoding="utf-8")
     with pytest.raises(ConflictError, match="Resource changed"):
@@ -494,7 +497,7 @@ def test_commit_conflicts_while_wonder_media_job_holds_resource(service):
     assert source_path.read_bytes() == before
 
 
-def test_commit_without_regeneration_does_not_lock_cost_reward(service):
+def test_commit_without_regeneration_locks_cost_reward(service):
     source_path = sources.wonder_source_paths()[0]
     before = source_path.read_bytes()
     service._candidate_for_drafts = lambda _drafts: (
@@ -503,9 +506,9 @@ def test_commit_without_regeneration_does_not_lock_cost_reward(service):
         [],
     )
     with resource_operation(("editor.cost_reward",)):
-        result = service.commit_resource({}, _base(service), regenerate=False)
-    assert result["changed_files"]
-    assert source_path.read_bytes() != before
+        with pytest.raises(ConflictError, match="Resource busy: editor.cost_reward"):
+            service.commit_resource({}, _base(service), regenerate=False)
+    assert source_path.read_bytes() == before
 
 
 def test_regenerating_wonder_commit_locks_cost_reward(service):

@@ -315,17 +315,11 @@ def create_app(
         kind: str | None = None,
         status: str | None = None,
     ) -> dict[str, Any]:
-        store = getattr(app.state, "operation_store", None)
-        if store is None:
-            raise RuntimeError("Operation store is not initialized")
-        return {"operations": store.recent(limit=limit, kind=kind, status=status)}
+        return {"operations": app.state.operation_store.recent(limit=limit, kind=kind, status=status)}
 
     @app.get("/api/operations/{operation_id}")
     def get_operation(operation_id: str) -> dict[str, object]:
-        store = getattr(app.state, "operation_store", None)
-        if store is None:
-            raise RuntimeError("Operation store is not initialized")
-        return store.get(operation_id)
+        return app.state.operation_store.get(operation_id)
 
     @app.post("/api/jobs")
     def create_job(request: JobRequest) -> dict[str, Any]:

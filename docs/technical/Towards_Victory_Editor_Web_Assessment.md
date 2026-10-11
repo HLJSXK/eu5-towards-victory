@@ -16,15 +16,15 @@
 
 ### 入口已经合并，服务没有合并
 
-`server.py` 分别实例化 `CostRewardEditorService`、`VictoryTreePlannerService` 和 `WonderLocalizationService`，并接入 cropper、media registry 和 jobs（见 [server.py](../../towards_victory_editor_web/server.py)）。四个编辑器均提供 `/api/resources/{resource_id}` 及其 `validate/preview/commit` 操作；Wonder 的详情、仪式设计和 Prompt 仍有领域专用读取接口。媒体生成工具仍走 `/api/jobs` 协议。
+`server.py` 分别实例化 `CostRewardEditorService`、`VictoryTreePlannerService` 和 `WonderResourceService`，并接入 cropper、media registry 和 jobs（见 [server.py](../../towards_victory_editor_web/server.py)）。Wonder 的领域实现位于 `services/wonder/`；四个编辑器均提供 `/api/resources/{resource_id}` 及其 `validate/preview/commit` 操作，Wonder 的详情、仪式设计和 Prompt 仍有领域专用读取接口。媒体生成工具仍走 `/api/jobs` 协议。
 
 媒体侧虽然有 `ToolSpec`、`ToolRegistry` 和 `JobManager`，但编辑器只是通过 `registry.register_spec(..., interactive=True)` 注册了展示元数据，并没有进入同一个 handler、校验、作业或结果协议（见 [media.py](../../towards_victory_editor_web/services/media.py#L14)）。这说明“统一工具目录”目前只覆盖媒体执行工具，未覆盖交互式编辑器。
 
 ### 后端仍是三个旧领域服务加一套新作业系统
 
-当前服务规模和职责仍明显不对称：`wonder_localization.py` 约 3,800 行，四个编辑器仍各自维护领域加载、校验、内存状态和日志；Wonder 只是在外层增加了统一资源描述、快照、预览和提交事务。媒体则由 `tooling.py`、`media.py`、`media_tools.py`、`media_plans.py`、`cropper.py` 组成另一条生命周期。旧工具在提交 `1653d467` 中被移入统一包，但提交内容主要是入口、路由和静态资源迁移，原有 service 和页面逻辑基本被保留；提交 `d56fa727` 又在此基础上追加了媒体作业框架。这与“拼接旧工具”的现象相符。
+迁移前的 Wonder 单体 `wonder_localization.py` 约 3,800 行（拆分前基线），Wonder 服务现由 `WonderResourceService` 与 `services/wonder/` 领域模块组成；其他编辑器仍各自维护领域加载、校验、内存状态和日志。媒体则由 `tooling.py`、`media.py`、`media_tools.py`、`media_plans.py`、`cropper.py` 组成另一条生命周期。旧工具在提交 `1653d467` 中被移入统一包，但提交内容主要是入口、路由和静态资源迁移，原有 service 和页面逻辑基本被保留；提交 `d56fa727` 又在此基础上追加了媒体作业框架。这与“拼接旧工具”的现象相符。
 
-编辑器保存是同步请求，通过各自的资源 commit 写入文件；媒体任务是异步、线程池、作业轮询和产物快照。`JobManager` 允许三个 worker，但用全局执行锁把实际写入串行化（见 [tooling.py](../../towards_victory_editor_web/services/tooling.py#L289)）。两个 Wonder 媒体作业锁定 `editor.wonder`、`editor.wonder_crop` 和 `editor.cost_reward`；会运行生成器的 Wonder commit 锁定 `editor.wonder` 与 `editor.cost_reward`，禁用生成时只锁前者；crop commit 锁定 `editor.wonder_crop`；修改 cost/reward 分类时的 commit 锁定 `editor.cost_reward` 与 `editor.wonder`，只改 task pool 时只锁 `editor.cost_reward`。victory tree 尚未共享，也没有统一的变更事件或提交记录。
+编辑器保存是同步请求，通过各自的资源 commit 写入文件；媒体任务是异步、线程池、作业轮询和产物快照。`JobManager` 允许三个 worker，但用全局执行锁把实际写入串行化（见 [tooling.py](../../towards_victory_editor_web/services/tooling.py#L289)）。两个 Wonder 媒体作业锁定 `editor.wonder`、`editor.wonder_crop` 和 `editor.cost_reward`；Wonder commit 始终锁定 `editor.wonder` 与 `editor.cost_reward`，包括禁用生成的 API 路径，因为提交仍可能写共享源文件；crop commit 锁定 `editor.wonder_crop`；修改 cost/reward 分类时的 commit 锁定 `editor.cost_reward` 与 `editor.wonder`，只改 task pool 时只锁 `editor.cost_reward`。victory tree 尚未共享，也没有统一的变更事件或提交记录。
 
 ### 数据契约没有共同的资源边界
 
@@ -32,7 +32,7 @@
 
 - cost/reward 直接维护 `data/cost_reward_units.yaml` 与 `data/task_pool.yaml`；
 - victory tree 维护树变体、节点坐标，并在服务初始化时解码 DDS 预览（见 [victory_tree.py](../../towards_victory_editor_web/services/victory_tree.py#L111)）；
-- wonder 编辑器同时读取本地化、通用奇观、机制、独特奇观、仪式设计、提示词、索引和生成脚本输入（见 [wonder_localization.py](../../towards_victory_editor_web/services/wonder_localization.py) 的 `_load_from_disk()`），保存时由 [generation.py](../../towards_victory_editor_web/services/generation.py) 的 `run_generation()` 执行生成计划；
+- wonder 编辑器由 [WonderResourceService](../../towards_victory_editor_web/services/wonder_resource.py) 加载本地化、通用奇观、机制、独特奇观、仪式设计和提示词等源；领域字段和规范化逻辑位于 `services/wonder/`。保存时由 [generation.py](../../towards_victory_editor_web/services/generation.py) 的 `run_generation()` 执行生成计划；
 - media 生成工具通过 job 写入 DDS/PNG 等产物；cropper 的 `data/wonder_image_crops.json` 已通过资源接口编辑，PNG 读取和 DDS 重建仍分别走图片读取与 job 接口。
 
 cost/reward、victory tree、Wonder 和 cropper 配置现在通过统一 `ResourceDescriptor`、源文件 SHA-256 快照、draft、校验、预览 diff 和 commit 返回变更集合；媒体工具也开始在 `ToolSpec` 和 job payload 中声明资源依赖、源文件快照与允许的产物格式。当前仍没有完整的生成依赖图、跨资源 batch change set 或跨资源统一预览；Wonder 现有生成范围已有独立 DAG 和逐产物报告，但尚未按字段建立完整的输入依赖图。
@@ -120,7 +120,7 @@ flowchart LR
 
 - `CostRewardAdapter`：把五类 unit 和两类 task 映射为实体集合，保留现有数值约束。
 - `VictoryTreeAdapter`：把 path/node/position 映射为实体图，保留归一化坐标和预览生成。
-- `WonderAdapter`：首个统一资源切片已由现有 `WonderLocalizationService` 对外提供；后续仍应拆成 loader、field schema、draft parser、source writer、generator plan 五个内部模块。
+- `WonderAdapter`：首个统一资源切片由 `WonderResourceService` 对外提供；领域实现已拆入 `services/wonder/`，资源入口与生成计划仍由相邻服务模块负责。
 
 每个 adapter 都只返回统一的 `ResourceDescriptor` 和 `ChangeSet`，不让 FastAPI route 直接调用 YAML 或 generator。旧 service 可以暂时作为 adapter 内部实现，待契约稳定后再删除。
 
@@ -147,9 +147,9 @@ flowchart LR
 
 ## Wonder 编辑器专项分析
 
-### 它实际承担了八种职责
+### 拆分前的 Wonder 服务承担了八种职责
 
-Wonder 编辑器的耦合核心不是“奇观字段很多”，而是一个类同时决定了数据如何读取、如何显示、如何解析、如何写回和如何生成。`WonderLocalizationService` 约 3,800 行，启动时一次加载通用奇观、独特奇观、机制、站点规则、最终建筑、通用仪式、本地化、独特仪式设计和提示词，然后构建选项目录并执行全量 canonical localization 校验（见 [wonder_localization.py](../../towards_victory_editor_web/services/wonder_localization.py) 的 `reload_from_disk()` / `_load_from_disk()`）。同一对象还负责：
+Wonder 编辑器的耦合核心不是“奇观字段很多”，而是拆分前一个类同时决定了数据如何读取、如何显示、如何解析、如何写回和如何生成。`WonderLocalizationService` 的约 3,800 行规模是拆分前基线；当时它启动时一次加载通用奇观、独特奇观、机制、站点规则、最终建筑、通用仪式、本地化、独特仪式设计和提示词，然后构建选项目录并执行全量 canonical localization 校验。当前资源加载入口位于 [WonderResourceService](../../towards_victory_editor_web/services/wonder_resource.py)，领域逻辑已拆至 `services/wonder/`。拆分前的单体还负责：
 
 1. 源文件快照和进程内缓存；
 2. generic/unique wonder 的领域聚合；
@@ -167,7 +167,7 @@ Wonder 编辑器的耦合核心不是“奇观字段很多”，而是一个类�
 ```mermaid
 flowchart LR
     YAML[(wonders.yaml / unique_wonders.yaml\n+localization / mechanics / rituals)]
-    LOAD[WonderLocalizationService.reload_from_disk]
+    LOAD[WonderResourceService.reload_from_disk]
     AGG[Wonder aggregate + inherited prototype]
     SCHEMA[FieldSpec / MechanicsFieldSpec\n+structured_value + options]
     API[resource load / validate / preview / commit
@@ -197,7 +197,7 @@ flowchart LR
 | 操作 | 实测结果 | 说明 |
 | --- | ---: | --- |
 | 导入模块 | 约 0.24 s | 单纯 import 尚可 |
-| `WonderLocalizationService()` | 约 36.4 s（原评估环境） | 启动即全量读取、建目录、校验；该数字依赖机器和解释器，当前环境未复现 |
+| 拆分前的 `WonderLocalizationService()` | 约 36.4 s（原评估环境） | 启动即全量读取、建目录、校验；该数字依赖机器和解释器，当前环境未复现 |
 | bootstrap JSON | 约 9.1 MB | 首屏同时返回列表、首个完整 wonder、全部 ritual designs |
 | generic detail | 约 3.37 MB | mechanics 约 3.33 MB |
 | unique Pharos detail | 约 6.14 MB | mechanics 约 6.10 MB |
@@ -306,7 +306,7 @@ Wonder 已接入平台的 `load/draft/validate/preview/commit` API：`editor.won
 - 五个可运行媒体 handler 都通过必需的 `prepare` 方法返回 `ToolPlan`：配置与任务集合只解析一次，执行闭包使用同一批解析结果。必需输入缺失时在写入前失败；必需产物缺失或格式校验失败时任务失败。可选 local/crop 配置即使不存在也记录摘要，以检测运行期间的新建。格式检查覆盖 PNG/DDS/JPEG 文件头和 JSON 语法，尚不是完整图片解码、尺寸策略或领域 schema 校验。
 - 目前 `media.wonder_crop` 和 `media.wonder_image` 声明了 `editor.wonder`、`editor.wonder_crop` 与 `editor.cost_reward` 资源依赖；其余三个媒体 handler 声明文件输入和产物格式，尚无编辑器资源依赖登记。交互式目录条目不运行媒体产物校验。Web 的既有 DDS 重建只保留 `media.wonder_crop`，已删除 `media.wonder_image` 的 `convert_existing_assets` 选项；CLI 重建参数仍调用共用转换函数。
 - Wonder rebuild 输入包含 `scripts_engineering_department/generate_wonder_image_config.json`、可选 local 配置、决定任务集合的 Wonder YAML/Prompt、可选 crop JSON、PNG 及纯 DDS 源；声明完整 DDS 和 PNG 对应的 `_cropped.dds`。声明使用生成器当前任务计划，与 cropper 启动时的 UI 图片缓存无关。DDS 图标的 JSON 元数据和参考图片转换产物也按配置路径声明；不再扫描整个目录，把无关文件变化误归属到当前 job。
-- Wonder 作业锁定 `editor.wonder`、`editor.wonder_crop`、`editor.cost_reward`；会运行生成器的 Wonder commit 锁定 `editor.wonder` 与 `editor.cost_reward`，禁用生成时只锁 `editor.wonder`；crop commit 锁定 `editor.wonder_crop`；修改 cost/reward 分类时的 commit 锁定 `editor.cost_reward` 与 `editor.wonder`，只改 task pool 时只锁 `editor.cost_reward`。cost/reward 保存会根据新目录重写 `unique_wonders.yaml` 中的典礼阶段数值（重写结果在写入前重新解析并按候选目录逐项校验，文件布局无法识别时在 preview/commit 阶段直接报错），在同一恢复事务中运行受影响的 Wonder 生成器，并刷新驻留的 Wonder 服务目录；因此长时间运行的 Wonder 图片作业期间 cost/reward 保存返回 409 是有意的强一致性取舍。禁用生成的 Wonder 保存不再额外占用 `editor.cost_reward` 锁；cost/reward 保存仍占用 `editor.wonder` 锁以保护派生文件。作业期间保存返回 HTTP 409，作业遇到正在保存的资源则在写入前失败。外部编辑无法由此锁阻止，仍以执行前后摘要检测；纯 DDS 就地转换和元数据就地更新的输入输出重叠文件只做执行前检查。
+- Wonder 作业锁定 `editor.wonder`、`editor.wonder_crop`、`editor.cost_reward`；Wonder commit 始终锁定 `editor.wonder` 与 `editor.cost_reward`，包括禁用生成的 API 路径；crop commit 锁定 `editor.wonder_crop`；修改 cost/reward 分类时的 commit 锁定 `editor.cost_reward` 与 `editor.wonder`，只改 task pool 时只锁 `editor.cost_reward`。cost/reward 保存会根据新目录重写 `unique_wonders.yaml` 中的典礼阶段数值（重写结果在写入前重新解析并按候选目录逐项校验，文件布局无法识别时在 preview/commit 阶段直接报错），在同一恢复事务中运行受影响的 Wonder 生成器，并刷新驻留的 Wonder 服务目录；因此长时间运行的 Wonder 图片作业期间 cost/reward 保存返回 409 是有意的强一致性取舍。禁用生成的 Wonder 保存同样占用 `editor.cost_reward` 锁，因为提交仍可能写共享源文件；cost/reward 保存仍占用 `editor.wonder` 锁以保护派生文件。作业期间保存返回 HTTP 409，作业遇到正在保存的资源则在写入前失败。外部编辑无法由此锁阻止，仍以执行前后摘要检测；纯 DDS 就地转换和元数据就地更新的输入输出重叠文件只做执行前检查。
 - 媒体生成器写 job staging，handler 清理结束后复核输入及产物，再发布；发布失败只恢复本次已替换的文件，恢复受阻时保留备份并报告需人工核对。historical_style JSON 正式路径和 Wonder 已有 PNG 补全混跑已修复；五个 handler 的成功用例已与直接执行脚本逐字节比对（图片 API 使用固定响应）。检测按确认的 A 只核对声明文件，不扫描其父目录；输入变化报冲突，正式输出在 staging 外的变化通过 `formal_output_changes` 报告并阻止发布，不推断写入者。中间文件单列 `staging_extra_files`，不触发部分产物警告。服务中断按确认的 A 提示可能部分发布及残留备份，启动恢复和任意未声明路径写入审计另列待办；完整验收记录见状态文档。
 - `tests/test_media_job_contract.py` 和 `tests/test_media_plans.py` 覆盖失败/取消后清单保留、输入与产物缺失、可选配置新建、无关文件不归属、格式失败、真实 Wonder 计划与 DDS 转换、DDS 图标元数据、固定任务执行、dry-run、Web 重建唯一入口、生成器跳过无 PNG 的半套 DDS 时的产物声明，以及 `/api/jobs` / crop commit 409；`tests/test_wonder_resource_contract.py` 覆盖 Wonder 作业占用资源时 commit 在写入前失败。真实图片转换使用临时目录，网络生成以替身隔离，不会调用付费图片 API。
 - Wonder 的资源接口为 `GET /api/resources/editor.wonder` 与 `POST .../{validate,preview,commit}`。资源 commit 在写入前检查当前奇观 ID，再暂存源文件、运行按变更类别选择的 generator；生成器、重新加载或响应构建失败时，由平台事务恢复已快照且发生变化的文件。完整生成计划仍为 40 个产物，其路径来自 `data/generated_files.yaml`，共享 organization GUI 由两个合并脚本的显式例外补充；未登记产物的脚本在写入前报错。生成器使用 `sys.executable`。

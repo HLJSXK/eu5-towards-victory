@@ -54,6 +54,9 @@ def main() -> None:
     loc_ctx = build(["src/main_menu/localization/english/towards_victory_l_english.yml"])
     assert_true("localization" in route_ids(loc_ctx), "localization path should route to localization")
 
+    wonder_service_ctx = build(["services/wonder/fields.py"])
+    assert_true("wonder_service" in route_ids(wonder_service_ctx), "Wonder service modules should route by CLI-relative path")
+
     buffer = io.StringIO()
     with redirect_stdout(buffer):
         ai_context.print_markdown(ctx, full=False)

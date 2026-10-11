@@ -176,8 +176,8 @@ conversion functions.
 
 Jobs run under one media execution lock. Both Wonder jobs acquire the
 `editor.wonder`, `editor.wonder_crop`, and `editor.cost_reward` resource locks.
-Wonder commits that regenerate acquire `editor.wonder` and `editor.cost_reward`;
-commits with regeneration disabled acquire only `editor.wonder`. Crop commits
+Wonder commits always acquire `editor.wonder` and `editor.cost_reward`, including
+commits with regeneration disabled, because they may still write shared sources. Crop commits
 acquire `editor.wonder_crop`. Cost/reward commits that edit catalog categories
 acquire `editor.cost_reward` and `editor.wonder`; task-pool-only commits acquire
 only `editor.cost_reward`. Cost/reward saves also rewrite the
@@ -242,11 +242,12 @@ This slice does not provide a complete resource DAG or cross-process locking.
 The data editors and crop configuration editor are registered in the same tool
 catalog as interactive tools. They use resource load/validate/preview/commit
 operations for source changes; media generation remains an asynchronous job
-with status, logs, cancellation, and artifact reports. Both resource commits
-and media jobs expose the same `operation_id` and `operation` payload. The
-payload contains the operation kind, resource IDs, lifecycle status, bounded
-events, error/cancellation state, and timestamps. Commit failures carry their
-own operation snapshot on the exception used to build the HTTP response.
+with status, logs, cancellation, and artifact reports. Resource commits and
+media jobs expose an `operation` payload containing the operation kind, resource
+IDs, lifecycle status, bounded events, error/cancellation state, and timestamps.
+Job lifecycle fields stay under `operation`; job-specific logs, cursors and
+artifact reports remain at the top level. Commit responses and failures also
+include an `operation_id` for convenient correlation.
 Wonder and cost/reward generation reports use the commit's operation ID.
 Jobs waiting for the media execution lock remain queued with no started_at;
 busy resources fail before the operation starts. Terminal lifecycle states

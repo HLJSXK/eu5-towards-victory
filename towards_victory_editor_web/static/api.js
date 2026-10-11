@@ -47,5 +47,5 @@ export async function fetchJson(url, options, { errorMessages } = {}) {
       ? customMessage(error.detail, error)
       : customMessage;
   }
-  return Promise.reject(error);
+  throw error;
 }

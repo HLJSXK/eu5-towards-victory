@@ -11,7 +11,7 @@ if hasattr(sys.stdout, "reconfigure"):
 from .services.common import safe_check
 
 
-def _run_combined_check() -> None:
+def _run_combined_check() -> int:
     from .services.cost_reward import build_check_report as cost_reward_check
     from .services.victory_tree import build_check_report as victory_tree_check
     from .services.wonder.localization import build_check_report as wonder_localization_check
@@ -23,14 +23,17 @@ def _run_combined_check() -> None:
         ("victory_tree", victory_tree_check),
         ("wonder_localization", wonder_localization_check),
     ]
+    failed = False
     for name, check_fn in tools:
         print(f"=== {name} ===")
         for line in safe_check(name, check_fn):
             print(line)
+            failed = failed or line.startswith("[FAIL]")
     print("=== media ===")
     payload = bootstrap_payload()
     print(f"[PASS] registered tools: {len(registry.payload())} ({len(payload['tools'])} runnable media tools)")
     print(f"[PASS] cropper images discovered: {len(cropper.tasks)}")
+    return int(failed)
 
 
 def main() -> None:
@@ -49,8 +52,7 @@ def main() -> None:
     args = parser.parse_args()
 
     if args.check:
-        _run_combined_check()
-        return
+        raise SystemExit(_run_combined_check())
 
     try:
         import fastapi  # noqa: F401

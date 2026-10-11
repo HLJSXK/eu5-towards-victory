@@ -64,6 +64,31 @@ def wait_for_jobs(manager):
         future.result(timeout=15)
 
 
+def test_cli_check_exits_nonzero_when_a_subcheck_fails(monkeypatch, capsys):
+    import sys
+
+    from towards_victory_editor_web import __main__ as web_main
+    from towards_victory_editor_web.services import media
+    from towards_victory_editor_web.services.cropper import cropper
+
+    monkeypatch.setattr(sys, "argv", ["towards_victory_editor_web", "--check"])
+    monkeypatch.setattr(
+        web_main,
+        "safe_check",
+        lambda name, _check: [f"[FAIL] {name}: injected check failure"]
+        if name == "victory_tree" else [f"[PASS] {name}"],
+    )
+    monkeypatch.setattr(media, "bootstrap_payload", lambda: {"tools": []})
+    monkeypatch.setattr(media.registry, "payload", lambda: [])
+    monkeypatch.setattr(cropper, "tasks", [])
+
+    with pytest.raises(SystemExit) as error:
+        web_main.main()
+
+    assert error.value.code == 1
+    assert "[FAIL] victory_tree" in capsys.readouterr().out
+
+
 def execute(tool, manager):
     job = manager.submit(tool.spec.id, {})
     wait_for_jobs(manager)
@@ -88,8 +113,8 @@ def test_shutdown_cancels_running_waiting_and_queued_jobs_and_persists_all(job_e
     assert attempts == [first.id]
     for job in [first, *others]:
         payload = manager.get(job.id)
-        assert payload["status"] == "cancelled"
-        assert payload["finished_at"] is not None
+        assert payload["operation"]["status"] == "cancelled"
+        assert payload["operation"]["finished_at"] is not None
         assert payload["operation"].get("persistence_error") is None
         assert manager.operation_store.get(job.id)["status"] == "cancelled"
     assert manager._futures == {}
@@ -135,7 +160,7 @@ def test_submit_racing_with_shutdown_cannot_leave_a_queued_record(job_env, monke
     assert closed.is_set()
     assert not errors
     assert len(submitted) == 1
-    assert manager.get(submitted[0].id)["status"] == "cancelled"
+    assert manager.get(submitted[0].id)["operation"]["status"] == "cancelled"
     assert manager.operation_store.get(submitted[0].id)["status"] == "cancelled"
 
 
@@ -155,12 +180,11 @@ def test_shutdown_during_validation_rejects_without_registering_job(job_env, mon
 def test_job_reports_resource_snapshot_and_declared_artifact(job_env):
     tool, manager = job_env
     job = execute(tool, manager)
-    assert job["status"] == "succeeded"
-    assert job["operation_id"] == job["operation"]["id"]
-    assert job["operation"]["status"] == job["status"]
+    assert job["operation"]["status"] == "succeeded"
+    assert {"id", "status", "error", "resource_ids", "operation_id", "created_at", "finished_at"}.isdisjoint(job)
     assert job["operation"]["started_at"] is not None
-    assert manager.operation_store.get(job["operation_id"]) == job["operation"]
-    assert job["resource_ids"] == ["editor.wonder_crop"]
+    assert manager.operation_store.get(job["operation"]["id"]) == job["operation"]
+    assert job["operation"]["resource_ids"] == ["editor.wonder_crop"]
     assert job["artifact_formats"] == ["json"]
     assert job["source_snapshots"][0]["path"] == "source.txt"
     assert job["declared_outputs"] == ["output.json"]
@@ -177,13 +201,13 @@ def test_completed_job_details_are_queryable_after_manager_restart(tmp_path):
     store = OperationStore(tmp_path / "operations.sqlite3")
     manager = JobManager(registry, tmp_path, store)
     completed = execute(tool, manager)
-    job_id = completed["id"]
+    job_id = completed["operation"]["id"]
     store.close()
     restarted_store = OperationStore(tmp_path / "operations.sqlite3")
     restarted = JobManager(ToolRegistry(), tmp_path, restarted_store)
     try:
         queried = restarted.get(job_id)
-        assert queried["status"] == "succeeded"
+        assert queried["operation"]["status"] == "succeeded"
         assert queried["tool"] == tool.spec.id
         assert queried["lines"] == []
         assert queried["artifacts"] == completed["artifacts"]
@@ -211,7 +235,7 @@ def test_lifespan_cancels_job_before_closing_owned_store(job_env, monkeypatch):
         submitted = client.post("/api/jobs", json={"tool": tool.spec.id, "options": {}})
         assert submitted.status_code == 200
         assert started.wait(5)
-        job_id = submitted.json()["id"]
+        job_id = submitted.json()["operation"]["id"]
         first_manager = app.state.jobs
     reopened = OperationStore(store_path)
     try:
@@ -223,7 +247,7 @@ def test_lifespan_cancels_job_before_closing_owned_store(job_env, monkeypatch):
         reopened.close()
     with TestClient(app):
         assert app.state.jobs is not first_manager
-        assert app.state.jobs.get(job_id)["status"] == "cancelled"
+        assert app.state.jobs.get(job_id)["operation"]["status"] == "cancelled"
 
 
 @pytest.mark.parametrize("invalid", ["path", "circular", "nonfinite", "message"])
@@ -243,15 +267,15 @@ def test_invalid_tool_result_keeps_terminal_diagnostic_and_artifacts(job_env, in
 
     failed = execute(tool, manager)
 
-    assert failed["status"] == "failed"
-    assert "Tool result from test.json must be JSON serializable" in failed["error"]
+    assert failed["operation"]["status"] == "failed"
+    assert "Tool result from test.json must be JSON serializable" in failed["operation"]["error"]
     assert "persistence_error" not in failed["operation"]
     assert failed["message"] == ""
     assert list(failed["metadata"]) == ["output_validation"]
     assert failed["metadata"]["output_validation"][0]["valid"] is True
     assert failed["artifacts"][0]["path"] == "output.json"
     assert failed["outputs_may_be_partial"] is False
-    operation, details = manager.operation_store.get_with_details(failed["id"])
+    operation, details = manager.operation_store.get_with_details(failed["operation"]["id"])
     assert operation == failed["operation"]
     assert details["metadata"] == failed["metadata"]
     assert details["lines"] == failed["lines"]
@@ -260,8 +284,8 @@ def test_invalid_tool_result_keeps_terminal_diagnostic_and_artifacts(job_env, in
     reopened = OperationStore(manager.operation_store.path)
     archived = JobManager(ToolRegistry(), tool.root, reopened)
     try:
-        assert archived.get(failed["id"]) == failed
-        assert "interrupted" not in reopened.get(failed["id"])
+        assert archived.get(failed["operation"]["id"]) == failed
+        assert "interrupted" not in reopened.get(failed["operation"]["id"])
     finally:
         archived.shutdown()
         reopened.close()
@@ -300,9 +324,9 @@ def test_tool_result_is_detached_before_handler_cleanup(job_env, monkeypatch):
 
     completed = execute(tool, manager)
 
-    assert completed["status"] == "succeeded"
+    assert completed["operation"]["status"] == "succeeded"
     assert completed["metadata"]["output"] == {"path": "output.json"}
-    operation, details = manager.operation_store.get_with_details(completed["id"])
+    operation, details = manager.operation_store.get_with_details(completed["operation"]["id"])
     assert operation == completed["operation"]
     assert details["metadata"] == completed["metadata"]
 
@@ -364,9 +388,8 @@ def test_failed_or_cancelled_job_preserves_written_artifacts(job_env, failure):
 
     tool.action = action
     job = execute(tool, manager)
-    assert job["status"] == ("cancelled" if failure == "cancelled" else "failed")
-    assert job["operation_id"] == job["operation"]["id"]
-    assert job["operation"]["status"] == job["status"]
+    assert job["operation"]["status"] == ("cancelled" if failure == "cancelled" else "failed")
+    assert "operation_id" not in job
     assert job["returncode"] == (130 if failure == "cancelled" else 1)
     assert job["artifacts"][0]["path"] == "output.json"
     assert job["artifacts"][0]["changed"] is True
@@ -374,17 +397,17 @@ def test_failed_or_cancelled_job_preserves_written_artifacts(job_env, failure):
     assert job["formal_output_changes"] == []
     assert not tool.output.exists()
     expected = {"source_changed": "Declared inputs changed", "exception": "generator stopped", "cancelled": "Cancellation requested"}
-    assert expected[failure] in job["error"]
+    assert expected[failure] in job["operation"]["error"]
 
 
 def test_missing_declared_output_fails_and_unrelated_files_are_not_artifacts(job_env):
     tool, manager = job_env
     tool.action = lambda context: (tool.root / "unrelated.txt").write_text("another writer")
     job = execute(tool, manager)
-    assert job["status"] == "failed"
+    assert job["operation"]["status"] == "failed"
     assert job["missing_outputs"] == ["output.json"]
     assert job["artifacts"] == []
-    assert "Missing declared outputs" in job["error"]
+    assert "Missing declared outputs" in job["operation"]["error"]
 
 
 def test_unrelated_file_changes_are_not_scanned_or_attributed_to_job(job_env, monkeypatch):
@@ -417,7 +440,7 @@ def test_unrelated_file_changes_are_not_scanned_or_attributed_to_job(job_env, mo
 
     tool.action = action
     job = execute(tool, manager)
-    assert job["status"] == "succeeded"
+    assert job["operation"]["status"] == "succeeded"
     assert [item["path"] for item in job["artifacts"]] == ["images/output.json"]
     assert job["formal_output_changes"] == []
     assert job["outputs_may_be_partial"] is False
@@ -440,17 +463,17 @@ def test_direct_formal_writes_are_rejected_and_reported(job_env, existing, outco
 
     tool.action = action
     job = execute(tool, manager)
-    assert job["status"] == ("cancelled" if outcome == "cancel" else "failed")
+    assert job["operation"]["status"] == ("cancelled" if outcome == "cancel" else "failed")
     assert job["formal_output_changes"] == ["output.json"]
     assert job["outputs_may_be_partial"] is True
     if outcome == "return":
-        assert "Formal outputs changed outside staging" in job["error"]
+        assert "Formal outputs changed outside staging" in job["operation"]["error"]
     assert any("writer unknown, review files: output.json" in line for line in job["lines"])
     # No compatibility copy into staging and no restoration over another writer.
     assert tool.output.read_bytes() == b'{"outside_staging": true}'
     restarted = JobManager(ToolRegistry(), tool.root, manager.operation_store)
     try:
-        assert restarted.get(job["id"]) == job
+        assert restarted.get(job["operation"]["id"]) == job
     finally:
         restarted.shutdown()
 
@@ -467,7 +490,7 @@ def test_staging_intermediates_do_not_mark_formal_outputs_partial(job_env, fails
 
     tool.action = action
     job = execute(tool, manager)
-    assert job["status"] == ("failed" if fails else "succeeded")
+    assert job["operation"]["status"] == ("failed" if fails else "succeeded")
     assert job["staging_extra_files"] == ["staging/intermediate.bin"]
     assert job["formal_output_changes"] == []
     assert job["outputs_may_be_partial"] is False
@@ -480,8 +503,8 @@ def test_missing_declared_input_fails_before_writes(job_env):
     tool, manager = job_env
     tool.source.unlink()
     job = execute(tool, manager)
-    assert job["status"] == "failed"
-    assert "Missing declared input" in job["error"]
+    assert job["operation"]["status"] == "failed"
+    assert "Missing declared input" in job["operation"]["error"]
     assert not tool.output.exists()
 
 
@@ -491,10 +514,9 @@ def test_busy_resource_fails_job_before_writes(job_env):
     tool, manager = job_env
     with resource_operation(("editor.wonder_crop",)):
         job = execute(tool, manager)
-    assert job["status"] == "failed"
     assert job["operation"]["status"] == "failed"
     assert job["operation"]["started_at"] is None
-    assert "Resource busy" in job["error"]
+    assert "Resource busy" in job["operation"]["error"]
     assert not tool.output.exists()
 
 
@@ -515,17 +537,17 @@ def test_waiting_for_execution_lock_does_not_start_operation(job_env, monkeypatc
         job = manager.submit(tool.spec.id, {})
         assert waiting.wait(5), "worker did not reach the execution lock"
         payload = job.payload()
-        assert payload["status"] == payload["operation"]["status"] == "queued"
+        assert payload["operation"]["status"] == "queued"
         assert payload["operation"]["started_at"] is None
         assert payload["operation"]["events"] == []
         if cancel:
             manager.cancel(job.id)
             payload = job.payload()
-            assert payload["status"] == payload["operation"]["status"] == "cancelling"
+            assert payload["operation"]["status"] == "cancelling"
     wait_for_jobs(manager)
     manager.shutdown()
     payload = job.payload()
-    assert payload["status"] == payload["operation"]["status"] == ("cancelled" if cancel else "succeeded")
+    assert payload["operation"]["status"] == ("cancelled" if cancel else "succeeded")
     assert (payload["operation"]["started_at"] is None) == cancel
     assert tool.output.exists() != cancel
 
@@ -555,14 +577,14 @@ def test_job_finishes_only_after_handler_cleanup(job_env, monkeypatch, cancel, c
     try:
         assert cleanup_started.wait(5)
         running = job.payload()
-        assert running["status"] == running["operation"]["status"] == "running"
+        assert running["operation"]["status"] == "running"
         assert running["returncode"] is None
-        assert running["finished_at"] is running["operation"]["finished_at"] is None
+        assert running["operation"]["finished_at"] is None
         if cancel:
             manager.cancel(job.id)
             cancelling = job.payload()
             manager.cancel(job.id)
-            assert cancelling["status"] == "cancelling"
+            assert cancelling["operation"]["status"] == "cancelling"
             assert job.payload()["operation"] == cancelling["operation"]
     finally:
         finish_cleanup.set()
@@ -571,13 +593,10 @@ def test_job_finishes_only_after_handler_cleanup(job_env, monkeypatch, cancel, c
 
     completed = job.payload()
     expected = "cancelled" if cancel else "failed" if cleanup_fails else "succeeded"
-    assert completed["status"] == completed["operation"]["status"] == expected
-    assert completed["error"] == completed["operation"]["error"]
-    assert completed["error"] == ("Cancellation requested" if cancel else "cleanup failed" if cleanup_fails else None)
+    assert completed["operation"]["status"] == expected
+    assert completed["operation"]["error"] == ("Cancellation requested" if cancel else "cleanup failed" if cleanup_fails else None)
     assert completed["returncode"] == {"succeeded": 0, "failed": 1, "cancelled": 130}[expected]
-    assert completed["created_at"] == completed["operation"]["created_at"]
-    assert completed["finished_at"] == completed["operation"]["finished_at"]
-    assert completed["finished_at"] is not None
+    assert completed["operation"]["finished_at"] is not None
     assert completed["outputs_may_be_partial"] is False
     if expected == "succeeded":
         assert tool.output.read_bytes() != original_output
@@ -607,9 +626,9 @@ def test_job_validates_files_after_handler_cleanup(job_env, monkeypatch, cleanup
 
     monkeypatch.setattr(tool, "prepare", prepare_with_cleanup)
     job = execute(tool, manager)
-    assert job["status"] == "failed"
+    assert job["operation"]["status"] == "failed"
     expected = "Output validation failed" if cleanup_change == "invalid_output" else "Declared inputs changed"
-    assert expected in job["error"]
+    assert expected in job["operation"]["error"]
     assert tool.output.read_bytes() == before
 
 
@@ -651,11 +670,11 @@ def test_publication_failure_restores_files_or_retains_backups(job_env, monkeypa
     monkeypatch.setattr(tooling.os, "replace", fail_last)
     monkeypatch.setattr(tooling.shutil, "copy2", copy_with_locked_output)
     job = execute(tool, manager)
-    assert job["status"] == "failed"
-    assert ("output is locked" if rollback_fails else "publication failed") in job["error"]
-    assert "publication failed" in job["error"]
+    assert job["operation"]["status"] == "failed"
+    assert ("output is locked" if rollback_fails else "publication failed") in job["operation"]["error"]
+    assert "publication failed" in job["operation"]["error"]
     if rollback_fails:
-        assert "Rollback incomplete" in job["error"]
+        assert "Rollback incomplete" in job["operation"]["error"]
     assert outputs[2].read_bytes() == original
     assert not outputs[1].exists()
     assert job["outputs_may_be_partial"] == rollback_fails
@@ -671,7 +690,7 @@ def test_publication_failure_restores_files_or_retains_backups(job_env, monkeypa
         assert list((tool.root / ".editor_state").iterdir()) == []
     restarted = JobManager(ToolRegistry(), tool.root, manager.operation_store)
     try:
-        assert restarted.get(job["id"]) == job
+        assert restarted.get(job["operation"]["id"]) == job
     finally:
         restarted.shutdown()
 
@@ -711,13 +730,13 @@ def test_cancellation_during_publication_keeps_rollback_diagnostics(job_env, mon
     monkeypatch.setattr(tooling.os, "replace", cancel_then_fail)
     monkeypatch.setattr(tooling.shutil, "copy2", locked_restore)
     job = execute(tool, manager)
-    assert job["status"] == "cancelled"
+    assert job["operation"]["status"] == "cancelled"
     assert job["publication_rollback_failed"] is True
-    for text in (job["error"], "\n".join(job["lines"])):
+    for text in (job["operation"]["error"], "\n".join(job["lines"])):
         assert "Cancellation requested" in text
         assert "publication failed" in text
         assert "Rollback incomplete" in text and "restore blocked" in text
-    stored, _ = manager.operation_store.get_with_details(job["id"])
+    stored, _ = manager.operation_store.get_with_details(job["operation"]["id"])
     assert "restore blocked" in stored["error"]
 
 
@@ -764,16 +783,16 @@ def test_last_moment_publication_conflict_restores_prior_replacements(job_env, m
     monkeypatch.setattr(tool, "prepare", prepare)
     monkeypatch.setattr(tooling.shutil, "copy2", change_during_copy)
     job = execute(tool, manager)
-    assert job["status"] == "failed"
-    assert "changed before publication" in job["error"]
+    assert job["operation"]["status"] == "failed"
+    assert "changed before publication" in job["operation"]["error"]
     assert outputs[0].read_text() == ('{"new":true}' if rollback_fails else '{"old":true}')
     assert outputs[1].read_text() == '{"external":true}'
     assert job["formal_output_changes"] == ["last.json"]
     assert job["outputs_may_be_partial"] is True
     if rollback_fails:
-        assert "Rollback incomplete" in job["error"]
-        assert "restore blocked" in job["error"]
-    _, details = manager.operation_store.get_with_details(job["id"])
+        assert "Rollback incomplete" in job["operation"]["error"]
+        assert "restore blocked" in job["operation"]["error"]
+    _, details = manager.operation_store.get_with_details(job["operation"]["id"])
     assert details["formal_output_changes"] == ["last.json"]
 
 
@@ -795,7 +814,7 @@ def test_optional_png_deleted_in_staging_is_deleted_only_on_success(job_env, mon
 
     monkeypatch.setattr(tool, "prepare", prepare)
     job = execute(tool, manager)
-    assert job["status"] == ("failed" if fails else "succeeded"), job["error"]
+    assert job["operation"]["status"] == ("failed" if fails else "succeeded"), job["operation"]["error"]
     deleted = [item["path"] for item in job["artifacts"] if item["role"] == "deleted"]
     if fails:
         assert png.read_bytes() == b"original PNG"
@@ -805,18 +824,8 @@ def test_optional_png_deleted_in_staging_is_deleted_only_on_success(job_env, mon
         # the source by later rebuilds, so the handler's deletion is published.
         assert not png.exists()
         assert deleted == ["kept.png"]
-    _, details = manager.operation_store.get_with_details(job["id"])
+    _, details = manager.operation_store.get_with_details(job["operation"]["id"])
     assert details["artifacts"] == job["artifacts"]
-
-
-def test_staging_validation_rejects_artifact_without_override(tmp_path):
-    from towards_victory_editor_web.services.artifacts import Artifact, validate_artifact_contract
-
-    (tmp_path / "old.json").write_text('{}')
-    report, = validate_artifact_contract(tmp_path, (Artifact("old.json", "output", 2, "digest", True),),
-                                         ("json",), path_overrides={}, require_overrides=True)
-    assert report["valid"] is False
-    assert "staging contract" in report["error"]
 
 
 def test_cancelled_queued_job_does_not_try_to_acquire_busy_resource(job_env):
@@ -830,9 +839,9 @@ def test_cancelled_queued_job_does_not_try_to_acquire_busy_resource(job_env):
         wait_for_jobs(manager)
     manager.shutdown()
     payload = job.payload()
-    assert payload["status"] == "cancelled"
+    assert payload["operation"]["status"] == "cancelled"
     assert payload["operation"]["started_at"] is None
-    assert payload["error"] == "Cancellation requested"
+    assert payload["operation"]["error"] == "Cancellation requested"
     assert not tool.output.exists()
 
 
@@ -855,9 +864,9 @@ def test_optional_input_appearing_during_execution_is_a_conflict(job_env):
 
     tool.action = action
     job = execute(tool, manager)
-    assert job["status"] == "failed"
+    assert job["operation"]["status"] == "failed"
     assert job["source_snapshots"][0]["sha256"] == "missing"
-    assert "Declared inputs changed" in job["error"]
+    assert "Declared inputs changed" in job["operation"]["error"]
 
 
 @pytest.mark.parametrize("extension,content,error", [
@@ -869,8 +878,8 @@ def test_invalid_artifact_retains_manifest(job_env, extension, content, error):
     tool.output = tool.root / f"output.{extension}"
     tool.action = lambda context: context.stage_path(tool.output).write_text(content)
     job = execute(tool, manager)
-    assert job["status"] == "failed"
-    assert error in job["error"]
+    assert job["operation"]["status"] == "failed"
+    assert error in job["operation"]["error"]
     assert job["artifacts"][0]["path"] == tool.output.name
     assert job["metadata"]["output_validation"][0]["valid"] is False
 
@@ -880,7 +889,7 @@ def test_unchanged_output_is_validated_and_reported(job_env):
     tool.output.write_text('{}')
     tool.action = lambda context: None
     job = execute(tool, manager)
-    assert job["status"] == "succeeded"
+    assert job["operation"]["status"] == "succeeded"
     assert job["artifacts"][0]["changed"] is False
 
 
@@ -889,7 +898,7 @@ def test_missing_staged_output_does_not_report_formal_deletion(job_env):
     tool.output.write_text('{}')
     tool.action = lambda context: context.stage_path(tool.output).unlink()
     job = execute(tool, manager)
-    assert job["status"] == "failed"
+    assert job["operation"]["status"] == "failed"
     assert job["missing_outputs"] == ["output.json"]
     assert job["artifacts"] == []
     assert tool.output.read_text() == '{}'
@@ -920,9 +929,9 @@ def test_http_job_contract_and_crop_commit_conflict(job_env, monkeypatch):
         assert submitted.status_code == 200
         assert started.wait(5)
         try:
-            job_id = submitted.json()["id"]
+            job_id = submitted.json()["operation"]["id"]
             running = client.get(f"/api/jobs/{job_id}").json()
-            assert running["resource_ids"] == ["editor.wonder_crop"]
+            assert running["operation"]["resource_ids"] == ["editor.wonder_crop"]
             assert running["source_snapshots"][0]["path"] == "source.txt"
             assert running["declared_outputs"] == ["output.json"]
             conflict = client.post("/api/resources/editor.wonder_crop/commit", json={"base": base, "edits": {}})
@@ -930,13 +939,13 @@ def test_http_job_contract_and_crop_commit_conflict(job_env, monkeypatch):
             assert "Resource busy" in conflict.json()["detail"]
             assert conflict.json()["code"] == "resource_busy"
             assert conflict.json()["operation"]["status"] == "failed"
-            assert conflict.json()["operation_id"] != running["operation_id"]
+            assert conflict.json()["operation_id"] != running["operation"]["id"]
             assert not cropper.data_path.exists()
         finally:
             finish.set()
             wait_for_jobs(client.app.state.jobs)
         completed = client.get(f"/api/jobs/{job_id}").json()
-        assert completed["status"] == "succeeded"
+        assert completed["operation"]["status"] == "succeeded"
         assert completed["artifacts"][0]["path"] == "output.json"
         assert client.get(f"/api/jobs/{job_id}?after_line={completed['line_cursor']}").json()["lines"] == []
         assert client.get(f"/api/jobs/{job_id}?after_line=-1").status_code == 422

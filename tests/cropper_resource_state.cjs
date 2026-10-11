@@ -136,7 +136,7 @@ test('a commit conflict keeps the draft until an explicit reload advances the ba
 for (const status of [404, 422]) test(`cropper unlocks after ${status} without discarding the crop`, async () => {
   const app = editor();
   const draft = JSON.stringify(app.state().resource.draft);
-  vm.runInContext("cropPoller.start({ id: 'lost', status: 'running', line_cursor: 1, lines: ['one'], lines_reset: true, operation: {}, resource_ids: [], formal_output_changes: [], staging_extra_files: [], source_snapshots: [], artifacts: [], metadata: {}, declared_outputs: [], missing_outputs: [] })", app.context);
+  vm.runInContext("cropPoller.start({ line_cursor: 1, lines: ['one'], lines_reset: true, operation: { id: 'lost', status: 'running', error: null, resource_ids: [] }, formal_output_changes: [], staging_extra_files: [], source_snapshots: [], artifacts: [], metadata: {}, declared_outputs: [], missing_outputs: [] })", app.context);
   assert.equal(app.state().busy, true);
   app.context.fetch = async () => Response.json({ detail: 'cannot query' }, { status });
   await vm.runInContext('cropPoller.poll()', app.context);

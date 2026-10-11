@@ -90,8 +90,9 @@ export function formatOperationReport(payload) {
 }
 
 export function formatJobFiles(job) {
+  const operation = job.operation;
   const files = [];
-  if (job.resource_ids.length) files.push(`资源: ${job.resource_ids.join(", ")}`);
+  if (operation.resource_ids.length) files.push(`资源: ${operation.resource_ids.join(", ")}`);
   if (job.formal_output_changes.length) files.push("正式输出在暂存区外发生变化（需核对）:", ...job.formal_output_changes.map((path) => `  ${path}`));
   if (job.staging_extra_files.length) files.push("不参与发布的中间文件:", ...job.staging_extra_files.map((path) => `  ${path}`));
   if (job.source_snapshots.length) files.push("输入:", ...job.source_snapshots.map((source) => `  ${source.path}${source.sha256 === "missing" ? "（可选，缺失）" : ""}`));
@@ -100,7 +101,7 @@ export function formatJobFiles(job) {
   if (job.declared_outputs.length) files.push("输出:", ...job.declared_outputs.map((path) => {
     const artifact = artifacts.get(path);
     const status = artifact ? artifact.role === "deleted" ? "已删除" : artifact.changed ? "已变化" : "未变化"
-      : job.missing_outputs.includes(path) ? "缺失" : ["queued", "running", "cancelling"].includes(job.status) ? "等待生成" : "未生成";
+      : job.missing_outputs.includes(path) ? "缺失" : ["queued", "running", "cancelling"].includes(operation.status) ? "等待生成" : "未生成";
     return `  ${path}（${status}）${errors.has(path) ? `: ${errors.get(path)}` : ""}`;
   }));
   if (job.publication_rollback_failed) files.push("发布恢复失败，需人工核对保留的备份。");

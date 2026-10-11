@@ -13,11 +13,11 @@ from .common import RollingLog
 from .operation_store import OperationStore
 from .platform import ChangeSet, ResourceDescriptor, assert_resource_base, snapshot_files
 from .wonder import localization, model, options, sources
-from .wonder_commit import commit_resource
+from .wonder_commit import WonderCommit
 from .wonder_preview import WonderPreview
 
 
-class WonderResourceService(WonderPreview, model.WonderModel):
+class WonderResourceService(WonderPreview, WonderCommit, model.WonderModel):
     def __init__(self, operation_store: OperationStore | None = None) -> None:
         self.operation_store = operation_store
         self._lock = threading.RLock()
@@ -146,5 +146,3 @@ class WonderResourceService(WonderPreview, model.WonderModel):
                 "initial_wonder_id": first_wonder_id,
                 "log_text": self.log_text,
             }
-
-    commit_resource = commit_resource

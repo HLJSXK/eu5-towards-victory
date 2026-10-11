@@ -94,4 +94,5 @@ another chronological progress log to `BRIEF.md`.
 - `international_organizations` -> `docs/knowledge/risk_cards/international_organizations.md`
 - `on_action` -> `docs/knowledge/risk_cards/on_action.md`
 - `localization` -> `docs/knowledge/risk_cards/localization.md`
+- Wonder service files (`towards_victory_editor_web/services/wonder/` or the CLI-relative `services/wonder/`) -> `docs/knowledge/risk_cards/wonders.md`
 - wonder / engineering_department files -> routed wonder cards in `docs/knowledge/risk_cards/`

@@ -80,7 +80,7 @@ tests or future tool integration.
 Current routing sources:
 
 - path routes for `generic_actions`, GUI, events, IOs, on_actions, localization,
-  and wonder file types;
+  wonder file types, and Wonder service modules under `towards_victory_editor_web/services/wonder/`;
 - filename routes for interspersed domains such as wonders, philosophy debate,
   trade league, and Europedia;
 - content routes for `variable_map` APIs, excluding workflow prose;

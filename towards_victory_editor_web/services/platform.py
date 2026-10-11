@@ -75,10 +75,6 @@ class OperationLog:
         self._events_since_persist = 0
         self._persist_locked()
 
-    @property
-    def operation_id(self) -> str:
-        return self.id
-
     def event(self, message: str, *, level: str = "info", force_persist: bool = False) -> None:
         with self._lock:
             self._events.append({"at": time.time(), "level": level, "message": str(message)})
@@ -92,7 +88,7 @@ class OperationLog:
                 return
             if self.started_at is None:
                 self.started_at = time.time()
-            self.status = "cancelling" if self.cancel_requested else "running"
+            self.status = "running"
             self.event("started", force_persist=True)
 
     def request_cancel(self) -> None:
