@@ -47,6 +47,15 @@ diagnostic separately; copying the log includes all three. Detail retries keep
 the save report. Wonder's forms retain toast, dirty counts and keyboard shortcuts,
 and now add an unsaved-edit unload guard.
 
+Wonder field controls live in `static/wonder_fields.js`. Its named factory
+`createWonderFields({ onChange, onOpenPrototype, onInitialLevelChange })` returns
+`buildEditorInput` and `createSingleLineEditorBinding`. The instance owns searchable
+selects, ordinary inputs, six structured editors, presets and inherited-field
+notes; the page supplies dirty updates, prototype navigation and initial-level
+preview callbacks. Name inputs supply their own preview callback. Field controls
+use `static/wonder_values.js` for value conversion and preview text, without
+importing page state or save/load orchestration.
+
 `static/job_panel.js` owns media/cropper status, logs, polling Retry/Stop controls
 and input/output reports; media cancellation uses the same panel. The pages
 retain their own forms and resource edits. Operation prompts are Chinese, while technical IDs,

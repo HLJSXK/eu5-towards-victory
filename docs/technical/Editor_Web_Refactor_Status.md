@@ -15,28 +15,30 @@
   “待议事项”（需要决定是否处理），每条一行。
 - 完成一个切片后更新本文的焦点进度和验证记录；不要写成按提交排列的历史日志。
 
-## 当前焦点（提议，待确认）：结构化字段编辑器与可搜索下拉框（2026-10-11）
+## 当前焦点（提议，待确认）：仪式设计与 Prompt 前端模块拆分（2026-10-11）
 
-来源：后续任务 1 的第二个切片，依赖已完成的 `static/wonder_values.js`。**用户确认前不要动手。**
+来源：后续任务 1 的下一切片。结构化字段编辑器与可搜索下拉框已完成，下一项尚未开始实施。
 
-把 `wonder_localization.js` 第 728–1870 行（1143 行）迁入 `static/wonder_fields.js`（ES module，命名导出）。
-实测依赖面很窄，是这一批候选里最干净的一块：
+范围：仪式设计展示、Prompt 构建/编辑、目录与详情按需加载及失效处理。先核对页面草稿、当前奇观、
+请求状态和 DOM 的依赖，给出模块接口、状态归属及验收方案，等待用户确认后实施；本次 A 的确认仅覆盖
+已完成的字段模块。`ritualPromptControl` 死属性在该切片中顺带删除。
 
-- 该段对 `state` **零引用**，唯一的模块级外部依赖是 `refreshDirtyState`（8 处事件绑定）。它是纯呈现层：
-  接收字段对象与 scope，构建 DOM 节点。这正是它比草稿模型、仪式设计面板更适合先做的原因。
-- 需要导出的入口只有 4 个（各被外界调用 1 次）：`createEditorBinding`、`renderStructuredFieldByType`、
-  `renderReadonlyStructuredField`、`buildEditorInput`；其余为该段内部实现。
-- 内容：`createSearchableSelect`（可搜索下拉框）、普通/结构字段绑定的创建与外壳、只读结构说明、
-  行列表与表格编辑器、标量/文本域/预设编辑器，以及六个按类型的字段渲染器
-  （选址触发、选址偏好、modifier 表、reward、独特仪式、独特典礼）。
-- `refreshDirtyState` 以参数注入（回调）传进新模块，不引入对页面 `state` 的反向依赖；不保留转发。
+之后仍按依赖顺序分别确认草稿/修改追踪模型、列表/图片/元信息面板，不自行推进。
 
-验收：Node 全部通过；Chrome 验收覆盖六个结构字段类型的渲染、可搜索下拉框的选择与目录引用、预设应用、
-只读结构说明和保存前预览；迁出函数体与原文逐字一致（仅增加 `export`），原文件无残留定义；Web `--check`、
-changed validation 与 `git diff --check` 通过。后端无改动。
+## 已完成切片：结构化字段编辑器与可搜索下拉框（2026-10-11）
 
-后续切片按依赖顺序（每项单独确认）：仪式设计与 Prompt（约 450 行）、草稿/修改追踪模型（约 250 行）、
-列表/图片/元信息面板（约 350 行）。`ritualPromptControl` 死属性在其所属切片中顺带删除。
+来源：后续任务 1 的第二个切片；用户确认方案 A（组件工厂，一次注入三个页面回调）。
+
+- 新建 `static/wonder_fields.js`（1202 行），命名导出工厂 `createWonderFields`，将可搜索下拉框、
+  普通/单行输入绑定、结构外壳、只读说明、行列表/表格、标量/文本域/预设控件和六类结构字段渲染器
+  共 20 个函数迁入工厂闭包。返回的页面入口为 `buildEditorInput`、`createSingleLineEditorBinding`。
+- 页面一次注入 `onChange`、`onOpenPrototype`、`onInitialLevelChange`；原型查找与切换、dirty 更新、
+  名称/等级预览的实际更新留在页面。名称输入沿用逐字段回调。模块直接导入 `wonder_values.js` 与
+  `display.js`，不导入页面、不注册模块级可变回调、不保留转发函数。
+- `wonder_localization.js` 从 2524 行、92 个顶层函数降至 1338 行、72 个；迁出定义和不再使用的值函数
+  导入已删除。与迁出前源码比较，仅有工厂作用域、依赖接线及必要缩进变化，模板字符串内容保持逐字一致。
+- `tests/wonder_fields_browser.cjs` 由已有 Chrome 验收入口调用，使用真实字段与目录覆盖六类字段、
+  搜索选择、预设、Code State、保存前预览、只读原型跳转、名称/等级回调和实例隔离。后端无改动。
 
 ## 已完成切片：Wonder 前端结构值编解码模块（2026-10-11）
 
@@ -239,7 +241,7 @@ changed validation 与 `git diff --check` 通过。后端无改动。
 
 ## 后续任务（按顺序，当前焦点完成后由用户指定下一项）
 
-1. 继续拆分 Wonder 剩余前端单体（2524 行、92 个顶层函数）：保存/加载/预览、后端领域模块和前端结构值编解码已完成。后续按依赖顺序分别确认：结构化字段编辑器与可搜索下拉框（约 1100 行）、仪式设计与 Prompt（约 450 行）、草稿/修改追踪模型（约 250 行）、列表/图片/元信息面板（约 350 行）；复用已产出的共享组件。
+1. 继续拆分 Wonder 剩余前端单体（1338 行、72 个顶层函数）：保存/加载/预览、后端领域模块、前端结构值编解码及字段编辑器已完成。后续按依赖顺序分别确认：仪式设计与 Prompt、草稿/修改追踪模型、列表/图片/元信息面板；复用已产出的共享组件，各切片规模按实际依赖核对。
 2. 建立跨资源 `ChangeSet`、完整输入依赖图、领域产物语义校验和跨资源预览（Wonder 拆分后再评估必要性）。
 3. 设计跨进程持久锁和状态存储，再删除旧领域 service 拼接层（单用户本地工具收益低，建议降级，是否删除待用户确认）。
 
@@ -259,6 +261,26 @@ changed validation 与 `git diff --check` 通过。后端无改动。
   [详细评估](Towards_Victory_Editor_Web_Assessment.md) 为准。
 
 ## 验证记录
+
+结构化字段编辑器切片：2026-10-11，Windows + eu5 Python 3.11.15 + Node 22.19.0 + 本机 Chrome headless。修改前已运行 task-scoped `ai_context.py` 并读取 Wonder 风险卡。
+
+```powershell
+node --test tests/api.cjs tests/resource_state.cjs tests/media_job_polling.cjs tests/cropper_resource_state.cjs tests/wonder_resource_state.cjs tests/shared_display.cjs tests/wonder_values.cjs
+node --check towards_victory_editor_web/static/wonder_fields.js
+node --check towards_victory_editor_web/static/wonder_localization.js
+node --check tests/wonder_fields_browser.cjs
+node --check tests/resource_state_browser.cjs
+node tests/resource_state_browser.cjs
+C:\Users\Hades\anaconda3\envs\eu5\python.exe -m towards_victory_editor_web --check
+C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts/validate.py --changed --fix --ai-report
+git diff --check
+```
+
+- Node **70 项通过**；两个生产模块与两个浏览器验收文件语法检查通过。后端无改动，本次未重跑 Python 资源事务全量测试。
+- Chrome 新增字段验收通过：六类结构字段初始值与真实详情一致；真实目录引用支持鼠标/Enter 搜索选择；两类选址预设更新对应行；modifier/reward/仪式/典礼编辑更新隐藏绑定和 Code State。名称与等级更新列表/元信息，服务端只读 preview 包含对应源字段变化；只读继承控件禁用而原型按钮可用，点击可打开正确的通用奇观。另验证两个工厂实例回调互不覆盖及布尔绑定。
+- Chrome 既有三编辑器预览、保存失败/恢复、Wonder 保存后详情重试、媒体/cropper 报告与轮询场景全部通过，无页面未捕获异常。GET 与 preview 使用真实服务，写请求由浏览器拦截，未写业务源文件或调用图片 API。新增断言调试时修正了空 modifier 字段选择及源字段名匹配，生产代码未因测试调整。
+- 20 个迁出函数与 HEAD 源码经明确的工厂包装/回调替换/缩进转换后逐字一致，包括模板字符串内部空白；页面除迁出定义、值函数导入整理及工厂接线外无变化。无残留函数定义、页面反向依赖或模块级回调注册；临时迁移/比对脚本已删除。
+- Web `--check` 通过（192 个奇观、7,534 个本地化键、9 个工具、5 个可运行、196 张裁剪图）；changed validation 通过（2 个适用文件，无错误或警告）；`git diff --check` 通过，新文件另行检查无行尾空白。
 
 Wonder 前端结构值编解码切片：2026-10-11，Windows + eu5 Python 3.11.15 + Node 22.19.0 + 本机 Chrome headless。修改前已运行 task-scoped `ai_context.py` 并读取 Wonder 风险卡。
 

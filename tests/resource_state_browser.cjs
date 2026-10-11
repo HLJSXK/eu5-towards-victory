@@ -176,6 +176,8 @@ async function main() {
     await evaluate("document.querySelector('#reload-button').click()");
     await ready("document.querySelector('.tool-wonder-localization').dataset.busy === 'false'");
 
+    await require('./wonder_fields_browser.cjs')({ evaluate, ready });
+
     await evaluate("document.querySelector('.tool-hub-tab-btn[data-tool=\"wonder-localization\"]').click(); document.querySelectorAll('#wonder-kind-tabs button')[1].click(); document.querySelector('#wonder-list button').click()");
     await ready("document.querySelector('.tool-wonder-localization').dataset.busy === 'false'");
     await evaluate("[...document.querySelectorAll('#language-tabs button')].find(b => b.textContent.includes('仪式设计')).click()");
