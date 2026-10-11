@@ -34,9 +34,9 @@ Field changes show their path, item, field and before/after values; the derived
 Wonder source change in cost/reward is a file-hash row labeled as a file summary.
 Commit success and errors render operation IDs and any generation/recovery report.
 
-`static/wonder_editor.js` adapts that workflow to Wonder: it caches the current
-page before freezing edits and adds `regenerate` and `current_wonder_id` to the
-request. Bootstrap publishes the summary before loading the first detail;
+`static/wonder_editor.js` adapts that workflow to Wonder: field bindings update
+the active page draft as edits happen, and the editor adds `regenerate` and
+`current_wonder_id` to the request. Bootstrap publishes the summary before loading the first detail;
 reload publishes the summary and hydrated current detail together, retaining
 the old base, details and all page drafts if either request fails. After a
 successful commit, the new base and cleared drafts take effect immediately.
@@ -52,9 +52,14 @@ Wonder field controls live in `static/wonder_fields.js`. Its named factory
 `buildEditorInput` and `createSingleLineEditorBinding`. The instance owns searchable
 selects, ordinary inputs, six structured editors, presets and inherited-field
 notes; the page supplies dirty updates, prototype navigation and initial-level
-preview callbacks. Name inputs supply their own preview callback. Field controls
+preview callbacks, with field changes carrying the changed binding. Name inputs supply their own preview callback. Field controls
 use `static/wonder_values.js` for value conversion and preview text, without
 importing page state or save/load orchestration.
+
+`static/wonder_drafts.js` owns the Wonder page-draft data operations. It has no
+DOM dependency; field and Prompt changes update the matching page entry, and
+detail loading applies that data back to the payload while restoring editor-only
+option metadata.
 
 Wonder ritual designs and the implementation prompt live in
 `static/wonder_rituals.js`. `createWonderRituals({ getCurrentWonder,

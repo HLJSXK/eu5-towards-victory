@@ -44,10 +44,9 @@ async function fixture(t) {
     get pageDrafts() { return this.resource.draft.pageDrafts; },
     get busy() { return this.resource.busy; },
   };
-  let cacheCalls = 0;
   const hooks = { hydrate: async payload => payload };
   const editor = createWonderEditor({ state, elements,
-    cacheDraft: () => { cacheCalls++; }, dirtyCount: () => Object.keys(state.pageDrafts).length,
+    dirtyCount: () => Object.keys(state.pageDrafts).length,
     draftHasChanges: draft => Object.keys(draft.values.english).length > 0,
     currentId: () => state.currentWonder?.summary.id ?? null,
     setCurrent: payload => { state.currentWonder = payload; }, hydrate: payload => hooks.hydrate(payload),
@@ -56,7 +55,7 @@ async function fixture(t) {
   });
   function respond(fn) { global.fetch = async (url, options = {}) => { calls.push({ url, ...options }); const result = await fn(url, options); return result instanceof Response ? result : Response.json(result); }; }
   respond(url => url.endsWith('/preview') ? preview : url.endsWith('/commit') ? committed : url === 'api/resources/editor.wonder' ? resourcePayload : detail);
-  return { editor, state, elements, prompts, calls, hooks, respond, dialog: root.querySelector('dialog'), get cacheCalls() { return cacheCalls; } };
+  return { editor, state, elements, prompts, calls, hooks, respond, dialog: root.querySelector('dialog') };
 }
 
 test('reload confirms all page drafts and publishes resource and detail together', async t => {
@@ -108,10 +107,9 @@ for (const failure of ['resource', 'detail', 'catalog']) test('failed ' + failur
   assert.match(app.editor.log.text, /failed/);
 });
 
-test('save caches before freezing and uses the same body, with all Wonder fields, for preview and commit', async t => {
+test('save uses the immediately tracked page drafts for preview and commit', async t => {
   const app = await fixture(t);
   const pending = app.editor.save(); await until(() => app.dialog.open);
-  assert.equal(app.cacheCalls, 1);
   assert.equal(app.state.busy, true);
   assert.equal(app.state.resource.mutate(d => { d.pageDrafts = {}; }), false);
   await app.editor.save(); assert.equal(app.calls.length, 1);

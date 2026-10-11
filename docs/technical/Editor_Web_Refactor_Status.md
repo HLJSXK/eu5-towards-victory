@@ -15,34 +15,39 @@
   “待议事项”（需要决定是否处理），每条一行。
 - 完成一个切片后更新本文的焦点进度和验证记录；不要写成按提交排列的历史日志。
 
-## 当前焦点（提议，待确认）：Wonder 草稿与修改追踪模型拆分（2026-10-12）
+## 当前焦点（提议，待确认）：Wonder 列表、图片与元信息面板拆分（2026-10-12）
 
-来源：后续任务 1 的下一切片。仪式设计与 Prompt 已完成，本项尚未开始实施，需用户确认方案后再动手。
+来源：后续任务 1 的最后一个切片。草稿/修改追踪模型已完成，本项尚未开始实施，需用户确认方案后再动手。
 
-现状（`wonder_localization.js` 约 200 行、15 个函数）：`pageDrafts` 是 `{ wonderId: { values: { language: { key } },
-mechanics: { key }, ritual_prompt? } }`，由 `ResourceState` 持有。草稿内容由 DOM 反推：`collectCurrentDraft` 每次扫描
-全部 `[data-editor-field]` 并与 `dataset.originalValue` 比较，`refreshDirtyState → hasUnsavedChanges → cacheCurrentWonderDraft`
-在每次输入时复制并比较整份 draft（待议“审计 7”）；Prompt 已改为直接写草稿，字段仍走扫描。切换回某奇观时，
-`applyDraftToWonderPayload` 把草稿写回详情 payload（含结构值的 editor option 恢复），名称与初始等级预览同时改写
-`currentWonder`、`state.wonders` 摘要。`wonder_editor.js` 只通过 `cacheDraft`、`dirtyCount`、`draftHasChanges` 和
-`state.pageDrafts` 使用草稿。
+现状（`wonder_localization.js` 约 230 行、16 个函数）：`wonderSearchHaystack`、`wondersForMode`、`findWonderByKey`、
+`renderWonderKindTabs`、`renderWonderList` 负责类型标签、搜索与列表；`wonderImageForSummary`、`currentWonderImage`、
+`wonderImageAlt`、`renderWonderImage` 负责图片框与缩略图；`renderMeta`、`currentUniqueInitialLevelState`、
+`uniqueInitialLevelStartStateLabel` 负责元信息卡片。依赖为 `state.wonders`、`state.currentWonder`、`state.listMode`、
+`state.pageDrafts`（初始等级草稿）、`state.busy`、搜索框与四个容器元素，列表点击调用 `wonderEditor.select`。
+名称/等级预览（`updateWonderNamePreview`、`updateUniqueInitialLevelPreview`）直接改写 `currentWonder` 与
+`state.wonders` 摘要后重绘列表和元信息，不经过 `ResourceState`。
 
 提议方案：
 
-- **A（推荐）纯数据草稿模块。** 新建 `static/wonder_drafts.js`，导出无 DOM 函数：`emptyDraft`、`draftHasChanges`、
-  `dirtyPageCount`、`draftValueForField`、`setFieldDraft(drafts, wonderId, ref, value, original)`（值回到原值时删除，
-  空页删除）、`setPromptDraft`、`applyDraftToWonderPayload(payload, draft)`（只改传入 payload，返回名称/等级预览供页面
-  同步摘要）。字段控件仍在 `onChange` 时通知页面，页面从发生变化的绑定读出 `{ scope, language, key, value, original }`
-  后调用 `setFieldDraft`，删除整页 DOM 扫描与 `cacheCurrentWonderDraft`。`wonder_editor.js` 的 `cacheDraft` 依赖随之删除。
-  验收：Node 原生 ES module 覆盖增删、回到原值、空页清理、Prompt 与字段互不覆盖、payload 回填及结构值恢复；
-  Chrome 既有四编辑器、字段与仪式验收不变，另加“切换奇观后返回草稿保留”和“输入不再触发整页扫描”。
-  需要的改动：`createWonderFields` 的 `onChange` 改为带上变化的绑定元素（三个页面回调签名变化）。
-- **B 仅迁移纯函数。** 只把 `emptyDraft`/`draftHasChanges`/读写/回填迁出，保留 DOM 扫描采集；改动小，不解决每次输入
-  扫描整页的问题，也不改变草稿的事实来源。
-- **C 草稿归入 `ResourceState` 子类。** 把页面草稿 API 挂到资源状态对象上；与其他三个编辑器共享的 `ResourceState`
-  接口会出现 Wonder 专用分支，不推荐。
+- **A（推荐）面板工厂。** 新建 `static/wonder_panels.js`，导出无 DOM 的搜索/筛选/查找/图片替代文本辅助函数，以及
+  `createWonderPanels({ elements, getWonders, getCurrentWonder, getListMode, setListMode, getInitialLevelState, isBusy, onSelect })`，
+  返回 `renderKindTabs`、`renderList`、`renderMeta`、`renderImage`。页面保留 `render` 编排、名称编辑器、编辑区标签/字段区、
+  详情水合及名称/等级预览，预览后调用面板的重绘入口；摘要改写方式不变。验收：Node 原生 ES module 覆盖搜索、
+  类型筛选、按 key 查找和替代文本；Chrome 既有验收不变，另加类型切换计数、搜索过滤、缩略图转义与元信息初始等级标签。
+- **B 仅迁移纯函数。** 只迁出搜索/筛选/查找/替代文本/初始等级标签，渲染留在页面；改动小，页面仍持有全部面板 DOM。
+- **C 摘要预览改走 `ResourceState.mutate`。** 在 A 的基础上，把名称/等级预览对 `state.wonders` 的直接改写改为资源 draft
+  变更；行为更一致，但每次输入多一次 draft 复制，并改变预览与 busy 冻结的交互，需要单独确认。
 
-列表、图片和元信息面板仍按依赖顺序另行确认，不自行推进。
+完成后后续任务 1 即结束；页面剩余部分（`render` 编排、名称编辑器、编辑区与详情水合）是否继续拆分另行决定。
+
+## 已完成切片：Wonder 草稿与修改追踪模型拆分（2026-10-12）
+
+用户确认方案 A（纯数据草稿模块）。
+
+- 新建 `static/wonder_drafts.js`，提供无 DOM 的空草稿、字段/Prompt 增删、脏页统计及详情 payload 回填；回到原值会删除对应字段，空页随之删除，结构值回填保留服务端 editor options。
+- 名称键、初始等级字段键与等级解析只在 `wonder_drafts.js` 定义并由页面导入。`createWonderFields` 的变化回调携带实际绑定元素。页面在字段输入时直接更新对应奇观草稿，名称与初始等级预览同步；移除 DOM 全量字段采集及 `wonder_editor.js` 的缓存钩子，`ResourceState` 接口不变。
+- 新增 `tests/wonder_drafts.cjs` 覆盖字段新增、恢复原值、空页清理、Prompt 与字段互不覆盖、名称/等级预览、结构值选项恢复及共享键/等级解析。Chrome 验收覆盖输入不调用旧全页扫描选择器，以及切换奇观后返回时名称、等级和典礼字段草稿保留。
+- 列表、图片和元信息面板未纳入本切片。
 
 ## 已完成切片：仪式设计与 Prompt 前端模块拆分（2026-10-11）
 
@@ -238,7 +243,7 @@ mechanics: { key }, ritual_prompt? } }`，由 `ResourceState` 持有。草稿内
 
 需要决定是否处理、何时处理；未经确认不要动手：
 
-- 审计 7：cropper 与 Victory Tree 每次拖拽事件、Wonder 每次输入（`refreshDirtyState` → `cacheCurrentWonderDraft`）都复制并比较整份 draft；现有规模可用，性能优化另行决定。
+- 审计 7：cropper 与 Victory Tree 每次拖拽事件都会复制并比较整份 draft；Wonder 已删除输入时的整页 DOM 扫描，但每次字段/Prompt 修改仍经 `ResourceState.mutate` 复制资源 draft 并重算脏页。现有规模可用，是否进一步优化复制与脏页统计另行决定。
 - `missing_outputs` 只能发现首次生成的必需输出缺失：staging 预填已有产物，handler 未重写既有输出时仍报成功（`changed: false`）。
 - `run_operation` 中 `on_error` 自身抛错会取代原始错误；当前只有 job 传入且会吞掉异常，属潜在问题。
 - 部分既有 Node 测试以正则去掉 import/export 后在 sloppy-mode `vm` 中运行；Wonder 与共享展示组件测试已用原生 ES module，cost/reward 与 Victory Tree 页面接入由 Chrome 覆盖，是否迁移其余测试待定。
@@ -274,7 +279,7 @@ mechanics: { key }, ritual_prompt? } }`，由 `ResourceState` 持有。草稿内
 
 ## 后续任务（按顺序，当前焦点完成后由用户指定下一项）
 
-1. 继续拆分 Wonder 剩余前端单体（922 行、53 个顶层函数）：保存/加载/预览、后端领域模块、前端结构值编解码、字段编辑器及仪式设计/Prompt 已完成。后续按依赖顺序分别确认：草稿/修改追踪模型、列表/图片/元信息面板；复用已产出的共享组件，各切片规模按实际依赖核对。
+1. 继续拆分 Wonder 剩余前端单体（当前 `wonder_localization.js` 为 758 行、39 个顶层函数）：保存/加载/预览、后端领域模块、前端结构值编解码、字段编辑器、仪式设计/Prompt 与草稿/修改追踪模型已完成；列表/图片/元信息面板待拆分。复用已产出的共享组件，各切片规模按实际依赖核对。
 2. 建立跨资源 `ChangeSet`、完整输入依赖图、领域产物语义校验和跨资源预览（Wonder 拆分后再评估必要性）。
 3. 设计跨进程持久锁和状态存储，再删除旧领域 service 拼接层（单用户本地工具收益低，建议降级，是否删除待用户确认）。
 
@@ -294,6 +299,27 @@ mechanics: { key }, ritual_prompt? } }`，由 `ResourceState` 持有。草稿内
   [详细评估](Towards_Victory_Editor_Web_Assessment.md) 为准。
 
 ## 验证记录
+
+Wonder 草稿与修改追踪模型拆分：2026-10-12，Windows + eu5 Python 3.11.15 + Node 22.19.0 + 本机 Chrome headless。修改前已运行 task-scoped `ai_context.py` 并读取 Wonder 风险卡。
+
+```powershell
+node --test tests/api.cjs tests/resource_state.cjs tests/media_job_polling.cjs tests/cropper_resource_state.cjs tests/wonder_resource_state.cjs tests/shared_display.cjs tests/wonder_values.cjs tests/wonder_rituals.cjs tests/wonder_drafts.cjs
+node tests/resource_state_browser.cjs
+C:\Users\Hades\anaconda3\envs\eu5\python.exe -m towards_victory_editor_web --check
+C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts/validate.py --fix --ai-report towards_victory_editor_web/static/wonder_drafts.js towards_victory_editor_web/static/wonder_fields.js towards_victory_editor_web/static/wonder_localization.js towards_victory_editor_web/static/wonder_editor.js tests/wonder_drafts.cjs tests/wonder_resource_state.cjs tests/wonder_fields_browser.cjs
+node --check tests/wonder_fields_browser.cjs
+node --check tests/wonder_drafts.cjs
+node --check tests/wonder_resource_state.cjs
+node --check towards_victory_editor_web/static/wonder_drafts.js
+node --check towards_victory_editor_web/static/wonder_fields.js
+node --check towards_victory_editor_web/static/wonder_localization.js
+node --check towards_victory_editor_web/static/wonder_editor.js
+git diff --check
+```
+
+- Node **74 项通过**；Chrome 验收通过，无页面异常，新增的草稿切换往返与不触发旧全页扫描断言通过。
+- Web `--check` 通过（192 个奇观、7,534 个本地化键、9 个工具、5 个可运行、196 张裁剪图）；显式路径 validation 检查 7 个源文件且无错误或警告；`git diff --check` 通过。
+- 提交前审计（2026-10-12，同一环境）：逐项对照旧实现，草稿形状、dirty 判定、跳过条件（渲染中/请求中/无当前奇观）、结构值回填与提交请求体一致；`wonder_fields.js` 全部变化路径（普通绑定及结构字段 `commit`）均传入绑定元素，无绕过回调的写入。原值比较现在两侧都规范化，旧实现只规范化当前值，后端原值已规范化时结果相同。临时 Chrome 脚本另验证名称/文本/下拉字段改动后恢复原值清除 dirty、切换奇观期间列表保留草稿名、往返后预览请求体仅含该字段、恢复后列表复原。收尾将名称键与等级解析并入 `wonder_drafts.js`（页面 39 个函数、758 行）并补 1 项 Node 测试，删除多余可选链。未发现缺陷；Chrome 中“不触发整页扫描”断言只匹配旧选择器字符串，作为回归保护足够。
 
 仪式设计与 Prompt 前端模块切片：2026-10-11，Windows + eu5 Python 3.11.15 + Node 22.19.0 + 本机 Chrome headless。修改前已运行 task-scoped `ai_context.py` 并读取 Wonder 风险卡。
 

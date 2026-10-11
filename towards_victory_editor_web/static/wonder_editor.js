@@ -3,7 +3,7 @@ import { createLatestLogView } from "./display.js";
 import { createEditorPanel } from "./editor_panel.js";
 import { resourceBase } from "./resource_state.js";
 
-export function createWonderEditor({ state, elements, cacheDraft, dirtyCount, draftHasChanges,
+export function createWonderEditor({ state, elements, dirtyCount, draftHasChanges,
   currentId, setCurrent, hydrate, invalidateDesigns, syncSelection, render, updateStatus, showToast }) {
   const log = createLatestLogView(elements.logOutput);
   let selectedId = null;
@@ -57,7 +57,6 @@ export function createWonderEditor({ state, elements, cacheDraft, dirtyCount, dr
 
   async function select(wonderId) {
     if (state.busy || currentId() === wonderId) return;
-    cacheDraft();
     await loadDetail(wonderId);
   }
 
@@ -67,14 +66,12 @@ export function createWonderEditor({ state, elements, cacheDraft, dirtyCount, dr
     buttons: { save: elements.saveButton, reload: elements.reloadButton },
     beforeSave() {
       if (!state.currentWonder) return false;
-      cacheDraft();
       selectedId = currentId();
       return true;
     },
     request: () => ({ regenerate: true, current_wonder_id: selectedId, base: state.resource.base,
       wonders: Object.entries(state.pageDrafts).filter(([, draft]) => draftHasChanges(draft))
         .map(([id, draft]) => ({ wonder_id: Number(id), ...draft })) }),
-    beforeLoad: cacheDraft,
     confirmReload: () => window.confirm("重新加载会放弃全部 " + dirtyCount() + " 个奇观页面的未保存编辑，继续吗？"),
     async loadRequest({ initial = false } = {}) {
       const resource = await fetchJson("api/resources/editor.wonder");

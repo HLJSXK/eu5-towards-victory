@@ -114,6 +114,12 @@ module.exports = async function wonderFieldsAcceptance({ evaluate, ready }) {
   }
 
   const edits = await page(() => {
+    const querySelectorAll = document.querySelectorAll.bind(document);
+    let draftScans = 0;
+    document.querySelectorAll = selector => {
+      if (selector === "#wonder-name-editors [data-editor-field='true'], #language-panels [data-editor-field='true']") draftScans++;
+      return querySelectorAll(selector);
+    };
     const initial = document.querySelector('[data-key^="mechanics.unique_initial_level."]');
     __fields.input(initial, '3');
     const constraints = [initial.type, initial.min, initial.max, initial.step];
@@ -125,11 +131,12 @@ module.exports = async function wonderFieldsAcceptance({ evaluate, ready }) {
     const ceremony = __fields.shell('unique_ceremony_editor');
     const title = [...ceremony.querySelectorAll('.scalar-field')].find(e => e.firstElementChild.textContent === 'Title (English)').querySelector('input');
     __fields.input(title, 'Field ceremony acceptance');
+    document.querySelectorAll = querySelectorAll;
     return { constraints, meta: document.querySelector('#wonder-meta').textContent,
       list: document.querySelector('#wonder-list .active').textContent,
       years: JSON.parse(__fields.binding(__fields.field('unique_ritual_editor')).value).timed.years,
       title: JSON.parse(__fields.binding(__fields.field('unique_ceremony_editor')).value).stages[0].title_en,
-      code: ceremony.querySelector('.code-state-output').textContent };
+      code: ceremony.querySelector('.code-state-output').textContent, draftScans };
   });
   assert.deepEqual(edits.constraints, ['number', '0', '6', '1']);
   assert.match(edits.meta, /Level 3/);
@@ -138,6 +145,26 @@ module.exports = async function wonderFieldsAcceptance({ evaluate, ready }) {
   assert.equal(edits.years, '2');
   assert.equal(edits.title, 'Field ceremony acceptance');
   assert.match(edits.code, /Field ceremony acceptance/);
+  assert.equal(edits.draftScans, 0);
+  const otherUnique = await page(async () => {
+    const resource = await (await fetch('/api/resources/editor.wonder')).json();
+    const currentKey = document.querySelector('#wonder-list .active').dataset.wonderKey;
+    const other = resource.draft.wonders.find(w => w.is_unique && w.key !== currentKey);
+    if (!other) throw new Error('No second unique wonder for draft switch acceptance');
+    document.querySelector('[data-wonder-key="' + other.key + '"]').click();
+    return { currentKey, otherKey: other.key };
+  });
+  await ready("document.querySelector('.tool-wonder-localization').dataset.busy === 'false'");
+  await page(key => document.querySelector('[data-wonder-key="' + key + '"]').click(), otherUnique.currentKey);
+  await ready("document.querySelector('.tool-wonder-localization').dataset.busy === 'false'");
+  const restoredDrafts = await page(() => ({
+    name: document.querySelector('#wonder-name-editors [data-language="english"]').value,
+    level: document.querySelector('[data-key^="mechanics.unique_initial_level."]').value,
+    title: JSON.parse(__fields.binding(__fields.field('unique_ceremony_editor')).value).stages[0].title_en,
+  }));
+  assert.equal(restoredDrafts.name, 'Field module acceptance');
+  assert.equal(restoredDrafts.level, '3');
+  assert.equal(restoredDrafts.title, 'Field ceremony acceptance');
   await page(() => document.querySelector('#save-button').click());
   await ready("document.querySelector('#wonder-preview dialog').open");
   const diff = await page(() => document.querySelector('#wonder-preview tbody').textContent);

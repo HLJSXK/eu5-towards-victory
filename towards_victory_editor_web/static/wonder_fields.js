@@ -36,11 +36,11 @@ export function createWonderFields({ onChange, onOpenPrototype, onInitialLevelCh
             input.dataset.language = field.language;
         }
         input.addEventListener("input", () => {
-            onChange();
+            onChange(input);
             onInput?.(input.value);
         });
         input.addEventListener("change", () => {
-            onChange();
+            onChange(input);
             onInput?.(input.value);
         });
         return input;
@@ -245,7 +245,7 @@ export function createWonderFields({ onChange, onOpenPrototype, onInitialLevelCh
             input.value = input.checked ? "yes" : "no";
             input.addEventListener("change", () => {
                 input.value = input.checked ? "yes" : "no";
-                onChange();
+                onChange(input);
             });
         } else if (fieldType === "select") {
             input.remove();
@@ -261,8 +261,8 @@ export function createWonderFields({ onChange, onOpenPrototype, onInitialLevelCh
             if (scope === "localization") {
                 select.dataset.language = field.language;
             }
-            select.addEventListener("input", onChange);
-            select.addEventListener("change", onChange);
+            select.addEventListener("input", () => onChange(select));
+            select.addEventListener("change", () => onChange(select));
             return select;
         } else if (scope === "localization" || fieldType === "yaml" || fieldType === "script") {
             input.remove();
@@ -277,8 +277,8 @@ export function createWonderFields({ onChange, onOpenPrototype, onInitialLevelCh
             if (scope === "localization") {
                 textarea.dataset.language = field.language;
             }
-            textarea.addEventListener("input", onChange);
-            textarea.addEventListener("change", onChange);
+            textarea.addEventListener("input", () => onChange(textarea));
+            textarea.addEventListener("change", () => onChange(textarea));
             return textarea;
         } else {
             input.type = "text";
@@ -294,8 +294,8 @@ export function createWonderFields({ onChange, onOpenPrototype, onInitialLevelCh
             input.dataset.language = field.language;
         }
         if (!isStructuredFieldType(fieldType) && fieldType !== "boolean") {
-            input.addEventListener("input", onChange);
-            input.addEventListener("change", onChange);
+            input.addEventListener("input", () => onChange(input));
+            input.addEventListener("change", () => onChange(input));
         }
         return input;
     }
@@ -331,7 +331,7 @@ export function createWonderFields({ onChange, onOpenPrototype, onInitialLevelCh
         const commit = () => {
             binding.value = stableStringify(withoutEditorOptions(stateValue));
             previewOutput.textContent = previewTextForField(field, stateValue);
-            onChange();
+            onChange(binding);
         };
 
         shell.append(binding, layout);

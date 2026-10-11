@@ -1,16 +1,21 @@
 import { createWonderFields } from "./wonder_fields.js";
 import { createWonderEditor } from "./wonder_editor.js";
 import { createWonderRituals } from "./wonder_rituals.js";
+import {
+    applyDraftToWonderPayload,
+    dirtyPageCount as countDirtyPages,
+    draftHasChanges,
+    parseUniqueInitialLevelValue,
+    setFieldDraft,
+    setPromptDraft as updatePromptDraft,
+    uniqueInitialLevelFieldKey,
+    wonderNameKeyForKey,
+} from "./wonder_drafts.js";
 import { fetchJson } from "./api.js";
 import { createStatusView, escapeHtml } from "./display.js";
 import { ResourceState, setControlsBusy } from "./resource_state.js";
 
-import {
-    normalizeLocalizationText,
-    normalizeMultilineText,
-    isStructuredFieldType,
-    restoreEditorOptions,
-} from "./wonder_values.js";
+import { normalizeLocalizationText } from "./wonder_values.js";
 
 const state = {
     title: "Towards Victory 奇观编辑器",
@@ -56,7 +61,7 @@ const elements = {
 };
 const wonderStatus = createStatusView(elements.statusBadge);
 const { buildEditorInput, createSingleLineEditorBinding } = createWonderFields({
-    onChange: refreshDirtyState,
+    onChange: handleFieldChange,
     onOpenPrototype: (key) => {
         const target = findWonderByKey(key, false);
         if (target) {
@@ -103,200 +108,44 @@ function syncBusyControls() {
     toolSection.dataset.busy = String(state.busy);
 }
 
-function getEditorFields() {
-    return document.querySelectorAll(
-        "#wonder-name-editors [data-editor-field='true'], #language-panels [data-editor-field='true']",
-    );
-}
-
-function emptyDraft() {
-    return {
-        values: {
-            english: {},
-            simp_chinese: {},
-        },
-        mechanics: {},
-    };
-}
-
-function draftHasChanges(draft) {
-    return Boolean(
-        draft &&
-            (Object.values(draft.values || {}).some((values) => Object.keys(values || {}).length > 0) ||
-                Object.keys(draft.mechanics || {}).length > 0 || draft.ritual_prompt !== undefined),
-    );
-}
-
 function dirtyPageCount() {
-    return Object.values(state.pageDrafts).filter(draftHasChanges).length;
+    return countDirtyPages(state.pageDrafts);
 }
 
 function currentWonderId() {
     return state.currentWonder?.summary?.id ?? null;
 }
 
-function uniqueInitialLevelFieldKey(wonderPayload = state.currentWonder) {
-    const key = wonderPayload?.summary?.key || wonderPayload?.meta?.key || "";
-    return key ? `mechanics.unique_initial_level.${key}` : "";
-}
-
-function parseUniqueInitialLevelValue(rawValue) {
-    const value = String(rawValue ?? "").trim();
-    if (!/^[0-6]$/.test(value)) {
-        return { valid: false, value };
-    }
-    return { valid: true, level: Number.parseInt(value, 10), value };
-}
-
-function draftValueForField(draft, field, scope) {
-    if (!draft) {
-        return undefined;
-    }
-    if (scope === "localization") {
-        return draft.values?.[field.language]?.[field.key];
-    }
-    return draft.mechanics?.[field.key];
-}
-
-function setDraftValueForField(draft, field, value) {
-    const scope = field.dataset.fieldScope;
-    if (scope === "localization") {
-        const language = field.dataset.language;
-        draft.values[language] ||= {};
-        draft.values[language][field.dataset.key] = value;
-    } else {
-        draft.mechanics[field.dataset.key] = value;
-    }
-}
-
-function collectCurrentDraft() {
-    const draft = emptyDraft();
-    for (const field of getEditorFields()) {
-        if (normalizeFieldValue(field) === field.dataset.originalValue) {
-            continue;
-        }
-        setDraftValueForField(draft, field, field.value);
-    }
-    const prompt = state.pageDrafts[String(currentWonderId())]?.ritual_prompt;
-    if (prompt !== undefined) draft.ritual_prompt = prompt;
-    return draft;
-}
-
-function cacheCurrentWonderDraft() {
+function handleFieldChange(field) {
     const wonderId = currentWonderId();
-    if (wonderId === null || state.rendering || state.busy) {
+    if (wonderId === null || state.rendering || state.busy || !field?.dataset?.key) {
         return;
     }
-    const draft = collectCurrentDraft();
     state.resource.mutate((resourceDraft) => {
-        if (draftHasChanges(draft)) resourceDraft.pageDrafts[String(wonderId)] = draft;
-        else delete resourceDraft.pageDrafts[String(wonderId)];
+        setFieldDraft(resourceDraft.pageDrafts, wonderId, {
+            scope: field.dataset.fieldScope,
+            language: field.dataset.language,
+            key: field.dataset.key,
+            fieldType: field.dataset.fieldType || "text",
+        }, field.value, field.dataset.originalValue);
     });
-}
-
-function applyDraftToField(field, scope, draft) {
-    const cachedValue = draftValueForField(draft, field, scope);
-    if (cachedValue === undefined) {
-        return;
-    }
-    field.value = cachedValue;
-    if (isStructuredFieldType(field.field_type || "text")) {
-        try {
-            field.structured_value = restoreEditorOptions(JSON.parse(cachedValue), field.structured_value);
-        } catch {
-            field.structured_value = field.structured_value ?? {};
-        }
-    }
-}
-
-function applyDraftNamePreview(wonderPayload, draft) {
-    const nameKey = wonderNameKeyForKey(wonderPayload?.summary?.key || "");
-    if (!nameKey) {
-        return;
-    }
-    const englishName = draft.values?.english?.[nameKey];
-    const chineseName = draft.values?.simp_chinese?.[nameKey];
-    if (englishName !== undefined) {
-        const normalized = normalizeLocalizationText(String(englishName));
-        wonderPayload.summary.name_en = normalized;
-        wonderPayload.meta.name_en = normalized;
-    }
-    if (chineseName !== undefined) {
-        const normalized = normalizeLocalizationText(String(chineseName));
-        wonderPayload.summary.name_zh = normalized;
-        wonderPayload.meta.name_zh = normalized;
-    }
-    wonderPayload.summary.display_name = `${wonderPayload.summary.name_zh} / ${wonderPayload.summary.name_en}`;
-}
-
-function applyDraftInitialLevelPreview(wonderPayload, draft) {
-    if (!wonderPayload?.summary?.is_unique) {
-        return;
-    }
-    const fieldKey = uniqueInitialLevelFieldKey(wonderPayload);
-    const draftValue = fieldKey ? draft.mechanics?.[fieldKey] : undefined;
-    if (draftValue === undefined) {
-        return;
-    }
-    const parsed = parseUniqueInitialLevelValue(draftValue);
-    if (!parsed.valid) {
-        return;
-    }
-    wonderPayload.summary.initial_level = parsed.level;
-    wonderPayload.meta.initial_level = parsed.level;
-    const summary = state.wonders.find((wonder) => Number(wonder.id) === Number(wonderPayload.summary.id));
-    if (summary) {
-        summary.initial_level = parsed.level;
-    }
-}
-
-function applyDraftToWonderPayload(wonderPayload) {
-    if (!wonderPayload?.summary?.id) {
-        return wonderPayload;
-    }
-    const draft = state.pageDrafts[String(wonderPayload.summary.id)];
-    if (!draftHasChanges(draft)) {
-        return wonderPayload;
-    }
-    for (const payload of Object.values(wonderPayload.languages || {})) {
-        for (const section of payload.sections || []) {
-            for (const field of section.fields || []) {
-                applyDraftToField(field, "localization", draft);
-            }
-        }
-    }
-    for (const section of wonderPayload.mechanics?.sections || []) {
-        for (const field of section.fields || []) {
-            applyDraftToField(field, "mechanics", draft);
-        }
-    }
-    applyDraftNamePreview(wonderPayload, draft);
-    applyDraftInitialLevelPreview(wonderPayload, draft);
-    return wonderPayload;
+    refreshDirtyState();
 }
 
 function setCurrentWonderPayload(wonderPayload) {
-    state.currentWonder = applyDraftToWonderPayload(wonderPayload);
-}
-
-function normalizeFieldValue(element) {
-    const scope = element.dataset.fieldScope;
-    const fieldType = element.dataset.fieldType || "text";
-    if (fieldType === "boolean" && element.type === "checkbox") {
-        return element.checked ? "yes" : "no";
+    if (!wonderPayload) {
+        state.currentWonder = null;
+        return;
     }
-    const value = String(element.value ?? "");
-    if (scope === "localization") {
-        return normalizeLocalizationText(value);
+    const preview = applyDraftToWonderPayload(wonderPayload, state.pageDrafts[String(wonderPayload.summary?.id)]);
+    state.currentWonder = wonderPayload;
+    const summary = state.wonders.find((wonder) => Number(wonder.id) === Number(wonderPayload.summary?.id));
+    if (summary) {
+        Object.assign(summary, preview);
     }
-    if (fieldType === "yaml" || fieldType === "script") {
-        return normalizeMultilineText(value);
-    }
-    return value.trim();
 }
 
 function hasUnsavedChanges() {
-    cacheCurrentWonderDraft();
     return dirtyPageCount() > 0;
 }
 
@@ -308,19 +157,10 @@ function refreshDirtyState() {
 }
 
 function setPromptDraft(wonderId, value) {
-    const key = String(wonderId);
     state.resource.mutate((resourceDraft) => {
-        const current = resourceDraft.pageDrafts[key];
-        if (value === undefined) {
-            if (!current) return;
-            delete current.ritual_prompt;
-            if (!draftHasChanges(current)) delete resourceDraft.pageDrafts[key];
-            return;
-        }
-        const draft = current || emptyDraft();
-        draft.ritual_prompt = value;
-        resourceDraft.pageDrafts[key] = draft;
+        updatePromptDraft(resourceDraft.pageDrafts, wonderId, value);
     });
+    refreshDirtyState();
 }
 
 const wonderRituals = createWonderRituals({
@@ -331,10 +171,6 @@ const wonderRituals = createWonderRituals({
     onDirty: refreshDirtyState,
     onToast: showToast,
 });
-
-function wonderNameKeyForKey(wonderKey) {
-    return `tv_wonder_${wonderKey}`;
-}
 
 function currentWonderNameKey() {
     if (!state.currentWonder?.summary?.key) {
@@ -877,7 +713,7 @@ function syncWonderModeWithSelection() {
 
 const wonderEditor = createWonderEditor({
     state, elements,
-    cacheDraft: () => cacheCurrentWonderDraft(), dirtyCount: dirtyPageCount, draftHasChanges,
+    dirtyCount: dirtyPageCount, draftHasChanges,
     currentId: currentWonderId, setCurrent: setCurrentWonderPayload,
     hydrate: (payload) => hydrateWonderPayload(payload), invalidateDesigns: wonderRituals.invalidate,
     syncSelection: syncWonderModeWithSelection, render: () => render(), updateStatus,
