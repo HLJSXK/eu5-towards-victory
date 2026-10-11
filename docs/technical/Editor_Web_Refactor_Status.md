@@ -17,11 +17,20 @@
 
 ## 当前焦点：待用户指定（2026-10-11）
 
-已完成用户确认的 Wonder 保存/加载/预览拆分。下一项由用户指定，不自动开始其余 Wonder UI 拆分或跨资源 ChangeSet。
+已完成用户确认的方案 A：Wonder 后端领域模块拆分。下一项由用户指定，不自动推进其余 Wonder UI 拆分或跨资源 ChangeSet。
+
+## 已完成切片：Wonder 后端领域模块拆分（2026-10-11）
+
+- 原 3699 行 `services/wonder_localization.py` 已删除，领域实现迁入 `services/wonder/` 九个模块，包入口不做兼容转发。
+- `sources.py` 集中源路径、输入组、仪式设计/Prompt 读取与源数据校验；`values.py` 负责 YAML/结构值及 modifier/reward/ritual/ceremony 行编解码；`options.py` 负责选项目录及目录引用。
+- 选址条件与偏好模板数据位于 `site_templates.py`，解析、匹配与渲染位于 `site_rules.py`；`localization.py` 负责本地化键计算、校验和 `build_check_report`。
+- `field_types.py` 持有字段类型与 API 序列化；`fields.py` 显式接收数据和目录构建字段，不依赖服务对象；`model.py` 的 `WonderModel` 只保留编辑应用与查询。最大模块 `fields.py` 为 674 行，其余均低于 600 行。
+- 四个曾被末尾覆盖的选项函数只保留生效实现；目录构建入口命名为 `modifier_option_catalog`。资源、预览、提交、服务器、CLI 与 `tests/` 均直接导入所属模块；`scripts_engineering_department/test_wonder_mechanics_rules.py` 的旧模块导入在提交前审计中发现并已改按归属模块导入，迁出模型方法无残留调用。
+- 全部 192 个奇观详情、摘要、选项目录与仪式目录的序列化哈希与拆分前一致，Web `--check` 输出一致；验收结果与环境见“验证记录”。前端、事务与跨资源同步行为保持原样。
 
 ## 已完成切片：Wonder 保存/加载/预览拆分（2026-10-11）
 
-- 后端入口改为 `services/wonder_resource.py` 的 `WonderResourceService`；资源加载/base/校验、候选源文件与 preview、commit 事务分别位于 `wonder_resource.py`、`wonder_preview.py`、`wonder_commit.py`。原 `wonder_localization.py` 保留领域字段、规范化和详情模型；已删除迁出的实现及旧类入口。
+- 后端入口改为 `services/wonder_resource.py` 的 `WonderResourceService`；资源加载/base/校验、候选源文件与 preview、commit 事务分别位于 `wonder_resource.py`、`wonder_preview.py`、`wonder_commit.py`。领域字段、规范化和详情模型已进一步迁入上方 `services/wonder/` 包；已删除原单体及旧类入口。
 - Wonder `/preview` 的 `diff` 按实际候选 YAML 与磁盘源文件比较，包含奇观 ID/key、语言、字段、类型、前后值和存在标记；使用规范化后将要写入的值，结构字段整体展示，不带选项目录。原型切换同时报告 `base_key` 与 `mechanic_key`。源文件 SHA-256 单列 `file_diff`；preview 只给生成计划，实际生成产物哈希仍在 commit 后报告。
 - 前端 `static/wonder_editor.js` 负责 Wonder 草稿缓存、请求字段、多段加载和保存后的详情补加载；共享 `editor_panel.js` 执行 preview → 确认 → 同一序列化请求体 commit。共享对话框支持多行文本/脚本、缩进结构值及不存在标记，挂载于工具面板之外。两个试点编辑器沿用原行为。
 - 首次加载先显示摘要列表，再加载详情；reload 只有资源、详情与选项目录全部成功才替换页面。保存成功立即接受新 base 并清空已提交草稿；随后详情加载失败明确提示“已保存，但详情加载失败”，提供只读重试。返回编辑/Escape、409 与生成失败保留草稿及诊断。
@@ -175,6 +184,7 @@
 - Web `--check` 在子检查打印 `[FAIL]` 时仍退出 0；本切片发现并记录，后续需让自动化检查能通过退出码判断失败。
 - 提交审计：Wonder reload 固定请求当前奇观详情；该奇观若已从磁盘删除，reload 每次 404 失败且页面不替换，只能刷新浏览器。正常编辑流程不删除奇观。
 - 提交审计：`WonderResourceService` 以 `commit_resource = commit_resource` 挂载模块函数，与 `WonderPreview` 的 mixin 写法不一致，风格整理另行决定。
+- Wonder 领域包使用 `fields.py`、`values.py` 等通用文件名后，`ai_context.py --files` 未自动命中 Wonder 风险卡；待调整 `context_routes.yaml` 的路径匹配，本次已手动读取相关卡片。
 
 ## 已接受限制
 
@@ -191,7 +201,7 @@
 
 ## 后续任务（按顺序，当前焦点完成后由用户指定下一项）
 
-1. 继续拆分 Wonder 剩余单体：保存/加载/预览已完成，其余领域模型、仪式设计、选项目录与图片面板等的下一切片由用户指定，复用已产出的共享组件。
+1. 继续拆分 Wonder 剩余前端单体：保存/加载/预览与后端领域模块已完成，仪式设计、选项目录与图片面板等前端职责的下一切片由用户指定，复用已产出的共享组件。
 2. 建立跨资源 `ChangeSet`、完整输入依赖图、领域产物语义校验和跨资源预览（Wonder 拆分后再评估必要性）。
 3. 设计跨进程持久锁和状态存储，再删除旧领域 service 拼接层（单用户本地工具收益低，建议降级，是否删除待用户确认）。
 
@@ -211,6 +221,22 @@
   [详细评估](Towards_Victory_Editor_Web_Assessment.md) 为准。
 
 ## 验证记录
+
+Wonder 后端领域模块拆分：2026-10-11，Windows + eu5 Python 3.11.15 + Node 22.19.0。修改前已运行 task-scoped `ai_context.py` 并读取 Wonder 风险卡。
+
+```powershell
+C:\Users\Hades\anaconda3\envs\eu5\python.exe -m pytest --basetemp .pytest-wonder-domain-1011 tests/test_cost_reward_resource_contract.py tests/test_victory_tree_resource_contract.py tests/test_wonder_resource_contract.py tests/test_wonder_field_preview.py tests/test_wonder_payload_loading.py tests/test_cropper_resource_contract.py tests/test_media_job_contract.py tests/test_media_cancellation.py tests/test_media_plans.py tests/test_operation_log_contract.py tests/test_editor_file_transactions.py tests/test_generation_plan.py -q
+node --test tests/api.cjs tests/resource_state.cjs tests/media_job_polling.cjs tests/cropper_resource_state.cjs tests/wonder_resource_state.cjs tests/shared_display.cjs
+C:\Users\Hades\anaconda3\envs\eu5\python.exe -m towards_victory_editor_web --check
+C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts/validate.py --changed --fix --ai-report
+git diff --check
+```
+
+- Python 12 文件一次全量 **250 passed**（581.33 秒），3 条已有 FastAPI/httpx 与 `binary_dilation` 弃用警告；包含资源事务、临时源文件预览/提交、payload 加载及完整生成链产物逐字节比较。现有测试只调整导入、路径替换位置和迁出函数调用。
+- Node **58 项通过**；新包及三个调用模块通过 `compileall`。本次未重跑 Chrome，前端文件未修改。
+- 拆分前后按同一 JSON 序列化方式比较全部 192 个奇观详情、首页摘要、选项目录（含版本）和仪式目录的 SHA-256，全部一致；Web `--check` 前后输出一致（192 个奇观、7,534 个本地化键、9 个工具、5 个可运行、196 张裁剪图）。
+- 80 个迁出顶层函数在归一化导入和名称后与原生效实现的 AST 一致；新包无重复定义、未定义全局引用或循环导入，所有模块小于 800 行。被覆盖定义及迁出模型方法无残留调用，临时拆分辅助文件已清理。提交前审计按文件复核 147 个顶层定义，确认无遗漏、无新残件，被覆盖的选项函数只保留生效实现。
+- changed validation 通过（21 个适用文件，无错误或警告）；`git diff --check` 通过，新文件另行核对无行尾空白。风险卡自动路由未命中新目录通用文件名，已单列待议，未扩写边界。
 
 Wonder 保存/加载/预览拆分：2026-10-11，Windows + eu5 Python 3.11.15 + Node 22.19.0 + 本机 Chrome headless。修改前已运行 task-scoped `ai_context.py`。
 

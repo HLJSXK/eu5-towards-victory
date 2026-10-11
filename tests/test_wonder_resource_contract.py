@@ -10,7 +10,10 @@ import pytest
 import yaml
 from fastapi.testclient import TestClient
 
-from towards_victory_editor_web.services import wonder_localization, wonder_preview, wonder_commit
+import scripts_engineering_department.wonder_localization_lib as localization_lib
+import scripts_engineering_department.wonder_mechanics.io as wonder_io
+from towards_victory_editor_web.services import wonder_preview, wonder_commit
+from towards_victory_editor_web.services.wonder import localization, sources
 from towards_victory_editor_web.services.wonder_resource import WonderResourceService
 from towards_victory_editor_web.services.wonder_generation import (
     LOCALIZATION_SCRIPTS,
@@ -66,8 +69,8 @@ def service(tmp_path, monkeypatch):
     for index, (relative_name, attribute) in enumerate(zip(SOURCE_RELATIVE_NAMES, SOURCE_ATTRIBUTES)):
         path = data_dir / relative_name
         path.write_bytes(f"source-{index}\n".encode())
-        monkeypatch.setattr(wonder_localization, attribute, path)
-    monkeypatch.setattr(wonder_localization, "REPO_ROOT", tmp_path)
+        monkeypatch.setattr(sources, attribute, path)
+    monkeypatch.setattr(sources, "REPO_ROOT", tmp_path)
     _registry(tmp_path, ("generated/localization.yml",))
 
     def isolated_plan(changed, *, repo_root, regenerate=True, input_groups=None):
@@ -94,7 +97,7 @@ def service(tmp_path, monkeypatch):
     service = object.__new__(WonderResourceService)
     service.operation_store = None
     service._lock = threading.RLock()
-    service._base = snapshot_files(wonder_localization._wonder_source_paths(), repo_root=tmp_path)
+    service._base = snapshot_files(sources.wonder_source_paths(), repo_root=tmp_path)
     service.wonders_data = {"wonders": []}
     service.mechanics_data = {}
     service.unique_wonders_data = {"unique_wonders": []}
@@ -134,7 +137,7 @@ def test_resource_descriptor_and_base_snapshot(service):
 
 @pytest.fixture
 def prompt_service(service):
-    path = wonder_localization.UNIQUE_RITUAL_PROMPTS_FILE
+    path = sources.UNIQUE_RITUAL_PROMPTS_FILE
     path.write_text("unique_wonders: []\n", encoding="utf-8")
     service._get_wonder = lambda _id: {"id": 1, "key": "unique_test", "is_unique": True}
     service._unique_ritual_design_for_wonder = lambda _wonder: {}
@@ -146,7 +149,7 @@ def prompt_service(service):
 
     def reload():
         service.unique_ritual_prompts_data = yaml.safe_load(path.read_text(encoding="utf-8"))
-        service._base = snapshot_files(wonder_localization._wonder_source_paths(), repo_root=wonder_localization.REPO_ROOT)
+        service._base = snapshot_files(sources.wonder_source_paths(), repo_root=sources.REPO_ROOT)
 
     service.reload_from_disk = reload
     reload()
@@ -157,7 +160,7 @@ def test_prompt_http_validate_preview_and_commit_share_resource(prompt_service, 
     from towards_victory_editor_web import server
 
     service = prompt_service
-    path = wonder_localization.UNIQUE_RITUAL_PROMPTS_FILE
+    path = sources.UNIQUE_RITUAL_PROMPTS_FILE
     before = path.read_bytes()
     monkeypatch.setattr(server, "CostRewardEditorService", _UnusedCostRewardService)
     monkeypatch.setattr(server, "VictoryTreePlannerService", lambda _store: object())
@@ -189,7 +192,7 @@ def test_prompt_commit_honors_resource_lock_and_external_base(prompt_service):
     with resource_operation(("editor.wonder",)):
         with pytest.raises(ConflictError, match="Resource busy"):
             service.commit_resource(draft, base, regenerate=False)
-    path = wonder_localization.UNIQUE_RITUAL_PROMPTS_FILE
+    path = sources.UNIQUE_RITUAL_PROMPTS_FILE
     path.write_text("unique_wonders: []\n# external\n", encoding="utf-8")
     with pytest.raises(ConflictError, match="Resource changed"):
         service.commit_resource(draft, base, regenerate=False)
@@ -199,8 +202,8 @@ def test_prompt_commit_honors_resource_lock_and_external_base(prompt_service):
 
 def test_prompt_and_other_wonder_edits_rollback_together(prompt_service):
     service = prompt_service
-    path = wonder_localization.UNIQUE_RITUAL_PROMPTS_FILE
-    other = wonder_localization.UNIQUE_WONDERS_FILE
+    path = sources.UNIQUE_RITUAL_PROMPTS_FILE
+    other = sources.UNIQUE_WONDERS_FILE
     before = {item: item.read_bytes() for item in (path, other)}
 
     def edit(*_args):
@@ -236,7 +239,7 @@ def test_validate_does_not_mutate_cached_draft(service):
 
 
 def test_preview_reports_changed_source_file(service):
-    source_path = wonder_localization._wonder_source_paths()[0]
+    source_path = sources.wonder_source_paths()[0]
     new_content = b"updated\n"
     service._candidate_for_drafts = lambda _drafts: (
         {"localization": True, "mechanics": False, "wonders": False, "unique": False},
@@ -246,7 +249,7 @@ def test_preview_reports_changed_source_file(service):
 
     report = service.preview_resource_edits({}, _base(service))
 
-    relative = str(source_path.relative_to(wonder_localization.REPO_ROOT)).replace("\\", "/")
+    relative = str(source_path.relative_to(sources.REPO_ROOT)).replace("\\", "/")
     assert report["valid"]
     assert report["file_diff"] == [
         {"kind": "file",
@@ -263,7 +266,7 @@ def test_preview_requires_complete_base(service):
 
 
 def test_external_source_change_conflicts_with_loaded_base(service):
-    source_path = wonder_localization._wonder_source_paths()[0]
+    source_path = sources.wonder_source_paths()[0]
     source_path.write_bytes(b"external\n")
 
     with pytest.raises(ConflictError, match="Resource changed since load"):
@@ -274,7 +277,7 @@ def test_external_source_change_conflicts_with_loaded_base(service):
 def test_reload_does_not_publish_partial_or_stale_state(service, monkeypatch, failure):
     previous_data = service.wonders_data
     previous_base = service._base
-    source = wonder_localization.WONDERS_FILE
+    source = sources.WONDERS_FILE
     monkeypatch.delattr(service, "reload_from_disk")
 
     def load(loaded):
@@ -299,7 +302,7 @@ def test_reload_does_not_publish_partial_or_stale_state(service, monkeypatch, fa
 
 def test_repeated_stable_loads_keep_base_and_publish_new_data(service, monkeypatch):
     monkeypatch.delattr(service, "reload_from_disk")
-    source = wonder_localization.WONDERS_FILE
+    source = sources.WONDERS_FILE
     source.write_bytes(b"new content\n")
 
     def load(loaded):
@@ -315,33 +318,33 @@ def test_repeated_stable_loads_keep_base_and_publish_new_data(service, monkeypat
 
 
 def test_crlf_mechanics_edit_changes_only_edited_source(service):
-    sources = {
-        "buildings": wonder_localization.WONDER_FINAL_BUILDINGS_FILE,
-        "generic_rituals": wonder_localization.WONDER_GENERIC_RITUALS_FILE,
-        "base_modifiers": wonder_localization.WONDER_BASE_MODIFIERS_FILE,
-        "site_rules": wonder_localization.WONDER_SITE_RULES_FILE,
+    mechanics_sources = {
+        "buildings": sources.WONDER_FINAL_BUILDINGS_FILE,
+        "generic_rituals": sources.WONDER_GENERIC_RITUALS_FILE,
+        "base_modifiers": sources.WONDER_BASE_MODIFIERS_FILE,
+        "site_rules": sources.WONDER_SITE_RULES_FILE,
     }
-    for key, path in sources.items():
+    for key, path in mechanics_sources.items():
         service.mechanics_data[key] = {"sample": 1}
-        text = wonder_localization.dump_yaml_document({key: {"sample": 1}})
+        text = wonder_io.dump_yaml_document({key: {"sample": 1}})
         path.write_bytes(text.replace("\n", "\r\n").encode())
-    service._base = snapshot_files(wonder_localization._wonder_source_paths(), repo_root=wonder_localization.REPO_ROOT)
+    service._base = snapshot_files(sources.wonder_source_paths(), repo_root=sources.REPO_ROOT)
     service.mechanics_data["buildings"]["sample"] = 2
     changed = {"localization": False, "mechanics": True, "wonders": False, "unique": False, "prompts": False}
     files = service._candidate_source_bytes(changed)
-    assert set(files) == {sources["buildings"]}
-    raw = files[sources["buildings"]]
+    assert set(files) == {mechanics_sources["buildings"]}
+    raw = files[mechanics_sources["buildings"]]
     assert b"\r\n" in raw
     assert b"\n" not in raw.replace(b"\r\n", b"")
     service._candidate_for_drafts = lambda _drafts: (changed, files, [1])
     report = service.preview_resource_edits({}, _base(service), regenerate=False)
-    assert [item["path"] for item in report["file_diff"]] == [sources["buildings"].relative_to(wonder_localization.REPO_ROOT).as_posix()]
+    assert [item["path"] for item in report["file_diff"]] == [mechanics_sources["buildings"].relative_to(sources.REPO_ROOT).as_posix()]
 
 
 def test_localization_bytes_preserve_crlf_header_and_bom(service, monkeypatch):
-    path = wonder_localization.WONDER_LOCALIZATION_FILE
+    path = sources.WONDER_LOCALIZATION_FILE
     path.write_bytes(b"\xef\xbb\xbf# Canonical localization\r\nwonder_localization: {}\r\n")
-    monkeypatch.setattr(wonder_localization, "collapse_wonder_localization_data", lambda data: data)
+    monkeypatch.setattr(localization_lib, "collapse_wonder_localization_data", lambda data: data)
     raw = service._localization_bytes(path, {"english": {"title": "new"}, "simp_chinese": {}})
     assert raw.startswith(b"\xef\xbb\xbf# Canonical localization\r\n")
     assert b"\n" not in raw.replace(b"\r\n", b"")
@@ -356,7 +359,7 @@ def test_generation_snapshots_only_planned_files(service, tmp_path, monkeypatch,
         _registry(tmp_path, ("generated/english.yml", "generated/chinese.yml"))
     else:
         (tmp_path / "data/generated_files.yaml").unlink()
-    source = wonder_localization.WONDER_LOCALIZATION_FILE
+    source = sources.WONDER_LOCALIZATION_FILE
     service._candidate_for_drafts = lambda _drafts: (
         {"localization": True, "mechanics": False, "wonders": False, "unique": False},
         {source: b"new content\n"}, [1],
@@ -385,7 +388,7 @@ def test_generator_outputs_follow_registered_plan():
     localization = wonder_generation_plan({"localization": True}, repo_root=root)
     mechanics = wonder_generation_plan({"mechanics": True}, repo_root=root)
     assert set(localization.outputs) == {
-        *wonder_localization.GENERATED_LOC_FILES.values(),
+        *sources.GENERATED_LOC_FILES.values(),
         root / "src_engineering_department/main_menu/localization/english/tv_wonder_ownership_l_english.yml",
         root / "src_engineering_department/main_menu/localization/simp_chinese/tv_wonder_ownership_l_simp_chinese.yml",
         root / "data/unique_wonder_ritual_specs.yaml",
@@ -424,8 +427,8 @@ def test_registered_wonder_data_generators_are_in_wonder_plan():
     (6, "unique", "unique"),
 ])
 def test_candidate_uses_changed_source_as_generation_input_group(service, monkeypatch, source_index, group, changed_key):
-    source = wonder_localization._wonder_source_paths()[source_index]
-    monkeypatch.setattr(wonder_localization, "validate_canonical_localization_data", lambda *_args: None)
+    source = sources.wonder_source_paths()[source_index]
+    monkeypatch.setattr(localization, "validate_canonical_localization_data", lambda *_args: None)
     service._candidate_source_bytes = lambda _changed: {source: b"edited\n"}
     service._apply_wonder_edits = lambda *_args: {
         key: key == changed_key for key in ("localization", "mechanics", "wonders", "unique")
@@ -434,7 +437,7 @@ def test_candidate_uses_changed_source_as_generation_input_group(service, monkey
 
     changed, files, ids = service._candidate_for_drafts({1: {}})
 
-    assert wonder_localization._wonder_input_groups(files) == {group}
+    assert sources.wonder_input_groups(files) == {group}
     assert files == {source: b"edited\n"}
     assert ids == [1]
 
@@ -462,7 +465,7 @@ def test_site_rule_change_plans_mechanics_buildings_generator():
 def test_commit_logs_prewrite_errors_without_mutating_state(service, failure):
     original = RuntimeError("not used")
     base = _base(service)
-    before = wonder_localization.WONDER_LOCALIZATION_FILE.read_bytes()
+    before = sources.WONDER_LOCALIZATION_FILE.read_bytes()
     if failure == "conflict":
         base[next(iter(base))] = "stale"
         expected = ConflictError
@@ -475,13 +478,13 @@ def test_commit_logs_prewrite_errors_without_mutating_state(service, failure):
     with pytest.raises(expected) as error:
         service.commit_resource({}, base, regenerate=False)
     assert f"[error] {error.value}" in service.log_text
-    assert wonder_localization.WONDER_LOCALIZATION_FILE.read_bytes() == before
+    assert sources.WONDER_LOCALIZATION_FILE.read_bytes() == before
     if failure == "validation":
         assert error.value is original
 
 
 def test_commit_conflicts_while_wonder_media_job_holds_resource(service):
-    source_path = wonder_localization._wonder_source_paths()[0]
+    source_path = sources.wonder_source_paths()[0]
     before = source_path.read_bytes()
     service._candidate_for_drafts = lambda _drafts: pytest.fail("busy commit prepared a candidate")
     with resource_operation(("editor.wonder",)):
@@ -492,7 +495,7 @@ def test_commit_conflicts_while_wonder_media_job_holds_resource(service):
 
 
 def test_commit_without_regeneration_does_not_lock_cost_reward(service):
-    source_path = wonder_localization._wonder_source_paths()[0]
+    source_path = sources.wonder_source_paths()[0]
     before = source_path.read_bytes()
     service._candidate_for_drafts = lambda _drafts: (
         {"localization": True, "mechanics": False, "wonders": False, "unique": False},
@@ -514,7 +517,7 @@ def test_regenerating_wonder_commit_locks_cost_reward(service):
 
 
 def test_commit_rejects_unknown_current_wonder_before_writing(service):
-    source_path = wonder_localization._wonder_source_paths()[0]
+    source_path = sources.wonder_source_paths()[0]
     source_before = source_path.read_bytes()
     service._candidate_for_drafts = lambda _drafts: (
         {"localization": True, "mechanics": False, "wonders": False, "unique": False},
@@ -532,7 +535,7 @@ def test_response_failure_restores_committed_files(service, tmp_path, monkeypatc
     output = tmp_path / "generated.txt"
     output.write_bytes(b"old artifact\n")
     _registry(tmp_path, ("generated.txt",))
-    source_path = wonder_localization._wonder_source_paths()[0]
+    source_path = sources.wonder_source_paths()[0]
     source_before = source_path.read_bytes()
     service._candidate_for_drafts = lambda _drafts: (
         {"localization": True, "mechanics": False, "wonders": False, "unique": False},
@@ -560,7 +563,7 @@ def test_generator_failure_restores_sources_and_existing_outputs(service, tmp_pa
     existing_output.write_bytes(b"old artifact\n")
     _registry(tmp_path, ("generated/existing.txt", "generated/created.txt"))
 
-    source_path = wonder_localization._wonder_source_paths()[0]
+    source_path = sources.wonder_source_paths()[0]
     source_before = source_path.read_bytes()
     service._candidate_for_drafts = lambda _drafts: (
         {"localization": True, "mechanics": False, "wonders": False, "unique": False},
@@ -660,7 +663,7 @@ def test_http_commit_errors_include_service_log(service, monkeypatch, failure, s
             raise ValueError("invalid modifier table")
         service._candidate_for_drafts = invalid_draft
     else:
-        source = wonder_localization.WONDER_LOCALIZATION_FILE
+        source = sources.WONDER_LOCALIZATION_FILE
         service._candidate_for_drafts = lambda _drafts: (
             {"localization": True, "mechanics": False, "wonders": False, "unique": False},
             {source: b"new source\n"}, [1],
@@ -686,7 +689,7 @@ def test_concurrent_commit_errors_and_logs_belong_to_their_operation(service, mo
     monkeypatch.setattr(server, "CostRewardEditorService", _UnusedCostRewardService)
     monkeypatch.setattr(server, "VictoryTreePlannerService", lambda _operation_store: object())
     monkeypatch.setattr(server, "WonderResourceService", lambda _operation_store: service)
-    source = wonder_localization.WONDER_LOCALIZATION_FILE
+    source = sources.WONDER_LOCALIZATION_FILE
     before = source.read_bytes()
     service._candidate_for_drafts = lambda _drafts: ({"localization": True}, {source: b"new\n"}, [1])
     started, finish = threading.Event(), threading.Event()
@@ -730,7 +733,7 @@ def test_concurrent_commit_errors_and_logs_belong_to_their_operation(service, mo
 
 
 def test_preview_plan_matches_committed_generation_and_artifacts(service, tmp_path):
-    source = wonder_localization.WONDER_LOCALIZATION_FILE
+    source = sources.WONDER_LOCALIZATION_FILE
     _registry(tmp_path, ('generated/english.txt', 'generated/chinese.txt'))
     service._candidate_for_drafts = lambda _drafts: (
         {'localization': True}, {source: b'new source\n'}, [1],
@@ -739,7 +742,7 @@ def test_preview_plan_matches_committed_generation_and_artifacts(service, tmp_pa
     assert len(preview['generation_plan']['steps']) == 2
     assert not (tmp_path / 'generated').exists()
     service.reload_from_disk = lambda: setattr(service, '_base', snapshot_files(
-        wonder_localization._wonder_source_paths(), repo_root=tmp_path))
+        sources.wonder_source_paths(), repo_root=tmp_path))
     result = service.commit_resource({}, _base(service))
     assert result['operation_id'] == result['operation']['id'] == result['generation']['operation_id']
     assert result['operation']['status'] == 'succeeded'
@@ -754,7 +757,7 @@ def test_preview_plan_matches_committed_generation_and_artifacts(service, tmp_pa
 def test_real_runner_failure_rolls_back_and_returns_http_report(service, tmp_path, monkeypatch, failure):
     from towards_victory_editor_web import server
 
-    source = wonder_localization.WONDER_LOCALIZATION_FILE
+    source = sources.WONDER_LOCALIZATION_FILE
     source_before = source.read_bytes()
     output_name = ('src_engineering_department/in_game/common/scripted_effects/sample.txt'
                    if failure == 'bom' else 'generated/english.txt')
@@ -819,7 +822,7 @@ def test_real_runner_failure_rolls_back_and_returns_http_report(service, tmp_pat
 
 
 def test_plan_errors_precede_source_write(service, tmp_path):
-    source = wonder_localization.WONDER_LOCALIZATION_FILE
+    source = sources.WONDER_LOCALIZATION_FILE
     before = source.read_bytes()
     service._candidate_for_drafts = lambda _drafts: (
         {'localization': True}, {source: b'new source\n'}, [1],
@@ -836,7 +839,7 @@ def test_generation_error_keeps_report_when_rollback_is_incomplete(service, tmp_
     from towards_victory_editor_web.services import platform
     from towards_victory_editor_web.services.generation import GenerationError
 
-    source = wonder_localization.WONDER_LOCALIZATION_FILE
+    source = sources.WONDER_LOCALIZATION_FILE
     _registry(tmp_path, ('generated/english.txt', 'generated/chinese.txt'))
     (tmp_path / LOCALIZATION_SCRIPTS['english']).write_text('raise SystemExit(8)')
     service._candidate_for_drafts = lambda _drafts: ({'localization': True}, {source: b'new\n'}, [1])

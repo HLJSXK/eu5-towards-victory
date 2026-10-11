@@ -14,7 +14,7 @@ from .services.common import safe_check
 def _run_combined_check() -> None:
     from .services.cost_reward import build_check_report as cost_reward_check
     from .services.victory_tree import build_check_report as victory_tree_check
-    from .services.wonder_localization import build_check_report as wonder_localization_check
+    from .services.wonder.localization import build_check_report as wonder_localization_check
     from .services.media import bootstrap_payload, registry
     from .services.cropper import cropper
 

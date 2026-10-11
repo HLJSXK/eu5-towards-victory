@@ -4,7 +4,7 @@ from copy import deepcopy
 import pytest
 from fastapi.testclient import TestClient
 
-from towards_victory_editor_web.services import wonder_localization
+from towards_victory_editor_web.services.wonder import sources, values
 from towards_victory_editor_web.services.wonder_resource import WonderResourceService
 from towards_victory_editor_web.services.platform import snapshot_files
 
@@ -51,7 +51,7 @@ def test_detail_uses_versioned_option_catalog_and_source_values_exclude_options(
                 source_value = json.loads(field["original_value"])
                 assert '"options"' not in json.dumps(source_value)
                 assert '"cost_options"' not in json.dumps(source_value)
-                assert source_value == wonder_localization._without_editor_options(field["structured_value"])
+                assert source_value == values.without_editor_options(field["structured_value"])
 
 
 def test_ritual_catalog_is_summary_only_and_detail_is_preserved(service):
@@ -107,7 +107,7 @@ def test_invalid_ritual_design_source_fails_service_load(service, monkeypatch, c
         entries.append(deepcopy(entries[0]))
     monkeypatch.setattr(service, "unique_ritual_designs_data", {"unique_wonders": entries})
     with pytest.raises(RuntimeError, match="unique_wonders") as error:
-        service._validate_unique_ritual_designs()
+        sources.validate_unique_ritual_designs(service.wonders, service.unique_ritual_designs_data)
 
     def fail_load(_operation_store):
         raise error.value
@@ -162,10 +162,10 @@ def test_http_unavailable_service(monkeypatch):
 def test_prompt_save_keeps_detail_without_returning_catalog(service, monkeypatch, tmp_path):
     service.operation_store = None
     prompt_file = tmp_path / "prompts.yaml"
-    monkeypatch.setattr(wonder_localization, "UNIQUE_RITUAL_PROMPTS_FILE", prompt_file)
+    monkeypatch.setattr(sources, "UNIQUE_RITUAL_PROMPTS_FILE", prompt_file)
     monkeypatch.setattr(service, "unique_ritual_prompts_data", {"unique_wonders": []})
     wonder_id = service.ritual_design_catalog_payload()["wonders"][0]["id"]
-    service._base = snapshot_files(wonder_localization._wonder_source_paths(), repo_root=wonder_localization.REPO_ROOT)
+    service._base = snapshot_files(sources.wonder_source_paths(), repo_root=sources.REPO_ROOT)
     base = {item.path: item.sha256 for item in service._base}
     payload = service.commit_resource({wonder_id: {"ritual_prompt": "  Implement ritual\r\nwith rewards  "}}, base, current_wonder_id=wonder_id, regenerate=False)
     assert payload["wonder"]["ritual_prompt"]["prompt"] == "Implement ritual\nwith rewards"

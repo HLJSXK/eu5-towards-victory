@@ -6,15 +6,18 @@ import threading
 from copy import copy
 from typing import Any
 
-from . import wonder_localization as domain
+import scripts_engineering_department.wonder_localization_lib as localization_lib
+import scripts_engineering_department.wonder_mechanics.io as wonder_io
+
 from .common import RollingLog
 from .operation_store import OperationStore
 from .platform import ChangeSet, ResourceDescriptor, assert_resource_base, snapshot_files
-from .wonder_preview import WonderPreview
+from .wonder import localization, model, options, sources
 from .wonder_commit import commit_resource
+from .wonder_preview import WonderPreview
 
 
-class WonderResourceService(WonderPreview, domain.WonderModel):
+class WonderResourceService(WonderPreview, model.WonderModel):
     def __init__(self, operation_store: OperationStore | None = None) -> None:
         self.operation_store = operation_store
         self._lock = threading.RLock()
@@ -47,36 +50,36 @@ class WonderResourceService(WonderPreview, domain.WonderModel):
 
     def reload_from_disk(self) -> None:
         with self._lock:
-            base = snapshot_files(domain._wonder_source_paths(), repo_root=domain.REPO_ROOT)
+            base = snapshot_files(sources.wonder_source_paths(), repo_root=sources.REPO_ROOT)
             loaded = copy(self)
             loaded._load_from_disk()
             assert_resource_base(
                 {item.path: item.sha256 for item in base},
                 base,
-                snapshot_files(domain._wonder_source_paths(), repo_root=domain.REPO_ROOT),
+                snapshot_files(sources.wonder_source_paths(), repo_root=sources.REPO_ROOT),
             )
             loaded._base = base
             self.__dict__.update(loaded.__dict__)
 
     def _load_from_disk(self) -> None:
-        domain.reset_cost_reward_unit_caches()
-        self.wonders_data = domain.load_wonders_source_data()
-        self.mechanics_data = domain.load_mechanics_source_data()
-        self.unique_wonders_data = domain.load_unique_wonders_source_data()
-        self.wonders, self.mechanics = domain.load_all_wonder_mechanics_data()
+        wonder_io.reset_cost_reward_unit_caches()
+        self.wonders_data = wonder_io.load_wonders_source_data()
+        self.mechanics_data = wonder_io.load_mechanics_source_data()
+        self.unique_wonders_data = wonder_io.load_unique_wonders_source_data()
+        self.wonders, self.mechanics = wonder_io.load_all_wonder_mechanics_data()
         self.wonders = sorted(self.wonders, key=lambda item: int(item["id"]))
-        self.event_suffixes = domain.load_engineering_department_suffix_map()
-        self.localization_data = domain.load_wonder_localization_data()
-        self.unique_ritual_designs_data = domain.load_unique_ritual_designs_data()
-        self._validate_unique_ritual_designs()
-        self.unique_ritual_design_translations_data = domain.load_unique_ritual_design_translations_data()
-        self.unique_ritual_prompts_data = domain.load_unique_ritual_prompts_data(domain.UNIQUE_RITUAL_PROMPTS_FILE)
+        self.event_suffixes = localization_lib.load_engineering_department_suffix_map()
+        self.localization_data = localization_lib.load_wonder_localization_data()
+        self.unique_ritual_designs_data = sources.load_unique_ritual_designs_data()
+        sources.validate_unique_ritual_designs(self.wonders, self.unique_ritual_designs_data)
+        self.unique_ritual_design_translations_data = sources.load_unique_ritual_design_translations_data()
+        self.unique_ritual_prompts_data = sources.load_unique_ritual_prompts_data(sources.UNIQUE_RITUAL_PROMPTS_FILE)
         (
             self.country_modifier_options,
             self.local_modifier_options,
             self.reward_type_options,
-        ) = domain._modifier_option_catalog(self.mechanics_data, self.unique_wonders_data)
-        self.ceremony_cost_type_options = domain.ceremony_stage_cost_options()
+        ) = options.modifier_option_catalog(self.mechanics_data, self.unique_wonders_data)
+        self.ceremony_cost_type_options = options.ceremony_stage_cost_options()
         self._option_catalogs = {
             "country_modifier": self.country_modifier_options,
             "local_modifier": self.local_modifier_options,
@@ -87,7 +90,7 @@ class WonderResourceService(WonderPreview, domain.WonderModel):
             self._option_catalogs, ensure_ascii=False, sort_keys=True, separators=(",", ":")
         ).encode("utf-8")
         self._option_catalog_version = hashlib.sha256(catalog_bytes).hexdigest()
-        domain.validate_canonical_localization_data(
+        localization.validate_canonical_localization_data(
             self.wonders,
             self.mechanics,
             self.event_suffixes,
@@ -99,7 +102,7 @@ class WonderResourceService(WonderPreview, domain.WonderModel):
             id="editor.wonder",
             kind="yaml_aggregate",
             label="Wonder localization and mechanics",
-            source_paths=domain._wonder_source_rels(),
+            source_paths=sources.wonder_source_rels(),
             generator_ids=("wonder.localization", "wonder.mechanics"),
         )
 
@@ -117,7 +120,7 @@ class WonderResourceService(WonderPreview, domain.WonderModel):
             return self._resource_payload()
 
     def _assert_base(self, base: dict[str, str] | None) -> None:
-        current = snapshot_files(domain._wonder_source_paths(), repo_root=domain.REPO_ROOT)
+        current = snapshot_files(sources.wonder_source_paths(), repo_root=sources.REPO_ROOT)
         assert_resource_base(base, self._base, current)
 
     def validate_resource_edits(self, drafts_by_wonder_id: dict[int, dict[str, Any]]) -> dict[str, Any]:

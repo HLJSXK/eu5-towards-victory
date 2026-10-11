@@ -2,9 +2,16 @@ from __future__ import annotations
 
 from typing import Any
 
-from . import wonder_localization as domain
 from .generation import GenerationError, run_generation
-from .platform import OperationLog, RollbackError, atomic_write_files, file_transaction, repo_relative_path, run_operation
+from .platform import (
+    OperationLog,
+    RollbackError,
+    atomic_write_files,
+    file_transaction,
+    repo_relative_path,
+    run_operation,
+)
+from .wonder import sources
 from .wonder_generation import wonder_generation_plan
 
 
@@ -42,12 +49,12 @@ def commit_resource(
                           "log_text": self.log_text}
                 return result
 
-            groups = domain._wonder_input_groups(files)
+            groups = sources.wonder_input_groups(files)
             plan = wonder_generation_plan(
-                changed, repo_root=domain.REPO_ROOT, regenerate=regenerate,
+                changed, repo_root=sources.REPO_ROOT, regenerate=regenerate,
                 input_groups=groups,
             )
-            changed_files = [repo_relative_path(path, domain.REPO_ROOT) for path in files]
+            changed_files = [repo_relative_path(path, sources.REPO_ROOT) for path in files]
             # Candidate serialization and registry lookup may take time; recheck
             # the loaded base immediately before snapshotting and writing.
             self._assert_base(base)

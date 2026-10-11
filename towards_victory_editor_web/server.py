@@ -15,7 +15,7 @@ from .services.generation import GenerationError
 from .services.platform import RollbackError
 from .services.victory_tree import GENERATED_PREVIEWS_DIR, TREE_PREVIEW_URL_PREFIX, VictoryTreePlannerService
 from .services.wonder_resource import WonderResourceService
-from .services.wonder_localization import (
+from .services.wonder.sources import (
     GENERATED_WONDER_IMAGES_DIR,
     WONDER_IMAGE_URL_PREFIX,
 )

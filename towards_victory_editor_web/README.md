@@ -68,9 +68,25 @@ C:\Users\Hades\anaconda3\envs\eu5\python.exe -m towards_victory_editor_web --che
 `services/wonder_resource.py` exposes `WonderResourceService` and owns resource
 loading, snapshots and validation. `wonder_preview.py` builds candidate source
 bytes shared by preview and commit, and `wonder_commit.py` runs the existing
-commit transaction and generation lifecycle. `wonder_localization.py` retains
-the domain field schemas, normalization and detail payloads; moved resource
-implementations have been removed from it.
+commit transaction and generation lifecycle. The Wonder domain lives in
+`services/wonder/`; resource, preview and commit import its modules directly.
+The former `services/wonder_localization.py` has been removed.
+
+| Module | Responsibility |
+| --- | --- |
+| `sources.py` | Source paths, input groups, ritual design/Prompt loading and source validation |
+| `values.py` | YAML and structured editor value conversions |
+| `options.py` | Localized option catalogs and catalog references |
+| `site_templates.py` | Site condition atoms, preference presets and template signatures |
+| `site_rules.py` | Site trigger/preference parsing and rendering |
+| `localization.py` | Canonical keys, validation and generated-output checks |
+| `field_types.py` | Field specifications and API serialization |
+| `fields.py` | Field construction with explicit source data and catalog arguments |
+| `model.py` | Edit application and summary/detail/ritual queries |
+
+`WonderModel` calls the field builders without owning their implementation.
+The option catalog has one active implementation of each builder, using the
+cost/reward database alongside the existing reference labels.
 
 Wonder `/preview` compares parsed candidate bytes with the actual source files.
 Its `diff` contains semantic rows with `wonder_id`, `wonder_key`, `scope`,

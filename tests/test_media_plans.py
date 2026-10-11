@@ -442,9 +442,9 @@ def test_web_catalog_has_one_wonder_rebuild_entry():
 def test_wonder_batch_icon_job_locks_every_editor_resource_it_reads():
     from towards_victory_editor_web.services import cost_reward
     from towards_victory_editor_web.services.cropper import WONDER_TASK_INPUTS
-    from towards_victory_editor_web.services.wonder_localization import _wonder_source_rels
+    from towards_victory_editor_web.services.wonder.sources import wonder_source_rels
 
-    owners = {"editor.wonder": set(_wonder_source_rels()),
+    owners = {"editor.wonder": set(wonder_source_rels()),
               "editor.cost_reward": {cost_reward.DATA_REL, cost_reward.TASK_POOL_REL, cost_reward.UNIQUE_WONDERS_REL}}
     read = {f"data/{path.name}" for path in WONDER_TASK_INPUTS} | {"data/wonder_localization.yaml"}
     required = {resource for resource, paths in owners.items() if paths & read}

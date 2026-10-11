@@ -201,12 +201,14 @@ from wonder_ceremony_lib import (
 )
 from wonder_localization_lib import load_engineering_department_suffix_map, load_wonder_localization_data
 from towards_victory_editor_web.services.wonder_generation import wonder_generation_plan
-from towards_victory_editor_web.services.wonder_localization import (
-    build_unique_ceremony_editor_state,
-    ceremony_stage_cost_options,
+from towards_victory_editor_web.services.wonder.localization import (
     render_expected_localization_output,
-    unique_ceremony_from_editor_state,
     validate_canonical_localization_data,
+)
+from towards_victory_editor_web.services.wonder.options import ceremony_stage_cost_options
+from towards_victory_editor_web.services.wonder.values import (
+    build_unique_ceremony_editor_state,
+    unique_ceremony_from_editor_state,
 )
 
 
