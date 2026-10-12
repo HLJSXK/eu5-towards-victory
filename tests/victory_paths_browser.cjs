@@ -69,8 +69,8 @@ module.exports = async function victoryPathsAcceptance({ evaluate, ready }) {
     assert.match(loaded.note, /不写入 slot 字段/);
     assert.match(loaded.plan, new RegExp(`${loaded.generators} 个生成器；${loaded.outputs} 个只读产物`));
     assert.equal(loaded.editableReferences, 0);
-    assert.equal(loaded.tabCount, 8);
-    assert.equal(loaded.usableTabs, true, 'all eight tab buttons remain within the viewport');
+    assert.equal(loaded.tabCount, 9);
+    assert.equal(loaded.usableTabs, true, 'all nine tab buttons remain within the viewport');
 
     const edit = await page(() => {
       const input = document.querySelector('#victory-paths-root [data-group="milestone-1"] input[data-field$=".threshold"]');

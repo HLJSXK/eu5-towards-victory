@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="static/media_studio.css">
 <link rel="stylesheet" href="static/localization.css">
 <link rel="stylesheet" href="static/victory_paths.css">
+<link rel="stylesheet" href="static/court_positions.css">
 <link rel="stylesheet" href="static/workspace_theme.css">
 </head>
 <body>
@@ -26,6 +27,7 @@
       <button class="tool-hub-tab-btn" data-tool="generators">生成器<span class="tool-hub-tab-dot" data-dot hidden></span></button>
       <button class="tool-hub-tab-btn" data-tool="localization">本地化<span class="tool-hub-tab-dot" data-dot hidden></span></button>
       <button class="tool-hub-tab-btn" data-tool="victory-paths">胜利路径<span class="tool-hub-tab-dot" data-dot hidden></span></button>
+      <button class="tool-hub-tab-btn" data-tool="court-positions">宫廷职位<span class="tool-hub-tab-dot" data-dot hidden></span></button>
     </nav>
     <div id="operations-panel" aria-label="最近操作"></div>
   </header>
@@ -247,6 +249,15 @@
       </header>
       <div id="victory-paths-root"></div>
     </section>
+    <section class="tool-panel tool-court-positions" data-tool="court-positions">
+      <header class="workspace-heading">
+        <p class="eyebrow">宫廷职位</p>
+        <h1>宫廷职位</h1>
+        <p class="subtitle">编辑 <code>data/court_positions.yaml</code>：职位分组与字段草稿、modifier 引用校验、
+          生成计划与只读产物。校验和预览不写文件、不执行生成器。</p>
+      </header>
+      <div id="court-positions-root"></div>
+    </section>
   </main>
   <footer id="validation-panel" aria-label="校验结果"></footer>
 </div>
@@ -256,6 +267,7 @@
 <div id="wonder-preview"></div>
 <div id="loc-preview"></div>
 <div id="vp-preview"></div>
+<div id="cp-preview"></div>
 <script type="module" src="static/shared.js"></script>
 <script type="module" src="static/operations_panel.js"></script>
 <script type="module" src="static/cost_reward.js"></script>
@@ -266,6 +278,7 @@
 <script type="module" src="static/generators.js"></script>
 <script type="module" src="static/localization.js"></script>
 <script type="module" src="static/victory_paths.js"></script>
+<script type="module" src="static/court_positions.js"></script>
 <script type="module" src="static/validation_panel.js"></script>
 </body>
 </html>

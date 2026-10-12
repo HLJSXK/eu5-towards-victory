@@ -1,0 +1,16 @@
+﻿.tool-court-positions { padding: 1.5rem; color: var(--workspace-ink, #24364b); }
+.court-positions-layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 1.25rem; }
+.court-positions-sidebar, .court-positions-main { min-width: 0; }
+.court-positions-sidebar nav { display: grid; gap: .5rem; }
+.court-positions-sidebar button { text-align: left; overflow-wrap: anywhere; }
+.court-positions-sidebar button.active { border-color: var(--workspace-accent, #0f6c75); font-weight: 700; }
+.court-positions-group, .court-positions-references, .court-positions-plan { margin: .8rem 0; padding: .9rem; border: 1px solid var(--workspace-line, #ccd3dc); border-radius: var(--workspace-radius-md, 12px); background: var(--workspace-card, #fff); }
+.court-positions-group summary, .court-positions-plan summary { cursor: pointer; font-weight: 650; }
+.court-positions-field { display: grid; grid-template-columns: minmax(160px, .7fr) minmax(0, 1.3fr); gap: .75rem; align-items: start; margin-top: .65rem; }
+.court-positions-field > span { overflow-wrap: anywhere; font-size: .85rem; }
+.court-positions-field input:not([type="checkbox"]), .court-positions-field textarea { width: 100%; min-width: 0; padding: .45rem; }
+.court-positions-field textarea { min-height: 5rem; resize: vertical; }
+.court-positions-main pre { margin: .5rem 0; white-space: pre-wrap; overflow-wrap: anywhere; font-size: .8rem; }
+.court-positions-main [data-validation] { white-space: pre-wrap; overflow-wrap: anywhere; }
+.court-positions-references [data-resolved="false"], .court-positions-main [data-validation]:not(:empty) { color: #a13228; }
+.court-positions-field [aria-invalid="true"] { border-color: #a13228; }
