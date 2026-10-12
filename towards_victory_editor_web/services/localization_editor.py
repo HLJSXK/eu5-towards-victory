@@ -32,19 +32,23 @@ LANGUAGES = ("english", "simp_chinese")
 REGISTRY = "data/generated_files.yaml"
 KEY_PATTERN = re.compile(r"[A-Za-z0-9_.-]+")
 HEADER_PATTERN = re.compile(r"l_([a-z_]+):\s*")
-ENTRY_PATTERN = re.compile(r'^\s+([A-Za-z0-9_.-]+):\d*\s*"(.*)"\s*(?:#.*)?$')
+ENTRY_PATTERN = re.compile(r'^\s+([A-Za-z0-9_.-]+):(\d*)\s*"(.*)"\s*(?:#.*)?$')
 
 
 @dataclass(frozen=True)
 class LocalizationFile:
     language: str
     values: dict[str, str]
+    suffixes: dict[str, str]
+    lines: dict[str, str]
     raw: bytes
 
 
 def _parse_file(path: str, raw: bytes) -> LocalizationFile:
     language = None
     values: dict[str, str] = {}
+    suffixes: dict[str, str] = {}
+    lines: dict[str, str] = {}
     for line_number, line in enumerate(raw.decode("utf-8-sig").splitlines(), 1):
         stripped = line.strip()
         if not stripped or stripped.startswith("#"):
@@ -60,13 +64,15 @@ def _parse_file(path: str, raw: bytes) -> LocalizationFile:
         entry = ENTRY_PATTERN.fullmatch(line)
         if entry is None or "\x00" in line:
             raise ValueError(f"Malformed localization entry: {path}:{line_number}")
-        key, value = entry.groups()
+        key, suffix, value = entry.groups()
         if key in values:
             raise ValueError(f"Duplicate localization key {key!r}: {path}:{line_number}")
         values[key] = value
+        suffixes[key] = suffix
+        lines[key] = line
     if language is None:
         raise ValueError(f"Missing localization language header: {path}")
-    return LocalizationFile(language, values, raw)
+    return LocalizationFile(language, values, suffixes, lines, raw)
 
 
 def _counterparts(path: str, language: str) -> dict[str, str]:
@@ -307,7 +313,9 @@ class LocalizationEditorService:
             for relative in sorted({entry["path"] for entry in diff}):
                 document = self._documents[relative]
                 body = f"l_{document.language}:\n" + "\n".join(
-                    f' {key}: "{value}"' for key, value in values[relative].items()
+                    document.lines[key] if key in document.values and document.values[key] == value
+                    else f' {key}:{document.suffixes.get(key, "")} "{value}"'
+                    for key, value in values[relative].items()
                 )
                 path = self.repo_root / relative
                 content = source_text_bytes(path, body)

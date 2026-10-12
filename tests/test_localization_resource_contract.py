@@ -1,3 +1,4 @@
+import difflib
 import hashlib
 import shutil
 from pathlib import Path
@@ -15,12 +16,15 @@ URL = "/api/resources/editor.localization"
 REAL_ROOT = Path(__file__).resolve().parents[1]
 
 
-def write_loc(root, relative, rows, *, bom=True, newline="\r\n", comments=False):
+def write_loc(root, relative, rows, *, bom=True, newline="\r\n", comments=False, suffixes=None):
     language = Path(relative).stem.rsplit("_l_", 1)[1]
     lines = ["# retained header", "", f"l_{language}:"]
     if comments:
         lines.append(" # body section comment")
-    lines.extend(f' {key}:0 "{value}"' for key, value in rows)
+    lines.extend(
+        f' {key}:{(suffixes or {}).get(key, "0")} "{value}"'
+        for key, value in rows
+    )
     path = root / relative
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_bytes((newline.join(lines) + newline).encode("utf-8-sig" if bom else "utf-8"))
@@ -209,9 +213,48 @@ def test_commit_preserves_bom_newlines_header_and_literal_quotes(service, newlin
     assert text.startswith("# retained header" + newline)
     assert "body section comment" not in text
     assert newline in text and "\n" not in text.replace(newline, "") and "\r" not in text.replace(newline, "")
-    assert f' a: "{value}"' in text
+    assert f' a:0 "{value}"' in text
     assert files_by_path(result)[EN]["languages"]["english"][0]["value"] == value
     assert (service.repo_root / ZH).read_bytes() == zh_before
+
+
+@pytest.mark.parametrize("edited_suffix", ["0", "", "12", "007"])
+def test_commit_preserves_mixed_localization_version_suffixes(service, edited_suffix):
+    suffixes = {"a": edited_suffix, "b": "", "d": "007"}
+    path = write_loc(service.repo_root, EN, [("a", "A"), ("b", "B"), ("c", "C"), ("d", "D")],
+                     suffixes=suffixes)
+    write_loc(service.repo_root, ZH, [("a", "Jia"), ("b", "Yi"), ("c", "Bing"), ("d", "Ding")],
+              newline="\n", suffixes={"a": "2", "b": ""})
+    before = path.read_bytes().replace(b"\r\n\r\n", b"\r\n", 1)
+    before = before.replace(b' c:0 "C"', b'\t c:0   "C" # entry comment')
+    path.write_bytes(before)
+    zh_before = (service.repo_root / ZH).read_bytes()
+    before_lines = before.decode("utf-8-sig").splitlines()
+    body = request_body(service, {EN: {"a": {"english": "Changed"}}})
+
+    preview = service.preview_edits(body["edits"], body["base"])
+    assert [(entry["path"], entry["key"]) for entry in preview["diff"]] == [(EN, "a")]
+
+    result = service.commit_edits(body["edits"], body["base"])
+    after = path.read_bytes()
+    after_lines = after.decode("utf-8-sig").splitlines()
+    assert result["written_paths"] == [EN]
+    assert (service.repo_root / ZH).read_bytes() == zh_before
+    assert service._documents[EN].suffixes == {"a": edited_suffix, "b": "", "c": "0", "d": "007"}
+    assert f' a:{edited_suffix} "Changed"' in after_lines
+    before_entries = [line for line in before_lines if localization.ENTRY_PATTERN.fullmatch(line)]
+    after_entries = [line for line in after_lines if localization.ENTRY_PATTERN.fullmatch(line)]
+    assert [line for line in before_entries if not line.lstrip().startswith("a:")] == [
+        line for line in after_entries if not line.lstrip().startswith("a:")
+    ]
+    before_versioned = sum(":0 " in line for line in before_lines if not line.startswith(" a:"))
+    after_versioned = sum(":0 " in line for line in after_lines if not line.startswith(" a:"))
+    assert before_versioned == after_versioned == 1
+    changes = [
+        line for line in difflib.unified_diff(before_lines, after_lines, lineterm="")
+        if line.startswith(("-", "+")) and not line.startswith(("---", "+++"))
+    ]
+    assert changes == [f'- a:{edited_suffix} "A"', f'+ a:{edited_suffix} "Changed"']
 
 
 @pytest.mark.parametrize("endpoint", ["validate", "preview", "commit"])
@@ -235,7 +278,7 @@ def test_internal_quotes_followed_by_formatting_are_not_truncated(service):
     body = request_body(service, {EN: {"a": {"english": updated}}})
     result = service.commit_edits(body["edits"], body["base"])
     assert files_by_path(result)[EN]["languages"]["english"][0]["value"] == updated
-    assert f' a: "{updated}"' in (service.repo_root / EN).read_text(encoding="utf-8-sig")
+    assert f' a:0 "{updated}"' in (service.repo_root / EN).read_text(encoding="utf-8-sig")
 
 
 def test_generated_missing_keys_do_not_block_manual_coverage(service):

@@ -449,5 +449,6 @@ commit; preview reports candidate missing keys and presence-aware field diffs.
 Commit preserves leading comments, BOM and newline style (body comments are not
 retained), checks every source SHA including the ownership registry, and uses the
 platform operation/transaction recovery boundary without running generators.
+Existing keys retain their original version suffixes, including an empty suffix.
 The Web `--check` localization section reports per-root handwritten file, EN/ZH key
 and missing-key counts; generated files do not participate in handwritten coverage.
