@@ -21,6 +21,7 @@
       <button class="tool-hub-tab-btn" data-tool="wonder-localization">奇观本地化编辑器</button>
       <button class="tool-hub-tab-btn" data-tool="media-studio">媒体工具</button>
       <button class="tool-hub-tab-btn" data-tool="wonder-cropper">奇观裁剪</button>
+      <button class="tool-hub-tab-btn" data-tool="generators">生成器</button>
     </nav>
   </header>
   <main id="tool-hub-panels">
@@ -205,6 +206,18 @@
         </aside>
       </div>
     </section>
+
+    <section class="tool-panel tool-generators" data-tool="generators">
+      <header class="workspace-heading">
+        <p class="eyebrow">脚本生成器</p>
+        <h1>生成器</h1>
+        <p class="subtitle">运行 <code>data/generated_files.yaml</code> 中登记的脚本，按脚本目录的 root 与域分组。
+        选中的脚本按勾选顺序<b>顺序执行，没有依赖图</b>：某个脚本失败后不会继续执行后续脚本，产物也不发布；
+        一次请求内输出路径相交的脚本组合会被直接拒绝。产物核对是文件级检查（格式与字节变化），
+        不是领域语义校验。真实执行只写登记的输出路径；勾选"仅校验"则只检查选择、不执行脚本。</p>
+      </header>
+      <div id="generators-root"></div>
+    </section>
   </main>
   <footer id="validation-panel" aria-label="校验结果"></footer>
 </div>
@@ -218,6 +231,7 @@
 <script type="module" src="static/wonder_localization.js"></script>
 <script type="module" src="static/media_studio.js"></script>
 <script type="module" src="static/cropper.js"></script>
+<script type="module" src="static/generators.js"></script>
 <script type="module" src="static/validation_panel.js"></script>
 </body>
 </html>

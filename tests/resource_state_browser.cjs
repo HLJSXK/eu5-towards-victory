@@ -323,6 +323,7 @@ async function main() {
     await require('./cropper_canvas_browser.cjs')({ evaluate, send });
     await require('./misleading_copy_browser.cjs')({ evaluate, ready, send });
     await require('./validation_panel_browser.cjs')({ evaluate, ready });
+    await require('./generators_browser.cjs')({ evaluate, ready });
     assert.deepEqual(pageErrors, []);
     console.log('Chrome acceptance passed: live diffs in three editors, cancellation and exact preview/commit bodies, hidden-tool modal, 409/generation diagnostics, Wonder committed state and detail-only retry, four-editor state, media/cropper reports and polling, escaped data; no page exceptions.');
     await send('Browser.close');

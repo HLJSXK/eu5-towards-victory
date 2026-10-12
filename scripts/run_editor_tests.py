@@ -50,6 +50,7 @@ NODE_FILES = (
     "tests/wonder_drafts.cjs",
     "tests/wonder_panels.cjs",
     "tests/validation_panel.cjs",
+    "tests/generators.cjs",
 )
 
 

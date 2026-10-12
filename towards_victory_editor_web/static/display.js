@@ -59,7 +59,10 @@ export function renderTabs(root, { items, active, key, label, select, busy }) {
 
 export function statusLabel(status) {
   return ({ queued: "排队中", running: "运行中", cancelling: "正在取消", cancelled: "已取消",
-    succeeded: "已完成", failed: "失败", pending: "等待执行", skipped: "已跳过", incomplete: "未完全恢复" })[status] || status;
+    succeeded: "已完成", failed: "失败", pending: "等待执行", skipped: "已跳过", incomplete: "未完全恢复",
+    // WP-09 generator runs use these step/rollback states; without them the shared report would print
+    // the raw identifier while every other status renders in Chinese.
+    timed_out: "已超时", not_needed: "无需恢复", completed: "已恢复" })[status] || status;
 }
 
 export function formatOperationReport(payload) {

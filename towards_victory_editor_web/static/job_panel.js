@@ -96,6 +96,13 @@ export function createJobPanel({ root, prefix, onChange, allowCancel = false, de
   return {
     poller, log, status,
     start(job) { cancelError = ""; detachedJobId = null; poller.start(job); },
+    // Synchronous callers (the generator panel) have no job to poll but still report the same
+    // job-shaped file list through formatJobFiles rather than a second renderer.
+    files(job) {
+      const report = formatJobFiles(job);
+      element("files").hidden = !report;
+      element("file-report").textContent = report;
+    },
     error(error) { status.set(error.message, "error"); log.append(`\n[error] ${error.message}\n`); log.report(error); },
   };
 }
