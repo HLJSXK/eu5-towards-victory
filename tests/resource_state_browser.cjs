@@ -195,6 +195,7 @@ async function main() {
 
     await require('./wonder_fields_browser.cjs')({ evaluate, ready });
     await require('./wonder_panels_browser.cjs')({ evaluate, ready });
+    await require('./wonder_meta_browser.cjs')({ evaluate, ready, send });
 
     await evaluate("document.querySelector('.tool-hub-tab-btn[data-tool=\"wonder-localization\"]').click(); document.querySelectorAll('#wonder-kind-tabs button')[1].click(); document.querySelector('#wonder-list button').click()");
     await ready("document.querySelector('.tool-wonder-localization').dataset.busy === 'false'");
