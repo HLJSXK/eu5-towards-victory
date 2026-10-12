@@ -1,6 +1,7 @@
 # Editor/Web 重构待办与处理决定
 
-状态入口：[Editor_Web_Refactor_Status.md](Editor_Web_Refactor_Status.md)。只推进状态入口的当前焦点；以下待议项需用户指定。
+状态入口：[Editor_Web_Refactor_Status.md](Editor_Web_Refactor_Status.md)。选题、分工与验收标准见
+[Editor/Web 改进分工工作文档](Editor_Web_Work_Plan.md)；以下待议项需用户指定。
 
 ## 待议事项（保留原文）
 
