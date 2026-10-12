@@ -23,8 +23,8 @@ P1 为 WP-04～WP-11，P2/P3 为 WP-12～WP-14；依赖与验收标准见该文�
 用户已确认的决策（2026-10-12）：胜利树保持当前定位（只修标注）；`task_pool.yaml` 继续维护；后端走逐域资源化；
 原“后续任务 2/3”关闭（见下方“后续任务”）。验证统一使用 `scripts/run_editor_tests.py`。
 
-进度（批次见[交接](Editor_Web_Handoff_2026-10-12.md)）：**批次 A（WP-00～WP-04）已收口**，独立验收通过；
-下一批 B：WP-05、WP-06 → WP-08（`server.py` 串行）。
+进度（批次见[交接](Editor_Web_Handoff_2026-10-12.md)）：**批次 A（WP-00～WP-04）、批次 B（WP-05、WP-06、WP-08）已收口**，
+独立验收通过；批次 C 进行中：WP-10 → WP-07 → WP-09（`index.html` 串行），WP-09 已合并。
 
 ## 已完成切片：测试提速（2026-10-12）
 
@@ -182,6 +182,29 @@ P1 为 WP-04～WP-11，P2/P3 为 WP-12～WP-14；依赖与验收标准见该文�
 - 媒体注册/计划/作业位于 `services/tooling.py`，领域 handler 位于 media_plans/media_tools/cropper；API、锁与输入组详见 [README](../../towards_victory_editor_web/README.md)。
 
 ## 验证记录
+
+### 批次 B / C 前半：WP-05、WP-06、WP-08、WP-09（2026-10-12）
+
+同一环境（Windows 10、eu5 Python 3.11.15、Node 22.19.0、本机 Chrome headless，未用 `conda run`）。
+实现：WP-05、WP-09 由 Claude Code，WP-06、WP-08 由 Codex；验收由另一个 Claude Code agent 在提交后于**仓库外 worktree** 独立复跑。
+
+- 复跑：默认层 **413 passed**（126.7 秒）、`--full` **415 passed**（106.5 秒，四层全绿），
+  差值 2 项为 `slow` 标记的真实生成器用例；changed validation 通过；`git diff --check` 通过。
+- WP-05（校验面板）：三态渲染、按 `rule` 分组与条数、可复制 `file:line`；保存成功派发一次 `resource-saved` → 一次
+  `changed:true` 校验；取消预览与 409 冲突均不触发；400/500/504 渲染为"校验未完成"而非通过。
+  反向：撤掉派发行 → Node 4 项中 1 项失败，Chrome 面板不再出现结果。
+- WP-06（`editor.localization`）：12 个手写双语组 / 24 个 EN/ZH 物理文件（独立枚举一致）；生成物配对文件整体只读并给出
+  `source_data`；新增键必须齐备双语、`key:null` 成对删除、缺译拒绝提交、重复键拒绝、BOM 与换行保留、
+  base 冲突 409、写入失败恢复；真实副本提交后真实仓库 SHA 未变。返工 R1：写入器原会丢弃 `key:0` 版本后缀并整文件重排
+  （875 行文件单值编辑产生 139 行 diff），现改为逐键保留后缀、未改动条目复用原行，单值编辑语义 diff 降为 2 行。
+- WP-08（生成器接口）：`--check` 报 115 个可运行生成器 / 50 组，独立解析 `data/generated_files.yaml`（149 行 → 115 脚本）
+  复算吻合；未知脚本、请求内输出相交、未登记产物、缺失输出均 400 且拒绝后无写入；超时 504、锁冲突 409；
+  `dry_run` 产出 `skipped` 步骤且不写文件；临时副本中真实生成器逐字节比对通过。
+  登记 `gen_index.py` 的 7 个输出后 `validate.py` 多出 7 条 `autogen_header` warning（已登记独立待办）。
+- WP-09（生成器页）：新增独立标签页，按 root/domain 分组、按勾选顺序多选、组头全选与 indeterminate、运行中锁定且不重复排队、
+  常驻"顺序执行、无依赖图"说明、`dry_run` 路径；报告确证复用 `display.formatOperationReport` / `formatJobFiles`
+  （面板内零格式化代码）。Chrome 场景走真实只读目录、POST 全被拦截，并断言 `kind=generator_run` 操作数前后不变。
+- 上述四项的越界、冲突与遗留登记于[独立待办](Editor_Web_Refactor_TODO.md)；状态文档"当前焦点"进度行同步更新。
 
 ### 批次 A：WP-00～WP-04（2026-10-12）
 
