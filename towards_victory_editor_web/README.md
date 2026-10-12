@@ -96,8 +96,27 @@ Run the server checks without starting Uvicorn:
 C:\Users\Hades\anaconda3\envs\eu5\python.exe -m towards_victory_editor_web --check
 ```
 
+The launcher runs Uvicorn with the `server:create_default_app` factory; importing
+`server` does not build an app or load editor services.
+
+Run the editor test suites (pytest via `pytest-xdist`, Node unit tests and the
+Web check in parallel):
+
+```powershell
+C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts/run_editor_tests.py          # fast tier, under a minute
+C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts/run_editor_tests.py --full   # adds slow tests and Chrome
+```
+
+The fast tier skips tests marked `slow` (the real 41-generator byte comparison).
+Run `--full` before committing changes to generators, the generation DAG,
+Wonder sources or the browser-facing editors.
+
 `services/wonder_resource.py` exposes `WonderResourceService` and owns resource
-loading, snapshots and validation. `wonder_preview.py` builds candidate source
+loading, snapshots and validation. A load records the stat identity of every
+file it opens and directory it scans (`platform.record_file_inputs`);
+`GET /api/resources/editor.wonder` re-parses the sources only when one of them
+changed, while commits and the cost/reward callback always reload. YAML sources
+are parsed with libyaml (`CSafeLoader`). `wonder_preview.py` builds candidate source
 bytes shared by preview and commit, and `wonder_commit.py` runs the existing
 commit transaction and generation lifecycle. The Wonder domain lives in
 `services/wonder/`; resource, preview and commit import its modules directly.
@@ -164,7 +183,7 @@ complete transitive data/Python dependency graph. Semantic input groups select
 roots from changed Wonder sources; the plan then includes required upstream and
 downstream generators.
 
-`tests/test_generation_plan.py` runs all 41 Wonder generators in a temporary
+The `slow` test in `tests/test_generation_plan.py` runs all 41 Wonder generators in a temporary
 repository copy and compares the 40 outputs byte-for-byte with the working-tree
 outputs, including BOM, so generated files must be current with their data. This
 regression requires the local reference game/mod inputs used by the generators

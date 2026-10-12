@@ -217,6 +217,7 @@ def test_completed_job_details_are_queryable_after_manager_restart(tmp_path):
         restarted_store.close()
 
 
+@pytest.mark.usefixtures("without_wonder_service")
 def test_lifespan_cancels_job_before_closing_owned_store(job_env, monkeypatch):
     from towards_victory_editor_web import server
 
@@ -905,6 +906,7 @@ def test_missing_staged_output_does_not_report_formal_deletion(job_env):
     assert job["outputs_may_be_partial"] is False
 
 
+@pytest.mark.usefixtures("without_wonder_service")
 def test_http_job_contract_and_crop_commit_conflict(job_env, monkeypatch):
     from towards_victory_editor_web import server
     from towards_victory_editor_web.services.cropper import CropperService

@@ -91,6 +91,7 @@ def test_failed_write_restores_source(service, monkeypatch):
     assert base_of(service.load_resource()) == base
 
 
+@pytest.mark.usefixtures("without_wonder_service")
 def test_http_resource_contract(service, monkeypatch):
     from towards_victory_editor_web import server
 

@@ -373,6 +373,7 @@ def test_persistence_failure_is_visible_without_changing_commit_outcome(tmp_path
         store.close()
 
 
+@pytest.mark.usefixtures("without_wonder_service")
 def test_operation_query_api_returns_full_record_and_recent_summary(tmp_path) -> None:
     from towards_victory_editor_web.server import create_app
 
@@ -396,6 +397,7 @@ def test_operation_query_api_returns_full_record_and_recent_summary(tmp_path) ->
     assert missing.status_code == 404
 
 
+@pytest.mark.usefixtures("without_wonder_service")
 def test_lifespan_restores_shared_operation_store_references(tmp_path) -> None:
     from towards_victory_editor_web import server
 

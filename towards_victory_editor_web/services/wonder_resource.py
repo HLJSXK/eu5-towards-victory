@@ -11,7 +11,7 @@ import scripts_engineering_department.wonder_mechanics.io as wonder_io
 
 from .common import RollingLog
 from .operation_store import OperationStore
-from .platform import ChangeSet, ResourceDescriptor, assert_resource_base, snapshot_files
+from .platform import ChangeSet, ResourceDescriptor, assert_resource_base, record_file_inputs, snapshot_files
 from .wonder import localization, model, options, sources
 from .wonder_commit import WonderCommit
 from .wonder_preview import WonderPreview
@@ -38,6 +38,7 @@ class WonderResourceService(WonderPreview, WonderCommit, model.WonderModel):
         self.ceremony_cost_type_options: list[dict[str, str]] = []
         self._option_catalogs: dict[str, list[dict[str, Any]]] = {}
         self._option_catalog_version = ""
+        self._inputs = None
         self.reload_from_disk()
         self._log.append("[server] Wonder Localization Editor ready\n")
 
@@ -52,13 +53,15 @@ class WonderResourceService(WonderPreview, WonderCommit, model.WonderModel):
         with self._lock:
             base = snapshot_files(sources.wonder_source_paths(), repo_root=sources.REPO_ROOT)
             loaded = copy(self)
-            loaded._load_from_disk()
+            with record_file_inputs(sources.wonder_source_paths()) as inputs:
+                loaded._load_from_disk()
             assert_resource_base(
                 {item.path: item.sha256 for item in base},
                 base,
                 snapshot_files(sources.wonder_source_paths(), repo_root=sources.REPO_ROOT),
             )
             loaded._base = base
+            loaded._inputs = inputs[0]
             self.__dict__.update(loaded.__dict__)
 
     def _load_from_disk(self) -> None:
@@ -116,7 +119,9 @@ class WonderResourceService(WonderPreview, WonderCommit, model.WonderModel):
 
     def load_resource(self) -> dict[str, Any]:
         with self._lock:
-            self.reload_from_disk()
+            # Parsing every source takes seconds; skip it when no file the last load read has changed.
+            if self._inputs is None or self._inputs.current() != self._inputs:
+                self.reload_from_disk()
             return self._resource_payload()
 
     def _assert_base(self, base: dict[str, str] | None) -> None:

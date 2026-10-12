@@ -357,4 +357,6 @@ def create_app(
     return app
 
 
-app = create_app(operation_store_path=_default_operation_store_path())
+def create_default_app() -> FastAPI:
+    """Uvicorn factory; importing this module must not load every editor service."""
+    return create_app(operation_store_path=_default_operation_store_path())

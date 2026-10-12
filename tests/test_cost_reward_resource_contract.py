@@ -225,6 +225,7 @@ def test_commit_conflicts_while_cost_reward_resource_is_busy(service):
     assert "[error] Resource busy: editor.cost_reward" in service.log_text
 
 
+@pytest.mark.usefixtures("without_wonder_service")
 def test_http_bad_id_missing_base_and_conflict(service, monkeypatch):
     from towards_victory_editor_web import server
 

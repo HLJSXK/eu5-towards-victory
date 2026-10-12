@@ -10,6 +10,7 @@ from __future__ import annotations
 import hashlib
 import os
 import sqlite3
+import sys
 import tempfile
 import threading
 import time
@@ -354,6 +355,69 @@ def snapshot_files(paths: Iterable[Path], *, repo_root: Path | None = None) -> t
         else:
             snapshots.append(FileSnapshot(display_path, hashlib.sha256(data).hexdigest(), len(data)))
     return tuple(snapshots)
+
+
+_input_recorders = threading.local()
+
+
+def _record_file_inputs(event: str, args: tuple) -> None:
+    recorder = getattr(_input_recorders, "current", None)
+    if recorder is None or not args or not isinstance(args[0], (str, bytes, os.PathLike)):
+        return
+    if event == "open":
+        recorder[0].add(os.fsdecode(args[0]))
+    elif event == "os.scandir":
+        recorder[1].add(os.fsdecode(args[0]))
+
+
+sys.addaudithook(_record_file_inputs)
+
+
+@dataclass(frozen=True)
+class InputFingerprint:
+    """Stat-level identity of every file opened and directory scanned by one load."""
+
+    files: tuple[tuple[str, int, int] | tuple[str, None, None], ...]
+    directories: tuple[tuple[str, tuple[str, ...] | None], ...]
+
+    @classmethod
+    def capture(cls, files: Iterable[str], directories: Iterable[str]) -> "InputFingerprint":
+        def stat(path: str):
+            try:
+                result = os.stat(path)
+            except OSError:
+                return (path, None, None)
+            return (path, result.st_mtime_ns, result.st_size)
+
+        def listing(path: str):
+            try:
+                return (path, tuple(sorted(os.listdir(path))))
+            except OSError:
+                return (path, None)
+
+        return cls(tuple(stat(path) for path in sorted(set(files))),
+                   tuple(listing(path) for path in sorted(set(directories))))
+
+    def current(self) -> "InputFingerprint":
+        return self.capture((item[0] for item in self.files), (item[0] for item in self.directories))
+
+
+@contextmanager
+def record_file_inputs(always: Iterable[Path] = ()) -> Iterator[list[InputFingerprint]]:
+    """Record files this thread opens; yields a list that receives the fingerprint.
+
+    Paths in ``always`` are included even when a load only checks for their
+    existence, so a source created after the load is still detected.
+    """
+    previous = getattr(_input_recorders, "current", None)
+    recorder = ({os.fspath(path) for path in always}, set())
+    _input_recorders.current = recorder
+    result: list[InputFingerprint] = []
+    try:
+        yield result
+    finally:
+        _input_recorders.current = previous
+    result.append(InputFingerprint.capture(*recorder))
 
 
 def load_yaml_snapshots(

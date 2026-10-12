@@ -239,6 +239,7 @@ def test_real_wonder_source_groups_keep_shared_gui_order():
     assert any('mechanics.buildings' in step['input_groups'] for step in buildings.payload()['steps'])
 
 
+@pytest.mark.slow
 def test_real_wonder_regeneration_matches_current_outputs(tmp_path):
     """Execute current generators in isolation; compare bytes with current outputs."""
     root = Path(__file__).resolve().parents[1]

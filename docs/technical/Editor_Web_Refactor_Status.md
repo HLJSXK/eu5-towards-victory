@@ -21,6 +21,24 @@
 - 统一缺陷登记位置：使用规则写“登记到已知缺陷/待议事项”，“已知缺陷”节写“只在独立待办登记”，二者矛盾；
   建议独立待办为唯一登记处、改写使用规则，并在 `CLAUDE.md` 启动阅读顺序加入独立待办。
 - 后续任务 2/3；[独立待办](Editor_Web_Refactor_TODO.md)中保留的四项。
+- 测试提速已完成（见下方切片）；验证统一使用 `scripts/run_editor_tests.py`。
+
+## 已完成切片：测试提速（2026-10-12）
+
+用户授权自行决定方案。默认层（`scripts/run_editor_tests.py`）从约 18 分钟串行降到 **48 秒**，完整层 `--full` **90 秒**。
+
+- 热点是 Wonder 服务加载（每次约 18 秒）：`wonder_localization_lib` 与 `sources.py` 的 YAML 改用 libyaml `CSafeLoader`（保留重复键检查）；
+  `expand/collapse_wonder_localization_data` 只加载一次机制数据并传给 11 个派生键函数（原每个各加载一次）。加载降到约 3.4 秒，
+  全部奇观详情、摘要、本地化与机制数据的序列化哈希与修改前一致。libyaml dumper 在两个数据文件上换行折叠不同，写出端不改。
+- `platform.record_file_inputs` 用审计钩子记录一次加载打开的文件和扫描的目录（含参考游戏本地化，约 1,070 个文件），
+  `GET editor.wonder` 只在其中某项 stat 变化时重新解析（未变化 0.06 秒）；commit 与 cost/reward 回调仍强制 reload。
+  Chrome 验收中这一项原占 373/483 秒。
+- `server.py` 不再在导入时构建默认应用（原每个 xdist worker 导入即多一次完整加载并打开默认操作库）；启动器改用
+  `create_default_app` 工厂，已实测启动并返回资源。
+- 测试：安装 `pytest-xdist` 3.6.1，`--dist worksteal`；不调用 Wonder 路由的 8 个 HTTP 测试经 `tests/conftest.py` 的
+  `without_wonder_service` 跳过加载；真实 41 个生成器逐字节比对标记 `slow`（`pytest.ini` 注册），只在完整层运行。
+  Node、pytest、Web check 并行，输出写文件避免管道阻塞。图片修复用例因 handler 校验返回尺寸无法缩小，保留在默认层。
+- 何时跑完整层：改生成器、生成 DAG、Wonder 源数据或前端编辑器后，提交前运行 `--full`。
 
 ## 已完成切片：Wonder 提交后同步 cost/reward base（2026-10-12）
 
@@ -157,6 +175,22 @@
 - 媒体注册/计划/作业位于 `services/tooling.py`，领域 handler 位于 media_plans/media_tools/cropper；API、锁与输入组详见 [README](../../towards_victory_editor_web/README.md)。
 
 ## 验证记录
+
+### 测试提速（2026-10-12）
+
+Windows + eu5 Python 3.11.15 + Node 22.19.0 + Chrome headless + pytest-xdist 3.6.1（12 核）。今后的标准验证命令：
+
+```powershell
+C:/Users/Hades/anaconda3/envs/eu5/python.exe scripts/run_editor_tests.py          # 默认层
+C:/Users/Hades/anaconda3/envs/eu5/python.exe scripts/run_editor_tests.py --full   # 加 slow 与 Chrome
+C:/Users/Hades/anaconda3/envs/eu5/python.exe scripts/validate.py --changed --fix --ai-report
+git diff --check
+```
+
+- 默认层 48.4 秒：pytest 251 passed（47.4 秒）、Node 90 项、Web check 通过。完整层 89.8 秒：pytest 252 passed、Chrome 验收通过。
+- 修改前基线：pytest 串行 560 秒、Chrome 448–483 秒。只换 libyaml 后 pytest 串行 362 秒；加一次加载机制数据后 219 秒。
+- changed validation 14 个文件通过；修改前后 Wonder 服务输出哈希一致；`python -m towards_victory_editor_web` 实际启动并返回 `editor.wonder`。
+- xdist 下每个 worker 重复报告已有的 FastAPI/httpx 与 `binary_dilation` 弃用警告（14 条），无新增警告类型。
 
 ### Wonder → cost/reward 同步修复（2026-10-12）
 

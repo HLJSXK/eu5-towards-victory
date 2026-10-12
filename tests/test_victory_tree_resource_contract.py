@@ -214,6 +214,7 @@ def test_malformed_stored_coordinate_reports_source(service):
         service.load_resource()
 
 
+@pytest.mark.usefixtures("without_wonder_service")
 def test_http_bad_id_missing_base_and_conflict(service, monkeypatch):
     from towards_victory_editor_web import server
 

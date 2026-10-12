@@ -92,10 +92,15 @@ REFERENCE_LOC_DIR_BY_EDITOR_LANGUAGE = {
 }
 
 
+def load_yaml_text(text: str) -> Any:
+    """Safe-load YAML through libyaml; the ritual design source alone is about 6 MB."""
+    return yaml.load(text, Loader=yaml.CSafeLoader)
+
+
 def load_unique_ritual_designs_data(path: Path = UNIQUE_RITUAL_DESIGNS_FILE) -> dict[str, Any]:
     if not path.exists():
         return {"metadata": {}, "unique_wonders": []}
-    payload = yaml.safe_load(path.read_text(encoding="utf-8-sig")) or {}
+    payload = load_yaml_text(path.read_text(encoding="utf-8-sig")) or {}
     if not isinstance(payload, dict):
         raise TypeError(f"{path} must contain a mapping")
     unique_wonders = payload.get("unique_wonders", [])
@@ -107,7 +112,7 @@ def load_unique_ritual_designs_data(path: Path = UNIQUE_RITUAL_DESIGNS_FILE) -> 
 def load_unique_ritual_design_translations_data(path: Path = UNIQUE_RITUAL_DESIGNS_ZH_FILE) -> dict[str, Any]:
     if not path.exists():
         return {"metadata": {}, "unique_wonders": []}
-    payload = yaml.safe_load(path.read_text(encoding="utf-8-sig")) or {}
+    payload = load_yaml_text(path.read_text(encoding="utf-8-sig")) or {}
     if not isinstance(payload, dict):
         raise TypeError(f"{path} must contain a mapping")
     unique_wonders = payload.get("unique_wonders", [])
@@ -146,7 +151,7 @@ def default_unique_ritual_prompts_data() -> dict[str, Any]:
 def load_unique_ritual_prompts_data(path: Path = UNIQUE_RITUAL_PROMPTS_FILE) -> dict[str, Any]:
     if not path.exists():
         return default_unique_ritual_prompts_data()
-    payload = yaml.safe_load(path.read_text(encoding="utf-8-sig")) or {}
+    payload = load_yaml_text(path.read_text(encoding="utf-8-sig")) or {}
     if not isinstance(payload, dict):
         raise TypeError(f"{path} must contain a mapping")
     payload.setdefault("metadata", default_unique_ritual_prompts_data()["metadata"])

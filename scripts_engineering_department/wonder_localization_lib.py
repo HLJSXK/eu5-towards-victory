@@ -116,7 +116,8 @@ ENGINEERING_DEPARTMENT_WONDER_MECHANICS_FINALIZATION_HINTS = {
 ENGINEERING_DEPARTMENT_WONDER_MECHANICS_FINALIZATION_VISIBLE_DESC_PREFIX = "tv_engineering_department.500.d"
 
 
-class StrictWonderLocalizationLoader(yaml.SafeLoader):
+# libyaml parses the multi-megabyte sources about ten times faster than the pure-Python loader.
+class StrictWonderLocalizationLoader(yaml.CSafeLoader):
     pass
 
 
@@ -191,8 +192,7 @@ def concept_name_key(wonder: dict[str, Any]) -> str:
     return f"{CONCEPT_NAME_PREFIX}{wonder['concept']}"
 
 
-def _wonder_concept_pairs() -> list[tuple[str, str]]:
-    wonders, _ = load_all_wonder_mechanics_data()
+def _wonder_concept_pairs(wonders: list[dict[str, Any]]) -> list[tuple[str, str]]:
     return [(wonder_name_key(wonder), concept_name_key(wonder)) for wonder in wonders]
 
 
@@ -237,8 +237,7 @@ def concept_desc_key(wonder: dict[str, Any]) -> str:
     return f"{concept_name_key(wonder)}_desc"
 
 
-def _wonder_display_route_pairs() -> list[tuple[str, str, str, str]]:
-    wonders, _ = load_all_wonder_mechanics_data()
+def _wonder_display_route_pairs(wonders: list[dict[str, Any]]) -> list[tuple[str, str, str, str]]:
     return [
         (
             concept_name_key(wonder),
@@ -250,8 +249,7 @@ def _wonder_display_route_pairs() -> list[tuple[str, str, str, str]]:
     ]
 
 
-def _wonder_image_route_pairs() -> list[tuple[str, str, str, str]]:
-    wonders, _ = load_all_wonder_mechanics_data()
+def _wonder_image_route_pairs(wonders: list[dict[str, Any]]) -> list[tuple[str, str, str, str]]:
     return [
         (
             concept_name_key(wonder),
@@ -263,8 +261,7 @@ def _wonder_image_route_pairs() -> list[tuple[str, str, str, str]]:
     ]
 
 
-def _wonder_full_image_route_pairs() -> list[tuple[str, str, str, str]]:
-    wonders, _ = load_all_wonder_mechanics_data()
+def _wonder_full_image_route_pairs(wonders: list[dict[str, Any]]) -> list[tuple[str, str, str, str]]:
     return [
         (
             concept_name_key(wonder),
@@ -276,8 +273,7 @@ def _wonder_full_image_route_pairs() -> list[tuple[str, str, str, str]]:
     ]
 
 
-def _wonder_ritual_display_route_pairs() -> list[tuple[str, str, str]]:
-    wonders, _ = load_all_wonder_mechanics_data()
+def _wonder_ritual_display_route_pairs(wonders: list[dict[str, Any]]) -> list[tuple[str, str, str]]:
     return [
         (
             ceremony_name_key(wonder, style),
@@ -289,8 +285,7 @@ def _wonder_ritual_display_route_pairs() -> list[tuple[str, str, str]]:
     ]
 
 
-def _engineering_gui_text_route_pairs() -> list[tuple[str, str]]:
-    wonders, _ = load_all_wonder_mechanics_data()
+def _engineering_gui_text_route_pairs(wonders: list[dict[str, Any]]) -> list[tuple[str, str]]:
     pairs: list[tuple[str, str]] = []
     for wonder in wonders:
         key = str(wonder["key"]).upper()
@@ -310,8 +305,7 @@ def preview_location_text_key(wonder: dict[str, Any]) -> str:
     return f"{ENGINEERING_PREVIEW_LOCATION_TEXT_PREFIX}{int(wonder['id'])}"
 
 
-def _engineering_preview_location_text_values() -> list[tuple[str, str, str]]:
-    wonders, _ = load_all_wonder_mechanics_data()
+def _engineering_preview_location_text_values(wonders: list[dict[str, Any]]) -> list[tuple[str, str, str]]:
     values: list[tuple[str, str, str]] = []
     for wonder in wonders:
         key = preview_location_text_key(wonder)
@@ -339,8 +333,7 @@ def _engineering_preview_location_text_values() -> list[tuple[str, str, str]]:
     return values
 
 
-def _auto_base_modifier_values() -> list[tuple[str, str]]:
-    wonders, mechanics = load_all_wonder_mechanics_data()
+def _auto_base_modifier_values(wonders: list[dict[str, Any]], mechanics: dict[str, Any]) -> list[tuple[str, str]]:
     values: list[tuple[str, str]] = []
     for wonder in wonders:
         auto_value = f"[{wonder['concept']}|E]"
@@ -354,8 +347,7 @@ def _auto_base_modifier_values() -> list[tuple[str, str]]:
     return values
 
 
-def _static_base_modifier_values() -> list[tuple[str, str]]:
-    wonders, _ = load_all_wonder_mechanics_data()
+def _static_base_modifier_values(wonders: list[dict[str, Any]]) -> list[tuple[str, str]]:
     values: list[tuple[str, str]] = []
     for wonder in wonders:
         for level in range(1, 7):
@@ -365,8 +357,7 @@ def _static_base_modifier_values() -> list[tuple[str, str]]:
     return values
 
 
-def _ritual_static_modifier_keys() -> list[str]:
-    wonders, mechanics = load_all_wonder_mechanics_data()
+def _ritual_static_modifier_keys(wonders: list[dict[str, Any]], mechanics: dict[str, Any]) -> list[str]:
     keys: list[str] = []
     for wonder in wonders:
         for style in ceremony_styles(wonder):
@@ -382,8 +373,7 @@ def _ritual_static_modifier_keys() -> list[str]:
     return keys
 
 
-def _auxiliary_display_modifier_pairs() -> list[tuple[str, str]]:
-    wonders, mechanics = load_all_wonder_mechanics_data()
+def _auxiliary_display_modifier_pairs(wonders: list[dict[str, Any]], mechanics: dict[str, Any]) -> list[tuple[str, str]]:
     pairs: list[tuple[str, str]] = []
     seen: set[str] = set()
     for wonder in wonders:
@@ -400,14 +390,16 @@ def _auxiliary_display_modifier_pairs() -> list[tuple[str, str]]:
 
 
 def expand_wonder_localization_data(localization: dict[str, dict[str, str]]) -> dict[str, dict[str, str]]:
+    # Derived keys come from one mechanics load rather than one load per key family.
+    wonders, mechanics = load_all_wonder_mechanics_data()
     expanded = {language: dict(values) for language, values in localization.items()}
-    for wonder_name, concept_name in _wonder_concept_pairs():
+    for wonder_name, concept_name in _wonder_concept_pairs(wonders):
         for language in LANGUAGES:
             language_values = expanded[language]
             if wonder_name not in language_values:
                 raise KeyError(f"Missing wonder localization key {wonder_name!r} in {WONDER_LOCALIZATION_FILE} ({language})")
             language_values[concept_name] = language_values[wonder_name]
-    for concept_name, concept_desc, route_concept, route_concept_desc in _wonder_image_route_pairs():
+    for concept_name, concept_desc, route_concept, route_concept_desc in _wonder_image_route_pairs(wonders):
         for language in LANGUAGES:
             language_values = expanded[language]
             if concept_name not in language_values:
@@ -416,7 +408,7 @@ def expand_wonder_localization_data(localization: dict[str, dict[str, str]]) -> 
                 raise KeyError(f"Missing wonder concept localization key {concept_desc!r} in {WONDER_LOCALIZATION_FILE} ({language})")
             language_values[route_concept] = language_values[concept_name]
             language_values[route_concept_desc] = language_values[concept_desc]
-    for concept_name, concept_desc, route_concept, route_concept_desc in _wonder_full_image_route_pairs():
+    for concept_name, concept_desc, route_concept, route_concept_desc in _wonder_full_image_route_pairs(wonders):
         for language in LANGUAGES:
             language_values = expanded[language]
             if concept_name not in language_values:
@@ -425,7 +417,7 @@ def expand_wonder_localization_data(localization: dict[str, dict[str, str]]) -> 
                 raise KeyError(f"Missing wonder concept localization key {concept_desc!r} in {WONDER_LOCALIZATION_FILE} ({language})")
             language_values[route_concept] = language_values[concept_name]
             language_values[route_concept_desc] = language_values[concept_desc]
-    for concept_name, concept_desc, route_concept, route_concept_desc in _wonder_display_route_pairs():
+    for concept_name, concept_desc, route_concept, route_concept_desc in _wonder_display_route_pairs(wonders):
         for language in LANGUAGES:
             language_values = expanded[language]
             if concept_name not in language_values:
@@ -434,7 +426,7 @@ def expand_wonder_localization_data(localization: dict[str, dict[str, str]]) -> 
                 raise KeyError(f"Missing wonder concept localization key {concept_desc!r} in {WONDER_LOCALIZATION_FILE} ({language})")
             language_values[route_concept] = language_values[concept_name]
             language_values[route_concept_desc] = language_values[concept_desc]
-    for source_key, route_key in _engineering_gui_text_route_pairs():
+    for source_key, route_key in _engineering_gui_text_route_pairs(wonders):
         for language in LANGUAGES:
             language_values = expanded[language]
             if source_key not in language_values:
@@ -443,10 +435,10 @@ def expand_wonder_localization_data(localization: dict[str, dict[str, str]]) -> 
                     f"{WONDER_LOCALIZATION_FILE} ({language})"
                 )
             language_values[route_key] = language_values[source_key]
-    for route_key, english, simp_chinese in _engineering_preview_location_text_values():
+    for route_key, english, simp_chinese in _engineering_preview_location_text_values(wonders):
         expanded["english"][route_key] = english
         expanded["simp_chinese"][route_key] = simp_chinese
-    for source_key, route_concept, route_concept_desc in _wonder_ritual_display_route_pairs():
+    for source_key, route_concept, route_concept_desc in _wonder_ritual_display_route_pairs(wonders):
         for language in LANGUAGES:
             language_values = expanded[language]
             if source_key not in language_values:
@@ -456,13 +448,13 @@ def expand_wonder_localization_data(localization: dict[str, dict[str, str]]) -> 
                 )
             language_values[route_concept] = language_values[source_key]
             language_values[route_concept_desc] = language_values[source_key]
-    for auto_modifier_loc_key, auto_value in _auto_base_modifier_values():
+    for auto_modifier_loc_key, auto_value in _auto_base_modifier_values(wonders, mechanics):
         for language in LANGUAGES:
             expanded[language][auto_modifier_loc_key] = auto_value
-    for static_modifier_loc_key, static_value in _static_base_modifier_values():
+    for static_modifier_loc_key, static_value in _static_base_modifier_values(wonders):
         for language in LANGUAGES:
             expanded[language][static_modifier_loc_key] = static_value
-    for static_modifier_loc_key in _ritual_static_modifier_keys():
+    for static_modifier_loc_key in _ritual_static_modifier_keys(wonders, mechanics):
         for language in LANGUAGES:
             language_values = expanded[language]
             if static_modifier_loc_key not in language_values:
@@ -470,7 +462,7 @@ def expand_wonder_localization_data(localization: dict[str, dict[str, str]]) -> 
                     f"Missing wonder ritual static modifier localization key {static_modifier_loc_key!r} in "
                     f"{WONDER_LOCALIZATION_FILE} ({language})"
                 )
-    for building_name, modifier_loc_key in _auxiliary_display_modifier_pairs():
+    for building_name, modifier_loc_key in _auxiliary_display_modifier_pairs(wonders, mechanics):
         for language in LANGUAGES:
             language_values = expanded[language]
             if building_name not in language_values:
@@ -483,39 +475,41 @@ def expand_wonder_localization_data(localization: dict[str, dict[str, str]]) -> 
 
 
 def collapse_wonder_localization_data(localization: dict[str, dict[str, str]]) -> dict[str, dict[str, str]]:
+    # Derived keys come from one mechanics load rather than one load per key family.
+    wonders, mechanics = load_all_wonder_mechanics_data()
     collapsed = {language: dict(values) for language, values in localization.items()}
-    for _, concept_name in _wonder_concept_pairs():
+    for _, concept_name in _wonder_concept_pairs(wonders):
         for language in LANGUAGES:
             collapsed[language].pop(concept_name, None)
-    for _, _, route_concept, route_concept_desc in _wonder_image_route_pairs():
+    for _, _, route_concept, route_concept_desc in _wonder_image_route_pairs(wonders):
         for language in LANGUAGES:
             collapsed[language].pop(route_concept, None)
             collapsed[language].pop(route_concept_desc, None)
-    for _, _, route_concept, route_concept_desc in _wonder_full_image_route_pairs():
+    for _, _, route_concept, route_concept_desc in _wonder_full_image_route_pairs(wonders):
         for language in LANGUAGES:
             collapsed[language].pop(route_concept, None)
             collapsed[language].pop(route_concept_desc, None)
-    for _, _, route_concept, route_concept_desc in _wonder_display_route_pairs():
+    for _, _, route_concept, route_concept_desc in _wonder_display_route_pairs(wonders):
         for language in LANGUAGES:
             collapsed[language].pop(route_concept, None)
             collapsed[language].pop(route_concept_desc, None)
-    for _, route_key in _engineering_gui_text_route_pairs():
+    for _, route_key in _engineering_gui_text_route_pairs(wonders):
         for language in LANGUAGES:
             collapsed[language].pop(route_key, None)
-    for route_key, _, _ in _engineering_preview_location_text_values():
+    for route_key, _, _ in _engineering_preview_location_text_values(wonders):
         for language in LANGUAGES:
             collapsed[language].pop(route_key, None)
-    for _, route_concept, route_concept_desc in _wonder_ritual_display_route_pairs():
+    for _, route_concept, route_concept_desc in _wonder_ritual_display_route_pairs(wonders):
         for language in LANGUAGES:
             collapsed[language].pop(route_concept, None)
             collapsed[language].pop(route_concept_desc, None)
-    for auto_modifier_loc_key, _ in _auto_base_modifier_values():
+    for auto_modifier_loc_key, _ in _auto_base_modifier_values(wonders, mechanics):
         for language in LANGUAGES:
             collapsed[language].pop(auto_modifier_loc_key, None)
-    for static_modifier_loc_key, _ in _static_base_modifier_values():
+    for static_modifier_loc_key, _ in _static_base_modifier_values(wonders):
         for language in LANGUAGES:
             collapsed[language].pop(static_modifier_loc_key, None)
-    for _, modifier_loc_key in _auxiliary_display_modifier_pairs():
+    for _, modifier_loc_key in _auxiliary_display_modifier_pairs(wonders, mechanics):
         for language in LANGUAGES:
             collapsed[language].pop(modifier_loc_key, None)
     return collapsed

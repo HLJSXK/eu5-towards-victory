@@ -69,7 +69,8 @@ def main() -> None:
         threading.Timer(1.0, lambda: webbrowser.open(url)).start()
 
     print(f"Towards Victory Editor Web running at {url}")
-    uvicorn.run("towards_victory_editor_web.server:app", host=args.host, port=args.port, reload=args.reload)
+    uvicorn.run("towards_victory_editor_web.server:create_default_app", factory=True,
+                host=args.host, port=args.port, reload=args.reload)
 
 
 if __name__ == "__main__":
