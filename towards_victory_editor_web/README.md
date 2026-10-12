@@ -39,6 +39,17 @@ Validation is read-only by default. Only explicit boolean `fix: true` from a
 loopback caller is allowed, with same-origin browser requests only; forwarded
 headers do not authorize writes. `fixed` lists files whose BOM was actually added.
 
+`static/validation_panel.js` renders that endpoint in the panel pinned below the
+tool panels. Every successful commit dispatches `resource-saved`, which triggers
+one `changed: true` validation; the panel also has a manual button and queues one
+follow-up run for saves made while a validation is in flight. Results are grouped
+by rule into pass, warnings and errors states, with each diagnostic shown as its
+`file:line` (selectable for copying) plus message; 400/500/504 responses render as
+an incomplete validation carrying `detail` and any `output_tail`, never as a pass
+or a rule failure. `tests/validation_panel.cjs` covers the three response shapes
+and the save trigger with a fake fetch, and `validation_panel_browser.cjs` mounts
+a Chrome scenario that intercepts the commit and the validation call.
+
 `static/display.js` provides shared log/status views, tabs, HTML escaping and
 operation/generation diagnostics. `static/editor_panel.js` owns the cost/reward,
 Victory Tree and Wonder load/reload/save workflow. Save first calls the resource's
