@@ -452,3 +452,23 @@ platform operation/transaction recovery boundary without running generators.
 Existing keys retain their original version suffixes, including an empty suffix.
 The Web `--check` localization section reports per-root handwritten file, EN/ZH key
 and missing-key counts; generated files do not participate in handwritten coverage.
+
+### `editor.victory_paths`
+
+`GET /api/resources/editor.victory_paths` and matching `validate`, `preview`, and
+`commit` endpoints expose `data/victory_paths.yaml` with
+`data/victory_path_tasks.yaml`. The response joins six paths with their task
+catalogues, keeps `national_special.tasks` separate, and marks generated
+outputs read-only. Reward modifiers are read-only references; cost/reward files
+are not part of this resource base or commit.
+
+Generation plans come from the registered generator catalogue. Matching either
+source currently selects 17 generators and 32 unique outputs, including the 14
+registered outputs of `scripts/gen_victory.py`, leaderboard, task generators,
+GUI/actions/CMF downstreams, and message-types fan-out. Preview never runs
+generators; commit uses the existing operation, staging, artifact,
+file-transaction, and rollback boundaries.
+
+YAML writes use `platform.yaml_bytes`: BOM, leading file comments, and newline
+style are retained, while body comments are not retained and key order is not
+guaranteed. No round-trip YAML dependency is introduced.

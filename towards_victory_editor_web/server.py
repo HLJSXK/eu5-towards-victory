@@ -17,6 +17,7 @@ from .services.generation import GenerationError
 from .services.generator_runs import GeneratorRunError, GeneratorRunService
 from .services.platform import RollbackError
 from .services.victory_tree import GENERATED_PREVIEWS_DIR, TREE_PREVIEW_URL_PREFIX, VictoryTreePlannerService
+from .services.victory_paths import VictoryPathsEditorService
 from .services.wonder_resource import WonderResourceService
 from .services.wonder.sources import (
     GENERATED_WONDER_IMAGES_DIR,
@@ -52,6 +53,12 @@ class LocalizationRequest(BaseModel):
 class SaveVictoryTreeRequest(BaseModel):
     edits: dict[str, dict[str, dict[str, Any]]] = Field(default_factory=dict)
     base: dict[str, str] = Field(default_factory=dict)
+
+
+class VictoryPathsRequest(BaseModel):
+    document: dict[str, Any] = Field(default_factory=dict)
+    base: dict[str, Any] = Field(default_factory=dict)
+    message: str | None = None
 
 
 class WonderDraftRequest(BaseModel):
@@ -130,7 +137,7 @@ def create_app(
         previous_shared_stores = tuple(
             getattr(target, "operation_store", None) for target in shared_targets
         )
-        for target in (cost_reward_service, victory_tree_service, wonder_service, localization_service, generator_service, cropper):
+        for target in (cost_reward_service, victory_tree_service, victory_paths_service, wonder_service, localization_service, generator_service, cropper):
             if hasattr(target, "operation_store"):
                 target.operation_store = store
         try:
@@ -148,6 +155,8 @@ def create_app(
         redoc_url=None,
         lifespan=lifespan,
     )
+
+    victory_paths_service = None
 
     # Shared exception-handling boundary, replacing the identical
     # try/except KeyError->404 / ValueError->400 / RuntimeError->500 / Exception->500
@@ -292,6 +301,25 @@ def create_app(
     @app.post("/api/resources/editor.victory_tree/commit")
     def victory_tree_commit(request: SaveVictoryTreeRequest) -> dict:
         return victory_tree_service.save_positions(request.edits, request.base)
+
+    # --- Victory paths / tasks editor ----------------------------------------
+    victory_paths_service = VictoryPathsEditorService(configured_store, generator_service=generator_service)
+
+    @app.get("/api/resources/editor.victory_paths")
+    def victory_paths_resource() -> dict:
+        return victory_paths_service.load_resource()
+
+    @app.post("/api/resources/editor.victory_paths/validate")
+    def victory_paths_validate(request: VictoryPathsRequest) -> dict:
+        return victory_paths_service.validate_document(request.document)
+
+    @app.post("/api/resources/editor.victory_paths/preview")
+    def victory_paths_preview(request: VictoryPathsRequest) -> dict:
+        return victory_paths_service.preview_document(request.document, request.base)
+
+    @app.post("/api/resources/editor.victory_paths/commit")
+    def victory_paths_commit(request: VictoryPathsRequest) -> dict:
+        return victory_paths_service.commit_document(request.document, request.base, request.message)
 
     app.mount(
         TREE_PREVIEW_URL_PREFIX,

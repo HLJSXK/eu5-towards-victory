@@ -495,6 +495,105 @@ flowchart LR
   `rollback.status` 为 `not_needed`（尚未发布/成功）或 `completed` / `failed`（发布失败后恢复），
   `errors` 保留所有恢复失败；步骤、产物和回滚报告随 operation details 持久化。
 
+### 6.4 `editor.victory_paths` 资源（WP-11 后端）
+
+资源边界严格为两个可写源文件：`data/victory_paths.yaml` 与
+`data/victory_path_tasks.yaml`；`data/victory_path_tree_variant.yaml`、
+`data/task_pool.yaml` 既不进入 payload，也不进入 base、写入集合或生成计划。
+
+`GET /api/resources/editor.victory_paths` 返回：
+
+```json
+{
+  "resource_id": "editor.victory_paths",
+  "schema_version": 1,
+  "sources": [
+    {"path": "data/victory_paths.yaml", "sha256": "…", "size": 0},
+    {"path": "data/victory_path_tasks.yaml", "sha256": "…", "size": 0}
+  ],
+  "document": {
+    "shared": {},
+    "paths": [
+      {
+        "id": "conquest",
+        "score_var": "tv_conquest_score",
+        "gui": {},
+        "loc": {},
+        "milestones": [],
+        "tasks": {
+          "label": {"en": "Conquest", "zh": "征服"},
+          "color": {"r": 0.72, "g": 0.18, "b": 0.12},
+          "items": [
+            {
+              "task_id": 1001,
+              "source": {"path_id": "conquest", "task_index": 0},
+              "fields": {"key": "total_locations", "type": "fixed"}
+            }
+          ]
+        }
+      }
+    ],
+    "on_actions": [],
+    "national_special": {"tasks": []}
+  },
+  "references": {
+    "rewards": [
+      {
+        "key": "discipline",
+        "resolved": true,
+        "source_resource": "game_modifier_schema",
+        "editable": false,
+        "editable_here": false
+      }
+    ],
+    "tasks": []
+  },
+  "generation": {
+    "required": false,
+    "registry_complete": true,
+    "generators": [],
+    "outputs": [],
+    "steps": [],
+    "errors": []
+  },
+  "read_only_outputs": true,
+  "constraints": {
+    "yaml_write_boundary": "Preserves BOM, leading comment block and newline style; body comments are not retained and key order is not guaranteed for untouched keys.",
+    "task_catalogue": "Source tasks are a catalogue; the generated runtime assigns them to three slots and no synthetic slot field is written back."
+  }
+}
+```
+
+The `paths` list is built by joining `victory_paths.yaml.paths[]` with the
+same-ID task group from `victory_path_tasks.yaml.paths`. Task entries retain
+their source identity as `path_id` plus zero-based `task_index`; generated
+fields are not added to the source document. `national_special.tasks` is kept
+separate. The current registry-derived plan matches **17 generators and 32
+unique outputs**: 14 outputs from `scripts/gen_victory.py`, one each from 15
+other matched registry entries, with shared outputs deduplicated. This list is
+derived at runtime from `GET /api/generators` semantics (`data_inputs` ∩ the
+two resource sources), never from a hard-coded generator tuple or the
+`scripts/gen_victory.py` docstring.
+
+The endpoints accept `{ "document": ..., "base": {"sources": [...]},
+"message": ... }`. `validate` never writes; `preview` also never writes and
+never launches generators; `commit` writes only the two source files and the
+registry-declared generated outputs. `written_paths` contains only files
+actually written. A base mismatch returns `409`; invalid structure, references,
+registry incompleteness, path violations, artifact failures and generation
+failures retain the existing platform operation/rollback semantics.
+
+Rewards are read-only references. Cost/reward files are not part of this
+resource base or transaction, and no cross-resource ChangeSet or joint lock is
+introduced. A reference can be refreshed after a cost/reward change; a missing
+reference blocks validation/preview/commit.
+
+Writing uses the existing `platform.yaml_bytes(path, payload)` protocol. It
+preserves UTF-8 BOM, the leading file comment block, and newline style, but
+does **not** preserve body/section comments; key order for untouched keys is
+not guaranteed. This is the same accepted boundary as the existing resource
+editors; no round-trip YAML dependency or custom round-trip writer is added.
+
 ---
 
 ## 7. 统一验收标准（每个 WP 都必须给出）
