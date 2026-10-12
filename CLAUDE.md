@@ -4,9 +4,13 @@
 
 For any non-trivial task, read `docs/knowledge/BRIEF.md` first.
 
-For tool-integration or `towards_victory_editor_web` refactor work, read the
-current status snapshot at `docs/technical/Editor_Web_Refactor_Status.md` after
-the brief. It separates completed slices from remaining work; use
+For tool-integration or `towards_victory_editor_web` refactor work, read in this
+order: `docs/knowledge/BRIEF.md` → the status snapshot
+`docs/technical/Editor_Web_Refactor_Status.md` → the work plan
+`docs/technical/Editor_Web_Work_Plan.md` → `towards_victory_editor_web/README.md`.
+The work plan is the only source for picking work packages (WP), their
+dependencies, shared-file merge order, interface contracts, and acceptance
+criteria; the status snapshot records completed slices and validation. Use
 `docs/technical/Towards_Victory_Editor_Web_Assessment.md` for the detailed
 architecture baseline and rationale.
 

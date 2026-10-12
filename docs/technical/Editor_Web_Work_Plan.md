@@ -522,6 +522,10 @@ claude -p "<验收指令>" --allowedTools "Bash,Read,Grep,Glob" --add-dir .
 
 ## 附录 A 事实清单（评估证据，供后续 agent 复核）
 
+> **证据来源。** 本表是 2026-10-12 评估的唯一证据来源，各 WP 的“现状（已核实）”均引用此处。
+> 领取 WP 时直接以本表为准，只在动手前按“证据”列复核与本 WP 相关的条目；**不要重新做全面调研**。
+> 若复核发现事实已变化，在本表对应行更新并在报告中说明，而不是另起调研文档。
+
 | 事实 | 证据 |
 | --- | --- |
 | 近 4 个月 1,002 次提交；工具覆盖的四份数据合计 14 次（cost_reward_units 5、task_pool 3、node_positions 3、image_crops 3） | `git log --since=2026-06-01 --oneline -- <file> \| wc -l` |
