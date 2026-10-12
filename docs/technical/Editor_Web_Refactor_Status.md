@@ -183,6 +183,33 @@ P1 为 WP-04～WP-11，P2/P3 为 WP-12～WP-14；依赖与验收标准见该文�
 
 ## 验证记录
 
+### WP-10、WP-12（2026-10-13）
+
+同一环境。WP-10 与 WP-12 由 Claude Code / Codex 实现，验收由另一个 agent 在仓库外 worktree 复跑。
+
+- **WP-10（全局壳层）**：`088e8be7`。默认层 **413 passed**、`--full` **415 passed**（四层全绿）。标签栏脏点、操作面板
+  （轮询既有 `GET /api/operations`，展开走 `display.formatOperationReport`）、`beforeunload` 仅在脏状态阻止；
+  `editor_panel.js` 文案参数化后 cost/reward 与 Wonder 文案与改前逐字一致，胜利树不再出现"重新生成"；补了
+  `tool-activated` 的独立 Node 单测。反向验证 4 条均承重（撤 `onDirtyChange`、撤 `beforeunload`、撤胜利树 `copy`、
+  撤 `tool-activated` dispatch 各失败一次）。验收发现两处缺陷并已返工（`e9b6272c`）：
+  ① 作业指示取排序后首个 `resource_id`，使 Wonder 本地化保存 / 生成器运行 / 媒体作业三类多资源操作一律标到花费/奖励标签
+  （6 个真实发出点中 3 个错误）——改为 kind 决定性时用 kind，否则标出全部持有资源的标签；
+  ② 轮询刷新后首次点击无法展开详情。
+- **WP-12（cost/reward 可用性）**：`72b88a47`。行级脏点与"已改动 N 行"、id/loc 过滤、"仅显示已改动"、
+  `scope`/`completion_note` 长文本展开与复制。395 行首屏渲染由约 2.5 秒降至 **10.2 ms**（改为 DOM 行隐藏，断言上限 2500 ms）。
+  `value` 列单位只取 `data/cost_reward_units.yaml` 头注释及三处具名特例，未逐一标注的留空、未编造。
+  Node 4/4、独立 Chrome 场景通过；反向验证撤 dirty 集合后用例失败。Chrome 场景独立存放，
+  未占用 `tests/resource_state_browser.cjs`（该文件本批次由 WP-07 占用）。
+
+### WP-11 后端：victory paths / tasks 资源化（2026-10-13）
+
+`03e37f74` 实现，`35c46fee` 返工。契约 6.4 纯追加。生成根由注册表 `data_inputs` 求交集推导（**17 个生成器 / 32 个去重产物**，
+未硬编码脚本元组或产物清单）；写入边界为 BOM、头注释块与换行保留，正文分节注释与未编辑键序不保留（已写入 6.4，未假装保留）；
+奖励引用只读、不新增跨资源事务。独立验收在仓库外 worktree 端到端复现两处缺陷并已修：
+① 生成器在源文件写入**之前**运行，导致产物永久落后源一拍（源 `threshold: 207` 而产物仍 `>= 200`）——改为同一
+`file_transaction` 内先写源、再在事务内跑生成器；② `written_paths` 谎报 34 条而实际只改 5 个文件——改为只列实际变化的源与
+`artifacts.changed` 产物。验收另核出 `--full` 下的既有 flaky 超时用例、`6.4` 拆解句算术笔误等，登记于独立待办。
+
 ### WP-14 后端：court positions 资源化（2026-10-13）
 
 后端实现完成，独立验收待另派；前端未实现。Windows + eu5 Python 3.11.15，直接解释器运行，未派发子 agent、未提交。
