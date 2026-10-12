@@ -183,6 +183,18 @@ P1 为 WP-04～WP-11，P2/P3 为 WP-12～WP-14；依赖与验收标准见该文�
 
 ## 验证记录
 
+### WP-07：本地化编辑器页面（2026-10-13）
+
+`608a90b5`。实现者因 API 余额中断、代码留在工作区未自验，由验收 agent 验证并修缺陷（未重写实现）。
+
+- 默认层 **471 passed**，Node / web-check / Chrome 全绿（140.2 秒）；changed validation 0 errors（7 条既有索引头告警）。
+- 交付：双列 EN/ZH、缺译高亮、过滤（全部/仅缺译/仅已改动）、搜索、Ctrl+S、预览→确认→提交走
+  `editor_panel` 既有流程；生成物分组只读并给出 data 源；`localization_text.js` 在模块头与 README 写明支持/不支持范围
+  （不支持 `@icon!` 贴图、自定义 loc 函数展开、字体排版）；`editor_panel.js` 仅让 diff 行多带 `item.key`。
+- Chrome 场景断言真实只读资源、编辑后页内徽标与标签栏脏点、预览命名被改键且请求体冻结、409 保留草稿、还原后脏点消失。
+- 反向验证 2 条承重：撤缺译高亮 → 4 项失败；撤"新增键必须双语言" → 1 项失败。
+- 修掉一处真缺陷：`tests/localization.cjs` 末尾测试体被整段复制，Node 报 8 条而实际 7 条。
+
 ### WP-10、WP-12（2026-10-13）
 
 同一环境。WP-10 与 WP-12 由 Claude Code / Codex 实现，验收由另一个 agent 在仓库外 worktree 复跑。
