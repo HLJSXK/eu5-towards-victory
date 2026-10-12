@@ -138,6 +138,9 @@ canvas.addEventListener("pointermove", (event) => {
 });
 canvas.addEventListener("pointerup", () => { cropState.drag = null; }); canvas.addEventListener("pointercancel", () => { cropState.drag = null; });
 canvas.addEventListener("wheel", (event) => { event.preventDefault(); resizeFromCenter(event.deltaY < 0 ? 1.08 : 0.92); }, { passive: false }); window.addEventListener("resize", draw);
+// A hidden tool panel has a 0x0 canvas; redraw when the cropper tab becomes visible or the stage changes size.
+document.addEventListener("tool-activated", (event) => { if (event.detail.tool === "wonder-cropper") draw(); });
+new ResizeObserver(() => draw()).observe(canvas);
 document.addEventListener("keydown", (event) => {
   if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
   if (document.body.dataset.activeTool !== "wonder-cropper") return;

@@ -32,6 +32,7 @@ function editor() {
       addEventListener: (event, handler) => { listeners[`document:${event}`] = handler; },
     },
     window: { addEventListener() {}, confirm: () => true, devicePixelRatio: 1 },
+    ResizeObserver: class { observe() {} },
     Image: class { constructor() { this.complete = true; this.naturalWidth = 100; this.naturalHeight = 100; } },
     fetch: () => new Promise(() => {}),
     console: { error() {} },

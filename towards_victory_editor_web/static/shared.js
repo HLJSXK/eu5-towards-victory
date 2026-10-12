@@ -9,6 +9,7 @@ function activateTool(toolName) {
     panel.classList.toggle("active", panel.dataset.tool === toolName);
   });
   document.body.dataset.activeTool = toolName;
+  document.dispatchEvent(new CustomEvent("tool-activated", { detail: { tool: toolName } }));
 }
 
 tabButtons.forEach((btn) => {

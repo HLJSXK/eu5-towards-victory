@@ -317,6 +317,7 @@ async function main() {
     assert(await evaluate(`document.querySelector('#cropper-meta').textContent.includes('<img') && !document.querySelector('#cropper-meta img') && !window.__xss`));
     const modules = await evaluate(`Promise.all([import('/static/display.js'), import('/static/job_panel.js'), import('/static/editor_panel.js')]).then(m => m.every(x => Object.keys(x).length > 0))`);
     assert(modules);
+    await require('./cropper_canvas_browser.cjs')({ evaluate, send });
     assert.deepEqual(pageErrors, []);
     console.log('Chrome acceptance passed: live diffs in three editors, cancellation and exact preview/commit bodies, hidden-tool modal, 409/generation diagnostics, Wonder committed state and detail-only retry, four-editor state, media/cropper reports and polling, escaped data; no page exceptions.');
     await send('Browser.close');
