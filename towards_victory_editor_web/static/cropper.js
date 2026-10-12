@@ -193,6 +193,7 @@ async function commitCrop(rect) {
     cropJobPanel.status.set(requestedRect === null ? "已移除" : "已保存");
     renderTasks();
     if (cropState.index === index) { renderInspector(); draw(); }
+    window.dispatchEvent(new CustomEvent("resource-saved", { detail: { resourceId: "editor.wonder_crop" } }));
     } });
   } catch (error) {
     cropJobPanel.error(error);

@@ -124,3 +124,41 @@ body {
   overflow-wrap: anywhere;
   vertical-align: top;
 }
+
+/* Validation panel (WP-05): pinned below the tool panels; results scroll inside a capped area. */
+#validation-panel {
+  flex: 0 0 auto;
+  border-top: 1px solid #2a2e35;
+  background: #1c1f24;
+  color: #d3dae2;
+  font-size: .85rem;
+}
+#validation-panel .validation-bar { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; padding: .45rem 16px; }
+#validation-panel .validation-status { flex: 1 1 16rem; overflow-wrap: anywhere; }
+#validation-panel button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: .3rem .8rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+#validation-panel button:disabled { opacity: .6; cursor: default; }
+#validation-panel[data-state="running"] .validation-status { color: #f6c453; }
+#validation-panel[data-state="pass"] { border-top-color: #2f9e5b; }
+#validation-panel[data-state="pass"] .validation-status { color: #5fd08a; }
+#validation-panel[data-state="warnings"] { border-top-color: #d99a2b; }
+#validation-panel[data-state="warnings"] .validation-status { color: #f6c453; }
+#validation-panel[data-state="errors"],
+#validation-panel[data-state="failed"] { border-top: 3px solid #d14b36; }
+#validation-panel[data-state="errors"] .validation-status,
+#validation-panel[data-state="failed"] .validation-status { color: #ff7b66; font-weight: 600; }
+#validation-panel .validation-results { max-height: 30vh; overflow: auto; padding: 0 16px .6rem; }
+#validation-panel .validation-group h4 { margin: .5rem 0 .25rem; font-size: .85rem; }
+#validation-panel .validation-group[data-severity="error"] h4 { color: #ff7b66; }
+#validation-panel .validation-group[data-severity="warning"] h4 { color: #f6c453; }
+#validation-panel .validation-count { opacity: .75; font-weight: normal; }
+#validation-panel ul { margin: 0; padding-left: 1.2rem; }
+#validation-panel .validation-item { margin: .15rem 0; overflow-wrap: anywhere; }
+#validation-panel .validation-file { user-select: all; color: #9cc8ff; }
+#validation-panel .validation-output { margin: .4rem 0 0; white-space: pre-wrap; overflow-wrap: anywhere; color: #c8ced6; }

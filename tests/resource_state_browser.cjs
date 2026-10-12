@@ -76,6 +76,8 @@ async function main() {
         }
         const intercepted = await probe.intercept?.(path, (requestOptions = options) => liveFetch(url, requestOptions), options);
         if (intercepted) return intercepted;
+        // Saves trigger POST /api/validate (WP-05); answer here so it never reaches the commit gate below.
+        if (path === '/api/validate') return Response.json({ pass: true, errors: [], warnings: [], files_checked: 0, command: [], duration_ms: 0, fixed: [] });
         if (path === '/api/wonder-localization/catalog' && probe.catalogFailure) return Response.json({ detail: 'catalog probe failure' }, { status: 503 });
         if (path === '/api/jobs' && options.method === 'POST') return Response.json(probe.job);
         if (path.endsWith('/cancel')) return Response.json({ detail: 'cancel probe failure' }, { status: 503 });
@@ -320,6 +322,7 @@ async function main() {
     assert(modules);
     await require('./cropper_canvas_browser.cjs')({ evaluate, send });
     await require('./misleading_copy_browser.cjs')({ evaluate, ready, send });
+    await require('./validation_panel_browser.cjs')({ evaluate, ready });
     assert.deepEqual(pageErrors, []);
     console.log('Chrome acceptance passed: live diffs in three editors, cancellation and exact preview/commit bodies, hidden-tool modal, 409/generation diagnostics, Wonder committed state and detail-only retry, four-editor state, media/cropper reports and polling, escaped data; no page exceptions.');
     await send('Browser.close');

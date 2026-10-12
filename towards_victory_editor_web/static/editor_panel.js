@@ -136,6 +136,7 @@ export function createEditorPanel({ prefix, resourceId, resource, request, apply
       if (committed) log.report(committed);
       (onError || error)(err, committed ? "已保存，但页面更新失败" : "保存失败，草稿已保留", { keepReport: !!committed });
     }
+    if (committed) window.dispatchEvent(new CustomEvent("resource-saved", { detail: { resourceId } }));
     if (committed) await afterSave(committed);
     await sync();
   }
