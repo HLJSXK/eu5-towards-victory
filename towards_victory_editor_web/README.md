@@ -105,6 +105,13 @@ standalone cropper server and its port no longer exist. Crop settings use the
 resource API; image reads use `/api/cropper/image/*`, and DDS rebuilds use the
 shared job API.
 
+`activateTool()` in `static/shared.js` dispatches a `tool-activated` event
+(`detail.tool`) on `document` whenever a tab becomes visible. The cropper listens
+for `wonder-cropper` and also observes its canvas with `ResizeObserver`, so the
+first visit draws without a manual reload. Media tool cards show a paid/local
+badge from `ToolSpec.cost_hint` in `services/tooling.py` (`paid` for tools that
+read an API key, `local` for deterministic tools); the page does not hard-code tool IDs.
+
 Run the server checks without starting Uvicorn:
 
 ```powershell

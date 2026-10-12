@@ -10,6 +10,14 @@
 - 中断后的 staging/备份启动恢复与清理尚未实现；本轮按确认的 A 准确提示人工核对，另行决定自动恢复。
 - 2026-10-11 审计：`JobManager._run` 的执行闭包（`services/tooling.py`，约 130 行）把暂存、校验、发布与回滚交织在一起，是后端最密的代码；新增 handler 或修改发布逻辑前是否拆分待定。
 
+## 批次 A 登记（2026-10-12）
+
+- 共享 `editor_panel.js` 的保存中状态与预览摘要仍写“保存并重新生成”，对胜利树有误导；交 WP-10 让面板接受文案参数。
+- `tool-activated` 事件没有独立 Node 单测（Chrome 场景只在同时撤掉 ResizeObserver 时失败）；建议 WP-10 补。
+- `test_wonder_resource_contract.py::...[timeout]` 只给 1 秒超时，在 xdist + Chrome + 并行 agent 负载下偶发失败。
+- `/api/validate` 每次请求全量遍历 mod 根检查链接，约 0.7 秒固定开销。
+- Chrome 场景截图目录（`%TEMP%\wp0*-*`）不自动清理，会持续累积。
+
 ## 收尾整合关闭的待办（2026-10-12）
 
 - cost/reward → Wonder 同步：保留草稿刷新；冲突列出旧/新原值，刷新失败保留旧页面；完成。

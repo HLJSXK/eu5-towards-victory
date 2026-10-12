@@ -23,6 +23,9 @@ P1 为 WP-04～WP-11，P2/P3 为 WP-12～WP-14；依赖与验收标准见该文�
 用户已确认的决策（2026-10-12）：胜利树保持当前定位（只修标注）；`task_pool.yaml` 继续维护；后端走逐域资源化；
 原“后续任务 2/3”关闭（见下方“后续任务”）。验证统一使用 `scripts/run_editor_tests.py`。
 
+进度（批次见[交接](Editor_Web_Handoff_2026-10-12.md)）：**批次 A（WP-00～WP-04）已收口**，独立验收通过；
+下一批 B：WP-05、WP-06 → WP-08（`server.py` 串行）。
+
 ## 已完成切片：测试提速（2026-10-12）
 
 用户授权自行决定方案。默认层（`scripts/run_editor_tests.py`）从约 18 分钟串行降到 **48 秒**，完整层 `--full` **90 秒**。
@@ -179,6 +182,24 @@ P1 为 WP-04～WP-11，P2/P3 为 WP-12～WP-14；依赖与验收标准见该文�
 - 媒体注册/计划/作业位于 `services/tooling.py`，领域 handler 位于 media_plans/media_tools/cropper；API、锁与输入组详见 [README](../../towards_victory_editor_web/README.md)。
 
 ## 验证记录
+
+### 批次 A：WP-00～WP-04（2026-10-12）
+
+Windows 10 + eu5 Python 3.11.15 + Node 22.19.0 + 本机 Chrome headless；未使用 `conda run`。实现：WP-00～03 Claude Code，
+WP-04 Codex；验收由另一个 Claude Code agent 在提交后独立复跑（含仓库外 worktree 中的反向验证与基线对照）。
+
+- 默认层 **316 passed**（58.4 秒，总计 59.9 秒）；`--full` **317 passed**，Node/web-check/Chrome 全部通过（总计 99.1 秒）。
+  WP-04 返工 R1 后默认层 **321 passed**（77.7 秒）。changed validation 通过；`git diff --check 0a204b33 HEAD` 通过。
+- WP-00：旧“不要从后续任务自选”规则两种引号形式均无匹配；状态文档、工作文档、`CLAUDE.md` 互链可达；未改 `docs/knowledge/`。
+- WP-01：新 Chrome 场景 `cropper_canvas_browser.cjs`，首次切标签画布 689×689、中心像素非背景色。反向：只撤 `tool-activated`
+  监听或只撤 `ResizeObserver` 仍通过（两者互为覆盖），两者都撤后失败（`sized on activation: null`）。
+- WP-02：`wonder_meta_browser.cjs` 在 1600/1000 px 下检查最长 key 不溢出、不交叠；修复前 1000 px 有 4 张卡片溢出（如 `338>176`）。
+- WP-03：`misleading_copy_browser.cjs` 断言胜利树设计稿说明与“保存坐标”、2 个 task_pool 分类说明、3 付费/2 本地徽标；
+  三个前端文件逐一还原后断言均失败。`--check` 输出在基线与 HEAD 逐字一致。徽标来自新增 `ToolSpec.cost_hint`。
+- WP-04：`tests/test_validation_api.py` 70 项；临时副本重复键/缺 zh 文件/缺译均返回 200、`pass:false`、`[LOC]` 前缀。
+  手工 curl `{"changed":true}` 200 + `pass:true`（API 1.37 秒 / CLI 1.11 秒）；`../`、`docs/`、绝对路径、`data/../.git` 均 400；
+  非布尔 `fix` 422、跨源 `fix:true` 400。反向：撤解析后路径检查、504、`[LOC]` 归一化、fix 本机限制各自对应断言失败。
+- 遗留登记于[独立待办](Editor_Web_Refactor_TODO.md)；胜利树保存中途的“重新生成”文案（共享 `editor_panel.js`）交 WP-10。
 
 ### 测试提速（2026-10-12）
 
