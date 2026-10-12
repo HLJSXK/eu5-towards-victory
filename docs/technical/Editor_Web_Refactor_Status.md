@@ -183,6 +183,20 @@ P1 为 WP-04～WP-11，P2/P3 为 WP-12～WP-14；依赖与验收标准见该文�
 
 ## 验证记录
 
+### WP-14 后端：court positions 资源化（2026-10-13）
+
+后端实现完成，独立验收待另派；前端未实现。Windows + eu5 Python 3.11.15，直接解释器运行，未派发子 agent、未提交。
+工作文档纯追加 6.5 契约；新增服务、四个端点、测试注册和 `--check` 节，不改 platform、README、static 或真实业务源/产物。
+注册表 `data_inputs` 与 `data/court_positions.yaml` 求交集，实际 10 个生成器、10 个唯一产物，均属 `src_court_positions`。
+
+- 定向 pytest **45 passed**（56.02 秒）；最终快测 **43 passed / 2 deselected**（70.74 秒），slow **2 passed / 43 deselected**（13.81 秒）。
+  真实生成器仅在临时副本运行，两副本产物逐字节相等；原工作树两份本地化仅 CRLF/LF 不同，基线比较只归一化换行。
+- 默认层 `scripts/run_editor_tests.py --workers 2`：**465 passed**（195.66 秒），Node **130 passed**，web-check 通过，总计 197.8 秒。
+  auto 首轮 460 passed、Node/check 全过；最终数据集 auto 复跑两条既有短超时断言受并行负载影响失败，不改其实现，以 workers=2 全绿收尾。
+- `python -m towards_victory_editor_web --check` 新节：6 positions、引用已解析、10 generators / 10 outputs；最终 changed validation 通过，8 文件、0 errors、7 条既有索引头告警。
+- 反向验证：仅在进程内撤引用校验或 artifacts.changed 过滤，对应断言各失败一次；磁盘实现不变。补测 source/generator/reload、产物非法/越界/额外写入的回滚。
+- `git diff --check` 通过；清理本次 `.pytest-wp14-*`，runner 自清理其临时目录，其他任务的 `.pytest-*` 不动。详情见 `.editor_state/handoff/WP-14-backend.md`。
+
 ### 批次 B / C 前半：WP-05、WP-06、WP-08、WP-09（2026-10-12）
 
 同一环境（Windows 10、eu5 Python 3.11.15、Node 22.19.0、本机 Chrome headless，未用 `conda run`）。

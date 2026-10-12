@@ -596,6 +596,75 @@ editors; no round-trip YAML dependency or custom round-trip writer is added.
 
 ---
 
+### 6.5 `editor.court_positions` 资源（WP-14 后端）
+
+资源边界严格为一个可写源文件：`data/court_positions.yaml`；
+`src_court_positions/` 下注册表声明的产物只读，`src_eureka` 不在范围内。
+沿用 6.4 的资源、请求、校验、预览、提交与操作记录形状。
+
+`GET /api/resources/editor.court_positions` 返回：
+
+```json
+{
+  "resource_id": "editor.court_positions",
+  "schema_version": 1,
+  "sources": [{"path": "data/court_positions.yaml", "sha256": "…", "size": 0}],
+  "document": {
+    "positions": [{
+      "id": "physician",
+      "name_en": "Court Physician", "name_zh": "宫廷医生",
+      "ability": "adm",
+      "ability_en": "Administrative Skill", "ability_zh": "行政能力",
+      "artist_only": false,
+      "modifier": "global_disease_resistance", "effect_at_100": 0.05,
+      "effect_en": "+5% Disease Resistance", "effect_zh": "疾病抗性 +5%"
+    }]
+  },
+  "references": {
+    "rewards": [{"key": "global_disease_resistance", "resolved": true,
+      "source_resource": "game_modifier_schema", "editable": false, "editable_here": false}],
+    "tasks": []
+  },
+  "generation": {"required": false, "registry_complete": true,
+    "generators": [], "outputs": [], "steps": [], "errors": []},
+  "read_only_outputs": true,
+  "constraints": {
+    "yaml_write_boundary": "Preserves BOM, leading comment block and newline style; body comments are not retained and key order is not guaranteed for untouched keys.",
+    "positions": "Exactly six positions; IDs are unique; abilities are adm, dip, mil or artist_skill; artist_skill requires artist_only=true."
+  }
+}
+```
+
+`document` 是源文件的 `positions` 原样结构，不加入生成字段。校验恰好六项、
+唯一合法 ID、完整英中三组文本、能力枚举、布尔值、有限数值及 modifier 引用；
+未知字段拒绝。引用只读，来自 `game_modifier_schema` 或 `editor.cost_reward`；
+引用源不进入 base 或事务，引用消失会阻止 validate/preview/commit。
+
+四个端点为 GET 与 `POST /api/resources/editor.court_positions/{validate,preview,commit}`。
+POST 接受 `{ "document": ..., "base": {"sources": [...]}, "message": ... }`。
+validate 返回 `{resource_id, valid, errors, warnings, references, generation}`，不写入；
+preview 返回 `{resource_id, ready, validation, diff: {sources, fields}, written_paths,
+references, generation}`，不写入、不启动生成器；preview 的 written_paths 是预计变化的源路径。
+commit 返回刷新资源及 `{operation_id, status, written_paths, generation, rollback,
+base, message, operation}`，其中 generation 含 `{status, generators, outputs, artifacts}`。
+base 仅允许上述一个源文件，过期返回 409；其余错误沿用 platform 操作与回滚语义。
+
+当前实际登记为 **10 个生成器、10 个唯一产物**。生成根只能由
+`GeneratorRunService().generators()` 的 `data_inputs` 与资源源路径求交集推导，
+产物由匹配条目的 `outputs` 去重得到；不硬编码脚本元组或产物清单。
+生成 required 由源文档语义变化决定，注册表缺失、重复产物与越界路径阻止提交。
+
+提交复用 `run_operation`、`OperationLog`、`file_transaction`、`atomic_write_files`
+和生成器 artifacts 校验。源文件与所有登记产物进入同一事务，**先写源文件，再在事务内
+运行生成器**，任何写入、生成或 reload 失败回滚。真实生成器仅在临时仓库副本运行。
+`written_paths` 只列实际变化：源文件逐字节比较，产物按 artifacts 的 `changed` 过滤并去重。
+
+写入沿用 `platform.yaml_bytes` → `source_text_bytes`，保留 UTF-8 BOM、文件头注释块、
+换行风格；**不保留正文/分节注释，未编辑键的键序不保证**。不引入 round-trip writer、
+跨资源 ChangeSet、联合锁或 platform 改造；前端另派，不在本次后端交付范围内。
+
+---
+
 ## 7. 统一验收标准（每个 WP 都必须给出）
 
 1. **命令与结果**：给出实际运行的命令与通过数、耗时摘要，写入状态文档"验证记录"对应小节

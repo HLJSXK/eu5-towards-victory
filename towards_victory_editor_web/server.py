@@ -18,6 +18,7 @@ from .services.generator_runs import GeneratorRunError, GeneratorRunService
 from .services.platform import RollbackError
 from .services.victory_tree import GENERATED_PREVIEWS_DIR, TREE_PREVIEW_URL_PREFIX, VictoryTreePlannerService
 from .services.victory_paths import VictoryPathsEditorService
+from .services.court_positions import CourtPositionsEditorService
 from .services.wonder_resource import WonderResourceService
 from .services.wonder.sources import (
     GENERATED_WONDER_IMAGES_DIR,
@@ -56,6 +57,12 @@ class SaveVictoryTreeRequest(BaseModel):
 
 
 class VictoryPathsRequest(BaseModel):
+    document: dict[str, Any] = Field(default_factory=dict)
+    base: dict[str, Any] = Field(default_factory=dict)
+    message: str | None = None
+
+
+class CourtPositionsRequest(BaseModel):
     document: dict[str, Any] = Field(default_factory=dict)
     base: dict[str, Any] = Field(default_factory=dict)
     message: str | None = None
@@ -137,7 +144,7 @@ def create_app(
         previous_shared_stores = tuple(
             getattr(target, "operation_store", None) for target in shared_targets
         )
-        for target in (cost_reward_service, victory_tree_service, victory_paths_service, wonder_service, localization_service, generator_service, cropper):
+        for target in (cost_reward_service, victory_tree_service, victory_paths_service, court_positions_service, wonder_service, localization_service, generator_service, cropper):
             if hasattr(target, "operation_store"):
                 target.operation_store = store
         try:
@@ -157,6 +164,7 @@ def create_app(
     )
 
     victory_paths_service = None
+    court_positions_service = None
 
     # Shared exception-handling boundary, replacing the identical
     # try/except KeyError->404 / ValueError->400 / RuntimeError->500 / Exception->500
@@ -320,6 +328,24 @@ def create_app(
     @app.post("/api/resources/editor.victory_paths/commit")
     def victory_paths_commit(request: VictoryPathsRequest) -> dict:
         return victory_paths_service.commit_document(request.document, request.base, request.message)
+
+    court_positions_service = CourtPositionsEditorService(configured_store, generator_service=generator_service)
+
+    @app.get("/api/resources/editor.court_positions")
+    def court_positions_resource() -> dict:
+        return court_positions_service.load_resource()
+
+    @app.post("/api/resources/editor.court_positions/validate")
+    def court_positions_validate(request: CourtPositionsRequest) -> dict:
+        return court_positions_service.validate_document(request.document)
+
+    @app.post("/api/resources/editor.court_positions/preview")
+    def court_positions_preview(request: CourtPositionsRequest) -> dict:
+        return court_positions_service.preview_document(request.document, request.base)
+
+    @app.post("/api/resources/editor.court_positions/commit")
+    def court_positions_commit(request: CourtPositionsRequest) -> dict:
+        return court_positions_service.commit_document(request.document, request.base, request.message)
 
     app.mount(
         TREE_PREVIEW_URL_PREFIX,

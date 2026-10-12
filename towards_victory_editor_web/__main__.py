@@ -17,6 +17,7 @@ def _run_combined_check() -> int:
     from .services.wonder.localization import build_check_report as wonder_localization_check
     from .services.localization_editor import build_check_report as localization_check
     from .services.generator_runs import build_check_report as generator_check
+    from .services.court_positions import build_check_report as court_positions_check
     from .services.media import bootstrap_payload, registry
     from .services.cropper import cropper
 
@@ -26,6 +27,7 @@ def _run_combined_check() -> int:
         ("wonder_localization", wonder_localization_check),
         ("localization", localization_check),
         ("generators", generator_check),
+        ("court_positions", court_positions_check),
     ]
     failed = False
     for name, check_fn in tools:
