@@ -758,18 +758,18 @@ class VictoryPathsEditorService:
 
             def execute() -> dict[str, Any]:
                 try:
-                    if report["generation"]["required"]:
-                        generation_result = self.generator_service.run(report["generation"]["generators"])
-                        details["generation"] = {
-                            "status": "succeeded",
-                            "generators": report["generation"]["generators"],
-                            "outputs": report["generation"]["outputs"],
-                            "artifacts": generation_result.get("artifacts", []),
-                        }
-                    if source_files:
-                        with file_transaction(tuple(source_files), reload=lambda: None):
-                            atomic_write_files(source_files)
-                    self.reload_from_disk()
+                    outputs = tuple(REPO_ROOT / output for output in report["generation"]["outputs"])
+                    with file_transaction((*source_files, *outputs), reload=self.reload_from_disk):
+                        atomic_write_files(source_files)
+                        if report["generation"]["required"]:
+                            generation_result = self.generator_service.run(report["generation"]["generators"])
+                            details["generation"] = {
+                                "status": "succeeded",
+                                "generators": report["generation"]["generators"],
+                                "outputs": report["generation"]["outputs"],
+                                "artifacts": generation_result.get("artifacts", []),
+                            }
+                        self.reload_from_disk()
                 except Exception as exc:
                     details["rollback"] = {
                         "status": "failed" if getattr(exc, "errors", None) else "completed",
@@ -777,8 +777,9 @@ class VictoryPathsEditorService:
                     }
                     raise
                 details["written_paths"] = [path.relative_to(REPO_ROOT).as_posix() for path in source_files]
-                if report["generation"]["required"]:
-                    details["written_paths"].extend(report["generation"]["outputs"])
+                details["written_paths"].extend(
+                    artifact["path"] for artifact in details["generation"]["artifacts"] if artifact["changed"]
+                )
                 details["written_paths"] = list(dict.fromkeys(details["written_paths"]))
                 return self._payload(generation=report["generation"]) | {
                     "operation_id": operation.id,
