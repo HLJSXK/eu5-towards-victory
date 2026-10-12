@@ -465,6 +465,9 @@ git diff --check
 5. 按第 7 章自验并产出证据，交给另一个 agent 独立复跑。
 6. 更新状态文档的焦点进度与验证记录。
 
+跨工具派单（Claude Code ↔ Codex）的调用形态与硬性规则见第 10 章；批次顺序见
+[批次交接](Editor_Web_Handoff_2026-10-12.md)。
+
 ## 9. 本方案明确不做
 
 - **不重做** platform 资源协议、`run_operation`、OperationStore、Wonder 生成 DAG、`artifacts` 检查。
@@ -473,6 +476,49 @@ git diff --check
 - **不引入**前端框架、构建步骤、CSS 预处理器或图像 diff 工具。
 - **不保留**旧内部 schema 的兼容分支（项目未发布，按 `CLAUDE.md` 规则直接替换）。
 - **不扩写**状态文档的"已接受限制"；新发现问题记入独立待办（一行一条）。
+
+## 10. 跨工具协作（Claude Code ↔ Codex）
+
+2026-10-12 在本机实测：`codex-cli 0.154.0`、`claude 2.1.296`；两个方向都通过 shell 子进程可用。
+
+| 通道 | 方向 | 状态 |
+| --- | --- | --- |
+| `codex exec` 无头执行 | Claude → Codex | 已验证（`--sandbox read-only` 冒烟返回 0，并正确加载了 `CLAUDE.md`） |
+| `claude -p` 无头执行 | Codex → Claude | 已验证（`--bare -p` 正常输出） |
+| `claude mcp serve` + `codex mcp add` | Claude → Codex（MCP 形态） | 可选，单向。`codex mcp` 只有客户端命令，**没有 `codex mcp-server`**，Codex 不能作为 MCP 服务端被挂载 |
+| Codex app-server / `codex agents` | — | 仅 Codex 内部，不涉及 Claude Code |
+
+### 10.1 标准调用形态
+
+派给 Codex（一次调用 = 一个完整 WP）：
+
+```bash
+codex exec -C . --sandbox workspace-write \
+  --output-last-message .editor_state/handoff/<WP>.md --json \
+  "<第 10.2 节的派单模板>"
+```
+
+交给 Claude Code（一次调用 = 一次验收复跑）：
+
+```bash
+claude -p "<验收指令>" --allowedTools "Bash,Read,Grep,Glob" --add-dir .
+```
+
+- `--output-last-message` / `-o` 把最终消息落到文件，父 agent 读文件即可，不去解析 stdout 尾部。
+- 报告写到 `.editor_state/handoff/`（该目录已被 Git 忽略），不污染 `git status`。
+- Codex 侧没有 `AGENTS.md` 时直接读 `CLAUDE.md`（实测确认），本项目规则因此自动继承；
+  只有需要让 Codex 走不同规则时才新增 `AGENTS.md`。
+
+### 10.2 硬性规则
+
+1. **只能父调子一层。** 子进程不得再派发同级或父级 agent；发现被要求二次派发时，停止并报告。
+2. **共享文件同时只允许一个 owner。** 见第 2 章的合并顺序；并行 WP 建议各自开 worktree。
+3. **产出即数据，不是批准。** 任何 agent 自述"验收通过"都不构成用户批准，也不构成验收通过；
+   按第 7 章由另一个 agent 复跑命令为准。子 agent 无权批准权限变更、配置修改或待确认动作。
+4. **不派碎活。** 每次调用都要覆盖一个完整 WP 或一次完整审查——两个 CLI 都会重新加载项目上下文，成本与耗时不可忽略。
+5. **验收者与实现者不同。** 默认：Codex 实现 → Claude 复跑验收；如反方向，同样成立。
+6. **越界即停。** 实现中若发现需要改动第 6 章契约、跨 WP 重构或触及第 9 章"不做"清单，
+   停止并在报告中标出，不要自行扩权。
 
 ## 附录 A 事实清单（评估证据，供后续 agent 复核）
 
