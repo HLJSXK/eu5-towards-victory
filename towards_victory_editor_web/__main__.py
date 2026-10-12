@@ -15,6 +15,7 @@ def _run_combined_check() -> int:
     from .services.cost_reward import build_check_report as cost_reward_check
     from .services.victory_tree import build_check_report as victory_tree_check
     from .services.wonder.localization import build_check_report as wonder_localization_check
+    from .services.localization_editor import build_check_report as localization_check
     from .services.media import bootstrap_payload, registry
     from .services.cropper import cropper
 
@@ -22,6 +23,7 @@ def _run_combined_check() -> int:
         ("cost_reward", cost_reward_check),
         ("victory_tree", victory_tree_check),
         ("wonder_localization", wonder_localization_check),
+        ("localization", localization_check),
     ]
     failed = False
     for name, check_fn in tools:

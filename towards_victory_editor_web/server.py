@@ -12,6 +12,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field, StrictBool
 
 from .services.cost_reward import CostRewardEditorService
+from .services.localization_editor import LocalizationEditorService
 from .services.generation import GenerationError
 from .services.platform import RollbackError
 from .services.victory_tree import GENERATED_PREVIEWS_DIR, TREE_PREVIEW_URL_PREFIX, VictoryTreePlannerService
@@ -39,6 +40,11 @@ def _default_operation_store_path() -> Path:
 
 class SaveCostRewardRequest(BaseModel):
     edits: dict[str, dict[str, dict[str, Any]]] = Field(default_factory=dict)
+    base: dict[str, str] = Field(default_factory=dict)
+
+
+class LocalizationRequest(BaseModel):
+    edits: dict[str, dict[str, Any]] = Field(default_factory=dict)
     base: dict[str, str] = Field(default_factory=dict)
 
 
@@ -118,7 +124,7 @@ def create_app(
         previous_shared_stores = tuple(
             getattr(target, "operation_store", None) for target in shared_targets
         )
-        for target in (cost_reward_service, victory_tree_service, wonder_service, cropper):
+        for target in (cost_reward_service, victory_tree_service, wonder_service, localization_service, cropper):
             if hasattr(target, "operation_store"):
                 target.operation_store = store
         try:
@@ -213,6 +219,7 @@ def create_app(
 
     # --- Cost / Reward editor -------------------------------------------------
     cost_reward_service = CostRewardEditorService(configured_store)
+    localization_service = LocalizationEditorService(configured_store)
 
     @app.get("/api/resources/editor.cost_reward")
     def cost_reward_resource() -> dict:
@@ -230,6 +237,22 @@ def create_app(
     @app.post("/api/resources/editor.cost_reward/commit")
     def cost_reward_commit(request: SaveCostRewardRequest) -> dict:
         return cost_reward_service.save_tokens(request.edits, request.base)
+
+    @app.get("/api/resources/editor.localization")
+    def localization_resource() -> dict:
+        return localization_service.load_resource()
+
+    @app.post("/api/resources/editor.localization/validate")
+    def localization_validate(request: LocalizationRequest) -> dict:
+        return localization_service.validate_edits(request.edits)
+
+    @app.post("/api/resources/editor.localization/preview")
+    def localization_preview(request: LocalizationRequest) -> dict:
+        return localization_service.preview_edits(request.edits, request.base)
+
+    @app.post("/api/resources/editor.localization/commit")
+    def localization_commit(request: LocalizationRequest) -> dict:
+        return localization_service.commit_edits(request.edits, request.base)
 
     # --- Victory tree planner --------------------------------------------------
     victory_tree_service = VictoryTreePlannerService(configured_store)

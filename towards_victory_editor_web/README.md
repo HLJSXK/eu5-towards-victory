@@ -407,3 +407,20 @@ the bounded log buffer, `lines_reset` is true and `lines` contains the latest
 The image styling tool requires the packages in `requirements-image.txt`.
 Generation tools that call an image API still require the API key configured
 by their existing JSON configuration or environment variables.
+
+### `editor.localization`
+
+`GET /api/resources/editor.localization` discovers every physical
+`src*/**/localization/**/*.yml` file and returns the shared resource/draft/change_set
+contract. Generated outputs registered in `data/generated_files.yaml` are read-only
+and identify their `source_data`; other languages are displayed read-only. EN/ZH
+files are paired by mod root, directory and filename, with ordered key/value rows.
+`POST .../{validate,preview,commit}` accepts `{edits:{path:{key:{english,simp_chinese}}},base}`;
+existing keys permit one-language value edits, new keys require both languages, and
+`key: null` deletes both entries. Missing translations in editable pairs reject
+commit; preview reports candidate missing keys and presence-aware field diffs.
+Commit preserves leading comments, BOM and newline style (body comments are not
+retained), checks every source SHA including the ownership registry, and uses the
+platform operation/transaction recovery boundary without running generators.
+The Web `--check` localization section reports per-root handwritten file, EN/ZH key
+and missing-key counts; generated files do not participate in handwritten coverage.

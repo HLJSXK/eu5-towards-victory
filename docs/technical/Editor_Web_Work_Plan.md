@@ -414,6 +414,42 @@ flowchart LR
 ```
 新增键缺任一语言 → 400；`read_only` 文件出现在 edits → 400 并给源 data 路径。
 
+以下只补充未定细节，不改变以上三件套和请求形状：
+
+- 按路径排序枚举 `src*/**/localization/**/*.yml` **物理文件**，生成物仍展示，
+  依据 `data/generated_files.yaml` 的 `output` 排除编辑资格；`resource.discovery`
+  描述此规则，不硬编码清单。`draft.roots[].files[]` 每项对应一个物理文件。
+- EN/ZH 按同一 mod root、相同相对目录及 `*_l_english.yml` / `*_l_simp_chinese.yml`
+  配对，两项共享语言视图；其他语言也展示其原语言条目但只读（本 WP 仅编辑 EN/ZH）。
+  只读项附 `read_only_reason`，生成物附 `source_data`（登记表 `data` 拆成路径列表）；
+  任一配对文件在登记表中时整对只读，防止从另一语言路径绕过保护。
+- 已有键可只改一个语言值；**新增键必须同时提供 `english` 与 `simp_chinese`
+  字符串，否则 validate/preview/commit → 400**。**删除键用 `"<key>": null`，同时删除
+  两语言条目**；语言字段 null 不合法。同一对的两条路径均可作为 edits 入口，但
+  同一个 key/language 重复指定 → 400；不新增文件，配对文件不存在时编辑 → 400。
+  路径必须来自清单，键匹配 `[A-Za-z0-9_.-]+`，值禁止物理 CR/LF 与 NUL，
+  意图换行使用字面 `\n`，空字符串及 EU5 内部双引号合法。
+- 值变更**保留文件头注释、BOM（`utf-8-sig`）与既有换行符**；复用平台
+  `source_text_bytes`（与 `yaml_bytes` 相同保留机制）。正文分节注释会丢失，
+  值使用 ASCII 外层双引号、内部引号按 EU5 原样输出，沿用第 4 章接受的限制。
+- `missing_translations` 是可写 EN/ZH 对按配对文件的双向键差集，`path` 指缺条目的语言文件；
+  按 mod root 隔离，沿用 `check_loc_coverage` 的配对/集合比对语义。生成物仅只读展示，
+  不以其既有缺译阻塞本资源的手写文件编辑（其完整性由相应 data/生成器负责）。
+  既有缺译时 validate 返回 200、`valid:false`；preview 仍返回 200 与候选缺译列表，
+  commit 拒绝 400。重复键（同文件或同 mod root 同语言跨文件）、非法编辑 → 400。
+- validate 返回 `{resource, valid, errors, missing_translations}`；preview 返回三件套加
+  `{valid, errors, diff, missing_translations}`。`diff` 行为
+  `{path, key, language, field:"value", before, after, before_present, after_present}`，
+  缺席值为 null，空字符串通过 presence 区分；无变化不产生 diff 或写入。
+- preview/commit 的 `base` 必须覆盖 `change_set.base` 的全部物理文件与
+  `data/generated_files.yaml`（保护所有权）。缺项/多项 → 400，SHA 变化 →
+  409 / `resource_changed`；validate 不要求 base。每次请求读取新快照，替换前再检查。
+  失败沿用 platform 事务恢复、`OperationLog`、`RollbackError`，成功返回刷新三件套、
+  `written_paths`、`operation_id`、`operation`，不运行生成器。
+- `--check` 新节按 mod root 输出全部手写物理文件数、可编辑 EN/ZH 文件数、双语组数、
+  EN/ZH 键数与缺失键数。第 4 章的 12 个手写文件指 12 组（24 个 EN/ZH 物理文件）；
+  其他语言也按规则发现，生成物不计入手写数、手写 EN/ZH 键数或缺译检查。
+
 ### 6.3 `/api/generators`（WP-08）
 
 ```json
