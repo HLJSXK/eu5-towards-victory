@@ -120,11 +120,13 @@ def test_resolved_path_and_nested_link_rejection(client, cli, repo, monkeypatch,
     assert cli == []
 
 
-def test_failed_checks_are_200_and_diagnostics_have_messages(client, monkeypatch):
+@pytest.mark.parametrize("rule", ["loc", "localization"])
+@pytest.mark.parametrize("prefix", ["", "[LOC] "])
+def test_failed_checks_are_200_and_diagnostics_have_messages(client, monkeypatch, rule, prefix):
     report = {
         "pass": False, "files_checked": 1,
         "errors": [
-            {"rule": "localization", "message": "Duplicate localization key 'test'"},
+            {"rule": rule, "message": f"{prefix}Duplicate localization key 'test'"},
             {"rule": "pattern", "file": "src\\test.txt", "line": 12, "bad": "old", "fix": "new"},
         ],
         "warnings": [{"raw": "A CLI warning"}],
@@ -134,7 +136,8 @@ def test_failed_checks_are_200_and_diagnostics_have_messages(client, monkeypatch
     assert response.status_code == 200
     payload = response.json()
     assert payload["pass"] is False
-    assert payload["errors"][0]["message"].startswith("[LOC]")
+    assert payload["errors"][0]["rule"] == rule
+    assert payload["errors"][0]["message"] == "[LOC] Duplicate localization key 'test'"
     assert payload["errors"][1]["message"] == "Bad: old -> new"
     assert payload["errors"][1]["file"] == "src/test.txt"
     assert payload["errors"][1]["line"] == 12
@@ -271,6 +274,30 @@ def test_duplicate_localization_in_temporary_repo_is_real_failure(client, repo):
     corrected = client.post("/api/validate", json={"files": ["src/main_menu/localization"], "changed": False})
     assert corrected.status_code == 200
     assert not any("Duplicate localization key" in issue["message"] for issue in corrected.json()["errors"])
+
+
+@pytest.mark.parametrize("missing_file", [True, False], ids=["missing_zh_file", "missing_translation"])
+def test_missing_chinese_localization_in_temporary_repo_has_loc_prefix(client, repo, missing_file):
+    _copy_validator(repo)
+    english = repo / "src" / "main_menu" / "localization" / "english" / "test_l_english.yml"
+    chinese = repo / "src" / "main_menu" / "localization" / "simp_chinese" / "test_l_simp_chinese.yml"
+    english.parent.mkdir(parents=True)
+    english.write_text('l_english:\n test_present:0 "Present"\n test_missing:0 "Missing"\n', encoding="utf-8-sig")
+    if not missing_file:
+        chinese.parent.mkdir(parents=True)
+        chinese.write_text('l_simp_chinese:\n test_present:0 "Present"\n', encoding="utf-8-sig")
+    response = client.post("/api/validate", json={"files": ["src/main_menu/localization"], "changed": False})
+    assert response.status_code == 200, response.text
+    payload = response.json()
+    assert payload["pass"] is False
+    issues = [issue for issue in payload["errors"] if issue["rule"] == "loc"]
+    assert len(issues) == 1
+    expected = "Missing simp_chinese file:" if missing_file else "1 key(s) missing from simp_chinese: test_missing"
+    assert expected in issues[0]["message"]
+    assert issues[0]["message"].startswith("[LOC]")
+    assert issues[0]["message"].count("[LOC]") == 1
+    assert payload["files_checked"] == (1 if missing_file else 2)
+    assert payload["fixed"] == []
 
 
 @pytest.mark.parametrize("filename", ["test.txt", "test.custom"])

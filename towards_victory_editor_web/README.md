@@ -31,8 +31,9 @@ Python interpreter. The body accepts `files` (repository-relative paths under
 mod roots. `changed: true` takes precedence over the file list, as in the CLI.
 The response contains `pass`, `errors`, `warnings`, `files_checked`, `command`,
 `duration_ms` and `fixed`. Failed checks still return HTTP 200; diagnostics have
-`rule` and `message`, with optional `file` and `line`. Localization messages
-carry `[LOC]`. Invalid or escaping paths return 400; the 180-second subprocess
+`rule` and `message`, with optional `file` and `line`. Messages with rule `loc`
+or `localization` start with `[LOC]`; an existing prefix is not added again.
+Invalid or escaping paths return 400; the 180-second subprocess
 timeout returns 504 with `output_tail`, and invalid CLI output returns 500.
 Validation is read-only by default. Only explicit boolean `fix: true` from a
 loopback caller is allowed, with same-origin browser requests only; forwarded

@@ -42,8 +42,8 @@ def _diagnostic(issue: dict[str, Any]) -> dict[str, Any]:
     if message is None:
         message = f"Bad: {issue.get('bad', '')} -> {issue.get('fix', '')}"
     diagnostic["message"] = str(message)
-    if diagnostic["rule"] == "localization":
-        diagnostic["message"] = f"[LOC] {message}"
+    if diagnostic["rule"] in {"loc", "localization"} and not diagnostic["message"].startswith("[LOC]"):
+        diagnostic["message"] = f"[LOC] {diagnostic['message']}"
     if "file" in diagnostic:
         diagnostic["file"] = str(diagnostic["file"]).replace("\\", "/")
     return diagnostic
