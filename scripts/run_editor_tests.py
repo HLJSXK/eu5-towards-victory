@@ -57,6 +57,7 @@ NODE_FILES = (
     "tests/cost_reward.cjs",
     "tests/localization_text.cjs",
     "tests/localization.cjs",
+    "tests/victory_paths.cjs",
 )
 
 

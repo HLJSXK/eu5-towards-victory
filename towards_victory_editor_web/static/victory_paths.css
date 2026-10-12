@@ -1,0 +1,105 @@
+.tool-victory-paths {
+  padding: 1.5rem;
+  color: var(--workspace-ink, #24364b);
+}
+
+.victory-paths-layout {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 1.25rem;
+}
+
+.victory-paths-sidebar,
+.victory-paths-main {
+  min-width: 0;
+}
+
+.victory-paths-sidebar nav {
+  display: grid;
+  gap: .5rem;
+}
+
+.victory-paths-sidebar button {
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+
+.victory-paths-sidebar button.active {
+  border-color: var(--workspace-accent, #0f6c75);
+  font-weight: 700;
+}
+
+.victory-paths-group,
+.victory-paths-references,
+.victory-paths-plan {
+  margin: .8rem 0;
+  padding: .9rem;
+  border: 1px solid var(--workspace-line, #ccd3dc);
+  border-radius: var(--workspace-radius-md, 12px);
+  background: var(--workspace-card, #fff);
+}
+
+.victory-paths-group summary,
+.victory-paths-plan summary {
+  cursor: pointer;
+  font-weight: 650;
+}
+
+.victory-paths-field {
+  display: grid;
+  grid-template-columns: minmax(160px, .7fr) minmax(0, 1.3fr);
+  gap: .75rem;
+  align-items: start;
+  margin-top: .65rem;
+}
+
+.victory-paths-field > span {
+  overflow-wrap: anywhere;
+  font-size: .85rem;
+}
+
+.victory-paths-field input:not([type="checkbox"]),
+.victory-paths-field textarea {
+  width: 100%;
+  min-width: 0;
+  padding: .45rem;
+}
+
+.victory-paths-field textarea {
+  min-height: 5rem;
+  resize: vertical;
+}
+
+.victory-paths-main pre {
+  margin: .5rem 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: .8rem;
+}
+
+.victory-paths-main [data-validation] {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.victory-paths-slots {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .5rem;
+  padding: .6rem 0;
+}
+
+.victory-paths-slot-note,
+.victory-paths-references p,
+.victory-paths-sidebar [data-dirty] {
+  font-size: .85rem;
+}
+
+.victory-paths-references [data-resolved="false"],
+.victory-paths-main [data-validation]:not(:empty) {
+  color: #a13228;
+}
+
+.victory-paths-field [aria-invalid="true"] {
+  border-color: #a13228;
+}

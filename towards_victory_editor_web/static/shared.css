@@ -340,3 +340,11 @@ body {
   .generators-layout { grid-template-columns: minmax(0, 1fr); }
   .tool-generators { padding: 1rem; }
 }
+
+.tool-hub-tab-bar {
+  flex-wrap: wrap;
+}
+
+.tool-hub-tab-btn {
+  flex-shrink: 0;
+}
