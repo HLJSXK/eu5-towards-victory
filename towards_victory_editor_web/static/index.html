@@ -16,13 +16,14 @@
   <header id="tool-hub-header">
     <h1>Towards Victory 编辑器</h1>
     <nav class="tool-hub-tab-bar">
-      <button class="tool-hub-tab-btn" data-tool="cost-reward">花费/奖励编辑器</button>
-      <button class="tool-hub-tab-btn" data-tool="victory-tree">胜利树规划器</button>
-      <button class="tool-hub-tab-btn" data-tool="wonder-localization">奇观本地化编辑器</button>
-      <button class="tool-hub-tab-btn" data-tool="media-studio">媒体工具</button>
-      <button class="tool-hub-tab-btn" data-tool="wonder-cropper">奇观裁剪</button>
-      <button class="tool-hub-tab-btn" data-tool="generators">生成器</button>
+      <button class="tool-hub-tab-btn" data-tool="cost-reward">花费/奖励编辑器<span class="tool-hub-tab-dot" data-dot hidden></span></button>
+      <button class="tool-hub-tab-btn" data-tool="victory-tree">胜利树规划器<span class="tool-hub-tab-dot" data-dot hidden></span></button>
+      <button class="tool-hub-tab-btn" data-tool="wonder-localization">奇观本地化编辑器<span class="tool-hub-tab-dot" data-dot hidden></span></button>
+      <button class="tool-hub-tab-btn" data-tool="media-studio">媒体工具<span class="tool-hub-tab-dot" data-dot hidden></span></button>
+      <button class="tool-hub-tab-btn" data-tool="wonder-cropper">奇观裁剪<span class="tool-hub-tab-dot" data-dot hidden></span></button>
+      <button class="tool-hub-tab-btn" data-tool="generators">生成器<span class="tool-hub-tab-dot" data-dot hidden></span></button>
     </nav>
+    <div id="operations-panel" aria-label="最近操作"></div>
   </header>
   <main id="tool-hub-panels">
 
@@ -226,6 +227,7 @@
 <div id="vt-preview"></div>
 <div id="wonder-preview"></div>
 <script type="module" src="static/shared.js"></script>
+<script type="module" src="static/operations_panel.js"></script>
 <script type="module" src="static/cost_reward.js"></script>
 <script type="module" src="static/victory_tree.js"></script>
 <script type="module" src="static/wonder_localization.js"></script>

@@ -1,10 +1,14 @@
 import { fetchJson } from "./api.js";
-import { ResourceState, resourceBase } from "./resource_state.js";
+import { ResourceState, resourceBase, setToolDirty } from "./resource_state.js";
 import { escapeHtml } from "./display.js";
 import { createJobPanel } from "./job_panel.js";
 
 const cropState = {
-  resource: new ResourceState({ saved: { tasks: [] }, onChange: () => syncCropControls() }),
+  resource: new ResourceState({
+    saved: { tasks: [] },
+    onChange: () => syncCropControls(),
+    onDirtyChange: (dirty) => setToolDirty("wonder-cropper", dirty),
+  }),
   index: -1, image: null,
   get tasks() { return this.resource.draft.tasks; },
   get rect() { return activeTask()?.rect ?? null; },

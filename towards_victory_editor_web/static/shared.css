@@ -21,7 +21,7 @@ body {
 
 #tool-hub-header {
   flex: 0 0 auto;
-  padding: 10px 16px 0 16px;
+  padding: 10px 16px 8px 16px;
   background: #1c1f24;
   border-bottom: 1px solid #2a2e35;
 }
@@ -59,6 +59,84 @@ body {
   background: #14161a;
   color: #ffffff;
   font-weight: 600;
+}
+
+/* WP-10: per-tab dirty dot / running-job marker. The span sits inside the tab button, so the label
+   text stays the button's own text content. `[hidden]` needs an explicit rule: this class selector
+   would otherwise outrank the user-agent [hidden] default. */
+.tool-hub-tab-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-left: 7px;
+  border-radius: 50%;
+  vertical-align: middle;
+  background: #f6c453;
+}
+
+.tool-hub-tab-dot[hidden] {
+  display: none;
+}
+
+.tool-hub-tab-dot.dirty {
+  background: #f6c453;
+}
+
+.tool-hub-tab-dot.running {
+  background: #4ea8de;
+}
+
+/* Both at once: a ring keeps the dirty colour while the fill reports the running job. */
+.tool-hub-tab-dot.dirty.running {
+  background: #f6c453;
+  box-shadow: 0 0 0 2px #4ea8de;
+}
+
+/* WP-10: operations panel in the shell header. Running jobs read first, failures second, the rest
+   collapsed behind their own section so a long list cannot push the tab bar around. */
+#operations-panel {
+  margin-top: 8px;
+  font-size: .8rem;
+  color: #b8bcc4;
+}
+#operations-panel .operations-bar { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; }
+#operations-panel .operations-title { color: #f0f0f0; }
+#operations-panel .operations-status-bar { flex: 1 1 14rem; overflow-wrap: anywhere; }
+#operations-panel button {
+  background: #2a2e35;
+  color: #d3dae2;
+  border: 1px solid #343b45;
+  padding: .2rem .6rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+#operations-panel button:disabled { opacity: .6; cursor: default; }
+#operations-panel[data-state="failed"] .operations-status-bar { color: #ff7b66; }
+#operations-panel .operations-results { max-height: 22vh; overflow: auto; padding-bottom: .3rem; }
+#operations-panel .operations-group h4 { margin: .5rem 0 .2rem; font-size: .8rem; color: #f0f0f0; }
+#operations-panel .operations-group[data-group="failed"] h4 { color: #ff7b66; }
+#operations-panel .operations-group[data-group="running"] h4 { color: #7cc4f0; }
+#operations-panel .operations-count { opacity: .75; font-weight: normal; }
+#operations-panel ul { list-style: none; margin: 0; padding: 0; }
+#operations-panel .operations-row { padding: .18rem 0; border-top: 1px solid #2a2e35; }
+#operations-panel .operations-row-main { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }
+#operations-panel .operations-status { color: #d3dae2; }
+#operations-panel .operations-status[data-kind="failed"] { color: #ff7b66; }
+#operations-panel .operations-status[data-kind="succeeded"] { color: #5fd08a; }
+#operations-panel .operations-summary { flex: 1 1 16rem; overflow-wrap: anywhere; color: #8b929c; }
+#operations-panel .operations-error { margin: .15rem 0 0; color: #ff7b66; overflow-wrap: anywhere; }
+#operations-panel .operations-empty { margin: .2rem 0; color: #71828a; }
+#operations-panel .operations-detail {
+  margin: .3rem 0 .3rem;
+  padding: .5rem .6rem;
+  border: 1px solid #343b45;
+  border-radius: 4px;
+  background: #101214;
+  color: #d3dae2;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  max-height: 16rem;
+  overflow: auto;
 }
 
 #tool-hub-panels {

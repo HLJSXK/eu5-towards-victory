@@ -14,7 +14,7 @@ import {
 } from "./wonder_drafts.js";
 import { fetchJson } from "./api.js";
 import { createStatusView, escapeHtml } from "./display.js";
-import { ResourceState, setControlsBusy } from "./resource_state.js";
+import { ResourceState, setControlsBusy, setToolDirty } from "./resource_state.js";
 
 import { normalizeLocalizationText } from "./wonder_values.js";
 
@@ -24,6 +24,7 @@ const state = {
         saved: { wonders: [], pageDrafts: {} },
         isDirty: (_saved, draft) => Object.values(draft.pageDrafts).some(draftHasChanges),
         onChange: () => syncBusyControls(),
+        onDirtyChange: (dirty) => setToolDirty("wonder-localization", dirty),
     }),
     get wonders() { return this.resource.draft.wonders; },
     get pageDrafts() { return this.resource.draft.pageDrafts; },

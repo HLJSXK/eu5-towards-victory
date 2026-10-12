@@ -25,13 +25,85 @@ export function setControlsBusy(controls, busy) {
   }
 }
 
+// --- Shared tool indicators (WP-10) -------------------------------------------------------------
+// DOM-free registry for the tab-bar dirty dot and running-job marker. It lives in this module rather
+// than shared.js because the cropper editor registers its dirty transitions from a VM test that loads
+// only this file; shared.js paints the dots from these values.
+const toolIndicators = new Map();
+const indicatorListeners = new Set();
+
+function ensureIndicator(tool) {
+  let indicator = toolIndicators.get(tool);
+  if (!indicator) {
+    indicator = { dirty: false, jobs: 0 };
+    toolIndicators.set(tool, indicator);
+  }
+  return indicator;
+}
+
+// An entry exists only while it has something to show, so "add" and "remove" are observable.
+function pruneIndicator(tool, indicator) {
+  if (!indicator.dirty && indicator.jobs === 0) toolIndicators.delete(tool);
+}
+
+function notifyIndicator(tool) {
+  for (const listener of indicatorListeners) listener(tool, toolIndicator(tool));
+}
+
+export function toolIndicator(tool) {
+  return toolIndicators.get(tool) || { dirty: false, jobs: 0 };
+}
+
+export function setToolDirty(tool, dirty) {
+  const indicator = ensureIndicator(tool);
+  const next = dirty === true;
+  if (indicator.dirty === next) return false;
+  indicator.dirty = next;
+  pruneIndicator(tool, indicator);
+  notifyIndicator(tool);
+  return true;
+}
+
+export function setToolJobs(tool, jobs) {
+  const indicator = ensureIndicator(tool);
+  const next = Math.max(0, Number(jobs) || 0);
+  if (indicator.jobs === next) return false;
+  indicator.jobs = next;
+  pruneIndicator(tool, indicator);
+  notifyIndicator(tool);
+  return true;
+}
+
+export function dirtyToolNames() {
+  return [...toolIndicators].filter(([, indicator]) => indicator.dirty).map(([tool]) => tool).sort();
+}
+
+export function runningToolNames() {
+  return [...toolIndicators].filter(([, indicator]) => indicator.jobs > 0).map(([tool]) => tool).sort();
+}
+
+export function subscribeToolIndicators(listener) {
+  indicatorListeners.add(listener);
+  return () => indicatorListeners.delete(listener);
+}
+
+export function resetToolIndicators() {
+  const tools = [...toolIndicators.keys()];
+  toolIndicators.clear();
+  for (const tool of tools) notifyIndicator(tool);
+}
+
 export class ResourceState {
-  constructor({ base = {}, saved = {}, draft = saved, isDirty = (saved, draft) => !equal(saved, draft), onChange = () => {} } = {}) {
+  constructor({ base = {}, saved = {}, draft = saved, isDirty = (saved, draft) => !equal(saved, draft),
+    onChange = () => {}, onDirtyChange = () => {} } = {}) {
     this.isDirty = isDirty;
     this.onChange = onChange;
+    this.onDirtyChange = onDirtyChange;
     this.base = copy(base);
     this.saved = copy(saved);
     this.draft = copy(draft);
+    // The initial value is reported through the constructor, never as a transition: callers pass
+    // onDirtyChange inline while the surrounding object literal may still be unassigned.
     this.dirty = this.isDirty(this.saved, this.draft);
     this.phase = "idle";
     this.error = null;
@@ -43,12 +115,20 @@ export class ResourceState {
     return this.phase !== "idle";
   }
 
+  // Only a real transition notifies, so repeated edits cannot flood the indicator registry.
+  _setDirty(dirty) {
+    if (this.dirty === dirty) return false;
+    this.dirty = dirty;
+    this.onDirtyChange(dirty, this);
+    return true;
+  }
+
   replace({ base = this.base, saved = {}, draft = saved } = {}) {
     this.revision += 1;
     this.base = copy(base);
     this.saved = copy(saved);
     this.draft = copy(draft);
-    this.dirty = this.isDirty(this.saved, this.draft);
+    this._setDirty(this.isDirty(this.saved, this.draft));
     this.onChange(this);
   }
 
@@ -64,7 +144,7 @@ export class ResourceState {
   setDraft(draft) {
     if (this.busy) return false;
     this.draft = copy(draft);
-    this.dirty = this.isDirty(this.saved, this.draft);
+    this._setDirty(this.isDirty(this.saved, this.draft));
     this.onChange(this);
     return true;
   }
@@ -74,7 +154,7 @@ export class ResourceState {
     const draft = copy(this.draft);
     change(draft);
     this.draft = draft;
-    this.dirty = this.isDirty(this.saved, this.draft);
+    this._setDirty(this.isDirty(this.saved, this.draft));
     this.onChange(this);
     return true;
   }

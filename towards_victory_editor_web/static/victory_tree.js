@@ -1,4 +1,4 @@
-import { ResourceState, resourceBase, setControlsBusy } from "./resource_state.js";
+import { ResourceState, resourceBase, setControlsBusy, setToolDirty } from "./resource_state.js";
 import { escapeHtml, renderTabs } from "./display.js";
 import { createEditorPanel } from "./editor_panel.js";
 
@@ -23,7 +23,11 @@ const LINE_WIDTH = 0.6;
 const SVG_NS = "http://www.w3.org/2000/svg";
 
 const state = {
-  resource: new ResourceState({ saved: { paths: [] }, onChange: () => syncControls() }),
+  resource: new ResourceState({
+    saved: { paths: [] },
+    onChange: () => syncControls(),
+    onDirtyChange: (dirty) => setToolDirty("victory-tree", dirty),
+  }),
   get paths() { return this.resource.draft.paths; },
   get base() { return this.resource.base; },
   activeId: null,
@@ -40,6 +44,13 @@ const editor = createEditorPanel({
     base: state.base,
   }),
   apply: applyResourcePayload,
+  // Saving writes coordinates only and runs no generator, so the shared "保存并重新生成" wording
+  // would be wrong here; this panel passes its own copy (see editor_panel.js defaultEditorCopy).
+  copy: {
+    saving: "正在保存坐标",
+    previewChanges: (count) => `${count} 项坐标变更；确认后保存坐标（不触发生成）。`,
+    previewNoChanges: "没有内容差异；确认后仍会写入坐标文件（不触发生成）。",
+  },
   // The tree is a design record: saving writes coordinates only and runs no generator.
   onSaved: (payload) => {
     editor.log.report(payload);

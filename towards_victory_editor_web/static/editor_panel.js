@@ -8,7 +8,16 @@ function diffValue(value, item, side) {
   return value === undefined ? "—" : JSON.stringify(value);
 }
 
-export function createDiffView(root) {
+// WP-10: the copy that mentions regeneration is a parameter, not a constant. Only the victory tree
+// saves without running a generator, so it passes its own wording instead of inheriting this default.
+// Everything else in the panel (phases, preview/confirm/commit, sync) is unchanged.
+export const defaultEditorCopy = {
+  saving: "正在保存并重新生成",
+  previewChanges: (count) => `${count} 项变更；确认后保存并重新生成。`,
+  previewNoChanges: "没有内容差异；确认后仍执行保存和重新生成。",
+};
+
+export function createDiffView(root, copy = defaultEditorCopy) {
   root.innerHTML = `<dialog class="diff-dialog" aria-label="保存前预览">
     <h2>确认保存以下变更</h2><p class="diff-summary"></p>
     <div class="diff-scroll"><table><thead><tr><th>文件 / 条目 / 字段</th><th>原值</th><th>新值</th></tr></thead><tbody></tbody></table></div>
@@ -34,7 +43,7 @@ export function createDiffView(root) {
       dialog.querySelector(".diff-summary").textContent = preview.generation_plan
         ? `${preview.diff.length} 个字段变更；${preview.file_diff.length} 个源文件；${preview.generation_plan.steps.length} 个生成步骤。生成产物的实际文件摘要在保存后报告。`
         : preview.diff.length
-        ? `${preview.diff.length} 项变更；确认后保存并重新生成。` : "没有内容差异；确认后仍执行保存和重新生成。";
+        ? copy.previewChanges(preview.diff.length) : copy.previewNoChanges;
       return new Promise((resolve) => {
         const confirm = dialog.querySelector("[data-confirm]"), cancel = dialog.querySelector("[data-cancel]");
         const finish = (accepted) => {
@@ -66,8 +75,9 @@ export function createEditorPanel({ prefix, resourceId, resource, request, apply
   afterLoad = async () => {},
   onSaved = (payload) => { log.report(payload); log.append("\n[ok] 已保存。\n"); status.set("已保存"); },
   afterSave = async () => {}, refreshKeepingDrafts = null, onError,
+  copy = defaultEditorCopy,
 }) {
-  const diff = createDiffView(document.getElementById(`${prefix}-preview`));
+  const diff = createDiffView(document.getElementById(`${prefix}-preview`), copy);
   const url = `api/resources/${resourceId}`;
   let syncPending = false;
   // Another editor wrote files in this base: refresh without discarding drafts once idle.
@@ -118,7 +128,7 @@ export function createEditorPanel({ prefix, resourceId, resource, request, apply
           status.set("已返回编辑，草稿已保留");
           return null;
         }
-        status.set("正在保存并重新生成", "working");
+        status.set(copy.saving, "working");
         const payload = await fetchJson(`${url}/commit`, options);
         if (payload.written_paths?.length) {
           window.dispatchEvent(new CustomEvent("resource-committed", {

@@ -1,10 +1,14 @@
 import { fetchJson } from "./api.js";
-import { ResourceState, resourceBase, setControlsBusy } from "./resource_state.js";
+import { ResourceState, resourceBase, setControlsBusy, setToolDirty } from "./resource_state.js";
 import { renderTabs } from "./display.js";
 import { createEditorPanel } from "./editor_panel.js";
 
 const state = {
-  resource: new ResourceState({ saved: { groups: [], edits: {} }, onChange: () => syncControls() }),
+  resource: new ResourceState({
+    saved: { groups: [], edits: {} },
+    onChange: () => syncControls(),
+    onDirtyChange: (dirty) => setToolDirty("cost-reward", dirty),
+  }),
   get groups() { return this.resource.draft.groups; },
   get edits() { return this.resource.draft.edits; },
   get base() { return this.resource.base; },
