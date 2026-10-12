@@ -2,13 +2,14 @@ from __future__ import annotations
 
 import os
 from contextlib import asynccontextmanager
+from ipaddress import ip_address
 from pathlib import Path
 from typing import Any
 
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, Query, Request
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, StrictBool
 
 from .services.cost_reward import CostRewardEditorService
 from .services.generation import GenerationError
@@ -25,6 +26,7 @@ from .services.media import registry
 from .services.tooling import JobManager
 from .services.operation_store import OperationStore
 from .services.platform import ConflictError
+from .services.validation import ValidationExecutionError, ValidationService
 
 PACKAGE_ROOT = Path(__file__).resolve().parent
 STATIC_DIR = PACKAGE_ROOT / "static"
@@ -67,6 +69,28 @@ class JobRequest(BaseModel):
 class CropResourceRequest(BaseModel):
     edits: dict[str, dict[str, Any] | None] = Field(default_factory=dict)
     base: dict[str, str] = Field(default_factory=dict)
+
+
+class ValidationRequest(BaseModel):
+    files: list[str] | None = None
+    changed: StrictBool | None = None
+    fix: StrictBool = False
+
+
+def _local_validation_caller(request: Request) -> bool:
+    if request.client is None:
+        return False
+    try:
+        address = ip_address(request.client.host)
+    except ValueError:
+        return False
+    mapped_address = getattr(address, "ipv4_mapped", None)
+    if not (address.is_loopback or mapped_address is not None and mapped_address.is_loopback):
+        return False
+    origin = request.headers.get("origin")
+    if origin is not None and origin != str(request.base_url).rstrip("/"):
+        return False
+    return request.headers.get("sec-fetch-site", "none") in ("none", "same-origin")
 
 
 def _wonder_draft(draft: WonderDraftRequest) -> dict[str, Any]:
@@ -148,6 +172,13 @@ def create_app(
     async def _handle_runtime_error(request, exc: RuntimeError):
         return error_response(request, exc, 500)
 
+    @app.exception_handler(ValidationExecutionError)
+    async def _handle_validation_error(request, exc: ValidationExecutionError):
+        return JSONResponse(
+            status_code=exc.status_code,
+            content={"detail": str(exc), "output_tail": exc.output_tail},
+        )
+
     @app.exception_handler(ConflictError)
     async def _handle_conflict_error(request, exc: ConflictError):
         return error_response(request, exc, 409)
@@ -170,6 +201,15 @@ def create_app(
         return FileResponse(STATIC_DIR / "index.html")
 
     app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+
+    validation_service = ValidationService()
+
+    @app.post("/api/validate")
+    def validate(payload: ValidationRequest, request: Request) -> dict:
+        return validation_service.run(
+            payload.files, payload.changed, payload.fix,
+            allow_fix=_local_validation_caller(request),
+        )
 
     # --- Cost / Reward editor -------------------------------------------------
     cost_reward_service = CostRewardEditorService(configured_store)

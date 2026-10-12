@@ -24,6 +24,20 @@ Its message combines shared guidance with the server diagnostic for `resource_bu
 and `resource_changed`; `detail` retains the raw diagnostic. The changed-input
 guidance applies to both editors and media jobs. Non-JSON error bodies are read once.
 
+`POST /api/validate` runs `scripts/validate.py --ai-report` with the server's
+Python interpreter. The body accepts `files` (repository-relative paths under
+`data/`, `src*/` or `scripts*/`), `changed` and `fix`. Omitting both `files` and
+`changed` selects `--changed`; explicit `changed: false` without files runs all
+mod roots. `changed: true` takes precedence over the file list, as in the CLI.
+The response contains `pass`, `errors`, `warnings`, `files_checked`, `command`,
+`duration_ms` and `fixed`. Failed checks still return HTTP 200; diagnostics have
+`rule` and `message`, with optional `file` and `line`. Localization messages
+carry `[LOC]`. Invalid or escaping paths return 400; the 180-second subprocess
+timeout returns 504 with `output_tail`, and invalid CLI output returns 500.
+Validation is read-only by default. Only explicit boolean `fix: true` from a
+loopback caller is allowed, with same-origin browser requests only; forwarded
+headers do not authorize writes. `fixed` lists files whose BOM was actually added.
+
 `static/display.js` provides shared log/status views, tabs, HTML escaping and
 operation/generation diagnostics. `static/editor_panel.js` owns the cost/reward,
 Victory Tree and Wonder load/reload/save workflow. Save first calls the resource's

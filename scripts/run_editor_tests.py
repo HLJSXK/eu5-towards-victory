@@ -34,6 +34,7 @@ PYTEST_FILES = (
     "tests/test_operation_log_contract.py",
     "tests/test_editor_file_transactions.py",
     "tests/test_generation_plan.py",
+    "tests/test_validation_api.py",
 )
 NODE_FILES = (
     "tests/api.cjs",
