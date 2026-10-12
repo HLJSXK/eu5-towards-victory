@@ -467,6 +467,34 @@ flowchart LR
 ```
 400：未知脚本 / 请求集合内输出路径相交 / 产物未登记。
 
+补充约定（WP-08；不改变上述 payload 形状）：
+- GET 按 `(root, domain, script)` 排序；`scripts` → `src`，`scripts_<域>` → `src_<域>`。
+  `domain` 为脚本目录相对 `scripts*` 的路径；顶层脚本使用去掉 `gen_` 的文件名。
+  同脚本的登记行合并、去重并排序；`data` 按 ` + ` 拆分，去掉括号注释，保留目录/glob 描述，不推导依赖 DAG。
+- POST 同步、按请求顺序执行，`dry_run` 默认 `false` 且只接受布尔值；空列表、重复脚本、
+  非仓库内 Python 脚本/输出路径、输出文件与目录祖先相交均为 400，执行前拒绝且不创建 operation。
+  `dry_run: true` 仅检查请求与登记，记录成功 operation；每步 `skipped`，不启动子进程、不创建 staging、不写业务文件。
+- operation 的 `kind` 为 `generator_run`，复用当前 OperationStore；步骤状态为
+  `succeeded` / `failed` / `timed_out` / `skipped`。未执行步骤耗时为 0，未产生退出码时 `exit_code: null`。
+  `output_tail` 合并 stdout/stderr 后取最后 4096 字符；每步超时 120 秒并终止该子进程。
+- 每次运行使用独立临时仓库副本；每步仅允许改变自己登记的输出（含删除），
+  新增、修改或删除其他文件均按未登记产物 400 拒绝；缺失输出/文件级格式校验失败也返回 400。
+  全部步骤通过 `artifacts.py` 文件级校验后才发布登记输出；这不是领域语义校验。
+  复制不跟随符号链接/目录联接，排除 Git、编辑器状态、测试临时目录及缓存。
+  受信任 Python 生成器通过写入 guard 限制在副本内（同时拒绝链接与派生外部进程）；
+  这不是用于运行不受信任代码的操作系统沙箱。
+- 输出路径推导本进程资源锁：本地化 → `editor.localization`；Wonder/工程部 →
+  `editor.wonder`、`editor.cost_reward`；victory → `editor.victory_tree`、`editor.cost_reward`；
+  裁剪配置/奇观图像 → `editor.wonder_crop`；其他路径只做文件快照。
+  媒体历史图像两个 handler 共用 `media.historical`（实际共写 processed 目录，无对应编辑资源）；
+  DDS handler 另声明实际使用的 `editor.victory_tree`、`editor.wonder_crop`。
+- 锁忙/发布前登记输入或输出发生变化返回 409；非零退出/执行或发布异常返回 500；超时返回 504。
+  首个失败后不再执行后续步骤、不发布任何 staging 文件。执行期错误附 `detail` 及上述完整响应字段；
+  预检错误仅有 `detail`。全链检查通过后收集登记输出，之前的失败产物列表为空；
+  `changed` 相对于运行前字节，删除产物为 `size: 0`、`sha256: "missing"`、`changed: true`。
+  `rollback.status` 为 `not_needed`（尚未发布/成功）或 `completed` / `failed`（发布失败后恢复），
+  `errors` 保留所有恢复失败；步骤、产物和回滚报告随 operation details 持久化。
+
 ---
 
 ## 7. 统一验收标准（每个 WP 都必须给出）

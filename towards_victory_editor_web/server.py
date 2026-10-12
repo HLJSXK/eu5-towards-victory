@@ -14,6 +14,7 @@ from pydantic import BaseModel, Field, StrictBool
 from .services.cost_reward import CostRewardEditorService
 from .services.localization_editor import LocalizationEditorService
 from .services.generation import GenerationError
+from .services.generator_runs import GeneratorRunError, GeneratorRunService
 from .services.platform import RollbackError
 from .services.victory_tree import GENERATED_PREVIEWS_DIR, TREE_PREVIEW_URL_PREFIX, VictoryTreePlannerService
 from .services.wonder_resource import WonderResourceService
@@ -83,6 +84,11 @@ class ValidationRequest(BaseModel):
     fix: StrictBool = False
 
 
+class GeneratorRunRequest(BaseModel):
+    scripts: list[str]
+    dry_run: StrictBool = False
+
+
 def _local_validation_caller(request: Request) -> bool:
     if request.client is None:
         return False
@@ -124,7 +130,7 @@ def create_app(
         previous_shared_stores = tuple(
             getattr(target, "operation_store", None) for target in shared_targets
         )
-        for target in (cost_reward_service, victory_tree_service, wonder_service, localization_service, cropper):
+        for target in (cost_reward_service, victory_tree_service, wonder_service, localization_service, generator_service, cropper):
             if hasattr(target, "operation_store"):
                 target.operation_store = store
         try:
@@ -185,6 +191,10 @@ def create_app(
             content={"detail": str(exc), "output_tail": exc.output_tail},
         )
 
+    @app.exception_handler(GeneratorRunError)
+    async def _handle_generator_error(request, exc: GeneratorRunError):
+        return JSONResponse(status_code=exc.status_code, content={"detail": str(exc), **exc.report})
+
     @app.exception_handler(ConflictError)
     async def _handle_conflict_error(request, exc: ConflictError):
         return error_response(request, exc, 409)
@@ -209,6 +219,15 @@ def create_app(
     app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
     validation_service = ValidationService()
+    generator_service = GeneratorRunService(configured_store)
+
+    @app.get("/api/generators")
+    def generators() -> dict:
+        return {"generators": generator_service.generators()}
+
+    @app.post("/api/generators/run")
+    def run_generators(payload: GeneratorRunRequest) -> dict:
+        return generator_service.run(payload.scripts, payload.dry_run)
 
     @app.post("/api/validate")
     def validate(payload: ValidationRequest, request: Request) -> dict:

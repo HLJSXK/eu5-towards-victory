@@ -39,6 +39,22 @@ Validation is read-only by default. Only explicit boolean `fix: true` from a
 loopback caller is allowed, with same-origin browser requests only; forwarded
 headers do not authorize writes. `fixed` lists files whose BOM was actually added.
 
+`GET /api/generators` lists registered Python generators grouped by script-root
+and directory domain, with their merged `data_inputs` and `outputs`.
+`POST /api/generators/run` accepts `{"scripts": ["scripts/gen_index.py"], "dry_run": false}`
+and runs synchronously in the supplied order, without a dependency DAG. It returns
+`operation_id`, `operation`, per-step `results` (status, exit code, milliseconds,
+last 4096 output characters), `artifacts` and `rollback`; operation details use the
+existing OperationStore. Dry runs only validate the selection and record skipped
+steps. Unknown/duplicate scripts, intersecting outputs, undeclared artifacts and
+invalid file formats are rejected with 400; resource/input conflicts use 409,
+execution failures use 500 and each 120-second step timeout uses 504. Execution
+errors retain the same report fields plus `detail`. Real execution uses an isolated
+temporary repository copy; only registered outputs publish after all steps pass
+the shared file-level artifact checks, not domain-semantic validation. Resource
+locks are process-local, inferred from output ownership; unknown domains use file
+snapshots only. See work-plan section 6.3 for the complete contract.
+
 `static/validation_panel.js` renders that endpoint in the panel pinned below the
 tool panels. Every successful commit dispatches `resource-saved`, which triggers
 one `changed: true` validation; the panel also has a manual button and queues one

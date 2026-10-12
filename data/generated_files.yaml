@@ -11,6 +11,35 @@
 
 generated:
 
+  # ── gen_index.py (symbol and localization lookup indexes) ──────────────────
+  - script: scripts/gen_index.py
+    data:   reference_game_files/game + src + src_engineering_department + src_court_positions + src_eureka
+    output: data/index/icons.txt
+
+  - script: scripts/gen_index.py
+    data:   reference_game_files/game + src + src_engineering_department + src_court_positions + src_eureka
+    output: data/index/scripted_triggers.txt
+
+  - script: scripts/gen_index.py
+    data:   reference_game_files/game + src + src_engineering_department + src_court_positions + src_eureka
+    output: data/index/scripted_effects.txt
+
+  - script: scripts/gen_index.py
+    data:   reference_game_files/game + src + src_engineering_department + src_court_positions + src_eureka
+    output: data/index/static_modifiers.txt
+
+  - script: scripts/gen_index.py
+    data:   reference_game_files/game + src + src_engineering_department + src_court_positions + src_eureka
+    output: data/index/modifier_localization.json
+
+  - script: scripts/gen_index.py
+    data:   reference_game_files/game + src + src_engineering_department + src_court_positions + src_eureka
+    output: data/index/trigger_localization.json
+
+  - script: scripts/gen_index.py
+    data:   reference_game_files/game + src + src_engineering_department + src_court_positions + src_eureka
+    output: data/index/loc_keys_en.txt
+
   # ── gen_victory.py (multi-output exception) ─────────────────────────────────
   - script: scripts/gen_victory.py
     data:   data/victory_paths.yaml + data/io_establishment.yaml + data/io_leaders.yaml + data/pulse_registry.yaml

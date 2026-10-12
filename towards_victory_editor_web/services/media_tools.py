@@ -89,6 +89,7 @@ class HistoricalStyleTool:
             ToolOption("keep_intermediates", "Keep intermediate stages", "boolean", False),
         ),
         artifact_formats=("png", "jpg", "json"),
+        resource_ids=("media.historical",),
         cost_hint="local",
     )
 
@@ -225,13 +226,13 @@ def build_registry() -> ToolRegistry:
     registry.register(ModuleRunTool(
         ToolSpec("media.dds_icon", "DDS icon generator", "Generate or convert configured icon and victory-tree DDS assets.", "media", (
             ToolOption("target", "Target", "text"), ToolOption("convert_existing_png", "Convert existing PNG", "file"), ToolOption("dry_run", "Dry run", "boolean", False), ToolOption("force_api", "Force API", "boolean", False), ToolOption("list_targets", "List targets", "boolean", False),
-        ), resource_ids=("editor.wonder", "editor.cost_reward"), artifact_formats=("dds", "png", "json"), cost_hint="paid_api"), "scripts/generate_dds_icon.py", _dds_options, dds_icon_plan, ("scripts", "scripts_engineering_department")))
+        ), resource_ids=("editor.wonder", "editor.cost_reward", "editor.victory_tree", "editor.wonder_crop"), artifact_formats=("dds", "png", "json"), cost_hint="paid_api"), "scripts/generate_dds_icon.py", _dds_options, dds_icon_plan, ("scripts", "scripts_engineering_department")))
     registry.register(ModuleRunTool(
         ToolSpec("media.wonder_image", "Wonder image generator", "Generate configured wonder PNG/DDS pairs.", "media", resource_ids=("editor.wonder", "editor.wonder_crop", "editor.cost_reward"), artifact_formats=("png", "dds", "json"), cost_hint="paid_api"),
         "scripts_engineering_department/generate_wonder_image.py", _wonder_options, wonder_image_plan, ("scripts", "scripts_engineering_department")))
     registry.register(HistoricalStyleTool())
     registry.register(ModuleRunTool(
-        ToolSpec("media.historical_api", "Historical image API batch", "Run the configured historical image edit batch.", "media", (ToolOption("dry_run", "Dry run", "boolean", False),), artifact_formats=("png",), cost_hint="paid_api"),
+        ToolSpec("media.historical_api", "Historical image API batch", "Run the configured historical image edit batch.", "media", (ToolOption("dry_run", "Dry run", "boolean", False),), resource_ids=("media.historical",), artifact_formats=("png",), cost_hint="paid_api"),
         "scripts/generate_historical_images.py", _historical_api_options, historical_api_plan, ("scripts",)))
     registry.register(WonderCropTool(cropper))
     return registry
