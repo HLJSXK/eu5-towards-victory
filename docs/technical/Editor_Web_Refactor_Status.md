@@ -183,6 +183,22 @@ P1 为 WP-04～WP-11，P2/P3 为 WP-12～WP-14；依赖与验收标准见该文�
 
 ## 验证记录
 
+### WP-11 前端：胜利路径标签页（2026-10-13）
+
+`b6d0b8e9`。实现者 Codex 写完代码后在自验前被系统内存回收终止，未产出报告；调度方补跑验证后提交（非实现者自验，但仍非独立验收者）。
+
+- `node --test tests/victory_paths.cjs` → **21 passed / 0 fail**，覆盖字段取值与命名、按路径分组、草稿写入与 rebase、
+  请求构造、奖励引用缺失检测、预览与生成计划文本、控制器与面板。
+- `node tests/resource_state_browser.cjs` 全量通过，新增行：
+  `Victory paths acceptance passed: lazy live GET, grouped fields and three runtime slots, eight usable tabs,
+  intercepted preview names milestone threshold, cancel keeps draft/base, frozen commit body, 409 draft-preserving
+  refresh, unresolved rewards block saving; no business writes.` 其余 11 个子场景（含 WP-07/09/10/12 的）同时全绿。
+- 交付：`static/victory_paths.js`（新标签页"胜利路径"）、`victory_paths.css`、`index.html` 标签与 section、
+  `shared.css` 追加段、`tests/victory_paths.cjs`、`tests/victory_paths_browser.cjs`（在 `resource_state_browser.cjs` 挂载）。
+  奖励引用失效时禁止保存；预览命名被改字段；取消保留草稿与 base；409 后刷新保留草稿；不调用生成器执行端点。
+- 标签栏增至 **8 个标签**（WP-13 需据此做窄屏与令牌统一）。
+- 遗留：本 WP 无独立验收者复跑（原实现者的自验未完成），验收强度低于前几个 WP；若需同等强度可另行复跑。
+
 ### WP-07：本地化编辑器页面（2026-10-13）
 
 `608a90b5`。实现者因 API 余额中断、代码留在工作区未自验，由验收 agent 验证并修缺陷（未重写实现）。
