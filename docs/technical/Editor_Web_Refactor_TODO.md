@@ -30,6 +30,21 @@
 - WP-09 改动了 `static/display.js`（`statusLabel` +3 键）与 `static/job_panel.js`（新增 `files(job)`），两者不在其接触清单内；
   改动最小且必要，但提交信息未提及。后续越界请在提交信息正文写明。
 
+## 批次 D/E 登记（2026-10-13）
+
+- WP-11 验收：`services/victory_paths.py` 的 `_registry_plan_is_complete` 定义后无调用点，死代码（功能由
+  `_generation_plan` 产 error + `commit_document` 统一拦截，行为正确）；`server.py` 的 `victory_paths_service`
+  先 `= None` 再赋值，写法与其它服务不一致。
+- WP-11 验收：6.4 正文拆解句写 "14 outputs from gen_victory.py, one each from 15 other matched registry entries"，
+  14+15≠32（漏算 `gen_messagetypes.py` 的 3 个产物）；数字 32 正确，措辞需修。
+- WP-11 编辑语义灰区：跨路径重复 task `key`/重复 task id 未拦截；路径 `score_var` 可任意改。
+- `test_generator_runs.py::test_timeout_kills_writer_and_keeps_output` 在 xdist worksteal 下偶发竞争（0.5s 超时
+  输出捕获），单独跑 3/3 通过；建议标 flaky 或放宽超时，否则会污染 `--full` 绿灯。
+- WP-11 源文件正文注释较多（全量重写时 1944→1440 行），前端提交前应明确提示"正文注释不保留"这一既有边界。
+- WP-07：`Ctrl+S` 只有手工路径，无专门用例。
+- Codex 的 elevated sandbox 在本仓库根与 `%TEMP%` 留下权限锁定目录（`.pytest-wp08*`、`tv-*`），普通权限无法删除，
+  需 `takeown` + `icacls` 管理员处理。
+
 ## 收尾整合关闭的待办（2026-10-12）
 
 - cost/reward → Wonder 同步：保留草稿刷新；冲突列出旧/新原值，刷新失败保留旧页面；完成。
