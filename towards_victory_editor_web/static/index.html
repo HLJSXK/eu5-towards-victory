@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="static/victory_tree.css">
 <link rel="stylesheet" href="static/wonder_localization.css">
 <link rel="stylesheet" href="static/media_studio.css">
+<link rel="stylesheet" href="static/localization.css">
 <link rel="stylesheet" href="static/workspace_theme.css">
 </head>
 <body>
@@ -22,6 +23,7 @@
       <button class="tool-hub-tab-btn" data-tool="media-studio">媒体工具<span class="tool-hub-tab-dot" data-dot hidden></span></button>
       <button class="tool-hub-tab-btn" data-tool="wonder-cropper">奇观裁剪<span class="tool-hub-tab-dot" data-dot hidden></span></button>
       <button class="tool-hub-tab-btn" data-tool="generators">生成器<span class="tool-hub-tab-dot" data-dot hidden></span></button>
+      <button class="tool-hub-tab-btn" data-tool="localization">本地化<span class="tool-hub-tab-dot" data-dot hidden></span></button>
     </nav>
     <div id="operations-panel" aria-label="最近操作"></div>
   </header>
@@ -219,6 +221,20 @@
       </header>
       <div id="generators-root"></div>
     </section>
+
+    <section class="tool-panel tool-localization" data-tool="localization">
+      <header class="workspace-heading">
+        <p class="eyebrow">本地化</p>
+        <h1>本地化编辑器</h1>
+        <p class="subtitle">双列编辑 <code>src*/**/localization/**/*.yml</code> 的 English / 简体中文条目：
+        按物理文件分组，缺译整行高亮，可切换"全部 / 仅缺译 / 仅已改动"并搜索 key 与译文。
+        保存走共享的预览 → 确认 → 提交流程，写入前保留文件头注释、BOM 与换行符，<b>不触发生成</b>。
+        登记在 <code>data/generated_files.yaml</code> 的生成物只读展示，并给出应改的 data 源；
+        新增键必须同时提供两种语言，否则提交被拒绝。预览为游戏内近似效果，
+        不渲染 <code>@icon!</code> 贴图、不展开变量与本地化函数，也不还原字体与排版。</p>
+      </header>
+      <div id="localization-root"></div>
+    </section>
   </main>
   <footer id="validation-panel" aria-label="校验结果"></footer>
 </div>
@@ -226,6 +242,7 @@
 <div id="cr-preview"></div>
 <div id="vt-preview"></div>
 <div id="wonder-preview"></div>
+<div id="loc-preview"></div>
 <script type="module" src="static/shared.js"></script>
 <script type="module" src="static/operations_panel.js"></script>
 <script type="module" src="static/cost_reward.js"></script>
@@ -234,6 +251,7 @@
 <script type="module" src="static/media_studio.js"></script>
 <script type="module" src="static/cropper.js"></script>
 <script type="module" src="static/generators.js"></script>
+<script type="module" src="static/localization.js"></script>
 <script type="module" src="static/validation_panel.js"></script>
 </body>
 </html>

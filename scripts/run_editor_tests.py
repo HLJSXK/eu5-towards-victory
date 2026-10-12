@@ -38,6 +38,7 @@ PYTEST_FILES = (
     "tests/test_localization_resource_contract.py",
     "tests/test_generator_runs.py",
     "tests/test_victory_paths_resource_contract.py",
+    "tests/test_court_positions_resource_contract.py",
 )
 NODE_FILES = (
     "tests/api.cjs",
@@ -53,6 +54,9 @@ NODE_FILES = (
     "tests/validation_panel.cjs",
     "tests/generators.cjs",
     "tests/global_shell.cjs",
+    "tests/cost_reward.cjs",
+    "tests/localization_text.cjs",
+    "tests/localization.cjs",
 )
 
 

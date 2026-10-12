@@ -126,6 +126,37 @@ retain their own forms and resource edits. Operation prompts are Chinese, while 
 paths, field names and server diagnostics retain their original text. Common
 buttons, logs, job styles and preview styles live in `static/shared.css`.
 
+### 本地化页面
+
+`static/localization.js` renders the `editor.localization` resource as the 本地化
+tab. The GET payload repeats each pair's EN/ZH arrays once per physical file, so the
+panel indexes one group per logical file (mod root + directory + stem) into per-language
+maps held outside the resource state, and renders a window of 200 rows at a time instead
+of the whole group. Only `english`/`simp_chinese` are editable; generated outputs and
+other languages render read-only with `read_only_reason`/`source_data`, and either file
+of a pair being generated makes the whole pair read-only. Rows come from the loaded file
+order with keys present in only one language appended; each row is marked when one side is
+missing a translation (presence, not value). Filters are 全部 / 仅缺译 / 仅已改动, with a
+search over the key and both values. A new key needs both languages and is refused before
+the request is sent; saving goes through the shared preview → confirm → commit flow with
+its own copy, since it writes localization files and runs no generator. Reverting a value
+to the loaded one removes the edit, so the in-page dirty badge and the tab dot clear with
+the draft. `tests/localization.cjs` drives the panel with a fake DOM;
+`localization_browser.cjs` mounts a Chrome scenario on the real read-only resource.
+
+`static/localization_text.js` is the shared preview renderer. It supports `#tag content#!`
+color/style tags (nested, tag name read to the first non-alphanumeric character, one
+separator space consumed), `$name$` variables, `[scope|command]` and `[expression]`
+functions, and `\n` line breaks; it does **not** render `@icon_name!` inline text icons
+(they become a labeled chip, since the glyph and its per-icon sizing come from the
+engine's `font_icons.gui` textures), expand any localization function or variable,
+resolve `customizable_localization` blocks, or reproduce the game's font, tabular
+column layout and hoverable `#TOOLTIP:` breakdowns. Tags and variables are drawn as
+approximate colored spans; unknown or unclosed markup degrades to a visible literal
+with a reported warning instead of being silently dropped. These limits are stated in
+the module header, its function docstrings and this section, so the preview is never
+presented as a faithful in-game render.
+
 The default address is `http://127.0.0.1:8760/`. Use `--host`, `--port`, or
 omit `--no-browser` when a browser tab should open automatically. The older
 standalone cropper server and its port no longer exist. Crop settings use the

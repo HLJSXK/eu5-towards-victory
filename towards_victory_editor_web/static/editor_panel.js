@@ -30,7 +30,9 @@ export function createDiffView(root, copy = defaultEditorCopy) {
       tbody.innerHTML = "";
       for (const item of [...preview.diff, ...(preview.file_diff || [])]) {
         const row = document.createElement("tr");
-        const target = [item.path, item.wonder_id, item.wonder_key, item.language, item.id,
+        // `key` is the localization draft row's identity (contract 6.2: {path, key, language, field});
+        // it is absent on the Wonder/cost-reward rows, whose document-scoped rows use wonder_key/id.
+        const target = [item.path, item.wonder_id, item.wonder_key, item.key, item.language, item.id,
           item.field || (!item.id ? "文件摘要" : "")].filter(value => value !== undefined && value !== null && value !== "").join(" / ");
         for (const text of [target, diffValue(item.before, item, "before"), diffValue(item.after, item, "after")]) {
           const cell = document.createElement("td");
