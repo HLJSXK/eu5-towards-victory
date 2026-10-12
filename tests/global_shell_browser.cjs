@@ -75,8 +75,59 @@ module.exports = async function globalShellAcceptance({ evaluate, ready }) {
   assert.match(detail, /probe-run/);
   assert.match(detail, /probe event line/);
   assert.equal(await evaluate(`document.querySelector('[data-operation-toggle="probe-run"]').textContent`), '收起');
+
+  // A polling refresh rebuilds the list from innerHTML. The expanded row must survive it, and the
+  // toggle must still read 收起, so the next click collapses rather than expanding a second time.
+  await evaluate('window.__operationsPanel.refresh()');
+  await ready("document.querySelector('[data-operation-detail=\"probe-run\"]')");
+  assert.equal(await evaluate(`document.querySelector('[data-operation-detail="probe-run"]').hidden`), false,
+    'an expanded row survives a poll refresh');
+  assert.match(await evaluate(`document.querySelector('[data-operation-detail="probe-run"]').textContent`), /probe event line/);
+  assert.equal(await evaluate(`document.querySelector('[data-operation-toggle="probe-run"]').textContent`), '收起');
+
+  // A row rebuilt collapsed must expand on the very first click after a refresh, not the second.
   await evaluate(`document.querySelector('[data-operation-toggle="probe-run"]').click()`);
   await ready("document.querySelector('[data-operation-detail=\"probe-run\"]').hidden");
+  await evaluate('window.__operationsPanel.refresh()');
+  await ready("document.querySelector('[data-operation-detail=\"probe-run\"]')");
+  await evaluate(`document.querySelector('[data-operation-toggle="probe-run"]').click()`);
+  await ready("!document.querySelector('[data-operation-detail=\"probe-run\"]').hidden");
+  const reopened = await evaluate("document.querySelector('[data-operation-detail=\"probe-run\"]').textContent");
+  assert.match(reopened, /probe event line/, 'the first click after a poll refresh expands the row');
+  await evaluate(`document.querySelector('[data-operation-toggle="probe-run"]').click()`);
+  await ready("document.querySelector('[data-operation-detail=\"probe-run\"]').hidden");
+
+  // --- a Wonder localization save marks its own tab, not the alphabetically first resource ---------
+  // wonder_commit.py:28 emits ("editor.wonder", "editor.cost_reward"); the backend sorts both ids, so
+  // the payload alone cannot name the origin. The save's own tab must carry the marker.
+  await evaluate(`__probe.intercept = async (path) => {
+    if (path === '/api/operations') return Response.json({ operations: [
+      { id: 'probe-wonder', kind: 'resource_commit', status: 'running',
+        resource_ids: ['editor.cost_reward', 'editor.wonder'], created_at: ${now} }] });
+    return null;
+  }`);
+  await evaluate('window.__operationsPanel.refresh()');
+  await ready(`${dot('wonder-localization')}.classList.contains('running')`);
+  const wonderMark = await evaluate(`(() => ({ wonder: ${dot('wonder-localization')}.dataset.jobs,
+    title: ${dot('wonder-localization')}.title }))()`);
+  assert.equal(wonderMark.wonder, '1', 'a Wonder localization save marks the wonder-localization tab');
+  assert.match(wonderMark.title, /1 个作业在运行/);
+
+  // --- a generator run marks the generators tab, never the first resource in its payload ----------
+  await evaluate(`__probe.intercept = async (path) => {
+    if (path === '/api/operations') return Response.json({ operations: [
+      { id: 'probe-gen', kind: 'generator_run', status: 'running',
+        resource_ids: ['editor.cost_reward', 'editor.localization', 'editor.victory_tree'], created_at: ${now} }] });
+    return null;
+  }`);
+  await evaluate('window.__operationsPanel.refresh()');
+  await ready(`${dot('generators')}.classList.contains('running')`);
+  assert.equal(await evaluate(`${dot('generators')}.dataset.jobs`), '1', 'a generator run marks the generators tab');
+  assert.equal(await evaluate(`${dot('cost-reward')}.classList.contains('running')`), false,
+    'and it does not mark the alphabetically first resource');
+  await evaluate("__probe.intercept = async (path) => path === '/api/operations' ? Response.json({ operations: [] }) : null");
+  await evaluate('window.__operationsPanel.refresh()');
+  await ready(`!${dot('wonder-localization')}.classList.contains('running') && !${dot('generators')}.classList.contains('running')`);
 
   // --- the victory tree no longer inherits the shared "保存并重新生成" wording --------------------
   // Read-only live preview; the dialog is cancelled before commit, so no file is written.
@@ -112,5 +163,5 @@ module.exports = async function globalShellAcceptance({ evaluate, ready }) {
   assert.equal(released, false, 'a clean workspace leaves without a prompt');
   assert.deepEqual(await evaluate('window.__toolShell.dirtyTools()'), []);
   await evaluate('__probe.intercept = null');
-  console.log('Global shell acceptance passed: dirty dot on edits, dot cleared on reload, beforeunload blocked only while dirty, operations panel rendered running/failed/recent with detail expansion, victory tree preview copy carries no 重新生成.');
+  console.log('Global shell acceptance passed: dirty dot on edits, dot cleared on reload, beforeunload blocked only while dirty, operations panel rendered running/failed/recent with detail expansion surviving a poll refresh, Wonder localization and generator runs marking their own tabs, victory tree preview copy carries no 重新生成.');
 };

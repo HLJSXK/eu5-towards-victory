@@ -237,6 +237,43 @@ test('operation groups split running, failed and finished without repeating a ro
   assert.match(operationSummary({ id: 'x', status: 'failed', kind: 'commit', created_at: 5, started_at: 5, finished_at: 7.5 }), /失败 · 保存 · .* · 2\.5 秒/);
 });
 
+test('a multi-resource operation marks every tab that owns one of its resources', async () => {
+  const { toolsForOperation, toolForOperation, runningCounts } = operationsModule;
+
+  // Wonder localization save (wonder_commit.py:28) emits ("editor.wonder", "editor.cost_reward") and
+  // a cost/reward save that rewrites unique wonder costs (cost_reward.py:311) emits the same two ids
+  // in the other order; the backend sorts both to one list, so the initiating tab cannot be recovered
+  // from the payload. Both owning tabs must be marked -- the real origin is always among them.
+  const wonderSave = { id: 'w', kind: 'resource_commit', status: 'running',
+    resource_ids: ['editor.cost_reward', 'editor.wonder'] };
+  assert.deepEqual(toolsForOperation(wonderSave), ['cost-reward', 'wonder-localization']);
+  assert.ok(toolsForOperation(wonderSave).includes('wonder-localization'),
+    'the Wonder localization save must mark its own tab');
+
+  // A generator run (generator_runs.py:202) locks whatever the written outputs touch, which routinely
+  // includes editor.cost_reward; its kind names the generators tab outright.
+  const generatorRun = { id: 'g', kind: 'generator_run', status: 'running',
+    resource_ids: ['editor.cost_reward', 'editor.localization', 'editor.victory_tree'] };
+  assert.deepEqual(toolsForOperation(generatorRun), ['generators'],
+    'a generator run must mark the generators tab, not the alphabetically first resource');
+
+  // A wonder media job (tooling.py:294) locks four editor resources; its kind is decisive.
+  const mediaJob = { id: 'm', kind: 'media_job', status: 'running',
+    resource_ids: ['editor.cost_reward', 'editor.victory_tree', 'editor.wonder', 'editor.wonder_crop'] };
+  assert.deepEqual(toolsForOperation(mediaJob), ['media-studio']);
+
+  // Single-resource commits keep their one tab, and an unknown id still marks nothing.
+  assert.deepEqual(toolsForOperation({ kind: 'resource_commit', resource_ids: ['editor.victory_tree'] }), ['victory-tree']);
+  assert.deepEqual(toolsForOperation({ kind: 'resource_commit', resource_ids: ['editor.wonder_crop'] }), ['wonder-cropper']);
+  assert.deepEqual(toolsForOperation({ kind: 'resource_commit', resource_ids: ['editor.cost_reward'] }), ['cost-reward']);
+  assert.deepEqual(toolsForOperation({ kind: 'resource_commit', resource_ids: ['editor.localization'] }), []);
+  assert.equal(toolForOperation(wonderSave), 'cost-reward', 'the single-name helper returns the first holder');
+
+  // Every holder counts the job, so no locked tab reads idle while its resource is busy.
+  assert.deepEqual([...runningCounts([wonderSave, generatorRun, mediaJob])],
+    [['cost-reward', 1], ['wonder-localization', 1], ['generators', 1], ['media-studio', 1]]);
+});
+
 test('the operations list renders loaded, empty and failed states and escapes payloads', async (t) => {
   const { createOperationsPanel } = operationsModule;
   const timers = [];
@@ -291,4 +328,73 @@ test('the operations list renders loaded, empty and failed states and escapes pa
   panel.poll();
   assert.equal(timers.length, 1);
   stateModule.resetToolIndicators();
+});
+
+test('a poll refresh keeps an expanded row open and the next first click still expands', async (t) => {
+  const { createOperationsPanel } = operationsModule;
+  t.after(() => stateModule.resetToolIndicators());
+  const flush = () => new Promise((resolve) => setImmediate(resolve));
+
+  const root = element();
+  const results = root.querySelector('.operations-results');
+  const operation = { id: 'poll-1', kind: 'resource_commit', status: 'running',
+    resource_ids: ['editor.victory_tree'], created_at: 1 };
+  const panel = createOperationsPanel(root, {
+    fetch: async (url) => (url === 'api/operations/poll-1'
+      ? { id: 'poll-1', operation_id: 'poll-1', kind: 'resource_commit', status: 'running',
+          resource_ids: ['editor.victory_tree'], created_at: 1,
+          events: [{ at: 1, level: 'info', message: 'polled detail line' }] }
+      : { operations: [operation] }),
+    schedule: () => 1,
+    cancel: () => {},
+  });
+
+  // A browser rebuilds the whole list from innerHTML; the fake DOM does not, so the fresh nodes a
+  // render would have created are modelled explicitly and re-pointed at the cached selector keys.
+  const wire = () => {
+    const detail = element({ hidden: true });
+    const button = element({ dataset: { operationToggle: 'poll-1' }, textContent: '展开' });
+    button.selectors.set('.operations-detail', detail);
+    const row = element();
+    row.selectors.set('.operations-detail', detail);
+    row.selectors.set('[data-operation-toggle]', button);
+    results.selectors.set('.operations-row[data-operation-id="poll-1"]', row);
+    return { detail, button };
+  };
+  const click = async (button) => {
+    await results.emit('click', { target: { closest: (selector) => (selector === '[data-operation-toggle]' ? button : null) } });
+    await flush();
+  };
+
+  await panel.refresh();
+
+  // First expand on the freshly rendered (collapsed) row.
+  let nodes = wire();
+  await click(nodes.button);
+  assert.equal(nodes.detail.hidden, false, 'the first click expands the row');
+  assert.equal(nodes.button.textContent, '收起');
+  assert.match(nodes.detail.textContent, /polled detail line/);
+
+  // A polling refresh rebuilds the row collapsed; the open row must survive it.
+  nodes = wire();
+  panel.render([operation]);
+  assert.equal(nodes.detail.hidden, false, 'an expanded row stays expanded across a poll refresh');
+  assert.equal(nodes.button.textContent, '收起', 'and its toggle still reads 收起');
+  assert.match(nodes.detail.textContent, /polled detail line/, 'with its content restored, not refetched empty');
+
+  // A row the rebuild left collapsed must expand on the very first click, not the second.
+  nodes = wire();
+  await click(nodes.button);
+  assert.equal(nodes.detail.hidden, false, 'the first click after a rebuild expands rather than collapsing');
+
+  // Collapsing works, and the cached detail is dropped with it.
+  await click(nodes.button);
+  assert.equal(nodes.detail.hidden, true, 'a second click collapses it');
+  assert.equal(nodes.button.textContent, '展开');
+
+  // A refresh that no longer lists the operation forgets it instead of reopening a stale row.
+  panel.render([]);
+  nodes = wire();
+  panel.render([operation]);
+  assert.equal(nodes.detail.hidden, true, 'a dropped operation does not come back expanded');
 });

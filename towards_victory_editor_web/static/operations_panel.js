@@ -11,7 +11,9 @@ import { setToolJobs } from "./resource_state.js";
 export const RUNNING_STATUSES = ["queued", "running", "cancelling"];
 export const DETAIL_LIMIT = 25;
 
-// One resource id or operation kind names at most one tab. Anything unmapped simply gets no marker.
+// Each resource id names the one tab that owns it. An operation can hold several resources at once,
+// so this maps a resource to a tab rather than an operation to a single tab. Anything unmapped
+// simply gets no marker.
 const TOOL_BY_RESOURCE = {
   "editor.cost_reward": "cost-reward",
   "editor.victory_tree": "victory-tree",
@@ -20,6 +22,8 @@ const TOOL_BY_RESOURCE = {
   "media.historical": "media-studio",
 };
 
+// A kind that exactly one tool ever emits names that tool outright, which settles the origin even
+// when the operation also locks resources owned by other tabs.
 const TOOL_BY_KIND = {
   media_job: "media-studio",
   generator_run: "generators",
@@ -32,6 +36,12 @@ const KIND_LABELS = {
   generator_run: "生成器运行",
 };
 
+// Operation ids are hex, but a selector still has to survive whatever the payload carried.
+function cssEscape(value) {
+  if (globalThis.CSS?.escape) return globalThis.CSS.escape(value);
+  return String(value).replace(/["\\]/g, "\\$&");
+}
+
 export function kindLabel(kind) {
   return KIND_LABELS[kind] || kind;
 }
@@ -40,11 +50,25 @@ export function isRunning(operation) {
   return RUNNING_STATUSES.includes(operation.status);
 }
 
-export function toolForOperation(operation) {
+// A job is marked on every tab that owns one of the resources it holds. `kind` names the tool
+// outright when only one tool ever emits that kind. A resource_commit is named by the resources it
+// locks; a commit that locks more than one tool's resource marks each of them, because the sorted
+// resource list (services/platform.py sorts it) no longer says which tool started the work. Ranking
+// the ids to pick "the" tool would silently mislabel the other origin, so every holder is marked.
+export function toolsForOperation(operation) {
+  const byKind = TOOL_BY_KIND[operation.kind];
+  if (byKind) return [byKind];
+  const tools = [];
   for (const resourceId of operation.resource_ids || []) {
-    if (TOOL_BY_RESOURCE[resourceId]) return TOOL_BY_RESOURCE[resourceId];
+    const tool = TOOL_BY_RESOURCE[resourceId];
+    if (tool && !tools.includes(tool)) tools.push(tool);
   }
-  return TOOL_BY_KIND[operation.kind] || null;
+  return tools;
+}
+
+// The first holder, for callers that need a single name (labels, tests).
+export function toolForOperation(operation) {
+  return toolsForOperation(operation)[0] || null;
 }
 
 // The three sections are disjoint so a row is never rendered twice: a failed operation belongs to
@@ -63,8 +87,10 @@ export function runningCounts(operations = []) {
   const counts = new Map();
   for (const operation of operations) {
     if (!isRunning(operation)) continue;
-    const tool = toolForOperation(operation);
-    if (tool) counts.set(tool, (counts.get(tool) || 0) + 1);
+    // Every holding tab counts the job, so no holder is left claiming to be idle while it is locked.
+    for (const tool of toolsForOperation(operation)) {
+      counts.set(tool, (counts.get(tool) || 0) + 1);
+    }
   }
   return counts;
 }
@@ -161,6 +187,19 @@ export function createOperationsPanel(root, {
     // An expanded row keeps its content only while the operation is still in the list.
     const present = new Set(operations.map((operation) => String(operation.id)));
     for (const id of [...details.keys()]) if (!present.has(id)) details.delete(id);
+    // The rebuild above replaced every row with a fresh collapsed node, so an open row would lose its
+    // content and the next click would read a closed DOM while `details` still holds the entry. Put
+    // the cached detail back into the new node, which keeps an expanded row open across a poll.
+    for (const [id, text] of details) {
+      const row = results.querySelector(`.operations-row[data-operation-id="${cssEscape(id)}"]`);
+      const detail = row?.querySelector(".operations-detail");
+      const button = row?.querySelector("[data-operation-toggle]");
+      if (!detail || !button) continue;
+      detail.textContent = text;
+      detail.hidden = false;
+      button.textContent = "收起";
+      button.setAttribute("aria-expanded", "true");
+    }
   }
 
   async function refresh() {
@@ -185,7 +224,9 @@ export function createOperationsPanel(root, {
     const id = button.dataset.operationToggle;
     const detail = button.closest(".operations-row")?.querySelector(".operations-detail");
     if (!detail) return;
-    if (detail.hidden === false || details.has(id)) {
+    // The DOM alone decides: a row rebuilt by render() is collapsed even though `details` still holds
+    // its id, so the first click must expand rather than collapse.
+    if (detail.hidden === false) {
       detail.hidden = true;
       details.delete(id);
       button.textContent = "展开";
@@ -193,21 +234,20 @@ export function createOperationsPanel(root, {
       return;
     }
     button.disabled = true;
+    let text;
     try {
       const payload = await fetchImpl(`api/operations/${encodeURIComponent(id)}`);
-      detail.textContent = operationDetail(payload);
-      detail.hidden = false;
-      details.set(id, payload);
-      button.textContent = "收起";
-      button.setAttribute("aria-expanded", "true");
+      text = operationDetail(payload);
     } catch (error) {
-      detail.textContent = `操作详情查询失败: ${error.message}`;
-      detail.hidden = false;
-      button.textContent = "收起";
-      button.setAttribute("aria-expanded", "true");
+      text = `操作详情查询失败: ${error.message}`;
     } finally {
       button.disabled = false;
     }
+    detail.textContent = text;
+    detail.hidden = false;
+    details.set(id, text);
+    button.textContent = "收起";
+    button.setAttribute("aria-expanded", "true");
   }
 
   results.addEventListener("click", (event) => {
