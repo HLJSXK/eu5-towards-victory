@@ -183,6 +183,22 @@ P1 为 WP-04～WP-11，P2/P3 为 WP-12～WP-14；依赖与验收标准见该文�
 
 ## 验证记录
 
+### WP-14 前端：宫廷职位标签页（2026-10-13）
+
+`e6dfce01`。实现者 Codex 只完成了 `court_positions.js/css` 与 Node 单测，**未完成 `index.html` 的标签与 section**、
+**未挂载 Chrome 子场景**，并误判 `resource_state_browser.cjs` 存在语法错误（实测 `node --check` 退出 0，文件完好）。
+调度方补齐后提交。
+
+- Node：`tests/court_positions.cjs` **3 passed / 0 fail**（实现者自跑）。
+- Chrome：修正后 `node tests/resource_state_browser.cjs` 全绿，新增行
+  `Court positions acceptance passed: live read-only GET rendered 6 positions and 10 editable fields, 6 read-only
+  modifier reference rows, draft counter and tab dot follow an edit, reload clears the draft; no business writes.`
+  既有 11 个子场景同时全绿。原实现者的子场景在 `[data-fields]` 上等待（该节点在静态模板里、加载前即存在），
+  且假设第一个 input 可写，均已改写为等待真正渲染出的字段控件。
+- 调度方补做：`index.html` 第 9 个标签按钮与 `tool-panel` section、`resource_state_browser.cjs` 挂载行、
+  `victory_paths_browser.cjs` 的标签数断言 8→9（该断言以"全部标签都在视口内"为准，WP-13 需复核 9 个标签的窄屏表现）。
+- 遗留：本 WP 无独立验收者复跑；`index.html` 与测试挂载由调度方补齐，非原实现者所写。
+
 ### WP-11 前端：胜利路径标签页（2026-10-13）
 
 `b6d0b8e9`。实现者 Codex 写完代码后在自验前被系统内存回收终止，未产出报告；调度方补跑验证后提交（非实现者自验，但仍非独立验收者）。
