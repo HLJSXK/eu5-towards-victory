@@ -8,6 +8,9 @@
 .media-tool-item { display: grid; width: 100%; gap: .3rem; margin-bottom: .35rem; padding: .7rem; border: 1px solid transparent; border-radius: 4px; background: transparent; color: #e6e6e6; text-align: left; cursor: pointer; }
 .media-tool-item:hover, .media-tool-item.active { background: #2d3945; border-color: #4e7187; }
 .media-tool-item span { color: #aab4c0; font-size: .8rem; line-height: 1.35; }
+.media-tool-item .cost-badge { justify-self: start; padding: .05rem .45rem; border-radius: 999px; font-size: .72rem; font-weight: 600; }
+.cost-badge[data-cost-hint="paid_api"] { background: #5a2a1c; color: #ffd2bf; }
+.cost-badge[data-cost-hint="local"] { background: #1d3d33; color: #c4f0dd; }
 .media-workspace { padding: 1rem; }
 .media-workspace h2 { margin-top: 0; }
 .media-fields { display: grid; gap: .8rem; max-width: 42rem; }

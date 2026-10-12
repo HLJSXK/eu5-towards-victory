@@ -281,6 +281,13 @@ function renderPanels() {
   heading.textContent = `${group.label_zh} / ${group.label_en}`;
   panelsEl.appendChild(heading);
 
+  if (group.key === "on_action_task" || group.key === "trigger_task") {
+    const notice = document.createElement("p");
+    notice.className = "hint task-pool-notice";
+    notice.textContent = "当前无机制消费此目录（见 docs/design/Cost_Reward_Unit_Concepts.md 第 6 节）。";
+    panelsEl.appendChild(notice);
+  }
+
   if (group.key.endsWith("_modifier")) {
     const hint = document.createElement("p");
     hint.className = "hint";

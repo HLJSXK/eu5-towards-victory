@@ -285,6 +285,7 @@ class WonderCropTool:
         options=(),
         resource_ids=("editor.wonder", "editor.wonder_crop", "editor.cost_reward"),
         artifact_formats=("dds",),
+        cost_hint="local",
     )
 
     def __init__(self, workspace: CropperService) -> None:

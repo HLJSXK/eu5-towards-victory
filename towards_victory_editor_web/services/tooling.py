@@ -69,6 +69,9 @@ class ToolSpec:
     # Formats are a small, declarative contract for the artifacts a tool may
     # produce. Each prepared invocation supplies concrete output paths.
     artifact_formats: tuple[str, ...] = ()
+    # Runnable tools declare whether a run calls a paid external API ("paid_api")
+    # or is a local deterministic pipeline ("local"); the UI badges tool cards from it.
+    cost_hint: str | None = None
 
     def payload(self) -> dict[str, Any]:
         return {
@@ -80,6 +83,7 @@ class ToolSpec:
             "options": [option.payload() for option in self.options],
             "resource_ids": list(self.resource_ids),
             "artifact_formats": list(self.artifact_formats),
+            "cost_hint": self.cost_hint,
         }
 
 

@@ -40,6 +40,12 @@ const editor = createEditorPanel({
     base: state.base,
   }),
   apply: applyResourcePayload,
+  // The tree is a design record: saving writes coordinates only and runs no generator.
+  onSaved: (payload) => {
+    editor.log.report(payload);
+    editor.log.append("\n[ok] 坐标已保存（设计稿，不触发生成）。\n");
+    editor.status.set("坐标已保存");
+  },
 });
 
 function activePath() {

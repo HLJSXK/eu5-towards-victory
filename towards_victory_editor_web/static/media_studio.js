@@ -18,6 +18,11 @@ function syncFormControls() {
   document.getElementById("media-run").disabled = poller.active || submission.busy;
 }
 
+const COST_BADGES = {
+  paid_api: ["付费", "运行时调用需要 API key 的付费图片接口（dry run 等本地分支除外）"],
+  local: ["本地", "本地确定性处理，不调用外部 API"],
+};
+
 function renderToolList() {
   const root = document.getElementById("media-tool-list");
   root.innerHTML = "";
@@ -25,7 +30,10 @@ function renderToolList() {
     const button = document.createElement("button");
     button.type = "button";
     button.className = `media-tool-item${tool.id === state.selected ? " active" : ""}`;
-    button.innerHTML = `<strong>${escapeHtml(tool.label)}</strong><span>${escapeHtml(tool.description)}</span>`;
+    const badge = COST_BADGES[tool.cost_hint];
+    button.innerHTML = `<strong>${escapeHtml(tool.label)}</strong>`
+      + (badge ? `<small class="cost-badge" data-cost-hint="${escapeHtml(tool.cost_hint)}" title="${escapeHtml(badge[1])}">${escapeHtml(badge[0])}</small>` : "")
+      + `<span>${escapeHtml(tool.description)}</span>`;
     button.addEventListener("click", () => {
       if (submission.busy || poller.active) return;
       state.selected = tool.id; renderToolList(); renderForm();

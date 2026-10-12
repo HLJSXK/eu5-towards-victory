@@ -54,6 +54,7 @@
     <section class="tool-panel tool-victory-tree" data-tool="victory-tree">
       <header>
         <h1>胜利之路节点位置规划器</h1>
+        <p class="hint design-note" id="vt-design-note">设计稿（未实现），仅用于摆放坐标；不参与游戏当前系统。</p>
         <p class="subtitle">在 6 张胜利之路树形背景图（<code>src/main_menu/gfx/interface/icons/towards_victory/victory_trees/</code>）
         上摆放 <code>docs/design/Victory_Path_Tree_Variant_Design.md</code> 设计的树状奖励节点
         （尚未实现的重构方案，取代现行线性五里程碑模型）：每条路径一条 5 节点主干，外加 5 条支线，每条支线
@@ -87,7 +88,7 @@
           </aside>
         </div>
         <div class="actions">
-          <button id="vt-save-btn">保存并重新生成</button>
+          <button id="vt-save-btn">保存坐标</button>
           <button id="vt-reload-btn">重新加载</button>
           <button id="reset-btn">重置当前路径</button>
         </div>
