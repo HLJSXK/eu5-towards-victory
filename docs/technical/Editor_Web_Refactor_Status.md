@@ -183,6 +183,42 @@ P1 为 WP-04～WP-11，P2/P3 为 WP-12～WP-14；依赖与验收标准见该文�
 
 ## 验证记录
 
+### WP-13：视觉令牌统一与窄屏（2026-10-13）
+
+由调度方直接实现（原分派给 Codex 的进程因系统内存被回收，未产出代码，仅留下测试脚手架）。
+本 WP 是 15 个工作包的最后一个。
+
+- **单一令牌层**：`shared.css` 成为唯一声明 `:root` 与颜色令牌的文件；`wonder_localization.css` 与
+  `workspace_theme.css` 的 `:root`、顶层 `body {`、顶层 `button {` 全部移除，其余文件改引 `--workspace-*`。
+  全仓 `var(--token, fallback)` 形式清零（消除"同一令牌两处定义"导致的 link 顺序依赖）。
+  `:root` 为 `color-scheme: dark`，`.tool-panel` 为 `light`。
+- **按钮统一**：7 个主按钮（`#cr-save-btn`、`#vt-save-btn`、`#save-button`、`#media-run`、`#cropper-save`、
+  `#vp-save-btn`、`#cp-save-btn` 及 generators/localization 的 `.primary-button`）由 `shared.css` 一条
+  `:is(...)` 规则统一为圆角 10px、`--workspace-accent` 底、白字；因该规则带 id 权重，结果不再随 link 顺序变化。
+- **窄屏**：新断点覆盖 victory_tree（`.planner-layout` 堆叠、`aside` 全宽）、wonder_localization（`.shell` 堆叠）、
+  victory_paths、court_positions，以及此前无断点的 390px 场景。九个标签在 1600/1000/390 px 下均无横向滚动，
+  胜利树画布在 390px 下由 **34px 提升到 343px**（判据 ≥300px）。
+- **溢出根因**（用只读 DOM 探针按深度定位，非猜测）：各面板的溢出源都是 flex/grid 子项里的不可断长 token ——
+  `<code>` 中的仓库路径、`<h2>` 中的 `towards_victory_leaderboard`、生成器分组标题；分别用
+  `overflow-wrap: anywhere` 与 `min-width: 0` 处理，涉及既有布局时只加不断。
+- **语言标签**：`English/Simplified Chinese/Mechanics` 改为 `英文/简体中文/机制`（`wonder/localization.py` 与
+  `wonder/field_types.py`），与既有 `仪式设计` 统一；同步更新 3 处按文本点击的 Chrome 场景。
+- **测试**：`tests/css_tokens.cjs`（新增，2 项，断言令牌唯一所有者）与 `tests/css_browser.cjs`（新增，
+  1600/1000/390 × 9 个标签 = 27 个视口 + 15 张截图）。
+- **验证记录（逐层，均为修完各自缺陷后复跑）**：
+  - `node --test tests/css_tokens.cjs tests/victory_paths.cjs tests/court_positions.cjs` → **26 passed / 0 fail**。
+  - `node tests/css_browser.cjs` → 通过：`CSS Chrome acceptance passed: 27 viewports, 15 screenshots`。
+  - `node tests/resource_state_browser.cjs`（全套 Chrome，含既有 11 个子场景）→ 通过。
+  - Node 全集 **156 passed / 0 fail**；pytest **470 passed**，唯一失败为既有 flaky
+    `test_generator_runs.py::test_timeout_kills_writer_and_keeps_output`（单独复跑 1 passed）。
+  - `scripts/validate.py --changed --ai-report`、`git diff --check` 通过。
+- **本次自查修掉的两处调度方自己引入的缺陷**：`tests/victory_paths.cjs` 仍断言 8 个标签（WP-14 已增至 9）；
+  `tests/css_browser.cjs` 与 `resource_state_browser.cjs` 争用同一对端口（8767/9337），后启动者会接管前者的
+  Chrome 实例——已改为独立端口 8769/9339，并在 runner 中改为在共享 Chrome 跑完之后启动，避免两个无头浏览器同时占用内存。
+- **遗留**：`tests/localization.js` 的表格表头仍为 `English/简体中文`（本地化页双列布局的既有措辞，未在本 WP 改动）；
+  本 WP 无独立验收者复跑。
+- 未改动：契约、`server.py`、`services/`（`wonder/localization.py`、`wonder/field_types.py` 仅改标签字面量）、业务数据。
+
 ### WP-14 前端：宫廷职位标签页（2026-10-13）
 
 `e6dfce01`。实现者 Codex 只完成了 `court_positions.js/css` 与 Node 单测，**未完成 `index.html` 的标签与 section**、

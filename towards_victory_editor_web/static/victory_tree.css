@@ -270,4 +270,21 @@ aside h2 {
   border-radius: 3px;
 }
 
+/* WP-13 narrow screen: the 300px sidebar is fixed and does not shrink, so at phone widths it
+   squeezed the canvas down to a sliver. Stacking gives the canvas the full panel width. */
+@media (max-width: 900px) {
+  .planner-layout {
+    flex-direction: column;
+  }
+
+  aside {
+    width: 100%;
+  }
+
+  .canvas-wrap {
+    width: 100%;
+    max-height: 60vh;
+  }
+}
+
 } /* end @scope (.tool-victory-tree) */

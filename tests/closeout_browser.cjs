@@ -17,7 +17,7 @@ module.exports = async function closeoutAcceptance({ evaluate, ready }) {
     document.querySelector('[data-wonder-key="unique_trinity_lavra"]').click();
   });
   await ready(idle);
-  await page(() => [...document.querySelectorAll('#language-tabs button')].find(b => b.textContent.includes('Mechanics')).click());
+  await page(() => [...document.querySelectorAll('#language-tabs button')].find(b => b.textContent.includes('机制')).click());
   const catalogState = () => {
     const shell = type => document.querySelector('[data-field-type="' + type + '"]').closest('.structured-field');
     const ritual = shell('unique_ritual_editor');

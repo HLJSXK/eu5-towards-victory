@@ -1,5 +1,31 @@
+/* WP-13: the single token layer. Every colour, radius and font family in the workspace is
+   declared here and nowhere else, so no page depends on stylesheet link order to look right.
+   The shell chrome is dark; each tool panel opts into the light workspace with `color-scheme`
+   and the `--workspace-*` palette below (see `.tool-panel`). */
 :root {
-  color-scheme: light dark;
+  color-scheme: dark;
+  --workspace-bg: #f3eee4;
+  --workspace-bg-strong: #fffaf2;
+  --workspace-panel: rgba(255, 250, 242, 0.94);
+  --workspace-panel-strong: rgba(255, 255, 255, 0.95);
+  --workspace-card: #ffffff;
+  --workspace-ink: #24364b;
+  --workspace-line: rgba(39, 54, 74, 0.14);
+  --workspace-line-strong: rgba(39, 54, 74, 0.28);
+  --workspace-text: #243144;
+  --workspace-muted: #64748b;
+  --workspace-accent: #0f6c75;
+  --workspace-accent-soft: rgba(15, 108, 117, 0.12);
+  --workspace-accent-strong: #0f4e57;
+  --workspace-warm: #b35c2e;
+  --workspace-danger: #b54943;
+  --workspace-shadow: 0 20px 40px rgba(38, 44, 59, 0.12);
+  --workspace-radius-xl: 24px;
+  --workspace-radius-lg: 18px;
+  --workspace-radius-md: 12px;
+  --workspace-radius-button: 10px;
+  --workspace-font-sans: "Segoe UI Variable Text", "Microsoft YaHei UI", "PingFang SC", "Noto Sans SC", system-ui, sans-serif;
+  --workspace-font-mono: "Cascadia Code", "Sarasa Mono SC", "Consolas", monospace;
   font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
@@ -11,6 +37,30 @@ html,
 body {
   margin: 0;
   height: 100%;
+}
+
+body {
+  background: var(--workspace-bg);
+  color: var(--workspace-text);
+  font-family: var(--workspace-font-sans);
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+}
+
+/* WP-13 narrow screen: subtitles quote repository paths, which are long unbroken tokens. Without
+   this they set the panel's min-content width and push a phone viewport into horizontal scroll. */
+code {
+  overflow-wrap: anywhere;
 }
 
 #tool-hub-shell {
@@ -148,10 +198,24 @@ body {
 
 .tool-panel {
   display: none;
+  /* Each tool panel is the light workspace, whatever the dark shell around it is doing. */
+  color-scheme: light;
 }
 
 .tool-panel.active {
   display: block;
+}
+
+/* WP-13: one primary-button rule for every tool, keyed on the save control each page actually
+   renders. The `:is()` list carries an id, so it outranks the per-page button rules regardless of
+   stylesheet link order — that is what stops the palette depending on load order. */
+:is(#cr-save-btn, #vt-save-btn, #save-button, #media-run, #cropper-save,
+    #vp-save-btn, #cp-save-btn,
+    .generators-actions .primary-button, .localization-actions .primary-button) {
+  border: none;
+  border-radius: var(--workspace-radius-button);
+  background: var(--workspace-accent);
+  color: #fff;
 }
 
 :where(.tool-cost-reward, .tool-victory-tree, .job-actions, .diff-dialog) button {
@@ -249,11 +313,11 @@ body {
   background:
     radial-gradient(circle at top left, rgba(179, 92, 46, 0.07), transparent 28%),
     radial-gradient(circle at top right, rgba(15, 108, 117, 0.09), transparent 32%),
-    linear-gradient(180deg, #f8f4ea 0%, var(--workspace-bg, #f3eee4) 100%);
-  color: var(--workspace-text, #243144);
+    linear-gradient(180deg, #f8f4ea 0%, var(--workspace-bg) 100%);
+  color: var(--workspace-text);
 }
 .tool-generators .workspace-heading { max-width: 72rem; margin: 0 auto 1rem; }
-.tool-generators .subtitle { color: var(--workspace-muted, #64748b); line-height: 1.6; }
+.tool-generators .subtitle { color: var(--workspace-muted); line-height: 1.6; }
 .generators-layout {
   display: grid;
   grid-template-columns: minmax(240px, 320px) minmax(0, 1fr);
@@ -264,72 +328,76 @@ body {
 }
 .generators-sidebar,
 .generators-main {
-  border: 1px solid var(--workspace-line, rgba(39, 54, 74, 0.14));
-  border-radius: var(--workspace-radius-lg, 18px);
-  background: var(--workspace-panel, rgba(255, 250, 242, 0.94));
-  box-shadow: var(--workspace-shadow, 0 20px 40px rgba(38, 44, 59, 0.12));
+  border: 1px solid var(--workspace-line);
+  border-radius: var(--workspace-radius-lg);
+  background: var(--workspace-panel);
+  box-shadow: var(--workspace-shadow);
   padding: 1rem 1.15rem;
 }
-.generators-note { color: var(--workspace-muted, #64748b); font-size: .85rem; line-height: 1.55; }
-.generators-note strong { color: var(--workspace-warm, #b35c2e); }
+.generators-note { color: var(--workspace-muted); font-size: .85rem; line-height: 1.55; }
+.generators-note strong { color: var(--workspace-warm); }
 .generators-note p { margin: .35rem 0 0; }
 .generators-actions { display: grid; gap: .5rem; margin: 1rem 0; }
 .generators-actions button {
   width: 100%;
-  border: 1px solid var(--workspace-line-strong, rgba(39, 54, 74, 0.28));
+  border: 1px solid var(--workspace-line-strong);
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.78);
-  color: var(--workspace-text, #243144);
+  color: var(--workspace-text);
   padding: 0.65rem 0.95rem;
   cursor: pointer;
   transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
 }
 .generators-actions button:hover:enabled {
   transform: translateY(-1px);
-  border-color: var(--workspace-accent, #0f6c75);
+  border-color: var(--workspace-accent);
   box-shadow: 0 8px 18px rgba(38, 44, 59, 0.1);
 }
 .generators-actions .primary-button {
-  border-color: var(--workspace-accent, #0f6c75);
-  background: var(--workspace-accent, #0f6c75);
+  border-color: var(--workspace-accent);
+  background: var(--workspace-accent);
   color: #fff;
 }
 .generators-actions button:disabled { opacity: .5; cursor: not-allowed; transform: none; }
-.generators-dry-run { display: flex; align-items: center; gap: .45rem; color: var(--workspace-muted, #64748b); font-size: .82rem; }
+.generators-dry-run { display: flex; align-items: center; gap: .45rem; color: var(--workspace-muted); font-size: .82rem; }
 .generators-plan {
   margin: 0;
-  color: var(--workspace-accent-strong, #0f4e57);
+  color: var(--workspace-accent-strong);
   font-size: .82rem;
   line-height: 1.55;
   overflow-wrap: anywhere;
 }
 .generator-group {
-  border: 1px solid var(--workspace-line, rgba(39, 54, 74, 0.14));
-  border-radius: var(--workspace-radius-md, 12px);
+  border: 1px solid var(--workspace-line);
+  border-radius: var(--workspace-radius-md);
   background: rgba(255, 255, 255, 0.55);
   margin-bottom: .7rem;
+  min-width: 0;
 }
-.generator-group-head { display: flex; align-items: center; gap: .55rem; padding: .6rem .8rem; border-bottom: 1px solid var(--workspace-line, rgba(39, 54, 74, 0.14)); cursor: pointer; }
-.generator-group-title { flex: 1 1 auto; color: var(--workspace-text, #243144); font-size: .92rem; font-weight: 600; }
+.generator-group-rows { padding: .2rem .8rem .5rem; min-width: 0; }
+.generators-main, .generators-sidebar { min-width: 0; }
+.generators-groups { min-width: 0; }
+.generator-group-head { display: flex; align-items: center; gap: .55rem; padding: .6rem .8rem; border-bottom: 1px solid var(--workspace-line); cursor: pointer; flex-wrap: wrap; }
+.generator-group-title { flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere; color: var(--workspace-text); font-size: .92rem; font-weight: 600; }
 .generator-group-counts,
-.generator-counts { color: var(--workspace-muted, #64748b); font-size: .78rem; }
+.generator-counts { color: var(--workspace-muted); font-size: .78rem; }
 .generator-group-rows { padding: .2rem .8rem .5rem; }
-.generator-row { display: flex; flex-wrap: wrap; align-items: center; gap: .55rem; padding: .38rem 0; border-top: 1px solid var(--workspace-line, rgba(39, 54, 74, 0.14)); }
+.generator-row { display: flex; flex-wrap: wrap; align-items: center; gap: .55rem; padding: .38rem 0; border-top: 1px solid var(--workspace-line); }
 .generator-group-rows .generator-row:first-child { border-top: none; }
 .generator-choice { display: flex; align-items: center; gap: .5rem; flex: 1 1 20rem; min-width: 0; cursor: pointer; }
 .generator-script {
-  color: var(--workspace-text, #243144);
+  color: var(--workspace-text);
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
   font-size: .82rem;
   overflow-wrap: anywhere;
 }
-.generator-details { flex: 1 1 100%; color: var(--workspace-muted, #64748b); font-size: .8rem; }
-.generator-details summary { cursor: pointer; color: var(--workspace-accent, #0f6c75); }
+.generator-details { flex: 1 1 100%; color: var(--workspace-muted); font-size: .8rem; }
+.generator-details summary { cursor: pointer; color: var(--workspace-accent); }
 .generator-details pre {
   margin: .4rem 0 .2rem;
   padding: .6rem .7rem;
-  border: 1px solid var(--workspace-line, rgba(39, 54, 74, 0.14));
-  border-radius: var(--workspace-radius-md, 12px);
+  border: 1px solid var(--workspace-line);
+  border-radius: var(--workspace-radius-md);
   background: #172b36;
   color: #dce9ed;
   white-space: pre-wrap;

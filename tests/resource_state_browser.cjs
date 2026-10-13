@@ -328,6 +328,8 @@ async function main() {
     await require('./localization_browser.cjs')({ evaluate, ready });
     await require('./victory_paths_browser.cjs')({ evaluate, ready });
     await require('./court_positions_browser.cjs')({ evaluate, ready });
+    // WP-13's viewport/screenshot matrix runs as its own Chrome session (scripts/run_editor_tests.py);
+    // the interceptors this file registers stay live for the whole target, which would starve it.
     assert.deepEqual(pageErrors, []);
     console.log('Chrome acceptance passed: live diffs in three editors, cancellation and exact preview/commit bodies, hidden-tool modal, 409/generation diagnostics, Wonder committed state and detail-only retry, four-editor state, media/cropper reports and polling, escaped data; no page exceptions.');
     await send('Browser.close');

@@ -37,8 +37,8 @@ if hasattr(sys.stdout, "reconfigure"):
 
 LANGUAGES = ("english", "simp_chinese")
 LANGUAGE_LABELS = {
-    "english": "English",
-    "simp_chinese": "Simplified Chinese",
+    "english": "英文",
+    "simp_chinese": "简体中文",
 }
 ROMAN_NUMERALS = {
     1: "I",

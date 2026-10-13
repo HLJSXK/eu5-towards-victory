@@ -1,25 +1,5 @@
-:root {
-  color-scheme: light;
-  --workspace-bg: #f3eee4;
-  --workspace-bg-strong: #fffaf2;
-  --workspace-panel: rgba(255, 250, 242, 0.94);
-  --workspace-line: rgba(39, 54, 74, 0.14);
-  --workspace-line-strong: rgba(39, 54, 74, 0.28);
-  --workspace-text: #243144;
-  --workspace-muted: #64748b;
-  --workspace-accent: #0f6c75;
-  --workspace-accent-strong: #0f4e57;
-  --workspace-warm: #b35c2e;
-  --workspace-shadow: 0 20px 40px rgba(38, 44, 59, 0.12);
-  --workspace-radius-lg: 18px;
-  --workspace-radius-md: 12px;
-}
-
-body {
-  background: var(--workspace-bg);
-  color: var(--workspace-text);
-  font-family: "Segoe UI Variable Text", "Microsoft YaHei UI", "PingFang SC", "Noto Sans SC", system-ui, sans-serif;
-}
+/* WP-13: the token layer and the base `body` rule live in shared.css. This file keeps only
+   the workspace layout/theme rules that compose on top of those tokens. */
 
 #tool-hub-header {
   padding: 16px 20px 0;
@@ -149,7 +129,7 @@ body {
 
 .tool-victory-tree .node-row:hover,
 .tool-victory-tree .node-row.selected {
-  background: var(--workspace-accent-soft, rgba(15, 108, 117, 0.08));
+  background: var(--workspace-accent-soft);
   border-color: rgba(15, 108, 117, 0.22);
 }
 

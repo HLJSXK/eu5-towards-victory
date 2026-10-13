@@ -126,6 +126,23 @@ retain their own forms and resource edits. Operation prompts are Chinese, while 
 paths, field names and server diagnostics retain their original text. Common
 buttons, logs, job styles and preview styles live in `static/shared.css`.
 
+### Design tokens and narrow screens
+
+`static/shared.css` is the single owner of the design tokens: every colour, radius
+and font family is declared in one `:root` there and nowhere else, so no page
+depends on stylesheet link order to render correctly. The shell chrome is dark
+(`color-scheme: dark`); each tool panel opts into the light workspace palette with
+`.tool-panel { color-scheme: light }` and the `--workspace-*` variables. Per-page
+stylesheets reference those tokens without inline fallbacks, and the shared
+primary-button rule keys on the save control each page renders, so the button
+shape and colour are identical across the nine tabs.
+
+Every tool panel stacks its columns below 900px instead of scrolling sideways,
+and `tests/css_browser.cjs` (its own Chrome session in `scripts/run_editor_tests.py`)
+asserts no horizontal overflow for all nine tabs at 1600/1000/390px, that the nine
+tab buttons stay inside the viewport, and that the victory-tree canvas keeps at
+least 300px at 390px. `tests/css_tokens.cjs` asserts the single token owner.
+
 ### 本地化页面
 
 `static/localization.js` renders the `editor.localization` resource as the 本地化

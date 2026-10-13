@@ -1,36 +1,13 @@
-:root {
-    --bg: #f3eee4;
-    --bg-strong: #fffaf2;
-    --panel: rgba(255, 250, 242, 0.9);
-    --panel-strong: rgba(255, 255, 255, 0.95);
-    --line: rgba(39, 54, 74, 0.14);
-    --line-strong: rgba(39, 54, 74, 0.3);
-    --text: #243144;
-    --muted: #64748b;
-    --accent: #0f6c75;
-    --accent-soft: rgba(15, 108, 117, 0.12);
-    --accent-strong: #0f4e57;
-    --warm: #b35c2e;
-    --danger: #b54943;
-    --shadow: 0 20px 40px rgba(38, 44, 59, 0.12);
-    --radius-xl: 24px;
-    --radius-lg: 18px;
-    --radius-md: 12px;
-    --font-sans: "Segoe UI Variable Text", "Microsoft YaHei UI", "PingFang SC", "Noto Sans SC", sans-serif;
-    --font-mono: "Cascadia Code", "Sarasa Mono SC", "Consolas", monospace;
-}
-
-/* Scoped replacement for the original bare `html, body { ... }` page-background rule:
-   this tool now lives in a <section>, not the document body, and :root/body are not
-   inside that section's subtree so an @scope-wrapped selector wouldn't match them. */
+/* WP-13: tokens and the base `body`/`button` rules live in shared.css, the single token layer.
+   This tool is a <section>, not the document body, so its own background rule stays scoped here. */
 .tool-wonder-localization {
     min-height: 100%;
     background:
         radial-gradient(circle at top left, rgba(179, 92, 46, 0.08), transparent 30%),
         radial-gradient(circle at top right, rgba(15, 108, 117, 0.12), transparent 34%),
         linear-gradient(180deg, #f8f4ea 0%, #f3eee4 100%);
-    color: var(--text);
-    font-family: var(--font-sans);
+    color: var(--workspace-text);
+    font-family: var(--workspace-font-sans);
 }
 
 .tool-wonder-localization[data-busy="true"] {
@@ -50,15 +27,10 @@ select {
     font: inherit;
 }
 
-button {
-    border: none;
-    cursor: pointer;
-}
-
 code,
 pre,
 textarea {
-    font-family: var(--font-mono);
+    font-family: var(--workspace-font-mono);
 }
 
 .shell {
@@ -69,17 +41,25 @@ textarea {
     padding: 20px;
 }
 
+/* WP-13 narrow screen: a fixed 340px sidebar cannot fit a phone viewport, so stack it. */
+@media (max-width: 900px) {
+    .shell {
+        grid-template-columns: minmax(0, 1fr);
+        padding: 12px;
+    }
+}
+
 .sidebar {
     display: flex;
     flex-direction: column;
     gap: 16px;
     padding: 20px;
-    border-radius: var(--radius-xl);
+    border-radius: var(--workspace-radius-xl);
     color: #eef4f7;
     background:
         linear-gradient(180deg, rgba(13, 41, 58, 0.95), rgba(18, 52, 71, 0.92)),
         linear-gradient(120deg, rgba(179, 92, 46, 0.24), rgba(15, 108, 117, 0.15));
-    box-shadow: var(--shadow);
+    box-shadow: var(--workspace-shadow);
 }
 
 .sidebar-header h1,
@@ -91,7 +71,7 @@ textarea {
 
 .eyebrow {
     margin: 0 0 8px;
-    color: var(--muted);
+    color: var(--workspace-muted);
     font-size: 0.78rem;
     letter-spacing: 0.16em;
     text-transform: uppercase;
@@ -116,7 +96,7 @@ textarea {
     gap: 10px;
     padding: 14px;
     border: 1px solid rgba(238, 244, 247, 0.12);
-    border-radius: var(--radius-lg);
+    border-radius: var(--workspace-radius-lg);
     background: rgba(255, 255, 255, 0.08);
 }
 
@@ -128,7 +108,7 @@ textarea {
     width: 100%;
     padding: 12px 14px;
     border: 1px solid rgba(238, 244, 247, 0.2);
-    border-radius: var(--radius-md);
+    border-radius: var(--workspace-radius-md);
     background: rgba(6, 20, 29, 0.3);
     color: #fff;
 }
@@ -188,7 +168,7 @@ textarea {
     min-height: 128px;
     padding: 14px;
     border: 1px solid rgba(238, 244, 247, 0.12);
-    border-radius: var(--radius-lg);
+    border-radius: var(--workspace-radius-lg);
     background: rgba(255, 255, 255, 0.06);
     color: inherit;
     text-align: left;
@@ -224,7 +204,7 @@ textarea {
 .wonder-thumb {
     width: 72px;
     aspect-ratio: 4 / 3;
-    border-radius: var(--radius-md);
+    border-radius: var(--workspace-radius-md);
     object-fit: cover;
     background: rgba(255, 255, 255, 0.1);
 }
@@ -289,10 +269,10 @@ textarea {
 }
 
 .panel {
-    border: 1px solid var(--line);
-    border-radius: var(--radius-xl);
-    background: var(--panel);
-    box-shadow: var(--shadow);
+    border: 1px solid var(--workspace-line);
+    border-radius: var(--workspace-radius-xl);
+    background: var(--workspace-panel);
+    box-shadow: var(--workspace-shadow);
     backdrop-filter: blur(12px);
 }
 
@@ -311,7 +291,7 @@ textarea {
 
 .hero-description {
     margin: 10px 0 0;
-    color: var(--muted);
+    color: var(--workspace-muted);
     line-height: 1.65;
     max-width: 860px;
 }
@@ -324,8 +304,8 @@ textarea {
     min-height: 220px;
     margin: 0;
     overflow: hidden;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
+    border: 1px solid var(--workspace-line);
+    border-radius: var(--workspace-radius-lg);
     background: linear-gradient(135deg, rgba(15, 108, 117, 0.12), rgba(179, 92, 46, 0.12));
 }
 
@@ -344,7 +324,7 @@ textarea {
     display: grid;
     place-items: center;
     padding: 18px;
-    color: var(--muted);
+    color: var(--workspace-muted);
     text-align: center;
 }
 
@@ -385,9 +365,9 @@ textarea {
     display: grid;
     gap: 10px;
     padding: 16px;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-    background: var(--panel-strong);
+    border: 1px solid var(--workspace-line);
+    border-radius: var(--workspace-radius-lg);
+    background: var(--workspace-panel-strong);
 }
 
 .name-editor-head {
@@ -404,7 +384,7 @@ textarea {
 }
 
 .name-editor-key {
-    color: var(--muted);
+    color: var(--workspace-muted);
     font-size: 0.8rem;
 }
 
@@ -412,10 +392,10 @@ textarea {
     width: 100%;
     min-height: 0;
     padding: 14px;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-md);
+    border: 1px solid var(--workspace-line);
+    border-radius: var(--workspace-radius-md);
     background: #fffdf8;
-    color: var(--text);
+    color: var(--workspace-text);
     line-height: 1.4;
 }
 
@@ -428,13 +408,13 @@ textarea {
     display: grid;
     gap: 6px;
     padding: 14px 16px;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-    background: var(--panel-strong);
+    border: 1px solid var(--workspace-line);
+    border-radius: var(--workspace-radius-lg);
+    background: var(--workspace-panel-strong);
 }
 
 .meta-card span {
-    color: var(--muted);
+    color: var(--workspace-muted);
     font-size: 0.84rem;
 }
 
@@ -458,21 +438,21 @@ textarea {
 }
 
 .primary-button {
-    background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+    background: linear-gradient(135deg, var(--workspace-accent), var(--workspace-accent-strong));
     color: white;
     box-shadow: 0 12px 24px rgba(15, 108, 117, 0.2);
 }
 
 .secondary-button {
     background: rgba(255, 255, 255, 0.72);
-    color: var(--text);
-    border: 1px solid var(--line);
+    color: var(--workspace-text);
+    border: 1px solid var(--workspace-line);
 }
 
 .ghost-button {
     background: transparent;
-    color: var(--accent-strong);
-    border: 1px solid var(--line);
+    color: var(--workspace-accent-strong);
+    border: 1px solid var(--workspace-line);
 }
 
 .primary-button:hover,
@@ -503,23 +483,23 @@ textarea {
 .status-badge {
     padding: 8px 12px;
     background: rgba(15, 108, 117, 0.1);
-    color: var(--accent-strong);
+    color: var(--workspace-accent-strong);
 }
 
 .status-badge[data-kind="working"] {
     background: rgba(179, 92, 46, 0.12);
-    color: var(--warm);
+    color: var(--workspace-warm);
 }
 
 .status-badge[data-kind="error"] {
     background: rgba(181, 73, 67, 0.14);
-    color: var(--danger);
+    color: var(--workspace-danger);
 }
 
 .dirty-badge {
     padding: 8px 12px;
     background: rgba(179, 92, 46, 0.12);
-    color: var(--warm);
+    color: var(--workspace-warm);
 }
 
 .hidden {
@@ -546,13 +526,13 @@ textarea {
 .tab-button {
     padding: 10px 18px;
     background: transparent;
-    color: var(--muted);
-    border: 1px solid var(--line);
+    color: var(--workspace-muted);
+    border: 1px solid var(--workspace-line);
 }
 
 .tab-button.active {
     background: linear-gradient(135deg, rgba(15, 108, 117, 0.1), rgba(15, 108, 117, 0.18));
-    color: var(--accent-strong);
+    color: var(--workspace-accent-strong);
     border-color: rgba(15, 108, 117, 0.24);
 }
 
@@ -577,8 +557,8 @@ textarea {
     top: -1px;
     z-index: 1;
     padding: 12px 16px;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
+    border: 1px solid var(--workspace-line);
+    border-radius: var(--workspace-radius-lg);
     background: rgba(243, 238, 228, 0.92);
     backdrop-filter: blur(12px);
 }
@@ -593,9 +573,9 @@ textarea {
     display: grid;
     gap: 12px;
     padding: 16px;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-    background: var(--panel-strong);
+    border: 1px solid var(--workspace-line);
+    border-radius: var(--workspace-radius-lg);
+    background: var(--workspace-panel-strong);
 }
 
 .field-head {
@@ -618,14 +598,14 @@ textarea {
 
 .field-help {
     margin: -2px 0 0;
-    color: var(--muted);
+    color: var(--workspace-muted);
     line-height: 1.5;
     font-size: 0.92rem;
 }
 
 .field-source-map {
     margin: -4px 0 0;
-    color: var(--muted);
+    color: var(--workspace-muted);
     font-size: 0.82rem;
     line-height: 1.4;
     word-break: break-word;
@@ -633,8 +613,8 @@ textarea {
 
 .origin-pill {
     padding: 5px 10px;
-    background: var(--accent-soft);
-    color: var(--accent-strong);
+    background: var(--workspace-accent-soft);
+    color: var(--workspace-accent-strong);
 }
 
 .structured-field {
@@ -657,8 +637,8 @@ textarea {
     display: grid;
     gap: 10px;
     padding: 14px;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-md);
+    border: 1px solid var(--workspace-line);
+    border-radius: var(--workspace-radius-md);
     background: rgba(255, 252, 246, 0.82);
 }
 
@@ -676,7 +656,7 @@ textarea {
 
 .structured-group-note {
     margin: -2px 0 0;
-    color: var(--muted);
+    color: var(--workspace-muted);
     line-height: 1.5;
     font-size: 0.9rem;
 }
@@ -699,9 +679,9 @@ textarea {
 
 .structured-empty {
     padding: 12px;
-    border: 1px dashed var(--line);
-    border-radius: var(--radius-md);
-    color: var(--muted);
+    border: 1px dashed var(--workspace-line);
+    border-radius: var(--workspace-radius-md);
+    color: var(--workspace-muted);
     background: rgba(255, 255, 255, 0.6);
     font-size: 0.9rem;
 }
@@ -714,8 +694,8 @@ textarea {
     width: 100%;
     min-width: 0;
     min-height: 42px;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-md);
+    border: 1px solid var(--workspace-line);
+    border-radius: var(--workspace-radius-md);
     background: #fffdf8;
 }
 
@@ -726,9 +706,9 @@ textarea {
     min-height: 0;
     padding: 10px 12px;
     border: 0;
-    border-radius: var(--radius-md) 0 0 var(--radius-md);
+    border-radius: var(--workspace-radius-md) 0 0 var(--workspace-radius-md);
     background: transparent;
-    color: var(--text);
+    color: var(--workspace-text);
     line-height: 1.4;
     resize: none;
 }
@@ -748,15 +728,15 @@ textarea {
 .option-open-button {
     min-width: 44px;
     padding: 0 10px;
-    border-left: 1px solid var(--line);
+    border-left: 1px solid var(--workspace-line);
     background: rgba(255, 255, 255, 0.72);
-    color: var(--accent-strong);
+    color: var(--workspace-accent-strong);
     font-size: 0.82rem;
 }
 
 .option-open-button {
     min-width: 34px;
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    border-radius: 0 var(--workspace-radius-md) var(--workspace-radius-md) 0;
 }
 
 .option-menu {
@@ -770,8 +750,8 @@ textarea {
     max-height: 280px;
     overflow: auto;
     padding: 8px;
-    border: 1px solid var(--line-strong);
-    border-radius: var(--radius-md);
+    border: 1px solid var(--workspace-line-strong);
+    border-radius: var(--workspace-radius-md);
     background: #fffdf8;
     box-shadow: 0 14px 28px rgba(38, 44, 59, 0.18);
 }
@@ -787,14 +767,14 @@ textarea {
     padding: 9px 10px;
     border-radius: 8px;
     background: transparent;
-    color: var(--text);
+    color: var(--workspace-text);
     text-align: left;
 }
 
 .option-item:hover,
 .option-item:focus-visible,
 .option-item.selected {
-    background: var(--accent-soft);
+    background: var(--workspace-accent-soft);
 }
 
 .option-item-main,
@@ -812,32 +792,32 @@ textarea {
 
 .option-item-sub,
 .option-item-desc {
-    color: var(--muted);
-    font-family: var(--font-mono);
+    color: var(--workspace-muted);
+    font-family: var(--workspace-font-mono);
     font-size: 0.76rem;
 }
 
 .option-item-desc {
-    font-family: var(--font-sans);
+    font-family: var(--workspace-font-sans);
 }
 
 .option-empty {
     padding: 12px;
-    color: var(--muted);
+    color: var(--workspace-muted);
     font-size: 0.88rem;
 }
 
 .mini-button {
     padding: 9px 12px;
-    border: 1px solid var(--line);
+    border: 1px solid var(--workspace-line);
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.88);
-    color: var(--accent-strong);
+    color: var(--workspace-accent-strong);
     white-space: nowrap;
 }
 
 .mini-button.danger {
-    color: var(--danger);
+    color: var(--workspace-danger);
 }
 
 .scalar-grid {
@@ -852,7 +832,7 @@ textarea {
 }
 
 .scalar-field span {
-    color: var(--muted);
+    color: var(--workspace-muted);
     font-size: 0.88rem;
 }
 
@@ -868,8 +848,8 @@ textarea {
     display: grid;
     gap: 12px;
     padding: 16px;
-    border: 1px dashed var(--line-strong);
-    border-radius: var(--radius-md);
+    border: 1px dashed var(--workspace-line-strong);
+    border-radius: var(--workspace-radius-md);
     background: rgba(255, 250, 242, 0.88);
 }
 
@@ -880,7 +860,7 @@ textarea {
 
 .readonly-note p {
     margin: 6px 0 0;
-    color: var(--muted);
+    color: var(--workspace-muted);
     line-height: 1.5;
 }
 
@@ -902,7 +882,7 @@ textarea {
     gap: 10px;
     padding: 14px;
     border: 1px solid rgba(22, 33, 44, 0.12);
-    border-radius: var(--radius-md);
+    border-radius: var(--workspace-radius-md);
     background: linear-gradient(180deg, #fbf6ee, #f4eee3);
 }
 
@@ -919,7 +899,7 @@ textarea {
 
 .code-state-head span,
 .code-state-meta {
-    color: var(--muted);
+    color: var(--workspace-muted);
     font-size: 0.8rem;
     line-height: 1.5;
     word-break: break-word;
@@ -934,7 +914,7 @@ textarea {
     min-height: 180px;
     overflow: auto;
     padding: 14px;
-    border-radius: var(--radius-md);
+    border-radius: var(--workspace-radius-md);
     background: #18232e;
     color: #dfe9f0;
     line-height: 1.55;
@@ -948,10 +928,10 @@ textarea {
     width: 100%;
     min-height: 88px;
     padding: 14px;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-md);
+    border: 1px solid var(--workspace-line);
+    border-radius: var(--workspace-radius-md);
     background: #fffdf8;
-    color: var(--text);
+    color: var(--workspace-text);
     line-height: 1.6;
     resize: vertical;
 }
@@ -992,9 +972,9 @@ textarea {
 
 .ritual-prompt-card {
     padding: 16px;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-    background: var(--panel-strong);
+    border: 1px solid var(--workspace-line);
+    border-radius: var(--workspace-radius-lg);
+    background: var(--workspace-panel-strong);
 }
 
 .ritual-prompt-card .panel-header {
@@ -1014,10 +994,10 @@ textarea {
     width: 100%;
     min-height: 220px;
     padding: 14px;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-md);
+    border: 1px solid var(--workspace-line);
+    border-radius: var(--workspace-radius-md);
     background: #fffdf8;
-    color: var(--text);
+    color: var(--workspace-text);
     line-height: 1.6;
     resize: vertical;
 }
@@ -1036,7 +1016,7 @@ textarea {
 
 .ritual-prompt-status,
 .ritual-design-count {
-    color: var(--muted);
+    color: var(--workspace-muted);
     font-size: 0.9rem;
 }
 
@@ -1054,9 +1034,9 @@ textarea {
     display: grid;
     gap: 12px;
     padding: 14px 16px;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-    background: var(--panel-strong);
+    border: 1px solid var(--workspace-line);
+    border-radius: var(--workspace-radius-lg);
+    background: var(--workspace-panel-strong);
 }
 
 .ritual-design-card.current {
@@ -1079,25 +1059,25 @@ textarea {
 }
 
 .ritual-design-subtitle {
-    color: var(--accent-strong);
+    color: var(--workspace-accent-strong);
 }
 
 .ritual-design-meta {
-    color: var(--muted);
+    color: var(--workspace-muted);
     font-size: 0.82rem;
     word-break: break-word;
 }
 
 .ritual-design-translation-state,
 .ritual-design-translation-note {
-    color: var(--muted);
+    color: var(--workspace-muted);
     font-size: 0.82rem;
 }
 
 .ritual-design-translation-state {
     width: fit-content;
     padding: 2px 8px;
-    border: 1px solid var(--line);
+    border: 1px solid var(--workspace-line);
     border-radius: 999px;
     background: rgba(255, 252, 246, 0.9);
 }
@@ -1119,13 +1099,13 @@ textarea {
 
 .ritual-design-field h4 {
     margin: 0;
-    color: var(--warm);
+    color: var(--workspace-warm);
     font-size: 0.92rem;
 }
 
 .ritual-design-text {
     margin: 0;
-    color: var(--text);
+    color: var(--workspace-text);
     line-height: 1.7;
     white-space: pre-wrap;
 }
@@ -1140,8 +1120,8 @@ textarea {
     display: grid;
     gap: 10px;
     padding: 12px;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-md);
+    border: 1px solid var(--workspace-line);
+    border-radius: var(--workspace-radius-md);
     background: rgba(255, 252, 246, 0.78);
 }
 
@@ -1153,7 +1133,7 @@ textarea {
 
 .ritual-design-original > summary {
     cursor: pointer;
-    color: var(--accent-strong);
+    color: var(--workspace-accent-strong);
     font-weight: 700;
 }
 
@@ -1179,8 +1159,8 @@ textarea {
     overflow: auto;
     overscroll-behavior: contain;
     padding: 18px;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
+    border: 1px solid var(--workspace-line);
+    border-radius: var(--workspace-radius-lg);
     background: #16212c;
     color: #dbe8f0;
     line-height: 1.55;
@@ -1192,14 +1172,14 @@ textarea {
 .empty-state {
     padding: 18px;
     border: 1px dashed rgba(255, 255, 255, 0.18);
-    border-radius: var(--radius-lg);
+    border-radius: var(--workspace-radius-lg);
     color: rgba(238, 244, 247, 0.72);
     text-align: center;
 }
 
 .empty-state.wide {
-    border-color: var(--line);
-    color: var(--muted);
+    border-color: var(--workspace-line);
+    color: var(--workspace-muted);
     background: rgba(255, 255, 255, 0.58);
 }
 
@@ -1212,7 +1192,7 @@ textarea {
     border-radius: 14px;
     background: rgba(18, 49, 68, 0.96);
     color: white;
-    box-shadow: var(--shadow);
+    box-shadow: var(--workspace-shadow);
 }
 
 .toast.success {

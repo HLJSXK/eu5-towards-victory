@@ -129,6 +129,6 @@ def serialize_mechanics_specs(specs: list[MechanicsFieldSpec]) -> dict[str, Any]
     if current_group is not None:
         sections.append({"group": current_group, "fields": current_fields})
     return {
-        "label": "Mechanics",
+        "label": "机制",
         "sections": sections,
     }

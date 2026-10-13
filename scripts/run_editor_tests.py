@@ -41,6 +41,7 @@ PYTEST_FILES = (
     "tests/test_court_positions_resource_contract.py",
 )
 NODE_FILES = (
+    "tests/css_tokens.cjs",
     "tests/api.cjs",
     "tests/resource_state.cjs",
     "tests/media_job_polling.cjs",
@@ -82,17 +83,26 @@ def main() -> int:
     }
     if args.full:
         commands["chrome"] = ["node", "tests/resource_state_browser.cjs"]
+        # WP-13's viewport/screenshot matrix is its own Chrome session with its own ports (the shared
+        # suite keeps CDP fetch interceptors alive for the whole target, which would starve it).
+        commands["css"] = ["node", "tests/css_browser.cjs"]
+        # Two headless browsers at once is what starves this box of memory, so the matrix waits for
+        # the shared Chrome run instead of racing it.
+        after = {"css": "chrome"}
 
     started = time.perf_counter()
     log_dir.mkdir()
     # Files, not pipes: an undrained pipe would block a suite while another is awaited.
     logs = {name: (log_dir / f"{name}.log").open("w+", encoding="utf-8", errors="replace") for name in commands}
-    processes = {
-        name: subprocess.Popen(command, cwd=REPO_ROOT, env=env, stdout=logs[name], stderr=subprocess.STDOUT)
-        for name, command in commands.items()
-    }
+    processes: dict[str, subprocess.Popen] = {}
     failed = []
     try:
+        for name, command in commands.items():
+            prerequisite = after.get(name)
+            if prerequisite is not None:
+                processes[prerequisite].wait()
+            processes[name] = subprocess.Popen(command, cwd=REPO_ROOT, env=env,
+                                               stdout=logs[name], stderr=subprocess.STDOUT)
         for name, process in processes.items():
             process.wait()
             elapsed = time.perf_counter() - started

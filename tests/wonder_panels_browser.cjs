@@ -75,7 +75,7 @@ module.exports = async function wonderPanelsAcceptance({ evaluate, ready }) {
   });
   await ready(idle);
   assert.equal(await page(() => document.querySelector('#wonder-list .active').dataset.wonderKey), selectedKey);
-  await page(() => [...document.querySelectorAll('#language-tabs button')].find(b => b.textContent === 'Mechanics').click());
+  await page(() => [...document.querySelectorAll('#language-tabs button')].find(b => b.textContent === '机制').click());
   const setLevel = value => page(value => {
     const field = document.querySelector('[data-key^="mechanics.unique_initial_level."]');
     field.value = value;

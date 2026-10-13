@@ -25,7 +25,7 @@ module.exports = async function wonderRitualsAcceptance({ evaluate, ready, send 
       return null;
     };
   })()`);
-  await clickTab('English');
+  await clickTab('英文');
   await evaluate("document.querySelector('#reload-button').click()");
   await ready(idle);
   assert.equal(await evaluate('__rituals.catalog'), 0, 'catalog waits for the ritual tab');
@@ -75,6 +75,6 @@ module.exports = async function wonderRitualsAcceptance({ evaluate, ready, send 
     await send('Emulation.clearDeviceMetricsOverride');
   }
   await evaluate('__probe.intercept = null; delete window.__rituals; delete window.__ritualPrompt; delete window.__ritualItem');
-  await clickTab('English');
+  await clickTab('英文');
   console.log('Wonder rituals acceptance passed: tab-gated catalog, failure retry, generated prompt draft, prompt editor kept across catalog render, detail retry, stale catalog isolation and narrow layout.');
 };

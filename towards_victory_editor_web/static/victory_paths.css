@@ -1,6 +1,6 @@
 .tool-victory-paths {
   padding: 1.5rem;
-  color: var(--workspace-ink, #24364b);
+  color: var(--workspace-ink);
 }
 
 .victory-paths-layout {
@@ -25,7 +25,7 @@
 }
 
 .victory-paths-sidebar button.active {
-  border-color: var(--workspace-accent, #0f6c75);
+  border-color: var(--workspace-accent);
   font-weight: 700;
 }
 
@@ -34,9 +34,9 @@
 .victory-paths-plan {
   margin: .8rem 0;
   padding: .9rem;
-  border: 1px solid var(--workspace-line, #ccd3dc);
-  border-radius: var(--workspace-radius-md, 12px);
-  background: var(--workspace-card, #fff);
+  border: 1px solid var(--workspace-line);
+  border-radius: var(--workspace-radius-md);
+  background: var(--workspace-card);
 }
 
 .victory-paths-group summary,
@@ -93,6 +93,7 @@
 .victory-paths-references p,
 .victory-paths-sidebar [data-dirty] {
   font-size: .85rem;
+  overflow-wrap: anywhere;
 }
 
 .victory-paths-references [data-resolved="false"],
@@ -102,4 +103,23 @@
 
 .victory-paths-field [aria-invalid="true"] {
   border-color: #a13228;
+}
+
+/* WP-13 narrow screen: the sidebar column and the two-column field rows both have a min width that
+   cannot fit a phone viewport, so stack them instead of letting the panel scroll sideways. */
+@media (max-width: 900px) {
+  .tool-victory-paths {
+    padding: 1rem;
+  }
+
+  .victory-paths-layout,
+  .victory-paths-field {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 520px) {
+  .victory-paths-slots {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }

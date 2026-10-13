@@ -377,10 +377,10 @@ test('panel renders unresolved reward warning and prevents save with read-only r
   } finally { delete global.document; delete global.window; }
 });
 
-test('eight-tab shell registers a dirty dot, external modal and wrapping without generator execution', () => {
+test('nine-tab shell registers a dirty dot, external modal and wrapping without generator execution', () => {
   const staticRoot = join(__dirname, '../towards_victory_editor_web/static');
   const html = readFileSync(join(staticRoot, 'index.html'), 'utf8');
-  assert.equal((html.match(/<button class="tool-hub-tab-btn"/g) || []).length, 8);
+  assert.equal((html.match(/<button class="tool-hub-tab-btn"/g) || []).length, 9);
   assert.match(html, /data-tool="victory-paths">胜利路径<span class="tool-hub-tab-dot" data-dot hidden>/);
   assert(html.indexOf('id="vp-preview"') > html.lastIndexOf('</main>'));
   assert.match(readFileSync(join(staticRoot, 'shared.css'), 'utf8'), /\.tool-hub-tab-bar\s*\{\s*flex-wrap: wrap;/);
