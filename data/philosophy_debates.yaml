@@ -876,10 +876,6 @@ action_triggers:
         condition: complete_exploration
         chance: 25
         delta: 5
-      - hook: on_colonial_charter_finished
-        condition: complete_colonial_charter
-        chance: 25
-        delta: 5
     negative:
       - hook: on_colonial_charter_failed
         condition: fail_colonial_charter

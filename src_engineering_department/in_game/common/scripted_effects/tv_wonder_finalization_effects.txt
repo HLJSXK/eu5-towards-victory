@@ -1419,6 +1419,15 @@ tv_wonder_trigger_final_building_completion_sync_hidden_event_effect = {
 tv_wonder_execute_final_building_completion_sync_hidden_event_effect = {
 	remove_variable = tv_wonder_final_building_completion_sync_queued
 	tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes
+	if = {
+		limit = {
+			this = location:suez
+			OR = {
+				location_building_level = { building_type = building_type:tv_wonder_unique_suez_ancient_canal_inaugurated value >= 1 }
+			}
+		}
+		set_canal_open = yes
+	}
 	tv_wonder_mechanics_refresh_location_display_state_effect = yes
 }
 

@@ -9,23 +9,25 @@ sys.path.insert(0, str(REPO_ROOT / "scripts_engineering_department"))
 
 from wonder_mechanics.render import render_header
 
-GLORP_LOCATION_WINDOW_FILE = REPO_ROOT / "reference_mods" / "3601047146" / "in_game" / "gui" / "location_window.gui"
-GLORP_SHARED_TYPES_FILE = REPO_ROOT / "reference_mods" / "3601047146" / "in_game" / "gui" / "glorpUI_shared_types.gui"
+GLORP_LOCATION_WINDOW_FILE = REPO_ROOT / "reference_mods" / "3812518640" / "in_game" / "gui" / "location_window.gui"
+GLORP_SHARED_TYPES_FILE = REPO_ROOT / "reference_mods" / "3812518640" / "in_game" / "gui" / "glorpUI_shared_types.gui"
 GLORP_VANILLA_TYPES_FILE = (
     REPO_ROOT
     / "reference_mods"
-    / "3601047146"
+    / "3812518640"
     / "in_game"
     / "gui"
     / "vanilla"
     / "cmfg_location_window_vanilla_types.gui"
 )
 OUT_FILE = REPO_ROOT / "src_engineering_department" / "in_game" / "gui" / "location_window.gui"
+CM_GUI_SOURCE = REPO_ROOT / "reference_mods/3812518640/in_game/common/scripted_guis/glorpui_construction_manager_scripted_gui.txt"
+CM_GUI_OUTPUT = REPO_ROOT / "src_engineering_department/in_game/common/scripted_guis/glorpui_construction_manager_scripted_gui.txt"
 SCRIPT_REL = "scripts_engineering_department/in_game/gui/gen_location_window.py"
 DATA_REL = (
-    "reference_mods/3601047146/in_game/gui/location_window.gui + "
-    "reference_mods/3601047146/in_game/gui/glorpUI_shared_types.gui + "
-    "reference_mods/3601047146/in_game/gui/vanilla/cmfg_location_window_vanilla_types.gui"
+    "reference_mods/3812518640/in_game/gui/location_window.gui + "
+    "reference_mods/3812518640/in_game/gui/glorpUI_shared_types.gui + "
+    "reference_mods/3812518640/in_game/gui/vanilla/cmfg_location_window_vanilla_types.gui"
 )
 T = "\t"
 
@@ -809,7 +811,7 @@ def render_scene_overlay() -> str:
 def inject_overlay(vanilla: str) -> str:
     marker = "\n\t\t\t\tvbox = {\n\t\t\t\t\texpand = {}\n"
     replacement = "\n" + render_scene_overlay() + marker
-    if marker not in vanilla:
+    if vanilla.count(marker) != 1:
         raise RuntimeError("Could not find location scene overlay insertion point in Glorp UI location_window.gui")
     return vanilla.replace(marker, replacement, 1)
 
@@ -829,6 +831,10 @@ def main() -> None:
     OUT_FILE.parent.mkdir(parents=True, exist_ok=True)
     OUT_FILE.write_text(generate(), encoding="utf-8-sig")
     print(f"Wrote {OUT_FILE.relative_to(REPO_ROOT)}")
+    CM_GUI_OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    cm_header = render_header(SCRIPT_REL, CM_GUI_SOURCE.relative_to(REPO_ROOT).as_posix())
+    CM_GUI_OUTPUT.write_text("\n".join(cm_header) + "\n" + CM_GUI_SOURCE.read_text(encoding="utf-8-sig"), encoding="utf-8-sig")
+    print(f"Wrote {CM_GUI_OUTPUT.relative_to(REPO_ROOT)}")
 
 
 if __name__ == "__main__":

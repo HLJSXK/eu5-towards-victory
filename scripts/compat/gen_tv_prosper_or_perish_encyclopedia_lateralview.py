@@ -98,6 +98,9 @@ def pp_mod_content_block(lines: list[str]) -> list[str]:
     start, end = PP_MOD_CONTENT_RANGE
     block = "\n".join(lines[start:end])
     block = replace_exact(block, PP_HASVALUE, SHARED_HASVALUE_PP, 1)
+    # 1.4 renamed the vanilla scroll section and its content override.
+    block = block.replace("TooltipListScrollArea", "TooltipScrolledContentSection")
+    block = block.replace("scrollarea_content", "section_content")
     return block.splitlines()
 
 

@@ -30,6 +30,7 @@ VANILLA = ROOT / "reference_game_files/game/main_menu/gui/messagetypes.txt"
 MAIN_OUT = ROOT / "src/main_menu/gui/messagetypes.txt"
 ENGINEERING_OUT = ROOT / "src_engineering_department/main_menu/gui/messagetypes.txt"
 COURT_OUT = ROOT / "src_court_positions/main_menu/gui/messagetypes.txt"
+EUREKA_OUT = ROOT / "src_eureka/main_menu/gui/messagetypes.txt"
 VICTORY_PATHS = ROOT / "data/victory_paths.yaml"
 IO_ESTABLISHMENT = ROOT / "data/io_establishment.yaml"
 COURT_POSITIONS = ROOT / "data/court_positions.yaml"
@@ -1282,6 +1283,7 @@ for output, entries in (
     (MAIN_OUT, main_entries),
     (ENGINEERING_OUT, engineering_entries),
     (COURT_OUT, court_entries),
+    (EUREKA_OUT, ""),
 ):
     output.parent.mkdir(parents=True, exist_ok=True)
     combined = b'\xef\xbb\xbf' + vanilla_bytes + entries.encode("utf-8")

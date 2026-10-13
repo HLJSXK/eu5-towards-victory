@@ -5,7 +5,7 @@
 - **Mod Name:** Towards Victory
 - **Mod ID:** `eu5mp.towards_victory`
 - **Version:** Build date (`YYMMDD`)
-- **Target:** EU5 `1.*.*`
+- **Target:** EU5 1.4 beta (`1.4.*`)
 - **Status:** In Development
 - **Language:** English + Simplified Chinese
 

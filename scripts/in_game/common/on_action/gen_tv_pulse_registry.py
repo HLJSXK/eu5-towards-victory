@@ -44,7 +44,6 @@ SOURCE_FILES: dict[str, Path | None] = {
     "on_loan_renewed":       HARDCODED_ON_ACTIONS,
     "on_bankruptcy":         HARDCODED_ON_ACTIONS,
     "on_exploration_success": REPO_ROOT / "reference_game_files" / "game" / "in_game" / "common" / "on_action" / "exploration_mission_monthly.txt",
-    "on_colonial_charter_finished": HARDCODED_ON_ACTIONS,
     "on_colonial_charter_failed": HARDCODED_ON_ACTIONS,
     "on_took_location_in_peace_treaty": HARDCODED_ON_ACTIONS,
     "on_reform_change":      HARDCODED_ON_ACTIONS,

@@ -1,4 +1,5 @@
 {
+  "_generated_by": "scripts/gen_index.py",
   "languages": [
     "en",
     "zh"
@@ -190,6 +191,24 @@
       "zh": {
         "not": "AI邻近度目标[location|e]不是[TARGET_LOCATION.GetName]",
         "text": "AI邻近度目标[location|e]是[TARGET_LOCATION.GetName]"
+      }
+    },
+    "ai_country_should_colonize": {
+      "en": {
+        "first": "We are in a position to establish a [colonial_charter|e]",
+        "not": "Is NOT in a position to establish a [colonial_charter|e]",
+        "not_first": "We are NOT in a position to establish a [colonial_charter|e]",
+        "not_third": "[COUNTRY.GetName|U] is NOT in a position to establish a [colonial_charter|e]",
+        "text": "Is in a position to establish a [colonial_charter|e]",
+        "third": "[COUNTRY.GetName|U] is in a position to establish a [colonial_charter|e]"
+      },
+      "zh": {
+        "first": "我们有能力建立[colonial_charter|e]",
+        "not": "尚不具备建立 [colonial_charter|e] 的条件",
+        "not_first": "我们没有能力建立 [colonial_charter|e]",
+        "not_third": "[COUNTRY.GetName|U] 没有能力建立 [colonial_charter|e]",
+        "text": "已具备建立 [colonial_charter|e] 的条件",
+        "third": "[COUNTRY.GetName|U] 有能力建立一个 [colonial_charter|e]"
       }
     },
     "ai_personality_equal": {
@@ -1132,6 +1151,14 @@
         "not": "不是$PARAMETERS$的敌方战争领导者"
       }
     },
+    "any_expedition": {
+      "en": {
+        "not": "No [expedition|e] in the Country"
+      },
+      "zh": {
+        "not": "国内没有[expedition|e]"
+      }
+    },
     "any_export": {
       "en": {
         "not": "No export in [MARKET.GetName]"
@@ -1616,6 +1643,38 @@
         "not": "不是[COUNTRY.GetName]的$PARAMETERS$个[markets|e]"
       }
     },
+    "any_movement_in_country": {
+      "en": {
+        "not": "No [movement|e] in the [country|e]"
+      },
+      "zh": {
+        "not": "[country|e]内没有[movement|e]"
+      }
+    },
+    "any_movement_in_country_all": {
+      "en": {
+        "not": "Not all [movements|e] in the [country|e]"
+      },
+      "zh": {
+        "not": "[country|e]内并非所有[movements|e]"
+      }
+    },
+    "any_movement_in_country_count": {
+      "en": {
+        "not": "Not $PARAMETERS$ [movements|e] in the [country|e]"
+      },
+      "zh": {
+        "not": "[country|e]内没有$PARAMETERS$个[movements|e]"
+      }
+    },
+    "any_movement_in_country_percent": {
+      "en": {
+        "not": "Not $PARAMETERS$ [movements|e] in the [country|e]"
+      },
+      "zh": {
+        "not": "[country|e]内没有$PARAMETERS$的[movements|e]"
+      }
+    },
     "any_neighbor_area": {
       "en": {
         "not": "No neighboring [area|e]"
@@ -1854,6 +1913,14 @@
       },
       "zh": {
         "not": "不是[REGION.GetName]的$PARAMETERS$的[location|e]"
+      }
+    },
+    "any_ownable_location_in_scripted_geography": {
+      "en": {
+        "not": "No [location|e] in [TARGET_SCRIPTED_GEOGRAPHY.GetName]"
+      },
+      "zh": {
+        "not": "[TARGET_SCRIPTED_GEOGRAPHY.GetName]没有[location|e]"
       }
     },
     "any_ownable_location_in_sub_continent": {
@@ -2184,6 +2251,46 @@
         "not": "[COUNTRY.GetName]不是$PARAMETERS$完成的[religious_focus|e]"
       }
     },
+    "any_religious_order_in_country": {
+      "en": {
+        "not": "No [religious_order|e] in country"
+      },
+      "zh": {
+        "not": "国内不存在 [religious_order|e]"
+      }
+    },
+    "any_religious_order_in_religion": {
+      "en": {
+        "not": "No [religious_orders|e] in [RELIGION.GetName]"
+      },
+      "zh": {
+        "not": "[RELIGION.GetName]中没有[religious_orders|e]"
+      }
+    },
+    "any_religious_order_in_religion_all": {
+      "en": {
+        "not": "Not all [religious_orders|e] in [RELIGION.GetName]"
+      },
+      "zh": {
+        "not": "并非所有 [religious_orders|e] 在 [RELIGION.GetName] 中"
+      }
+    },
+    "any_religious_order_in_religion_count": {
+      "en": {
+        "not": "Not $PARAMETERS$ [religious_orders|e] in [RELIGION.GetName]"
+      },
+      "zh": {
+        "not": "[RELIGION.GetName]中并非$PARAMETERS$个[religious_orders|e]"
+      }
+    },
+    "any_religious_order_in_religion_percent": {
+      "en": {
+        "not": "Not $PARAMETERS$ [religious_orders|e] in [RELIGION.GetName]"
+      },
+      "zh": {
+        "not": "[RELIGION.GetName]中并非$PARAMETERS$的[religious_orders|e]"
+      }
+    },
     "any_religious_school_in_religion": {
       "en": {
         "not": "No [religious_school|e] in [RELIGION.GetName]"
@@ -2398,6 +2505,16 @@
       },
       "zh": {
         "not": "不是$PARAMETERS$战争参与者"
+      }
+    },
+    "area_area_equal": {
+      "en": {
+        "not": "Is NOT in the [TARGET_AREA.GetName] [area|e]",
+        "text": "Is in the [TARGET_AREA.GetName] [area|e]"
+      },
+      "zh": {
+        "not": "不位于 [TARGET_AREA.GetName] [area|e]",
+        "text": "位于 [TARGET_AREA.GetName] [area|e]"
       }
     },
     "area_average_integration": {
@@ -2684,6 +2801,16 @@
         "text": "是[ARTIST_TYPE.GetName]"
       }
     },
+    "assimilating_culture_equal": {
+      "en": {
+        "not": "Assimilating [culture|e] is NOT [TARGET_CULTURE.GetName]",
+        "text": "Assimilating [culture|e] is [TARGET_CULTURE.GetName]"
+      },
+      "zh": {
+        "not": "正在同化的[culture|e]不是[TARGET_CULTURE.GetName]",
+        "text": "正在同化的[culture|e]是[TARGET_CULTURE.GetName]"
+      }
+    },
     "at_war": {
       "en": {
         "first": "We are at [war|e]",
@@ -2848,6 +2975,20 @@
         "not_third": "[PROVINCE.GetName]的平均[integration|e]等级不$COMPARATOR$$NUM|V0$（当前：$CURRENT_VALUE|V0$）",
         "text": "平均[integration|e]等级$COMPARATOR$$NUM|V0$（当前：$CURRENT_VALUE|V0$）",
         "third": "[PROVINCE.GetName]的平均[integration|e]等级$COMPARATOR$$NUM|V0$（当前：$CURRENT_VALUE|V0$）"
+      }
+    },
+    "average_population": {
+      "en": {
+        "not": "Does NOT have an average [population|e] of $COMPARATOR$ $NUM|V0$ (currently: $CURRENT_VALUE|V0$)",
+        "not_third": "[PROVINCE.GetName] does NOT have an average [population|e] of $COMPARATOR$ $NUM|V0$ (currently: $CURRENT_VALUE|V0$)",
+        "text": "Has an average [population|e] of $COMPARATOR$ $NUM|V0$ (currently: $CURRENT_VALUE|V0$)",
+        "third": "[PROVINCE.GetName] has an average [population|e] of $COMPARATOR$ $NUM|V0$ (currently: $CURRENT_VALUE|V0$)"
+      },
+      "zh": {
+        "not": "平均[population|e]不$COMPARATOR$$NUM|V0$（当前：$CURRENT_VALUE|V0$）",
+        "not_third": "[PROVINCE.GetName]的平均[population|e]不$COMPARATOR$$NUM|V0$（当前：$CURRENT_VALUE|V0$）",
+        "text": "平均[population|e]$COMPARATOR$$NUM|V0$（当前：$CURRENT_VALUE|V0$）",
+        "third": "[PROVINCE.GetName]的平均[population|e]$COMPARATOR$$NUM|V0$（当前：$CURRENT_VALUE|V0$）"
       }
     },
     "average_prosperity": {
@@ -3178,6 +3319,18 @@
         "not_third": "[BUILDING.GetName]不属于[TARGET_COUNTRY.GetName]",
         "text": "属于[TARGET_COUNTRY.GetName]",
         "third": "[BUILDING.GetName]属于[TARGET_COUNTRY.GetName]"
+      }
+    },
+    "building_is_production_method_locked": {
+      "en": {
+        "not": "Does NOT have its [production_methods|e] locked",
+        "not_third": "[BUILDING.GetName] does NOT have its [production_methods|e] locked",
+        "text": "Has its [production_methods|e] locked"
+      },
+      "zh": {
+        "not": "其[production_methods|e]未被锁定",
+        "not_third": "[BUILDING.GetName]的[production_methods|e]未被锁定",
+        "text": "其[production_methods|e]被锁定"
       }
     },
     "building_is_subsidized": {
@@ -3606,6 +3759,14 @@
         "text": "是[CABINET_ACTION.GetName]"
       }
     },
+    "cabinet_action_this_equal": {
+      "en": {
+        "text": "Is the [TARGET_CABINET_ACTION.GetName] [cabinet_action|e]"
+      },
+      "zh": {
+        "text": "[TARGET_CABINET_ACTION.GetName]是否为[cabinet_action|e]"
+      }
+    },
     "cabinet_action_type": {
       "en": {
         "not": "Does NOT use $NAME$",
@@ -3698,6 +3859,16 @@
         "text": "以下[triggers|e]$COMPARATOR$$AMOUNT$被满足："
       }
     },
+    "calling_equal": {
+      "en": {
+        "not": "Does NOT have the [TARGET_CALLING.GetName] [calling|e]",
+        "text": "Has the [TARGET_CALLING.GetName] [calling|e]"
+      },
+      "zh": {
+        "not": "没有[TARGET_CALLING.GetName][calling|e]",
+        "text": "拥有[TARGET_CALLING.GetName][calling|e]"
+      }
+    },
     "can_adopt_compatible_religion_law": {
       "en": {
         "first": "We can adopt the policy for the [ShowLawName('heir_religion_law')] compatible with [TARGET_COUNTRY.GetName]",
@@ -3786,6 +3957,20 @@
         "not_third": "[COUNTRY.GetName]无法成为[TARGET_COUNTRY.GetName]的$SUBJECT_TYPE$",
         "text": "可以成为[TARGET_COUNTRY.GetName]的$SUBJECT_TYPE$",
         "third": "[COUNTRY.GetName]可以成为[TARGET_COUNTRY.GetName]的$SUBJECT_TYPE$"
+      }
+    },
+    "can_betroth_character": {
+      "en": {
+        "not": "Can NOT betroth [TARGET_CHARACTER.GetName]",
+        "not_third": "[CHARACTER.GetName] can NOT betroth [TARGET_CHARACTER.GetName]",
+        "text": "Can betroth [TARGET_CHARACTER.GetName]",
+        "third": "[CHARACTER.GetName] can betroth [TARGET_CHARACTER.GetName]"
+      },
+      "zh": {
+        "not": "不能与[TARGET_CHARACTER.GetName]订婚",
+        "not_third": "[CHARACTER.GetName]不能与[TARGET_CHARACTER.GetName]订婚",
+        "text": "可以与[TARGET_CHARACTER.GetName]订婚",
+        "third": "[CHARACTER.GetName]可以与[TARGET_CHARACTER.GetName]订婚"
       }
     },
     "can_build_building": {
@@ -4232,6 +4417,24 @@
         "third": "[COUNTRY.GetName|U]可以研究$ADVANCE$[advance|e]"
       }
     },
+    "can_revoke_privilege": {
+      "en": {
+        "first": "We can revoke [TARGET_ESTATE_PRIVILEGE.GetName] [estate_privilege|e]",
+        "not": "Can NOT revoke [TARGET_ESTATE_PRIVILEGE.GetName] [estate_privilege|e]",
+        "not_first": "We can NOT revoke [TARGET_ESTATE_PRIVILEGE.GetName] [estate_privilege|e]",
+        "not_third": "[COUNTRY.GetName|U] can NOT revoke [TARGET_ESTATE_PRIVILEGE.GetName] [estate_privilege|e]",
+        "text": "Can revoke [TARGET_ESTATE_PRIVILEGE.GetName] [estate_privilege|e]",
+        "third": "[COUNTRY.GetName|U] can revoke [TARGET_ESTATE_PRIVILEGE.GetName] [estate_privilege|e]"
+      },
+      "zh": {
+        "first": "我们可以撤销[TARGET_ESTATE_PRIVILEGE.GetName][estate_privilege|e]",
+        "not": "不能撤销[TARGET_ESTATE_PRIVILEGE.GetName][estate_privilege|e]",
+        "not_first": "我们不能撤销[TARGET_ESTATE_PRIVILEGE.GetName][estate_privilege|e]",
+        "not_third": "[COUNTRY.GetName|U]不能撤销[TARGET_ESTATE_PRIVILEGE.GetName][estate_privilege|e]",
+        "text": "可以撤销[TARGET_ESTATE_PRIVILEGE.GetName][estate_privilege|e]",
+        "third": "[COUNTRY.GetName|U]可以撤销[TARGET_ESTATE_PRIVILEGE.GetName][estate_privilege|e]"
+      }
+    },
     "can_rival": {
       "en": {
         "first": "We would be able to make [TARGET_COUNTRY.GetName] their [rival|e]",
@@ -4316,6 +4519,16 @@
         "not_third": "[COUNTRY.GetName|U]不是[TARGET_COUNTRY.GetName]的[subject|e]（或更低）",
         "text": "是[TARGET_COUNTRY.GetName]的[subject|e]（或更低）",
         "third": "[COUNTRY.GetName|U]是[TARGET_COUNTRY.GetName]的[subject|e]（或更低）"
+      }
+    },
+    "can_start_expedition": {
+      "en": {
+        "not_third": "[TARGET_COUNTRY.GetName] cannot start this [expedition|e]",
+        "third": "[TARGET_COUNTRY.GetName] can start this [expedition|e]"
+      },
+      "zh": {
+        "not_third": "[TARGET_COUNTRY.GetName]不能开始此[expedition|e]",
+        "third": "[TARGET_COUNTRY.GetName]可以开始此[expedition|e]"
       }
     },
     "can_upgrade_subunit": {
@@ -4466,8 +4679,8 @@
     },
     "cardinal_scope_equal": {
       "en": {
-        "not": "Is NOT [CARDINAL.GetName]",
-        "text": "Is [CARDINAL.GetName]"
+        "not": "Is NOT [CHARACTER.GetName]",
+        "text": "Is [CHARACTER.GetName]"
       },
       "zh": {
         "not": "不是[CARDINAL.GetName]",
@@ -4646,6 +4859,20 @@
         "third": "[CHARACTER.GetName]是$ARTIST$"
       }
     },
+    "character_betrothed": {
+      "en": {
+        "not": "Is Not Betrothed",
+        "not_third": "[CHARACTER.GetName] is Not Betrothed",
+        "text": "Is Betrothed",
+        "third": "[CHARACTER.GetName] is Betrothed"
+      },
+      "zh": {
+        "not": "未订婚",
+        "not_third": "[CHARACTER.GetName]未订婚",
+        "text": "已订婚",
+        "third": "[CHARACTER.GetName]已订婚"
+      }
+    },
     "character_bool_modifier_no": {
       "en": {
         "not": "Has $MODIFIER_NAME$",
@@ -4696,6 +4923,20 @@
       "zh": {
         "not": "未在执行[TARGET_CABINET_ACTION.GetName]",
         "text": "正在执行[TARGET_CABINET_ACTION.GetName]"
+      }
+    },
+    "character_can_betroth": {
+      "en": {
+        "not": "Character cannot betroth more people",
+        "not_third": "[CHARACTER.GetName] cannot betroth more people",
+        "text": "Can betroth someone",
+        "third": "[CHARACTER.GetName] can betroth more people"
+      },
+      "zh": {
+        "not": "角色不能再与更多人订婚",
+        "not_third": "[CHARACTER.GetName]不能再与更多人订婚",
+        "text": "可以与他人订婚",
+        "third": "[CHARACTER.GetName]可以再与更多人订婚"
       }
     },
     "character_can_marry": {
@@ -5000,6 +5241,20 @@
     },
     "character_heir": {
       "en": {
+        "not": "Is NOT the [heir|e]",
+        "not_third": "[CHARACTER.GetName] is NOT the [heir|e]",
+        "text": "Is the [heir|e]",
+        "third": "[CHARACTER.GetName] is the [heir|e]"
+      },
+      "zh": {
+        "not": "不是[CHARACTER.GetCourtCountry.GetGovernment.GetHeirTitle]",
+        "not_third": "[CHARACTER.GetName]不是[CHARACTER.GetCourtCountry.GetGovernment.GetHeirTitle]",
+        "text": "是[CHARACTER.GetCourtCountry.GetName]的[CHARACTER.GetCourtCountry.GetGovernment.GetHeirTitle]",
+        "third": "[CHARACTER.GetName]是[CHARACTER.GetCourtCountry.GetName]的[CHARACTER.GetCourtCountry.GetGovernment.GetHeirTitle]"
+      }
+    },
+    "character_heir_of_court_country": {
+      "en": {
         "not": "Is NOT [CHARACTER.GetCourtCountry.GetGovernment.GetHeirTitle]",
         "not_third": "[CHARACTER.GetName] is NOT [CHARACTER.GetCourtCountry.GetGovernment.GetHeirTitle]",
         "text": "Is [CHARACTER.GetCourtCountry.GetGovernment.GetHeirTitle] of [CHARACTER.GetCourtCountry.GetName]",
@@ -5284,6 +5539,11 @@
         "not": "[CHARACTER.GetName]年龄不大于$VALUE|0$"
       }
     },
+    "character_named_script_value_less_than": {
+      "en": {
+        "not": "[CHARACTER.GetName] is as old or older than $VALUE|0$"
+      }
+    },
     "character_nickname": {
       "en": {
         "not": "Has NOT the '$NAME$' nickname",
@@ -5448,6 +5708,24 @@
         "third": "[CHARACTER.GetName]是$RELIGIOUS_FIGURE$"
       }
     },
+    "character_religious_order_equal": {
+      "en": {
+        "not": "[CHARACTER.GetName] does NOT lead the [TARGET_RELIGIOUS_ORDER.GetName]",
+        "text": "[CHARACTER.GetName] leads the [TARGET_RELIGIOUS_ORDER.GetName]"
+      },
+      "zh": {
+        "not": "[CHARACTER.GetName]不领导[TARGET_RELIGIOUS_ORDER.GetName]",
+        "text": "[CHARACTER.GetName]领导[TARGET_RELIGIOUS_ORDER.GetName]"
+      }
+    },
+    "character_religious_order_not_equal": {
+      "en": {
+        "text": "[CHARACTER.GetName] does NOT lead the [TARGET_RELIGIOUS_ORDER.GetName]"
+      },
+      "zh": {
+        "text": "[CHARACTER.GetName]不领导[TARGET_RELIGIOUS_ORDER.GetName]"
+      }
+    },
     "character_religious_school_equal": {
       "en": {
         "not": "The [religious_school|e] of [CHARACTER.GetName] is NOT [TARGET_RELIGIOUS_SCHOOL.GetName]",
@@ -5600,6 +5878,12 @@
         "third": "[COUNTRY.GetName|U]的[TARGET_CLIMATE.GetName][locations|e]数量$COMPARATOR$$NUM|V0$（当前：$CURRENT_VALUE|V0$）"
       }
     },
+    "climate_equal": {
+      "en": {
+        "not": "Is NOT [TARGET_CLIMATE.GetName] [climate|e]",
+        "text": "Is [TARGET_CLIMATE.GetName] [climate|e]"
+      }
+    },
     "climate_percent": {
       "en": {
         "first": "We have $COMPARATOR$ $NUM|V2%$ [locations|e] which are [TARGET_CLIMATE.GetName] (currently: $CURRENT_VALUE|V%2$)",
@@ -5626,6 +5910,20 @@
       "zh": {
         "not": "不是[CLIMATE.GetName]",
         "text": "是[CLIMATE.GetName]"
+      }
+    },
+    "closeness_to_equator": {
+      "en": {
+        "not": "Does NOT have a closeness to equator value of $COMPARATOR$ $NUM|V$ (currently: $CURRENT_VALUE$)",
+        "not_third": "[LOCATION.GetName] does NOT have a closeness to equator value of $COMPARATOR$ $NUM|V$ (currently: $CURRENT_VALUE$)",
+        "text": "Has a closeness to equator value of $COMPARATOR$ $NUM|V$ (currently: $CURRENT_VALUE$)",
+        "third": "[LOCATION.GetName] has a closeness to equator value of $COMPARATOR$ $NUM|V$ (currently: $CURRENT_VALUE$)"
+      },
+      "zh": {
+        "not": "赤道接近度数值不是 $COMPARATOR$ $NUM|V$ （当前：$CURRENT_VALUE$）",
+        "not_third": "[LOCATION.GetName] 的接近赤道值不为 $COMPARATOR$ $NUM|V$ （当前：$CURRENT_VALUE$）",
+        "text": "赤道接近度数值 $COMPARATOR$ $NUM|V$ （当前：$CURRENT_VALUE$）",
+        "third": "[LOCATION.GetName] 的接近赤道值为 $COMPARATOR$ $NUM|V$ （当前：$CURRENT_VALUE$）"
       }
     },
     "colonial_charter_owner_equal": {
@@ -5764,6 +6062,26 @@
       "zh": {
         "not": "指挥[country|e]不是[TARGET_COUNTRY.GetName]",
         "text": "指挥[country|e]是[TARGET_COUNTRY.GetName]"
+      }
+    },
+    "concession_policy_equal": {
+      "en": {
+        "not": "Is NOT [POLICY.GetName]",
+        "text": "Is [POLICY.GetName]"
+      },
+      "zh": {
+        "not": "不是[POLICY.GetName]",
+        "text": "是[POLICY.GetName]"
+      }
+    },
+    "concession_privilege_equal": {
+      "en": {
+        "not": "Is NOT [ESTATE_PRIVILEGE.GetName]",
+        "text": "Is [ESTATE_PRIVILEGE.GetName]"
+      },
+      "zh": {
+        "not": "不是[ESTATE_PRIVILEGE.GetName]",
+        "text": "是[ESTATE_PRIVILEGE.GetName]"
       }
     },
     "conquer_desire": {
@@ -6556,12 +6874,12 @@
     },
     "country_pop": {
       "en": {
-        "first": "We have a total population of $COMPARATOR$ $NUM|V0$ (currently: $CURRENT_VALUE|V0$)",
-        "not": "Does NOT have a total population of $COMPARATOR$ $NUM|V0$ (currently: $CURRENT_VALUE|V0$)",
-        "not_first": "We do NOT have a total population of $COMPARATOR$ $NUM|V0$ (currently: $CURRENT_VALUE|V0$)",
-        "not_third": "[COUNTRY.GetName|U] does NOT have a total population of $COMPARATOR$ $NUM|V0$ (currently: $CURRENT_VALUE|V0$)",
-        "text": "Has a total population of $COMPARATOR$ $NUM|V0$ (currently: $CURRENT_VALUE|V0$)",
-        "third": "[COUNTRY.GetName|U] has a total population of $COMPARATOR$ $NUM|V0$ (currently: $CURRENT_VALUE|V0$)"
+        "first": "We have a total population of $COMPARATOR$ $NUM$ (currently: $CURRENT_VALUE$)",
+        "not": "Does NOT have a total population of $COMPARATOR$ $NUM$ (currently: $CURRENT_VALUE$)",
+        "not_first": "We do NOT have a total population of $COMPARATOR$ $NUM$ (currently: $CURRENT_VALUE$)",
+        "not_third": "[COUNTRY.GetName|U] does NOT have a total population of $COMPARATOR$ $NUM$ (currently: $CURRENT_VALUE$)",
+        "text": "Has a total population of $COMPARATOR$ $NUM$ (currently: $CURRENT_VALUE$)",
+        "third": "[COUNTRY.GetName|U] has a total population of $COMPARATOR$ $NUM$ (currently: $CURRENT_VALUE$)"
       },
       "zh": {
         "first": "我们的总人口$COMPARATOR$$NUM|V0$（当前：$CURRENT_VALUE|V0$）",
@@ -6620,12 +6938,12 @@
     },
     "country_rank_level_less_or_equal": {
       "en": {
-        "first": "Our [country_rank|e] is at most [TARGET_COUNTRY.GetName]'s",
-        "not": "[country_rank|e] is NOT at most [TARGET_COUNTRY.GetName]'s",
-        "not_first": "Our [country_rank|e] is NOT at most [TARGET_COUNTRY.GetName]'s",
-        "not_third": "[COUNTRY.GetName|U]'s [country_rank|e] is NOT at most [TARGET_COUNTRY.GetName]'s",
-        "text": "[country_rank|e] is at most [TARGET_COUNTRY.GetName]'s",
-        "third": "[COUNTRY.GetName|U]'s [country_rank|e] is at most [TARGET_COUNTRY.GetName]'s"
+        "first": "We have a [country_rank|e] level of at most $NUM|V0$ (currently: $CURRENT_VALUE|V0$)",
+        "not": "Does NOT have a [country_rank|e] level of at most $NUM|V0$ (currently: $CURRENT_VALUE|V0$)",
+        "not_first": "We do NOT have a [country_rank|e] level of at most $NUM|V0$ (currently: $CURRENT_VALUE|V0$)",
+        "not_third": "[COUNTRY.GetName|U] does NOT have a [country_rank|e] level of at most $NUM|V0$ (currently: $CURRENT_VALUE|V0$)",
+        "text": "Has a [country_rank|e] level of at most $NUM|V0$ (currently: $CURRENT_VALUE|V0$)",
+        "third": "[COUNTRY.GetName|U] has a [country_rank|e] level of at most $NUM|V0$ (currently: $CURRENT_VALUE|V0$)"
       },
       "zh": {
         "first": "我们的[country_rank|e]最多与[TARGET_COUNTRY.GetName]持平",
@@ -6870,12 +7188,12 @@
     },
     "country_type": {
       "en": {
-        "first": "We are a '$ENUM|Y$' based country.",
-        "not": "Is NOT a '$ENUM|Y$' based country.",
-        "not_first": "We are NOT a '$ENUM|Y$' based country.",
-        "not_third": "[COUNTRY.GetName|U] is NOT a '$ENUM|Y$' based country.",
-        "text": "Is a '$ENUM|Y$' based country.",
-        "third": "[COUNTRY.GetName|U] is a '$ENUM|Y$' based country."
+        "first": "We are a $ENUM|Y$.",
+        "not": "Is NOT a $ENUM|Y$.",
+        "not_first": "We are NOT a $ENUM|Y$.",
+        "not_third": "[COUNTRY.GetName|U] is NOT a $ENUM|Y$.",
+        "text": "Is a $ENUM|Y$.",
+        "third": "[COUNTRY.GetName|U] is a $ENUM|Y$."
       },
       "zh": {
         "first": "我们是“$ENUM|Y$”国家",
@@ -6964,6 +7282,20 @@
         "not_third": "该国不是$NAME|Y$",
         "text": "是$NAME|Y$",
         "third": "国家是$NAME|Y$"
+      }
+    },
+    "counts_as_capital": {
+      "en": {
+        "not": "Is NOT the [capital|e] nor a [historical_capital|e]",
+        "not_third": "[LOCATION.GetName] is NOT the [capital|e] nor a [historical_capital|e]",
+        "text": "Is the [capital|e] or a [historical_capital|e]",
+        "third": "[LOCATION.GetName] is the [capital|e] or a [historical_capital|e]"
+      },
+      "zh": {
+        "not": "既不是 [capital|e] 也不是 [historical_capital|e]",
+        "not_third": "[LOCATION.GetName]既不是[capital|e]也不是[historical_capital|e]",
+        "text": "是[capital|e]或[historical_capital|e]",
+        "third": "[LOCATION.GetName]是[capital|e]或[historical_capital|e]"
       }
     },
     "court_dialect_equal": {
@@ -7552,9 +7884,11 @@
     },
     "current_year": {
       "en": {
+        "not": "Current Year is NOT $COMPARATOR$ $NUM|V0$",
         "text": "Current Year is $COMPARATOR$ $NUM|V0$"
       },
       "zh": {
+        "not": "当前年份不$COMPARATOR$$NUM|V0$",
         "text": "当前年份$COMPARATOR$$NUM|V0$"
       }
     },
@@ -7696,6 +8030,20 @@
         "not_third": "[COUNTRY.GetName|U]的[estate|e][loans|e]不$COMPARATOR$$NUM|V0$",
         "text": "[estate|e][loans|e]$COMPARATOR$$NUM|V0$",
         "third": "[COUNTRY.GetName|U]的[estate|e][loans|e]$COMPARATOR$$NUM|V0$"
+      }
+    },
+    "defender_bonus": {
+      "en": {
+        "not": "Does NOT have an #Y Attacker Panlty in Combat#! of $COMPARATOR$ $NUM|0Y$ (currently: $CURRENT_VALUE|0Y$)",
+        "not_third": "$WHAT$ does NOT have an #Y Attacker Panlty in Combat#! of $COMPARATOR$ $NUM|0Y$ (currently: $CURRENT_VALUE|0Y$)",
+        "text": "Has an #Y Attacker Panlty in Combat#! of $COMPARATOR$ $NUM|0Y$ (currently: $CURRENT_VALUE|0Y$)",
+        "third": "$WHAT$ has an #Y Attacker Panlty in Combat#! of $COMPARATOR$ $NUM|0Y$ (currently: $CURRENT_VALUE|0Y$)"
+      },
+      "zh": {
+        "not": "没有#Y战斗中进攻方减益#!，为$COMPARATOR$ $NUM|0Y$ （当前：$CURRENT_VALUE|0Y$）",
+        "not_third": "$WHAT$ 没有 #Y 战斗中进攻方减益 #! ，为 $COMPARATOR$ $NUM|0Y$ （当前：$CURRENT_VALUE|0Y$）",
+        "text": "拥有#Y战斗中进攻方减益#!，为$COMPARATOR$ $NUM|0Y$ （当前：$CURRENT_VALUE|0Y$）",
+        "third": "$WHAT$拥有#Y战斗中进攻方减益#!，为$COMPARATOR$ $NUM|0Y$ （当前：$CURRENT_VALUE|0Y$）"
       }
     },
     "defender_leader_equal": {
@@ -8178,6 +8526,42 @@
         "text": "[dominant_upper_class_culture|e]是[TARGET_CULTURE.GetName]"
       }
     },
+    "dynamic_historical_event_fire_year": {
+      "en": {
+        "first": "Dynamic Historical Event fired for us in year $COMPARATOR$ $VALUE|V0$",
+        "not": "Dynamic Historical Event fire year NOT $COMPARATOR$ $VALUE|V0$",
+        "not_first": "Dynamic Historical Event fire year for us NOT $COMPARATOR$ $VALUE|V0$",
+        "not_third": "Dynamic Historical Event fire year for [COUNTRY.GetName] NOT $COMPARATOR$ $VALUE|V0$",
+        "text": "Dynamic Historical Event fired in year $COMPARATOR$ $VALUE|V0$",
+        "third": "Dynamic Historical Event fired for [COUNTRY.GetName] in year $COMPARATOR$ $VALUE|V0$"
+      },
+      "zh": {
+        "first": "动态历史事件为我们触发的年份$COMPARATOR$$VALUE|V0$",
+        "not": "动态历史事件触发年份不$COMPARATOR$$VALUE|V0$",
+        "not_first": "动态历史事件为我们触发的年份不$COMPARATOR$$VALUE|V0$",
+        "not_third": "动态历史事件为[COUNTRY.GetName]触发的年份不$COMPARATOR$$VALUE|V0$",
+        "text": "动态历史事件触发年份$COMPARATOR$$VALUE|V0$",
+        "third": "动态历史事件为[COUNTRY.GetName]触发的年份$COMPARATOR$$VALUE|V0$"
+      }
+    },
+    "dynamic_historical_event_fired": {
+      "en": {
+        "first": "Dynamic Historical Event has fired for us",
+        "not": "Dynamic Historical Event has NOT fired",
+        "not_first": "Dynamic Historical Event has NOT fired for us",
+        "not_third": "Dynamic Historical Event has NOT fired for [COUNTRY.GetName]",
+        "text": "Dynamic Historical Event has fired",
+        "third": "Dynamic Historical Event has fired for [COUNTRY.GetName]"
+      },
+      "zh": {
+        "first": "动态历史事件已为我们触发",
+        "not": "动态历史事件未触发",
+        "not_first": "动态历史事件未为我们触发",
+        "not_third": "动态历史事件未为[COUNTRY.GetName]触发",
+        "text": "动态历史事件已触发",
+        "third": "动态历史事件已为[COUNTRY.GetName]触发"
+      }
+    },
     "dynastic_power": {
       "en": {
         "first": "We have $COMPARATOR$ $NUM|Y2$ [dynastic_power|e] in [TARGET_INTERNATIONAL_ORGANIZATION.GetName] (currently: $CURRENT_VALUE|Y2$)",
@@ -8388,6 +8772,16 @@
       },
       "zh": {
         "text": "不属于[TARGET_DYNASTY.GetName][dynasty|e]"
+      }
+    },
+    "dynasty_religion_equal": {
+      "en": {
+        "not": "The [religion|e] of [DYNASTY.GetName] is NOT [TARGET_RELIGION.GetName]",
+        "text": "The [religion|e] of [DYNASTY.GetName] is [TARGET_RELIGION.GetName]"
+      },
+      "zh": {
+        "not": "[DYNASTY.GetName]的[religion|e]不是[TARGET_RELIGION.GetName]",
+        "text": "[DYNASTY.GetName]的[religion|e]是[TARGET_RELIGION.GetName]"
       }
     },
     "dynasty_scope_equal": {
@@ -8784,6 +9178,20 @@
         "third": "[COUNTRY.GetName]的$TYPE$[estate|e]拥有$NAME$"
       }
     },
+    "estate_raised_regiment_count": {
+      "en": {
+        "not": "Does NOT have $COMPARATOR$ $NUM|0Y$ private [regiment|e] in service",
+        "not_third": "The [ESTATE.GetName] do NOT have $COMPARATOR$ $NUM|0Y$ private [regiment|e] in service",
+        "text": "Has $COMPARATOR$ $NUM|0Y$ private [regiment|e] in service",
+        "third": "The [ESTATE.GetName] have $COMPARATOR$ $NUM|0Y$ private [regiment|e] in service"
+      },
+      "zh": {
+        "not": "未拥有$COMPARATOR$$NUM|0Y$个服役中的私属[regiment|e]",
+        "not_third": "[ESTATE.GetName]未拥有$COMPARATOR$$NUM|0Y$个服役中的私属[regiment|e]",
+        "text": "拥有$COMPARATOR$$NUM|0Y$个服役中的私属[regiment|e]",
+        "third": "[ESTATE.GetName] 拥有 $COMPARATOR$ $NUM|0Y$ 个服役中的私属 [regiment|e]"
+      }
+    },
     "estate_satisfaction": {
       "en": {
         "not": "[estate_satisfaction|E] is NOT $COMPARATOR$ $NUM|2%V$ (currently: $CURRENT_VALUE|V%2$)",
@@ -8948,6 +9356,20 @@
         "third": "[ESTATE.GetName]的可征税收入$COMPARATOR$$NUM|2V$[gold_i]"
       }
     },
+    "estate_total_regiment_count": {
+      "en": {
+        "not": "Does NOT have $COMPARATOR$ $NUM|0Y$ private [regiment|e] in total",
+        "not_third": "The [ESTATE.GetName] do NOT have $COMPARATOR$ $NUM|0Y$ private [regiment|e] in total",
+        "text": "Has $COMPARATOR$ $NUM|0Y$ private [regiment|e] in total",
+        "third": "The [ESTATE.GetName] have $COMPARATOR$ $NUM|0Y$ private [regiment|e] in total"
+      },
+      "zh": {
+        "not": "共未拥有$COMPARATOR$$NUM|0Y$个私属[regiment|e]",
+        "not_third": "[ESTATE.GetName]共未拥有$COMPARATOR$$NUM|0Y$个私属[regiment|e]",
+        "text": "共拥有$COMPARATOR$$NUM|0Y$个私属[regiment|e]",
+        "third": "[ESTATE.GetName] 共拥有 $COMPARATOR$ $NUM|0Y$ 个私属 [regiment|e]"
+      }
+    },
     "estate_type_allowed_in_cabinet": {
       "en": {
         "first": "Characters from the $ESTATE_TYPE$ are allowed in our [cabinet|e]",
@@ -9028,6 +9450,20 @@
       "zh": {
         "not": "不是[ESTATE_TYPE.GetName]",
         "text": "是[ESTATE_TYPE.GetName]"
+      }
+    },
+    "estate_unraised_regiment_count": {
+      "en": {
+        "not": "Does NOT have $COMPARATOR$ $NUM|0Y$ private [regiment|e] not yet raised",
+        "not_third": "The [ESTATE.GetName] do NOT have $COMPARATOR$ $NUM|0Y$ private [regiment|e] not yet raised",
+        "text": "Has $COMPARATOR$ $NUM|0Y$ private [regiment|e] not yet raised",
+        "third": "The [ESTATE.GetName] have $COMPARATOR$ $NUM|0Y$ private [regiment|e] not yet raised"
+      },
+      "zh": {
+        "not": "未拥有$COMPARATOR$$NUM|0Y$个尚未征召的私属[regiment|e]",
+        "not_third": "[ESTATE.GetName] 拥有的尚未征召的私属 [regiment|e] 个数不满足 $COMPARATOR$ $NUM|0Y$",
+        "text": "拥有$COMPARATOR$$NUM|0Y$个尚未征召的私属[regiment|e]",
+        "third": "[ESTATE.GetName]拥有$COMPARATOR$$NUM|0Y$个尚未征召的私属[regiment|e]"
       }
     },
     "ethnicity_equal": {
@@ -9114,6 +9550,84 @@
         "not_third": "[COUNTRY.GetName|U]的海军预期没有$COMPARATOR$$NUM|V0$艘舰船",
         "text": "海军预期拥有$COMPARATOR$$NUM|V0$艘舰船",
         "third": "[COUNTRY.GetName|U]的海军预期拥有$COMPARATOR$$NUM|V0$艘舰船"
+      }
+    },
+    "expedition_current_location_equal": {
+      "en": {
+        "not": "The [expedition|e] is NOT currently at [TARGET_LOCATION.GetName]",
+        "text": "The [expedition|e] is currently at [TARGET_LOCATION.GetName]"
+      },
+      "zh": {
+        "not": "[expedition|e]当前不在[TARGET_LOCATION.GetName]",
+        "text": "[expedition|e]当前位于[TARGET_LOCATION.GetName]"
+      }
+    },
+    "expedition_is_paused": {
+      "en": {
+        "not_third": "The [expedition|e] is NOT currently paused",
+        "third": "The [expedition|e] is currently paused"
+      },
+      "zh": {
+        "not_third": "[expedition|e]当前未暂停",
+        "third": "[expedition|e]当前已暂停"
+      }
+    },
+    "expedition_is_returning": {
+      "en": {
+        "not_third": "The [expedition|e] is NOT returning",
+        "third": "The [expedition|e] is returning"
+      },
+      "zh": {
+        "not_third": "[expedition|e]未在返回",
+        "third": "[expedition|e]正在返回"
+      }
+    },
+    "expedition_is_stalled": {
+      "en": {
+        "not_third": "The [expedition|e] is NOT currently stalled",
+        "third": "The [expedition|e] is currently stalled"
+      },
+      "zh": {
+        "not_third": "[expedition|e]目前并未处于停滞状态",
+        "third": "[expedition|e]目前处于停滞状态"
+      }
+    },
+    "expedition_is_waiting_on_construction": {
+      "en": {
+        "not_third": "The [expedition|e] is NOT currently waiting on a construction",
+        "third": "The [expedition|e] is currently waiting on a construction"
+      },
+      "zh": {
+        "not_third": "[expedition|e]目前并未在等待任何建造",
+        "third": "[expedition|e]目前正在等待一项建造"
+      }
+    },
+    "expedition_type_equal": {
+      "en": {
+        "not": "Is NOT the [TARGET_EXPEDITION_TYPE.GetName] [expedition|e]",
+        "not_third": "[EXPEDITION.GetName] is NOT the [TARGET_EXPEDITION_TYPE.GetName] [expedition|e]",
+        "text": "Is the [TARGET_EXPEDITION_TYPE.GetName] [expedition|e]",
+        "third": "[EXPEDITION.GetName] is the [TARGET_EXPEDITION_TYPE.GetName] [expedition|e]"
+      },
+      "zh": {
+        "not": "不是[TARGET_EXPEDITION_TYPE.GetName][expedition|e]",
+        "not_third": "[EXPEDITION.GetName]不是[TARGET_EXPEDITION_TYPE.GetName][expedition|e]",
+        "text": "是[TARGET_EXPEDITION_TYPE.GetName][expedition|e]",
+        "third": "[EXPEDITION.GetName]是[TARGET_EXPEDITION_TYPE.GetName][expedition|e]"
+      }
+    },
+    "expedition_wait_construction_has_goods_demand": {
+      "en": {
+        "not": "The [expedition|e]'s wait construction does NOT demand [TARGET_GOODS_DEMAND.GetName]",
+        "not_third": "The [expedition|e]'s wait construction does NOT demand [TARGET_GOODS_DEMAND.GetName]",
+        "text": "The [expedition|e]'s wait construction demands [TARGET_GOODS_DEMAND.GetName]",
+        "third": "The [expedition|e]'s wait construction demands [TARGET_GOODS_DEMAND.GetName]"
+      },
+      "zh": {
+        "not": "[expedition|e]所等待的建造并不需要[TARGET_GOODS_DEMAND.GetName]",
+        "not_third": "[expedition|e]所等待的建造并不需要[TARGET_GOODS_DEMAND.GetName]",
+        "text": "[expedition|e] 所等待的建造需要 [TARGET_GOODS_DEMAND.GetName]",
+        "third": "[expedition|e]所等待的建造需要[TARGET_GOODS_DEMAND.GetName]"
       }
     },
     "exploration_area_equal": {
@@ -9306,6 +9820,16 @@
         "third": "[CHARACTER.GetName]的生育力$COMPARATOR$$NUM|/Y$"
       }
     },
+    "first_name_starts_with_vowel": {
+      "en": {
+        "not_third": "[CHARACTER.GetName] does NOT have a first name beginning with a vowel",
+        "third": "[CHARACTER.GetName] has a first name beginning with a vowel"
+      },
+      "zh": {
+        "not_third": "[CHARACTER.GetName]的教名并非以元音开头",
+        "third": "[CHARACTER.GetName] 的教名以元音开头"
+      }
+    },
     "food_consumption": {
       "en": {
         "not": "The [food_consumption|e] is NOT $COMPARATOR$ $NUM|Y$ (currently: $CURRENT_VALUE$)",
@@ -9402,6 +9926,24 @@
       "zh": {
         "not": "不是[FORMABLE_COUNTRY.GetName]",
         "text": "是[FORMABLE_COUNTRY.GetName]"
+      }
+    },
+    "formable_level": {
+      "en": {
+        "first": "We have formable [tier|e] of $COMPARATOR$ $NUM|Y$",
+        "not": "[COUNTRY.GetName] does NOT formable [tier|e] of $COMPARATOR$ $NUM|Y$",
+        "not_first": "We do NOT have formable [tier|e] of $COMPARATOR$ $NUM|Y$",
+        "not_third": "[COUNTRY.GetName] does NOT formable [tier|e] of $COMPARATOR$ $NUM|Y$",
+        "text": "[COUNTRY.GetName] has formable [tier|e] of $COMPARATOR$ $NUM|Y$",
+        "third": "[COUNTRY.GetName] has formable [tier|e] of $COMPARATOR$ $NUM|Y$"
+      },
+      "zh": {
+        "first": "我们拥有可成立[tier|e]$COMPARATOR$$NUM|Y$",
+        "not": "[COUNTRY.GetName]不拥有可成立[tier|e]$COMPARATOR$$NUM|Y$",
+        "not_first": "我们不拥有可成立[tier|e]$COMPARATOR$$NUM|Y$",
+        "not_third": "[COUNTRY.GetName]不拥有可成立[tier|e]$COMPARATOR$$NUM|Y$",
+        "text": "[COUNTRY.GetName]拥有可成立[tier|e]$COMPARATOR$$NUM|Y$",
+        "third": "[COUNTRY.GetName]拥有可成立[tier|e]$COMPARATOR$$NUM|Y$"
       }
     },
     "from_market_equal": {
@@ -9648,6 +10190,56 @@
         "third": "[COUNTRY.GetName]给予任意[country|e][TARGET_RELATION_TYPE.GetName]"
       }
     },
+    "global_can_start_expedition": {
+      "en": {
+        "not": "Cannot start this [expedition|e]",
+        "text": "Can start this [expedition|e]"
+      },
+      "zh": {
+        "not": "不能开始此[expedition|e]",
+        "text": "可以开始此[expedition|e]"
+      }
+    },
+    "global_expedition_is_paused": {
+      "en": {
+        "not": "The [expedition|e] is NOT currently paused",
+        "text": "The [expedition|e] is currently paused"
+      },
+      "zh": {
+        "not": "[expedition|e]当前未暂停",
+        "text": "[expedition|e]当前已暂停"
+      }
+    },
+    "global_expedition_is_returning": {
+      "en": {
+        "not": "The [expedition|e] is NOT returning",
+        "text": "The [expedition|e] is returning"
+      },
+      "zh": {
+        "not": "[expedition|e]未在返回",
+        "text": "[expedition|e]正在返回"
+      }
+    },
+    "global_expedition_is_stalled": {
+      "en": {
+        "not": "The [expedition|e] is NOT currently stalled",
+        "text": "The [expedition|e] is currently stalled"
+      },
+      "zh": {
+        "not": "The [expedition|e] is NOT currently stalled",
+        "text": "The [expedition|e] is currently stalled"
+      }
+    },
+    "global_expedition_is_waiting_on_construction": {
+      "en": {
+        "not": "The [expedition|e] is NOT currently waiting on a construction",
+        "text": "The [expedition|e] is currently waiting on a construction"
+      },
+      "zh": {
+        "not": "该 [expedition|e] 目前并未在等待任何建造",
+        "text": "[expedition|e] 目前正在等待一项建造"
+      }
+    },
     "global_exploration_has_leader": {
       "en": {
         "not": "Does NOT have a leader",
@@ -9862,6 +10454,20 @@
         "third": "[MARKET.GetName]正在贸易[TARGET_GOODS.GetName]"
       }
     },
+    "goods_valid_for_location": {
+      "en": {
+        "not": "[TARGET_GOODS.GetName] can NOT be brought to this [location|E] as the [raw_material|e]",
+        "not_third": "[TARGET_GOODS.GetName] can NOT be brought to [LOCATION.GetName] as the [raw_material|e]",
+        "text": "[TARGET_GOODS.GetName] can be brought to this [location|E] as the [raw_material|e]",
+        "third": "[TARGET_GOODS.GetName] can be brought to [LOCATION.GetName] as the [raw_material|e]"
+      },
+      "zh": {
+        "not": "[TARGET_GOODS.GetName]不可作为[raw_material|e]运往此[location|E]",
+        "not_third": "[TARGET_GOODS.GetName]不能作为[raw_material|e]被运往[LOCATION.GetName]",
+        "text": "[TARGET_GOODS.GetName]可作为[raw_material|e]运往此[location|E]",
+        "third": "[TARGET_GOODS.GetName]可作为[raw_material|e]被运往[LOCATION.GetName]"
+      }
+    },
     "government_power": {
       "en": {
         "first": "We use $GOVERNMENT_POWER$",
@@ -9892,17 +10498,21 @@
     },
     "government_type_equal": {
       "en": {
-        "not": "[COUNTRY.GetName|U] is NOT [TARGET_GOVERNMENT_TYPE.GetName]",
-        "text": "[COUNTRY.GetName|U] is [TARGET_GOVERNMENT_TYPE.GetName]"
+        "first": "We are a [TARGET_GOVERNMENT_TYPE.GetName]",
+        "not": "[COUNTRY.GetName|U] are NOT a [TARGET_GOVERNMENT_TYPE.GetName]",
+        "not_first": "We are NOT a [TARGET_GOVERNMENT_TYPE.GetName]",
+        "text": "[COUNTRY.GetName|U] are a [TARGET_GOVERNMENT_TYPE.GetName]"
       },
       "zh": {
+        "first": "我们是[TARGET_GOVERNMENT_TYPE.GetName]",
         "not": "[COUNTRY.GetName|U]不是[TARGET_GOVERNMENT_TYPE.GetName]",
+        "not_first": "我们不是[TARGET_GOVERNMENT_TYPE.GetName]",
         "text": "[COUNTRY.GetName|U]是[TARGET_GOVERNMENT_TYPE.GetName]"
       }
     },
     "government_type_not_equal": {
       "en": {
-        "text": "Is NOT [TARGET_GOVERNMENT_TYPE.GetName]"
+        "text": "Is NOT a [TARGET_GOVERNMENT_TYPE.GetName]"
       },
       "zh": {
         "text": "不是[TARGET_GOVERNMENT_TYPE.GetName]"
@@ -10046,6 +10656,62 @@
         "text": "[SITUATION.GetName][situation|e]已发生"
       }
     },
+    "hajj_caravan_capital_has_route_to_mecca": {
+      "en": {
+        "first": "Our capital lies along an established route to Mecca",
+        "not": "Capital does NOT lie along an established route to Mecca",
+        "not_first": "Our capital does NOT lie along an established route to Mecca",
+        "text": "Capital lies along an established route to Mecca"
+      }
+    },
+    "hajj_caravan_routes_via_arabia": {
+      "en": {
+        "first": "Our capital lies in Arabia",
+        "not": "Capital does NOT lie in Arabia",
+        "not_first": "Our capital does NOT lie in Arabia",
+        "text": "Capital lies in Arabia"
+      }
+    },
+    "hajj_caravan_routes_via_bab_el_mandeb": {
+      "en": {
+        "first": "Our capital lies along the Bab-el-Mandeb route to Mecca",
+        "not": "Capital does NOT lie along the Bab-el-Mandeb route to Mecca",
+        "not_first": "Our capital does NOT lie along the Bab-el-Mandeb route to Mecca",
+        "text": "Capital lies along the Bab-el-Mandeb route to Mecca"
+      }
+    },
+    "hajj_caravan_routes_via_baghdad": {
+      "en": {
+        "first": "Our capital lies along the Baghdad route to Mecca",
+        "not": "Capital does NOT lie along the Baghdad route to Mecca",
+        "not_first": "Our capital does NOT lie along the Baghdad route to Mecca",
+        "text": "Capital lies along the Baghdad route to Mecca"
+      }
+    },
+    "hajj_caravan_routes_via_cairo": {
+      "en": {
+        "first": "Our capital lies along the Cairo route to Mecca",
+        "not": "Capital does NOT lie along the Cairo route to Mecca",
+        "not_first": "Our capital does NOT lie along the Cairo route to Mecca",
+        "text": "Capital lies along the Cairo route to Mecca"
+      }
+    },
+    "hajj_caravan_routes_via_damascus": {
+      "en": {
+        "first": "Our capital lies along the Damascus route to Mecca",
+        "not": "Capital does NOT lie along the Damascus route to Mecca",
+        "not_first": "Our capital does NOT lie along the Damascus route to Mecca",
+        "text": "Capital lies along the Damascus route to Mecca"
+      }
+    },
+    "hajj_caravan_routes_via_jeddah": {
+      "en": {
+        "first": "Our capital lies along the Jeddah route to Mecca",
+        "not": "Capital does NOT lie along the Jeddah route to Mecca",
+        "not_first": "Our capital does NOT lie along the Jeddah route to Mecca",
+        "text": "Capital lies along the Jeddah route to Mecca"
+      }
+    },
     "has_abstained_vote": {
       "en": {
         "first": "We have abstained our vote in [TARGET_RESOLUTION.GetName]",
@@ -10106,6 +10772,24 @@
         "not_third": "[AREA.GetName]没有可到达的海岸",
         "text": "拥有可到达的海岸",
         "third": "[AREA.GetName]拥有可到达的海岸"
+      }
+    },
+    "has_active_disaster": {
+      "en": {
+        "first": "We have the [TARGET_DISASTER_TYPE.GetName] [disaster|e]",
+        "not": "Does NOT have the [TARGET_DISASTER_TYPE.GetName] [disaster|e]",
+        "not_first": "We do NOT have the [TARGET_DISASTER_TYPE.GetName] [disaster|e]",
+        "not_third": "[COUNTRY.GetName|U] does NOT have the [TARGET_DISASTER_TYPE.GetName] [disaster|e]",
+        "text": "Has the [TARGET_DISASTER_TYPE.GetName] [disaster|e]",
+        "third": "[COUNTRY.GetName|U] has the [TARGET_DISASTER_TYPE.GetName] [disaster|e]"
+      },
+      "zh": {
+        "first": "我们发生了[TARGET_DISASTER_TYPE.GetName][disaster|e]",
+        "not": "并未发生[TARGET_DISASTER_TYPE.GetName][disaster|e]",
+        "not_first": "我们并未发生[TARGET_DISASTER_TYPE.GetName][disaster|e]",
+        "not_third": "[COUNTRY.GetName|U]并未发生[TARGET_DISASTER_TYPE.GetName][disaster|e]",
+        "text": "是否发生了[TARGET_DISASTER_TYPE.GetName][disaster|e]",
+        "third": "[COUNTRY.GetName|U]发生了[TARGET_DISASTER_TYPE.GetName][disaster|e]"
       }
     },
     "has_active_resolution": {
@@ -10190,24 +10874,6 @@
         "not_third": "[COUNTRY.GetName|U]对[actor.GetName]的[country_disposition|e]不为$VALUE$",
         "text": "对[actor.GetName]的[country_disposition|e]为$VALUE$",
         "third": "[COUNTRY.GetName|U]对[actor.GetName]的[country_disposition|e]为$VALUE$"
-      }
-    },
-    "has_ai_disposition_toward_player": {
-      "en": {
-        "first": "We view you with a $VALUE$ [country_disposition|e]",
-        "not": "Does NOT view you with a $VALUE$ [country_disposition|e]",
-        "not_first": "We do NOT view you with a $VALUE$ [country_disposition|e]",
-        "not_third": "[COUNTRY.GetName|U] does NOT view you with a $VALUE$ [country_disposition|e]",
-        "text": "Views you with a $VALUE$ [country_disposition|e]",
-        "third": "[COUNTRY.GetName|U] views you with a $VALUE$ [country_disposition|e]"
-      },
-      "zh": {
-        "first": "我们对你的[country_disposition|e]为$VALUE$",
-        "not": "对你的[country_disposition|e]不为$VALUE$",
-        "not_first": "我们对你的[country_disposition|e]不为$VALUE$",
-        "not_third": "[COUNTRY.GetName|U]对你的[country_disposition|e]不为$VALUE$",
-        "text": "对你的[country_disposition|e]为$VALUE$",
-        "third": "[COUNTRY.GetName|U]对你的[country_disposition|e]为$VALUE$"
       }
     },
     "has_any_active_disaster": {
@@ -10482,12 +11148,12 @@
     },
     "has_bureaucracy_of_type": {
       "en": {
-        "first": "We have a [BUREAUCRACY_TYPE.GetName] [bureaucracy|e]",
-        "not": "Does NOT have a [BUREAUCRACY_TYPE.GetName] [bureaucracy|e]",
-        "not_first": "We do NOT have a [BUREAUCRACY_TYPE.GetName] [bureaucracy|e]",
-        "not_third": "[COUNTRY.GetName|U] does NOT have a [BUREAUCRACY_TYPE.GetName] [bureaucracy|e]",
-        "text": "Has a [BUREAUCRACY_TYPE.GetName] [bureaucracy|e]",
-        "third": "[COUNTRY.GetName|U] has a [BUREAUCRACY_TYPE.GetName] [bureaucracy|e]"
+        "first": "We have a [TARGET_BUREAUCRACY_TYPE.GetName] [bureaucracy|e]",
+        "not": "Does NOT have a [TARGET_BUREAUCRACY_TYPE.GetName] [bureaucracy|e]",
+        "not_first": "We do NOT have a [TARGET_BUREAUCRACY_TYPE.GetName] [bureaucracy|e]",
+        "not_third": "[COUNTRY.GetName|U] does NOT have a [TARGET_BUREAUCRACY_TYPE.GetName] [bureaucracy|e]",
+        "text": "Has a [TARGET_BUREAUCRACY_TYPE.GetName] [bureaucracy|e]",
+        "third": "[COUNTRY.GetName|U] has a [TARGET_BUREAUCRACY_TYPE.GetName] [bureaucracy|e]"
       },
       "zh": {
         "first": "我们拥有[BUREAUCRACY_TYPE.GetName][bureaucracy|e]",
@@ -10524,6 +11190,20 @@
         "not_third": "[TARGET_COUNTRY.GetName]近期未在$CONTAINER|Y$的“$ISSUE$”上投票$VOTE$",
         "text": "[TARGET_COUNTRY.GetName]近期在“$ISSUE$”上投票$VOTE$",
         "third": "[TARGET_COUNTRY.GetName]近期在$CONTAINER|Y$的“$ISSUE$”上投票$VOTE$"
+      }
+    },
+    "has_canal_construction": {
+      "en": {
+        "not": "Is NOT constructing a canal",
+        "not_third": "[LOCATION.GetName] is NOT constructing a canal",
+        "text": "Is constructing a canal",
+        "third": "[LOCATION.GetName] is constructing a canal"
+      },
+      "zh": {
+        "not": "并未在修建运河",
+        "not_third": "[LOCATION.GetName] 没有在修建运河",
+        "text": "正在修建运河",
+        "third": "[LOCATION.GetName] 正在修建运河"
       }
     },
     "has_canonization": {
@@ -10736,6 +11416,24 @@
         "third": "[COUNTRY.GetName]拥有与[TARGET_COUNTRY.GetName]相容的[ShowLawName('heir_religion_law')]政策"
       }
     },
+    "has_competing_foreign_buildings_with": {
+      "en": {
+        "first": "We own a [foreign_building|e] in, or next to, a [location|e] where [TARGET_COUNTRY.GetName] also owns one",
+        "not": "Owns NO [foreign_building|e] in, or next to, any [location|e] where [TARGET_COUNTRY.GetName] owns one",
+        "not_first": "We own NO [foreign_building|e] in, or next to, any [location|e] where [TARGET_COUNTRY.GetName] owns one",
+        "not_third": "[COUNTRY.GetName|U] owns NO [foreign_building|e] in, or next to, any [location|e] where [TARGET_COUNTRY.GetName] owns one",
+        "text": "Owns a [foreign_building|e] in, or next to, a [location|e] where [TARGET_COUNTRY.GetName] also owns one",
+        "third": "[COUNTRY.GetName|U] owns a [foreign_building|e] in, or next to, a [location|e] where [TARGET_COUNTRY.GetName] also owns one"
+      },
+      "zh": {
+        "first": "我们在[TARGET_COUNTRY.GetName]拥有[foreign_building|e]的[location|e]或相邻地点也拥有外国建筑",
+        "not": "在[TARGET_COUNTRY.GetName]拥有[foreign_building|e]的[location|e]或相邻地点未拥有外国建筑",
+        "not_first": "我们在[TARGET_COUNTRY.GetName]拥有[foreign_building|e]的[location|e]或相邻地点未拥有外国建筑",
+        "not_third": "[COUNTRY.GetName|U]在[TARGET_COUNTRY.GetName]拥有[foreign_building|e]的[location|e]或相邻地点未拥有外国建筑",
+        "text": "在[TARGET_COUNTRY.GetName]拥有[foreign_building|e]的[location|e]或相邻地点也拥有外国建筑",
+        "third": "[COUNTRY.GetName|U]在[TARGET_COUNTRY.GetName]拥有[foreign_building|e]的[location|e]或相邻地点也拥有外国建筑"
+      }
+    },
     "has_completed_religious_focus": {
       "en": {
         "not": "Has NOT completed [TARGET_RELIGIOUS_FOCUS.GetName]",
@@ -10888,6 +11586,20 @@
         "not_third": "没有[country|e]拥有对[COUNTRY.GetName]的临时[antagonism|e]",
         "text": "任意[country|e]拥有临时[antagonism|e]",
         "third": "任意[country|e]拥有对[COUNTRY.GetName]的临时[antagonism|e]"
+      }
+    },
+    "has_country_religious_schools": {
+      "en": {
+        "not": "Countries do NOT belong to a [religious_school|E]",
+        "not_third": "Countries of [RELIGION.GetName] do NOT belong to a [religious_school|E]",
+        "text": "Countries belong to a [religious_school|E]",
+        "third": "Countries of [RELIGION.GetName] belong to a [religious_school|E]"
+      },
+      "zh": {
+        "not": "各国不隶属于 [religious_school|E]",
+        "not_third": "信奉 [RELIGION.GetName] 的国家不隶属于任何 [religious_school|E]",
+        "text": "各国隶属于某个 [religious_school|E]",
+        "third": "信奉 [RELIGION.GetName] 的国家隶属于某个 [religious_school|E]"
       }
     },
     "has_culture_group": {
@@ -11608,6 +12320,24 @@
         "third": "[LOCATION.GetName]已达到城镇特权上限"
       }
     },
+    "has_meaningful_holy_war_participation": {
+      "en": {
+        "first": "We have taken a meaningful part in the current holy war",
+        "not": "Has NOT taken a meaningful part in the current holy war",
+        "not_first": "We have NOT taken a meaningful part in the current holy war",
+        "not_third": "[COUNTRY.GetName] has NOT taken a meaningful part in the current holy war",
+        "text": "Has taken a meaningful part in the current holy war",
+        "third": "[COUNTRY.GetName] has taken a meaningful part in the current holy war"
+      },
+      "zh": {
+        "first": "我们在当前圣战中做出了实质性贡献",
+        "not": "在当前圣战中未做出实质性贡献",
+        "not_first": "我们在当前圣战中未做出实质性贡献",
+        "not_third": "[COUNTRY.GetName] 在当前圣战中未做出实质性贡献",
+        "text": "在当前圣战中做出了实质性贡献",
+        "third": "[COUNTRY.GetName] 在当前圣战中做出了实质性贡献"
+      }
+    },
     "has_member": {
       "en": {
         "not": "Does NOT have [TARGET_COUNTRY.GetName] as a [member|e] ",
@@ -11740,6 +12470,24 @@
         "third": "[COUNTRY.GetName]与任意[country|e]拥有双向[TARGET_RELATION_TYPE.GetName]"
       }
     },
+    "has_new_royal_marriage_with": {
+      "en": {
+        "first": "We have formed a new [royal_marriage|e] with [TARGET_COUNTRY.GetName]",
+        "not": "Has NOT formed a new [royal_marriage|e] with [TARGET_COUNTRY.GetName]",
+        "not_first": "We have NOT formed a new [royal_marriage|e] with [TARGET_COUNTRY.GetName]",
+        "not_third": "[COUNTRY.GetName|U] has NOT formed a new [royal_marriage|e] with [TARGET_COUNTRY.GetName]",
+        "text": "Has formed a new [royal_marriage|e] with [TARGET_COUNTRY.GetName]",
+        "third": "[COUNTRY.GetName|U] has formed a new [royal_marriage|e] with [TARGET_COUNTRY.GetName]"
+      },
+      "zh": {
+        "first": "我们已与[TARGET_COUNTRY.GetName]缔结新的[royal_marriage|e]",
+        "not": "尚未与[TARGET_COUNTRY.GetName]缔结新的[royal_marriage|e]",
+        "not_first": "我们尚未与[TARGET_COUNTRY.GetName]缔结新的[royal_marriage|e]",
+        "not_third": "[COUNTRY.GetName|U] 未与 [TARGET_COUNTRY.GetName] 缔结新的 [royal_marriage|e]",
+        "text": "已与[TARGET_COUNTRY.GetName]缔结新的[royal_marriage|e]",
+        "third": "[COUNTRY.GetName|U] 与 [TARGET_COUNTRY.GetName] 缔结了新的 [royal_marriage|e]"
+      }
+    },
     "has_new_world_goods_in_market": {
       "en": {
         "not": "Does not have a supply of new world [goods|e]",
@@ -11766,6 +12514,24 @@
         "not_third": "[CHARACTER.GetName]没有称号",
         "text": "拥有称号",
         "third": "[CHARACTER.GetName]拥有称号"
+      }
+    },
+    "has_non_rural_port": {
+      "en": {
+        "first": "We have a non-rural [port|e]",
+        "not": "Does NOT have a non-rural [port|e]",
+        "not_first": "We do NOT have a non-rural [port|e]",
+        "not_third": "[COUNTRY.GetName] does NOT have a non-rural [port|e]",
+        "text": "Has a non-rural [port|e]",
+        "third": "[COUNTRY.GetName] has a non-rural [port|e]"
+      },
+      "zh": {
+        "first": "我们拥有非乡村[port|e]",
+        "not": "没有非乡村[port|e]",
+        "not_first": "我们没有非乡村[port|e]",
+        "not_third": "[COUNTRY.GetName]没有非乡村[port|e]",
+        "text": "拥有非乡村[port|e]",
+        "third": "[COUNTRY.GetName]拥有非乡村[port|e]"
       }
     },
     "has_old_world_goods_in_market": {
@@ -14042,6 +14808,30 @@
         "third": "[LOCATION.GetName]位于[zone_of_control|e]"
       }
     },
+    "industry_building_levels_in_area": {
+      "en": {
+        "not": "Does NOT have $COMPARATOR$ $NUM|0Y$ [building|e] levels producing [TARGET_INDUSTRY_TYPE.GetName] [goods|e]",
+        "not_third": "Does NOT have $COMPARATOR$ $NUM|0Y$ [building|e] levels producing [TARGET_INDUSTRY_TYPE.GetName] [goods|e] in [AREA.GetName]",
+        "text": "Has $COMPARATOR$ $NUM|0Y$ [building|e] levels producing [TARGET_INDUSTRY_TYPE.GetName] [goods|e]",
+        "third": "Has $COMPARATOR$ $NUM|0Y$ [building|e] levels producing [TARGET_INDUSTRY_TYPE.GetName] [goods|e] in [AREA.GetName]"
+      },
+      "zh": {
+        "not": "未拥有$COMPARATOR$$NUM|0Y$座生产[TARGET_INDUSTRY_TYPE.GetName]的[building|e][goods|e]等级",
+        "not_third": "在[AREA.GetName]未拥有$COMPARATOR$$NUM|0Y$座生产[TARGET_INDUSTRY_TYPE.GetName]的[building|e][goods|e]等级",
+        "text": "拥有$COMPARATOR$$NUM|0Y$座生产[TARGET_INDUSTRY_TYPE.GetName]的[building|e][goods|e]等级",
+        "third": "在[AREA.GetName]拥有$COMPARATOR$$NUM|0Y$座生产[TARGET_INDUSTRY_TYPE.GetName]的[building|e][goods|e]等级"
+      }
+    },
+    "industry_type_equal": {
+      "en": {
+        "not": "Industry is NOT [TARGET_INDUSTRY_TYPE.GetName]",
+        "text": "Industry is [TARGET_INDUSTRY_TYPE.GetName]"
+      },
+      "zh": {
+        "not": "产业不是[TARGET_INDUSTRY_TYPE.GetName]",
+        "text": "产业是[TARGET_INDUSTRY_TYPE.GetName]"
+      }
+    },
     "institution_has_spawned": {
       "en": {
         "not": "Does NOT exist anywhere yet",
@@ -15164,6 +15954,20 @@
         "third": "[BUILDING.GetName]是$NAME$"
       }
     },
+    "is_canal_open": {
+      "en": {
+        "not": "The canal is NOT open",
+        "not_third": "The canal in [LOCATION.GetName] is not open",
+        "text": "The canal is open",
+        "third": "The canal in [LOCATION.GetName] is open"
+      },
+      "zh": {
+        "not": "运河不开放",
+        "not_third": "[LOCATION.GetName]的运河尚未开通",
+        "text": "运河已开通",
+        "third": "[LOCATION.GetName] 的运河已开通"
+      }
+    },
     "is_capital": {
       "en": {
         "not": "Is NOT the [capital|E]",
@@ -15198,7 +16002,7 @@
         "third": "[MERCENARY.GetName] is carrying embarked armies or is loaded onto another fleet"
       },
       "zh": {
-        "not": "未在搭载登船陆军或未在执行登船",
+        "not": "未正在搭载登船陆军或未在执行登船",
         "not_third": "[MERCENARY.GetName]未在搭载登船陆军或未在执行登船",
         "text": "正在搭载登船陆军或正在执行登船",
         "third": "[MERCENARY.GetName]正在搭载登船陆军或正在执行登船"
@@ -15578,6 +16382,20 @@
         "third": "[CHARACTER.GetName]可以进行任意类型的婚姻"
       }
     },
+    "is_eligible_for_royal_betrothal": {
+      "en": {
+        "not": "Can NOT do a [betrothal|e]",
+        "not_third": "[CHARACTER.GetName] can NOT do a [betrothal|e]",
+        "text": "Can do a [betrothal|e]",
+        "third": "[CHARACTER.GetName] can do a [betrothal|e]"
+      },
+      "zh": {
+        "not": "无法进行[betrothal|e]",
+        "not_third": "[CHARACTER.GetName]无法进行[betrothal|e]",
+        "text": "可以进行[betrothal|e]",
+        "third": "[CHARACTER.GetName]可以进行[betrothal|e]"
+      }
+    },
     "is_eligible_for_royal_marriage": {
       "en": {
         "not": "Can NOT do a [royal_marriage|e]",
@@ -15790,6 +16608,24 @@
         "third": "[GOODS.GetName]是[food|e]"
       }
     },
+    "is_formable_visible": {
+      "en": {
+        "first": "We have the ability to form [TARGET_FORMABLE_COUNTRY.GetName]",
+        "not": "Does NOT have the ability to form [TARGET_FORMABLE_COUNTRY.GetName]",
+        "not_first": "We do NOT have the ability to form [TARGET_FORMABLE_COUNTRY.GetName]",
+        "not_third": "[COUNTRY.GetName] does NOT have the ability to form [TARGET_FORMABLE_COUNTRY.GetName]",
+        "text": "Has the ability to form [TARGET_FORMABLE_COUNTRY.GetName]",
+        "third": "[COUNTRY.GetName] has the ability to form [TARGET_FORMABLE_COUNTRY.GetName]"
+      },
+      "zh": {
+        "first": "我们能够成立[TARGET_FORMABLE_COUNTRY.GetName]",
+        "not": "不能成立[TARGET_FORMABLE_COUNTRY.GetName]",
+        "not_first": "我们不能成立[TARGET_FORMABLE_COUNTRY.GetName]",
+        "not_third": "[COUNTRY.GetName]不能成立[TARGET_FORMABLE_COUNTRY.GetName]",
+        "text": "能够成立[TARGET_FORMABLE_COUNTRY.GetName]",
+        "third": "[COUNTRY.GetName]能够成立[TARGET_FORMABLE_COUNTRY.GetName]"
+      }
+    },
     "is_free_or_tributary": {
       "en": {
         "first": "We are independent or a [ShowSubjectTypeName('tributary')]",
@@ -15824,6 +16660,20 @@
         "not_third": "[COUNTRY.GetName|U]不是[TARGET_COUNTRY.GetName]的[friend|E]",
         "text": "是[TARGET_COUNTRY.GetName]的[friend|E]",
         "third": "[COUNTRY.GetName|U]是[TARGET_COUNTRY.GetName]的[friend|E]"
+      }
+    },
+    "is_frozen": {
+      "en": {
+        "not": "Is NOT Frozen",
+        "not_third": "[LOCATION.GetName] is NOT Frozen",
+        "text": "Is Frozen",
+        "third": "[LOCATION.GetName] is Frozen"
+      },
+      "zh": {
+        "not": "未封冻",
+        "not_third": "[LOCATION.GetName]未封冻",
+        "text": "已封冻",
+        "third": "[LOCATION.GetName]已封冻"
       }
     },
     "is_full_expanded_trigger_rgo": {
@@ -16131,15 +16981,17 @@
         "first": "We are in a defensive [war|e]",
         "not": "Is NOT in a defensive [war|e]",
         "not_first": "We are NOT in a defensive [war|e]",
-        "not_third": "[COUNTRY.GetName] is NOT in a defensive [war|e]",
-        "third": "[COUNTRY.GetName] is in a defensive [war|e]"
+        "not_third": "[COUNTRY.GetName|U] is NOT in a defensive [war|e]",
+        "text": "Is in a defensive [war|e]",
+        "third": "[COUNTRY.GetName|U] is in a defensive [war|e]"
       },
       "zh": {
         "first": "我们处于防御性[war|e]",
         "not": "不处于防御性[war|e]",
         "not_first": "我们不处于防御性[war|e]",
-        "not_third": "[COUNTRY.GetName]不处于防御性[war|e]",
-        "third": "[COUNTRY.GetName]处于防御性[war|e]"
+        "not_third": "[COUNTRY.GetName|U]不处于防御性[war|e]",
+        "text": "处于防御性[war|e]",
+        "third": "[COUNTRY.GetName|U]处于防御性[war|e]"
       }
     },
     "is_in_international_organization_of_type": {
@@ -17376,6 +18228,20 @@
         "text": "[TARGET_SITUATION.GetName]正在发生"
       }
     },
+    "is_south_of": {
+      "en": {
+        "not": "Is to the north of [TARGET_LOCATION.GetName]",
+        "not_third": "[LOCATION.GetName] is to the north of [TARGET_LOCATION.GetName]",
+        "text": "Is to the south of [TARGET_LOCATION.GetName]",
+        "third": "[LOCATION.GetName] is to the south of [TARGET_LOCATION.GetName]"
+      },
+      "zh": {
+        "not": "位于 [TARGET_LOCATION.GetName] 以北",
+        "not_third": "[LOCATION.GetName] 位于 [TARGET_LOCATION.GetName] 以北",
+        "text": "位于 [TARGET_LOCATION.GetName] 以南",
+        "third": "[LOCATION.GetName] 位于 [TARGET_LOCATION.GetName] 以南"
+      }
+    },
     "is_starving": {
       "en": {
         "not": "Is NOT Starving",
@@ -17520,6 +18386,16 @@
         "third": "[REBEL.GetName]受到[TARGET_COUNTRY.GetName]支持"
       }
     },
+    "is_system_automated": {
+      "en": {
+        "first": "We have automated the $SYSTEM|Y$",
+        "not": "Does NOT have automated the $SYSTEM|Y$",
+        "not_first": "We do NOT have automated the $SYSTEM|Y$",
+        "not_third": "[COUNTRY.GetName] does NOT have automated the $SYSTEM|Y$",
+        "text": "Has automated the $SYSTEM|Y$",
+        "third": "[COUNTRY.GetName] has automated the $SYSTEM|Y$"
+      }
+    },
     "is_target_in_global_variable_list": {
       "en": {
         "first": "We are part of the $VARIABLE$ global list",
@@ -17662,6 +18538,20 @@
         "not_third": "[COUNTRY.GetName|U]无法在[TARGET_PROVINCE_DEFINITION.GetName]建立[colonial_charter|e]",
         "text": "[TARGET_PROVINCE_DEFINITION.GetName]适合建立[colonial_charter|e]",
         "third": "[COUNTRY.GetName|U]可以在[TARGET_PROVINCE_DEFINITION.GetName]建立[colonial_charter|e]"
+      }
+    },
+    "is_valid_subject_for_goal": {
+      "en": {
+        "not": "Is NOT a valid subject for [COLONIAL_CHARTER_GOAL.GetNameWithNoTooltip]",
+        "not_third": "[COUNTRY.GetName] is NOT a valid subject for [COLONIAL_CHARTER_GOAL.GetNameWithNoTooltip]",
+        "text": "Is a valid subject for [COLONIAL_CHARTER_GOAL.GetNameWithNoTooltip]",
+        "third": "[COUNTRY.GetName] is a valid subject for [COLONIAL_CHARTER_GOAL.GetNameWithNoTooltip]"
+      },
+      "zh": {
+        "not": "不是[COLONIAL_CHARTER_GOAL.GetNameWithNoTooltip]的有效附属国",
+        "not_third": "[COUNTRY.GetName]不是[COLONIAL_CHARTER_GOAL.GetNameWithNoTooltip]的有效附属国",
+        "text": "是[COLONIAL_CHARTER_GOAL.GetNameWithNoTooltip]的有效附属国",
+        "third": "[COUNTRY.GetName]是[COLONIAL_CHARTER_GOAL.GetNameWithNoTooltip]的有效附属国"
       }
     },
     "is_visible_for": {
@@ -17894,6 +18784,68 @@
         "text": "拥有[TARGET_LAND_OWNERSHIP_RULE.GetName][land_ownership_rule|e]"
       }
     },
+    "land_war_casualties": {
+      "en": {
+        "not": "Has NOT suffered $COMPARATOR$ $NUM|Y$ land casualties in [WAR.GetName]",
+        "not_third": "[TARGET_COUNTRY.GetName] has NOT suffered $COMPARATOR$ $NUM|Y$ land casualties in [WAR.GetName]",
+        "text": "Has suffered $COMPARATOR$ $NUM|Y$ land casualties in [WAR.GetName]",
+        "third": "[TARGET_COUNTRY.GetName] has suffered $COMPARATOR$ $NUM|Y$ land casualties in [WAR.GetName]"
+      },
+      "zh": {
+        "not": "在[WAR.GetName]中未承受至少$COMPARATOR$$NUM|Y$陆地伤亡",
+        "not_third": "[TARGET_COUNTRY.GetName]在[WAR.GetName]中未承受至少$COMPARATOR$$NUM|Y$陆地伤亡",
+        "text": "在[WAR.GetName]中已承受至少$COMPARATOR$$NUM|Y$陆地伤亡",
+        "third": "[TARGET_COUNTRY.GetName]在[WAR.GetName]中已承受至少$COMPARATOR$$NUM|Y$陆地伤亡"
+      }
+    },
+    "land_war_casualties_trigger_attrition": {
+      "en": {
+        "not": "Has NOT suffered $COMPARATOR$ $NUM|Y$ land casualties from [attrition|e] in [WAR.GetName]",
+        "not_third": "[TARGET_COUNTRY.GetName] has NOT suffered $COMPARATOR$ $NUM|Y$ land casualties from [attrition|e] in [WAR.GetName]",
+        "third": "[TARGET_COUNTRY.GetName] has suffered $COMPARATOR$ $NUM|Y$ land casualties from [attrition|e] in [WAR.GetName]"
+      },
+      "zh": {
+        "not": "在[WAR.GetName]中未承受至少$COMPARATOR$$NUM|Y$来自[attrition|e]的陆地伤亡",
+        "not_third": "[TARGET_COUNTRY.GetName]在[WAR.GetName]中未承受至少$COMPARATOR$$NUM|Y$来自[attrition|e]的陆地伤亡",
+        "third": "[TARGET_COUNTRY.GetName]在[WAR.GetName]中已承受至少$COMPARATOR$$NUM|Y$来自[attrition|e]的陆地伤亡"
+      }
+    },
+    "land_war_casualties_trigger_battle": {
+      "en": {
+        "not": " NOT suffered $COMPARATOR$ $NUM|Y$ land casualties from [battles|e] in [WAR.GetName]",
+        "not_third": "[TARGET_COUNTRY.GetName] has NOT suffered $COMPARATOR$ $NUM|Y$ land casualties from [battles|e] in [WAR.GetName]",
+        "third": "[TARGET_COUNTRY.GetName] has suffered $COMPARATOR$ $NUM|Y$ land casualties from [battles|e] in [WAR.GetName]"
+      },
+      "zh": {
+        "not": "在[WAR.GetName]中未承受至少$COMPARATOR$$NUM|Y$来自[battles|e]的陆地伤亡",
+        "not_third": "[TARGET_COUNTRY.GetName]在[WAR.GetName]中未承受至少$COMPARATOR$$NUM|Y$来自[battles|e]的陆地伤亡",
+        "third": "[TARGET_COUNTRY.GetName]在[WAR.GetName]中已承受至少$COMPARATOR$$NUM|Y$来自[battles|e]的陆地伤亡"
+      }
+    },
+    "land_war_casualties_trigger_capture": {
+      "en": {
+        "not": "Has NOT suffered $COMPARATOR$ $NUM|Y$ land casualties from capture in [WAR.GetName]",
+        "not_third": "[TARGET_COUNTRY.GetName] has NOT suffered $COMPARATOR$ $NUM|Y$ land casualties from capture in [WAR.GetName]",
+        "third": "[TARGET_COUNTRY.GetName] has suffered $COMPARATOR$ $NUM|Y$ land casualties from capture in [WAR.GetName]"
+      },
+      "zh": {
+        "not": "在[WAR.GetName]中未承受至少$COMPARATOR$$NUM|Y$来自俘虏的陆地伤亡",
+        "not_third": "[TARGET_COUNTRY.GetName]在[WAR.GetName]中未承受至少$COMPARATOR$$NUM|Y$来自俘虏的陆地伤亡",
+        "third": "[TARGET_COUNTRY.GetName]在[WAR.GetName]中已承受至少$COMPARATOR$$NUM|Y$来自俘虏的陆地伤亡"
+      }
+    },
+    "land_war_casualties_trigger_disease": {
+      "en": {
+        "not": "Has NOT suffered $COMPARATOR$ $NUM|Y$ land casualties from [disease|e] in [WAR.GetName]",
+        "not_third": "[TARGET_COUNTRY.GetName] has NOT suffered $COMPARATOR$ $NUM|Y$ land casualties from [disease|e] in [WAR.GetName]",
+        "third": "[TARGET_COUNTRY.GetName] has suffered $COMPARATOR$ $NUM|Y$ land casualties from [disease|e] in [WAR.GetName]"
+      },
+      "zh": {
+        "not": "在[WAR.GetName]中未承受至少$COMPARATOR$$NUM|Y$来自[disease|e]的陆地伤亡",
+        "not_third": "[TARGET_COUNTRY.GetName]在[WAR.GetName]中未承受至少$COMPARATOR$$NUM|Y$来自[disease|e]的陆地伤亡",
+        "third": "[TARGET_COUNTRY.GetName]在[WAR.GetName]中已承受至少$COMPARATOR$$NUM|Y$来自[disease|e]的陆地伤亡"
+      }
+    },
     "language_equal": {
       "en": {
         "not": "[CULTURE.GetName] [culture|e] does NOT have [TARGET_LANGUAGE.GetName] [language|e]",
@@ -18010,6 +18962,24 @@
       "zh": {
         "not": "[TARGET_COUNTRY.GetName|U]曾是[INTERNATIONAL_ORGANIZATION.GetName]的领袖国",
         "text": "[TARGET_COUNTRY.GetName|U]不曾是[INTERNATIONAL_ORGANIZATION.GetName]的领袖国"
+      }
+    },
+    "last_months_balance": {
+      "en": {
+        "first": "We have $COMPARATOR$ $NUM|V0$ last month's balance of [gold_i] (currently: $CURRENT_VALUE|V0$)",
+        "not": "Does NOT have $COMPARATOR$ $NUM|V0$ last month's balance of [gold_i] (currently: $CURRENT_VALUE|V0$)",
+        "not_first": "We do NOT have $COMPARATOR$ $NUM|V0$ last month's balance of [gold_i] (currently: $CURRENT_VALUE|V0$)",
+        "not_third": "[COUNTRY.GetName|U] does NOT have $COMPARATOR$ $NUM|V0$ last month's balance of [gold_i] (currently: $CURRENT_VALUE|V0$)",
+        "text": "Has $COMPARATOR$ $NUM|V0$ last month's balance of [gold_i] (currently: $CURRENT_VALUE|V0$)",
+        "third": "[COUNTRY.GetName|U] has $COMPARATOR$ $NUM|V0$ last month's balance of [gold_i] (currently: $CURRENT_VALUE|V0$)"
+      },
+      "zh": {
+        "first": "我们上月的[gold_i]结余$COMPARATOR$$NUM|V0$（当前：$CURRENT_VALUE|V0$）",
+        "not": "上月的[gold_i]结余不$COMPARATOR$$NUM|V0$（当前：$CURRENT_VALUE|V0$）",
+        "not_first": "我们上月的[gold_i]结余不$COMPARATOR$$NUM|V0$（当前：$CURRENT_VALUE|V0$）",
+        "not_third": "[COUNTRY.GetName|U]上月的[gold_i]结余不$COMPARATOR$$NUM|V0$（当前：$CURRENT_VALUE|V0$）",
+        "text": "上月的[gold_i]结余$COMPARATOR$$NUM|V0$（当前：$CURRENT_VALUE|V0$）",
+        "third": "[COUNTRY.GetName|U]上月的[gold_i]结余$COMPARATOR$$NUM|V0$（当前：$CURRENT_VALUE|V0$）"
       }
     },
     "last_valid_ruler_equal": {
@@ -18188,6 +19158,16 @@
       "zh": {
         "not": "[TARGET_COUNTRY.GetName|U]是[INTERNATIONAL_ORGANIZATION.GetName]的领袖国",
         "text": "[TARGET_COUNTRY.GetName|U]不是[INTERNATIONAL_ORGANIZATION.GetName]的领袖国"
+      }
+    },
+    "leader_equal": {
+      "en": {
+        "not": "The leader is NOT [TARGET_CHARACTER.GetName]",
+        "text": "The leader is [TARGET_CHARACTER.GetName]"
+      },
+      "zh": {
+        "not": "领导者不是[TARGET_CHARACTER.GetName]",
+        "text": "领导者是[TARGET_CHARACTER.GetName]"
       }
     },
     "leader_special_status_power": {
@@ -18390,7 +19370,7 @@
         "third": "[LOCATION.GetName]的[dominant_culture|e][population|e]$COMPARATOR$$NUM|V0%2$"
       }
     },
-    "local_estate_power_trigger": {
+    "local_estate_power": {
       "en": {
         "not": "Has NOT a [TARGET_ESTATE_TYPE.GetName] power of $COMPARATOR$ $NUM|V02$",
         "not_third": "[LOCATION.GetName]'s [TARGET_ESTATE_TYPE.GetName] power is NOT $COMPARATOR$ $NUM|V02$",
@@ -18418,7 +19398,7 @@
         "third": "[LOCATION.GetName]的总[political_power|e]$COMPARATOR$$NUM|Y2%$"
       }
     },
-    "local_relative_estate_power_trigger": {
+    "local_relative_estate_power": {
       "en": {
         "not": "Has NOT a [TARGET_ESTATE_TYPE.GetName] relative power of $COMPARATOR$ $NUM|V02$",
         "not_third": "[LOCATION.GetName]'s [TARGET_ESTATE_TYPE.GetName] relative power is NOT $COMPARATOR$ $NUM|V02$",
@@ -18490,6 +19470,16 @@
         "not_third": "[LOCATION.GetName]的总[art_quality|e]不$COMPARATOR$$NUM|2Y$",
         "text": "总[art_quality|e]$COMPARATOR$$NUM|2Y$",
         "third": "[LOCATION.GetName]的总[art_quality|e]$COMPARATOR$$NUM|2Y$"
+      }
+    },
+    "location_assimilating_from_culture_equal": {
+      "en": {
+        "not": "The [culture|e] being assimilated in [LOCATION.GetName] is NOT [TARGET_CULTURE.GetName]",
+        "text": "The [culture|e] being assimilated in [LOCATION.GetName] is [TARGET_CULTURE.GetName]"
+      },
+      "zh": {
+        "not": "[LOCATION.GetName]正在被同化的[culture|e]不是[TARGET_CULTURE.GetName]",
+        "text": "[LOCATION.GetName]正在被同化的[culture|e]是[TARGET_CULTURE.GetName]"
       }
     },
     "location_bool_modifier_no": {
@@ -18762,10 +19752,12 @@
     },
     "location_equal": {
       "en": {
-        "not": "Is NOT [TARGET_LOCATION.GetName]"
+        "not": "Is NOT [TARGET_LOCATION.GetName]",
+        "text": "Is [TARGET_LOCATION.GetName]"
       },
       "zh": {
-        "not": "不是[TARGET_LOCATION.GetName]"
+        "not": "不是[TARGET_LOCATION.GetName]",
+        "text": "是[TARGET_LOCATION.GetName]"
       }
     },
     "location_ge_modifier": {
@@ -18854,6 +19846,34 @@
         "not_third": "[LOCATION.GetName]没有属于[TARGET_COUNTRY.GetName]的[buildings|E]",
         "text": "拥有属于[TARGET_COUNTRY.GetName]的[buildings|E]",
         "third": "[LOCATION.GetName]拥有属于[TARGET_COUNTRY.GetName]的[buildings|E]"
+      }
+    },
+    "location_highest_work_of_art_quality": {
+      "en": {
+        "not": "Does NOT have a highest [work_of_art|e] [art_quality|e] of $COMPARATOR$ $NUM|V0$",
+        "not_third": "[LOCATION.GetName] does NOT have a highest [work_of_art|e] [art_quality|e] of $COMPARATOR$ $NUM|V0$",
+        "text": "Has a highest [work_of_art|e] [art_quality|e] of $COMPARATOR$ $NUM|V0$",
+        "third": "[LOCATION.GetName] has a highest [work_of_art|e] [art_quality|e] of $COMPARATOR$ $NUM|V0$"
+      },
+      "zh": {
+        "not": "最高[work_of_art|e][art_quality|e]不$COMPARATOR$$NUM|V0$",
+        "not_third": "[LOCATION.GetName]的最高[work_of_art|e][art_quality|e]不$COMPARATOR$$NUM|V0$",
+        "text": "最高[work_of_art|e][art_quality|e]$COMPARATOR$$NUM|V0$",
+        "third": "[LOCATION.GetName]的最高[work_of_art|e][art_quality|e]$COMPARATOR$$NUM|V0$"
+      }
+    },
+    "location_is_waypoint_in_expedition": {
+      "en": {
+        "not": "Is NOT a waypoint of [TARGET_EXPEDITION.GetName]",
+        "not_third": "[LOCATION.GetName] is NOT a waypoint of [TARGET_EXPEDITION.GetName]",
+        "text": "Is a waypoint of [TARGET_EXPEDITION.GetName]",
+        "third": "[LOCATION.GetName] is a waypoint of [TARGET_EXPEDITION.GetName]"
+      },
+      "zh": {
+        "not": "不是[TARGET_EXPEDITION.GetName]的停留处",
+        "not_third": "[LOCATION.GetName]不是[TARGET_EXPEDITION.GetName]的停留处",
+        "text": "是[TARGET_EXPEDITION.GetName]的停留处",
+        "third": "[LOCATION.GetName]是[TARGET_EXPEDITION.GetName]的停留处"
       }
     },
     "location_key": {
@@ -19154,6 +20174,14 @@
         "third": "[LOCATION.GetName]的地点等级指数$COMPARATOR$$NUM|Y$"
       }
     },
+    "location_rank_not_equal": {
+      "en": {
+        "text": "Is NOT [TARGET_LOCATION_RANK.GetName]"
+      },
+      "zh": {
+        "text": "不是[TARGET_LOCATION_RANK.GetName]"
+      }
+    },
     "location_rank_scope_equal": {
       "en": {
         "not": "Is NOT [LOCATION_RANK.GetName]",
@@ -19174,6 +20202,12 @@
         "text": "[LOCATION.GetName]位于[TARGET_REGION.GetName]"
       }
     },
+    "location_region_not_equal": {
+      "en": {
+        "not": "[LOCATION.GetName] is in [TARGET_REGION.GetName]",
+        "text": "[LOCATION.GetName] is NOT in [TARGET_REGION.GetName]"
+      }
+    },
     "location_religion_equal": {
       "en": {
         "not": "The [dominant_religion|e] of [LOCATION.GetName] is NOT [TARGET_RELIGION.GetName]",
@@ -19182,6 +20216,38 @@
       "zh": {
         "not": "[LOCATION.GetName]的[dominant_religion|e]不是[TARGET_RELIGION.GetName]",
         "text": "[LOCATION.GetName]的[dominant_religion|e]是[TARGET_RELIGION.GetName]"
+      }
+    },
+    "location_religious_order_equal": {
+      "en": {
+        "not": "[LOCATION.GetName] is NOT a holding of the [TARGET_RELIGIOUS_ORDER.GetName]",
+        "text": "[LOCATION.GetName] is a holding of the [TARGET_RELIGIOUS_ORDER.GetName]"
+      },
+      "zh": {
+        "not": "[LOCATION.GetName]不是[TARGET_RELIGIOUS_ORDER.GetName]的据点",
+        "text": "[LOCATION.GetName]是[TARGET_RELIGIOUS_ORDER.GetName]的据点"
+      }
+    },
+    "location_religious_order_not_equal": {
+      "en": {
+        "text": "[LOCATION.GetName] is NOT a holding of the [TARGET_RELIGIOUS_ORDER.GetName]"
+      },
+      "zh": {
+        "text": "[LOCATION.GetName]不是[TARGET_RELIGIOUS_ORDER.GetName]的据点"
+      }
+    },
+    "location_rgo_profit": {
+      "en": {
+        "not": "Does NOT have $COMPARATOR$ $NUM|2Y$[wealth_icon] [rgo|e] profit per level",
+        "not_third": "[LOCATION.GetName] does NOT have $COMPARATOR$ $NUM|2Y$[wealth_icon] [rgo|e] profit per level",
+        "text": "Has $COMPARATOR$ $NUM|2Y$[wealth_icon] [rgo|e] profit per level",
+        "third": "[LOCATION.GetName] has $COMPARATOR$ $NUM|2Y$[wealth_icon] [rgo|e] profit per level"
+      },
+      "zh": {
+        "not": "每级[rgo|e]利润不$COMPARATOR$$NUM|2Y$[wealth_icon]",
+        "not_third": "[LOCATION.GetName]的每级[rgo|e]利润不$COMPARATOR$$NUM|2Y$[wealth_icon]",
+        "text": "每级[rgo|e]利润$COMPARATOR$$NUM|2Y$[wealth_icon]",
+        "third": "[LOCATION.GetName]的每级[rgo|e]利润$COMPARATOR$$NUM|2Y$[wealth_icon]"
       }
     },
     "location_root_equal": {
@@ -19278,6 +20344,30 @@
         "not_third": "[LOCATION.GetName]为[TARGET_BUILDING_TYPE.GetName]提供的可用总人口不$COMPARATOR$$NUM|V0$",
         "text": "为[TARGET_BUILDING_TYPE.GetName]提供的可用总人口$COMPARATOR$$NUM|V0$",
         "third": "[LOCATION.GetName]为[TARGET_BUILDING_TYPE.GetName]提供的可用总人口$COMPARATOR$$NUM|V0$"
+      }
+    },
+    "location_valid_for_calling": {
+      "en": {
+        "not": "[LOCATION.GetName] is NOT a suitable seat for the [TARGET_CALLING.GetName] [calling|e]"
+      }
+    },
+    "location_valid_for_goods": {
+      "en": {
+        "not": "[goods|e] can NOT be brought to [TARGET_LOCATION.GetName] as the [raw_material|e]",
+        "not_third": "[GOODS.GetName] can NOT be brought to [TARGET_LOCATION.GetName] as the [raw_material|e]",
+        "text": "[goods|e] can be brought to [TARGET_LOCATION.GetName] as the [raw_material|e]",
+        "third": "[GOODS.GetName] can be brought to [TARGET_LOCATION.GetName] as the [raw_material|e]"
+      },
+      "zh": {
+        "not": "[goods|e]不能作为[raw_material|e]被运往[TARGET_LOCATION.GetName]",
+        "not_third": "[GOODS.GetName]不能作为[raw_material|e]被运往[TARGET_LOCATION.GetName]",
+        "text": "[goods|e] 可作为 [raw_material|e] 被运往 [TARGET_LOCATION.GetName]",
+        "third": "[GOODS.GetName]可作为[raw_material|e]被运往[TARGET_LOCATION.GetName]"
+      }
+    },
+    "location_valid_for_religious_order_type": {
+      "en": {
+        "not": "[LOCATION.GetName] does NOT meet the founding requirements of a [TARGET_RELIGIOUS_ORDER_TYPE.GetName]"
       }
     },
     "location_var_equal": {
@@ -19908,6 +20998,16 @@
         "text": "归属于[TARGET_COUNTRY.GetName]"
       }
     },
+    "mercenary_religion_equal": {
+      "en": {
+        "not": "The [religion|e] of [MERCENARY.GetName] is NOT [TARGET_RELIGION.GetName]",
+        "text": "The [religion|e] of [MERCENARY.GetName] is [TARGET_RELIGION.GetName]"
+      },
+      "zh": {
+        "not": "[MERCENARY.GetName]的[religion|e]不是[TARGET_RELIGION.GetName]",
+        "text": "[MERCENARY.GetName]的[religion|e]是[TARGET_RELIGION.GetName]"
+      }
+    },
     "mercenary_scope_equal": {
       "en": {
         "not": "Is NOT [MERCENARY.GetName]",
@@ -20420,6 +21520,16 @@
         "third": "$SOURCE$受[TARGET_MOVEMENT.GetName]影响的[pops|e]$COMPARATOR$$POPS|Y$"
       }
     },
+    "movement_religion_equal": {
+      "en": {
+        "not": "The [religion|e] of [MOVEMENT.GetName] is NOT [TARGET_RELIGION.GetName]",
+        "text": "The [religion|e] of [MOVEMENT.GetName] is [TARGET_RELIGION.GetName]"
+      },
+      "zh": {
+        "not": "[MOVEMENT.GetName]的[religion|e]不是[TARGET_RELIGION.GetName]",
+        "text": "[MOVEMENT.GetName]的[religion|e]是[TARGET_RELIGION.GetName]"
+      }
+    },
     "movement_type_equal": {
       "en": {
         "not": "The [movement|e] type is NOT [TARGET_MOVEMENT_DEFINITION.GetName]",
@@ -20438,6 +21548,26 @@
       "zh": {
         "not": "名称所用[culture|e]不为[TARGET_CULTURE.GetName]",
         "text": "名称所用[culture|e]为[TARGET_CULTURE.GetName]"
+      }
+    },
+    "name_starts_with_vowel": {
+      "en": {
+        "first": "First name begins with a vowel",
+        "not_first": "First name does NOT begin with a vowel"
+      },
+      "zh": {
+        "first": "教名以元音开头",
+        "not_first": "教名并非以元音开头"
+      }
+    },
+    "naturally_assimilating_culture_equal": {
+      "en": {
+        "not": "The naturally assimilating [culture|e] is NOT [TARGET_CULTURE.GetName]",
+        "text": "The naturally assimilating [culture|e] is [TARGET_CULTURE.GetName]"
+      },
+      "zh": {
+        "not": "自然同化的[culture|e]不是[TARGET_CULTURE.GetName]",
+        "text": "自然同化的[culture|e]是[TARGET_CULTURE.GetName]"
       }
     },
     "naval_range": {
@@ -20490,6 +21620,68 @@
         "third": "[COUNTRY.GetName|U]拥有$COMPARATOR$$NUM|V02%$的海军预期舰船数量（$CURRENT_SIZE|Y$/$EXPECTED_SIZE$）"
       }
     },
+    "navy_war_casualties": {
+      "en": {
+        "not": "Has NOT suffered $COMPARATOR$ $NUM|Y$ naval casualties in [WAR.GetName]",
+        "not_third": "[TARGET_COUNTRY.GetName] has NOT suffered $COMPARATOR$ $NUM|Y$ naval casualties in [WAR.GetName]",
+        "text": "Has suffered $COMPARATOR$ $NUM|Y$ naval casualties in [WAR.GetName]",
+        "third": "[TARGET_COUNTRY.GetName] has suffered $COMPARATOR$ $NUM|Y$ naval casualties in [WAR.GetName]"
+      },
+      "zh": {
+        "not": "在[WAR.GetName]中未承受至少$COMPARATOR$$NUM|Y$海上伤亡",
+        "not_third": "[TARGET_COUNTRY.GetName]在[WAR.GetName]中未承受至少$COMPARATOR$$NUM|Y$海上伤亡",
+        "text": "在[WAR.GetName]中已承受至少$COMPARATOR$$NUM|Y$海上伤亡",
+        "third": "[TARGET_COUNTRY.GetName]在[WAR.GetName]中已承受至少$COMPARATOR$$NUM|Y$海上伤亡"
+      }
+    },
+    "navy_war_casualties_trigger_attrition": {
+      "en": {
+        "not": "Has NOT suffered $COMPARATOR$ $NUM|Y$ naval casualties from [attrition|e] in [WAR.GetName]",
+        "not_third": "[TARGET_COUNTRY.GetName] has NOT suffered $COMPARATOR$ $NUM|Y$ naval casualties from [attrition|e] in [WAR.GetName]",
+        "third": "[TARGET_COUNTRY.GetName] has suffered $COMPARATOR$ $NUM|Y$ naval casualties from [attrition|e] in [WAR.GetName]"
+      },
+      "zh": {
+        "not": "在[WAR.GetName]中未承受至少$COMPARATOR$$NUM|Y$来自[attrition|e]的海上伤亡",
+        "not_third": "[TARGET_COUNTRY.GetName]在[WAR.GetName]中未承受至少$COMPARATOR$$NUM|Y$来自[attrition|e]的海上伤亡",
+        "third": "[TARGET_COUNTRY.GetName]在[WAR.GetName]中已承受至少$COMPARATOR$$NUM|Y$来自[attrition|e]的海上伤亡"
+      }
+    },
+    "navy_war_casualties_trigger_battle": {
+      "en": {
+        "not": " NOT suffered $COMPARATOR$ $NUM|Y$ naval casualties from [battles|e] in [WAR.GetName]",
+        "not_third": "[TARGET_COUNTRY.GetName] has NOT suffered $COMPARATOR$ $NUM|Y$ naval casualties from [battles|e] in [WAR.GetName]",
+        "third": "[TARGET_COUNTRY.GetName] has suffered $COMPARATOR$ $NUM|Y$ naval casualties from [battles|e] in [WAR.GetName]"
+      },
+      "zh": {
+        "not": "在[WAR.GetName]中未承受至少$COMPARATOR$$NUM|Y$来自[battles|e]的海上伤亡",
+        "not_third": "[TARGET_COUNTRY.GetName]在[WAR.GetName]中未承受至少$COMPARATOR$$NUM|Y$来自[battles|e]的海上伤亡",
+        "third": "[TARGET_COUNTRY.GetName]在[WAR.GetName]中已承受至少$COMPARATOR$$NUM|Y$来自[battles|e]的海上伤亡"
+      }
+    },
+    "navy_war_casualties_trigger_capture": {
+      "en": {
+        "not": "Has NOT suffered $COMPARATOR$ $NUM|Y$ naval casualties from capture in [WAR.GetName]",
+        "not_third": "[TARGET_COUNTRY.GetName] has NOT suffered $COMPARATOR$ $NUM|Y$ naval casualties from capture in [WAR.GetName]",
+        "third": "[TARGET_COUNTRY.GetName] has suffered $COMPARATOR$ $NUM|Y$ naval casualties from capture in [WAR.GetName]"
+      },
+      "zh": {
+        "not": "在[WAR.GetName]中未承受至少$COMPARATOR$$NUM|Y$来自俘虏的海上伤亡",
+        "not_third": "[TARGET_COUNTRY.GetName]在[WAR.GetName]中未承受至少$COMPARATOR$$NUM|Y$来自俘虏的海上伤亡",
+        "third": "[TARGET_COUNTRY.GetName]在[WAR.GetName]中已承受至少$COMPARATOR$$NUM|Y$来自俘虏的海上伤亡"
+      }
+    },
+    "navy_war_casualties_trigger_disease": {
+      "en": {
+        "not": "Has NOT suffered $COMPARATOR$ $NUM|Y$ naval casualties from [disease|e] in [WAR.GetName]",
+        "not_third": "[TARGET_COUNTRY.GetName] has NOT suffered $COMPARATOR$ $NUM|Y$ naval casualties from [disease|e] in [WAR.GetName]",
+        "third": "[TARGET_COUNTRY.GetName] has suffered $COMPARATOR$ $NUM|Y$ naval casualties from [disease|e] in [WAR.GetName]"
+      },
+      "zh": {
+        "not": "在[WAR.GetName]中未承受至少$COMPARATOR$$NUM|Y$来自[disease|e]的海上伤亡",
+        "not_third": "[TARGET_COUNTRY.GetName]在[WAR.GetName]中未承受至少$COMPARATOR$$NUM|Y$来自[disease|e]的海上伤亡",
+        "third": "[TARGET_COUNTRY.GetName]在[WAR.GetName]中已承受至少$COMPARATOR$$NUM|Y$来自[disease|e]的海上伤亡"
+      }
+    },
     "need_reforms": {
       "en": {
         "not": "Does NOT need a major reform",
@@ -20520,6 +21712,20 @@
         "not_third": "[COUNTRY.GetName]不需要与[TARGET_COUNTRY.GetName]的关系提升$COMPARATOR$$NUM|V0$",
         "text": "需要与[TARGET_COUNTRY.GetName]的关系提升$COMPARATOR$$NUM|V0$",
         "third": "[COUNTRY.GetName]需要与[TARGET_COUNTRY.GetName]的关系提升$COMPARATOR$$NUM|V0$"
+      }
+    },
+    "needs_subject": {
+      "en": {
+        "not": "Does NOT require a subject to be selected",
+        "not_third": "[ROOT.GetName] does NOT require a subject to be selected",
+        "text": "Requires a subject to be selected",
+        "third": "[ROOT.GetName] requires a subject to be selected"
+      },
+      "zh": {
+        "not": "不需要选择一个附属国",
+        "not_third": "[ROOT.GetName]不需要选择一个附属国",
+        "text": "需要选择一个附属国",
+        "third": "[ROOT.GetName]需要选择一个附属国"
       }
     },
     "none_allow_subject_creation": {
@@ -20612,6 +21818,16 @@
         "text": "[province|e]的平均[integration|e]等级$COMPARATOR$$NUM|V0$（当前：$CURRENT_VALUE|V0$）"
       }
     },
+    "none_average_population": {
+      "en": {
+        "not": "[province|e] does NOT have an average [population|e] of $COMPARATOR$ $NUM|V0$ (currently: $CURRENT_VALUE|V0$)",
+        "text": "[province|e] has an average [population|e] of $COMPARATOR$ $NUM|V0$ (currently: $CURRENT_VALUE|V0$)"
+      },
+      "zh": {
+        "not": "[province|e]的平均[population|e]不$COMPARATOR$$NUM|V0$（当前：$CURRENT_VALUE|V0$）",
+        "text": "[province|e]的平均[population|e]$COMPARATOR$$NUM|V0$（当前：$CURRENT_VALUE|V0$）"
+      }
+    },
     "none_bool_modifier_no": {
       "en": {
         "not": "Has $MODIFIER_NAME$",
@@ -20668,6 +21884,16 @@
       "zh": {
         "not": "[TARGET_COUNTRY.GetName]不能作为防御方加入[war|e]",
         "text": "[TARGET_COUNTRY.GetName]可以作为防御方加入[war|e]"
+      }
+    },
+    "none_can_start_expedition": {
+      "en": {
+        "not": "Cannot start this [expedition|e]",
+        "text": "Can start this [expedition|e]"
+      },
+      "zh": {
+        "not": "不能开始此[expedition|e]",
+        "text": "可以开始此[expedition|e]"
       }
     },
     "none_can_upgrade_unit": {
@@ -20882,6 +22108,46 @@
         "text": "拥有$VALUE|V0$$MODIFIER_NAME$"
       }
     },
+    "none_expedition_is_paused": {
+      "en": {
+        "not": "The [expedition|e] is NOT currently paused",
+        "text": "The [expedition|e] is currently paused"
+      },
+      "zh": {
+        "not": "[expedition|e]当前未暂停",
+        "text": "[expedition|e]当前已暂停"
+      }
+    },
+    "none_expedition_is_returning": {
+      "en": {
+        "not": "The [expedition|e] is NOT returning",
+        "text": "The [expedition|e] is returning"
+      },
+      "zh": {
+        "not": "[expedition|e]未在返回",
+        "text": "[expedition|e]正在返回"
+      }
+    },
+    "none_expedition_is_stalled": {
+      "en": {
+        "not": "The [expedition|e] is NOT currently stalled",
+        "text": "The [expedition|e] is currently stalled"
+      },
+      "zh": {
+        "not": "该 [expedition|e] 当前并未陷入停滞",
+        "text": "The [expedition|e] 目前处于停滞状态"
+      }
+    },
+    "none_expedition_is_waiting_on_construction": {
+      "en": {
+        "not": "The [expedition|e] is NOT currently waiting on a construction",
+        "text": "The [expedition|e] is currently waiting on a construction"
+      },
+      "zh": {
+        "not": "[expedition|e]目前并未在等待任何建造",
+        "text": "[expedition|e]目前正在等待一项建造"
+      }
+    },
     "none_exploration_has_leader": {
       "en": {
         "not": "[exploration|e] does NOT have a leader",
@@ -20958,6 +22224,16 @@
       "zh": {
         "not": "[trade|e]对象不是[TARGET_GOODS.GetName]",
         "text": "[trade|e]对象是[TARGET_GOODS.GetName]"
+      }
+    },
+    "none_government_type_equal": {
+      "en": {
+        "not": "[country|e] is NOT a [TARGET_GOVERNMENT_TYPE.GetName]",
+        "text": "[country|e] is a [TARGET_GOVERNMENT_TYPE.GetName]"
+      },
+      "zh": {
+        "not": "[country|e]不是[TARGET_GOVERNMENT_TYPE.GetName]",
+        "text": "[country|e]是[TARGET_GOVERNMENT_TYPE.GetName]"
       }
     },
     "none_gt_modifier": {
@@ -21942,6 +23218,16 @@
         "text": "[trade|e]购买额$COMPARATOR$$NUM|Y2$[gold_i]"
       }
     },
+    "none_trade_capacity_usage": {
+      "en": {
+        "not": "[trade|e] is NOT using $COMPARATOR$ $NUM|Y2$ of the assigned [merchant_capacity|e]",
+        "text": "[trade|e] is using $COMPARATOR$ $NUM|Y2$ of the assigned [merchant_capacity|e]"
+      },
+      "zh": {
+        "not": "[trade|e]未在使用$COMPARATOR$$NUM|Y2$的分配[merchant_capacity|e]",
+        "text": "[trade|e]正在使用$COMPARATOR$$NUM|Y2$的分配[merchant_capacity|e]"
+      }
+    },
     "none_trade_capacity_usage_percent": {
       "en": {
         "not": "[trade|e] is NOT using $COMPARATOR$ $NUM|Y2%$ of the assigned [merchant_capacity|e]",
@@ -22614,6 +23900,20 @@
         "not_third": "[COUNTRY.GetName|U]的[locations|E]数量不$COMPARATOR$$NUM|V0$",
         "text": "[locations|E]数量$COMPARATOR$$NUM|V0$",
         "third": "[COUNTRY.GetName|U]的[locations|E]数量$COMPARATOR$$NUM|V0$"
+      }
+    },
+    "num_locations_affected": {
+      "en": {
+        "not": "[TARGET_MOVEMENT.GetName] does NOT affect $COMPARATOR$ $NUM|Y$ [locations|e]",
+        "not_third": "[TARGET_MOVEMENT.GetName] does NOT affect $COMPARATOR$ $NUM|Y$ [locations|e]",
+        "text": "[TARGET_MOVEMENT.GetName] affects $COMPARATOR$ $NUM|Y$ [locations|e]",
+        "third": "[TARGET_MOVEMENT.GetName] affects $COMPARATOR$ $NUM|Y$ [locations|e]"
+      },
+      "zh": {
+        "not": "[TARGET_MOVEMENT.GetName]影响的[locations|e]不$COMPARATOR$$NUM|Y$个",
+        "not_third": "[TARGET_MOVEMENT.GetName]影响的[locations|e]不$COMPARATOR$$NUM|Y$个",
+        "text": "[TARGET_MOVEMENT.GetName]影响的[locations|e]$COMPARATOR$$NUM|Y$个",
+        "third": "[TARGET_MOVEMENT.GetName]影响的[locations|e]$COMPARATOR$$NUM|Y$个"
       }
     },
     "num_locations_owned_or_owned_by_subjects": {
@@ -23416,6 +24716,42 @@
         "text": "至少满足以下任意条件："
       }
     },
+    "order_calling_equal": {
+      "en": {
+        "not": "The [religious_order|e] does NOT have the [TARGET_CALLING.GetName] [calling|e]",
+        "text": "The [religious_order|e] has the [TARGET_CALLING.GetName] [calling|e]"
+      },
+      "zh": {
+        "not": "[religious_order|e]不拥有[TARGET_CALLING.GetName][calling|e]",
+        "text": "[religious_order|e]拥有[TARGET_CALLING.GetName][calling|e]"
+      }
+    },
+    "order_calling_not_equal": {
+      "en": {
+        "text": "The [religious_order|e] does NOT have the [TARGET_CALLING.GetName] [calling|e]"
+      },
+      "zh": {
+        "text": "[religious_order|e]不拥有[TARGET_CALLING.GetName][calling|e]"
+      }
+    },
+    "order_type_equal": {
+      "en": {
+        "not": "The [religious_order|e] is NOT a [TARGET_RELIGIOUS_ORDER_TYPE.GetName]",
+        "text": "The [religious_order|e] is a [TARGET_RELIGIOUS_ORDER_TYPE.GetName]"
+      },
+      "zh": {
+        "not": "[religious_order|e]不是[TARGET_RELIGIOUS_ORDER_TYPE.GetName]",
+        "text": "[religious_order|e]是[TARGET_RELIGIOUS_ORDER_TYPE.GetName]"
+      }
+    },
+    "order_type_not_equal": {
+      "en": {
+        "text": "The [religious_order|e] is NOT a [TARGET_RELIGIOUS_ORDER_TYPE.GetName]"
+      },
+      "zh": {
+        "text": "[religious_order|e]不是[TARGET_RELIGIOUS_ORDER_TYPE.GetName]"
+      }
+    },
     "original_attacker_leader_equal": {
       "en": {
         "not": "[TARGET_COUNTRY.GetName|U] is NOT the original leader of the attackers",
@@ -23580,10 +24916,22 @@
     },
     "owner_equal": {
       "en": {
+        "not": "Owner is NOT [TARGET_COUNTRY.GetName]",
         "text": "Owner is [TARGET_COUNTRY.GetName]"
       },
       "zh": {
+        "not": "所有者不是[TARGET_COUNTRY.GetName]",
         "text": "所有者是[TARGET_COUNTRY.GetName]"
+      }
+    },
+    "owner_not_equal": {
+      "en": {
+        "not": "[owner|e] is [TARGET_COUNTRY.GetName]",
+        "text": "[owner|e] is NOT [TARGET_COUNTRY.GetName]"
+      },
+      "zh": {
+        "not": "[owner|e] 是 [TARGET_COUNTRY.GetName]",
+        "text": "[owner|e]不是[TARGET_COUNTRY.GetName]"
       }
     },
     "owning_unit_equal": {
@@ -24682,10 +26030,10 @@
     },
     "population": {
       "en": {
-        "not": "Does NOT have a total population of $COMPARATOR$ $NUM|V0$ (currently: $CURRENT_VALUE|V0$)",
-        "not_third": "$GEOGRAPHY$ does NOT have a total population of $COMPARATOR$ $NUM|V0$ (currently: $CURRENT_VALUE|V0$)",
-        "text": "Has a total population of $COMPARATOR$ $NUM|V0$ (currently: $CURRENT_VALUE|V0$)",
-        "third": "$GEOGRAPHY$ has a total population of $COMPARATOR$ $NUM|V0$ (currently: $CURRENT_VALUE|V0$)"
+        "not": "Does NOT have a total population of $COMPARATOR$ $NUM$ (currently: $CURRENT_VALUE$)",
+        "not_third": "$GEOGRAPHY$ does NOT have a total population of $COMPARATOR$ $NUM$ (currently: $CURRENT_VALUE$)",
+        "text": "Has a total population of $COMPARATOR$ $NUM$ (currently: $CURRENT_VALUE$)",
+        "third": "$GEOGRAPHY$ has a total population of $COMPARATOR$ $NUM$ (currently: $CURRENT_VALUE$)"
       },
       "zh": {
         "not": "总人口不$COMPARATOR$$NUM|V0$（当前：$CURRENT_VALUE|V0$）",
@@ -24782,6 +26130,16 @@
         "third": "[COUNTRY.GetName]拥有$COMPARATOR$$NUM|V0$的[army|e]总战力，包括已部署和未动员的[levies|e]"
       }
     },
+    "potential_location_tax_base": {
+      "en": {
+        "not_third": "[LOCATION.GetName|U] does NOT have $COMPARATOR$ $NUM|Y$ potential [tax_base|e]",
+        "third": "[LOCATION.GetName|U] has $COMPARATOR$ $NUM|Y$ potential [tax_base|e]"
+      },
+      "zh": {
+        "not_third": "[LOCATION.GetName|U]的潜在[tax_base|e]不$COMPARATOR$$NUM|Y$",
+        "third": "[LOCATION.GetName|U]的潜在[tax_base|e]$COMPARATOR$$NUM|Y$"
+      }
+    },
     "potential_navy_size": {
       "en": {
         "first": "We have $COMPARATOR$ $NUM|V0$ of [navy|e] combined strenght on the field or unraised in form of [levies|e]",
@@ -24802,12 +26160,12 @@
     },
     "potential_rm_with": {
       "en": {
-        "first": "We can offer [royal_marriage] to [TARGET_COUNTRY.GetName]",
-        "not": "Can NOT offer [royal_marriage] to [TARGET_COUNTRY.GetName]",
-        "not_first": "We Can NOT offer [royal_marriage] to [TARGET_COUNTRY.GetName]",
-        "not_third": "[COUNTRY.GetName|U] can NOT offer [royal_marriage] to [TARGET_COUNTRY.GetName]",
-        "text": "Can offer [royal_marriage] to [TARGET_COUNTRY.GetName]",
-        "third": "[COUNTRY.GetName|U] can offer [royal_marriage] to [TARGET_COUNTRY.GetName]"
+        "first": "We can offer [royal_marriage|e] to [TARGET_COUNTRY.GetName]",
+        "not": "Can NOT offer [royal_marriage|e] to [TARGET_COUNTRY.GetName]",
+        "not_first": "We Can NOT offer [royal_marriage|e] to [TARGET_COUNTRY.GetName]",
+        "not_third": "[COUNTRY.GetName|U] can NOT offer [royal_marriage|e] to [TARGET_COUNTRY.GetName]",
+        "text": "Can offer [royal_marriage|e] to [TARGET_COUNTRY.GetName]",
+        "third": "[COUNTRY.GetName|U] can offer [royal_marriage|e] to [TARGET_COUNTRY.GetName]"
       },
       "zh": {
         "first": "我们可以向[TARGET_COUNTRY.GetName]图[royal_marriage]",
@@ -24816,6 +26174,24 @@
         "not_third": "[COUNTRY.GetName|U]不能向[TARGET_COUNTRY.GetName]提议[royal_marriage]",
         "text": "可以向[TARGET_COUNTRY.GetName]提议[royal_marriage]",
         "third": "[COUNTRY.GetName|U]可以向[TARGET_COUNTRY.GetName]提议[royal_marriage]"
+      }
+    },
+    "potential_tax_base": {
+      "en": {
+        "first": "We have $COMPARATOR$ $NUM|Y$ potential [tax_base|e]",
+        "not": "Does NOT have $COMPARATOR$ $NUM|Y$ potential [tax_base|e]",
+        "not_first": "We have NOT $COMPARATOR$ $NUM|Y$ potential [tax_base|e]",
+        "not_third": "[COUNTRY.GetName|U] does NOT have $COMPARATOR$ $NUM|Y$ potential [tax_base|e]",
+        "text": "Has $COMPARATOR$ $NUM|Y$ potential [tax_base|e]",
+        "third": "[COUNTRY.GetName|U] has $COMPARATOR$ $NUM|Y$ potential [tax_base|e]"
+      },
+      "zh": {
+        "first": "我们的潜在[tax_base|e]$COMPARATOR$$NUM|Y$",
+        "not": "潜在[tax_base|e]不$COMPARATOR$$NUM|Y$",
+        "not_first": "我们的潜在[tax_base|e]不$COMPARATOR$$NUM|Y$",
+        "not_third": "[COUNTRY.GetName|U]的潜在[tax_base|e]不$COMPARATOR$$NUM|Y$",
+        "text": "潜在[tax_base|e]$COMPARATOR$$NUM|Y$",
+        "third": "[COUNTRY.GetName|U]的潜在[tax_base|e]$COMPARATOR$$NUM|Y$"
       }
     },
     "power_projection": {
@@ -25240,6 +26616,34 @@
         "text": "[PROVINCE.GetName]位于[TARGET_AREA.GetName]"
       }
     },
+    "province_assimilating_from_culture_equal": {
+      "en": {
+        "not": "The [culture|e] being assimilated in [PROVINCE.GetName] is NOT [TARGET_CULTURE.GetName]",
+        "text": "The [culture|e] being assimilated in [PROVINCE.GetName] is [TARGET_CULTURE.GetName]"
+      },
+      "zh": {
+        "not": "[PROVINCE.GetName]正在被同化的[culture|e]不是[TARGET_CULTURE.GetName]",
+        "text": "[PROVINCE.GetName]正在被同化的[culture|e]是[TARGET_CULTURE.GetName]"
+      }
+    },
+    "province_average_population_greater_or_equal": {
+      "en": {
+        "not": "Average [population|e] per [location|e] is NOT at least $NUM$",
+        "text": "Average [population|e] per [location|e] is at least $NUM$"
+      },
+      "zh": {
+        "not": "每个[location|e]的平均[population|e]不足$NUM$",
+        "text": "每个[location|e]的平均[population|e]至少为$NUM$"
+      }
+    },
+    "province_average_population_greater_than": {
+      "en": {
+        "not": "Average [population|e] per [location|e] is NOT greater than $NUM$"
+      },
+      "zh": {
+        "not": "每个[location|e]的平均[population|e]不大于$NUM$"
+      }
+    },
     "province_average_prosperity": {
       "en": {
         "not": "Does NOT have $COMPARATOR$ $NUM|%Y$ average [prosperity|e]",
@@ -25620,8 +27024,8 @@
     },
     "raw_material_equal": {
       "en": {
-        "not": "Does NOT produce [TARGET_GOODS.GetName]",
-        "text": "Produces [TARGET_GOODS.GetName]"
+        "not": "[LOCATION.GetName] does NOT produce [TARGET_GOODS.GetName]",
+        "text": "[LOCATION.GetName] produces [TARGET_GOODS.GetName]"
       },
       "zh": {
         "not": "不生产[TARGET_GOODS.GetName]",
@@ -25884,6 +27288,16 @@
       "zh": {
         "not": "未反叛[TARGET_COUNTRY.GetName]",
         "text": "反叛[TARGET_COUNTRY.GetName]"
+      }
+    },
+    "rebels_religion_equal": {
+      "en": {
+        "not": "The [religion|e] of [REBEL.GetName] is NOT [TARGET_RELIGION.GetName]",
+        "text": "The [religion|e] of [REBEL.GetName] is [TARGET_RELIGION.GetName]"
+      },
+      "zh": {
+        "not": "[REBEL.GetName]的[religion|e]不是[TARGET_RELIGION.GetName]",
+        "text": "[REBEL.GetName]的[religion|e]是[TARGET_RELIGION.GetName]"
       }
     },
     "receives_defensive_support_from": {
@@ -26466,6 +27880,16 @@
         "text": "是[RELIGIOUS_FACTION.GetName]"
       }
     },
+    "religious_figure_equal": {
+      "en": {
+        "not": "The [religious_figure|e] is NOT [TARGET_CARDINAL.GetName]",
+        "text": "The [religious_figure|e] is [TARGET_CARDINAL.GetName]"
+      },
+      "zh": {
+        "not": "[religious_figure|e]不为[TARGET_CARDINAL.GetName]",
+        "text": "[religious_figure|e]为[TARGET_CARDINAL.GetName]"
+      }
+    },
     "religious_figure_scope_equal": {
       "en": {
         "not": "Is NOT [RELIGIOUS_FIGURE.GetName]",
@@ -26494,6 +27918,54 @@
       "zh": {
         "not": "[religious_head|e]不为[TARGET_CHARACTER.GetName]",
         "text": "[religious_head|e]为[TARGET_CHARACTER.GetName]"
+      }
+    },
+    "religious_order_calling": {
+      "en": {
+        "not": "The [religious_order|e] does NOT have the [TARGET_CALLING.GetName] [calling|e]"
+      }
+    },
+    "religious_order_leader_equal": {
+      "en": {
+        "not": "The leader of [RELIGIOUS_ORDER.GetName] is NOT [TARGET_CHARACTER.GetName]",
+        "text": "The leader of [RELIGIOUS_ORDER.GetName] is [TARGET_CHARACTER.GetName]"
+      },
+      "zh": {
+        "not": "[RELIGIOUS_ORDER.GetName]的领袖不是[TARGET_CHARACTER.GetName]",
+        "text": "[RELIGIOUS_ORDER.GetName]的领袖是[TARGET_CHARACTER.GetName]"
+      }
+    },
+    "religious_order_religion_equal": {
+      "en": {
+        "not": "[RELIGIOUS_ORDER.GetName] does NOT belong to the [TARGET_RELIGION.GetName] [religion|e]",
+        "text": "[RELIGIOUS_ORDER.GetName] belongs to the [TARGET_RELIGION.GetName] [religion|e]"
+      },
+      "zh": {
+        "not": "[RELIGIOUS_ORDER.GetName]不属于[TARGET_RELIGION.GetName][religion|e]",
+        "text": "[RELIGIOUS_ORDER.GetName]属于[TARGET_RELIGION.GetName][religion|e]"
+      }
+    },
+    "religious_order_religion_not_equal": {
+      "en": {
+        "text": "[RELIGIOUS_ORDER.GetName] does NOT belong to the [TARGET_RELIGION.GetName] [religion|e]"
+      },
+      "zh": {
+        "text": "[RELIGIOUS_ORDER.GetName]不属于[TARGET_RELIGION.GetName][religion|e]"
+      }
+    },
+    "religious_order_type": {
+      "en": {
+        "not": "The [religious_order|e] is NOT a [TARGET_RELIGIOUS_ORDER_TYPE.GetName]"
+      }
+    },
+    "religious_order_type_equal": {
+      "en": {
+        "not": "Is NOT of the [TARGET_RELIGIOUS_ORDER_TYPE.GetName] type",
+        "text": "Is of the [TARGET_RELIGIOUS_ORDER_TYPE.GetName] type"
+      },
+      "zh": {
+        "not": "不属于 [TARGET_RELIGIOUS_ORDER_TYPE.GetName] 类型",
+        "text": "属于 [TARGET_RELIGIOUS_ORDER_TYPE.GetName] 类型"
       }
     },
     "religious_school": {
@@ -27174,8 +28646,8 @@
     },
     "situation_var_equal": {
       "en": {
-        "not": "[SITUATION.GetName] does NOT have the $VAR_NAME$ of a value of exactly $TARGET_NAME$",
-        "text": "[SITUATION.GetName] has the $VAR_NAME$ of a value of exactly $TARGET_NAME$"
+        "not": "$VAR_NAME$ in the [SITUATION.GetName] is NOT $TARGET_NAME$",
+        "text": "$VAR_NAME$ in the the [SITUATION.GetName] is $TARGET_NAME$"
       },
       "zh": {
         "not": "[SITUATION.GetName]的$VAR_NAME$不低于$TARGET_NAME$",
@@ -27184,8 +28656,8 @@
     },
     "situation_var_greater_or_equal": {
       "en": {
-        "not": "[SITUATION.GetName] '$VAR_NAME$' is less than $TARGET_NAME$",
-        "text": "[SITUATION.GetName] '$VAR_NAME$' is greater than or equal to $TARGET_NAME$"
+        "not": "'$VAR_NAME$' in the [SITUATION.GetName] is less than $TARGET_NAME$",
+        "text": "'$VAR_NAME$' in the [SITUATION.GetName] is greater than or equal to $TARGET_NAME$"
       },
       "zh": {
         "not": "[SITUATION.GetName]“$VAR_NAME$”小于$TARGET_NAME$",
@@ -27194,7 +28666,7 @@
     },
     "situation_var_greater_than": {
       "en": {
-        "not": "[SITUATION.GetName] '$VAR_NAME$' is less than $TARGET_NAME$"
+        "not": "'$VAR_NAME$' in the [SITUATION.GetName] is less than $TARGET_NAME$"
       },
       "zh": {
         "not": "[SITUATION.GetName]“$VAR_NAME$”小于$TARGET_NAME$"
@@ -27202,7 +28674,7 @@
     },
     "situation_var_less_or_equal": {
       "en": {
-        "text": "[SITUATION.GetName] has the $VAR_NAME$ of a value of $TARGET_NAME$ or less"
+        "text": "$VAR_NAME$ in the [SITUATION.GetName] is at least $TARGET_NAME$ or less"
       },
       "zh": {
         "text": "[SITUATION.GetName]的$VAR_NAME$小于等于$TARGET_NAME$"
@@ -27244,7 +28716,7 @@
     },
     "societal_value_trigger_first": {
       "en": {
-        "not": "We do NOT have $COMPARATOR$ $VAL|V0$ $NAME$"
+        "not": "We have $NOT_COMPARATOR$ $VAL|V0$ $NAME$"
       },
       "zh": {
         "not": "我们的$NAME$不$COMPARATOR$$VAL|V0$"
@@ -27252,7 +28724,7 @@
     },
     "societal_value_trigger_global": {
       "en": {
-        "not": "Does NOT have $COMPARATOR$ $VAL|V0$ $NAME$"
+        "not": "Has $NOT_COMPARATOR$ $VAL|V0$ $NAME$"
       },
       "zh": {
         "not": "$NAME$不$COMPARATOR$$VAL|V0$"
@@ -27260,7 +28732,7 @@
     },
     "societal_value_trigger_third": {
       "en": {
-        "not": "[COUNTRY.GetName|U] does NOT have $COMPARATOR$ $VAL|V0$ $NAME$"
+        "not": "[COUNTRY.GetName|U] has $NOT_COMPARATOR$ $VAL|V0$ $NAME$"
       },
       "zh": {
         "not": "[COUNTRY.GetName|U]的$NAME$不$COMPARATOR$$VAL|V0$"
@@ -27470,6 +28942,16 @@
       },
       "zh": {
         "text": "没有为[TARGET_COUNTRY.GetName]效劳"
+      }
+    },
+    "sub_unit_religion_equal": {
+      "en": {
+        "not": "The [religion|e] of [SUBUNIT.GetName] is NOT [TARGET_RELIGION.GetName]",
+        "text": "The [religion|e] of [SUBUNIT.GetName] is [TARGET_RELIGION.GetName]"
+      },
+      "zh": {
+        "not": "[SUBUNIT.GetName]的[religion|e]不是[TARGET_RELIGION.GetName]",
+        "text": "[SUBUNIT.GetName]的[religion|e]是[TARGET_RELIGION.GetName]"
       }
     },
     "subject_can_be_annexed": {
@@ -27694,6 +29176,14 @@
         "third": "[COUNTRY.GetName|U]的[tax_base|e]$COMPARATOR$$NUM|Y$"
       }
     },
+    "third_building_is_production_method_locked": {
+      "en": {
+        "third": "[BUILDING.GetName] has its [production_methods|e] locked"
+      },
+      "zh": {
+        "third": "[BUILDING.GetName]的[production_methods|e]被锁定"
+      }
+    },
     "this_antagonism_towards_prev": {
       "en": {
         "first": "Our [antagonism|E] towards [TARGET_COUNTRY.GetName] is $COMPARATOR$ $NUM|V00$",
@@ -27836,6 +29326,16 @@
         "text": "最高[overlord|e]是[TARGET_COUNTRY.GetName]"
       }
     },
+    "top_overlord_in_war_equal": {
+      "en": {
+        "not": "Top [overlord|e] on same side in [WAR.GetName] is NOT [TARGET_COUNTRY.GetName]",
+        "text": "Top [overlord|e] on same side in [WAR.GetName] is [TARGET_COUNTRY.GetName]"
+      },
+      "zh": {
+        "not": "Top [overlord|e] on same side in [WAR.GetName] is NOT [TARGET_COUNTRY.GetName]",
+        "text": "[WAR.GetName]中同一阵营的最高[overlord|e]是[TARGET_COUNTRY.GetName]"
+      }
+    },
     "top_overlord_or_this_equal": {
       "en": {
         "not": "[owner|e] or top [overlord|e] is NOT [TARGET_COUNTRY.GetName]",
@@ -27886,6 +29386,12 @@
         "not_third": "[COUNTRY.GetName|U]的[TARGET_TOPOGRAPHY.GetName][locations|e]数量不$COMPARATOR$$NUM|V0$（当前：$CURRENT_VALUE|V0$）",
         "text": "[TARGET_TOPOGRAPHY.GetName][locations|e]数量$COMPARATOR$$NUM|V0$（当前：$CURRENT_VALUE|V0$）",
         "third": "[COUNTRY.GetName|U]的[TARGET_TOPOGRAPHY.GetName][locations|e]数量$COMPARATOR$$NUM|V0$（当前：$CURRENT_VALUE|V0$）"
+      }
+    },
+    "topography_equal": {
+      "en": {
+        "not": "Is NOT [TARGET_TOPOGRAPHY.GetName] [topography|e]",
+        "text": "Is [TARGET_TOPOGRAPHY.GetName] [topography|e]"
       }
     },
     "topography_percent": {
@@ -28406,11 +29912,25 @@
         "third": "[TRADE.GetName]的购买额$COMPARATOR$$NUM|Y2$[gold_i]"
       }
     },
+    "trade_capacity_usage": {
+      "en": {
+        "not": "Is NOT using $COMPARATOR$ $NUM|Y2$ of the assigned [merchant_capacity|e]",
+        "not_third": "[TRADE.GetName] is NOT using $COMPARATOR$ $NUM|Y2$ of the assigned [merchant_capacity|e]",
+        "text": "Is using $COMPARATOR$ $NUM|Y2$ of the assigned [merchant_capacity|e]",
+        "third": "[TRADE.GetName] is using $COMPARATOR$ $NUM|Y2$ of the assigned [merchant_capacity|e]"
+      },
+      "zh": {
+        "not": "未在使用$COMPARATOR$$NUM|Y2$的分配[merchant_capacity|e]",
+        "not_third": "[TRADE.GetName]未在使用$COMPARATOR$$NUM|Y2$的分配[merchant_capacity|e]",
+        "text": "正在使用$COMPARATOR$$NUM|Y2$的分配[merchant_capacity|e]",
+        "third": "[TRADE.GetName]正在使用$COMPARATOR$$NUM|Y2$的分配[merchant_capacity|e]"
+      }
+    },
     "trade_capacity_usage_percent": {
       "en": {
         "not": "Is NOT using $COMPARATOR$ $NUM|Y2%$ of the assigned [merchant_capacity|e]",
         "not_third": "[TRADE.GetName] is NOT using $COMPARATOR$ $NUM|Y2%$ of the assigned [merchant_capacity|e]",
-        "text": "Is using $COMPARATOR$ $NUM|Y25$ of the assigned [merchant_capacity|e]",
+        "text": "Is using $COMPARATOR$ $NUM|Y2%$ of the assigned [merchant_capacity|e]",
         "third": "[TRADE.GetName] is using $COMPARATOR$ $NUM|Y2%$ of the assigned [merchant_capacity|e]"
       },
       "zh": {
@@ -28502,6 +30022,20 @@
         "text": "是[TRAIT.GetName]"
       }
     },
+    "transport_cost": {
+      "en": {
+        "not": "The transport cost is NOT $COMPARATOR$ $NUM|Y$",
+        "not_third": "[GOODS.GetName] transport cost is NOT $COMPARATOR$ $NUM|Y$",
+        "text": "The transport cost is $COMPARATOR$ $NUM|Y$",
+        "third": "[GOODS.GetName] transport cost is $COMPARATOR$ $NUM|Y$"
+      },
+      "zh": {
+        "not": "运输成本不$COMPARATOR$$NUM|Y$",
+        "not_third": "[GOODS.GetName]的运输成本不$COMPARATOR$$NUM|Y$",
+        "text": "运输成本$COMPARATOR$$NUM|Y$",
+        "third": "[GOODS.GetName]的运输成本$COMPARATOR$$NUM|Y$"
+      }
+    },
     "trigger_has_child_education": {
       "en": {
         "not": "Does NOT have $EDUCATION|V$"
@@ -28546,6 +30080,30 @@
         "not_third": "[COUNTRY.GetName|U]没有对[TARGET_COUNTRY.GetName]的$TRUST|Y$信任倾向",
         "text": "拥有对[TARGET_COUNTRY.GetName]的$TRUST|Y$信任倾向",
         "third": "[COUNTRY.GetName|U]拥有对[TARGET_COUNTRY.GetName]的$TRUST|Y$信任倾向"
+      }
+    },
+    "tutorial_balance": {
+      "en": {
+        "first": "We have $COMPARATOR$ $NUM|V0$ current monthly balance of [gold_i] (currently: $CURRENT_VALUE|V0$)",
+        "not": "Does NOT have $COMPARATOR$ $NUM|V0$ current monthly balance of [gold_i] (currently: $CURRENT_VALUE|V0$)",
+        "not_first": "We do NOT have $COMPARATOR$ $NUM|V0$ current monthly balance of [gold_i] (currently: $CURRENT_VALUE|V0$)",
+        "not_third": "[COUNTRY.GetName|U] does NOT have $COMPARATOR$ $NUM|V0$ current monthly balance of [gold_i] (currently: $CURRENT_VALUE|V0$)",
+        "text": "Has $COMPARATOR$ $NUM|V0$ current monthly balance of [gold_i] (currently: $CURRENT_VALUE|V0$)",
+        "third": "[COUNTRY.GetName|U] has $COMPARATOR$ $NUM|V0$ current monthly balance of [gold_i] (currently: $CURRENT_VALUE|V0$)"
+      },
+      "zh": {
+        "first": "我们当月[gold_i]结余$COMPARATOR$$NUM|V0$ （当前：$CURRENT_VALUE|V0$）",
+        "not": "当月[gold_i]结余不是$COMPARATOR$$NUM|V0$ （当前：$CURRENT_VALUE|V0$）",
+        "not_first": "我们当月[gold_i]结余不是$COMPARATOR$$NUM|V0$ （当前：$CURRENT_VALUE|V0$）",
+        "not_third": "[COUNTRY.GetName|U]当月[gold_i]结余不是$COMPARATOR$$NUM|V0$ （当前：$CURRENT_VALUE|V0$）",
+        "text": "当月[gold_i]结余$COMPARATOR$$NUM|V0$ （当前：$CURRENT_VALUE|V0$）",
+        "third": "[COUNTRY.GetName|U]当月[gold_i]结余$COMPARATOR$$NUM|V0$ （当前：$CURRENT_VALUE|V0$）"
+      }
+    },
+    "type_equal": {
+      "en": {
+        "not": "Is NOT a [TARGET_UNIT_TYPE.GetName]",
+        "text": "Is a [TARGET_UNIT_TYPE.GetName]"
       }
     },
     "union_equal": {
@@ -29048,6 +30606,12 @@
         "third": "[COUNTRY.GetName|U]的[TARGET_VEGETATION.GetName][locations|e]数量$COMPARATOR$$NUM|V0$（当前：$CURRENT_VALUE|V0$）"
       }
     },
+    "vegetation_equal": {
+      "en": {
+        "not": "Is NOT [TARGET_VEGETATION.GetName] [vegetation|e]",
+        "text": "Is [TARGET_VEGETATION.GetName] [vegetation|e]"
+      }
+    },
     "vegetation_percent": {
       "en": {
         "first": "We have $COMPARATOR$ $NUM|V2%$ [locations|e] which are [TARGET_VEGETATION.GetName] (currently: $CURRENT_VALUE|V%2$)",
@@ -29258,6 +30822,24 @@
         "not_third": "[WAR.GetName]未持续$COMPARATOR$$NUM|Y$年（当前：$CURRENT_VALUE|Y$）",
         "text": "已持续$COMPARATOR$$NUM|Y$年（当前：$CURRENT_VALUE|Y$）",
         "third": "[WAR.GetName]已持续$COMPARATOR$$NUM|Y$年（当前：$CURRENT_VALUE|Y$）"
+      }
+    },
+    "war_participation": {
+      "en": {
+        "first": "We have $COMPARATOR$ $NUM|V2%$ war participation in [TARGET_WAR.GetName]",
+        "not": "Does NOT have $COMPARATOR$ $NUM|V2%$ war participation in [TARGET_WAR.GetName]",
+        "not_first": "We do NOT have $COMPARATOR$ $NUM|V2%$ war participation in [TARGET_WAR.GetName]",
+        "not_third": "[COUNTRY.GetName|U] does NOT have $COMPARATOR$ $NUM|V2%$ war participation in [TARGET_WAR.GetName]",
+        "text": "Has $COMPARATOR$ $NUM|V2%$ war participation in [TARGET_WAR.GetName]",
+        "third": "[COUNTRY.GetName|U] has $COMPARATOR$ $NUM|V2%$ war participation in [TARGET_WAR.GetName]"
+      },
+      "zh": {
+        "first": "我们在[TARGET_WAR.GetName]中的战争参与度$COMPARATOR$$NUM|V2%$",
+        "not": "在[TARGET_WAR.GetName]中的战争参与度不$COMPARATOR$$NUM|V2%$",
+        "not_first": "我们在[TARGET_WAR.GetName]中的战争参与度不$COMPARATOR$$NUM|V2%$",
+        "not_third": "[COUNTRY.GetName|U]在[TARGET_WAR.GetName]中的战争参与度不$COMPARATOR$$NUM|V2%$",
+        "text": "在[TARGET_WAR.GetName]中的战争参与度$COMPARATOR$$NUM|V2%$",
+        "third": "[COUNTRY.GetName|U]在[TARGET_WAR.GetName]中的战争参与度$COMPARATOR$$NUM|V2%$"
       }
     },
     "war_scope_equal": {
@@ -29848,6 +31430,16 @@
         "text": "是[WORK_OF_ART.GetName]"
       }
     },
+    "work_of_art_this_equal": {
+      "en": {
+        "not": "Is NOT [TARGET_WORK_OF_ART.GetName]",
+        "text": "Is [TARGET_WORK_OF_ART.GetName]"
+      },
+      "zh": {
+        "not": "没有[TARGET_WORK_OF_ART.GetName]特质",
+        "text": "是[TARGET_WORK_OF_ART.GetName]"
+      }
+    },
     "work_of_art_type_equal": {
       "en": {
         "not": "[work_of_art|e] is NOT a [TARGET_WORK_OF_ART_TYPE.GetName]",
@@ -29886,6 +31478,20 @@
       "zh": {
         "not": "世界总[art_quality|e]不$COMPARATOR$$NUM|2Y$",
         "text": "世界总[art_quality|e]$COMPARATOR$$NUM|2Y$"
+      }
+    },
+    "would_be_overseas_for": {
+      "en": {
+        "not": "Would NOT be [overseas|e] for [TARGET_COUNTRY.GetName]",
+        "not_third": "[LOCATION.GetName] would NOT be [overseas|e] for [TARGET_COUNTRY.GetName]",
+        "text": "Would be [overseas|e] for [TARGET_COUNTRY.GetName]",
+        "third": "[LOCATION.GetName] would be [overseas|e] for [TARGET_COUNTRY.GetName]"
+      },
+      "zh": {
+        "not": "对[TARGET_COUNTRY.GetName]而言将不是[overseas|e]",
+        "not_third": "[LOCATION.GetName]对[TARGET_COUNTRY.GetName]而言将不是[overseas|e]",
+        "text": "对[TARGET_COUNTRY.GetName]而言将是[overseas|e]",
+        "third": "[LOCATION.GetName]对[TARGET_COUNTRY.GetName]而言将是[overseas|e]"
       }
     },
     "yearly_salary": {
@@ -30016,6 +31622,16 @@
         "not_third": "[DISASTER.GetName][disaster|e]未激活$COMPARATOR$$NUM|Y$年（当前：$CURRENT_VALUE|Y$）",
         "text": "[disaster|e]已激活$COMPARATOR$$NUM|Y$年（当前：$CURRENT_VALUE|Y$）",
         "third": "[DISASTER.GetName][disaster|e]已激活$COMPARATOR$$NUM|Y$年（当前：$CURRENT_VALUE|Y$）"
+      }
+    },
+    "years_since_game_start": {
+      "en": {
+        "not": "Years since the game started is NOT $COMPARATOR$ $NUM|V0$",
+        "text": "Years since the game started is $COMPARATOR$ $NUM|V0$"
+      },
+      "zh": {
+        "not": "自游戏开始以来的年数不是 $COMPARATOR$ $NUM|V0$",
+        "text": "自游戏开始以来的年数 $COMPARATOR$ $NUM|V0$"
       }
     },
     "years_since_situation_end": {

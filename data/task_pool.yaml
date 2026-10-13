@@ -288,15 +288,6 @@ on_action_task:
       zh: "接纳一项新的制度（Institution）。"
 
   # --- Economic / Colonial / Exploration ---
-  - id: complete_colonial_charter
-    on_action: on_colonial_charter_finished
-    wired: true
-    scope: "root = country, scope:target = province"
-    category: economic_colonial
-    completion_note: "No extra filter needed; fires once per completed charter."
-    loc:
-      en: "Complete a colonial charter."
-      zh: "完成一份殖民特许状。"
   - id: complete_exploration_mission
     on_action: on_exploration_success
     wired: true

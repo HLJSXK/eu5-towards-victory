@@ -1,0 +1,120 @@
+--- vanilla_1_4_location_window
++++ sol_location_window_1_4 (third-party-sha256: afdc94ba4585a641e950687d424b7d3a1c26872138d1ca9599b4fb518f4a0da2)
+@@ -6232,9 +6232,9 @@
+ size = { -1 13 }
+ autoresize = no
+ fontsize = 12
+ visible = "[HasLocationTaxBaseIntelOn(Location.Self)]"
+-raw_text = "[Location.GetTotalIncome|g2]@income!"
++raw_text = "[Location.MakeScope.ScriptValue('local_sol_total_income')|g2]@income!"
+ default_format = "#bold"
+ }
+ }
+ }
+@@ -6695,13 +6695,64 @@
+ }
+ }
+ 
+ hbox = {
+-margin = { 3 0 }
++margin = {3 0}
++piechart = {
++using = bg_circle
++visible = "[Not(Location.HasTooManyBuildingLevel)]"
++size = { 30 30 }
+ datacontext = "[LocationView.GetLocation]"
+-
+-location_building_levels_piechart = {
+-size = { 30 30 }
++tooltipwidget = {
++using = LocationBuildingLevels_tooltip
++}
++using = piechart_angles
++
++pieslice_no_highlight = {
++
++texture = "gfx/interface/pie_charts/pie_chart_alpha_80.dds"
++value = "[LocationView.GetLocation.GetBuildingLevelsPercentage]"
++color = { 1 1 1 1 }
++}
++
++pieslice_no_highlight = {
++texture = "gfx/interface/pie_charts/pie_chart_alpha_80_green.dds"
++value = "[Subtract_float('(float)100.0', LocationView.GetLocation.GetBuildingLevelsPercentage)]"
++color = { 1 1 1 1 }
++}
++using = bg_circle_piechart
++
++icon = {
++size = { 59% 59% }
++parentanchor = center
++texture = "[GetConceptTexture('supported_building_levels')]"
++}
++}
++
++piechart = {
++visible = "[Location.HasTooManyBuildingLevel]"
++using = bg_circle
++size = { 36 36 }
++datacontext = "[LocationView.GetLocation]"
++tooltipwidget = {
++using = LocationBuildingLevels_tooltip
++}
++using = piechart_angles
++
++
++pieslice_no_highlight = {
++
++texture = "gfx/interface/pie_charts/pie_chart_alpha_80_red.dds"
++value = 100
++color = { 1 1 1 1 }
++}
++using = bg_circle_piechart
++
++icon = {
++size = { 59% 59% }
++parentanchor = center
++texture = "[GetConceptTexture('supported_building_levels')]"
++}
+ }
+ }
+ 
+ 
+@@ -9563,8 +9614,37 @@
+ title = "OPEN_PEOPLE_VIEW"
+ on_action = "[ShowCountryPeopleViewWithLocation(Location.GetId, '(bool)yes')]"
+ }
+ }
++navigational_button_alt = {
++size = {38 38}
++
++blockoverride "icon_texture" {
++piechart = {
++parentanchor = center
++size = { 70% 70% }
++alwaystransparent = yes
++
++hbox = {
++widget = {
++using = layoutpolicy_expanding
++icon = {
++size = { 100% 100% }
++parentanchor = center
++name = "stat_sol_living_standard"
++texture = "gfx/interface/icons/sol/sol_living_standard.dds"
++texture_density = 2
++}
++}
++}
++using = bg_circle_piechart
++}
++}
++
++tooltipwidget = {
++using = StandardofLiving_tooltip
++}
++}
+ 
+ expand = {}
+ 
+ subheader_unified_icon = {

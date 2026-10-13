@@ -9,12 +9,18 @@ modifier_types:
   - accept_subjugation_reasons
   - add_accepted_culture_cost_modifier
   - aggressiveness_modifier
+  - allow_cabinet_assimilate_area
   - allow_open_sea_exploration
+  - allowed_enforce_peace
+  - allowed_intervene_in_war
+  - allowed_threaten_war
   - annexation_speed_modifier
   - antagonism_breaking_truce_giving_modifier
+  - antagonism_culture_influence
   - antagonism_declared_war_no_cb_giving_modifier
   - antagonism_monthly_change_modifier
   - antagonism_received_modifier
+  - antagonism_religion_influence
   - appoint_as_heir_price_cost_modifier
   - army_artillery_build_cost_modifier
   - army_artillery_maintenance_cost_modifier
@@ -52,6 +58,7 @@ modifier_types:
   - ban_imports_of_wine
   - ban_imports_of_wool
   - bank_interest
+  - block_tribal_promotion
   - blocked_from_conversion
   - blocked_from_forming_countries
   - build_gravel_road_cost_modifier
@@ -67,6 +74,7 @@ modifier_types:
   - burghers_estate_satisfaction_recovery
   - burghers_estate_target_satisfaction
   - call_jihad_cost_modifier
+  - can_recruit_explorer
   - canonize_cost_modifier
   - capital_movement_cost_modifier
   - cardinal_price_cost_modifier
@@ -77,7 +85,6 @@ modifier_types:
   - clergy_estate_blocked_from_parliament
   - clergy_estate_levy_size
   - clergy_estate_max_tax
-  - clergy_estate_min_tax
   - clergy_estate_satisfaction_decay
   - clergy_estate_satisfaction_recovery
   - clergy_estate_target_satisfaction
@@ -263,7 +270,6 @@ modifier_types:
   - global_pop_promotion_speed_modifier
   - global_population_capacity_modifier
   - global_population_growth
-  - global_potato_output_modifier
   - global_pottery_output_modifier
   - global_production_efficiency
   - global_raw_material_output
@@ -293,6 +299,7 @@ modifier_types:
   - global_trade_center_power
   - global_trade_protection_factor
   - global_trades_per_burgher
+  - global_tribal_promotion
   - global_tribes_estate_power
   - global_tribesmen_city_desired_pop_scaled
   - global_tribesmen_desired_pop_scaled
@@ -339,10 +346,12 @@ modifier_types:
   - max_sailors
   - max_war_exhaustion
   - maximum_religious_influence
+  - may_use_integrate_area_cabinet_action
   - megalopolis_upgrade_cost_modifier
   - mercenary_maintenance_efficiency
   - mercenary_range_modifier
   - merchant_maintenance_efficiency
+  - merchant_power_from_maritime
   - merchant_power_from_maritime_modifier
   - migrate_pop_based_country_cost_modifier
   - minting_income_factor
@@ -350,7 +359,6 @@ modifier_types:
   - monthly_army_tradition
   - monthly_burghers_estate_rebel_growth
   - monthly_clergy_estate_rebel_growth
-  - monthly_complacency
   - monthly_devotion
   - monthly_diplomats
   - monthly_doom
@@ -366,6 +374,8 @@ modifier_types:
   - monthly_navy_tradition
   - monthly_nobles_estate_rebel_growth
   - monthly_peasants_estate_rebel_growth
+  - monthly_political_influence
+  - monthly_political_influence_gain_modifier
   - monthly_prestige
   - monthly_pretender_rebel_growth
   - monthly_rebel_growth
@@ -489,6 +499,7 @@ modifier_types:
   - sow_discontent_monthly_cost_cost_modifier
   - spy_network_construction
   - stability_cost_efficiency
+  - stability_decay
   - stability_investment
   - start_exploration_land_cost_modifier
   - start_exploration_sea_cost_modifier
@@ -522,8 +533,6 @@ modifier_types:
   - tribes_estate_satisfaction_recovery
   - tribes_estate_target_satisfaction
   - tribute_payment_received_modifier
-  - trust_decay
-  - trust_recovery
   - war_breaking_truce_cost_modifier
   - war_good_relations_cost_modifier
   - war_great_relations_cost_modifier
@@ -536,11 +545,15 @@ modifier_types:
   - work_of_art_sell_value_modifier
   - wrong_culture_levy_size
   local:
+  - blocks_privateer_raids
   - can_recruit_regiment_in_this_location
   - free_building_levels
   - growth_is_primary_culture
   - harbor_suitability
+  - hostile_disembark_time_modifier
+  - hostile_fleet_attrition
   - local_alum_output_modifier
+  - local_amber_output_modifier
   - local_beer_output_modifier
   - local_build_buildings_efficiency
   - local_burghers_desired_pop
@@ -549,7 +562,9 @@ modifier_types:
   - local_clergy_estate_power
   - local_clergy_max_literacy
   - local_cloth_output_modifier
+  - local_coal_output_modifier
   - local_construction_speed
+  - local_copper_output_modifier
   - local_cotton_output_modifier
   - local_crown_estate_power
   - local_cultural_influence
@@ -558,31 +573,41 @@ modifier_types:
   - local_devastation_recovery
   - local_disease_resistance
   - local_distance_from_capital_speed_propagation
+  - local_dyes_output_modifier
   - local_fine_cloth_output_modifier
+  - local_fish_output_modifier
   - local_food_capacity
   - local_food_capacity_modifier
   - local_fort_maintenance_efficiency
   - local_frontage_allowed
   - local_garrison_growth
   - local_garrison_size
+  - local_gems_output_modifier
   - local_glass_output_modifier
+  - local_goods_gold_output_modifier
   - local_hostile_attrition
   - local_institution_growth_modifier
   - local_integration_speed_modifier
+  - local_iron_output_modifier
   - local_jewelry_output_modifier
+  - local_lead_output_modifier
   - local_levy_size_modifier
   - local_life_expectancy
   - local_liquor_output_modifier
+  - local_lumber_output_modifier
   - local_manpower
   - local_manpower_modifier
+  - local_marble_output_modifier
   - local_maritime_presence
   - local_market_access
   - local_max_control
   - local_max_literacy
+  - local_max_rgo_size
   - local_max_rgo_size_modifier
   - local_merchant_capacity
   - local_merchant_capacity_modifier
   - local_merchant_power
+  - local_mercury_output_modifier
   - local_migration_attraction
   - local_monthly_control
   - local_monthly_development
@@ -595,6 +620,7 @@ modifier_types:
   - local_nobles_estate_power
   - local_nobles_max_literacy
   - local_paper_output_modifier
+  - local_pearls_output_modifier
   - local_peasants_estate_power
   - local_pop_assimilation_speed
   - local_pop_assimilation_speed_modifier
@@ -609,6 +635,7 @@ modifier_types:
   - local_porcelain_output_modifier
   - local_port_build_buildings_efficiency
   - local_port_cost_distance_impact
+  - local_possible_town_rights
   - local_production_efficiency
   - local_prosperity_decay
   - local_proximity_source
@@ -617,7 +644,10 @@ modifier_types:
   - local_road_building_time
   - local_sailors_modifier
   - local_salt_output_modifier
+  - local_saltpeter_output_modifier
   - local_ship_build_speed
+  - local_silver_output_modifier
+  - local_stone_output_modifier
   - local_supply_limit_modifier
   - local_tin_output_modifier
   - local_trade_center_power
@@ -632,7 +662,6 @@ modifier_types:
   - max_ships_built_at_same_time
   - merchant_power_from_building
   - movement_cost
-  - promote_institution_chance
 cost_reward_unit_types:
   country_reward:
   - army_tradition
@@ -930,7 +959,6 @@ cost_reward_unit_types:
   - minting_inflation_threshold
   - monthly_army_tradition
   - monthly_clergy_estate_rebel_growth
-  - monthly_complacency
   - monthly_devotion
   - monthly_diplomats
   - monthly_harmony
@@ -1042,8 +1070,6 @@ cost_reward_unit_types:
   - tribes_estate_satisfaction_decay
   - tribes_estate_satisfaction_recovery
   - tribes_estate_target_satisfaction
-  - trust_decay
-  - trust_recovery
   - war_breaking_truce_cost_modifier
   - war_good_relations_cost_modifier
   - war_great_relations_cost_modifier
@@ -1207,13 +1233,13 @@ style_3_reward_sources:
   yearly_manpower: add_yearly_manpower
   yearly_sailors: add_yearly_sailors
 scan_summary:
-  event_country_static_modifier_count: 1161
-  event_local_static_modifier_count: 324
-  reference_country_modifier_count: 340
-  reference_local_modifier_count: 95
-  cost_reward_country_modifier_count: 395
+  event_country_static_modifier_count: 1222
+  event_local_static_modifier_count: 366
+  reference_country_modifier_count: 359
+  reference_local_modifier_count: 115
+  cost_reward_country_modifier_count: 392
   cost_reward_local_modifier_count: 43
-  country_modifier_count: 530
-  local_modifier_count: 97
+  country_modifier_count: 539
+  local_modifier_count: 117
   style_3_reward_type_count: 53
-  cost_reward_unit_count: 459
+  cost_reward_unit_count: 456

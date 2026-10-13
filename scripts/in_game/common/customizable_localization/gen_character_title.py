@@ -60,6 +60,10 @@ HEADER = """\
 # Do not edit directly - modify the data file and re-run the generator.
 """
 
+EUREKA_OUT_FILE = (
+    REPO_ROOT / "src_eureka/in_game/common/customizable_localization/character_title.txt"
+)
+
 
 def _tv_title_entries(data: dict, allowed_ids: set[str] | None = None) -> str:
     entries: list[str] = []
@@ -130,6 +134,7 @@ def main() -> None:
             (MAIN_OUT_FILE, main_content),
             (ENGINEERING_OUT_FILE, engineering_content),
             (COURT_OUT_FILE, court_content),
+            (EUREKA_OUT_FILE, court_content),
         ):
             output.parent.mkdir(parents=True, exist_ok=True)
             output.write_text(content, encoding="utf-8-sig")

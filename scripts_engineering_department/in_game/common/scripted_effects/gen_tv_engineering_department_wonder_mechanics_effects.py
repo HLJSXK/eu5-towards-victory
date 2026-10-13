@@ -978,6 +978,22 @@ def append_final_building_destruction_effects(
 
         lines.append(f"{final_building_destroyed_effect_name(wonder)} = {{")
         lines.append(f"{T}tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes")
+        if wonder.get("native_canal"):
+            # Last-level demolition closes navigation regardless of vanilla's
+            # earlier completion. Surviving levels keep the existing state.
+            lines.extend([
+                f"{T}if = {{",
+                f"{T}{T}limit = {{",
+                f"{T}{T}{T}this = location:{wonder['location']}",
+                f"{T}{T}{T}NOT = {{",
+                f"{T}{T}{T}{T}OR = {{",
+                *[f"{T}{T}{T}{T}{T}location_building_level = {{ building_type = building_type:{building} value >= 1 }}" for building in wonder['final_buildings'].values()],
+                f"{T}{T}{T}{T}}}",
+                f"{T}{T}{T}}}",
+                f"{T}{T}}}",
+                f"{T}{T}set_canal_open = no",
+                f"{T}}}",
+            ])
         lines.append(f"{T}save_scope_as = tv_wonder_priority_site")
         lines.append(f"{T}save_scope_as = tv_wonder_ownership_site")
         lines.append(f"{T}owner ?= {{")

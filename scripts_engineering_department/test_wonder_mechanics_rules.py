@@ -895,6 +895,46 @@ def validate_final_building_completion_sync_is_deferred(wonders: list[dict], mec
         require(expected in event_block, f"The deferred final-building sync event is missing: {expected}")
 
 
+def validate_native_canal_lifecycle(wonders: list[dict]) -> None:
+    canals = [wonder for wonder in wonders if wonder.get("native_canal")]
+    require([wonder["key"] for wonder in canals] == ["unique_suez_ancient_canal"],
+            "Only the fixed Suez wonder should control a native canal.")
+    suez = canals[0]
+    require(suez["location"] == "suez" and suez["initial_level"] == 0,
+            "Native Suez must stay at its registered through-location and start unbuilt.")
+    adjacency = (REPO_ROOT / "reference_game_files/game/in_game/map_data/adjacencies.csv").read_text(encoding="utf-8-sig")
+    require("bardawil_coast;gulf_suez;canal;suez;" in adjacency,
+            "The target game reference must register the native Suez connection.")
+    effects = load_finalization_effect_generator().generate()
+    completion = extract_trigger_block(effects, final_building_completion_sync_hidden_event_execute_effect_name())
+    destruction_effects = load_effect_generator().generate_location_display_effects()
+    destruction = extract_trigger_block(destruction_effects, final_building_destroyed_effect_name(suez))
+    completed_level = ("location_building_level = { building_type = building_type:"
+                       + suez["final_buildings"][1] + " value >= 1 }")
+    require(effects.count("set_canal_open = yes") == completion.count("set_canal_open = yes") == 1,
+            "Opening must occur only in the deferred actual-building completion handler, never in previews.")
+    require("this = location:suez" in completion and completed_level in completion,
+            "Completion must require a completed final building at Suez.")
+    require("set_canal_open = no" not in completion,
+            "Unrelated building completions must not close a vanilla-only canal.")
+    require(destruction_effects.count("set_canal_open = no") == destruction.count("set_canal_open = no") == 1,
+            "Only the Suez final-building destruction handler may close the canal.")
+    close_branch = extract_trigger_block(destruction, "if")
+    require("this = location:suez" in close_branch and "NOT = {" in close_branch and completed_level in close_branch,
+            "Demolition must close only after the last completed level is gone; partial demolition keeps navigation.")
+    require(destruction.index("set_canal_open = no") < destruction.index("owner ?= {"),
+            "Closing must be a location lifecycle effect even if the site has no owner.")
+    require("set_canal_open = yes" not in destruction,
+            "Demolition must not reopen the canal or override later vanilla construction.")
+    require("start_canal_construction" not in effects + destruction_effects,
+            "TV must not start a second native construction alongside its own wonder project.")
+    for wonder in wonders:
+        if wonder is suez:
+            continue
+        handler = extract_trigger_block(destruction_effects, final_building_destroyed_effect_name(wonder))
+        require("set_canal_open" not in handler, "Other wonder demolitions must leave native canals untouched.")
+
+
 def validate_generated_ceremony_flow(wonders: list[dict], mechanics: dict) -> None:
     ceremony_wonders = [wonder for wonder in wonders if wonder.get("is_unique") and wonder.get("ceremony") is not None]
     require(ceremony_wonders, "Expected ceremony-enabled unique wonders.")
@@ -1499,6 +1539,7 @@ def main() -> None:
     validate_cmm_wonder_controls(wonders, mechanics)
     validate_final_building_destruction_sync(wonders, mechanics)
     validate_final_building_completion_sync_is_deferred(wonders, mechanics)
+    validate_native_canal_lifecycle(wonders)
     validate_generated_ceremony_flow(wonders, mechanics)
     validate_generated_ceremony_autostart(wonders)
     validate_generated_ceremony_gui(wonders)

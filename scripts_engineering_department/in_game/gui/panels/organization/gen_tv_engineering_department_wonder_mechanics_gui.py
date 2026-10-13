@@ -192,9 +192,12 @@ def action_button_fields(
     action_name: str,
 ) -> str:
     return (
-        f'text = "{text}" title = "{title}" description = "{description}" '
-        f'actor = "[InternationalOrganizationsView.GetPlayer]" '
-        f'left_action = {{ action_name = "{action_name}" }}'
+        f'text = "{text}" '
+        f'enabled = "[PdxGuiWidget.IsUberButtonEnabled]" '
+        f'scripted_action_tooltip = {{ click_type = left click_mode = single '
+        f'action_name = "{action_name}" actor = "[InternationalOrganizationsView.GetPlayer]" }} '
+        f'button_tooltip_override = {{ title = "{title}" description = "{description}" }} '
+        f'tooltipwidget = {{ using = action_tooltip_pop_out }}'
     )
 
 
@@ -207,8 +210,8 @@ def green_action_button(
     action_name: str,
 ) -> str:
     return (
-        f'{T}action_button = {{ visible = "[{visible}]" size = {{ {size} }} '
-        f'using = button_regular_texture_alt_green using = action_button_common_template '
+        f'{T}button_regular = {{ visible = "[{visible}]" size = {{ {size} }} '
+        f'using = button_regular_texture_alt_green '
         f'using = button_common_textobj_template fontsize = 13 '
         f'{action_button_fields(text, title, description, action_name)} }}'
     )
@@ -238,7 +241,7 @@ def proposal_button(slot: int) -> str:
             f"widget = {{",
             f'{T}visible = "[And({slot_var}.IsSet, Not({concept_in_progress()}))]"',
             f"{T}size = {{ 152 30 }}",
-            f"{T}action_button_diamond = {{ size = {{ 152 30 }} {action_button_fields(text, title, description, action_name)} }}",
+            f"{T}button_regular_diamond = {{ size = {{ 152 30 }} {action_button_fields(text, title, description, action_name)} }}",
             green_action_button(selected_visible, "152 30", text, title, description, action_name),
             f"}}",
         ]
@@ -253,10 +256,12 @@ def dynamic_proposal_text(prefix: str, max_width: int = 352) -> str:
     )
 
 
-def dynamic_locked_text(max_width: int = 352) -> str:
+def dynamic_locked_text(
+    prefix: str = "TV_ENGINEERING_WONDER_LOCKED_TEXT_", max_width: int = 352
+) -> str:
     return (
         f'{T}text_multi = {{ visible = "[And({player_var("tv_wonder_locked_display_id")}.IsSet, Not({concept_in_progress()}))]" '
-        f'max_width = {max_width} autoresize = yes text = "[{dynamic_localized_text_key("TV_ENGINEERING_LOCKED_TEXT_", "tv_wonder_locked_display_id")}]" '
+        f'max_width = {max_width} autoresize = yes text = "[{dynamic_localized_text_key(prefix, "tv_wonder_locked_display_id")}]" '
         f'align = nobaseline|left }}'
     )
 
@@ -286,7 +291,7 @@ def ceremony_select_button(style: int) -> str:
             f"widget = {{",
             f'{T}visible = "[{locked_visible}]"',
             f"{T}size = {{ 150 30 }}",
-            f"{T}action_button_diamond = {{ size = {{ 150 30 }} {action_button_fields(text, title, description, action_name)} }}",
+            f"{T}button_regular_diamond = {{ size = {{ 150 30 }} {action_button_fields(text, title, description, action_name)} }}",
             green_action_button(selected_visible, "150 30", text, title, description, action_name),
             f"}}",
         ]
@@ -691,10 +696,12 @@ def hold_button(
     desc_key: str = "tv_wonder_confirm_ceremony_desc",
 ) -> str:
     return (
-        f'{T}action_button_diamond = {{ visible = "[{visible}]" '
-        f'size = {{ 180 30 }} text = "{text_key}" title = "{title_key}" '
-        f'description = "{desc_key}" actor = "[InternationalOrganizationsView.GetPlayer]" '
-        f'left_action = {{ action_name = "{action_name}" }} }}'
+        f'{T}button_regular = {{ visible = "[{visible}]" '
+        f'size = {{ 180 30 }} enabled = "[PdxGuiWidget.IsUberButtonEnabled]" text = "{text_key}" '
+        f'scripted_action_tooltip = {{ click_type = left click_mode = single '
+        f'action_name = "{action_name}" actor = "[InternationalOrganizationsView.GetPlayer]" }} '
+        f'button_tooltip_override = {{ title = "{title_key}" description = "{desc_key}" }} '
+        f'tooltipwidget = {{ using = action_tooltip_pop_out }} }}'
     )
 
 
@@ -1011,15 +1018,15 @@ def generate() -> str:
     lines.append("### END TV_WONDER_MECHANICS_PREVIEW_WIDGETS")
     lines.append("")
     lines.append("### BEGIN TV_WONDER_MECHANICS_PROPOSAL_TEXTS")
-    lines.append(dynamic_proposal_text("TV_ENGINEERING_PROPOSAL_TEXT_"))
+    lines.append(dynamic_proposal_text("TV_ENGINEERING_WONDER_PROPOSAL_TEXT_"))
     lines.append("### END TV_WONDER_MECHANICS_PROPOSAL_TEXTS")
     lines.append("")
     lines.append("### BEGIN TV_WONDER_MECHANICS_PROPOSAL_RESUME_TEXTS")
-    lines.append(dynamic_proposal_text("TV_ENGINEERING_PROPOSAL_RESUME_TEXT_"))
+    lines.append(dynamic_proposal_text("TV_ENGINEERING_WONDER_PROPOSAL_RESUME_TEXT_"))
     lines.append("### END TV_WONDER_MECHANICS_PROPOSAL_RESUME_TEXTS")
     lines.append("")
     lines.append("### BEGIN TV_WONDER_MECHANICS_PROPOSAL_EXPAND_TEXTS")
-    lines.append(dynamic_proposal_text("TV_ENGINEERING_PROPOSAL_EXPAND_TEXT_"))
+    lines.append(dynamic_proposal_text("TV_ENGINEERING_WONDER_PROPOSAL_EXPAND_TEXT_"))
     lines.append("### END TV_WONDER_MECHANICS_PROPOSAL_EXPAND_TEXTS")
     lines.append("")
     lines.append("### BEGIN TV_WONDER_MECHANICS_LOCKED_TEXTS")

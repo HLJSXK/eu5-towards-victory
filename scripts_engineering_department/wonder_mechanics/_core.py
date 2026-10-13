@@ -1258,7 +1258,7 @@ def load_unique_wonders_source_data(path: Path = UNIQUE_WONDERS_FILE) -> dict:
                 "final_buildings",
                 "ritual",
             },
-            optional={"ceremony"},
+            optional={"ceremony", "native_canal"},
             context=context,
         )
 
@@ -1287,6 +1287,8 @@ def load_unique_wonders_source_data(path: Path = UNIQUE_WONDERS_FILE) -> dict:
             minimum=0,
             maximum=6,
         )
+        if "native_canal" in wonder:
+            _require_bool(wonder["native_canal"], f"{context}.native_canal")
 
         wonders.append(
             {

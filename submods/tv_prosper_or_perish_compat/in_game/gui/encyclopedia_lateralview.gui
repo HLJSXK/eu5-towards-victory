@@ -10,8 +10,8 @@
 # page/category -- this is the only known working pattern, see
 # docs/knowledge/risk_cards/europedia.md. This file is hand-maintained; only the
 # card list between the TV_ENCYCLOPEDIA_CARDS markers is generated, by
-# scripts/in_game/gui/gen_tv_encyclopedia_wonders_cards_gui.py +
-# scripts/in_game/gui/merge_tv_encyclopedia_wonders_cards_gui.py.
+# scripts_engineering_department/in_game/gui/gen_tv_encyclopedia_wonders_cards_gui.py +
+# scripts_engineering_department/in_game/gui/merge_tv_encyclopedia_wonders_cards_gui.py.
 lateralview_full = {
 	name = "encyclopedia_lateralview"
 
@@ -360,8 +360,8 @@ lateralview_full = {
                                                             }
                                                         }
 
-                                                        TooltipListScrollArea = {
-                                                            blockoverride "scrollarea_content" {
+                                                        TooltipScrolledContentSection = {
+                                                            blockoverride "section_content" {
                                                                 vbox = {
                                                                     set_parent_dimension_to_minimum = height
                                                                     layoutpolicy_horizontal = expanding
@@ -506,8 +506,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -587,8 +587,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -668,8 +668,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -749,8 +749,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -830,8 +830,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -911,8 +911,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -992,8 +992,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -1073,8 +1073,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -1154,8 +1154,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -1235,8 +1235,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -1316,8 +1316,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -1397,8 +1397,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -1478,8 +1478,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -1559,8 +1559,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -1640,8 +1640,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -1721,8 +1721,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -1802,8 +1802,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -1883,8 +1883,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -1964,8 +1964,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -2045,8 +2045,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -2126,8 +2126,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -2207,8 +2207,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -2288,8 +2288,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -2369,8 +2369,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -2450,8 +2450,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -2531,8 +2531,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -2612,8 +2612,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -2693,8 +2693,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -2774,8 +2774,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -2855,8 +2855,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -2936,8 +2936,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -3017,8 +3017,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -3098,8 +3098,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -3179,8 +3179,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -3260,8 +3260,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -3341,8 +3341,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -3422,8 +3422,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -3503,8 +3503,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -3584,8 +3584,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -3665,8 +3665,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -3746,8 +3746,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -3827,8 +3827,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -3908,8 +3908,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -3989,8 +3989,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -4070,8 +4070,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -4151,8 +4151,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -4232,8 +4232,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -4313,8 +4313,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -4394,8 +4394,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -4475,8 +4475,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -4556,8 +4556,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -4637,8 +4637,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -4718,8 +4718,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -4799,8 +4799,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -4880,8 +4880,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -4961,8 +4961,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -5042,8 +5042,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -5123,8 +5123,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -5204,8 +5204,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -5285,8 +5285,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -5366,8 +5366,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -5447,8 +5447,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -5528,8 +5528,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -5609,8 +5609,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -5690,8 +5690,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -5771,8 +5771,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -5852,8 +5852,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -5933,8 +5933,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -6014,8 +6014,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -6095,8 +6095,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -6176,8 +6176,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -6257,8 +6257,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -6338,8 +6338,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -6419,8 +6419,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -6500,8 +6500,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -6581,8 +6581,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -6662,8 +6662,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -6743,8 +6743,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -6824,8 +6824,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -6905,8 +6905,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -6986,8 +6986,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -7067,8 +7067,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -7148,8 +7148,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -7229,8 +7229,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -7310,8 +7310,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -7391,8 +7391,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -7472,8 +7472,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -7553,8 +7553,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -7634,8 +7634,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -7715,8 +7715,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -7796,8 +7796,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -7877,8 +7877,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -7958,8 +7958,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -8039,8 +8039,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -8120,8 +8120,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -8201,8 +8201,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -8282,8 +8282,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -8363,8 +8363,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -8444,8 +8444,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -8525,8 +8525,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -8606,8 +8606,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -8687,8 +8687,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -8768,8 +8768,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -8849,8 +8849,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -8930,8 +8930,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -9011,8 +9011,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -9092,8 +9092,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -9173,8 +9173,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -9254,8 +9254,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -9335,8 +9335,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -9416,8 +9416,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -9497,8 +9497,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -9578,8 +9578,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -9659,8 +9659,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -9740,8 +9740,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -9821,8 +9821,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -9902,8 +9902,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -9983,8 +9983,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -10064,8 +10064,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -10145,8 +10145,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -10226,8 +10226,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -10307,8 +10307,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -10388,8 +10388,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -10469,8 +10469,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -10550,8 +10550,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -10631,8 +10631,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -10712,8 +10712,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -10793,8 +10793,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -10874,8 +10874,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -10955,8 +10955,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -11036,8 +11036,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -11117,8 +11117,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -11198,8 +11198,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -11279,8 +11279,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -11360,8 +11360,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -11441,8 +11441,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -11522,8 +11522,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -11603,8 +11603,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -11684,8 +11684,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -11765,8 +11765,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -11846,8 +11846,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -11927,8 +11927,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -12008,8 +12008,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -12089,8 +12089,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -12170,8 +12170,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -12251,8 +12251,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -12332,8 +12332,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -12413,8 +12413,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -12494,8 +12494,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -12575,8 +12575,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -12656,8 +12656,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -12737,8 +12737,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -12818,8 +12818,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -12899,8 +12899,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -12980,8 +12980,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -13061,8 +13061,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -13142,8 +13142,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -13223,8 +13223,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -13304,8 +13304,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -13385,8 +13385,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -13466,8 +13466,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -13547,8 +13547,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -13628,8 +13628,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -13709,8 +13709,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -13790,8 +13790,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -13871,8 +13871,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -13952,8 +13952,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -14033,8 +14033,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -14114,8 +14114,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -14195,8 +14195,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -14276,8 +14276,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -14357,8 +14357,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -14438,8 +14438,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -14519,8 +14519,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -14600,8 +14600,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -14681,8 +14681,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -14762,8 +14762,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -14843,8 +14843,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -14924,8 +14924,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -15005,8 +15005,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -15086,8 +15086,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -15167,8 +15167,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -15248,8 +15248,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -15329,8 +15329,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -15410,8 +15410,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -15491,8 +15491,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -15572,8 +15572,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -15653,8 +15653,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -15734,8 +15734,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -15815,8 +15815,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -15896,8 +15896,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -15977,8 +15977,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -16058,8 +16058,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -16139,8 +16139,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -16220,8 +16220,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -16301,8 +16301,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -16382,8 +16382,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -16463,8 +16463,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -16544,8 +16544,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -16625,8 +16625,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -16706,8 +16706,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -16787,8 +16787,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -16868,8 +16868,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -16949,8 +16949,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -17030,8 +17030,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -17111,8 +17111,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -17192,8 +17192,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -17273,8 +17273,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -17354,8 +17354,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -17435,8 +17435,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -17516,8 +17516,8 @@ vbox = {
 				}
 			}
 
-			TooltipListScrollArea = {
-				blockoverride "scrollarea_content" {
+			TooltipScrolledContentSection = {
+				blockoverride "section_content" {
 					vbox = {
 						set_parent_dimension_to_minimum = height
 						layoutpolicy_horizontal = expanding
@@ -17789,8 +17789,8 @@ vbox = {
 	                                                        text_single = { name = "title" using = layoutpolicy_expanding using = Font_Size_Medium fontsize = 18 autoresize = no default_format = "yellow_titles" text = "game_concept_pp_getting_started" }
 	                                                    }
 	                                                }
-	                                                TooltipListScrollArea = {
-	                                                    blockoverride "scrollarea_content" {
+	                                                TooltipScrolledContentSection = {
+	                                                    blockoverride "section_content" {
 	                                                        vbox = { set_parent_dimension_to_minimum = height layoutpolicy_horizontal = expanding
 	                                                            text_multi = { name = "body" max_width = 1450 min_width = 1450 autoresize = yes text = "game_concept_pp_getting_started_desc" margin = { 40 10 } }
 	                                                        }
@@ -17825,8 +17825,8 @@ vbox = {
 	                                                        text_single = { name = "title" using = layoutpolicy_expanding using = Font_Size_Medium fontsize = 18 autoresize = no default_format = "yellow_titles" text = "game_concept_pp_faq" }
 	                                                    }
 	                                                }
-	                                                TooltipListScrollArea = {
-	                                                    blockoverride "scrollarea_content" {
+	                                                TooltipScrolledContentSection = {
+	                                                    blockoverride "section_content" {
 	                                                        vbox = { set_parent_dimension_to_minimum = height layoutpolicy_horizontal = expanding
 	                                                            text_multi = { name = "body" max_width = 1450 min_width = 1450 autoresize = yes text = "game_concept_pp_faq_desc" margin = { 40 10 } }
 	                                                        }
@@ -17861,8 +17861,8 @@ vbox = {
 	                                                        text_single = { name = "title" using = layoutpolicy_expanding using = Font_Size_Medium fontsize = 18 autoresize = no default_format = "yellow_titles" text = "game_concept_pp_update_0_9" }
 	                                                    }
 	                                                }
-	                                                TooltipListScrollArea = {
-	                                                    blockoverride "scrollarea_content" {
+	                                                TooltipScrolledContentSection = {
+	                                                    blockoverride "section_content" {
 	                                                        vbox = { set_parent_dimension_to_minimum = height layoutpolicy_horizontal = expanding
 	                                                            text_multi = { name = "body" max_width = 1450 min_width = 1450 autoresize = yes text = "game_concept_pp_update_0_9_desc" margin = { 40 10 } }
 	                                                        }
@@ -17897,8 +17897,8 @@ vbox = {
                                                         text_single = { name = "title" using = layoutpolicy_expanding using = Font_Size_Medium fontsize = 18 autoresize = no default_format = "yellow_titles" text = "game_concept_prosper_perish_mod" }
                                                     }
                                                 }
-                                                TooltipListScrollArea = {
-                                                    blockoverride "scrollarea_content" {
+                                                TooltipScrolledContentSection = {
+                                                    blockoverride "section_content" {
                                                         vbox = { set_parent_dimension_to_minimum = height layoutpolicy_horizontal = expanding
                                                             text_multi = { name = "body" max_width = 1450 min_width = 1450 autoresize = yes text = "game_concept_prosper_perish_mod_desc" margin = { 40 10 } }
                                                         }
@@ -17933,8 +17933,8 @@ vbox = {
                                                         text_single = { name = "title" using = layoutpolicy_expanding using = Font_Size_Medium fontsize = 18 autoresize = no default_format = "yellow_titles" text = "game_concept_pp_food_in_eu5" }
                                                     }
                                                 }
-                                                TooltipListScrollArea = {
-                                                    blockoverride "scrollarea_content" {
+                                                TooltipScrolledContentSection = {
+                                                    blockoverride "section_content" {
                                                         vbox = { set_parent_dimension_to_minimum = height layoutpolicy_horizontal = expanding
                                                             text_multi = { name = "body" max_width = 1450 min_width = 1450 autoresize = yes text = "game_concept_pp_food_in_eu5_desc" margin = { 40 10 } }
                                                         }
@@ -17969,8 +17969,8 @@ vbox = {
                                                         text_single = { name = "title" using = layoutpolicy_expanding using = Font_Size_Medium fontsize = 18 autoresize = no default_format = "yellow_titles" text = "game_concept_pp_food" }
                                                     }
                                                 }
-                                                TooltipListScrollArea = {
-                                                    blockoverride "scrollarea_content" {
+                                                TooltipScrolledContentSection = {
+                                                    blockoverride "section_content" {
                                                         vbox = { set_parent_dimension_to_minimum = height layoutpolicy_horizontal = expanding
                                                             text_multi = { name = "body" max_width = 1450 min_width = 1450 autoresize = yes text = "game_concept_pp_food_desc" margin = { 40 10 } }
                                                         }
@@ -18005,8 +18005,8 @@ vbox = {
                                                         text_single = { name = "title" using = layoutpolicy_expanding using = Font_Size_Medium fontsize = 18 autoresize = no default_format = "yellow_titles" text = "game_concept_pp_food_consumption" }
                                                     }
                                                 }
-                                                TooltipListScrollArea = {
-                                                    blockoverride "scrollarea_content" {
+                                                TooltipScrolledContentSection = {
+                                                    blockoverride "section_content" {
                                                         vbox = { set_parent_dimension_to_minimum = height layoutpolicy_horizontal = expanding
                                                             text_multi = { name = "body" max_width = 1450 min_width = 1450 autoresize = yes text = "game_concept_pp_food_consumption_desc" margin = { 40 10 } }
                                                         }
@@ -18041,8 +18041,8 @@ vbox = {
                                                         text_single = { name = "title" using = layoutpolicy_expanding using = Font_Size_Medium fontsize = 18 autoresize = no default_format = "yellow_titles" text = "game_concept_pp_victuals" }
                                                     }
                                                 }
-                                                TooltipListScrollArea = {
-                                                    blockoverride "scrollarea_content" {
+                                                TooltipScrolledContentSection = {
+                                                    blockoverride "section_content" {
                                                         vbox = { set_parent_dimension_to_minimum = height layoutpolicy_horizontal = expanding
                                                             text_multi = { name = "body" max_width = 1450 min_width = 1450 autoresize = yes text = "game_concept_pp_victuals_desc" margin = { 40 10 } }
                                                         }
@@ -18077,8 +18077,8 @@ vbox = {
                                                         text_single = { name = "title" using = layoutpolicy_expanding using = Font_Size_Medium fontsize = 18 autoresize = no default_format = "yellow_titles" text = "game_concept_pp_cookery" }
                                                     }
                                                 }
-                                                TooltipListScrollArea = {
-                                                    blockoverride "scrollarea_content" {
+                                                TooltipScrolledContentSection = {
+                                                    blockoverride "section_content" {
                                                         vbox = { set_parent_dimension_to_minimum = height layoutpolicy_horizontal = expanding
                                                             text_multi = { name = "body" max_width = 1450 min_width = 1450 autoresize = yes text = "game_concept_pp_cookery_desc" margin = { 40 10 } }
                                                         }
@@ -18113,8 +18113,8 @@ vbox = {
                                                         text_single = { name = "title" using = layoutpolicy_expanding using = Font_Size_Medium fontsize = 18 autoresize = no default_format = "yellow_titles" text = "game_concept_pp_building_limits" }
                                                     }
                                                 }
-                                                TooltipListScrollArea = {
-                                                    blockoverride "scrollarea_content" {
+                                                TooltipScrolledContentSection = {
+                                                    blockoverride "section_content" {
                                                         vbox = { set_parent_dimension_to_minimum = height layoutpolicy_horizontal = expanding
                                                             text_multi = { name = "body" max_width = 1450 min_width = 1450 autoresize = yes text = "game_concept_pp_building_limits_desc" margin = { 40 10 } }
                                                         }
@@ -18149,8 +18149,8 @@ vbox = {
                                                         text_single = { name = "title" using = layoutpolicy_expanding using = Font_Size_Medium fontsize = 18 autoresize = no default_format = "yellow_titles" text = "game_concept_pp_farm_capacity" }
                                                     }
                                                 }
-                                                TooltipListScrollArea = {
-                                                    blockoverride "scrollarea_content" {
+                                                TooltipScrolledContentSection = {
+                                                    blockoverride "section_content" {
                                                         vbox = { set_parent_dimension_to_minimum = height layoutpolicy_horizontal = expanding
                                                             text_multi = { name = "body" max_width = 1450 min_width = 1450 autoresize = yes text = "game_concept_pp_farm_capacity_desc" margin = { 40 10 } }
                                                         }
@@ -18185,8 +18185,8 @@ vbox = {
                                                         text_single = { name = "title" using = layoutpolicy_expanding using = Font_Size_Medium fontsize = 18 autoresize = no default_format = "yellow_titles" text = "game_concept_pp_farm_output" }
                                                     }
                                                 }
-                                                TooltipListScrollArea = {
-                                                    blockoverride "scrollarea_content" {
+                                                TooltipScrolledContentSection = {
+                                                    blockoverride "section_content" {
                                                         vbox = { set_parent_dimension_to_minimum = height layoutpolicy_horizontal = expanding
                                                             text_multi = { name = "body" max_width = 1450 min_width = 1450 autoresize = yes text = "game_concept_pp_farm_output_desc" margin = { 40 10 } }
                                                         }
@@ -18221,8 +18221,8 @@ vbox = {
                                                         text_single = { name = "title" using = layoutpolicy_expanding using = Font_Size_Medium fontsize = 18 autoresize = no default_format = "yellow_titles" text = "harvest_situation" }
                                                     }
                                                 }
-                                                TooltipListScrollArea = {
-                                                    blockoverride "scrollarea_content" {
+                                                TooltipScrolledContentSection = {
+                                                    blockoverride "section_content" {
                                                         vbox = { set_parent_dimension_to_minimum = height layoutpolicy_horizontal = expanding
                                                             text_multi = { name = "body" max_width = 1450 min_width = 1450 autoresize = yes text = "harvest_situation_desc" margin = { 40 10 } }
                                                         }
@@ -18257,8 +18257,8 @@ vbox = {
 	                                                        text_single = { name = "title" using = layoutpolicy_expanding using = Font_Size_Medium fontsize = 18 autoresize = no default_format = "yellow_titles" text = "game_concept_pp_population_capacity" }
 	                                                    }
 	                                                }
-	                                                TooltipListScrollArea = {
-	                                                    blockoverride "scrollarea_content" {
+	                                                TooltipScrolledContentSection = {
+	                                                    blockoverride "section_content" {
 	                                                        vbox = { set_parent_dimension_to_minimum = height layoutpolicy_horizontal = expanding
 	                                                            text_multi = { name = "body" max_width = 1450 min_width = 1450 autoresize = yes text = "game_concept_pp_population_capacity_desc" margin = { 40 10 } }
 	                                                        }
@@ -18293,8 +18293,8 @@ vbox = {
                                                         text_single = { name = "title" using = layoutpolicy_expanding using = Font_Size_Medium fontsize = 18 autoresize = no default_format = "yellow_titles" text = "game_concept_pp_population_growth" }
                                                     }
                                                 }
-                                                TooltipListScrollArea = {
-                                                    blockoverride "scrollarea_content" {
+                                                TooltipScrolledContentSection = {
+                                                    blockoverride "section_content" {
                                                         vbox = { set_parent_dimension_to_minimum = height layoutpolicy_horizontal = expanding
                                                             text_multi = { name = "body" max_width = 1450 min_width = 1450 autoresize = yes text = "game_concept_pp_population_growth_desc" margin = { 40 10 } }
                                                         }
@@ -18329,8 +18329,8 @@ vbox = {
                                                         text_single = { name = "title" using = layoutpolicy_expanding using = Font_Size_Medium fontsize = 18 autoresize = no default_format = "yellow_titles" text = "game_concept_pp_population_distribution" }
                                                     }
                                                 }
-                                                TooltipListScrollArea = {
-                                                    blockoverride "scrollarea_content" {
+                                                TooltipScrolledContentSection = {
+                                                    blockoverride "section_content" {
                                                         vbox = { set_parent_dimension_to_minimum = height layoutpolicy_horizontal = expanding
                                                             text_multi = { name = "body" max_width = 1450 min_width = 1450 autoresize = yes text = "game_concept_pp_population_distribution_desc" margin = { 40 10 } }
                                                         }
@@ -18365,8 +18365,8 @@ vbox = {
                                                         text_single = { name = "title" using = layoutpolicy_expanding using = Font_Size_Medium fontsize = 18 autoresize = no default_format = "yellow_titles" text = "game_concept_pp_buildings_in_location" }
                                                     }
                                                 }
-                                                TooltipListScrollArea = {
-                                                    blockoverride "scrollarea_content" {
+                                                TooltipScrolledContentSection = {
+                                                    blockoverride "section_content" {
                                                         vbox = { set_parent_dimension_to_minimum = height layoutpolicy_horizontal = expanding
                                                             text_multi = { name = "body" max_width = 1450 min_width = 1450 autoresize = yes text = "game_concept_pp_buildings_in_location_desc" margin = { 40 10 } }
                                                         }
@@ -18401,8 +18401,8 @@ vbox = {
                                                         text_single = { name = "title" using = layoutpolicy_expanding using = Font_Size_Medium fontsize = 18 autoresize = no default_format = "yellow_titles" text = "game_concept_pp_available_free_land" }
                                                     }
                                                 }
-                                                TooltipListScrollArea = {
-                                                    blockoverride "scrollarea_content" {
+                                                TooltipScrolledContentSection = {
+                                                    blockoverride "section_content" {
                                                         vbox = { set_parent_dimension_to_minimum = height layoutpolicy_horizontal = expanding
                                                             text_multi = { name = "body" max_width = 1450 min_width = 1450 autoresize = yes text = "game_concept_pp_available_free_land_desc" margin = { 40 10 } }
                                                         }
@@ -18437,8 +18437,8 @@ vbox = {
                                                         text_single = { name = "title" using = layoutpolicy_expanding using = Font_Size_Medium fontsize = 18 autoresize = no default_format = "yellow_titles" text = "game_concept_pp_abundant_free_land" }
                                                     }
                                                 }
-                                                TooltipListScrollArea = {
-                                                    blockoverride "scrollarea_content" {
+                                                TooltipScrolledContentSection = {
+                                                    blockoverride "section_content" {
                                                         vbox = { set_parent_dimension_to_minimum = height layoutpolicy_horizontal = expanding
                                                             text_multi = { name = "body" max_width = 1450 min_width = 1450 autoresize = yes text = "game_concept_pp_abundant_free_land_desc" margin = { 40 10 } }
                                                         }
@@ -18473,8 +18473,8 @@ vbox = {
                                                         text_single = { name = "title" using = layoutpolicy_expanding using = Font_Size_Medium fontsize = 18 autoresize = no default_format = "yellow_titles" text = "game_concept_pp_prosperity" }
                                                     }
                                                 }
-                                                TooltipListScrollArea = {
-                                                    blockoverride "scrollarea_content" {
+                                                TooltipScrolledContentSection = {
+                                                    blockoverride "section_content" {
                                                         vbox = { set_parent_dimension_to_minimum = height layoutpolicy_horizontal = expanding
                                                             text_multi = { name = "body" max_width = 1450 min_width = 1450 autoresize = yes text = "game_concept_pp_prosperity_desc" margin = { 40 10 } }
                                                         }
@@ -18509,8 +18509,8 @@ vbox = {
                                                         text_single = { name = "title" using = layoutpolicy_expanding using = Font_Size_Medium fontsize = 18 autoresize = no default_format = "yellow_titles" text = "game_concept_pp_devastation" }
                                                     }
                                                 }
-                                                TooltipListScrollArea = {
-                                                    blockoverride "scrollarea_content" {
+                                                TooltipScrolledContentSection = {
+                                                    blockoverride "section_content" {
                                                         vbox = { set_parent_dimension_to_minimum = height layoutpolicy_horizontal = expanding
                                                             text_multi = { name = "body" max_width = 1450 min_width = 1450 autoresize = yes text = "game_concept_pp_devastation_desc" margin = { 40 10 } }
                                                         }
@@ -18545,8 +18545,8 @@ vbox = {
                                                         text_single = { name = "title" using = layoutpolicy_expanding using = Font_Size_Medium fontsize = 18 autoresize = no default_format = "yellow_titles" text = "game_concept_pp_province_current_food_storage" }
                                                     }
                                                 }
-                                                TooltipListScrollArea = {
-                                                    blockoverride "scrollarea_content" {
+                                                TooltipScrolledContentSection = {
+                                                    blockoverride "section_content" {
                                                         vbox = { set_parent_dimension_to_minimum = height layoutpolicy_horizontal = expanding
                                                             text_multi = { name = "body" max_width = 1450 min_width = 1450 autoresize = yes text = "game_concept_pp_province_current_food_storage_desc" margin = { 40 10 } }
                                                         }
@@ -18581,8 +18581,8 @@ vbox = {
                                                         text_single = { name = "title" using = layoutpolicy_expanding using = Font_Size_Medium fontsize = 18 autoresize = no default_format = "yellow_titles" text = "game_concept_pp_cheap_food" }
                                                     }
                                                 }
-                                                TooltipListScrollArea = {
-                                                    blockoverride "scrollarea_content" {
+                                                TooltipScrolledContentSection = {
+                                                    blockoverride "section_content" {
                                                         vbox = { set_parent_dimension_to_minimum = height layoutpolicy_horizontal = expanding
                                                             text_multi = { name = "body" max_width = 1450 min_width = 1450 autoresize = yes text = "game_concept_pp_cheap_food_desc" margin = { 40 10 } }
                                                         }
@@ -18617,8 +18617,8 @@ vbox = {
                                                         text_single = { name = "title" using = layoutpolicy_expanding using = Font_Size_Medium fontsize = 18 autoresize = no default_format = "yellow_titles" text = "game_concept_pp_expensive_food" }
                                                     }
                                                 }
-                                                TooltipListScrollArea = {
-                                                    blockoverride "scrollarea_content" {
+                                                TooltipScrolledContentSection = {
+                                                    blockoverride "section_content" {
                                                         vbox = { set_parent_dimension_to_minimum = height layoutpolicy_horizontal = expanding
                                                             text_multi = { name = "body" max_width = 1450 min_width = 1450 autoresize = yes text = "game_concept_pp_expensive_food_desc" margin = { 40 10 } }
                                                         }
@@ -18653,8 +18653,8 @@ vbox = {
                                                         text_single = { name = "title" using = layoutpolicy_expanding using = Font_Size_Medium fontsize = 18 autoresize = no default_format = "yellow_titles" text = "game_concept_pp_starvation" }
                                                     }
                                                 }
-                                                TooltipListScrollArea = {
-                                                    blockoverride "scrollarea_content" {
+                                                TooltipScrolledContentSection = {
+                                                    blockoverride "section_content" {
                                                         vbox = { set_parent_dimension_to_minimum = height layoutpolicy_horizontal = expanding
                                                             text_multi = { name = "body" max_width = 1450 min_width = 1450 autoresize = yes text = "game_concept_pp_starvation_desc" margin = { 40 10 } }
                                                         }

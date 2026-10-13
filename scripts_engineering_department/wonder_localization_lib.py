@@ -59,6 +59,10 @@ WONDER_IMAGE_CONCEPT_PREFIX = "tv_wonder_display_image_"
 WONDER_FULL_IMAGE_CONCEPT_PREFIX = "tv_wonder_display_full_image_"
 WONDER_RITUAL_DISPLAY_CONCEPT_PREFIX = "tv_wonder_display_"
 ENGINEERING_PREVIEW_LOCATION_TEXT_PREFIX = "TV_ENGINEERING_WONDER_PREVIEW_LOCATION_TEXT_"
+ENGINEERING_PROPOSAL_TEXT_PREFIX = "TV_ENGINEERING_WONDER_PROPOSAL_TEXT_"
+ENGINEERING_PROPOSAL_RESUME_TEXT_PREFIX = "TV_ENGINEERING_WONDER_PROPOSAL_RESUME_TEXT_"
+ENGINEERING_PROPOSAL_EXPAND_TEXT_PREFIX = "TV_ENGINEERING_WONDER_PROPOSAL_EXPAND_TEXT_"
+ENGINEERING_LOCKED_TEXT_PREFIX = "TV_ENGINEERING_WONDER_LOCKED_TEXT_"
 
 LOCALIZATION_LINE_RE = re.compile(r'^(?P<indent>\s*)(?P<key>[A-Za-z0-9_.-]+):(?P<version>0)?\s+(?P<value>"(?:[^"\\]|\\.)*")\s*$')
 LOCALIZATION_LINE_START_RE = re.compile(r'^\s*(?P<key>[A-Za-z0-9_.-]+):(?P<version>0)?\s+(?P<value_start>".*)$')
@@ -292,10 +296,10 @@ def _engineering_gui_text_route_pairs(wonders: list[dict[str, Any]]) -> list[tup
         wonder_id = int(wonder["id"])
         pairs.extend(
             [
-                (f"TV_ENGINEERING_PROPOSAL_{key}_TEXT", f"TV_ENGINEERING_PROPOSAL_TEXT_{wonder_id}"),
-                (f"TV_ENGINEERING_PROPOSAL_RESUME_{key}_TEXT", f"TV_ENGINEERING_PROPOSAL_RESUME_TEXT_{wonder_id}"),
-                (f"TV_ENGINEERING_PROPOSAL_EXPAND_{key}_TEXT", f"TV_ENGINEERING_PROPOSAL_EXPAND_TEXT_{wonder_id}"),
-                (f"TV_ENGINEERING_LOCKED_{key}_TEXT", f"TV_ENGINEERING_LOCKED_TEXT_{wonder_id}"),
+                (f"TV_ENGINEERING_PROPOSAL_{key}_TEXT", f"{ENGINEERING_PROPOSAL_TEXT_PREFIX}{wonder_id}"),
+                (f"TV_ENGINEERING_PROPOSAL_RESUME_{key}_TEXT", f"{ENGINEERING_PROPOSAL_RESUME_TEXT_PREFIX}{wonder_id}"),
+                (f"TV_ENGINEERING_PROPOSAL_EXPAND_{key}_TEXT", f"{ENGINEERING_PROPOSAL_EXPAND_TEXT_PREFIX}{wonder_id}"),
+                (f"TV_ENGINEERING_LOCKED_{key}_TEXT", f"{ENGINEERING_LOCKED_TEXT_PREFIX}{wonder_id}"),
             ]
         )
     return pairs

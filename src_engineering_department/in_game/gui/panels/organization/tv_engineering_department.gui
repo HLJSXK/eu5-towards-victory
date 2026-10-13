@@ -449,7 +449,7 @@ organization_panel = {
 				expand = {}
 			}
 
-			action_button = {
+			button_regular = {
 				visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').IsSet)]"
 				size = { 250 200 }
 				parentanchor = center
@@ -457,44 +457,35 @@ organization_panel = {
 				position = { 0 0 }
 				alpha = 0
 				alwaystransparent = no
-				using = action_button_common_template
-				title = "tv_appoint_engineering_leader"
-				description = "tv_appoint_engineering_leader_desc"
-				actor = "[InternationalOrganizationsView.GetPlayer]"
-				left_action = { action_name = "tv_appoint_engineering_leader" }
+				enabled = "[PdxGuiWidget.IsUberButtonEnabled]"
+				scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_appoint_engineering_leader" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_appoint_engineering_leader" description = "tv_appoint_engineering_leader_desc" } tooltipwidget = { using = action_tooltip_pop_out }
 			}
 
-			action_button = {
+			button_regular = {
 				visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').IsSet]"
 				size = { 78 26 }
 				parentanchor = top|right
 				widgetanchor = top|right
 				position = { 0 20 }
 				using = button_regular_texture_alt_yellow
-				using = action_button_common_template
 				using = button_common_textobj_template
 				fontsize = 13
-				title = "tv_change_engineering_leader"
-				description = "tv_change_engineering_leader_desc"
 				text = "TV_ENGINEERING_CHANGE_LEADER_SHORT"
-				actor = "[InternationalOrganizationsView.GetPlayer]"
-				left_action = { action_name = "tv_change_engineering_leader" }
+				enabled = "[PdxGuiWidget.IsUberButtonEnabled]"
+				scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_change_engineering_leader" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_change_engineering_leader" description = "tv_change_engineering_leader_desc" } tooltipwidget = { using = action_tooltip_pop_out }
 			}
-			action_button = {
+			button_regular = {
 				visible = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_great_engineer_char').IsSet]"
 				size = { 78 26 }
 				parentanchor = top|right
 				widgetanchor = top|right
 				position = { 0 49 }
 				using = button_regular_texture_alt_red
-				using = action_button_common_template
 				using = button_common_textobj_template
 				fontsize = 13
-				title = "tv_remove_engineering_leader"
-				description = "tv_remove_engineering_leader_desc"
 				text = "TV_ENGINEERING_REMOVE_LEADER_SHORT"
-				actor = "[InternationalOrganizationsView.GetPlayer]"
-				left_action = { action_name = "tv_remove_engineering_leader" }
+				enabled = "[PdxGuiWidget.IsUberButtonEnabled]"
+				scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_remove_engineering_leader" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_remove_engineering_leader" description = "tv_remove_engineering_leader_desc" } tooltipwidget = { using = action_tooltip_pop_out }
 			}
 		}
 	}
@@ -724,7 +715,7 @@ organization_panel = {
 
 
 # BEGIN GENERATED TV_WONDER_MECHANICS_PROPOSAL_TEXTS
-	text_multi = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').IsSet, Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_concept_in_progress').IsSet))]" max_width = 352 autoresize = yes text = "[Localize(Concatenate('TV_ENGINEERING_PROPOSAL_TEXT_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue))))]" align = nobaseline|left }
+	text_multi = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').IsSet, Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_concept_in_progress').IsSet))]" max_width = 352 autoresize = yes text = "[Localize(Concatenate('TV_ENGINEERING_WONDER_PROPOSAL_TEXT_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue))))]" align = nobaseline|left }
 # END GENERATED TV_WONDER_MECHANICS_PROPOSAL_TEXTS
 										}
 										vbox = {
@@ -742,7 +733,7 @@ organization_panel = {
 
 
 # BEGIN GENERATED TV_WONDER_MECHANICS_PROPOSAL_RESUME_TEXTS
-	text_multi = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').IsSet, Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_concept_in_progress').IsSet))]" max_width = 352 autoresize = yes text = "[Localize(Concatenate('TV_ENGINEERING_PROPOSAL_RESUME_TEXT_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue))))]" align = nobaseline|left }
+	text_multi = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').IsSet, Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_concept_in_progress').IsSet))]" max_width = 352 autoresize = yes text = "[Localize(Concatenate('TV_ENGINEERING_WONDER_PROPOSAL_RESUME_TEXT_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue))))]" align = nobaseline|left }
 # END GENERATED TV_WONDER_MECHANICS_PROPOSAL_RESUME_TEXTS
 										}
 										vbox = {
@@ -760,7 +751,7 @@ organization_panel = {
 
 
 # BEGIN GENERATED TV_WONDER_MECHANICS_PROPOSAL_EXPAND_TEXTS
-	text_multi = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').IsSet, Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_concept_in_progress').IsSet))]" max_width = 352 autoresize = yes text = "[Localize(Concatenate('TV_ENGINEERING_PROPOSAL_EXPAND_TEXT_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue))))]" align = nobaseline|left }
+	text_multi = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').IsSet, Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_concept_in_progress').IsSet))]" max_width = 352 autoresize = yes text = "[Localize(Concatenate('TV_ENGINEERING_WONDER_PROPOSAL_EXPAND_TEXT_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue))))]" align = nobaseline|left }
 # END GENERATED TV_WONDER_MECHANICS_PROPOSAL_EXPAND_TEXTS
 										}
 
@@ -774,7 +765,7 @@ organization_panel = {
 
 
 # BEGIN GENERATED TV_WONDER_MECHANICS_LOCKED_TEXTS
-	text_multi = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_display_id').IsSet, Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_concept_in_progress').IsSet))]" max_width = 352 autoresize = yes text = "[Localize(Concatenate('TV_ENGINEERING_LOCKED_TEXT_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_display_id').GetValue))))]" align = nobaseline|left }
+	text_multi = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_display_id').IsSet, Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_concept_in_progress').IsSet))]" max_width = 352 autoresize = yes text = "[Localize(Concatenate('TV_ENGINEERING_WONDER_LOCKED_TEXT_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_display_id').GetValue))))]" align = nobaseline|left }
 # END GENERATED TV_WONDER_MECHANICS_LOCKED_TEXTS
 									}
 								}
@@ -797,20 +788,20 @@ organization_panel = {
 widget = {
 	visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_slot_1').IsSet, Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_concept_in_progress').IsSet))]"
 	size = { 152 30 }
-	action_button_diamond = { size = { 152 30 } text = "[SelectGameConcept(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_slot_1').IsSet, Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_slot_1').GetValue))), 'tv_wonder_construction')]" title = "tv_wonder_select_proposal_slot_1" description = "tv_wonder_select_proposal_slot_1_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_select_proposal_slot_1" } }
-	action_button = { visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_slot_1').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_concept_in_progress').IsSet)), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_slot_1').GetValue))]" size = { 152 30 } using = button_regular_texture_alt_green using = action_button_common_template using = button_common_textobj_template fontsize = 13 text = "[SelectGameConcept(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_slot_1').IsSet, Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_slot_1').GetValue))), 'tv_wonder_construction')]" title = "tv_wonder_select_proposal_slot_1" description = "tv_wonder_select_proposal_slot_1_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_select_proposal_slot_1" } }
+	button_regular_diamond = { size = { 152 30 } text = "[SelectGameConcept(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_slot_1').IsSet, Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_slot_1').GetValue))), 'tv_wonder_construction')]" enabled = "[PdxGuiWidget.IsUberButtonEnabled]" scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_select_proposal_slot_1" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_select_proposal_slot_1" description = "tv_wonder_select_proposal_slot_1_desc" } tooltipwidget = { using = action_tooltip_pop_out } }
+	button_regular = { visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_slot_1').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_concept_in_progress').IsSet)), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_slot_1').GetValue))]" size = { 152 30 } using = button_regular_texture_alt_green using = button_common_textobj_template fontsize = 13 text = "[SelectGameConcept(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_slot_1').IsSet, Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_slot_1').GetValue))), 'tv_wonder_construction')]" enabled = "[PdxGuiWidget.IsUberButtonEnabled]" scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_select_proposal_slot_1" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_select_proposal_slot_1" description = "tv_wonder_select_proposal_slot_1_desc" } tooltipwidget = { using = action_tooltip_pop_out } }
 }
 widget = {
 	visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_slot_2').IsSet, Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_concept_in_progress').IsSet))]"
 	size = { 152 30 }
-	action_button_diamond = { size = { 152 30 } text = "[SelectGameConcept(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_slot_2').IsSet, Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_slot_2').GetValue))), 'tv_wonder_construction')]" title = "tv_wonder_select_proposal_slot_2" description = "tv_wonder_select_proposal_slot_2_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_select_proposal_slot_2" } }
-	action_button = { visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_slot_2').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_concept_in_progress').IsSet)), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_slot_2').GetValue))]" size = { 152 30 } using = button_regular_texture_alt_green using = action_button_common_template using = button_common_textobj_template fontsize = 13 text = "[SelectGameConcept(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_slot_2').IsSet, Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_slot_2').GetValue))), 'tv_wonder_construction')]" title = "tv_wonder_select_proposal_slot_2" description = "tv_wonder_select_proposal_slot_2_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_select_proposal_slot_2" } }
+	button_regular_diamond = { size = { 152 30 } text = "[SelectGameConcept(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_slot_2').IsSet, Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_slot_2').GetValue))), 'tv_wonder_construction')]" enabled = "[PdxGuiWidget.IsUberButtonEnabled]" scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_select_proposal_slot_2" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_select_proposal_slot_2" description = "tv_wonder_select_proposal_slot_2_desc" } tooltipwidget = { using = action_tooltip_pop_out } }
+	button_regular = { visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_slot_2').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_concept_in_progress').IsSet)), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_slot_2').GetValue))]" size = { 152 30 } using = button_regular_texture_alt_green using = button_common_textobj_template fontsize = 13 text = "[SelectGameConcept(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_slot_2').IsSet, Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_slot_2').GetValue))), 'tv_wonder_construction')]" enabled = "[PdxGuiWidget.IsUberButtonEnabled]" scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_select_proposal_slot_2" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_select_proposal_slot_2" description = "tv_wonder_select_proposal_slot_2_desc" } tooltipwidget = { using = action_tooltip_pop_out } }
 }
 widget = {
 	visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_slot_3').IsSet, Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_concept_in_progress').IsSet))]"
 	size = { 152 30 }
-	action_button_diamond = { size = { 152 30 } text = "[SelectGameConcept(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_slot_3').IsSet, Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_slot_3').GetValue))), 'tv_wonder_construction')]" title = "tv_wonder_select_proposal_slot_3" description = "tv_wonder_select_proposal_slot_3_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_select_proposal_slot_3" } }
-	action_button = { visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_slot_3').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_concept_in_progress').IsSet)), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_slot_3').GetValue))]" size = { 152 30 } using = button_regular_texture_alt_green using = action_button_common_template using = button_common_textobj_template fontsize = 13 text = "[SelectGameConcept(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_slot_3').IsSet, Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_slot_3').GetValue))), 'tv_wonder_construction')]" title = "tv_wonder_select_proposal_slot_3" description = "tv_wonder_select_proposal_slot_3_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_select_proposal_slot_3" } }
+	button_regular_diamond = { size = { 152 30 } text = "[SelectGameConcept(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_slot_3').IsSet, Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_slot_3').GetValue))), 'tv_wonder_construction')]" enabled = "[PdxGuiWidget.IsUberButtonEnabled]" scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_select_proposal_slot_3" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_select_proposal_slot_3" description = "tv_wonder_select_proposal_slot_3_desc" } tooltipwidget = { using = action_tooltip_pop_out } }
+	button_regular = { visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_slot_3').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_concept_in_progress').IsSet)), EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').GetValue, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_slot_3').GetValue))]" size = { 152 30 } using = button_regular_texture_alt_green using = button_common_textobj_template fontsize = 13 text = "[SelectGameConcept(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_slot_3').IsSet, Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_slot_3').GetValue))), 'tv_wonder_construction')]" enabled = "[PdxGuiWidget.IsUberButtonEnabled]" scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_select_proposal_slot_3" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_select_proposal_slot_3" description = "tv_wonder_select_proposal_slot_3_desc" } tooltipwidget = { using = action_tooltip_pop_out } }
 }
 # END GENERATED TV_WONDER_MECHANICS_PROPOSAL_BUTTONS
 							}
@@ -820,30 +811,21 @@ widget = {
 								visible = "[And(And(Or(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_proposal_slot_1').IsSet), LessThan_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_stage').GetValue, '(CFixedPoint)1.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_concept_in_progress').IsSet))]"
 								spacing = 4
 								expand = {}
-								action_button_diamond = {
+								button_regular = {
 									size = { 92 28 }
 									text = "TV_ENGINEERING_ACCEPT_BUTTON"
-									title = "tv_wonder_accept_proposal"
-									description = "tv_wonder_accept_proposal_desc"
-									actor = "[InternationalOrganizationsView.GetPlayer]"
-									left_action = { action_name = "tv_wonder_accept_proposal" }
-								}
-								action_button_diamond = {
+																	scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_accept_proposal" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_accept_proposal" description = "tv_wonder_accept_proposal_desc" } tooltipwidget = { using = action_tooltip_pop_out }
+}
+								button_regular = {
 									size = { 92 28 }
 									text = "TV_ENGINEERING_REFUTE_BUTTON"
-									title = "tv_wonder_refute_proposal"
-									description = "tv_wonder_refute_proposal_desc"
-									actor = "[InternationalOrganizationsView.GetPlayer]"
-									left_action = { action_name = "tv_wonder_refute_proposal" }
-								}
-								action_button_diamond = {
+																	scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_refute_proposal" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_refute_proposal" description = "tv_wonder_refute_proposal_desc" } tooltipwidget = { using = action_tooltip_pop_out }
+}
+								button_regular = {
 									size = { 92 28 }
 									text = "TV_ENGINEERING_BRIBE_BUTTON"
-									title = "tv_wonder_bribe_proposal"
-									description = "tv_wonder_bribe_proposal_desc"
-									actor = "[InternationalOrganizationsView.GetPlayer]"
-									left_action = { action_name = "tv_wonder_bribe_proposal" }
-								}
+																	scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_bribe_proposal" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_bribe_proposal" description = "tv_wonder_bribe_proposal_desc" } tooltipwidget = { using = action_tooltip_pop_out }
+}
 							}
 
 							widget = {
@@ -1389,9 +1371,9 @@ widget = {
 											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_nobles_demand').GetValue, '(CFixedPoint)12.0')]" size = { 244 34 } max_width = 244 autoresize = no text = "TV_ENGINEERING_SOLUTION_NOBLES_12" align = nobaseline|left }
 										}
 									}
-									action_button_diamond = { size = { 54 26 } text = "TV_ENGINEERING_ACCEPT_SHORT_BUTTON" title = "tv_wonder_accept_nobles_demand" description = "tv_wonder_accept_nobles_demand_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_accept_nobles_demand" } }
-									action_button_diamond = { size = { 54 26 } text = "TV_ENGINEERING_REFUTE_SHORT_BUTTON" title = "tv_wonder_refute_nobles_demand" description = "tv_wonder_refute_nobles_demand_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_refute_nobles_demand" } }
-									action_button_diamond = { size = { 54 26 } text = "TV_ENGINEERING_BRIBE_SHORT_BUTTON" title = "tv_wonder_bribe_nobles_demand" description = "tv_wonder_bribe_nobles_demand_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_bribe_nobles_demand" } }
+									button_regular = { size = { 54 26 } text = "TV_ENGINEERING_ACCEPT_SHORT_BUTTON"  scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_accept_nobles_demand" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_accept_nobles_demand" description = "tv_wonder_accept_nobles_demand_desc" } tooltipwidget = { using = action_tooltip_pop_out } }
+									button_regular = { size = { 54 26 } text = "TV_ENGINEERING_REFUTE_SHORT_BUTTON"  scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_refute_nobles_demand" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_refute_nobles_demand" description = "tv_wonder_refute_nobles_demand_desc" } tooltipwidget = { using = action_tooltip_pop_out } }
+									button_regular = { size = { 54 26 } text = "TV_ENGINEERING_BRIBE_SHORT_BUTTON"  scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_bribe_nobles_demand" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_bribe_nobles_demand" description = "tv_wonder_bribe_nobles_demand_desc" } tooltipwidget = { using = action_tooltip_pop_out } }
 								}
 								hbox = {
 									layoutpolicy_horizontal = expanding
@@ -1432,9 +1414,9 @@ widget = {
 											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_burghers_demand').GetValue, '(CFixedPoint)12.0')]" size = { 244 34 } max_width = 244 autoresize = no text = "TV_ENGINEERING_SOLUTION_BURGHERS_12" align = nobaseline|left }
 										}
 									}
-									action_button_diamond = { size = { 54 26 } text = "TV_ENGINEERING_ACCEPT_SHORT_BUTTON" title = "tv_wonder_accept_burghers_demand" description = "tv_wonder_accept_burghers_demand_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_accept_burghers_demand" } }
-									action_button_diamond = { size = { 54 26 } text = "TV_ENGINEERING_REFUTE_SHORT_BUTTON" title = "tv_wonder_refute_burghers_demand" description = "tv_wonder_refute_burghers_demand_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_refute_burghers_demand" } }
-									action_button_diamond = { size = { 54 26 } text = "TV_ENGINEERING_BRIBE_SHORT_BUTTON" title = "tv_wonder_bribe_burghers_demand" description = "tv_wonder_bribe_burghers_demand_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_bribe_burghers_demand" } }
+									button_regular = { size = { 54 26 } text = "TV_ENGINEERING_ACCEPT_SHORT_BUTTON"  scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_accept_burghers_demand" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_accept_burghers_demand" description = "tv_wonder_accept_burghers_demand_desc" } tooltipwidget = { using = action_tooltip_pop_out } }
+									button_regular = { size = { 54 26 } text = "TV_ENGINEERING_REFUTE_SHORT_BUTTON"  scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_refute_burghers_demand" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_refute_burghers_demand" description = "tv_wonder_refute_burghers_demand_desc" } tooltipwidget = { using = action_tooltip_pop_out } }
+									button_regular = { size = { 54 26 } text = "TV_ENGINEERING_BRIBE_SHORT_BUTTON"  scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_bribe_burghers_demand" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_bribe_burghers_demand" description = "tv_wonder_bribe_burghers_demand_desc" } tooltipwidget = { using = action_tooltip_pop_out } }
 								}
 								hbox = {
 									layoutpolicy_horizontal = expanding
@@ -1475,9 +1457,9 @@ widget = {
 											text_multi = { visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_clergy_demand').GetValue, '(CFixedPoint)12.0')]" size = { 244 34 } max_width = 244 autoresize = no text = "TV_ENGINEERING_SOLUTION_CLERGY_12" align = nobaseline|left }
 										}
 									}
-									action_button_diamond = { size = { 54 26 } text = "TV_ENGINEERING_ACCEPT_SHORT_BUTTON" title = "tv_wonder_accept_clergy_demand" description = "tv_wonder_accept_clergy_demand_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_accept_clergy_demand" } }
-									action_button_diamond = { size = { 54 26 } text = "TV_ENGINEERING_REFUTE_SHORT_BUTTON" title = "tv_wonder_refute_clergy_demand" description = "tv_wonder_refute_clergy_demand_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_refute_clergy_demand" } }
-									action_button_diamond = { size = { 54 26 } text = "TV_ENGINEERING_BRIBE_SHORT_BUTTON" title = "tv_wonder_bribe_clergy_demand" description = "tv_wonder_bribe_clergy_demand_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_bribe_clergy_demand" } }
+									button_regular = { size = { 54 26 } text = "TV_ENGINEERING_ACCEPT_SHORT_BUTTON"  scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_accept_clergy_demand" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_accept_clergy_demand" description = "tv_wonder_accept_clergy_demand_desc" } tooltipwidget = { using = action_tooltip_pop_out } }
+									button_regular = { size = { 54 26 } text = "TV_ENGINEERING_REFUTE_SHORT_BUTTON"  scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_refute_clergy_demand" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_refute_clergy_demand" description = "tv_wonder_refute_clergy_demand_desc" } tooltipwidget = { using = action_tooltip_pop_out } }
+									button_regular = { size = { 54 26 } text = "TV_ENGINEERING_BRIBE_SHORT_BUTTON"  scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_bribe_clergy_demand" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_bribe_clergy_demand" description = "tv_wonder_bribe_clergy_demand_desc" } tooltipwidget = { using = action_tooltip_pop_out } }
 								}
 							}
 					}
@@ -1702,9 +1684,9 @@ widget = {
 											layoutpolicy_vertical = fixed
 											size = { 170 30 }
 											spacing = 4
-											action_button_diamond = { size = { 54 26 } text = "TV_ENGINEERING_ACCEPT_SHORT_BUTTON" title = "tv_wonder_accept_nobles_demand" description = "tv_wonder_accept_nobles_demand_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_accept_nobles_demand" } }
-											action_button_diamond = { size = { 54 26 } text = "TV_ENGINEERING_REFUTE_SHORT_BUTTON" title = "tv_wonder_refute_nobles_demand" description = "tv_wonder_refute_nobles_demand_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_refute_nobles_demand" } }
-											action_button_diamond = { size = { 54 26 } text = "TV_ENGINEERING_BRIBE_SHORT_BUTTON" title = "tv_wonder_bribe_nobles_demand" description = "tv_wonder_bribe_nobles_demand_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_bribe_nobles_demand" } }
+										button_regular = { size = { 54 26 } text = "TV_ENGINEERING_ACCEPT_SHORT_BUTTON"  scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_accept_nobles_demand" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_accept_nobles_demand" description = "tv_wonder_accept_nobles_demand_desc" } tooltipwidget = { using = action_tooltip_pop_out } }
+										button_regular = { size = { 54 26 } text = "TV_ENGINEERING_REFUTE_SHORT_BUTTON"  scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_refute_nobles_demand" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_refute_nobles_demand" description = "tv_wonder_refute_nobles_demand_desc" } tooltipwidget = { using = action_tooltip_pop_out } }
+										button_regular = { size = { 54 26 } text = "TV_ENGINEERING_BRIBE_SHORT_BUTTON"  scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_bribe_nobles_demand" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_bribe_nobles_demand" description = "tv_wonder_bribe_nobles_demand_desc" } tooltipwidget = { using = action_tooltip_pop_out } }
 										}
 									}
 								}
@@ -1775,9 +1757,9 @@ widget = {
 											layoutpolicy_vertical = fixed
 											size = { 170 30 }
 											spacing = 4
-											action_button_diamond = { size = { 54 26 } text = "TV_ENGINEERING_ACCEPT_SHORT_BUTTON" title = "tv_wonder_accept_burghers_demand" description = "tv_wonder_accept_burghers_demand_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_accept_burghers_demand" } }
-											action_button_diamond = { size = { 54 26 } text = "TV_ENGINEERING_REFUTE_SHORT_BUTTON" title = "tv_wonder_refute_burghers_demand" description = "tv_wonder_refute_burghers_demand_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_refute_burghers_demand" } }
-											action_button_diamond = { size = { 54 26 } text = "TV_ENGINEERING_BRIBE_SHORT_BUTTON" title = "tv_wonder_bribe_burghers_demand" description = "tv_wonder_bribe_burghers_demand_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_bribe_burghers_demand" } }
+										button_regular = { size = { 54 26 } text = "TV_ENGINEERING_ACCEPT_SHORT_BUTTON"  scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_accept_burghers_demand" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_accept_burghers_demand" description = "tv_wonder_accept_burghers_demand_desc" } tooltipwidget = { using = action_tooltip_pop_out } }
+										button_regular = { size = { 54 26 } text = "TV_ENGINEERING_REFUTE_SHORT_BUTTON"  scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_refute_burghers_demand" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_refute_burghers_demand" description = "tv_wonder_refute_burghers_demand_desc" } tooltipwidget = { using = action_tooltip_pop_out } }
+										button_regular = { size = { 54 26 } text = "TV_ENGINEERING_BRIBE_SHORT_BUTTON"  scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_bribe_burghers_demand" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_bribe_burghers_demand" description = "tv_wonder_bribe_burghers_demand_desc" } tooltipwidget = { using = action_tooltip_pop_out } }
 										}
 									}
 								}
@@ -1848,37 +1830,27 @@ widget = {
 											layoutpolicy_vertical = fixed
 											size = { 170 30 }
 											spacing = 4
-											action_button_diamond = { size = { 54 26 } text = "TV_ENGINEERING_ACCEPT_SHORT_BUTTON" title = "tv_wonder_accept_clergy_demand" description = "tv_wonder_accept_clergy_demand_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_accept_clergy_demand" } }
-											action_button_diamond = { size = { 54 26 } text = "TV_ENGINEERING_REFUTE_SHORT_BUTTON" title = "tv_wonder_refute_clergy_demand" description = "tv_wonder_refute_clergy_demand_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_refute_clergy_demand" } }
-											action_button_diamond = { size = { 54 26 } text = "TV_ENGINEERING_BRIBE_SHORT_BUTTON" title = "tv_wonder_bribe_clergy_demand" description = "tv_wonder_bribe_clergy_demand_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_bribe_clergy_demand" } }
+										button_regular = { size = { 54 26 } text = "TV_ENGINEERING_ACCEPT_SHORT_BUTTON"  scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_accept_clergy_demand" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_accept_clergy_demand" description = "tv_wonder_accept_clergy_demand_desc" } tooltipwidget = { using = action_tooltip_pop_out } }
+										button_regular = { size = { 54 26 } text = "TV_ENGINEERING_REFUTE_SHORT_BUTTON"  scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_refute_clergy_demand" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_refute_clergy_demand" description = "tv_wonder_refute_clergy_demand_desc" } tooltipwidget = { using = action_tooltip_pop_out } }
+										button_regular = { size = { 54 26 } text = "TV_ENGINEERING_BRIBE_SHORT_BUTTON"  scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_bribe_clergy_demand" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_bribe_clergy_demand" description = "tv_wonder_bribe_clergy_demand_desc" } tooltipwidget = { using = action_tooltip_pop_out } }
 										}
 									}
 								}
 							}
 						}
 
-						action_button_diamond = {
+						button_regular = {
 							size = { 470 30 }
 							visible = "[EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_stage').GetValue, '(CFixedPoint)1.0')]"
 							text = "TV_ENGINEERING_END_DEBATE_BUTTON"
-							title = "tv_wonder_end_debate"
-							description = "tv_wonder_end_debate_desc"
-							actor = "[InternationalOrganizationsView.GetPlayer]"
-							left_action = {
-								action_name = "tv_wonder_end_debate"
-							}
-						}
-						action_button_diamond = {
+												scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_end_debate" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_end_debate" description = "tv_wonder_end_debate_desc" } tooltipwidget = { using = action_tooltip_pop_out }
+}
+						button_regular = {
 							size = { 470 30 }
 							visible = "[GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_stage').GetValue, '(CFixedPoint)2.0')]"
 							text = "TV_ENGINEERING_ABANDON_WONDER_BUTTON"
-							title = "tv_wonder_abandon"
-							description = "tv_wonder_abandon_desc"
-							actor = "[InternationalOrganizationsView.GetPlayer]"
-							left_action = {
-								action_name = "tv_wonder_abandon"
-							}
-						}
+												scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_abandon" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_abandon" description = "tv_wonder_abandon_desc" } tooltipwidget = { using = action_tooltip_pop_out }
+}
 					}
 				}
 			}
@@ -2337,26 +2309,16 @@ widget = {
 								visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet)]"
 								layoutpolicy_horizontal = expanding
 								spacing = 6
-								action_button_diamond = {
+								button_regular = {
 									size = { 228 30 }
 									text = "TV_ENGINEERING_SELECT_SURVEY_SITE_BUTTON"
-									title = "tv_wonder_start_survey"
-									description = "tv_wonder_start_survey_desc"
-									actor = "[InternationalOrganizationsView.GetPlayer]"
-									left_action = {
-										action_name = "tv_wonder_start_survey"
-									}
-								}
-								action_button_diamond = {
+																scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_start_survey" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_start_survey" description = "tv_wonder_start_survey_desc" } tooltipwidget = { using = action_tooltip_pop_out }
+}
+								button_regular = {
 									size = { 228 30 }
 									text = "TV_ENGINEERING_RERUN_SURVEY_BUTTON"
-									title = "tv_wonder_rerun_survey"
-									description = "tv_wonder_rerun_survey_desc"
-									actor = "[InternationalOrganizationsView.GetPlayer]"
-									left_action = {
-										action_name = "tv_wonder_rerun_survey"
-									}
-								}
+																scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_rerun_survey" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_rerun_survey" description = "tv_wonder_rerun_survey_desc" } tooltipwidget = { using = action_tooltip_pop_out }
+}
 							}
 							hbox = {
 								layoutpolicy_horizontal = expanding
@@ -2490,17 +2452,12 @@ widget = {
 									}
 								}
 							}
-							action_button_diamond = {
+							button_regular = {
 								visible = "[Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_site').IsSet)]"
 								size = { 462 30 }
 								text = "TV_ENGINEERING_CONFIRM_SURVEY_SITE_BUTTON"
-								title = "tv_wonder_select_construction_site"
-								description = "tv_wonder_select_construction_site_desc"
-								actor = "[InternationalOrganizationsView.GetPlayer]"
-								left_action = {
-									action_name = "tv_wonder_select_construction_site"
-								}
-							}
+																scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_select_construction_site" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_select_construction_site" description = "tv_wonder_select_construction_site_desc" } tooltipwidget = { using = action_tooltip_pop_out }
+}
 						}
 					}
 				}
@@ -3357,7 +3314,7 @@ widget = {
 												layoutpolicy_horizontal = expanding
 												ignoreinvisible = no
 												spacing = 5
-												action_button_diamond = { size = { 48 28 } text = "TV_ENGINEERING_BUILD_SHORT_BUTTON" title = "tv_wonder_begin_foundation" description = "tv_wonder_begin_foundation_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_begin_foundation" } }
+														button_regular = { size = { 48 28 } text = "TV_ENGINEERING_BUILD_SHORT_BUTTON"  scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_begin_foundation" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_begin_foundation" description = "tv_wonder_begin_foundation_desc" } tooltipwidget = { using = action_tooltip_pop_out } }
 											text_single = { minimumsize = { 80 28 } text = "TV_ENGINEERING_CONSTRUCTION_PART_FOUNDATION" align = nobaseline|left }
 											hbox = {
 											ignoreinvisible = no
@@ -3411,7 +3368,7 @@ widget = {
 										layoutpolicy_horizontal = expanding
 										ignoreinvisible = no
 										spacing = 5
-										action_button_diamond = { size = { 48 28 } text = "TV_ENGINEERING_BUILD_SHORT_BUTTON" title = "tv_wonder_begin_body" description = "tv_wonder_begin_body_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_begin_body" } }
+														button_regular = { size = { 48 28 } text = "TV_ENGINEERING_BUILD_SHORT_BUTTON"  scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_begin_body" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_begin_body" description = "tv_wonder_begin_body_desc" } tooltipwidget = { using = action_tooltip_pop_out } }
 										text_single = { minimumsize = { 80 28 } text = "TV_ENGINEERING_CONSTRUCTION_PART_BODY" align = nobaseline|left }
 										hbox = {
 											ignoreinvisible = no
@@ -3465,7 +3422,7 @@ widget = {
 										layoutpolicy_horizontal = expanding
 										ignoreinvisible = no
 										spacing = 5
-										action_button_diamond = { size = { 48 28 } text = "TV_ENGINEERING_BUILD_SHORT_BUTTON" title = "tv_wonder_begin_function" description = "tv_wonder_begin_function_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_begin_function" } }
+														button_regular = { size = { 48 28 } text = "TV_ENGINEERING_BUILD_SHORT_BUTTON"  scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_begin_function" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_begin_function" description = "tv_wonder_begin_function_desc" } tooltipwidget = { using = action_tooltip_pop_out } }
 										text_single = { minimumsize = { 80 28 } text = "TV_ENGINEERING_CONSTRUCTION_PART_FUNCTION" align = nobaseline|left }
 										hbox = {
 											ignoreinvisible = no
@@ -3519,7 +3476,7 @@ widget = {
 										layoutpolicy_horizontal = expanding
 										ignoreinvisible = no
 										spacing = 5
-										action_button_diamond = { size = { 48 28 } text = "TV_ENGINEERING_BUILD_SHORT_BUTTON" title = "tv_wonder_begin_decoration" description = "tv_wonder_begin_decoration_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_begin_decoration" } }
+														button_regular = { size = { 48 28 } text = "TV_ENGINEERING_BUILD_SHORT_BUTTON"  scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_begin_decoration" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_begin_decoration" description = "tv_wonder_begin_decoration_desc" } tooltipwidget = { using = action_tooltip_pop_out } }
 										text_single = { minimumsize = { 80 28 } text = "TV_ENGINEERING_CONSTRUCTION_PART_DECORATION" align = nobaseline|left }
 										hbox = {
 											ignoreinvisible = no
@@ -3613,14 +3570,11 @@ widget = {
 											align = nobaseline|right
 										}
 									}
-									action_button_diamond = {
+									button_regular = {
 										size = { 462 30 }
 										text = "TV_ENGINEERING_FINISH_CONSTRUCTION_BUTTON"
-										title = "tv_wonder_finish_construction"
-										description = "tv_wonder_finish_construction_desc"
-										actor = "[InternationalOrganizationsView.GetPlayer]"
-										left_action = { action_name = "tv_wonder_finish_construction" }
-									}
+																						scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_finish_construction" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_finish_construction" description = "tv_wonder_finish_construction_desc" } tooltipwidget = { using = action_tooltip_pop_out }
+}
 								}
 							}
 						}
@@ -3918,8 +3872,8 @@ widget = {
 widget = {
 	visible = "[And(And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_style_count').IsSet), InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').IsSet), Not(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').GetValue, '(CFixedPoint)1.0'))), GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_style_count').GetValue, '(CFixedPoint)1.0'))]"
 	size = { 150 30 }
-	action_button_diamond = { size = { 150 30 } text = "[SelectGameConcept(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_concept_display_id').IsSet, Concatenate(Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_concept_display_id').GetValue))), '_ritual_1'), 'tv_wonder_construction')]" title = "tv_wonder_choose_ceremony_style_1" description = "tv_wonder_choose_ceremony_style_1_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_choose_ceremony_style_1" } }
-	action_button = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)1.0'))]" size = { 150 30 } using = button_regular_texture_alt_green using = action_button_common_template using = button_common_textobj_template fontsize = 13 text = "[SelectGameConcept(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_concept_display_id').IsSet, Concatenate(Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_concept_display_id').GetValue))), '_ritual_1'), 'tv_wonder_construction')]" title = "tv_wonder_choose_ceremony_style_1" description = "tv_wonder_choose_ceremony_style_1_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_choose_ceremony_style_1" } }
+	button_regular_diamond = { size = { 150 30 } text = "[SelectGameConcept(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_concept_display_id').IsSet, Concatenate(Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_concept_display_id').GetValue))), '_ritual_1'), 'tv_wonder_construction')]" enabled = "[PdxGuiWidget.IsUberButtonEnabled]" scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_choose_ceremony_style_1" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_choose_ceremony_style_1" description = "tv_wonder_choose_ceremony_style_1_desc" } tooltipwidget = { using = action_tooltip_pop_out } }
+	button_regular = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)1.0'))]" size = { 150 30 } using = button_regular_texture_alt_green using = button_common_textobj_template fontsize = 13 text = "[SelectGameConcept(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_concept_display_id').IsSet, Concatenate(Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_concept_display_id').GetValue))), '_ritual_1'), 'tv_wonder_construction')]" enabled = "[PdxGuiWidget.IsUberButtonEnabled]" scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_choose_ceremony_style_1" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_choose_ceremony_style_1" description = "tv_wonder_choose_ceremony_style_1_desc" } tooltipwidget = { using = action_tooltip_pop_out } }
 }
 # END GENERATED TV_WONDER_MECHANICS_CEREMONY_STYLE_1_BUTTONS
 
@@ -3936,8 +3890,8 @@ widget = {
 widget = {
 	visible = "[And(And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_style_count').IsSet), InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').IsSet), Not(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').GetValue, '(CFixedPoint)1.0'))), GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_style_count').GetValue, '(CFixedPoint)2.0'))]"
 	size = { 150 30 }
-	action_button_diamond = { size = { 150 30 } text = "[SelectGameConcept(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_concept_display_id').IsSet, Concatenate(Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_concept_display_id').GetValue))), '_ritual_2'), 'tv_wonder_construction')]" title = "tv_wonder_choose_ceremony_style_2" description = "tv_wonder_choose_ceremony_style_2_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_choose_ceremony_style_2" } }
-	action_button = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)2.0'))]" size = { 150 30 } using = button_regular_texture_alt_green using = action_button_common_template using = button_common_textobj_template fontsize = 13 text = "[SelectGameConcept(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_concept_display_id').IsSet, Concatenate(Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_concept_display_id').GetValue))), '_ritual_2'), 'tv_wonder_construction')]" title = "tv_wonder_choose_ceremony_style_2" description = "tv_wonder_choose_ceremony_style_2_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_choose_ceremony_style_2" } }
+	button_regular_diamond = { size = { 150 30 } text = "[SelectGameConcept(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_concept_display_id').IsSet, Concatenate(Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_concept_display_id').GetValue))), '_ritual_2'), 'tv_wonder_construction')]" enabled = "[PdxGuiWidget.IsUberButtonEnabled]" scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_choose_ceremony_style_2" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_choose_ceremony_style_2" description = "tv_wonder_choose_ceremony_style_2_desc" } tooltipwidget = { using = action_tooltip_pop_out } }
+	button_regular = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)2.0'))]" size = { 150 30 } using = button_regular_texture_alt_green using = button_common_textobj_template fontsize = 13 text = "[SelectGameConcept(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_concept_display_id').IsSet, Concatenate(Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_concept_display_id').GetValue))), '_ritual_2'), 'tv_wonder_construction')]" enabled = "[PdxGuiWidget.IsUberButtonEnabled]" scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_choose_ceremony_style_2" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_choose_ceremony_style_2" description = "tv_wonder_choose_ceremony_style_2_desc" } tooltipwidget = { using = action_tooltip_pop_out } }
 }
 # END GENERATED TV_WONDER_MECHANICS_CEREMONY_STYLE_2_BUTTONS
 
@@ -3954,8 +3908,8 @@ widget = {
 widget = {
 	visible = "[And(And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_style_count').IsSet), InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').IsSet), Not(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').GetValue, '(CFixedPoint)1.0'))), GreaterThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_style_count').GetValue, '(CFixedPoint)3.0'))]"
 	size = { 150 30 }
-	action_button_diamond = { size = { 150 30 } text = "[SelectGameConcept(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_concept_display_id').IsSet, Concatenate(Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_concept_display_id').GetValue))), '_ritual_3'), 'tv_wonder_construction')]" title = "tv_wonder_choose_ceremony_style_3" description = "tv_wonder_choose_ceremony_style_3_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_choose_ceremony_style_3" } }
-	action_button = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)3.0'))]" size = { 150 30 } using = button_regular_texture_alt_green using = action_button_common_template using = button_common_textobj_template fontsize = 13 text = "[SelectGameConcept(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_concept_display_id').IsSet, Concatenate(Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_concept_display_id').GetValue))), '_ritual_3'), 'tv_wonder_construction')]" title = "tv_wonder_choose_ceremony_style_3" description = "tv_wonder_choose_ceremony_style_3_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_choose_ceremony_style_3" } }
+	button_regular_diamond = { size = { 150 30 } text = "[SelectGameConcept(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_concept_display_id').IsSet, Concatenate(Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_concept_display_id').GetValue))), '_ritual_3'), 'tv_wonder_construction')]" enabled = "[PdxGuiWidget.IsUberButtonEnabled]" scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_choose_ceremony_style_3" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_choose_ceremony_style_3" description = "tv_wonder_choose_ceremony_style_3_desc" } tooltipwidget = { using = action_tooltip_pop_out } }
+	button_regular = { visible = "[And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').GetValue, '(CFixedPoint)3.0'))]" size = { 150 30 } using = button_regular_texture_alt_green using = button_common_textobj_template fontsize = 13 text = "[SelectGameConcept(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_concept_display_id').IsSet, Concatenate(Concatenate('tv_wonder_display_', ToString_int32(FixedPointToInt(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_concept_display_id').GetValue))), '_ritual_3'), 'tv_wonder_construction')]" enabled = "[PdxGuiWidget.IsUberButtonEnabled]" scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_choose_ceremony_style_3" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_choose_ceremony_style_3" description = "tv_wonder_choose_ceremony_style_3_desc" } tooltipwidget = { using = action_tooltip_pop_out } }
 }
 # END GENERATED TV_WONDER_MECHANICS_CEREMONY_STYLE_3_BUTTONS
 									}
@@ -4711,14 +4665,12 @@ widget = {
 						size = { 64 64 }
 						datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_1').GetCharacter]"
 					}
-					action_button_diamond = {
+					button_regular = {
 						visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)1.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_1').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_1_done').IsSet))]"
 						size = { 64 64 }
 						raw_text = "@characters!"
-						title = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_1"
-						description = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_1_DESC"
-						actor = "[InternationalOrganizationsView.GetPlayer]"
-						left_action = { action_name = "tv_wonder_hagia_assign_step_1" }
+						scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_hagia_assign_step_1" actor = "[InternationalOrganizationsView.GetPlayer]" } tooltipwidget = { using = action_tooltip_pop_out }
+						button_tooltip_override = { title = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_1" description = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_1_DESC" }
 					}
 					widget = {
 						visible = "[Not(Or(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_1').IsSet, And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)1.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_1').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_1_done').IsSet))))]"
@@ -4773,14 +4725,12 @@ widget = {
 						size = { 64 64 }
 						datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_2').GetCharacter]"
 					}
-					action_button_diamond = {
+					button_regular = {
 						visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)2.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_2').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_2_done').IsSet))]"
 						size = { 64 64 }
 						raw_text = "@characters!"
-						title = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_2"
-						description = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_2_DESC"
-						actor = "[InternationalOrganizationsView.GetPlayer]"
-						left_action = { action_name = "tv_wonder_hagia_assign_step_2" }
+						scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_hagia_assign_step_2" actor = "[InternationalOrganizationsView.GetPlayer]" } tooltipwidget = { using = action_tooltip_pop_out }
+						button_tooltip_override = { title = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_2" description = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_2_DESC" }
 					}
 					widget = {
 						visible = "[Not(Or(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_2').IsSet, And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)2.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_2').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_2_done').IsSet))))]"
@@ -4835,14 +4785,12 @@ widget = {
 						size = { 64 64 }
 						datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_3').GetCharacter]"
 					}
-					action_button_diamond = {
+					button_regular = {
 						visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)3.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_3').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_3_done').IsSet))]"
 						size = { 64 64 }
 						raw_text = "@characters!"
-						title = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_3"
-						description = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_3_DESC"
-						actor = "[InternationalOrganizationsView.GetPlayer]"
-						left_action = { action_name = "tv_wonder_hagia_assign_step_3" }
+						scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_hagia_assign_step_3" actor = "[InternationalOrganizationsView.GetPlayer]" } tooltipwidget = { using = action_tooltip_pop_out }
+						button_tooltip_override = { title = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_3" description = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_3_DESC" }
 					}
 					widget = {
 						visible = "[Not(Or(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_3').IsSet, And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)3.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_3').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_3_done').IsSet))))]"
@@ -4897,14 +4845,12 @@ widget = {
 						size = { 64 64 }
 						datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_4').GetCharacter]"
 					}
-					action_button_diamond = {
+					button_regular = {
 						visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)4.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_4').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_4_done').IsSet))]"
 						size = { 64 64 }
 						raw_text = "@characters!"
-						title = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_4"
-						description = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_4_DESC"
-						actor = "[InternationalOrganizationsView.GetPlayer]"
-						left_action = { action_name = "tv_wonder_hagia_assign_step_4" }
+						scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_hagia_assign_step_4" actor = "[InternationalOrganizationsView.GetPlayer]" } tooltipwidget = { using = action_tooltip_pop_out }
+						button_tooltip_override = { title = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_4" description = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_4_DESC" }
 					}
 					widget = {
 						visible = "[Not(Or(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_4').IsSet, And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)4.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_4').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_4_done').IsSet))))]"
@@ -4959,14 +4905,12 @@ widget = {
 						size = { 64 64 }
 						datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_5').GetCharacter]"
 					}
-					action_button_diamond = {
+					button_regular = {
 						visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)5.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_5').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_5_done').IsSet))]"
 						size = { 64 64 }
 						raw_text = "@characters!"
-						title = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_5"
-						description = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_5_DESC"
-						actor = "[InternationalOrganizationsView.GetPlayer]"
-						left_action = { action_name = "tv_wonder_hagia_assign_step_5" }
+						scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_hagia_assign_step_5" actor = "[InternationalOrganizationsView.GetPlayer]" } tooltipwidget = { using = action_tooltip_pop_out }
+						button_tooltip_override = { title = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_5" description = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_5_DESC" }
 					}
 					widget = {
 						visible = "[Not(Or(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_5').IsSet, And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)5.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_5').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_5_done').IsSet))))]"
@@ -5021,14 +4965,12 @@ widget = {
 						size = { 64 64 }
 						datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_6').GetCharacter]"
 					}
-					action_button_diamond = {
+					button_regular = {
 						visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)6.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_6').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_6_done').IsSet))]"
 						size = { 64 64 }
 						raw_text = "@characters!"
-						title = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_6"
-						description = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_6_DESC"
-						actor = "[InternationalOrganizationsView.GetPlayer]"
-						left_action = { action_name = "tv_wonder_hagia_assign_step_6" }
+						scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_hagia_assign_step_6" actor = "[InternationalOrganizationsView.GetPlayer]" } tooltipwidget = { using = action_tooltip_pop_out }
+						button_tooltip_override = { title = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_6" description = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_6_DESC" }
 					}
 					widget = {
 						visible = "[Not(Or(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_6').IsSet, And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)6.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_6').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_6_done').IsSet))))]"
@@ -5083,14 +5025,12 @@ widget = {
 						size = { 64 64 }
 						datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_7').GetCharacter]"
 					}
-					action_button_diamond = {
+					button_regular = {
 						visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)7.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_7').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_7_done').IsSet))]"
 						size = { 64 64 }
 						raw_text = "@characters!"
-						title = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_7"
-						description = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_7_DESC"
-						actor = "[InternationalOrganizationsView.GetPlayer]"
-						left_action = { action_name = "tv_wonder_hagia_assign_step_7" }
+						scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_hagia_assign_step_7" actor = "[InternationalOrganizationsView.GetPlayer]" } tooltipwidget = { using = action_tooltip_pop_out }
+						button_tooltip_override = { title = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_7" description = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_7_DESC" }
 					}
 					widget = {
 						visible = "[Not(Or(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_7').IsSet, And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)7.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_7').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_7_done').IsSet))))]"
@@ -5145,14 +5085,12 @@ widget = {
 						size = { 64 64 }
 						datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_8').GetCharacter]"
 					}
-					action_button_diamond = {
+					button_regular = {
 						visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)8.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_8').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_8_done').IsSet))]"
 						size = { 64 64 }
 						raw_text = "@characters!"
-						title = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_8"
-						description = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_8_DESC"
-						actor = "[InternationalOrganizationsView.GetPlayer]"
-						left_action = { action_name = "tv_wonder_hagia_assign_step_8" }
+						scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_hagia_assign_step_8" actor = "[InternationalOrganizationsView.GetPlayer]" } tooltipwidget = { using = action_tooltip_pop_out }
+						button_tooltip_override = { title = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_8" description = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_8_DESC" }
 					}
 					widget = {
 						visible = "[Not(Or(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_8').IsSet, And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)8.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_8').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_8_done').IsSet))))]"
@@ -6275,11 +6213,11 @@ vbox = {
 
 
 # BEGIN GENERATED TV_WONDER_MECHANICS_HOLD_BUTTONS
-	action_button_diamond = { visible = "[Or(And(And(And3(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, LessThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)236.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_finalized').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ritual_in_progress').IsSet)), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').IsSet, Not(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').GetValue, '(CFixedPoint)1.0')))), InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_cmm_skip_ceremony').IsSet), And3(And(And3(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, LessThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)236.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_finalized').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ritual_in_progress').IsSet)), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').IsSet, Not(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').GetValue, '(CFixedPoint)1.0')))), InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').IsSet, Not(Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').GetValue, '(CFixedPoint)2.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').GetValue, '(CFixedPoint)3.0'))))))]" size = { 180 30 } text = "TV_ENGINEERING_HOLD_CEREMONY_BUTTON" title = "tv_wonder_confirm_ceremony" description = "tv_wonder_confirm_ceremony_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_confirm_ceremony" } }
-	action_button_diamond = { visible = "[And3(And(And3(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, LessThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)236.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_finalized').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ritual_in_progress').IsSet)), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').IsSet, Not(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').GetValue, '(CFixedPoint)1.0')))), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').GetValue, '(CFixedPoint)2.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_cmm_skip_ceremony').IsSet))]" size = { 180 30 } text = "TV_ENGINEERING_HOLD_CEREMONY_BUTTON" title = "tv_wonder_confirm_ceremony" description = "tv_wonder_confirm_ceremony_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_confirm_ceremony_scaled_gold" } }
-	action_button_diamond = { visible = "[And3(And(And3(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, LessThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)236.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_finalized').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ritual_in_progress').IsSet)), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').IsSet, Not(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').GetValue, '(CFixedPoint)1.0')))), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').GetValue, '(CFixedPoint)3.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_cmm_skip_ceremony').IsSet))]" size = { 180 30 } text = "TV_ENGINEERING_HOLD_CEREMONY_BUTTON" title = "tv_wonder_confirm_ceremony" description = "tv_wonder_confirm_ceremony_desc" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_confirm_ceremony_prestige" } }
-	action_button_diamond = { visible = "[And(And3(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, LessThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)236.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_finalized').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ritual_in_progress').IsSet)), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)101.0')))]" size = { 180 30 } text = "TV_ENGINEERING_PHAROS_BUILD_BUTTON" title = "TV_ENGINEERING_PHAROS_BUILD_BUTTON" description = "TV_ENGINEERING_PHAROS_BUILD_BUTTON_DESC" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_confirm_ceremony" } }
-	action_button_diamond = { visible = "[And(And3(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, LessThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)236.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_finalized').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ritual_in_progress').IsSet)), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)102.0')))]" size = { 180 30 } text = "TV_ENGINEERING_HAGIA_START_BUTTON" title = "TV_ENGINEERING_HAGIA_START_BUTTON" description = "TV_ENGINEERING_HAGIA_START_BUTTON_DESC" actor = "[InternationalOrganizationsView.GetPlayer]" left_action = { action_name = "tv_wonder_confirm_ceremony" } }
+	button_regular = { visible = "[Or(And(And(And3(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, LessThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)236.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_finalized').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ritual_in_progress').IsSet)), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').IsSet, Not(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').GetValue, '(CFixedPoint)1.0')))), InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_cmm_skip_ceremony').IsSet), And3(And(And3(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, LessThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)236.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_finalized').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ritual_in_progress').IsSet)), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').IsSet, Not(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').GetValue, '(CFixedPoint)1.0')))), InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').IsSet, Not(Or(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').GetValue, '(CFixedPoint)2.0')), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').GetValue, '(CFixedPoint)3.0'))))))]" size = { 180 30 } enabled = "[PdxGuiWidget.IsUberButtonEnabled]" text = "TV_ENGINEERING_HOLD_CEREMONY_BUTTON" scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_confirm_ceremony" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_confirm_ceremony" description = "tv_wonder_confirm_ceremony_desc" } tooltipwidget = { using = action_tooltip_pop_out } }
+	button_regular = { visible = "[And3(And(And3(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, LessThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)236.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_finalized').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ritual_in_progress').IsSet)), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').IsSet, Not(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').GetValue, '(CFixedPoint)1.0')))), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').GetValue, '(CFixedPoint)2.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_cmm_skip_ceremony').IsSet))]" size = { 180 30 } enabled = "[PdxGuiWidget.IsUberButtonEnabled]" text = "TV_ENGINEERING_HOLD_CEREMONY_BUTTON" scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_confirm_ceremony_scaled_gold" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_confirm_ceremony" description = "tv_wonder_confirm_ceremony_desc" } tooltipwidget = { using = action_tooltip_pop_out } }
+	button_regular = { visible = "[And3(And(And3(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, LessThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)236.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_finalized').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ritual_in_progress').IsSet)), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').IsSet, Not(EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked_is_unique').GetValue, '(CFixedPoint)1.0')))), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_selected_ritual_cost_type').GetValue, '(CFixedPoint)3.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_cmm_skip_ceremony').IsSet))]" size = { 180 30 } enabled = "[PdxGuiWidget.IsUberButtonEnabled]" text = "TV_ENGINEERING_HOLD_CEREMONY_BUTTON" scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_confirm_ceremony_prestige" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "tv_wonder_confirm_ceremony" description = "tv_wonder_confirm_ceremony_desc" } tooltipwidget = { using = action_tooltip_pop_out } }
+	button_regular = { visible = "[And(And3(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, LessThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)236.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_finalized').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ritual_in_progress').IsSet)), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)101.0')))]" size = { 180 30 } enabled = "[PdxGuiWidget.IsUberButtonEnabled]" text = "TV_ENGINEERING_PHAROS_BUILD_BUTTON" scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_confirm_ceremony" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "TV_ENGINEERING_PHAROS_BUILD_BUTTON" description = "TV_ENGINEERING_PHAROS_BUILD_BUTTON_DESC" } tooltipwidget = { using = action_tooltip_pop_out } }
+	button_regular = { visible = "[And(And3(And3(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ceremony_style').IsSet, LessThanOrEqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)236.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_finalized').IsSet), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_ritual_in_progress').IsSet)), And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_locked').GetValue, '(CFixedPoint)102.0')))]" size = { 180 30 } enabled = "[PdxGuiWidget.IsUberButtonEnabled]" text = "TV_ENGINEERING_HAGIA_START_BUTTON" scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_confirm_ceremony" actor = "[InternationalOrganizationsView.GetPlayer]" } button_tooltip_override = { title = "TV_ENGINEERING_HAGIA_START_BUTTON" description = "TV_ENGINEERING_HAGIA_START_BUTTON_DESC" } tooltipwidget = { using = action_tooltip_pop_out } }
 # END GENERATED TV_WONDER_MECHANICS_HOLD_BUTTONS
 									}
 

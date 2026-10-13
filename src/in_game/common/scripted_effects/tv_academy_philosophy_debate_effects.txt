@@ -11136,31 +11136,6 @@ tv_academy_debate_action_trigger_new_world_positive_on_exploration_success_1_eff
 	}
 }
 
-tv_academy_debate_action_trigger_new_world_positive_on_colonial_charter_finished_2_effect = {
-	# Semantic condition: complete_colonial_charter
-	if = {
-		limit = {
-			tv_academy_debate_local_scoring_active_trigger = yes
-			any_international_organizations_member_of = {
-				international_organization_type = international_organization_type:tv_academy_of_sciences
-				leader_country ?= root
-			}
-			var:tv_academy_philosophy_current ?= 4
-		}
-		random_list = {
-			25 = {
-				tv_academy_debate_change_local_progress_effect = { value = 5 }
-				tv_academy_philosophy_check_debate_endpoint_effect = yes
-				if = {
-					limit = { NOT = { has_variable = tv_academy_philosophy_result_pending } }
-					trigger_event_non_silently = { id = tv_academy_debate.116 days = 1 }
-				}
-			}
-			75 = { }
-		}
-	}
-}
-
 tv_academy_debate_action_trigger_new_world_negative_on_colonial_charter_failed_1_effect = {
 	# Semantic condition: fail_colonial_charter
 	if = {
@@ -11886,10 +11861,6 @@ tv_academy_debate_action_triggers_on_bankruptcy_effect = {
 
 tv_academy_debate_action_triggers_on_exploration_success_effect = {
 	tv_academy_debate_action_trigger_new_world_positive_on_exploration_success_1_effect = yes
-}
-
-tv_academy_debate_action_triggers_on_colonial_charter_finished_effect = {
-	tv_academy_debate_action_trigger_new_world_positive_on_colonial_charter_finished_2_effect = yes
 }
 
 tv_academy_debate_action_triggers_on_colonial_charter_failed_effect = {

@@ -1,10 +1,10 @@
 {
   "name": "Great Project",
   "id": "hades.towards_victory.great_project",
-  "version": "260805",
+  "version": "261014",
   "game_id": "eu5",
-  "supported_game_version": "1.3.*",
-  "short_description": "Standalone Engineering Department international organization and Wonder Construction mechanic: propose, survey, and build 54 generic and 123 historical unique wonders. Requires Community Mod Framework; works with or without Towards Victory.",
+  "supported_game_version": "1.4.*",
+  "short_description": "Standalone Engineering Department and Wonder Construction mechanic. Requires Community Mod Framework and Construction Manager; works with or without Towards Victory.",
   "tags": [
     "Buildings",
     "Historical"
@@ -16,6 +16,13 @@
       "display_name": "Community Mod Framework",
       "resource_type": "mod",
       "version": "2.*"
+    },
+    {
+      "rel_type": "dependency",
+      "id": "romaimperator.construction_manager",
+      "display_name": "Construction Manager",
+      "resource_type": "mod",
+      "version": "*"
     }
   ],
   "game_custom_data": {

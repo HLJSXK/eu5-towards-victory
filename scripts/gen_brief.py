@@ -212,7 +212,7 @@ def main() -> None:
         index_path = INDEX_DIR / fname
         count = "missing"
         if index_path.exists():
-            count = str(sum(1 for ln in index_path.read_text(encoding="utf-8").splitlines() if ln.strip()))
+            count = str(sum(1 for ln in index_path.read_text(encoding="utf-8").splitlines() if ln.strip() and not ln.lstrip().startswith("#")))
         lines.append(md_row(label, count, f"`data/index/{fname}`"))
     lines.append("")
 

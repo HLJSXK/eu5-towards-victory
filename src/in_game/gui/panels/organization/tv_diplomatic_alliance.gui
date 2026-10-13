@@ -285,13 +285,13 @@ organization_panel = {
 						using = organization_piechart_template
 						blockoverride "organization_piechart_size" { size = { 28 28 } }
 						blockoverride "organization_piechart_value" {
-							value = "[Subtract_float(FixedPointToFloat(InternationalOrganizationsView.GetInternationalOrganization.GetVariable(InternationalOrganizationTypeVariable.GetTag)),FixedPointToFloat(InternationalOrganizationTypeVariable.GetMin))]"
+							value = "[Subtract_float(FixedPointToFloat(InternationalOrganizationsView.GetInternationalOrganization.GetVariable(MonthlySavedVariable.GetTag)),FixedPointToFloat(MonthlySavedVariable.GetMin))]"
 						}
 						blockoverride "organization_piechart_max_value" {
-							value = "[Subtract_float(FixedPointToFloat(InternationalOrganizationTypeVariable.GetMax), FixedPointToFloat(InternationalOrganizationsView.GetInternationalOrganization.GetVariable(InternationalOrganizationTypeVariable.GetTag)))]"
+							value = "[Subtract_float(FixedPointToFloat(MonthlySavedVariable.GetMax), FixedPointToFloat(InternationalOrganizationsView.GetInternationalOrganization.GetVariable(MonthlySavedVariable.GetTag)))]"
 						}
 						blockoverride "organization_piechart_icon" {
-							texture = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableIcon(InternationalOrganizationTypeVariable.GetTag)]"
+							texture = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableIcon(MonthlySavedVariable.Self)]"
 						}
 					}
 					text_single = {
@@ -299,7 +299,7 @@ organization_panel = {
 						minimumsize = { 35 21 }
 						maximumsize = { 35 21 }
 						align = center
-						text = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableText(InternationalOrganizationTypeVariable.GetTag)]"
+						text = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableText(MonthlySavedVariable.Self)]"
 					}
 				}
 			}

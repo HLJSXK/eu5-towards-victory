@@ -660,4 +660,127 @@ exact:[localization_util.cpp:103]: STATIC_MODIFIER_NAME_reduction_of_circle_titl
 exact:[localization_util.cpp:103]: STATIC_MODIFIER_NAME_sovereign_realm_modifier: "STATIC MODIFIER NAME sovereign realm modifier"
 exact:[localization_util.cpp:103]: STATIC_MODIFIER_NAME_gag_winner_timer: "STATIC MODIFIER NAME gag winner timer"
 exact:[localization_util.cpp:103]: STATIC_MODIFIER_NAME_scorched_earth: "STATIC MODIFIER NAME scorched earth"
+
+# EU5 1.4 beta vanilla persistence/localization gaps.
+contains:[persistence_tests.cpp:1068]
+exact:[game_concepts.cpp:225]: Game concept 'unit_family': Missing localization key 'game_concept_unit_family'
+exact:[game_concepts.cpp:230]: Game concept 'unit_family': Missing localization key 'game_concept_unit_family_desc'
+exact:[game_concepts.cpp:230]: Game concept 'private_regiment': Missing localization key 'game_concept_private_regiment_desc'
+exact:[game_concepts.cpp:230]: Game concept 'industry_promotion': Missing localization key 'game_concept_industry_promotion_desc'
+exact:[game_concepts.cpp:225]: Game concept 'unit_families': Missing localization key 'game_concept_unit_families'
+exact:[game_concepts.cpp:230]: Game concept 'unit_families': Missing localization key 'game_concept_unit_family_desc'
+exact:[game_concepts.cpp:225]: Game concept 'private_regiments': Missing localization key 'game_concept_private_regiments'
+exact:[game_concepts.cpp:230]: Game concept 'private_regiments': Missing localization key 'game_concept_private_regiment_desc'
+exact:[game_concepts.cpp:225]: Game concept 'industry_promotions': Missing localization key 'game_concept_industry_promotions'
+exact:[game_concepts.cpp:230]: Game concept 'industry_promotions': Missing localization key 'game_concept_industry_promotion_desc'
+exact:[game_concepts.cpp:225]: Game concept 'promote_industry': Missing localization key 'game_concept_promote_industry'
+exact:[game_concepts.cpp:230]: Game concept 'promote_industry': Missing localization key 'game_concept_industry_promotion_desc'
+
+# Vanilla situation links/effects that were removed or are not registered in 1.4 beta.
+contains:[jomini_effect.cpp:557]: Unknown effect gc_change_colonial_dominance
+contains:[jomini_effect.cpp:557]: Unknown effect gc_change_european_dominance
+contains:Failed to find 'battle_for_the_strait' from database for link 'situation'
+contains:Failed to find 'golden_century' from database for link 'situation'
+
+# Vanilla situation textures absent from the 1.4 beta package.
+contains:gfx/interface/icons/situations/flashpoint.dds
+contains:gfx/interface/icons/situations/gc_colonial_dominance.dds
+contains:gfx/interface/icons/situations/gc_european_dominance.dds
+
+# Vanilla expedition/religious tooltip localization gaps.
+contains:common/achievements/
+contains:common/expedition_types/
+contains:events/expeditions/
+contains:common/generic_actions/religious_orders.txt
+contains:events/religion/religious_order_events.txt
 exact:[building_manager.cpp:133]: market_village in 林迪 (lindi) is above max level! Current level is 3 (Max is 2)
+
+# EU5 1.4 beta vanilla startup gaps observed in the current log.
+exact:[game_concepts.cpp:225]: Game concept 'private_regiment': Missing localization key 'game_concept_private_regiment'
+contains:[marketing_container.cpp:431]: Failed to parse a CCF message from marketing backend
+contains:gfx/portraits/portrait_modifiers/zz_beard_pool_prototype.txt
+contains:common/customizable_localization/subunit_structure.txt
+contains:common/customizable_localization/subunit_types.txt
+contains:[advance_definition.cpp:857]: Unknown levy-setup 'levy_sometent'
+contains:[jomini_effect.cpp:557]: Unknown effect andalusi_maghrebi_bureaucracy_set_up
+
+# Vanilla GUI localization and data-system gaps in 1.4 beta.
+contains:gui/attribute_columns/area.gui
+contains:gui/attribute_columns/industry_type.gui
+contains:gui/cooltip.gui
+contains:gui/economy_lateralview.gui
+contains:gui/laws_lateralview.gui
+contains:gui/panels/organization/independence_movement.gui
+contains:gui/panels/religion/religious_orders_list.gui
+contains:gui/panels/situation/western_schism.gui
+contains:gui/select_child_education.gui
+contains:gui/select_interaction_cards/industry.gui
+contains:gui/selected_market_view.gui
+contains:gui/shared/building_tooltips.gui
+contains:gui/shared/combat_tooltips.gui
+contains:gui/shared/country_tooltips.gui
+contains:gui/shared/economy_tooltips.gui
+contains:gui/shared/io_tooltips.gui
+contains:gui/shared/population_tooltip.gui
+contains:gui/shared/situation_tooltips.gui
+contains:gui/shared/topbar_tooltips.gui
+contains:gui/sub_unit_banner.gui
+contains:gui/town_rights.gui
+contains:gui/trade_order_lateral_view.gui
+contains:gui/trade_overview.gui
+contains:Unlocalized text 'LOC_VIEW_OPEN_DEMOGRAPHY_SUBTAB'
+contains:Unlocalized text 'BUILDING_IN_LOCATION_ACTION_ALT'
+
+# Vanilla script/database references removed or renamed in 1.4 beta.
+contains:common/disasters/war_of_the_aragonese_union.txt
+contains:common/country_interactions/hre.txt
+contains:common/international_organizations/crusade.txt
+contains:common/international_organizations/jihad.txt
+contains:common/generic_actions/estate_emergency_actions.txt
+contains:common/generic_actions/government_conversions.txt
+contains:common/generic_actions/hundred_years_war.txt
+contains:common/generic_actions/markets.txt
+contains:common/situations/colonial_revolution.txt
+contains:common/situations/nanbokuchou.txt
+contains:common/building_types/manpower_buildings.txt
+contains:common/scripted_triggers/country_triggers.txt
+contains:common/scripted_triggers/situation_triggers.txt
+contains:common/on_action/_hardcoded.txt
+contains:common/decisions/flavor_decisions_jap.txt
+contains:common/resolutions/crusade_privileges_bull.txt
+contains:common/scripted_effects/international_organization_effects.txt
+contains:events/hre.txt
+contains:events/DHE/flavor_CAS.txt
+contains:common/cabinet_actions/frustrate_annexation.txt
+contains:common/cabinet_actions/iberia.txt
+contains:common/government_reforms/country_specific.txt
+contains:common/laws/40_personal_unions.txt
+contains:common/building_types/culture_buildings.txt
+contains:common/building_types/unique_buildings.txt
+contains:events/DHE/flavor_gra.txt
+contains:events/government/succession.txt
+contains:common/on_action/character_death_pulses.txt
+contains:common/scripted_triggers/unit_triggers.txt
+contains:[database_object_reflection.h:694]: Optimization warning
+
+# Vanilla unused flags/variables reported by the 1.4 beta static scan.
+contains:Flag 'tanto_monta'
+contains:Flag 'dynastic_primacy'
+contains:Variable 'uncovered_riches_variable'
+contains:Variable 'unlock_achievement_the_road_to_el_dorado'
+contains:Variable 'unlock_achievement_crossing_the_pillars'
+contains:Variable 'granadan_sovereignty'
+contains:Variable 'last_exotic_good'
+contains:Variable 'cas_adelantado_mayor_character'
+contains:Variable 'decision_taken_to_establish_the_council_of_castile'
+contains:Variable 'd009_morisco_conversion_occurred'
+contains:Variable 'has_bula_de_cruzada'
+contains:Variable 'iu_catholic_monarchs_choice'
+contains:Variable 'por_assumed_grandmastership_of_military_orders'
+contains:Variable 'por_estado_da_india'
+contains:Variable 'chance_avoid_calamity_variable'
+contains:Variable 'expedition_receives_artifacts_as_gifts_variable'
+contains:Variable 'battle_for_the_strait_winner_country'
+contains:Variable 'healer_location'
+contains:Variable 'last_artifact_location'
+contains:Variable 'expedition_receives_exotic_goods_variable'

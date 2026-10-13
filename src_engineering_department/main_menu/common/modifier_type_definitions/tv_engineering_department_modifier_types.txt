@@ -106,7 +106,21 @@ local_tv_wonder_materials_output_modifier = {
 	}
 }
 
+local_tv_wonder_materials_establishment_speed = {
+	percent = yes
+	game_data = {
+		category = location
+	}
+}
+
 global_tv_wonder_materials_output_modifier = {
+	percent = yes
+	game_data = {
+		category = country
+	}
+}
+
+global_tv_wonder_materials_establishment_speed = {
 	percent = yes
 	game_data = {
 		category = country

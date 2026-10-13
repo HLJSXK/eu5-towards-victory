@@ -111,7 +111,7 @@ def append_hidden_event_execute_effect(lines: list[str], wonders: list[dict]) ->
     lines.append("")
 
 
-def append_final_building_completion_sync_hidden_event_effects(lines: list[str]) -> None:
+def append_final_building_completion_sync_hidden_event_effects(lines: list[str], wonders: list[dict]) -> None:
     lines.append(f"{final_building_completion_sync_hidden_event_trigger_effect_name()} = {{")
     lines.append(f"{T}if = {{")
     lines.append(f"{T}{T}limit = {{ NOT = {{ has_variable = {FINAL_BUILDING_COMPLETION_SYNC_QUEUED_VAR} }} }}")
@@ -128,6 +128,22 @@ def append_final_building_completion_sync_hidden_event_effects(lines: list[str])
     lines.append(f"{final_building_completion_sync_hidden_event_execute_effect_name()} = {{")
     lines.append(f"{T}remove_variable = {FINAL_BUILDING_COMPLETION_SYNC_QUEUED_VAR}")
     lines.append(f"{T}tv_wonder_mechanics_sync_location_final_building_level_map_from_buildings_effect = yes")
+    # Only actual completed final buildings open native canals. This callback is
+    # deferred one day because the engine updates completed levels asynchronously.
+    for wonder in wonders:
+        if not wonder.get("native_canal"):
+            continue
+        lines.extend([
+            f"{T}if = {{",
+            f"{T}{T}limit = {{",
+            f"{T}{T}{T}this = location:{wonder['location']}",
+            f"{T}{T}{T}OR = {{",
+            *[f"{T}{T}{T}{T}{loc_level(building, '>=', 1)}" for building in wonder['final_buildings'].values()],
+            f"{T}{T}{T}}}",
+            f"{T}{T}}}",
+            f"{T}{T}set_canal_open = yes",
+            f"{T}}}",
+        ])
     lines.append(f"{T}tv_wonder_mechanics_refresh_location_display_state_effect = yes")
     lines.append("}")
     lines.append("")
@@ -293,7 +309,7 @@ def generate() -> str:
     lines = render_header(SCRIPT_REL, DATA_REL)
     append_hidden_event_trigger_effect(lines)
     append_hidden_event_execute_effect(lines, wonders)
-    append_final_building_completion_sync_hidden_event_effects(lines)
+    append_final_building_completion_sync_hidden_event_effects(lines, wonders)
     append_trigger_event_dispatch_effect(lines, wonders)
     for wonder in wonders:
         for style in ceremony_styles(wonder):

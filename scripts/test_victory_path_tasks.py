@@ -312,7 +312,8 @@ def main() -> None:
     trigger_localization = read(
         "src_engineering_department/in_game/common/trigger_localization/tv_engineering_department_triggers.txt"
     )
-    assert "REPLACE:TV_HAS_VARIABLE_NOT_SET_TT = {" in trigger_localization
+    assert "TV_ENGINEERING_DEPARTMENT_HAS_VARIABLE_NOT_SET_TT = {" in trigger_localization
+    assert "TV_HAS_VARIABLE_NOT_SET_TT = {" not in trigger_localization
 
     print("[OK] Victory Path task static checks passed")
 
