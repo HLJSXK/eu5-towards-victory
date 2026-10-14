@@ -1426,7 +1426,7 @@ tv_wonder_execute_final_building_completion_sync_hidden_event_effect = {
 				location_building_level = { building_type = building_type:tv_wonder_unique_suez_ancient_canal_inaugurated value >= 1 }
 			}
 		}
-		set_canal_open = yes
+		# TEMP crash isolation: set_canal_open = yes
 	}
 	tv_wonder_mechanics_refresh_location_display_state_effect = yes
 }

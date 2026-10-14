@@ -141,7 +141,8 @@ def append_final_building_completion_sync_hidden_event_effects(lines: list[str],
             *[f"{T}{T}{T}{T}{loc_level(building, '>=', 1)}" for building in wonder['final_buildings'].values()],
             f"{T}{T}{T}}}",
             f"{T}{T}}}",
-            f"{T}{T}set_canal_open = yes",
+            # Temporary crash isolation: retain the delayed callback and its other effects.
+            f"{T}{T}# TEMP crash isolation: set_canal_open = yes",
             f"{T}}}",
         ])
     lines.append(f"{T}tv_wonder_mechanics_refresh_location_display_state_effect = yes")
