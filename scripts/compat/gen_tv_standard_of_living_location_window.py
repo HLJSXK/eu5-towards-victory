@@ -24,6 +24,7 @@ OVERLAY_MARKER = "\n\t\t\t\tvbox = {\n\t\t\t\t\texpand = {}\n"
 
 
 def inject_tv_overlay(base_gui: str) -> str:
+    base_gui = tv_location_window.position_scene_queue(base_gui)
     if base_gui.count(OVERLAY_MARKER) != 1:
         raise RuntimeError("Could not find location scene overlay insertion point in Standard of Living location_window.gui")
     replacement = "\n" + tv_location_window.render_scene_overlay() + OVERLAY_MARKER

@@ -451,6 +451,7 @@ def hagia_step_portrait(step: int, indent: int) -> list[str]:
         f'{prefix}{T}{T}datacontext = "[{PLAYER}.GetVariable(\'{assignee_var}\').GetCharacter]"',
         f"{prefix}{T}}}",
         f"{prefix}{T}button_regular = {{",
+        f'{prefix}{T}{T}enabled = "[PdxGuiWidget.IsUberButtonEnabled]"',
         f'{prefix}{T}{T}visible = "[{hagia_step_waiting_visible(step)}]"',
         f"{prefix}{T}{T}size = {{ 64 64 }}",
         f'{prefix}{T}{T}raw_text = "@characters!"',

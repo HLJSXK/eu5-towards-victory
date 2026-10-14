@@ -40,6 +40,8 @@ COMPACT_SLOT_MAX = 3
 TOOLTIP_SLOT_MAX = 5
 WONDER_ROW_SPACING = 4
 PANEL_WIDTH = 162
+# Keep wonders flush right; place the EU5 1.4 queue column to their left.
+QUEUE_RIGHT_INSET = PANEL_WIDTH + 8
 PANEL_ROW_HEIGHT = 66
 PANEL_SEPARATOR_HEIGHT = 3
 PANEL_TOP_CARD_HEIGHT = 21
@@ -808,7 +810,23 @@ def render_scene_overlay() -> str:
     return "\n".join(render_panel_card(T * 4))
 
 
+def position_scene_queue(base_gui: str) -> str:
+    # Match the outer queue widget, not its inner vbox or queue pop-out.
+    marker = (
+        f"{T * 4}widget = {{\n"
+        f"{T * 5}parentanchor = top|right\n"
+        f"{T * 5}widgetanchor = top|right\n"
+        f"{T * 5}size = {{ 62 220 }}\n"
+    )
+    if base_gui.count(marker) != 1:
+        raise RuntimeError("Could not uniquely locate the EU5 1.4 scene queue column")
+    return base_gui.replace(
+        marker, marker + f"{T * 5}position = {{ -{QUEUE_RIGHT_INSET} 0 }}\n", 1
+    )
+
+
 def inject_overlay(vanilla: str) -> str:
+    vanilla = position_scene_queue(vanilla)
     marker = "\n\t\t\t\tvbox = {\n\t\t\t\t\texpand = {}\n"
     replacement = "\n" + render_scene_overlay() + marker
     if vanilla.count(marker) != 1:

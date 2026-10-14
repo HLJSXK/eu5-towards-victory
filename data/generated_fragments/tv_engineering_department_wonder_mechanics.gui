@@ -1372,10 +1372,12 @@ widget = {
 						datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_1').GetCharacter]"
 					}
 					button_regular = {
+						enabled = "[PdxGuiWidget.IsUberButtonEnabled]"
 						visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)1.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_1').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_1_done').IsSet))]"
 						size = { 64 64 }
 						raw_text = "@characters!"
 						scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_hagia_assign_step_1" actor = "[InternationalOrganizationsView.GetPlayer]" }
+						tooltipwidget = { using = action_tooltip_pop_out }
 						button_tooltip_override = { title = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_1" description = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_1_DESC" }
 					}
 					widget = {
@@ -1432,10 +1434,12 @@ widget = {
 						datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_2').GetCharacter]"
 					}
 					button_regular = {
+						enabled = "[PdxGuiWidget.IsUberButtonEnabled]"
 						visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)2.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_2').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_2_done').IsSet))]"
 						size = { 64 64 }
 						raw_text = "@characters!"
 						scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_hagia_assign_step_2" actor = "[InternationalOrganizationsView.GetPlayer]" }
+						tooltipwidget = { using = action_tooltip_pop_out }
 						button_tooltip_override = { title = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_2" description = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_2_DESC" }
 					}
 					widget = {
@@ -1492,10 +1496,12 @@ widget = {
 						datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_3').GetCharacter]"
 					}
 					button_regular = {
+						enabled = "[PdxGuiWidget.IsUberButtonEnabled]"
 						visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)3.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_3').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_3_done').IsSet))]"
 						size = { 64 64 }
 						raw_text = "@characters!"
 						scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_hagia_assign_step_3" actor = "[InternationalOrganizationsView.GetPlayer]" }
+						tooltipwidget = { using = action_tooltip_pop_out }
 						button_tooltip_override = { title = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_3" description = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_3_DESC" }
 					}
 					widget = {
@@ -1552,10 +1558,12 @@ widget = {
 						datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_4').GetCharacter]"
 					}
 					button_regular = {
+						enabled = "[PdxGuiWidget.IsUberButtonEnabled]"
 						visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)4.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_4').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_4_done').IsSet))]"
 						size = { 64 64 }
 						raw_text = "@characters!"
 						scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_hagia_assign_step_4" actor = "[InternationalOrganizationsView.GetPlayer]" }
+						tooltipwidget = { using = action_tooltip_pop_out }
 						button_tooltip_override = { title = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_4" description = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_4_DESC" }
 					}
 					widget = {
@@ -1612,10 +1620,12 @@ widget = {
 						datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_5').GetCharacter]"
 					}
 					button_regular = {
+						enabled = "[PdxGuiWidget.IsUberButtonEnabled]"
 						visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)5.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_5').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_5_done').IsSet))]"
 						size = { 64 64 }
 						raw_text = "@characters!"
 						scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_hagia_assign_step_5" actor = "[InternationalOrganizationsView.GetPlayer]" }
+						tooltipwidget = { using = action_tooltip_pop_out }
 						button_tooltip_override = { title = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_5" description = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_5_DESC" }
 					}
 					widget = {
@@ -1672,10 +1682,12 @@ widget = {
 						datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_6').GetCharacter]"
 					}
 					button_regular = {
+						enabled = "[PdxGuiWidget.IsUberButtonEnabled]"
 						visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)6.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_6').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_6_done').IsSet))]"
 						size = { 64 64 }
 						raw_text = "@characters!"
 						scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_hagia_assign_step_6" actor = "[InternationalOrganizationsView.GetPlayer]" }
+						tooltipwidget = { using = action_tooltip_pop_out }
 						button_tooltip_override = { title = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_6" description = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_6_DESC" }
 					}
 					widget = {
@@ -1732,10 +1744,12 @@ widget = {
 						datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_7').GetCharacter]"
 					}
 					button_regular = {
+						enabled = "[PdxGuiWidget.IsUberButtonEnabled]"
 						visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)7.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_7').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_7_done').IsSet))]"
 						size = { 64 64 }
 						raw_text = "@characters!"
 						scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_hagia_assign_step_7" actor = "[InternationalOrganizationsView.GetPlayer]" }
+						tooltipwidget = { using = action_tooltip_pop_out }
 						button_tooltip_override = { title = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_7" description = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_7_DESC" }
 					}
 					widget = {
@@ -1792,10 +1806,12 @@ widget = {
 						datacontext = "[InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_8').GetCharacter]"
 					}
 					button_regular = {
+						enabled = "[PdxGuiWidget.IsUberButtonEnabled]"
 						visible = "[And(And(And(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').IsSet, EqualTo_CFixedPoint(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step').GetValue, '(CFixedPoint)8.0')), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_assignee_8').IsSet)), Not(InternationalOrganizationsView.GetPlayer.MakeScope.GetVariable('tv_wonder_hagia_step_8_done').IsSet))]"
 						size = { 64 64 }
 						raw_text = "@characters!"
 						scripted_action_tooltip = { click_type = left click_mode = single action_name = "tv_wonder_hagia_assign_step_8" actor = "[InternationalOrganizationsView.GetPlayer]" }
+						tooltipwidget = { using = action_tooltip_pop_out }
 						button_tooltip_override = { title = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_8" description = "TV_ENGINEERING_HAGIA_ASSIGN_STEP_8_DESC" }
 					}
 					widget = {
