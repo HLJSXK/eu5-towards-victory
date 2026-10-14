@@ -1,13 +1,10 @@
-[img]https://i.imgur.com/iU6bsM0.png[/img]
-[i]This update focuses on QoL improvements and requests raised by players.[/i]
+[b]This item is for the EU5 1.4 beta branch only.[/b] On the default 1.3 release, please use [b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3766375743]Standard of Living (v1.3)[/url][/b] instead. Do not enable both versions.
+
+[h2]10/07 v1.4 beta Compact Update[/h2]
 [list]
-[*] Added 2 new generic wonders and expanded Asia with 13 historical unique wonders
-[*] Existing wonders can now be demolished, or temporarily disabled by turning them off as a simple workaround for value-conflict issues
-[*] Worksites now slow down when they lack required inputs
-[*] When you need to open the Engineering Department and do something, a UI alert now appears in the top-right corner
-[*] Rebalanced several obviously problematic wonder bonuses, including market attraction and granary-style effects
-[*] Using the in-game menu feature from [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3692202776] Community Mod Framework (CMF) [/url], you can now control Great Project construction difficulty to some extent
-[*] The mod now includes the [b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3601047146] Glorp UI [/url][/b] version of location_window. When loaded below Glorp UI (and [b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3736668860] Construction Manager [/url][/b]), it will correctly display the integrated UI version
+[*]Updated for EU5 1.4 beta.
+[*]No functional changes.
+[*]Compatible with [b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812518640] Glorp UI (1.4 beta) [/url][/b]. Other mods not tested (or not updated yet)
 [/list]
 
 [img]https://i.imgur.com/TnMdbwe.png[/img]
@@ -25,6 +22,7 @@ Vanilla wonders in EU5 are decorative — a flavor tooltip, nothing more. [b]Gre
 [*] [b]56 generic wonders[/b] any nation can pursue, plus [b]136 historical unique wonders[/b] tied to their real-world locations — Pharos at Alexandria, Hagia Sophia at Constantinople, the Persian Qanat at Qom, and more
 [*] A [b]six-stage build[/b]: Concept → Debate → Survey → Construction → Ceremony → Finalization
 [*] A dedicated [b]map mode[/b] that colors every completed wonder worldwide — plan your own build, or scout other nations' finished wonders as conquest targets
+[*] Using the in-game menu feature from [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3692202776] Community Mod Framework (CMF) [/url], you can control Great Project construction difficulty
 [*] A companion [b]Wonders Atlas[/b] website to browse every unique wonder on a world map, outside the game
 [/list]
 
@@ -43,6 +41,7 @@ Vanilla wonders in EU5 are decorative — a flavor tooltip, nothing more. [b]Gre
 [img]https://i.imgur.com/kGFEXBh.png[/img]
 [list]
 [*] This mod works best with [b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3692202776] Community Mod Framework (CMF) [/url][/b], but can go without it.
+[*] The mod includes a built-in [b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3601047146] Glorp UI [/url][/b] version location_window. When loaded below Glorp UI (and [b][url=https://steamcommunity.com/sharedfiles/filedetails/?id=3736668860] Construction Manager [/url][/b]), it will correctly display the integrated UI version
 [*] [b]Savegame compatible[/b]: You can play this mod with old saves.
 [*] [b]Maximum compatibility[/b]: The construction logic of this mod works on its own variables, and should be compatible with any mod.
 [*] [b]UI issue[/b]: This mod modifies location_window.gui and encyclopedia_lateralview.gui. Other mods who also do this will cause overwrites on each other. See [url=https://steamcommunity.com/workshop/filedetails/?id=3766879023] Great Project - Compatibility Submods [/url] for maintained patches.
@@ -51,7 +50,7 @@ Vanilla wonders in EU5 are decorative — a flavor tooltip, nothing more. [b]Gre
 
 [img]https://i.imgur.com/byuuVeq.png[/img]
 [list]
-[*] This mod use an AI pipeline to generate the massive contents.
+[*] This mod use an AI pipeline to generate the contents. This includes translation to other languages, and so language quality is not guaranteed.
 [*] Special thanks to Trinedy's [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3668193813] National Destinies [/url]. This mod is where I got the idea of LLM-assisted modding pipelines and the original implementation of a EU5-map-website.
 [/list]
 

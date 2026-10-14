@@ -165,7 +165,7 @@ def build_hero(text: str, is_zh: bool, out_name: str) -> None:
     size = 150 if is_zh else 128
     font = ImageFont.truetype(str(font_path), size)
     tracking = 0 if is_zh else 8
-    subtitle = "260805 Update"
+    subtitle = "261014 Update"
     subtitle_font = ImageFont.truetype(str(FONT_EN), 44)
 
     _, text_h = title_dims(draw, text, font, is_zh, tracking)
