@@ -1,0 +1,186 @@
+{
+  "scope": "源图视觉预评估；作者、拍摄年代、史料出处尚未外部核验。题材识别的不确定性不应由文件名消除。本轮AI输出尚待生成。",
+  "criteria": ["主体与目标工程一致", "可识别建筑结构保留", "现代元素与后世修缮核对", "克制的绘画材质", "27:11横幅主体完整且可读"],
+  "images": [
+    {
+      "name": "北京皇家粮仓",
+      "source": "assets/historical/北京皇家粮仓.jpg",
+      "existing_ai": "assets/generated_wonders/tv_wonder_unique_beijing_imperial_granaries.png",
+      "source_type": "现状照片",
+      "source_suitability": "需清理",
+      "source_findings": ["传统仓房屋顶、墙体和门面清楚，适合作为建筑形态约束。", "背景玻璃高楼及现代楼房占比高，前景有展牌、警示桩和现代设施。", "单栋现状仓房无法单独证明皇家粮仓整体规模。"],
+      "suggested_action": "保留仓房轮廓，专门清理现代前景并调整背景；对工程名称和地点另行核验。"
+    },
+    {
+      "name": "博洛尼亚大学",
+      "source": "assets/historical/博洛尼亚大学.jpg",
+      "existing_ai": "assets/generated_wonders/tv_wonder_unique_university_of_bologna.png",
+      "source_type": "现状城市照片",
+      "source_suitability": "需换源",
+      "source_findings": ["主体外观疑似 Piazza Maggiore 的 Palazzo d’Accursio 市政厅，尚未核验。", "广场游客及局部现代设施明显；文件名不足以确认大学主体。"],
+      "suggested_action": "先核实拍摄地点；若确为市政厅，应改用明确的大学历史院落、讲堂或相关历史画作。"
+    },
+    {
+      "name": "埃奇米阿津主教座堂",
+      "source": "assets/historical/埃奇米阿津主教座堂.jpg",
+      "existing_ai": "assets/generated_wonders/tv_wonder_unique_echmiadzin_cathedral.png",
+      "source_type": "现状照片",
+      "source_suitability": "需清理",
+      "source_findings": ["中央圆锥顶、侧塔和石砌结构可识别，建筑特征约束较好。", "门前有现代游客，园林及道路为现状环境。", "现状立面不能证明目标年份的修缮状态。"],
+      "suggested_action": "保持塔顶和建筑体量关系，清理游客与现代设施，并核对所选游戏年代。"
+    },
+    {
+      "name": "埃斯科里亚尔修道院",
+      "source": "assets/historical/埃斯科里亚尔修道院.jpg",
+      "existing_ai": "assets/generated_wonders/tv_wonder_unique_escorial_monastery.png",
+      "source_type": "现状远景照片",
+      "source_suitability": "适合风格化",
+      "source_findings": ["修道院矩形院落布局、穹顶和森林环境清晰，主体匹配度较好。", "仅500×333，细窗和装饰无法提供可靠细节约束。"],
+      "suggested_action": "先评估整体形态保留；高分辨率输出中的新增细节应视为AI补绘，定稿优先寻找大尺寸同角度照片。"
+    },
+    {
+      "name": "奥斯曼朝觐道路",
+      "source": "assets/historical/奥斯曼朝觐道路.webp",
+      "existing_ai": "assets/generated_wonders/tv_wonder_unique_ottoman_hajj_road.png",
+      "source_type": "旧式街景影像，年代及出处待核验",
+      "source_suitability": "待核验",
+      "source_findings": ["画面主要是街市、行人与摊位，时代气氛较强，但没有清楚的朝觐路线标识。", "仅474×263，人物和商品细节模糊，不能证明具体地点及身份。"],
+      "suggested_action": "核验该街景与朝觐道路的关系；若仅作气氛参考，应换用明确的驿站、商队或道路史料作为主体依据。"
+    },
+    {
+      "name": "奥格斯堡银行",
+      "source": "assets/historical/奥格斯堡银行.jpg",
+      "existing_ai": "assets/generated_wonders/tv_wonder_unique_augsburg_bank.png",
+      "source_type": "历史集会版画，作者及题材待核验",
+      "source_suitability": "需换源",
+      "source_findings": ["拱顶大厅中的大型集会疑似议会或宫廷活动，未见明确银行账房特征。", "人物密集，500×411的小图容易在强描边下糊成纹理。"],
+      "suggested_action": "先核对版画题材；拱顶可作时代气氛参考，银行主体优先采用可靠的金融建筑或账房图像。"
+    },
+    {
+      "name": "巴士底狱",
+      "source": "assets/historical/巴士底狱.png",
+      "existing_ai": "assets/generated_wonders/tv_wonder_unique_bastille.png",
+      "source_type": "疑似三维渲染或电子游戏场景，来源待核验",
+      "source_suitability": "待核验",
+      "source_findings": ["高机位下的圆塔、城垣及城区有三维渲染特征。", "不能将该图直接标为真实历史照片或历史画作；模型本身的考据准确性尚未核验。"],
+      "suggested_action": "核实图像来源及重建依据；若要求真实史料优先，应改用历史版画或明确标注依据的复原图。"
+    },
+    {
+      "name": "巴库圣火庙",
+      "source": "assets/historical/巴库圣火庙.jpg",
+      "existing_ai": "assets/generated_wonders/tv_wonder_unique_baku_ateshgah.png",
+      "source_type": "现状照片",
+      "source_suitability": "适合风格化",
+      "source_findings": ["中央火坛、四边石砌亭及围合院落明确，主体容易识别。", "应保留火坛与亭体真实比例，避免新增神殿或夸大火焰。"],
+      "suggested_action": "保留建筑几何形态，降低天空的旅游照质感，关注石材重量和火光；年代及现状设施仍需核对。"
+    },
+    {
+      "name": "巴黎圣母院",
+      "source": "assets/historical/巴黎圣母院.jpg",
+      "existing_ai": "assets/generated_wonders/tv_wonder_unique_notre_dame_de_paris.png",
+      "source_type": "现状照片",
+      "source_suitability": "需清理",
+      "source_findings": ["双塔、玫瑰窗、飞扶壁和中部尖塔清楚，建筑结构约束强。", "照片中的尖塔属于19世纪修复形态；用在更早年代时不能直接保留。", "河岸环境及设施为现状。"],
+      "suggested_action": "按目标年份核对尖塔、屋顶和环境；避免通过风格化把后世修缮当成中世纪原貌。"
+    },
+    {
+      "name": "布达拉宫",
+      "source": "assets/historical/布达拉宫.jpg",
+      "existing_ai": "assets/generated_wonders/tv_wonder_unique_potala_palace.png",
+      "source_type": "现状照片",
+      "source_suitability": "需清理",
+      "source_findings": ["红白宫体、山体和层叠墙面很清楚，识别度高。", "前景现状路灯、招牌及其他现代设施需要逐项清理。", "旧AI图有强烈的仪式和山景构图，但长阶梯及雪峰不受当前参考图支持。"],
+      "suggested_action": "保持真实红白宫体的分布及比例，清理现代设施；分别比较新图结构可靠性和旧图仪式氛围。"
+    },
+    {
+      "name": "比萨斜塔",
+      "source": "assets/historical/比萨斜塔.jpg",
+      "existing_ai": "assets/generated_wonders/tv_wonder_unique_leaning_tower_of_pisa.png",
+      "source_type": "现状竖幅照片",
+      "source_suitability": "需清理",
+      "source_findings": ["塔身倾角、柱廊层数和白石材料可以直接约束模型。", "脚手架、现代游客和服装明显。", "960×1440竖图直接居中裁成27:11会严重截断塔顶或塔基。"],
+      "suggested_action": "清理游客和脚手架，锁定倾角和层数；定稿需要横幅重构或另找横向远景源图。"
+    },
+    {
+      "name": "波尔多港",
+      "source": "assets/historical/波尔多港.jpg",
+      "existing_ai": "assets/generated_wonders/tv_wonder_unique_bordeaux_port.png",
+      "source_type": "黑白港口版画，作者及年代待核验",
+      "source_suitability": "适合风格化",
+      "source_findings": ["帆船、划艇、码头及沿河建筑具有清楚的历史港口关系。", "544×407，细线密集，上色和描边可能令船桅、索具及人物失真。"],
+      "suggested_action": "保留水道、船只和码头位置，采用克制的绘画上色；逐项核对帆索与船体，不要补成现代船。"
+    },
+    {
+      "name": "贝伦塔",
+      "source": "assets/historical/贝伦塔.jpg",
+      "existing_ai": "assets/generated_wonders/tv_wonder_unique_belem_tower.png",
+      "source_type": "现状照片",
+      "source_suitability": "需清理",
+      "source_findings": ["曼努埃尔式塔体轮廓、低层堡垒和滨水位置明确。", "仅500×332，逆光使塔身较暗；岸边有现代游客。", "旧AI图具有强烈航海氛围，也加入了当前参考不支持的大型十字纪念柱。"],
+      "suggested_action": "适当提亮石材，清理现代岸边元素，约束塔顶形态；与旧图分别比较真实结构和航海氛围。"
+    },
+    {
+      "name": "贝宁城墙",
+      "source": "assets/historical/贝宁城墙.webp",
+      "existing_ai": "assets/generated_wonders/tv_wonder_unique_walls_of_benin.png",
+      "source_type": "低分辨率重建插画，作者、制作方式及考据依据待核验",
+      "source_suitability": "待核验",
+      "source_findings": ["302×284，图中城墙、道路、草屋和人物为重建式表现。", "不能仅凭拟古风格确认其为历史画作，也不能从视觉观感确证是否AI生成。", "具体城墙高度、材料及城市布局尚无已核实依据。"],
+      "suggested_action": "先核实出处和考据；若作为现代重建参考，需明确标注，不能视为实景史料。"
+    },
+    {
+      "name": "贝尔格莱德要塞",
+      "source": "assets/historical/贝尔格莱德要塞.jpg",
+      "existing_ai": "assets/generated_wonders/tv_wonder_unique_belgrade_fortress.png",
+      "source_type": "现状照片",
+      "source_suitability": "适合风格化",
+      "source_findings": ["圆塔、厚石墙、草坡及路径关系清楚，材料纹理易识别。", "只是要塞局部，不能由单张图推断完整防御布局；现状修缮年代尚未核验。"],
+      "suggested_action": "先保留现有城墙、圆塔和地形比例，抑制旅游照片高饱和度；不应无依据增加大型城堡群。"
+    },
+    {
+      "name": "贝希斯敦铭文",
+      "source": "assets/historical/贝希斯敦铭文.jpeg",
+      "existing_ai": "assets/generated_wonders/tv_wonder_unique_behistun_inscription.png",
+      "source_type": "现状浮雕照片",
+      "source_suitability": "适合风格化",
+      "source_findings": ["真实岩壁、人物浮雕排列和铭文区域的位置可以直接约束生成。", "石色相近导致缩略图识别较弱，文字细节不能从低清照片可靠复原。"],
+      "suggested_action": "保持人物和碑面位置、数量关系，增强局部明暗；不要把AI生成的纹样或文字当成铭文内容。"
+    },
+    {
+      "name": "阿姆斯特丹运河圈",
+      "source": "assets/historical/阿姆斯特丹运河圈.webp",
+      "existing_ai": "assets/generated_wonders/tv_wonder_unique_amsterdam_canal_ring.png",
+      "source_type": "现状城市远景照片",
+      "source_suitability": "需清理",
+      "source_findings": ["密集坡顶建筑和运河可见，城市风貌有参考价值。", "474×266，建筑与水道细节弱；局部道路和交通为现代现状。", "画面未清楚展示完整运河圈，不能仅依靠该图约束全城布局。"],
+      "suggested_action": "选择更清楚的运河街景或历史鸟瞰图；若继续使用此图，需清理现代交通并避免臆造运河网络。"
+    },
+    {
+      "name": "阿尔及尔海盗港",
+      "source": "assets/historical/阿尔及尔海盗港.jpg",
+      "existing_ai": "assets/generated_wonders/tv_wonder_unique_algiers_pirate_port.png",
+      "source_type": "现状海岸照片",
+      "source_suitability": "需换源",
+      "source_findings": ["画面含现代球场、沿海城房及机动船，旧港主体不明显。", "天空和海水占比大，港口活动及海盗港识别线索不足。"],
+      "suggested_action": "更换为明确的历史港口、卡斯巴沿岸或可靠旧港画作；当前图最多作海岸地形辅助参考。"
+    },
+    {
+      "name": "阿尔罕布拉宫",
+      "source": "assets/historical/阿尔罕布拉宫.webp",
+      "existing_ai": "assets/generated_wonders/tv_wonder_unique_alhambra.png",
+      "source_type": "现状夜景照片",
+      "source_suitability": "需清理",
+      "source_findings": ["红色宫墙、城塔、山坡和整体位置明确，主体可识别。", "现代夜景照明明显；照片还包含后世建筑体量。", "若目标为纳斯里时期，应核对16世纪查理五世宫殿等后世增建。"],
+      "suggested_action": "锁定目标年代，再处理后世建筑和电力照明；保留宫墙与山坡关系，避免通篇旅游夜景色调。"
+    },
+    {
+      "name": "阿育陀耶外国使馆区",
+      "source": "assets/historical/阿育陀耶外国使馆区.jpg",
+      "existing_ai": "assets/generated_wonders/tv_wonder_unique_ayutthaya_foreign_quarters.png",
+      "source_type": "现状佛寺遗址照片，具体寺院待核验",
+      "source_suitability": "需换源",
+      "source_findings": ["画面主体是佛寺遗址高塔，外观近似 Wat Phra Si Sanphet，具体地点未核验。", "没有明显外国使馆、河岸贸易或外交区特征。", "保留现状废墟也不等于呈现当时正在使用的使馆区。"],
+      "suggested_action": "改用明确的外国聚落、使馆区或相关历史画作；不要将佛寺塔群直接当作外国使馆区。"
+    }
+  ]
+}

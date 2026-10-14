@@ -16,15 +16,17 @@ from typing import Callable
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 CONFIG_PATH = REPO_ROOT / "generate_dds_icon_config.json"
+PROMPTS_PATH = REPO_ROOT / "assets/historical/review/historical_image_prompts.json"
 OUTPUT_DIR = REPO_ROOT / "assets/historical/processed"
 PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
-PROMPT = (
-    "Edit the supplied historical image into a richly painted, stylized cartoon illustration "
-    "for a historical strategy game. The input image is the authority for the scene: preserve "
-    "its composition, perspective, recognizable buildings and objects, period details, and "
-    "major light and shadow shapes. Use broad painterly color planes, restrained ink contours, "
-    "aged material texture, and a dignified historical mood. Keep the original aspect ratio. "
-    "Do not replace the scene, invent architecture, add modern objects, text, or a UI frame."
+DEFAULT_PROMPT = (
+    "Repaint the reference as a monumental historical strategy-game painting. "
+    "Preserve the main subject's identity, defining silhouette, structural relationships "
+    "and proportions. You may add, remove or rearrange secondary surroundings and "
+    "make a modest change in camera height, distance or angle to emphasize its grandeur. "
+    "Keep the complete subject dominant and recognizable; use plausible period details, "
+    "small scale figures, atmospheric depth and substantial painterly materials. "
+    "No invented extensions to the monument, text, logo, watermark or UI."
 )
 
 
@@ -46,8 +48,13 @@ def load_tasks() -> tuple[dict, list[tuple[Path, Path]]]:
     if not isinstance(images, list) or not images:
         raise ValueError("historical_images.images must contain source/output mappings")
 
+    prompts = json.loads(PROMPTS_PATH.read_text(encoding="utf-8")) if PROMPTS_PATH.exists() else {}
+    if not isinstance(prompts, dict):
+        raise ValueError(f"{PROMPTS_PATH.name} must contain an object keyed by source path")
+    config["_prompts"] = prompts
     tasks = []
     seen_outputs = set()
+    seen_sources = set()
     for image in images:
         source = (REPO_ROOT / image["source"]).resolve()
         output_name = image["output"]
@@ -57,6 +64,15 @@ def load_tasks() -> tuple[dict, list[tuple[Path, Path]]]:
             raise ValueError(f"Duplicate historical output: {output_name}")
         if not source.is_file() or source.suffix.lower() not in {".jpg", ".jpeg", ".png", ".webp"}:
             raise FileNotFoundError(f"Missing or unsupported historical source: {source}")
+        if source in seen_sources:
+            raise ValueError(f"Duplicate historical source: {source}")
+        prompt = prompts.get(image["source"])
+        # Repository historical assets must have an explicit prompt. Small
+        # isolated fixture configs may use the backward-compatible default.
+        is_repo_historical = source.is_relative_to(REPO_ROOT / "assets" / "historical")
+        if is_repo_historical and (not isinstance(prompt, str) or not prompt.strip()):
+            raise ValueError(f"Missing historical prompt: {image['source']}")
+        seen_sources.add(source)
         seen_outputs.add(output_name)
         tasks.append((source, OUTPUT_DIR / output_name))
     return config, tasks
@@ -75,12 +91,24 @@ def resolve_api_key(config: dict) -> str:
     return key
 
 
-def multipart_body(source: Path, model: str) -> tuple[bytes, str]:
+def prompt_for_source(config: dict, source: Path) -> str:
+    """Resolve from the captured config, including when outputs are staged."""
+    matches = [image for image in config["images"]
+               if (REPO_ROOT / image["source"]).resolve() == source.resolve()]
+    if len(matches) != 1:
+        raise ValueError(f"Expected exactly one historical prompt for {source}")
+    prompt = config.get("_prompts", {}).get(matches[0]["source"])
+    if not isinstance(prompt, str) or not prompt.strip():
+        return DEFAULT_PROMPT
+    return prompt.strip()
+
+
+def multipart_body(source: Path, model: str, prompt: str) -> tuple[bytes, str]:
     boundary = f"----TowardsVictoryHistorical{uuid.uuid4().hex}"
     body = bytearray()
     for name, value in {
         "model": model,
-        "prompt": PROMPT,
+        "prompt": prompt,
         "n": "1",
         "output_format": "png",
         "response_format": "url",
@@ -93,9 +121,10 @@ def multipart_body(source: Path, model: str) -> tuple[bytes, str]:
     return bytes(body), boundary
 
 
-def edit_image(config: dict, source: Path, api_key: str, *, check_cancelled: Callable[[], None] = lambda: None) -> bytes:
+def edit_image(config: dict, source: Path, api_key: str, *, prompt: str | None = None, check_cancelled: Callable[[], None] = lambda: None) -> bytes:
     check_cancelled()
-    body, boundary = multipart_body(source, config["model"])
+    prompt = prompt or str(config.get("prompt") or DEFAULT_PROMPT)
+    body, boundary = multipart_body(source, config["model"], prompt)
     request = urllib.request.Request(
         config["endpoint"],
         data=body,
@@ -131,15 +160,30 @@ def edit_image(config: dict, source: Path, api_key: str, *, check_cancelled: Cal
 
 def run(options: dict[str, object] | argparse.Namespace) -> int:
     """Run the configured batch from normalized application options."""
-    dry_run = bool(options.dry_run) if isinstance(options, argparse.Namespace) else bool(options.get("dry_run", False))
+    values = vars(options) if isinstance(options, argparse.Namespace) else options
+    dry_run = bool(values.get("dry_run", False))
+    overwrite = bool(values.get("overwrite", False))
     config, tasks = load_tasks()
-    return run_tasks(config, tasks, dry_run=dry_run)
+    selected = set(values.get("sources") or [])
+    if selected:
+        matched = {name for name in selected for source, _ in tasks
+                   if name in {source.stem, source.relative_to(REPO_ROOT).as_posix()}}
+        if selected - matched:
+            raise ValueError(f"Unknown historical sources: {', '.join(sorted(selected - matched))}")
+        tasks = [(source, output) for source, output in tasks
+                 if selected.intersection({source.stem, source.relative_to(REPO_ROOT).as_posix()})]
+    if values.get("output_dir"):
+        output_dir = (REPO_ROOT / Path(values["output_dir"])).resolve()
+        if not output_dir.is_relative_to(REPO_ROOT / "assets" / "historical" / "processed"):
+            raise ValueError("output_dir must be inside assets/historical/processed")
+        tasks = [(source, output_dir / output.name) for source, output in tasks]
+    return run_tasks(config, tasks, dry_run=dry_run, overwrite=overwrite)
 
 
-def run_tasks(config: dict, tasks: list[tuple[Path, Path]], *, dry_run: bool = False, check_cancelled: Callable[[], None] = lambda: None) -> int:
+def run_tasks(config: dict, tasks: list[tuple[Path, Path]], *, dry_run: bool = False, overwrite: bool = False, check_cancelled: Callable[[], None] = lambda: None) -> int:
     """Execute the task set already resolved by the CLI or Web plan."""
     print(f"[config] {CONFIG_PATH.relative_to(REPO_ROOT)}")
-    pending = [(source, output) for source, output in tasks if config["overwrite"] or not output.exists()]
+    pending = [(source, output) for source, output in tasks if overwrite or config["overwrite"] or not output.exists()]
     for source, output in tasks:
         if (source, output) not in pending:
             print(f"[skip] {output.relative_to(REPO_ROOT)} exists; overwrite=false")
@@ -149,13 +193,16 @@ def run_tasks(config: dict, tasks: list[tuple[Path, Path]], *, dry_run: bool = F
         print(f"[dry-run] POST {config['endpoint']}")
         for source, output in pending:
             print(f"[dry-run] {source.relative_to(REPO_ROOT)} -> {output.relative_to(REPO_ROOT)}")
+            prompt = prompt_for_source(config, source)
+            print(f"[prompt] {len(prompt)} characters: {prompt.splitlines()[0]}")
         return 0
     api_key = resolve_api_key(config)
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     for source, output in pending:
         check_cancelled()
+        output.parent.mkdir(parents=True, exist_ok=True)
         print(f"[edit] {source.relative_to(REPO_ROOT)} -> {output.relative_to(REPO_ROOT)}")
-        image = edit_image(config, source, api_key, check_cancelled=check_cancelled)
+        prompt = prompt_for_source(config, source)
+        image = edit_image(config, source, api_key, prompt=prompt, check_cancelled=check_cancelled)
         check_cancelled()
         temporary = output.with_suffix(output.suffix + ".tmp")
         try:
@@ -170,6 +217,9 @@ def run_tasks(config: dict, tasks: list[tuple[Path, Path]], *, dry_run: bool = F
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Edit the configured historical images into styled PNGs.")
     parser.add_argument("--dry-run", action="store_true", help="List pending edits without calling the API")
+    parser.add_argument("--overwrite", action="store_true", help="Regenerate outputs that already exist")
+    parser.add_argument("--source", dest="sources", action="append", help="Select a source by name or repository path; repeat for multiple images")
+    parser.add_argument("--output-dir", type=Path, help="Save a variant batch under assets/historical/processed")
     return run(parser.parse_args(argv))
 
 

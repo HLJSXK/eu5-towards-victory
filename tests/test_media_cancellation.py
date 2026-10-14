@@ -122,8 +122,10 @@ def test_historical_batch_does_not_start_next_image_after_cancellation(tmp_path,
         return b"unused"
     monkeypatch.setattr(historical, "edit_image", edit)
     tasks = [(tmp_path / f"{i}.png", tmp_path / "output" / f"{i}.png") for i in range(2)]
+    config = {"overwrite": True, "api_key": "fixture",
+              "images": [{"source": source.name, "output": output.name} for source, output in tasks]}
     with pytest.raises(OperationCancelled):
-        historical.run_tasks({"overwrite": True, "api_key": "fixture"}, tasks, check_cancelled=operation.check_cancelled)
+        historical.run_tasks(config, tasks, check_cancelled=operation.check_cancelled)
     assert len(calls) == 1
     assert not any(output.exists() for _, output in tasks)
 
