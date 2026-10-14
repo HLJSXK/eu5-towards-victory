@@ -95,18 +95,22 @@ def stored_tier_can_expand_branch(wonder: dict, final_building: str, indent: int
     lines.append(f"{prefix}{T}{T}NOT = {{ {loc_level(final_building, '>=', 6)} }}")
     lines.append(f"{prefix}{T}}}")
     lines.append(f"{prefix}{T}AND = {{")
-    lines.append(f"{prefix}{T}{T}has_variable_map = {LOCATION_SURVEY_SCALE_TIER_MAP}")
-    lines.append(f"{prefix}{T}{T}is_key_in_variable_map = {{ name = {LOCATION_SURVEY_SCALE_TIER_MAP} target = {wonder_id} }}")
-    lines.append(f"{prefix}{T}{T}OR = {{")
+    # Selector/tooltip evaluation can visit every AND/OR operand; branch before reading a map.
+    lines.append(f"{prefix}{T}{T}trigger_if = {{")
+    lines.append(f"{prefix}{T}{T}{T}limit = {{ has_variable_map = {LOCATION_SURVEY_SCALE_TIER_MAP} }}")
+    lines.append(f"{prefix}{T}{T}{T}is_key_in_variable_map = {{ name = {LOCATION_SURVEY_SCALE_TIER_MAP} target = {wonder_id} }}")
+    lines.append(f"{prefix}{T}{T}{T}OR = {{")
     for level in range(1, 6):
-        lines.append(f"{prefix}{T}{T}{T}AND = {{")
-        lines.extend(final_building_level_exact(final_building, level, indent + 4))
+        lines.append(f"{prefix}{T}{T}{T}{T}AND = {{")
+        lines.extend(final_building_level_exact(final_building, level, indent + 5))
         lines.append(
-            f"{prefix}{T}{T}{T}{T}\"variable_map({LOCATION_SURVEY_SCALE_TIER_MAP}|{wonder_id})\" ?= "
+            f"{prefix}{T}{T}{T}{T}{T}\"variable_map({LOCATION_SURVEY_SCALE_TIER_MAP}|{wonder_id})\" ?= "
             f"{{ this >= {level + 1} }}"
         )
-        lines.append(f"{prefix}{T}{T}{T}}}")
+        lines.append(f"{prefix}{T}{T}{T}{T}}}")
+    lines.append(f"{prefix}{T}{T}{T}}}")
     lines.append(f"{prefix}{T}{T}}}")
+    lines.append(f"{prefix}{T}{T}trigger_else = {{ always = no }}")
     lines.append(f"{prefix}{T}}}")
     lines.append(f"{prefix}}}")
     return lines
@@ -118,10 +122,11 @@ def unsurveyed_initial_final_building_can_expand(wonder: dict, final_building: s
     lines = [f"{prefix}AND = {{"]
     lines.append(f"{prefix}{T}{loc_level(final_building, '>=', 1)}")
     lines.append(f"{prefix}{T}NOT = {{ {loc_level(final_building, '>=', 6)} }}")
-    lines.append(f"{prefix}{T}OR = {{")
-    lines.append(f"{prefix}{T}{T}NOT = {{ has_variable_map = {LOCATION_SURVEYED_MAP} }}")
+    lines.append(f"{prefix}{T}trigger_if = {{")
+    lines.append(f"{prefix}{T}{T}limit = {{ has_variable_map = {LOCATION_SURVEYED_MAP} }}")
     lines.append(f"{prefix}{T}{T}NOT = {{ is_key_in_variable_map = {{ name = {LOCATION_SURVEYED_MAP} target = {wonder_id} }} }}")
     lines.append(f"{prefix}{T}}}")
+    lines.append(f"{prefix}{T}trigger_else = {{ always = yes }}")
     lines.append(f"{prefix}}}")
     return lines
 
@@ -484,8 +489,11 @@ def generate() -> str:
     lines.append("tv_wonder_selected_survey_already_cached_trigger = {")
     lines.append(f"{T}has_variable = tv_wonder_locked")
     lines.append(f"{T}scope:tv_wonder_selected_survey_site = {{")
-    lines.append(f"{T}{T}has_variable_map = {LOCATION_SURVEYED_MAP}")
-    lines.append(f"{T}{T}is_key_in_variable_map = {{ name = {LOCATION_SURVEYED_MAP} target = prev.var:tv_wonder_locked }}")
+    lines.append(f"{T}{T}trigger_if = {{")
+    lines.append(f"{T}{T}{T}limit = {{ has_variable_map = {LOCATION_SURVEYED_MAP} }}")
+    lines.append(f"{T}{T}{T}is_key_in_variable_map = {{ name = {LOCATION_SURVEYED_MAP} target = prev.var:tv_wonder_locked }}")
+    lines.append(f"{T}{T}}}")
+    lines.append(f"{T}{T}trigger_else = {{ always = no }}")
     lines.append(f"{T}}}")
     lines.append("}")
     lines.append("")

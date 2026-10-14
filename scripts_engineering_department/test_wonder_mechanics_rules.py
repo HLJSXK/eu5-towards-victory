@@ -376,6 +376,66 @@ def validate_generated_trigger_scope_layers(wonders: list[dict]) -> None:
             )
 
 
+def validate_survey_map_trigger_guards(wonders: list[dict]) -> None:
+    generator = load_trigger_generator()
+    script = generator.generate()
+
+    def guarded_map_read(block: str, map_name: str, target: object, absent_result: str) -> str:
+        key_check = f"is_key_in_variable_map = {{ name = {map_name} target = {target} }}"
+        branch = extract_assignment_block_containing(block, "trigger_if", key_check)
+        limit = extract_trigger_block(branch, "limit")
+        require(
+            f"has_variable_map = {map_name}" in limit and key_check not in limit,
+            f"{map_name} membership must only be evaluated after its map exists.",
+        )
+        require(key_check in branch, f"{map_name} key check escaped its conditional branch.")
+        after_branch = block[block.index(branch) + len(branch) :].lstrip()
+        require(
+            after_branch.startswith(f"trigger_else = {{ always = {absent_result} }}"),
+            f"Missing {map_name} must explicitly return {absent_result}.",
+        )
+        return branch
+
+    for wonder in wonders:
+        wonder_id = int(wonder["id"])
+        expandable = extract_trigger_block(
+            script, f"tv_wonder_location_has_{wonder['key']}_expandable_final_building_trigger"
+        )
+        stored_tier = guarded_map_read(expandable, "tv_wonder_survey_scale_tier", wonder_id, "no")
+        # A map for another wonder must not bypass the current wonder's key check.
+        require(
+            extract_trigger_block(stored_tier, "is_key_in_variable_map")
+            == f"is_key_in_variable_map = {{ name = tv_wonder_survey_scale_tier target = {wonder_id} }}",
+            f"{wonder['key']} must require its own stored tier key.",
+        )
+        for level in range(1, 6):
+            require(
+                f'"variable_map(tv_wonder_survey_scale_tier|{wonder_id})" ?= {{ this >= {level + 1} }}'
+                in stored_tier,
+                f"{wonder['key']} level {level} must require a tier permitting the next level.",
+            )
+        for building in generator.final_buildings(wonder):
+            require(
+                f"NOT = {{ {generator.loc_level(building, '>=', 6)} }}" in expandable,
+                f"{building} must retain its level-six cap.",
+            )
+        require(
+            "has_global_variable = tv_engineering_department_unlimited_scale" in expandable,
+            f"{wonder['key']} must retain the unlimited-scale option.",
+        )
+        if int(wonder.get("initial_level") or 0) > 0:
+            unsurveyed = guarded_map_read(expandable, "tv_wonder_surveyed", wonder_id, "yes")
+            require(
+                f"NOT = {{ is_key_in_variable_map = {{ name = tv_wonder_surveyed target = {wonder_id} }} }}"
+                in unsurveyed,
+                f"{wonder['key']} must remain unsurveyed when another wonder's map lacks its key.",
+            )
+
+    cached = extract_trigger_block(script, "tv_wonder_selected_survey_already_cached_trigger")
+    location = extract_trigger_block(cached, "scope:tv_wonder_selected_survey_site")
+    guarded_map_read(location, "tv_wonder_surveyed", "prev.var:tv_wonder_locked", "no")
+
+
 def validate_existing_unique_initialization_seeds_survey_maps(wonders: list[dict]) -> None:
     location_display_script = load_effect_generator().generate_location_display_effects()
     init_block = extract_trigger_block(
@@ -1535,6 +1595,7 @@ def main() -> None:
 
     validate_wonder_size_base_country_modifier_rules(wonders, mechanics)
     validate_generated_trigger_scope_layers(wonders)
+    validate_survey_map_trigger_guards(wonders)
     validate_existing_unique_initialization_seeds_survey_maps(wonders)
     validate_cmm_wonder_controls(wonders, mechanics)
     validate_final_building_destruction_sync(wonders, mechanics)
