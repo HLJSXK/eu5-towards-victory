@@ -678,7 +678,8 @@ organization_panel = {
 													}
 												}
 												text_single = {
-													raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableText('tv_wonder_concept_progress')]"
+													datacontext = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableSpec('tv_wonder_concept_progress')]"
+													raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableText(MonthlySavedVariable.Self)]"
 													size = { 68 20 }
 													max_width = 68
 													fontsize = 13
@@ -1289,7 +1290,8 @@ widget = {
 								text_single = { text = "TV_ENGINEERING_DOMESTIC_SUPPORT_LABEL" align = nobaseline }
 								expand = {}
 								text_single = {
-									raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableText('tv_wonder_domestic_support')]"
+									datacontext = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableSpec('tv_wonder_domestic_support')]"
+									raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableText(MonthlySavedVariable.Self)]"
 									align = nobaseline
 								}
 							}
@@ -1577,7 +1579,8 @@ widget = {
 							text_single = { text = "TV_ENGINEERING_DOMESTIC_SUPPORT_LABEL" align = nobaseline }
 							expand = {}
 							text_single = {
-								raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableText('tv_wonder_domestic_support')]"
+								datacontext = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableSpec('tv_wonder_domestic_support')]"
+								raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableText(MonthlySavedVariable.Self)]"
 								align = nobaseline
 							}
 						}
@@ -1667,15 +1670,13 @@ widget = {
 											using = bg_text_mask_container_dark_blue
 											vbox = {
 												margin = { 6 4 }
-												TooltipRequirementsList = {
+												text_multi = {
 													layoutpolicy_horizontal = fixed
-													textcontext = "[ShowScriptedEffectForScope('tv_wonder_accept_nobles_demand_effect',InternationalOrganizationsView.GetPlayer.MakeScope.Self)]"
-													maximumsize = { 230 -1 }
-													blockoverride "tooltip_minimumsize" { minimumsize = { 230 -1 } }
-													blockoverride "field_text_format" { fontsize = 13 }
-													blockoverride "row_size" { maximumsize = { -1 22 } minimumsize = { -1 22 } }
-													blockoverride "block_title" { block "block_title" { visible = no } }
-													blockoverride "requirementslist_datamodel_is_empty" { visible = no }
+													max_width = 230
+													minimumsize = { 230 -1 }
+													autoresize = yes
+													raw_text = "[ShowScriptedEffectForScope('tv_wonder_accept_nobles_demand_effect',InternationalOrganizationsView.GetPlayer.MakeScope.Self)]"
+													align = nobaseline|left
 												}
 											}
 										}
@@ -1740,15 +1741,13 @@ widget = {
 											using = bg_text_mask_container_dark_blue
 											vbox = {
 												margin = { 6 4 }
-												TooltipRequirementsList = {
+												text_multi = {
 													layoutpolicy_horizontal = fixed
-													textcontext = "[ShowScriptedEffectForScope('tv_wonder_accept_burghers_demand_effect',InternationalOrganizationsView.GetPlayer.MakeScope.Self)]"
-													maximumsize = { 230 -1 }
-													blockoverride "tooltip_minimumsize" { minimumsize = { 230 -1 } }
-													blockoverride "field_text_format" { fontsize = 13 }
-													blockoverride "row_size" { maximumsize = { -1 22 } minimumsize = { -1 22 } }
-													blockoverride "block_title" { block "block_title" { visible = no } }
-													blockoverride "requirementslist_datamodel_is_empty" { visible = no }
+													max_width = 230
+													minimumsize = { 230 -1 }
+													autoresize = yes
+													raw_text = "[ShowScriptedEffectForScope('tv_wonder_accept_burghers_demand_effect',InternationalOrganizationsView.GetPlayer.MakeScope.Self)]"
+													align = nobaseline|left
 												}
 											}
 										}
@@ -1813,15 +1812,13 @@ widget = {
 											using = bg_text_mask_container_dark_blue
 											vbox = {
 												margin = { 6 4 }
-												TooltipRequirementsList = {
+												text_multi = {
 													layoutpolicy_horizontal = fixed
-													textcontext = "[ShowScriptedEffectForScope('tv_wonder_accept_clergy_demand_effect',InternationalOrganizationsView.GetPlayer.MakeScope.Self)]"
-													maximumsize = { 230 -1 }
-													blockoverride "tooltip_minimumsize" { minimumsize = { 230 -1 } }
-													blockoverride "field_text_format" { fontsize = 13 }
-													blockoverride "row_size" { maximumsize = { -1 22 } minimumsize = { -1 22 } }
-													blockoverride "block_title" { block "block_title" { visible = no } }
-													blockoverride "requirementslist_datamodel_is_empty" { visible = no }
+													max_width = 230
+													minimumsize = { 230 -1 }
+													autoresize = yes
+													raw_text = "[ShowScriptedEffectForScope('tv_wonder_accept_clergy_demand_effect',InternationalOrganizationsView.GetPlayer.MakeScope.Self)]"
+													align = nobaseline|left
 												}
 											}
 										}
@@ -2326,7 +2323,8 @@ widget = {
 								text_single = { text = "TV_ENGINEERING_SURVEY_PROGRESS_LABEL" align = nobaseline }
 								expand = {}
 								text_single = {
-									raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableText('tv_wonder_survey_progress')]"
+									datacontext = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableSpec('tv_wonder_survey_progress')]"
+									raw_text = "[InternationalOrganizationsView.GetInternationalOrganization.GetVariableText(MonthlySavedVariable.Self)]"
 									align = nobaseline
 								}
 							}

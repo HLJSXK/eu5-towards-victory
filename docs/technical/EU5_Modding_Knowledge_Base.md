@@ -1791,6 +1791,52 @@ owner ?= {
 
 Do not write `location.owner = { ... }` in this specific location-root tooltip context. The `location` prefix is parsed as an event-target link named `location`; when no separate `location` event target exists, hover evaluation logs a scope mismatch and may also leave `COUNTRY.GetName` unavailable for the generated modifier tooltip. `location.owner` remains valid only in contexts that expose a separate `location` event target, such as building `on_built`.
 
+#### Engine-generated effect previews and GUI consumers
+
+The engine generates descriptions for real scripted effects, including add_stability,
+granting a randomly selected estate privilege, and dismissing a character. Nested calls,
+conditional branches, and random selection do not inherently require manual descriptions
+or a separate tooltip-only effect. The project owner confirmed that these rendered
+automatically in the Engineering Department debate panel in 1.3 (2026-10-14).
+
+Keep the real effect as the preview source of truth. A blank preview does not justify
+substituting TV_ENGINEERING_SOLUTION_* strings, injecting those strings via custom_tooltip,
+registering redundant trigger-localization entries, or duplicating execution branches in
+new *_tooltip_effect wrappers. Genuine custom mechanics may still need their established
+custom localization; this rule concerns replacing descriptions the engine already provides.
+
+Trace the producer and its GUI consumer against these vanilla references, relative to
+reference_game_files/game/:
+
+| Output | Vanilla rendering example |
+| --- | --- |
+| ShowModifierEffect(...) | TooltipStringPairList in in_game/gui/economy_lateralview.gui |
+| UIAction.GetEffects | TooltipStringPairList in in_game/gui/panels/organization/union.gui |
+| UIAction.GetEffects | TooltipBlockList in in_game/gui/shared/government_tooltips.gui |
+| EventOption.GetTooltip | TooltipTextBlock in in_game/gui/eventwindow.gui |
+| UIAction.GetConditions | TooltipRequirementsList in in_game/gui/panels/organization/union.gui |
+
+TooltipRequirementsList uses SetRequirementsListFromTextContextWithTitle and
+RequirementsList.GetLines in main_menu/gui/shared/main_menu_cooltip_types.gui. It is a
+requirements parser, not a universal effect renderer. ShowScriptedEffectForScope returns
+CString in the official data-type reference; that type alone does not establish which
+structured-list parser accepts its contents. Verify scope, output structure, receiver,
+visibility, and width/height before changing the effect. Respect the separate rule against
+using tooltip-only TooltipTextBlock in an ordinary panel without its required context.
+
+Vanilla also embeds ShowScriptedEffectForScope directly in localization: see
+main_menu/localization/english/events/expeditions/treasure_fleet_events_l_english.yml,
+chinese_expedition_resolution_tt, and chi_expedition_resolution_very_positive in
+in_game/common/scripted_effects/country_effects.txt. This previews conditional effects
+without a dedicated tooltip wrapper.
+
+Investigation status (2026-10-14): the claims that 1.4 cannot expand nested/random effects
+or requires a tooltip wrapper were withdrawn. Experimental manual descriptions,
+registrations, and duplicate wrappers were removed. The debate panel currently passes
+the original effect to ShowScriptedEffectForScope and displays its result through
+text_multi.raw_text. This implementation still awaits in-game verification; the final
+renderer choice and exact cause of the original blank area are not yet established.
+
 ### 7.2. Map Modding
 
 EU5 includes a powerful map editor for modifying the game world. This tool allows for editing the heightmap, terrain textures, and location setup. However, it has high system requirements, recommending at least 32GB of RAM. [11]

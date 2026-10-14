@@ -23,6 +23,16 @@
 # To add a new entry: append a YAML dict with all fields, then run:
 #   C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\gen_brief.py
 
+- id: gui_effect_preview_replaced_with_manual_text
+  pattern: ''
+  detectability: advisory
+  bad: "Treating a blank effect preview as proof that nested/random scripted effects cannot render, then replacing engine descriptions with manual localization, injected custom_tooltip text, or duplicated tooltip-only effects."
+  correction: "Preserve the original effect and engine-generated description. Check ShowScriptedEffectForScope/UIAction.GetEffects output, scope, GUI parser, visibility, and layout against current vanilla. TooltipRequirementsList consumes requirements; effect displays use TooltipStringPairList, TooltipBlockList, or text widgets as appropriate. Do not add manual branch descriptions or wrappers solely to mask a blank preview. Verify the renderer in game."
+  category: gui
+  scope: any
+  source: "Project owner correction, 2026-10-14; reference_game_files/game/in_game/gui/panels/organization/union.gui; reference_game_files/game/in_game/gui/shared/government_tooltips.gui; reference_game_files/game/main_menu/gui/shared/main_menu_cooltip_types.gui; reference_game_files/game/main_menu/localization/english/events/expeditions/treasure_fleet_events_l_english.yml"
+  notes: "The debate panel rendered stability loss, privilege grants, and character dismissal automatically in 1.3. Manual solution text, redundant localization registrations, and duplicate tooltip effects were rejected and removed during 1.4 investigation. Direct engine-string rendering remains pending in-game verification; static checks do not prove a runtime fix or an engine limitation."
+
 - id: unreleased_project_compatibility_layer
   pattern: ''
   detectability: advisory

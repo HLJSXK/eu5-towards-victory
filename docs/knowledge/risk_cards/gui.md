@@ -253,6 +253,24 @@ Load this card before editing `.gui` files or GUI-bound localization expressions
     `towards_victory_editor_web/static/victory_tree.js` via `scripts/dds_image_lib.py`), then place it as a
     plain `background` widget layered under the node buttons.
 
+31. Preserve engine-generated scripted-effect descriptions.
+    The engine automatically describes stability changes, random estate privileges,
+    and character dismissal, including nested scripted effects and conditional branches.
+    The project owner confirmed these rendered in the debate panel in 1.3. A blank
+    panel after an upgrade is not proof that those effects require manual text or
+    separate tooltip-only wrappers.
+    Keep the real effect as the preview source. Do not substitute TV_ENGINEERING_SOLUTION_*
+    strings, inject those descriptions through custom_tooltip, or duplicate gameplay
+    branches merely to make the preview display something. Check the producer, scope,
+    receiving widget, parser, and layout against current vanilla. TooltipRequirementsList
+    parses requirements; vanilla effect displays use TooltipStringPairList, TooltipBlockList,
+    or text widgets according to their output structure. A working ShowModifierEffect
+    display does not prove that the same consumer accepts ShowScriptedEffectForScope.
+    See the knowledge base section "Engine-generated effect previews and GUI consumers"
+    and anti-pattern gui_effect_preview_replaced_with_manual_text.
+    The exact 1.4 debate-panel renderer fix still needs in-game verification; static
+    validation alone does not establish the root cause or prove visible output.
+
 ## Validation
 
 Run `validate.py --changed --fix --ai-report`, then check the in-game error log after hover
