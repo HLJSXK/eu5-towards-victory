@@ -1,16 +1,19 @@
 #!/usr/bin/env python3
 """
-Generate Towards Victory wonder image assets through Packy gpt-image-2.
+Generate Towards Victory wonder image assets through the configured Images API.
 
 Usage:
   1. Edit data/wonder_image_prompts.yaml for generic prompts and data/unique_wonders.yaml for unique prompts.
-  2. Set PACKY_API_KEY, or put api.api_key in generate_wonder_image.local.json.
+  2. Set a configured API-key environment variable, or put api.api_key in generate_wonder_image.local.json.
   3. Use generate_wonder_image_config.json only for selection, task_overrides, and runtime defaults; then run: python generate_wonder_image.py
 
 The script reads a batch of image tasks from the JSON config, skips tasks whose
 output already exists when overwrite is false, and writes generated PNGs as
 single-level DXT1 DDS files without requiring ImageMagick, texconv, Pillow, or
 other third-party packages.
+Model names, quality values and supported dimensions are determined by the
+configured provider. The local pipeline requires one PNG per task and an
+explicit positive WIDTHxHEIGHT size.
 """
 
 from __future__ import annotations
@@ -167,15 +170,6 @@ def parse_size(size: str) -> tuple[int, int]:
     width, height = int(match.group(1)), int(match.group(2))
     if width <= 0 or height <= 0:
         raise ValueError("Image size must be positive")
-    if width % 16 or height % 16:
-        raise ValueError("Packy gpt-image-2 sizes must be multiples of 16")
-    if max(width, height) > 3840:
-        raise ValueError("Packy gpt-image-2 maximum side length is 3840")
-    if max(width, height) / min(width, height) > 3:
-        raise ValueError("Packy gpt-image-2 aspect ratio cannot exceed 3:1")
-    pixels = width * height
-    if pixels < 655_360 or pixels > 8_294_400:
-        raise ValueError("Packy gpt-image-2 total pixels must be 655360..8294400")
     return width, height
 
 
@@ -196,7 +190,7 @@ def resolve_api_key(api_config: dict[str, Any]) -> str:
 
     env_hint = ", ".join(env_names)
     raise RuntimeError(
-        "Missing Packy API token. Set one of these environment variables "
+        "Missing image API token. Set one of these environment variables "
         f"({env_hint}) or put api.api_key in {LOCAL_CONFIG_PATH.name}."
     )
 
@@ -217,18 +211,18 @@ def build_payload(image_config: dict[str, Any]) -> dict[str, Any]:
         if key in image_config and image_config[key] not in (None, ""):
             payload[key] = image_config[key]
 
-    if payload["model"] != "gpt-image-2":
-        raise ValueError("image.model must be gpt-image-2")
+    if not isinstance(payload["model"], str) or not payload["model"].strip():
+        raise ValueError("image.model must be a non-empty string")
     if not isinstance(payload["prompt"], str) or not payload["prompt"].strip():
         raise ValueError("image.prompt must be a non-empty string")
     if payload["n"] != 1:
-        raise ValueError("Packy gpt-image-2 only supports image.n = 1")
+        raise ValueError("This helper expects image.n = 1 (one output per task)")
     if payload["output_format"] != "png":
         raise ValueError("This helper expects image.output_format = png")
     if payload["response_format"] not in {"b64_json", "url"}:
         raise ValueError("image.response_format must be b64_json or url")
-    if payload["quality"] not in {"low", "medium", "high", "auto"}:
-        raise ValueError("image.quality must be low, medium, high, or auto")
+    if not isinstance(payload["quality"], str) or not payload["quality"].strip():
+        raise ValueError("image.quality must be a non-empty string")
 
     parse_size(str(payload["size"]))
     return payload
@@ -957,6 +951,7 @@ def write_metadata(path: Path, payload: dict[str, Any], response: dict[str, Any]
         "created": response.get("created"),
         "revised_prompt": revised_prompt,
     }
+    path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
@@ -1034,6 +1029,12 @@ def run_generation(config: dict[str, Any], tasks: list[dict[str, Any]], crop_dat
         keep_png = bool(task.get("keep_png", True))
         write_metadata_enabled = bool(task.get("write_metadata", True))
 
+        # Prepare every output directory before paying for a generation request.
+        png_path.parent.mkdir(parents=True, exist_ok=True)
+        dds_path.parent.mkdir(parents=True, exist_ok=True)
+        if write_metadata_enabled:
+            metadata_path.parent.mkdir(parents=True, exist_ok=True)
+
         if existing_paths:
             rel_paths = ", ".join(pretty_repo_path(path) for path in existing_paths)
             print(f"[overwrite {index}/{task_total}] {stem}: {rel_paths}")
@@ -1048,7 +1049,6 @@ def run_generation(config: dict[str, Any], tasks: list[dict[str, Any]], crop_dat
         if not png_bytes.startswith(PNG_SIGNATURE):
             raise RuntimeError("Generated image payload is not a PNG")
 
-        png_path.parent.mkdir(parents=True, exist_ok=True)
         png_path.write_bytes(png_bytes)
         print(f"[png] {pretty_repo_path(png_path)}")
 

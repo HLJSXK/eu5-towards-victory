@@ -1,6 +1,6 @@
 {
   "api": {
-    "endpoint": "https://www.right.codes/draw/v1/images/generations",
+    "endpoint": "https://sidrune.ai/v1/images/generations",
     "api_key_env": [
       "PACKY_API_KEY",
       "PACKY_SORA_TOKEN"
@@ -14,7 +14,7 @@
     "retry_backoff_multiplier": 2
   },
   "defaults": {
-    "model": "gpt-image-2",
+    "model": "gpt-image-2.5-sunburst",
     "size": "1536x1024",
     "quality": "high",
     "output_format": "png",
