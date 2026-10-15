@@ -4,6 +4,12 @@
 
 For any non-trivial task, read `docs/knowledge/BRIEF.md` first.
 
+For gameplay design, balance, victory tasks, wonder rewards, trade, diplomacy,
+or research mechanics, read `docs/knowledge/EU5_Gameplay_Reference.md` and the
+relevant linked system/case notes before proposing changes. Distinguish local
+vanilla evidence, older player experience, and 1.4 previews; do not infer gameplay
+from EU4 or from unviewed video metadata.
+
 For tool-integration or `towards_victory_editor_web` refactor work, read in this
 order: `docs/knowledge/BRIEF.md` → the status snapshot
 `docs/technical/Editor_Web_Refactor_Status.md` → the work plan

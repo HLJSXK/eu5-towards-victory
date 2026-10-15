@@ -26,6 +26,13 @@ producers and consumers to the new shape and delete stale branches rather than
 keeping migrations, aliases, duplicate paths, wrapper entry points, or defensive
 fallbacks for old internal state.
 
+Before gameplay design or balance work, read
+[`EU5_Gameplay_Reference.md`](EU5_Gameplay_Reference.md), then its relevant player
+cases, official version notes, and vanilla evidence. The reference explains
+player decisions and costs; it distinguishes older strategies and development
+previews from local rules. Sources and actual reading coverage are recorded in
+[`EU5_Gameplay_Reading_Log.md`](../research/EU5_Gameplay_Reading_Log.md).
+
 
 ## Quick Rules
 

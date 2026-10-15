@@ -16,6 +16,9 @@ Read every required risk card, especially any immediate risk alert.
 ### 1. Use the compact startup entry
 - Read `CLAUDE.md` first.
 - Read `docs/knowledge/BRIEF.md` for broad project context.
+- Before gameplay design or balance work, read `docs/knowledge/EU5_Gameplay_Reference.md`
+  and its relevant case/version/evidence notes. Keep local rules, old player
+  strategies, and 1.4 previews distinct; unviewed video metadata is not gameplay evidence.
 - For tool-integration or Web editor refactor tasks, read
   `docs/technical/Editor_Web_Refactor_Status.md` next. Use
   `docs/technical/Towards_Victory_Editor_Web_Assessment.md` only when the
