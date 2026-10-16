@@ -13,12 +13,12 @@ import gen_location_window as tv_location_window
 from location_window_1_4 import migrate_panel
 from wonder_mechanics.render import render_header
 
-BASE_FILE = REPO_ROOT / "reference_mods" / "3735059838" / "in_game" / "gui" / "location_window.gui"
+BASE_FILE = REPO_ROOT / ".eu5-base" / "reference_mods_variants" / "eu5-towards-victory" / "3735059838" / "in_game" / "gui" / "location_window.gui"
 OUT_FILE = REPO_ROOT / "submods" / "tv_meiou_and_taxes_compat" / "in_game" / "gui" / "location_window.gui"
 SCRIPT_REL = "scripts/compat/gen_tv_meiou_and_taxes_location_window.py"
 DATA_REL = (
-    "reference_game_files/game/in_game/gui/location_window.gui + "
-    "reference_mods/3735059838/in_game/gui/location_window.gui + data/compat/mnt_location_window_1_4.patch"
+    ".eu5-base/reference_game_files/game/in_game/gui/location_window.gui + "
+    ".eu5-base/reference_mods_variants/eu5-towards-victory/3735059838/in_game/gui/location_window.gui + data/compat/mnt_location_window_1_4.patch"
 )
 OVERLAY_MARKER = "\n\t\t\t\tvbox = {\n\t\t\t\t\texpand = {}\n"
 

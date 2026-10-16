@@ -21,7 +21,7 @@ REPO_ROOT = Path(__file__).resolve().parents[4]
 DATA_FILE = REPO_ROOT / "data" / "io_leaders.yaml"
 VANILLA_FILE = (
     REPO_ROOT
-    / "reference_game_files"
+    / ".eu5-base" / "reference_game_files"
     / "game"
     / "in_game"
     / "common"

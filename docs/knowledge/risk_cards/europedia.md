@@ -83,7 +83,7 @@ content, or wiring any `game_concept` into a curated (as opposed to search/link-
    both tabs share one variable, the vanilla "all pages" button and each per-page nav button only
    ever need a single `Clear('tveu_compat_encyclopedia_active')`, and the mutual-exclusion check
    for "is any custom tab active" uses the single-arg `GetVariableSystem.Exists(...)` accessor
-   (verified at `reference_game_files/game/main_menu/gui/...`: `GetVariableSystem.Exists('gamerules_page')`)
+   (verified at `.eu5-base/reference_game_files/game/main_menu/gui/...`: `GetVariableSystem.Exists('gamerules_page')`)
    instead of `Or`-ing two `HasValue(...)` checks. The compat submod depends on
    `hades.towards_victory.great_project` (which owns `encyclopedia_lateralview.gui`); Prosper or
    Perish has no declared internal mod id (`"id": ""` in its own metadata) so it cannot be

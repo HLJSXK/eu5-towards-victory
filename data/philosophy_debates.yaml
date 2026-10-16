@@ -291,7 +291,7 @@ groups:
       simp_chinese: "大科学家"
 
   # Societal-value-driven variants: two per axis (left pole < -50 / right pole > 50),
-  # covering every axis in reference_game_files/game/in_game/common/societal_values/00_default.txt.
+  # covering every axis in .eu5-base/reference_game_files/game/in_game/common/societal_values/00_default.txt.
   # List order within a shared base_group/base_estate is the mutual-exclusion tie-break
   # (see philosophy_debate.md risk card) — earlier entries win when two conditions are both true.
   - id: 19

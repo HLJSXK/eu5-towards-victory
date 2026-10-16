@@ -13,6 +13,7 @@ from __future__ import annotations
 
 from datetime import date
 import subprocess
+import os
 import sys
 from pathlib import Path
 from typing import Any
@@ -27,6 +28,12 @@ except ImportError:
     raise SystemExit(1)
 
 REPO_ROOT = Path(__file__).parent.parent
+_BASE_DEFAULT = REPO_ROOT / ".eu5-base"
+if not _BASE_DEFAULT.exists():
+    _BASE_DEFAULT = REPO_ROOT.parent / "eu5-modding-base"
+BASE_ROOT = Path(os.environ.get("EU5_MODDING_BASE", str(_BASE_DEFAULT))).resolve()
+sys.path.insert(0, str(BASE_ROOT / "docs" / "knowledge"))
+from knowledge_loader import load_anti_patterns, load_valid_enums
 KNOWLEDGE_DIR = REPO_ROOT / "docs" / "knowledge"
 OUTPUT = KNOWLEDGE_DIR / "BRIEF.md"
 OVERVIEW = KNOWLEDGE_DIR / "PROJECT_OVERVIEW.md"
@@ -123,8 +130,8 @@ def append_route_table(lines: list[str], routes: dict[str, Any]) -> None:
 
 def main() -> None:
     run_gen_index()
-    anti_patterns = load_yaml(KNOWLEDGE_DIR / "anti_patterns.yaml") or []
-    enums = load_yaml(KNOWLEDGE_DIR / "valid_enums.yaml") or {}
+    anti_patterns = load_anti_patterns(REPO_ROOT)
+    enums = load_valid_enums(REPO_ROOT)
     routes = load_yaml(ROUTES_FILE) or {}
 
     lines: list[str] = []

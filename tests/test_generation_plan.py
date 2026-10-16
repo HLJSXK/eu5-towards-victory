@@ -73,6 +73,31 @@ def test_plan_rejects_undeclared_dependency_and_missing_input(tmp_path):
         build_generation_plan((GeneratorSpec('a.py', inputs=('absent.txt',)),), ('a.py',), repo_root=tmp_path)
 
 
+def test_plan_accepts_shared_base_inputs_and_rejects_paths_outside_base(tmp_path):
+    _workspace(tmp_path, {
+        'read.py': "from pathlib import Path; Path('result.txt').write_text(Path('.eu5-base/reference_game_files/probe.txt').read_text())",
+    }, {'read.py': ['result.txt']})
+    reference = tmp_path / '.eu5-base/reference_game_files/probe.txt'
+    reference.parent.mkdir(parents=True)
+    reference.write_text('shared EU5 reference')
+
+    plan = build_generation_plan(
+        (GeneratorSpec('read.py', inputs=('.eu5-base/reference_game_files/probe.txt',)),),
+        ('read.py',), repo_root=tmp_path,
+    )
+    report = run_generation(plan, log=lambda _: None)
+    assert report['status'] == 'succeeded'
+    assert (tmp_path / 'result.txt').read_text() == 'shared EU5 reference'
+
+    with pytest.raises(ValueError, match='escapes EU5 base'):
+        build_generation_plan(
+            (GeneratorSpec('read.py', inputs=('.eu5-base/../result.txt',)),),
+            ('read.py',), repo_root=tmp_path,
+        )
+
+
+
+
 @pytest.mark.parametrize('timeout', [0, -1, float('inf'), float('nan')])
 def test_plan_rejects_unbounded_or_nonpositive_timeout(tmp_path, timeout):
     _workspace(tmp_path, {'a.py': ''}, {'a.py': ['a.txt']})
@@ -254,9 +279,9 @@ def test_real_wonder_regeneration_matches_current_outputs(tmp_path):
                 destination = tmp_path / source.relative_to(root)
                 destination.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copyfile(source, destination)
-    references = {'reference_game_files/game/main_menu/gui/shared/font_icons.gui'}
+    references = {'.eu5-base/reference_game_files/game/main_menu/gui/shared/font_icons.gui'}
     references.update(source for step in original_plan.steps for source in step.spec.inputs
-                      if source.startswith('reference_'))
+                      if source.startswith('.eu5-base/reference_'))
     for relative in references:
         destination = tmp_path / relative
         if (root / relative).is_dir():

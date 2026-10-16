@@ -82,18 +82,25 @@ def _reject_link(path: Path) -> None:
         raise ValueError(f"Repository links are not allowed: {path}")
 
 
-def _relative_path(root: Path, value: str) -> str:
+def _relative_path(root: Path, value: str, *, allow_base: bool = False) -> str:
     if not isinstance(value, str) or not value or "\x00" in value:
         raise ValueError(f"Invalid repository path: {value!r}")
     normalized = value.replace("\\", "/")
     parts = PurePosixPath(normalized).parts
     if PureWindowsPath(value).drive or normalized.startswith("/") or ".." in parts or any(_excluded(part) for part in parts):
         raise ValueError(f"Invalid repository path: {value}")
+    is_base_input = allow_base and bool(parts) and parts[0] == ".eu5-base"
     path = root
-    for part in parts:
+    for index, part in enumerate(parts):
         path /= part
         if path.exists() or path.is_symlink():
+            # `.eu5-base` is the explicitly trusted workspace link to the
+            # shared reference project. Other links remain forbidden.
+            if is_base_input and index == 0:
+                continue
             _reject_link(path)
+    if is_base_input:
+        return PurePosixPath(*parts).as_posix()
     return repo_relative_path(path, root)
 
 
@@ -101,18 +108,52 @@ def _tree_snapshot(root: Path) -> dict[Path, tuple[int, str]]:
     paths = []
     def fail(error: OSError) -> None:
         raise error
+    root = root.resolve()
     for directory, directories, files in os.walk(root, onerror=fail):
-        for name in (*directories, *files):
+        # The base link is an immutable external input. Do not include or
+        # recurse through it while checking staged writes and artifacts.
+        if Path(directory).resolve() == root:
+            directories[:] = [name for name in directories if name != ".eu5-base"]
+        names = [name for name in (*directories, *files) if not (
+            Path(directory).resolve() == root and name == ".eu5-base"
+        )]
+        for name in names:
             _reject_link(Path(directory) / name)
-        paths.extend(Path(directory) / name for name in files)
+        paths.extend(Path(directory) / name for name in files if not (
+            Path(directory).resolve() == root and name == ".eu5-base"
+        ))
     return snapshot_artifacts(paths)
 
 
-def _copy_ignore(directory: str, names: list[str]) -> list[str]:
+def _copy_ignore(directory: str, names: list[str], trusted_root: Path | None = None) -> list[str]:
     ignored = [name for name in names if _excluded(name)]
+    current = Path(directory)
     for name in set(names) - set(ignored):
-        _reject_link(Path(directory) / name)
+        path = current / name
+        if name == ".eu5-base" and trusted_root is not None and current.resolve() == trusted_root.resolve():
+            attrs = path.lstat()
+            if path.is_symlink() or getattr(attrs, "st_file_attributes", 0) & stat.FILE_ATTRIBUTE_REPARSE_POINT:
+                ignored.append(name)
+                continue
+        _reject_link(path)
     return ignored
+
+
+def _stage_base_link(source: Path, destination: Path) -> None:
+    """Expose the immutable shared reference project to staged generators."""
+    attrs = source.lstat()
+    if not (source.is_symlink() or getattr(attrs, "st_file_attributes", 0) & stat.FILE_ATTRIBUTE_REPARSE_POINT):
+        return  # A small test fixture may contain a regular .eu5-base directory.
+    target = source.resolve()
+    if os.name == "nt":
+        result = subprocess.run(
+            ["cmd", "/c", "mklink", "/J", str(destination), str(target)],
+            capture_output=True, text=True, encoding="utf-8", errors="replace",
+        )
+        if result.returncode:
+            raise OSError(f"Could not stage EU5 base link: {result.stdout}{result.stderr}")
+    else:
+        destination.symlink_to(target, target_is_directory=True)
 
 
 def _resource_ids(outputs: list[str]) -> tuple[str, ...]:
@@ -155,7 +196,7 @@ class GeneratorRunService:
             for source in str(entry.get("data", "")).split(" + "):
                 source = source.split(" (", 1)[0].strip()
                 if source:
-                    generator["data_inputs"].add(_relative_path(self.repo_root, source))
+                    generator["data_inputs"].add(_relative_path(self.repo_root, source, allow_base=True))
         return sorted(({
             **generator, "data_inputs": sorted(generator["data_inputs"]), "outputs": sorted(generator["outputs"]),
         } for generator in catalog.values()), key=lambda item: (item["root"], item["domain"], item["script"]))
@@ -211,7 +252,13 @@ class GeneratorRunService:
             before = snapshot_artifacts(formal_paths)
             with tempfile.TemporaryDirectory(prefix="tv-generators-") as temporary:
                 staging = Path(temporary) / "repo"
-                shutil.copytree(self.repo_root, staging, ignore=_copy_ignore)
+                shutil.copytree(
+                    self.repo_root, staging,
+                    ignore=lambda directory, names: _copy_ignore(directory, names, self.repo_root),
+                )
+                base_link = self.repo_root / ".eu5-base"
+                if base_link.exists():
+                    _stage_base_link(base_link, staging / ".eu5-base")
                 if self._tracked_snapshot(selected) != tracked_before:
                     raise ConflictError("Registered generator inputs or outputs changed during staging")
                 staged_before = _tree_snapshot(staging)

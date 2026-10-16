@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -31,6 +32,12 @@ REPO_ROOT = Path(__file__).parent.parent
 KNOWLEDGE_DIR = REPO_ROOT / "docs" / "knowledge"
 RISK_CARDS_DIR = KNOWLEDGE_DIR / "risk_cards"
 ROUTES_FILE = KNOWLEDGE_DIR / "context_routes.yaml"
+_BASE_DEFAULT = REPO_ROOT / ".eu5-base"
+if not _BASE_DEFAULT.exists():
+    _BASE_DEFAULT = REPO_ROOT.parent / "eu5-modding-base"
+BASE_ROOT = Path(os.environ.get("EU5_MODDING_BASE", str(_BASE_DEFAULT))).resolve()
+BASE_KNOWLEDGE_DIR = BASE_ROOT / "docs" / "knowledge"
+BASE_RISK_CARDS_DIR = BASE_KNOWLEDGE_DIR / "risk_cards"
 GENERATED_REGISTRY = REPO_ROOT / "data" / "generated_files.yaml"
 MANAGED_SANDBOX_PYTHON = r"C:\Users\Hades\anaconda3\envs\eu5\python.exe"
 
@@ -87,6 +94,12 @@ def generated_map() -> dict[str, dict[str, Any]]:
 
 def load_routes() -> dict[str, Any]:
     routes = _load_yaml(ROUTES_FILE)
+    shared_routes = _load_yaml(BASE_KNOWLEDGE_DIR / "context_routes.yaml") or {}
+    for key, rows in shared_routes.items():
+        if key == "mod_roots":
+            continue
+        if isinstance(rows, list):
+            routes[key] = [dict(row, _origin="base") for row in rows] + [dict(row, _origin="local") for row in routes.get(key, [])]
     if not isinstance(routes, dict):
         raise SystemExit(f"[ERROR] Missing or invalid route config: {_rel(ROUTES_FILE)}")
     routes.setdefault("mod_roots", ["src", "src_engineering_department", "src_court_positions"])
@@ -169,6 +182,13 @@ def _file_contains_marker(path: str, markers: tuple[str, ...]) -> bool:
     return False
 
 
+def _card_path(route: dict[str, Any]) -> str:
+    filename = str(route.get("card", ""))
+    if route.get("_origin") == "base" and (BASE_RISK_CARDS_DIR / filename).is_file():
+        return f".eu5-base/docs/knowledge/risk_cards/{filename}"
+    return f"docs/knowledge/risk_cards/{filename}"
+
+
 def _add_unique(items: list[dict[str, str]], item: dict[str, str], key: str) -> None:
     if item.get(key) and not any(existing.get(key) == item.get(key) for existing in items):
         items.append(item)
@@ -194,7 +214,7 @@ def build_context(files: list[str], routes: dict[str, Any]) -> dict[str, Any]:
                     domains[route["id"]] = {"id": route["id"], "reason": route.get("reason", "")}
                     if route.get("card"):
                         card = {
-                            "path": f"docs/knowledge/risk_cards/{route['card']}",
+                            "path": _card_path(route),
                             "domain": route["id"],
                             "reason": route.get("reason", ""),
                             "summary": route.get("summary", ""),
@@ -206,7 +226,7 @@ def build_context(files: list[str], routes: dict[str, Any]) -> dict[str, Any]:
                     domains[route["id"]] = {"id": route["id"], "reason": route.get("reason", "")}
                     if route.get("card"):
                         card = {
-                            "path": f"docs/knowledge/risk_cards/{route['card']}",
+                            "path": _card_path(route),
                             "domain": route["id"],
                             "reason": route.get("reason", ""),
                             "summary": route.get("summary", ""),
@@ -223,7 +243,7 @@ def build_context(files: list[str], routes: dict[str, Any]) -> dict[str, Any]:
                         _add_unique(reads, {"path": read["path"], "reason": read.get("reason", "")}, "path")
                     if route.get("card"):
                         card = {
-                            "path": f"docs/knowledge/risk_cards/{route['card']}",
+                            "path": _card_path(route),
                             "domain": route["id"],
                             "reason": route.get("reason", ""),
                             "summary": route.get("summary", ""),
@@ -243,14 +263,14 @@ def build_context(files: list[str], routes: dict[str, Any]) -> dict[str, Any]:
                         "path": original,
                         "source": path,
                         "message": route.get("message", ""),
-                        "card": f"docs/knowledge/risk_cards/{route['card']}" if route.get("card") else "",
+                        "card": _card_path(route) if route.get("card") else "",
                     }
                     _add_unique(alerts, alert, "id")
                     if route.get("card"):
                         _add_unique(
                             cards,
                             {
-                                "path": f"docs/knowledge/risk_cards/{route['card']}",
+                                "path": _card_path(route),
                                 "domain": route["id"],
                                 "reason": route.get("reason", route.get("message", "")),
                                 "summary": route.get("summary", ""),
@@ -278,7 +298,7 @@ def build_context(files: list[str], routes: dict[str, Any]) -> dict[str, Any]:
 
 
 def relevant_rules(files: list[str], domains: set[str], limit: int = 10) -> list[dict[str, str]]:
-    patterns = _load_yaml(KNOWLEDGE_DIR / "anti_patterns.yaml") or []
+    patterns = (_load_yaml(BASE_KNOWLEDGE_DIR / "anti_patterns.yaml") or []) + (_load_yaml(KNOWLEDGE_DIR / "anti_patterns.yaml") or [])
     normalized = [_norm(f) for f in files]
     matches: list[dict[str, str]] = []
     for entry in patterns:
@@ -327,6 +347,8 @@ def _short(text: str, limit: int = 260) -> str:
 
 def print_card(card_path: str) -> None:
     path = REPO_ROOT / card_path
+    if not path.exists() and card_path.startswith("docs/knowledge/risk_cards/"):
+        path = BASE_RISK_CARDS_DIR / Path(card_path).name
     if path.exists():
         print(f"## Risk Card: {card_path}")
         print("")
@@ -343,7 +365,7 @@ def print_markdown(context: dict[str, Any], full: bool) -> None:
 
     print("## Core Bootstrap")
     print("- Read `CLAUDE.md` for the compact mandatory workflow.")
-    print("- Read `docs/knowledge/BRIEF.md` for project-wide gotchas; use routed cards for details.")
+    print("- Read `.eu5-base/docs/knowledge/BRIEF.md` for shared gotchas and `docs/knowledge/BRIEF.md` for workspace context.")
     print("- In managed sandboxes, run project scripts with the direct `eu5` interpreter, not `conda run`.")
     print("")
 

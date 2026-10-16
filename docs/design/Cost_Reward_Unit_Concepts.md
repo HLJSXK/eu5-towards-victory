@@ -432,9 +432,9 @@ dispatcher), not a new detection mechanism invented for this catalog.
 bolder second wave — see 6.3). Completion is detected by hooking a real EU5 on_action — an engine
 callback that fires the moment a qualifying action happens in-game — rather than by polling game
 state. Every entry names a real vanilla on_action, verified against
-`reference_game_files/game/in_game/common/on_action/_hardcoded.txt` (plus a few from
+`.eu5-base/reference_game_files/game/in_game/common/on_action/_hardcoded.txt` (plus a few from
 `exploration_mission_monthly.txt` and `parliament_monthly_pulse.txt`) and cross-checked against
-`reference_official_defines/`, together with the exact `root`/`scope:x` variables that on_action
+`.eu5-base/reference_official_defines/`, together with the exact `root`/`scope:x` variables that on_action
 provides (copied from the vanilla source comment, not paraphrased) and a `completion_note`
 recording any extra condition needed to turn "the on_action fired at all" into "this specific
 task is complete" (e.g. only root's own action counts, not the counterparty's).
@@ -487,7 +487,7 @@ vanilla on_action key applies here (see `docs/knowledge/risk_cards/on_action.md`
 
 `data/task_pool.yaml`'s `trigger_task` list, 48 entries (24 from the initial pass, 24 from the
 second wave). Completion is detected by polling a real EU5 trigger — verified against
-`reference_official_defines/docs/triggers.log` — from a monthly check, reusing the same
+`.eu5-base/reference_official_defines/docs/triggers.log` — from a monthly check, reusing the same
 `monthly_country_pulse` dispatcher every other TV system's monthly logic already goes through
 (see `data/pulse_registry.yaml`'s `pulses.monthly_country_pulse` list), not a separate polling
 mechanism invented for this catalog.
@@ -639,7 +639,7 @@ from the first wave's flat magnitudes.
 - `data/wonder_base_modifiers.yaml` — per-wonder-mechanic country-level modifier values (section 4).
 - `data/wonder_final_buildings.yaml` — per-wonder-mechanic `final_local`/`final_maintenance`/`final_attributes`
   values (section 5).
-- `reference_mods/3599735023/` — reference source for the 353 added numeric country modifier keys:
+- `.eu5-base/reference_mods_variants/eu5-towards-victory/3599735023/` — reference source for the 353 added numeric country modifier keys:
   retain only current vanilla-supported `Country` keys in its country blocks, resolve vanilla script
   values, then use the smallest nonzero absolute value for each key; exclude modifier types added
   by that reference mod itself.
@@ -663,11 +663,11 @@ from the first wave's flat magnitudes.
 - `data/pulse_registry.yaml` + `scripts/in_game/common/on_action/gen_tv_pulse_registry.py` —
   the existing on_action bridge registry a `wired: false` task entry (section 6.1) must be added
   to before its on_action can fire; `wired: true` entries already have a bridge block here.
-- `reference_game_files/game/in_game/common/on_action/_hardcoded.txt` (plus
+- `.eu5-base/reference_game_files/game/in_game/common/on_action/_hardcoded.txt` (plus
   `exploration_mission_monthly.txt`, `parliament_monthly_pulse.txt`) — the vanilla on_action
   definitions section 6.1's entries were verified against, including each hook's `root`/`scope:x`
   comment.
-- `reference_official_defines/docs/triggers.log` — the vanilla trigger reference section 6.2's
+- `.eu5-base/reference_official_defines/docs/triggers.log` — the vanilla trigger reference section 6.2's
   entries were verified against (supported scopes, comparison operators).
 - `docs/knowledge/risk_cards/on_action.md` — the singleton-bridge-registry rule (never a second
   direct `effect` body on a shared vanilla on_action key) that governs how a `wired: false`

@@ -245,7 +245,7 @@ def _copy_validator(root):
     package.mkdir()
     for name in ("__init__.py", "io.py", "_core.py"):
         shutil.copy2(source / "scripts_engineering_department" / "wonder_mechanics" / name, package / name)
-    icons = Path("reference_game_files/game/main_menu/gui/shared/font_icons.gui")
+    icons = Path(".eu5-base/reference_game_files/game/main_menu/gui/shared/font_icons.gui")
     (root / icons).parent.mkdir(parents=True)
     shutil.copy2(source / icons, root / icons)
 

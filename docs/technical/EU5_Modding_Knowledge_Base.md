@@ -1,9 +1,11 @@
+> Shared cross-project reference: [EU5 modding base](../../.eu5-base/docs/technical/EU5_Modding_Knowledge_Base.md). This local document is preserved for its source project's examples and history.
+
 # European Universalis 5 Modding Knowledge Base
 
 **Author:** Manus AI
 **Date:** Jan 22, 2026
 
-> **Note:** Generated 2026-01-22 as a baseline reference. May not reflect recent patches. Treat as background reading, not authoritative syntax — use `reference_official_defines/` and `reference_game_files/` to verify.
+> **Note:** Generated 2026-01-22 as a baseline reference. May not reflect recent patches. Treat as background reading, not authoritative syntax — use `.eu5-base/reference_official_defines/` and `.eu5-base/reference_game_files/` to verify.
 
 ## 1. Introduction
 
@@ -871,7 +873,7 @@ From a building scope, reference mod 3735059838 uses:
 value = "location.building_efficiency(scope:epbm_bt)"
 ```
 
-Without quotes, the parser splits on the bare `(` and fails with a cluster of three errors: `jomini_eventtarget.cpp: No data specified for an event target link that requires data`, `jomini_scriptvalue.h: Cannot read [...] as a script value`, and `pdx_persistent_reader.cpp: Unexpected token: (` (immediately followed by `Unexpected token: )` and `Unexpected token: =` on the next lines). This differs from plain colon-suffixed links (`var:X`, `estate:crown_estate`), which never need quoting. See `reference_game_files/game/in_game/common/disasters/coup_attempt.txt:13`, `reference_game_files/game/in_game/common/attribute_columns/57_parliament_issues.txt:40`, `reference_game_files/game/in_game/events/estates/burghers_estate_events.txt:144-145`, and `reference_game_files/game/in_game/events/government/D008_latinization_vs_hellenization.txt:2593` for verified vanilla precedent.
+Without quotes, the parser splits on the bare `(` and fails with a cluster of three errors: `jomini_eventtarget.cpp: No data specified for an event target link that requires data`, `jomini_scriptvalue.h: Cannot read [...] as a script value`, and `pdx_persistent_reader.cpp: Unexpected token: (` (immediately followed by `Unexpected token: )` and `Unexpected token: =` on the next lines). This differs from plain colon-suffixed links (`var:X`, `estate:crown_estate`), which never need quoting. See `.eu5-base/reference_game_files/game/in_game/common/disasters/coup_attempt.txt:13`, `.eu5-base/reference_game_files/game/in_game/common/attribute_columns/57_parliament_issues.txt:40`, `.eu5-base/reference_game_files/game/in_game/events/estates/burghers_estate_events.txt:144-145`, and `.eu5-base/reference_game_files/game/in_game/events/government/D008_latinization_vs_hellenization.txt:2593` for verified vanilla precedent.
 
 ### 5.4. Generic Action `select_trigger` Pre-evaluation
 
@@ -1046,7 +1048,7 @@ Use `right_action` for a single right click. `right_click_and_hold_action` is a 
 hold-to-confirm interaction and should be used only when holding the button is intentional.
 Each bound action remains a complete generic action: it needs its own `potential`, `allow`,
 guarded `effect`, AI-list entry, message type, and localization. This is confirmed by
-`reference_game_files/game/in_game/common/generic_actions/readme.txt:88-91`.
+`.eu5-base/reference_game_files/game/in_game/common/generic_actions/readme.txt:88-91`.
 
 #### Cross-Mod Singleton Copies
 
@@ -1203,7 +1205,7 @@ OR = {
 }
 ```
 
-Source: `reference_game_files/game/in_game/common/cabinet_actions/promote_religion.txt:73-76`.
+Source: `.eu5-base/reference_game_files/game/in_game/common/cabinet_actions/promote_religion.txt:73-76`.
 
 For direct cabinet-action/province eligibility, do not treat `dominant_religion != owner.religion` as the whole conversion-need check. A location can have the state religion as its dominant religion while still containing minority non-state-religion pops, and `local_pop_conversion_speed` can still be useful there.
 
@@ -1211,9 +1213,9 @@ For broader regional priority heuristics, follow the mechanic's design intent ra
 
 ### 5.11. Subject Type Availability (`vassal` vs `samanta`)
 
-Never hardcode `make_subject_of = { type = subject_type:vassal ... }` as the only outcome of a subjugation-style effect. `subject_type:vassal`'s `visible`/`creation_visible` blocks require `NOT = { has_advance = samanta_advance }` on the overlord (`reference_game_files/game/in_game/common/subject_types/vassal.txt:17,38`), so any country that has researched `samanta_advance` (the Indian-subcontinent feudalism advance) cannot create vassals at all — the action's `make_subject_of` call fails/no-ops for that overlord.
+Never hardcode `make_subject_of = { type = subject_type:vassal ... }` as the only outcome of a subjugation-style effect. `subject_type:vassal`'s `visible`/`creation_visible` blocks require `NOT = { has_advance = samanta_advance }` on the overlord (`.eu5-base/reference_game_files/game/in_game/common/subject_types/vassal.txt:17,38`), so any country that has researched `samanta_advance` (the Indian-subcontinent feudalism advance) cannot create vassals at all — the action's `make_subject_of` call fails/no-ops for that overlord.
 
-`subject_type:samanta` (`reference_game_files/game/in_game/common/subject_types/samanta.txt`) is the vanilla substitute: its `creation_visible` is simply `has_advance = samanta_advance`. The two are mutually exclusive by design (one requires the advance, the other forbids it), so a script that creates subjects on behalf of a player-chosen overlord must branch on the overlord's `has_advance = samanta_advance` and pick `subject_type:vassal` or `subject_type:samanta` accordingly, e.g.:
+`subject_type:samanta` (`.eu5-base/reference_game_files/game/in_game/common/subject_types/samanta.txt`) is the vanilla substitute: its `creation_visible` is simply `has_advance = samanta_advance`. The two are mutually exclusive by design (one requires the advance, the other forbids it), so a script that creates subjects on behalf of a player-chosen overlord must branch on the overlord's `has_advance = samanta_advance` and pick `subject_type:vassal` or `subject_type:samanta` accordingly, e.g.:
 
 ```pdx
 if = {
@@ -1225,7 +1227,7 @@ else = {
 }
 ```
 
-Vanilla peace-treaty code exposes a native `can_make_subject_of = { target = <overlord> type = subject_type:<x> }` trigger (`reference_game_files/game/in_game/common/peace_treaties/subjugate_neighbor_native.txt:24`) that encapsulates a subject type's full `visible`/`creation_visible` eligibility; every confirmed vanilla usage is inside a peace-treaty `potential`/`create_enabled` block evaluated during an active war (`scope:war` in scope). Prefer the direct `has_advance = samanta_advance` branch above for subjugation logic that runs outside a war/peace-treaty context, since that condition is verified to work in any scope.
+Vanilla peace-treaty code exposes a native `can_make_subject_of = { target = <overlord> type = subject_type:<x> }` trigger (`.eu5-base/reference_game_files/game/in_game/common/peace_treaties/subjugate_neighbor_native.txt:24`) that encapsulates a subject type's full `visible`/`creation_visible` eligibility; every confirmed vanilla usage is inside a peace-treaty `potential`/`create_enabled` block evaluated during an active war (`scope:war` in scope). Prefer the direct `has_advance = samanta_advance` branch above for subjugation logic that runs outside a war/peace-treaty context, since that condition is verified to work in any scope.
 
 ## 6. Game Content Modding
 
@@ -1365,7 +1367,7 @@ Therefore a reliable complete replacement must poll known Advance ids with `has_
 Keep this scan off monthly country pulses. Towards Victory's dedicated
 `gen_tv_science_score_effects.py` generator writes the scanner to its own
 `tv_science_score_effects.txt` file from every top-level definition under
-`reference_game_files/game/in_game/common/advances/`. The victory situation initializes only
+`.eu5-base/reference_game_files/game/in_game/common/advances/`. The victory situation initializes only
 player-controlled countries, and `yearly_country_pulse` rebuilds only countries passing
 `is_ai = no`. The generated effect must carry an explicit temporary-workaround comment so the
 file and callback can be removed once the upstream count works again.
@@ -1415,7 +1417,7 @@ When using color formatting, put a separator after the color tag before player-f
 
 #### Text Format Tag Catalog
 
-EU5 localization text formatting is `#tag content#!` — every tag must be closed with `#!`, and (per the rule above) needs a separating space before the content. This is not markdown; the available tags below were confirmed empirically by grepping `reference_game_files/game/main_menu/localization/english/*.yml` (2026-07-10), since there is no single reference file for the full tag list (`textformatting.gui` is a `gfx`-adjacent asset pruned from `reference_game_files/` by `sync_reference.py`).
+EU5 localization text formatting is `#tag content#!` — every tag must be closed with `#!`, and (per the rule above) needs a separating space before the content. This is not markdown; the available tags below were confirmed empirically by grepping `.eu5-base/reference_game_files/game/main_menu/localization/english/*.yml` (2026-07-10), since there is no single reference file for the full tag list (`textformatting.gui` is a `gfx`-adjacent asset pruned from `.eu5-base/reference_game_files/` by `sync_reference.py`).
 
 Color tags (single letter):
 - `#R` red (negative/warning, e.g. `#R lose#!`)
@@ -1626,8 +1628,8 @@ a single country argument, save only `cmf_log_arg2` and call
 custom flag argument in both supported localization languages. `cmf_clear_log =
 yes` exists, but CMF's own clear button is hidden in multiplayer, so TV code
 must not expose a separate multiplayer clear route. Reference implementation:
-`reference_mods/3692202776/in_game/common/scripted_effects/cmf_log_effects.txt`
-and `reference_mods/3692202776/in_game/gui/cmm/panes/cmm_log_pane.gui`.
+`.eu5-base/reference_mods_variants/eu5-towards-victory/3692202776/in_game/common/scripted_effects/cmf_log_effects.txt`
+and `.eu5-base/reference_mods_variants/eu5-towards-victory/3692202776/in_game/gui/cmm/panes/cmm_log_pane.gui`.
 
 GUI `raw_text` does not expand `$LOCALIZATION_KEY$` substitutions. A value such as `raw_text = "@trade! $TV_TRADE_LEAGUE_IO_COLUMN$"` renders the `$TV_TRADE_LEAGUE_IO_COLUMN$` text literally. For static localized labels with icons, use `text = "TV_TRADE_LEAGUE_IO_COLUMN"` and put `@trade! ...` inside the localization value. For dynamic values that must use `raw_text`, split the localized label into a separate `text` widget if needed.
 
@@ -1779,7 +1781,7 @@ Likewise, do not use `TooltipTextBlock` as a normal always-visible panel widget.
 
 When a tooltip row combines `TooltipStringPairList` / `TooltipTextBlock` with a preview image, avoid hard-coding the row to `size = { W H }` or wrapping the modifier block in an `expanding` child. That can keep the frame visually short while the visible text spills below the border. Prefer width-fixed, height-auto rows instead: constrain the row with `size = { W -1 }` or `minimumsize`, let the visible content contribute its own height through `set_parent_size_to_minimum`, and keep the parent container `ignoreinvisible = yes` so hidden rows do not reserve space.
 
-That last point undersells a sharp edge: `set_parent_size_to_minimum = yes` computes the vbox's own size from the MINIMUM size each child reports — not from any `layoutpolicy_horizontal`/`size` set on the vbox itself or on its parent `widget`. Giving the *row/container* a `minimumsize` is not enough if the actual visible leaf inside it is a bare `text_multi` with only `max_width`/`autoresize`/`layoutpolicy_horizontal = expanding` and no `minimumsize` of its own — that leaf reports 0 intrinsic width, which zeroes out the whole chain: the vbox (and any ancestor `widget` that in turn auto-fits to it) collapses to margin-only width, and the text renders unselectable at effectively 0 width, with no error in the log. Two plausible-looking fixes do NOT work here and were confirmed not to by live measurement: adding `ignoreinvisible = yes` to an unrelated sibling container, and adding/removing `layoutpolicy_horizontal`/`layoutpolicy_vertical`/explicit `size` on the ancestor `widget`/`vbox` — the vbox stayed stuck at exactly its own doubled horizontal margin regardless. The actual fix is to give the LEAF `text_multi` its own `minimumsize = { W -1 }` matching its `max_width`, matching the vanilla `minimumsize = { W -1 }` + `autoresize` idiom (e.g. `reference_game_files/game/in_game/gui/advances_lateralview.gui:331-332`). See `docs/knowledge/risk_cards/wonders.md` rule 22's sixth follow-up and `docs/knowledge/anti_patterns.yaml` rule `set_parent_size_to_minimum_vbox_needs_leaf_minimumsize_for_width` for the verified instance.
+That last point undersells a sharp edge: `set_parent_size_to_minimum = yes` computes the vbox's own size from the MINIMUM size each child reports — not from any `layoutpolicy_horizontal`/`size` set on the vbox itself or on its parent `widget`. Giving the *row/container* a `minimumsize` is not enough if the actual visible leaf inside it is a bare `text_multi` with only `max_width`/`autoresize`/`layoutpolicy_horizontal = expanding` and no `minimumsize` of its own — that leaf reports 0 intrinsic width, which zeroes out the whole chain: the vbox (and any ancestor `widget` that in turn auto-fits to it) collapses to margin-only width, and the text renders unselectable at effectively 0 width, with no error in the log. Two plausible-looking fixes do NOT work here and were confirmed not to by live measurement: adding `ignoreinvisible = yes` to an unrelated sibling container, and adding/removing `layoutpolicy_horizontal`/`layoutpolicy_vertical`/explicit `size` on the ancestor `widget`/`vbox` — the vbox stayed stuck at exactly its own doubled horizontal margin regardless. The actual fix is to give the LEAF `text_multi` its own `minimumsize = { W -1 }` matching its `max_width`, matching the vanilla `minimumsize = { W -1 }` + `autoresize` idiom (e.g. `.eu5-base/reference_game_files/game/in_game/gui/advances_lateralview.gui:331-332`). See `docs/knowledge/risk_cards/wonders.md` rule 22's sixth follow-up and `docs/knowledge/anti_patterns.yaml` rule `set_parent_size_to_minimum_vbox_needs_leaf_minimumsize_for_width` for the verified instance.
 
 For GUI scripted-effect tooltips, match the effect's scope links to the object passed by the GUI. `ShowScriptedEffectForScope('my_effect', LocationView.GetLocation.MakeScope.Self)` makes the current effect root the location itself. From that effect, country-owned reward lines should use:
 
@@ -1806,7 +1808,7 @@ new *_tooltip_effect wrappers. Genuine custom mechanics may still need their est
 custom localization; this rule concerns replacing descriptions the engine already provides.
 
 Trace the producer and its GUI consumer against these vanilla references, relative to
-reference_game_files/game/:
+.eu5-base/reference_game_files/game/:
 
 | Output | Vanilla rendering example |
 | --- | --- |
@@ -1893,7 +1895,7 @@ building_id = {
 
 `on_construction_started` / `on_construction_ended` are used by vanilla `trade_company_headquarters` even though the official `types/building_types.txt` summary only lists `on_built`. Use `on_construction_ended` when a mechanic must react to building-level upgrades as well as first construction. If the completion is tied to the construction task itself, complete directly from this hook rather than requiring `location_building_level` to update inside the same callback.
 
-**Modifier scope note:** `modifier` and `raw_modifier` are location effects. `capital_country_modifier` is a country modifier only when the building is built in the capital (verified in `reference_official_defines/types/building_types.txt`). For event-created buildings that may appear outside the capital, apply national effects separately with `add_country_modifier` and keep the building's own modifier local.
+**Modifier scope note:** `modifier` and `raw_modifier` are location effects. `capital_country_modifier` is a country modifier only when the building is built in the capital (verified in `.eu5-base/reference_official_defines/types/building_types.txt`). For event-created buildings that may appear outside the capital, apply national effects separately with `add_country_modifier` and keep the building's own modifier local.
 
 Boolean modifier types must use `yes` or `no`, not Python/YAML spillover values like `True`/`False` or numeric `1`/`0`. For example, `can_recruit_regiment_in_this_location`, `global_peasants_migration_allowed`, and `global_laborers_migration_allowed` are declared with `boolean=yes`, and vanilla scripts write these values as `yes` or `no`. In Python generators, handle `bool` before numeric branches because `bool` is an `int` subclass; otherwise `true` YAML values can become malformed `True` tokens or numeric burden values.
 

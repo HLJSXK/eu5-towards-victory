@@ -230,12 +230,12 @@ The Academy IO panel must meet the following **functional** requirements by end 
 Before writing any EU5 script in Phase 2, the following MUST be verified via Step 2 (reference_official_defines) or Step 3 (reference_game_files / reference_mods):
 
 1. **Advance locking:** Does EU5 support a `potential`, `allowed`, or `visible` trigger block in advance definitions gated on country script variables?  
-   → Check `reference_game_files/game/in_game/common/advances/`
+   → Check `.eu5-base/reference_game_files/game/in_game/common/advances/`
 
 2. **IO character leader:** Can an IO's `leader` field reference a character (rather than a country)?  
-   → Check `reference_game_files/game/main_menu/common/international_organizations/`
+   → Check `.eu5-base/reference_game_files/game/main_menu/common/international_organizations/`
 
 3. **Noble-count event probability:** What is the correct `mean_time_to_happen` / `trigger` syntax for event probability modified by the number of courtiers with a specific noble rank?  
-   → Check `reference_game_files/game/in_game/events/`
+   → Check `.eu5-base/reference_game_files/game/in_game/events/`
 
 Verification output must follow the project's Declarative Verification Requirement format before any code is written.

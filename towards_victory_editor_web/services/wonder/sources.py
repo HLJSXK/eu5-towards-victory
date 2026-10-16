@@ -87,8 +87,8 @@ MANUAL_ENGINEERING_FILES = {
 CONCEPT_FILE = REPO_ROOT / "src_engineering_department" / "main_menu" / "common" / "game_concepts" / "tv_engineering_department_wonder_mechanics_concepts.txt"
 CONCEPT_SCRIPT_REL = "scripts_engineering_department/main_menu/common/game_concepts/gen_tv_engineering_department_wonder_mechanics_concepts.py"
 REFERENCE_LOC_DIR_BY_EDITOR_LANGUAGE = {
-    "english": REPO_ROOT / "reference_game_files" / "game" / "main_menu" / "localization" / "english",
-    "simp_chinese": REPO_ROOT / "reference_game_files" / "game" / "main_menu" / "localization" / "simp_chinese",
+    "english": REPO_ROOT / ".eu5-base" / "reference_game_files" / "game" / "main_menu" / "localization" / "english",
+    "simp_chinese": REPO_ROOT / ".eu5-base" / "reference_game_files" / "game" / "main_menu" / "localization" / "simp_chinese",
 }
 
 

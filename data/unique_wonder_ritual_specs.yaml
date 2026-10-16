@@ -1427,8 +1427,8 @@ unique_wonders:
     - retry branch state
     - clergy or local-notable pressure checks
     codebase_evidence:
-    - reference_game_files/game/in_game/common/generic_actions/autocephalous_patriarchates.txt uses holy-site selectors with looking_for_a = holy_site, none_available_msg_key, is_location_holy_site_for, and is_location_holy_site_type.
-    - reference_game_files/game/in_game/events/DHE/flavor_SCO.txt and flavor_TUR.txt show clergy/religion pressure via dominant_religion, religion.group, estate_type:clergy_estate, and add_estate_satisfaction.
+    - .eu5-base/reference_game_files/game/in_game/common/generic_actions/autocephalous_patriarchates.txt uses holy-site selectors with looking_for_a = holy_site, none_available_msg_key, is_location_holy_site_for, and is_location_holy_site_type.
+    - .eu5-base/reference_game_files/game/in_game/events/DHE/flavor_SCO.txt and flavor_TUR.txt show clergy/religion pressure via dominant_religion, religion.group, estate_type:clergy_estate, and add_estate_satisfaction.
     - src/in_game/common/static_modifiers/tv_engineering_department_wonder_mechanics_modifiers.txt contains clergy_estate_target_satisfaction ceremony modifiers, proving the project already uses clergy pressure outputs.
     - capability:bounded_opposition_religious_community_pressure
     - data/unique_wonder_ritual_capabilities.yaml:bounded_opposition_religious_community_pressure covers bounded clergy, holy-site, state-faith, and religious-community eligibility/pressure semantics as an intermediate backend contract with may_write_src false.
@@ -1452,7 +1452,7 @@ unique_wonders:
     - capability:event_chain can document visible branch semantics but cannot generate this source behavior.
     - capability:retry_branch can document retry semantics but cannot generate access-group consequences.
     - scripts/wonder_unique_rituals/hagia.py:tv_wonder_hagia_complete_step_6_effect branches on tv_wonder_hagia_step_6_cost and applies different gold/prestige/estate consequences.
-    - reference_game_files/game/in_game/events/DHE/flavor_TUR.txt contains religion.group and clergy estate satisfaction branches that can inform later witness/community pressure mapping.
+    - .eu5-base/reference_game_files/game/in_game/events/DHE/flavor_TUR.txt contains religion.group and clergy estate satisfaction branches that can inform later witness/community pressure mapping.
     - capability:branch_specific_reward_scaling
     - data/unique_wonder_ritual_capabilities.yaml:branch_specific_reward_scaling documents branch variables that shape incident outcomes and final reward summaries with may_write_src false.
     - capability:bounded_opposition_religious_community_pressure
@@ -1480,7 +1480,7 @@ unique_wonders:
     codebase_evidence:
     - scripts/wonder_unique_rituals/pharos.py:pharos_route_row demonstrates generated GUI rows bound to per-entity status variables.
     - scripts/wonder_unique_rituals/pharos.py:append_pharos_select_route_lines stores active route, route id, event route location, and event route owner variables before rendering route evidence.
-    - reference_game_files/game/in_game/common/generic_actions/autocephalous_patriarchates.txt provides holy-site selector/interface evidence for sacred location discovery, but not a Jerusalem-specific Harness backend.
+    - .eu5-base/reference_game_files/game/in_game/common/generic_actions/autocephalous_patriarchates.txt provides holy-site selector/interface evidence for sacred location discovery, but not a Jerusalem-specific Harness backend.
     - src/in_game/common/scripted_triggers/tv_engineering_department_wonder_mechanics_triggers.txt defines tv_wonder_location_meets_unique_dome_of_the_rock_base_site_rules_trigger with this = location:jerusalem.
     - src/in_game/common/scripted_triggers/tv_engineering_department_wonder_mechanics_triggers.txt defines tv_wonder_can_build_unique_dome_of_the_rock_trigger and tv_wonder_player_visible_site_rules_unique_dome_of_the_rock_trigger with owns = location:jerusalem.
     - src/in_game/common/scripted_triggers/tv_engineering_department_wonder_mechanics_triggers.txt defines unique Dome of the Rock final/intermediate building checks for fixed-site building evidence.
@@ -3508,8 +3508,8 @@ unique_wonders:
     - war outcome or peace settlement state
     codebase_evidence:
     - Harness supports listener names pre_winning_war and ending_war semantically, but source mapping for this ritual is not verified.
-    - reference_game_files/game/in_game/common/on_action/_hardcoded.txt documents on_pre_winning_war/on_winning_war scopes as root country plus scope:winner, scope:loser, and scope:war.
-    - reference_game_files/game/in_game/common/on_action/_hardcoded.txt documents on_ending_war as root country after winning/losing for both sides plus scope:winner, scope:loser, and scope:war.
+    - .eu5-base/reference_game_files/game/in_game/common/on_action/_hardcoded.txt documents on_pre_winning_war/on_winning_war scopes as root country plus scope:winner, scope:loser, and scope:war.
+    - .eu5-base/reference_game_files/game/in_game/common/on_action/_hardcoded.txt documents on_ending_war as root country after winning/losing for both sides plus scope:winner, scope:loser, and scope:war.
     - src/in_game/common/on_action/tv_pulse_bridges.txt bridges on_pre_winning_war to tv_engineering_department_ritual_on_pre_winning_war and on_ending_war to tv_engineering_department_ritual_on_ending_war.
     - src/in_game/common/scripted_triggers/tv_engineering_department_wonder_mechanics_triggers.txt defines tv_wonder_selected_ritual_pre_winning_war_listener_trigger and tv_wonder_selected_ritual_ending_war_listener_trigger.
     - capability:listener_gate
@@ -3531,9 +3531,9 @@ unique_wonders:
     - treaty state variables
     - palace risk rows
     codebase_evidence:
-    - reference_game_files/game/in_game/common/scripted_triggers/location_triggers.txt defines is_owned_by_target_or_subject with owner checks and is_controlled_by_target_or_subject with controller checks.
-    - reference_game_files/game/in_game/events/DHE/flavor_GRA.txt uses location:granada = { owner = c:CAS } for Granada ownership evidence.
-    - reference_game_files/game/in_game/events/DHE/flavor_GRA.txt uses owns = location:granada for Granada owner-scoped event eligibility.
+    - .eu5-base/reference_game_files/game/in_game/common/scripted_triggers/location_triggers.txt defines is_owned_by_target_or_subject with owner checks and is_controlled_by_target_or_subject with controller checks.
+    - .eu5-base/reference_game_files/game/in_game/events/DHE/flavor_GRA.txt uses location:granada = { owner = c:CAS } for Granada ownership evidence.
+    - .eu5-base/reference_game_files/game/in_game/events/DHE/flavor_GRA.txt uses owns = location:granada for Granada owner-scoped event eligibility.
     - src/in_game/common/scripted_triggers/tv_engineering_department_wonder_mechanics_triggers.txt defines tv_wonder_location_meets_unique_alhambra_base_site_rules_trigger with this = location:granada and is_capital = yes.
     - src/in_game/common/scripted_triggers/tv_engineering_department_wonder_mechanics_triggers.txt defines tv_wonder_can_build_unique_alhambra_trigger and tv_wonder_player_visible_site_rules_unique_alhambra_trigger with owns = location:granada.
     - src/in_game/common/scripted_triggers/tv_engineering_department_wonder_mechanics_triggers.txt defines unique Alhambra final/intermediate building checks for fixed-site building evidence.
@@ -7665,8 +7665,8 @@ unique_wonders:
     - Rome site control
     - hostile religion or religious-crisis branch checks
     codebase_evidence:
-    - reference_game_files/game/in_game/common/generic_actions/autocephalous_patriarchates.txt uses holy-site and religion selectors through is_location_holy_site_for, is_holy_site_for, and is_location_holy_site_type.
-    - reference_game_files/game/in_game/events/DHE/flavor_TUR.txt shows religion.group checks and add_estate_satisfaction against estate_type:clergy_estate.
+    - .eu5-base/reference_game_files/game/in_game/common/generic_actions/autocephalous_patriarchates.txt uses holy-site and religion selectors through is_location_holy_site_for, is_holy_site_for, and is_location_holy_site_type.
+    - .eu5-base/reference_game_files/game/in_game/events/DHE/flavor_TUR.txt shows religion.group checks and add_estate_satisfaction against estate_type:clergy_estate.
     - src/in_game/common/building_types/tv_engineering_department_wonder_mechanics_buildings.txt and tv_engineering_department_wonder_mechanics_modifiers.txt already use local_clergy_estate_power and clergy_estate_target_satisfaction for wonder/building rewards.
     - src/in_game/common/scripted_triggers/tv_engineering_department_triggers.txt:tv_wonder_clergy_privilege_agenda_available_trigger and tv_wonder_clergy_policy_agenda_available_trigger prove bounded clergy-estate availability checks in TV script.
     - capability:bounded_opposition_religious_community_pressure
@@ -15057,10 +15057,10 @@ unique_wonders:
     - treasury and solvency state
     codebase_evidence:
     - data/index/static_modifiers.txt lists finance-facing modifiers including minting_income_factor, tax_income_efficiency, trade_income, bank_interest, monthly_loan_capacity_investment, total_loan_capacity_modifier, and take_on_debt_cost_modifier.
-    - data/index/scripted_triggers.txt includes has_gold_org_country_trigger; reference_game_files/game/in_game/common/scripted_triggers/country_triggers.txt defines has_gold_org_country_trigger and uses gold >= monthly_income_trade_and_tax as a country finance check.
-    - data/index/scripted_effects.txt includes change_gold_effect, pay_gold_org_country_effect, and transfer_gold_to_org_country_effect; reference_game_files/game/in_game/common/scripted_effects/country_gold_effects.txt defines those gold transfer/payment effects.
-    - reference_game_files/game/in_game/events/government/republics.txt uses gold, monthly_income_trade_and_tax, num_loans, and change_gold_effect in republic finance events.
-    - reference_game_files/game/in_game/events/government/parliaments.txt uses monthly_income_trade_and_tax, location_tax_base, num_loans, and change_gold_effect in parliamentary fiscal events.
+    - data/index/scripted_triggers.txt includes has_gold_org_country_trigger; .eu5-base/reference_game_files/game/in_game/common/scripted_triggers/country_triggers.txt defines has_gold_org_country_trigger and uses gold >= monthly_income_trade_and_tax as a country finance check.
+    - data/index/scripted_effects.txt includes change_gold_effect, pay_gold_org_country_effect, and transfer_gold_to_org_country_effect; .eu5-base/reference_game_files/game/in_game/common/scripted_effects/country_gold_effects.txt defines those gold transfer/payment effects.
+    - .eu5-base/reference_game_files/game/in_game/events/government/republics.txt uses gold, monthly_income_trade_and_tax, num_loans, and change_gold_effect in republic finance events.
+    - .eu5-base/reference_game_files/game/in_game/events/government/parliaments.txt uses monthly_income_trade_and_tax, location_tax_base, num_loans, and change_gold_effect in parliamentary fiscal events.
     - capability:finance_public_credit_interface_backend
     - data/unique_wonder_ritual_capabilities.yaml:finance_public_credit_interface_backend preserves public-credit, fiscal-pressure, pledge/default-risk, merchant-creditor, and branch-shaped fiscal reward semantics as an intermediate backend contract with may_write_src false.
     - template:semantic_contract_fragment
@@ -15106,8 +15106,8 @@ unique_wonders:
     - merchant/creditor pressure variables
     - incident branch state
     codebase_evidence:
-    - reference_game_files/game/in_game/events/government/republics.txt uses is_merchant_republic, any_market_with_merchants, random_market_with_merchants, estate_satisfaction:burghers_estate, and add_estate_satisfaction for merchant-republic pressure.
-    - reference_game_files/game/in_game/events/government/republic_factions.txt branches on estate_type:burghers_estate, estate_power, has_merchant_power, and add_merchant_power.
+    - .eu5-base/reference_game_files/game/in_game/events/government/republics.txt uses is_merchant_republic, any_market_with_merchants, random_market_with_merchants, estate_satisfaction:burghers_estate, and add_estate_satisfaction for merchant-republic pressure.
+    - .eu5-base/reference_game_files/game/in_game/events/government/republic_factions.txt branches on estate_type:burghers_estate, estate_power, has_merchant_power, and add_merchant_power.
     - data/index/scripted_effects.txt includes tv_wonder_accept_burghers_demand_effect, tv_wonder_bribe_burghers_demand_effect, tv_wonder_refute_burghers_demand_effect, and tv_wonder_roll_burghers_demand_effect as project-owned estate pressure interfaces.
     - data/index/scripted_triggers.txt includes is_merchant_republic and project Grand Merchant availability/busy triggers, proving merchant-state interface names are indexed for later mapping.
     - capability:finance_public_credit_interface_backend

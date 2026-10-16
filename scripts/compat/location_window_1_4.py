@@ -4,7 +4,7 @@ import re
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-VANILLA_FILE = REPO_ROOT / "reference_game_files/game/in_game/gui/location_window.gui"
+VANILLA_FILE = REPO_ROOT / ".eu5-base/reference_game_files/game/in_game/gui/location_window.gui"
 
 
 def normalized_lines(text: str) -> list[str]:

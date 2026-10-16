@@ -214,8 +214,8 @@ class VictoryPathsEditorService:
     @staticmethod
     def _modifier_schema_ids() -> set[str]:
         roots = (
-            REPO_ROOT / "reference_game_files" / "game" / "main_menu" / "common" / "modifier_type_definitions",
-            REPO_ROOT / "reference_mods",
+            REPO_ROOT / ".eu5-base" / "reference_game_files" / "game" / "main_menu" / "common" / "modifier_type_definitions",
+            REPO_ROOT / ".eu5-base" / "reference_mods_variants" / "eu5-towards-victory",
         )
         result: set[str] = set()
         for root in roots:

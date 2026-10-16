@@ -26,7 +26,7 @@ from scripts.victory_task_codegen import SLOTS as VICTORY_TASK_SLOTS
 from scripts.victory_task_codegen import action_name as victory_task_action_name
 from scripts.victory_task_codegen import refresh_action_name as victory_task_refresh_action_name
 
-VANILLA = ROOT / "reference_game_files/game/main_menu/gui/messagetypes.txt"
+VANILLA = ROOT / ".eu5-base/reference_game_files/game/main_menu/gui/messagetypes.txt"
 MAIN_OUT = ROOT / "src/main_menu/gui/messagetypes.txt"
 ENGINEERING_OUT = ROOT / "src_engineering_department/main_menu/gui/messagetypes.txt"
 COURT_OUT = ROOT / "src_court_positions/main_menu/gui/messagetypes.txt"

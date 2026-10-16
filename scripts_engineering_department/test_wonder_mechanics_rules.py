@@ -962,7 +962,7 @@ def validate_native_canal_lifecycle(wonders: list[dict]) -> None:
     suez = canals[0]
     require(suez["location"] == "suez" and suez["initial_level"] == 0,
             "Native Suez must stay at its registered through-location and start unbuilt.")
-    adjacency = (REPO_ROOT / "reference_game_files/game/in_game/map_data/adjacencies.csv").read_text(encoding="utf-8-sig")
+    adjacency = (REPO_ROOT / ".eu5-base/reference_game_files/game/in_game/map_data/adjacencies.csv").read_text(encoding="utf-8-sig")
     require("bardawil_coast;gulf_suez;canal;suez;" in adjacency,
             "The target game reference must register the native Suez connection.")
     effects = load_finalization_effect_generator().generate()

@@ -1,7 +1,7 @@
 # EU5 IO Leader 逻辑技术文档
 
 > 研究目的：厘清 `leader_type = character` 与 `leader_country` 的关系，解释为何两者可以同时存在。
-> 参考来源：`reference_game_files/game/in_game/common/international_organizations/` + GUI 面板文件 + 本 mod 实现。
+> 参考来源：`.eu5-base/reference_game_files/game/in_game/common/international_organizations/` + GUI 面板文件 + 本 mod 实现。
 
 ---
 
@@ -296,10 +296,10 @@ A：因为 mod 的领导者是特殊角色（艺术家、学者、外交官）�
 
 | 文件 | 说明 |
 |---|---|
-| `reference_game_files/game/in_game/common/international_organizations/hre.txt` | 最完整的 character+leader_country IO 原版示例 |
-| `reference_game_files/game/in_game/common/international_organizations/catholic_church.txt` | 简洁的 character+leader_country 示例 |
-| `reference_game_files/game/in_game/gui/panels/organization/common_header.gui` | 标准 IO header GUI（IsLeaderCountryInPlace / GetLeaderCountry） |
-| `reference_game_files/game/in_game/gui/panels/organization/union_header.gui` | Union 双角色 header（GetLeaderScopeObjectAtIndex） |
+| `.eu5-base/reference_game_files/game/in_game/common/international_organizations/hre.txt` | 最完整的 character+leader_country IO 原版示例 |
+| `.eu5-base/reference_game_files/game/in_game/common/international_organizations/catholic_church.txt` | 简洁的 character+leader_country 示例 |
+| `.eu5-base/reference_game_files/game/in_game/gui/panels/organization/common_header.gui` | 标准 IO header GUI（IsLeaderCountryInPlace / GetLeaderCountry） |
+| `.eu5-base/reference_game_files/game/in_game/gui/panels/organization/union_header.gui` | Union 双角色 header（GetLeaderScopeObjectAtIndex） |
 | `src/in_game/common/international_organizations/tv_arts_exhibition.txt` | 本 mod 手动指定角色模式的参考实现 |
 | `data/io_leaders.yaml` | 本 mod IO leader actions 的数据源 |
 | `src/in_game/common/generic_actions/tv_io_leader_actions.txt` | 生成的 9 个 IO leader 管理 action |

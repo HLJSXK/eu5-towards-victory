@@ -64,9 +64,9 @@ and deployment. Shared singleton databases such as `character_title.txt` and
 - `docs/knowledge/`: AI-maintained compact knowledge, routing, anti-patterns, enums,
   overview, and risk cards.
 - `docs/technical/`: broad EU5 technical notes.
-- `reference_official_defines/`: official define/type references.
-- `reference_game_files/`: mirrored vanilla EU5 source.
-- `reference_mods/`: selected community mod references.
+- `.eu5-base/reference_official_defines/`: official define/type references.
+- `.eu5-base/reference_game_files/`: mirrored vanilla EU5 source.
+- `.eu5-base/reference_mods_variants/eu5-towards-victory/`: selected community mod references.
 - `scripts/`: main infrastructure and main-mod generators.
 - `scripts_engineering_department/`: Engineering Department generators and audits.
 - `scripts_court_positions/`: Court Positions generators.

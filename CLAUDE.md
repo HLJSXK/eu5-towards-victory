@@ -1,5 +1,10 @@
 # Towards Victory - Claude Instructions
 
+## Shared EU5 Base (required)
+
+Read `.eu5-base/CLAUDE.md` and `.eu5-base/docs/knowledge/BRIEF.md` together with this project's instructions and `docs/knowledge/BRIEF.md`. Run `python scripts/bootstrap_base.py` after cloning if `.eu5-base/` is absent. Use `scripts/ai_context.py --changed` or `--files ...` before non-trivial edits; its knowledge loader combines shared and workspace-specific rules.
+
+
 ## Session Start
 
 For any non-trivial task, read `docs/knowledge/BRIEF.md` first.

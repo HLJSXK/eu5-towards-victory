@@ -122,7 +122,7 @@ def _tpl_static_modifier(name: str, category: str) -> tuple[str, str, str]:
 \tgame_data = {{
 \t\tcategory = {category}
 \t}}
-\t# TODO: add modifier values (see reference_game_files/.../modifier_type_definitions/)
+\t# TODO: add modifier values (see .eu5-base/reference_game_files/.../modifier_type_definitions/)
 }}
 """
     return name, content, "utf-8-sig"

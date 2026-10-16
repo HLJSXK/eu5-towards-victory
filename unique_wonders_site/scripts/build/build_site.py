@@ -18,7 +18,7 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 SITE_ROOT = REPO_ROOT / "unique_wonders_site"
 DIST_ROOT = SITE_ROOT / "dist"
 DATA_ROOT = DIST_ROOT / "data"
-REFERENCE_DIST = REPO_ROOT / "reference_mods" / "national_destinies_site" / "dist"
+REFERENCE_DIST = REPO_ROOT / ".eu5-base" / "reference_mods_variants" / "eu5-towards-victory" / "national_destinies_site" / "dist"
 HERE = Path(__file__).resolve().parent
 WONDER_IMAGE_SOURCE_ROOT = REPO_ROOT / "assets" / "generated_wonders"
 

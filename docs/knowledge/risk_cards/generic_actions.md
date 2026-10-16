@@ -130,7 +130,7 @@ execution time can still spam runtime errors while the mouse is merely hovering 
 19. Use `force_click_and_confirm_or_hold = yes` for "confirm before commit" — do NOT build a
    custom pending-variable + overlay GUI for it.
    Set `force_click_and_confirm_or_hold = yes` directly on the `generic_action` (see
-   `reference_game_files/game/in_game/common/generic_actions/readme.txt:76`, and
+   `.eu5-base/reference_game_files/game/in_game/common/generic_actions/readme.txt:76`, and
    `tatar_yoke.txt`/`italian_wars.txt` for vanilla usage). The engine shows its own native
    confirmation dialog before running `effect`, reusing the SAME `title`/`description` loc
    keys the action's `action_button` already sets for its tooltip — no pending variable, no

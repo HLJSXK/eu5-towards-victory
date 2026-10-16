@@ -10,12 +10,12 @@ sys.path.insert(0, str(REPO_ROOT / "scripts_engineering_department"))
 from wonder_mechanics.render import render_header
 
 TV_FILE = REPO_ROOT / "src_engineering_department" / "in_game" / "gui" / "encyclopedia_lateralview.gui"
-PP_FILE = REPO_ROOT / "reference_mods" / "3613232232" / "in_game" / "gui" / "encyclopedia_lateralview.gui"
+PP_FILE = REPO_ROOT / ".eu5-base" / "reference_mods_variants" / "eu5-towards-victory" / "3613232232" / "in_game" / "gui" / "encyclopedia_lateralview.gui"
 OUT_FILE = REPO_ROOT / "submods" / "tv_prosper_or_perish_compat" / "in_game" / "gui" / "encyclopedia_lateralview.gui"
 SCRIPT_REL = "scripts/compat/gen_tv_prosper_or_perish_encyclopedia_lateralview.py"
 DATA_REL = (
     "src_engineering_department/in_game/gui/encyclopedia_lateralview.gui + "
-    "reference_mods/3613232232/in_game/gui/encyclopedia_lateralview.gui"
+    ".eu5-base/reference_mods_variants/eu5-towards-victory/3613232232/in_game/gui/encyclopedia_lateralview.gui"
 )
 
 # Both TV and Prosper or Perish (PP) fully override in_game/gui/encyclopedia_lateralview.gui

@@ -23,12 +23,12 @@ REPO_ROOT = Path(__file__).resolve().parents[4]
 
 REGISTRY = REPO_ROOT / "data" / "pulse_registry.yaml"
 
-HARDCODED_ON_ACTIONS = REPO_ROOT / "reference_game_files" / "game" / "in_game" / "common" / "on_action" / "_hardcoded.txt"
+HARDCODED_ON_ACTIONS = REPO_ROOT / ".eu5-base" / "reference_game_files" / "game" / "in_game" / "common" / "on_action" / "_hardcoded.txt"
 
 SOURCE_FILES: dict[str, Path | None] = {
-    "monthly_country_pulse": REPO_ROOT / "reference_game_files" / "game" / "in_game" / "common" / "on_action" / "country_monthly.txt",
-    "yearly_country_pulse":  REPO_ROOT / "reference_game_files" / "game" / "in_game" / "common" / "on_action" / "country_yearly.txt",
-    "on_character_death":    REPO_ROOT / "reference_game_files" / "game" / "in_game" / "common" / "on_action" / "character_death_pulses.txt",
+    "monthly_country_pulse": REPO_ROOT / ".eu5-base" / "reference_game_files" / "game" / "in_game" / "common" / "on_action" / "country_monthly.txt",
+    "yearly_country_pulse":  REPO_ROOT / ".eu5-base" / "reference_game_files" / "game" / "in_game" / "common" / "on_action" / "country_yearly.txt",
+    "on_character_death":    REPO_ROOT / ".eu5-base" / "reference_game_files" / "game" / "in_game" / "common" / "on_action" / "character_death_pulses.txt",
     "on_ruler_death":        HARDCODED_ON_ACTIONS,
     "on_game_start":         HARDCODED_ON_ACTIONS,
     # on_game_load is fired by the CMF scripted GUI layer, not vanilla
@@ -43,7 +43,7 @@ SOURCE_FILES: dict[str, Path | None] = {
     "on_loan_repaid":        HARDCODED_ON_ACTIONS,
     "on_loan_renewed":       HARDCODED_ON_ACTIONS,
     "on_bankruptcy":         HARDCODED_ON_ACTIONS,
-    "on_exploration_success": REPO_ROOT / "reference_game_files" / "game" / "in_game" / "common" / "on_action" / "exploration_mission_monthly.txt",
+    "on_exploration_success": REPO_ROOT / ".eu5-base" / "reference_game_files" / "game" / "in_game" / "common" / "on_action" / "exploration_mission_monthly.txt",
     "on_colonial_charter_failed": HARDCODED_ON_ACTIONS,
     "on_took_location_in_peace_treaty": HARDCODED_ON_ACTIONS,
     "on_reform_change":      HARDCODED_ON_ACTIONS,

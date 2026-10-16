@@ -36,10 +36,10 @@ GENERATOR_SCRIPT = "scripts/gen_index.py"
 MOD_ROOTS = [REPO_ROOT / "src", REPO_ROOT / "src_engineering_department", REPO_ROOT / "src_court_positions", REPO_ROOT / "src_eureka"]
 
 FONT_ICONS_FILE = (
-    REPO_ROOT / "reference_game_files" / "game" / "main_menu" / "gui" / "shared" / "font_icons.gui"
+    REPO_ROOT / ".eu5-base" / "reference_game_files" / "game" / "main_menu" / "gui" / "shared" / "font_icons.gui"
 )
 MODIFIER_TYPES_FILE = (
-    REPO_ROOT / "reference_game_files" / "game" / "main_menu" / "common"
+    REPO_ROOT / ".eu5-base" / "reference_game_files" / "game" / "main_menu" / "common"
     / "modifier_type_definitions" / "00_modifier_types.txt"
 )
 MODIFIER_TYPE_FILES = [
@@ -52,15 +52,15 @@ MODIFIER_TYPE_FILES = [
     ),
 ]
 REFERENCE_LOC_DIRS = {
-    "en": REPO_ROOT / "reference_game_files" / "game" / "main_menu" / "localization" / "english",
-    "zh": REPO_ROOT / "reference_game_files" / "game" / "main_menu" / "localization" / "simp_chinese",
+    "en": REPO_ROOT / ".eu5-base" / "reference_game_files" / "game" / "main_menu" / "localization" / "english",
+    "zh": REPO_ROOT / ".eu5-base" / "reference_game_files" / "game" / "main_menu" / "localization" / "simp_chinese",
 }
 MOD_LOC_DIRS = {
     "en": [root / "main_menu" / "localization" / "english" for root in MOD_ROOTS],
     "zh": [root / "main_menu" / "localization" / "simp_chinese" for root in MOD_ROOTS],
 }
-VANILLA_TRIGGERS_DIR = REPO_ROOT / "reference_game_files" / "game" / "in_game" / "common" / "scripted_triggers"
-VANILLA_EFFECTS_DIR  = REPO_ROOT / "reference_game_files" / "game" / "in_game" / "common" / "scripted_effects"
+VANILLA_TRIGGERS_DIR = REPO_ROOT / ".eu5-base" / "reference_game_files" / "game" / "in_game" / "common" / "scripted_triggers"
+VANILLA_EFFECTS_DIR  = REPO_ROOT / ".eu5-base" / "reference_game_files" / "game" / "in_game" / "common" / "scripted_effects"
 MOD_TRIGGERS_DIRS = [root / "in_game" / "common" / "scripted_triggers" for root in MOD_ROOTS]
 MOD_EFFECTS_DIRS = [root / "in_game" / "common" / "scripted_effects" for root in MOD_ROOTS]
 LOC_EN_DIRS = [root / "main_menu" / "localization" / "english" for root in MOD_ROOTS]

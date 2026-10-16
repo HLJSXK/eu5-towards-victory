@@ -302,7 +302,7 @@ def main() -> None:
     assert "REPLACE:destroy_all_italian_leagues = {" in effects
     generated_destroy = _extract_top_level_block(effects, "destroy_all_italian_leagues")
     vanilla_destroy = _extract_top_level_block(
-        read("reference_game_files/game/in_game/common/scripted_effects/international_organization_effects.txt"),
+        read(".eu5-base/reference_game_files/game/in_game/common/scripted_effects/international_organization_effects.txt"),
         "destroy_all_italian_leagues",
     )
     assert generated_destroy.replace("REPLACE:", "", 1).replace(

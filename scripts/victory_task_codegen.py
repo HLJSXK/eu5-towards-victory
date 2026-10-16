@@ -19,13 +19,13 @@ if hasattr(sys.stdout, "reconfigure"):
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DATA_FILE = REPO_ROOT / "data" / "victory_path_tasks.yaml"
-VANILLA_PRICES = REPO_ROOT / "reference_game_files/game/in_game/events/economy/prices.txt"
+VANILLA_PRICES = REPO_ROOT / ".eu5-base/reference_game_files/game/in_game/events/economy/prices.txt"
 VANILLA_IO_EFFECTS = (
     REPO_ROOT
-    / "reference_game_files/game/in_game/common/scripted_effects/international_organization_effects.txt"
+    / ".eu5-base/reference_game_files/game/in_game/common/scripted_effects/international_organization_effects.txt"
 )
-VANILLA_INSTITUTION_DIR = REPO_ROOT / "reference_game_files/game/in_game/common/institution"
-FONT_ICONS = REPO_ROOT / "reference_game_files/game/main_menu/gui/shared/font_icons.gui"
+VANILLA_INSTITUTION_DIR = REPO_ROOT / ".eu5-base/reference_game_files/game/in_game/common/institution"
+FONT_ICONS = REPO_ROOT / ".eu5-base/reference_game_files/game/main_menu/gui/shared/font_icons.gui"
 
 PATH_IDS = ("conquest", "prosperity", "trade", "diplomatic", "cultural", "science")
 SLOTS = (1, 2, 3)
@@ -920,7 +920,7 @@ def generate_effects(data: dict, script: str) -> str:
         header(
             script,
             "Task metrics, assignment, updates, callbacks and claiming.",
-            "reference_game_files/.../international_organization_effects.txt",
+            ".eu5-base/reference_game_files/.../international_organization_effects.txt",
         ),
         "",
     ]
@@ -1309,7 +1309,7 @@ def generate_price_events(data: dict, script: str) -> str:
             raise ValueError(f"prices.{event_id} has no image insertion marker")
         block = block.replace(marker, insertion + marker, 1)
         blocks.append(block)
-    return header(script, "Early-loaded vanilla price event patches with task callbacks.", "reference_game_files/.../prices.txt") + "\nnamespace = prices\n\n" + "\n\n".join(blocks) + "\n"
+    return header(script, "Early-loaded vanilla price event patches with task callbacks.", ".eu5-base/reference_game_files/.../prices.txt") + "\nnamespace = prices\n\n" + "\n\n".join(blocks) + "\n"
 
 
 def generate_building_overrides(_data: dict, script: str) -> str:

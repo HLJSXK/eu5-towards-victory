@@ -20,7 +20,7 @@ from towards_victory_editor_web.services.platform import ConflictError, atomic_w
 REPO_ROOT = Path(__file__).resolve().parents[1]
 EXPECTED_SOURCES = {"data/court_positions.yaml"}
 RESOURCE_URL = "/api/resources/editor.court_positions"
-MODIFIER_SCHEMA = "reference_game_files/game/main_menu/common/modifier_type_definitions/00_modifier_types.txt"
+MODIFIER_SCHEMA = ".eu5-base/reference_game_files/game/main_menu/common/modifier_type_definitions/00_modifier_types.txt"
 TEST_OUTPUTS = ["src_court_positions/changed.txt", "src_court_positions/unchanged.txt", "src_court_positions/new.txt"]
 
 

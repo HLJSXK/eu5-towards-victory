@@ -33,7 +33,7 @@ OUT_FILE = (
 )
 SCRIPT_REL = "scripts_engineering_department/main_menu/gui/shared/gen_tv_ceremony_font_icons_gui.py"
 DATA_REL = (
-    "data/unique_wonders.yaml + reference_game_files/game/main_menu/gui/shared/font_icons.gui"
+    "data/unique_wonders.yaml + .eu5-base/reference_game_files/game/main_menu/gui/shared/font_icons.gui"
 )
 ICON_SIZE = 32
 ICON_FONTSIZE = 17

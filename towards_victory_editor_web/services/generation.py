@@ -147,7 +147,14 @@ def build_generation_plan(
     for script in ordered:
         for source in catalog[script].inputs:
             path = (repo_root / source).resolve()
-            repo_relative_path(path, repo_root)
+            if Path(source).parts[:1] == (".eu5-base",):
+                # Reference inputs live in the sibling base through a workspace link.
+                # Keep output validation confined to this repository.
+                base_root = (repo_root / ".eu5-base").resolve()
+                if not path.is_relative_to(base_root):
+                    raise ValueError(f"Reference input escapes EU5 base: {source}")
+            else:
+                repo_relative_path(path, repo_root)
             producers = [writer for writer in writers.get(path, ()) if writer != script]
             # A shared in-place output can also have downstream writers.
             upstream = [writer for writer in producers if writer in ancestors[script]]

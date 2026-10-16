@@ -182,7 +182,7 @@ def generate_actions(data: dict, regen_script: str) -> str:
     lines.append("# " + "═" * 71)
     lines.append("# Clicking a node unlocks it directly; `force_click_and_confirm_or_hold`")
     lines.append("# makes the engine show its own native confirmation dialog first (see")
-    lines.append("# reference_game_files/game/in_game/common/generic_actions/readme.txt and")
+    lines.append("# .eu5-base/reference_game_files/game/in_game/common/generic_actions/readme.txt and")
     lines.append("# tatar_yoke.txt/italian_wars.txt for the vanilla precedent). No mod-side")
     lines.append("# pending-variable/overlay GUI is needed for this.")
     lines.append("# " + "═" * 71)

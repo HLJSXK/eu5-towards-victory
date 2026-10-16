@@ -9,11 +9,11 @@ sys.path.insert(0, str(REPO_ROOT / "scripts_engineering_department"))
 
 from wonder_mechanics.render import render_header
 
-GLORP_LOCATION_WINDOW_FILE = REPO_ROOT / "reference_mods" / "3812518640" / "in_game" / "gui" / "location_window.gui"
-GLORP_SHARED_TYPES_FILE = REPO_ROOT / "reference_mods" / "3812518640" / "in_game" / "gui" / "glorpUI_shared_types.gui"
+GLORP_LOCATION_WINDOW_FILE = REPO_ROOT / ".eu5-base" / "reference_mods_variants" / "eu5-towards-victory" / "3812518640" / "in_game" / "gui" / "location_window.gui"
+GLORP_SHARED_TYPES_FILE = REPO_ROOT / ".eu5-base" / "reference_mods_variants" / "eu5-towards-victory" / "3812518640" / "in_game" / "gui" / "glorpUI_shared_types.gui"
 GLORP_VANILLA_TYPES_FILE = (
     REPO_ROOT
-    / "reference_mods"
+    / ".eu5-base" / "reference_mods_variants" / "eu5-towards-victory"
     / "3812518640"
     / "in_game"
     / "gui"
@@ -21,13 +21,13 @@ GLORP_VANILLA_TYPES_FILE = (
     / "cmfg_location_window_vanilla_types.gui"
 )
 OUT_FILE = REPO_ROOT / "src_engineering_department" / "in_game" / "gui" / "location_window.gui"
-CM_GUI_SOURCE = REPO_ROOT / "reference_mods/3812518640/in_game/common/scripted_guis/glorpui_construction_manager_scripted_gui.txt"
+CM_GUI_SOURCE = REPO_ROOT / ".eu5-base/reference_mods_variants/eu5-towards-victory/3812518640/in_game/common/scripted_guis/glorpui_construction_manager_scripted_gui.txt"
 CM_GUI_OUTPUT = REPO_ROOT / "src_engineering_department/in_game/common/scripted_guis/glorpui_construction_manager_scripted_gui.txt"
 SCRIPT_REL = "scripts_engineering_department/in_game/gui/gen_location_window.py"
 DATA_REL = (
-    "reference_mods/3812518640/in_game/gui/location_window.gui + "
-    "reference_mods/3812518640/in_game/gui/glorpUI_shared_types.gui + "
-    "reference_mods/3812518640/in_game/gui/vanilla/cmfg_location_window_vanilla_types.gui"
+    ".eu5-base/reference_mods_variants/eu5-towards-victory/3812518640/in_game/gui/location_window.gui + "
+    ".eu5-base/reference_mods_variants/eu5-towards-victory/3812518640/in_game/gui/glorpUI_shared_types.gui + "
+    ".eu5-base/reference_mods_variants/eu5-towards-victory/3812518640/in_game/gui/vanilla/cmfg_location_window_vanilla_types.gui"
 )
 T = "\t"
 
@@ -86,7 +86,10 @@ def extract_top_level_block(text: str, start_marker: str) -> str:
 def render_glorp_shared_types() -> str:
     glorp_shared_types = GLORP_SHARED_TYPES_FILE.read_text(encoding="utf-8-sig")
     # Import only the shared Glorp type that location_window.gui actually uses.
-    return extract_top_level_block(glorp_shared_types, "types glorp_shared_types {")
+    shared = extract_top_level_block(glorp_shared_types, "types glorp_shared_types {")
+    # Glorp's old snapshot carries this removed 1.3 input property on the
+    # shared zoom button; do not copy it into an active EU5 1.4 target.
+    return shared.replace("\n        use_global_input_instance = yes", "")
 
 
 def location_var(name: str) -> str:

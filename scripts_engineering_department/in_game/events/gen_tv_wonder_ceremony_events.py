@@ -4,7 +4,7 @@ One event per ceremony stage (namespace tv_engineering_department, ids
 10000-10007). The mechanical body (trigger/options/effect calls) is identical
 across all 121 non-bespoke unique wonders; only title/desc vary per active
 wonder, expressed with the vanilla `first_valid`/`triggered_desc` idiom (see
-reference_game_files/game/in_game/events/hre.txt and government_reforms.txt)
+.eu5-base/reference_game_files/game/in_game/events/hre.txt and government_reforms.txt)
 keyed on `var:tv_wonder_locked`.
 """
 

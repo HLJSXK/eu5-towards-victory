@@ -245,7 +245,7 @@ WONDER_GENERATORS = (
         "scripts_engineering_department/main_menu/gui/shared/gen_tv_ceremony_font_icons_gui.py",
         inputs=(
             "data/unique_wonders.yaml",
-            "reference_game_files/game/main_menu/gui/shared/font_icons.gui",
+            ".eu5-base/reference_game_files/game/main_menu/gui/shared/font_icons.gui",
         ),
         input_groups=("unique",),
     ),
@@ -274,7 +274,7 @@ WONDER_GENERATORS = (
         ),
         inputs=(
             "src_engineering_department/in_game/gui/encyclopedia_lateralview.gui",
-            "reference_mods/3613232232/in_game/gui/encyclopedia_lateralview.gui",
+            ".eu5-base/reference_mods_variants/eu5-towards-victory/3613232232/in_game/gui/encyclopedia_lateralview.gui",
         ),
     ),
     GeneratorSpec(
@@ -292,18 +292,18 @@ WONDER_GENERATORS = (
         "scripts_engineering_department/gen_wonder_editor_catalog.py",
         inputs=(
             "data/cost_reward_units.yaml",
-            "reference_game_files/game/in_game/events",
-            "reference_game_files/game/main_menu/common/static_modifiers",
-            "reference_game_files/game/main_menu/common/modifier_type_definitions",
+            ".eu5-base/reference_game_files/game/in_game/events",
+            ".eu5-base/reference_game_files/game/main_menu/common/static_modifiers",
+            ".eu5-base/reference_game_files/game/main_menu/common/modifier_type_definitions",
         ),
         input_groups=("cost_reward",),
     ),
     GeneratorSpec(
         "scripts_engineering_department/in_game/gui/gen_location_window.py",
         inputs=(
-            "reference_mods/3601047146/in_game/gui/location_window.gui",
-            "reference_mods/3601047146/in_game/gui/glorpUI_shared_types.gui",
-            "reference_mods/3601047146/in_game/gui/vanilla/cmfg_location_window_vanilla_types.gui",
+            ".eu5-base/reference_mods_variants/eu5-towards-victory/3812518640/in_game/gui/location_window.gui",
+            ".eu5-base/reference_mods_variants/eu5-towards-victory/3812518640/in_game/gui/glorpUI_shared_types.gui",
+            ".eu5-base/reference_mods_variants/eu5-towards-victory/3812518640/in_game/gui/vanilla/cmfg_location_window_vanilla_types.gui",
             # This generator only reads the three reference GUI sources.
         ),
     ),

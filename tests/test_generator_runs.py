@@ -337,7 +337,7 @@ def test_real_generator_bytes_and_generated_header_in_temporary_copies(tmp_path)
         with_store.close()
     for relative in ("scripts/validate.py", "scripts_engineering_department/wonder_unique_ritual_harness.py",
                      "scripts_engineering_department/wonder_mechanics/__init__.py", "scripts_engineering_department/wonder_mechanics/io.py",
-                     "scripts_engineering_department/wonder_mechanics/_core.py", "reference_game_files/game/main_menu/gui/shared/font_icons.gui"):
+                     "scripts_engineering_department/wonder_mechanics/_core.py", ".eu5-base/reference_game_files/game/main_menu/gui/shared/font_icons.gui"):
         write(root, relative, (SOURCE_ROOT / relative).read_bytes())
     validated = subprocess.run([sys.executable, "scripts/validate.py", rows[0]["output"], "--ai-report"],
                                cwd=root, capture_output=True, text=True, encoding="utf-8", timeout=120)

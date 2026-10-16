@@ -65,3 +65,5 @@ Do not add legacy branches, old-state repair, or compatibility wrappers unless e
 - `src_court_positions/` / `scripts_court_positions/` -> standalone Court Positions mod
 - `src_eureka/` / `scripts_eureka/` -> standalone Eureka mod
 - `scripts/ai_context.py` -> task-scoped context router
+### Shared and local context
+Load `.eu5-base/CLAUDE.md` and `.eu5-base/docs/knowledge/BRIEF.md` as well as this workspace's `CLAUDE.md` and `docs/knowledge/BRIEF.md`. The task context builder merges shared base rules/routes/cards with workspace-specific ones. Shared resources are under `.eu5-base/`; project indexes and implementation rules remain local.

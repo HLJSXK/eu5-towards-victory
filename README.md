@@ -91,3 +91,6 @@ run as cancellable jobs with live logs. The standalone wonder cropper server
 was removed; crop data and DDS rebuilds now use the unified server.
 
 **Mod ID:** `eu5mp.towards_victory` | **Version:** build date (`YYMMDD`) | **Target:** EU5 `1.*.*`
+## Shared EU5 foundation
+
+Reusable EU5 references, official definitions, community-mod snapshots, game knowledge, GUI rendering, and shared AI rules live in the sibling `eu5-modding-base` project. Run `python scripts/bootstrap_base.py` after cloning to connect `.eu5-base/`, then read [the shared agent entry](.eu5-base/CLAUDE.md) and this project's `CLAUDE.md`. The project's own source, generated indexes, design notes, and workflow remain here.

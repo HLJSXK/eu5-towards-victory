@@ -15,15 +15,15 @@ MAX_BYTES = 900_000
 # (external mod thumbnail, output submod thumbnail)
 TARGETS = [
     (
-        REPO_ROOT / "reference_mods" / "3735059838" / ".metadata" / "thumbnail.png",
+        REPO_ROOT / ".eu5-base" / "reference_mods_variants" / "eu5-towards-victory" / "3735059838" / ".metadata" / "thumbnail.png",
         REPO_ROOT / "submods" / "tv_meiou_and_taxes_compat" / ".metadata" / "thumbnail.png",
     ),
     (
-        REPO_ROOT / "reference_mods" / "3698931463" / ".metadata" / "thumbnail.png",
+        REPO_ROOT / ".eu5-base" / "reference_mods_variants" / "eu5-towards-victory" / "3698931463" / ".metadata" / "thumbnail.png",
         REPO_ROOT / "submods" / "tv_standard_of_living_compat" / ".metadata" / "thumbnail.png",
     ),
     (
-        REPO_ROOT / "reference_mods" / "3613232232" / ".metadata" / "thumbnail.png",
+        REPO_ROOT / ".eu5-base" / "reference_mods_variants" / "eu5-towards-victory" / "3613232232" / ".metadata" / "thumbnail.png",
         REPO_ROOT / "submods" / "tv_prosper_or_perish_compat" / ".metadata" / "thumbnail.png",
     ),
 ]

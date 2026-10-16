@@ -110,28 +110,28 @@ metadata:
         - "Whether the GUI one-time reward editor should remain limited to simple scalar reward rows, or be expanded to parameterized rewards such as estate-specific satisfaction, culture acceptance/exclusion, targeted opinion, pop satisfaction, and institution-specific progress."
     verified_game_references:
       route_pathfinding:
-        - "reference_game_files/game/in_game/common/generic_actions/markets.txt:342-355 uses can_find_trade_route and comments that this is an expensive pathfinding check."
-        - "reference_game_files/game/in_game/common/generic_actions/pilgrimage.txt:57-59 and 87-90 score holy-site choices with capital.distance_to_squared(target.location)."
-        - "reference_game_files/game/in_game/common/trigger_localization/location_triggers.txt:524-528 lists is_connected_to; 614-623 lists distance_to/distance_to_less_than."
+        - ".eu5-base/reference_game_files/game/in_game/common/generic_actions/markets.txt:342-355 uses can_find_trade_route and comments that this is an expensive pathfinding check."
+        - ".eu5-base/reference_game_files/game/in_game/common/generic_actions/pilgrimage.txt:57-59 and 87-90 score holy-site choices with capital.distance_to_squared(target.location)."
+        - ".eu5-base/reference_game_files/game/in_game/common/trigger_localization/location_triggers.txt:524-528 lists is_connected_to; 614-623 lists distance_to/distance_to_less_than."
       water_source:
-        - "reference_game_files/game/in_game/common/trigger_localization/location_triggers.txt:43-47 lists is_port."
-        - "reference_game_files/game/in_game/common/trigger_localization/location_triggers.txt:80-84 lists is_coastal."
-        - "reference_game_files/game/in_game/common/trigger_localization/location_triggers.txt:500-503 lists has_river."
-        - "reference_game_files/game/in_game/common/trigger_localization/location_triggers.txt:518-521 lists is_adjacent_to_lake."
+        - ".eu5-base/reference_game_files/game/in_game/common/trigger_localization/location_triggers.txt:43-47 lists is_port."
+        - ".eu5-base/reference_game_files/game/in_game/common/trigger_localization/location_triggers.txt:80-84 lists is_coastal."
+        - ".eu5-base/reference_game_files/game/in_game/common/trigger_localization/location_triggers.txt:500-503 lists has_river."
+        - ".eu5-base/reference_game_files/game/in_game/common/trigger_localization/location_triggers.txt:518-521 lists is_adjacent_to_lake."
       storm_weather:
-        - "reference_game_files/game/in_game/common/on_action/location_pulses.txt:50-58 documents start_weather_system with type = front."
-        - "reference_game_files/game/in_game/common/on_action/location_pulses.txt:1489-1495 shows start_weather_system with type = cyclone."
-        - "reference_game_files/game/in_game/common/on_action/_hardcoded.txt:5226-5228 defines on_storm_reached_location with root = location and scope:weather_system."
+        - ".eu5-base/reference_game_files/game/in_game/common/on_action/location_pulses.txt:50-58 documents start_weather_system with type = front."
+        - ".eu5-base/reference_game_files/game/in_game/common/on_action/location_pulses.txt:1489-1495 shows start_weather_system with type = cyclone."
+        - ".eu5-base/reference_game_files/game/in_game/common/on_action/_hardcoded.txt:5226-5228 defines on_storm_reached_location with root = location and scope:weather_system."
       disease:
-        - "reference_game_files/game/in_game/common/scripted_triggers/location_triggers.txt:15-20 defines has_any_disease_present with disease_presence."
-        - "reference_game_files/game/in_game/common/generic_actions/black_death.txt:25-27 uses country_has_disease_outbreak."
+        - ".eu5-base/reference_game_files/game/in_game/common/scripted_triggers/location_triggers.txt:15-20 defines has_any_disease_present with disease_presence."
+        - ".eu5-base/reference_game_files/game/in_game/common/generic_actions/black_death.txt:25-27 uses country_has_disease_outbreak."
       rebel_state:
-        - "reference_game_files/game/in_game/common/generic_actions/provoke_rebels.txt:4-8 checks any_rebel with rebel_progress > 0.7."
-        - "reference_game_files/game/in_game/common/generic_actions/provoke_rebels.txt:16-33 selects rebels and displays rebel_progress/monthly_progress."
-        - "reference_game_files/game/in_game/common/scripted_triggers/disaster_triggers.txt:260-267 checks any_rebel with rebel_category = pretender."
+        - ".eu5-base/reference_game_files/game/in_game/common/generic_actions/provoke_rebels.txt:4-8 checks any_rebel with rebel_progress > 0.7."
+        - ".eu5-base/reference_game_files/game/in_game/common/generic_actions/provoke_rebels.txt:16-33 selects rebels and displays rebel_progress/monthly_progress."
+        - ".eu5-base/reference_game_files/game/in_game/common/scripted_triggers/disaster_triggers.txt:260-267 checks any_rebel with rebel_category = pretender."
       ruler_or_regency:
-        - "reference_game_files/game/in_game/common/trigger_localization/country_triggers.txt:434-438 lists has_ruler as a country trigger."
-        - "reference_game_files/game/in_game/common/scripted_triggers/country_triggers.txt:786-788 uses has_ruler = yes before reading ruler.owner."
+        - ".eu5-base/reference_game_files/game/in_game/common/trigger_localization/country_triggers.txt:434-438 lists has_ruler as a country trigger."
+        - ".eu5-base/reference_game_files/game/in_game/common/scripted_triggers/country_triggers.txt:786-788 uses has_ruler = yes before reading ruler.owner."
     remaining_design_decisions:
       - id: 112
         key: unique_st_peters_basilica
@@ -486,7 +486,7 @@ metadata:
       scope: country_to_location_or_market
       evidence_level: verified_reference
       confidence: medium_high
-      source_basis: "reference_game_files/game/in_game/common/generic_actions/markets.txt:342-355 uses can_find_trade_route; reference_game_files/game/in_game/common/generic_actions/pilgrimage.txt:57-59 and 87-90 use capital.distance_to_squared for pilgrimage target scoring; location_triggers.txt lists is_connected_to and distance_to/distance_to_less_than."
+      source_basis: ".eu5-base/reference_game_files/game/in_game/common/generic_actions/markets.txt:342-355 uses can_find_trade_route; .eu5-base/reference_game_files/game/in_game/common/generic_actions/pilgrimage.txt:57-59 and 87-90 use capital.distance_to_squared for pilgrimage target scoring; location_triggers.txt lists is_connected_to and distance_to/distance_to_less_than."
       likely_failure_points: "can_find_trade_route is explicitly expensive and market-oriented; exact shortest-path route extraction and per-route node inspection were not verified."
       verification_needed_later: "For each ritual, choose between cheap abstract counters, road/connectivity triggers, distance scoring, or the expensive trade-route pathfinding check."
     water_source_checks: &iface_water_source_checks

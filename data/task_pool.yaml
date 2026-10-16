@@ -13,8 +13,8 @@
 #   specific EU5 on_action (an engine callback that fires the moment a qualifying action
 #   happens in-game — winning a war, marrying into a foreign dynasty, founding an
 #   International Organization, etc.), not by polling game state. Each entry names a real
-#   vanilla on_action (verified against reference_game_files/game/in_game/common/on_action/
-#   and reference_official_defines/), the scope variables that on_action provides
+#   vanilla on_action (verified against .eu5-base/reference_game_files/game/in_game/common/on_action/
+#   and .eu5-base/reference_official_defines/), the scope variables that on_action provides
 #   (root/scope:x, copied from the vanilla source comment), and a `wired` flag:
 #     - `wired: true`  — this on_action already has a Towards Victory bridge entry in
 #       data/pulse_registry.yaml / src/in_game/common/on_action/tv_pulse_bridges.txt. A
@@ -29,7 +29,7 @@
 #   root's own action counts, not the counterparty's).
 #
 # - `trigger_task` — a "reach state X" characteristic. Completion is detected by polling a
-#   real EU5 trigger (verified against reference_official_defines/docs/triggers.log) from a
+#   real EU5 trigger (verified against .eu5-base/reference_official_defines/docs/triggers.log) from a
 #   monthly check, the same monthly_country_pulse dispatcher already used by every other TV
 #   system's monthly polling logic (see data/pulse_registry.yaml). Each entry names the
 #   trigger, its supported scope, a comparison direction, and a `representative_threshold`.
@@ -291,7 +291,7 @@ on_action_task:
   - id: complete_exploration_mission
     on_action: on_exploration_success
     wired: true
-    scope: "see reference_game_files/game/in_game/common/on_action/exploration_mission_monthly.txt for exact scope variables"
+    scope: "see .eu5-base/reference_game_files/game/in_game/common/on_action/exploration_mission_monthly.txt for exact scope variables"
     category: economic_colonial
     completion_note: "No extra filter needed beyond what the vanilla hook already guarantees on success."
     loc:
@@ -309,7 +309,7 @@ on_action_task:
   - id: pass_parliament_vote
     on_action: on_parliament_passed
     wired: true
-    scope: "root = country (see reference_game_files/game/in_game/common/on_action/parliament_monthly_pulse.txt for full scope variables)"
+    scope: "root = country (see .eu5-base/reference_game_files/game/in_game/common/on_action/parliament_monthly_pulse.txt for full scope variables)"
     category: economic_colonial
     completion_note: >-
       Fires on any passed parliamentary issue; a task targeting a specific issue must add its

@@ -57,10 +57,10 @@ hook, or crisis resolution - not from a default monthly progress bar.
 
 ### 1. `instant_but_branching`
 
-- Vanilla reference: `reference_game_files/game/in_game/events/economy/trade.txt:290`
-  (`trade.7`), `reference_game_files/game/in_game/events/economy/trade.txt:569`
+- Vanilla reference: `.eu5-base/reference_game_files/game/in_game/events/economy/trade.txt:290`
+  (`trade.7`), `.eu5-base/reference_game_files/game/in_game/events/economy/trade.txt:569`
   (`trade.17`), and institution branch events such as
-  `reference_game_files/game/in_game/events/institution_events.txt:7`.
+  `.eu5-base/reference_game_files/game/in_game/events/institution_events.txt:7`.
 - How it triggers: a valid event appears when the economic, estate, or
   institution state is already true; player options immediately branch rewards
   and penalties.
@@ -74,9 +74,9 @@ hook, or crisis resolution - not from a default monthly progress bar.
 ### 2. `event_driven`
 
 - Vanilla reference: mission setup and follow-up events in
-  `reference_game_files/game/in_game/events/missionevents/generic_mission_events.txt:14`,
+  `.eu5-base/reference_game_files/game/in_game/events/missionevents/generic_mission_events.txt:14`,
   plus privilege follow-ups in
-  `reference_game_files/game/in_game/events/privilege_events.txt:177`.
+  `.eu5-base/reference_game_files/game/in_game/events/privilege_events.txt:177`.
 - How it triggers: a cooldown/eligibility variable opens an event; the event
   saves scopes, sets temporary state, and later resolves through a follow-up
   event.
@@ -90,7 +90,7 @@ hook, or crisis resolution - not from a default monthly progress bar.
 ### 3. `player_action_sequence`
 
 - Vanilla reference: multi-step country interaction selectors in
-  `reference_game_files/game/in_game/common/country_interactions/bribe_vote.txt:46`,
+  `.eu5-base/reference_game_files/game/in_game/common/country_interactions/bribe_vote.txt:46`,
   `:73`, `:96`, `:115`, and `:139`.
 - How it triggers: the player walks through explicit selection steps for target
   country, organization, law, policy, and value; the final effect/reject effect
@@ -104,9 +104,9 @@ hook, or crisis resolution - not from a default monthly progress bar.
 ### 4. `construction_or_auxiliary_building`
 
 - Vanilla reference: building type lifecycle fields in
-  `reference_game_files/game/in_game/common/building_types/readme.txt:14`,
+  `.eu5-base/reference_game_files/game/in_game/common/building_types/readme.txt:14`,
   `:24`, `:40`, and `:41`; university construction event in
-  `reference_game_files/game/in_game/events/economy/building_events.txt:78`.
+  `.eu5-base/reference_game_files/game/in_game/events/economy/building_events.txt:78`.
 - How it triggers: a building or upgrade is constructed, then `on_built`,
   construction completion, or a scripted event validates the new local state.
 - Player agency: choose where to place an annex, whether to tolerate disruption,
@@ -119,7 +119,7 @@ hook, or crisis resolution - not from a default monthly progress bar.
 ### 5. `war_validated`
 
 - Vanilla reference: hardcoded war hooks in
-  `reference_game_files/game/in_game/common/on_action/_hardcoded.txt:1518`
+  `.eu5-base/reference_game_files/game/in_game/common/on_action/_hardcoded.txt:1518`
   (`on_pre_winning_war`) and `:1575` (`on_ending_war`), plus siege/occupation
   hooks at `:201`, `:266`, and `:314`.
 - How it triggers: the country is about to win or end a war, or a key location
@@ -135,11 +135,11 @@ hook, or crisis resolution - not from a default monthly progress bar.
 ### 6. `succession_validated`
 
 - Vanilla reference: ruler/character death pulse cleanup in
-  `reference_game_files/game/in_game/common/on_action/character_death_pulses.txt:1`,
+  `.eu5-base/reference_game_files/game/in_game/common/on_action/character_death_pulses.txt:1`,
   succession crisis disaster start/end in
-  `reference_game_files/game/in_game/common/disasters/byzantine_succession_crisis.txt:47`,
+  `.eu5-base/reference_game_files/game/in_game/common/disasters/byzantine_succession_crisis.txt:47`,
   and succession end triggers in
-  `reference_game_files/game/in_game/common/scripted_triggers/disaster_triggers.txt:260`.
+  `.eu5-base/reference_game_files/game/in_game/common/scripted_triggers/disaster_triggers.txt:260`.
 - How it triggers: a ruler, heir, claimant, patriarch, hostage, or assigned
   character dies or the state resolves a succession crisis.
 - Player agency: appoint a successor, back a claimant, stabilize legitimacy, or
@@ -152,9 +152,9 @@ hook, or crisis resolution - not from a default monthly progress bar.
 ### 7. `route_certification`
 
 - Vanilla reference: treasure voyage route setup and travel state in
-  `reference_game_files/game/in_game/common/scripted_effects/country_effects.txt:1718`,
+  `.eu5-base/reference_game_files/game/in_game/common/scripted_effects/country_effects.txt:1718`,
   `:1734`, `:1765`, `:1802`, and `:1971`, plus
-  `reference_game_files/game/in_game/common/on_action/treasure_voyage.txt`.
+  `.eu5-base/reference_game_files/game/in_game/common/on_action/treasure_voyage.txt`.
 - How it triggers: a route is selected, distance/travel state is stored, movement
   or visit events fire, and cleanup occurs at the end.
 - Player agency: choose or qualify route endpoints, protect the voyage, and
@@ -167,9 +167,9 @@ hook, or crisis resolution - not from a default monthly progress bar.
 ### 8. `actor_assignment`
 
 - Vanilla reference: character selector and dynasty scoping in
-  `reference_game_files/game/in_game/common/country_interactions/change_ruler.txt:53`,
+  `.eu5-base/reference_game_files/game/in_game/common/country_interactions/change_ruler.txt:53`,
   imperial examination character creation in
-  `reference_game_files/game/in_game/events/imperial_examination_events.txt:15`,
+  `.eu5-base/reference_game_files/game/in_game/events/imperial_examination_events.txt:15`,
   and learning-building candidate quality at `:638`.
 - How it triggers: the player assigns, creates, or selects an actor with a
   relevant estate, dynasty, literacy, role, or attribute.
@@ -183,9 +183,9 @@ hook, or crisis resolution - not from a default monthly progress bar.
 ### 9. `resource_delivery`
 
 - Vanilla reference: market/export choices in
-  `reference_game_files/game/in_game/events/economy/trade.txt:300`,
+  `.eu5-base/reference_game_files/game/in_game/events/economy/trade.txt:300`,
   goods supply in `:605`, and treasure voyage cargo variables in
-  `reference_game_files/game/in_game/common/scripted_effects/country_effects.txt:1816`.
+  `.eu5-base/reference_game_files/game/in_game/common/scripted_effects/country_effects.txt:1816`.
 - How it triggers: a good, cargo amount, export, market relation, or supply
   condition is selected and consumed/resolved.
 - Player agency: decide which resource to deliver, whether to pay extra, and
@@ -198,11 +198,11 @@ hook, or crisis resolution - not from a default monthly progress bar.
 ### 10. `hybrid`
 
 - Vanilla reference: disasters combine monthly pressure with event branches in
-  `reference_game_files/game/in_game/common/disasters/ambrosian_republic.txt:46`,
-  `reference_game_files/game/in_game/common/disasters/aspiration_for_liberty.txt:47`,
-  and `reference_game_files/game/in_game/common/disasters/byzantine_succession_crisis.txt:67`;
+  `.eu5-base/reference_game_files/game/in_game/common/disasters/ambrosian_republic.txt:46`,
+  `.eu5-base/reference_game_files/game/in_game/common/disasters/aspiration_for_liberty.txt:47`,
+  and `.eu5-base/reference_game_files/game/in_game/common/disasters/byzantine_succession_crisis.txt:67`;
   on-action concurrency constraints are documented at
-  `reference_game_files/game/in_game/common/on_action/on_actions.info:62`.
+  `.eu5-base/reference_game_files/game/in_game/common/on_action/on_actions.info:62`.
 - How it triggers: a large state machine mixes incidents, stored variables,
   listener checks, periodic pressure, and final validation.
 - Player agency: choose which incident to absorb, which actor to trust, and
@@ -589,8 +589,8 @@ Harness v1 listener support. Do not declare unsupported listeners in specs.
 
 ### Pattern 01 - Event Chain With Visible Branches
 
-- Vanilla reference: `reference_game_files/game/in_game/events/economy/trade.txt:290`,
-  `reference_game_files/game/in_game/events/missionevents/generic_mission_events.txt:14`.
+- Vanilla reference: `.eu5-base/reference_game_files/game/in_game/events/economy/trade.txt:290`,
+  `.eu5-base/reference_game_files/game/in_game/events/missionevents/generic_mission_events.txt:14`.
 - Explanation: eligibility opens an event, options change different systems, and
   later events may reuse saved state.
 - Ritual use: opening debate, crisis, retry, and resolution nodes.
@@ -600,7 +600,7 @@ Harness v1 listener support. Do not declare unsupported listeners in specs.
 ### Pattern 02 - Hidden Executor Handoff
 
 - Vanilla reference: hidden cleanup patterns in
-  `reference_game_files/game/in_game/events/missionevents/generic_mission_events.txt:610`
+  `.eu5-base/reference_game_files/game/in_game/events/missionevents/generic_mission_events.txt:610`
   and `:881`.
 - Explanation: visible event options remain readable while hidden effects perform
   non-tooltip bookkeeping.
@@ -612,8 +612,8 @@ Harness v1 listener support. Do not declare unsupported listeners in specs.
 ### Pattern 03 - Triggered Effect Branch
 
 - Vanilla reference: institution and trade event options in
-  `reference_game_files/game/in_game/events/institution_events.txt:27` and
-  `reference_game_files/game/in_game/events/economy/trade.txt:314`.
+  `.eu5-base/reference_game_files/game/in_game/events/institution_events.txt:27` and
+  `.eu5-base/reference_game_files/game/in_game/events/economy/trade.txt:314`.
 - Explanation: an option or effect tests current state before applying a local
   branch.
 - Ritual use: branch reward by estate, religion, trade good, institution, or
@@ -624,7 +624,7 @@ Harness v1 listener support. Do not declare unsupported listeners in specs.
 ### Pattern 04 - Delayed Validation
 
 - Vanilla reference: on-action delay semantics in
-  `reference_game_files/game/in_game/common/on_action/on_actions.info:16` and
+  `.eu5-base/reference_game_files/game/in_game/common/on_action/on_actions.info:16` and
   `:18`.
 - Explanation: delayed events must be valid at both scheduling and firing time.
 - Ritual use: schedule a later validation event after a route, construction, or
@@ -635,9 +635,9 @@ Harness v1 listener support. Do not declare unsupported listeners in specs.
 ### Pattern 05 - One-Shot Or Cooldown Variable
 
 - Vanilla reference: mission event cooldown variables in
-  `reference_game_files/game/in_game/events/missionevents/generic_mission_events.txt:14`
+  `.eu5-base/reference_game_files/game/in_game/events/missionevents/generic_mission_events.txt:14`
   and disaster completion variables in
-  `reference_game_files/game/in_game/common/disasters/aspiration_for_liberty.txt:67`.
+  `.eu5-base/reference_game_files/game/in_game/common/disasters/aspiration_for_liberty.txt:67`.
 - Explanation: variables prevent repeated firing or mark completed historical
   state.
 - Ritual use: prevent duplicate opening incidents and mark completed validation.
@@ -647,7 +647,7 @@ Harness v1 listener support. Do not declare unsupported listeners in specs.
 ### Pattern 06 - Retry Branch With Changed State
 
 - Vanilla reference: disaster monthly incidents and retry-like branches in
-  `reference_game_files/game/in_game/common/disasters/byzantine_succession_crisis.txt:67`.
+  `.eu5-base/reference_game_files/game/in_game/common/disasters/byzantine_succession_crisis.txt:67`.
 - Explanation: repeated events are meaningful because state, cooldowns, or risk
   changes between attempts.
 - Ritual use: failed inspection, rejected scholar, broken route, or unresolved
@@ -658,9 +658,9 @@ Harness v1 listener support. Do not declare unsupported listeners in specs.
 ### Pattern 07 - Scoped Variable Handoff
 
 - Vanilla reference: saved scopes in
-  `reference_game_files/game/in_game/events/economy/building_events.txt:53`,
+  `.eu5-base/reference_game_files/game/in_game/events/economy/building_events.txt:53`,
   `:59`, and mission event scope setup in
-  `reference_game_files/game/in_game/events/missionevents/generic_mission_events.txt:22`.
+  `.eu5-base/reference_game_files/game/in_game/events/missionevents/generic_mission_events.txt:22`.
 - Explanation: events capture a target location, character, estate, culture, or
   good for later effect branches.
 - Ritual use: chosen site, route endpoint, assigned actor, delivered good, or
@@ -670,8 +670,8 @@ Harness v1 listener support. Do not declare unsupported listeners in specs.
 
 ### Pattern 08 - Actor Assignment
 
-- Vanilla reference: `reference_game_files/game/in_game/common/country_interactions/change_ruler.txt:53`
-  and `reference_game_files/game/in_game/events/imperial_examination_events.txt:15`.
+- Vanilla reference: `.eu5-base/reference_game_files/game/in_game/common/country_interactions/change_ruler.txt:53`
+  and `.eu5-base/reference_game_files/game/in_game/events/imperial_examination_events.txt:15`.
 - Explanation: a selected or created actor carries identity into downstream
   choices.
 - Ritual use: appoint ritual engineer, scholar, priest, jurist, admiral, or
@@ -682,9 +682,9 @@ Harness v1 listener support. Do not declare unsupported listeners in specs.
 ### Pattern 09 - Construction Completion Hook
 
 - Vanilla reference: building lifecycle docs at
-  `reference_game_files/game/in_game/common/building_types/readme.txt:40` and
+  `.eu5-base/reference_game_files/game/in_game/common/building_types/readme.txt:40` and
   building construction in
-  `reference_game_files/game/in_game/events/economy/building_events.txt:78`.
+  `.eu5-base/reference_game_files/game/in_game/events/economy/building_events.txt:78`.
 - Explanation: a constructed building can trigger follow-up effects or validate
   local readiness.
 - Ritual use: auxiliary annex, inspection gate, or local reward building.
@@ -693,7 +693,7 @@ Harness v1 listener support. Do not declare unsupported listeners in specs.
 
 ### Pattern 10 - War Listener Gate
 
-- Vanilla reference: `reference_game_files/game/in_game/common/on_action/_hardcoded.txt:1518`
+- Vanilla reference: `.eu5-base/reference_game_files/game/in_game/common/on_action/_hardcoded.txt:1518`
   and `:1575`.
 - Explanation: war outcome windows can validate victory before or as war ends.
 - Ritual use: defense proof, treaty seal, triumphal dedication.
@@ -702,7 +702,7 @@ Harness v1 listener support. Do not declare unsupported listeners in specs.
 
 ### Pattern 11 - Siege Or Occupation Validation
 
-- Vanilla reference: `reference_game_files/game/in_game/common/on_action/_hardcoded.txt:201`,
+- Vanilla reference: `.eu5-base/reference_game_files/game/in_game/common/on_action/_hardcoded.txt:201`,
   `:266`, and `:314`.
 - Explanation: location state can react to siege victory, loss, or occupation.
 - Ritual use: wall repair, recapture oath, occupied shrine purification.
@@ -712,7 +712,7 @@ Harness v1 listener support. Do not declare unsupported listeners in specs.
 ### Pattern 12 - Route And Cargo Validation
 
 - Vanilla reference: treasure voyage route/cargo effects in
-  `reference_game_files/game/in_game/common/scripted_effects/country_effects.txt:1718`,
+  `.eu5-base/reference_game_files/game/in_game/common/scripted_effects/country_effects.txt:1718`,
   `:1765`, `:1816`, and `:1971`.
 - Explanation: global/location lists, distance variables, cargo variables, and
   cleanup define a voyage lifecycle.
@@ -724,7 +724,7 @@ Harness v1 listener support. Do not declare unsupported listeners in specs.
 ### Pattern 13 - Market And Goods Interaction
 
 - Vanilla reference: exports and merchant choices in
-  `reference_game_files/game/in_game/events/economy/trade.txt:300`,
+  `.eu5-base/reference_game_files/game/in_game/events/economy/trade.txt:300`,
   merchant power at `:350`, and goods supply at `:605`.
 - Explanation: a market/good is selected, then player choices alter economic and
   estate outcomes.
@@ -736,7 +736,7 @@ Harness v1 listener support. Do not declare unsupported listeners in specs.
 ### Pattern 14 - Institution Or Location Spread
 
 - Vanilla reference: institution progress events in
-  `reference_game_files/game/in_game/events/institution_events.txt:7` and
+  `.eu5-base/reference_game_files/game/in_game/events/institution_events.txt:7` and
   location progress branches around `:3398`.
 - Explanation: knowledge can be advanced globally or at a specific site through
   branch choices.
@@ -747,7 +747,7 @@ Harness v1 listener support. Do not declare unsupported listeners in specs.
 ### Pattern 15 - Estate Privilege Bargain
 
 - Vanilla reference: migration/privilege event in
-  `reference_game_files/game/in_game/events/privilege_events.txt:177`,
+  `.eu5-base/reference_game_files/game/in_game/events/privilege_events.txt:177`,
   options at `:320`, `:346`, `:373`, and `:386`.
 - Explanation: a privilege creates continuing opportunities until eligibility or
   political tolerance ends.
@@ -759,10 +759,10 @@ Harness v1 listener support. Do not declare unsupported listeners in specs.
 ### Pattern 16 - Disaster Escalation
 
 - Vanilla reference: disasters at
-  `reference_game_files/game/in_game/common/disasters/ambrosian_republic.txt:46`,
-  `reference_game_files/game/in_game/common/disasters/aspiration_for_liberty.txt:47`,
+  `.eu5-base/reference_game_files/game/in_game/common/disasters/ambrosian_republic.txt:46`,
+  `.eu5-base/reference_game_files/game/in_game/common/disasters/aspiration_for_liberty.txt:47`,
   and end triggers in
-  `reference_game_files/game/in_game/common/scripted_triggers/disaster_triggers.txt:507`.
+  `.eu5-base/reference_game_files/game/in_game/common/scripted_triggers/disaster_triggers.txt:507`.
 - Explanation: pressure, incidents, and end triggers create a bounded crisis
   state.
 - Ritual use: legitimacy trial, contested consecration, dynastic oath, civic
@@ -772,7 +772,7 @@ Harness v1 listener support. Do not declare unsupported listeners in specs.
 
 ### Pattern 17 - Rebel Or Opposition Allegiance Fork
 
-- Vanilla reference: `reference_game_files/game/in_game/events/rebels.txt:42`,
+- Vanilla reference: `.eu5-base/reference_game_files/game/in_game/events/rebels.txt:42`,
   `:116`, `:129`, and `:140`.
 - Explanation: a rebel/opposition scope can gain characters, pop allegiance, and
   progress based on player choice.
@@ -783,7 +783,7 @@ Harness v1 listener support. Do not declare unsupported listeners in specs.
 
 ### Pattern 18 - On-Action Concurrency Boundary
 
-- Vanilla reference: `reference_game_files/game/in_game/common/on_action/on_actions.info:62`.
+- Vanilla reference: `.eu5-base/reference_game_files/game/in_game/common/on_action/on_actions.info:62`.
 - Explanation: on-action effects run concurrently with events and cannot safely
   create locals/scopes for same-fire events to read.
 - Ritual use: listener gates and hidden executor scheduling.
@@ -949,34 +949,34 @@ why this ritual is unique to this wonder:
 
 Scanned vanilla categories and representative files:
 
-- Events: `reference_game_files/game/in_game/events/economy/trade.txt`,
-  `reference_game_files/game/in_game/events/economy/building_events.txt`,
-  `reference_game_files/game/in_game/events/institution_events.txt`,
-  `reference_game_files/game/in_game/events/imperial_examination_events.txt`,
-  `reference_game_files/game/in_game/events/missionevents/generic_mission_events.txt`,
-  `reference_game_files/game/in_game/events/privilege_events.txt`,
-  `reference_game_files/game/in_game/events/rebels.txt`.
+- Events: `.eu5-base/reference_game_files/game/in_game/events/economy/trade.txt`,
+  `.eu5-base/reference_game_files/game/in_game/events/economy/building_events.txt`,
+  `.eu5-base/reference_game_files/game/in_game/events/institution_events.txt`,
+  `.eu5-base/reference_game_files/game/in_game/events/imperial_examination_events.txt`,
+  `.eu5-base/reference_game_files/game/in_game/events/missionevents/generic_mission_events.txt`,
+  `.eu5-base/reference_game_files/game/in_game/events/privilege_events.txt`,
+  `.eu5-base/reference_game_files/game/in_game/events/rebels.txt`.
 - Decisions, journal entries, missions, and tasks:
-  `reference_game_files/game/in_game/common/missions/generic_capable_cabinet_mission_pack.txt`
+  `.eu5-base/reference_game_files/game/in_game/common/missions/generic_capable_cabinet_mission_pack.txt`
   and mission event follow-ups.
 - Laws, government reforms, estates, and privileges:
-  `reference_game_files/game/in_game/common/country_interactions/bribe_vote.txt`,
-  `reference_game_files/game/in_game/common/country_interactions/change_ruler.txt`,
-  and `reference_game_files/game/in_game/events/privilege_events.txt`.
+  `.eu5-base/reference_game_files/game/in_game/common/country_interactions/bribe_vote.txt`,
+  `.eu5-base/reference_game_files/game/in_game/common/country_interactions/change_ruler.txt`,
+  and `.eu5-base/reference_game_files/game/in_game/events/privilege_events.txt`.
 - Buildings, monuments, and great-project-like construction affordances:
-  `reference_game_files/game/in_game/common/building_types/readme.txt` and
-  `reference_game_files/game/in_game/events/economy/building_events.txt`.
+  `.eu5-base/reference_game_files/game/in_game/common/building_types/readme.txt` and
+  `.eu5-base/reference_game_files/game/in_game/events/economy/building_events.txt`.
 - Modifiers, scripted triggers, and scripted effects:
-  `reference_game_files/game/in_game/common/scripted_triggers/disaster_triggers.txt`
-  and `reference_game_files/game/in_game/common/scripted_effects/country_effects.txt`.
+  `.eu5-base/reference_game_files/game/in_game/common/scripted_triggers/disaster_triggers.txt`
+  and `.eu5-base/reference_game_files/game/in_game/common/scripted_effects/country_effects.txt`.
 - On-actions and listeners:
-  `reference_game_files/game/in_game/common/on_action/on_actions.info`,
-  `reference_game_files/game/in_game/common/on_action/_hardcoded.txt`,
-  `reference_game_files/game/in_game/common/on_action/character_death_pulses.txt`,
-  and `reference_game_files/game/in_game/common/on_action/treasure_voyage.txt`.
+  `.eu5-base/reference_game_files/game/in_game/common/on_action/on_actions.info`,
+  `.eu5-base/reference_game_files/game/in_game/common/on_action/_hardcoded.txt`,
+  `.eu5-base/reference_game_files/game/in_game/common/on_action/character_death_pulses.txt`,
+  and `.eu5-base/reference_game_files/game/in_game/common/on_action/treasure_voyage.txt`.
 - Diplomatic actions:
-  `reference_game_files/game/in_game/common/country_interactions/bribe_vote.txt`
-  and `reference_game_files/game/in_game/common/country_interactions/change_ruler.txt`.
+  `.eu5-base/reference_game_files/game/in_game/common/country_interactions/bribe_vote.txt`
+  and `.eu5-base/reference_game_files/game/in_game/common/country_interactions/change_ruler.txt`.
 - War, siege, occupation, battle, peace, subject, succession, ruler, heir, and
   dynasty affordances:
   `_hardcoded.txt`, `character_death_pulses.txt`,

@@ -2,13 +2,13 @@
 
 本附录为[玩法主文档](../EU5_Gameplay_Reference.md)提供可定位的原版依据。`G` 表示游戏自带英文百科，`D` 表示定义/脚本，`I` 表示据规则得出的建议。百科是玩家可见说明，仍可能落后于脚本；脚本也不等于完整引擎公式。不要把定义中的 AI utility 参数解释成玩家效果。
 
-常用入口：[英文游戏百科](../../../reference_game_files/game/main_menu/localization/english/game_concepts_l_english.yml)、[定义参数](../../../reference_game_files/game/loading_screen/common/defines/00_defines.txt)、[地点等级](../../../reference_game_files/game/in_game/common/location_ranks/00_default.txt)、[人口类型](../../../reference_game_files/game/in_game/common/pop_types/00_default.txt)、[时代](../../../reference_game_files/game/in_game/common/age/00_default.txt)。路径与行号均对应本轮镜像；同步后按 key 重新查找。
+常用入口：[英文游戏百科](../../../.eu5-base/reference_game_files/game/main_menu/localization/english/game_concepts_l_english.yml)、[定义参数](../../../.eu5-base/reference_game_files/game/loading_screen/common/defines/00_defines.txt)、[地点等级](../../../.eu5-base/reference_game_files/game/in_game/common/location_ranks/00_default.txt)、[人口类型](../../../.eu5-base/reference_game_files/game/in_game/common/pop_types/00_default.txt)、[时代](../../../.eu5-base/reference_game_files/game/in_game/common/age/00_default.txt)。路径与行号均对应本轮镜像；同步后按 key 重新查找。
 
 ## 版本及证据边界
 
-- 项目目标为 EU5 1.4 beta（`docs/knowledge/BRIEF.md` 的 Mod Identity）。`reference_game_files/README.md` 尾部却仍写 1.2 / 2026-05-07；这是版本元数据不一致，不能据此把整个镜像认定为 1.2。
+- 项目目标为 EU5 1.4 beta（`docs/knowledge/BRIEF.md` 的 Mod Identity）。`.eu5-base/reference_game_files/README.md` 尾部却仍写 1.2 / 2026-05-07；这是版本元数据不一致，不能据此把整个镜像认定为 1.2。
 - `data/sync_reference.log` 最新实际同步记录为 `2026-10-13T08:44:49`，共 4,571 个文件、101.0 MB；记录不带游戏 build/checksum。本稿能确认“2026-10-13 镜像文件内容”，不能独立证明完整 1.4 beta 的确切构建号。
-- 本稿引用路径前缀：`G = reference_game_files/game/main_menu/localization/english/game_concepts_l_english.yml`；`D = reference_game_files/game/loading_screen/common/defines/00_defines.txt`。其余路径完整写出。行号用于本次镜像定位；更新后优先用 key 搜索。
+- 本稿引用路径前缀：`G = .eu5-base/reference_game_files/game/main_menu/localization/english/game_concepts_l_english.yml`；`D = .eu5-base/reference_game_files/game/loading_screen/common/defines/00_defines.txt`。其余路径完整写出。行号用于本次镜像定位；更新后优先用 key 搜索。
 - 本地镜像是文本筛选结果，没有可执行引擎。若只找到参数/注释而没有计算函数，不把它扩写为精确完整公式。
 
 ## 1. 先理解三个“连接程度”
@@ -25,7 +25,7 @@ G 说明首都的接近度起点为 100%。陆上道路、发展度、偏陆军�
 
 市场中心可以位于别国。高市场可及性不保证本国能收到税；低控制但商业发达的地点仍可能富裕，只是财富流向阶层。反过来，高控制也不能代替产业的市场连接（I，由 G:1462、1738 推出）。
 
-道路往往同时改善军事移动、行政传播及经济流通，但不同等级参数不同。`reference_game_files/game/in_game/common/road_types/00_generic.txt` 的 `gravel_road`、`paved_road`、`modern_road`、`railroad` 分别给出 movement_cost、market_access、pop_movement，后三者还给 proximity=5/10/15。`road_types/readme.txt` 将 proximity 解释为减轻距首都效应；不要把文件里的 `market_access=-0.1` 误写为“降低玩家可及性 10 个百分点”，它处于道路成本定义，最终传播计算在引擎内。
+道路往往同时改善军事移动、行政传播及经济流通，但不同等级参数不同。`.eu5-base/reference_game_files/game/in_game/common/road_types/00_generic.txt` 的 `gravel_road`、`paved_road`、`modern_road`、`railroad` 分别给出 movement_cost、market_access、pop_movement，后三者还给 proximity=5/10/15。`road_types/readme.txt` 将 proximity 解释为减轻距首都效应；不要把文件里的 `market_access=-0.1` 误写为“降低玩家可及性 10 个百分点”，它处于道路成本定义，最终传播计算在引擎内。
 
 海上存在在和平时由港口逐渐积累，舰队可更快重建，封锁会迅速破坏。它同时关联沿海接近度和市场商人力量（G:2102–2107）。封锁因而可以连锁打击粮食、控制、发展度、繁荣及海上存在（G:2112）。
 
@@ -53,7 +53,7 @@ Pop 是相同社会阶级、文化、宗教的人群；拥有商品需求和满�
 
 每个地点生产一种原料。RGO 不需要先建一个普通产业建筑，主要依靠采集工人；每级 RGO 最多雇佣 1,000 人，最高等级受发展度、革新等影响（G:857–867）。**本地当前百科 `game_concept_rgo_pops_desc`（G:1653–1654）列出的 RGO 人口为 laborers 与 slaves。不要沿用旧版“农民直接承担所有 RGO 工作”的说法。**
 
-农民可以向市民、教士、贵族、劳工、士兵晋升，劳工可向士兵或市民晋升；这由 `reference_game_files/game/in_game/common/pop_types/00_default.txt` 的 `peasants/promote_to`、`laborers/promote_to` 直接列出。百科 G:839 另说晋升需要当地有位置，且文化至少受容忍。应将该百科视为概要；晋升路径应以实际 pop_types 文件核对，不能把“文化歧视只影响满意度”当作充分描述。
+农民可以向市民、教士、贵族、劳工、士兵晋升，劳工可向士兵或市民晋升；这由 `.eu5-base/reference_game_files/game/in_game/common/pop_types/00_default.txt` 的 `peasants/promote_to`、`laborers/promote_to` 直接列出。百科 G:839 另说晋升需要当地有位置，且文化至少受容忍。应将该百科视为概要；晋升路径应以实际 pop_types 文件核对，不能把“文化歧视只影响满意度”当作充分描述。
 
 没在 RGO 或建筑就业的人会以效率较低的自给农业维生；即使地点原料不是食物，也不是完全不产口粮（G:976–977）。这意味着“空闲人口”和“完全不消耗/不生产”不是一回事，但也不能把自给农业当成高效商品化粮食生产。
 
@@ -65,7 +65,7 @@ Pop 是相同社会阶级、文化、宗教的人群；拥有商品需求和满�
 
 ## 4. 城镇化是产业选择，不能把所有粮区都升级
 
-城镇提供更专业建筑和市民发展空间，等级为 town、city、megalopolis（G:2050–2056）。下表数值直接来自 `reference_game_files/game/in_game/common/location_ranks/00_default.txt`，是当前等级的定义效果，**不是从前一级升级时的净增量**。人口脚本按千人计；D:251 也以 `1 #1000` 明示这一单位。
+城镇提供更专业建筑和市民发展空间，等级为 town、city、megalopolis（G:2050–2056）。下表数值直接来自 `.eu5-base/reference_game_files/game/in_game/common/location_ranks/00_default.txt`，是当前等级的定义效果，**不是从前一级升级时的净增量**。人口脚本按千人计；D:251 也以 `1 #1000` 明示这一单位。
 
 | 等级 | 升级人口条件 | 基础时间 | max_control | 食物生产乘数修正 | RGO 规模修正 | 城镇权利数 |
 |---|---:|---:|---:|---:|---:|---:|
@@ -84,7 +84,7 @@ Pop 是相同社会阶级、文化、宗教的人群；拥有商品需求和满�
 
 建设不只花一次钱。建筑、兵团、升级城市等施工都需要从当地市场获取商品，缺商品会停工（G:568–570）。非产出型建筑日常维护也消耗商品，费用取决于当地市场价格，并受王权影响（G:911–912）。
 
-具体例子：`reference_game_files/game/in_game/common/building_types/town_buildings.txt:37` 的 construction_center 雇劳工、限定城镇及以上、消耗 masonry/tools，并增加同时施工数量 1；:79 的 counting_house 雇市民，维护用纸/书/金/工具，并提供 local_crown_estate_power=0.33。扩充行政与建设能力也会创造长期投入需求，空壳建筑不能无条件兑现满额效果。
+具体例子：`.eu5-base/reference_game_files/game/in_game/common/building_types/town_buildings.txt:37` 的 construction_center 雇劳工、限定城镇及以上、消耗 masonry/tools，并增加同时施工数量 1；:79 的 counting_house 雇市民，维护用纸/书/金/工具，并提供 local_crown_estate_power=0.33。扩充行政与建设能力也会创造长期投入需求，空壳建筑不能无条件兑现满额效果。
 
 ## 5. 食物有三层，商品粮与口粮有关联但不相同
 
@@ -98,11 +98,11 @@ G:956 明确分为地点、省份、市场：地点生产与消费，盈亏汇�
 
 ## 6. 三种政治概念要分开
 
-1. **Political Influence 政治影响力**：君主和内阁对政治机构的积累性影响，每月增长与君主能力、内阁成员总能力除以内阁席位数相关；空席按零算，补满席位提高增长（G:1060–1062）。D:147–148 有 POLITICAL_INFLUENCE_SCALE=0.005 与 CABINET_MULTIPLIER=3，但没有完整引擎算式，不拼凑精确公式。`reference_game_files/game/in_game/common/auto_modifiers/country.txt:447` 的 current_political_influence_impact 明确按当前影响力缩放 global_estate_satisfaction_recovery=0.00003；这是本地可直接见到的效果，不能概括成所有官僚、科研、经济均线性提高。
+1. **Political Influence 政治影响力**：君主和内阁对政治机构的积累性影响，每月增长与君主能力、内阁成员总能力除以内阁席位数相关；空席按零算，补满席位提高增长（G:1060–1062）。D:147–148 有 POLITICAL_INFLUENCE_SCALE=0.005 与 CABINET_MULTIPLIER=3，但没有完整引擎算式，不拼凑精确公式。`.eu5-base/reference_game_files/game/in_game/common/auto_modifiers/country.txt:447` 的 current_political_influence_impact 明确按当前影响力缩放 global_estate_satisfaction_recovery=0.00003；这是本地可直接见到的效果，不能概括成所有官僚、科研、经济均线性提高。
 2. **Political Power 政治权重**：人口在政府中的权重，用于阶层权力、语言力量、上层主导文化等（G:657–658）。它不是国家能主动花费的影响力货币。
 3. **Estate Power / Crown Power 阶层权力 / 王权**：阶层人数、社会类别和特权影响阶层权力；阶层总权力压低王权；王权影响国家效率（G:1337–1340）。特权可能用短期满意度和利益交换长期阶层强势（G:1128）。
 
-`reference_game_files/game/in_game/common/pop_types/00_default.txt` 的 power_per_pop 如下：贵族25（:3）、教士10（:36）、市民4（:67）、士兵0.0625（:141）、劳工0.0375（:106）、农民0.025（:173）、部落民0.01（:205）、奴隶0（:234）。这是类型的基础权重；贵族/农民比值为1,000，不能据此说“任何存档一个贵族永远恰等于1,000农民”，因为还有国家/地方/特权修正。
+`.eu5-base/reference_game_files/game/in_game/common/pop_types/00_default.txt` 的 power_per_pop 如下：贵族25（:3）、教士10（:36）、市民4（:67）、士兵0.0625（:141）、劳工0.0375（:106）、农民0.025（:173）、部落民0.01（:205）、奴隶0（:234）。这是类型的基础权重；贵族/农民比值为1,000，不能据此说“任何存档一个贵族永远恰等于1,000农民”，因为还有国家/地方/特权修正。
 
 阶层不仅提供税和征召，也会用财富投资建筑、道路、原料采集。满意度低时更倾向只建提高自身权力的阶层建筑（G:934、951）。低控制地区尤其容易出现阶层自行扩张；阶层建筑可在控制够高时由王室拆除，或经议会议程处理（G:951）。人物成为内阁、陆军或海军指挥官也会提高其所属阶层的权力（G:934）。所以“找最强能力者上任”仍存在阶层政治代价。
 
@@ -112,13 +112,13 @@ G:956 明确分为地点、省份、市场：地点生产与消费，盈亏汇�
 
 一次只能研究一项 Advance；达到所需研究进度后获得效果。大多数新革新要求接纳对应 Institution，也有国家、文化、宗教专属内容（G:1102–1111）。研究不是 EU4 的行政/外交/军事点数直接购买科技的同一机制。
 
-研究速度主要受礼仪语言力量、全国平均识字率、教士满意度、已接纳制度数量影响（G:1104、1108、1111）。识字率还能放大人口对需求品市场价格的满意度反应，因此教育发展应配合需求品供给（G:1116）。`reference_game_files/game/main_menu/common/static_modifiers/country.txt:309` 的 average_literacy 含 research_speed_modifier=1；但该文件块没有展示引擎应用的最终尺度，不能据此直接写“识字率1%=研究速度1%”而忽略归一化。
+研究速度主要受礼仪语言力量、全国平均识字率、教士满意度、已接纳制度数量影响（G:1104、1108、1111）。识字率还能放大人口对需求品市场价格的满意度反应，因此教育发展应配合需求品供给（G:1116）。`.eu5-base/reference_game_files/game/main_menu/common/static_modifiers/country.txt:309` 的 average_literacy 含 research_speed_modifier=1；但该文件块没有展示引擎应用的最终尺度，不能据此直接写“识字率1%=研究速度1%”而忽略归一化。
 
 每个时代有三项制度，先在适合地点出现，再扩散。足够比例人口生活在已完全传播的地点后可以接纳，并解锁相关革新；内阁 `study_institutions` 可帮助（G:1096–1101）。D:208 的 INSTITUTION_MINIMUM_PERCENT=0.2 支持当前基础接纳人口比例20%；具体可接纳界面与额外条件应以运行版本确认，不能说“任意20%土地有一点进度即可”。
 
-制度传播包括邻接/海岸、贸易和市场联系，并非只靠陆上邻居。`reference_game_files/game/in_game/common/institution/age_1_traditions_institutions.txt` 的 feudalism/legalism/meritocracy 都配置 spread_from_any_import、spread_from_any_export、spread_to_market_member、spread_to_market_center；可见贸易是当前制度传播路径。D:210–213 的注释还明确贸易传播按与已接纳世界的市场联系计算、距离折减，且 INSTITUTION_TRADE_MIN_VOLUME=10。不要只凭进口一单位货物就承诺固定传播量。
+制度传播包括邻接/海岸、贸易和市场联系，并非只靠陆上邻居。`.eu5-base/reference_game_files/game/in_game/common/institution/age_1_traditions_institutions.txt` 的 feudalism/legalism/meritocracy 都配置 spread_from_any_import、spread_from_any_export、spread_to_market_member、spread_to_market_center；可见贸易是当前制度传播路径。D:210–213 的注释还明确贸易传播按与已接纳世界的市场联系计算、距离折减，且 INSTITUTION_TRADE_MIN_VOLUME=10。不要只凭进口一单位货物就承诺固定传播量。
 
-时代节点应以本地定义为准。`reference_game_files/game/in_game/common/age/00_default.txt` 当前写：传统时代 year=1（:2，表示起始时代），文艺复兴1342（:54）、发现1437（:114）、宗教改革1537（:175）、专制1637（:242）、革命1737（:322）。这与常见早期攻略时间表可能不同；应标明本地参数，不跨版本混合。每时代开始可选择行政/外交/军事研究方向（G:1092–1093）。
+时代节点应以本地定义为准。`.eu5-base/reference_game_files/game/in_game/common/age/00_default.txt` 当前写：传统时代 year=1（:2，表示起始时代），文艺复兴1342（:54）、发现1437（:114）、宗教改革1537（:175）、专制1637（:242）、革命1737（:322）。这与常见早期攻略时间表可能不同；应标明本地参数，不跨版本混合。每时代开始可选择行政/外交/军事研究方向（G:1092–1093）。
 
 制度诞生受游戏规则及 DLC 影响。例如 `institution/age_2_renaissance_institutions.txt` 的 renaissance 有 fixed_historical/random_city/plausible 规则，以及 Fate of the Phoenix DLC 分支；不能把“文艺复兴必定佛罗伦萨”写成无条件定律。
 

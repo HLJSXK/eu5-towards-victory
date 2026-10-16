@@ -20,6 +20,7 @@ import importlib.util
 import re
 import sys
 import subprocess
+import os
 from pathlib import Path
 
 if hasattr(sys.stdout, "reconfigure"):
@@ -47,11 +48,17 @@ from wonder_unique_ritual_harness import validate_unique_ritual_specs_for_repo  
 MOD_ROOTS = (REPO_ROOT / "src", REPO_ROOT / "src_engineering_department", REPO_ROOT / "src_court_positions", REPO_ROOT / "src_eureka")
 MOD_ROOT_NAMES = tuple(root.name for root in MOD_ROOTS)
 KNOWLEDGE_DIR = REPO_ROOT / "docs" / "knowledge"
+_BASE_DEFAULT = REPO_ROOT / ".eu5-base"
+if not _BASE_DEFAULT.exists():
+    _BASE_DEFAULT = REPO_ROOT.parent / "eu5-modding-base"
+BASE_ROOT = Path(os.environ.get("EU5_MODDING_BASE", str(_BASE_DEFAULT))).resolve()
+sys.path.insert(0, str(BASE_ROOT / "docs" / "knowledge"))
+from knowledge_loader import load_anti_patterns, load_valid_enums
 VALIDATION_BASELINE_FILE = REPO_ROOT / "data" / "validation_baseline.yaml"
 PULSE_REGISTRY_FILE = REPO_ROOT / "data" / "pulse_registry.yaml"
 MODIFIER_TYPES_FILE = (
     REPO_ROOT
-    / "reference_game_files"
+    / ".eu5-base" / "reference_game_files"
     / "game"
     / "main_menu"
     / "common"
@@ -69,7 +76,7 @@ MODIFIER_TYPE_FILES = [
 ]
 HARD_CODED_ON_ACTIONS_FILE = (
     REPO_ROOT
-    / "reference_game_files"
+    / ".eu5-base" / "reference_game_files"
     / "game"
     / "in_game"
     / "common"
@@ -583,7 +590,7 @@ def check_effect_loc_coverage() -> None:
         return
 
     effect_loc_dirs = [
-        REPO_ROOT / "reference_game_files" / "game" / "in_game" / "common" / "effect_localization",
+        REPO_ROOT / ".eu5-base" / "reference_game_files" / "game" / "in_game" / "common" / "effect_localization",
         *_mod_root_dirs("in_game", "common", "effect_localization"),
     ]
 
@@ -1028,7 +1035,7 @@ def check_location_window_generated_freshness() -> None:
 
 def check_vanilla_copy_integrity() -> None:
     """Ensure generated vanilla-copy files preserve copied vanilla content."""
-    character_vanilla = REPO_ROOT / "reference_game_files/game/in_game/common/customizable_localization/character_title.txt"
+    character_vanilla = REPO_ROOT / ".eu5-base/reference_game_files/game/in_game/common/customizable_localization/character_title.txt"
     expected_title_modifiers = _expected_title_modifiers_by_root()
     for root in MOD_ROOTS:
         character_out = root / "in_game" / "common" / "customizable_localization" / "character_title.txt"
@@ -1073,7 +1080,7 @@ def check_vanilla_copy_integrity() -> None:
                 "only the TV leader title entries may differ"
             )
 
-    message_vanilla = REPO_ROOT / "reference_game_files/game/main_menu/gui/messagetypes.txt"
+    message_vanilla = REPO_ROOT / ".eu5-base/reference_game_files/game/main_menu/gui/messagetypes.txt"
     if message_vanilla.exists():
         vanilla = _read_normalized_text(message_vanilla)
         for root in MOD_ROOTS:
@@ -1508,8 +1515,8 @@ def run_global_checks(files: list[Path], use_changed: bool, anti_patterns: list[
             "data/io_leaders.yaml",
             *(f"{root_name}/in_game/common/customizable_localization/character_title.txt" for root_name in MOD_ROOT_NAMES),
             *(f"{root_name}/main_menu/gui/messagetypes.txt" for root_name in MOD_ROOT_NAMES),
-            "reference_game_files/game/in_game/common/customizable_localization/character_title.txt",
-            "reference_game_files/game/main_menu/gui/messagetypes.txt",
+            ".eu5-base/reference_game_files/game/in_game/common/customizable_localization/character_title.txt",
+            ".eu5-base/reference_game_files/game/main_menu/gui/messagetypes.txt",
         ),
     ):
         check_vanilla_copy_integrity()
@@ -2221,9 +2228,9 @@ def split_warning_baseline(raw_warnings: list[str], baseline: list[dict]) -> tup
 # =============================================================================
 
 def main():
-    anti_patterns = load_yaml(KNOWLEDGE_DIR / "anti_patterns.yaml") or []
+    anti_patterns = load_anti_patterns(REPO_ROOT)
     lint_patterns = compile_anti_patterns(anti_patterns)
-    enum_data = load_yaml(KNOWLEDGE_DIR / "valid_enums.yaml") or {}
+    enum_data = load_valid_enums(REPO_ROOT)
     modifier_whitelist = load_modifier_whitelist()
     hardcoded_on_actions = load_hardcoded_on_actions()
     warning_baseline = load_warning_baseline()

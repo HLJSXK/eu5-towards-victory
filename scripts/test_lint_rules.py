@@ -21,15 +21,18 @@ except ImportError:
     raise SystemExit(1)
 
 REPO_ROOT = Path(__file__).parent.parent
-ANTI_PATTERNS = REPO_ROOT / "docs" / "knowledge" / "anti_patterns.yaml"
 FIXTURE_ROOT = REPO_ROOT / "tests" / "fixtures" / "anti_patterns"
+BASE_ROOT = REPO_ROOT / ".eu5-base"
+if not BASE_ROOT.exists():
+    BASE_ROOT = Path(__file__).resolve().parents[2] / "eu5-modding-base"
+sys.path.insert(0, str(BASE_ROOT / "scripts"))
+from knowledge_loader import load_anti_patterns  # noqa: E402
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 import validate  # noqa: E402
 
 
 def load_rules() -> dict[str, dict]:
-    with ANTI_PATTERNS.open(encoding="utf-8") as f:
-        data = yaml.safe_load(f) or []
+    data = load_anti_patterns(REPO_ROOT)
     return {entry["id"]: entry for entry in data if entry.get("id")}
 
 

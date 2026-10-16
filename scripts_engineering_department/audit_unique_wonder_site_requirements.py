@@ -29,14 +29,14 @@ from wonder_mechanics._core import (  # noqa: E402
 
 BASELINE_FILE = REPO_ROOT / "data" / "wonder_site_requirement_baseline.yaml"
 
-MAP_DATA_DIR = REPO_ROOT / "reference_game_files" / "game" / "in_game" / "map_data"
+MAP_DATA_DIR = REPO_ROOT / ".eu5-base" / "reference_game_files" / "game" / "in_game" / "map_data"
 LOCATION_TEMPLATES_FILE = MAP_DATA_DIR / "location_templates.txt"
 PORTS_FILE = MAP_DATA_DIR / "ports.csv"
 DEFINITIONS_FILE = MAP_DATA_DIR / "definitions.txt"
-SETUP_START_DIR = REPO_ROOT / "reference_game_files" / "game" / "main_menu" / "setup" / "1337"
+SETUP_START_DIR = REPO_ROOT / ".eu5-base" / "reference_game_files" / "game" / "main_menu" / "setup" / "1337"
 CITIES_AND_BUILDINGS_FILE = SETUP_START_DIR / "07_cities_and_buildings.txt"
 COUNTRIES_FILE = SETUP_START_DIR / "10_countries.txt"
-SETUP_COUNTRIES_DIR = REPO_ROOT / "reference_game_files" / "game" / "in_game" / "setup" / "countries"
+SETUP_COUNTRIES_DIR = REPO_ROOT / ".eu5-base" / "reference_game_files" / "game" / "in_game" / "setup" / "countries"
 
 DEFAULT_LOCATION_RANK = "rural_settlement"
 
@@ -322,9 +322,9 @@ def evaluate_leaf(key: str, value: str, facts: dict) -> Leaf:
     if key_lower == "has_owner":
         return Leaf(key, value, facts["owner_tag"] is not None, f"owner={facts['owner_tag']}")
     if key_lower == "has_river":
-        return Leaf(key, value, None, "has_river: no static river data available in reference_game_files")
+        return Leaf(key, value, None, "has_river: no static river data available in .eu5-base/reference_game_files")
     if key_lower == "is_adjacent_to_lake":
-        return Leaf(key, value, None, "is_adjacent_to_lake: no static lake-adjacency data available in reference_game_files")
+        return Leaf(key, value, None, "is_adjacent_to_lake: no static lake-adjacency data available in .eu5-base/reference_game_files")
     if key_lower == "location_rank":
         required = value.split(":", 1)[1] if ":" in value else value
         actual = facts["rank"]

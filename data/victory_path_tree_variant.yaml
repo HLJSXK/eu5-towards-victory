@@ -14,7 +14,7 @@
 # rule — do not deduplicate them.
 #
 # `modifier_id` is the verified EU5 static-modifier effect key (from
-# reference_game_files/game/main_menu/common/modifier_type_definitions/00_modifier_types.txt,
+# .eu5-base/reference_game_files/game/main_menu/common/modifier_type_definitions/00_modifier_types.txt,
 # cross-checked against modifier_types_l_simp_chinese.yml display-name strings and,
 # where available, data/victory_paths.yaml reward_options) that implements each
 # node's Chinese `effect` label. `null` means no single static_modifier exists for

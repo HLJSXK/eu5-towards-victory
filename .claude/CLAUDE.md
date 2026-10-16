@@ -24,3 +24,6 @@ interpreter instead:
 ```
 C:\Users\Hades\anaconda3\envs\eu5\python.exe scripts\<script>.py ...
 ```
+## Shared EU5 base
+
+Read `.eu5-base/CLAUDE.md` and the base brief in addition to this project's root `CLAUDE.md` and local brief. Run `scripts/bootstrap_base.py` if the mount is missing.
